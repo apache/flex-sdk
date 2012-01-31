@@ -14,11 +14,13 @@ package spark.components.supportClasses
 
 import flash.display.BlendMode;
 import flash.display.Graphics;
+import flash.events.ContextMenuEvent;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Rectangle;
+import flash.ui.ContextMenu;
 import flash.ui.Keyboard;
 
 import flashx.textLayout.container.ContainerController;
@@ -176,6 +178,21 @@ public class RichEditableTextContainerManager extends TextContainerManager
         return hasScrollRect;
     }
         
+    /**
+     *  @private
+     */
+    override tlf_internal function getContextMenu():ContextMenu
+    {
+        // Do not call textDisplay.contextMenu if the context menu is not
+        // set since it calls this function to get the default context menu
+        // from the text container manager.
+        
+        if (!textDisplay.contextMenuSet)
+            return super.getContextMenu();
+        
+        return textDisplay.contextMenu;
+    }
+    
     /**
      *  @private
      */
@@ -562,6 +579,52 @@ public class RichEditableTextContainerManager extends TextContainerManager
     {
         return (anchorPosition > activePosition) ? 
                     anchorPosition : activePosition;
+    }
+    
+    /**
+     *  @private
+     *  The textContainerManager is setting the context menu on the
+     *  container which is the RichEditableText component.
+     */
+    mx_internal function resetContextMenuListener(contextMenu:ContextMenu):void
+    {
+        // Remove the listener from the old context menu and add it to the new
+        // context menu if we're in a state where there was a listener already 
+        // set up.
+        if (composeState == TextContainerManager.COMPOSE_FACTORY)
+        {
+            if (handlersState == TextContainerManager.HANDLERS_ACTIVE)
+            {
+                if (textDisplay.contextMenu)
+                {
+                    textDisplay.contextMenu.removeEventListener(
+                        ContextMenuEvent.MENU_SELECT, menuSelectHandler);
+                }
+
+                if (contextMenu)
+                {
+                    contextMenu.addEventListener(
+                        ContextMenuEvent.MENU_SELECT, menuSelectHandler);
+                }
+            }
+        }
+        else
+        {
+            var controller:ContainerController =
+                getTextFlow().flowComposer.getControllerAt(0);
+            
+            if (textDisplay.contextMenu)
+            {
+                textDisplay.contextMenu.removeEventListener(
+                    ContextMenuEvent.MENU_SELECT, controller.menuSelectHandler);
+            }
+
+            if (contextMenu)
+            {
+                contextMenu.addEventListener(
+                    ContextMenuEvent.MENU_SELECT, controller.menuSelectHandler);
+            }
+        }
     }
     
     //--------------------------------------------------------------------------
