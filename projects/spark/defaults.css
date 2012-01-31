@@ -16,12 +16,6 @@
 FxButton
 {
 	skinClass: ClassReference("mx.skins.spark.FxButtonSkin");
-	
-	/* These font styles are shared by all Button subclasses,
-	   including ToggleButton, RadioButton, and CheckBox. */
-    fontFamily: Arial;
-    fontSize: 12;
-    color: 0;
 }
 
 FxCheckBox
@@ -109,15 +103,15 @@ FxApplication
    with the Halo defaults, they are currently defined here.
    
    The default font settings for Gumbo components are defined in
-   three selectors: FxButton (above), TextBox, and FxTextBase. */
-TextBox
+   two selectors: TextGraphicElement, and TextView. */
+TextGraphicElement
 {
     fontFamily: Arial;
     fontSize: 12;
     color: 0;
 }
 
-FxTextBase
+TextView
 {
     fontFamily: Arial;
     fontSize: 12;
