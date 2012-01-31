@@ -1,4 +1,25 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2005-2006 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
 
+/**
+ *  Specifies the alpha transparency value of the focus skin.
+ *  
+ *  The default value for the Halo theme is <code>0.4</code>.
+ *  The default value for the Spark theme is <code>0.55</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
 [Style(name="focusAlpha", type="Number", inherit="no")]
 
 /**
