@@ -302,9 +302,9 @@ public class Button extends SkinnableComponent implements IFocusManagerComponent
 	//
 	//--------------------------------------------------------------------------
 
-	override protected function attachBehaviors():void
+	override protected function skinLoaded():void
 	{
-		super.attachBehaviors();
+		super.skinLoaded();
 		
 		addEventListener(MouseEvent.ROLL_OVER, mouseEventHandler);
 		addEventListener(MouseEvent.ROLL_OUT, mouseEventHandler);
@@ -316,8 +316,10 @@ public class Button extends SkinnableComponent implements IFocusManagerComponent
 		addEventListener("enabledChanged", enableChangedHandler);
 	}
 	
-	override protected function removeBehaviors():void
+	override protected function unloadingSkin():void
 	{
+		super.unloadingSkin();
+		
 		removeEventListener(MouseEvent.ROLL_OVER, mouseEventHandler);
 		removeEventListener(MouseEvent.ROLL_OUT, mouseEventHandler);
 		removeEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler);
