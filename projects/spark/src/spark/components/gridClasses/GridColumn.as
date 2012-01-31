@@ -176,7 +176,7 @@ public class GridColumn extends EventDispatcher
     [Bindable("gridChanged")]    
     
     /**
-     *  The Grid object associated this whose column.
+     *  The Grid object associated this column.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
