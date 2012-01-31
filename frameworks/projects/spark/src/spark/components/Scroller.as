@@ -427,29 +427,62 @@ public class Scroller extends SkinnableComponent
         invalidateSkin();
     }
     
+    //----------------------------------
+    //  minViewportInset
+    //----------------------------------
+
+    private var _minViewportInset:Number = 0;
+    
+    [Inspectable(category="General")]
+
+    /**
+     *  The minimum space between the viewport and the edges of the Scroller.  
+     * 
+     *  If neither of the scrollbars is visible, then the viewport is inset by 
+     *  <code>minViewportInset</code> on all four sides.
+     * 
+     *  If a scrollbar is visible then the viewport is inset by <code>minViewportInset</code>
+     *  or by the scrollbar's size, whichever is larger.   
+     * 
+     *  @default 0 
+     */
+    public function get minViewportInset():Number
+    {
+        return _minViewportInset;
+    }
+
+    /**
+     *  @private
+     */
+    public function set minViewportInset(value:Number):void
+    {
+        if (value == _minViewportInset)
+            return;
+            
+        _minViewportInset = value;
+        invalidateSkin();
+    }
+    
     //---------------------------------
     // smoothScrolling
     //--------------------------------- 
     
-    /**
-     * @private
-     * Backing storage for the smoothScrolling property
-     */
     private var _smoothScrolling:Boolean = true;
     
     /**
-     * This property determines whether the scrollbar will animate
-     * smoothly when paging and stepping. When false, page and step
-     * operations will jump directly to the paged/stepped locations. 
-     * When true, the scrollbar, and any content it is scrolling, will
-     * animate to that location.
+     *  This property determines whether the scrollbar will animate
+     *  smoothly when paging and stepping. When false, page and step
+     *  operations will jump directly to the paged/stepped locations. 
+     *  When true, the scrollbar, and any content it is scrolling, will
+     *  animate to that location.
      * 
-     * @default true
+     *  @default true
      */
     public function get smoothScrolling():Boolean
     {
         return _smoothScrolling;
     }
+  
     public function set smoothScrolling(value:Boolean):void
     {
         _smoothScrolling = value;
