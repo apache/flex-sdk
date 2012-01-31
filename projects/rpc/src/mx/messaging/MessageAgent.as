@@ -1011,19 +1011,28 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
                     internalSend(_clientIdWaitQueue.shift() as IMessage);
                 }                               
             }
-            // If we still don't have a clientId, remove the first queued message and send it.
-            // Leave the queue intact to buffer subsequent sends until we get a response/fault
-            // back for this one.
-            if (_clientIdWaitQueue.length > 0)
+
+            if (clientId == null)
             {
-                internalSend(_clientIdWaitQueue.shift() as IMessage);
-            }
-            else
-            {
-                // Regardless of whether the clientId is defined or not, if the wait queue
-                // is empty set it to null to allow the next message to be processed by the
-                // send code path rather than being routed to the queue.
-                _clientIdWaitQueue = null;
+                // If we still don't have a clientId, remove the first queued message and send it.
+                // Leave the queue intact to buffer subsequent sends until we get a response/fault
+                // back for this one.
+                if (_clientIdWaitQueue.length > 0)
+                {
+                    var saveQueue:Array = _clientIdWaitQueue;
+                    // Make sure we don't just put it back into the queue - we let the first
+                    // one through if this is null.
+                    _clientIdWaitQueue = null;
+                    internalSend(saveQueue.shift() as IMessage);
+                    _clientIdWaitQueue = saveQueue;
+                }
+                else
+                {
+                    // Regardless of whether the clientId is defined or not, if the wait queue
+                    // is empty set it to null to allow the next message to be processed by the
+                    // send code path rather than being routed to the queue.
+                    _clientIdWaitQueue = null;
+                }
             }
         }
     }
