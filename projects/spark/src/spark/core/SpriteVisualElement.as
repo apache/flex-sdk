@@ -1730,6 +1730,11 @@ public class SpriteVisualElement extends FlexSprite
 
     /**
      *  @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     override public function get visible():Boolean
     {
@@ -2131,6 +2136,11 @@ public class SpriteVisualElement extends FlexSprite
     
     /**
      *  @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get layoutDirection():String
     {
@@ -2155,6 +2165,11 @@ public class SpriteVisualElement extends FlexSprite
     
     /**
      * @inheritDoc 
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function invalidateLayoutDirection():void
     {
