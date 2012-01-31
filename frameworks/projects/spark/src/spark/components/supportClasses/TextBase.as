@@ -1159,8 +1159,13 @@ public class TextGraphicElement extends GraphicElement
      */
     private function composeOnHeightChange(unscaledHeight:Number):Boolean
     {
-        // Height increased and there is more content that can be composed.
-        if (unscaledHeight > bounds.height && isOverset)
+        // Height increased and there may be more text.  It is possible that
+        // there is more text even if isOverset isn't set.  If height
+        // was specified, it will compose just enough text to fit the 
+        // composition bounds and depending on text placement, it may not 
+        // be overset.
+        if (unscaledHeight > bounds.height &&
+            (isOverset || !isNaN(_composeHeight)))
             return true;
             
         if (truncation != 0 && getStyle("lineBreak") == "toFit")
