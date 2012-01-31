@@ -175,6 +175,11 @@ public class SOAPConstants
      * 
      * @return A new instance of the ICustomSOAPType, if registered, otherwise
      * null.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getCustomSOAPType(type:QName):ICustomSOAPType
     {
@@ -203,6 +208,11 @@ public class SOAPConstants
      * Maps a type QName to a definition of an ISOAPType implementation.
      * The definition can be a String representation of the fully qualified
      * class name, an Object instance or the Class instance itself.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function registerCustomSOAPType(type:QName, definition:*):void
     {
@@ -220,6 +230,11 @@ public class SOAPConstants
 
     /**
      * Removes the ICustomSOAPType from the registry for the given type.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function unregisterCustomSOAPType(type:QName):void
     {
