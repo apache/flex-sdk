@@ -125,6 +125,7 @@ public class List extends ListBase implements IFocusManagerComponent
     public function List()
     {
         super();
+        useVirtualLayout = true;
     }
     
     //----------------------------------
