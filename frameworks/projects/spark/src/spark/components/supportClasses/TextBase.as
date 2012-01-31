@@ -70,6 +70,11 @@ use namespace mx_internal;
  */
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
+ //--------------------------------------------------------------------------
+ // Other metadata for accessibility API
+ //-------------------------------------------------------------------------
+[AccessibilityClass(implementation="spark.accessibility.TextBaseAccImpl")]  
+
 /**
  *  The base class for Spark text controls such as Label and RichText
  *  which display text using CSS styles for the default format.
@@ -83,8 +88,10 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
+
 public class TextBase extends UIComponent
 {
+
     include "../../core/Version.as";
 
     //--------------------------------------------------------------------------
@@ -102,6 +109,23 @@ public class TextBase extends UIComponent
      *  and updates it when the locale changes.
      */ 
     mx_internal static var truncationIndicatorResource:String;
+
+    /**
+     *  @private
+     *  Mixins for accessibility
+     */
+    mx_internal static var createAccessibilityImplementation:Function;		
+
+    /**
+     *  @private
+     *  Accessibility initialization function
+     */
+   
+    override protected function initializeAccessibility():void
+    {
+      if (TextBase.createAccessibilityImplementation != null)
+        TextBase.createAccessibilityImplementation(this);
+    }
 
     //--------------------------------------------------------------------------
     //
