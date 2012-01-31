@@ -699,6 +699,19 @@ public class GroupBase extends UIComponent implements IViewport
     }
     
     /**
+     *  Called when the child transform changes (currently x and y on UIComponent),
+     *  so that the Group has a chance to invalidate the layout. 
+     */
+    public function childTransformChanged():void
+    {
+    	if (autoLayout)
+    	{
+	    	invalidateSize();
+	    	invalidateDisplayList();
+    	}
+    }
+    
+    /**
      *  @private
      *  Invalidates the size, but doesn't run layout measure pass. This is useful
      *  for subclasses like Group that perform additional work there - like running
