@@ -3102,7 +3102,7 @@ public class DataGrid extends SkinnableContainerBase
         if (!doesChangeCurrentSelection(selectionEventKind, selectionChange))
             return false;
         
-        // Step 1: dispatch the "changing" event. If preventDefault() is called
+        // Step 2: dispatch the "changing" event. If preventDefault() is called
         // on this event, the selection change will be cancelled.        
         if (hasEventListener(GridSelectionEvent.SELECTION_CHANGING))
         {
@@ -3116,7 +3116,7 @@ public class DataGrid extends SkinnableContainerBase
                 return false;
         }
         
-        // Step 2: commit the selection change.  Call the gridSelection
+        // Step 3: commit the selection change.  Call the gridSelection
         // methods directly so that the caret position is not altered and 
         // a VALUE_COMMIT event is not dispatched.
         
@@ -3185,7 +3185,7 @@ public class DataGrid extends SkinnableContainerBase
         
         grid.invalidateDisplayListFor("selectionIndicator");
         
-        // Step 3: dispatch the "change" event.
+        // Step 4: dispatch the "change" event.
         if (hasEventListener(GridSelectionEvent.SELECTION_CHANGE))
         {
             const changeEvent:GridSelectionEvent = 
@@ -3198,7 +3198,7 @@ public class DataGrid extends SkinnableContainerBase
                 grid.dispatchEvent(changeEvent);
         }
         
-        // Step 4: dispatch the "valueCommit" event.
+        // Step 5: dispatch the "valueCommit" event.
         dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
 
         return true;
