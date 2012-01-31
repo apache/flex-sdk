@@ -35,6 +35,8 @@ import mx.events.TextOperationEvent;
 
 /**
  *  Documentation is not currently available.
+ *
+ *  @includeExample examples/FxTextAreaExample.mxml
  */
 public class FxTextArea extends FxTextBase
 {
