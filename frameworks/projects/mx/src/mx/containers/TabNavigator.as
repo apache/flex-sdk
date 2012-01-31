@@ -511,7 +511,6 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
     /**
      *  The set of styles to pass from the TabNavigator to the tabBar.
      *  @see mx.styles.StyleProxy
-     *  @review
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
