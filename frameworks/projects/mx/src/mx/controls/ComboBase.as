@@ -1152,7 +1152,8 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
             downArrowButton = new Button();
             downArrowButton.styleName = new StyleProxy(this, arrowButtonStyleFilters);
             downArrowButton.focusEnabled = false;
-
+            downArrowButton.tabEnabled = false;
+            
             addChild(downArrowButton);
 
             downArrowButton.addEventListener(FlexEvent.BUTTON_DOWN,
