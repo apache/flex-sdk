@@ -14,12 +14,11 @@ package spark.components
 import flash.events.Event;
 
 import mx.core.IDeferredInstance;
+import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import mx.events.FlexEvent;
 
-import spark.components.supportClasses.TextBase;
-import spark.events.ElementExistenceEvent;
+import spark.core.IDisplayText;
 
 use namespace mx_internal;
 
@@ -88,13 +87,13 @@ public class FormItem extends SkinnableContainer
      *   A reference to the visual element that displays this FormItem's label.
      */
     [SkinPart(required="false")]
-    public var labelDisplay:TextBase;
+    public var labelDisplay:IDisplayText;
             
     /**
      *  A reference to the visual element that displays the FormItem's sequenceLabel.
      */
     [SkinPart(required="false")]
-    public var sequenceLabelDisplay:TextBase;
+    public var sequenceLabelDisplay:IDisplayText;
     
     /**
      *  A reference to the Group that contains the FormItem's helpContentGroup.
@@ -106,7 +105,7 @@ public class FormItem extends SkinnableContainer
      *  A reference to the visual element that display the FormItem's error strings.
      */
     [SkinPart(required="false")]
-    public var errorTextDisplay:TextBase;
+    public var errorTextDisplay:IDisplayText;
     
     //--------------------------------------------------------------------------
     //
@@ -291,7 +290,7 @@ public class FormItem extends SkinnableContainer
      */
     override public function get baselinePosition():Number
     {
-        return getBaselinePositionForPart(labelDisplay);
+        return getBaselinePositionForPart(labelDisplay as IVisualElement);
     }     
     
     //--------------------------------------------------------------------------
