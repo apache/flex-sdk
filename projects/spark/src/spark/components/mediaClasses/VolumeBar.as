@@ -225,24 +225,7 @@ public class VideoPlayerVolumeBar extends VSlider
     	else
     		return NaN;
     }
-    
-    //----------------------------------
-    //  enabled
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function set enabled(value:Boolean):void
-    {
-    	if (value == enabled)
-    		return;
-    	
-    	super.enabled = value;
-    	if (muteButton)
-    		muteButton.enabled = value;
-    }
-    
+        
     //----------------------------------
     //  value
     //----------------------------------
