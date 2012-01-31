@@ -26,9 +26,10 @@ import flashx.textLayout.operations.DeleteTextOperation;
 import flashx.textLayout.operations.FlowOperation;
 import flashx.textLayout.operations.InsertTextOperation;
 
-import mx.core.mx_internal;
-import mx.styles.StyleProxy;
 import mx.core.IIMESupport;
+import mx.core.mx_internal;
+import mx.events.FlexEvent;
+import mx.styles.StyleProxy;
 
 import spark.components.supportClasses.DropDownListBase;
 import spark.components.supportClasses.ListBase;
@@ -957,6 +958,8 @@ public class ComboBox extends DropDownListBase implements IIMESupport
                 applySelection();
         }
             
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+        
         super.focusOutHandler(event);
     }
     
