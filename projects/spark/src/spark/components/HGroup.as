@@ -101,7 +101,7 @@ public class HGroup extends Group
     //  gap
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="6")]
 
     /**
      *  @copy spark.layouts.HorizontalLayout#gap
@@ -152,7 +152,7 @@ public class HGroup extends Group
     //  paddingLeft
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="0.0")]
 
     /**
      *  @copy spark.layouts.HorizontalLayout#paddingLeft
@@ -181,7 +181,7 @@ public class HGroup extends Group
     //  paddingRight
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="0.0")]
 
     /**
      *  @copy spark.layouts.HorizontalLayout#paddingRight
@@ -210,7 +210,7 @@ public class HGroup extends Group
     //  paddingTop
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="0.0")]
 
     /**
      *  @copy spark.layouts.HorizontalLayout#paddingTop
@@ -239,7 +239,7 @@ public class HGroup extends Group
     //  paddingBottom
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="0.0")]
 
     /**
      *  @copy spark.layouts.HorizontalLayout#paddingBottom
@@ -383,7 +383,7 @@ public class HGroup extends Group
     //  variablecolumnHeight
     //----------------------------------
 
-    [Inspectable(category="General", enumeration="true,false")]
+    [Inspectable(category="General", enumeration="true,false", defaultValue="true")]
 
     /**
      * @copy spark.layouts.HorizontalLayout#variableColumnWidth
