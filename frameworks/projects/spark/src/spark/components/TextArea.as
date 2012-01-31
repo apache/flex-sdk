@@ -308,8 +308,8 @@ public class TextArea extends TextBase
 		{
 			// Set the TextView to allow multiple lines of input.
 			textView.heightInLines = 10;
-            textView.lineBreak = LineBreak.TO_FIT;
 			textView.multiline = true;
+            textView.setStyle("lineBreak", "toFit");
         }
 	}
 
