@@ -583,7 +583,7 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
         dispatchEvent(new Event(Event.CHANGE));
         dispatchEvent(new FlexEvent(FlexEvent.CHANGE_END));
     }
-
+    
     //--------------------------------------------------------------------------
     // 
     //  Overridden event handlers
@@ -724,8 +724,12 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
         
         var prevValue:Number = this.value;
         var newValue:Number;
-        
-        switch (event.keyCode)
+
+        // If rtl layout, need to swap LEFT/UP for RIGHT/DOWN so correct action
+        // is done.
+        var keyCode:int = mapKeycodeForLayoutDirection(event, true);
+                                
+        switch (keyCode)
         {
             case Keyboard.DOWN:
             case Keyboard.LEFT:
