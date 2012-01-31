@@ -564,24 +564,15 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  Given a data item, return the String representation 
-     *  of the data item that an item renderer displays.
-     *  The String is wirtten to <code>labelText</code> property 
-     *  of the item renderer.
+     *  @private 
+     *  Given a data item, return the toString() representation 
+     *  of the data item for an item renderer to display. Null 
+     *  data items return the empty string. 
      *
-     *  @param item A data item.
-     *  
-     *  @return String representing the text to display for the 
-     *  passed in item's renderer. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    public function itemToLabel(item:Object):String
+    private function itemToLabel(item:Object):String
     {
-        if (item)
+        if (item !== null)
             return item.toString();
         return " ";
     }
