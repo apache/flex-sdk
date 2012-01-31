@@ -72,7 +72,6 @@ use namespace mx_internal;
  *
  *  <pre>
  *  &lt;s:VScrollBar
- *
  *    <strong>Properties</strong>
  *    viewport=""
  *  /&gt;
