@@ -23,6 +23,7 @@ import mx.collections.IList;
 import mx.controls.ColorPicker;
 import mx.controls.TextInput;
 import mx.core.FlexVersion;
+import mx.core.IFlexDisplayObject;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.ColorPickerEvent;
@@ -889,6 +890,26 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
             textInput.visible = value;
     }
 
+    //--------------------------------------------------------------------------
+    //  defaultButton
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    public function get defaultButton():IFlexDisplayObject
+    {
+        return null;
+    }
+
+    /**
+     *  @private
+     */
+    public function set defaultButton(value:IFlexDisplayObject):void
+    {
+        
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: UIComponent
