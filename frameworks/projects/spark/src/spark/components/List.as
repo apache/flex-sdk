@@ -1046,6 +1046,81 @@ public class List extends ListBase implements IFocusManagerComponent
         invalidateProperties(); 
     }
 
+    //----------------------------------
+    //  pageScrollingEnabled
+    //----------------------------------
+
+    private var _pageScrollingEnabled:Boolean = false;
+    
+    [Inspectable(category="General", defaultValue="false")]
+
+    /**
+     *  Whether page scrolling is currently enabled for this Scroller
+     *
+     *  @default false
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    public function get pageScrollingEnabled():Boolean
+    {
+        if (scroller)
+            return scroller.pageScrollingEnabled;
+        return _pageScrollingEnabled;
+    }
+    
+    /**
+     *  @private 
+     */
+    public function set pageScrollingEnabled(value:Boolean):void
+    {
+        if (scroller)
+            scroller.pageScrollingEnabled = value;
+        _pageScrollingEnabled = value;
+    }
+    
+    //----------------------------------
+    //  scrollSnappingMode
+    //----------------------------------
+    
+    private var _scrollSnappingMode:String = ScrollSnappingMode.NONE; 
+    
+    [Inspectable(category="General", enumeration="none,leadingEdge,center,trailingEdge", defaultValue="none")]
+    
+    /**
+     *  The scroll snapping mode currently in effect for this Scroller
+     *
+     *  <p>Changing this property to anything other than "off" may
+     *  result in an immediate change in scroll position to ensure
+     *  an element is correctly "snapped" into position.  This change
+     *  in scroll position is not animated</p>
+     *
+     *  @see spark.components.ScrollSnappingMode
+     *
+     *  @default "off"
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    public function get scrollSnappingMode():String
+    {
+        if (scroller)
+            return scroller.scrollSnappingMode;
+        return _scrollSnappingMode;
+    }
+    
+    /**
+     *  @private 
+     */
+    public function set scrollSnappingMode(value:String):void    
+    {
+        if (scroller)
+            scroller.scrollSnappingMode = value;
+        _scrollSnappingMode = value;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -1101,7 +1176,10 @@ public class List extends ListBase implements IFocusManagerComponent
             
             const hsp:String = getStyle("horizontalScrollPolicy");
             if (hsp && (hsp !== ScrollPolicy.AUTO))
-                scroller.setStyle("horizontalScrollPolicy", hsp);            
+                scroller.setStyle("horizontalScrollPolicy", hsp);
+            
+            scroller.pageScrollingEnabled = _pageScrollingEnabled;
+            scroller.scrollSnappingMode = _scrollSnappingMode;
         }
     }
 
