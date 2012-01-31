@@ -201,7 +201,7 @@ global
     /* Looks */
     /* color: #000000; */
     backgroundImageFillMode : "scale";
-    baseColor: #CCCCCC;
+    chromeColor: #CCCCCC;
     borderVisible : true;
     borderWeight : 1;
     contentBackgroundColor: #FFFFFF;
