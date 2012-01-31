@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the s:SetAction class. -->
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark">
+ 
+    <!-- Define one view state, in addition to the base state.-->
+    <s:states>
+        <s:State name="default"/>
+        <s:State name="OneOnly"/>
+    </s:states> 
+
+    <!-- Define Transition array with one Transition object.-->
+    <s:transitions>
+        <s:Transition id="toOneOnly" fromState="*" toState="OneOnly">
+            <s:Sequence id="t1" targets="{[p2]}">
+                <s:Wipe direction="left" duration="350"/>
+                <s:SetAction property="visible"/>
+                <s:SetAction property="includeInLayout"/>
+            </s:Sequence>
+        </s:Transition>
+    
+        <s:Transition id="toAnyFromAny" fromState="*" toState="*">
+            <s:Sequence id="t2" targets="{[p2]}">
+                <s:SetAction property="includeInLayout"/>
+                <s:SetAction property="visible"/>
+                <s:Wipe direction="right" duration="350"/>
+            </s:Sequence>
+        </s:Transition>
+    </s:transitions>
+
+    <s:Panel title="SetAction Effect Example"
+        width="75%" height="75%">
+        <s:layout>
+            <s:VerticalLayout paddingTop="10" paddingLeft="10"/>
+        </s:layout>
+
+        <s:Panel id="p1" title="One" 
+            width="100" height="100">
+            <s:Label fontSize="24" text="One"/>
+        </s:Panel>
+        
+        <s:Panel id="p2" title="Two" 
+            width="100" height="100"
+            visible="true" visible.OneOnly="false"
+            includeInLayout="true" includeInLayout.OneOnly="false">
+            <s:Label fontSize="24" text="Two"/>
+        </s:Panel>
+    
+        <s:Button id="b1" label="Change state" 
+            click="currentState = currentState == 'OneOnly' ? '' : 'OneOnly';"/>
+        </s:Panel>
+</s:Application>
