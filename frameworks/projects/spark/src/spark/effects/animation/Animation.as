@@ -1129,10 +1129,10 @@ public final class Animation
         {
             Animation.removeAnimationAt(id);
             id = -1;
-        }        
-        _doReverse = false
-        _invertValues = false;
-        _isPlaying = false;
+            _doReverse = false
+            _invertValues = false;
+            _isPlaying = false;
+        }
     }
     
     /**
