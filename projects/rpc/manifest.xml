@@ -24,5 +24,7 @@
     <component id="WebServiceOperation" class="mx.rpc.soap.mxml.Operation"/>
     <component id="AsyncToken" class="mx.rpc.AsyncToken"/>
     <component id="CallResponder" class="mx.rpc.CallResponder"/>
+    <component id="MultiTopicProducer" class="mx.messaging.MultiTopicProducer"/>    
+    <component id="MultiTopicConsumer" class="mx.messaging.MultiTopicConsumer"/>
 
 </componentPackage>
