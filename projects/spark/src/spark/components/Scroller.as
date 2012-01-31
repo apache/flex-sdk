@@ -25,6 +25,7 @@ import spark.components.supportClasses.ScrollerLayout;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.core.IViewport;
 import spark.core.NavigationUnit;
+import mx.core.IInvalidating;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.LayoutDirection;
@@ -984,6 +985,14 @@ public class Scroller extends SkinnableComponent
         // Scroll event.delta "steps".  If the VSB is up, scroll vertically,
         // if -only- the HSB is up then scroll horizontally.
          
+        // TODO: The problem is that viewport.validateNow() doesn’t necessarily 
+        // finish the job, see http://bugs.adobe.com/jira/browse/SDK-25740.   
+        // Since some imprecision in mouse-wheel scrolling is tolerable this is
+        // ok for now.  For 4.next we should add Scroller API for (reliably) 
+        // scrolling in different increments and refactor code like this to 
+        // depend on it.  Also applies to VScroller and HScroller mouse
+        // handlers.
+        
         if (verticalScrollBar && verticalScrollBar.visible)
         {
             navigationUnit = (event.delta < 0) ? NavigationUnit.DOWN : NavigationUnit.UP;
@@ -991,7 +1000,11 @@ public class Scroller extends SkinnableComponent
             {
                 var vspDelta:Number = vp.getVerticalScrollPositionDelta(navigationUnit);
                 if (!isNaN(vspDelta))
+                {
                     vp.verticalScrollPosition += vspDelta;
+                    if (vp is IInvalidating)
+                        IInvalidating(vp).validateNow();
+                }
             }
             event.preventDefault();
         }
@@ -1002,7 +1015,11 @@ public class Scroller extends SkinnableComponent
             {
                 var hspDelta:Number = vp.getHorizontalScrollPositionDelta(navigationUnit);
                 if (!isNaN(hspDelta))
+                {
                     vp.horizontalScrollPosition += hspDelta;
+                    if (vp is IInvalidating)
+                        IInvalidating(vp).validateNow();
+                }
             }
             event.preventDefault();
         }            
