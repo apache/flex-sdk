@@ -22,6 +22,8 @@ import mx.core.mx_internal;
 import mx.effects.Animation;
 import mx.effects.AnimationProperty;
 import mx.effects.EffectInstance;
+import spark.effects.KeyFrame;
+import spark.effects.MotionPath;
 import mx.effects.interpolation.IEaser;
 import mx.effects.interpolation.IInterpolator;
 import mx.effects.interpolation.NumberInterpolator;
@@ -220,7 +222,7 @@ public class FxAnimateInstance extends EffectInstance
     {
         super.playReversed = value;
         
-        if (animation)
+        if (value && animation)
             animation.reverse();
         
         reverseAnimation = value;
@@ -398,58 +400,52 @@ public class FxAnimateInstance extends EffectInstance
             return;
         }
             
-        isStyleMap = new Array(animationProperties.length);
-        
-        // These two temporary arrays will hold the values passed into the
-        // Animation to be interpolated between during the animation. The order
-        // of the values in these arrays must match the order of the property
-        // names in the animationProperties array, as we will assume during update
-        // events that the interpolated values in the array are in that same order.
-        var fromVals:Array = [];
-        var toVals:Array = [];
-        for (var i:int = 0; i < animationProperties.length; ++i)
-        {
-            var holder:AnimationProperty = AnimationProperty(animationProperties[i]);
-            var property:String = holder.property;
-            var fromValue:Object = null;
-            var toValue:Object = null;
-            
-            if (!property || (property == ""))
-                throw new Error(resourceManager.getString("sparkEffects", "illegalPropValue", [property]));
-                 
-            setupStyleMapEntry(property);
-
-            // For any invalid value, set the animating value to null
-            // null is a trigger for finalizing the value later on
-            fromValue = isValidValue(holder.valueFrom) ? holder.valueFrom : null;
-            toValue = isValidValue(holder.valueTo) ? holder.valueTo : null;
-            if (toValue === null && propertyChanges && 
-                propertyChanges.end[property] !== undefined)
-                toValue = propertyChanges.end[property];
-            
-            if (animationProperties.length > 1)
-            {
-                fromVals.push(fromValue);
-                toVals.push(toValue);
-            }
-        }
+        isStyleMap = new Array(animationProperties.length);        
     
         // TODO (chaase): avoid setting up animations on properties whose
         // from/to values are the same. Not worth the cycles, but also want
         // to avoid triggering any side effects when we're not actually changing
-        // values    
-        if (animationProperties.length > 1)
+        // values
+        var i:int;
+        var j:int;
+        for (i = 0; i < animationProperties.length; ++i)
         {
-            // Create the single Animation that will interpolate all properties
-            // simultaneously by interpolating the elements of the 
-            // from/toVals arrays
-            animation = new Animation(fromVals, toVals, duration);
+            var mp:MotionPath = MotionPath(animationProperties[i]);
+            // TODO (chaase): should we push this keyframe-init logic
+            // into the MotionPath class instead?
+            
+            // Create an initial (time==0) value if necessary 
+            var keyframes:Array = animationProperties[i].keyframes;
+            if (keyframes[0].time > 0)
+            {
+                keyframes.splice(0, 0, new KeyFrame(0, null));
+                keyframes[0].timeFraction = 0;
+            }
+            if (interpolator)
+                mp.interpolator = interpolator;
+            // Fix the first and last values if necessary and possible
+            var kf:KeyFrame = keyframes[keyframes.length - 1];
+            if (!isValidValue(kf.value) &&
+                propertyChanges &&
+                propertyChanges.end[mp.property] !== undefined)
+            {
+                kf.value = propertyChanges.end[mp.property];
+            }
+            // adjust effect duration to be the max of all MotionPath keyframe times
+            // TODO (chaase): Currently we do not adjust *down* for smaller duration
+            // MotionPaths. This is because we do not distinguish between
+            // AnimationProperty objects (which are created with fake durations of 1,
+            // knowing that they will derive their duration from their effects) and
+            // actual keyframe-based MotionPaths.
+            for (j = 0; j < keyframes.length; ++j)
+                duration = Math.max(duration, keyframes[j].time);
+
+            mp.scaleKeyframes(keyframes[keyframes.length-1].time);
         }
-        else
-        {
-            // Only one property; don't bother with the arrays
-            animation = new Animation(fromValue, toValue, duration);
-        }
+
+        animation = new Animation(duration);
+        animation.animationProperties = animationProperties;
+
         animation.addEventListener(AnimationEvent.ANIMATION_START, startHandler);
         animation.addEventListener(AnimationEvent.ANIMATION_UPDATE, updateHandler);
         animation.addEventListener(AnimationEvent.ANIMATION_REPEAT, repeatHandler);
@@ -484,26 +480,14 @@ public class FxAnimateInstance extends EffectInstance
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function applyValues(value:Object):void
+    protected function applyValues(anim:Animation):void
     {
-        var holder:AnimationProperty;
-        
-        if (animationProperties.length == 1)
-        {
-            holder = AnimationProperty(animationProperties[0]);
-            setValue(holder.property, value);
-        }
-        else
-        {
-            var valueArray:Array = value as Array;
-            for (var i:int = 0; i < animationProperties.length; ++i)
-            {
-                holder = AnimationProperty(animationProperties[i]);
-                setValue(holder.property, valueArray[i]);
-            }
-        }
+        for (var i:int = 0; i < animationProperties.length; ++i)
+            setValue(animationProperties[i].property, anim.currentValue[i]);
     }
     
+    // TODO (chaase): This function appears in multiple places. Maybe
+    // put it in some util class instead?
     /**
      * @private
      * 
@@ -532,40 +516,45 @@ public class FxAnimateInstance extends EffectInstance
     private function finalizeValues():Boolean
     {
         var changedValues:Boolean = false;
+        var j:int;
+        var prevValue:Object;
         for (var i:int = 0; i < animationProperties.length; ++i)
         {
-            var holder:AnimationProperty = 
-                AnimationProperty(animationProperties[i]);
-            // Note that we use strict equality tests for null, as a simple
-            // '0' value for a Number or int would look the same as a null
-            // in a simple !value test.
-            // Let's hope they've set a reasonable interpolator by now,
-            // or otherwise we're just dealing with numbers
-            var interp:IInterpolator = 
-                interpolator ?
-                interpolator :
-                NumberInterpolator.getInstance();
-            var fromValid:Boolean = isValidValue(holder.valueFrom);
-            var toValid:Boolean = isValidValue(holder.valueTo);
-            var byValid:Boolean = isValidValue(holder.valueBy);
-            if (!fromValid || !toValid)
+            var motionPath:MotionPath = 
+                MotionPath(animationProperties[i]);
+            // set the first value (if invalid) to the current value
+            // in the target
+            var keyframes:Array = motionPath.keyframes;
+            if (!keyframes || keyframes.length == 0)
+                continue;
+            if (!isValidValue(keyframes[0].value))
             {
-                if (!fromValid)
+                if (keyframes.length > 0 &&
+                    isValidValue(keyframes[1].valueBy) &&
+                    isValidValue(keyframes[1].value))
                 {
-                    if (toValid && byValid)
-                        holder.valueFrom = interp.decrement(holder.valueTo, holder.valueBy);
-                    else
-                        holder.valueFrom = getCurrentValue(holder.property);
-                    fromValid = isValidValue(holder.valueFrom);
+                    keyframes[0].value = motionPath.interpolator.decrement(
+                        keyframes[1].value, keyframes[1].valueBy);
                 }
-                if (!toValid)
+                else
                 {
-                    if (fromValid && byValid)
-                        holder.valueTo = interp.increment(holder.valueFrom, holder.valueBy);
-                    else
-                        holder.valueTo = getCurrentValue(holder.property);
+                    keyframes[0].value = getCurrentValue(motionPath.property);
                 }
-                changedValues = true;
+            }
+            // set any other invalid values to the value in the preceding
+            // keyframe
+            prevValue = keyframes[0].value;
+            for (j = 1; j < keyframes.length; ++j)
+            {
+                var kf:KeyFrame = KeyFrame(keyframes[j]);
+                if (!isValidValue(kf.value))
+                {
+                    if (isValidValue(kf.valueBy))
+                        kf.value = motionPath.interpolator.increment(prevValue, kf.valueBy);
+                    else
+                        kf.value = prevValue;
+                }
+                prevValue = kf.value;
             }
         }
         return changedValues;
@@ -593,34 +582,8 @@ public class FxAnimateInstance extends EffectInstance
             setupParentLayout(false);
             
         var anim:Animation = Animation(event.target);
-        if (finalizeValues())
-        {
-            var holder:AnimationProperty;
-            // Some of the values were updated; must now update
-            // the respective values in the Animation
-            if (animationProperties.length == 1)
-            {
-                holder = AnimationProperty(animationProperties[0]);
-                if (anim.startValue === null)
-                    anim.startValue = holder.valueFrom;
-                if (anim.endValue === null)
-                    anim.endValue = holder.valueTo;
-            }
-            else
-            {
-                var startValues:Array = anim.startValue as Array;
-                var endValues:Array = anim.endValue as Array;
-                for (var i:int = 0; i < animationProperties.length; ++i)
-                {
-                    holder = AnimationProperty(animationProperties[i]);
-                    if (startValues[i] === null)
-                        startValues[i] = holder.valueFrom;
-                    if (endValues[i] === null)
-                        endValues[i] = holder.valueTo;
-                }
-            }
-        }
-        
+        finalizeValues();
+
         // TODO (chaase): Consider putting AnimateInstance (and subclass's) 
         // play() functionality (the setup and playing of the Animation object)
         // into startEffect(), calling play() from here, and not overriding
@@ -640,7 +603,7 @@ public class FxAnimateInstance extends EffectInstance
      */
     protected function updateHandler(event:AnimationEvent):void
     {
-        applyValues(event.value);
+        applyValues(Animation(event.target));
         dispatchEvent(event);
     }
     
