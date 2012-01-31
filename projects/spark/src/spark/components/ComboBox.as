@@ -433,6 +433,22 @@ public class ComboBox extends DropDownListBase
         actualProposedSelectedIndex = value;
     }
     
+    private var typicalItemChanged:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    override public function set typicalItem(value:Object):void
+    {   
+		if (value != typicalItem)
+			return;
+     
+        super.typicalItem = value;
+        
+        typicalItemChanged = true;
+        invalidateProperties();
+    }
+    
     /**
      *  @private 
      */
@@ -600,6 +616,22 @@ public class ComboBox extends DropDownListBase
                 textInput.restrict = _restrict;
                 restrictChanged = false;
             }
+            
+            if (typicalItemChanged)
+            {
+                if (typicalItem != null)
+                {
+                    var itemString:String = LabelUtil.itemToLabel(typicalItem, labelField, labelFunction);
+                    textInput.widthInChars = itemString.length;
+                }
+                else
+                {
+                    // Just set it back to the default value
+                    textInput.widthInChars = 10; 
+                }
+                
+                typicalItemChanged = false;
+            }
         }
         
         // Clear the TextInput because we were programmatically set to NO_SELECTION
@@ -607,20 +639,22 @@ public class ComboBox extends DropDownListBase
         // changed the value to NO_SELECTION
         if (selectedIndexChanged && selectedIndex == NO_SELECTION)
             textInput.text = "";
-    }
+    }    
     
     /**
      *  @private 
      */ 
-    override mx_internal function updateLabelDisplay():void
+    override mx_internal function updateLabelDisplay(displayItem:* = undefined):void
     {
         super.updateLabelDisplay();
         
         if (textInput)
         {
-            if (selectedItem != null && selectedItem != undefined)
+            if (displayItem == undefined)
+                displayItem = selectedItem;
+            if (displayItem != null && displayItem != undefined)
             {
-                textInput.text = LabelUtil.itemToLabel(selectedItem, labelField, labelFunction);
+                textInput.text = LabelUtil.itemToLabel(displayItem, labelField, labelFunction);
             }
         }
     }
@@ -836,7 +870,6 @@ public class ComboBox extends DropDownListBase
      */ 
     protected function textInput_changeHandler(event:TextOperationEvent):void
     {  
-    
         userTypedIntoText = true;
         
         var operation:FlowOperation = event.operation;
