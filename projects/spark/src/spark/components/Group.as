@@ -1,4 +1,5 @@
-package flex.core {
+package mx.components 
+{
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.events.Event;
@@ -7,17 +8,18 @@ import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 
-import flex.events.FlexEvent;
-import flex.events.ItemExistenceChangedEvent;
-import flex.graphics.Graphic;
-import flex.graphics.IGraphicElement;
-import flex.graphics.graphicsClasses.GraphicElement;
-import flex.intf.ILayoutItem;
-import flex.layout.LayoutItemFactory;
+import mx.events.FlexEvent;
+import mx.events.ItemExistenceChangedEvent;
+import mx.layout.ILayoutItem;
+import mx.layout.LayoutItemFactory;
 
 import mx.collections.ICollectionView;
 import mx.collections.IList;
 import mx.collections.ListCollectionView;
+import mx.graphics.Graphic;
+import mx.graphics.IGraphicElement;
+import mx.graphics.graphicsClasses.GraphicElement;
+import mx.components.baseClasses.GroupBase;
 import mx.controls.Label;
 import mx.core.IDataRenderer;
 import mx.core.IDeferredInstance;
