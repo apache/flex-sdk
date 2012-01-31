@@ -1584,10 +1584,11 @@ public class TextView extends UIComponent implements IViewport
             selectionVisibility == TextSelectionVisibility.ALWAYS ?
             1.0 : 0.0;
             
-        // The cursor is black.            
+        // The cursor is black, inverted, which makes it the inverse color
+        // of the background, for maximum readability.         
         interactionManager.focusSelectionFormat = new SelectionFormat(
             selectionColor, 1.0, BlendMode.NORMAL, 
-            0x000000, 1.0, BlendMode.NORMAL);
+            0x000000, 1.0, BlendMode.INVERT);
         
         interactionManager.noFocusSelectionFormat = new SelectionFormat(
             unfocusedSelectionColor, unfocusedAlpha, BlendMode.NORMAL,
@@ -1998,8 +1999,11 @@ public class TextView extends UIComponent implements IViewport
     {
         // When gaining focus, show the selection.  Uses the SelectionFormat 
         // values defined by the SelectionManager.
-        if (textFlow.interactionManager.hasSelection())
+        if (textFlow.interactionManager && 
+            textFlow.interactionManager.hasSelection())
+        {
             textFlow.flowComposer.showSelection();
+    }
     }
 
     /**
@@ -2013,8 +2017,11 @@ public class TextView extends UIComponent implements IViewport
             
         // When losing focus, hide the selection.  Uses the SelectionFormat 
         // values defined by the SelectionManager. 
-        if (textFlow.interactionManager.hasSelection())
+        if (textFlow.interactionManager && 
+            textFlow.interactionManager.hasSelection())
+        {
             textFlow.flowComposer.hideSelection();            
+    }
     }
 
     //--------------------------------------------------------------------------
@@ -2038,6 +2045,16 @@ public class TextView extends UIComponent implements IViewport
 
         var oldContentWidth:Number = _contentWidth;
         var newContentWidth:Number = containerController.contentWidth;
+        
+        // Error correction for rounding errors.  It shouldn't be so but
+        // the contentWidth can be slightly larger than the requested
+        // compositionWidth.
+        if (newContentWidth > containerController.compositionWidth &&
+            Math.round(newContentWidth) == containerController.compositionWidth)
+        { 
+            newContentWidth = containerController.compositionWidth;
+        }
+            
         if (newContentWidth != oldContentWidth)
         {
             _contentWidth = newContentWidth;
@@ -2048,6 +2065,16 @@ public class TextView extends UIComponent implements IViewport
         
         var oldContentHeight:Number = _contentHeight;
         var newContentHeight:Number = containerController.contentHeight;
+
+        // Error correction for rounding errors.  It shouldn't be so but
+        // the contentHeight can be slightly larger than the requested
+        // compositionHeight.  
+        if (newContentHeight > containerController.compositionHeight &&
+            Math.round(newContentHeight) == containerController.compositionHeight)
+        { 
+            newContentHeight = containerController.compositionHeight;
+        }
+            
         if (newContentHeight != oldContentHeight)
         {
             _contentHeight = newContentHeight;
