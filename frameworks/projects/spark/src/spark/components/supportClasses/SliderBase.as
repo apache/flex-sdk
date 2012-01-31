@@ -28,7 +28,7 @@ import mx.managers.IFocusManagerComponent;
 include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  @copy spark.components.supportClasses.GroupBase#focusColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
