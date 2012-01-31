@@ -453,6 +453,9 @@ public class FxContainer extends FxContainerBase
                 ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
             contentGroup.removeEventListener(
                 ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
+                
+            contentGroup.content = null; 
+            contentGroup.validateProperties();   
         }
     }
     
