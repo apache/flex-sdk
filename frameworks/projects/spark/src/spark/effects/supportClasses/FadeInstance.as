@@ -161,7 +161,7 @@ public class FadeInstance extends AnimateInstance
         }
         
         animationProperties = 
-            [new AnimationProperty("alpha", alphaFrom, alphaTo)];
+            [new AnimationProperty("alpha",alphaFrom, alphaTo, duration)];
         
         super.play();
     }
