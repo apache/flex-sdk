@@ -38,7 +38,7 @@ import mx.events.PropertyChangeEvent;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="baseColor", type="uint", format="Color", inherit="yes")]
+[Style(name="baseColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Name of the error skin class to use for this component. 
