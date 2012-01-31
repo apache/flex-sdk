@@ -671,7 +671,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         // set the renderer's tooltTip property to a placeholder.  The real tooltip
         // text is computed in the TOOL_TIP_SHOW handler below.
         
-        // TBD(hmuller) - this code should be common with DefaultGridItemRenderer        
+        // TODO (hmuller) - this code should be common with DefaultGridItemRenderer        
         
         const showDataTips:Boolean = rowIndex != -1 && column && column.getShowDataTips();
         const dataTip:String = toolTip;
@@ -711,7 +711,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     //
     //-------------------------------------------------------------------------- 
     
-    // TBD(hmuller) - this code should be common with DefaultGridItemRenderer
+    // TODO (hmuller) - this code should be common with DefaultGridItemRenderer
     private function toolTipShowHandler(event:ToolTipEvent):void
     {
         var toolTip:IToolTip = event.toolTip;
