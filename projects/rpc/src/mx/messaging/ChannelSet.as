@@ -811,12 +811,25 @@ public class ChannelSet extends EventDispatcher
             var ps:PendingSend = PendingSend(_pendingSends.shift());
             delete _pendingMessages[ps.message];
             
-            var msg:CommandMessage = ps.message as CommandMessage;
-            if ((msg != null) && !ps.agent.configRequested && ps.agent.needsConfig && 
-                (msg.operation == CommandMessage.CLIENT_PING_OPERATION))
-            { 
-                msg.headers[CommandMessage.NEEDS_CONFIG_HEADER] = true;
-                ps.agent.configRequested = true;
+            var command:CommandMessage = ps.message as CommandMessage;
+            if (command != null)
+            {
+                // Filter out any commands to trigger connection establishment, and ack them locally.            
+                if (command.operation == CommandMessage.TRIGGER_CONNECT_OPERATION)
+                {
+                    var ack:AcknowledgeMessage = new AcknowledgeMessage();
+                    ack.clientId = ps.agent.clientId;
+                    ack.correlationId = command.messageId;
+                    ps.agent.acknowledge(ack, command);
+                    continue; 
+                } 
+                 
+                if (!ps.agent.configRequested && ps.agent.needsConfig && 
+                    (command.operation == CommandMessage.CLIENT_PING_OPERATION))
+                { 
+                    command.headers[CommandMessage.NEEDS_CONFIG_HEADER] = true;
+                    ps.agent.configRequested = true;
+                }
             }
                 
             send(ps.agent, ps.message);
