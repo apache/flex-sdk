@@ -1745,12 +1745,12 @@ public class TileBase extends ListBase
             var rc:int = listItems.length;
             for (var i:int = 0; i < rc; i++)
             {
-                if (rowInfo[i].y < pt.y && pt.y < rowInfo[i].y + rowInfo[i].height)
+                if (rowInfo[i].y <= pt.y && pt.y < rowInfo[i].y + rowInfo[i].height)
                 {
                     var cc:int = listItems[i].length;
                     for (var j:int = 0; j < cc; j++)
                     {
-                        if (listItems[i][j] && listItems[i][j].x < pt.x
+                        if (listItems[i][j] && listItems[i][j].x <= pt.x
                             && pt.x < listItems[i][j].x + listItems[i][j].width)
                         {
                             item = listItems[i][j];
@@ -1807,9 +1807,9 @@ public class TileBase extends ListBase
         var rowNum:int = indexToRow(dropIndex);
         var colNum:int = indexToColumn(dropIndex);
 
-        rowNum -= verticalScrollPosition;
+        rowNum -= verticalScrollPosition - offscreenExtraRowsTop;
 
-        colNum -= horizontalScrollPosition;
+        colNum -= horizontalScrollPosition - offscreenExtraColumnsLeft;
 
         var rc:Number = listItems.length;
         if (rowNum >= rc)
