@@ -124,7 +124,6 @@ public class TextGraphic extends TextGraphicElement
     public function TextGraphic()
     {
         super();
-
         _content = textFlow = createEmptyTextFlow();
     }
     
