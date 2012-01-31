@@ -114,7 +114,7 @@ public class AddAction extends Effect
 	public function AddAction(target:Object = null)
 	{
 		super(target);
-
+        duration = 0;
 		instanceClass = AddActionInstance;
 	}
 	
