@@ -78,7 +78,7 @@ public class FxDataContainer extends FxContainerBase
     //  clipContent
     //----------------------------------
     
-    private var _clipContent:Boolean;
+    private var _clipContent:Boolean = true;
     
     /**
      *  @copy mx.core.IViewport#clipContent
