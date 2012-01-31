@@ -17,7 +17,7 @@ import mx.events.FlexEvent;
 import mx.events.ItemExistenceChangedEvent;
 
 import mx.collections.IList;
-import mx.components.FxDataComponent;
+import mx.components.FxDataContainer;
 import mx.events.IndexChangedEvent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
@@ -37,7 +37,7 @@ import mx.events.CollectionEventKind;
  *  The Selector class is the base class for all components that support
  *  selection.
  */
-public class FxSelector extends FxDataComponent
+public class FxListBase extends FxDataContainer
 {
     include "../../core/Version.as";
 
@@ -68,7 +68,7 @@ public class FxSelector extends FxDataComponent
 	/**
 	 *  Constructor.
 	 */
-	public function FxSelector()
+	public function FxListBase()
     {
     	super();
     }
