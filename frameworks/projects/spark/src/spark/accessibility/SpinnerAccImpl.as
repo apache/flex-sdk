@@ -16,6 +16,7 @@ import flash.accessibility.Accessibility;
 import flash.events.Event;
 
 import mx.accessibility.AccImpl;
+import mx.accessibility.AccConst;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -37,27 +38,6 @@ use namespace mx_internal;
 public class SpinnerAccImpl extends AccImpl
 {
     include "../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_VALUECHANGE:uint = 0x800E;
-
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_STATECHANGE:uint = 0x800a;
-
-    /**
-     *  @private
-     */
-    private static const ROLE_SYSTEM_PUSHBUTTON:uint = 0x2B;
 
     //--------------------------------------------------------------------------
     //
@@ -119,7 +99,7 @@ public class SpinnerAccImpl extends AccImpl
     {
         super(master);
 
-        role = 0x34; //ROLE_SYSTEM_SPINBUTTON
+        role = AccConst.ROLE_SYSTEM_SPINBUTTON;
     }
 
     //--------------------------------------------------------------------------
@@ -155,7 +135,7 @@ public class SpinnerAccImpl extends AccImpl
      */
     override public function get_accRole(childID:uint):uint
     {
-        return childID == 0 ? role : ROLE_SYSTEM_PUSHBUTTON;
+        return childID == 0 ? role : AccConst.ROLE_SYSTEM_PUSHBUTTON;
     }
 
      /**
@@ -321,9 +301,9 @@ public class SpinnerAccImpl extends AccImpl
             case "change":
             {
                 Accessibility.sendEvent(master, 0,
-                                        EVENT_OBJECT_VALUECHANGE, true);
+                                        AccConst.EVENT_OBJECT_VALUECHANGE, true);
                 Accessibility.sendEvent(master, 0,
-                                        EVENT_OBJECT_STATECHANGE, true);
+                                        AccConst.EVENT_OBJECT_STATECHANGE, true);
                 break;
             }
         }
