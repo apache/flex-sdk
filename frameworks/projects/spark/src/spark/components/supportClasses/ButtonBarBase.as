@@ -193,6 +193,8 @@ public class ButtonBarBase extends ListBase
     //  dataProvider
     //----------------------------------
     
+    [Inspectable(category="Data")]
+    
     /**
      *  @private
      */    
@@ -313,6 +315,8 @@ public class ButtonBarBase extends ListBase
     //---------------------------------- 
     
     private var requireSelectionChanged:Boolean;
+    
+    [Inspectable(category="General", defaultValue="false")]
     
     /**
      *  @private
