@@ -279,8 +279,16 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         // scrollRect won't function correctly. 
         var previous:Boolean = canShareDisplayObject;
         super.scrollRect = value;
+        
         if (numGraphicElements > 0 && previous != canShareDisplayObject)
-            invalidateDisplayObjectOrdering();            
+            invalidateDisplayObjectOrdering(); 
+        
+        if (mouseEnabledWhereTransparent && hasMouseListeners)
+        {        
+            // Re-render our mouse event fill if necessary.
+            redrawRequested = true;
+            super.$invalidateDisplayList();
+         }
     }
 
     /**
@@ -2058,7 +2066,8 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     /**
      *  @private
      *  Contains <code>true</code> when any of the <code>IGraphicElement</code> objects that share
-     *  this <code>DisplayObject</code> object needs to redraw.  
+     *  this <code>DisplayObject</code> object needs to redraw or the background for the container
+     *  needs to be redrawn.  
      *  This is used internally
      *  by the <code>Group</code> class and developers don't typically use this. 
      *  
