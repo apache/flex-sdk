@@ -13,9 +13,14 @@ package spark.components
 {
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+import flash.display.Stage;
 import flash.events.Event;
+import flash.events.MouseEvent;
 import flash.events.SoftKeyboardEvent;
+import flash.events.SoftKeyboardTrigger;
+import flash.events.TimerEvent;
 import flash.geom.Rectangle;
+import flash.utils.Timer;
 
 import mx.core.FlexGlobals;
 import mx.core.FlexVersion;
@@ -23,13 +28,14 @@ import mx.core.mx_internal;
 import mx.effects.IEffect;
 import mx.effects.Parallel;
 import mx.events.FlexEvent;
-import mx.managers.ISystemManager;
+import mx.events.SandboxMouseEvent;
 import mx.managers.PopUpManager;
 import mx.managers.SystemManager;
 import mx.styles.StyleProtoChain;
 
 import spark.effects.Move;
 import spark.effects.Resize;
+import spark.effects.animation.Animation;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Power;
 import spark.events.PopUpEvent;
@@ -397,6 +403,11 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             
             updatePopUpPosition();
         }
+        
+        // FIXME (jasonsj): SDK-31429
+        // Abort if PopUpManager was not able to add the pop-up
+//        if (!this.isPopUp)
+//            return;
 
         // Change state *after* we pop up, as the skin needs to go be in the initial "closed"
         // state while being created above in order for transitions to detect state change and play. 
@@ -481,7 +492,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     /**
      *  @private
      */
-    private function playEffect(yTo:Number, heightTo:Number):void
+    private function prepareEffect(yTo:Number, heightTo:Number):void
     {
         // stop the current effect
         if (effect && effect.isPlaying)
@@ -495,12 +506,16 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         if (effect)
         {
             effect.duration = duration;
-            effect.play();
+            
+            // Wait a frame so that any queued work can be completed by the framework
+            // and runtime before the effect starts.
+            addEventListener(Event.ENTER_FRAME, startEffect);
         }
         else
         {
-            this.y = yTo;
-            this.height = heightTo;
+            // No effect, set size and position explicitly
+            this.setLayoutBoundsPosition(this.getLayoutBoundsX(), yTo);
+            this.setLayoutBoundsSize(this.getLayoutBoundsWidth(), heightTo);
         }
     }
     
@@ -525,7 +540,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         var resize:Resize;
         var easer:IEaser = new Power(0, 5);
         
-        if (yTo != this.y)
+        if (yTo != this.getLayoutBoundsY())
         {
             move = new Move();
             move.target = this;
@@ -534,7 +549,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             move.easer = easer;
         }
         
-        if (heightTo != this.height)
+        if (heightTo != this.getLayoutBoundsHeight())
         {
             resize = new Resize();
             resize.target = this;
@@ -629,6 +644,32 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         _marginBottom = value;
     }
     
+    //----------------------------------
+    //  isMouseDown
+    //----------------------------------
+    
+    private var _isMouseDown:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private function get isMouseDown():Boolean
+    {
+        return _isMouseDown;
+    }
+    
+    /**
+     *  @private
+     */
+    private function set isMouseDown(value:Boolean):void
+    {
+        _isMouseDown = value;
+        
+        // Play the deactivate effect on the first mouseUp after a deactivate
+        if (deactivateEffectIsPending)
+            playDeactivateEffect(true);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden Methods
@@ -672,6 +713,25 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     
     /**
      *  @private
+     *  Play the soft keyboard effect.
+     */
+    private function startEffect(event:Event):void
+    {
+        removeEventListener(Event.ENTER_FRAME, startEffect);
+        
+        // Don't play the deactivate effect if the pop-up is closed
+        if (!isOpen)
+            return;
+        
+        // Force the master clock of the animation engine to update its
+        // current time so that the overhead of creating the effect is not 
+        // included in our animation interpolation. See SDK-27793
+        Animation.pulse();
+        effect.play();
+    }
+    
+    /**
+     *  @private
      *
      *  Called when we have completed transitioning to opened/closed state.
      */
@@ -681,8 +741,10 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         if (event)
             event.target.removeEventListener(FlexEvent.STATE_CHANGE_COMPLETE, stateChangeComplete_handler);
         
+        // Check for soft keyboard support
         var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
         var softKeyboardEffectEnabled:Boolean = (topLevelApp && Application.softKeyboardBehavior == "none");
+        var smStage:Stage = systemManager.stage;
         
         if (isOpen)
         {
@@ -690,16 +752,22 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             
             if (softKeyboardEffectEnabled)
             {
-                // Install soft keyboard event handling on the stage
-                stage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
-                stage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardActivateHandler);
-                stage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardDeactivateHandler);
+                // Reset state
+                _isSoftKeyboardEffectActive = false;
                 
-                // move and resize immediately if the soft keyboard is active
-                if (stage.softKeyboardRect.height > 0)
+                // Install soft keyboard event handling on the stage
+                if (smStage)
                 {
-                    softKeyboardActivatingHandler();
-                    softKeyboardActivateHandler();
+                    smStage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
+                    smStage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardActivateHandler);
+                    smStage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardDeactivateHandler);
+                    
+                    // move and resize immediately if the soft keyboard is active
+                    if (smStage.softKeyboardRect.height > 0)
+                    {
+                        softKeyboardActivatingHandler();
+                        softKeyboardActivateHandler();
+                    }
                 }
             }
         }
@@ -709,14 +777,12 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             dispatchEvent(closeEvent);
             closeEvent = null;
             
-            if (softKeyboardEffectEnabled)
+            if (softKeyboardEffectEnabled && smStage)
             {
                 // Uninstall soft keyboard event handling
-                stage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
-                stage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardActivateHandler);
-                stage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardDeactivateHandler);
-                
-                _isSoftKeyboardEffectActive = false;
+                smStage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
+                smStage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardActivateHandler);
+                smStage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardDeactivateHandler);
             }
 
             // We just finished closing, remove from the PopUpManager.
@@ -735,8 +801,8 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             return;
         
         // save the original y-position and height
-        cachedYPosition = this.y;
-        cachedHeight = this.height;
+        cachedYPosition = this.getLayoutBoundsY();
+        cachedHeight = this.getLayoutBoundsHeight();
         
         // reset cached keyboard height
         cachedKeyboardHeight = 0;
@@ -747,7 +813,10 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      */
     private function softKeyboardActivateHandler(event:SoftKeyboardEvent=null):void
     {
-        var softKeyboardRect:Rectangle = this.stage.softKeyboardRect;
+        if (event.isDefaultPrevented())
+            return;
+        
+        var softKeyboardRect:Rectangle = systemManager.stage.softKeyboardRect;
         
         // do not update if the keyboard has no height or if the height
         // is unchanged
@@ -755,11 +824,8 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             (cachedKeyboardHeight == softKeyboardRect.height))
             return;
         
-        _isSoftKeyboardEffectActive = true;
-        
         cachedKeyboardHeight = softKeyboardRect.height;
         
-        var systemManager:ISystemManager = this.parent as ISystemManager;
         var sandboxRoot:DisplayObject = systemManager.getSandboxRoot();
         var scaleFactor:Number = 1;
         
@@ -769,10 +835,9 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         // All calculations are done in stage coordinates and converted back to
         // application coordinates when playing effects. Also note that
         // softKeyboardRect is also in stage coordinates.
-        var overlapGlobal:Number = ((this.y + this.height) * scaleFactor) - softKeyboardRect.y;
-        
-        var popUpY:Number = this.y * scaleFactor;
-        var popUpHeight:Number = this.height * scaleFactor;
+        var popUpY:Number = this.getLayoutBoundsY() * scaleFactor;
+        var popUpHeight:Number = this.getLayoutBoundsHeight() * scaleFactor;
+        var overlapGlobal:Number = (popUpY + popUpHeight) - softKeyboardRect.y;
         
         var yToGlobal:Number = popUpY;
         var heightToGlobal:Number = popUpHeight;
@@ -799,6 +864,9 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         if ((yToGlobal != popUpY) || 
             (heightToGlobal != popUpHeight))
         {
+            // update state
+            _isSoftKeyboardEffectActive = true;
+            
             // convert to application coordinates, move to pixel boundaries
             var yToLocal:Number = Math.floor(yToGlobal / scaleFactor);
             var heightToLocal:Number = Math.floor(heightToGlobal / scaleFactor);
@@ -806,19 +874,160 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             // preserve minimum height
             heightToLocal = Math.max(heightToLocal, getMinBoundsHeight());
             
-            playEffect(yToLocal, heightToLocal);
+            // Listen for mouseDown event on the pop-up and delay the soft 
+            // keyboard deactivate effect. This allows button click events
+            // to complete normally before the button is re-positioned. 
+            // See SDK-31534.
+            addEventListener(MouseEvent.MOUSE_DOWN, mouseHandler);
+            
+            // Listen for mouseUp events anywhere to play the deactivate effect
+            systemManager.getSandboxRoot().addEventListener(
+                MouseEvent.MOUSE_UP, mouseHandler, true /* useCapture */);
+            systemManager.getSandboxRoot().addEventListener(
+                SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
+            
+            prepareEffect(yToLocal, heightToLocal);
         }
     }
+    
+    /**
+     *  @private
+     *  Listens for mouse events while the soft keyboard effect is active.
+     */
+    private function mouseHandler(event:MouseEvent):void
+    {
+        isMouseDown = (event.type == MouseEvent.MOUSE_DOWN);
+    }
+    
+    private function systemManager_mouseUpHandler(event:Event):void
+    {
+        isMouseDown = false;
+    }
+    
+    /**
+     *  @private
+     *  Indicates the soft keyboard deactivate event was received but the
+     *  deactivate effect is delayed.
+     */
+    private var deactivateEffectIsPending:Boolean = false;
+    
+    /**
+     *  @private
+     *  Number of milliseconds to wait for a mouseDown and mouseUp event
+     *  sequence before playing the deactivate effect.
+     */
+    mx_internal var deactivateEffectDelay:Number = 100;
+    
+    private var deactivateTimer:Timer;
     
     /**
      *  @private
      */
     private function softKeyboardDeactivateHandler(event:SoftKeyboardEvent=null):void
     {
-        if (isSoftKeyboardEffectActive)
+        // If the pop-up didn't move, do nothing
+        if (!isSoftKeyboardEffectActive)
+            return;
+        
+        // Reset state
+        deactivateEffectIsPending = false;
+        
+        if (event.triggerType == SoftKeyboardTrigger.USER_TRIGGERED)
         {
+            // userTriggered indicates they keyboard was closed explicitly (soft
+            // button on soft keyboard) or on Android, pressing the back button.
+            // Play the deactivate effect immediately.
+            playDeactivateEffect(false);
+        }
+        else // if (event.triggerType == SoftKeyboardTrigger.CONTENT_TRIGGERED)
+        {
+            // contentTriggered indicates focus was lost by tapping away from
+            // StageText or a programmatic call. Unfortunately, this 
+            // distinction isn't entirely intuitive. We only care about delaying
+            // the deactivate effect when due to a mouse event. Delaying the 
+            // effect allows the pop-up position and size to stay static until
+            // any mouse interaction is complete (e.g. button click).
+            // However, the softKeyboardDeactivate event is fired before 
+            // the mouseDown event:
+            //   deactivate -> mouseDown -> mouseUp
+            
+            // The approach here is to assume that a mouseDown was the trigger
+            // for the softKeyboardDeactivate event. Continue to delay the
+            // deactivate effect until a mouseDown and mouseUp sequence is 
+            // received. In the event that the deactivation was due to a 
+            // programmatic call, we'll stop this process after a specified
+            // delay time.
+            
+            // If, in the future, the event order changes to either:
+            //   (a) mouseDown -> deactivate -> mouseUp
+            //   (b) mouseDown -> mouseUp -> deactivate
+            // this approach will still work for the button click use case.
+            // Sequence (b) would simply fire a normal button click and have
+            // the consequence of a delayed deactivate effect only.
+            deactivateEffectIsPending = true;
+            
+            // If mouseDown immediately precedes deactivate, don't create timer.
+            // Need to wait indefinitely for mouseUp instead of using a timer.
+            // Use the timer only when mouseDown has not occured yet
+            if (!isMouseDown)
+            {
+                deactivateTimer = new Timer(deactivateEffectDelay, 1);
+                deactivateTimer.addEventListener(TimerEvent.TIMER_COMPLETE, deactivateTimer_timerCompleteHandler);
+                deactivateTimer.start();
+            }
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function deactivateTimer_timerCompleteHandler(event:Event):void
+    {
+        // Timer completed and no mouseDown and mouseUp sequence was fired
+        playDeactivateEffect(false);
+    }
+    
+    /**
+     *  @private
+     *  Plays the deactivate effect to restore the original y-position and
+     *  height. This is called directly by the deactivate handler when the
+     *  keyboard is dismissed by hardware or explicitly by a soft keyboard 
+     *  dismiss button. Otherwise, this effect is either delayed by a timer
+     *  or is awaiting a mouseDown and mouseUp event sequence.
+     */
+    private function playDeactivateEffect(isMouseEvent:Boolean):void
+    {
+        var isTimerRunning:Boolean = deactivateTimer && deactivateTimer.running;
+        
+        // Received a mouseDown event while the timer is still running. Stop
+        // the timer and wait for the next mouseUp.
+        var mouseDownDuringTimer:Boolean = isTimerRunning && 
+                                           (isMouseEvent && isMouseDown);
+        
+        // Cleanup the timer if we're (a) waiting for the next mouseUp or if 
+        // (b) this function was called for a non-mouse event
+        if (deactivateTimer && (mouseDownDuringTimer || !isMouseEvent))
+        {
+            deactivateTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, deactivateTimer_timerCompleteHandler);
+            deactivateTimer.stop();
+            deactivateTimer = null;
+        }
+        
+        // Play the deactivate effect when (a) not triggered by a mouse event
+        // or (b) triggered by a mouseUp event
+        if (!isMouseEvent || (isMouseEvent && !isMouseDown))
+        {
+            // Uninstall mouse event handling and play the deactivate effect
             _isSoftKeyboardEffectActive = false;
-            playEffect(cachedYPosition, cachedHeight);
+            deactivateEffectIsPending = false;
+            
+            removeEventListener(MouseEvent.MOUSE_DOWN, mouseHandler);
+            systemManager.getSandboxRoot().removeEventListener(
+                MouseEvent.MOUSE_UP, mouseHandler, true /* useCapture */);
+            systemManager.getSandboxRoot().removeEventListener(
+                SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
+            
+            prepareEffect(cachedYPosition, cachedHeight);
         }
     }
 }
