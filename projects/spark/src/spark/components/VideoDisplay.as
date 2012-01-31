@@ -177,24 +177,13 @@ public class VideoElement extends GraphicElement
         super();
         VideoPlayer.iNCManagerClass = fl.video.NCManagerDynamicStream;
         
-        var flvPlayer:VideoPlayer = new VideoPlayer();
-        videoPlayer = flvPlayer;
-        
         // we wrap the VideoPlayer inside of another container because 
         // the video player doesn't handle setting x/y correctly. we could allocate
         // layout features and subclass it so that layoutX always sets registrationX on the
         // videoPlayer, but this seemed more straight forward
         videoPlayerContainer = new Sprite();
-        videoPlayerContainer.addChild(flvPlayer);
         
-        flvPlayer.addEventListener(fl.video.VideoEvent.AUTO_REWOUND, videoPlayer_autoRewoundHandler);
-        flvPlayer.addEventListener(fl.video.VideoEvent.CLOSE, videoPlayer_closeHandler);
-        flvPlayer.addEventListener(fl.video.VideoEvent.COMPLETE, videoPlayer_completeHandler);
-        flvPlayer.addEventListener(fl.video.MetadataEvent.METADATA_RECEIVED, videoPlayer_metaDataReceivedHandler);
-        flvPlayer.addEventListener(fl.video.VideoEvent.PLAYHEAD_UPDATE, videoPlayer_playHeadUpdateHandler);
-        flvPlayer.addEventListener(ProgressEvent.PROGRESS, dispatchEvent);
-        flvPlayer.addEventListener(fl.video.VideoEvent.READY, videoPlayer_readyHandler);
-        flvPlayer.addEventListener(fl.video.VideoEvent.STATE_CHANGE, videoPlayer_stateChangeHandler);
+        createUnderlyingVideoPlayer();
     }
     
     //--------------------------------------------------------------------------
@@ -642,9 +631,48 @@ public class VideoElement extends GraphicElement
             return;
         
         _source = value;
-        sourceChanged = true;
+        
+        // if we haven't initialized, let's wait to set up the 
+        // source in commitProperties() as it is dependent on other 
+        // properties, like autoPlay and enabled, and those may not 
+        // be set yet, especially if they are set via MXML.
+        // Otherwise, if we have initialized, let's just set up the 
+        // source immediately.  This way people can change the source 
+        // and immediately call methods like seek().
+        if (!initialized)
+        {
+            sourceChanged = true;
+            invalidateProperties();
+        }
+        else
+        {
+            setUpSource();
+        }
+        
         dispatchEvent(new Event("sourceChanged"));
-        invalidateProperties();
+    }
+    
+    /**
+     *  @private
+     *  Sets up the source for use.  Also throws away the underlying video player object 
+     *  if needed.
+     */
+    private function setUpSource():void
+    {
+        // Reset the video component under certain conditions: 
+        // Only keep the video player if the last item played was a 
+        // String and the current item being played is a String
+        // or if the last item was null or an empty string
+        if ( !((sourceLastPlayed is String && source is String) ||
+             (sourceLastPlayed == null || (sourceLastPlayed is String && String(sourceLastPlayed).length == 0))))
+        {
+            createUnderlyingVideoPlayer();
+        }
+        
+        if (autoPlay && enabled)
+            play();
+        else
+            load();
     }
     
     //----------------------------------
@@ -732,23 +760,84 @@ public class VideoElement extends GraphicElement
     
     /**
      *  @private
+     *  Since this is a GraphicElement, there's no "initialized" flag.
+     *  We do different things in the source setter based on if we 
+     *  are initialized or not.
+     */
+    private var initialized:Boolean = false;
+    
+    /**
+     *  @private
      */
     override protected function commitProperties():void
     {
         super.commitProperties();
         
+        initialized = true;
+        
         if (sourceChanged)
         {
             sourceChanged = false;
-            if (autoPlay && enabled)
-            {
-                play();
-            }
-            else
-            {
-                load();
-            }
+            
+            setUpSource();
         }
+    }
+    
+    /**
+     *  @private
+     */
+    private var videoPlayerProperties:Object;
+    
+    /**
+     *  @private
+     */
+    private function createUnderlyingVideoPlayer():void
+    {
+        // if old one, destroy it
+        if (videoPlayer)
+        {
+            videoPlayerProperties = {autoRewind: videoPlayer.autoRewind,
+                                     scaleMode: videoPlayer.scaleMode};
+        
+            videoPlayer.close();
+            videoPlayer.clear();
+            
+            videoPlayer.removeEventListener(fl.video.VideoEvent.AUTO_REWOUND, videoPlayer_autoRewoundHandler);
+            videoPlayer.removeEventListener(fl.video.VideoEvent.CLOSE, videoPlayer_closeHandler);
+            videoPlayer.removeEventListener(fl.video.VideoEvent.COMPLETE, videoPlayer_completeHandler);
+            videoPlayer.removeEventListener(fl.video.MetadataEvent.METADATA_RECEIVED, videoPlayer_metaDataReceivedHandler);
+            videoPlayer.removeEventListener(fl.video.VideoEvent.PLAYHEAD_UPDATE, videoPlayer_playHeadUpdateHandler);
+            videoPlayer.removeEventListener(ProgressEvent.PROGRESS, dispatchEvent);
+            videoPlayer.removeEventListener(fl.video.VideoEvent.READY, videoPlayer_readyHandler);
+            videoPlayer.removeEventListener(fl.video.VideoEvent.STATE_CHANGE, videoPlayer_stateChangeHandler);
+    
+            videoPlayerContainer.removeChild(videoPlayer);
+        }
+        
+        // create new video player
+        videoPlayer = new VideoPlayer();
+        
+        if (videoPlayerProperties)
+        {
+            videoPlayer.autoRewind = videoPlayerProperties.autoRewind;
+            videoPlayer.scaleMode = videoPlayerProperties.scaleMode;
+        
+            videoPlayerProperties = null;
+        }
+        
+        videoPlayer.addEventListener(fl.video.VideoEvent.AUTO_REWOUND, videoPlayer_autoRewoundHandler);
+        videoPlayer.addEventListener(fl.video.VideoEvent.CLOSE, videoPlayer_closeHandler);
+        videoPlayer.addEventListener(fl.video.VideoEvent.COMPLETE, videoPlayer_completeHandler);
+        videoPlayer.addEventListener(fl.video.MetadataEvent.METADATA_RECEIVED, videoPlayer_metaDataReceivedHandler);
+        videoPlayer.addEventListener(fl.video.VideoEvent.PLAYHEAD_UPDATE, videoPlayer_playHeadUpdateHandler);
+        videoPlayer.addEventListener(ProgressEvent.PROGRESS, dispatchEvent);
+        videoPlayer.addEventListener(fl.video.VideoEvent.READY, videoPlayer_readyHandler);
+        videoPlayer.addEventListener(fl.video.VideoEvent.STATE_CHANGE, videoPlayer_stateChangeHandler);
+
+        videoPlayerContainer.addChild(videoPlayer);
+        
+        dispatchEvent(new Event("playheadTimeChanged"));
+        dispatchEvent(new Event("totalTimeChanged"));
     }
     
     /**
@@ -811,6 +900,10 @@ public class VideoElement extends GraphicElement
      */
     public function pause():void
     {
+        // can't call any methods before we've initialized
+        if (!initialized)
+            return;
+        
         if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
             return;
         
@@ -829,12 +922,9 @@ public class VideoElement extends GraphicElement
      */
     public function play():void
     {
-        // close old video if it was open
-        if (sourceLastPlayed != null && sourceLastPlayed != this.source)
-        {
-            videoPlayer.close();
-            videoPlayer.clear();
-        }
+        // can't call any methods before we've initialized
+        if (!initialized)
+            return;
         
         // check for 2 cases: streaming video or progressive download
         if (source is StreamingVideoSource)
@@ -919,14 +1009,6 @@ public class VideoElement extends GraphicElement
         }
         else
         {
-            // huge hack to reset the video state
-            // otherwise there's no way to reset the 
-            // playheadTime and totalTime.
-            // In the future, this hopefully will be easier and the 
-            // video player might also have the concept of a bad URL or a 
-            // source=null.
-            videoPlayer.load("QYQYQYQYQYQ");
-            
             setPlaying(false);
         }
     }
@@ -937,14 +1019,7 @@ public class VideoElement extends GraphicElement
      *  be performed before the video's started to play.
      */
     private function load():void
-    {
-        // load is only called when source is changed.  We should clear out the source and close the connection
-        if (sourceLastPlayed != null)
-        {
-            videoPlayer.close();
-            videoPlayer.clear();
-        }
-        
+    {        
         // check for 2 cases: streaming video or progressive download
         if (source is StreamingVideoSource)
         {
@@ -961,16 +1036,6 @@ public class VideoElement extends GraphicElement
             
             // load the video up
             videoPlayer.load(sourceString);
-        }
-        else
-        {
-            // huge hack to reset the video state
-            // otherwise there's no way to reset the 
-            // playheadTime and totalTime.
-            // In the future, this hopefully will be easier and the 
-            // video player might also have the concept of a bad URL or a 
-            // source=null.
-            videoPlayer.load("QYQYQYQYQYQ");
         }
         
         setPlaying(false);
@@ -1011,6 +1076,10 @@ public class VideoElement extends GraphicElement
      */
     public function seek(time:Number):void
     {
+        // can't call any methods before we've initialized
+        if (!initialized)
+            return;
+        
         if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
             return;
         
@@ -1036,6 +1105,10 @@ public class VideoElement extends GraphicElement
      */
     public function stop():void
     {
+        // can't call any methods before we've initialized
+        if (!initialized)
+            return;
+        
         if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
             return;
         
