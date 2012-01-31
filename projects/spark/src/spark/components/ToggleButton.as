@@ -55,6 +55,8 @@ public class ToggleButton extends Button
     public function ToggleButton()
 	{
 		super();
+		
+		addEventListener(MouseEvent.CLICK, clickHandler);
 	}
     
     // -----------------------------------------------------------------------
@@ -99,18 +101,6 @@ public class ToggleButton extends Button
             return super.getUpdatedSkinState();
         else
             return super.getUpdatedSkinState() + "AndSelected";
-    }
-
-    override protected function skinLoaded():void
-    {
-        super.skinLoaded();
-        addEventListener(MouseEvent.CLICK, clickHandler);
-    }
-    
-    override protected function unloadingSkin():void
-    {
-        super.unloadingSkin();
-        removeEventListener(MouseEvent.CLICK, clickHandler);
     }
 
     protected function clickHandler(event:MouseEvent):void
