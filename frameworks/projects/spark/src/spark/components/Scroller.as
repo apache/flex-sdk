@@ -938,7 +938,7 @@ public class Scroller extends SkinnableComponent
         if (verticalScrollBar && verticalScrollBar.visible)
         {
             navigationUnit = (event.delta < 0) ? NavigationUnit.DOWN : NavigationUnit.UP;
-            for(var vStep:int = 0; vStep < nSteps; vStep++)
+            for (var vStep:int = 0; vStep < nSteps; vStep++)
             {
                 var vspDelta:Number = vp.getVerticalScrollPositionDelta(navigationUnit);
                 if (!isNaN(vspDelta))
@@ -949,7 +949,7 @@ public class Scroller extends SkinnableComponent
         else if (horizontalScrollBar && horizontalScrollBar.visible)
         {
             navigationUnit = (event.delta < 0) ? NavigationUnit.LEFT : NavigationUnit.RIGHT;
-            for(var hStep:int = 0; hStep < nSteps; hStep++)
+            for (var hStep:int = 0; hStep < nSteps; hStep++)
             {
                 var hspDelta:Number = vp.getHorizontalScrollPositionDelta(navigationUnit);
                 if (!isNaN(hspDelta))
