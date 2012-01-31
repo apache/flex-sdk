@@ -123,8 +123,6 @@ public class List extends ListBase implements IFocusManagerComponent
     public function List()
     {
         super();
-        
-        addEventListener(KeyboardEvent.KEY_DOWN, list_keyDownHandler);
     }
     
     //----------------------------------
@@ -689,7 +687,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @private
      *  Build in basic keyboard navigation support in List. 
      */
-    protected function list_keyDownHandler(event:KeyboardEvent):void
+    override protected function keyDownHandler(event:KeyboardEvent):void
     {   
         super.keyDownHandler(event);
         
