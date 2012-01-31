@@ -847,7 +847,7 @@ public class SkinnableContainer extends SkinnableContainerBase
                 {
                     var sourceContent:Array = _placeHolderGroup.getMXMLContent();
                     
-                    // FIXME (rfrishbe): Also look at why we need a defensive copy for mxmlContent in Group, 
+                    // TODO (rfrishbe): Also look at why we need a defensive copy for mxmlContent in Group, 
                     // especially if we make it mx_internal.  Also look at controlBarContent.
                     
                     // If a child element has been addElemented() to the placeHolderGroup, 
