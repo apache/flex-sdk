@@ -112,12 +112,6 @@ public class FxPanel extends FxContainer
         if (instance == titleField)
         {
             titleField.text = title;
-            
-            // TODO: Remove this hard-coded styleName assignment
-            // once all global text styles are moved to the global
-            // stylesheet. This is a temporary workaround to support
-            // inline text styles for Buttons and subclasses.
-            titleField.styleName = this;
         }
     }
 }
