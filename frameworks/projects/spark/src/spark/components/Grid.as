@@ -197,12 +197,29 @@ package spark.components
     {
         include "../core/Version.as";
         
+        /**
+         *  @private
+         *  A list of functions to be called at commitProperties() time, after the dataProvider
+         *  has been set.  This list is used to defer making grid selection updates per the 
+         *  set methods for the selectedIndex, selectedIndices, selectedItem, selectedItems, 
+         *  selectedCell and selectedCells properties.
+         */
+        private const deferredOperations:Vector.<Function> = new Vector.<Function>();
+        
+        /**
+         *  @private
+         *  True while updateDisplayList is running.
+         */
+        private var inUpdateDisplayList:Boolean = false;
+        
+        
+        // TODO(hmuller): the following public variables are temporary 
+        
         public var backgroundGroup:Group;
         public var selectionGroup:Group;    
         public var itemRendererGroup:Group;
         public var overlayGroup:Group;
         
-        private var inUpdateDisplayList:Boolean = false;
         
         public function Grid()
         {
@@ -1346,6 +1363,13 @@ package spark.components
          *  control, the control dispatches the <code>selectionChange</code> 
          *  event. When the user changes the selection programmatically, the 
          *  control dispatches the <code>valueCommit</code> event.</p>
+         * 
+         *  <p>Attempts to set this property are deferred until commitProperties()
+         *  runs, and the dataProvider property has been set.  This property is not
+         *  intended for programatic selection updates, it can be used to initialize the
+         *  selection in MXML markup.  The setSelectedCell() method should be used
+         *  for programatic selection updates, for example when writing a keyboard
+         *  or mouse event handler. </p> 
          *
          *  @default null
          * 
@@ -1362,6 +1386,25 @@ package spark.components
             var selectedCells:Vector.<CellPosition> = gridSelection.allCells();
             return selectedCells.length ? selectedCells[0] : null;
         }
+        
+        /**
+         *  @private
+         */
+        public function set selectedCell(value:CellPosition):void
+        {
+            const rowIndex:int = (value) ? value.rowIndex : -1;
+            const columnIndex:int = (value) ? value.columnIndex : -1;
+            
+            var f:Function = function():void
+            {
+                if ((rowIndex != -1) && (columnIndex != -1))
+                    setSelectedCell(rowIndex, columnIndex);
+                else
+                    clearSelection();
+            }
+            deferredOperations.push(f);  // function f() to be called by commitProperties()
+            invalidateProperties();
+        }        
                        
         //----------------------------------
         //  selectedCells
@@ -1381,6 +1424,13 @@ package spark.components
          *  event. When the user changes the selection programmatically, the 
          *  control dispatches the <code>valueCommit</code> event.</p>
          * 
+         *  <p>Attempts to set this property are deferred until commitProperties()
+         *  runs, and the dataProvider property has been set.  This property is not
+         *  intended for programatic selection updates, it can be used to initialize the
+         *  selection in MXML markup.  The setSelectedCell(), addSelectedCell(),
+         *  and selectCellRegion() methods should be used for programatic selection 
+         *  updates, for example when writing a keyboard or mouse event handler. </p>  
+         * 
          *  @default []
          * 
          *  @return Vector of CellPosition objects where each element represents
@@ -1395,6 +1445,32 @@ package spark.components
         {
             return gridSelection.allCells();
         }
+        
+        /**
+         *  @private
+         */
+        public function set selectedCells(value:Vector.<CellPosition>):void
+        {
+            // Defensively deep-copy the incoming value; tolerate value=null
+
+            var valueCopy:Vector.<CellPosition> = new Vector.<CellPosition>(0);
+            if (value)
+            {
+                for each (var cell:CellPosition in value)
+                    valueCopy.push(new CellPosition(cell.rowIndex, cell.columnIndex));
+            }
+            
+            // Append a deferred operation function that selects the specified cells
+            
+            var f:Function = function():void
+            {
+                clearSelection();
+                for each (cell in valueCopy)
+                    addSelectedCell(cell.rowIndex, cell.columnIndex);
+            }
+            deferredOperations.push(f);  // function f() to be called by commitProperties()
+            invalidateProperties();
+        }          
 
         //----------------------------------
         //  selectedIndex
@@ -1412,6 +1488,13 @@ package spark.components
          *  control, the control dispatches the <code>selectionChange</code> 
          *  event. When the user changes the selection programmatically, the 
          *  control dispatches the <code>valueCommit</code> event.</p>
+         * 
+         *  <p>Attempts to set this property are deferred until commitProperties()
+         *  runs, and the dataProvider property has been set.  This property is not
+         *  intended for programatic selection updates, it can be used to initialize the
+         *  selection in MXML markup.  The setSelectedIndex() method should be used
+         *  for programatic selection updates, for example when writing a keyboard
+         *  or mouse event handler. </p>
          *
          *  @default -1
          * 
@@ -1426,7 +1509,23 @@ package spark.components
         public function get selectedIndex():int
         {
             var selectedRows:Vector.<int> = gridSelection.allRows();
-            return selectedRows.length ? selectedRows[0] : -1;
+            return (selectedRows.length > 0) ? selectedRows[0] : -1;
+        }
+        
+        /**
+         *  @private
+         */
+        public function set selectedIndex(value:int):void
+        {
+            var f:Function = function():void
+            {
+                if (value != -1)
+                    setSelectedIndex(value);
+                else
+                    clearSelection();
+            }
+            deferredOperations.push(f);  // function f() to be called by commitProperties()
+            invalidateProperties();
         }
         
         //----------------------------------
@@ -1446,6 +1545,13 @@ package spark.components
          *  control, the control dispatches the <code>selectionChange</code> 
          *  event. When the user changes the selection programmatically, the 
          *  control dispatches the <code>valueCommit</code> event.</p>
+         * 
+         *  <p>Attempts to set this property are deferred until commitProperties()
+         *  runs, and the dataProvider property has been set.  This property is not
+         *  intended for programatic selection updates, it can be used to initialize the
+         *  selection in MXML markup.  The setSelectedIndex(), addSelectedIndex(),
+         *  and selectIndices() methods should be used for programatic selection 
+         *  updates, for example when writing a keyboard or mouse event handler. </p> 
          *
          *  @default []
          * 
@@ -1464,6 +1570,27 @@ package spark.components
             return gridSelection.allRows();
         }
         
+        /**
+         *  @private
+         */
+        public function set selectedIndices(value:Vector.<int>):void
+        {
+            // Defensively copy the incoming value; tolerate value=null
+            
+            const valueCopy:Vector.<int> = (value) ? value.concat() : new Vector.<int>(0);
+            
+            // Append a deferred operation function that selects the specified indices            
+            
+            var f:Function = function():void
+            {
+                clearSelection();
+                for each (var index:int in valueCopy)
+                    addSelectedIndex(index);
+            }
+            deferredOperations.push(f);  // function f() to be called by commitProperties()
+            invalidateProperties();
+        }        
+        
         //----------------------------------
         //  selectedItem
         //----------------------------------
@@ -1481,6 +1608,14 @@ package spark.components
          *  control, the control dispatches the <code>selectionChange</code> 
          *  event. When the user changes the selection programmatically, the 
          *  control dispatches the <code>valueCommit</code> event.</p>
+         * 
+         *  <p>Attempts to set this property are deferred until commitProperties()
+         *  runs, and the dataProvider property has been set.  This property is not
+         *  intended for programatic selection updates, it can be used to initialize the
+         *  selection in MXML markup.  To programatically set the "selected item"
+         *  use <code>dataProvider.getItemIndex()</code> to compute the item's location
+         *  and <code>setSelectedIndex()</code> to change the selection.</p>
+         *  
          *  @default undefined
          * 
          *  @return Vector of <code>dataProvider</code> items.
@@ -1501,6 +1636,26 @@ package spark.components
             return getDataProviderItem(rowIndex);           
         }
         
+        /**
+         *  @private
+         */
+        public function set selectedItem(value:Object):void
+        {
+            var f:Function = function():void
+            {
+                if (!dataProvider)
+                    return;
+
+                const rowIndex:int = dataProvider.getItemIndex(value);
+                if (rowIndex == -1)
+                    clearSelection();
+                else
+                    setSelectedIndex(rowIndex);
+            }
+            deferredOperations.push(f);  // function f() to be called by commitProperties()
+            invalidateProperties();
+        }        
+        
         //----------------------------------
         //  selectedItems
         //----------------------------------
@@ -1517,6 +1672,14 @@ package spark.components
          *  control, the control dispatches the <code>selectionChange</code> 
          *  event. When the user changes the selection programmatically, the 
          *  control dispatches the <code>valueCommit</code> event.</p>
+         * 
+         *  <p>Attempts to set this property are deferred until commitProperties()
+         *  runs, and the dataProvider property has been set.  This property is not
+         *  intended for programatic selection updates, it can be used to initialize the
+         *  selection in MXML markup.  To programatically set the "selected item"
+         *  use <code>dataProvider.getItemIndex()</code> to compute the item's location
+         *  and <code>setSelectedIndex()</code> to change the selection.</p>
+         *  
          *  @default []
          * 
          *  @return Vector of <code>dataProvider</code> items.
@@ -1541,6 +1704,30 @@ package spark.components
            
             return items;
         }
+        
+        /**
+         *  @private
+         */
+        public function set selectedItems(value:Vector.<Object>):void
+        {
+            // Defensively copy the incoming value; tolerate value=null
+            
+            const valueCopy:Vector.<Object> = (value) ? value.concat() : new Vector.<Object>(0);
+            
+            // Append a deferred operation function that selects the specified indices            
+            
+            var f:Function = function():void
+            {
+                if (!dataProvider)
+                    return;
+                
+                clearSelection();
+                for each (var item:Object in valueCopy)
+                    addSelectedIndex(dataProvider.getItemIndex(item));
+            }
+            deferredOperations.push(f);  // function f() to be called by commitProperties()
+            invalidateProperties();
+        }        
         
         //----------------------------------
         //  selectionIndicator
@@ -2563,6 +2750,15 @@ package spark.components
                                 
                 dataProviderChanged = false;
                 columnsChanged = false;
+            }
+            
+            // Deferred selection operations
+            
+            if (dataProvider)
+            {
+                for each (var deferredOperation:Function in deferredOperations)
+                    deferredOperation();
+                deferredOperations.length = 0;                
             }
             
             // Only want one event if both caretRowIndex and caretColumnIndex
