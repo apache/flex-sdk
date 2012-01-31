@@ -296,7 +296,9 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
     //---------------------------------
     //  maximum
     //---------------------------------   
-        
+
+    [Inspectable(category="General", defaultValue="10.0")]
+    
     /**
      *  Number which represents the maximum value possible for 
      *  <code>value</code>. If the values for either 
@@ -377,7 +379,7 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
     //  dataTipPrecision
     //---------------------------------
 
-    [Inspectable(minValue="0")]
+    [Inspectable(defaultValue="2", minValue="0")]
     
     /**
      *  Number of decimal places to use for the data tip text.
