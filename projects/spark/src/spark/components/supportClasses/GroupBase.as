@@ -782,10 +782,10 @@ public class GroupBase extends UIComponent implements IViewport
     /**
      *  @private
      */
-    override protected function skipMeasure():Boolean
+    override protected function canSkipMeasurement():Boolean
     {
         // We never want to skip measure, if we resize by scaling
-        return _resizeMode == ResizeMode.SCALE ? false : super.skipMeasure();
+        return _resizeMode == ResizeMode.SCALE ? false : super.canSkipMeasurement();
     }
 
     /**
