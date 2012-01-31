@@ -146,7 +146,7 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  *
- *  @see spark.skins.default.DropDownListSkin
+ *  @see spark.skins.spark.DropDownListSkin
  *  @see spark.components.supportClasses.DropDownController
  *
  *  @includeExample examples/DropDownListExample.mxml
