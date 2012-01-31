@@ -66,7 +66,7 @@
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="player/playerglobal.swc"/>
+                <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 			</external-library-path>
 			<locale/>
@@ -101,7 +101,7 @@
 			<include-libraries/>
 			<library-path/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-				<include name="player/playerglobal.swc"/>
+                <include name="player/${playerglobal.version}/playerglobal.swc"/>
 			</external-library-path>
 		</compc>
 	</target>
