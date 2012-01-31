@@ -967,7 +967,8 @@ public class DividedBox extends Box
 
 		computeMinAndMaxDelta();
 
-		systemManager.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
+		systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
+		systemManager.deployMouseShields(true);
 	}
 
 	/**
@@ -1055,11 +1056,15 @@ public class DividedBox extends Box
 
 	/**
 	 *  @private
+	 * 
+	 *  @param trigger May be null if the event is not a MouseEvent but
+	 *  a mouse event from another sandbox.
 	 */
 	mx_internal function stopDividerDrag(divider:BoxDivider,
                                          trigger:MouseEvent):void
 	{
-		dragDelta = limitDelta(getMousePosition(trigger) - dragStartPosition);
+	    if (trigger)
+		  dragDelta = limitDelta(getMousePosition(trigger) - dragStartPosition);
 
 		var event:DividerEvent = 
             new DividerEvent(DividerEvent.DIVIDER_RELEASE);
@@ -1083,7 +1088,8 @@ public class DividedBox extends Box
 		}
 
 		resetDividerTracking();
-		systemManager.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
+		systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
+        systemManager.deployMouseShields(false);
 	}
 
 	/**
