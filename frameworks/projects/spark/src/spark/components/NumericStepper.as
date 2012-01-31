@@ -216,14 +216,19 @@ public class NumericStepper extends Spinner
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  editable
+    //  enableIME
     //----------------------------------
 
     /**
-     *  @private
-     *  for IIMESupport 
+     *  A flag that indicates whether the IME should
+     *  be enabled when the component receives focus.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    public function get editable():Boolean
+    public function get enableIME():Boolean
     {
         if (textDisplay && textDisplay.textDisplay)
             return textDisplay.textDisplay.editable;
