@@ -9,8 +9,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.core
+package spark.core
 {
+
+import mx.core.IVisualElement;
 
 public interface IViewport extends IVisualElement
 {
