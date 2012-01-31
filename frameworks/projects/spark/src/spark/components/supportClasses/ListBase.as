@@ -15,6 +15,7 @@ package spark.components.supportClasses
 import flash.events.Event;
 
 import mx.collections.IList;
+import mx.core.FlexVersion;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -1330,9 +1331,13 @@ public class ListBase extends SkinnableDataContainer
                     invalidateProperties(); 
                 }
             }
+            else if (ce.kind == CollectionEventKind.REFRESH)
+            {
+                setSelectedIndex(NO_SELECTION, false);
+                setCurrentCaretIndex(NO_CARET);
+            }
             else if (ce.kind == CollectionEventKind.REPLACE ||
-                ce.kind == CollectionEventKind.MOVE ||
-                ce.kind == CollectionEventKind.REFRESH)
+                ce.kind == CollectionEventKind.MOVE)
             {
                 //These cases are handled by the DataGroup skinpart  
             }
