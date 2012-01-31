@@ -25,6 +25,11 @@ use namespace mx_internal;
 /**
  *  The DataGridDragProxy class defines the default drag proxy 
  *  used when dragging data from a DataGrid control.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DataGridDragProxy extends UIComponent
 {
@@ -38,6 +43,11 @@ public class DataGridDragProxy extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DataGridDragProxy()
     {
