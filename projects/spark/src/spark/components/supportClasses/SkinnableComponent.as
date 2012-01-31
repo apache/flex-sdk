@@ -172,7 +172,8 @@ public class SkinnableComponent extends UIComponent
         if (skinChanged)
         {
             skinChanged = false;
-            unloadSkin();
+            if (skinObject)
+                unloadSkin();
             loadSkin();
         }
         
@@ -434,13 +435,11 @@ public class SkinnableComponent extends UIComponent
      */
     protected function unloadSkin():void
     {       
-        if (skinObject)
-        {
-            unloadingSkin();
-            clearSkinParts();
-            removeChild(skinObject);
-            _skinObject = null;
-        }
+
+        unloadingSkin();
+        clearSkinParts();
+        removeChild(skinObject);
+        _skinObject = null;
     }
 
     //--------------------------------------------------------------------------
@@ -453,7 +452,7 @@ public class SkinnableComponent extends UIComponent
      *  Called when a part has been added. Override this function to attach
      *  behavior to the part.
      */
-    protected function partAdded(partName:String, instance:*):void
+    protected function partAdded(partName:String, instance:Object):void
     {   
     }
 
@@ -461,7 +460,7 @@ public class SkinnableComponent extends UIComponent
      *  Called when an instance of a dynamic part is being removed. 
      *  Override this function to remove behavior from the part.
      */
-    protected function partRemoved(partName:String, instance:*):void
+    protected function partRemoved(partName:String, instance:Object):void
     {       
     }
     
@@ -480,7 +479,7 @@ public class SkinnableComponent extends UIComponent
      *  by this method, rather than directly calling newInstance() on the factory.
      *  This method creates the part, but does not add it to the display list.
      */
-    protected function createPartInstance(partName:String):*
+    protected function createPartInstance(partName:String):Object
     {
         var factory:IFactory = this[partName];
         
@@ -510,7 +509,7 @@ public class SkinnableComponent extends UIComponent
      *  Remove an instance of a dynamic part. This method must be called before a dynamic part is
      *  deleted. This method does not remove the part from the display list.
      */
-    protected function removePartInstance(partName:String, instance:*):void
+    protected function removePartInstance(partName:String, instance:Object):void
     {
         // Send notification
         partRemoved(partName, instance);
@@ -534,7 +533,7 @@ public class SkinnableComponent extends UIComponent
     /**
      *  Returns a specific instance of a dynamic part.
      */
-    protected function getDynamicPartAt(partName:String, index:int):*
+    protected function getDynamicPartAt(partName:String, index:int):Object
     {
         if (dynamicPartsCache && dynamicPartsCache[partName])
             return dynamicPartsCache[partName][index];
