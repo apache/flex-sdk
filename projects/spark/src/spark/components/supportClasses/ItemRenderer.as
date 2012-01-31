@@ -107,15 +107,21 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     private var _autoDrawBackground:Boolean = true;
     
     /**
-     *  Whether the item renderer should handle drawing the 
-     *  selection/rollOver background.
+     *  Specifies whether the item renderer draws the 
+     *  background of the data item during user interaction.
+     *  Interactions include moving the mouse over the item, 
+     *  selecting the item, and moving the caret of the item .
      * 
-     *  <p>If set to <code>true</code>, the background for 
+     *  <p>If <code>true</code>, the background for 
      *  the item renderer is automatically drawn, and it 
      *  depends on the styles that are set (<code>contentBackgroundColor</code>, 
      *  <code>alternatingItemColor</code>, <code>rollOverColor</code>, 
      *  <code>selectionColor</code>) 
      *  and the state that the item renderer is in.</p>
+     *
+     *  <p>If <code>false</code>, the item render draws no backgrounds.
+     *  Your custom item renderer is responsible for displaying the 
+     *  background colors for all user interactions.</p>
      * 
      *  @default true
      */
@@ -151,7 +157,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     private var _hovered:Boolean = false;
     
     /**
-     *  Flag that is set when the mouse is hovered over the item renderer.
+     *  Set to <code>true</code> when the mouse is hovered over the item renderer.
      *
      *  @default false
      */    
