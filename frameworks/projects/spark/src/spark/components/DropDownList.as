@@ -594,7 +594,7 @@ public class DropDownList extends List
      */
     override protected function keyDownHandler(event:KeyboardEvent) : void
     {
-        if(!enabled)
+        if (!enabled)
             return; 
         
         if (!dropDownController.processKeyDown(event))
