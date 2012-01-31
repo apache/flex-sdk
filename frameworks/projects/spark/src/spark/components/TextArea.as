@@ -157,8 +157,8 @@ use namespace mx_internal;
  *  &lt;s:TextArea&gt;Hello &lt;s:span fontWeight="bold"&gt;World!&lt;/s:span&gt;&lt;/s:TextArea&gt;
  *  </pre>
  *  In this example, the MXML compiler sets the TextArea <code>content</code>
- *  property, causing a <a href="../../flashx/TextLayout/elements/TextFlow.html">TextFlow</a> object
- *  to be created from the <a href="../../flashx/TextLayout/elements/FlowElements.html">FlowElements</a>
+ *  property, causing a <a href="../../flashx/textLayout/elements/TextFlow.html">TextFlow</a> object
+ *  to be created from the <a href="../../flashx/textLayout/elements/FlowElement.html">FlowElements</a>
  *  that you specify.</p>
  *
  *  <p>The default text formatting is determined by CSS styles
@@ -381,49 +381,49 @@ public class TextArea extends SkinnableTextBase
      */
     [RichTextContent]
         
-	/**
-	 *  This property is intended for use in MXML at compile time;
-	 *  to get or set rich text content at runtime,
-	 *  use the <code>textFlow</code> property instead. Adobe recommends using 
-	 *  <code>textFlow</code> property to get and set rich text content at runtime,
-	 *  because it is strongly typed as a TextFlow rather than as an Object.
-	 *  A TextFlow is the canonical representation 
-	 *  for rich text content in the Text Layout Framework.
-	 *
-	 *  <p>The <code>content</code> property is the default property
-	 *  for TextArea, so that you can write MXML such as
-	 *  <pre>
-	 *  &lt;s:TextArea&gt;Hello &lt;s:span fontWeight="bold"/&gt;World&lt;/s:span&gt;&lt;/s:TextArea&gt;
-	 *  </pre>
-	 *  and have the String and SpanElement that you specify
-	 *  as the content be used to create a TextFlow.</p>
-	 *
-	 *  <p>This property is typed as Object because you can set it to
-	 *  to a String, a FlowElement, or an Array of Strings and FlowElements.
-	 *  In the example above, the content is
-	 *  a 2-element array. The first array element is the String
-	 *  "Hello". The second array element is a SpanElement object with the text
-	 *  "World" in boldface.</p>
-	 * 
-	 *  <p>No matter how you specify the content, the content is converted
-	 *  to a TextFlow object. When you get the value of this property, you get
-	 *  the resulting TextFlow object.</p>
-	 * 
-	 *  <p></p>
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get content():Object
-	{
-		return textFlow;
-	}
-	
-	/**
-	 *  @private
-	 */   
+    /**
+     *  This property is intended for use in MXML at compile time;
+     *  to get or set rich text content at runtime,
+     *  use the <code>textFlow</code> property instead. Adobe recommends using 
+     *  <code>textFlow</code> property to get and set rich text content at runtime,
+     *  because it is strongly typed as a TextFlow rather than as an Object.
+     *  A TextFlow is the canonical representation 
+     *  for rich text content in the Text Layout Framework.
+     *
+     *  <p>The <code>content</code> property is the default property
+     *  for TextArea, so that you can write MXML such as
+     *  <pre>
+     *  &lt;s:TextArea&gt;Hello &lt;s:span fontWeight="bold"/&gt;World&lt;/s:span&gt;&lt;/s:TextArea&gt;
+     *  </pre>
+     *  and have the String and SpanElement that you specify
+     *  as the content be used to create a TextFlow.</p>
+     *
+     *  <p>This property is typed as Object because you can set it to
+     *  to a String, a FlowElement, or an Array of Strings and FlowElements.
+     *  In the example above, the content is
+     *  a 2-element array. The first array element is the String
+     *  "Hello". The second array element is a SpanElement object with the text
+     *  "World" in boldface.</p>
+     * 
+     *  <p>No matter how you specify the content, the content is converted
+     *  to a TextFlow object. When you get the value of this property, you get
+     *  the resulting TextFlow object.</p>
+     * 
+     *  <p></p>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get content():Object
+    {
+        return textFlow;
+    }
+    
+    /**
+     *  @private
+     */   
     public function set content(value:Object):void
     {
         // Of 'text', 'textFlow', and 'content', the last one set wins.
@@ -496,7 +496,7 @@ public class TextArea extends SkinnableTextBase
 
     /**
      *  The optional Scroller in the skin,
-	 *  used to scroll the RichEditableText.
+     *  used to scroll the RichEditableText.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
