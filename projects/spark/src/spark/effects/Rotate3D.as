@@ -77,7 +77,8 @@ public class Rotate3D extends AnimateTransform3D
      */
     private static var AFFECTED_PROPERTIES:Array =
         ["rotationX", "rotationY", "rotationZ", 
-         "postLayoutRotationX","postLayoutRotationY","postLayoutRotationZ"];
+         "postLayoutRotationX","postLayoutRotationY","postLayoutRotationZ",
+         "width", "height"];
 
     private static var RELEVANT_STYLES:Array = [];
 
