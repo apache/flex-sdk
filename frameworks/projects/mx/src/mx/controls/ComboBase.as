@@ -1065,25 +1065,25 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
         super.createChildren();
 
         // Create the border first, in the back.
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+        if (!border)
         {
-	        if (!border)
-	        {
-	            var borderClass:Class = getStyle("borderSkin");
-	
-	            if (borderClass)
-	            {
-	                border = new borderClass();
-	
-	                if (border is IFocusManagerComponent)
-	                    IFocusManagerComponent(border).focusEnabled = false;
-	
-	                if (border is ISimpleStyleClient)
-	                    ISimpleStyleClient(border).styleName = this;
-	
-	                addChild(DisplayObject(border));
-	            }
-	        }
+            var borderClass:Class = getStyle("borderSkin");
+
+            if (borderClass)
+            {
+                border = new borderClass();
+
+                if (border is IFocusManagerComponent)
+                    IFocusManagerComponent(border).focusEnabled = false;
+
+                if (border is ISimpleStyleClient)
+                    ISimpleStyleClient(border).styleName = this;
+
+                addChild(DisplayObject(border));
+                
+                if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+                	border.visible = false;
+            }
         }
 
         // Next, create the downArrowButton before creating the textInput,
