@@ -44,7 +44,7 @@ import spark.effects.supportClasses.WipeInstance;
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:Wipe
+ *  &lt;s:Wipe
  *    <b>Properties</b>
  *    id="ID"
  *    direction="right"
