@@ -29,6 +29,7 @@ import mx.rpc.xml.SchemaDatatypes;
 import mx.rpc.xml.TypeIterator;
 import mx.rpc.xml.XMLDecoder;
 import mx.utils.StringUtil;
+import mx.utils.URLUtil;
 import mx.utils.XMLUtil;
 import mx.utils.object_proxy;
 
@@ -860,7 +861,26 @@ public class SOAPDecoder extends XMLDecoder implements ISOAPDecoder
         _referencesResolved = false;
         _elementsWithId = null;
     }
-    
+
+    /**
+     * Determines whether a name is in an internal (SOAP or XSD specific)
+     * namespace (as opposed to a user's namespace).
+     * @private 
+     */
+    override protected function isInternalNamespace(name:QName):Boolean
+    {
+        var uri:String = (name != null) ? name.uri : null;
+        if (uri)
+        {
+            if (URLUtil.urisEqual(uri, soapConstants.encodingURI) ||
+                URLUtil.urisEqual(uri, soapConstants.envelopeURI))
+            {
+                return true;
+            }
+        }
+
+        return super.isInternalNamespace(name);
+    }
 
     /**
      * Overrides XMLDecoder.parseValue to allow us to detect a legacy case
@@ -886,7 +906,6 @@ public class SOAPDecoder extends XMLDecoder implements ISOAPDecoder
 
         return super.parseValue(name, value);
     }
-    
     
     /**
      * Overrides XMLDecoder.preProcessXML to allow us to handle multi-ref SOAP
