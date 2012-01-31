@@ -29,6 +29,11 @@ use namespace mx_internal;
 /**
  *  Name of CSS style declaration that specifies styles for the text of the
  *  selected button.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectedButtonTextStyleName", type="String", inherit="no")]
 
@@ -166,6 +171,11 @@ use namespace mx_internal;
  *
  *  @see mx.controls.ButtonBar
  *  @see mx.controls.LinkBar
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ToggleButtonBar extends ButtonBar
 {
@@ -179,6 +189,11 @@ public class ToggleButtonBar extends ButtonBar
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ToggleButtonBar()
     {
@@ -236,6 +251,11 @@ public class ToggleButtonBar extends ButtonBar
      *
      *  <p>The default value is 0.
 	 *  A value of -1 deselects all the buttons in the bar.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get selectedIndex():int
     {
@@ -300,6 +320,11 @@ public class ToggleButtonBar extends ButtonBar
      *  the <code>selectedIndex</code> property is set to <code>-1</code>.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get toggleOnClick():Boolean
     {
