@@ -107,6 +107,11 @@ public class DataSetType implements ICustomSOAPType
     
     /**
      * Parse table information out of the inline schema
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function processTables(schemaXML:XML):Object
     {
@@ -126,6 +131,11 @@ public class DataSetType implements ICustomSOAPType
     
     /**
      * Parse column definitions out of a table definition
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function processColumns(decoder:SOAPDecoder, tableXML:XML):*
     {
