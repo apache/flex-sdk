@@ -394,8 +394,8 @@ public class GridColumn extends EventDispatcher
     [Bindable("headerRendererChanged")]
     
     /**
-     *  A factory for the IGridItemRenderer used as the header for this column.  If null,
-     *  the value of the DataGrid headerRenderer property is returned. 
+     *  A factory for the IGridItemRenderer used as the header for this column.  If unspecified,
+     *  the DataGrid's columnHeaderGroup skin part provides a default header renderer.
      * 
      *  @default null
      *
