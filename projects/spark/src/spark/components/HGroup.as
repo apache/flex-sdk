@@ -25,7 +25,7 @@ import spark.layout.HorizontalLayout;
  * 
  * The layout property should not be set or configured directly.
  * 
- * @see mx.layout.HorizontalLayout
+ * @see spark.layout.HorizontalLayout
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -42,8 +42,8 @@ public class HGroup extends Group
      *  Resetting the layout property or setting its properties directly
      *  is not supported.
      * 
-     *  @see mx.layout.HorizontalLayout
-     *  @see mx.components.VGroup
+     *  @see spark.layout.HorizontalLayout
+     *  @see spark.components.VGroup
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -71,7 +71,7 @@ public class HGroup extends Group
     //----------------------------------
 
     /**
-     * @copy mx.layout.HorizontalLayout#gap
+     * @copy spark.layout.HorizontalLayout#gap
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -98,7 +98,7 @@ public class HGroup extends Group
     [Bindable("propertyChange")]    
         
     /**
-     * @copy mx.layout.HorizontalLayout#columnCount
+     * @copy spark.layout.HorizontalLayout#columnCount
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -115,7 +115,7 @@ public class HGroup extends Group
     //----------------------------------
 
     /**
-     * @copy mx.layout.HorizontalLayout#requestedColumnCount
+     * @copy spark.layout.HorizontalLayout#requestedColumnCount
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -142,7 +142,7 @@ public class HGroup extends Group
     [Inspectable(category="General")]
 
     /**
-     * @copy mx.layout.HorizontalLayout#columnWidth
+     * @copy spark.layout.HorizontalLayout#columnWidth
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -169,7 +169,7 @@ public class HGroup extends Group
     [Inspectable(category="General")]
 
     /**
-     * @copy mx.layout.HorizontalLayout#variableColumnWidth
+     * @copy spark.layout.HorizontalLayout#variableColumnWidth
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -194,7 +194,7 @@ public class HGroup extends Group
     //----------------------------------
 
     /**
-     * @copy mx.layout.HorizontalLayout#verticalAlign
+     * @copy spark.layout.HorizontalLayout#verticalAlign
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -221,7 +221,7 @@ public class HGroup extends Group
     [Bindable("indexInViewChanged")]    
 
     /**
-     * @copy mx.layout.HorizontalLayout#firstIndexInView
+     * @copy spark.layout.HorizontalLayout#firstIndexInView
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -240,7 +240,7 @@ public class HGroup extends Group
     [Bindable("indexInViewChanged")]    
 
     /**
-     * @copy mx.layout.HorizontalLayout#lastIndexInView
+     * @copy spark.layout.HorizontalLayout#lastIndexInView
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
