@@ -269,7 +269,7 @@ public class AnimateTransformInstance extends AnimateInstance
      * time value and the startDelay time passed in
      */
     private function insertKeyframe(keyframes:Vector.<Keyframe>, 
-        newKF:Keyframe, startDelay:Number = 0):void
+        newKF:Keyframe, startDelay:Number = 0, first:Boolean = false):void
     {
         newKF.time += startDelay;
         for (var i:int = 0; i < keyframes.length; i++)
@@ -277,16 +277,28 @@ public class AnimateTransformInstance extends AnimateInstance
             if (keyframes[i].time >= newKF.time)
             {
                 // a new keyframe at the same time as an existing one
-                // will get shifted forward briefly in time. This allows,
+                // will get shifted briefly in time. This allows,
                 // for example, multiple effects to be combined correctly
                 // where one ends at the same time the next begins. We want the
                 // first interval to use the values in the old keyframe at that
                 // time, and the next interval to start from the values in the
                 // new keyframe.
+                // The direction of shift depends on whether this is the first
+                // keyframe in a sequence (shift it forward, because it must be starting
+                // *after* any existing effects) or not (shift it backward, because it must
+                // end *before* any existing effects.
                 if (keyframes[i].time == newKF.time)
                 {
-                    newKF.time += .01;
-                    keyframes.splice(i+1, 0, newKF);
+                    if (first)
+                    {
+                        newKF.time += .01;
+                        keyframes.splice(i+1, 0, newKF);
+                    }
+                    else
+                    {
+                        newKF.time -= .01;
+                        keyframes.splice(i, 0, newKF);
+                    }
                 }
                 else
                 {
@@ -344,7 +356,7 @@ public class AnimateTransformInstance extends AnimateInstance
                     for (j = 0; j < newMotionPath.keyframes.length; j++)
                     {
                         insertKeyframe(mp.keyframes, newMotionPath.keyframes[j], 
-                            (newEffectStartTime - instanceStartTime));
+                            (newEffectStartTime - instanceStartTime), (j == 0));
                     }
                     added = true;
                     break;
