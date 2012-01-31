@@ -26,7 +26,6 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
-     *  
      */
     function get rowIndex():int;
     function set rowIndex(value:int):void;
@@ -39,10 +38,25 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
-     *  
      */
     function get dragging():Boolean;
     function set dragging(value:Boolean):void;
+    
+    /**
+     *  True if the item renderer is being hovered over by the mouse.
+     *  Unlike a List item renderer, grid item renderers do not have exclusive
+     *  responsibility for displaying the hovered indicator.  The Grid itself
+     *  renders the hovered indicator for the selected row or cell. 
+     *  The item renderer can also change its visual properties to emphasize
+     *  that it's being hovered over.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    function get hovered():Boolean;
+    function set hovered(value:Boolean):void;
     
     /**
      *  The string to display in the item renderer's cell.  
@@ -56,7 +70,6 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
-     *  
      */
     function get label():String;
     function set label(value:String):void;
@@ -73,7 +86,6 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
-     *  
      */
     function get selected():Boolean;
     function set selected(value:Boolean):void;
@@ -88,7 +100,6 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
-     *  
      */
     function get showsCaret():Boolean;
     function set showsCaret(value:Boolean):void;    
