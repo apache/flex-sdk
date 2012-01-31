@@ -20,7 +20,7 @@ import mx.events.FlexEvent;
  *  The VideoPlayerVolumeBarMuteButton is a mute button 
  *  to be used inside the VideoPlayerVolumeBar.  The VideoPlayer
  *  hooks it up so that when the button is clicked it'll 
- *  mute/unmute the volume.  This button has a volume property 
+ *  mute/unmute the volume.  This button has a value property 
  *  so that the visuals of the button can change based on the 
  *  volume.
  *  
@@ -31,8 +31,8 @@ import mx.events.FlexEvent;
  */
 public class VideoPlayerVolumeBarMuteButton extends Button
 {   
-    	
-	/**
+        
+    /**
      *  Constructor. 
      *  
      *  @langversion 3.0
@@ -40,17 +40,17 @@ public class VideoPlayerVolumeBarMuteButton extends Button
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	public function VideoPlayerVolumeBarMuteButton()
-	{
-		super();
-	}
-	
-	//--------------------------------------------------------------------------
+    public function VideoPlayerVolumeBarMuteButton()
+    {
+        super();
+    }
+    
+    //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-	
+    
     //----------------------------------
     //  value
     //----------------------------------
