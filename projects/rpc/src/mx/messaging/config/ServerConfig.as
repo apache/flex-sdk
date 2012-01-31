@@ -165,6 +165,18 @@ public class ServerConfig
         _clusteredChannels = {};
         _unclusteredChannels = {};
     }
+    
+    //----------------------------------
+    //  channelSetFactory
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  A Class factory to use to generate auto-instantiated ChannelSet instances
+     *  as is done in getChannelSet(String).
+     *  Default factory is the base ChannelSet class.
+     */
+    public static var channelSetFactory:Class = ChannelSet;
                     
     //--------------------------------------------------------------------------
     //
