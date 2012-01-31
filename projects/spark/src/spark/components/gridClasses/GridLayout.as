@@ -1630,7 +1630,7 @@ public class GridLayout extends LayoutBase
             return;
         
         const x:Number = bounds.x;
-        const width:Number = bounds.width;
+        const width:Number = Math.max(bounds.width, visibleGridBounds.right);
         const y:Number = bounds.bottom; // TODO (klin): should center on gap here.
         layoutGridElement(separator, x, y, width, height);
     }
