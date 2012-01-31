@@ -41,6 +41,11 @@ use namespace mx_internal;
  * Note that HTTPService only provides methods which directly take the request body
  * and so does not use the "serializeParameters" method.
  * </p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SerializationFilter
 {
@@ -57,6 +62,11 @@ public class SerializationFilter
      * @param resultFormat A custom resultFormat name to be associated with the supplied
      * SerializationFilter.  
      * @param filter The SerializationFilter to register.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function registerFilterForResultFormat(resultFormat:String, filter:SerializationFilter):SerializationFilter
     {
@@ -83,6 +93,11 @@ public class SerializationFilter
      * @param result the raw result as returned from the server.  
      * @return the converted result which will then be supplied in the result event
      * for the service.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function deserializeResult(operation:AbstractOperation, result:Object):Object
     {
@@ -102,6 +117,11 @@ public class SerializationFilter
      * @param obj the body of the HTTP request being serialized
      * @param contentType the contentType configured for the operation
      * @return the content type to use for this HTTP request.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getRequestContentType(operation:AbstractOperation, obj:Object, contentType:String):String
     {
@@ -124,6 +144,11 @@ public class SerializationFilter
      * @param operation The AbstractOperation being invoked.
      * @param params the list of parameters passed to the send method
      * @return the body to be used in the HTTP request
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function serializeParameters(operation:AbstractOperation, params:Array):Object
     {
@@ -152,6 +177,11 @@ public class SerializationFilter
      * @param obj the initial body of the HTTP request, either the return value of serializeParameters or the parameter to the sendBody method
      * or the send method of HTTPService.
      * @return the potentially converted body to use in the request.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function serializeBody(operation:AbstractOperation, obj:Object):Object
     {
@@ -166,6 +196,11 @@ public class SerializationFilter
      * @param operation The AbstractOperation being invoked
      * @param url the URL set on the service or operation
      * @return the potentially modified URL to use for this request.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function serializeURL(operation:AbstractOperation, obj:Object, url:String):String
     {
