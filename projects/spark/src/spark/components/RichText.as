@@ -1079,7 +1079,7 @@ public class RichText extends TextBase implements IFontContextComponent
         }
         
         bounds = factory.getContentBounds();
-        _isTruncated = factory.isTruncated;
+        setIsTruncated(factory.isTruncated);
     }
 
     /**
