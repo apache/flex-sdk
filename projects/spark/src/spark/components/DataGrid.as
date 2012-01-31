@@ -54,6 +54,7 @@ import spark.events.GridCaretEvent;
 import spark.events.GridEvent;
 import spark.events.GridSelectionEvent;
 import spark.events.GridSelectionEventKind;
+import spark.events.GridSortEvent;
 
 use namespace mx_internal;
 
@@ -449,7 +450,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  <p>This event is dispatched when the user interacts with the control.
  *  When you change the selection programmatically, 
  *  the component does not dispatch the <code>selectionChange</code> event. 
- *  It dispatches the <code>valueCommit</code> event instead.</p>
+ *  In either case it dispatches the <code>valueCommit</code> event as well.</p>
  *
  *  @eventType spark.events.GridSelectionEvent.SELECTION_CHANGE
  *  
@@ -459,6 +460,44 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @productversion Flex 4.5
  */
 [Event(name="selectionChange", type="spark.events.GridSelectionEvent")]
+
+/**
+ *  Dispatched before the sort has been applied to the data provder's collection.
+ *  Calling the <code>preventDefault()</code> method
+ *  on the event prevents the sort from being applied.
+ *  Alternatively you can modify the <code>columnIndices</code> and 
+ *  <code>newSortFields</code> paramters of the event if you want to change the default 
+ *  behavior of the sort.
+ *  
+ *  <p>This event is dispatched when the user interacts with the control.
+ *  When you sort the data provider's collection programmatically, 
+ *  the component does not dispatch the <code>sortChanging</code> event. </p>
+ *
+ *  @eventType spark.events.GridSelectionEvent.SORT_CHANGING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="sortChanging", type="spark.events.GridSortEvent")]
+
+/**
+ *  Dispatched after the sort has been applied to the data provder's collection. 
+ *  
+ *  <p>This event is dispatched when the user interacts with the control.
+ *  When you sort the data provider's collection programmatically, 
+ *  the component does not dispatch the <code>sortChanging</code> event.
+ *  In either case it dispatches the <code>valueCommit</code> event as well.</p>
+ *
+ *  @eventType spark.events.GridSelectionEvent.SELECTION_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="sortChange", type="spark.events.GridSortEvent")]
 
 //--------------------------------------
 //  Edit Events
@@ -3467,14 +3506,26 @@ public class DataGrid extends SkinnableContainerBase
      * 
      *  @param columnIndices The indices of the columns by which to sort the <code>dataProvider</code>.
      * 
-     *  @return <code>true</code> if the <code>dataProvider</code> can be sorted with the provided column indices.
+     *  @param isInteractive If true, <code>GridSortEvent.SORT_CHANGING</code> and
+     *  <code>GridSortEvent.SORT_CHANGE</code> events are dispatched and the column header group 
+     *  <code>visibleSortIndicatorIndices</code> is updated with <code>columnIndices</code>.
+     * 
+     *  @return <code>true</code> if the <code>dataProvider</code> was sorted with the provided
+     *  column indicies.
+     * 
+     *  @see spark.components.DataGrid#dataProvider
+     *  @see spark.components.gridClasses.GridColumn#sortCompareFunction
+     *  @see spark.components.gridClasses.GridColumn#sortDescending
+     *  @see spark.components.gridClasses.GridColumn#sortField
+     *  @see spark.components.gridClasses.GridColumnHeaderGroup#visibleSortIndicatorIndices
+     *  @see spark.events.GridSortEvent
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function sortByColumns(columnIndices:Vector.<int>):Boolean
+    public function sortByColumns(columnIndices:Vector.<int>, isInteractive:Boolean=false):Boolean
     {
         const dataProvider:ICollectionView = this.dataProvider as ICollectionView;
         if (!dataProvider)
@@ -3486,14 +3537,50 @@ public class DataGrid extends SkinnableContainerBase
         else
             sort = new Sort();
         
-        var sortFields:Array = createSortFields(columnIndices, sort.fields);
+        var sortFields:Array = createSortFields(columnIndices, sort.fields, isInteractive);
         if (!sortFields)
             return false;
+        
+        var oldSortFields:Array = (dataProvider.sort) ? dataProvider.sort.fields : null;
+        
+        // Dispatch the "changing" event. If preventDefault() is called
+        // on this event, the sort operation will be cancelled.  If columnIndices or
+        // sortFields are changed, the new values will be used.
+        if (isInteractive)
+        {
+            // This is a shallow copy which means only the pointers to the ISortField objects
+            // are copied to the new Array, not the ISortField objects themselves.
+            if (oldSortFields)
+                oldSortFields = oldSortFields.concat();
+            
+            if (hasEventListener(GridSortEvent.SORT_CHANGING))
+            {
+                const changingEvent:GridSortEvent = 
+                    new GridSortEvent(GridSortEvent.SORT_CHANGING,
+                        false, true, 
+                        columnIndices, 
+                        oldSortFields,  /* intended to be read-only but no way to enforce this */
+                        sortFields); 
+                                
+                // The event was cancelled so don't sort.
+                if (!dispatchEvent(changingEvent))
+                    return false;
+                
+                // Update the sort columns since they might have changed.
+                columnIndices = changingEvent.columnIndices;
+                if (!columnIndices)
+                    return false;
+                
+                // Update the new sort fields since they might have changed.
+                sortFields = changingEvent.newSortFields;
+                if (!sortFields)
+                    return false;
+            }
+        }
         
         // Remove each old SortField that's not a member of the new sortFields Array
         // as a "styleClient" of this DataGrid.
         
-        const oldSortFields:Array = (dataProvider.sort) ? dataProvider.sort.fields : null;
         if (oldSortFields)
         {
             for each (var oldSortField:ISortField in oldSortFields)
@@ -3520,22 +3607,47 @@ public class DataGrid extends SkinnableContainerBase
         
         dataProvider.sort = sort;
         dataProvider.refresh();
+        
+        if (isInteractive)
+        {
+            // Dispatch the "change" event.
+            if (hasEventListener(GridSortEvent.SORT_CHANGE))
+            {
+                const changeEvent:GridSortEvent = 
+                    new GridSortEvent(GridSortEvent.SORT_CHANGE,
+                        false, true, 
+                        columnIndices, 
+                        oldSortFields, sortFields); 
+                dispatchEvent(changeEvent);
+            }
+            
+            // Update the visible sort indicators.
+            if (columnHeaderGroup)
+                columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;            
+        }           
+
+        // Dispatch the "valueCommit" event.
+        dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
+        
         return true;
     }
-
+    
     /**
      *  @private
      *  This function builds an array of SortFields based on the column
      *  indices given. The direction is based on the current value of
-     *  sortDescending from the column.
+     *  sortDescending from the column.  If preservePrevious is true,
+     *  previousFields will be considered read-only and, if necessary,
+     *  SortFields will be recreated rather than reused.
      */
-    private function createSortFields(columnIndices:Vector.<int>, previousFields:Array):Array
+    private function createSortFields(columnIndices:Vector.<int>, previousFields:Array, 
+                                      preservePrevious:Boolean):Array
     {
         if (columnIndices.length == 0)
             return null;
         
         var fields:Array = new Array();
-        
+         
         for each (var columnIndex:int in columnIndices)
         {
             var col:GridColumn = this.getColumnAt(columnIndex);
@@ -3559,18 +3671,18 @@ public class DataGrid extends SkinnableContainerBase
             // we've sorted by this column in the previous sort.
             if (!sortField && previousFields)
                 sortField = findSortField(dataField, previousFields, isComplexDataField);
-            
+            else
+                preservePrevious = false;
+                
             // Previously sorted column, so flip sortDescending.
             if (sortField)
-            {
                 sortDescending = !sortField.descending;
-            }
-            else
-            {
-                // Create a SortField from the column.
-                sortField = col.sortField;
-            }
             
+            // Create a SortField from the column.  If the sortField was found in the
+            // previousFields and we need to preserve them, create a new sort field for the column.
+            if (!sortField || preservePrevious)
+                sortField = col.sortField;
+                        
             col.sortDescending = sortDescending;
             sortField.descending = sortDescending;
             fields.push(sortField);
@@ -4277,8 +4389,9 @@ public class DataGrid extends SkinnableContainerBase
     
         const columnIndices:Vector.<int> = Vector.<int>([column.columnIndex]);
         
-        if (sortByColumns(columnIndices))
-            columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;
+        // If the sort isn't cancelled, will also update the columnHeaderGroup
+        // visibleSortIndiciatorIndices.
+        sortByColumns(columnIndices, true);
     }
     
     /**
