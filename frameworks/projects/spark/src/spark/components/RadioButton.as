@@ -12,7 +12,6 @@
 package mx.components
 {
 import flash.events.Event;
-import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
@@ -540,17 +539,6 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
     //  Overridden event handlers: UIComponent
     //
     //--------------------------------------------------------------------------
-    /**
-     *  @private
-     */
-    override protected function focusInHandler(event:FocusEvent):void
-    {
-        var fm:IFocusManager = focusManager;
-        if (fm)
-            fm.showFocusIndicator = enabled;
-        
-        super.focusInHandler(event);
-    }
     
     /**
      *  @private
