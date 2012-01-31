@@ -78,6 +78,11 @@ public class RGBInterpolator implements IInterpolator
     public function interpolate(fraction:Number, startValue:Object, 
         endValue:Object):Object
     {
+        // Quick test for start or end
+        if (fraction == 0)
+            return startValue;
+        else if (fraction == 1)
+            return endValue;
         var startR:int;
         var startG:int;
         var startB:int;
