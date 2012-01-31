@@ -693,9 +693,9 @@ public class GridSelection
         if (!selectAllFlag && cellRegionsLength == 1)
         {
             const cr:CellRect = cellRegions[0];
-            return (cr.y <= rowIndex && cr.x <= columnIndex &&
-                    cr.y + cr.height <= rowIndex + rowCount &&
-                    cr.x + cr.width <= columnIndex + columnCount);
+            return (rowIndex >= cr.top && columnIndex >= cr.left &&
+                    rowIndex + rowCount <= cr.bottom &&
+                    columnIndex + columnCount <= cr.right);
         }
         
         // Not a simple selection so we're going to have to check each cell.
