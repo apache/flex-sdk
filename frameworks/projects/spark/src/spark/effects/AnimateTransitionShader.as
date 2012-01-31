@@ -44,13 +44,13 @@ use namespace mx_internal;
  * by using Adobe Pixel Bender Toolkit.</p>
  *
  * <p>If either bitmap is
- * not supplied, that value will be determined dynamically from
+ * not supplied, that value is determined dynamically from
  * either the appropriate state of the target in a transition or, 
  * if the effect is not running in a transition, from the 
  * target directly. If
  * the effect is run in a transition and the target object either
  * goes away or comes into existence during that state change,
- * then a fully-transparent bitmap will be used to represent
+ * then a fully-transparent bitmap is used to represent
  * that object when it does not exist.</p>
  * 
  * <p>This effect can only be run on targets that are either 
@@ -60,20 +60,20 @@ use namespace mx_internal;
  * 
  * <p>Because the effect is bitmap-based, and the underlying
  * pixel-shader program expects both bitmaps to be the same size,
- * the effect will only work correctly when both bitmaps are
+ * the effect only works correctly when both bitmaps are
  * of the same size. This means that if the target object changes
  * size or changes orientation leading to a different size bounding
- * box, then the effect may not play correctly.</p>
+ * box, then the effect might not play correctly.</p>
  * 
  * <p>This effect and its subclasses differ from other effects in
  * Flex in that they are intended to work on their own, and may
  * not have the intended result when run in parallel with other effects.
  * This constraint comes from the fact that both of the before and after
- * bitmaps are captured prior to the start of the effect. So if something
+ * bitmaps are captured before the start of the effect. So if something
  * happens to the target object after these bitmaps are calculated,
  * such as another effect changing the target's properties, then those
- * changes will not be accounted for in the pre-calculated bitmap and
- * the results may not be as expected. To ensure correct playing of
+ * changes are not be accounted for in the pre-calculated bitmap and
+ * the results might not be as expected. To ensure correct playing of
  * these bitmap-based effects, they should be played alone on
  * their target objects.</p>
  *  
@@ -226,7 +226,7 @@ public class AnimateTransitionShader extends Animate
     
     /**
      * A map of parameter name/value pairs passed to the pixel-shader program 
-     * prior to playing. For example,
+     * before playing. For example,
      * to set a parameter named <code>direction</code> in a
      * shader with a Pixel Bender pbj file in Wipe.pbj, the calling 
      * code could do the following:
