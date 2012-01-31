@@ -152,7 +152,7 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  @private
      *  Since there is no id, generate one, if needed.
      */
-    private var name:String;
+    private var _name:String;
 
     /**
      *  @private
@@ -404,10 +404,10 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      */
     mx_internal function get name():String
     {
-        if (name == null)               
-            name = NameUtil.createUniqueName(this);
+        if (_name == null)               
+            _name = NameUtil.createUniqueName(this);
 
-        return name;
+        return _name;
     }
 
     /**
