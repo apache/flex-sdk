@@ -113,6 +113,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
     private static const FALSE:String = "false";
     private static const RECORD_MESSAGE_TIMES:String = "record-message-times";
     private static const RECORD_MESSAGE_SIZES:String = "record-message-sizes";
+    private static const REQUEST_TIMEOUT_SECONDS:String = "request-timeout-seconds";
     private static const SERIALIZATION:String = "serialization";
     private static const TRUE:String = "true";
 
@@ -727,6 +728,8 @@ public class Channel extends EventDispatcher implements IMXMLObject
                 _recordMessageTimes = props[RECORD_MESSAGE_TIMES].toString() == TRUE;
             if (props[RECORD_MESSAGE_SIZES].length() != 0)
                 _recordMessageSizes = props[RECORD_MESSAGE_SIZES].toString()== TRUE;
+            if (props[REQUEST_TIMEOUT_SECONDS].length() != 0)
+                requestTimeout = props[REQUEST_TIMEOUT_SECONDS].toString();
             var serializationProps:XMLList = props[SERIALIZATION];
             if (serializationProps.length() != 0 && serializationProps[ENABLE_SMALL_MESSAGES].toString()== FALSE)
            		    enableSmallMessages = false;
@@ -1017,14 +1020,13 @@ public class Channel extends EventDispatcher implements IMXMLObject
 
     /**
      *  @private
-     *  This is a hook for ChannelSet (not a MessageAgent) to send requests for 
-     *  clustered endpoints for a clustered destination and provide its own 
-     *  custom responder, rather than relying on the generic responders used by 
-     *  Channel implemenations.
+     *  This is a hook for ChannelSet (not a MessageAgent) to send internal messages. 
+     *  This is used for fetching info on clustered endpoints for a clustered destination
+     *  as well as for optional heartbeats, etc.
      * 
-     *  @param msgResp The message responder to use for the cluster request response.
+     *  @param msgResp The message responder to use for the internal message.
      */
-	mx_internal function sendClusterRequest(msgResp:MessageResponder):void
+    mx_internal function sendInternalMessage(msgResp:MessageResponder):void
 	{
 	    internalSend(msgResp);
 	}
