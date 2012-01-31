@@ -854,6 +854,11 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
      *  as specified in the server configuration. For example, if several DataService components
      *  are connected over an RTMP channel and <code>logout()</code> is invoked on one of them,
      *  all other client components that are connected using the same ChannelSet are also logged out.
+     *
+     *  <p><b>Note:</b> Adobe recommends that you use the mx.messaging.ChannelSet.logout() method
+     *  rather than this method. </p>
+     *
+     *  @see mx.messaging.ChannelSet#logout()   
      */
     public function logout():void
     {
