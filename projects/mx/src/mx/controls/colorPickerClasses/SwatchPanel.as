@@ -104,7 +104,7 @@ include "../../styles/metadata/TextStyles.as"
  *  Note that some components, like a Button, do not have a background
  *  because they are completely filled with the button face or other graphics.
  *  The DataGrid control also ignores this style.
- *  The default value is <code>undefined</code>. If both this style and the
+ *  The default value is <code>0xE5E6E7</code>. If both this style and the
  *  backgroundImage style are undefined, the control has a transparent background.
  *  
  *  @langversion 3.0
@@ -117,12 +117,8 @@ include "../../styles/metadata/TextStyles.as"
 /**
  *  Black section of a three-dimensional border, or the color section
  *  of a two-dimensional border.
- *  The following components support this style: Button, CheckBox,
- *  ComboBox, MenuBar,
- *  NumericStepper, ProgressBar, RadioButton, ScrollBar, Slider, and all
- *  components that support the <code>borderStyle</code> style.
- *  The default value depends on the component class;
- *  if not overriden for the class, it is <code>0xAAB3B3</code>.
+ * 
+ *  The default value is 0xA5A9AE.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -144,7 +140,7 @@ include "../../styles/metadata/TextStyles.as"
 
 /**
  *  Color of the control border highlight.
- *  The default value is <code>0xC4CCCC</code> (medium gray) .
+ *  The default value is <code>0xFFFFFF</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -156,6 +152,8 @@ include "../../styles/metadata/TextStyles.as"
 /**
  *  Number of pixels between the component's top border
  *  and the top edge of its content area.
+ *
+ *  @default 4
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -167,7 +165,9 @@ include "../../styles/metadata/TextStyles.as"
 /**
  *  Number of pixels between the component's bottom border
  *  and the bottom edge of its content area.
- *  
+ *
+ *  @default 5
+ *
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
@@ -189,7 +189,7 @@ include "../../styles/metadata/TextStyles.as"
 /**
  *  Bottom inside color of a button's skin.
  *  A section of the three-dimensional border.
- *  The default value is <code>0xEEEEEE</code> (light gray).
+ *  The default value is <code>0x4D555E</code> (light gray).
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
