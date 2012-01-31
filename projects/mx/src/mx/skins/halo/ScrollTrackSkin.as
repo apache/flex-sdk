@@ -13,7 +13,6 @@ package mx.skins.halo
 {
 
 import flash.display.GradientType;
-import mx.core.FlexVersion;
 import mx.skins.Border;
 import mx.styles.StyleManager;
 import mx.utils.ColorUtil;
@@ -106,7 +105,7 @@ public class ScrollTrackSkin extends Border
 		
 		var fillAlpha:Number = 1;
 		
-		if (name == "trackDisabledSkin" && FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
+		if (name == "trackDisabledSkin")
 			fillAlpha = .2;
 		
 		// border
