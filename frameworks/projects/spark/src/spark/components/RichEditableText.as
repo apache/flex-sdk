@@ -117,6 +117,8 @@ include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
  *  
  *  @see mx.graphics.TextBox
  *  @see mx.graphics.TextGraphic
+ *
+ *  @includeExample examples/TextViewExample.mxml
  */
 public class TextView extends UIComponent implements IViewport
 {
