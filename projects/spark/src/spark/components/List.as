@@ -40,9 +40,6 @@ public class FxList extends FxListBase
 {
     include "../core/Version.as";
 
-    // Force a dependency on scroller to work around bug SDK-17222
-    private static var scrollerDep:FxScroller;
-    
     //--------------------------------------------------------------------------
     //
     //  Constants
