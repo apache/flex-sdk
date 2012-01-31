@@ -3419,7 +3419,7 @@ public class ListBase extends ScrollControlBase
 
     [Bindable("change")]
     [Bindable("valueCommit")]
-    [Inspectable(environment="none")]
+    [Inspectable(category="General", defaultValue="null")]
 
     /**
      *  A reference to the selected item in the data provider.
@@ -3462,7 +3462,7 @@ public class ListBase extends ScrollControlBase
 
     [Bindable("change")]
     [Bindable("valueCommit")]
-    [Inspectable(environment="none")]
+    [Inspectable(category="General")]
 
     /**
      *  An array of references to the selected items in the data provider. The
