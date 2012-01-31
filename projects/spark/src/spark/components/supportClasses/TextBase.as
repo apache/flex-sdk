@@ -540,6 +540,7 @@ public class TextGraphicElement extends GraphicElement
     
     /**
      *  Documentation is not currently available.
+     *  This property is ignored if lineBreak="explicit".
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
