@@ -27,6 +27,7 @@ import mx.messaging.config.LoaderConfig;
 import mx.messaging.events.MessageEvent;
 import mx.messaging.messages.AsyncMessage;
 import mx.messaging.messages.HTTPRequestMessage;
+import mx.netmon.NetworkMonitor;
 import mx.messaging.messages.IMessage;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
@@ -666,6 +667,12 @@ function xmlEncoder (myObj)
                 message.url = URLUtil.getFullURL(rootURL, url);
             }
 
+            if (NetworkMonitor.isMonitoring())
+            {
+		    //trace(" HTTPService: Recording Headers (useProxy = true)");
+                message.recordHeaders = true;    
+            }
+
         }
         else
         {
@@ -686,7 +693,13 @@ function xmlEncoder (myObj)
                 if (dcs != asyncRequest.channelSet)
                     asyncRequest.channelSet = dcs;
             }
-            
+
+            if (NetworkMonitor.isMonitoring())
+	      {
+	    		//trace(" HTTPService: Recording Headers (useProxy = false)");
+	        	message.recordHeaders = true;    
+            }
+
             message.url = URLUtil.getFullURL(rootURL, url);
         }
 
