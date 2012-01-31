@@ -14,8 +14,9 @@ package mx.accessibility
 
 import flash.accessibility.Accessibility;
 import flash.events.Event;
-import mx.collections.ICollectionView;
+
 import mx.collections.CursorBookmark;
+import mx.collections.ICollectionView;
 import mx.collections.IViewCursor;
 import mx.controls.Tree;
 import mx.controls.listClasses.IListItemRenderer;
@@ -185,8 +186,8 @@ public class TreeAccImpl extends AccImpl
 	 *  @private
 	 *  IAccessible method for returning the value of the TreeItem/Tree
 	 *  which is spoken out by the screen reader
-	 *  The Tree should return the name of the currently selected item
-	 *  with m of n string with level info as value when focus moves to Tree.
+	 *  A Tree item reports its depth as its value.
+	 *  The Tree itself reports no value.
 	 *
 	 *  @param childID uint
 	 *
@@ -196,36 +197,19 @@ public class TreeAccImpl extends AccImpl
 	{
 		var accValue:String;
 		
-		var tree:Tree = Tree(master);
-		var index:int;
-		var item:Object;
-
-		if (childID == 0)
-		{
-			index = tree.selectedIndex;
-			if (index > -1)
-			{
-				item = getItemAt(index);
-				if (!item)
-					return accValue;
-				
-				if (tree.itemToLabel(item))
-					accValue = tree.itemToLabel(item)
-				
-				accValue += getMOfN(item);
-			}
-		}
-		else
+		if (childID != 0)
 		{
 			// Assuming childID is always ItemID + 1
 			// because getChildIDArray is not always invoked.
-			index = childID - 1;
-			
-			item = getItemAt(index);
+			var index:int = childID - 1;
+			var item:Object = getItemAt(index);
 			if (!item)
 				return accValue;
 			
-			accValue = tree.getItemDepth(item, index - tree.verticalScrollPosition) + "";
+			var tree:Tree = Tree(master);
+			var depth:int = tree.getItemDepth(
+				item, index - tree.verticalScrollPosition);
+			accValue = String(depth - 1);
 		}
 
 		return accValue;
