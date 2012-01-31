@@ -17,6 +17,7 @@ import flex.core.SkinnableComponent;
 import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
 
+import mx.collections.IList;
 import mx.core.IFactory;
 import mx.managers.IFocusManagerContainer;
 
@@ -79,16 +80,53 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	
 	[SkinPart]
 	public var contentGroup:Group;
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Properties 
+	//
+	//--------------------------------------------------------------------------
 
+	// Used to hold the content until the contentGroup is created. 
+	private var _placeHolderGroup:Group;
+	
+	protected function get currentContentGroup():Group
+	{
+		if (!contentGroup)
+		{
+			if (!_placeHolderGroup)
+			{
+				_placeHolderGroup = new Group();
+				
+				if (_content)
+					_placeHolderGroup.content = _content;
+				
+				_placeHolderGroup.addEventListener(
+					ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
+				_placeHolderGroup.addEventListener(
+					ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
+				_placeHolderGroup.addEventListener(
+				    FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
+				_placeHolderGroup.addEventListener(
+				    FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
+			}
+			return _placeHolderGroup;
+		}
+		else
+		{
+			return contentGroup;	
+		}
+	}
+	
 	//--------------------------------------------------------------------------
 	//
 	//  Properties proxied to contentHolder
 	//
 	//--------------------------------------------------------------------------
-	
+		
 	//----------------------------------
 	//  content
-	//----------------------------------
+	//----------------------------------	
 	
 	private var _content:*;
 	
@@ -97,11 +135,13 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	 */
 	[Bindable]
 	public function get content():*
-	{
+	{		
 		if (contentGroup)
 			return contentGroup.content;
-		
-		return _content;
+		else if (_placeHolderGroup)
+			return _placeHolderGroup.content;
+		else
+			return _content; 
 	}
 	
 	public function set content(value:*):void
@@ -109,10 +149,12 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 		if (value == _content)
 			return;
 			
-		_content = value;
+		_content = value;	
 		
 		if (contentGroup)
-			contentGroup.content = _content;
+			contentGroup.content = value;
+		else if (_placeHolderGroup)
+			_placeHolderGroup.content = value;
 	}
 	
 	//----------------------------------
@@ -210,10 +252,7 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	 */
 	public function get numItems():int
 	{
-		if (!contentGroup)
-			return 0;
-		
-		return contentGroup.numItems;
+		return currentContentGroup.numItems;
 	}
 	
 	/**
@@ -221,10 +260,7 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	 */
 	public function getItemAt(index:int):*
 	{
-		if (!contentGroup)
-			return null;
-		
-		return contentGroup.getItemAt(index);
+		return currentContentGroup.getItemAt(index);
 	}
 	
 	/**
@@ -232,10 +268,7 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	 */
 	public function addItem(item:*):*
 	{
-		if (!contentGroup)
-			return null;
-		
-		return contentGroup.addItem(item);
+		return currentContentGroup.addItem(item);
 	}
 	
 	/**
@@ -243,10 +276,7 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	 */
 	public function addItemAt(item:*, index:int):*
 	{
-		if (!contentGroup)
-			return null;
-		
-		return contentGroup.addItemAt(item, index);
+		return currentContentGroup.addItemAt(item, index);
 	}
 	
 	/**
@@ -254,10 +284,7 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	 */
 	public function removeItem(item:*):*
 	{
-		if (!contentGroup)
-			return null;
-		
-		return contentGroup.removeItem(item);
+		return currentContentGroup.removeItem(item);
 	}
 	
 	/**
@@ -265,10 +292,7 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	 */
 	public function removeItemAt(index:int):*
 	{
-		if (!contentGroup)
-			return null;
-		
-		return contentGroup.removeItemAt(index);
+		return currentContentGroup.removeItemAt(index);
 	}
 	
 	/**
@@ -276,10 +300,7 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	 */
 	public function getItemIndex(item:*):int
 	{
-		if (!contentGroup)
-			return -1;
-		
-		return contentGroup.getItemIndex(item);
+		return currentContentGroup.getItemIndex(item);
 	}
 	
 	/**
@@ -287,10 +308,7 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	 */
 	public function setItemIndex(item:*, index:int):void
 	{
-		if (!contentGroup)
-			return;
-		
-		contentGroup.setItemIndex(item, index);
+		currentContentGroup.setItemIndex(item, index);
 	}
 	
 	/**
@@ -298,10 +316,7 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	 */
 	public function swapItems(item1:*, item2:*):void
 	{
-		if (!contentGroup)
-			return;
-		
-		contentGroup.swapItems(item1, item2);
+		currentContentGroup.swapItems(item1, item2);
 	}
 	
 	/**
@@ -309,10 +324,7 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	 */
 	public function swapItemsAt(index1:*, index2:*):void
 	{
-		if (!contentGroup)
-			return;
-		
-		contentGroup.swapItemsAt(index1, index2);
+		currentContentGroup.swapItemsAt(index1, index2);
 	}
 
 	//--------------------------------------------------------------------------
@@ -331,8 +343,29 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 	{
 		if (instance == contentGroup)
 		{
-			if (_content != undefined)
+			if (_placeHolderGroup != null)
+			{
+				var sourceContent:Array = _placeHolderGroup.content as Array;
+				
+				if (sourceContent)
+					contentGroup.content = sourceContent.slice();
+				else if (_placeHolderGroup.content is IList)
+					throw new Error("ItemsComponent can not currently handle content of type " + 
+							"IList when adding children dynamically. Please discuss with Jason Szeto");
+				else
+					contentGroup.content = _placeHolderGroup.content;
+				
+				// Temporary workaround because copying content from one Group to another throws RTE
+				for (var i:int = _placeHolderGroup.numItems; i > 0; i--)
+				{
+					_placeHolderGroup.removeItemAt(0);	
+				}
+				
+			}
+			else if (_content != undefined)
+			{
 				contentGroup.content = _content;
+			}
 			if (_layout != null)
 				contentGroup.layout = _layout;
 			if (_itemRenderer != null || _itemRendererFunction != null)
@@ -349,6 +382,20 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 			    FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
 			contentGroup.addEventListener(
 			    FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
+			
+			if (_placeHolderGroup)
+			{
+				_placeHolderGroup.removeEventListener(
+					ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
+				_placeHolderGroup.removeEventListener(
+					ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
+				_placeHolderGroup.removeEventListener(
+				    FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
+				_placeHolderGroup.removeEventListener(
+				    FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
+				
+				_placeHolderGroup = null;
+			}
 		}
 	}
 
@@ -369,6 +416,7 @@ public class ItemsComponent extends SkinnableComponent implements IFocusManagerC
 			    FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
 		}
 	}
+		
 	
 	//--------------------------------------------------------------------------
 	//
