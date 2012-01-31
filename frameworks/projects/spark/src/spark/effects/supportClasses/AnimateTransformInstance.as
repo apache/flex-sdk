@@ -14,13 +14,13 @@ package spark.effects.effectClasses
 import flash.geom.Vector3D;
 
 import mx.core.mx_internal;
-import mx.effects.Animation;
-import mx.effects.AnimationProperty;
+import spark.effects.animation.Animation;
+import spark.effects.animation.AnimationProperty;
 import mx.effects.Effect;
-import mx.effects.FxAnimate;
-import mx.effects.effectClasses.FxAnimateInstance;
-import mx.effects.interpolation.IEaser;
-import mx.effects.interpolation.Linear;
+import spark.effects.Animate;
+import spark.effects.supportClasses.AnimateInstance;
+import spark.effects.easing.IEaser;
+import spark.effects.easing.Linear;
 
 import spark.effects.KeyFrame;
 import spark.effects.MotionPath;
@@ -30,7 +30,7 @@ use namespace mx_internal;
 /**
  * The instance of the AnimateTransform effect
  */
-public class AnimateTransformInstance extends FxAnimateInstance
+public class AnimateTransformInstance extends AnimateInstance
 {
     //--------------------------------------------------------------------------
     //
