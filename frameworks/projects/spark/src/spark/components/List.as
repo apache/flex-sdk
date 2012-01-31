@@ -269,7 +269,22 @@ public class FxList extends FxListBase
             }
         }
     }
-    
+    	
+	/**
+	 *  Returns true if the item is selected.
+	 */
+    public function isItemSelected(item:Object):Boolean
+    {
+        if (allowMultipleSelection)
+        {
+            var itemIndex:int = dataProvider.getItemIndex(item);
+            
+            return selectedIndices.indexOf(itemIndex) != -1;
+        }
+        
+        return item == selectedItem;
+    }
+        
     /**
      *  @inheritDoc
      */
@@ -401,6 +416,9 @@ public class FxList extends FxListBase
         
         if (renderer)
             renderer.addEventListener("click", item_clickHandler);
+            
+        if (isItemSelected(event.relatedObject))
+            itemSelected(event.relatedObject, true);
     }
     
     /**
