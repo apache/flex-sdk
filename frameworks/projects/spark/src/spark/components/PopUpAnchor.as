@@ -426,7 +426,7 @@ public class PopUpAnchor extends UIComponent
     //
     //-------------------------------------------------------------------------- 
     
-    // TODO (jszeto) Rename to not use 'state'
+    // FIXME (jszeto): Rename to not use 'state'
     /**
      *  @private 
      */
