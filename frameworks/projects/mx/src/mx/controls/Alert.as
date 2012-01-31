@@ -218,35 +218,35 @@ public class Alert extends Panel
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the resourceManager getter.
-	 *  This gets initialized on first access,
-	 *  not at static initialization time, in order to ensure
-	 *  that the Singleton registry has already been initialized.
-	 */
-	private static var _resourceManager:IResourceManager;
-	
-	/**
-	 *  @private
+    /**
+     *  @private
+     *  Storage for the resourceManager getter.
+     *  This gets initialized on first access,
+     *  not at static initialization time, in order to ensure
+     *  that the Singleton registry has already been initialized.
+     */
+    private static var _resourceManager:IResourceManager;
+    
+    /**
+     *  @private
      *  A reference to the object which manages
      *  all of the application's localized resources.
      *  This is a singleton instance which implements
      *  the IResourceManager interface.
-	 */
-	private static function get resourceManager():IResourceManager
-	{
-		if (!_resourceManager)
-			_resourceManager = ResourceManager.getInstance();
+     */
+    private static function get resourceManager():IResourceManager
+    {
+        if (!_resourceManager)
+            _resourceManager = ResourceManager.getInstance();
 
-		return _resourceManager;
-	}
-	
-	/**
-	 *  @private
-	 */
-	private static var initialized:Boolean = false;
-	
+        return _resourceManager;
+    }
+    
+    /**
+     *  @private
+     */
+    private static var initialized:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Class properties
@@ -282,7 +282,7 @@ public class Alert extends Panel
      *  Width of each Alert button, in pixels.
      *  All buttons must be the same width.
      *
-     *  @default 60
+     *  @default 65
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -296,15 +296,15 @@ public class Alert extends Panel
     //----------------------------------
     
     /**
-	 *  @private
-	 *  Storage for the cancelLabel property.
-	 */
-	private static var _cancelLabel:String;
-	
+     *  @private
+     *  Storage for the cancelLabel property.
+     */
+    private static var _cancelLabel:String;
+    
     /**
-	 *  @private
-	 */
-	private static var cancelLabelOverride:String;
+     *  @private
+     */
+    private static var cancelLabelOverride:String;
 
     [Inspectable(category="General")]
 
@@ -321,40 +321,40 @@ public class Alert extends Panel
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public static function get cancelLabel():String
-	{
-		initialize();
-		
-		return _cancelLabel;
-	}
+    public static function get cancelLabel():String
+    {
+        initialize();
+        
+        return _cancelLabel;
+    }
 
-	/**
-	 *  @private
-	 */
-	public static function set cancelLabel(value:String):void
-	{
-		cancelLabelOverride = value;
+    /**
+     *  @private
+     */
+    public static function set cancelLabel(value:String):void
+    {
+        cancelLabelOverride = value;
 
-		_cancelLabel = value != null ?
-					   value :
-					   resourceManager.getString(
-					       "controls", "cancelLabel");
-	}
+        _cancelLabel = value != null ?
+                       value :
+                       resourceManager.getString(
+                           "controls", "cancelLabel");
+    }
     
     //----------------------------------
     //  noLabel
     //----------------------------------
     
     /**
-	 *  @private
-	 *  Storage for the noLabel property.
-	 */
-	private static var _noLabel:String;
-	
+     *  @private
+     *  Storage for the noLabel property.
+     */
+    private static var _noLabel:String;
+    
     /**
-	 *  @private
-	 */
-	private static var noLabelOverride:String;
+     *  @private
+     */
+    private static var noLabelOverride:String;
 
     [Inspectable(category="General")]
 
@@ -371,40 +371,40 @@ public class Alert extends Panel
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public static function get noLabel():String
-	{
-		initialize();
-		
-		return _noLabel;
-	}
+    public static function get noLabel():String
+    {
+        initialize();
+        
+        return _noLabel;
+    }
 
-	/**
-	 *  @private
-	 */
-	public static function set noLabel(value:String):void
-	{
-		noLabelOverride = value;
+    /**
+     *  @private
+     */
+    public static function set noLabel(value:String):void
+    {
+        noLabelOverride = value;
 
-		_noLabel = value != null ?
-				   value :
-				   resourceManager.getString(
-				      "controls", "noLabel");
-	}
+        _noLabel = value != null ?
+                   value :
+                   resourceManager.getString(
+                      "controls", "noLabel");
+    }
 
     //----------------------------------
     //  okLabel
     //----------------------------------
 
     /**
-	 *  @private
-	 *  Storage for the okLabel property.
-	 */
-	private static var _okLabel:String;
-	
+     *  @private
+     *  Storage for the okLabel property.
+     */
+    private static var _okLabel:String;
+    
     /**
-	 *  @private
-	 */
-	private static var okLabelOverride:String;
+     *  @private
+     */
+    private static var okLabelOverride:String;
 
     [Inspectable(category="General")]
 
@@ -421,40 +421,40 @@ public class Alert extends Panel
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public static function get okLabel():String
-	{
-		initialize();
-		
-		return _okLabel;
-	}
+    public static function get okLabel():String
+    {
+        initialize();
+        
+        return _okLabel;
+    }
 
-	/**
-	 *  @private
-	 */
-	public static function set okLabel(value:String):void
-	{
-		okLabelOverride = value;
+    /**
+     *  @private
+     */
+    public static function set okLabel(value:String):void
+    {
+        okLabelOverride = value;
 
-		_okLabel = value != null ?
-				   value :
-				   resourceManager.getString(
-				       "controls", "okLabel");
-	}
+        _okLabel = value != null ?
+                   value :
+                   resourceManager.getString(
+                       "controls", "okLabel");
+    }
 
     //----------------------------------
     //  yesLabel
     //----------------------------------
     
     /**
-	 *  @private
-	 *  Storage for the yesLabel property.
-	 */
-	private static var _yesLabel:String;
-	
+     *  @private
+     *  Storage for the yesLabel property.
+     */
+    private static var _yesLabel:String;
+    
     /**
-	 *  @private
-	 */
-	private static var yesLabelOverride:String;
+     *  @private
+     */
+    private static var yesLabelOverride:String;
 
     [Inspectable(category="General")]
 
@@ -471,25 +471,25 @@ public class Alert extends Panel
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public static function get yesLabel():String
-	{
-		initialize();
-		
-		return _yesLabel;
-	}
+    public static function get yesLabel():String
+    {
+        initialize();
+        
+        return _yesLabel;
+    }
 
-	/**
-	 *  @private
-	 */
-	public static function set yesLabel(value:String):void
-	{
-		yesLabelOverride = value;
+    /**
+     *  @private
+     */
+    public static function set yesLabel(value:String):void
+    {
+        yesLabelOverride = value;
 
-		_yesLabel = value != null ?
-					value :
-					resourceManager.getString(
-						"controls", "yesLabel");
-	}
+        _yesLabel = value != null ?
+                    value :
+                    resourceManager.getString(
+                        "controls", "yesLabel");
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -564,9 +564,9 @@ public class Alert extends Panel
         if (!parent)
         {
             var sm:ISystemManager = ISystemManager(FlexGlobals.topLevelApplication.systemManager);
-		    // no types so no dependencies
-		    var mp:Object = sm.getImplementation("mx.managers.IMarshallPlanSystemManager");
-		    if (mp && mp.useSWFBridge())
+            // no types so no dependencies
+            var mp:Object = sm.getImplementation("mx.managers.IMarshallPlanSystemManager");
+            if (mp && mp.useSWFBridge())
                 parent = Sprite(sm.getSandboxRoot());
             else
                 parent = Sprite(FlexGlobals.topLevelApplication);
@@ -597,11 +597,11 @@ public class Alert extends Panel
         if (closeHandler != null)
             alert.addEventListener(CloseEvent.CLOSE, closeHandler);
 
-		// Setting a module factory allows the correct embedded font to be found.
+        // Setting a module factory allows the correct embedded font to be found.
         if (moduleFactory)
             alert.moduleFactory = moduleFactory;    
         else if (parent is IFlexModule)
-        	alert.moduleFactory = IFlexModule(parent).moduleFactory;
+            alert.moduleFactory = IFlexModule(parent).moduleFactory;
         else
         {
             if (parent is IFlexModuleFactory)
@@ -620,33 +620,33 @@ public class Alert extends Panel
         return alert;
     }
 
-	/**
-	 *  @private    
+    /**
+     *  @private    
      */
-	private static function initialize():void
-	{
-		if (!initialized)
-		{
-			// Register as a weak listener for "change" events
-			// from ResourceManager.
-			resourceManager.addEventListener(
-				Event.CHANGE, static_resourceManager_changeHandler,
-				false, 0, true);
+    private static function initialize():void
+    {
+        if (!initialized)
+        {
+            // Register as a weak listener for "change" events
+            // from ResourceManager.
+            resourceManager.addEventListener(
+                Event.CHANGE, static_resourceManager_changeHandler,
+                false, 0, true);
 
-			static_resourcesChanged();
+            static_resourcesChanged();
 
-			initialized = true;
-		}
-	}
+            initialized = true;
+        }
+    }
 
     /**
      *  @private    
      */
     private static function static_resourcesChanged():void
     {
-		cancelLabel = cancelLabelOverride;
+        cancelLabel = cancelLabelOverride;
         noLabel = noLabelOverride;
-		okLabel = okLabelOverride;
+        okLabel = okLabelOverride;
         yesLabel = yesLabelOverride;
     }
     
@@ -657,13 +657,13 @@ public class Alert extends Panel
     //--------------------------------------------------------------------------
 
     /**
-	 *  @private
-	 */
-	private static function static_resourceManager_changeHandler(
-									event:Event):void
-	{
-		static_resourcesChanged();
-	}
+     *  @private
+     */
+    private static function static_resourceManager_changeHandler(
+                                    event:Event):void
+    {
+        static_resourcesChanged();
+    }
 
  
     /**
@@ -734,7 +734,7 @@ public class Alert extends Panel
     /**
      *  A bitmask that contains <code>Alert.OK</code>, <code>Alert.CANCEL</code>, 
      *  <code>Alert.YES</code>, and/or <code>Alert.NO</code> indicating
-	 *  the buttons available in the Alert control.
+     *  the buttons available in the Alert control.
      *
      *  @default Alert.OK
      *  
@@ -907,12 +907,12 @@ public class Alert extends Panel
     /**
      *  @private
      */
-	override protected function resourcesChanged():void
-	{
-		super.resourcesChanged();
+    override protected function resourcesChanged():void
+    {
+        super.resourcesChanged();
 
-		static_resourcesChanged();
-	}
+        static_resourcesChanged();
+    }
 }
 
 }
