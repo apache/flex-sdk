@@ -12,7 +12,6 @@
 package spark.components.supportClasses
 {
 import flash.events.Event;
-
 import mx.events.FlexEvent;
 import spark.events.RendererExistenceEvent;
 
@@ -20,6 +19,7 @@ import mx.collections.IList;
 import spark.components.SkinnableDataContainer;
 import spark.components.IItemRendererOwner; 
 import spark.components.IItemRenderer; 
+import spark.layouts.supportClasses.LayoutBase;
 import mx.core.IVisualElement;
 import mx.events.IndexChangedEvent;
 import mx.events.CollectionEvent;
@@ -469,7 +469,63 @@ public class ListBase extends SkinnableDataContainer
             
         _selectUponNavigation = value;
     }
+    
+    
+    //----------------------------------
+    //  useVirtualLayout
+    //----------------------------------
 
+    /**
+     *  @private
+     */
+    private var _useVirtualLayout:Boolean = false;
+    
+    /**
+     *  A convenience that delegates to <code>layout.useVirtualLayout</code>.  
+     *  If this list's layout is subsequently replaced and the value of this 
+     *  property is true, then then the new layout's <code>useVirtualLayout</code> property 
+     *  will also be true.
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get useVirtualLayout():Boolean
+    {
+        return (layout) ? layout.useVirtualLayout : _useVirtualLayout;
+    }
+
+    /**
+     *  @private
+     *  Note: this property deviates a little from the conventional delegation pattern.
+     *  If the user explicitly sets ListBase.useVirtualLayout=false and then sets
+     *  the layout property to a layout with useVirtualLayout=true, the layout's value
+     *  for this property trumps the ListBase.  The convention dictates opposite
+     *  however in this case, always honoring the layout's useVirtalLayout property seems 
+     *  less likely to cause confusion.
+     */
+    public function set useVirtualLayout(value:Boolean):void
+    {
+        if (value == useVirtualLayout)
+            return;
+            
+        _useVirtualLayout = value;
+        if (layout)
+            layout.useVirtualLayout = value;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set layout(value:LayoutBase):void
+    {
+        if (useVirtualLayout)
+            value.useVirtualLayout = true;
+        super.layout = value;
+    }
 
     //--------------------------------------------------------------------------
     //
