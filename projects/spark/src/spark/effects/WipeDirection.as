@@ -33,7 +33,7 @@ public class WipeDirection
     //--------------------------------------------------------------------------
 
     /**
-     * Wipe direction that starts at the left and moves right
+     *  Wipe direction that starts at the left and moves right
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -43,7 +43,7 @@ public class WipeDirection
     public static const RIGHT:String = "right";
 
     /**
-     * Wipe direction that starts at the bottom and moves up
+     *  Wipe direction that starts at the bottom and moves up
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -53,7 +53,7 @@ public class WipeDirection
     public static const UP:String = "up";
 
     /**
-     * Wipe direction that starts at the right and moves left
+     *  Wipe direction that starts at the right and moves left
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -63,7 +63,7 @@ public class WipeDirection
     public static const LEFT:String = "left";
 
     /**
-     * Wipe direction that starts at the top and moves down
+     *  Wipe direction that starts at the top and moves down
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
