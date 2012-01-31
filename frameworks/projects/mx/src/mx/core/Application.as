@@ -95,7 +95,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  A value of <code>undefined</code> means background gradient is generated
  *  based on the <code>backgroundColor</code> property.
  *
- *  @default undefined 
+ *  @default [0xFFFFFF, 0xFFFFFF] 
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -215,7 +215,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  * 
  *    <strong>Styles</strong> 
  *    backgroundGradientAlphas="[ 1.0, 1.0 ]"
- *    backgroundGradientColors="undefined"
+ *    backgroundGradientColors="[0xFFFFFF, 0xFFFFFF]"
  *    horizontalAlign="center|left|right"
  *    horizontalGap="8"
  *    modalTransparency="0.5"
@@ -443,8 +443,11 @@ public class Application extends LayoutContainer
     /**
      *    Specifies a string that appears in the title bar of the browser.
      *    This property provides the same functionality as the
-     *    HTML <code>&lt;title&gt;</code> tag.
-     *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     *    HTML <code>&lt;title&gt;</code> tag. 
+     * 
+     *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code. 
+     * 	  The value set in MXML code is designed to be used by a tool to update the HTML templates 
+     *    provided with the SDK.</p>
      *
      *    @default ""
      *  
