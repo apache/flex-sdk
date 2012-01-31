@@ -412,10 +412,6 @@ public class List extends ListBase implements IFocusManagerComponent
             dataGroup.addEventListener(
                 RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
         }
-        // The scroller, between textView and this in the chain, should not 
-        // getFocus.
-        if (instance == scroller)
-            scroller.focusEnabled = false;
     }
 
     /**
