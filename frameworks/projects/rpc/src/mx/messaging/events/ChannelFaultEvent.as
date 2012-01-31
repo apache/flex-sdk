@@ -110,6 +110,12 @@ public class ChannelFaultEvent extends ChannelEvent
      *  added at the end of the argument list to preserve backward compatibility even though this signature differs from 
      *  <code>ChannelEvent</code>'s constructor.
      * 
+     *  @param type The type of the event.
+     *
+     *  @param bubbles Indicates whether the event can bubble up the display list hierarchy.
+     *
+     *  @param cancelable Indicates whether the behavior associated with the event can be prevented.
+     *
      *  @param channel The Channel generating the event.
      * 
      *  @param reconnecting Indicates whether the Channel is in the process of
