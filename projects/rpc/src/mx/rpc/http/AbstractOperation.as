@@ -168,7 +168,14 @@ public class AbstractOperation extends mx.rpc.AbstractOperation
      *  <code>OPTIONS</code>, <code>PUT</code>, <code>TRACE</code> and <code>DELETE</code>.
      *  Lowercase letters are converted to uppercase letters. The default value is <code>GET</code>.
      */
-    public var method:String = HTTPRequestMessage.GET_METHOD;
+    public function get method():String
+    {
+        return _method;
+    }
+    public function set method(m:String):void
+    {
+        _method = m;
+    }
 
     [Inspectable(enumeration="multiple,single,last", defaultValue="multiple", category="General")]
     /**
@@ -961,6 +968,8 @@ function xmlEncoder (myObj)
     private static var _directChannelSet:ChannelSet;
     
     private var _concurrency:String;
+
+    private var _method:String = HTTPRequestMessage.GET_METHOD;
     
     private var _showBusyCursor:Boolean;
 
