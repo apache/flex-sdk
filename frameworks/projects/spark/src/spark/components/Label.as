@@ -31,6 +31,8 @@ include "../styles/metadata/BasicContainerFormatTextStyles.as"
 include "../styles/metadata/BasicParagraphFormatTextStyles.as"
 include "../styles/metadata/BasicCharacterFormatTextStyles.as"
 
+[IconFile("TextBox.png")]
+
 /**
  *  A box, specified in the parent Group element's coordinate space, that contains text.
  *  
