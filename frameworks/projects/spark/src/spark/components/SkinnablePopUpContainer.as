@@ -894,6 +894,8 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      */
     private function softKeyboardActivateHandler(event:SoftKeyboardEvent=null):void
     {
+        var isFirstActivate:Boolean = false;
+        
         // Save the original y-position and height if this is the first 
         // ACTIVATE event and an existing deactivate effect is not already in
         // progress.
@@ -907,6 +909,8 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             
             // reset cached keyboard height
             cachedKeyboardHeight = 0;
+            
+            isFirstActivate = true;
         }
         
         var smStage:Stage = systemManager.stage;
@@ -999,7 +1003,15 @@ public class SkinnablePopUpContainer extends SkinnableContainer
                 smStage.addEventListener("orientationChange", stage_orientationHandler);
             }
 
-            prepareEffect(yToLocal, heightToLocal);
+            // Disable the effect and instead snap the pop-up position when 
+            // the keyboard size changes after the first activation. This 
+            // allows the StageText instance to stay active instead of being
+            // hidden by a bitmap proxy. This solves an issue on Android
+            // where a keyboard size change causes a pop-up resize, then the
+            // resize effect and subsequent bitmap proxy cause the keyboard
+            // size to revert, effectively killing auto correction.
+            // See SDK-31834.
+            prepareEffect(yToLocal, heightToLocal, !isFirstActivate);
         }
     }
     
@@ -1172,7 +1184,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         // activated again while the deactivate effect is playing. In that case,
         // we want to save the cached positions from the first activation.
         var deactivateComplete:Boolean = 
-            (!isSoftKeyboardEffectActive && (event.type == EffectEvent.EFFECT_END));
+            (!isSoftKeyboardEffectActive && (event && (event.type == EffectEvent.EFFECT_END)));
         
         if (!event || deactivateComplete)
         {
@@ -1213,7 +1225,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     /**
      *  @private
      */
-    private function prepareEffect(yTo:Number, heightTo:Number):void
+    private function prepareEffect(yTo:Number, heightTo:Number, snapPosition:Boolean=false):void
     {
         // stop the current effect
         if (effect && effect.isPlaying)
@@ -1221,7 +1233,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         
         var duration:Number = getStyle("softKeyboardEffectDuration");
         
-        if (duration > 0)
+        if ((duration > 0) && !snapPosition)
             effect = createSoftKeyboardEffect(yTo, heightTo);
         
         // Stop looking for explicitHeight changes. The Resize effect or
