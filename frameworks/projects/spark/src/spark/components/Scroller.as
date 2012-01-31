@@ -1803,11 +1803,13 @@ public class Scroller extends SkinnableComponent
                 hideScrollBarAnimation.stop();
             }
             
+            // We only show want the scroll bars to be visible if there's actually content to scroll.
+            // This is true even if the scroll policy is "on" for the purposes of bounce/pull.
             if (horizontalScrollBar)
-                horizontalScrollBar.alpha = 1;
+                horizontalScrollBar.alpha = viewport.contentWidth > viewport.width ? 1.0 : 0.0;
             
             if (verticalScrollBar)
-                verticalScrollBar.alpha = 1;
+                verticalScrollBar.alpha = viewport.contentHeight > viewport.height ? 1.0 : 0.0;
         }
     }
     
@@ -2353,7 +2355,7 @@ class TouchScrollHelper
                 var scrollStartEvent:TouchInteractionEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_START, true, true);
                 scrollStartEvent.relatedObject = scroller;
                 scrollStartEvent.reason = TouchInteractionReason.SCROLL;
-                dispatchBubblingEventOnMouseDownedDisplayObject(scrollStartEvent);
+				dispatchBubblingEventOnMouseDownedDisplayObject(scrollStartEvent);
                 
                 isScrolling = true;
                 
@@ -2468,13 +2470,13 @@ class TouchScrollHelper
         }
         averageDt /= len-1;
         
-        // if off screen for some reason, let's end scrolling:
-        if (!scroller.stage)
-        {
+		// if off screen for some reason, let's end scrolling:
+		if (!scroller.stage)
+		{
             endTouchScroll();
-            return;
-        }
-        
+			return;
+		}
+		
         var lastMouseEventPoint:Point = mouseEventCoordinatesHistory[endIndex];
 
         // calculate the last velocity and make sure there was no pause that occurred
@@ -2570,40 +2572,40 @@ class TouchScrollHelper
         
         return new Point(velX,velY);
     }
-    
-    /**
-     *  @private
-     *  Helper method to dispatch bubbling events on mouseDownDisplayObject.  Since this 
-     *  object can be off the display list, this may be tricky.  Technically, we should 
-     *  grab all the live objects at the time of mouseDown and dispatch events to them 
-     *  manually, but instead, we just use this heuristic, which is dispatch it to 
-     *  mouseDownedDisplayObject.  If it's not inside of scroller and off the display list,
-     *  then dispatch to scroller as well.
-     * 
-     *  <p>If you absolutely need to know the touch event ended, add event listeners 
-     *  to the mouseDownedDisplayObject directly and don't rely on event 
-     *  bubbling.</p>
-     */
-    private function dispatchBubblingEventOnMouseDownedDisplayObject(event:Event):Boolean
-    {
-        var eventAccepted:Boolean = true;
-        if (mouseDownedDisplayObject)
-        {
-            eventAccepted = eventAccepted && mouseDownedDisplayObject.dispatchEvent(event);
-            if (!mouseDownedDisplayObject.stage)
-            {
-                if (scroller && !scroller.contains(mouseDownedDisplayObject))
-                    eventAccepted = eventAccepted && scroller.dispatchEvent(event);
-            }
-        }
-        else
-        {
-            eventAccepted = eventAccepted && scroller.dispatchEvent(event);
-        }
-        
-        return eventAccepted;
-    }
-    
+	
+	/**
+	 *  @private
+	 *  Helper method to dispatch bubbling events on mouseDownDisplayObject.  Since this 
+	 *  object can be off the display list, this may be tricky.  Technically, we should 
+	 *  grab all the live objects at the time of mouseDown and dispatch events to them 
+	 *  manually, but instead, we just use this heuristic, which is dispatch it to 
+	 *  mouseDownedDisplayObject.  If it's not inside of scroller and off the display list,
+	 *  then dispatch to scroller as well.
+	 * 
+	 *  <p>If you absolutely need to know the touch event ended, add event listeners 
+	 *  to the mouseDownedDisplayObject directly and don't rely on event 
+	 *  bubbling.</p>
+	 */
+	private function dispatchBubblingEventOnMouseDownedDisplayObject(event:Event):Boolean
+	{
+		var eventAccepted:Boolean = true;
+		if (mouseDownedDisplayObject)
+		{
+			eventAccepted = eventAccepted && mouseDownedDisplayObject.dispatchEvent(event);
+			if (!mouseDownedDisplayObject.stage)
+			{
+				if (scroller && !scroller.contains(mouseDownedDisplayObject))
+					eventAccepted = eventAccepted && scroller.dispatchEvent(event);
+			}
+		}
+		else
+		{
+			eventAccepted = eventAccepted && scroller.dispatchEvent(event);
+		}
+		
+		return eventAccepted;
+	}
+	
     /**
      *  @private
      *  When the touchScrollThrow is over, we should dispatch a touchInteractionEnd.
@@ -2615,7 +2617,7 @@ class TouchScrollHelper
         var scrollEndEvent:TouchInteractionEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_END, true);
         scrollEndEvent.relatedObject = scroller;
         scrollEndEvent.reason = TouchInteractionReason.SCROLL;
-        dispatchBubblingEventOnMouseDownedDisplayObject(scrollEndEvent);
+		dispatchBubblingEventOnMouseDownedDisplayObject(scrollEndEvent);
     }
     
 }
