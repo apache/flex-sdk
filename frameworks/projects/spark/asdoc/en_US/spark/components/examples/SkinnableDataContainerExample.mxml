@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the Spark SkinnableDataContainer component -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:mx="library://ns.adobe.com/flex/mx">
+
+    <fx:Script>
+        <![CDATA[
+            // need to import the item renderers
+            import spark.skins.spark.DefaultItemRenderer;
+            import spark.skins.spark.DefaultComplexItemRenderer;
+            import spark.components.Button;
+
+            public function customItemRendererFunction(item:*):IFactory {
+                if (item is Button) {
+                    return new ClassFactory(DefaultComplexItemRenderer);
+                } else {
+                    return new ClassFactory(DefaultItemRenderer);
+                }
+            }
+        ]]>
+    </fx:Script>
+
+    <s:Panel title="SkinnableDataContainer Component Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0">
+        <!-- An item renderer function can be defined in order to display 
+            a mix of data and graphical items. -->
+        <s:SkinnableDataContainer 
+            itemRendererFunction="customItemRendererFunction"
+            left="10" top="10">
+            <s:layout>
+                <s:HorizontalLayout gap="1"/>
+            </s:layout>
+            <s:dataProvider>
+                <s:ArrayCollection>
+                    <s:Button label="Button 1"/>
+                    <fx:String>primitive data string</fx:String>
+                    <s:Button label="Button 2"/>
+                </s:ArrayCollection>
+            </s:dataProvider>
+        </s:SkinnableDataContainer>
+    </s:Panel>
+
+</s:Application>
