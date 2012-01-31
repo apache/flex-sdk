@@ -3155,7 +3155,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                     false, true, 
                     selectionEventKind, selectionChange); 
             dispatchEvent(changeEvent);
-            // FIXME - to trigger bindings on grid selectedCell/Index/Item properties
+            // TBD: to trigger bindings on grid selectedCell/Index/Item properties
             if (grid.hasEventListener(GridSelectionEvent.SELECTION_CHANGE))
                 grid.dispatchEvent(changeEvent);
         }
