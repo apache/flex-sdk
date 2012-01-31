@@ -51,21 +51,18 @@ public interface IItemRendererOwner
     function itemToLabel(item:Object):String;
     
     /**
-     *  Updates renderer-specific properties of the item renderer, such as 
-     *  <code>data</code>, <code>labelText</code> and <code>owner</code>. 
-     *  This is a convenience method that you can implement to 
-     *  update all of the renderer properties from the host component.  
+     *  Updates the renderer for re-use. This first prepares the item
+     *  renderer for re-use by clearning out any stale properties
+     *  as well as updating it with new properties.    
      *
      *  @param renderer The item renderer.
-     *
-     *  @param data The date item to display.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    function updateRendererInformation(renderer:IVisualElement, data:Object=null):void;  
+    function updateRenderer(renderer:IVisualElement):void;  
 
 }   
 }
