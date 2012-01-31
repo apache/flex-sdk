@@ -41,19 +41,19 @@ import mx.resources.ResourceManager;
  */
 public class MessageResponder extends Responder
 {
-	//--------------------------------------------------------------------------
-	//
-	// Constructor
-	// 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    // Constructor
+    // 
+    //--------------------------------------------------------------------------
     
     /**
      *  Constructs a MessageResponder to handle the response for the specified
      *  Message for the specified MessageAgent.
      *
-     *  @param  agent The MessageAgent sending the Message.
+     *  @param agent The MessageAgent sending the Message.
      * 
-     *  @param  message The Message being sent.
+     *  @param message The Message being sent.
      * 
      *  @param channel The Channel used to send. 
      *  
@@ -80,36 +80,36 @@ public class MessageResponder extends Responder
     // 
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Flag indicating whether the request corresponding to this responder
-	 *  has timed out. This is used by responders that cannot close
-	 *  their underlying connection (NetConnection for instance) so they must 
-	 *  instead ignore any response that is returned after the request timeout 
-	 *  is reached.
-	 */
-	private var _requestTimedOut:Boolean;
-	
-	/**
-	 *  @private
-	 *  Timer used to trigger a request timeout.
-	 */
-	private var _requestTimer:Timer;   
+    /**
+     *  @private
+     *  Flag indicating whether the request corresponding to this responder
+     *  has timed out. This is used by responders that cannot close
+     *  their underlying connection (NetConnection for instance) so they must 
+     *  instead ignore any response that is returned after the request timeout 
+     *  is reached.
+     */
+    private var _requestTimedOut:Boolean;
+    
+    /**
+     *  @private
+     *  Timer used to trigger a request timeout.
+     */
+    private var _requestTimer:Timer;   
     
     /**
      * @private
      */
     private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+                                    ResourceManager.getInstance();
     //--------------------------------------------------------------------------
     //
     // Properties
     // 
     //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  agent
-	//----------------------------------
+    //----------------------------------
+    //  agent
+    //----------------------------------
     
     /**
      *  @private
@@ -130,9 +130,9 @@ public class MessageResponder extends Responder
         return _agent;
     }
     
-	//----------------------------------
-	//  channel
-	//----------------------------------
+    //----------------------------------
+    //  channel
+    //----------------------------------
     
     /**
      *  @private
@@ -153,9 +153,9 @@ public class MessageResponder extends Responder
         return _channel;   
     }
 
-	//----------------------------------
-	//  message
-	//----------------------------------
+    //----------------------------------
+    //  message
+    //----------------------------------
 
     /**
      *  @private
@@ -265,11 +265,11 @@ public class MessageResponder extends Responder
         }
     }
     
-	//--------------------------------------------------------------------------
-	//
-	// Protected Members
-	// 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    // Protected Members
+    // 
+    //--------------------------------------------------------------------------
     
     /**
      *  Constructs an ErrorMessage that can be passed to the associated 
@@ -290,9 +290,9 @@ public class MessageResponder extends Responder
         errorMsg.correlationId = message.messageId;
         errorMsg.faultCode = "Client.Error.RequestTimeout";
         errorMsg.faultString = resourceManager.getString(
-			"messaging", "requestTimedOut");
+            "messaging", "requestTimedOut");
         errorMsg.faultDetail = resourceManager.getString(
-			"messaging", "requestTimedOut.details");
+            "messaging", "requestTimedOut.details");
         return errorMsg;
     }
 
@@ -338,11 +338,11 @@ public class MessageResponder extends Responder
      */
     protected function statusHandler(message:IMessage):void {}
 
-	//--------------------------------------------------------------------------
-	//
-	// Private Members
-	// 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    // Private Members
+    // 
+    //--------------------------------------------------------------------------
 
     /**
      *  @private
