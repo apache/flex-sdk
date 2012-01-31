@@ -13,6 +13,7 @@ package spark.components
 {
     
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
@@ -127,6 +128,18 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  @productversion Flex 4
  */
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
+
+/**
+ *  @copy spark.components.supportClasses.GroupBase#style:downColor
+ *   
+ *  @default 0xA8C6EE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="downColor", type="uint", format="Color", inherit="yes", theme="mobile")]
 
 /**
  *  The class to create instance of for the drag indicator during drag
@@ -355,6 +368,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *    borderColor="0#CCCCCC"
  *    borderVisible="true"
  *    contentBackgroundColor="0xFFFFFF"
+ *    downColor="0xA8C6EE"
  *    dragIndicator="ListItemDragProxy"
  *    dropIndicatorSkin="ListDropIndicator"
  *    rollOverColor="0xCEDBEF"
@@ -444,10 +458,11 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  @private
-     *  Timer for putting the item renderer in the selected state on a delay
-     *  timer because of touch input.
+     *  The displayObject where the mouse down event was received.
+     *  In touch interactionMode, used to track whether this item is 
+     *  the one that is moused up on so we can possibly select it. 
      */
-    private var mouseDownSelectTimer:Timer;
+    mx_internal var mouseDownObject:DisplayObject;
     
     /**
      *  @private
@@ -1121,12 +1136,12 @@ public class List extends ListBase implements IFocusManagerComponent
     {
         // Clear the flag so that we don't commit the selection again.
         multipleSelectionChanged = false;
-
+        
         var oldSelectedIndex:Number = _selectedIndex;
         var oldCaretIndex:Number = _caretIndex;  
         
         _proposedSelectedIndices = _proposedSelectedIndices.filter(isValidIndex);
-               
+        
         // Ensure that multiple selection is allowed and that proposed 
         // selected indices honors it. For example, in the single 
         // selection case, proposedSelectedIndices should only be a 
@@ -1140,7 +1155,7 @@ public class List extends ListBase implements IFocusManagerComponent
         }
         // Keep _proposedSelectedIndex in-sync with multiple selection properties. 
         if (!isEmpty(_proposedSelectedIndices))
-           _proposedSelectedIndex = getFirstItemValue(_proposedSelectedIndices); 
+            _proposedSelectedIndex = getFirstItemValue(_proposedSelectedIndices); 
         
         // Let ListBase handle the validating and commiting of the single-selection
         // properties.  
@@ -1305,23 +1320,7 @@ public class List extends ListBase implements IFocusManagerComponent
         if (allowMultipleSelection && (selectedIndices != null))
             return selectedIndices.indexOf(index) != -1;
         
-        return index == selectedIndex;
-    }
-    
-    /**
-     *  @private
-     */
-    override mx_internal function shouldItemAppearSelected(index:int):Boolean
-    {
-        if (getStyle("interactionMode") == InteractionMode.TOUCH)
-        {
-            // if we could be selecting, only show selection for that one item...don't even show
-            // it for the actual selectedIndex
-            if (pendingSelectionOnMouseUp && mouseDownSelectTimer && !mouseDownSelectTimer.running)
-                return mouseDownIndex == index;
-        }
-        
-        return isItemIndexSelected(index);
+        return super.isItemIndexSelected(index);
     }
     
     /**
@@ -1417,7 +1416,8 @@ public class List extends ListBase implements IFocusManagerComponent
         
         if (!shiftKey)
         {
-            if (ctrlKey)
+            // FIXME (rfrishbe): make this part a style, like "multipleSelectionRequiresModifierKey"
+            if (ctrlKey || getStyle("interactionMode") == InteractionMode.TOUCH)
             {
                 if (!isEmpty(selectedIndices))
                 {
@@ -1685,10 +1685,6 @@ public class List extends ListBase implements IFocusManagerComponent
             newIndex = IItemRenderer(event.currentTarget).itemIndex;
         else
             newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
-
-        mouseDownCancelledFromScroll = false;
-        
-        var oldMouseDownIndex:int;
         
         if (!allowMultipleSelection)
         {
@@ -1709,24 +1705,6 @@ public class List extends ListBase implements IFocusManagerComponent
                 pendingSelectionOnMouseUp = true;
                 pendingSelectionCtrlKey = event.ctrlKey;
                 pendingSelectionShiftKey = event.shiftKey;
-                
-                if (getStyle("interactionMode") == InteractionMode.TOUCH)
-                {
-                    if (selectedIndex != newIndex)
-                    {
-                        // FIXME (rfrishbe): hack for now.  will fix this later when we revisit the 
-                        // "down state" issue for an item renderer.  We need this to fix the case 
-                        // where touchDelay == 0 and calling startSelectButtonAfterDelay() assumes 
-                        // that mouseDownIndex is already set
-                        oldMouseDownIndex = mouseDownIndex;
-                        mouseDownIndex = newIndex;
-                        
-                        // visually select the item here
-                        startSelectButtonAfterDelayTimer();
-                        
-                        mouseDownIndex = oldMouseDownIndex;
-                    }
-                }
             }
             else
                 setSelectedIndex(newIndex, true);
@@ -1740,24 +1718,6 @@ public class List extends ListBase implements IFocusManagerComponent
                 pendingSelectionOnMouseUp = true;
                 pendingSelectionShiftKey = event.shiftKey;
                 pendingSelectionCtrlKey = event.ctrlKey;
-                
-                if (getStyle("interactionMode") == InteractionMode.TOUCH)
-                {
-                    if (!isItemIndexSelected(newIndex))
-                    {
-                        // FIXME (rfrishbe): hack for now.  will fix this later when we revisit the 
-                        // "down state" issue for an item renderer.  We need this to fix the case 
-                        // where touchDelay == 0 and calling startSelectButtonAfterDelay() assumes 
-                        // that mouseDownIndex is already set
-                        oldMouseDownIndex = mouseDownIndex;
-                        mouseDownIndex = newIndex;
-                        
-                        // visually select the item here
-                        startSelectButtonAfterDelayTimer();
-                        
-                        mouseDownIndex = oldMouseDownIndex;
-                    }
-                }
             }
             else
             {
@@ -1772,10 +1732,11 @@ public class List extends ListBase implements IFocusManagerComponent
         // listeners may prevent the item from being selected.
         if (!pendingSelectionOnMouseUp)
             validateProperties();
-
+        
         mouseDownPoint = event.target.localToGlobal(new Point(event.localX, event.localY));
+        mouseDownObject = event.target as DisplayObject;
         mouseDownIndex = newIndex;
-
+        
         var listenForDrag:Boolean = (dragEnabled && getStyle("interactionMode") == InteractionMode.MOUSE && selectedIndices && this.selectedIndices.indexOf(newIndex) != -1);
         // Handle any drag gestures that may have been started
         if (listenForDrag)
@@ -1786,44 +1747,11 @@ public class List extends ListBase implements IFocusManagerComponent
             // operation if they move out of the list.
             systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
         }
-
+        
         if (pendingSelectionOnMouseUp || listenForDrag)
         {
             systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseUpHandler, false, 0, true);
             systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
-        }
-    }
-    
-    /**
-     *  @private
-     *  Starts timer to select the button
-     */
-    private function startSelectButtonAfterDelayTimer():void
-    {
-        // FIXME (rfrishbe): Should we use mouseDownedItemRenderer.getStyle("touchDelay") instead?
-        var touchDelay:int = getStyle("touchDelay");
-        
-        if (touchDelay > 0)
-        {
-            mouseDownSelectTimer = new Timer(touchDelay, 1);
-            mouseDownSelectTimer.addEventListener(TimerEvent.TIMER_COMPLETE, mouseDownSelectTimer_timerCompleteHandler);
-            mouseDownSelectTimer.start();
-        }
-        else
-        {
-            mouseDownSelectTimer_timerCompleteHandler();
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    private function stopSelectButtonAfterDelayTimer():void
-    {
-        if (mouseDownSelectTimer)
-        {
-            mouseDownSelectTimer.stop();
-            mouseDownSelectTimer = null;
         }
     }
     
@@ -1871,29 +1799,61 @@ public class List extends ListBase implements IFocusManagerComponent
             dispatchEvent(dragEvent);
 
             // Finally, remove the mouse handlers
-            removeMouseHandlersForDragStart();
+            removeMouseHandlersForDragStart(event);
         }
     }
     
-    private var mouseDownCancelledFromScroll:Boolean = false;
-    
-    private function removeMouseHandlersForDragStart():void
+    private function removeMouseHandlersForDragStart(event:Event):void
     {
         // If dragging failed, but we had a pending selection, commit it here
-        if (pendingSelectionOnMouseUp && !DragManager.isDragging && !mouseDownCancelledFromScroll)
+        if (pendingSelectionOnMouseUp && !DragManager.isDragging)
         {
-            if (allowMultipleSelection)
+            if (getStyle("interactionMode") == InteractionMode.TOUCH)
             {
-                setSelectedIndices(calculateSelectedIndices(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey), true);
-            }
-            else if (getStyle("interactionMode") == InteractionMode.TOUCH)
-            {
-                setSelectedIndex(mouseDownIndex, true);
+                // if in touch mode, and we didn't start scrolling, let's check to see
+                // whether we moused up on the same item we mouse downed on. 
+                // we don't do this check for mouse mode because technically selection happens 
+                // on mousedown there.
+                
+                // this selectionChange check is basically a "click" check to make sure we moused downed on 
+                // the same item that we moused up on.
+                // We could just put it in click handler, but this is a little easier in mouseup
+                // since we've combined some dragging logic and some touch interaction 
+                // logic around pendingSelectionOnMouseUp.
+                var selectionChange:Boolean = (event.target == mouseDownObject || 
+                    (mouseDownObject is DisplayObjectContainer && 
+                        DisplayObjectContainer(mouseDownObject).contains(event.target as DisplayObject)));
+                
+                // check to make sure they clciked on an item and selection should change
+                if (selectionChange)
+                {
+                    // now handle the cases where the item is being selected or de-selected
+                    // based on allowMultipleSelection
+                    if (allowMultipleSelection)
+                    {
+                        setSelectedIndices(calculateSelectedIndices(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey), true);
+                    }
+                    else
+                    {
+                        setSelectedIndex(mouseDownIndex, true);
+                    }
+                }
             }
             else
             {
-                // Must be deselecting the current selected item.
-                setSelectedIndex(NO_SELECTION, true);
+                // if in mouse interactionMode, we must have finished an attempted drag, so let's
+                // select the item if in multi-select mode or de-select the item 
+                // if in single select mode.  See item_mouseDownHandler for how this was setup
+                if (allowMultipleSelection)
+                {
+                    setSelectedIndices(calculateSelectedIndices(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey), true);
+                }
+                else
+                {
+                    // Must be deselecting the current selected item since the only
+                    // reason we are here could be dragging
+                    setSelectedIndex(NO_SELECTION, true);
+                }
             }
         }
 
@@ -1901,6 +1861,7 @@ public class List extends ListBase implements IFocusManagerComponent
         pendingSelectionOnMouseUp = false;
         
         mouseDownPoint = null;
+        mouseDownObject = null;
         mouseDownIndex = -1;
         
         systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false);
@@ -1924,7 +1885,7 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     protected function mouseUpHandler(event:Event):void
     {
-        removeMouseHandlersForDragStart();
+        removeMouseHandlersForDragStart(event);
     }
     
     //--------------------------------------------------------------------------
@@ -2168,21 +2129,8 @@ public class List extends ListBase implements IFocusManagerComponent
     private function touchInteractionStartHandler(event:TouchInteractionEvent):void
     {
         // cancel actual selection
-        mouseDownCancelledFromScroll = true;
-        
-        // remove visual selection indicator
-        stopSelectButtonAfterDelayTimer();
-        
-        // unselect what we thought was selected
-        itemSelected(mouseDownIndex, false);
-        
-        // reselect what actually is selected
-        if (selectedIndex != NO_SELECTION)
-        {
-            itemSelected(selectedIndex, true);
-        }
-        
         mouseDownIndex = -1;
+        mouseDownObject = null;
         mouseDownPoint = null;
         pendingSelectionOnMouseUp = false;
     }
@@ -2814,24 +2762,6 @@ public class List extends ListBase implements IFocusManagerComponent
         return ((focusObj is TextField && focusObj.type=="input") ||
             (richEditableTextClass && focusObj is richEditableTextClass &&
              focusObj.editable == true))
-    }
-    
-    /**
-     *  @private
-     */
-    private function mouseDownSelectTimer_timerCompleteHandler(event:TimerEvent = null):void
-    {
-        if (mouseDownIndex != -1)
-        {
-            // select item visually now
-            itemSelected(mouseDownIndex, true);
-            
-            // deselect old selected item
-            if (selectedIndex != NO_SELECTION)
-            {
-                itemSelected(selectedIndex, false);
-            }
-        }
     }
 }
 
