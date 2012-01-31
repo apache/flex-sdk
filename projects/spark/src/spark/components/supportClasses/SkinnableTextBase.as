@@ -676,6 +676,8 @@ public class SkinnableTextBase extends SkinnableComponent
     //  prompt
     //----------------------------------
     
+    [Inspectable(category="General", defaultValue="")]
+
     /**
      *  Text to be displayed if/when the actual text property is an empty string.
      * 
@@ -760,6 +762,8 @@ public class SkinnableTextBase extends SkinnableComponent
     //  typicalText
     //----------------------------------
     
+    [Inspectable(category="General", defaultValue="null")]
+
     /**
      *  @copy spark.components.RichEditableText#typicalText
      *
@@ -795,6 +799,8 @@ public class SkinnableTextBase extends SkinnableComponent
     //  displayAsPassword
     //----------------------------------
     
+    [Inspectable(category="General", defaultValue="false")]
+
     /**
      *  @copy spark.components.RichEditableText#displayAsPassword
      *  
@@ -837,6 +843,8 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
     //  editable
     //----------------------------------
+
+    [Inspectable(category="General", defaultValue="true")]
 
     /**
      *  @copy spark.components.RichEditableText#editable
@@ -905,7 +913,7 @@ public class SkinnableTextBase extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-     public function get imeMode():String
+    public function get imeMode():String
     {
         var richEditableText:RichEditableText = textDisplay as RichEditableText;
                 
@@ -944,7 +952,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //  maxChars
     //----------------------------------
     
-    [Inspectable(minValue="0.0")]    
+    [Inspectable(category="General", defaultValue="0")]    
 
     /**
      *  @copy spark.components.RichEditableText#maxChars
@@ -987,6 +995,8 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
     //  restrict
     //----------------------------------
+
+    [Inspectable(category="General", defaultValue="null")]
 
     /**
      *  @copy spark.components.RichEditableText#restrict
@@ -1031,6 +1041,8 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
     //  selectable
     //----------------------------------
+
+    [Inspectable(category="General", defaultValue="true")]
 
     /**
      *  @copy spark.components.RichEditableText#selectable
@@ -1170,7 +1182,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //  text
     //----------------------------------
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="")]
     
     /**
      *  @copy spark.components.RichEditableText#text
