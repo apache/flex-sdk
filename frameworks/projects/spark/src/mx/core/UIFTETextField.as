@@ -20,6 +20,7 @@ import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextLineMetrics;
 import flashx.textLayout.controls.TLFTextField;
+import flashx.textLayout.elements.ITextLineCreator;
 import mx.automation.IAutomationObject;
 import mx.core.FlexVersion;
 import mx.managers.ISystemManager;
@@ -1967,17 +1968,26 @@ public class UITLFTextField extends TLFTextField
                 // Call isFontFaceEmbedded() which get the list of embedded fonts from the player.
                 if (fontModuleFactory != null) 
                 {
+                    textLineCreator = ITextLineCreator(fontModuleFactory);
                     embedFonts = true;
                 }
                 else
                 {
                     var sm:ISystemManager = creatingSystemManager();
                     embedFonts = sm != null && sm.isFontFaceEmbedded(textFormat);
+                    if (embedFonts)
+                        textLineCreator = ITextLineCreator(sm);
+                    else
+                        textLineCreator = null;
                 }
             }
             else
             {
                 embedFonts = getStyle("embedFonts");
+                if (embedFonts)
+                    textLineCreator = ITextLineCreator(moduleFactory);
+                else
+                    textLineCreator = null;
             }
 
             if (getStyle("fontAntiAliasType") != undefined)
