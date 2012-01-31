@@ -14,8 +14,9 @@ package spark.components.supportClasses
 import flash.geom.Point;
 
 import mx.core.IUIComponent;
-import mx.core.mx_internal;
+import mx.core.InteractionMode;
 import mx.core.ScrollPolicy;
+import mx.core.mx_internal;
 import mx.utils.MatrixUtil;
 
 import spark.components.Scroller;
@@ -256,7 +257,7 @@ public class ScrollerLayout extends LayoutBase
             return;
             
         const minViewportInset:Number = scroller.minViewportInset;
-        const measuredSizeIncludesScrollBars:Boolean = scroller.measuredSizeIncludesScrollBars && (scroller.getStyle("inputMode") == "mouse");
+        const measuredSizeIncludesScrollBars:Boolean = scroller.measuredSizeIncludesScrollBars && (scroller.getStyle("interactionMode") == InteractionMode.MOUSE);
 
         var measuredW:Number = minViewportInset;
         var measuredH:Number = minViewportInset;
@@ -450,7 +451,7 @@ public class ScrollerLayout extends LayoutBase
         }
         
         // if in touch mode, only show scrollbars if a scroll is currently in progress
-        if (scroller.getStyle("inputMode") == "touch")
+        if (scroller.getStyle("interactionMode") == InteractionMode.TOUCH)
         {
             hsbTakeUpSpace = false;
             hsbVisible = scroller.horizontalScrollInProgress;
@@ -561,7 +562,7 @@ public class ScrollerLayout extends LayoutBase
             
             // if in mouse mode, lay out scrollbars normally
             // if in touch mode, we overlay the scrollbars, so let's inset it by a bit
-            if (scroller.getStyle("inputMode") == "mouse")
+            if (scroller.getStyle("interactionMode") == InteractionMode.MOUSE)
                 hsb.setLayoutBoundsPosition(0, h - hsbH);
             else
                 hsb.setLayoutBoundsPosition(0, h - hsbH - 3);
@@ -576,7 +577,7 @@ public class ScrollerLayout extends LayoutBase
             // if in mouse mode, lay out scrollbars normally
             // if in touch mode, we overlay the scrollbars, so let's inset it by a bit
             // FIXME (rfrishbe): shouldn't hardcode the 3 here
-            if (scroller.getStyle("inputMode") == "mouse")
+            if (scroller.getStyle("interactionMode") == InteractionMode.MOUSE)
                 vsb.setLayoutBoundsPosition(w - vsbW, 0);
             else
                 vsb.setLayoutBoundsPosition(w - vsbW - 3, 0);
