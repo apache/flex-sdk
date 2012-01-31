@@ -123,18 +123,6 @@ use namespace mx_internal;
 [Event(name="gridDoubleClick", type="spark.events.GridEvent")]
 
 /**
- *  Dispatched when the mouse button is pressed over a column header.
- *
- *  @eventType spark.events.GridEvent.GRID_MOUSE_DOWN
- * 
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 2.0
- *  @productversion Flex 4.5
- */
-[Event(name="gridMouseDown", type="spark.events.GridEvent")]
-
-/**
  *  Dispatched after a <code>separatorMouseDown</code> event 
  *  if the mouse moves before the button is released.
  *
@@ -296,6 +284,43 @@ use namespace mx_internal;
  *  Separators are rendered by the class specified by the <code>columnSeparator</code> property.
  *  The layout, which cannot be changed, is virtual; that means renderers and separators that have been 
  *  scrolled out of view are reused.</p>
+ *
+ *  @mxml <p>The <code>&lt;s:GridColumnHeaderGroup&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:GridColumnHeaderGroup 
+ *    <strong>Properties</strong>
+ *    columnSeperator="null"
+ *    dataGrid="null"  
+ *    downColumnIndex="-1"  
+ *    headerRenderer="null"  
+ *    hoverColumnIndex="-1"  
+ *    visibleSortIndicatorIndices="<i>empty Vector.&lt;int&gt<i>"
+ * 
+ *    <strong>Styles</strong>
+ *    paddingBottom="0"
+ *    paddingLeft="0"
+ *    paddingRight="0"
+ *    paddingTop="0"
+ *    separatorAffordance="5" 
+ *
+ *    <strong>Events</strong>
+ *    gridClick="<i>No default</i>"
+ *    gridDoubleClick="<i>No default</i>"
+ *    gridMouseDown="<i>No default</i>"
+ *    gridMouseDrag="<i>No default</i>"
+ *    gridMouseUp="<i>No default</i>"
+ *    gridMouseRollOut="<i>No default</i>"
+ *    gridMouseRollOver="<i>No default</i>"
+ *    separatorClick="<i>No default</i>"
+ *    separatorDoubleClick="<i>No default</i>"
+ *    separatorMouseDrag="<i>No default</i>"
+ *    separatorMouseUp="<i>No default</i>"
+ *    separatorMouseRollOut="<i>No default</i>"
+ *    separatorMouseRollOver="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
  *
  *  @see Grid
  * 
@@ -497,6 +522,8 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     /**
      *  The IGridItemRenderer class used to renderer each column header.
      *
+     *  @default null
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
@@ -577,7 +604,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      *  A vector of column indices corresponding to the header renderers
      *  which currently have their sort indicators visible.
      * 
-     *  @default An empty Vector.&lt;int&gt;
+     *  @default an empty Vector.&lt;int&gt;
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
