@@ -545,7 +545,7 @@ public class SkinnableComponent extends UIComponent
             {
                 if(skinParts[id] == true)
                 {
-                    if (!(id in skin) || skin[id] == null)
+                    if (!(id in skin))
                         throw(new Error(resourceManager.getString("components", "requiredSkinPartNotFound", [id])));
                 }
                 
