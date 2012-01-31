@@ -16,12 +16,11 @@ import mx.graphics.MaskType;
 import mx.utils.MatrixUtil;
 import mx.graphics.graphicsClasses.GraphicElement;
 import mx.graphics.IGraphicElement;
-import mx.layout.ILayoutItem;
+import mx.layout.ILayoutElement;
 import mx.core.IViewport;
 import mx.core.ScrollUnit;
 import mx.layout.LayoutBase;
 import mx.layout.BasicLayout;
-import mx.layout.LayoutItemFactory;
 
 import mx.collections.ICollectionView;
 import mx.collections.IList;
@@ -793,24 +792,24 @@ public class GroupBase extends UIComponent implements IViewport
     //--------------------------------------------------------------------------
     
     /**
-     *  The number of layout items in this container. Typically this is the same
+     *  The number of layout elements in this container. Typically this is the same
      *  as the number of items in the container.
      */
-    public function get numLayoutItems():int
+    public function get numLayoutElements():int
     {
         return -1;
     }
     
     /**
-     *  Gets the <i>n</i>th layout item in the container. For visual items, the 
-     *  layout item is the item itself. For data items, the layout item is the 
-     *  item renderer instance that is associated with the item.
+     *  Gets the <i>n</i>th layout item in the container. For visual elements, the 
+     *  layout element is the element itself. For data items, the layout element is the 
+     *  item renderer instance that is associated with the data item.
      *
      *  @param index The index of the layout item to retrieve.
      *
      *  @return The layout item at the specified index.
      */
-    public function getLayoutItemAt(index:int):ILayoutItem
+    public function getLayoutElementAt(index:int):ILayoutElement
     {
         return null;
     }
