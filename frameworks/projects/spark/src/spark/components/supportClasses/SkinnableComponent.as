@@ -311,6 +311,8 @@ public class FxComponent extends UIComponent
         findSkinParts();
                 
         skinLoaded();
+        
+        invalidateSkinState();
     }
     
     /**
