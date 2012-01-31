@@ -47,7 +47,7 @@ import flex.events.AnimationEvent;
  * as well as when the animation repeats and at regular update intervals during
  * the animation. These calls pass values which Animation calculated from
  * the start and end values and the easer and interpolator objects. These
- * values can then be used to set property values on target obects.</p>
+ * values can then be used to set property values on target objects.</p>
  *
  *  @see flex.effects.Animate
  *  @see flex.effects.effectClasses.AnimateInstance
