@@ -17,6 +17,11 @@ import mx.skins.ProgrammaticSkin;
 
 /**
  *  The skin for the sort arrow in a column header in a DataGrid.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DataGridSortArrow extends ProgrammaticSkin
 {
@@ -30,6 +35,11 @@ public class DataGridSortArrow extends ProgrammaticSkin
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DataGridSortArrow()
 	{
