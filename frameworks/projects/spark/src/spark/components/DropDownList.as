@@ -241,7 +241,7 @@ public class DropDownList extends DropDownBase
     private var _itemRenderer:IFactory;
     
     /**
-     *  @copy mx.components.DataGroup#itemRenderer
+     *  @copy spark.components.DataGroup#itemRenderer
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -271,7 +271,7 @@ public class DropDownList extends DropDownBase
     private var _itemRendererFunction:Function;
     
     /**
-     *  @copy mx.components.DataGroup#itemRendererFunction
+     *  @copy spark.components.DataGroup#itemRendererFunction
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
