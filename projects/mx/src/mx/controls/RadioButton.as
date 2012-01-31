@@ -63,6 +63,8 @@ include "../styles/metadata/IconColorStyles.as"
 
 [ResourceBundle("controls")]
 
+[Alternative(replacement="spark.components.RadioButton", since="4.0")]
+
 /**
  *  The RadioButton control lets the user make a single choice
  *  within a set of mutually exclusive choices.
