@@ -11,17 +11,23 @@
 
 package mx.components
 {
+import flash.events.Event;
+import flash.events.EventPhase;
 import flash.events.IEventDispatcher;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
+import mx.collections.IList;
 import mx.components.baseClasses.FxListBase;
+import mx.core.EventPriority;
 import mx.core.IFactory;
 import mx.core.ISelectableRenderer;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
+import mx.events.CollectionEvent;
+import mx.events.CollectionEventKind;
 import mx.events.RendererExistenceEvent;
 import mx.managers.IFocusManagerComponent;
 
@@ -69,6 +75,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
         //Add a keyDown event listener so we can adjust
         //selection accordingly.  
         addEventListener(KeyboardEvent.KEY_DOWN, buttonBar_keyDownHandler);
+        addEventListener(KeyboardEvent.KEY_UP, buttonBar_keyUpHandler);
 
 		tabChildren = false;
 		tabEnabled = true;
@@ -96,7 +103,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     //  firstButton
     //---------------------------------- 
     
-    [SkinPart(required="false", type="mx.core.IDataRenderer")]
+    [SkinPart(required="false", type="mx.core.IVisualElement")]
     
     /**
      * A skin part that defines the first button.
@@ -112,7 +119,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     //  lastButton
     //---------------------------------- 
     
-    [SkinPart(required="false", type="mx.core.IDataRenderer")]
+    [SkinPart(required="false", type="mx.core.IVisualElement")]
     
     /**
      * A skin part that defines the last button.
@@ -128,7 +135,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     //  middleButton
     //---------------------------------- 
     
-    [SkinPart(required="true", type="mx.core.IDataRenderer")]
+    [SkinPart(required="true", type="mx.core.IVisualElement")]
     
     /**
      * A skin part that defines the middle button(s).
@@ -158,15 +165,37 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 		requiresSelectionChanging = true;
 	}
 
-	private var enabledChanging:Boolean;
+    override public function set dataProvider(value:IList):void
+    {
+        if (dataProvider)
+            dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, resetCollectionChangeHandler);
+    
+		// not really a default handler, we just want it to run after the datagroup
+        if (value)
+            value.addEventListener(CollectionEvent.COLLECTION_CHANGE, resetCollectionChangeHandler, false, EventPriority.DEFAULT_HANDLER);
+
+        super.dataProvider = value;
+    }
 
     /**
      *  @private
      */
-    override public function set enabled(value:Boolean):void
+    private function resetCollectionChangeHandler(event:Event):void
 	{
-		super.enabled = value;
-		enabledChanging = true;
+        if (event is CollectionEvent)
+        {
+            var ce:CollectionEvent = CollectionEvent(event);
+
+            if (ce.kind == CollectionEventKind.ADD || 
+				ce.kind == CollectionEventKind.REMOVE)
+			{
+				// force reset here so first/middle/last skins
+				// get reassigned
+				ce = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+				ce.kind = CollectionEventKind.RESET;
+				dataProvider.dispatchEvent(ce);
+			}
+		}
 	}
 
     /**
@@ -193,35 +222,12 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     /**
      *  @private
      */
-    override protected function updateDisplayList(w:Number, h:Number):void
-    {
-		super.updateDisplayList(w, h);
-
-        if (enabledChanging)
-		{
-			enabledChanging = false;
-			if (dataProvider)
-			{
-				var n:int = dataProvider.length;
-				for (var i:int = 0; i < n; i++)
-				{
-					var renderer:ISelectableRenderer = 
-						dataGroup.getElementAt(i) as ISelectableRenderer;
-					if (renderer)
-						renderer.enabled = enabled;
-				}
-			}
-		}
-    }
-
-    /**
-     *  @private
-     */
     override public function drawFocus(isFocused:Boolean):void
     {
 		adjustLayering(focusedIndex);
         drawButtonFocus(focusedIndex, isFocused);
     }
+
 
     /**
      *  @private
@@ -330,7 +336,6 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 			if (renderer is ISelectableRenderer)
 			{
 				ISelectableRenderer(renderer).allowDeselection = !requiresSelection;
-				ISelectableRenderer(renderer).enabled = enabled;
 			}
 		}
             
@@ -395,6 +400,12 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     {
 		var currentRenderer:ISelectableRenderer;
 		var renderer:ISelectableRenderer;
+		
+		if (event.eventPhase == EventPhase.BUBBLING_PHASE)
+			return;
+
+		if (!enabled)
+			return;
 
         switch (event.keyCode)
         {
@@ -413,6 +424,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 						renderer.showFocusIndicator = true;
 				}
 
+                event.stopPropagation();
                 break;
             }
             case Keyboard.DOWN:
@@ -430,6 +442,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 						renderer.showFocusIndicator = true;
 				}
 
+                event.stopPropagation();
                 break;
             }            
             case Keyboard.SPACE:
@@ -437,16 +450,39 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 				currentRenderer = dataGroup.getElementAt(focusedIndex) as ISelectableRenderer;
 				if (!currentRenderer || (currentRenderer.selected && requiresSelection))
 					return;
-				currentRenderer.selected = !currentRenderer.selected;
-				if (currentRenderer.selected)
-					selectedIndex = focusedIndex;
-				else
-					selectedIndex = -1;
+				currentRenderer.dispatchEvent(event);
                 break;
             }            
         }
     }
   
+    /**
+     *  @private
+     */
+    private function buttonBar_keyUpHandler(event:KeyboardEvent):void
+    {
+		var currentRenderer:ISelectableRenderer;
+		var renderer:ISelectableRenderer;
+
+		if (event.eventPhase == EventPhase.BUBBLING_PHASE)
+			return;
+
+		if (!enabled)
+			return;
+
+        switch (event.keyCode)
+        {
+            case Keyboard.SPACE:
+            {
+				currentRenderer = dataGroup.getElementAt(focusedIndex) as ISelectableRenderer;
+				if (!currentRenderer || (currentRenderer.selected && requiresSelection))
+					return;
+				currentRenderer.dispatchEvent(event);
+                break;
+            }            
+        }
+	}
+
     /**
      *  @private
      */
