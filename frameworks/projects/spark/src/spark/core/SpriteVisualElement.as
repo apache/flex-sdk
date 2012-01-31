@@ -565,37 +565,6 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     }
     
     //----------------------------------
-    //  mirror
-    //----------------------------------
-
-    private var _mirror:Boolean;
-    
-    public function get mirror():Boolean
-    {
-        return _mirror;
-    }
-    
-    public function set mirror(value:Boolean):void
-    {
-        if (value == _mirror)
-            return;
-        _mirror = value;            
-    }
-
-    //----------------------------------
-    //  dir
-    //----------------------------------
-
-    public function get dir():String
-    {
-        return "ltr"
-    }
-    
-    public function set dir(value:String):void
-    {
-    }
-
-    //----------------------------------
     //  viewWidth
     //----------------------------------
 
