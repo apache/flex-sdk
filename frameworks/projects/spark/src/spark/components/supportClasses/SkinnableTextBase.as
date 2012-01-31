@@ -393,36 +393,36 @@ public class SkinnableTextBase extends SkinnableComponent
     /**
      *  @private
      */
-    override public function get contextMenu():ContextMenu
-    {
-        if (textDisplay)
-            return textDisplay.contextMenu;
-        
-        // want the default to be null
-        var v:* = textDisplayProperties.contextMenu
-        return (v === undefined) ? null : v;
-    }
+//    override public function get contextMenu():ContextMenu
+//    {
+//        if (textDisplay)
+//            return textDisplay.contextMenu;
+//        
+//        // want the default to be null
+//        var v:* = textDisplayProperties.contextMenu
+//        return (v === undefined) ? null : v;
+//    }
     
     /**
      *  @private
-     */
-    override public function set contextMenu(value:ContextMenu):void
-    {
-        if (textDisplay)
-        {
-            textDisplay.contextMenu = value;
-            textDisplayProperties = BitFlagUtil.update(
-                uint(textDisplayProperties), 
-                CONTEXT_MENU_PROPERTY_FLAG, true);
-        }
-        else
-        {
-            textDisplayProperties.contextMenu = value;
-        }
-        
-        // Generate an UPDATE_COMPLETE event.
-        invalidateProperties();                    
-    }
+     */    
+//    override public function set contextMenu(value:ContextMenu):void
+//    {
+//        if (textDisplay)
+//        {
+//            textDisplay.contextMenu = value;
+//            textDisplayProperties = BitFlagUtil.update(
+//                uint(textDisplayProperties), 
+//                CONTEXT_MENU_PROPERTY_FLAG, true);
+//        }
+//        else
+//        {
+//            textDisplayProperties.contextMenu = value;
+//        }
+//        
+//        // Generate an UPDATE_COMPLETE event.
+//        invalidateProperties();                    
+//    }
 
     //----------------------------------
     //  displayAsPassword
