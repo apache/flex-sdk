@@ -52,8 +52,7 @@ public class HGroup extends Group
      */  
     public function HGroup():void
     {
-        super();
-        layout = new HorizontalLayout();
+        super(new HorizontalLayout());
     }
     
     private function get horizontalLayout():HorizontalLayout
