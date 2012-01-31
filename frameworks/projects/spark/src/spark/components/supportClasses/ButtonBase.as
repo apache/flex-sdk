@@ -21,11 +21,14 @@ import flash.ui.Keyboard;
 import flash.utils.Timer;
 
 import spark.components.supportClasses.SkinnableComponent;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
 import spark.primitives.supportClasses.TextGraphicElement;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.StringUtil;
+
+use namespace mx_internal;
 
 include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 
@@ -540,6 +543,33 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
 
         _explicitToolTip = value != null;
     }
+    
+    //----------------------------------
+    //  keepDown
+    //----------------------------------
+	private var _keepDown:Boolean = false;
+	
+	/**
+     *  @private
+     *  If true, forces the button to be in the down state
+     */
+	mx_internal function set keepDown(value:Boolean):void
+	{
+		if (_keepDown == value)
+			return;
+		
+		_keepDown = value;
+		invalidateSkinState();
+	}
+	
+	/**
+     *  @private
+     */
+	mx_internal function get keepDown():Boolean
+	{
+		return _keepDown;	
+	}
+
 
     //--------------------------------------------------------------------------
     //
@@ -619,6 +649,9 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     {
         if (!enabled)
             return false;
+
+		if (keepDown)
+			return true;
 
         if (keyboardPressed)
             return true;
