@@ -1,4 +1,4 @@
-package mx.components
+package spark.components
 {
 import fl.video.VideoEvent;
 import fl.video.VideoState;
@@ -10,13 +10,13 @@ import flash.events.MouseEvent;
 import flash.events.ProgressEvent;
 import flash.geom.Rectangle;
 
-import mx.components.baseClasses.FxComponent;
-import mx.components.baseClasses.FxRange;
+import spark.components.supportClasses.SkinnableComponent;
+import spark.components.supportClasses.Range;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
-import mx.graphics.VideoElement;
-import mx.graphics.baseClasses.TextGraphicElement;
+import spark.primitives.VideoElement;
+import spark.primitives.supportClasses.TextGraphicElement;
 import mx.utils.BitFlagUtil;
 
 import spark.events.MetadataEvent;
@@ -233,10 +233,10 @@ import spark.events.VideoEvent;
 
 [DefaultProperty("source")]
 
-[IconFile("FxVideoDisplay.png")]
+[IconFile("VideoDisplay.png")]
 
 /**
- *  The FxVideoDisplay class is skinnable video player that supports
+ *  The VideoDisplay class is skinnable video player that supports
  *  progressive download, multi-bitrate, and streaming video.
  * 
  *  <p><code>VideoElement</code> is the chromeless version.</p>
@@ -248,7 +248,7 @@ import spark.events.VideoEvent;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxVideoDisplay extends FxComponent
+public class VideoDisplay extends SkinnableComponent
 {
     //--------------------------------------------------------------------------
     //
@@ -300,7 +300,7 @@ public class FxVideoDisplay extends FxComponent
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function FxVideoDisplay()
+    public function VideoDisplay()
     {
         super();
     }
@@ -345,7 +345,7 @@ public class FxVideoDisplay extends FxComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var fullScreenButton:FxButton;
+    public var fullScreenButton:Button;
     
     [SkinPart(required="false")]
     
@@ -360,7 +360,7 @@ public class FxVideoDisplay extends FxComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var muteButton:FxToggleButton;
+    public var muteButton:ToggleButton;
     
     [SkinPart(required="false")]
     
@@ -372,7 +372,7 @@ public class FxVideoDisplay extends FxComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var pauseButton:FxButton;
+    public var pauseButton:Button;
     
     [SkinPart(required="false")]
     
@@ -384,7 +384,7 @@ public class FxVideoDisplay extends FxComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var playButton:FxButton;
+    public var playButton:Button;
     
     [SkinPart(required="false")]
     
@@ -399,7 +399,7 @@ public class FxVideoDisplay extends FxComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var playPauseButton:FxToggleButton;
+    public var playPauseButton:ToggleButton;
     
     [SkinPart(required="false")]
     
@@ -412,7 +412,7 @@ public class FxVideoDisplay extends FxComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var scrubBar:FxRange;
+    public var scrubBar:Range;
     
     [SkinPart(required="false")]
     
@@ -424,7 +424,7 @@ public class FxVideoDisplay extends FxComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var stopButton:FxButton;
+    public var stopButton:Button;
     
     [SkinPart(required="false")]
     
@@ -448,7 +448,7 @@ public class FxVideoDisplay extends FxComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var volumeBar:FxRange;
+    public var volumeBar:Range;
     
     //--------------------------------------------------------------------------
     //
