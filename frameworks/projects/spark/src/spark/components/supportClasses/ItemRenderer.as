@@ -36,7 +36,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;ItemRenderer
+ *  &lt;s:ItemRenderer
  *    <strong>Properties</strong>
  *    selected="false"
  *    showsCaret="false"
@@ -362,9 +362,9 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      */
     protected function getCurrentRendererState():String
     {
-    	if (selected && showsCaret && hasState("selectedAndShowsCaret"))
-    	   return "selectedAndShowsCaret";
-    	    
+        if (selected && showsCaret && hasState("selectedAndShowsCaret"))
+           return "selectedAndShowsCaret";
+            
         if (hovered && showsCaret && hasState("hoveredAndShowsCaret"))
             return "hoveredAndShowsCaret";
              
