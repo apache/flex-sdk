@@ -100,7 +100,7 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *        for international languages, than Label.</li>
  *    <li>SimpleText can display multiple lines, which Label cannot.</li>
  *    <li>Label can display a limited subset of HTML,
- *        while SimpleText can only display a text with uniform formatting.</li>
+ *        while SimpleText can only display text with uniform formatting.</li>
  *    <li>Label can be made selectable, while SimpleText cannot.</li>
  *    <li>Label is a UIComponent that can be used in either MX
  *        containers such as HBox or in Spark containers such as Group.
