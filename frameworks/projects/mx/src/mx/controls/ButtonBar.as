@@ -23,6 +23,7 @@ import mx.containers.BoxDirection;
 import mx.controls.buttonBarClasses.ButtonBarButton;
 import mx.core.ClassFactory;
 import mx.core.EdgeMetrics;
+import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
@@ -362,6 +363,23 @@ use namespace mx_internal;
         
         addEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, 
                          childRemoveHandler);
+        
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        {
+            var typeSelector:CSSStyleDeclaration = 
+                styleManager.getStyleDeclaration("mx.controls.ButtonBar");
+            
+            if (typeSelector)
+            {
+                if (typeSelector.getStyle("borderSkin") === undefined)
+                {
+                    var globalSelector:CSSStyleDeclaration = 
+                        styleManager.getStyleDeclaration("global");
+                    typeSelector.setStyle("borderSkin", 
+                        globalSelector.getStyle("borderSkin"));
+                }
+            }
+        }
     }
 
     //--------------------------------------------------------------------------
