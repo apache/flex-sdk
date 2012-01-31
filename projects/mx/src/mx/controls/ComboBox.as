@@ -1855,7 +1855,12 @@ public class ComboBox extends ComboBase
         }
         
         inTween = true;
-        UIComponentGlobals.layoutManager.validateNow();
+        // only force validation if we're about to show
+        // or closing with effect.  Otherwise, if the iterator
+        // is out of sync in the dropdown, we'll get an RTE
+        // when closing
+        if (playEffect || show) 
+            UIComponentGlobals.layoutManager.validateNow();
         
         // Block all layout, responses from web service, and other background
         // processing until the tween finishes executing.
