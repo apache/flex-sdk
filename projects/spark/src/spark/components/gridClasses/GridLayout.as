@@ -883,6 +883,18 @@ public class GridLayout extends LayoutBase
             if (dataItem == null)
                 dataItem = getDataProviderItem(rowIndex);
             gridRenderer.label = gridColumn.itemToLabel(dataItem);
+            
+            if (isRowSelectionMode())
+            {
+                gridRenderer.selected = grid.selectionContainsIndex(rowIndex);
+                gridRenderer.showsCaret = grid.caretRowIndex == rowIndex;
+            }
+            else if (isCellSelectionMode())
+            {
+                gridRenderer.selected = grid.selectionContainsCell(rowIndex, columnIndex);
+                gridRenderer.showsCaret = (grid.caretRowIndex == rowIndex) && (grid.caretColumnIndex == columnIndex);
+            }
+            
             gridRenderer.data = dataItem;
             
             if (grid.gridOwner)
@@ -1964,9 +1976,25 @@ public class GridLayout extends LayoutBase
         // TBD(hmuller): create an item renderer
         return null;
     }
-
-    // TBD: isCellVisible(rowIndex, columnIndex)
-    // TBD: getCellValue(rowIndex, columnIndex)? getCellLabel()?
+    
+    /**
+     *  True if the specified cell is at least partially visible.  If columnIndex == -1 then 
+     *  true is returned if the specified row is at least partially visible.
+     *  
+     *  @param rowIndex The 0-based row index of the item renderer's cell.
+     *  @param columnIndex The 0-based column index of the item renderer's cell.
+     *  @return True if the specified cell (or row if columnIndex == -1) is at least partially visible
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */ 
+    public function isCellVisible(rowIndex:int, columnIndex:int):Boolean
+    {
+        return (visibleRowIndices.indexOf(rowIndex) != -1) && 
+            ((columnIndex == -1) || (visibleColumnIndices.indexOf(columnIndex) != -1));
+    }
     
     //--------------------------------------------------------------------------
     //
