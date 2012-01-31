@@ -23,7 +23,7 @@ import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
 
 /**
- *  The base class for text-related FXG classes such as TextGraphic.
+ *  The base class for text-related FXG classes such as TextGraphic and TextBox.
  */
 public class TextGraphicElement extends GraphicElement
     implements IStyleClient
@@ -246,7 +246,7 @@ public class TextGraphicElement extends GraphicElement
     mx_internal var _text:String = "";
         
     /**
-     *  Documentation is not currently available.
+     *  The text in this element.
      */
     public function get text():String 
     {
@@ -380,7 +380,7 @@ public class TextGraphicElement extends GraphicElement
     //--------------------------------------------------------------------------
 
     /**
-     *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function stylesInitialized():void
     {
