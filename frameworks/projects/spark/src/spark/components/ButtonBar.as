@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 package spark.components
-{
+{ 
 import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.EventPhase;
@@ -21,6 +21,7 @@ import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
 import spark.components.supportClasses.ListBase;
+import spark.events.IndexChangeEvent;
 import spark.events.RendererExistenceEvent;
 
 import mx.collections.IList;
@@ -30,7 +31,6 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
-import mx.events.IndexChangedEvent;
 import mx.managers.IFocusManagerComponent;
 
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
@@ -106,7 +106,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         tabChildren = false;
         tabEnabled = true;
 
-        addEventListener(IndexChangedEvent.CARET_CHANGE, caretChangeHandler);
+        addEventListener(IndexChangeEvent.CARET_CHANGE, caretChangeHandler);
 
         // start off with a button under the caret
         _caretIndex = 0;
@@ -468,7 +468,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         super.keyDownHandler(event);
 
         var oldCaretIndex:Number = caretIndex; 
-        var e:IndexChangedEvent;
+        var e:IndexChangeEvent;
         var length:int = dataProvider.length;
         switch (event.keyCode)
         {
@@ -485,7 +485,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
                     renderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
                     if (renderer)
                         renderer.showsCaret = true;
-                    e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
+                    e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
                     e.oldIndex = oldCaretIndex; 
                     e.newIndex = caretIndex; 
                     dispatchEvent(e);    
@@ -507,7 +507,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
                     renderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
                     if (renderer)
                         renderer.showsCaret = true;
-                    e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
+                    e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
                     e.oldIndex = oldCaretIndex; 
                     e.newIndex = caretIndex; 
                     dispatchEvent(e);    
