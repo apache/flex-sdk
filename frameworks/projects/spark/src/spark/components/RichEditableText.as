@@ -2717,8 +2717,10 @@ package spark.components
 			if (getStyle("lineBreak") == "explicit")
 				return;
 			
-			// If we don't measure
-			if (canSkipMeasurement())
+			// If we don't measure.
+			// Call super so we don't call the override
+			// and set autoSize to false;
+			if (super.canSkipMeasurement())
 				return;
 			
 			if (!isNaN(explicitHeight))
