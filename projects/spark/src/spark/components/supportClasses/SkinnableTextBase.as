@@ -77,7 +77,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="borderVisible", type="Boolean", inherit="no", theme="spark")]
+[Style(name="borderVisible", type="Boolean", inherit="no", theme="spark, mobile")]
 
 /**
  *  The alpha of the content background for this component.
@@ -87,7 +87,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark", minValue="0.0", maxValue="1.0")]
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark, mobile", minValue="0.0", maxValue="1.0")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#contentBackgroundColor
@@ -97,7 +97,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  The alpha of the focus ring for this component.
@@ -107,7 +107,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="focusAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
+[Style(name="focusAlpha", type="Number", inherit="no", theme="spark, mobile", minValue="0.0", maxValue="1.0")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#focusColor
@@ -117,7 +117,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 //--------------------------------------
 //  Events
