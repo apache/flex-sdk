@@ -21,12 +21,12 @@ Application
     skinClass: ClassReference("spark.skins.spark.ApplicationSkin");
 }
 
-Border
+BorderContainer
 {
     backgroundColor: #FFFFFF;
     borderStyle : "solid"; 
     cornerRadius: 0;
-    skinClass: ClassReference("spark.skins.spark.BorderSkin");
+    skinClass: ClassReference("spark.skins.spark.BorderContainerSkin");
 }
 
 Button
