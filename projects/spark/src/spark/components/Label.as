@@ -164,6 +164,15 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
  *  about individual glyphs; for more info, see
  *  flash.text.engine.TextLineValidity.STATIC.</p>
  *
+ *  <p>The Label control has the following default characteristics:</p>
+ *  <table class="innertable">
+ *     <tr><th>Characteristic</th><th>Description</th></tr>
+ *     <tr><td>Default size</td><td>0 pixels wide by 12 pixels high if it contains no text, 
+ *        and large enough ti display the text if it does</td></tr>
+ *     <tr><td>Minimum size</td><td>0 pixels</td></tr>
+ *     <tr><td>Maximum size</td><td>10000 pixels wide and 10000 pixels high</td></tr>
+ *  </table>
+ *
  *  @mxml <p>The <code>&lt;s:Label&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
