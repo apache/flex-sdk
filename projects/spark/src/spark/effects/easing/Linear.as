@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package flex.effects.easing
+package mx.effects.easing
 {
 /**
  * Provides easing functionality with three phases during
