@@ -318,18 +318,18 @@ public class ScrollBarBase extends TrackBase
     private static var easyInLinearEaser:IEaser = new Linear(.1);
     private static var deceleratingSineEaser:IEaser = new Sine(0);
     
-    // FIXME (hmuller): transient?    
+    // TODO (hmuller): transient?    
     // Direction indicator for current track-scrolling operations
     private var trackScrollDown:Boolean;
     
     // Timer used for repeated scrolling when mouse is held down on track
     private var trackScrollTimer:Timer;
     
-    // FIXME (hmuller): transient?    
+    // TODO (hmuller): transient?    
     // Cache current position on track for scrolling operations
     private var trackPosition:Point = new Point();
     
-    // FIXME (hmuller): transient?    
+    // TODO (hmuller): transient?    
     // Flag to indicate whether track-scrolling is in process
     private var trackScrolling:Boolean = false;
     
@@ -818,7 +818,7 @@ public class ScrollBarBase extends TrackBase
         // called repeatedly here due to the button's autoRepeat
         if (!steppingDown && !steppingUp)
         {
-            // FIXME (chaase): first step is non-animated, just to simplify the delayed
+            // TODO (chaase): first step is non-animated, just to simplify the delayed
             // start of the animated stepping. Seems okay, but worth thinking
             // about whether we should animate the first step too
             changeValueByStep(increment);
@@ -889,7 +889,7 @@ public class ScrollBarBase extends TrackBase
      */
     override protected function track_mouseDownHandler(event:MouseEvent):void
     {
-        // FIXME (chaase): We might want a different event mechanism eventually
+        // TODO (chaase): We might want a different event mechanism eventually
         // which would push this enabled check into the child/skin components
         if (!enabled)
             return;
@@ -955,7 +955,7 @@ public class ScrollBarBase extends TrackBase
         systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
             track_mouseUpHandler);
 
-        // FIXME (chaase): consider using the repeat behavior of Button
+        // TODO (chaase): consider using the repeat behavior of Button
         // to handle track-down repetition, instead of doing it with a
         // custom Timer. As long as we can distinguish the first
         // down event from subsequent ones, we may be able to just let
@@ -1001,7 +1001,7 @@ public class ScrollBarBase extends TrackBase
     protected function animatePaging(newValue:Number, pageSize:Number):void
     {
         animatingOnce = false;
-        // FIXME (chaase): hard-coding easing behavior, how to style it?
+        // TODO (chaase): hard-coding easing behavior, how to style it?
         startAnimation(
             getStyle("repeatInterval") * (Math.abs(newValue - value) / pageSize),
             newValue, linearEaser);
@@ -1040,10 +1040,10 @@ public class ScrollBarBase extends TrackBase
             easer = new Linear(500/duration);
         else
             easer = easyInLinearEaser;
-        // FIXME (chaase): we're using ScrollBarBase's repeatInterval for animated
+        // TODO (chaase): we're using ScrollBarBase's repeatInterval for animated
         // stepping, but Button's repeatInterval for non-animated stepping
-        // FIXME (chaase): think about the total duration for the animation.
-        // FIXME (chaase): hard-coding easing behavior, how to style it?
+        // TODO (chaase): think about the total duration for the animation.
+        // TODO (chaase): hard-coding easing behavior, how to style it?
         startAnimation(duration, newValue, easer, getStyle("repeatDelay"));
     }
 
