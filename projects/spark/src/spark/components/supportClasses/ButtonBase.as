@@ -24,7 +24,7 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
-import mx.events.TouchScrollEvent;
+import mx.events.GestureCaptureEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.StringUtil;
 
@@ -113,6 +113,27 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 [Style(name="iconPlacement", type="String", enumeration="top,bottom,right,left", inherit="no", theme="spark")]
 
 /**
+ *  When there is a touchDelay, and the user gesture is complete (user mouseUp) before 
+ *  the touchDelay is over, then the component goes in to the down state for a period 
+ *  of time to ensure the user gets visual feedback on this operation.  This period of 
+ *  time after mouseUp that the component is in the down state is the 
+ *  minimumDownStateTime.
+ * 
+ *  <p>This property exists for quick taps that occur on a component and ensures
+ *  that the user receives reasonable feedback for their button click operation.</p>
+ *  
+ *  <p>If the mobile theme is applied, the default value for this style is 100 ms for 
+ *  typical buttons.  For toggle buttons, the default value for this style is 0 ms.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="minimumDownStateTime", type="Number", format="Time", inherit="no", minValue="0.0")]
+
+
+/**
  *  Number of milliseconds to wait after the first <code>buttonDown</code>
  *  event before repeating <code>buttonDown</code> events at each 
  *  <code>repeatInterval</code>.
@@ -138,6 +159,26 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @productversion Flex 4
  */
 [Style(name="repeatInterval", type="Number", format="Time", inherit="no", minValueExclusive="0.0")]
+
+/**
+ *  When in touch interaction mode, the number of milliseconds to wait before showing the 
+ *  component in a visually down state.
+ * 
+ *  <p>The reason for this delay is because when a user initiates a scroll gesture, we don't want 
+ *  components to flicker as they touch the screen.  By having a reasonable delay, we make 
+ *  sure that the user still gets feedback when they press down on a component, but that the 
+ *  feedback doesn't come too quickly that it gets displayed during a scroll gesture 
+ *  operation.</p>
+ *  
+ *  <p>If the mobile theme is applied, the default value for this style is 100 ms for 
+ *  components inside of a Scroller and 0 ms for components outside of a Scroller.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="touchDelay", type="Number", format="Time", inherit="yes", minValue="0.0")]
 
 //--------------------------------------
 //  Events
@@ -296,10 +337,6 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      *  Placeholder for mixin by ButtonAccImpl.
      */
     mx_internal static var createAccessibilityImplementation:Function;
-    
-    // FIXME (rfrishbe): These should be styles
-    private static const DELAY_TO_SHOW_SELECTION_IN_TOUCH_MODE:int = 150;
-    private static const DELAY_TO_REMOVE_SELECTION_IN_TOUCH_MODE:int = 100;
 
     //--------------------------------------------------------------------------
     //
@@ -890,7 +927,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler);
         addEventListener(MouseEvent.MOUSE_UP, mouseEventHandler);
         addEventListener(MouseEvent.CLICK, mouseEventHandler);
-        addEventListener(TouchScrollEvent.TOUCH_SCROLL_START, touchScrollStartHandler);
+        addEventListener(GestureCaptureEvent.GESTURE_CAPTURE_START, gestureCaptureStartHandler);
     }
     
     /**
@@ -1046,9 +1083,18 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      */
     private function startSelectButtonAfterDelayTimer():void
     {
-        mouseDownSelectTimer = new Timer(DELAY_TO_SHOW_SELECTION_IN_TOUCH_MODE, 1);
-        mouseDownSelectTimer.addEventListener(TimerEvent.TIMER_COMPLETE, mouseDownSelectTimer_timerCompleteHandler);
-        mouseDownSelectTimer.start();
+        var touchDelay:int = getStyle("touchDelay");
+        
+        if (touchDelay > 0)
+        {
+            mouseDownSelectTimer = new Timer(touchDelay, 1);
+            mouseDownSelectTimer.addEventListener(TimerEvent.TIMER_COMPLETE, mouseDownSelectTimer_timerCompleteHandler);
+            mouseDownSelectTimer.start();
+        }
+        else
+        {
+            mouseDownSelectTimer_timerCompleteHandler();
+        }
     }
     
     /**
@@ -1070,9 +1116,18 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      */
     private function startDeselectButtonAfterDelayTimer():void
     {
-        mouseUpDeselectTimer = new Timer(DELAY_TO_REMOVE_SELECTION_IN_TOUCH_MODE, 1);
-        mouseUpDeselectTimer.addEventListener(TimerEvent.TIMER_COMPLETE, mouseUpDeselectTimer_timerCompleteHandler);
-        mouseUpDeselectTimer.start();
+        var minimumDownStateTime:int = getStyle("minimumDownStateTime");
+        
+        if (minimumDownStateTime > 0)
+        {
+            mouseUpDeselectTimer = new Timer(minimumDownStateTime, 1);
+            mouseUpDeselectTimer.addEventListener(TimerEvent.TIMER_COMPLETE, mouseUpDeselectTimer_timerCompleteHandler);
+            mouseUpDeselectTimer.start();
+        }
+        else
+        {
+            mouseUpDeselectTimer_timerCompleteHandler();
+        }
     }
     
     /**
@@ -1162,7 +1217,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     /**
      *  @private
      */
-    private function touchScrollStartHandler(event:TouchScrollEvent):void
+    private function gestureCaptureStartHandler(event:GestureCaptureEvent):void
     {
         // if we have a timer going on, let's stop it to make sure we don't
         // select the button later
@@ -1350,7 +1405,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     /**
      *  @private
      */
-    private function mouseDownSelectTimer_timerCompleteHandler(event:TimerEvent):void
+    private function mouseDownSelectTimer_timerCompleteHandler(event:TimerEvent = null):void
     {
         mouseCaptured = true;
     }
@@ -1358,7 +1413,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     /**
      *  @private
      */
-    private function mouseUpDeselectTimer_timerCompleteHandler(event:TimerEvent):void
+    private function mouseUpDeselectTimer_timerCompleteHandler(event:TimerEvent = null):void
     {
         buttonReleased();
         mouseCaptured = false;
