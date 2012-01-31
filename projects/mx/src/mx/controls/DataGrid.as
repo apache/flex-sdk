@@ -28,10 +28,10 @@ import flash.utils.describeType;
 
 import mx.collections.CursorBookmark;
 import mx.collections.ICollectionView;
-import mx.collections.ItemResponder;
 import mx.collections.ISort;
-import mx.collections.Sort;
 import mx.collections.ISortField;
+import mx.collections.ItemResponder;
+import mx.collections.Sort;
 import mx.collections.SortField;
 import mx.collections.errors.ItemPendingError;
 import mx.controls.dataGridClasses.DataGridBase;
@@ -2607,11 +2607,14 @@ public class DataGrid extends DataGridBase implements IIMESupport
             contentHolder.addChildAt(rowBGs, 0);
         }
 
-        var colors:Array;
+		
+		var colors:Array;
+		var colorsStyle:Object = getStyle("alternatingItemColors");
+		
+		if (colorsStyle)
+			colors = (colorsStyle is Array) ? (colorsStyle as Array) : [colorsStyle];
 
-        colors = getStyle("alternatingItemColors");
-
-        if (!colors || colors.length == 0)
+		if (!colors || colors.length == 0)
         {
             while (rowBGs.numChildren > n)
             {
