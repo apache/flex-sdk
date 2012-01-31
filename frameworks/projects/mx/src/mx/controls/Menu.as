@@ -22,7 +22,6 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
 import flash.utils.clearInterval;
-import flash.utils.getTimer;
 import flash.utils.setTimeout;
 import flash.xml.XMLNode;
 import mx.collections.ArrayCollection;
@@ -760,6 +759,12 @@ public class Menu extends List implements IFocusManagerContainer
      */
     mx_internal var _rootModel:ICollectionView;
 
+	/**
+     *  @private
+     *  Storage variable for dataProvider passed to parent
+     */
+    mx_internal var _listDataProvider:ICollectionView;
+
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -865,11 +870,6 @@ public class Menu extends List implements IFocusManagerContainer
      */
     override public function set dataProvider(value:Object):void
     {
-        if (_rootModel)
-            _rootModel.removeEventListener(
-                            CollectionEvent.COLLECTION_CHANGE, 
-                            collectionChangeHandler);
-                            
         // handle strings and xml
         if (typeof(value)=="string")
             value = new XML(value);
@@ -909,9 +909,7 @@ public class Menu extends List implements IFocusManagerContainer
         {
             _rootModel = new ArrayCollection();
         }
-        //add listeners as weak references
-        _rootModel.addEventListener(CollectionEvent.COLLECTION_CHANGE,
-                                    collectionChangeHandler, false, 0, true);
+        
         //flag for processing in commitProps
         dataProviderChanged = true;
         invalidateProperties();
@@ -1192,22 +1190,30 @@ public class Menu extends List implements IFocusManagerContainer
                 }
             }
 
+            if (_listDataProvider)
+            {
+                _listDataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE,
+                                          collectionChangeHandler, false);
+            }
+
             // At this point _rootModel may be null so we dont need to continue.
             if (_rootModel)
             {
                 if (!tmpCollection)
                     tmpCollection = _rootModel;
 
+                _listDataProvider = tmpCollection;
                 super.dataProvider = tmpCollection;
 
                 // not really a default handler, but we need to be later than the wrapper
-                tmpCollection.addEventListener(CollectionEvent.COLLECTION_CHANGE,
+                _listDataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE,
                                           collectionChangeHandler,
                                           false,
                                           EventPriority.DEFAULT_HANDLER, true);
             }
             else
             {
+                _listDataProvider = null;
                 super.dataProvider = null;
             }
         }
@@ -1776,6 +1782,7 @@ public class Menu extends List implements IFocusManagerContainer
             {
                 super.collectionChangeHandler(event);
                 dataProviderChanged = true;
+                invalidateProperties();
                 invalidateSize();
                 UIComponentGlobals.layoutManager.validateClient(this);
                 setActualSize(getExplicitOrMeasuredWidth(), getExplicitOrMeasuredHeight());
@@ -1784,19 +1791,22 @@ public class Menu extends List implements IFocusManagerContainer
             {
                 super.collectionChangeHandler(event);
                 dataProviderChanged = true;
+                invalidateProperties();
                 invalidateSize();
                 UIComponentGlobals.layoutManager.validateClient(this);
                 setActualSize(getExplicitOrMeasuredWidth(), getExplicitOrMeasuredHeight());
             }
             else if (ce.kind == CollectionEventKind.REFRESH)
             {
-                invalidateSize();
+                dataProviderChanged = true;
                 invalidateProperties();
+                invalidateSize();
             }
             else if (ce.kind == CollectionEventKind.RESET)
             {
-                invalidateSize();
+                dataProviderChanged = true;
                 invalidateProperties();
+                invalidateSize();
             }
         }
         itemsSizeChanged = true;
