@@ -3145,7 +3145,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (!changed)
             return false;
         
-        grid.invalidateDisplayList();
+        grid.invalidateDisplayListFor("selectionIndicator");
         
         // Step 3: dispatch the "change" event.
         if (hasEventListener(GridSelectionEvent.SELECTION_CHANGE))
@@ -4022,6 +4022,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         
         grid.hoverRowIndex = updateHoverOnRollOver ? event.rowIndex : -1;
         grid.hoverColumnIndex = updateHoverOnRollOver ? event.columnIndex : -1;
+        
+        event.updateAfterEvent();        
     }
     
     /**
@@ -4038,6 +4040,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         grid.hoverColumnIndex = -1;
         
         updateHoverOnRollOver = true;
+        event.updateAfterEvent();
     }
     
     /**
@@ -4129,7 +4132,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     private function grid_invalidateDisplayListHandler(event:Event):void
     {
         // invalidate all IDataGridElements
-        if (columnHeaderGroup)
+        if (columnHeaderGroup && grid.isInvalidateDisplayListReason("horizontalScrollPosition"))
             columnHeaderGroup.invalidateDisplayList();
     }
     
