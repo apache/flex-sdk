@@ -77,19 +77,19 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         _layout = new BasicLayout();
         _layout.target = this;  
     }
-    
+        
     //--------------------------------------------------------------------------
     //
-    //  Variables
+    //  Properties
     //
     //--------------------------------------------------------------------------
-    
-    
+        
     //----------------------------------
     //  layout
     //----------------------------------    
         
     private var _layout:LayoutBase;  // initialized in the ctor
+    private var _layoutProperties:Object = null;
     
     /**
      *  The layout object for this container.  
@@ -101,19 +101,121 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
         
     /**
-     * @private
+     *  Three properties are delegated to the layout: clipContent,
+     *  verticalScrollPosition, horizontalScrollPosition.
+     *  If the layout is reset, we copy the properties from the old
+     *  layout to the new one.   If the new layout is null, then we
+     *  temporarily store the delegated properties in _layoutProperties.
+     *  
+     *  @private
      */
     public function set layout(value:LayoutBase):void
     {
         if (_layout == value)
             return;
-        
-        _layout = value;  
+
+        if (value)
+        {
+            value.clipContent = clipContent;
+            value.verticalScrollPosition = verticalScrollPosition;
+            value.horizontalScrollPosition = horizontalScrollPosition;
+            _layoutProperties = null;
+        }
+        else 
+        {
+            _layoutProperties = {
+                verticalScrollPosition: _layout.verticalScrollPosition,
+                horizontalScrollPosition: _layout.horizontalScrollPosition,
+                clipContent: _layout.clipContent 
+            };
+        }
+
+        if (_layout)
+            _layout.target = null;
+        _layout = value; 
         if (_layout)
             _layout.target = this;
+
         invalidateSize();
         invalidateDisplayList();
     }
+    
+    //----------------------------------
+    //  horizontalScrollPosition
+    //----------------------------------
+        
+    [Bindable]
+
+    /**
+     *  @copy mx.core.IViewport#horizontalScrollPosition
+     */
+    public function get horizontalScrollPosition():Number 
+    {
+        return (_layout) 
+            ? _layout.horizontalScrollPosition 
+            : _layoutProperties.horizontalScrollPosition;
+    }
+
+    /**
+     *  @private
+     */
+    public function set horizontalScrollPosition(value:Number):void 
+    {
+        if (_layout)
+            _layout.horizontalScrollPosition = value;
+        else
+            _layoutProperties.horizontalScrollPosition = value;
+    }
+    
+    //----------------------------------
+    //  verticalScrollPosition
+    //----------------------------------
+    
+    [Bindable]
+    
+    /**
+     *  @copy mx.core.IViewport#verticalScrollPosition
+     */
+    public function get verticalScrollPosition():Number 
+    {
+        return (_layout) 
+            ? _layout.verticalScrollPosition 
+            : _layoutProperties.verticalScrollPosition;
+    }
+
+    /**
+     *  @private
+     */
+    public function set verticalScrollPosition(value:Number):void 
+    {
+        if (_layout)
+            _layout.verticalScrollPosition = value;
+        else
+            _layoutProperties.verticalScrollPosition = value;
+    }
+    
+    //----------------------------------
+    //  clipContent
+    //----------------------------------
+    
+    /**
+     *  @copy mx.core.IViewport#clipContent
+     */
+    public function get clipContent():Boolean 
+    {
+        return (_layout) ? _layout.clipContent : _layoutProperties.clipContent;
+    }
+
+    /**
+     *  @private
+     */
+    public function set clipContent(value:Boolean):void 
+    {
+        if (_layout)
+            _layout.clipContent = value;
+        else
+            _layoutProperties.clipContent = value;
+    }    
     
     //----------------------------------
     //  autoLayout
@@ -400,58 +502,6 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
             _layout.updateDisplayList(unscaledWidth, unscaledHeight);
     }
     
-    //--------------------------------------------------------------------------
-    //
-    //  IViewport properties and methods that delegate to layout
-    //
-    //--------------------------------------------------------------------------    
-    
-    //----------------------------------
-    //  horizontalScrollPosition
-    //----------------------------------
-        
-    [Bindable]
-
-    /**
-     *  @copy mx.core.IViewport#horizontalScrollPosition
-     */
-    public function get horizontalScrollPosition():Number 
-    {
-        return (layout) ? layout.horizontalScrollPosition : 0;
-    }
-
-    /**
-     *  @private
-     */
-    public function set horizontalScrollPosition(value:Number):void 
-    {
-        if (layout)
-            layout.horizontalScrollPosition = value;
-    }
-    
-    //----------------------------------
-    //  verticalScrollPosition
-    //----------------------------------
-    
-    [Bindable]
-    
-    /**
-     *  @copy mx.core.IViewport#verticalScrollPosition
-     */
-    public function get verticalScrollPosition():Number 
-    {
-        return (layout) ? layout.verticalScrollPosition : 0;
-    }
-
-    /**
-     *  @private
-     */
-    public function set verticalScrollPosition(value:Number):void 
-    {
-        if (layout)
-            layout.verticalScrollPosition = value;
-    }
-    
     //----------------------------------
     //  horizontal,verticalScrollPositionDelta
     //----------------------------------
@@ -554,27 +604,6 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         setContentWidth(w);
         setContentHeight(h);
     }
-    
-    //----------------------------------
-    //  clipContent
-    //----------------------------------
-    
-    /**
-     *  @copy mx.core.IViewport#clipContent
-     */
-    public function get clipContent():Boolean 
-    {
-        return (layout) ? layout.clipContent : false;
-    }
-
-    /**
-     *  @private
-     */
-    public function set clipContent(value:Boolean):void 
-    {
-        if (layout)
-            layout.clipContent = value;
-    }    
     
     //--------------------------------------------------------------------------
     //
