@@ -20,6 +20,11 @@ import mx.utils.ColorUtil;
 /**
  *  The skin for all the states of the next-year and previous-year
  *  buttons in a DateChooser.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DateChooserYearArrowSkin extends Border
 {
@@ -33,6 +38,11 @@ public class DateChooserYearArrowSkin extends Border
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DateChooserYearArrowSkin()
 	{
