@@ -214,7 +214,7 @@ public class TreeEvent extends Event
      *  Storage for the item property.
      *  If you populate the Tree from XML data, access
      *  the properties for the node as
-     *  <code>event.item.&64;<i>attribute_name</i></code>.
+     *  <code>event.item.&#64;<i>attribute_name</i></code>.
      */
     public var item:Object;
 
