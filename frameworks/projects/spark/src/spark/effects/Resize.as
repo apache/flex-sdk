@@ -14,7 +14,7 @@ import flex.effects.effectClasses.ResizeInstance;
 
 import mx.effects.IEffectInstance;
     
-public class Resize extends AnimateProperties
+public class Resize extends Animate
 {
     include "../core/Version.as";
 
