@@ -486,6 +486,18 @@ public class UIFTETextField extends FTETextField
             validateNow();
     }
 
+	//----------------------------------
+	//  textColor
+	//----------------------------------
+
+	/**
+	 *  @private
+	 */
+	override public function set textColor(value:uint):void
+	{
+		setColor(value);
+	}
+	
     //--------------------------------------------------------------------------
     //
     //  Properties
