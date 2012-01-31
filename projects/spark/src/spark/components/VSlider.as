@@ -160,7 +160,7 @@ public class VSlider extends SliderBase
             var relY:Number = thumb.getLayoutBoundsY() + 
                             (thumb.getLayoutBoundsHeight() - tipAsDisplayObject.height) / 2;
             var o:Point = new Point(initialPosition.x, relY);
-            var r:Point = localToGlobal(o);        
+            var r:Point = thumb.parent.localToGlobal(o);        
             
             // Get the screen bounds
             var screenBounds:Rectangle = systemManager.getVisibleApplicationRect();
