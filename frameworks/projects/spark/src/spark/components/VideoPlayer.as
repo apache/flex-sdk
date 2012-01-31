@@ -18,7 +18,6 @@ import flash.events.Event;
 import flash.events.FullScreenEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
-import flash.events.ProgressEvent;
 import flash.events.TimerEvent;
 import flash.geom.Rectangle;
 import flash.utils.Timer;
@@ -29,11 +28,9 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.utils.BitFlagUtil;
 
-import org.osmf.events.BytesDownloadedChangeEvent;
-import org.osmf.events.DurationChangeEvent;
+import org.osmf.events.LoadEvent;
 import org.osmf.events.MediaPlayerStateChangeEvent;
-import org.osmf.events.PlayheadChangeEvent;
-import org.osmf.media.MediaPlayerState;
+import org.osmf.events.TimeEvent;
 
 import spark.components.mediaClasses.MuteButton;
 import spark.components.mediaClasses.ScrubBar;
@@ -51,34 +48,54 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- * Dispatched when the data is received as a download operation progresses.
+ *  Dispatched when the data is received as a download operation progresses.
  *
- * @eventType flash.events.ProgressEvent
+ *  @eventType org.osmf.events.LoadEvent.BYTES_LOADED_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.0
+ *  @productversion OSMF 1.0
  */
-[Event(name="bytesDownloadedChange",type="org.osmf.events.BytesDownloadedChangeEvent")]
+[Event(name="bytesLoadedChange",type="org.osmf.events.LoadEvent")]
 
 /**
- * Dispatched when the MediaPlayer's state has changed.
+ *  Dispatched when the <code>currentTime</code> property of the MediaPlayer has changed.
+ *  This value is updated at the interval set by 
+ *  the MediaPlayer's <code>currentTimeUpdateInterval</code> property.
+ *
+ *  @eventType org.osmf.events.TimeEvent.CURRENT_TIME_CHANGE
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.0
+ *  @productversion OSMF 1.0
+ **/
+[Event(name="currentTimeChange",type="org.osmf.events.TimeEvent")]
+
+/**
+ *  Dispatched when the <code>duration</code> property of the media has changed.
  * 
- * @eventType org.osmf.events.PlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE
+ *  @eventType org.osmf.events.TimeEvent.DURATION_CHANGE
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.0
+ *  @productversion OSMF 1.0
+ */
+[Event(name="durationChange", type="org.osmf.events.TimeEvent")]
+
+/**
+ *  Dispatched when the MediaPlayer's state has changed.
+ * 
+ *  @eventType org.osmf.events.MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.0
+ *  @productversion OSMF 1.0
  */	
 [Event(name="mediaPlayerStateChange", type="org.osmf.events.MediaPlayerStateChangeEvent")]
-
-/**
- * Dispatched when the <code>playhead</code> property of the MediaPlayer has changed.
- * This value is updated at the interval set by 
- * the MediaPlayer's <code>playheadUpdateInterval</code> property.
- *
- * @eventType org.osmf.events.PlayheadChangeEvent.PLAYHEAD_CHANGE
- **/
-[Event(name="playheadChange",type="org.osmf.events.PlayheadChangeEvent")]  
-
-/**
- * Dispatched when the <code>duration</code> property of the media has changed.
- * 
- * @eventType org.osmf.events.DurationChangeEvent.DURATION_CHANGE
- */
-[Event(name="durationChange", type="org.osmf.events.DurationChangeEvent")]
 
 //--------------------------------------
 //  Styles
@@ -127,7 +144,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("uninitialized")]
 
 /**
- *  Initializing State of the VideoPlayer.
+ *  Loading State of the VideoPlayer.
  *  The VideoPlayer is loading or connecting to the source. 
  *  
  *  @langversion 3.0
@@ -135,7 +152,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[SkinState("initializing")]
+[SkinState("loading")]
 
 /**
  *  Ready State of the VideoPlayer.
@@ -214,7 +231,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("uninitializedAndFullScreen")]
 
 /**
- *  Initializing State of the VideoPlayer when 
+ *  Loading State of the VideoPlayer when 
  *  in full screen mode.
  *  The VideoPlayer is loading or connecting to the source. 
  *  
@@ -223,7 +240,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[SkinState("initializingAndFullScreen")]
+[SkinState("loadingAndFullScreen")]
 
 /**
  *  Ready State of the VideoPlayer when 
@@ -1210,7 +1227,7 @@ public class VideoPlayer2 extends SkinnableComponent
      */
     override protected function getCurrentSkinState():String
     {   
-        var state:String = videoDisplay.videoPlayer.state.name;
+        var state:String = videoDisplay.videoPlayer.state;
         
         // now that we have our video player's current state (atleast the one we care about)
         // and that we've set the previous state to something we care about, let's figure 
@@ -1232,10 +1249,10 @@ public class VideoPlayer2 extends SkinnableComponent
     {
         if (instance == videoDisplay)
         {
-            videoDisplay.addEventListener(PlayheadChangeEvent.PLAYHEAD_CHANGE, videoDisplay_playHeadChangeHandler);
-            videoDisplay.addEventListener(BytesDownloadedChangeEvent.BYTES_DOWNLOADED_CHANGE, videoDisplay_bytesDownloadedChangeHandler);
+            videoDisplay.addEventListener(TimeEvent.CURRENT_TIME_CHANGE, videoDisplay_currentTimeChangeHandler);
+            videoDisplay.addEventListener(LoadEvent.BYTES_LOADED_CHANGE, videoDisplay_bytesLoadedChangeHandler);
             videoDisplay.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoDisplay_mediaPlayerStateChangeHandler);
-            videoDisplay.addEventListener(DurationChangeEvent.DURATION_CHANGE, videoDisplay_durationChangeHandler);
+            videoDisplay.addEventListener(TimeEvent.DURATION_CHANGE, videoDisplay_durationChangeHandler);
             
             // just strictly for binding purposes
             videoDisplay.addEventListener("sourceChanged", dispatchEvent);
@@ -1496,10 +1513,10 @@ public class VideoPlayer2 extends SkinnableComponent
             
             videoDisplayProperties = newVideoProperties;
             
-            videoDisplay.removeEventListener(PlayheadChangeEvent.PLAYHEAD_CHANGE, videoDisplay_playHeadChangeHandler);
-            videoDisplay.removeEventListener(DurationChangeEvent.DURATION_CHANGE, videoDisplay_durationChangeHandler);
-            videoDisplay.removeEventListener(BytesDownloadedChangeEvent.BYTES_DOWNLOADED_CHANGE, videoDisplay_bytesDownloadedChangeHandler);
+            videoDisplay.removeEventListener(TimeEvent.CURRENT_TIME_CHANGE, videoDisplay_currentTimeChangeHandler);
+            videoDisplay.removeEventListener(LoadEvent.BYTES_LOADED_CHANGE, videoDisplay_bytesLoadedChangeHandler);
             videoDisplay.removeEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoDisplay_mediaPlayerStateChangeHandler);
+            videoDisplay.removeEventListener(TimeEvent.DURATION_CHANGE, videoDisplay_durationChangeHandler);
             
             // just strictly for binding purposes
             videoDisplay.removeEventListener("sourceChanged", dispatchEvent);
@@ -1655,9 +1672,11 @@ public class VideoPlayer2 extends SkinnableComponent
     protected function formatTimeValue(value:Number):String
     {
         // default format: hours:minutes:seconds
+        value = Math.round(value);
+        
         var hours:uint = Math.floor(value/3600) % 24;
         var minutes:uint = Math.floor(value/60) % 60;
-        var seconds:uint = Math.round(value) % 60;
+        var seconds:uint = value % 60;
         
         var result:String = "";
         if (hours != 0)
@@ -1693,7 +1712,7 @@ public class VideoPlayer2 extends SkinnableComponent
     /**
      *  @private
      */
-    private function videoDisplay_playHeadChangeHandler(event:PlayheadChangeEvent):void
+    private function videoDisplay_currentTimeChangeHandler(event:TimeEvent):void
     {
         if (scrubBar)
             updateScrubBar();
@@ -1707,7 +1726,7 @@ public class VideoPlayer2 extends SkinnableComponent
     /**
      *  @private
      */
-    private function videoDisplay_bytesDownloadedChangeHandler(event:BytesDownloadedChangeEvent):void
+    private function videoDisplay_bytesLoadedChangeHandler(event:LoadEvent):void
     {
         if (scrubBar)
             updateScrubBar();
@@ -1737,7 +1756,7 @@ public class VideoPlayer2 extends SkinnableComponent
     /**
      *  @private
      */
-    private function videoDisplay_durationChangeHandler(event:DurationChangeEvent):void
+    private function videoDisplay_durationChangeHandler(event:TimeEvent):void
     {
         if (scrubBar)
             updateScrubBar();
@@ -1900,7 +1919,7 @@ public class VideoPlayer2 extends SkinnableComponent
         playerControls.visible = false;
         
         if (volumeBar)
-            volumeBar.closeDropDown(true);
+            volumeBar.closeDropDown();
     }
     
     /**
