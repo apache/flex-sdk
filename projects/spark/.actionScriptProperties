@@ -2,10 +2,9 @@
 <actionScriptProperties mainApplicationPath="spark.as" projectUUID="fe6cd9e8-ac6c-419a-876e-64da4790b2b9" version="6">
   <compiler additionalCompilerArguments="-keep-as3-metadata=SkinPart -include-file=defaults.css,../defaults.css -resource-bundle-list=../bundles.properties -namespace=library://ns.adobe.com/flex/spark,../manifest.xml -include-namespaces=library://ns.adobe.com/flex/spark -library-path= -locale=" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
-    <libraryPath defaultLinkType="1">
+    <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
         <modifiedEntries>
-          <libraryPathEntry index="2" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/datavisualization.swc" useDefaultLinkType="false"/>
           <libraryPathEntry index="1" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/sparkskins.swc" useDefaultLinkType="false"/>
         </modifiedEntries>
         <excludedEntries>
@@ -14,6 +13,7 @@
           <libraryPathEntry kind="1" linkType="1" path="${PROJECT_FRAMEWORKS}/locale/{locale}"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/datavisualisation.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/osmf.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/player/10.{targetPlayerMinorVersion}" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flash-integration.swc" useDefaultLinkType="false"/>
           <libraryPathEntry index="1" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/spark.swc" useDefaultLinkType="true">
             <crossDomainRsls>
@@ -38,6 +38,7 @@
               <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="rpc_4.0.0.0.swf"/>
             </crossDomainRsls>
           </libraryPathEntry>
+          <libraryPathEntry index="2" kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/datavisualization.swc" useDefaultLinkType="false"/>
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="3" linkType="2" path="/textLayout/bin/textLayout.swc" useDefaultLinkType="false"/>
