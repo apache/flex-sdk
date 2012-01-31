@@ -25,6 +25,7 @@ package spark.components
     import mx.events.CollectionEvent;
     import mx.events.CollectionEventKind;
     import mx.events.FlexEvent;
+    import mx.utils.ObjectUtil;    
     
     import spark.components.supportClasses.GridColumn;
     import spark.components.supportClasses.GridDimensions;
@@ -648,7 +649,6 @@ package spark.components
         
         private var _columns:IList = null; // list of GridColumns
         private var columnsChanged:Boolean = false;
-        private var generatedColumns:Boolean = false;
         
         [Bindable("columnsChanged")]
         
@@ -662,12 +662,6 @@ package spark.components
          */
         public function get columns():IList
         {
-            if (_columns == null)
-            {
-                setColumns(generateColumns());
-                generatedColumns = true;
-            }
-            
             return _columns;
         }
         
@@ -679,7 +673,6 @@ package spark.components
             if (_columns == value)
                 return;
             
-            generatedColumns = false;
             setColumns(value);
         }
         
@@ -748,12 +741,16 @@ package spark.components
             if (item)
             {
                 itemColumns = new ArrayList();
-                for (var property:String in item)
+                const classInfo:Object = ObjectUtil.getClassInfo(item);
+                if (classInfo)
                 {
-                    var column:GridColumn = new GridColumn();
-                    column.dataField = property;
-                    itemColumns.addItem(column);
-                } 
+                    for each (var property:QName in classInfo.properties)
+                    {
+                        var column:GridColumn = new GridColumn();
+                        column.dataField = property.localName;
+                        itemColumns.addItem(column);                        
+                    }
+                }
             }
             
             return itemColumns;
@@ -843,6 +840,9 @@ package spark.components
                 return;
             
             _itemRenderer = value;
+            
+            invalidateSize();
+            invalidateDisplayList();
             dispatchChangeEvent("itemRendererChanged");
         }    
         
@@ -1280,6 +1280,8 @@ package spark.components
             else
                 gridDimensions.fixedRowHeight = value;
             
+            invalidateSize();
+            invalidateDisplayList();
             dispatchChangeEvent("rowHeightChanged");            
         }
         
@@ -1441,10 +1443,10 @@ package spark.components
             
             _typicalItem = value;
             gridDimensions.clearTypicalCellWidthsAndHeights();
-			dispatchChangeEvent("typicalItemChanged");
             
             invalidateSize();
             invalidateDisplayList();
+			dispatchChangeEvent("typicalItemChanged");
         }
         
         //----------------------------------
@@ -1480,6 +1482,8 @@ package spark.components
             
             gridDimensions.fixedRowHeight = (value) ? NaN : rowHeight;
             
+            invalidateSize();
+            invalidateDisplayList();
             dispatchChangeEvent("variableRowHeightChanged");            
         }
         
@@ -2727,6 +2731,12 @@ package spark.components
                     
                 case CollectionEventKind.RESET:
                 {
+                    for (index = 0; index < columns.length; index++)
+                    {
+                        column = GridColumn(columns.getItemAt(index));
+                        column.setGrid(this);
+                        column.setColumnIndex(index);
+                    }                     
                     break;
                 }                                
             }
