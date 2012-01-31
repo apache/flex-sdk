@@ -1139,7 +1139,10 @@ public class Grid extends Group
     //----------------------------------
     
     private var _typicalItem:Object = null;
+    private var typicalItemChanged:Boolean;
     
+    [Bindable("typicalItemChanged")]
+ 
     /**
      *  TBD: update this for Grid and add to the spec.
      * 
@@ -1177,16 +1180,15 @@ public class Grid extends Group
      */
     public function set typicalItem(value:Object):void
     {
-        if (_typicalItem === value)
+        if (_typicalItem == value)
             return;
         
-        _typicalItem = value;
+        typicalItem = value;
+        typicalItemChanged = true;
         
-        // ToDo: need to regenerate typicalLayoutElement if any of the
-        // itemRenderers for column 0 change.
-        //gridLayout.typicalLayoutElement = null;
-        
-        //invalidateSize();
+        invalidateProperties();
+        invalidateSize();
+        invalidateDisplayList();
     }
         
     //--------------------------------------------------------------------------
@@ -1986,6 +1988,13 @@ public class Grid extends Group
         {
             dispatchCaretChangeEvent();
             caretChanged = false;
+        }
+        
+        if (typicalItemChanged)
+        {
+            if (layout)
+                layout.typicalLayoutElement = null;
+            typicalItemChanged = false;
         }
     }
 
