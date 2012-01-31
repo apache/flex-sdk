@@ -155,6 +155,35 @@ public class VGroup extends Group
     }
 
     //----------------------------------
+    //  verticalAlign
+    //----------------------------------
+    
+    [Inspectable(category="General", enumeration="top,bottom,middle", defaultValue="top")]
+    
+    /**
+     *  @copy spark.layouts.VerticalLayout#verticalAlign
+     *  
+     *  @default "top"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get verticalAlign():String
+    {
+        return verticalLayout.verticalAlign;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set verticalAlign(value:String):void
+    {
+        verticalLayout.verticalAlign = value;
+    }
+    
+    //----------------------------------
     //  paddingLeft
     //----------------------------------
 
