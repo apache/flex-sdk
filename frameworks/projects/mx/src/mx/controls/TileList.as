@@ -77,8 +77,7 @@ use namespace mx_internal;
  *        <tr>
  *           <td>Default size</td>
  *           <td>Four columns and four rows. Using the default item 
- *               renderer, each cell is 50 by 50 pixels, and the total 
- *               size is 200 by 200 pixels.</td>
+ *               renderer, the total size is 66 by 126 pixels.</td>
  *        </tr>
  *        <tr>
  *           <td>Minimum size</td>
@@ -110,7 +109,7 @@ use namespace mx_internal;
  */
 public class TileList extends TileBase
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
@@ -118,20 +117,20 @@ public class TileList extends TileBase
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function TileList()
-	{
-		super();
-		_horizontalScrollPolicy = ScrollPolicy.AUTO;
-		itemRenderer = new ClassFactory(TileListItemRenderer);
-	}
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function TileList()
+    {
+        super();
+        _horizontalScrollPolicy = ScrollPolicy.AUTO;
+        itemRenderer = new ClassFactory(TileListItemRenderer);
+    }
 }
 
 }
