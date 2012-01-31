@@ -141,7 +141,13 @@ public final class NavigationUnit
     public static const PAGE_RIGHT:uint = 0x2398;
     
     /**
-     *  Returns true if the keyCode maps directly to a NavigationUnit enum value.
+     *  Returns <code>true</code> if the <code>keyCode</code> maps directly 
+     *  to a NavigationUnit enum value.
+     *
+     *  @param keyCode A key code value. 
+     *
+     *  @return <code>true</code> if the <code>keyCode</code> maps directly 
+     *  to a NavigationUnit enum value.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
