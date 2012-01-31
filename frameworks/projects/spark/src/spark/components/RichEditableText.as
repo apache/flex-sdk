@@ -44,9 +44,7 @@ import text.formats.IContainerFormat;
 import text.formats.IParagraphFormat;
 import text.formats.ParagraphFormat;
 import text.importExport.TextFilter;
-import text.operations.ApplyCharacterFormatOperation;
-import text.operations.ApplyContainerFormatOperation;
-import text.operations.ApplyParagraphFormatOperation;
+import text.operations.ApplyFormatOperation;
 import text.operations.FlowOperation;
 import text.operations.SplitParagraphOperation;
 
@@ -1070,24 +1068,12 @@ public class TextView extends UIComponent implements IViewport
         
         var editManager:TextViewEditManager =
             TextViewEditManager(textFlow.interactionManager);
+
+        var applyFormatOperation:ApplyFormatOperation =
+            new ApplyFormatOperation(editManager.selectionState,
+            characterFormat, paragraphFormat, containerFormat);
         
-        if (containerFormat)
-        {
-            editManager.execute(new ApplyContainerFormatOperation(
-                editManager.selectionState, containerFormat));
-        }
-
-        if (paragraphFormat)
-        {
-            editManager.execute(new ApplyParagraphFormatOperation(
-                editManager.selectionState, paragraphFormat));
-        }
-
-        if (characterFormat)
-        {
-            editManager.execute(new ApplyCharacterFormatOperation(
-                editManager.selectionState, characterFormat));
-        }
+        editManager.execute(applyFormatOperation);
     }
 
     //--------------------------------------------------------------------------
