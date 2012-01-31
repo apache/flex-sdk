@@ -1796,6 +1796,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             
             if (columnHeaderBar)
                 columnHeaderBar.dataGrid = this;
+            
+            // Data grid editor
+            editor = createEditor();
+            editor.initialize();
+
         }
         
         if (instance == alternatingRowColorsBackground)
@@ -1826,6 +1831,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             
             if (instance == selectionIndicator) 
                 grid.selectionIndicator = selectionIndicator;
+
         }
         
         if (instance == columnHeaderBar)
@@ -1840,12 +1846,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             columnHeaderBar.addEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);  
         }       
         
-        if (instance == itemEditorLayer)
-        {
-            // Data grid editor
-            editor = createEditor();
-            editor.initialize();
-        }
     }
     
     /**
