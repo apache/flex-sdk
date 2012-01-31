@@ -115,12 +115,39 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         super();    
     }
 
+	//--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+
     private var needsDisplayObjectAssignment:Boolean = false;
     private var layeringMode:uint = ITEM_ORDERED_LAYERING;
     private var numGraphicElements:uint = 0;
     
     private static const ITEM_ORDERED_LAYERING:uint = 0;
-    private static const SPARSE_LAYERING:uint = 1;
+    private static const SPARSE_LAYERING:uint = 1;    
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set resizeMode(stringValue:String):void
+    {
+    	if (isValidScaleGrid())
+        {
+        	// Force the resize mode to be scale if we 
+        	// have set scaleGrid properties
+        	stringValue = ResizeMode.SCALE;
+        }
+         
+    	super.resizeMode = stringValue;
+    }
     
     /**
      *  @private
@@ -135,6 +162,12 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         if (numGraphicElements > 0 && previous != canShareDisplayObject)
             invalidateDisplayObjectOrdering();            
     }
+
+	//--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
     //----------------------------------
     //  alpha
@@ -344,6 +377,202 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         }
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Properties: ScaleGrid
+    //
+    //--------------------------------------------------------------------------
+
+    private var scaleGridChanged:Boolean = false;
+    
+    // store the scaleGrid into a rectangle to save space (top, left, bottom, right);
+    private var scaleGridStorageVariable:Rectangle;
+
+	//----------------------------------
+    //  scale9Grid
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set scale9Grid(value:Rectangle):void
+	{
+		if (value != null)
+		{
+			scaleGridTop = value.top;
+			scaleGridBottom = value.bottom;
+			scaleGridLeft = value.left;
+			scaleGridRight = value.right;
+		}
+		else
+		{
+			scaleGridTop = NaN;
+			scaleGridBottom = NaN;
+			scaleGridLeft = NaN;
+			scaleGridRight = NaN;
+		}
+	}
+
+    //----------------------------------
+    //  scaleGridBottom
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     * Specfies the bottom coordinate of the scale grid.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get scaleGridBottom():Number
+    {
+        if (scaleGridStorageVariable)
+            return scaleGridStorageVariable.height;
+        
+        return NaN;
+    }
+    
+    public function set scaleGridBottom(value:Number):void
+    {
+        if (!scaleGridStorageVariable)
+            scaleGridStorageVariable = new Rectangle(NaN, NaN, NaN, NaN);
+        
+        if (value != scaleGridStorageVariable.height)
+        {
+            scaleGridStorageVariable.height = value;
+            scaleGridChanged = true;
+            invalidateProperties();
+            invalidateDisplayList();
+        }
+    }
+    
+    //----------------------------------
+    //  scaleGridLeft
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     * Specfies the left coordinate of the scale grid.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get scaleGridLeft():Number
+    {
+        if (scaleGridStorageVariable)
+            return scaleGridStorageVariable.x;
+        
+        return NaN;
+    }
+    
+    public function set scaleGridLeft(value:Number):void
+    {
+        if (!scaleGridStorageVariable)
+            scaleGridStorageVariable = new Rectangle(NaN, NaN, NaN, NaN);
+        
+        if (value != scaleGridStorageVariable.x)
+        {
+            scaleGridStorageVariable.x = value;
+            scaleGridChanged = true;
+            invalidateProperties();
+            invalidateDisplayList();
+        }
+
+    }
+
+    //----------------------------------
+    //  scaleGridRight
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     * Specfies the right coordinate of the scale grid.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get scaleGridRight():Number
+    {
+        if (scaleGridStorageVariable)
+            return scaleGridStorageVariable.width;
+        
+        return NaN;
+    }
+    
+    public function set scaleGridRight(value:Number):void
+    {
+        if (!scaleGridStorageVariable)
+            scaleGridStorageVariable = new Rectangle(NaN, NaN, NaN, NaN);
+        
+        if (value != scaleGridStorageVariable.width)
+        {
+            scaleGridStorageVariable.width = value;
+            scaleGridChanged = true;
+            invalidateProperties();
+            invalidateDisplayList();
+        }
+
+    }
+
+    //----------------------------------
+    //  scaleGridTop
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     * Specfies the top coordinate of the scale grid.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get scaleGridTop():Number
+    {
+        if (scaleGridStorageVariable)
+            return scaleGridStorageVariable.y;
+        
+        return NaN;
+    }
+    
+    public function set scaleGridTop(value:Number):void
+    {
+        if (!scaleGridStorageVariable)
+            scaleGridStorageVariable = new Rectangle(NaN, NaN, NaN, NaN);
+        
+        if (value != scaleGridStorageVariable.y)
+        {
+            scaleGridStorageVariable.y = value;
+            scaleGridChanged = true;
+            invalidateProperties();
+            invalidateDisplayList();
+        }
+    } 
+    
+    private function isValidScaleGrid():Boolean
+    {
+    	return !isNaN(scaleGridLeft) &&
+        	   !isNaN(scaleGridTop) &&
+        	   !isNaN(scaleGridRight) &&
+        	   !isNaN(scaleGridBottom);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
     /**
      *  @private
      *  Whether createChildren() has been called or not.
@@ -386,6 +615,13 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         {
             needsDisplayObjectAssignment = false;
             assignDisplayObjects();
+        }
+        
+        if (scaleGridChanged)
+        {
+        	// Don't reset scaleGridChanged since we also check it in updateDisplayList
+        	if (isValidScaleGrid())
+        		resizeMode = ResizeMode.SCALE; // Force the resizeMode to scale	
         }
         
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
@@ -494,11 +730,21 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         if (scaleGridChanged)
         {
         	scaleGridChanged = false;
-        	
-        	/*scale9Grid = new Rectangle(scaleGridLeft, 
-        							   scaleGridTop,	
-        							   scaleGridRight - scaleGridLeft, 
-        							   scaleGridBottom - scaleGridTop);*/
+        
+        	if (isValidScaleGrid())
+        	{
+	        	if (numChildren > 0)
+	        		throw new Error("ScaleGrid properties can not be set on this Group since at least one child element is a DisplayObject.");
+
+	        	super.scale9Grid = new Rectangle(scaleGridLeft, 
+	        							   scaleGridTop,	
+	        							   scaleGridRight - scaleGridLeft, 
+	        							   scaleGridBottom - scaleGridTop);
+	        }
+	        else
+	        {
+	        	super.scale9Grid = null;
+	        }							   
         }
     }
 
@@ -672,6 +918,8 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         if (!mxmlContentChanged)
             elementAdded(element, index);
         
+        scaleGridChanged = true;
+                
         return element;
     }
     
@@ -1369,159 +1617,6 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     {
         // One of our children have told us they might need a displayObject     
         invalidateDisplayObjectOrdering();
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Properties: ScaleGrid
-    //
-    //--------------------------------------------------------------------------
-
-    private var scaleGridChanged:Boolean = false;
-    
-    // store the scaleGrid into a rectangle to save space (top, left, bottom, right);
-    private var scaleGridStorageVariable:Rectangle;
-
-    //----------------------------------
-    //  scaleGridBottom
-    //----------------------------------
-    
-    [Inspectable(category="General")]
-    
-    /**
-     * Specfies the bottom coordinate of the scale grid.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get scaleGridBottom():Number
-    {
-        if (scaleGridStorageVariable)
-            return scaleGridStorageVariable.height;
-        
-        return NaN;
-    }
-    
-    public function set scaleGridBottom(value:Number):void
-    {
-        if (!scaleGridStorageVariable)
-            scaleGridStorageVariable = new Rectangle(NaN, NaN, NaN, NaN);
-        
-        if (value != scaleGridStorageVariable.height)
-        {
-            scaleGridStorageVariable.height = value;
-            scaleGridChanged = true;
-            invalidateDisplayList();
-        }
-    }
-    
-    //----------------------------------
-    //  scaleGridLeft
-    //----------------------------------
-    
-    [Inspectable(category="General")]
-    
-    /**
-     * Specfies the left coordinate of the scale grid.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get scaleGridLeft():Number
-    {
-        if (scaleGridStorageVariable)
-            return scaleGridStorageVariable.x;
-        
-        return NaN;
-    }
-    
-    public function set scaleGridLeft(value:Number):void
-    {
-        if (!scaleGridStorageVariable)
-            scaleGridStorageVariable = new Rectangle(NaN, NaN, NaN, NaN);
-        
-        if (value != scaleGridStorageVariable.x)
-        {
-            scaleGridStorageVariable.x = value;
-            scaleGridChanged = true;
-            invalidateDisplayList();
-        }
-
-    }
-
-    //----------------------------------
-    //  scaleGridRight
-    //----------------------------------
-    
-    [Inspectable(category="General")]
-    
-    /**
-     * Specfies the right coordinate of the scale grid.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get scaleGridRight():Number
-    {
-        if (scaleGridStorageVariable)
-            return scaleGridStorageVariable.width;
-        
-        return NaN;
-    }
-    
-    public function set scaleGridRight(value:Number):void
-    {
-        if (!scaleGridStorageVariable)
-            scaleGridStorageVariable = new Rectangle(NaN, NaN, NaN, NaN);
-        
-        if (value != scaleGridStorageVariable.width)
-        {
-            scaleGridStorageVariable.width = value;
-            scaleGridChanged = true;
-            invalidateDisplayList();
-        }
-
-    }
-
-    //----------------------------------
-    //  scaleGridTop
-    //----------------------------------
-    
-    [Inspectable(category="General")]
-    
-    /**
-     * Specfies the top coordinate of the scale grid.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get scaleGridTop():Number
-    {
-        if (scaleGridStorageVariable)
-            return scaleGridStorageVariable.y;
-        
-        return NaN;
-    }
-    
-    public function set scaleGridTop(value:Number):void
-    {
-        if (!scaleGridStorageVariable)
-            scaleGridStorageVariable = new Rectangle(NaN, NaN, NaN, NaN);
-        
-        if (value != scaleGridStorageVariable.y)
-        {
-            scaleGridStorageVariable.y = value;
-            scaleGridChanged = true;
-            invalidateDisplayList();
-        }
     }
     
     /**
