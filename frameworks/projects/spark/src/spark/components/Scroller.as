@@ -726,7 +726,7 @@ public class Scroller extends SkinnableComponent
      *  @private
      *  Keeps track of whether a touch interaction is in progress. 
      */
-    private var inTouchInteraction:Boolean = false;
+    mx_internal var inTouchInteraction:Boolean = false;
     
     
     /**
