@@ -62,6 +62,12 @@ use namespace mx_internal;
  *  The <code>dividerRelease</code> event is dispatched
  *  after the <code>dividerDrag</code> events,
  *  but before the container's children are resized.
+ *  The divider's x and y properties are not updated until
+ *  after this event is triggered. As a result, a call to 
+ *  <code>hDividerBox.getDividerAt(0).x</code> will return
+ *  the value of the original x position of the first divider. If you want the
+ *  position of the divider after the move, you can access it when the
+ *  DividerBox's updateComplete event has been triggered.
  *
  *  @eventType mx.events.DividerEvent.DIVIDER_RELEASE
  */
@@ -106,7 +112,7 @@ use namespace mx_internal;
 /**
  *  The divider skin.
  *
- *  @default mx.skin.BoxDividerSkin
+ *  The default value is the "mx.skin.BoxDividerSkin" symbol in the Assets.swf file.
  */
 [Style(name="dividerSkin", type="Class", inherit="no")]
 
@@ -124,14 +130,14 @@ use namespace mx_internal;
 /**
  *  The cursor skin for a horizontal DividedBox.
  *
- *  @default mx.skins.cursor.HBoxDivider
+ *  The default value is the "mx.skins.cursor.HBoxDivider" symbol in the Assets.swf file.
  */
 [Style(name="horizontalDividerCursor", type="Class", inherit="no")]
 
 /**
  *  The cursor skin for a vertical DividedBox.
  *
- *  @default mx.skins.cursor.VBoxDivider
+ *  The default value is the "mx.skins.cursor.VBoxDivider" symbol in the Assets.swf file.
  */
 [Style(name="verticalDividerCursor", type="Class", inherit="no")]
 
@@ -211,10 +217,10 @@ use namespace mx_internal;
  *    dividerAffordance="6"
  *    dividerAlpha="0.75"
  *    dividerColor="0x6F7777"
- *    dividerSkin="BoxDividerSkin"
+ *    dividerSkin="<i>'mx.skins.BoxDividerSkin' symbol in Assets.swf</i>"
  *    dividerThickness="3"
- *    horizontalDividerCursor="mx.skins.cursor.HBoxDivider"
- *    verticalDividerCursor="mx.skins.cursor.VBoxDivider"
+ *    horizontalDividerCursor="<i>'mx.skins.cursor.HBoxDivider' symbol in Assets.swf</i>"
+ *    verticalDividerCursor="<i>'mx.skins.cursor.VBoxDivider' symbol in Assets.swf</i>"
  * 
  *    <strong>Events</strong>
  *    dividerPress="<i>No default</i>"
