@@ -1397,10 +1397,13 @@ public class Application extends SkinnableContainer
     private function initResizeBehavior():void
     {
         var version:Array = Capabilities.version.split(' ')[1].split(',');
-
+        var versionPrefix:String = Capabilities.version.substr(0, 3).toLowerCase();
+        var runningOnMobile:Boolean = (versionPrefix != "win" && 
+                                       versionPrefix != "mac" && 
+                                       versionPrefix != "lnx");
+        
         synchronousResize = (parseFloat(version[0]) > 10 ||
-            (parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1))
-            && (Capabilities.playerType != "Desktop");
+                             (parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1)) && (Capabilities.playerType != "Desktop" || runningOnMobile);
     }
 
     //--------------------------------------------------------------------------
