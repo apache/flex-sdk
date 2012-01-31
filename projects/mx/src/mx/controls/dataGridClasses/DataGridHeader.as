@@ -371,7 +371,7 @@ public class DataGridHeader extends DataGridHeaderBase
         var g:Graphics = headerBG.graphics;
         g.clear();
         var colors:Array = getStyle("headerColors");
-        StyleManager.getColorNames(colors);
+        styleManager.getColorNames(colors);
         
         var matrix:Matrix = new Matrix();
         matrix.createGradientBox(tot, hh + 1, Math.PI/2, 0, 0);
