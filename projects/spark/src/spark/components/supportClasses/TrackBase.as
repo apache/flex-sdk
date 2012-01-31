@@ -219,7 +219,7 @@ public class TrackBase extends Range
     /**
      *  Adds event handlers to the track and thumb for mouse events.
      */
-    override protected function partAdded(partName:String, instance:*):void
+    override protected function partAdded(partName:String, instance:Object):void
     {
         if (instance == thumb)
         {
@@ -242,7 +242,7 @@ public class TrackBase extends Range
     /**
      *  Remove event handlers from skin parts.
      */
-    override protected function partRemoved(partName:String, instance:*):void
+    override protected function partRemoved(partName:String, instance:Object):void
     {
         if (instance == thumb)
         {
