@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.primitives.supportClasses
+package spark.components.supportClasses
 {
 
 import flash.display.BlendMode;
@@ -34,7 +34,7 @@ import mx.core.mx_internal;
 import mx.events.SandboxMouseEvent;
 import mx.styles.IStyleClient;
 
-import spark.primitives.RichEditableText;
+import spark.components.RichEditableText;
 import spark.components.TextSelectionHighlighting;
 
 use namespace mx_internal;
