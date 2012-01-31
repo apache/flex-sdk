@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Examples of custom GridItemRenderers that use data binding to configure visual properties.
+
+The application's control bar slider can be used to change the the dataProvider items.
+
+The GridItemRenderer class is a Group that implements
+IGridItemRenderer and can be used as the top level "container" for a
+custom item renderer.  Its data property is the dataProvider item for
+the row the item renderer appears on and its components can configure
+themselves by binding to the data property, or by overriding the
+renderer's prepare() method and configuring themselves imperatively
+with ActionScript code.  All of the item renderers in this example
+use binding, which makes the code a little easier to read and modify.
+It's also less efficient than using a prepare() method override.   The 
+performance difference is most noticeable when the DataGrid is configured
+so that a large number of item renderers are visible.
+
+DataGrid item renderers are always sized to exactly fit the cell that
+they're rendering: their size matches the width of their column and the height of their row.
+The DataGrid enables interactive column resizing by default, so all of
+the item renderers need to defend against the possibility that their
+width will become arbitrarily small.  The first column's item renderer
+just contains a Label.  By specifying maxDisplayedLines="1" we ensure
+that the Label will truncate its text to fit the width it's given.
+The other columns' item renderers specify
+clipAndEnableScrolling="true" which just means that their fixed size
+contents will always be clipped to the bounds of the GridItemRenderer.
+This property -enables- scrolling, which means that one could actually
+scroll the contents of the item renderers when their width gets small,
+by setting the renderer's horizontalScrollPosition property.  We 
+do not do as much here.
+
+The "Name" column's item renderer demonstrates a special case: if the 
+renderer contains a text component with id="labelDisplay", GridItemRenderer
+automatically sets the labelDisplay's text property to the value
+of data[column.dataField] per the GridItemRenderer label property.  The 
+first colunm also demonstrates using the styleName property to configure
+the Label's left, right, top, and fontSize styles.
+
+The "Statistics" column's item renderer demonstrates how binding can be used to 
+configure the geometry of graphic elememnts.   The data items' min, max, and
+value properties have been normalized to the range [0 100] to keep the bindings simple.
+
+The "Value" column's item renderer allows one to change data item's value
+property with a Slider.  
+
+The "Call" column's item renderer demonstrates a slightly more complicated component
+layout and it also demonstates how the data item's value can be both displayed
+and edited.
+
+-->
+
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <fx:Script>
+        <![CDATA[
+            // Incrementally change all of the date items' min, max, value, and call properties.
+            private function changeData(delta:Number):void
+            {
+                for each (var item:Object in dataGrid.dataProvider)
+                {
+                    item.value = (item.value + delta) % 100;
+                    item.min = item.value * 0.5;
+                    item.max = item.value + ((100 - item.value) * 0.5);
+                    item.call = item.value > 50;
+                }
+            }
+        ]]>
+    </fx:Script>
+    
+    <fx:Style>
+        .nameColumn {
+            fontSize: 18;
+            left: 5; 
+            right: 5;
+            top: 9;
+        }        
+    </fx:Style>
+    
+    <s:Panel title="Spark DataGrid Control Example of custom GridItemRenderers that use data binding to configure visual properties"
+             width="75%" height="75%" 
+             horizontalCenter="0" verticalCenter="0">
+        
+        <s:controlBarContent>
+            <s:HGroup verticalAlign="baseline">
+                <s:Label text="Shake Data"/>            
+                <s:HSlider id="hsl" minimum="0" maximum="25" change="changeData(hsl.value)"/>
+            </s:HGroup>
+        </s:controlBarContent>
+        
+    <s:DataGrid id="dataGrid" left="5" right="5" top="5" bottom="5">
+        <s:columns>
+            <s:ArrayList>
+                
+                <!-- 
+                    By specifying id="labelDisplay" the Label component's text property is automatically
+                    set to the renderer's label, which is effectively the value of the item's name property.  
+                    We've used styleName here to refer to a set of styles that could have also have been set inline.
+                -->
+                <s:GridColumn dataField="name" headerText="Name">
+                    <s:itemRenderer>
+                        <fx:Component>
+                            <s:GridItemRenderer>
+                                <s:Label id="labelDisplay" maxDisplayedLines="1" styleName="nameColumn"/> 
+                            </s:GridItemRenderer>
+                        </fx:Component>
+                    </s:itemRenderer>
+                </s:GridColumn>
+                
+                <!--
+                    This column's renderer displays the item's value, min, and max properties with a simple dial
+                    and bar chart defined with graphic primitives.  The bar chart s:Rect elements specify
+                    scaleY="-1" so that the rectangles grow from the bottom of the renderer upwards.  To keep
+                    things simple, most of the elements geometry is specified explicitly.  Note also that
+                    min, max, and value have all been normalized to [0, 100].
+                -->
+                <s:GridColumn dataField="value" headerText="Statistics">
+                    <s:itemRenderer>
+                        <fx:Component>
+                            <s:GridItemRenderer clipAndEnableScrolling="true">
+                                <s:Group left="5" top="5" bottom="5">
+                                    <s:Ellipse x="0" y="0" width="30" height="30">
+                                        <s:stroke>
+                                            <s:SolidColorStroke color="0x272F32" weight="2"/>
+                                        </s:stroke>
+                                        <s:fill>
+                                            <s:SolidColor color="0x9DBDC6"/>
+                                        </s:fill>
+                                    </s:Ellipse>
+                                    <s:Line rotation="{(data.value / 100) * 360}" transformX="15" transformY="15"
+                                            xFrom="15" yFrom="15" xTo="27" yTo="15">
+                                        <s:stroke>
+                                            <s:SolidColorStroke color="0xFF3D2E" weight="3"/>
+                                        </s:stroke>
+                                    </s:Line>
+                                    <s:Rect x="40" y="30" scaleY="-1" width="15" height="{(data.min / 100) * 30}">
+                                        <s:fill>
+                                            <s:SolidColor color="0xFF3D2E"/>
+                                        </s:fill>
+                                    </s:Rect>
+                                    <s:Rect x="60" y="30" scaleY="-1" width="15" height="{(data.max / 100) * 30}">
+                                        <s:fill>
+                                            <s:SolidColor color="0xFF3D2E"/>
+                                        </s:fill>
+                                    </s:Rect>                                    
+                                </s:Group>
+                            </s:GridItemRenderer>
+                        </fx:Component>
+                    </s:itemRenderer>                            
+                </s:GridColumn>
+                
+                <!--
+                    This column's renderer displays the data item's value property with a slider.  The binding is specified 
+                    with "@{data.value}", which indicates that it's bidirection, so changing the slider also changes
+                    the dataProvider item.
+                -->    
+                <s:GridColumn dataField="value" headerText="Value">
+                    <s:itemRenderer>
+                        <fx:Component>
+                            <s:GridItemRenderer clipAndEnableScrolling="true">
+                                <s:HSlider left="5" right="5" verticalCenter="0"
+                                    minimum="{data.min}" maximum="{data.max}" value="@{data.value}"/> 
+                            </s:GridItemRenderer>
+                        </fx:Component>
+                    </s:itemRenderer>
+                </s:GridColumn>
+                
+                <!--
+                    Display the boolean data item call property with a checkbox, radio button, and a text field.  The
+                    call value can be changed with the checkbox.
+                -->
+                <s:GridColumn dataField="call" headerText="Call">
+                    <s:itemRenderer>
+                        <fx:Component>
+                            <s:GridItemRenderer clipAndEnableScrolling="true">
+                                <s:HGroup left="5" top="9" right="5" verticalAlign="baseline">
+                                    <s:CheckBox selected="@{data.call}"/>
+                                    <s:RadioButton selected="{data.call}" enabled="false"/>
+                                    <s:TextInput text="{data.call}" enabled="false"/>
+                                </s:HGroup>
+                            </s:GridItemRenderer>
+                        </fx:Component>
+                    </s:itemRenderer>
+                </s:GridColumn>
+            </s:ArrayList>
+        </s:columns>
+        
+        <s:ArrayCollection>
+            <s:DataItem min="10" max="85" value="15" name="Abrasive" price="100.11" call="false"/>
+            <s:DataItem min="15" max="75" value="25" name="Brush" price="110.01" call="true"/>
+            <s:DataItem min="30" max="65" value="45" name="Clamp" price="120.02" call="false"/>
+            <s:DataItem min="20" max="85" value="65" name="Drill" price="130.03" call="true"/>
+            <s:DataItem min="40" max="95" value="85" name="Epoxy" price="140.04" call="false"/>
+            <s:DataItem min="70" max="99" value="95" name="File" price="150.05" call="true"/>
+            <s:DataItem min="60" max="85" value="80" name="Gouge" price="160.06" call="false"/>
+            <s:DataItem min="40" max="70" value="60" name="Hook" price="170.07" call="true"/>
+            <s:DataItem min="10" max="40" value="20" name="Ink" price="180.08" call="false"/>
+            <s:DataItem min="5" max="30" value="10" name="Jack" price="190.09" call="true"/>         
+        </s:ArrayCollection>
+    </s:DataGrid>
+    </s:Panel>
+</s:Application>
