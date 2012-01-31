@@ -75,20 +75,6 @@ public class TextGraphic extends TextGraphicElement
 
     //--------------------------------------------------------------------------
     //
-    //  Class variables
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Since this static var gets initialized by calling a method
-     *  in another class, we initialize it in the constructor to avoid
-     *  any class-initialization-order problems.
-     */
-    private static var textImporter:ITextImporter;
-
-    //--------------------------------------------------------------------------
-    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -99,9 +85,6 @@ public class TextGraphic extends TextGraphicElement
     public function TextGraphic()
     {
         super();
-
-        if (!textImporter)
-            textImporter = TextFilter.getImporter(TextFilter.TCAL_FORMAT);
 
         _content = textFlow = createEmptyTextFlow();
     }
@@ -422,7 +405,7 @@ public class TextGraphic extends TextGraphicElement
                  markup +
                  '</TextFlow>';
         
-        return textImporter.importToFlow(markup);
+        return TextFilter.importToFlow(markup, TextFilter.TCAL_FORMAT);
     }
 
     /**
