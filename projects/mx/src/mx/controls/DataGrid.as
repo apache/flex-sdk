@@ -3525,7 +3525,6 @@ public class DataGrid extends DataGridBase implements IIMESupport
         }
 
 
-        var tmpHeight:Number = unscaledHeight - 1; // FIXME: can remove?
         var lineCol:uint;
 
         var i:int;
