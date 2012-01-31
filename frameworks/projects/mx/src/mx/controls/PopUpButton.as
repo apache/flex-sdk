@@ -863,7 +863,7 @@ public class PopUpButton extends Button
         // or override to implement special display behavior
         
         var popUpGap:Number = getStyle("popUpGap");
-        var point:Point = new Point(0, unscaledHeight + popUpGap);
+        var point:Point = new Point(layoutDirection == "rtl" ? unscaledWidth : 0, unscaledHeight + popUpGap);
         point = localToGlobal(point);
         
         //Show or hide the popup
