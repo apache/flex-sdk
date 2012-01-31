@@ -18,12 +18,12 @@ import mx.events.ItemExistenceChangedEvent;
 import mx.skins.spark.FxDefaultItemRenderer;
 
 import mx.core.ClassFactory;
-import mx.components.baseClasses.FxSelector;
+import mx.components.baseClasses.FxListBase;
 
 /**
  *  The List class.
  */
-public class FxList extends FxSelector
+public class FxList extends FxListBase
 {
     include "../core/Version.as";
 
