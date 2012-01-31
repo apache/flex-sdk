@@ -28,9 +28,12 @@ import org.osmf.display.ScaleModeUtils;
 import org.osmf.events.AudioEvent;
 import org.osmf.events.DimensionEvent;
 import org.osmf.events.LoadEvent;
+import org.osmf.events.MediaPlayerCapabilityChangeEvent;
 import org.osmf.events.MediaPlayerStateChangeEvent;
 import org.osmf.events.PlayingChangeEvent;
+import org.osmf.events.SeekEvent;
 import org.osmf.events.TimeEvent;
+import org.osmf.media.IMediaResource;
 import org.osmf.media.MediaPlayer;
 import org.osmf.media.MediaPlayerState;
 import org.osmf.media.URLResource;
@@ -219,6 +222,20 @@ public class VideoDisplay extends UIComponent
      */
     private var initializedOnce:Boolean = false;
     
+    /**
+     *  @private
+     *  Keeps track of the muted property while loading up a 
+     *  video because of seekToFirstFrame.
+     */
+    private var beforeLoadMuted:Boolean;
+    
+    /**
+     *  @private
+     *  Keeps track whether we are loading up the
+     *  video because of seekToFirstFrame.
+     */
+    private var inLoadingState:Boolean;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -313,7 +330,7 @@ public class VideoDisplay extends UIComponent
     //----------------------------------
     
     [Inspectable(Category="General", defaultValue="0")]
-    [Bindable("bytesDownloadedChange")]
+    [Bindable("bytesLoadedChange")]
     
     /**
      *  The number of bytes of data that have been downloaded into the application.
@@ -330,8 +347,6 @@ public class VideoDisplay extends UIComponent
     {
         return videoPlayer.bytesLoaded;
     }
-    
-    // FIXME (rfrishbe): Need to add mediaPlayerState property?
     
     //----------------------------------
     //  bytesTotal
@@ -361,7 +376,7 @@ public class VideoDisplay extends UIComponent
     //----------------------------------
     
     [Inspectable(Category="General", defaultValue="0")]
-    [Bindable("playheadChange")]
+    [Bindable("currentTimeChange")]
     
     /**
      *  Current time of the playhead, measured in seconds, 
@@ -438,6 +453,31 @@ public class VideoDisplay extends UIComponent
     }
     
     //----------------------------------
+    //  mediaPlayerState
+    //----------------------------------
+    
+    [Inspectable(category="General", defaultValue="uninitialized")]
+    [Bindable("mediaPlayerStateChange")]
+    
+    /**
+     *  The current state of the video.  See 
+     *  org.osmf.media.MediaPlayerState for available values.
+     *  
+     *  @default uninitialized
+     * 
+     *  @see org.osmf.media.MediaPlayerState
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get mediaPlayerState():String
+    {
+        return videoPlayer.state;
+    }
+    
+    //----------------------------------
     //  muted
     //----------------------------------
     
@@ -455,6 +495,11 @@ public class VideoDisplay extends UIComponent
      */
     public function get muted():Boolean
     {
+        // if inLoadingState, we've got to 
+        // fake the muted value
+        if (inLoadingState)
+            return beforeLoadMuted;
+        
         return videoPlayer.muted;
     }
     
@@ -465,6 +510,13 @@ public class VideoDisplay extends UIComponent
     {
         if (muted == value)
             return;
+        
+        // if inLoadingState, don't change muted...just fake it
+        if (inLoadingState)
+        {
+            beforeLoadMuted = value;
+            return;
+        }
         
         videoPlayer.muted = value;
     }
@@ -611,6 +663,50 @@ public class VideoDisplay extends UIComponent
     }
     
     //----------------------------------
+    //  seekToFirstFrame
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _seekToFirstFrame:Boolean = true;
+        
+    [Inspectable(category="General", defaultValue="true")]
+    
+    /**
+     *  If <code>autoPlay = false</code>, then 
+     *  <code>seekToFirstFrame</code> controls whether the video 
+     *  is loaded up at all when the source is set.  If <code>seekToFirstFrame</code>
+     *  is set to <code>true</code>, then the first frame of the video is 
+     *  loaded up and the video will be sized correctly.  If 
+     *  <code>seekToFirstFrame</code> is set to <code>false</code>, then no 
+     *  connection to the source is made, the first frame will not be shown, 
+     *  and the video's size will not be determined until someone tries to play
+     *  the video.
+     * 
+     *  <p>If <code>autoPlay = true</code>, then this flag is ignored.</p>
+     *  
+     *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get seekToFirstFrame():Boolean
+    {
+        return _seekToFirstFrame;
+    }
+    
+    /**
+     * @private
+     */
+    public function set seekToFirstFrame(value:Boolean):void
+    {
+        _seekToFirstFrame = value;
+    }
+    
+    //----------------------------------
     //  source
     //----------------------------------
     
@@ -661,57 +757,6 @@ public class VideoDisplay extends UIComponent
         }
         
         dispatchEvent(new Event("sourceChanged"));
-    }
-    
-    /**
-     *  @private
-     *  Sets up the source for use.
-     */
-    private function setUpSource():void
-    {
-        var videoElement:org.osmf.video.VideoElement;
-        
-        // check for 2 cases: streaming video or progressive download
-        if (source is DynamicStreamingVideoSource)
-        {
-            // the streaming video case.
-            // build up a DynamicStreamingResource to pass in to OSMF
-            var streamingSource:DynamicStreamingVideoSource = source as DynamicStreamingVideoSource;
-            var dsr:DynamicStreamingResource;
-            
-            dsr =  new DynamicStreamingResource(new FMSURL(streamingSource.serverURI), streamingSource.streamType);
-            
-            var n:int = streamingSource.streamItems.length;
-            var item:DynamicStreamingVideoItem;
-            var dsi:DynamicStreamingItem;
-            var streamItems:Vector.<DynamicStreamingItem> = new Vector.<DynamicStreamingItem>(n);
-            
-            for (var i:int = 0; i < n; i++)
-            {
-                item = streamingSource.streamItems[i];
-                dsi = new DynamicStreamingItem(item.streamName, item.bitrate);
-                streamItems[i] = dsi;
-            }
-            dsr.streamItems = streamItems;
-            
-            dsr.initialIndex = streamingSource.initialIndex;
-            
-            videoElement = new org.osmf.video.VideoElement(new DynamicStreamingNetLoader(), dsr);
-        }
-        else if (source is String)
-        {
-            var urlResource:URLResource = new URLResource(new URL(source as String));
-            videoElement = new org.osmf.video.VideoElement(new NetLoader(), urlResource);
-        }
-        
-        // reset the visibilityPausedTheVideo flag
-        playTheVideoOnVisible = true;
-        
-        // set up videoPlayer.autoPlay based on whether this.autoPlay is 
-        // set and whether we are visible and the other typical conditions.
-        changePlayback(false, false);
-
-        videoPlayer.element = videoElement;
     }
     
     //----------------------------------
@@ -813,6 +858,8 @@ public class VideoDisplay extends UIComponent
     //  videoObject
     //----------------------------------
     
+    [Inspectable(category="General", defaultValue="null")]
+    
     /**
      *  The underlying flash player <code>flash.media.Video</code> object.
      * 
@@ -851,9 +898,6 @@ public class VideoDisplay extends UIComponent
      */
     public function get volume():Number
     {
-        if (muted)
-            return 0;
-        
         return videoPlayer.volume;
     }
     
@@ -1160,6 +1204,106 @@ public class VideoDisplay extends UIComponent
         addChild(videoSprite);
     }
     
+    /**
+     *  @private
+     *  Sets up the source for use.
+     */
+    private function setUpSource():void
+    {
+        var videoElement:org.osmf.video.VideoElement;
+        
+        // check for 4 cases: streaming video, progressive download, 
+        // an IMediaResource, or a VideoElement.  
+        // The latter 2 are undocumented but allowed for flexibility until we 
+        // can support OSMF better after they ship OSMF 1.0.  At that point, support 
+        // for a source as an IMediaResource or a VideoElement may be removed.
+        if (source is DynamicStreamingVideoSource)
+        {
+            // the streaming video case.
+            // build up a DynamicStreamingResource to pass in to OSMF
+            var streamingSource:DynamicStreamingVideoSource = source as DynamicStreamingVideoSource;
+            var dsr:DynamicStreamingResource;
+            
+            // check for two cases for host: String and URL.
+            // Technically, we only support URL, but we secretly allow 
+            // them to send in an OSMF URL or FMSURL here to help resolve any ambiguity
+            // around serverName vs. streamName.
+            if (streamingSource.host is String)
+            {
+                dsr = new DynamicStreamingResource(new FMSURL(streamingSource.host as String), 
+                    streamingSource.streamType);
+            }
+            else if (streamingSource.host is URL)
+            {
+                dsr = new DynamicStreamingResource(streamingSource.host as URL, 
+                    streamingSource.streamType);
+            }
+            
+            if (dsr)
+            {
+                var n:int = streamingSource.streamItems.length;
+                var item:DynamicStreamingVideoItem;
+                var dsi:DynamicStreamingItem;
+                var streamItems:Vector.<DynamicStreamingItem> = new Vector.<DynamicStreamingItem>(n);
+                
+                for (var i:int = 0; i < n; i++)
+                {
+                    item = streamingSource.streamItems[i];
+                    dsi = new DynamicStreamingItem(item.streamName, item.bitrate);
+                    streamItems[i] = dsi;
+                }
+                dsr.streamItems = streamItems;
+                
+                dsr.initialIndex = streamingSource.initialIndex;
+                
+                videoElement = new org.osmf.video.VideoElement(new DynamicStreamingNetLoader(), dsr);
+            }
+        }
+        else if (source is String)
+        {
+            var urlResource:URLResource = new URLResource(new URL(source as String));
+            videoElement = new org.osmf.video.VideoElement(new NetLoader(), urlResource);
+        }
+        else if (source is IMediaResource)
+        {
+            videoElement = new org.osmf.video.VideoElement(new NetLoader(), source as IMediaResource);
+        }
+        else if (source is org.osmf.video.VideoElement)
+        {
+            videoElement = source as org.osmf.video.VideoElement;
+        }
+        
+        // reset the visibilityPausedTheVideo flag
+        playTheVideoOnVisible = true;
+        // set up videoPlayer.autoPlay based on whether this.autoPlay is 
+        // set and whether we are visible and the other typical conditions.
+        changePlayback(false, false);
+        
+        // if we're not going to autoPlay but we need to seek 
+        // to the first frame, then we have to do this on our own 
+        // by using our load() method.
+        if (!autoPlay && seekToFirstFrame)
+            load();
+        
+        
+        videoPlayer.element = videoElement;
+    }
+    
+    /**
+     *  @private
+     *  Our own internal load() method to handle the case 
+     *  where autoPlay = false and seekToFirstFrame = true 
+     *  so that we can load up the video, figure out its size, 
+     *  and show the first frame
+     */
+    private function load():void
+    {
+        // wait until we can play(), pause(), and seek() before doing anything.
+        videoPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.PLAYABLE_CHANGE, videoPlayer_mediaPlayerCapabilityChangeHandler);
+        videoPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.PAUSABLE_CHANGE, videoPlayer_mediaPlayerCapabilityChangeHandler);
+        videoPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.SEEKABLE_CHANGE, videoPlayer_mediaPlayerCapabilityChangeHandler);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  pauseWhenHidden: Event handlers and Private Methods
@@ -1226,6 +1370,11 @@ public class VideoDisplay extends UIComponent
      */
     private function changePlayback(causePause:Boolean, causePlay:Boolean):void
     {
+        // if we're in the loading state, then do not touch this at all.
+        // We will alawys load up the video and then not play.
+        if (inLoadingState)
+            return;
+        
         // if we shouldn't be playing, we pause the video.
         // if we come back up and should be playing, we will
         // start playing the video again if the video wasn't paused 
@@ -1454,6 +1603,58 @@ public class VideoDisplay extends UIComponent
     private function videoPlayer_mutedChangeHandler(event:AudioEvent):void
     {
         dispatchEvent(new Event("volumeChanged"));
+    }
+    
+    /**
+     *  @private
+     *  Event handler for mediaPlayerCapability changes.  We only use this 
+     *  when trying to load up the video without playing it.
+     */
+    private function videoPlayer_mediaPlayerCapabilityChangeHandler(event:MediaPlayerCapabilityChangeEvent):void
+    {
+        // only come in here when we want to load the video without playing it.
+        
+        // wait until we are playable, pausable, and seekable before doing anything:
+        if (videoPlayer.playable && videoPlayer.pausable && videoPlayer.seekable)
+        {
+            // now that we are loading up, let's remove the event listeners:
+            videoPlayer.removeEventListener(MediaPlayerCapabilityChangeEvent.PLAYABLE_CHANGE, videoPlayer_mediaPlayerCapabilityChangeHandler);
+            videoPlayer.removeEventListener(MediaPlayerCapabilityChangeEvent.PAUSABLE_CHANGE, videoPlayer_mediaPlayerCapabilityChangeHandler);
+            videoPlayer.removeEventListener(MediaPlayerCapabilityChangeEvent.SEEKABLE_CHANGE, videoPlayer_mediaPlayerCapabilityChangeHandler);
+            
+            // if we are already playing() for some reason because someone called play(), then
+            // we don't need to do anything.
+            if (videoPlayer.playing)
+                return;
+        
+            // going to call play(), pause(), seek().  These are asynchronous operations, but 
+            // NetStream will "do the right thing" if I call play() and then pause().  However, 
+            // seek is still asynchronous, so I need to keep the video muted until the 
+            // seek is complete.
+            videoPlayer.addEventListener(SeekEvent.SEEK_END, videoPlayer_seekEndHandler);
+            
+            beforeLoadMuted = videoPlayer.muted;
+            videoPlayer.muted = true;
+            
+            inLoadingState = true;
+            videoPlayer.play();
+            videoPlayer.pause();
+            videoPlayer.seek(0);
+        }
+    }
+    
+    /**
+     *  @private
+     *  Event handler for seekEnd events.  We only use this 
+     *  when trying to load up the video without playing it.
+     *  This will be called after the video has loaded up and 
+     *  we have finished seeking back to the first frame.
+     */
+    private function videoPlayer_seekEndHandler(event:SeekEvent):void
+    {
+        videoPlayer.removeEventListener(SeekEvent.SEEK_END, videoPlayer_seekEndHandler);
+        inLoadingState = false;
+        videoPlayer.muted = beforeLoadMuted;
     }
 }
 }
