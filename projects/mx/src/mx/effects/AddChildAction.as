@@ -17,6 +17,8 @@ import mx.core.mx_internal;
 import mx.effects.effectClasses.AddChildActionInstance;
 import mx.effects.effectClasses.PropertyChanges;
 
+use namespace mx_internal;
+
 //--------------------------------------
 //  Excluded APIs
 //--------------------------------------
@@ -222,9 +224,9 @@ public class AddChildAction extends Effect
 		if (!targets)
 			targets = this.targets;
 			
-		if (targets && mx_internal::propertyChangesArray)
+		if (targets && propertyChangesArray)
 		{
-			localPropertyChanges = mx_internal::propertyChangesArray;
+			localPropertyChanges = propertyChangesArray;
 			targets.sort(targetSortHandler);
 		}
 		
