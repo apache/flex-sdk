@@ -242,8 +242,8 @@ public class Animate extends Effect
     /**
      * The interpolator used by this effect to calculate values between
      * the start and end values of a property. 
-     * By default, interpolation is handled
-     * by the NumberInterpolator class or, in the case of the start
+     * By default, the NumberInterpolator class handles interpolation 
+     * or, in the case of the start
      * and end values being Arrays or Vectors, by the 
      * MultiValueInterpolator class.
      * Interpolation of other types, or of Numbers that should be interpolated
@@ -320,7 +320,7 @@ public class Animate extends Effect
      * If <code>true</code>, the effect disables layout on its
      * targets' parent containers, setting the containers <code>autoLayout</code>
      * property to false, and also disables any layout constraints on the 
-     * target objects. These properties will be restored when the effect
+     * target objects. These properties are restored when the effect
      * finishes.
      * 
      * @default false
