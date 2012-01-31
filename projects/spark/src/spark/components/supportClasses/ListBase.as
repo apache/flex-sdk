@@ -850,6 +850,8 @@ public class ListBase extends SkinnableDataContainer
         {
             if (dataProvider)
                 _proposedSelectedIndex = dataProvider.getItemIndex(_pendingSelectedItem);
+            else
+                _proposedSelectedIndex = NO_SELECTION;
             
             if (allowCustomSelectedItem && _proposedSelectedIndex == -1)
             {
