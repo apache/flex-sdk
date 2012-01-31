@@ -199,6 +199,27 @@ public class SkinnableComponent extends UIComponent
         dispatchEvent(new Event("skinChanged"));
     }
 
+    //----------------------------------
+    //  suggestedFocusSkinExclusions
+    //----------------------------------
+    
+    /**
+     *  An Array that lists the skin parts that will be
+     *  excluded from bitmaps captured and used to
+     *  show focus.  This list is only used if
+     *  the skin has a null focusSkinExclusions property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get suggestedFocusSkinExclusions():Array
+    {
+        return null;
+    }
+    
+
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
