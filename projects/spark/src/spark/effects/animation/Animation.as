@@ -853,7 +853,8 @@ public class Animation extends EventDispatcher
      */
     private function setupInterpolation():void
     {
-        if (!interpolator) {
+        if (!interpolator)
+        {
             if (startValue is Number && endValue is Number)
                 // Better: default to use actual start/end values instead
                 // of running an Interpolator on our internal Animation's result
