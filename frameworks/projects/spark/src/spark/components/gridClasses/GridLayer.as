@@ -21,13 +21,16 @@ import spark.layouts.supportClasses.LayoutBase;
 use namespace mx_internal;
 
 /**
- *  A no-layout group that's used as a container for "layers" of Grid visual
- *  elements.  GridLayout creates and adds visual elements to the Grid's layers
- *  as needed and is responsible for their layout.
+ *  The GridLayer class defines a container used for the layers of the 
+ *  Grid control's visual elements.  
+ *  The Grid control creates and adds visual elements to its layers
+ *  as needed, and is responsible for their layout.
+ *
+ *  @see spark.components.Grid
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 public class GridLayer extends Group
@@ -44,7 +47,7 @@ public class GridLayer extends Group
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function GridLayer()
