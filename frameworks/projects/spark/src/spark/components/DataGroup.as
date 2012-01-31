@@ -91,6 +91,9 @@ public class DataGroup extends GroupBase
      *  Setting this property sets the typicalLayoutElement property
      *  of the layout.
      * 
+     *  Restriction: if the typicalItem is an IVisualItem, it must not 
+     *  also be a member of the dataProvider IList.
+     * 
      *  @default null
      */
     public function get typicalItem():Object
@@ -110,16 +113,34 @@ public class DataGroup extends GroupBase
         invalidateProperties();
     }
     
+    private function setTypicalLayoutElement(obj:DisplayObject):void
+    {
+        var elt:ILayoutElement = (obj) ? LayoutElementFactory.getLayoutElementFor(obj) : null;
+        typicalLayoutElement = elt;
+        if (layout)
+            layout.typicalLayoutElement = elt;
+    }
+
     private function initializeTypicalItem():void
     {
-        var itemRenderer:DisplayObject = DisplayObject(createRendererForItem(_typicalItem));     
-        super.addChild(itemRenderer)            
-        if (itemRenderer is IInvalidating)
-            IInvalidating(itemRenderer).validateNow();
-        typicalLayoutElement = LayoutElementFactory.getLayoutElementFor(itemRenderer);
-        if (layout)
-            layout.typicalLayoutElement = typicalLayoutElement;    
-        super.removeChild(itemRenderer);
+        if (!_typicalItem)
+        {
+            setTypicalLayoutElement(null);
+            return;
+        }
+                
+        var obj:DisplayObject = DisplayObject(createRendererForItem(_typicalItem, false));
+        if (!obj)
+        {
+            setTypicalLayoutElement(null);
+            return;
+        }
+
+        super.addChild(obj)            
+        if (obj is IInvalidating)
+            IInvalidating(obj).validateNow();
+        setTypicalLayoutElement(obj);
+        super.removeChild(obj);
     }    
 
     //----------------------------------
@@ -182,6 +203,7 @@ public class DataGroup extends GroupBase
         invalidateDisplayList();
         
         itemRendererChanged = true;
+        typicalItemChanged = true;
     }
     
     //----------------------------------
@@ -222,6 +244,7 @@ public class DataGroup extends GroupBase
         invalidateDisplayList();
         
         itemRendererChanged = true;
+        typicalItemChanged = true;
     }
     
     private var _dataProvider:IList;
@@ -272,12 +295,20 @@ public class DataGroup extends GroupBase
         for (var idx:int = numChildren; idx > 0; idx--)
             super.removeChildAt(0);
         
-        if (_dataProvider && (!layout || !layout.virtualLayout))
+        var vLayout:Boolean = layout && layout.virtualLayout;
+
+        // Create all item renderers eagerly
+        if (_dataProvider && !vLayout)
         {
             for (var i:int = 0; i < _dataProvider.length; i++)
-            {
                 mx_internal::itemAdded(_dataProvider.getItemAt(i), i);
-            }
+        }
+        
+        // The display list will be created lazily, at updateDisplayList() time
+        if (vLayout)
+        {
+            invalidateSize();
+            invalidateDisplayList();
         }
     }
     
@@ -301,7 +332,7 @@ public class DataGroup extends GroupBase
      *
      *  @return The renderer that represents the data elelement.
      */
-    private function createRendererForItem(item:Object):IVisualElement
+    private function createRendererForItem(item:Object, failRTE:Boolean=true):IVisualElement
     {
         var myItemRenderer:IVisualElement;
         
@@ -332,7 +363,7 @@ public class DataGroup extends GroupBase
             IDataRenderer(myItemRenderer).data = item;   
                     
         // Couldn't find item renderer.  Throw an RTE.
-        if (!myItemRenderer)
+        if (!myItemRenderer && failRTE)
         {
             if (item is IVisualElement || item is DisplayObject)
                 throw new Error("DataGroup cannot display visual elements directly unless the elements " + 
@@ -372,7 +403,7 @@ public class DataGroup extends GroupBase
         {
             typicalItemChanged = false;
             initializeTypicalItem();
-        }        
+        }              
     }
     
     private function manageDisplayObjectLayers():void
@@ -599,10 +630,26 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  @private
-     *  Provisional access to the item renderers for FxList and FxButtonBar.
+     *  Return the ItemRenderer being used for the dataProvider item at 
+     *  the specified index.
+     * 
+     *  If the index is invalid, or if a dataProvider was not specified, then
+     *  null is returned.
+     * 
+     *  If the layout is virtual and the specified item isn't "in view", then
+     *  null will be returned.
+     *
+     *  Note that if the layout is virtual, ItemRenderers that are scrolled
+     *  out of view may be reused.
+     * 
+     * 
+     *  @param index The dataProvider item index.
+     *  @return The ItemRenderer being used for the dataProvider item at index.
+     * 
+     *  @see #getItemIndexForRenderer
+     *  @see dataProvider
      */
-    mx_internal function getRendererForItemAt(index:int):IVisualElement
+    public function getRendererForItemAt(index:int):IVisualElement
     {
         if ((index < 0) || (dataProvider == null) || (index >= dataProvider.length))
             return null;
@@ -610,10 +657,22 @@ public class DataGroup extends GroupBase
     }
 
     /**
-     *  @private
-     *  Provisional access to the item renderers for FxList and FxButtonBar.
+     *  Return the index of the dataProvider item that the specified ItemRenderer
+     *  is being used for, or -1 if there is no such item. 
+     * 
+     *  If renderer is null, or if a dataProvider was not specified, then -1
+     *  is returned.
+     * 
+     *  Note that if the layout is virtual, ItemRenderers that are scrolled
+     *  out of view may be reused.
+     * 
+     *  @param renderer The ItemRenderer.
+     *  @return The index of the dataProvider item that the specified ItemRenderer is being used for, or -1
+     * 
+     *  @see #getRendererForItemAt
+     *  @see dataProvider
      */
-    mx_internal function getItemIndexForRenderer(renderer:IVisualElement):int
+    public function getItemIndexForRenderer(renderer:IVisualElement):int
     {
         if ((dataProvider == null) || (renderer == null))
             return -1;
