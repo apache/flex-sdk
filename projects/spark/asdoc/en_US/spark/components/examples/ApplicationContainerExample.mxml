@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate Spark Application component -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    <s:layout>
+        <s:VerticalLayout paddingTop="10" paddingLeft="10"/>
+    </s:layout>
+
+    <!-- Define the controls for the control bar area. -->
+    <s:controlBarContent>
+        <mx:MenuBar height="100%" 
+            dataProvider="{menuXML}" 
+            labelField="@label" 
+            showRoot="true"/>
+        <s:HGroup paddingBottom="5" 
+            paddingTop="5">
+            <s:TextInput id="myTI" text=""/>
+
+            <!-- Open the Alert control when selected. -->            
+            <s:Button id="srch1" 
+                label="Search" 
+                click="Alert.show('Searching');"/>
+        </s:HGroup>
+    </s:controlBarContent>
+    
+    <!-- Import the Alert control. -->
+    <fx:Script>
+        <![CDATA[
+            import mx.controls.Alert;
+        ]]>
+    </fx:Script>
+    
+    <fx:Declarations>
+        <fx:XMLList id="menuXML">
+            <fx:menuitem label="File">
+                <fx:menuitem label="New" data="New"/>
+                <fx:menuitem label="Open" data="Open"/>
+                <fx:menuitem label="Save" data="Save"/>
+                <fx:menuitem label="Exit" data="Exit"/>
+            </fx:menuitem>
+            <fx:menuitem label="Edit">
+                <fx:menuitem label="Cut" data="Cut"/>
+                <fx:menuitem label="Copy" data="Copy"/>
+                <fx:menuitem label="Paste" data="Paste"/>
+            </fx:menuitem>
+            <fx:menuitem label="View"/>
+        </fx:XMLList>        
+    </fx:Declarations>
+
+    <s:Panel title="Spark Application Container Example"
+            width="75%" height="75%">
+        <mx:TextArea text="An Application container with a control bar area." 
+            width="300" height="200"
+            color="blue"/>        
+    </s:Panel>    
+</s:Application>
