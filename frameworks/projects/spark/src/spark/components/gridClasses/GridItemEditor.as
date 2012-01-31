@@ -32,7 +32,24 @@ import flash.geom.Point;
 use namespace mx_internal;
 
 /**
- *  Base class for grid item editors. 
+ *  The GridItemEditor class defines the base class for custom item editors
+ *  for the Spark grid controls, such as DataGrid and Grid.   
+ *  Item editors lets you edit the value of the cell of the grid, and then 
+ *  save that value back to the data provider of the control.
+ *
+ *  <p>Item editors are associated with each column of a grid.
+ *  Set the item editor for a column by using 
+ *  the <code>GridColumn.itemEditor property</code>.</p> 
+ *
+ *  @see spark.components.DataGrid
+ *  @see spark.components.Grid
+ *  @see spark.components.gridClasses.GridColumn
+ *  @see spark.components.gridClasses.GridColumn#itemEditor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class GridItemEditor extends Group implements IGridItemEditor
 {
@@ -73,6 +90,11 @@ public class GridItemEditor extends Group implements IGridItemEditor
     
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get column():GridColumn
     {
@@ -93,6 +115,11 @@ public class GridItemEditor extends Group implements IGridItemEditor
 
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get columnIndex():int
     {
@@ -107,6 +134,11 @@ public class GridItemEditor extends Group implements IGridItemEditor
     
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get data():Object
     {
@@ -131,7 +163,12 @@ public class GridItemEditor extends Group implements IGridItemEditor
     //----------------------------------
     
     /**
-     *  @inheritdoc
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get dataGrid():DataGrid
     {
@@ -143,7 +180,15 @@ public class GridItemEditor extends Group implements IGridItemEditor
     //----------------------------------
     
     /**
-     *  @inheritdoc
+     *  A flag that indicates whether the IME should
+     *  be enabled when the component receives focus.
+     *
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get enableIME():Boolean
     {
@@ -162,7 +207,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
     [Inspectable(environment="none")]
     
     /**
-     *  Specifies the IME (input method editor) mode.
+     *  Specifies the IME (Input Method Editor) mode.
      *  The IME enables users to enter text in Chinese, Japanese, and Korean.
      *  Flex sets the specified IME mode when the control gets the focus,
      *  and sets it back to the previous value when the control loses the focus.
@@ -215,7 +260,12 @@ public class GridItemEditor extends Group implements IGridItemEditor
     private var _itemRenderer:IGridItemRenderer;
     
     /**
-     *  @inheritDoc 
+     *  The item renderer associated with the edited cell.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get itemRenderer():IGridItemRenderer
     {
@@ -241,6 +291,11 @@ public class GridItemEditor extends Group implements IGridItemEditor
     
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get rowIndex():int
     {
@@ -264,16 +319,26 @@ public class GridItemEditor extends Group implements IGridItemEditor
     [Bindable("valueChanged")]
 
     /** 
-     *  Many custom GridItemEditor subclasses will only need to override the 
-     *  get and set methods for this property.   Override the set method to 
-     *  initialize the editor’s input  controls based on the value. The value
-     *  property is initialized by the set data method, which sets the value 
-     *  to data.dataField. The get value method should be overridden to return
-     *  a new value for data.dataField based on the user’s input. 
+     *  By default, this property is initialized by the setter method of 
+     *  the <code>data</code> property. 
+     *  The default value of this property is the cell data from the 
+     *  data provider of the grid control.
+     *  The item editor can use this property to initialize 
+     *  any visual elements in the item editor.
+     *
+     *  <p>By default, the <code>save()</code> method write the value of 
+     *  this property back to the data provider of the grid control 
+     *  when the editor closes on a save. </p>
+     * 
+     *  <p>Many custom item renderers override the getter and setter methods 
+     *  of this property.   
+     *  Override the setter method to initialize the editor based on the cell value. 
+     *  Override the getter method  to return a new cell value to 
+     *  the <code>save()</code> method. </p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */ 
     public function get value():Object
@@ -311,6 +376,11 @@ public class GridItemEditor extends Group implements IGridItemEditor
 
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function discard():void
     {
@@ -323,6 +393,11 @@ public class GridItemEditor extends Group implements IGridItemEditor
     
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function prepare():void
     {
@@ -336,6 +411,11 @@ public class GridItemEditor extends Group implements IGridItemEditor
     
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function save():Boolean
     {
@@ -414,12 +494,12 @@ public class GridItemEditor extends Group implements IGridItemEditor
     /**
      *  Tests if the value in the editor is valid and may be saved.
      * 
-     *  @returns true if the value in the editor is valid. Otherwise
-     *  false is returned.
+     *  @return <code>true</code> if the value in the editor is valid. 
+     *  Otherwise return <code>false</code>.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */  
     protected function validate():Boolean
