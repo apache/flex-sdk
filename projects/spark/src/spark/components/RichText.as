@@ -431,7 +431,7 @@ public class RichText extends TextBase
         {
             // If 'content' was last set,
             // we have to first turn that into a TextFlow.
-            if (_content != null)
+            if (contentChanged)
             {
                 _textFlow = createTextFlowFromContent(_content);
                 lastGeneration = _textFlow.generation;
