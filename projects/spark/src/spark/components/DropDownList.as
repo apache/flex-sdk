@@ -125,6 +125,27 @@ public class DropDownList extends DropDownListBase
     
     //--------------------------------------------------------------------------
     //
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function get baselinePosition():Number
+    {
+        if (labelDisplay)
+            return getBaselinePositionForPart(labelDisplay);
+        
+        return super.baselinePosition;
+    }
+
+    //--------------------------------------------------------------------------
+    //
     //  Properties
     //
     //--------------------------------------------------------------------------
