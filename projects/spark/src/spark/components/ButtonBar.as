@@ -61,8 +61,8 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  <a href="http://help.adobe.com/en_US/flex/using/WS4bebcd66a74275c3-fc6548e124e49b51c4-8000.html">
  *  Custom Spark item renderers</a>. </p>
  *
- *  <p>You can use the ButtonBar control to set the active child of a ViewStack container, 
- *  as the following example shows:</p>
+ *  <p>For non-mobile projects, you can use the ButtonBar control to set the
+ *  active child of a ViewStack container, as the following example shows:</p>
  *
  *  <p><b>Note: </b>The Spark list-based controls (the Spark ListBase class and its subclasses
  *  such as ButtonBar, ComboBox, DropDownList, List, and TabBar) do not support the BasicLayout class
