@@ -363,6 +363,8 @@ public class ScrollBarBase extends TrackBase
     //
     //--------------------------------------------------------------------------
     
+    [Inspectable(category="General", defaultValue="0.0")]
+    
     /**
      *  @private
      *  Invalidate the skin state when minimum is changed.
@@ -375,6 +377,8 @@ public class ScrollBarBase extends TrackBase
         super.minimum = value;
         invalidateSkinState();
     }
+    
+    [Inspectable(category="General", defaultValue="100.0")]
     
     /**
      *  @private
@@ -389,7 +393,7 @@ public class ScrollBarBase extends TrackBase
         invalidateSkinState();
     }
     
-    [Inspectable(minValue="0.0")]
+    [Inspectable(category="General", defaultValue="1.0", minValue="0.0")]
     
     /**
      *  @inheritDoc
@@ -435,7 +439,7 @@ public class ScrollBarBase extends TrackBase
 
     private var pageSizeChanged:Boolean = false;
 
-    [Inspectable(minValue="0.0")]
+    [Inspectable(category="General", defaultValue="20", minValue="0.0")]
 
     /**
      *  The change in the value of the <code>value</code> property 
