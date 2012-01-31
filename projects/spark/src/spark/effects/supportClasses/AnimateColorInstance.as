@@ -8,10 +8,10 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package flex.effects.effectClasses
+package mx.effects.effectClasses
 {
-import flex.effects.PropertyValuesHolder;
-import flex.effects.interpolation.ColorInterpolator;
+import mx.effects.PropertyValuesHolder;
+import mx.effects.interpolation.ColorInterpolator;
 
 import mx.styles.StyleManager;
 
@@ -19,24 +19,24 @@ import mx.styles.StyleManager;
  * The instance of the Tint effect, which animates a change in
  * color by interpolating the from/to values per color channel
  */
-public class TintInstance extends AnimateInstance
+public class FxAnimateColorInstance extends FxAnimateInstance
 {
     /**
-     * copy flex.effects.Tint#colorFrom
+     * copy mx.effects.Tint#colorFrom
      */
     public var colorFrom:uint;
 
     /**
-     * copy flex.effects.Tint#colorTo
+     * copy mx.effects.Tint#colorTo
      */
     public var colorTo:uint;
 
     /**
-     * copy flex.effects.Tint#colorPropertyName
+     * copy mx.effects.Tint#colorPropertyName
      */
     public var colorPropertyName:String;
 
-    public function TintInstance(target:Object)
+    public function FxAnimateColorInstance(target:Object)
     {
         super(target);
     }
