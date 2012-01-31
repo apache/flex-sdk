@@ -105,7 +105,6 @@ public class GridLayout extends LayoutBase
      */
     private const visibleGridBounds:Rectangle = new Rectangle();
     
-    
     /**
      *  @private
      *  The elements available for reuse.  Maps from an IFactory to a list of the elements 
@@ -383,15 +382,17 @@ public class GridLayout extends LayoutBase
                 performanceStatistics.updateDisplayListStartTime = startTime;
         }
         
-        const columns:IList = grid.columns;
-        if (!columns)
-            return;
-        
         // Find the index of the last GridColumn.visible==true column
-        
-        const lastVisibleColumnIndex:int = grid.getPreviousVisibleColumnIndex(grid.columns.length);
-        if (lastVisibleColumnIndex < 0)
+        const columns:IList = grid.columns;
+        const lastVisibleColumnIndex:int = (columns) ? grid.getPreviousVisibleColumnIndex(grid.columns.length) : -1;
+        if (!columns || lastVisibleColumnIndex < 0)
+        {
+            // HACK: Make sure columnHeaderBar fixes itself
+            var dg:DataGrid = grid.gridOwner as DataGrid;
+            if (dg && dg.columnHeaderBar)
+                dg.columnHeaderBar.invalidateDisplayList();
             return;
+        }
         
         // Layout the item renderers and compute new values for visibleRowIndices et al
         
@@ -447,7 +448,7 @@ public class GridLayout extends LayoutBase
             visibleColumnSeparators, oldVisibleColumnIndices, visibleColumnIndices, layoutColumnSeparator, lastVisibleColumnIndex);
         
         // HACK
-        var dg:DataGrid = grid.gridOwner as DataGrid;
+        dg = grid.gridOwner as DataGrid;
         if (dg && dg.columnHeaderBar)
             dg.columnHeaderBar.invalidateDisplayList();
         
