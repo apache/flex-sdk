@@ -2,206 +2,254 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2007 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2007 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<mx:Parallel xmlns:mx="http://www.adobe.com/2006/mxml">
+<!---
+ The DefaultTileListEffect class defines the default effect applied to the item renderers 
+ of a TileList control when the data in the data provider changes. 
+ When an item in the TileList control is removed, this effect first fades out the item, 
+ then moves the remaining items to their new position.
+ When you add an item to the TileList control, this effect moves the existing items 
+ to their new position, then fades in the new item. 
+  
+ <p>You use the <code>itemsChangeEffect</code> style property to apply 
+ this effect to a TileList control. The default value of 
+ the <code>itemsChangeEffect</code> style property is <code>undefined</code>, 
+ meaning it does not use any effect.</p>
+  
+ <p>You typically set the <code>TileList.offscreenExtraRowsOrColumns</code> property 
+ when applying a data effect. Typically, you set <code>TileList.offscreenExtraRowsOrColumns</code> 
+ to a small even number, such as 2, for a TileList control. </p>
+  
+  @mxml
+  
+ <p>The &lt;mx:DefaultTileListEffect&gt; tag inherits all the members
+  of its parent and adds the following members:</p>
+ <pre>
+  &lt;DefaultTileListEffect
+    <strong>Properties</strong>
+    color="0xFFFFFF"
+    fadeInDuration="350"
+    fadeOutDuration="350"
+    moveDuration="300"
+  /&gt;
+ </pre>
+  
+ @see mx.controls.TileList
+  
+ @includeExample examples/DefaultTileListEffectExample.mxml
+ -->
+ <mx:Parallel xmlns:mx="http://www.adobe.com/2006/mxml">
 
-	<mx:Metadata>
-		[Exclude(name="duration",kind="property")]
-		[Exclude(name="effectTargetHost",kind="property")]
-		[Exclude(name="perElementOffset",kind="property")]
-		[Exclude(name="filter",kind="property")]
-		[Exclude(name="children",kind="property")]
-		[Exclude(name="fadeIn1",kind="property")]
-		[Exclude(name="fadeIn2",kind="property")]
-		[Exclude(name="fadeOut1",kind="property")]
-		[Exclude(name="fadeOut2",kind="property")]
-		[Exclude(name="move1",kind="property")]
-		[Exclude(name="target",kind="property")]
-		[Exclude(name="targets",kind="property")]
-		[Exclude(name="repeatCount",kind="property")]
-		[Exclude(name="repeatDelay",kind="property")]
-		[Exclude(name="customFilter",kind="property")]
-	</mx:Metadata>
+    <mx:Metadata>
+        [Exclude(name="duration",kind="property")]
+        [Exclude(name="effectTargetHost",kind="property")]
+        [Exclude(name="perElementOffset",kind="property")]
+        [Exclude(name="filter",kind="property")]
+        [Exclude(name="children",kind="property")]
+        [Exclude(name="fadeIn1",kind="property")]
+        [Exclude(name="fadeIn2",kind="property")]
+        [Exclude(name="fadeOut1",kind="property")]
+        [Exclude(name="fadeOut2",kind="property")]
+        [Exclude(name="move1",kind="property")]
+        [Exclude(name="target",kind="property")]
+        [Exclude(name="targets",kind="property")]
+        [Exclude(name="repeatCount",kind="property")]
+        [Exclude(name="repeatDelay",kind="property")]
+        [Exclude(name="customFilter",kind="property")]
+    </mx:Metadata>
 
-	<mx:Script>
-		<![CDATA[
+    <mx:Script>
+        <![CDATA[
 
-	    //----------------------------------------------------------------------
-	    //
-	    //  Variables
-	    //
-	    //----------------------------------------------------------------------
+        //----------------------------------------------------------------------
+        //
+        //  Variables
+        //
+        //----------------------------------------------------------------------
 
-	    /**
-	     *  @private
-	     */
-		private var _fadeOutDuration:Number = 350;
+        /**
+         *  @private
+         */
+        private var _fadeOutDuration:Number = 350;
 
-	    /**
-	     *  @private
-	     */
-		private var _fadeInDuration:Number = 350;
-		
-	    /**
-	     *  @private
-	     */
-		private var _moveDuration:Number = 300;
+        /**
+         *  @private
+         */
+        private var _fadeInDuration:Number = 350;
+        
+        /**
+         *  @private
+         */
+        private var _moveDuration:Number = 300;
 
-	    /**
-	     *  @private
-	     */
-		private var _color:uint = 0xFFFFFF;
+        /**
+         *  @private
+         */
+        private var _color:uint = 0xFFFFFF;
 
-	    //----------------------------------------------------------------------
-	    //
-	    //  Properties
-	    //
-	    //----------------------------------------------------------------------
+        //----------------------------------------------------------------------
+        //
+        //  Properties
+        //
+        //----------------------------------------------------------------------
 
-	    //----------------------------------
-	    //  fadeOutDuration
-	    //----------------------------------
+        //----------------------------------
+        //  fadeOutDuration
+        //----------------------------------
 
-		[Inspectable(category="General", defaultValue="350")]
-		
-	    /**
-	     *  The duration in milliseconds of the Dissolve effect used to
-	     *  fade out renderers for removed and replaced items.
-	     *
-	     *  @default 350
-	     */
-		public function get fadeOutDuration():Number
-		{
-			return _fadeOutDuration;
-		}
+        [Inspectable(category="General", defaultValue="350")]
+        
+        /**
+         *  The duration in milliseconds used to
+         *  fade out renderers for removed and replaced items.
+         *
+         *  @default 350
+         */
+        public function get fadeOutDuration():Number
+        {
+            return _fadeOutDuration;
+        }
 
-		public function set fadeOutDuration(value:Number):void
-		{
-			_fadeOutDuration = value;
-			fadeOut1.duration = value;
-			fadeOut2.duration = value;
-		}
+        /**
+         *  @private
+         */
+        public function set fadeOutDuration(value:Number):void
+        {
+            _fadeOutDuration = value;
+            fadeOut1.duration = value;
+            fadeOut2.duration = value;
+        }
 
-	    //----------------------------------
-	    //  fadeInDuration
-	    //----------------------------------
+        //----------------------------------
+        //  fadeInDuration
+        //----------------------------------
 
-		[Inspectable(category="General", defaultValue="350")]
+        [Inspectable(category="General", defaultValue="350")]
 
-	    /**
-	     *  The duration in milliseconds of the Dissolve effect 
-	     *  used to fade in renderers for added and replacing items.
-	     *
-	     *  @default 350
-	     */
-		public function get fadeInDuration():Number
-		{
-			return _fadeInDuration;
-		}
+        /**
+         *  The duration in milliseconds 
+         *  used to fade in renderers for added and removed items.
+         *
+         *  @default 350
+         */
+           public function get fadeInDuration():Number
+        {
+            return _fadeInDuration;
+        }
 
-		public function set fadeInDuration(value:Number):void
-		{
-			_fadeInDuration = value;
-			fadeIn1.duration = value;
-			fadeIn2.duration = value;
-		}
+        /**
+         *  @private
+         */
+        public function set fadeInDuration(value:Number):void
+        {
+            _fadeInDuration = value;
+            fadeIn1.duration = value;
+            fadeIn2.duration = value;
+        }
 
-	    //----------------------------------
-	    //  moveDuration
-	    //----------------------------------
+        //----------------------------------
+        //  moveDuration
+        //----------------------------------
 
-		[Inspectable(category="General", defaultValue="300")]
+        [Inspectable(category="General", defaultValue="300")]
 
-	    /**
-	     *  The duration in milliseconds of the Move effect
-	     *  applied to renderers for removed or replaced items.
-	     *
-	     *  @default 300
-	     */
-		public function get moveDuration():Number
-		{
-			return _moveDuration;
-		}
+        /**
+         *  The duration in milliseconds 
+         *  applied to renderers for items moved in the control 
+         *  as part of the effect.
+         *
+         *  @default 300
+         */
+        public function get moveDuration():Number
+        {
+            return _moveDuration;
+        }
 
-		public function set moveDuration(value:Number):void
-		{
-			_moveDuration = value;
-			move1.duration = value;
-		}
+        /**
+         *  @private
+         */
+        public function set moveDuration(value:Number):void
+        {
+            _moveDuration = value;
+            move1.duration = value;
+        }
 
-	    //----------------------------------
-	    //  color
-	    //----------------------------------
+        //----------------------------------
+        //  color
+        //----------------------------------
 
-		[Inspectable(category="General", format="Color", defaultValue="0xFFFFFF")]
+        [Inspectable(category="General", format="Color", defaultValue="0xFFFFFF")]
 
-		/** 
-		 *  Hex value that represents the color used in Dissolve effects within
-		 *  the composite data effect.
-		 *
-		 *  @default 0xFFFFFF
-		 */
-		public function get color():Number
-		{
-			return _color;
-		}
+        /** 
+         *  Hex value that represents the color used when fading
+         *  the added and removed item.
+         *
+         *  @default 0xFFFFFF
+         */
+        public function get color():Number
+        {
+            return _color;
+        }
 
-		public function set color(value:Number):void
-		{
-			_color = value;
-			fadeOut1.color = value;
-			fadeOut2.color = value;
-			fadeIn1.color = value;
-			fadeIn2.color = value;
-		}
+        /**
+         *  @private
+         */
+        public function set color(value:Number):void
+        {
+            _color = value;
+            fadeOut1.color = value;
+            fadeOut2.color = value;
+            fadeIn1.color = value;
+            fadeIn2.color = value;
+        }
 
-	    //----------------------------------------------------------------------
-	    //
-	    //  Overridden methods: Effect
-	    //
-	    //----------------------------------------------------------------------
+        //----------------------------------------------------------------------
+        //
+        //  Overridden methods: Effect
+        //
+        //----------------------------------------------------------------------
 
 /*
-		public override function createInstances(targets:Array = null):Array
-		{
-			// Temporary workaround for beta
-			// persistAfterEnd will become a public property after API
-			// changes are finalized.
-			fadeOut1.mx_internal::persistAfterEnd = true;
-			return super.createInstances(targets);
-		}
-*/		
-	]]>
-	</mx:Script>
-	
-	<mx:children>
-			<!-- For removes/adds, removed items fade out, all items move to their  -->
-			<!-- new locations, and then added items fade in                        -->
-		<mx:Sequence>
-				<!-- Use dissolve instead of fade to work with device fonts, and don't remove -->
-				<!-- the overlay immediately, or the item will fade out and then reappear     -->
-			<mx:Dissolve id="fadeOut1" alphaTo="0.0" duration="350" filter="removeItem" color="0xffffff" />
-			<mx:SetPropertyAction name="visible" value="false" filter="removeItem"/>
-			<mx:Move id="move1" duration="300" />
-			<mx:RemoveItemAction  filter="removeItem"/>
-			<mx:AddItemAction  filter="addItem"/>
-			<mx:Dissolve id="fadeIn1" alphaFrom="0.0" alphaTo="1.0" duration="300" color="0xffffff" filter="addItem"/>
-		</mx:Sequence>
-			<!-- For replace, old items fade out, are removed, new items are added, and then fade in -->
-		<mx:Sequence>
-			<mx:Dissolve id="fadeOut2" alphaTo="0.0" duration="350" color="0xffffff" filter="replacedItem" />
-			<mx:RemoveItemAction filter="replacedItem" />
-			<mx:AddItemAction filter="replacementItem"/>
-			<mx:Dissolve id="fadeIn2" alphaFrom="0.0" alphaTo="1.0" duration="350" color="0xffffff" filter="replacementItem"/>
-		</mx:Sequence>
-	</mx:children>
+        public override function createInstances(targets:Array = null):Array
+        {
+            // Temporary workaround for beta
+            // persistAfterEnd will become a public property after API
+            // changes are finalized.
+            fadeOut1.mx_internal::persistAfterEnd = true;
+            return super.createInstances(targets);
+        }
+*/      
+    ]]>
+    </mx:Script>
+    
+    <mx:children>
+            <!-- For removes/adds, removed items fade out, all items move to their  -->
+            <!-- new locations, and then added items fade in                        -->
+        <mx:Sequence>
+                <!-- Use dissolve instead of fade to work with device fonts, and don't remove -->
+                <!-- the overlay immediately, or the item will fade out and then reappear     -->
+            <mx:Dissolve id="fadeOut1" alphaTo="0.0" duration="350" filter="removeItem" color="0xffffff" />
+            <mx:SetPropertyAction name="visible" value="false" filter="removeItem"/>
+            <mx:Move id="move1" duration="300" />
+            <mx:RemoveItemAction  filter="removeItem"/>
+            <mx:AddItemAction  filter="addItem"/>
+            <mx:Dissolve id="fadeIn1" alphaFrom="0.0" alphaTo="1.0" duration="300" color="0xffffff" filter="addItem"/>
+        </mx:Sequence>
+            <!-- For replace, old items fade out, are removed, new items are added, and then fade in -->
+        <mx:Sequence>
+            <mx:Dissolve id="fadeOut2" alphaTo="0.0" duration="350" color="0xffffff" filter="replacedItem" />
+            <mx:RemoveItemAction filter="replacedItem" />
+            <mx:AddItemAction filter="replacementItem"/>
+            <mx:Dissolve id="fadeIn2" alphaFrom="0.0" alphaTo="1.0" duration="350" color="0xffffff" filter="replacementItem"/>
+        </mx:Sequence>
+    </mx:children>
 
 </mx:Parallel>
