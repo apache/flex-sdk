@@ -15,7 +15,7 @@ import flex.effects.effectClasses.FadeInstance;
 
 import mx.effects.IEffectInstance;
 
-public class Fade extends AnimateProperties
+public class Fade extends Animate
 {
     public function Fade(target:Object=null)
     {
