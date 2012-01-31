@@ -18,6 +18,7 @@ import flash.ui.Keyboard;
     
 import mx.components.Group;
 import mx.core.IViewport;
+import mx.core.IVisualContainer;
 import mx.layout.LayoutBase;
 
 import mx.events.PropertyChangeEvent;
@@ -47,7 +48,8 @@ import mx.managers.IFocusManagerComponent;
  *  in the layout when the viewport's content is larger than the viewport itself.</p>
  */
 
-public class FxScroller extends FxComponent implements IFocusManagerComponent
+public class FxScroller extends FxComponent 
+       implements IFocusManagerComponent, IVisualContainer
 {
     include "../core/Version.as";
     
@@ -284,6 +286,42 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
                 invalidateSkin();
     		    break;
         }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: IVisualContainer
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @inheritDoc
+     */
+    public function get numItems():int
+    {
+        return viewport ? 1 : 0;
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function getItemAt(index:int):Object
+    {
+        if (viewport && index == 0)
+            return viewport;
+        else
+            throw new RangeError("Index " + index + " is out of range");
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function getItemIndex(item:Object):int
+    {
+        if (item != null && item == viewport)
+            return 0;
+        else
+            throw ArgumentError(item + " is not found in this FxScroller");
     }
     
     //--------------------------------------------------------------------------
