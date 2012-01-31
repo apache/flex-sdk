@@ -1558,6 +1558,7 @@ public class ListBase extends SkinnableDataContainer
     //--------------------------------------------------------------------------
     
     /**
+     *  @private
      *  Called when an item has been added to this component.
      * 
      *  @langversion 3.0
@@ -1577,6 +1578,7 @@ public class ListBase extends SkinnableDataContainer
     }
     
     /**
+     *  @private
      *  Called when an item has been removed from this component.
      * 
      *  @langversion 3.0
