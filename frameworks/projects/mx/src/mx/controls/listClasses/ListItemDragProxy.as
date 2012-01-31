@@ -25,6 +25,11 @@ use namespace mx_internal;
  *  or copies of the objects being dragged
  *
  *  @see mx.controls.dataGridClasses.DataGridDragProxy
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ListItemDragProxy extends UIComponent
 {
@@ -38,6 +43,11 @@ public class ListItemDragProxy extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ListItemDragProxy()
     {
@@ -124,6 +134,11 @@ public class ListItemDragProxy extends UIComponent
             {
                 /*trace("ListItemDragProxy.measure x",child.x,"y",child.y,"h",child.getExplicitOrMeasuredHeight(),
                         "w",child.getExplicitOrMeasuredWidth(),"child",child);
+                *  
+                *  @langversion 3.0
+                *  @playerversion Flash 9
+                *  @playerversion AIR 1.1
+                *  @productversion Flex 3
                 */
                 w = Math.max(w, child.x + child.width);
                 h = Math.max(h, child.y + child.height);
