@@ -533,7 +533,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             {
                 for (index = indexToRenderer.length - 1; index >= 0; index--)
                 {
-                    // FIXME (rfrishbe): we can't key off of the oldDataProvider for 
+                    // TODO (rfrishbe): we can't key off of the oldDataProvider for 
                     // the item because it might not be there anymore (for instance, 
                     // in a dataProvider reset where the new data is loaded into 
                     // the dataProvider--the dataProvider doesn't actually change, 
@@ -543,6 +543,9 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                     //       and there is an itemRenderer or itemRendererFunction
                     //   2.  The item itself
                     
+                    // Probably could fix above by also storing indexToData[], but that doesn't 
+                    // seem worth it.  Sending in the wrong item here doesn't result in a big error...
+                    // just the event with have the wrong item associated with it
                     renderer = indexToRenderer[index] as IVisualElement;
                     if (renderer is IDataRenderer && (itemRenderer != null || itemRendererFunction != null))
                         item = IDataRenderer(renderer).data;
@@ -558,7 +561,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 var startIndex:int = virtualLayoutStartIndex; // itemRemoved decrements virtualLayoutStartIndex
                 for (index = endIndex; (index >= 0) && (index >= startIndex); index--)
                 {
-                    // FIXME (rfrishbe): same as above
+                    // TODO (rfrishbe): same as above
                     
                     renderer = indexToRenderer[index] as IVisualElement;
                     if (renderer is IDataRenderer && (itemRenderer != null || itemRendererFunction != null))
