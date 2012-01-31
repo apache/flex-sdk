@@ -2201,7 +2201,7 @@ public class Grid extends Group implements IDataGridElement
         
         _typicalItem = value;
         
-        invalidateTypicalItem();
+        invalidateTypicalItemRenderer();
         
         dispatchChangeEvent("typicalItemChanged");
     }
@@ -2222,7 +2222,7 @@ public class Grid extends Group implements IDataGridElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5 
      */
-    public function invalidateTypicalItem():void
+    public function invalidateTypicalItemRenderer():void
     {
         typicalItemChanged = true;       
         invalidateProperties();
