@@ -974,7 +974,7 @@ public class ListBase extends SkinnableDataContainer
             if (renderer is ItemRenderer)
                 ItemRenderer(renderer).playTransitions = true;
             
-            itemSelected(itemIndex, shouldItemAppearSelected(itemIndex));
+            itemSelected(itemIndex, isItemIndexSelected(itemIndex));
         }
         else
         {
@@ -983,7 +983,7 @@ public class ListBase extends SkinnableDataContainer
             if (renderer is ItemRenderer)
                 ItemRenderer(renderer).playTransitions = allowSelectionTransitions;
             
-            itemSelected(itemIndex, shouldItemAppearSelected(itemIndex));
+            itemSelected(itemIndex, isItemIndexSelected(itemIndex));
             
             // deal with transitions for caret appropriately
             if (renderer is ItemRenderer)
@@ -1100,19 +1100,6 @@ public class ListBase extends SkinnableDataContainer
     mx_internal function isItemIndexSelected(index:int):Boolean
     {        
         return index == selectedIndex;
-    }
-    
-    /**
-     *  @private
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    mx_internal function shouldItemAppearSelected(index:int):Boolean
-    {        
-        return isItemIndexSelected(index);
     }
     
     /**
