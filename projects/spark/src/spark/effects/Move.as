@@ -271,16 +271,15 @@ public class Move extends AnimateTransform
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
-        if (!applyChangesPostLayout)
-        {
-            addMotionPath("translationX", xFrom, xTo, xBy);
-            addMotionPath("translationY", yFrom, yTo, yBy);
-        }
-        else
-        {
-            addMotionPath("postLayoutTranslationX", xFrom, xTo, xBy);
-            addMotionPath("postLayoutTranslationY", yFrom, yTo, yBy);
-        }
+        var xProp:String = applyChangesPostLayout ? "postLayoutTranslationX" : "translationX";
+        var yProp:String = applyChangesPostLayout ? "postLayoutTranslationY" : "translationY";
+        
+        if (!(isNaN(xFrom) && isNaN(xTo) && isNaN(xBy)))
+            addMotionPath(xProp, xFrom, xTo, xBy);
+        
+        if (!(isNaN(yFrom) && isNaN(yTo) && isNaN(yBy)))
+            addMotionPath(yProp, yFrom, yTo, yBy);
+        
         super.initInstance(instance);
     }    
 }
