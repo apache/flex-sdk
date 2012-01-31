@@ -169,6 +169,23 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     }
     
     //----------------------------------
+    //  columnIndex
+    //----------------------------------
+    
+    /**
+     *  Returns <code>column.columnIndex</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get columnIndex():int
+    {
+        return (column) ? column.columnIndex : -1;
+    }
+    
+    //----------------------------------
     //  data
     //----------------------------------
     
