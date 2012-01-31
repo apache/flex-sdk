@@ -781,9 +781,19 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
 
     public function marshallString(value:*, type:QName = null, restriction:XML = null):String
     {
-        if (value != null && value is Object)
+        if (value != null)
         {
-            return Object(value).toString();
+            if (value is XML || value is XMLList)
+            {
+                // for XML and XMLList objects, use toXMLString() to include the
+                // root tag for xml instances with simple content (toString() would
+                // only return the simple content inside the tag).
+                return value.toXMLString(); 
+            }
+            else if (value is Object)
+            {
+                return Object(value).toString();
+            }
         }
 
         return null;
