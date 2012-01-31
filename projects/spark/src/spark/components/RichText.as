@@ -598,9 +598,7 @@ public class RichText extends TextGraphicElement
     override protected function composeTextLines(width:Number = NaN,
 												 height:Number = NaN):void
     {
-        var composeWidth:Number = isNaN(width) ? maxWidth : width;
-        
-        super.composeTextLines(composeWidth, height);
+        super.composeTextLines(width, height);
 
         // Don't want this handler firing when we're re-composing the text lines.
         textFlow.removeEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);
@@ -617,7 +615,7 @@ public class RichText extends TextGraphicElement
 		var bounds:Rectangle = mx_internal::bounds;
         bounds.x = 0;
         bounds.y = 0;
-        bounds.width = composeWidth;
+        bounds.width = isNaN(width) ? maxWidth : width;
         bounds.height = height;
 
         mx_internal::removeTextLines();
