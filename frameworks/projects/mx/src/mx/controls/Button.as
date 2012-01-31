@@ -819,6 +819,7 @@ public class Button extends UIComponent
      *  Allows subclasses to re-define the skin property names.
      */
     mx_internal var skinName:String = "skin"; 
+    mx_internal var emphasizedSkinName:String = "emphasizedSkin"; 
     mx_internal var upSkinName:String = "upSkin";
     mx_internal var overSkinName:String = "overSkin";
     mx_internal var downSkinName:String = "downSkin";
@@ -1966,7 +1967,9 @@ public class Button extends UIComponent
         if (!newSkinClass)
         {
             // Try the default skin
-            newSkinClass = Class(getStyle(skinName));
+            newSkinClass = _emphasized ? Class(getStyle(emphasizedSkinName)) : Class(getStyle(skinName));
+            newSkinClass = !newSkinClass && _emphasized ? Class(getStyle(skinName)) : newSkinClass;
+            
             // If we are using the default skin, then 
             if (defaultSkinUsesStates)
                 tempSkinName = skinName;
