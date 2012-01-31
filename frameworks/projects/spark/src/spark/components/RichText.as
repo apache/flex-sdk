@@ -682,8 +682,12 @@ public class TextGraphic extends TextGraphicElement
         //trace("damageHandler", "damageStart", event.damageStart, "damageLength", event.damageLength);
                 
         // The text flow changed.  It could have been either/or content or
-        // styles within the flow.
-        contentChanged = true;
+        // styles within the text flow.  Invalidate text so that it will be 
+        // regenerated from the text flow.
+        textInvalid = true;
+        
+        // Make sure composition is done at least once.  It will update
+        // _content with the potentially modified contents of the text flow.
         stylesChanged = true;
 
         // Unless both width/height were specified, need to recalc size.
