@@ -222,7 +222,10 @@ public class MXItemRenderer extends ItemRenderer implements IListItemRenderer, I
     override public function setFocus():void
     {
         if (editor)
+        {
             editor.setFocus();
+            return;
+        }
         
         super.setFocus();
     }
