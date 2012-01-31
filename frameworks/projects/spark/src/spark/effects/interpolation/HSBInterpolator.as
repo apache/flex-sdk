@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.effects.interpolation
+package spark.effects.interpolation
 {
 import mx.styles.StyleManager;
 import mx.utils.HSBColor;
