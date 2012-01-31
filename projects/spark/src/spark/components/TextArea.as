@@ -81,20 +81,25 @@ use namespace mx_internal;
  *  which builds on the Flash Text Engine (FTE).</b>
  *  In combination, these layers provide text editing with
  *  high-quality international typography and layout.</p>
- * 
- *  <p><b>The skin for the mobile theme uses the StyleableTextField class instead of RichEditableText.</b>
- *  As a result, TLF-only features are not supported in the mobile theme including
- *  TextFlow, right-to-left or bidirectional text, and advanced text 
- *  styles.</p>
+ *  
+ *  <p><b>The TextArea skin for the mobile theme uses the StyleableStageText class instead 
+ *  of RichEditableText.</b>  
+ *  Since StyleableStageText uses native text fields it allows for better text entry and 
+ *  manipulation experiences on mobile devices however there are some
+ *  <a href="supportClasses/StyleableStageText.html">limitations</a> that you should consider.
+ *  Because StageText is not capable of measuring text, the TextArea must be given explicit, 
+ *  percent-based, or constraint-based <code>width</code> and <code>height</code>.</p>
  *
- *  <p>The TextArea control does not include any user interface for changing
- *  the formatting of the text but contains 
- *  APIs that you can use to programmatically format text.
- *  For example, you can create a 
- *  a button that, when clicked, makes the selected text bold.</p>
- *
+ *  <p>The soft-keyboard-specific properties, <code>autoCapitalize</code>
+ *  <code>autoCorrect</code>, <code>returnKeyLabel</code> and <code>softKeyboardType</code>
+ *  are keyboard hints supported in the mobile theme. 
+ *  If a soft-keyboard is present but does not support a feature represented by the 
+ *  hint, the hint is ignored. 
+ *  In mobile environments with only hardware keyboards, these hints are ignored. 
+ *  </p>
+ *  
  *  <p>The most important differences between Spark TextArea and the
- *  MX/mobile TextArea control are as follows:
+ *  MX TextArea control are as follows:
  *  <ul>
  *    <li>Spark TextArea offers better typography, better support
  *        for international languages, and better text layout.</li>
@@ -130,6 +135,12 @@ use namespace mx_internal;
  *  </pre>
  *  In this example, the MXML compiler sets the TextArea <code>content</code>
  *  property, causing a TextFlow object to be created from the FlowElements that you specify.</p>
+ *
+ *  <p>The TextArea control does not include any user interface for changing
+ *  the formatting of the text but contains 
+ *  APIs that you can use to programmatically format text.
+ *  For example, you can create a 
+ *  a button that, when clicked, makes the selected text bold.</p>
  *
  *  <p>The default text formatting is determined by CSS styles
  *  such as <a href="supportClasses/SkinnableTextBase.html#style:fontFamily">fontFamily</a>
@@ -182,7 +193,7 @@ use namespace mx_internal;
  *  and a Scroller control to provide scrollbars.
  *  The RichEditableText can be accessed as <code>textDisplay</code>
  *  and the Scroller as <code>scroller</code>. When used with the mobile theme, this control uses 
- *  the StyleableTextField class to display and edit text.</p>
+ *  the StyleableStageText class to display and edit text.</p>
  *
  *  <p>The Spark TextArea
  *  can display left-to-right (LTR) text, such as French,
@@ -254,11 +265,13 @@ use namespace mx_internal;
  *  @see #text
  *  @see #textFlow
  *  @see spark.components.TextInput
- *  @see spark.skins.spark.TextAreaSkin
  *  @see spark.components.RichText
  *  @see spark.components.RichEditableText
  *  @see spark.components.Scroller
  *  @see spark.components.Label
+ *  @see spark.skins.mobile.StageTextAreaSkin
+ *  @see spark.skins.mobile.TextAreaSkin
+ *  @see spark.skins.spark.TextAreaSkin
  *
  *  @includeExample examples/TextAreaExample.mxml
  *  
