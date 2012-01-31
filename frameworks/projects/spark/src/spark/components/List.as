@@ -510,6 +510,9 @@ public class FxList extends FxListBase implements IFocusManagerComponent
                 case Keyboard.RIGHT: delta = +1; break;
             }
         
+        // Note that the KeyboardEvent is canceled even if the selectedIndex doesn't
+        // change because we don't want another component to start handling these
+        // events when the selectedIndex reaches a limit.
         if (delta != 0)
         {
             event.preventDefault();
