@@ -14,6 +14,7 @@ package mx.graphics.graphicsClasses
 
 import flash.display.Graphics;
 import flash.display.Sprite;
+import flash.geom.Rectangle;
 
 import mx.core.mx_internal;
 import mx.styles.CSSStyleDeclaration;
@@ -439,6 +440,39 @@ public class TextGraphicElement extends GraphicElement
     {
     }
     
+    /**
+	 *  Use scrollRect to clip overset lines.
+	 *  But don't read or write scrollRect if you can avoid it,
+	 *  because this causes Player 10.0 to allocate memory.
+	 *  And if scrollRect is already set to a Rectangle instance,
+	 *  reuse it rather than creating a new one.
+     */
+    mx_internal function clip(overset:Boolean, w:Number, h:Number):void
+	{
+        if (overset)
+        {
+            var r:Rectangle = displayObject.scrollRect;
+            if (r)
+            {
+            	r.x = 0;
+            	r.y = 0;
+            	r.width = w;
+            	r.height = h;
+            }
+            else
+            {
+            	r = new Rectangle(0, 0, w, h);
+            }
+            displayObject.scrollRect = r;
+            mx_internal::hasScrollRect = true;
+        }
+        else if (mx_internal::hasScrollRect)
+        {
+            displayObject.scrollRect = null;
+            mx_internal::hasScrollRect = false;
+        }
+    }
+
     /**
      * @private
      * Used to ensure baselinePosition will reflect something
