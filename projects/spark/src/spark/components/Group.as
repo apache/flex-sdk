@@ -619,7 +619,7 @@ public class Group extends GroupBase implements IVisualElementContainer,
             {   
                 var elt:IVisualElement = _mxmlContent[i];
 
-                // A common mistake is to bind the viewport property of an Scroller
+                // A common mistake is to bind the viewport property of a Scroller
                 // to a group that was defined in the MXML file with a different parent    
                 if (elt.parent && (elt.parent != this))
                     throw new Error(resourceManager.getString("components", "mxmlElementNoMultipleParents", [elt]));
