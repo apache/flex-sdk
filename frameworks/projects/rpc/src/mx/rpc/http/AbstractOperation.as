@@ -471,14 +471,24 @@ function xmlEncoder (myObj)
     //  contentType
     //----------------------------------
 
-    [Inspectable(enumeration="application/x-www-form-urlencoded,application/xml", defaultValue="application/x-www-form-urlencoded", category="General")]
+    // These are not all of the allowed values and mxmlc is now enforcing the value is in this list.  We could add this back if
+    // there was wildcard support.
+    //[Inspectable(enumeration="application/x-www-form-urlencoded,application/xml", defaultValue="application/x-www-form-urlencoded", category="General")]
     /**
      *  Type of content for service requests. 
      *  The default is <code>application/x-www-form-urlencoded</code> which sends requests
      *  like a normal HTTP POST with name-value pairs. <code>application/xml</code> send
      *  requests as XML.
      */
-    public var contentType:String = CONTENT_TYPE_FORM;
+    private var _contentType:String = CONTENT_TYPE_FORM;
+    public function get contentType():String
+    {
+        return _contentType;
+    }
+    public function set contentType(ct:String):void
+    {
+        _contentType = ct;
+    }
 
     //----------------------------------
     //  showBusyCursor
@@ -585,7 +595,9 @@ function xmlEncoder (myObj)
         if (ctype == CONTENT_TYPE_XML)
         {
             if (parameters is String && xmlEncode == null)
+            {
                 paramsToSend = parameters as String;
+            }
             else if (!(parameters is XMLNode) && !(parameters is XML))
             {
                 if (xmlEncode != null)
@@ -640,19 +652,26 @@ function xmlEncoder (myObj)
             paramsToSend = {};
             var val:Object;
             
-            //get all dynamic and all concrete properties from the parameters object
-            var classinfo:Object = ObjectUtil.getClassInfo(parameters);
-            
-            for each (var p:* in classinfo.properties)
+            if (typeof(parameters) == "object")
             {
-                val = parameters[p];
-                if (val != null)
+                //get all dynamic and all concrete properties from the parameters object
+                var classinfo:Object = ObjectUtil.getClassInfo(parameters);
+                
+                for each (var p:* in classinfo.properties)
                 {
-                    if (val is Array)
-                        paramsToSend[p] = val;
-                    else
-                        paramsToSend[p] = val.toString();
+                    val = parameters[p];
+                    if (val != null)
+                    {
+                        if (val is Array)
+                            paramsToSend[p] = val;
+                        else
+                            paramsToSend[p] = val.toString();
+                    }
                 }
+            }
+            else
+            {
+                paramsToSend = parameters;
             }
         }
         else
