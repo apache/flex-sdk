@@ -13,7 +13,10 @@ package flex.component
 {
 import flash.events.MouseEvent;
 
+import flex.core.DataGroup;
 import flex.core.MXMLComponent;
+import flex.layout.HorizontalLayout;
+import flex.layout.VerticalLayout;
 
 /**
  *  The ItemRenderer class is the base class for List item renderers.
@@ -30,7 +33,6 @@ public class ItemRenderer extends MXMLComponent
 	{
 		super();
 		
-		percentWidth = 100;  // TODO: Make this a layout property...
 		addHandlers();
 	}
 	
@@ -72,6 +74,48 @@ public class ItemRenderer extends MXMLComponent
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    
+    private var _orientation:Number;	// 0 for vertical, 1 for horizontal
+    
+    override protected function measure():void
+    {
+    	// TODO: This is temporary code to make sure the item renderer
+    	// fills out the width of the parent when layout is vertical,
+    	// and the height of the parent when the layout is horizontal.
+    	// Need to figure out a permanent solution for this
+    	if (parent is DataGroup)
+    	{
+    		if (DataGroup(parent).layout is VerticalLayout)
+    		{
+    			if (_orientation != 0)
+    			{
+    				_orientation = 0;
+    				percentWidth = 100;
+    				percentHeight = NaN;
+    			}
+    		}
+    		else if (DataGroup(parent).layout is HorizontalLayout)
+    		{
+    			if (_orientation != 1)
+    			{
+    				_orientation = 1;
+    				percentWidth = NaN;
+    				percentHeight = 100;
+    			}
+    		}
+    		else if (!isNaN(_orientation))
+    		{
+    			_orientation = NaN;
+    			percentWidth = percentHeight = NaN;
+    		}
+    	}
+    	
+    	super.measure();
+    }
     
     /**
      *  @private
