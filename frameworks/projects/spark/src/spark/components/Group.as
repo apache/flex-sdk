@@ -740,7 +740,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         	if (isValidScaleGrid())
         	{
 	        	if (numChildren > 0)
-	        		throw new Error("ScaleGrid properties can not be set on this Group since at least one child element is a DisplayObject.");
+	        		throw new Error(resourceManager.getString("components", "scaleGridGroupError"));
 
 	        	super.scale9Grid = new Rectangle(scaleGridLeft, 
 	        							   scaleGridTop,	
