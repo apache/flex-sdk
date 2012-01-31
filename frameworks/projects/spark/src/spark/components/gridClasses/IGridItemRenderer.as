@@ -50,7 +50,7 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
      *  <p>The GridItemRenderer class automatically copies the 
      *  value of this property to the text property of its <code>labelDisplay</code>. 
      *  The Grid sets the label to the value returned by the column's 
-     *  <code>itemToLabel()</code> method.
+     *  <code>itemToLabel()</code> method.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
