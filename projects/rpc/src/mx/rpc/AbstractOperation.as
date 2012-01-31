@@ -206,8 +206,8 @@ public class AbstractOperation extends AbstractInvoker
             else
             {
                 if (_service != null)
-                    _service.dispatchEvent(event);
-            }           
+                _service.dispatchEvent(event);
+            }            
         }
     }
 
