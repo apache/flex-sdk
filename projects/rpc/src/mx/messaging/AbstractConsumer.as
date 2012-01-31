@@ -505,27 +505,23 @@ public class AbstractConsumer extends MessageAgent
 	override public function fault(errMsg:ErrorMessage, msg:IMessage):void
     {
         // Ignore faults for any outstanding messages that return after disconnect() is invoked.
-	    if (_disconnectBarrier)
-	        return;
-        
-        if (errMsg.headers[ErrorMessage.RETRYABLE_HINT_HEADER])
-        {	
-            if (_resubscribeTimer == null)
-            {                   
-    	        // If this error correlates to our current subscribe message,
-    	        // we should no longer be subscribed.
-    	        if ((_subscribeMsg != null) && (errMsg.correlationId == _subscribeMsg.messageId))
-    	            _shouldBeSubscribed = false;
-    	        super.fault(errMsg, msg);
-    	    }
-    	    // Else, suppress the fault dispatch because the resubscribe
-    	    // timer is running and will generate a fault when it runs out of
-    	    // allowed resubscribe attempts.
-	    }
-	    else
-	    {
-	        super.fault(errMsg, msg);
-	    }
+        if (_disconnectBarrier)
+            return;
+
+        // If this error correlates to our current subscribe message,
+        // we should no longer be subscribed.
+        if ((_subscribeMsg != null) && (errMsg.correlationId == _subscribeMsg.messageId))
+            _shouldBeSubscribed = false;
+
+        // If the error is not retryable, or there is no resubscribe timer running,
+        // dispatch a fault event. Otherwise, the resubscribe timer is running and
+        // will generate a fault when it runs out of allowed resubscribe attempts.
+        if (!errMsg.headers[ErrorMessage.RETRYABLE_HINT_HEADER] || _resubscribeTimer == null)
+        {
+            // Stop the resubscribe timer in case it is running.
+            stopResubscribeTimer();
+            super.fault(errMsg, msg);
+        }
     }
 	
     /**
