@@ -64,7 +64,7 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
 [IconFile("RichText.png")]
 
 /**
- *  RichText is a GraphicElement that can display one or more lines
+ *  RichText is a low-level UIComponent that can display one or more lines
  *  of richly-formatted text and embedded images.
  *
  *  <p>For performance reasons, it does not support scrolling,
@@ -102,10 +102,6 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *    <li>RichText has an object-oriented model of what it displays,
  *        while Text does not.</li>
  *    <li>Text is selectable, while RichText does not support selection.</li>
- *    <li>Text is a UIComponent that can be used in either MX
- *        containers such as HBox or in Spark containers such as Group.
- *        RichText is a GraphicElement that can only be used
- *        inside Spark containers.</li>
  *  </ul></p>
  *
  *
@@ -696,7 +692,7 @@ public class RichText extends TextBase
 	
     //--------------------------------------------------------------------------
     //
-    //  Overridden methods: GraphicElement
+    //  Overridden methods: UIComponent
     //
     //--------------------------------------------------------------------------
     
@@ -1010,12 +1006,6 @@ public class RichText extends TextBase
     private function addTextLine(textLine:DisplayObject):void
     {
         textLines.push(textLine);
-        
-        // Remember the original position of each TextLine.
-		// When TextLines are children of a shared DisplayObject,
-		// these original positions must be offset by drawX and drawY.
-		textLinesX.push(textLine.x);
-		textLinesY.push(textLine.y);
     }
   
     //--------------------------------------------------------------------------
