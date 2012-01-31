@@ -24,21 +24,23 @@ import mx.collections.Sort;
 import mx.collections.SortField;
 import mx.core.IFactory;
 import mx.core.IIMESupport;
-import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.CursorManager;
 import mx.managers.CursorManagerPriority;
 import mx.managers.IFocusManagerComponent;
 
+import spark.components.gridClasses.CellPosition;
+import spark.components.gridClasses.CellRegion;
 import spark.components.gridClasses.DataGridEditor;
-import spark.components.supportClasses.CellPosition;
-import spark.components.supportClasses.CellRegion;
-import spark.components.supportClasses.GridColumn;
-import spark.components.supportClasses.GridDimensions;
-import spark.components.supportClasses.GridLayout;
-import spark.components.supportClasses.GridSelection;
-import spark.components.supportClasses.GridSelectionMode;
+import spark.components.gridClasses.GridColumn;
+import spark.components.gridClasses.GridDimensions;
+import spark.components.gridClasses.GridLayout;
+import spark.components.gridClasses.GridSelection;
+import spark.components.gridClasses.GridSelectionMode;
+import spark.components.gridClasses.IGridItemEditor;
+import spark.components.gridClasses.IGridItemRenderer;
+import spark.components.gridClasses.IGridItemRendererOwner;
 import spark.components.supportClasses.SkinnableContainerBase;
 import spark.core.NavigationUnit;
 import spark.events.GridCaretEvent;
@@ -457,16 +459,16 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     public var caretIndicator:IFactory;
     
     //----------------------------------
-    //  columnHeaderBar
+    //  columnHeaderGroup
     //----------------------------------
     
     [Bindable]
-    [SkinPart(required="false", type="spark.components.columnHeaderBar")]
+    [SkinPart(required="false", type="spark.components.GridColumnHeaderGroup")]
     
     /**
-     *  A reference to the ColumnHeaderBar that displays the column headers.
+     *  A reference to the GridColumnHeaderGroup that displays the column headers.
      */
-    public var columnHeaderBar:ColumnHeaderBar;    
+    public var columnHeaderGroup:GridColumnHeaderGroup;    
     
     //----------------------------------
     //  columnSeparator
@@ -826,11 +828,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     {
         if (setGridProperty("columns", value))
         {
-            if (columnHeaderBar)
+            if (columnHeaderGroup)
             {
-                columnHeaderBar.layout.clearVirtualLayoutCache();
-                columnHeaderBar.invalidateSize();
-                columnHeaderBar.invalidateDisplayList();
+                columnHeaderGroup.layout.clearVirtualLayoutCache();
+                columnHeaderGroup.invalidateSize();
+                columnHeaderGroup.invalidateDisplayList();
             }
             
             dispatchChangeEvent("columnsChanged");
@@ -1450,7 +1452,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  @copy spark.components.Grid#selectionMode
      *
-     *  @see spark.components.supportClasses.GridSelectionMode
+     *  @see spark.components.gridClasses.GridSelectionMode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1659,10 +1661,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                     grid.invalidateSize();
                     grid.clearGridLayoutCache(true);
                 }
-                if (columnHeaderBar)
+                if (columnHeaderGroup)
                 {
-                    columnHeaderBar.layout.clearVirtualLayoutCache();
-                    columnHeaderBar.invalidateSize();
+                    columnHeaderGroup.layout.clearVirtualLayoutCache();
+                    columnHeaderGroup.invalidateSize();
                 }
             }
             
@@ -1676,8 +1678,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             if (grid)
                 grid.invalidateDisplayList();
             
-            if (columnHeaderBar)
-                columnHeaderBar.invalidateDisplayList();
+            if (columnHeaderGroup)
+                columnHeaderGroup.invalidateDisplayList();
         }
     }
     
@@ -1864,10 +1866,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 deferredGridOperation(grid);
             deferredGridOperations.length = 0;
             
-            // IDataGridElements: grid, columnHeaderBar
+            // IDataGridElements: grid, columnHeaderGroup
             
-            if (columnHeaderBar)
-                columnHeaderBar.dataGrid = this;
+            if (columnHeaderGroup)
+                columnHeaderGroup.dataGrid = this;
             
             // Create the data grid editor
             editor = createEditor();
@@ -1906,17 +1908,17 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         }
         
         
-        if (instance == columnHeaderBar)
+        if (instance == columnHeaderGroup)
         {
             if (grid)
-                columnHeaderBar.dataGrid = this;
+                columnHeaderGroup.dataGrid = this;
             
-            columnHeaderBar.addEventListener(GridEvent.GRID_CLICK, columnHeaderBar_clickHandler);
-            columnHeaderBar.addEventListener(GridEvent.SEPARATOR_ROLL_OVER, separator_rollOverHandler);
-            columnHeaderBar.addEventListener(GridEvent.SEPARATOR_ROLL_OUT, separator_rollOutHandler);
-            columnHeaderBar.addEventListener(GridEvent.SEPARATOR_MOUSE_DOWN, separator_mouseDownHandler);
-            columnHeaderBar.addEventListener(GridEvent.SEPARATOR_MOUSE_DRAG, separator_mouseDragHandler);
-            columnHeaderBar.addEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);  
+            columnHeaderGroup.addEventListener(GridEvent.GRID_CLICK, columnHeaderGroup_clickHandler);
+            columnHeaderGroup.addEventListener(GridEvent.SEPARATOR_ROLL_OVER, separator_rollOverHandler);
+            columnHeaderGroup.addEventListener(GridEvent.SEPARATOR_ROLL_OUT, separator_rollOutHandler);
+            columnHeaderGroup.addEventListener(GridEvent.SEPARATOR_MOUSE_DOWN, separator_mouseDownHandler);
+            columnHeaderGroup.addEventListener(GridEvent.SEPARATOR_MOUSE_DRAG, separator_mouseDragHandler);
+            columnHeaderGroup.addEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);  
         }       
         
     }
@@ -1969,10 +1971,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             grid.caretIndicator = null;
             grid.selectionIndicator = null;
             
-            // IDataGridElements: grid, columnHeaderBar
+            // IDataGridElements: grid, columnHeaderGroup
             
-            if (columnHeaderBar)
-                columnHeaderBar.dataGrid = null; 
+            if (columnHeaderGroup)
+                columnHeaderGroup.dataGrid = null; 
 
             // Data grid editor
             if (editor)
@@ -2005,15 +2007,15 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 grid.selectionIndicator = null;
         }
 
-        if (instance == columnHeaderBar)
+        if (instance == columnHeaderGroup)
         {
-            columnHeaderBar.dataGrid = null;
-            columnHeaderBar.removeEventListener(GridEvent.GRID_CLICK, columnHeaderBar_clickHandler);
-            columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_ROLL_OVER, separator_rollOverHandler);
-            columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_ROLL_OUT, separator_rollOutHandler);
-            columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_DOWN, separator_mouseDownHandler);
-            columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_DRAG, separator_mouseDragHandler);
-            columnHeaderBar.removeEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);             
+            columnHeaderGroup.dataGrid = null;
+            columnHeaderGroup.removeEventListener(GridEvent.GRID_CLICK, columnHeaderGroup_clickHandler);
+            columnHeaderGroup.removeEventListener(GridEvent.SEPARATOR_ROLL_OVER, separator_rollOverHandler);
+            columnHeaderGroup.removeEventListener(GridEvent.SEPARATOR_ROLL_OUT, separator_rollOutHandler);
+            columnHeaderGroup.removeEventListener(GridEvent.SEPARATOR_MOUSE_DOWN, separator_mouseDownHandler);
+            columnHeaderGroup.removeEventListener(GridEvent.SEPARATOR_MOUSE_DRAG, separator_mouseDragHandler);
+            columnHeaderGroup.removeEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);             
         }
         
     }
@@ -3456,7 +3458,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  @copy spark.components.supportClasses.Grid#ensureCellIsVisible
+     *  @copy spark.components.gridClasses.Grid#ensureCellIsVisible
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3728,7 +3730,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  @private
      */
-    protected function columnHeaderBar_clickHandler(event:GridEvent):void
+    protected function columnHeaderGroup_clickHandler(event:GridEvent):void
     {
         const column:GridColumn = event.column;
         if (!enabled || !sortableColumns || !column || !column.sortable)
@@ -3737,7 +3739,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         const columnIndices:Vector.<int> = Vector.<int>([column.columnIndex]);
         
         if (sortByColumns(columnIndices))
-            columnHeaderBar.visibleSortIndicatorIndices = columnIndices;
+            columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;
     }
     
     /**
