@@ -122,7 +122,7 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
  *
  *  @see SkinnableContainer
  *  @see DataGroup
- *  @see spark.skins.default.SkinnableDataContainerSkin
+ *  @see spark.skins.spark.SkinnableDataContainerSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
