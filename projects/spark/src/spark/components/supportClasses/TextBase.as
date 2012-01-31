@@ -140,6 +140,13 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @private
+     *  The textLines created to measure the truncationResourceIndicator.
+     *  The array will be allocated the first time truncation is done.
+     */
+    mx_internal var truncationIndicatorLines:Array;
+    
+    /**
+     *  @private
      *  The value of bounds.width, before the compose was done.
      */
     private var _composeWidth:Number;
@@ -173,10 +180,9 @@ public class TextGraphicElement extends GraphicElement
     
     /**
      *  @private
-     *  Cache the number of text lines during measure. We can optimize for
-     *  a single line text reflow, which is a lot of cases.
+     *  We can optimize for a single line text reflow, which is a lot of cases.
      */
-    private var _measuredTextLineCount:int;
+    private var _measuredOneTextLine:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -656,7 +662,8 @@ public class TextGraphicElement extends GraphicElement
         
         // Remember the number of text lines during measure. We can use this to
         // optimize the double measure scheme for text reflow.
-        _measuredTextLineCount = mx_internal::textLines.length;
+        _measuredOneTextLine = mx_internal::textLines.length == 1 && 
+                               !mx_internal::isOverset;
 
         //trace(id, drawnDisplayObject.name, "measure", measuredWidth, measuredHeight);
     }
@@ -709,7 +716,7 @@ public class TextGraphicElement extends GraphicElement
         // Special case - if we have a single line, then having a constraint larger
         // than the measuredWidth will not result in measuredHeight change, as we
         // will still have only a single line
-        if (_measuredTextLineCount == 1 && width > measuredWidth)
+        if (_measuredOneTextLine && width > measuredWidth)
             return;
     
         // We support reflow only when we don't have a transform.
@@ -721,6 +728,7 @@ public class TextGraphicElement extends GraphicElement
             return;
 
         _widthConstraint = width;
+        
         invalidateSize();
     }
 
@@ -749,7 +757,7 @@ public class TextGraphicElement extends GraphicElement
         // ToDo: optimize for right-to-left text so compose isn't always done
         // when height or width changes.
         if (mx_internal::invalidateCompose || 
-            composeRequired(unscaledWidth, unscaledHeight))
+            composeForAlignStyles(unscaledWidth, unscaledHeight))
         {
             compose = true;
         }
@@ -758,16 +766,12 @@ public class TextGraphicElement extends GraphicElement
             // Height changed.
             if ((unscaledHeight > mx_internal::bounds.height && 
                 mx_internal::isOverset) ||
+                composeOnHeightChange(unscaledHeight) ||
                 getStyle("blockProgression") != "tb")
             {
                 // More height is needed and it's possible there is more text
-                // since it didn't all fit before.
-                compose = true;
-            }
-            else if (composeOnHeightChange())
-            {
-                // Height changed and the styles require a recompose so the
-                // text is positioned correctly for the new size.
+                // since it didn't all fit before.  Or the styles require a
+                // recompose if the height changes.
                 compose = true;
             }
             else (unscaledHeight < mx_internal::bounds.height)
@@ -782,7 +786,6 @@ public class TextGraphicElement extends GraphicElement
         if (!compose && unscaledWidth != mx_internal::bounds.width)
         {
             if (getStyle("lineBreak") == "toFit" || 
-                composeOnWidthChange() ||
                 getStyle("blockProgression") != "tb")
             {
                 // Width changed and toFit line breaks or the styles
@@ -1031,8 +1034,8 @@ public class TextGraphicElement extends GraphicElement
      *  @private
      *  TODO This should be mx_internal, but that causes a compiler error.
      */
-    protected function composeRequired(unscaledWidth:Number, 
-                                       unscaledHeight:Number):Boolean
+    protected function composeForAlignStyles(unscaledWidth:Number, 
+                                             unscaledHeight:Number):Boolean
     {
         // For textAlign, if the composeWidth isn't the same
         // as the unscaledWidth, and the text isn't left aligned, we need to 
@@ -1071,23 +1074,26 @@ public class TextGraphicElement extends GraphicElement
      *  @private
      *  TODO This should be mx_internal, but that causes a compiler error.
      */
-    protected function composeOnHeightChange():Boolean
+    protected function composeOnHeightChange(unscaledHeight:Number):Boolean
     {
         if (truncation != 0 && getStyle("lineBreak") == "toFit")
-            return true;
+        {
+            // -1 is fill the bounds and the bounds changed so recompose.
+            if (truncation == -1)            
+                return true;
+                
+            // If truncating at n lines and the height got smaller, may need to
+            // redo the truncation. Or if the height got larger, only have to
+            // redo the truncation if we don't already have the number of
+            // truncation lines needed.
+            if (truncation > 0 &&
+               (unscaledHeight < mx_internal::bounds.height ||
+               mx_internal::textLines.length != truncation))
+            {
+                return true;
+            }
+        }
         
-        return false;
-    }
-
-    /**
-     *  @private
-     *  TODO This should be mx_internal, but that causes a compiler error.
-     */
-    protected function composeOnWidthChange():Boolean
-    {
-        if (truncation != 0 && getStyle("lineBreak") == "toFit")
-            return true;
-
         return false;
     }
 
@@ -1310,11 +1316,18 @@ public class TextGraphicElement extends GraphicElement
         mx_internal::truncationIndicatorResource = resourceManager.getString(
             "core", "truncationIndicator");
 
+        // Need to remeasure the new truncation indicator for SimpleText.
+        if (mx_internal::truncationIndicatorLines)
+            mx_internal::truncationIndicatorLines.length = 0;
+              
+        // If we're truncating, recompose the text.
         if (truncation != 0)
+        {
             mx_internal::invalidateCompose = true;
 
-        invalidateSize();
-        invalidateDisplayList();
+            invalidateSize();
+            invalidateDisplayList();
+        }
     }
 
     /**
