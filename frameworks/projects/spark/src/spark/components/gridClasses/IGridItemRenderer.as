@@ -130,20 +130,20 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     /**
      *  Called from the Grid's <code>updateDisplayList()</code> method after all of the 
      *  column's properties have been set.  The <code>willBeRecycled</code> parameter is false
-     *  if this renderer hasn't been used be for, i.e. if it wasn't "recycled".  This method is 
+     *  if this renderer hasn't been used before, i.e. if it wasn't "recycled".  This method is 
      *  called when a renderer is about to become visible, typically because it was
      *  scrolled into view.
      * 
      *  <p>This method is not intended to be called directly, it's called by the Grid implementation.</p>
      * 
-     *  @param willBeRecycled True if this renderer is being reused.
+     *  @param hasBeenRecycled  True if this renderer is being reused.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5 
      */
-    function prepare(willBeRecycled:Boolean):void;
+    function prepare(hasBeenRecycled:Boolean):void;
         
     /**
      *  Called from the Grid's <code>updateDisplayList()</code> when it has been determined
@@ -153,14 +153,14 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
      * 
      *  <p>This method is not intended to be called directly, it's called by the Grid implementation.</p>
      * 
-     *  @param hasBeenRecycled True if this renderer is going to be added to the Grid's internal free list, to be reused later.
+     *  @param willBeRecycled True if this renderer is going to be added to the Grid's internal free list, to be reused later.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5  
      */
-    function discard(hasBeenRecycled:Boolean):void;
+    function discard(willBeRecycled:Boolean):void;
 }
 
 }
