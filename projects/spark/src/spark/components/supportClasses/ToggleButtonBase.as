@@ -90,9 +90,24 @@ use namespace mx_internal;
  *  that support the <code>selected</code> property.
  *  ToggleButton, CheckBox and RadioButton are subclasses of ToggleButtonBase.
  *
- *  @see mx.components.ToggleButton
- *  @see mx.components.CheckBox
- *  @see mx.components.RadioButton
+ *  @mxml
+ *
+ *  <p>The <code>&lt;s:ToggleButtonBase&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:ToggleButtonBase
+ *    <strong>Properties</strong>
+ *    selected="false"
+ * 
+ *    <strong>events</strong>
+ *    change="<i>No default</i>"
+ *  /&gt;
+ *  </pre> 
+ *
+ *  @see spark.components.ToggleButton
+ *  @see spark.components.CheckBox
+ *  @see spark.components.RadioButton
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -153,8 +168,9 @@ public class ToggleButtonBase extends ButtonBase
     [Bindable]
     
     /**
-     *  <code>true</code> if the button is in the down state, 
+     *  Contains <code>true</code> if the button is in the down state, 
      *  and <code>false</code> if it is in the up state.
+     *
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
