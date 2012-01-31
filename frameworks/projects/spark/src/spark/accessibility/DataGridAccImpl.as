@@ -22,8 +22,8 @@ import mx.resources.ResourceManager;
 import mx.resources.IResourceManager;
 import spark.components.DataGrid;
 import spark.components.Grid;
-import spark.components.supportClasses.GridSelectionMode;
-import spark.components.supportClasses.CellPosition;
+import spark.components.gridClasses.GridSelectionMode;
+import spark.components.gridClasses.CellPosition;
 import spark.events.GridEvent;
 import spark.events.GridCaretEvent;
 import spark.events.GridSelectionEvent;
@@ -192,16 +192,16 @@ public class DataGridAccImpl extends ListBaseAccImpl
             return accState;
         if (dgAccInfo.isColumnHeader)
         {
-            // isColumnHeader implies columnHeaderBar.visible is true.
+            // isColumnHeader implies columnHeaderGroup.visible is true.
             // The below code remains in case it is ever decided to
             // make invisible but present headerBars show up with childIDs.
             /*
-            if (dgAccInfo.dataGrid.columnHeaderBar
-            && !dgAccInfo.dataGrid.columnHeaderBar.visible)
+            if (dgAccInfo.dataGrid.columnHeaderGroup
+            && !dgAccInfo.dataGrid.columnHeaderGroup.visible)
                 accState |= AccConst.STATE_SYSTEM_INVISIBLE;
             */
-            if (dgAccInfo.dataGrid.columnHeaderBar
-            && !dgAccInfo.dataGrid.columnHeaderBar.getHeaderRendererAt(childID-1).visible)
+            if (dgAccInfo.dataGrid.columnHeaderGroup
+            && !dgAccInfo.dataGrid.columnHeaderGroup.getHeaderRendererAt(childID-1).visible)
                 accState |= AccConst.STATE_SYSTEM_OFFSCREEN;
             // There are some states we don't allow for these.
             return accState & ~(
@@ -713,8 +713,8 @@ internal class ItemAccInfo
     import mx.core.UIComponent;
     import spark.components.DataGrid;
     import spark.components.Grid;
-    import spark.components.supportClasses.GridSelectionMode;
-    import spark.components.supportClasses.CellPosition;
+    import spark.components.gridClasses.GridSelectionMode;
+    import spark.components.gridClasses.CellPosition;
     import flash.geom.Rectangle;
     import flash.geom.Point;
 
@@ -774,7 +774,7 @@ internal class ItemAccInfo
         visibleColumnIndex = 0;
 
         var itemIndex:int = childID - 1;
-        if (dataGrid.columnHeaderBar && dataGrid.columnHeaderBar.visible)
+        if (dataGrid.columnHeaderGroup && dataGrid.columnHeaderGroup.visible)
         {
             // There are visible column headers, so their childIDs come first.
             itemIndex -= visibleColumnCount;
@@ -934,7 +934,7 @@ internal class ItemAccInfo
         var result:Object;
         if (isColumnHeader)
         {
-            result = dataGrid.columnHeaderBar.getHeaderRendererAt(columnIndex);
+            result = dataGrid.columnHeaderGroup.getHeaderRendererAt(columnIndex);
         }
         else if (isCellMode)
         {
