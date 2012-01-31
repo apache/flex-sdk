@@ -247,14 +247,6 @@ public class RichEditableText extends UIComponent
         if (classInitialized)
             return;
 
-        staticTextLayoutFormat = new TextLayoutFormat();
-        staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
-        staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
-            
         staticPlainTextImporter =
             TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT);
         
@@ -282,12 +274,6 @@ public class RichEditableText extends UIComponent
      */
     private static var classInitialized:Boolean = false;
     
-    /**
-     *  @private
-     *  Used for determining whitespace processing when setting 'content'.
-     */
-    private static var staticTextLayoutFormat:TextLayoutFormat;
-        
     /**
      *  @private
      *  This TLF object is used to import a 'text' String
@@ -2664,27 +2650,23 @@ public class RichEditableText extends UIComponent
     {
         var textFlow:TextFlow ;
         
-        // The whiteSpaceCollapse format determines how whitespace
-        // is processed when the children are set.
-        staticTextLayoutFormat.whiteSpaceCollapse =
-            getStyle("whiteSpaceCollapse");
-        
         if (content is TextFlow)
         {
             textFlow = content as TextFlow;
-            textFlow.hostFormat = staticTextLayoutFormat;
-                    }
+        }
         else if (content is Array)
         {
             textFlow = new TextFlow();
-            textFlow.hostFormat = staticTextLayoutFormat;
+			textFlow.whiteSpaceCollapse = getStyle("whiteSpaceCollapse");
             textFlow.mxmlChildren = content as Array;
+			textFlow.whiteSpaceCollapse = undefined;
         }
         else
         {
             textFlow = new TextFlow();
-            textFlow.hostFormat = staticTextLayoutFormat;
+			textFlow.whiteSpaceCollapse = getStyle("whiteSpaceCollapse");
             textFlow.mxmlChildren = [ content ];
+			textFlow.whiteSpaceCollapse = undefined;
         }
         
         return textFlow;
