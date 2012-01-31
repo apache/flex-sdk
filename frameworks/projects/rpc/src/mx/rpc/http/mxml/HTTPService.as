@@ -177,11 +177,15 @@ public class HTTPService extends mx.rpc.http.HTTPService implements IMXMLSupport
                 }
                 else
                 {
+               	  //need to monitor right before throwing, otherwise monitor should be last
+			    monitorRpcEvent(event); 
                     
                     // last-ditch effort to notify the user that something went wrong
                     throw FaultEvent(event).fault;
                 }
             }
+            monitorRpcEvent(event);
+
         }
         
     }
