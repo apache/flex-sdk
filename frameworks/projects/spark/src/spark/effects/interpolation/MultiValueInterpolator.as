@@ -66,6 +66,8 @@ public class ArrayInterpolator implements IInterpolator
      */
     public function interpolate(fraction:Number, startValue:*, endValue:*):*
     {
+        if (startValue.length != endValue.length)
+            throw new Error("Start/end arrays must be of equal length");
         var returnArray:Array = [];
         for (var i:int = 0; i < startValue.length; i++)
             returnArray[i] = _elementInterpolator.interpolate(fraction, 
