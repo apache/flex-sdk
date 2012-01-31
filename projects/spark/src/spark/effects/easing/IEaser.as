@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package flex.effects.easing
+package mx.effects.easing
 {
 /**
  * IEaser is an interface implemented by classes that provide time-easing
@@ -24,14 +24,14 @@ package flex.effects.easing
  * only have to deal with the fractional value of time instead of any
  * specific object types.</p>
  * 
- * @see flex.effects.Animation
+ * @see mx.effects.Animation
  */
 public interface IEaser
 {
     /**
      * This function takes the fraction elapsed of a current tween
      * (a value from 0 to 1) and returns a new elapsed value. This 
-     * value will be used to calculate animated property values. By 
+     * value will be used to calculate FxAnimated property values. By 
      * changing the value of the elapsed fraction, we effectively change
      * the animation of the property.
      * 
