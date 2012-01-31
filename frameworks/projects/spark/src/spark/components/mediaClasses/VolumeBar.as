@@ -133,7 +133,33 @@ use namespace mx_internal;
  */
 public class VolumeBar extends VSlider
 {
- 
+
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function VolumeBar()
+    {
+        super();
+        
+        dropDownController = new DropDownController();
+        
+        // add change listener so we know when the user has interacted 
+        // with the volume bar to change the value so we can automatically 
+        // unmute the volume when the user does that.
+        addEventListener(Event.CHANGE, changeHandler);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Skin Parts
@@ -164,21 +190,6 @@ public class VolumeBar extends VSlider
      */
     [SkinPart(required="false")]
     public var dropDown:DisplayObject;
-        
-    /**
-     *  Constructor. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function VolumeBar()
-    {
-        super();
-        
-        dropDownController = new DropDownController();
-    }
     
     //--------------------------------------------------------------------------
     //
@@ -222,27 +233,6 @@ public class VolumeBar extends VSlider
             _dropDownController.openButton = muteButton;
         if (dropDown)
             _dropDownController.dropDown = dropDown;    
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden Properties
-    //
-    //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  baselinePosition
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function get baselinePosition():Number
-    {
-        if (muteButton)
-            return muteButton.baselinePosition;
-        else
-            return NaN;
     }
     
     //----------------------------------
@@ -309,23 +299,26 @@ public class VolumeBar extends VSlider
         
         dispatchEvent(new FlexEvent(FlexEvent.MUTED_CHANGE));
     }
-        
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Properties
+    //
+    //--------------------------------------------------------------------------
+    
     //----------------------------------
-    //  value
+    //  baselinePosition
     //----------------------------------
     
     /**
      *  @private
      */
-    override public function set value(value:Number):void
+    override public function get baselinePosition():Number
     {
-        if (super.value == value)
-            return;
-        
-        super.value = value;
-        
         if (muteButton)
-            muteButton.volume = value;
+            return muteButton.baselinePosition;
+        else
+            return NaN;
     }
     
     //--------------------------------------------------------------------------
@@ -368,24 +361,19 @@ public class VolumeBar extends VSlider
     /**
      *  @private
      */
-     override public function styleChanged(styleProp:String):void
-     {
-         super.styleChanged(styleProp);
-         var allStyles:Boolean = (styleProp == null || styleProp == "styleName");
+    override public function styleChanged(styleProp:String):void
+    {
+        super.styleChanged(styleProp);
+        var allStyles:Boolean = (styleProp == null || styleProp == "styleName");
          
-         if (allStyles || styleProp == "rollOverOpenDelay")
-         {
-             if (dropDownController)
+        if (allStyles || styleProp == "rollOverOpenDelay")
+        {
+            if (dropDownController)
                 dropDownController.rollOverOpenDelay = getStyle("rollOverOpenDelay");
-         }
-     }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------   
-    
+        }
+    }
+     
+         
     /**
      *  @private
      */
@@ -393,50 +381,11 @@ public class VolumeBar extends VSlider
     {
         super.setValue(value);
         
-        // when the value is set, this volume bar unmutes the 
-        // video player automatically
-        muted = false;
-        
         if (muteButton)
             muteButton.volume = value;
     }
-
-    /**
-     *  Opens the dropDown. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    public function openDropDown():void
-    {
-        dropDownController.openDropDown();
-    }
     
-     /**
-     *  Closes the dropDown. 
-     * 
-     *  @param commit Flag indicating if the component should commit the selected
-     *  data from the dropDown. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function closeDropDown(commit:Boolean):void
-    {
-        dropDownController.closeDropDown(commit);
-    }
-       
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
+        /**
       *  @private
       */ 
     override protected function getCurrentSkinState():String
@@ -460,14 +409,10 @@ public class VolumeBar extends VSlider
             muteButton.volume = value;
             muteButton.muted = muted;
         }
-        
-        if (instance == dropDown && dropDownController)
+        else if (instance == dropDown && dropDownController)
+        {
             dropDownController.dropDown = dropDown;
-    }
-    
-    private function muteButton_mutedChangeHandler(event:FlexEvent):void
-    {
-        muted = muteButton.muted;
+        }
     }
     
     /**
@@ -479,8 +424,7 @@ public class VolumeBar extends VSlider
         {
             muteButton.removeEventListener(FlexEvent.MUTED_CHANGE, muteButton_mutedChangeHandler);
         }
-        
-        if (instance == dropDownController)
+        else if (instance == dropDownController)
         {
             if (instance == muteButton)
                 dropDownController.openButton = null;
@@ -512,6 +456,41 @@ public class VolumeBar extends VSlider
         dropDownController.processFocusOut(event);
 
         super.focusOutHandler(event);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------   
+
+    /**
+     *  Opens the dropDown. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    public function openDropDown():void
+    {
+        dropDownController.openDropDown();
+    }
+    
+     /**
+     *  Closes the dropDown. 
+     * 
+     *  @param commit Flag indicating if the component should commit the selected
+     *  data from the dropDown. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function closeDropDown(commit:Boolean):void
+    {
+        dropDownController.closeDropDown(commit);
     }
     
     //--------------------------------------------------------------------------
@@ -555,6 +534,29 @@ public class VolumeBar extends VSlider
         // commit==false and event.preventDefault() is called on this DropDownEvent
         
         dispatchEvent(event);
+    }
+    
+    /**
+     *  @private
+     *  When the value is changed via a user-interaction, we will 
+     *  automatically unmute the volume
+     */
+    private function changeHandler(event:Event):void
+    {
+        // when the value is set, this volume bar unmutes the 
+        // video player automatically
+        if (muted)
+            muted = false;
+    }
+    
+    /**
+     *  @private
+     *  When the mute button changes the muted value, we need to change 
+     *  our own.
+     */
+    private function muteButton_mutedChangeHandler(event:FlexEvent):void
+    {
+        muted = muteButton.muted;
     }
 
 }
