@@ -297,7 +297,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     override public function set playheadTime(value:Number):void
     {
         if (animation)
-            animation.seek(value, true);
+            animation.playheadTime = value;
         else
             _seekTime = value;
     } 
@@ -468,7 +468,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         animation.motionPaths = motionPaths;
         
         if (_seekTime > 0)
-            animation.seek(_seekTime);
+            animation.playheadTime = _seekTime;
         if (reverseAnimation)
             animation.playReversed = true;
         animation.interpolator = interpolator;
