@@ -243,14 +243,14 @@ public class TextGraphicElement extends GraphicElement
 	/**
 	 *  @private
 	 */
-	private var _text:String = "";
+	mx_internal var _text:String = "";
 		
 	/**
 	 *  Documentation is not currently available.
 	 */
 	public function get text():String 
 	{
-		return _text;
+		return mx_internal::_text;
 	}
 	
 	/**
@@ -258,10 +258,10 @@ public class TextGraphicElement extends GraphicElement
 	 */
 	public function set text(value:String):void
 	{
-		if (value != _text)
+		if (value != mx_internal::_text)
 		{
-			var oldValue:String = _text;
-			_text = value;
+			var oldValue:String = mx_internal::_text;
+			mx_internal::_text = value;
 			dispatchPropertyChangeEvent("text", oldValue, value);
 
 			invalidateTextLines("text");
