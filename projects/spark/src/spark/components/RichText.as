@@ -590,6 +590,8 @@ public class TextGraphic extends TextGraphicElement
 		super.draw(g);
 		
 		compose(drawWidth, drawHeight);
+		
+		applyDisplayObjectProperties();
 	}
 
 	//--------------------------------------------------------------------------
