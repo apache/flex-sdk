@@ -101,7 +101,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
             var idx:int;
             
             // translate these colors into uints
-            StyleManager.getColorNames(alternatingColors);
+            styleManager.getColorNames(alternatingColors);
             
             if (parent is GroupBase)
                 idx = GroupBase(parent).getElementIndex(this);
