@@ -21,7 +21,6 @@ import mx.containers.Panel;
 import mx.controls.alertClasses.AlertForm;
 import mx.core.EdgeMetrics;
 import mx.core.FlexGlobals;
-import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
@@ -290,7 +289,7 @@ public class Alert extends Panel
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static var buttonWidth:Number = FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 ? 60 : 65;
+    public static var buttonWidth:Number = 65;
     
     //----------------------------------
     //  cancelLabel
