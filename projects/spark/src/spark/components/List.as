@@ -44,6 +44,46 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
+ *  The alpha of the border for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="borderAlpha", type="Number", inherit="no", theme="spark")]
+
+/**
+ *  The color of the border for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="spark")]
+
+/**
+ *  Controls the visibility of the border for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="borderVisible", type="Boolean", inherit="no", theme="spark")]
+
+/**
+ *  The alpha of the content background for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark")]
+
+/**
  *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
  *   
  *  @default 0xFFFFFF
