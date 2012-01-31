@@ -1096,7 +1096,7 @@ package spark.components
         //----------------------------------
         //  horizontalScrollPosition
         //----------------------------------
-        
+
         /**
          *  @private
          */
@@ -1108,7 +1108,8 @@ package spark.components
         private var horizontalScrollPositionChanged:Boolean = false;
         
         [Bindable("propertyChange")]
-        
+        [Inspectable(defaultValue="0", minValue="0.0")]
+                
         /**
          *  The number of pixels by which the text is scrolled horizontally.
          *
@@ -1165,7 +1166,8 @@ package spark.components
         private var verticalScrollPositionChanged:Boolean = false;
         
         [Bindable("propertyChange")]
-        
+        [Inspectable(defaultValue="0", minValue="0.0")]
+                
         /**
          *  The number of pixels by which the text is scrolled vertically.
          *
@@ -1243,7 +1245,8 @@ package spark.components
          *  within <p>, <span>, etc.
          */
         [RichTextContent]
-        
+        [Inspectable(environment="none")]
+                
         /**
          *  This property is intended for use in MXML at compile time;
          *  to get or set rich text content at runtime,
@@ -1335,6 +1338,8 @@ package spark.components
          */
         private var displayAsPasswordChanged:Boolean = false;
         
+        [Inspectable(category="General", defaultValue="false")]
+        
         /**
          *  @copy flash.text.TextField#displayAsPassword
          *
@@ -1377,6 +1382,8 @@ package spark.components
          *  @private
          */
         private var editableChanged:Boolean = false;
+        
+        [Inspectable(category="General", defaultValue="true")]
         
         /**
          *  A flag indicating whether the user is allowed
@@ -1422,6 +1429,8 @@ package spark.components
         //  editingMode
         //----------------------------------
         
+        [Inspectable(category="General", defaultValue="readWrite", enumeration="readOnly,readWrite,readSelect")]
+
         /**
          *  @private
          *  The editingMode of this component's TextContainerManager.
@@ -1502,6 +1511,8 @@ package spark.components
          *  @private
          */
         private var heightInLinesChanged:Boolean = false;
+        
+        [Inspectable(category="General", minValue="0.0")]
         
         /**
          *  The default height of the control, measured in lines.
@@ -1614,6 +1625,8 @@ package spark.components
         //  lineBreak
         //----------------------------------
         
+        [Inspectable(environment="none")]
+
         /**
          *  @private
          * 
@@ -1642,6 +1655,8 @@ package spark.components
          *  @private
          */
         private var _maxChars:int = 0;
+        
+        [Inspectable(category="General", defaultValue="0")]
         
         /**
          *  @copy flash.text.TextField#maxChars
@@ -1674,6 +1689,8 @@ package spark.components
          *  @private
          */
         private var _multiline:Boolean = true;
+        
+        [Inspectable(category="General", defaultValue="true")]
         
         /**
          *  Determines whether the user can enter multiline text.
@@ -1713,6 +1730,8 @@ package spark.components
          */
         private var _restrict:String = null;
         
+        [Inspectable(category="General", defaultValue="null")]
+        
         /**
          *  @copy flash.text.TextField#restrict
          * 
@@ -1749,6 +1768,8 @@ package spark.components
          *  @private
          */
         private var selectableChanged:Boolean = false;
+        
+        [Inspectable(category="General", defaultValue="true")]
         
         /**
          *  A flag indicating whether the content is selectable
@@ -1797,6 +1818,7 @@ package spark.components
         private var _selectionActivePosition:int = -1;
         
         [Bindable("selectionChange")]
+        [Inspectable(category="General", defaultValue="-1")]
         
         /**
          *  A character position, relative to the beginning of the
@@ -1838,6 +1860,7 @@ package spark.components
         private var _selectionAnchorPosition:int = -1;
         
         [Bindable("selectionChange")]
+        [Inspectable(category="General", defaultValue="-1")]
         
         /**
          *  A character position, relative to the beginning of the
@@ -1952,7 +1975,7 @@ package spark.components
         private var textChanged:Boolean = false;
         
         [Bindable("change")]
-        [Inspectable(category="General")]
+        [Inspectable(category="General", defaultValue="")]
         
         /**
          *  The text String displayed by this component.
@@ -2248,6 +2271,8 @@ package spark.components
          */
         private var _typicalTextFlow:TextFlow;
         
+        [Inspectable(category="General", defaultValue="null")]
+
         /**
          *  Text that is used to determine
          *  the default width and height of the control, 
@@ -2307,6 +2332,8 @@ package spark.components
          */
         private var widthInCharsChanged:Boolean = true;
         
+        [Inspectable(category="General", minValue="0.0")]
+
         /**
          *  The default width of the control, measured in em units.
          *
