@@ -688,7 +688,7 @@ public class GroupBase extends UIComponent implements IViewport
     private var _mouseEnabledWhereTransparent:Boolean = true;
     private var mouseEventReferenceCount:int;
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="true,false")]
     
     /**
      *  When set to true the mouseOpaque flag ensures that the entire bounds
