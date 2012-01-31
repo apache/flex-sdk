@@ -36,6 +36,11 @@ use namespace mx_internal;
  *  is at the right edge of its cell.
  *
  *  @default "left"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalAlign", type="String", enumeration="left,center,right", inherit="no")]
 
@@ -43,6 +48,11 @@ use namespace mx_internal;
  *  Number of pixels between children in the horizontal direction.
  *
  *  @default 8
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalGap", type="Number", format="Length", inherit="no")]
 
@@ -50,6 +60,11 @@ use namespace mx_internal;
  *  Number of pixels between the container's bottom border and its content area.
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -57,6 +72,11 @@ use namespace mx_internal;
  *  Number of pixels between the container's top border and its content area.
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -72,6 +92,11 @@ use namespace mx_internal;
  *  is at the bottom edge of its cell.
  *
  *  @default "top"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalAlign", type="String", enumeration="bottom,middle,top", inherit="no")]
 
@@ -79,6 +104,11 @@ use namespace mx_internal;
  *  Number of pixels between children in the vertical direction.
  *
  *  @default 6
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalGap", type="Number", format="Length", inherit="no")]
 
@@ -185,6 +215,11 @@ use namespace mx_internal;
  *  @includeExample examples/TileLayoutExample.mxml
  *
  *  @see mx.components.Container
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Tile extends Container
 {
@@ -198,6 +233,11 @@ public class Tile extends Container
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Tile()
     {
@@ -265,6 +305,11 @@ public class Tile extends Container
      *  @default "horizontal"
      * 
      *  @see TileDirection
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get direction():String
     {
@@ -305,6 +350,11 @@ public class Tile extends Container
      *  this calculation.
      *
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get tileHeight():Number
     {
@@ -342,6 +392,11 @@ public class Tile extends Container
      *  this calculation.
      *
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get tileWidth():Number
     {
@@ -403,6 +458,11 @@ public class Tile extends Container
      *  large enough for its padding and borders.</p>
      * 
      *  @see mx.core.UIComponent#measure()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -559,6 +619,11 @@ public class Tile extends Container
      *  <code>scaleY</code> property of the component.   
      * 
      *  @see mx.core.UIComponent#updateDisplayList()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
