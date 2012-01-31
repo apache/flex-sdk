@@ -781,6 +781,7 @@ public class VideoPlayer extends SkinnableComponent
     //----------------------------------
     
     [Bindable("playheadUpdate")]
+    [Bindable("autoRewound")]
     [Inspectable(Category="General", defaultValue="0")]
     
     /**
@@ -1027,6 +1028,7 @@ public class VideoPlayer extends SkinnableComponent
             videoElement.addEventListener("playingChanged", videoElement_playingChangedHandler);
             
             // just strictly for binding purposes
+            videoElement.addEventListener("autoRewound", videoElement_autoRewoundHandler);
             videoElement.addEventListener("sourceChanged", dispatchEvent);
             videoElement.addEventListener("volumeChanged", videoElement_volumeChangedHandler);
             
@@ -1034,46 +1036,49 @@ public class VideoPlayer extends SkinnableComponent
             
             var newVideoProperties:uint = 0;
             
-            if (videoElementProperties.source !== undefined)
+            if (videoElementProperties)
             {
-                videoElement.source = videoElementProperties.source;
-                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                        SOURCE_PROPERTY_FLAG, true);
-            }
-            
-            if (videoElementProperties.autoPlay !== undefined)
-            {
-                videoElement.autoPlay = videoElementProperties.autoPlay;
-                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                        AUTO_PLAY_PROPERTY_FLAG, true);
-            }
-            
-            if (videoElementProperties.volume !== undefined)
-            {
-                videoElement.volume = videoElementProperties.volume;
-                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                        VOLUME_PROPERTY_FLAG, true);
-            }
-            
-            if (videoElementProperties.autoRewind !== undefined)
-            {
-                videoElement.autoRewind = videoElementProperties.autoRewind;
-                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                        AUTO_REWIND_PROPERTY_FLAG, true);
-            }
-            
-            if (videoElementProperties.maintainAspectRatio !== undefined)
-            {
-                videoElement.maintainAspectRatio = videoElementProperties.maintainAspectRatio;
-                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                        MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG, true);
-            }
-            
-            if (videoElementProperties.muted !== undefined)
-            {
-                videoElement.muted = videoElementProperties.muted;
-                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                        MUTED_PROPERTY_FLAG, true);
+                if (videoElementProperties.source !== undefined)
+                {
+                    videoElement.source = videoElementProperties.source;
+                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                                                            SOURCE_PROPERTY_FLAG, true);
+                }
+                
+                if (videoElementProperties.autoPlay !== undefined)
+                {
+                    videoElement.autoPlay = videoElementProperties.autoPlay;
+                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                                                            AUTO_PLAY_PROPERTY_FLAG, true);
+                }
+                
+                if (videoElementProperties.volume !== undefined)
+                {
+                    videoElement.volume = videoElementProperties.volume;
+                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                                                            VOLUME_PROPERTY_FLAG, true);
+                }
+                
+                if (videoElementProperties.autoRewind !== undefined)
+                {
+                    videoElement.autoRewind = videoElementProperties.autoRewind;
+                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                                                            AUTO_REWIND_PROPERTY_FLAG, true);
+                }
+                
+                if (videoElementProperties.maintainAspectRatio !== undefined)
+                {
+                    videoElement.maintainAspectRatio = videoElementProperties.maintainAspectRatio;
+                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                                                            MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG, true);
+                }
+                
+                if (videoElementProperties.muted !== undefined)
+                {
+                    videoElement.muted = videoElementProperties.muted;
+                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                                                            MUTED_PROPERTY_FLAG, true);
+                }
             }
             
             videoElementProperties = newVideoProperties;
@@ -1162,26 +1167,46 @@ public class VideoPlayer extends SkinnableComponent
             // copy proxied values from video (if explicitely set) to videoProperties
             
             var newVideoProperties:Object = {};
+            var propertySet:Boolean = false;
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, SOURCE_PROPERTY_FLAG))
+            {
                 newVideoProperties.source = videoElement.source;
+                propertySet = true;
+            }
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, AUTO_PLAY_PROPERTY_FLAG))
+            {
                 newVideoProperties.autoPlay = videoElement.autoPlay;
+                propertySet = true;
+            }
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, VOLUME_PROPERTY_FLAG))
+            {
                 newVideoProperties.volume = videoElement.volume;
+                propertySet = true;
+            }
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, AUTO_REWIND_PROPERTY_FLAG))
+            {
                 newVideoProperties.autoRewind = videoElement.autoRewind;
+                propertySet = true;
+            }
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG))
+            {
                 newVideoProperties.maintainAspectRatio = videoElement.maintainAspectRatio;
+                propertySet = true;
+            }
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, MUTED_PROPERTY_FLAG))
+            {
                 newVideoProperties.muted = videoElement.muted;
-                
-            videoElementProperties = newVideoProperties;
+                propertySet = true;
+            }
+            
+            if (propertySet)
+                videoElementProperties = newVideoProperties;
             
             videoElement.removeEventListener(spark.events.VideoEvent.CLOSE, dispatchEvent);
             videoElement.removeEventListener(spark.events.VideoEvent.COMPLETE, videoElement_completeHandler);
@@ -1193,6 +1218,7 @@ public class VideoPlayer extends SkinnableComponent
             videoElement.removeEventListener("playingChanged", videoElement_playingChangedHandler);
             
             // just strictly for binding purposes
+            videoElement.removeEventListener("autoRewound", videoElement_autoRewoundHandler);
             videoElement.removeEventListener("sourceChanged", dispatchEvent);
             videoElement.removeEventListener("volumeChanged", videoElement_volumeChangedHandler);
         }
@@ -1267,9 +1293,9 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function play(startTime:Number=NaN, duration:Number=NaN):void
+    public function play():void
     {
-        videoElement.play(startTime, duration);
+        videoElement.play();
     }
     
     /**
@@ -1400,6 +1426,20 @@ public class VideoPlayer extends SkinnableComponent
         if (totalTimeLabel)
             updateTotalTime();
         
+        dispatchEvent(event);
+    }
+    
+    /**
+     *  @private
+     */
+    private function videoElement_autoRewoundHandler(event:Event):void
+    {
+        updateScrubBar();
+        
+        if (playheadTimeLabel)
+            updatePlayheadTime();
+        
+        // for binding purposes:
         dispatchEvent(event);
     }
     
@@ -1560,8 +1600,17 @@ public class VideoPlayer extends SkinnableComponent
     {
         playerControls.visible = true;
         
-        fullScreenHideControlTimer.reset();
-        fullScreenHideControlTimer.start();
+        if (fullScreenHideControlTimer)
+        {
+            fullScreenHideControlTimer.reset();
+            fullScreenHideControlTimer.start();
+        }
+        else
+        {
+            fullScreenHideControlTimer = new Timer(FULL_SCREEN_HIDE_CONTROLS_DELAY, 1);
+            fullScreenHideControlTimer.addEventListener(TimerEvent.TIMER_COMPLETE, 
+                fullScreenHideControlTimer_timerCompleteHandler, false, 0, true);
+        }
     }
     
     /**
