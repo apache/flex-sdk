@@ -39,6 +39,11 @@ import mx.utils.UIDUtil;
  *  @see mx.controls.MenuBar
  *  @see mx.controls.PopUpMenuButton
  *  @see mx.controls.Tree
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDescriptor
 {
@@ -46,6 +51,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DefaultDataDescriptor()
     {
@@ -68,6 +78,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  @param node The node object currently being evaluated.
      *  @param model The collection that contains the node; ignored by this class.
      *  @return An object containing the children nodes.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getChildren(node:Object, model:Object = null):ICollectionView
     {
@@ -168,6 +183,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  @param model The collection that contains the node; ignored by this class.
      *  
      *  @return <code>true</code> if this node currently has children.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function hasChildren(node:Object, model:Object = null):Boolean
     {
@@ -202,6 +222,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  @param model The collection that contains the node; ignored by this class.
      *  
      *  @return <code>true</code> if this node is non-terminating.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isBranch(node:Object, model:Object = null):Boolean
     {
@@ -252,6 +277,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  @param node The node object currently being evaluated.
      *  @param model The collection that contains the node; ignored by this class.
      *  @return The node.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getData(node:Object, model:Object = null):Object
     {
@@ -292,6 +322,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  @param model The entire collection that this node is a part of.
      *  
      *  @return <code>true</code> if successful.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addChildAt(parent:Object, newChild:Object, index:int, model:Object = null):Boolean
     {
@@ -367,6 +402,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  @param model The entire collection that this node is a part of.
      *  
      *  @return <code>true</code> if successful.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeChildAt(parent:Object, child:Object, index:int, model:Object = null):Boolean
     {
@@ -427,6 +467,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  
      *  @return  The value of the <code>type</code> attribute or field,
      *  or the empty string if there is no such field.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getType(node:Object):String
     {
@@ -456,6 +501,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  @return The value of the node's <code>enabled</code>
      *  attribute or field, or <code>true</code> if there is no such
      *  entry or the value is not <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isEnabled(node:Object):Boolean
     {
@@ -488,6 +538,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *
      *  @param node The node for which to set the status.
      *  @param value Whether the node is enabled.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setEnabled(node:Object, value:Boolean):void
     {
@@ -516,6 +571,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  @return The value of the node's <code>toggled</code>
      *  attribute or field, or <code>false</code> if there is no such
      *  entry.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isToggled(node:Object):Boolean
     {
@@ -547,6 +607,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *
      *  @param node The node for which to set the status.
      *  @param value Whether the node is toggled.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setToggled(node:Object, value:Boolean):void
     {
@@ -575,6 +640,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  @return The value of the node's <code>groupName</code>
      *  attribute or field, or an empty string if there is no such
      *  entry.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getGroupName(node:Object):String
     {
@@ -597,6 +667,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getHierarchicalCollectionAdaptor(hierarchicalData:ICollectionView, 
                                                 uidFunction:Function, 
@@ -611,6 +686,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getNodeDepth(node:Object, iterator:IViewCursor, model:Object = null):int
     {
@@ -621,6 +701,11 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getParent(node:Object, collection:ICollectionView, model:Object = null):Object
     {
