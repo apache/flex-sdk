@@ -1404,6 +1404,7 @@ class TouchScrollHelper
 //                scrollDragStartEvent.scrollingObject = scroller;
 //                scroller.dispatchEvent(scrollDragStartEvent);
                 scrollStartPoint = new Point(mouseEvent.stageX, mouseEvent.stageY);
+                mouseDownedPoint = new Point(mouseEvent.stageX, mouseEvent.stageY);
             }
             
             // only need to do this stuff once per target
@@ -1590,6 +1591,8 @@ class TouchScrollHelper
         lastVelocity.x /= lastTime;
         lastVelocity.y /= lastTime;
         
+        var scrollEndEvent:TouchScrollEvent;
+        
         // FIXME (rfrishbe): should be minXVelocity, minYVelocity, minDiagonalVelocity
         // FIXME (rfrishbe): this should be parameterized better
         if ( (lastTime >= 3*averageTime) &&
@@ -1598,12 +1601,11 @@ class TouchScrollHelper
             isScrolling = false;
             
             // don't do anything
-            var scrollEndEvent:TouchScrollEvent = new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_END);
+            scrollEndEvent = new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_END);
             scrollEndEvent.scrollingObject = scroller;
             scroller.dispatchEvent(scrollEndEvent);
             return;
         }
-        
         
         var velocities:Vector.<Point> = calculateVelocity(clickHistory, timeHistory);
         
@@ -1619,6 +1621,15 @@ class TouchScrollHelper
             
             scroller.addEventListener(TouchScrollEvent.TOUCH_SCROLL_THROW_ANIMATION_END, scroller_touchScrollThrowAnimationEnd);
             scroller.dispatchEvent(scrollEndAndThrowEvent);
+        }
+        else
+        {
+            isScrolling = false;
+
+            // don't do anything
+            scrollEndEvent = new TouchScrollEvent(TouchScrollEvent.TOUCH_SCROLL_END);
+            scrollEndEvent.scrollingObject = scroller;
+            scroller.dispatchEvent(scrollEndEvent);
         }
         
         // if we own this user gesture, don't let others see this event
