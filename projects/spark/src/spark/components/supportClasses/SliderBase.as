@@ -725,9 +725,9 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
         var prevValue:Number = this.value;
         var newValue:Number;
 
-        // If rtl layout, need to swap LEFT/UP for RIGHT/DOWN so correct action
+        // If rtl layout, need to swap LEFT/UP and RIGHT/DOWN so correct action
         // is done.
-        var keyCode:int = mapKeycodeForLayoutDirection(event, true);
+        var keyCode:uint = mapKeycodeForLayoutDirection(event, true);
                                 
         switch (keyCode)
         {
