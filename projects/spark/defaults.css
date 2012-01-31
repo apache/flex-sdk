@@ -17,6 +17,7 @@
 
 Application
 {
+    backgroundColor: #FFFFFF;
     skinClass: ClassReference("spark.skins.spark.ApplicationSkin");
 }
 
@@ -94,6 +95,9 @@ NumericStepper
 
 Panel
 {
+    borderAlpha: 0.5;
+    borderColor: 0;
+    cornerRadius: 0;
 	skinClass: ClassReference("spark.skins.spark.PanelSkin");
 }
 
@@ -119,11 +123,19 @@ Spinner
 
 TextArea
 {
+    paddingBottom: 3;
+    paddingLeft: 3;
+    paddingRight: 3;
+    paddingTop: 5;
 	skinClass: ClassReference("spark.skins.spark.TextAreaSkin");
 }
 
 TextInput
 {
+    paddingBottom: 3;
+    paddingLeft: 3;
+    paddingRight: 3;
+    paddingTop: 5;
 	skinClass: ClassReference("spark.skins.spark.TextInputSkin");
 }
 
