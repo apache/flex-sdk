@@ -17,6 +17,11 @@
  *  components that support the <code>borderStyle</code> style.
  *  The default value depends on the component class;
  *  if not overriden for the class, the default value is <code>0xB7BABC</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderColor", type="uint", format="Color", inherit="no")]
 
@@ -28,6 +33,11 @@
  *  that supports a <code>borderStyle</code> property set to <code>"solid"</code>.
  *  The default value depends on the component class;
  *  if not overriden for the class, the default value is <code>0</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="cornerRadius", type="Number", format="Length", inherit="no")]
 
@@ -36,6 +46,11 @@
  *  opaque.
  *  
  *  @default [ 0.6, 0.4 ]
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no")]
 
@@ -44,6 +59,11 @@
  *  Pass the same color for both values for a flat-looking control.
  *  
  *  @default [ 0xFFFFFF, 0xCCCCCC ]
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no")]
 
@@ -53,5 +73,10 @@
  *  of the bottom of the highlight. The highlight covers the top half of the skin.
  *  
  *  @default [ 0.3, 0.0 ]
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no")]
