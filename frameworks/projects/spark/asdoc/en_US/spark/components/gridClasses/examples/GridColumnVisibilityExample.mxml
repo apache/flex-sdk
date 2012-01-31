@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+Demonstrate the GridColumn visible property and the support for dynamically adding and removing columns.
+
+After selecting a column it's visibility can be changed, a copy of the column can be inserted, and the column can be removed.
+
+The DataGrid columns property is a mutable list - an IList, like ArrayList - and columns can be added or removed at any time.  The difference 
+between an IList and an intrinsic collection type like Array or Vector is that ILists dispatch events when they're changed.   That's why the
+DropDownList, whose dataProvider is the list of columns, tracks the changes made with the Add/Remove buttons.
+
+Changing a column's visibility does not change its presence or position in the columns IList but it prevents the DataGrid from displaying it.
+
+-->
+
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <fx:Script>
+        <![CDATA[
+            // Insert a column to the left of specified column
+            private function addNewColumn(column:GridColumn):void
+            {
+                const newColumn:GridColumn = new GridColumn();
+                newColumn.dataField = column.dataField;
+                newColumn.headerText = column.headerText + "+";
+                dataGrid.columns.addItemAt(newColumn, column.columnIndex);
+            }
+            
+            // Remove the specified column
+            private function removeColumn(column:GridColumn):void
+            {
+                dataGrid.columns.removeItemAt(column.columnIndex);
+            }
+        ]]>
+    </fx:Script>
+    
+    <s:Panel title="Spark DataGrid Control Example which demomontrates the GridColumn visible property and dynamically adding and removing columns"
+             width="75%" height="75%" 
+             horizontalCenter="0" verticalCenter="0">
+        
+        <s:controlBarContent>
+            <s:HGroup verticalAlign="baseline">
+                <s:DropDownList id="ddl" prompt="Select" dataProvider="{dataGrid.columns}" labelField="headerText"/>
+                <s:Label text="Visible:"/>
+                <s:CheckBox selected="@{ddl.selectedItem.visible}" enabled="{ddl.selectedItem}"/>
+                <s:Button label="Add" click="addNewColumn(ddl.selectedItem)" enabled="{ddl.selectedItem}"/>
+                <s:Button label="Remove" click="removeColumn(ddl.selectedItem)" enabled="{ddl.selectedItem}"/>
+            </s:HGroup>
+        </s:controlBarContent>
+        
+        <s:DataGrid id="dataGrid" left="10" right="10">
+            <s:columns>
+                <s:ArrayList>
+                    <s:GridColumn dataField="key" headerText="Key"/>
+                    <s:GridColumn dataField="name" headerText="Name"/>
+                    <s:GridColumn dataField="price" headerText="Price"/>
+                    <s:GridColumn dataField="call" headerText="Call"/>
+                </s:ArrayList>
+            </s:columns>
+            
+            <s:ArrayCollection>
+                <s:DataItem key="1000" name="Abrasive" price="100.11" call="false"/>
+                <s:DataItem key="1001" name="Brush" price="110.01" call="true"/>
+                <s:DataItem key="1002" name="Clamp" price="120.02" call="false"/>
+                <s:DataItem key="1003" name="Drill" price="130.03" call="true"/>
+                <s:DataItem key="1004" name="Epoxy" price="140.04" call="false"/>
+                <s:DataItem key="1005" name="File" price="150.05" call="true"/>
+                <s:DataItem key="1006" name="Gouge" price="160.06" call="false"/>
+                <s:DataItem key="1007" name="Hook" price="170.07" call="true"/>
+                <s:DataItem key="1008" name="Ink" price="180.08" call="false"/>
+                <s:DataItem key="1009" name="Jack" price="190.09" call="true"/>             
+            </s:ArrayCollection>
+        </s:DataGrid>    
+    </s:Panel>    
+</s:Application>
+
+
