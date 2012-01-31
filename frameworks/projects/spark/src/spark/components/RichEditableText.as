@@ -2517,6 +2517,12 @@ package spark.components
                     _textContainerManager.setText(_text);
                 }
                 
+                // When TLF text is set above, TLF's textFlow is recreated so reset
+                // our copy of the textFlow and the generation.
+                _textFlow = null;
+                lastGeneration = 0;
+                lastContentBoundsGeneration = 0;
+                
                 if (editingMode != EditingMode.READ_ONLY)
                 {
                     // Must preserve the selection, if there was one.
