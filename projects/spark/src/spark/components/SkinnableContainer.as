@@ -80,6 +80,18 @@ include "../styles/metadata/AdvancedInheritingTextStyles.as"
 include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
+ *  @copy spark.components.supportClasses.GroupBase#style:accentColor
+ * 
+ *  @default #0099FF
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="accentColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
  *  @copy spark.components.supportClasses.GroupBase#style:alternatingItemColors
  *  
  *  @langversion 3.0
