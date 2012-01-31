@@ -16,6 +16,7 @@ import flash.display.BlendMode;
 import flash.display.DisplayObject;
 
 import mx.components.baseClasses.GroupBase;
+import mx.core.ILayoutElement;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
@@ -24,7 +25,6 @@ import mx.core.mx_internal;
 import mx.events.ItemExistenceChangedEvent;
 import mx.graphics.IGraphicElement;
 import mx.graphics.graphicsClasses.TextGraphicElement;
-import mx.layout.ILayoutElement;
 import mx.layout.LayoutElementFactory;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
