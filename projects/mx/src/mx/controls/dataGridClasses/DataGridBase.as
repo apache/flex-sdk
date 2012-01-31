@@ -2255,7 +2255,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
         {
             var item:DisplayObject = lastRowItems[i];
             var yOffset:Number = item.y - rowY;
-            if (item is IUITextField)
+            if (item is IUITextField && !IUITextField(item).embedFonts)
                 item.height = Math.max(rowHeight - yOffset, 0);
             else
                 item.mask = createItemMask(0, rowY + yOffset, rowWidth, Math.max(rowHeight - yOffset, 0));
@@ -2269,7 +2269,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
             {
                 item = lastRowItems[i];
                 yOffset = item.y - rowY;
-                if (item is IUITextField)
+                if (item is IUITextField && !IUITextField(item).embedFonts)
                     item.height = Math.max(rowHeight - yOffset, 0);
                 else
                     item.mask = createItemMask(0, rowY + yOffset, rowWidth, Math.max(rowHeight - yOffset, 0), lockedColumnContent);
@@ -2303,7 +2303,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
             for (var i:int = 0; i < numColumns; i++)
             {
                 var item:DisplayObject = lastRowItems[i];
-                if (item is IUITextField)
+                if (item is IUITextField && !IUITextField(item).embedFonts)
                 {
                     if (item.height != rowHeight - (item.y - lastRowInfo.y))
                         item.height = rowHeight - (item.y - lastRowInfo.y);
