@@ -99,6 +99,11 @@ mx|Label
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
+mx|List
+{
+    textInputClass: ClassReference("mx.controls.MXFTETextInput");
+}
+
 mx|ListItemRenderer
 {
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
