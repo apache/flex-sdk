@@ -807,20 +807,6 @@ public class GroupBase extends UIComponent implements IViewport
     {
         return null;
     }
-    
-    /** 
-     *  Helper method to wrap up the changes in a <code>PropertyChangeEvent</code> event object, 
-     *  and dispatch the event.
-     * 
-     *  @param prop Property that's changed.
-     *
-     *  @param oldValue Old value of the property.
-     *
-     *  @param value New value of the property.
-     */
-    protected function dispatchPropertyChangeEvent(prop:String, oldValue:*, value:*):void
-    {
-        dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop, oldValue, value));
-    }
 }
+
 }
