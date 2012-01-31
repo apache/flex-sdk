@@ -32,7 +32,8 @@ import spark.events.RendererExistenceEvent;
 use namespace mx_internal;  // ListBase/setCurrentCaretIndex(index);
 
 /**
- *  The radius of the tab bar buttons' top and right corners.
+ *  Defines the radius of the TabBar buttons' top-left and top-right corners for the default
+ *  TabBarButton skin.
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
