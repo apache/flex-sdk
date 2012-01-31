@@ -557,7 +557,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @private
      *  Called when an item is clicked.
      */
-    private function item_clickHandler(event:MouseEvent):void
+    protected function item_clickHandler(event:MouseEvent):void
     {
         // Multiple selection needs to be added here....
         
@@ -609,7 +609,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  TODO: Deepa - add overrideable methods to control 
      *  keyboard navigation across components and layout. 
      */
-    private function list_keyDownHandler(event:KeyboardEvent):void
+    protected function list_keyDownHandler(event:KeyboardEvent):void
     {    	
         super.keyDownHandler(event);
         var delta:int = 0;
