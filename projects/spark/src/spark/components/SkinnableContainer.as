@@ -9,15 +9,16 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 
-import flex.core.Group;
-import flex.core.IDeferredContentOwner;
-import flex.core.SkinnableComponent;
-import flex.events.FlexEvent;
-import flex.events.ItemExistenceChangedEvent;
-import flex.layout.LayoutBase;
+import mx.components.Group;
+import mx.core.IDeferredContentOwner;
+import mx.components.baseClasses.FxComponent;
+import mx.components.baseClasses.FxContainerBase;
+import mx.events.FlexEvent;
+import mx.events.ItemExistenceChangedEvent;
+import mx.layout.LayoutBase;
 
 import mx.collections.IList;
 import mx.core.ContainerCreationPolicy;
@@ -30,19 +31,19 @@ import mx.managers.IFocusManagerContainer;
  *  instantiation, the content for a component may be created long after the 
  *  component is created.
  */
-[Event(name="contentCreationComplete", type="flex.events.FlexEvent")]
+[Event(name="contentCreationComplete", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched when an item is added to the component.
  *  event.relatedObject is the visual item that was added.
  */
-[Event(name="itemAdd", type="flex.events.ItemExistenceChangedEvent")]
+[Event(name="itemAdd", type="mx.events.ItemExistenceChangedEvent")]
 
 /**
  *  Dispatched when an item is removed from the component.
  *  event.relatedObject is the visual item that was removed.
  */
-[Event(name="itemRemove", type="flex.events.ItemExistenceChangedEvent")]
+[Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
 
 [DefaultProperty("contentFactory")]
 
@@ -51,7 +52,7 @@ import mx.managers.IFocusManagerContainer;
  * visual content. This class is not typically instantiated in MXML. It is primarily
  * used as a base class, or as a SkinPart.
  */
-public class ItemsComponent extends ContainerBase 
+public class FxItemsComponent extends FxContainerBase 
 	   implements IDeferredContentOwner
 {
     include "../core/Version.as";
@@ -65,7 +66,7 @@ public class ItemsComponent extends ContainerBase
     /**
      *  Constructor. 
      */
-    public function ItemsComponent()
+    public function FxItemsComponent()
     {
         super();
         
@@ -185,7 +186,7 @@ public class ItemsComponent extends ContainerBase
     private var _content:Object;
     
     /**
-     *  @copy flex.core.Group#content
+     *  @copy mx.components.Group#content
      */
     [Bindable]
     public function get content():Object
@@ -221,7 +222,7 @@ public class ItemsComponent extends ContainerBase
     private var _layout:LayoutBase = null;
     
     /**
-     *  @copy flex.core.Group#layout
+     *  @copy mx.components.Group#layout
      */
     public function get layout():LayoutBase
     {
@@ -246,7 +247,7 @@ public class ItemsComponent extends ContainerBase
     //--------------------------------------------------------------------------
 
     /**
-     *  @copy flex.core.Group#numItems
+     *  @copy mx.components.Group#numItems
      */
     public function get numItems():int
     {
@@ -254,7 +255,7 @@ public class ItemsComponent extends ContainerBase
     }
     
     /**
-     *  @copy flex.core.Group#getItemAt()
+     *  @copy mx.components.Group#getItemAt()
      */
     public function getItemAt(index:int):*
     {
@@ -262,7 +263,7 @@ public class ItemsComponent extends ContainerBase
     }
     
     /**
-     *  @copy flex.core.Group#addItem()
+     *  @copy mx.components.Group#addItem()
      */
     public function addItem(item:*):*
     {
@@ -270,7 +271,7 @@ public class ItemsComponent extends ContainerBase
     }
     
     /**
-     *  @copy flex.core.Group#addItemAt()
+     *  @copy mx.components.Group#addItemAt()
      */
     public function addItemAt(item:*, index:int):*
     {
@@ -278,7 +279,7 @@ public class ItemsComponent extends ContainerBase
     }
     
     /**
-     *  @copy flex.core.Group#removeItem()
+     *  @copy mx.components.Group#removeItem()
      */
     public function removeItem(item:*):*
     {
@@ -286,7 +287,7 @@ public class ItemsComponent extends ContainerBase
     }
     
     /**
-     *  @copy flex.core.Group#removeItemAt()
+     *  @copy mx.components.Group#removeItemAt()
      */
     public function removeItemAt(index:int):*
     {
@@ -294,7 +295,7 @@ public class ItemsComponent extends ContainerBase
     }
     
     /**
-     *  @copy flex.core.Group#getItemIndex()
+     *  @copy mx.components.Group#getItemIndex()
      */
     public function getItemIndex(item:*):int
     {
@@ -302,7 +303,7 @@ public class ItemsComponent extends ContainerBase
     }
     
     /**
-     *  @copy flex.core.Group#setItemIndex()
+     *  @copy mx.components.Group#setItemIndex()
      */
     public function setItemIndex(item:*, index:int):void
     {
@@ -310,7 +311,7 @@ public class ItemsComponent extends ContainerBase
     }
     
     /**
-     *  @copy flex.core.Group#swapItems()
+     *  @copy mx.components.Group#swapItems()
      */
     public function swapItems(item1:*, item2:*):void
     {
@@ -318,7 +319,7 @@ public class ItemsComponent extends ContainerBase
     }
     
     /**
-     *  @copy flex.core.Group#swapItemsAt()
+     *  @copy mx.components.Group#swapItemsAt()
      */
     public function swapItemsAt(index1:*, index2:*):void
     {
