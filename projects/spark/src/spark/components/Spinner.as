@@ -22,10 +22,10 @@ import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
 
 /**
- *  Dispatched when the value of the Spinner control changes
+ *  Dispatched when the value of the FxSpinner control changes
  *  as a result of user interaction.
  *
- *  @eventType flash.events.Event
+ *  @eventType flash.events.Event.CHANGE
  */
 [Event(name="change", type="flash.events.Event")]
 
@@ -35,24 +35,32 @@ import mx.managers.IFocusManagerComponent;
 [SkinStates("normal", "disabled")]
 
 /**
- *  A Spinner is used to select a value from an
+ *  A FxSpinner component selects a value from an
  *  ordered set. It uses two buttons that increase or
  *  decrease the current value based on the current
- *  <code>stepSize</code>.
+ *  value of the <code>stepSize</code> property.
  *  
- *  <p>This control extends the Range class and
- *  is the base class for controls that select a value
- *  from an ordered set such as the NumericStepper control.</p>
- * 
  *  <p>A Spinner consists of two required buttons,
- *  one to increase the value and one to decrease the 
- *  value. </p>
+ *  one to increase the current value and one to decrease the 
+ *  current value.</p>
  *
- *  <p>Spinner has the addition property of 
- *  <code>valueWrap</code> which enables value wrapping.</p>
- * 
- *  @see mx.components.Range
- *  @see mx.components.NumericStepper
+ *  <p>The scale of an FxSpinner component is the set of 
+ *  allowed values for the <code>value</code> property. 
+ *  The allowed values are the multiples of 
+ *  the <code>valueInterval</code> property between 
+ *  the <code>maximum</code> and <code>minimum</code> values, 
+ *  including the <code>maximum</code> and <code>minimum</code> values. 
+ *  For example:</p>
+ *  
+ *  <ul>
+ *    <li><code>minimum</code> = -1</li>
+ *    <li><code>maximum</code> = 10</li>
+ *    <li><code>valueInterval</code> = 3</li>
+ *  </ul>
+ *  
+ *  Therefore the scale is {-1,3,6,9,10}.
+ *
+ *  @see mx.components.FxNumericStepper
  */
 public class FxSpinner extends FxRange implements IFocusManagerComponent
 {
@@ -81,18 +89,18 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
     [SkinPart]
     
     /**
-     *  <code>incrementButton</code> is a SkinPart that defines 
-     *  a button that, when pressed, will cause <code>value</code>
-     *  to increment by <code>stepSize</code>.
+     *  A skin part that defines the  button that, 
+     *  when pressed, increments the <code>value</code> property
+     *  by <code>stepSize</code>.
      */
     public var incrementButton:FxButton;
     
     [SkinPart]
     
     /**
-     *  <code>decrementButton</code> is a SkinPart that defines
-     *  a button that, when pressed, will cause <code>value</code>
-     *  to decrement by <code>stepSize</code>.
+     *  A skin part that defines the  button that, 
+     *  when pressed, decrements the <code>value</code> property
+     *  by <code>stepSize</code>.
      */
     public var decrementButton:FxButton;
     
@@ -107,8 +115,7 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
     //----------------------------------
 
     /**
-     *  Enable/disable this component. This also enables/disables any of the 
-     *  skin parts for this component.
+     *  @inheritDoc
      */
     override public function set enabled(value:Boolean):void
     {
@@ -133,11 +140,13 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
     private var _valueWrap:Boolean = false;
     
     /**
-     *  <code>valueWrap</code> determines the behavior of stepping 
-     *  beyond the maximum or minimum value. If 
-     *  <code>valueWrap</code> is true when stepping beyond an 
-     *  extreme, it will set <code>value</code> to the opposite
-     *  extreme.
+     *  Determines the behavior of the control for a step when the current 
+     *  <code>value</code> is either the <code>maximum</code> 
+     *  or <code>minimum</code> value.  
+     *  If <code>valueWrap</code> is <code>true</code>, then the 
+     *  <code>value</code> property wraps from the <code>maximum</code> 
+     *  to the <code>minimum</code> value, or from 
+     *  the <code>minimum</code> to the <code>maximum</code> value.
      * 
      *  @default false
      */
@@ -160,10 +169,10 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
     /**
      *  @inheritDoc
      */
-	override protected function getUpdatedSkinState():String
-	{
-		return enabled ? "normal" : "disabled";
-	}
+    override protected function getUpdatedSkinState():String
+    {
+        return enabled ? "normal" : "disabled";
+    }
 
     /**
      *  @private
@@ -205,7 +214,7 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
     }
     
     /**
-     *  Make the skins reflect the enabled state of the Spinner.
+     *  @inheritDoc
      */
     protected function enableSkinParts(value:Boolean):void
     {
@@ -280,6 +289,7 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
     //---------------------------------
    
     /**
+     *  @private
      *  Handle a click on the incrementButton. This should
      *  increment <code>value</code> by <code>stepSize</code>.
      */
@@ -294,6 +304,7 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
     }
     
     /**
+     *  @private
      *  Handle a click on the decrementButton. This should
      *  decrement <code>value</code> by <code>stepSize</code>.
      */
@@ -308,6 +319,7 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
     }   
     
     /**
+     *  @private
      *  Handles keyboard input. Up arrow increments. Down arrow
      *  decrements. Home and End keys set the value to maximum
      *  and minimum respectively.
