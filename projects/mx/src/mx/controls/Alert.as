@@ -604,12 +604,9 @@ public class Alert extends Panel
             alert.document = FlexGlobals.topLevelApplication.document;
         }
 
+        alert.addEventListener(FlexEvent.CREATION_COMPLETE, static_creationCompleteHandler);
         PopUpManager.addPopUp(alert, parent, modal);
 
-        alert.setActualSize(alert.getExplicitOrMeasuredWidth(),
-                            alert.getExplicitOrMeasuredHeight());
-        alert.addEventListener(FlexEvent.CREATION_COMPLETE, static_creationCompleteHandler);
-        
         return alert;
     }
 
@@ -666,8 +663,12 @@ public class Alert extends Panel
     {
         if (event.target is IFlexDisplayObject && event.eventPhase == EventPhase.AT_TARGET)
         {
-            event.target.removeEventListener(FlexEvent.CREATION_COMPLETE, static_creationCompleteHandler);
-            PopUpManager.centerPopUp(IFlexDisplayObject(event.target));
+            var alert:Alert = Alert(event.target);
+            alert.removeEventListener(FlexEvent.CREATION_COMPLETE, static_creationCompleteHandler);
+
+            alert.setActualSize(alert.getExplicitOrMeasuredWidth(),
+                            alert.getExplicitOrMeasuredHeight());
+            PopUpManager.centerPopUp(IFlexDisplayObject(alert));
         }
     }
     
