@@ -27,7 +27,20 @@ import spark.primitives.supportClasses.TextGraphicElement;
 
 /**
  *  The ItemRenderer class is the base class for Spark item renderers.
- *  It implements the IItemRenderer interface. 
+ * 
+ *  @mxml
+ *
+ *  <p>The <code>&lt;ItemRenderer&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;ItemRenderer
+ *    <strong>Properties</strong>
+ *    allowDeselection="true"
+ *    selected="false"
+ *    showFocusIndicator="false"
+ *  /&gt;
+ *  </pre>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -42,6 +55,14 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Constructor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function ItemRenderer()
     {
         super();
@@ -59,6 +80,12 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     //--------------------------------------------------------------------------
     
     [Bindable("contentBackgroundColorChanged")]
+    /**
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function get contentBackgroundColor():uint
     {
         var alternatingColors:Array = getStyle("alternatingItemColors");
@@ -83,28 +110,49 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
         return getStyle("contentBackgroundColor");
     }
     
+    /**
+     *  @private
+     */
     public function set contentBackgroundColor(value:uint):void
     {
         setStyle("contentBackgroundColor", value);
     }
     
     [Bindable("rollOverColorChanged")]
+    /**
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function get rollOverColor():uint
     {
         return getStyle("rollOverColor");
     }
     
+    /**
+     *  @private
+     */
     public function set rollOverColor(value:uint):void
     {
         setStyle("rollOverColor", value);
     }
     
     [Bindable("selectionColorChanged")]
+    /**
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function get selectionColor():uint
     {
         return getStyle("selectionColor");
     }
     
+    /**
+     *  @private
+     */
     public function set selectionColor(value:uint):void
     {
         setStyle("selectionColor", value);
@@ -139,9 +187,10 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     //----------------------------------
     
     /**
-     * Optional item renderer label component. 
-     * This component is used to determine the renderer's 
-     * parent component baselinePosition. 
+     *  Optional item renderer label component. 
+     *  This component is used to determine the value of the 
+     *  <code>baselinePosition</code> property in the host component of 
+     *  the item renderer. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -162,6 +211,8 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
 
     /**
      *  @inheritDoc 
+     *
+     *  @default true
      */    
     public function get allowDeselection():Boolean
     {
@@ -191,6 +242,8 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
 
     /**
      *  @inheritDoc 
+     *
+     *  @default false  
      */    
     public function get showFocusIndicator():Boolean
     {
@@ -221,6 +274,8 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     
     /**
      *  @inheritDoc 
+     *
+     *  @default false
      */    
     public function get selected():Boolean
     {
@@ -251,7 +306,9 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     private var _labelText:String = "";
     
     /**
-     * @inheritDoc 
+     *  @inheritDoc 
+     *
+     *  @default ""    
      */
     public function get labelText():String
     {
@@ -325,8 +382,8 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
      */ 
     override protected function commitProperties():void
     {
-    	super.commitProperties();
-    	
+        super.commitProperties();
+        
         if (rendererStateIsDirty)
         {
             currentState = getCurrentRendererState();
@@ -391,7 +448,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     }
     
     /**
-     * 
+     *  @private
      *  Mouse rollOver event handler.
      */
     protected function itemRenderer_rollOverHandler(event:MouseEvent):void
@@ -401,7 +458,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     }
     
     /**
-     *  
+     *  @private
      *  Mouse rollOut event handler.
      */
     protected function itemRenderer_rollOutHandler(event:MouseEvent):void
@@ -411,7 +468,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     }
     
     /**
-     *  
+     *  @private
      *  Mouse down event handler.
      */
     protected function itemRenderer_mouseDownHandler(event:MouseEvent):void
