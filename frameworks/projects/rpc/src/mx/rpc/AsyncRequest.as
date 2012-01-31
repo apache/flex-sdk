@@ -105,9 +105,12 @@ public class AsyncRequest extends mx.messaging.Producer
 	}		
 	
    /**
-    * Returns true if there are any pending requests for the passed in message.
+    * Returns <code>true</code> if there are any pending requests for the passed in message.
     * 
     * @param msg The message for which the existence of pending requests is checked.
+    *
+    * @return <code>true</code> if there are any pending requests for the passed in message;
+    * otherwise, returns <code>false</code>
     */
 	override public function hasPendingRequestForMessage(msg:IMessage):Boolean
 	{
@@ -119,6 +122,10 @@ public class AsyncRequest extends mx.messaging.Producer
 	/**
 	 *  Dispatches the asynchronous request and stores the responder to call
 	 *  later.
+         *
+         * @param msg The message to be sent asynchronously.
+         *
+         * @param responder The responder to be called later.
 	 */
 	public function invoke(msg:IMessage, responder:IResponder):void
 	{
