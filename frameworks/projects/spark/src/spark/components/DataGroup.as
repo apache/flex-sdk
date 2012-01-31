@@ -166,6 +166,35 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     
     //--------------------------------------------------------------------------
     //
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function get baselinePosition():Number
+    {
+        if (!validateBaselinePosition())
+            return NaN;
+
+        if (numElements == 0)
+            return super.baselinePosition;
+
+        return getElementAt(0).baselinePosition + getElementAt(0).y;
+    }
+
+    //--------------------------------------------------------------------------
+    //
     //  Properties
     //
     //--------------------------------------------------------------------------
