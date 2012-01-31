@@ -701,7 +701,7 @@ public class Animation extends EventDispatcher
      */
     public function end():void
     {
-        if (id >= 0)
+        if (id >= 0 || duration == 0)
         {
             // TODO (chaase): Check whether we already send out a final
             // UPDATE event with the end value; if so, this dup should be
@@ -763,27 +763,78 @@ public class Animation extends EventDispatcher
      *  @param playheadTime The position, in milliseconds, between 0
      *  and the value of the <code>duration</code> property.
      */ 
-    public function seek(playheadTime:Number):void
+    public function seek(playheadTime:Number, includeStartDelay:Boolean = false):void
     {
         // Set value between 0 and duration
         //playheadTime = Math.min(Math.max(playheadTime, 0), duration);
         
-        var clockTime:Number = intervalTime;
-        
         // Reset the start time
-        startTime = clockTime - playheadTime;
-        
-        _doSeek = true;
+        // TODO (chaase): Redundant for cases that set this again below
+        // Should only do this for playing animation, as the stopped animations
+        // do it for themselves
+        startTime = _intervalTime - playheadTime;
         
         if (!_isPlaying)
         {
+            _doSeek = true;
+            _intervalTime = Timeline.currentTime;
+            // TODO: comments...
+            if (includeStartDelay && startDelay > 0)
+            {
+                if (delayedStartTimes[this])
+                {
+                    // TODO (chaase): refactor removal/addition into utility functions
+                    // Still sleeping - reduce the delay time by the seek time
+                    var animPendingTime:int = delayedStartTimes[this];
+                    for (var i:int = 0; i < delayedStartAnims.length; ++i)
+                    {
+                        if (delayedStartAnims[i] == this)
+                        {
+                            delayedStartAnims.splice(i, 1);
+                            break;
+                        }
+                    }
+                    delete delayedStartTimes[this];
+                    var postDelaySeekTime:Number = playheadTime - startDelay;
+                    if (postDelaySeekTime < 0)
+                    {
+                        animPendingTime -= playheadTime;
+                        // add it back into the array in the proper order
+                        var insertIndex:int = -1;
+                        for (i = 0; i < delayedStartAnims.length; ++i)
+                        {
+                            if (animPendingTime < delayedStartTimes[delayedStartAnims[i]])
+                            {
+                                insertIndex = i;
+                                break;
+                            }
+                        }
+                        if (insertIndex >= 0)
+                            delayedStartAnims.splice(insertIndex, 0, this);
+                        else
+                            delayedStartAnims.push(this);
+                        delayedStartTimes[this] = animPendingTime;
+                        return;
+                    }
+                    else
+                    {
+                        // reduce seek time by startTime; we will go ahead and
+                        // seek into the now-playing animation by that much
+                        playheadTime -= startDelay;
+                        _doSeek = false;
+                        start();
+                        startTime = _intervalTime - playheadTime;
+                        doInterval();
+                        return;
+                    }
+                }
+            }
             // start/end values only valid after animation starts 
             sendAnimationEvent(AnimationEvent.ANIMATION_START, startValue);
             setupInterpolation();
-            _intervalTime = Timeline.currentTime;
             startTime = _intervalTime - playheadTime;
-            doInterval();
         }
+        doInterval();
     }
 
     /**
