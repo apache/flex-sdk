@@ -22,6 +22,8 @@ import mx.effects.IEffectInstance;
 import mx.effects.Effect;
 import mx.effects.effectClasses.PropertyChanges;
 
+use namespace mx_internal;
+
 //--------------------------------------
 //  Excluded APIs
 //--------------------------------------
@@ -290,9 +292,9 @@ public class AddAction extends Effect
         if (!targets)
             targets = this.targets;
             
-        if (targets && mx_internal::propertyChangesArray)
+        if (targets && propertyChangesArray)
         {
-            localPropertyChanges = mx_internal::propertyChangesArray;
+            localPropertyChanges = propertyChangesArray;
             targets.sort(targetSortHandler);
         }
         
