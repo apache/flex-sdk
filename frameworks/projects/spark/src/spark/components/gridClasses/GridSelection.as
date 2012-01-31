@@ -1055,6 +1055,9 @@ public class GridSelection
     {
         var selectionChanged:Boolean;
         
+        if (getGridDataProviderLength() == 0 || getGridColumnsLength() == 0)
+            return false;
+        
         if (isRowSelectionMode())
         {
             if (!hasRowSelection())
