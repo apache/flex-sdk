@@ -136,6 +136,10 @@ public class MultiTopicProducer extends AbstractProducer
      * Adds a subtopic to the current list of subtopics for messages sent by this
      * producer.  This is a shortcut to adding this subtopic to the subtopics
      * property.
+     *
+     * @param subtopic The subtopic to add to the current list of
+     * subtopics sent by this producer.
+     *
      */
     public function addSubtopic(subtopic:String):void
     {
@@ -145,6 +149,8 @@ public class MultiTopicProducer extends AbstractProducer
     /**
      * Removes the subtopic from the subtopics property.  Throws an error if the
      * subtopic is not in the list.
+     *
+     * @param subtopic The subtopic to remove from the subtopics property.
      */
     public function removeSubtopic(subtopic:String):void
     {
