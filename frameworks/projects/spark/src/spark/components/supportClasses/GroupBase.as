@@ -113,6 +113,54 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         invalidateDisplayList();
     }
     
+    //----------------------------------
+    //  autoLayout
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the autoLayout property.
+     */
+    private var _autoLayout:Boolean = true;
+
+    [Inspectable(defaultValue="true")]
+
+    /**
+     *  If <code>true</code>, measurement and layout are done
+     *  when the position or size of a child is changed.
+     *  If <code>false</code>, measurement and layout are done only once,
+     *  when children are added to or removed from the container.
+     *
+     *  @default true
+     */
+    public function get autoLayout():Boolean
+    {
+        return _autoLayout;
+    }
+
+    /**
+     *  @private
+     */
+    public function set autoLayout(value:Boolean):void
+    {
+        if (_autoLayout == value)
+            return;
+
+        _autoLayout = value;
+
+        // If layout is being turned back on, trigger a layout to occur now.
+        if (value)
+        {
+            invalidateSize();
+            invalidateDisplayList();
+            invalidateParentSizeAndDisplayList();
+        }
+    }
+
+    //----------------------------------
+    //  resizeMode
+    //----------------------------------
+
     private var _resizeMode:uint = ResizeMode._NORMAL_UINT;
     
     /**
@@ -342,7 +390,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-        if (_layout)
+        if (autoLayout && _layout)
             _layout.updateDisplayList(unscaledWidth, unscaledHeight);
     }
     
