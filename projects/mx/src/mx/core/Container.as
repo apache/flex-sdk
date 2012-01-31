@@ -2533,6 +2533,8 @@ public class Container extends UIComponent
     {
         return addChildAt(child, numChildren);
 
+        /* Application and Panel are depending on addChild calling addChildAt */
+        
         /*
         addingChild(child);
 
@@ -2709,7 +2711,7 @@ public class Container extends UIComponent
         /*
 
         Shouldn't implement removeChildAt() in terms of removeChild().
-        If we change this ViewStack IList is depending on it
+        If we change this ViewStack IList, Application, and Panel are depending on it
 
         */
     }
