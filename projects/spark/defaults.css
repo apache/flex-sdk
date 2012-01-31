@@ -254,29 +254,3 @@ VSlider
 {
     skinClass: ClassReference("spark.skins.spark.VSliderSkin");
 }
-
-global
-{
-    /* Looks */
-    /* color: #000000; */
-    backgroundImageFillMode : "scale";
-    chromeColor: #CCCCCC;
-    borderVisible : true;
-    borderWeight : 1;
-    contentBackgroundColor: #FFFFFF;
-    rollOverColor: #CEDBEF;
-    focusColor: #70B2EE;
-    symbolColor: #000000;
-    fontLookup: "embeddedCFF";
-
-    /* Behaviors */
-    autoThumbVisibility: true;
-    fixedThumbSize: false;
-    fullScreenHideControlsDelay: 3000;
-    horizontalScrollPolicy: "auto";
-    liveDragging: true;
-    rollOverOpenDelay: 200;
-    slideDuration: 300;
-    smoothScrolling: true;
-    verticalScrollPolicy: "auto";
-}
