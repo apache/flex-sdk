@@ -1382,6 +1382,7 @@ public class AnimateTransform extends Animate
             {
                 var effectProps:Array = relevantProperties;
                 var valueMap:Object = start ? propChanges[i].start : propChanges[i].end;
+                var otherValueMap:Object = start ? propChanges[i].end : propChanges[i].start;
                 var transitionValues:Object = {
                     rotationX:NaN, rotationY:NaN, rotation:NaN,
                     scaleX:NaN, scaleY:NaN, scaleZ:NaN,
@@ -1392,9 +1393,12 @@ public class AnimateTransform extends Animate
                 m = effectProps.length;
                 for (j = 0; j < m; j++)
                 {
-                    if (effectProps[j] in valueMap)
+                    var propName:String = effectProps[j];
+                    // Only record and apply values if they change between states
+                    if (propName in valueMap &&
+                        valueMap[propName] != otherValueMap[propName])
                     {
-                        transitionValues[effectProps[j]] = valueMap[effectProps[j]];
+                        transitionValues[propName] = valueMap[propName];
                     }
                 }
                 // Now transform it
