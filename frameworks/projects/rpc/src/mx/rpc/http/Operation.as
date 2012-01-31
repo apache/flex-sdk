@@ -105,6 +105,19 @@ public class Operation extends AbstractOperation
 
     }
 
+    private var _showBusyCursorSet:Boolean = false;
+    override public function get showBusyCursor():Boolean
+    {
+        if (_showBusyCursorSet)
+            return super.showBusyCursor;
+        return _multiService.showBusyCursor;    
+    }
+    override public function set showBusyCursor(b:Boolean):void
+    {
+        super.showBusyCursor = b;
+        _showBusyCursorSet = true;
+    }
+
     /**
      * If the rootURL property is not set on the operation, it is inherited from
      * the service level.
