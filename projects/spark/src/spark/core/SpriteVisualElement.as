@@ -162,7 +162,7 @@ public class SpriteVisualElement extends FlexSprite
         features.layoutX = x;
         features.layoutY = y;
         features.layoutZ = z;
-		features.layoutWidth = _width;  // for the mirror transform		
+        features.layoutWidth = _width;  // for the mirror transform     
 
         // Initialize the internal variable last,
         // since the transform getters depend on it.
@@ -226,12 +226,12 @@ public class SpriteVisualElement extends FlexSprite
      */
     private function setActualSize(width:Number, height:Number):void
     {
-		if ((_width != width)  && _layoutFeatures)
-		{
-			_layoutFeatures.layoutWidth = width;
-			invalidateTransform();
-		}
-			
+        if ((_width != width)  && _layoutFeatures)
+        {
+            _layoutFeatures.layoutWidth = width;
+            invalidateTransform();
+        }
+            
         _width = width;
         _height = height;
 
@@ -356,9 +356,9 @@ public class SpriteVisualElement extends FlexSprite
      *  @copy mx.core.IVisualElement#postLayoutTransformOffsets
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get postLayoutTransformOffsets():TransformOffsets
     {
@@ -1109,8 +1109,8 @@ public class SpriteVisualElement extends FlexSprite
     [Inspectable(category="General")]
     /**
      *  @copy spark.components.supportClasses.GroupBase#mask
-	 * 
-	 *  @langversion 3.0
+     * 
+     *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
@@ -1151,9 +1151,9 @@ public class SpriteVisualElement extends FlexSprite
     [Inspectable(category="General", enumeration="clip,alpha,luminosity", defaultValue="clip")]
     
     /**
-	 * @copy spark.components.supportClasses.GroupBase#maskType
-	 *
-	 *  @langversion 3.0
+     * @copy spark.components.supportClasses.GroupBase#maskType
+     *
+     *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
@@ -1886,9 +1886,9 @@ public class SpriteVisualElement extends FlexSprite
      *  @see spark.effects.AnimateTransform#transformX
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get transformX():Number
     {
@@ -1930,9 +1930,9 @@ public class SpriteVisualElement extends FlexSprite
      *  @see spark.effects.AnimateTransform#transformY
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get transformY():Number
     {
@@ -1974,9 +1974,9 @@ public class SpriteVisualElement extends FlexSprite
      *  @see spark.effects.AnimateTransform#transformZ
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get transformZ():Number
     {
@@ -1997,37 +1997,37 @@ public class SpriteVisualElement extends FlexSprite
         invalidateParentSizeAndDisplayList();
     }
 
-	//----------------------------------
-	//  layoutDirection
-	//----------------------------------
-	
-	private var _layoutDirection:String = null;
-	
+    //----------------------------------
+    //  layoutDirection
+    //----------------------------------
+    
+    private var _layoutDirection:String = null;
+    
     [Inspectable(category="General", enumeration="ltr,rtl")]
     
     /**
      *  @inheritDoc
      */
-	public function get layoutDirection():String
-	{
+    public function get layoutDirection():String
+    {
         if (_layoutDirection != null)
             return _layoutDirection;
         
         const parentElt:ILayoutDirectionElement = parent as ILayoutDirectionElement;
         return (parentElt) ? parentElt.layoutDirection : LayoutDirection.LTR;   
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set layoutDirection(value:String):void
-	{
-		if (_layoutDirection == value)
-			return;
-		
-		_layoutDirection = value;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set layoutDirection(value:String):void
+    {
+        if (_layoutDirection == value)
+            return;
+        
+        _layoutDirection = value;
         invalidateLayoutDirection();
-	}
+    }
     
     /**
      * @inheritDoc 
@@ -2052,7 +2052,7 @@ public class SpriteVisualElement extends FlexSprite
             invalidateParentSizeAndDisplayList();            
         }
     }        
-	
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -2681,9 +2681,9 @@ public class SpriteVisualElement extends FlexSprite
      *  @copy mx.core.ILayoutElement#transformAround()
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function transformAround(transformCenter:Vector3D,
                                     scale:Vector3D = null,
