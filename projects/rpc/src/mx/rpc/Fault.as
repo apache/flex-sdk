@@ -21,7 +21,7 @@ public class Fault extends Error
     /**
      * Creates a new Fault object.
      *
-     * @param faultCode The code protecting the fault.
+     * @param faultCode A simple code describing the fault.
      * @param faultString Text description of the fault.
      * @param faultDetail Additional details describing the fault.
      * 
@@ -43,11 +43,16 @@ public class Fault extends Error
     //--------------------------------------------------------------------------
 
     /**
+     * The raw content of the fault (if available), such as an HTTP response
+     * body.
+     */
+    public var content:Object;
+
+    /**
      * The cause of the fault. The value will be null if the cause is
      * unknown or whether this fault represents the root itself.
      */
     public var rootCause:Object;
-
 
     //--------------------------------------------------------------------------
     //
@@ -78,7 +83,6 @@ public class Fault extends Error
     {
         return _faultString;
     }
-
 
     //--------------------------------------------------------------------------
     //
