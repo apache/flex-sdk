@@ -262,6 +262,12 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
                                       
             // Set the initial text value
             textView.text = mx_internal::_text;
+            
+            // TODO: Remove this hard-coded styleName assignment
+            // once all global text styles are moved to the global
+            // stylesheet. This is a temporary workaround to support
+            // inline text styles for Buttons and subclasses.
+            textView.styleName = this;
 		}
 	}
 
