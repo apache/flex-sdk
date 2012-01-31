@@ -352,7 +352,7 @@ public class ListBaseAccImpl extends AccImpl
         if (childID == 0)
             return "";
         var listBase:ListBase = ListBase(master);
-        return listBase.dataProvider.getItemAt(childID - 1).toString();
+        return listBase.itemToLabel(listBase.dataProvider.getItemAt(childID - 1));
     }
 
     //--------------------------------------------------------------------------
