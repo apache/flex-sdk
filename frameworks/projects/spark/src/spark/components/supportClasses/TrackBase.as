@@ -9,12 +9,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components.baseClasses
 {
 
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
+import mx.components.FxButton;
 
 /**
  *  Dispatched when the value of the control changes
@@ -36,13 +37,13 @@ import flash.geom.Point;
  *  <code>track</code>. TrackBase also provides the code for
  *  thumb dragging which is shared by Slider and ScrollBar.
  * 
- *  @see flex.component.Range
- *  @see flex.component.Slider
- *  @see flex.component.ScrollBar
+ *  @see mx.components.Range
+ *  @see mx.components.Slider
+ *  @see mx.components.ScrollBar
  */
-public class TrackBase extends Range
+public class FxTrackBase extends FxRange
 {
-    include "../core/Version.as";
+    include "../../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
@@ -53,7 +54,7 @@ public class TrackBase extends Range
     /**
      *  Constructor. 
      */
-    public function TrackBase():void
+    public function FxTrackBase():void
     {
         super();
     }
@@ -74,7 +75,7 @@ public class TrackBase extends Range
      *  will automatically update the position of the thumb
      *  with respect to the track.
      */
-    public var thumb:Button;
+    public var thumb:FxButton;
     
     [SkinPart]
     
@@ -83,7 +84,7 @@ public class TrackBase extends Range
      *  that, when  pressed, will set the <code>value</code>
      *  to the value corresponding with that position.
      */
-    public var track:Button; 
+    public var track:FxButton; 
 
 
     //--------------------------------------------------------------------------
