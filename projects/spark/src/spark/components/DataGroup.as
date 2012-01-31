@@ -1,4 +1,4 @@
-package flex.core
+package mx.components
 {
 import flash.display.DisplayObject;
 import flash.display.Sprite;
@@ -8,20 +8,21 @@ import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 
-import flex.events.FlexEvent;
-import flex.events.ItemExistenceChangedEvent;
-import flex.graphics.Graphic;
-import flex.graphics.IGraphicElement;
-import flex.graphics.IGraphicElementHost;
-import flex.graphics.MaskType;
-import flex.graphics.TransformUtil;
-import flex.graphics.graphicsClasses.GraphicElement;
-import flex.intf.ILayoutItem;
-import flex.layout.BasicLayout;
-import flex.layout.LayoutItemFactory;
+import mx.events.FlexEvent;
+import mx.events.ItemExistenceChangedEvent;
+import mx.graphics.Graphic;
+import mx.graphics.IGraphicElement;
+import mx.graphics.IGraphicElementHost;
+import mx.graphics.MaskType;
+import mx.utils.MatrixUtil;
+import mx.graphics.graphicsClasses.GraphicElement;
+import mx.layout.ILayoutItem;
+import mx.layout.BasicLayout;
+import mx.layout.LayoutItemFactory;
 
 import mx.collections.ICollectionView;
 import mx.collections.IList;
+import mx.components.baseClasses.GroupBase;
 import mx.controls.Label;
 import mx.core.IDataRenderer;
 import mx.core.IDeferredInstance;
