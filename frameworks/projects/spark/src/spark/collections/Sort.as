@@ -749,17 +749,8 @@ public class Sort extends AdvancedStyleClient implements ISort
                 if (unique)
                 {
                     var uniqueRet2:Object;
-                    /*
-                    if (sortArgs && fields.length == 1)
-                    {
-                        uniqueRet2 = items.sortOn(sortArgs.fields[0], sortArgs.options[0] | Array.UNIQUESORT);
-                    }
-                    else
-                    */
-                    {
-                        uniqueRet2 = items.sort(internalCompare,
-                                                Array.UNIQUESORT);
-                    }
+                    uniqueRet2 = items.sort(internalCompare,
+                                            Array.UNIQUESORT);
                     if (uniqueRet2 == 0)
                     {
                         message = resourceManager.getString(
@@ -769,16 +760,7 @@ public class Sort extends AdvancedStyleClient implements ISort
                 }
                 else
                 {
-                    /*
-                    if (sortArgs)
-                    {
-                        items.sortOn(sortArgs.fields, sortArgs.options);
-                    }
-                    else
-                    */
-                    {
-                        items.sort(internalCompare);
-                    }
+                    items.sort(internalCompare);
                 }
             }
             else
