@@ -3706,18 +3706,6 @@ public class Grid extends Group implements IDataGridElement
     /**
      *  @private
      */
-    mx_internal function getDataProviderItemIndex(item:Object):int
-    {
-        const dataProvider:IList = dataProvider;
-        if ((dataProvider == null))
-            return -1;
-        
-        return dataProvider.getItemIndex(item);
-    }
-    
-    /**
-     *  @private
-     */
     private function getVisibleItemRenderer(rowIndex:int, columnIndex:int):IGridItemRenderer
     {
         const layout:GridLayout = layout as GridLayout;
