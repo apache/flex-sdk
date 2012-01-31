@@ -11,11 +11,12 @@
 package spark.effects.interpolation
 {
 /**
- * The RGBInterpolator class provides RGB-space interpolation between
- * <code>uint</code> start and end values. Interpolation is done by treating
- * the start and end values as integers with color channel information in
- * the least-significant 3 bytes, interpolating each of those channels
- * separately.
+ *  The RGBInterpolator class provides interpolation between 
+ *  <code>uint</code> start and end values that represent RGB colors. 
+ *  Interpolation is done by treating
+ *  the start and end values as integers with color channel information in
+ *  the least-significant 3 bytes, and then interpolating each of the channels
+ *  separately.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -26,14 +27,22 @@ public class RGBInterpolator implements IInterpolator
 {   
     private static var theInstance:RGBInterpolator;
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function RGBInterpolator()
     {
         super();
     }
    
     /**
-     * Returns the singleton of this class. Since all RGBInterpolators
-     * have the same behavior, there is no need for more than one instance.
+     *  Returns the singleton of this class. Since all RGBInterpolators
+     *  have the same behavior, there is no need for more than one instance.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -48,8 +57,8 @@ public class RGBInterpolator implements IInterpolator
     }
     
     /**
-     * Returns the <code>uint</code> type, which is the type of
-     * object interpolated by RGBInterpolator
+     *  Returns the <code>uint</code> type, which is the type of
+     *  object interpolated by RGBInterpolator
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -62,14 +71,19 @@ public class RGBInterpolator implements IInterpolator
     }
 
     /**
-     * @inheritDoc
+     *  Interpolation for the RGBInterpolator class takes the form of parametric
+     *  calculations on each of the bottom three bytes of 
+     *  <code>startValue</code> and <code>endValue</code>. 
      * 
-     * The interpolation for RGBInterpolator takes the form of parametric
-     * calculations on each of the bottom three bytes of 
-     * <code>startValue</code> and <code>endValue</code>. This interpolates
-     * each color channel separately if the start and end values represent
-     * RGB colors.
-     *  
+     *  @param fraction The fraction elapsed of the 
+     *  animation, between 0.0 and 1.0.
+     *
+     *  @param startValue The start value of the interpolation.
+     *
+     *  @param endValue The end value of the interpolation.
+     *
+     *  @return The interpolated value.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -134,11 +148,15 @@ public class RGBInterpolator implements IInterpolator
     }
 
     /**
-     * @inheritDoc
-     * 
-     * <p>This function returns the result of the two values added
-     * together on a per-channel basis. Each channel will be clamped
-     * at 255 to avoid overflow problems.</p>
+     *  Returns the result of the two values added
+     *  together on a per-channel basis. Each channel has a maximum 
+     *  value of 255 to avoid overflow problems.
+     *
+     *  @param baseValue The start value of the interpolation.
+     *
+     *  @param incrementValue The change to apply to the <code>baseValue</code>.
+     *
+     *  @return The interpolated value.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -151,11 +169,15 @@ public class RGBInterpolator implements IInterpolator
     }
 
     /**
-     * @inheritDoc
-     * 
-     * <p>This function returns the result of the two values subtracted
-     * on a per-channel basis. Each channel will be clamped
-     * at 0 to avoid underflow problems.</p>
+     *  Returns the result of the two values subtracted
+     *  on a per-channel basis. Each channel has a minimum
+     *  value of 0 to avoid underflow problems.
+     *
+     *  @param baseValue The start value of the interpolation.
+     *
+     *  @param decrementValue The change to apply to the <code>baseValue</code>.
+     *
+     *  @return The interpolated value.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
