@@ -32,7 +32,7 @@ import mx.graphics.IGraphicElement;
 import mx.graphics.MaskType;
 import mx.graphics.graphicsClasses.GraphicElement;
 import mx.layout.BasicLayout;
-import mx.layout.ILayoutElement;
+import mx.core.ILayoutElement;
 import mx.layout.LayoutBase;
 import mx.utils.MatrixUtil;
 
@@ -77,8 +77,11 @@ public class GroupBase extends UIComponent implements IViewport
         super();
         tabChildren = true;
         
-        _layout = new BasicLayout();
-        _layout.target = this;  
+        if(_layout == null)
+        {
+	        _layout = new BasicLayout();
+    	    _layout.target = this;
+    	}  
     }
         
     //--------------------------------------------------------------------------
@@ -392,6 +395,22 @@ public class GroupBase extends UIComponent implements IViewport
 
         // TODO EGeorgie: can we directly call setActualSize instead?
         invalidateParentSizeAndDisplayList();
+    }
+
+    override protected function nonDeltaLayoutMatrix():Matrix
+    {
+        if(hasDeltaIdentityTransform)
+        	return null; 
+
+        if (resizeMode == ResizeMode.SCALE)
+        {
+            // Lose scale and skew:
+            return MatrixUtil.composeMatrix(x, y, 1, 1, rotation,
+                        transformX, transformY);
+        } 
+        
+        return super.nonDeltaLayoutMatrix();
+
     }
     
     /**
