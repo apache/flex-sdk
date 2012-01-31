@@ -19,8 +19,7 @@ import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.text.engine.TextLine;
 
-import flashx.textLayout.formats.LineBreak;
-
+import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.resources.IResourceManager;
@@ -32,6 +31,7 @@ import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
 
 import spark.components.Group;
+import spark.layout.BasicLayout;
 
 /**
  *  The base class for GraphicElements such as TextBox and TextGraphic
@@ -81,6 +81,7 @@ public class TextGraphicElement extends GraphicElement
     {
         super();
         
+        // This is for mirroring, not the text direction.
         dir = "ltr";
 
 		var resourceManager:IResourceManager = ResourceManager.getInstance();
@@ -135,13 +136,21 @@ public class TextGraphicElement extends GraphicElement
     /**
      *  @private
      */
-    mx_internal var stylesChanged:Boolean = false;    
+    mx_internal var invalidateCompose:Boolean = true;    
 
     /**
      *  @private
-     *  Cache this since it accessed for every display list update.
+     *  The offset applied to each textLine.x so that it is positioned
+     *  correctly in the display object container.
      */
-    mx_internal var lineBreakToFit:Boolean = true;
+    private var _lastDrawX:Number = 0;
+
+    /**
+     *  @private
+     *  The offset applied to each textLine.y so that it is positioned
+     *  correctly in the display object container.
+     */
+    private var _lastDrawY:Number = 0;
 
     /**
      *  @private
@@ -181,21 +190,36 @@ public class TextGraphicElement extends GraphicElement
 			   mx_internal::textLines[0].y : 0;
     }
 
-    //----------------------------------
-    //  needsDisplayObject
-    //----------------------------------
-
-    // TODO!!! Always return a DisplayObject for now.
-    // We need to optimize this later. 
-    
     /**
      *  @private
      */
-    override public function canDrawToShared(sharedDisplayObject:DisplayObject):Boolean
-    {
-        return false;
-    }
-    
+    private var displayObjectChanged:Boolean;
+
+    /**
+     *  @private
+     */
+    override public function set displayObject(value:DisplayObject):void
+    {        
+        if (displayObject == value)
+            return;
+
+        // There is an exisiting d.o. so this element is either being moved
+        // to a different container (value != null) or it is being removed 
+        // (value == null).
+        if (displayObject)
+        {
+            // If there was a scroll rect remove it before we lose the reference
+            // to the display object. 
+            mx_internal::clip(false, 0, 0);
+        
+            displayObjectChanged = true;        
+            invalidateProperties();
+        }
+             
+        super.displayObject = value;
+        
+    }    
+  
     //--------------------------------------------------------------------------
     //
     //  Properties: ISimpleStyleClient
@@ -484,6 +508,8 @@ public class TextGraphicElement extends GraphicElement
     	{
     		_truncation = value;
     		
+            mx_internal::invalidateCompose = true;
+                 		
     		invalidateSize();
     		invalidateDisplayList();
     	}
@@ -491,10 +517,74 @@ public class TextGraphicElement extends GraphicElement
     
     //--------------------------------------------------------------------------
     //
+    //  Overridden methods: GraphicElement - to implement shared display objects
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override public function canDrawToShared(sharedDisplayObject:DisplayObject):Boolean
+    {
+        if (!super.canDrawToShared(sharedDisplayObject))
+            return false;
+
+        // Make sure it is a container that will work for sharing text. 
+        return isDisplayObjectShareable(sharedDisplayObject);
+    }
+
+    /**
+     *  @private
+     */
+    override public function closeSequence():Boolean
+    {
+        if (super.closeSequence())
+            return true;
+            
+        return !isDisplayObjectShareable(displayObject);
+            
+    }
+
+    /**
+     *  @private
+     *  Can't share any group that does automatic placement of display objects.
+     *  We're using a backdoor into the code since text isn't an IVisualElement
+     *  and  can't be directly managed.
+     */
+    private function isDisplayObjectShareable(displayObj:DisplayObject):Boolean
+    {
+        return (displayObj is Group &&
+                Group(displayObj).layout != null &&
+                Group(displayObj).layout is BasicLayout);
+    }
+            
+    //--------------------------------------------------------------------------
+    //
     //  Overridden methods: GraphicElement
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
+        
+        if (displayObjectChanged)
+        {
+            // If there is a container, move any existing text to it, otherwise
+            // remove the text from the previous container.
+            mx_internal::removeTextLines();
+            if (drawnDisplayObject)
+                mx_internal::addTextLines(drawnDisplayObject);
+            else
+                mx_internal::textLines.length = 0;
+                       
+            displayObjectChanged = false;
+        }  
+    }    
+    
     /**
      *  @private
      */
@@ -535,14 +625,9 @@ public class TextGraphicElement extends GraphicElement
         // as we may have messed up the text lines.
         invalidateDisplayList();
         
-        // If width/height not explicitly set, put on next pixel boundary for 
-        // crisp edges.  This should not impact isOverset which was calculated
-        // with the pre-adjusted bounds values.  If explcitly set, use it so
-        // that a recomposition can possibily be avoided in updateDisplayList().
-        if (mx_internal::bounds.width != explicitWidth)
-            mx_internal::bounds.width = Math.ceil(mx_internal::bounds.width);        
-        if (mx_internal::bounds.height != explicitHeight)
-            mx_internal::bounds.height = Math.ceil(mx_internal::bounds.height);
+        // Put on next pixel boundary for crisp edges.
+        mx_internal::bounds.width = Math.ceil(mx_internal::bounds.width);        
+        mx_internal::bounds.height = Math.ceil(mx_internal::bounds.height);
 
         // If the measured height is not affected, then constrained
         // width measurement is not neccessary.
@@ -561,7 +646,7 @@ public class TextGraphicElement extends GraphicElement
         // optimize the double measure scheme for text reflow.
         _measuredTextLineCount = mx_internal::textLines.length;
 
-        //trace("measure", measuredWidth, measuredHeight);
+        //trace(id, drawnDisplayObject.name, "measure", measuredWidth, measuredHeight);
     }
 
     /**
@@ -589,7 +674,7 @@ public class TextGraphicElement extends GraphicElement
             return;
 
         // No reflow for explicit lineBreak
-        if (!mx_internal::lineBreakToFit)
+        if (getStyle("lineBreak") == "explicit")
             return;
 
         // If we don't measure
@@ -633,8 +718,8 @@ public class TextGraphicElement extends GraphicElement
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
     {
-        //trace(updateDisplayList", unscaledWidth, unscaledHeight);
-        
+        //trace(id, drawnDisplayObject.name, "updateDisplayList", unscaledWidth, unscaledHeight);
+
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
         // The updateDisplayList() method of a GraphicElement can get called
@@ -647,21 +732,23 @@ public class TextGraphicElement extends GraphicElement
         // composed.
 
         var compose:Boolean = false;
-        var forceClip:Boolean = false;
-               
-        // If the styles changed or composition hasn't been done, then compose.
-        if (mx_internal::stylesChanged || isNaN(mx_internal::bounds.height))
+        var clipText:Boolean = false;
+        
+        // ToDo: optimize for right-to-left text so compose isn't always done
+        // when height or width changes.
+        if (mx_internal::invalidateCompose)
         {
             compose = true;
         }
         else if (unscaledHeight != mx_internal::bounds.height)
         {
             // Height changed.
-            if (unscaledHeight > mx_internal::bounds.height && 
-                mx_internal::isOverset)
+            if ((unscaledHeight > mx_internal::bounds.height && 
+                mx_internal::isOverset) ||
+                getStyle("blockProgression") != "tb")
             {
                 // More height is needed and it's possible there is more text
-                // since it didn't all fit before. 
+                // since it didn't all fit before.
                 compose = true;
             }
             else if (composeOnHeightChange())
@@ -670,47 +757,63 @@ public class TextGraphicElement extends GraphicElement
                 // text is positioned correctly for the new size.
                 compose = true;
             }
-            else
+            else (unscaledHeight < mx_internal::bounds.height)
             {
-                // Don't need to recompose but need to clip since the text is
-                // a different shape than what was composed.
-                forceClip = true;                   
+                // Don't need to recompose but need to clip since not all the
+                // height is needed.
+                clipText = true;                   
             }
         }
 
         // Width changed.        
         if (!compose && unscaledWidth != mx_internal::bounds.width)
         {
-            if (mx_internal::lineBreakToFit || composeOnWidthChange())
+            if (getStyle("lineBreak") == "toFit" || 
+                composeOnWidthChange() ||
+                getStyle("blockProgression") != "tb")
             {
                 // Width changed and toFit line breaks or the styles
                 // require a recompose if the width changes.
                 compose = true;
             }
-            else if (unscaledWidth > mx_internal::bounds.width && 
-                     mx_internal::isOverset)
+            else if (unscaledWidth < mx_internal::bounds.width)
             {
-                // Explicit line breaks so compose only if more width is needed 
-                // and there is more text to compose.
-                compose = true;
-            }
-            else
-            {
-                // Don't need to recompose but need to clip since the text is
-                // a different shape than what was composed.
-                forceClip = true;                   
+                // Explicit line breaks.  Don't need to recompose but need to 
+                // clip since the not all the width is needed.
+                clipText = true;                   
             }
         }
 
+        // Compose will add the new text lines to the display object container.
+        // Otherwise, if the text is in a shared container, make sure the 
+        // position of the lines has remained the same.
         if (compose)
             composeTextLines(unscaledWidth, unscaledHeight);
+        else if (shareIndex != -1)
+            mx_internal::adjustTextLines();
+            
+        // If the text is overset it always has to be clipped (as well as if 
+        // it is being clipped to reduce the size to avoid a recomposition).              
+        if (mx_internal::isOverset)
+            clipText = true;
 
-        // Only force the clip if compose wasn't just done.
-        forceClip = !compose && forceClip;         
+        // We need to clip this text and it is in a container with other
+        // display objects.  Setting alwaysCreateDisplayObject to true will
+        // cause the display objects to be reassigned so that we get one of
+        // our own.  updateDisplayList() will be called with the new display
+        // object.  Once it's in it's own display object leave it there.
+        if (clipText)
+        {
+            mx_internal::alwaysCreateDisplayObject = true;
+            if (shareIndex > 0)
+                return;
+        }
+        
+        //trace(id, drawnDisplayObject.name, "udl", "compose", compose, "clip", 
+        //      clipText, "bounds", mx_internal::bounds);        
 
-        //trace("udl", "compose", compose, "clip", mx_internal::isOverset || forceClip);        
-              
-        mx_internal::clip(unscaledWidth, unscaledHeight, forceClip);
+        // Set the scrollRect used for clipping appropriately.              
+        mx_internal::clip(clipText, unscaledWidth, unscaledHeight);
     }
             
     //--------------------------------------------------------------------------
@@ -730,14 +833,8 @@ public class TextGraphicElement extends GraphicElement
     public function styleChanged(styleProp:String):void
     {
         StyleProtoChain.styleChanged(this, styleProp);
-        
-        if (styleProp == "lineBreak")
-        {
-            mx_internal::lineBreakToFit = 
-                (getStyle("lineBreak") == LineBreak.TO_FIT);
-        }
-           
-        mx_internal::stylesChanged = true;
+
+        mx_internal::invalidateCompose = true;
     }
 
     //--------------------------------------------------------------------------
@@ -912,9 +1009,7 @@ public class TextGraphicElement extends GraphicElement
      */
     public function stylesInitialized():void
     {
-        mx_internal::lineBreakToFit = 
-            (getStyle("lineBreak") == LineBreak.TO_FIT);
-        mx_internal::stylesChanged = true;
+        mx_internal::invalidateCompose = true;
     }
 
     /**
@@ -939,6 +1034,9 @@ public class TextGraphicElement extends GraphicElement
      */
     protected function composeOnHeightChange():Boolean
     {
+        if (truncation != 0 && getStyle("lineBreak") == "toFit")
+            return true;
+        
         return false;
     }
 
@@ -948,6 +1046,9 @@ public class TextGraphicElement extends GraphicElement
      */
     protected function composeOnWidthChange():Boolean
     {
+        if (truncation != 0 && getStyle("lineBreak") == "toFit")
+            return true;
+
         return false;
     }
 
@@ -964,29 +1065,41 @@ public class TextGraphicElement extends GraphicElement
 	 *  @private
 	 *  Adds the TextLines created by composeTextLines()
      *  to a specified DisplayObjectContainer.
-	 *  Sets the isOverset flag to indicate whether they require clipping.
 	 */
 	mx_internal function addTextLines(container:DisplayObjectContainer,
-								  index:int = 0):void
+								      index:int = 0):void
 	{
 		var n:int = mx_internal::textLines.length;
-		for (var i:int = n - 1; i >= 0; i--)
+        if (n == 0)
+            return;
+
+        for (var i:int = n - 1; i >= 0; i--)
 		{
 			var textLine:TextLine = TextLine(mx_internal::textLines[i]);
-			container.addChildAt(textLine, index);
+			
+            //trace(container.name, "addTextLines", textLine.x, textLine.y, drawX, drawY);
+
+            textLine.x += drawX;
+            textLine.y += drawY;
+            
+			if (container is IVisualElementContainer)
+                IVisualElementContainer(container).mx_internal::$addChildAt(textLine, index);
+			else
+                container.addChildAt(textLine, index);
 		}
 		
-		var r:Rectangle = container.getBounds(container);
-		mx_internal::isOverset = !mx_internal::bounds.containsRect(r);
-				      
-	    //trace("bounds", mx_internal::bounds, "r", r, mx_internal::isOverset);
+		// If these lines went into a shared container these need to be saved
+		// so that the lines can be moved to another container without being
+		// recomposed.  If the container isn't shared they will be 0,0.
+		_lastDrawX = drawX;
+		_lastDrawY = drawY;
 	}
 
 	/**
 	 *  @private
 	 *  Removes the TextLines created by composeTextLines()
      *  from whatever container they were added to, and frees them.
-	 *  Empties the textLines Array.
+	 *  This does not empty the textLines Array.
 	 */
 	mx_internal function removeTextLines():void
 	{
@@ -1002,13 +1115,87 @@ public class TextGraphicElement extends GraphicElement
 		for (var i:int = 0; i < n; i++)
 		{
 			var textLine:TextLine = TextLine(mx_internal::textLines[i]);
-			container.removeChild(textLine);
-		}
+            if (container is IVisualElementContainer)
+                IVisualElementContainer(container).mx_internal::$removeChild(textLine);
+            else
+                container.removeChild(textLine);
 
-		mx_internal::textLines.length = 0;
+            // Reset x and y to be relative to 0,0.
+            textLine.x -= _lastDrawX;
+            textLine.y -= _lastDrawY;
+		}
+		
+		_lastDrawX = 0;
+		_lastDrawY = 0;
 	}
 
     /**
+     *  @private
+     *  If the text lines are in a shared container then x and y have to be
+     *  adjusted if offsets.x, offsets.y, layoutX or layoutY changes.  When
+     *  these are changed, our updateDisplayList() is called but if we don't
+     *  recompose we may need to adjust the position of the text lines.
+     */
+    mx_internal function adjustTextLines():void
+    {
+        var n:int = mx_internal::textLines.length;
+        if (n == 0)
+            return;
+
+        // Are there any adjustments to be made?
+        if (_lastDrawX == drawX && _lastDrawY == drawY)
+            return;
+            
+        for (var i:int = 0; i < n; i++)
+        {
+            var textLine:TextLine = TextLine(mx_internal::textLines[i]);
+            
+            textLine.x +=  drawX - _lastDrawX;
+            textLine.y += drawY - _lastDrawY;
+        }
+
+        _lastDrawX = drawX;
+        _lastDrawY = drawY;
+    }
+    
+    /**
+     *  @private
+     *  Does the bounds of the contents rectangle fit within the bounds
+     *  of the composition rectangle?
+     */
+    mx_internal function isTextOverset(composeWidth:Number, 
+                                       composeHeight:Number):Boolean
+    {        
+        // The composition bounds available for text placement.
+        var compositionRect:Rectangle = new Rectangle(0, 0, 
+                                                      composeWidth,
+                                                      composeHeight);
+    
+        // Add in a half-pixel slop factor to the throw-away rectangle (do
+        // not modify mx_internal::bounds).  This covers the case where the
+        // y (textLine.y - textLine.ascent) is slightly less than 0 because of
+        // rounding errors.
+        compositionRect.inflate(0.25, 0.25);
+
+        // The bounds of the composed text.
+        var contentRect:Rectangle = mx_internal::bounds;
+       
+        // Does the text fit totally within the composition area?  This is
+        // a Rectangle.contains but allows for composition width and/or height
+        // to be NaN.
+        var isOverset:Boolean = (contentRect.top < compositionRect.top || 
+                                 contentRect.left < compositionRect.left ||
+                                 (!isNaN(compositionRect.bottom) &&
+                                 contentRect.bottom > compositionRect.bottom) ||
+                                 (!isNaN(compositionRect.right) &&
+                                 contentRect.right > compositionRect.right));
+                   
+        //trace(id, drawnDisplayObject.name, "bounds", contentRect, "overset", isOverset);
+        
+        return isOverset;                                                     
+    } 
+    
+     /**
 	 *  Use scrollRect to clip overset lines.
 	 *  But don't read or write scrollRect if you can avoid it,
 	 *  because this causes Player 10.0 to allocate memory.
@@ -1020,11 +1207,11 @@ public class TextGraphicElement extends GraphicElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    mx_internal function clip(w:Number, h:Number, forceClip:Boolean=false):void
+    mx_internal function clip(clipText:Boolean, w:Number, h:Number):void
 	{
-        if (mx_internal::isOverset || forceClip)
+        if (clipText)
         {
-            var r:Rectangle = displayObject.scrollRect;
+            var r:Rectangle = drawnDisplayObject.scrollRect;
             if (r)
             {
             	r.x = 0;
@@ -1036,12 +1223,12 @@ public class TextGraphicElement extends GraphicElement
             {
             	r = new Rectangle(0, 0, w, h);
             }
-            displayObject.scrollRect = r;
+            drawnDisplayObject.scrollRect = r;
             mx_internal::hasScrollRect = true;
         }
         else if (mx_internal::hasScrollRect)
         {
-            displayObject.scrollRect = null;
+            drawnDisplayObject.scrollRect = null;
             mx_internal::hasScrollRect = false;
         }
     }
