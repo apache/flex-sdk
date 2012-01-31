@@ -52,7 +52,29 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     public function GridItemRenderer()
     {
         super();
+        
+        setCurrentStateNeeded = true;
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Private Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  True if the renderer has been created and commitProperties hasn't
+     *  run yet. See commitProperties.
+     */
+    private var setCurrentStateNeeded:Boolean = false;
+    
+    /**
+     *  @private
+     *  A flag determining if this renderer should play any 
+     *  associated transitions when a state change occurs. 
+     */
+    mx_internal var playTransitions:Boolean = false; 
     
     //--------------------------------------------------------------------------
     //
@@ -153,6 +175,37 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     }
     
     //----------------------------------
+    //  hovered
+    //----------------------------------
+    /**
+     *  @private
+     *  storage for the selected property 
+     */    
+    private var _hovered:Boolean = false;
+    
+    /**
+     *  Set to <code>true</code> when the mouse is hovered over the item renderer.
+     *
+     *  @default false
+     */    
+    public function get hovered():Boolean
+    {
+        return _hovered;
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set hovered(value:Boolean):void
+    {
+        if (value == _hovered)
+            return;
+        
+        _hovered = value;
+        setCurrentState(getCurrentRendererState(), playTransitions);
+    }
+    
+    //----------------------------------
     //  rowIndex
     //----------------------------------
 
@@ -216,8 +269,8 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         if (_showsCaret == value)
             return;
         
-        // TBD(hmuller): state change
         _showsCaret = value;
+        setCurrentState(getCurrentRendererState(), playTransitions);
         dispatchChangeEvent("labelDisplayChanged");           
     }
     
@@ -253,8 +306,8 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         if (_selected == value)
             return;
         
-        // TBD(hmuller): state change       
         _selected = value;
+        setCurrentState(getCurrentRendererState(), playTransitions);
         dispatchChangeEvent("selectedChanged");        
     }
     
@@ -282,8 +335,8 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         if (_dragging == value)
             return;
         
-        // TBD(hmuller): state change             
         _dragging = value;
+        setCurrentState(getCurrentRendererState(), playTransitions);
         dispatchChangeEvent("draggingChanged");        
     }
     
@@ -361,6 +414,67 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     //  Methods - ItemRenderer State Support 
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  Returns the name of the state to be applied to the renderer. For example, a
+     *  very basic Grid item renderer would return the String "normal", "hovered", 
+     *  or "selected" to specify the renderer's state. 
+     * 
+     *  <p>A subclass of GridItemRenderer must override this method to return a value 
+     *  if the behavior desired differs from the default behavior.</p>
+     * 
+     *  @return A string specifying the name of the state to apply to the renderer. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function getCurrentRendererState():String
+    {
+        if (dragging && hasState("dragging"))
+            return "dragging";
+        
+        if (selected && showsCaret && hasState("selectedAndShowsCaret"))
+            return "selectedAndShowsCaret";
+        
+        if (hovered && showsCaret && hasState("hoveredAndShowsCaret"))
+            return "hoveredAndShowsCaret";
+        
+        if (showsCaret && hasState("normalAndShowsCaret"))
+            return "normalAndShowsCaret"; 
+        
+        if (selected && hasState("selected"))
+            return "selected";
+        
+        if (hovered && hasState("hovered"))
+            return "hovered";
+        
+        if (hasState("normal"))    
+            return "normal";
+        
+        return null;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */ 
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
+        
+        if (setCurrentStateNeeded)
+        {
+            setCurrentState(getCurrentRendererState(), playTransitions); 
+            setCurrentStateNeeded = false;
+        }
+    }
     
     /**
      *  @inheritDoc
