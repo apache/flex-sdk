@@ -299,6 +299,12 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     mx_internal var columnsInvalid:Boolean = true;
 
     /**
+     *  Flag specifying that the font context of the renderers need to
+     *  be recomputed.
+     */
+    mx_internal var fontContextChanged:Boolean = true;
+
+    /**
      *  @private
      *  must be overridden by subclasses
      */
