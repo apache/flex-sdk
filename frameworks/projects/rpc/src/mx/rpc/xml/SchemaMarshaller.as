@@ -1157,11 +1157,6 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
         {
             result = rawValue.substring(2, 5);
         }
-        *  
-        *  @langversion 3.0
-        *  @playerversion Flash 9
-        *  @playerversion AIR 1.1
-        *  @productversion Flex 3
         */
         else if (type == datatypes.gMonthQName)
         {
