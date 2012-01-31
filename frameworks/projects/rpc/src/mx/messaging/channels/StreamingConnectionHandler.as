@@ -159,6 +159,7 @@ public class StreamingConnectionHandler extends EventDispatcher
     private static const SKIP_STATE:int = 5;
     private static const DATA_STATE:int = 6;
     private static const RESET_BUFFER_STATE:int = 7;
+    private static const CLOSED_STATE:int = 8;
 
     //--------------------------------------------------------------------------
     //
@@ -264,6 +265,7 @@ public class StreamingConnectionHandler extends EventDispatcher
      */
     public function openStreamingConnection(appendToURL:String=null):void
     {
+        state = INIT_STATE;
         _appendToURL = appendToURL;
         
     	// Construct the streaming connection if needed.
@@ -300,7 +302,11 @@ public class StreamingConnectionHandler extends EventDispatcher
      */
     public function closeStreamingConnection():void
     {
-        resetParserState();
+        state = CLOSED_STATE;
+        chunkBuffer = null;
+        hexChunkSize = null;
+        dataBytesToRead = -1;
+        dataOffset = 0;
         
     	// First, close the existing connection.
         if (streamingConnection != null)
@@ -414,18 +420,6 @@ public class StreamingConnectionHandler extends EventDispatcher
             result += digit * powerOfSixteen;
         }
         return result;
-    }
-    
-    /**
-     *  Helper method to reset parser to initial state.
-     */
-    private function resetParserState():void
-    {
-        state = INIT_STATE;
-        chunkBuffer = null;
-        hexChunkSize = null;
-        dataBytesToRead = -1;
-        dataOffset = 0;
     }
 
     /**
@@ -629,6 +623,11 @@ public class StreamingConnectionHandler extends EventDispatcher
                             {
 							    channel.dispatchEvent(MessageEvent.createEvent(MessageEvent.MESSAGE, message));
                             }
+                            // We've just finsihed the one point in the parse loop where we step outside of local control.
+                            // The connection may now be closed, so check for this case here.
+                            if (state == CLOSED_STATE)
+                                return;
+                            
                         }
 						state = RESET_BUFFER_STATE;
                     }
@@ -658,6 +657,10 @@ public class StreamingConnectionHandler extends EventDispatcher
 
                     if (chunkBuffer.bytesAvailable == 0)
                         break;
+                }
+                if (state == CLOSED_STATE)
+                {
+                    return; // Exit parse loop.
                 }
             }
         }
