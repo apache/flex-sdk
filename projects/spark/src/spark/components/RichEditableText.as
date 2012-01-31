@@ -66,6 +66,7 @@ package spark.components
     import flashx.textLayout.tlf_internal;
     import flashx.undo.IUndoManager;
     
+    import mx.core.FlexVersion;
     import mx.core.IFlexModuleFactory;
     import mx.core.IIMESupport;
     import mx.core.ISystemCursorClient;
@@ -735,6 +736,11 @@ package spark.components
          *  @private
          */
         private var remeasuringText:Boolean = false;
+
+        /**
+         *  @private
+         */
+        mx_internal var preserveSelectionOnSetText:Boolean = false;
 
         /**
          *  @private
@@ -1729,7 +1735,7 @@ package spark.components
         {
             _multiline = value;
         }
-        
+ 
         //----------------------------------
         //  restrict
         //----------------------------------
@@ -2012,9 +2018,11 @@ package spark.components
          *  <p>Setting this property also affects the properties
          *  specifying the control's scroll position and the text selection.
          *  It resets the <code>horizontalScrollPosition</code>
-         *  and <code>verticalScrollPosition</code> to 0,
-         *  and it sets the <code>selectionAnchorPosition</code>
-         *  and <code>selectionActivePosition</code>
+         *  and <code>verticalScrollPosition</code> to 0.
+         *  Starting with Flex 4.6, the <code>selectionAnchorPosition</code> and 
+         *  <code>selectionActivePosition</code> are preserved.
+         *  Previously, the <code>selectionAnchorPosition</code>
+         *  and <code>selectionActivePosition</code> were set
          *  to -1 to clear the selection.</p>
          *
          *  @default ""
@@ -2032,6 +2040,14 @@ package spark.components
          */
         public function get text():String 
         {
+            // Note: if displayAsPassword, _text will contain the actual text and the text flow will
+            // contain the same number of passwordChars.
+            
+            // Go to the source if there isn't a pending change.  getText has its own buffering and 
+            // only extracts the text from the TextFlow when it is damaged. 
+            if (_textContainerManager && !textChanged && !textFlowChanged && !contentChanged && !displayAsPassword)
+                return _textContainerManager.getText("\n");
+            
             // Extracting the plaintext from a TextFlow is somewhat expensive,
             // as it involves iterating over the leaf FlowElements in the TextFlow.
             // Therefore we do this extraction only when necessary, namely when
@@ -2490,6 +2506,9 @@ package spark.components
             
             updateStylesIfChanged();
             
+            var oldAnchorPosition:int = _selectionAnchorPosition;
+            var oldActivePosition:int = _selectionActivePosition;
+            
             // EditingMode needs to be current before attempting to set a
             // selection below.
             if (enabledChanged || selectableChanged || editableChanged)
@@ -2507,6 +2526,9 @@ package spark.components
             
             if (textChanged)
             {
+                if (FlexVersion.compatibilityVersion > FlexVersion.VERSION_4_5) 
+                    preserveSelectionOnSetText = true;
+
                 // If the text has linebreaks (CR, LF, or CF+LF)
                 // create a multi-paragraph TextFlow from it
                 // and use the TextFlowTextLineFactory to render it.
@@ -2521,7 +2543,7 @@ package spark.components
                 else
                 {
                     _textContainerManager.setText(_text);
-                }
+                }                
             }
             else if (textFlowChanged)
             {
@@ -2562,15 +2584,14 @@ package spark.components
             // not the underlying text.
             if (displayAsPasswordChanged)
             {
-                var oldAnchorPosition:int = _selectionAnchorPosition;
-                var oldActivePosition:int = _selectionActivePosition;
+                preserveSelectionOnSetText = true;
                 
                 // If there is any text, convert it to the passwordChar.
                 if (displayAsPassword)
                 {
                     // Make sure _text is set with the actual text before we
                     // change the displayed text.
-                    _text = text;
+                    _text = _textContainerManager.getText("\n");
                     
                     // Paragraph terminators are lost during this substitution.
                     var textToDisplay:String = StringUtil.repeat(
@@ -2590,19 +2611,21 @@ package spark.components
                 lastGeneration = 0;
                 lastContentBoundsGeneration = 0;
                 
-                if (editingMode != EditingMode.READ_ONLY)
+                displayAsPasswordChanged = false;
+            }
+            
+            if (preserveSelectionOnSetText)
+            {
+                preserveSelectionOnSetText = false;
+                
+                if (oldAnchorPosition != -1)
                 {
-                    // Must preserve the selection, if there was one.
-                    var selManager:ISelectionManager = 
-                        _textContainerManager.beginInteraction();
-                    
+                    var selManager:ISelectionManager = _textContainerManager.beginInteraction();                    
+
                     // The visible selection will be refreshed during the update.
                     selManager.selectRange(oldAnchorPosition, oldActivePosition);        
-                    
                     _textContainerManager.endInteraction();
-                }           
-                
-                displayAsPasswordChanged = false;
+                }                       
             }
             
             if (clipAndEnableScrollingChanged)
@@ -3764,7 +3787,7 @@ package spark.components
             // character so the height is good for the line but we
             // need to give it some width other than optional padding.
             
-            if (_textContainerManager.getText().length == 0) 
+            if (_textContainerManager.getText("\n").length == 0) 
             {
                 // Empty text flow.  One Em wide so there
                 // is a place to put the insertion cursor.
@@ -4076,7 +4099,7 @@ package spark.components
                     newText, _selectionAnchorPosition, _selectionActivePosition);
             
             if (success)
-                dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                                   
+                dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         }
         
         /**
@@ -4596,6 +4619,9 @@ package spark.components
         private function textContainerManager_selectionChangeHandler(
             event:SelectionEvent):void
         {
+            if (preserveSelectionOnSetText)
+                return;
+            
             var oldAnchor:int = _selectionAnchorPosition;
             var oldActive:int = _selectionActivePosition;
             
@@ -4618,10 +4644,9 @@ package spark.components
             // Only dispatch the event if the selection has really changed.
             var changed:Boolean = oldAnchor != _selectionAnchorPosition ||
                 oldActive != _selectionActivePosition;
-            
-            
+                                   
             if (changed)
-            {    
+            { 
                 //trace("selectionChangeHandler", _selectionAnchorPosition, _selectionActivePosition);
                 dispatchEvent(new FlexEvent(FlexEvent.SELECTION_CHANGE));
             }
