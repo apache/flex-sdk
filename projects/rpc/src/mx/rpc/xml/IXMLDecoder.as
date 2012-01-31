@@ -16,6 +16,11 @@ package mx.rpc.xml
  * Decodes an XML document to an ActionScript object graph based on XML
  * Schema definitions.
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */ 
 public interface IXMLDecoder
 {
@@ -30,6 +35,11 @@ public interface IXMLDecoder
      * are wrapped to make them bindable. Objects are wrapped with
      * <code>mx.utils.ObjectProxy</code> and Arrays are wrapped with
      * <code>mx.collections.ArrayCollection</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get makeObjectsBindable():Boolean;
 
@@ -44,6 +54,11 @@ public interface IXMLDecoder
      * to post process the decoded objects and identify which concrete
      * implementation of a potentially abstract type was used.
      * The default is false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get recordXSIType():Boolean;
 
@@ -52,6 +67,11 @@ public interface IXMLDecoder
     /**
      * Maps XML Schema types by QName to ActionScript Classes in order to 
      * create strongly typed objects when decoding content.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get typeRegistry():SchemaTypeRegistry;
 
@@ -83,6 +103,11 @@ public interface IXMLDecoder
      * can be provided.
      *
      * @return Returns an ActionScript object decoded from the given XML document.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function decode(xml:*, name:QName = null, type:QName = null, definition:XML = null):*;
 
@@ -90,6 +115,11 @@ public interface IXMLDecoder
      * Resets the decoder to its initial state, including resetting any 
      * Schema scope to the top level and releases the current XML document by
      * setting it to null.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function reset():void;
 }
