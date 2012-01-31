@@ -80,7 +80,7 @@ public class AddChildAction extends Effect
 	public function AddChildAction(target:Object = null)
 	{
 		super(target);
-
+        duration = 0;
 		instanceClass = AddChildActionInstance;
 	}
 	
