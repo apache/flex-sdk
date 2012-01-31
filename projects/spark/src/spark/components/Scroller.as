@@ -1840,18 +1840,6 @@ class TouchScrollHelper
      */
     private var isScrolling:Boolean;
     
-    /**
-     *  @private
-     *  Used to keep track of the number of scrollDragEvents we've dispatched 
-     *  we've determined we need to start scrolling.  This is because we want 
-     *  to call updateAfterEvent() so our scroller is super-responsive, but 
-     *  because of the way scrollbars work and when the thumb gets laid out, 
-     *  we don't want to do this the first two times; otherwise, the scrollbar 
-     *  thumb may be in a bad position. However, after the second time, the 
-     *  thumb shoudl be positioned correctly.
-     */
-    private var scrollDraggingCountForUpdateAfterEvent:int = 0;
-    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -2091,9 +2079,6 @@ class TouchScrollHelper
                         scrollGestureAnchorPoint = new Point(mouseDownedPoint.x, mouseDownedPoint.y - verticalSlop);
                 }
                 
-                // see comment located above the variable for why this is needed
-                scrollDraggingCountForUpdateAfterEvent = 0;
-                
                 // velocity calculations come from mouseDownedPoint.  The drag ones com from scrollStartPoint.
                 // This seems fine.
             }
@@ -2110,13 +2095,8 @@ class TouchScrollHelper
             
             scroller.performDrag(dx, dy);
             
-            // Call updateAfterEvent() to make sure it looks smooth, but don't 
-            // call it on the first or second time because the thumb might not be positioned 
-            // correctly yet.
-            if (scrollDraggingCountForUpdateAfterEvent > 1)
-                event.updateAfterEvent();
-            
-            scrollDraggingCountForUpdateAfterEvent++;
+            // Call updateAfterEvent() to make sure it looks smooth
+            event.updateAfterEvent();
         }
     }
     
@@ -2202,10 +2182,10 @@ class TouchScrollHelper
             isScrolling = false;
             
             // don't do anything
-            scrollEndEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_END);
+            scrollEndEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_END, true);
             scrollEndEvent.relatedObject = scroller;
             scrollEndEvent.reason = TouchInteractionReason.SCROLL;
-            scroller.dispatchEvent(scrollEndEvent);
+            mouseDownedDisplayObject.dispatchEvent(scrollEndEvent);
             return;
         }
         
@@ -2227,10 +2207,10 @@ class TouchScrollHelper
             isScrolling = false;
 
             // don't do anything
-            scrollEndEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_END);
+            scrollEndEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_END, true);
             scrollEndEvent.relatedObject = scroller;
             scrollEndEvent.reason = TouchInteractionReason.SCROLL;
-            scroller.dispatchEvent(scrollEndEvent);
+            mouseDownedDisplayObject.dispatchEvent(scrollEndEvent);
         }
     }
     
@@ -2290,10 +2270,10 @@ class TouchScrollHelper
     {
         isScrolling = false;
         
-        var scrollEndEvent:TouchInteractionEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_END);
+        var scrollEndEvent:TouchInteractionEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_END, true);
         scrollEndEvent.relatedObject = scroller;
         scrollEndEvent.reason = TouchInteractionReason.SCROLL;
-        scroller.dispatchEvent(scrollEndEvent);
+        mouseDownedDisplayObject.dispatchEvent(scrollEndEvent);
     }
     
     
