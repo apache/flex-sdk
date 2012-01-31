@@ -30,8 +30,8 @@ import mx.controls.listClasses.ListData;
 import mx.core.ClassFactory;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
-import mx.core.mx_internal;
 import mx.core.UIComponentGlobals;
+import mx.core.mx_internal;
 import mx.events.CalendarLayoutChangeEvent;
 import mx.events.DateChooserEvent;
 import mx.events.DropdownEvent;
@@ -2112,11 +2112,11 @@ public class DateField extends ComboBase
         var buttonWidth:Number = downArrowButton.getExplicitOrMeasuredWidth();
         var buttonHeight:Number = downArrowButton.getExplicitOrMeasuredHeight();
 
-        var bigDate:Date = new Date(2004, 12, 31);
+        var bigDate:Date = new Date(2004, 11, 31);
         var txt:String = (_labelFunction != null) ? _labelFunction(bigDate) : 
                             dateToString(bigDate, formatString);
 
-        measuredMinWidth = measuredWidth = measureText(txt).width + 8 + 2 + buttonWidth;
+        measuredMinWidth = measuredWidth = measureText(txt).width + 12 + 2 + buttonWidth;
         measuredMinWidth = measuredWidth += getStyle("paddingLeft") + getStyle("paddingRight");
         measuredMinHeight = measuredHeight = textInput.getExplicitOrMeasuredHeight();
     }
@@ -2274,7 +2274,10 @@ public class DateField extends ComboBase
         //var point = {};
         // point x will exactly appear on the icon.
         // Leaving 1 pixel for the border to appear.
-        var point:Point = new Point(unscaledWidth - downArrowButton.width,0);
+        var xPos:Number = (layoutDirection == "rtl" ? dropdown.getExplicitOrMeasuredWidth() : 0) 
+                          + unscaledWidth - downArrowButton.width; 
+        
+        var point:Point = new Point(xPos, 0);
         point = localToGlobal(point);
         if (show)
         {
