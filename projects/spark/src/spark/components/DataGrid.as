@@ -437,7 +437,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         typicalItem: uint(1 << 9),
         variableRowHeight: uint(1 << 10),
         dataTipField: uint(1 << 11),
-        dataTipFunction: uint(1 << 12)        
+        dataTipFunction: uint(1 << 12)
     };
     
     /**
@@ -602,7 +602,16 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     public function set columns(value:IList):void
     {
         if (setGridProperty("columns", value))
+        {
+            if (columnHeaderBar)
+            {
+                columnHeaderBar.layout.clearVirtualLayoutCache();
+                columnHeaderBar.invalidateSize();
+                columnHeaderBar.invalidateDisplayList();
+            }
+            
             dispatchChangeEvent("columnsChanged");
+        }
     }
     
     /**
@@ -1120,21 +1129,31 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             const allStyles:Boolean = (styleName == null || styleName == "styleName");
             
             if (allStyles || styleManager.isSizeInvalidatingStyle(styleName))
-            {  
-                grid.invalidateSize();
-                grid.clearGridLayoutCache(true);               
+            {
+                if (grid)
+                {
+                    grid.invalidateSize();
+                    grid.clearGridLayoutCache(true);
+                }
+                if (columnHeaderBar)
+                {
+                    columnHeaderBar.layout.clearVirtualLayoutCache();
+                    columnHeaderBar.invalidateSize();
+                }
             }
             
             if (allStyles || (styleName == "alternatingRowColors"))
             {
                 initializeGridRowBackground();
-                // This is heavy-handed because only the row backgrounds need
-                // to be redrawn. 
-                if (grid.layout)
+                if (grid && grid.layout)
                     grid.layout.clearVirtualLayoutCache();               
             }
             
-            grid.invalidateDisplayList();
+            if (grid)
+                grid.invalidateDisplayList();
+            
+            if (columnHeaderBar)
+                columnHeaderBar.invalidateDisplayList();
         }
     }
     
@@ -1305,7 +1324,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             grid.addEventListener(GridCaretEvent.CARET_CHANGE, grid_caretChangeHandler);            
             grid.addEventListener(FlexEvent.VALUE_COMMIT, grid_valueCommitHandler);
             grid.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_changeEventHandler);
-            grid.addEventListener("columnsChanged", grid_columnsChangedEventHandler);
             
             // Deferred operations (grid selection updates)
             
@@ -1318,10 +1336,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             initializeGridRowBackground();
         
         if (instance == columnHeaderBar)
-        {
-            columnHeaderBar.dataProvider = columns;
             columnHeaderBar.owner = this;
-        }
     }
     
     /**
@@ -1367,7 +1382,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         
         if (instance == columnHeaderBar)
         {
-            columnHeaderBar.dataProvider = null;
             columnHeaderBar.horizontalScrollPosition = 0;
             columnHeaderBar.owner = null;
         }
@@ -2902,12 +2916,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     {
         if (columnHeaderBar && event.property == "horizontalScrollPosition")
             columnHeaderBar.horizontalScrollPosition = Number(event.newValue);
-    }    
-    
-    protected function grid_columnsChangedEventHandler(event:Event):void
-    {
-        if (columnHeaderBar)
-            columnHeaderBar.dataProvider = columns;
     }    
     
 }
