@@ -16,6 +16,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  Defines the colors used by components that support the Halo theme.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class HaloColors 
 {
@@ -45,6 +50,11 @@ public class HaloColors
 	 *
 	 *  @param colors An arbitrary number of RGB colors expressed
 	 *  as <code>uint</code> values (for example, 0xFF0000).
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function getCacheKey(... colors):String
 	{
@@ -67,6 +77,11 @@ public class HaloColors
 	 * @param fillColor0 The start color of a fill.
 
 	 * @param fillColor1 The end color of a fill.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function addHaloColors(colors:Object,
 										 themeColor:uint,
