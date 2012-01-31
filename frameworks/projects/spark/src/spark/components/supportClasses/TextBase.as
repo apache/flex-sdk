@@ -19,6 +19,8 @@ import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.text.engine.TextLine;
 
+import flashx.textLayout.compose.TextLineRecycler;
+
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -544,7 +546,7 @@ public class TextGraphicElement extends GraphicElement
             if (drawnDisplayObject)
                 mx_internal::addTextLines(drawnDisplayObject);
             else
-                mx_internal::textLines.length = 0;
+                mx_internal::releaseTextLines();
                        
             displayObjectChanged = false;
         }  
@@ -1099,7 +1101,8 @@ public class TextGraphicElement extends GraphicElement
 	/**
 	 *  @private
 	 *  Removes the TextLines created by composeTextLines()
-     *  from whatever container they were added to, and frees them.
+     *  from whatever container they were in.
+     * 
 	 *  This does not empty the textLines Array.
 	 */
 	mx_internal function removeTextLines():void
@@ -1129,6 +1132,27 @@ public class TextGraphicElement extends GraphicElement
 		_lastDrawX = 0;
 		_lastDrawY = 0;
 	}
+
+    /**
+     *  @private
+     *  Adds the TextLines to the reuse cache, and clears the textLines array.
+     */
+    mx_internal function releaseTextLines(textLinesArray:Array=null):void
+    {
+        if (!textLinesArray)
+            textLinesArray = mx_internal::textLines;
+            
+        for (var i:int = 0; i < textLinesArray.length; i++)
+        {
+            var textLine:TextLine = TextLine(textLinesArray[i]);
+            
+            // This method does the Flash Player version check so we don't
+            // have to.
+            TextLineRecycler.addLineForReuse(textLine);
+        }
+        
+        textLinesArray.length = 0;
+   }
 
     /**
      *  @private
