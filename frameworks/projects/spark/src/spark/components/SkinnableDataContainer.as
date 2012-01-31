@@ -20,8 +20,6 @@ import mx.events.PropertyChangeEvent;
 import mx.managers.IFocusManagerContainer;
 import mx.utils.BitFlagUtil;
 
-import spark.components.DataGroup; 
-import spark.components.IItemRendererOwner;
 import spark.components.supportClasses.ItemRenderer;
 import spark.components.supportClasses.SkinnableContainerBase;
 import spark.core.IViewport;
@@ -627,6 +625,35 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
         else return " ";
     }
 
+    /**
+     *  A bottleneck method which updates renderer specific information. 
+     * 
+     *  The DataGroup skinpart handles updating the renderer's 'data' 
+     *  property when necessary. This method comes in and sets the 
+     *  'labelText' (which is dependant on the renderer's data) 
+     *  and 'owner' properties. 
+     * 
+     *  @param renderer The renderer to update
+     *  
+     *  @param data The renderer's data  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     * 
+     */
+    public function updateRendererInformation(renderer:IVisualElement, data:Object=null):void
+    {
+    	if (!renderer)
+    	   return; 
+    	   
+    	IVisualElement(renderer).owner = this;
+        
+        if (renderer is IItemRenderer)
+            IItemRenderer(renderer).labelText = itemToLabel(IItemRenderer(renderer).data);
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -894,13 +921,9 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
      */
     private function dataGroup_rendererAddChangeHandler(event:RendererExistenceEvent):void
     {
-    	var renderer:Object = event.renderer;
+    	var renderer:IVisualElement = event.renderer;
         
-        if (renderer is IVisualElement)
-            IVisualElement(renderer).owner = this;
-        
-        if (renderer is IItemRenderer)
-            IItemRenderer(renderer).labelText = itemToLabel(renderer.data);
+        updateRendererInformation(renderer); 
         
         dispatchEvent(event);
     }
