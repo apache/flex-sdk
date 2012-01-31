@@ -156,6 +156,7 @@ public class AbstractInvoker extends EventDispatcher
      *  @param id The messageId of the invocation to cancel. Optional. If omitted, the
      *         last service invocation is canceled.
      *  
+     *  @return The AsyncToken associated with the call that is cancelled or null if no call was cancelled.
      */
     public function cancel(id:String = null):AsyncToken
     {
