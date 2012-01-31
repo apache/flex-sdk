@@ -17,8 +17,10 @@ import flash.display.InteractiveObject;
 import flash.display.Stage;
 import flash.events.ContextMenuEvent;
 import flash.events.Event;
+import flash.events.SoftKeyboardEvent;
 import flash.events.UncaughtErrorEvent;
 import flash.external.ExternalInterface;
+import flash.geom.Rectangle;
 import flash.net.URLRequest;
 import flash.net.navigateToURL;
 import flash.system.Capabilities;
@@ -26,6 +28,7 @@ import flash.ui.ContextMenu;
 import flash.ui.ContextMenuItem;
 import flash.utils.setInterval;
 
+import mx.core.EventPriority;
 import mx.core.FlexGlobals;
 import mx.core.IInvalidating;
 import mx.core.InteractionMode;
@@ -36,6 +39,7 @@ import mx.managers.FocusManager;
 import mx.managers.IActiveWindowManager;
 import mx.managers.ILayoutManager;
 import mx.managers.ISystemManager;
+import mx.managers.SystemManager;
 import mx.managers.ToolTipManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
@@ -300,6 +304,13 @@ public class Application extends SkinnableContainer
      */
     private var resizeHeight:Boolean = true;
 
+    /**
+     *  @private
+     */
+    private var softKeyboardHandlersAdded:Boolean = false;
+    
+    private static var _softKeyboardBehavior:String = null;
+    
     /**
      *  @private
      */
@@ -996,6 +1007,33 @@ public class Application extends SkinnableContainer
     }
 
     //----------------------------------
+    //  resizeForSoftKeyboard
+    //----------------------------------
+    private var _resizeForSoftKeyboard:Boolean = true;
+    private var resizeForSoftKeyboardChanged:Boolean = true;
+    
+    /**
+     *  A value of true means the application is resized when the softKeyboard is actiaved or
+     *  deactivated. 
+     * 
+     *  @default true
+     */ 
+    public function get resizeForSoftKeyboard():Boolean
+    {
+        return _resizeForSoftKeyboard;
+    }
+    
+    public function set resizeForSoftKeyboard(value:Boolean):void
+    {
+        if (_resizeForSoftKeyboard != value)
+        {
+            _resizeForSoftKeyboard = value;
+            resizeForSoftKeyboardChanged = true;
+            invalidateProperties();
+        }
+    }
+    
+    //----------------------------------
     //  url
     //----------------------------------
 
@@ -1148,6 +1186,33 @@ public class Application extends SkinnableContainer
                 systemManager.removeEventListener(Event.RESIZE, resizeHandler);
                 resizeHandlerAdded = false;
             }
+        }
+        
+        if (resizeForSoftKeyboardChanged)
+        {
+            // Check for softKeyboardBehavior == none
+            if (softKeyboardBehavior == "none")
+            {
+                if (resizeForSoftKeyboard && !softKeyboardHandlersAdded)
+                {
+                    // Use a high priority so that the application resize will occur first
+                    systemManager.stage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
+                                                         softKeyboardActivateHandler, false, 
+                                                         EventPriority.BINDING, true);
+                    systemManager.stage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
+                                                         softKeyboardDeactivateHandler, false, 
+                                                         EventPriority.BINDING, true);
+                    softKeyboardHandlersAdded = true;
+                }
+                else if (!resizeForSoftKeyboard && softKeyboardHandlersAdded)
+                {
+                    systemManager.stage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardActivateHandler, false);
+                    systemManager.stage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardDeactivateHandler, false);
+                    softKeyboardHandlersAdded = false;
+                }
+            }
+            
+            resizeForSoftKeyboardChanged = false;
         }
 
         if (percentBoundsChanged)
@@ -1404,6 +1469,92 @@ public class Application extends SkinnableContainer
         
         synchronousResize = (parseFloat(version[0]) > 10 ||
                              (parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1)) && (Capabilities.playerType != "Desktop" || runningOnMobile);
+    }
+    
+    /**
+     *  @private
+     *  Called if resizeForSoftKeyboard is true and the softKeyboard
+     *  has been activated. 
+     */    
+    private function softKeyboardActivateHandler(event:SoftKeyboardEvent):void
+    {
+        if (this === FlexGlobals.topLevelApplication)
+        {
+            // Get the keyboard size
+            var keyboardRect:Rectangle = stage.softKeyboardRect;
+                        
+            var sm:SystemManager = systemManager as SystemManager;
+            var scaleFactor:Number = 1;
+            
+            // Account for any density scaling
+            if (sm)
+                scaleFactor = sm.densityScale;
+            
+            var appHeight:Number = (stage.stageHeight - keyboardRect.height) / scaleFactor;
+            
+            if (appHeight != height)
+            {                
+                setActualSize(width, appHeight);
+                validateNow(); // Validate so that other listeners like Scroller get the updated dimensions
+            }
+        }
+    }
+    
+    /**
+     *  @private
+     *  Called if resizeForSoftKeyboard is true and the softKeyboard
+     *  has been deactivated. 
+     */ 
+    private function softKeyboardDeactivateHandler(event:SoftKeyboardEvent):void
+    {
+        if (this === FlexGlobals.topLevelApplication)
+        {
+            // Get the keyboard size
+            var keyboardRect:Rectangle = stage.softKeyboardRect;
+            
+            var sm:SystemManager = systemManager as SystemManager;
+            var scaleFactor:Number = 1;
+            
+            // Account for any density scaling
+            if (sm)
+                scaleFactor = sm.densityScale;
+            
+            // Restore the original values
+            setActualSize(stage.stageWidth / scaleFactor, stage.stageHeight / scaleFactor);
+            
+            validateNow(); // Validate so that other listeners like Scroller get the updated dimensions
+        }
+    }
+    
+    /**
+     *  Helper function to get the AIR application descriptor attribute called "softKeyboardBehavior". 
+     */  
+    mx_internal static function get softKeyboardBehavior():String
+    {
+        if (_softKeyboardBehavior != null)
+        {
+            return _softKeyboardBehavior;
+        }
+        else
+        {
+            // Since we might not be running on AIR, need to get the class by name. 
+            // Also, make sure to cache the value so we only run this once
+            var nativeApp:Object = FlexGlobals.topLevelApplication.systemManager.getDefinitionByName("flash.desktop.NativeApplication");
+            
+            if (nativeApp)
+            {
+                var appXML:XML = XML(nativeApp["nativeApplication"]["applicationDescriptor"]);
+                var ns:Namespace = appXML.namespace();
+                
+                _softKeyboardBehavior = String(appXML..ns::softKeyboardBehavior);
+            }
+            else
+            {
+                _softKeyboardBehavior = "";
+            }
+            
+            return _softKeyboardBehavior;
+        }
     }
 
     //--------------------------------------------------------------------------
