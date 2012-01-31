@@ -12,10 +12,13 @@
 package spark.components.supportClasses
 {
 
+import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
+
+import mx.events.SandboxMouseEvent;
 
 import spark.components.Button;
 import spark.events.TrackBaseEvent;
@@ -154,6 +157,7 @@ public class TrackBase extends Range
     public function TrackBase():void
     {
         super();
+        addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
     }
 
     //--------------------------------------------------------------------------
@@ -200,6 +204,7 @@ public class TrackBase extends Range
     //--------------------------------------------------------------------------
 
     private var tempTrackSize:Number = NaN;
+	private var mouseDownTarget:DisplayObject;
 
     //--------------------------------------------------------------------------
     //
@@ -871,6 +876,52 @@ public class TrackBase extends Range
      *  recognize mouse clicks on the track.
      */
     protected function track_mouseDownHandler(event:MouseEvent):void {}
+    
+    //---------------------------------
+    // Mouse click handlers
+    //---------------------------------
+    
+    /**
+     *  @private
+     *  Capture any mouse down event and listen for a mouse up event
+     */  
+    private function mouseDownHandler(event:MouseEvent):void
+	{
+		systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, 
+														system_mouseUpSomewhereHandler);
+		systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
+														system_mouseUpSomewhereHandler);
+		
+		mouseDownTarget = DisplayObject(event.target);		
+	}
+	
+	/**
+     *  @private
+     */
+	private function system_mouseUpSomewhereHandler(event:Event):void
+	{
+		systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, 
+														   system_mouseUpSomewhereHandler);
+		systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
+														   system_mouseUpSomewhereHandler);
+		
+		// If we got a mouse down followed by a mouse up on a different target in the skin, 
+		// we want to dispatch a click event. 
+		if (mouseDownTarget != event.target && event is MouseEvent && contains(DisplayObject(event.target)))
+		{ 
+			var mEvent:MouseEvent = event as MouseEvent;
+			// Convert the mouse coordinates from the target to the TrackBase
+			var mousePoint:Point = new Point(mEvent.localX, mEvent.localY);
+			mousePoint = globalToLocal(DisplayObject(event.target).localToGlobal(mousePoint));
+			
+			dispatchEvent(new MouseEvent(MouseEvent.CLICK, mEvent.bubbles, mEvent.cancelable, mousePoint.x,
+									 mousePoint.y, mEvent.relatedObject, mEvent.ctrlKey, mEvent.altKey,
+									 mEvent.shiftKey, mEvent.buttonDown, mEvent.delta));
+		}
+		
+		mouseDownTarget = null;
+		
+	}
 }
 
 }
