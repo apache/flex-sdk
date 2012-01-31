@@ -1100,7 +1100,6 @@ public class ComboBox extends ComboBase
      *  The set of styles to pass from the ComboBox to the dropDown.
      *  Styles in the dropDownStyleName style will override these styles.
      *  @see mx.styles.StyleProxy
-     *  @review
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
