@@ -1447,7 +1447,11 @@ public class ComboBox extends ComboBase
         // and will not affect the dropdown size
         if (_dropdown && !inTween)
         {
-            destroyDropdown();
+            // We will not destroy our dropdown if user is actively
+            // interacting with it, this has been legacy behavior since
+            // Flex 3.0.
+            if (!_showingDropdown)
+                destroyDropdown();
         }
         else if (_showingDropdown)
         {
