@@ -122,6 +122,8 @@ public class Keyframe
      */
     public var value:Object;
     
+    [Inspectable(minValue="0.0")]
+    
     /**
      *  The time, in milliseconds, at which the effect target
      *  for this keyframe should have the value
