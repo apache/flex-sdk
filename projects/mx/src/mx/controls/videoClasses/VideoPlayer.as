@@ -2379,7 +2379,7 @@ public class VideoPlayer extends Video
     //  Private Methods
     //----------------------------------
         
-    /*
+    /**
      *  @private
      *  does loading work for play and load
      */
