@@ -712,7 +712,8 @@ public class List extends ListBase implements IFocusManagerComponent
             else currentIndex = selectedIndex;  
             
 	        //Delegate to the layout to tell us what the next item is we should select.
-	        var proposedSelectedIndex:int = layout.nextItemIndex(event.keyCode, currentIndex, dataProvider.length - 1); 
+	        var proposedSelectedIndex:int = (layout) ? 
+	           layout.nextItemIndex(event.keyCode, currentIndex, dataProvider.length - 1) : -1;  
 	        
 	        // Note that the KeyboardEvent is canceled even if the selectedIndex doesn't
             // change because we don't want another component to start handling these
