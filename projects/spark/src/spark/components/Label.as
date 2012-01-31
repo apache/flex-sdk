@@ -301,10 +301,6 @@ public class TextBox extends TextGraphicElement
         if (s != null)
         	elementFormat.locale = s;
         
-        s = getStyle("textRotation");
-        if (s != null)
-        	elementFormat.textRotation = s;
-        
         setTracking(elementFormat);
         
         s = getStyle("typographicCase");
