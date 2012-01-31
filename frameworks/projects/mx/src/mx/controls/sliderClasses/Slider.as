@@ -21,6 +21,7 @@ import flash.geom.Point;
 
 import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
+import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.effects.Tween;
@@ -2398,7 +2399,7 @@ public class Slider extends UIComponent
         var tOffset:Number = getStyle("dataTipOffset");
 
         // If the layoutDirection is rtl, swap left and right placement
-        if (layoutDirection == "rtl")   
+        if (layoutDirection == LayoutDirection.RTL)   
         {
             if (tPlacement == "left")
                 tPlacement = "right";
@@ -2459,7 +2460,7 @@ public class Slider extends UIComponent
             }
         }
         
-        if (layoutDirection == "rtl")
+        if (layoutDirection == LayoutDirection.RTL)
             relX += dataTip.width;
         
         var o:Point = new Point(relX, relY);
