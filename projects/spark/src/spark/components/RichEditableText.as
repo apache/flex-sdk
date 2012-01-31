@@ -43,6 +43,7 @@ import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.CompositionCompletionEvent;
+import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.events.FlowOperationEvent;
 import flashx.textLayout.events.SelectionEvent;
 import flashx.textLayout.formats.CharacterFormat;
@@ -1713,6 +1714,8 @@ public class TextView extends UIComponent implements IViewport
             CompositionCompletionEvent.COMPOSITION_COMPLETE,
             textFlow_compositionCompleteHandler);
         
+        textFlow.addEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);
+
         textFlow.addEventListener(Event.SCROLL, textFlow_scrollHandler);
 
         textFlow.addEventListener(
@@ -2033,6 +2036,25 @@ public class TextView extends UIComponent implements IViewport
         }
     }
     
+    /**
+     *  @private
+     *  Called when the TextFlow dispatches a 'damage' event.
+     */
+    private function textFlow_damageHandler(
+                        event:DamageEvent):void
+    {
+        trace("damageHandler", event.damageStart, event.damageLength);
+        
+        // The text flow changed.  It could have been either/or content or
+        // styles within the flow.
+        textInvalid = true;
+        dispatchEvent(new Event("textInvalid"));
+        
+        // Re-measure not needed since it's based on TextView's style 
+        // characteristic, not the textFlow's style characteristics.
+        invalidateDisplayList();
+    }
+
     /**
      *  @private
      *  Called when the TextFlow dispatches a 'scroll' event
