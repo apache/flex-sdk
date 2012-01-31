@@ -174,6 +174,50 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  */
 [Event(name="textInput", type="flash.events.TextEvent")]
 
+//--------------------------------------
+//  Skin states
+//--------------------------------------
+
+/**
+ *  Normal State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("normal")]
+
+/**
+ *  Disabled State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("disabled")]
+
+/**
+ *  Normal State with Prompt
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.2
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[SkinState("normalWithPrompt")]
+
+/**
+ *  Disabled State with Prompt
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.2
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[SkinState("disabledWithPrompt")]
+
 /**
  *  The base class for skinnable components, such as the Spark TextInput
  *  and TextArea, that include an instance of RichEditableText in their skin
