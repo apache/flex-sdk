@@ -16,11 +16,11 @@ import flash.utils.getDefinitionByName;
 
 
 import mx.collections.ArrayCollection;
-import mx.core.Application;
 import mx.core.mx_internal;
 import mx.messaging.Channel;
 import mx.messaging.ChannelSet;
 import mx.messaging.MessageAgent;
+import mx.messaging.config.LoaderConfig;
 import mx.messaging.errors.InvalidChannelError;
 import mx.messaging.errors.InvalidDestinationError;
 import mx.messaging.errors.MessagingError;
@@ -511,9 +511,9 @@ public class ServerConfig
             // WSRP support
             // If we have an WSRP_ENCODED_CHANNEL in FlashVars, 
             // use that instead of uri configured in the config file
-            if (Application.application.parameters.WSRP_ENCODED_CHANNEL != null)
+            if (LoaderConfig.parameters.WSRP_ENCODED_CHANNEL != null)
             {
-                channel.url = Application.application.parameters.WSRP_ENCODED_CHANNEL;
+                channel.url = LoaderConfig.parameters.WSRP_ENCODED_CHANNEL;
                 //trace("Using WSRP_ENCODED_CHANNEL: " + channel.url);
             }
         }
