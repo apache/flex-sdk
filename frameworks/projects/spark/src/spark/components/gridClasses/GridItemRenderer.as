@@ -128,6 +128,10 @@ use namespace mx_internal;
  *  @see spark.components.gridClasses.GridColumn#itemRenderer
  *  @see spark.skins.spark.DefaultGridItemRenderer
  *  
+ *  @includeExample examples/GridItemRendererExample.mxml
+ *  @includeExample examples/GridItemRendererCustomBindingExample.mxml
+ *  @includeExample examples/GridItemRendererCustomPrepareExample.mxml
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
