@@ -18,6 +18,8 @@ import flash.events.FocusEvent;
 import flex.component.TextView;
 import flex.events.TextOperationEvent;
 
+import text.model.LineBreak;
+
 [DefaultProperty("content")]
 
 /**
@@ -163,6 +165,7 @@ public class TextArea extends TextInput
 		{
 			// Set the TextView to allow multiple lines of input.
 			textView.heightInLines = 10;
+            textView.lineBreak = LineBreak.TO_FIT;
 			textView.multiline = true;
         }
 	}
