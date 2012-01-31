@@ -59,9 +59,9 @@ use namespace mx_internal;
  *  the CheckBox component sets its <code>selected</code> property
  *  to <code>true</code> for checked, and to <code>false</code> for unchecked.</p>
  *
- *  <p>An item renderer lets you customize the display of a list-based component, 
- *  such as a List or DataGrid control.
- *  For information about using this component in an item renderer, see 
+ *  <p>To use this component in a list-based component, such as a List or DataGrid, 
+ *  create an item renderer.
+ *  For information about creating an item renderer, see 
  *  <a href="http://help.adobe.com/en_US/flex/using/WS4bebcd66a74275c3-fc6548e124e49b51c4-8000.html">
  *  Custom Spark item renderers</a>. </p>
  * 
