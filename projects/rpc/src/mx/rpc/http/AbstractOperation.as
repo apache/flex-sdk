@@ -604,6 +604,8 @@ function xmlEncoder (myObj)
     // These are not all of the allowed values and mxmlc is now enforcing the value is in this list.  We could add this back if
     // there was wildcard support.
     //[Inspectable(enumeration="application/x-www-form-urlencoded,application/xml", defaultValue="application/x-www-form-urlencoded", category="General")]
+
+    private var _contentType:String = CONTENT_TYPE_FORM;
     /**
      *  Type of content for service requests. 
      *  The default is <code>application/x-www-form-urlencoded</code> which sends requests
@@ -615,7 +617,6 @@ function xmlEncoder (myObj)
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    private var _contentType:String = CONTENT_TYPE_FORM;
     public function get contentType():String
     {
         return _contentType;
