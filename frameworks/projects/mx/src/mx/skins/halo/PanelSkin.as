@@ -50,6 +50,13 @@ public class PanelSkin extends HaloBorder
     private var oldControlBarHeight:Number;
     
     /**
+	 *  @private
+	 *  Internal object that contains the thickness of each edge
+	 *  of the border
+	 */
+	protected var _panelBorderMetrics:EdgeMetrics;
+    
+    /**
      *  @private
      *  Return the thickness of the border edges.
      *
@@ -57,7 +64,7 @@ public class PanelSkin extends HaloBorder
      */
     override public function get borderMetrics():EdgeMetrics
     {   
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 || getStyle("borderStyle") != "default")
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
             return super.borderMetrics;
         
         var hasPanelParent:Boolean = isPanel(parent);
@@ -69,14 +76,16 @@ public class PanelSkin extends HaloBorder
         if (controlBar && controlBar.includeInLayout)
             newControlBarHeight = controlBar.getExplicitOrMeasuredHeight();
 
-        if (newControlBarHeight != oldControlBarHeight)
-            _borderMetrics = null;
+        if (newControlBarHeight != oldControlBarHeight &&
+          	!(isNaN(oldControlBarHeight) && isNaN(newControlBarHeight)))
+            _panelBorderMetrics = null;
         
-        if (hHeight != oldHeaderHeight)
-            _borderMetrics = null;
+        if ((hHeight != oldHeaderHeight) && 
+        	!(isNaN(hHeight) && isNaN(oldHeaderHeight)))
+            _panelBorderMetrics = null;
                 
-        if (_borderMetrics)
-            return _borderMetrics;
+        if (_panelBorderMetrics)
+            return _panelBorderMetrics;
 
         var o:EdgeMetrics = super.borderMetrics;
         var vm:EdgeMetrics = new EdgeMetrics(0, 0, 0, 0);
@@ -109,10 +118,30 @@ public class PanelSkin extends HaloBorder
         if (!isNaN(newControlBarHeight))
             vm.bottom += newControlBarHeight;
         
-        _borderMetrics = vm;
+        _panelBorderMetrics = vm;
         
-        return _borderMetrics;
+        return _panelBorderMetrics;
     }
+
+	/**
+	 *  @private
+	 *  If borderStyle may have changed, clear the cached border metrics.
+	 */
+	override public function styleChanged(styleProp:String):void
+	{
+		super.styleChanged(styleProp);
+		
+		if (styleProp == null ||
+			styleProp == "styleName" ||
+			styleProp == "borderStyle" ||
+			styleProp == "borderThickness" ||
+			styleProp == "borderSides")
+		{
+			_panelBorderMetrics = null;
+		}
+		
+		invalidateDisplayList();
+	}
 
     /**
      *  @private
@@ -223,7 +252,9 @@ public class PanelSkin extends HaloBorder
     	if (getStyle("borderStyle") == "default")
         	return EdgeMetrics.EMPTY;
         else
-        	return super.getBackgroundColorMetrics();
+        {
+        	return super.borderMetrics;
+        }
     }
 
    	/**
