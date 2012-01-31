@@ -52,6 +52,13 @@ use namespace mx_internal;
 [Effect(name="itemsChangeEffect", event="itemsChange")]
 
 /**
+ *  The layout-specific List components in Flex 3 have been replaced by a more generic
+ *  List component that takes a generic layout. To get similar behavior from the new
+ *  List component, set the <code>layout</code> property to <code>TileLayout</code>.
+ */
+[Alternative(replacement="spark.components.List", since="4.0")]
+
+/**
  *  The TileList control displays a number of items laid out in tiles.
  *  It displays a scroll bar on one of its axes to access all items
  *  in the list, depending on the <code>direction</code> property.
