@@ -3000,13 +3000,12 @@ public class FTETextField extends Sprite
 
 		var align:String = _defaultTextFormat.align;
 		var leftAligned:Boolean = 
-			align == "left" && direction == "ltr" ||
-			align == "right" && direction == "rtl" ||
-			align == "justify";
+			align == "left" ||
+			align == "justify" && direction == "ltr";
 		var centerAligned:Boolean = align == "center";
 		var rightAligned:Boolean =
-			align == "left" && direction == "rtl" ||
-			align == "right" && direction == "ltr"; 
+			align == "right" ||
+            align == "justify" && direction == "rtl"; 
 		
 		// Calculate loop constants for horizontal alignment.
 		var leftOffset:Number = PADDING_LEFT;
@@ -3026,12 +3025,12 @@ public class FTETextField extends Sprite
             var width:Number = textLine.x + textLine.textWidth + rightMargin;
             
             // Only align if there is width to do so.
-            if (leftAligned || width >= innerWidth)
+            if (leftAligned || (width >= innerWidth && direction == "ltr"))
                 textLine.x += leftOffset;
+            else if (rightAligned || (width >= innerWidth && direction == "rtl"))
+                textLine.x += rightOffset - width;
             else if (centerAligned)
                 textLine.x += centerOffset - width / 2;
-            else if (rightAligned)
-                textLine.x += rightOffset - width;
                 
             clipWidth = Math.max(clipWidth, textLine.x + textLine.textWidth);
             
