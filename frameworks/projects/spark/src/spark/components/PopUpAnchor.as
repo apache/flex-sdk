@@ -21,10 +21,12 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
+import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
 import mx.core.LayoutDirection;
 import mx.core.UIComponent;
+import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.managers.PopUpManager;
 import mx.styles.ISimpleStyleClient;
@@ -194,6 +196,8 @@ public class PopUpAnchor extends UIComponent
     //  displayPopUp
     //----------------------------------
     
+    private var displayPopUpChanged:Boolean;
+    
     private var _displayPopUp:Boolean = false;
     
     
@@ -214,7 +218,12 @@ public class PopUpAnchor extends UIComponent
             return;
             
         _displayPopUp = value;
-        addOrRemovePopUp();
+        
+        displayPopUpChanged = true;
+        // request validation of display list so we
+        // know our size before putting up the popup
+        // and sizing it
+        invalidateDisplayList();
     }
     
     /**
@@ -318,7 +327,9 @@ public class PopUpAnchor extends UIComponent
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);                
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        if (displayPopUpChanged)
+            addOrRemovePopUp();
         applyPopUpTransform(unscaledWidth, unscaledHeight);            
     }
     
@@ -490,13 +501,20 @@ public class PopUpAnchor extends UIComponent
             popUpIsDisplayed = true;
             if (popUp is UIComponent && !popUpSizeCaptured)
             {
-                popUpWidth = UIComponent(popUp).explicitWidth;
-                popUpHeight = UIComponent(popUp).explicitHeight;
-                UIComponent(popUp).validateNow();
+				if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+				{
+					UIComponentGlobals.layoutManager.validateClient(UIComponent(popUp), true);
+					popUpWidth = UIComponent(popUp).getExplicitOrMeasuredWidth();
+					popUpHeight = UIComponent(popUp).getExplicitOrMeasuredHeight();
+				}
+				else
+				{
+	                popUpWidth = UIComponent(popUp).explicitWidth;
+	                popUpHeight = UIComponent(popUp).explicitHeight;
+	                UIComponent(popUp).validateNow();
+				}
                 popUpSizeCaptured = true;
             }   
-            
-            applyPopUpTransform(width, height);
         }
         else if (DisplayObject(popUp).parent != null && displayPopUp == false)
         {
@@ -578,14 +596,17 @@ public class PopUpAnchor extends UIComponent
         if (popUp is UIComponent)
         {
             if (popUpWidthMatchesAnchorWidth)
-                UIComponent(popUp).width = unscaledWidth;
-            else
+                UIComponent(popUp).width = popUpWidth = unscaledWidth;
+			else if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
                 UIComponent(popUp).explicitWidth = popUpWidth;
             
             if (popUpHeightMatchesAnchorHeight)
-                UIComponent(popUp).height = unscaledHeight;
-            else
+                UIComponent(popUp).height = popUpHeight = unscaledHeight;
+			else if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
                 UIComponent(popUp).explicitHeight = popUpHeight;
+            // validate now because the popup is higher in the nest level than the 
+            // PopUpAnchor
+            UIComponent(popUp).validateNow();
         }
         else
         {
