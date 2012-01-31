@@ -23,6 +23,7 @@ import flash.net.ObjectEncoding;
 
 import mx.core.mx_internal;
 import mx.logging.Log;
+import mx.messaging.config.LoaderConfig;
 import mx.messaging.MessageAgent;
 import mx.messaging.MessageResponder;
 import mx.messaging.events.ChannelEvent;
@@ -36,6 +37,7 @@ import mx.messaging.messages.IMessage;
 import mx.messaging.messages.ISmallMessage;
 import mx.messaging.messages.MessagePerformanceInfo;
 import mx.messaging.messages.MessagePerformanceUtils;
+import mx.netmon.NetworkMonitor;
 import mx.utils.StringUtil;
 
 use namespace mx_internal;
@@ -223,6 +225,13 @@ public class NetConnectionChannel extends PollingChannel
 
         try
         {
+			if (NetworkMonitor.isMonitoring())
+			{
+				var redirectedUrl:String = NetworkMonitor.adjustNetConnectionURL(LoaderConfig.url, url);
+				if(redirectedUrl != null){
+					url = redirectedUrl;
+				}
+			}
             _nc.connect(url);
         }
         catch(e:Error)
