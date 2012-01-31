@@ -66,6 +66,7 @@ import flashx.undo.IUndoManager;
 
 import mx.core.IFlexModuleFactory;
 import mx.core.IIMESupport;
+import mx.core.ISystemCursorClient;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -410,7 +411,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @productversion Flex 4
  */
 public class RichEditableText extends UIComponent
-    implements IFocusManagerComponent, IIMESupport, IViewport
+    implements IFocusManagerComponent, IIMESupport, ISystemCursorClient, IViewport
 {
     include "../core/Version.as";
     
@@ -460,7 +461,8 @@ public class RichEditableText extends UIComponent
         // Pre-FP10.1, set default tab stops in TLF.  Without this, if there
         // is a tab and TLF is measuring width, the tab will
         // measure as the rest of the remaining width up to 10000.
-        GlobalSettings.enableDefaultTabStops = !Configuration.playerEnablesArgoFeatures;
+        GlobalSettings.enableDefaultTabStops = 
+            !Configuration.playerEnablesArgoFeatures;
 
         staticConfiguration = 
             Configuration(TextContainerManager.defaultConfiguration).clone();
@@ -868,6 +870,26 @@ public class RichEditableText extends UIComponent
         invalidateDisplayList();
     }
 
+    //--------------------------------------------------------------------------
+    //
+    //  Properties: ISystemCursorClient
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  True if the system cursor should always be shown when the mouse 
+     *  moves over the component.  If false, the custom cursor will be shown.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get showSystemCursor():Boolean
+    {
+        return editable;        
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties: IViewport
