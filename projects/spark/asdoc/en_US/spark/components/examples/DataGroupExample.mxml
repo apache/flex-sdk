@@ -1,57 +1,62 @@
 <?xml version="1.0"?>
-<!-- Simple example to demonstrate the DataGroup component -->
-<FxApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
-    <s:Panel title="DataGroup Component Example" height="75%" width="75%" 
-        layout="vertical" horizontalCenter="0" verticalCenter="0" 
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+<!-- Simple example to demonstrate the Spark DataGroup component -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:mx="library://ns.adobe.com/flex/halo">
 
-        <fx:Script>
-            <![CDATA[
+    <fx:Script>
+        <![CDATA[
+            // need to import the item renderers
+            import spark.skins.default.DefaultItemRenderer;
+            import spark.skins.default.DefaultComplexItemRenderer;
+            import spark.components.Button;
 
-                // need to import the item renderers
-                import spark.skins.default.DefaultItemRenderer;
-                import spark.skins.default.DefaultComplexItemRenderer;
-                import spark.components.Button;
-
-                public function customItemRendererFunction(item:*):IFactory{
-                    if (item is FxButton)
-                        return new ClassFactory(FxDefaultComplexItemRenderer);
-                    else
-                        return new ClassFactory(FxDefaultItemRenderer);
+            public function customItemRendererFunction(item:*):IFactory {
+                if (item is Button) {
+                    return new ClassFactory(DefaultComplexItemRenderer);
+                } else {
+                    return new ClassFactory(DefaultItemRenderer);
                 }
+            }
+        ]]>
+    </fx:Script>
 
-            ]]>
-        </fx:Script>
+    <s:Panel title="DataGroup Component Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <!-- A DataGroup can hold primitive data items if an 
+                 item renderer is defined. -->
+            <s:DataGroup itemRenderer="spark.skins.default.DefaultItemRenderer">
+                <s:layout>
+                    <s:VerticalLayout gap="1" />
+                </s:layout>
+                <s:dataProvider>
+                    <s:ArrayCollection>
+                        <s:String>primitive data 1</s:String>
+                        <s:String>primitive data 2</s:String>
+                        <s:String>primitive data 3</s:String>
+                    </s:ArrayCollection>
+                </s:dataProvider>
+            </s:DataGroup>
 
-        <!-- a DataGroup can hold primitive data items if an 
-             item renderer is defined -->
+            <mx:Spacer height="20" />
 
-        <s:DataGroup itemRenderer="{new ClassFactory(FxDefaultItemRenderer)}">
-            <s:layout><s:VerticalLayout gap="1" /></s:layout>
-            <dataProvider>
-                <ArrayCollection>
-                    <String>primitive data 1</String>
-                    <String>primitive data 2</String>
-                    <String>primitive data 3</String>
-                </ArrayCollection>
-            </dataProvider>
-        </s:DataGroup>
-
-        <Spacer height="20" />
-
-        <!-- an item renderer function can be defined in order to display 
-             a mix of data and graphical items -->
-
-        <s:DataGroup itemRendererFunction="customItemRendererFunction">
-            <s:layout><s:HorizontalLayout gap="1" /></s:layout>
-            <dataProvider>
-                <ArrayCollection>
-                    <FxButton label="Button 1" />
-                    <String>primitive data string</String>
-                    <FxButton label="Button 2" />
-                </ArrayCollection>
-            </dataProvider>
-        </s:DataGroup>
-
+            <!-- An item renderer function can be defined in order to display 
+                 a mix of data and graphical items. -->
+            <s:DataGroup itemRendererFunction="customItemRendererFunction">
+                <s:layout>
+                    <s:HorizontalLayout gap="1" />
+                </s:layout>
+                <s:dataProvider>
+                    <s:ArrayCollection>
+                        <s:Button label="Button 1" />
+                        <s:String>primitive data string</s:String>
+                        <s:Button label="Button 2" />
+                    </s:ArrayCollection>
+                </s:dataProvider>
+            </s:DataGroup>
+        </s:VGroup>
     </s:Panel>
-</FxApplication>
+
+</s:Application>
