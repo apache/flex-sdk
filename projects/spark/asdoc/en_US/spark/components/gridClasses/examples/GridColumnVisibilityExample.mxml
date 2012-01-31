@@ -37,7 +37,7 @@ Changing a column's visibility does not change its presence or position in the c
         ]]>
     </fx:Script>
     
-    <s:Panel title="Spark DataGrid Control Example which demomontrates the GridColumn visible property and dynamically adding and removing columns"
+    <s:Panel title="Spark DataGrid Control Example which demonstrates the GridColumn visible property and dynamically adding and removing columns"
              width="75%" height="75%" 
              horizontalCenter="0" verticalCenter="0">
         
@@ -51,7 +51,7 @@ Changing a column's visibility does not change its presence or position in the c
             </s:HGroup>
         </s:controlBarContent>
         
-        <s:DataGrid id="dataGrid" left="10" right="10">
+        <s:DataGrid id="dataGrid" left="5" right="5" top="5" bottom="5">
             <s:columns>
                 <s:ArrayList>
                     <s:GridColumn dataField="key" headerText="Key"/>
