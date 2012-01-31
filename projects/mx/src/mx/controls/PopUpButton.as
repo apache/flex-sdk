@@ -770,7 +770,7 @@ public class PopUpButton extends Button
         else
         {
             showingPopUp = show;
-            
+
             if (_popUp.parent == null)
                 return;
 
