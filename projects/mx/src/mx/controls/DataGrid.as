@@ -1982,7 +1982,7 @@ package mx.controls
                         if (DisplayObject(item).parent == null)
                             listContent.addChild(DisplayObject(item));
                         setupRendererFromData(c, item, data);
-                        ch = Math.max(ch, variableRowHeight ? item.getExplicitOrMeasuredHeight() + paddingBottom + paddingTop : rowHeight);
+                        ch = Math.ceil(Math.max(ch, variableRowHeight ? item.getExplicitOrMeasuredHeight() + paddingBottom + paddingTop : rowHeight));
                     }
                 }
                 
