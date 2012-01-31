@@ -110,7 +110,7 @@ public class SetAction extends Effect
     /** 
      *  The new value for the property.
      *  When run within a transition and value is not specified, Flex determines 
-     *  the value based on that set by the new state.
+     *  the value based on that set by the new view state.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
