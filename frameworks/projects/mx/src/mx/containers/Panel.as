@@ -45,9 +45,8 @@ import mx.core.UITextFormat;
 import mx.core.mx_internal;
 import mx.effects.EffectManager;
 import mx.events.CloseEvent;
-import mx.events.MarshalMouseEvent;
+import mx.events.SandboxRootMouseEvent;
 import mx.managers.ISystemManager;
-import mx.managers.ISystemManager2;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProxy;
@@ -1772,17 +1771,18 @@ public class Panel extends Container
         regX = event.stageX - x;
         regY = event.stageY - y;
 
-        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
+        var sbRoot:DisplayObject = systemManager.getSandboxRoot();
+        sbRoot.addEventListener(
             MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler, true);
 
-        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
+        sbRoot.addEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
 
-        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
-            MarshalMouseEvent.MOUSE_UP, stage_mouseLeaveHandler);
+        sbRoot.addEventListener(
+            SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, stage_mouseLeaveHandler);
 
         // add the mouse shield so we can drag over untrusted applications.
-        ISystemManager2(systemManager).deployMouseShields(true);
+        systemManager.deployMouseShields(true);
     }
 
     /**
@@ -1791,19 +1791,20 @@ public class Panel extends Container
      */
     protected function stopDragging():void
     {
-        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
+        var sbRoot:DisplayObject = systemManager.getSandboxRoot();
+        sbRoot.removeEventListener(
             MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler, true);
 
-        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
+        sbRoot.removeEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
 
-        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
-            MarshalMouseEvent.MOUSE_UP, stage_mouseLeaveHandler);
+        sbRoot.removeEventListener(
+            SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, stage_mouseLeaveHandler);
 
         regX = NaN;
         regY = NaN;
 
-        ISystemManager2(systemManager).deployMouseShields(false);
+        systemManager.deployMouseShields(false);
     }
 
     /**
