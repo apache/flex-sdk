@@ -2722,6 +2722,9 @@ public class RichEditableText extends UIComponent
         {
             for each (p in names)
             {
+                if (!(p in description))
+                    continue;
+                    
                 category = description[p].category;
 
                 if (category == Category.CONTAINER)
@@ -2751,6 +2754,9 @@ public class RichEditableText extends UIComponent
         // Extract the requested formats to return.
         for each (p in names)
         {
+            if (!(p in description))
+                continue;
+                
             category = description[p].category;
             
             if (category == Category.CONTAINER && containerFormat)
@@ -2802,6 +2808,9 @@ public class RichEditableText extends UIComponent
         
         for (var p:String in attributes)
         {
+            if (!(p in description))
+                continue;
+                
             var category:String = description[p].category;
             
             if (category == Category.CONTAINER)
