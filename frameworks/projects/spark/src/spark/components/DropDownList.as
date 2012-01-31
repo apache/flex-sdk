@@ -144,6 +144,8 @@ import spark.utils.LabelUtil;
  *
  *  @see spark.skins.default.DropDownListSkin
  *  @see spark.components.supportClasses.DropDownController
+ *
+ *  @includeExample examples/DropDownListExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
