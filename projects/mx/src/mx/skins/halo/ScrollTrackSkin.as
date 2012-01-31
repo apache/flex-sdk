@@ -20,6 +20,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  The skin for the track in a ScrollBar.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ScrollTrackSkin extends Border
 {
@@ -33,6 +38,11 @@ public class ScrollTrackSkin extends Border
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ScrollTrackSkin()
 	{
