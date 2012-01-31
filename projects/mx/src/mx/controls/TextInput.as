@@ -245,7 +245,7 @@ include "../styles/metadata/TextStyles.as"
  *    paddingRight="0"
  *    shadowDirection="center"
  *    shadowDistance="2"
- *    textAlign="lift|right|center"
+ *    textAlign="left|right|center"
  *    textDecoration="none|underline"
  *    textIndent="0"
  *    &nbsp;
