@@ -432,12 +432,6 @@ public class AMFChannel extends NetConnectionChannel
                      *
                      * In any case, at this point we need to indicate to the channel that
                      * it is disconnected which may trigger failover/hunting.
-                     *  
-                     *  @langversion 3.0
-                     *  @playerversion Flash 9
-                     *  @playerversion AIR 1.1
-                     *  @productversion BlazeDS 4
-                     *  @productversion LCDS 3 
                      */
                     internalDisconnect();
                 }
