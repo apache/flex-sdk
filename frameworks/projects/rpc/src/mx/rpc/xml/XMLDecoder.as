@@ -1018,6 +1018,10 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
         var maxOccurs:uint = getMaxOccurs(definition);
         var minOccurs:uint = getMinOccurs(definition);
 
+        // If the maximum occurence is 0 this element must not be present.
+        if (maxOccurs == 0)
+            return true;
+
         // <element ref="..."> may be used to point to a top-level element definition
         var ref:QName;
         if (definition.attribute("ref").length() == 1)
@@ -1027,10 +1031,6 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
             if (definition == null)
                 throw new Error("Cannot resolve element definition for ref '" + ref + "'");
         }
-
-        // If the maximum occurence is 0 this element must not be present.
-        if (maxOccurs == 0)
-            return true;
 
         var elementName:String = definition.@name.toString();
         var elementQName:QName = schemaManager.getQNameForElement(elementName, getAttributeFromNode("form", definition));
@@ -1046,6 +1046,11 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
         {
             setValue(parent, elementQName, null);
             context.index++;
+
+            // If we found our element by reference, we now release the schema scope
+            if (ref != null)
+                schemaManager.releaseScope();
+
             return true;
         }
 
@@ -1087,6 +1092,10 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
         // a value was not provided.
         if (applicableValues.length() == 0)
         {
+            // If we found our element by reference, we now release the schema scope
+            if (ref != null)
+                schemaManager.releaseScope();
+
             if (minOccurs == 0)
             	return true;
             else
@@ -1110,6 +1119,10 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
             // Array of values
             if (applicableValues.length() < minOccurs)
             {
+                // If we found our element by reference, we now release the schema scope
+                if (ref != null)
+                    schemaManager.releaseScope();
+
                 if (strictOccurenceBounds)
                     throw new Error("Value supplied for element '" + elementQName +
                         "' occurs " + applicableValues.length() + " times which falls short of minOccurs " +
@@ -1120,6 +1133,10 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
 
             if (applicableValues.length() > maxOccurs)
             {
+                // If we found our element by reference, we now release the schema scope
+                if (ref != null)
+                    schemaManager.releaseScope();
+
                 if (strictOccurenceBounds)
                     throw new Error("Value supplied for element of type '" + elementQName +
                         "' occurs " + applicableValues.length() + " times which exceeds maxOccurs " +
