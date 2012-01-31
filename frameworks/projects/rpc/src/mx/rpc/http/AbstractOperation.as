@@ -198,7 +198,7 @@ public class AbstractOperation extends mx.rpc.AbstractOperation
     /**
      *  @private
      */
-    private var _resultFormat:String = null;
+    private var _resultFormat:String = RESULT_FORMAT_OBJECT;
 
     [Inspectable(enumeration="object,array,xml,flashvars,text,e4x", category="General")]
     /**
