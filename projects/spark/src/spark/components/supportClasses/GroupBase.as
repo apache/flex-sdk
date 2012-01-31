@@ -384,7 +384,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     [Bindable]
     
     /**
-     *  @copy mx.core.IViewport#verticalScrollPosition
+     *  @inheritDoc
      */
     public function get verticalScrollPosition():Number 
     {
@@ -405,7 +405,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     //----------------------------------
 
     /**
-     *  @copy mx.core.IViewport#horizontalScrollPositionDelta
+     *  @inheritDoc
      */
     public function horizontalScrollPositionDelta(unit:uint):Number
     {
@@ -413,7 +413,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
     
     /**
-     *  @copy mx.core.IViewport#verticalScrollPositionDelta()
+     *  @inheritDoc
      */
     public function verticalScrollPositionDelta(unit:uint):Number
     {
@@ -743,9 +743,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
     
     /**
-     *  Adds a mask to a particular GraphicElement.  
-     *  This is needed because the 
-     *  Group is managing the GraphicElement's DisplayObject.
+     *  @inheritDoc
      */
     public function addMaskElement(mask:DisplayObject, target:IGraphicElement):void
     {
@@ -753,8 +751,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
     
     /**
-     *  Removes a mask to a particular GraphicElement.  This is needed because the 
-     *  Group is managing the GraphicElement's DisplayObject.
+     *  @inheritDoc
      */
     public function removeMaskElement(mask:DisplayObject, target:IGraphicElement):void
     {
