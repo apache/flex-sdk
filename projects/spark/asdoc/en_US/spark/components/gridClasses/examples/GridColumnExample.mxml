@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+A simple example of a DataGrid with explicitly specified columns.
+
+The DataGrid's columns are specified by an ArrayList (an IList) and can always be accessed as such.  
+For example dataGrid.columns.length returns the total number of columns and 
+dataGrid.columns.getItemAt(index) returns the GridColumn at the specified index.  The columns list 
+is mutable, which means that GridColumns can be added or removed at any time.
+
+Column widths do not depend on the column's headerText, they're based on the rendered widths of 
+the DataGrid's typicalItem. If that's not specified, then the first data item is used.  That's the 
+case here.  Each column can specify an explicit width and by default all GridColumns are 
+resizable="true", which means that the column can be interactively resized by dragging the edges 
+between columns.  Interactively resizing column widths changes the DataGrid's measuredWidth which 
+can be a little disconcerting if the DataGrid's width is not constrained.  In this example we've 
+constrained the DataGrid's left and right edges which prevents changes in the DataGrid's 
+measuredWidth from affecting its actual width.
+
+-->
+
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <s:DataGrid id="dataGrid" left="10" right="10">
+        <s:columns>
+            <s:ArrayList>
+                <s:GridColumn dataField="key" headerText="Key"/>
+                <s:GridColumn dataField="name" headerText="Name"/>
+                <s:GridColumn dataField="price" headerText="Price"/>
+                <s:GridColumn dataField="call" headerText="Call"/>
+            </s:ArrayList>
+        </s:columns>
+        
+        <s:ArrayCollection>
+            <s:DataItem key="1000" name="Abrasive" price="100.11" call="false"/>
+            <s:DataItem key="1001" name="Brush" price="110.01" call="true"/>
+            <s:DataItem key="1002" name="Clamp" price="120.02" call="false"/>
+            <s:DataItem key="1003" name="Drill" price="130.03" call="true"/>
+            <s:DataItem key="1004" name="Epoxy" price="140.04" call="false"/>
+            <s:DataItem key="1005" name="File" price="150.05" call="true"/>
+            <s:DataItem key="1006" name="Gouge" price="160.06" call="false"/>
+            <s:DataItem key="1007" name="Hook" price="170.07" call="true"/>
+            <s:DataItem key="1008" name="Ink" price="180.08" call="false"/>
+            <s:DataItem key="1009" name="Jack" price="190.09" call="true"/>             
+        </s:ArrayCollection>
+    </s:DataGrid>    
+    
+</s:Application>    
