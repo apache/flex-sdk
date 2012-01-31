@@ -462,7 +462,7 @@ public class SkinnableTextBase extends SkinnableComponent
 	//----------------------------------
     //  baselinePosition
     //----------------------------------
-
+    
     /**
      *  @private
      */
