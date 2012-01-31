@@ -15,6 +15,9 @@ package mx.controls
 import mx.core.FlexVersion;
 import mx.core.IToggleButton;
 import mx.core.mx_internal;
+import mx.core.UITextField;
+import flash.text.TextLineMetrics;
+import flash.utils.getQualifiedClassName;
 
 use namespace mx_internal;
 
@@ -210,7 +213,19 @@ public class CheckBox extends Button implements IToggleButton
     {
         super.measure();
 
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
+        if (!label &&
+            FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0 &&
+            getQualifiedClassName(currentIcon).indexOf(".spark") >= 0)
+        {
+            // Adjust the height to account for text height, even when there
+            // is no label. super.measure() handles non-null label case, so we just
+            // handle null label case here
+            var lineMetrics:TextLineMetrics = measureText(label);
+            var textH:Number = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            textH += getStyle("paddingTop") + getStyle("paddingBottom");
+            measuredMinHeight = measuredHeight = Math.max(textH, measuredMinHeight);
+        }
+        else if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
         {
             var textHeight:Number = measureText(label).height;
             var iconHeight:Number = currentIcon ? currentIcon.height : 0;
