@@ -3067,6 +3067,7 @@ package spark.components
             const location:int = event.location;
             var itemsLength:int;
 
+            // this should stay in sync with updateCaretForColumnsChange
             switch (event.kind)
             {
                 case CollectionEventKind.ADD:
@@ -3111,6 +3112,59 @@ package spark.components
         
         /**
          *  @private
+         *  Update caretColumnIndex if necessary.  This method should only be 
+         *  called when caretColumnIndex is valid, i.e. != -1.
+         */
+        private function updateCaretForColumnsChange(event:CollectionEvent):void
+        {
+            const oldCaretColumnIndex:int = caretColumnIndex;
+            const location:int = event.location;
+            var itemsLength:int;
+            
+            // this should stay in sync with updateCaretForDataProviderChange
+            
+            switch (event.kind)
+            {
+                case CollectionEventKind.ADD:
+                    if (oldCaretColumnIndex >= location)
+                        caretColumnIndex += event.items.length;
+                    break;
+                
+                case CollectionEventKind.REMOVE:
+                    if (oldCaretColumnIndex >= location)
+                    {
+                        itemsLength = event.items.length;
+                        if (oldCaretColumnIndex < (location + itemsLength))
+                            caretColumnIndex = -1;
+                        else
+                            caretColumnIndex -= itemsLength;    
+                    }                   
+                    break;
+                
+                case CollectionEventKind.MOVE:
+                    const oldLocation:int = event.oldLocation;
+                    itemsLength = event.items.length;
+                    if ((oldCaretColumnIndex >= oldLocation) && (oldCaretColumnIndex < (oldLocation + itemsLength)))
+                        caretColumnIndex += location - oldLocation;
+                    break;                        
+                
+                case CollectionEventKind.REPLACE:
+                case CollectionEventKind.UPDATE:
+                    break;
+                
+                case CollectionEventKind.REFRESH:
+                case CollectionEventKind.RESET:
+                    caretRowIndex = -1;
+                    caretColumnIndex = -1;
+                    horizontalScrollPosition = 0;
+                    verticalScrollPosition = 0;
+                    break;
+            }            
+        }
+
+
+        /**
+         *  @private
          *  Update hoverRowIndex if necessary.  This method should only be called when 
          *  hoverRowIndex is valid, i.e. != -1.
          */
@@ -3129,16 +3183,39 @@ package spark.components
                     if (oldHoverRowIndex >= location)
                         hoverRowIndex = gridDimensions.getRowIndexAt(mouseX, mouseY);
                     break;
-                
-                
+                               
                 case CollectionEventKind.REFRESH:
                 case CollectionEventKind.RESET:
                     hoverRowIndex = gridDimensions.getRowIndexAt(mouseX, mouseY);
                     break;
-            }
-                        
+            }                        
         }
         
+        /**
+         *  @private
+         *  Update hoverColumnIndex if necessary.  This method should only be called when 
+         *  hoverColumnIndex is valid, i.e. != -1.
+         */
+        private function updateHoverForColumnsChange(event:CollectionEvent):void
+        {
+            switch (event.kind)
+            {
+                case CollectionEventKind.ADD:
+                case CollectionEventKind.REMOVE:
+                case CollectionEventKind.REPLACE:
+                case CollectionEventKind.UPDATE:
+                case CollectionEventKind.MOVE:
+                    if (hoverColumnIndex >= event.location)
+                        hoverColumnIndex = gridDimensions.getColumnIndexAt(mouseX, mouseY);
+                    break;
+                                
+                case CollectionEventKind.REFRESH:
+                case CollectionEventKind.RESET:
+                    hoverColumnIndex = gridDimensions.getColumnIndexAt(mouseX, mouseY);
+                    break;
+            }                        
+        }
+
         /**
          *  @private
          */
@@ -3174,19 +3251,20 @@ package spark.components
             // TBD - need to double-check all of these and perhaps move it elsewhere
             
             var column:GridColumn;
-            var index:int = event.location;
+            var columnIndex:int = event.location;
+            var i:int;
             
             switch (event.kind)
             {
                 case CollectionEventKind.ADD: 
                 {
                     // Note: multiple columns may be added.
-                    while (index < columns.length)
+                    while (columnIndex < columns.length)
                     {
-                        column = GridColumn(columns.getItemAt(index));
+                        column = GridColumn(columns.getItemAt(columnIndex));
                         column.setGrid(this);
-                        column.setColumnIndex(index);
-                        index++;
+                        column.setColumnIndex(columnIndex);
+                        columnIndex++;
                     }                  
                     break;
                 }
@@ -3195,32 +3273,50 @@ package spark.components
                 {
                     // All columns between the old and new locations need to 
                     // have their index updated.
-                    index = Math.min(event.oldLocation, event.location);
+                    columnIndex = Math.min(event.oldLocation, event.location);
                     var maxIndex:int = Math.max(event.oldLocation, event.location);
-                    while (index <= maxIndex)
+                    while (columnIndex <= maxIndex)
                     {
-                        column = GridColumn(columns.getItemAt(index));
-                        column.setColumnIndex(index);
-                        index++;
+                        column = GridColumn(columns.getItemAt(columnIndex));
+                        column.setColumnIndex(columnIndex);
+                        columnIndex++;
                     }                
                     break;
                 }
                     
                 case CollectionEventKind.REPLACE:
+                {
+                    var items:Array = event.items;                   
+                    var length:int = items.length;
+                    for (i = 0; i < length; i++)
+                    {
+                        if (items[i].oldValue is GridColumn)
+                        {
+                            column = GridColumn(items[i].oldValue);
+                            column.setGrid(null);
+                            column.setColumnIndex(-1);
+                        }
+                        if (items[i].newValue is GridColumn)
+                        {
+                            column = GridColumn(items[i].newValue);
+                            column.setGrid(this);
+                            column.setColumnIndex(columnIndex);
+                        }
+                    }
+                    break;
+                }
+                    
                 case CollectionEventKind.UPDATE:
                 {
-                    column = GridColumn(columns.getItemAt(index));
-                    column.setGrid(this);
-                    column.setColumnIndex(index);
                     break;
                 }
                     
                 case CollectionEventKind.REFRESH:
                 {
-                    for (index = 0; index < columns.length; index++)
+                    for (columnIndex = 0; columnIndex < columns.length; columnIndex++)
                     {
-                        column = GridColumn(columns.getItemAt(index));
-                        column.setColumnIndex(index);
+                        column = GridColumn(columns.getItemAt(columnIndex));
+                        column.setColumnIndex(columnIndex);
                     }                
                     break;
                 }
@@ -3230,7 +3326,7 @@ package spark.components
                     // Note: multiple columns may be removed.
                     var count:int = event.items.length;
                     
-                    for (var i:int = 0; i < count; i++)
+                    for (i = 0; i < count; i++)
                     {
                         column = GridColumn(event.items[i]);
                         column.setGrid(null);
@@ -3238,11 +3334,11 @@ package spark.components
                     }
                     
                     // Renumber the columns which follow the removed columns.
-                    while (index < columns.length)
+                    while (columnIndex < columns.length)
                     {
-                        column = GridColumn(columns.getItemAt(index));
-                        column.setColumnIndex(index);
-                        index++;
+                        column = GridColumn(columns.getItemAt(columnIndex));
+                        column.setColumnIndex(columnIndex);
+                        columnIndex++;
                     }                  
                     
                     break;
@@ -3250,11 +3346,11 @@ package spark.components
                     
                 case CollectionEventKind.RESET:
                 {
-                    for (index = 0; index < columns.length; index++)
+                    for (columnIndex = 0; columnIndex < columns.length; columnIndex++)
                     {
-                        column = GridColumn(columns.getItemAt(index));
+                        column = GridColumn(columns.getItemAt(columnIndex));
                         column.setGrid(this);
-                        column.setColumnIndex(index);
+                        column.setColumnIndex(columnIndex);
                     }                     
                     break;
                 }                                
@@ -3265,8 +3361,12 @@ package spark.components
             if (gridSelection)
                 gridSelection.columnsCollectionChanged(event);
             
-            // TBD: hover and caretIndex
+            if (caretColumnIndex != -1)
+                updateCaretForColumnsChange(event);                
             
+            if (gridDimensions && hoverColumnIndex != -1)
+                updateHoverForColumnsChange(event);	
+
             invalidateSize();
             invalidateDisplayList();        
         } 
