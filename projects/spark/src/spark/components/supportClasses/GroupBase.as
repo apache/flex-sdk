@@ -570,170 +570,20 @@ public class GroupBase extends UIComponent implements IViewport
         var value:uint = resizeModeToUINT(stringValue); 
         if (_resizeMode == value)
             return;
-            
+
+        // If old value was scale, reset it            
+        if (_resizeMode == _SCALE_UINT)
+            setStretchXY(1, 1);
+
         _resizeMode = value;
         
-        if (_resizeMode == _SCALE_UINT)
-        {
-            super.scaleX = 1; 
-            super.scaleY = 1;
-        }
-
         // We need the measured values and _resizeMode affects
         // our measure (skipMeasure implementation checks resizeMode) so
         // we need to invalidate the size.
         invalidateSize();
-
-        // TODO EGeorgie: can we directly call setActualSize instead?
-        invalidateParentSizeAndDisplayList();
-    }
-
-    override protected function nonDeltaLayoutMatrix():Matrix
-    {
-        if(hasDeltaIdentityTransform)
-        	return null; 
-
-        if (resizeMode == ResizeMode.SCALE)
-        {
-            // Lose scale and skew:
-            return MatrixUtil.composeMatrix(x, y, 1, 1, rotation,
-                        transformX, transformY);
-        } 
         
-        return super.nonDeltaLayoutMatrix();
-
-    }
-    
-    /**
-     *  @private
-     */
-    override public function setActualSize(w:Number, h:Number):void
-    {
-        if (_resizeMode == _SCALE_UINT)
-        {
-            // TODO EGeorgie: make sure we don't invalidate again while
-            // setting the scale!
-            if (measuredWidth != 0)
-            {
-                $scaleX = w / measuredWidth;
-                w = measuredWidth;
-            }
-            if (measuredHeight != 0)
-            {
-                $scaleY = h / measuredHeight;
-                h = measuredHeight;
-            }
-        }
-
-        super.setActualSize(w, h);
-    }
-    
-    /**
-     *  The scaling factor of the container in the X direction. 
-     * 
-     *  <p>If <code>resizeMode</code> is set to <code>ResizeMode.SCALE</code>, 
-     *  reading this property always returns 1.0, and setting it does nothing.</p>
-     *
-     *  <p>If <code>resizeMode</code> is set to anything other than <code>ResizeMode.SCALE</code>, 
-     *  reading this property returns the current scaling factor.</p>
-     *
-     *  @copy mx.core.UIComponent#scaleX
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */    
-    override public function get scaleX():Number
-    {
-        if (_resizeMode == _SCALE_UINT)
-            return 1;
-
-        return super.scaleX;
-    }
-
-    /**
-     *  @private
-     */    
-    override public function set scaleX(value:Number):void
-    {
-        if (_resizeMode == _SCALE_UINT)
-            return;
-
-        super.scaleX = value;
-    }
-    
-    /**
-     *  The scaling factor of the container in the Y direction. 
-     * 
-     *  <p>If <code>resizeMode</code> is set to <code>ResizeMode.SCALE</code>, 
-     *  reading this property always returns 1.0, and setting it does nothing.</p>
-     *
-     *  <p>If <code>resizeMode</code> is set to anything other than <code>ResizeMode.SCALE</code>, 
-     *  reading this property returns the current scaling factor.</p>
-     *
-     *  @copy mx.core.UIComponent#scaleY
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */    
-    override public function get scaleY():Number
-    {
-        if (_resizeMode == _SCALE_UINT)
-            return 1;
-
-        return super.scaleY;
-    }
-
-    /**
-     *  @private 
-     */    
-    override public function set scaleY(value:Number):void
-    {
-        if (_resizeMode == _SCALE_UINT)
-            return;
-
-        super.scaleY = value;
-    }
-
-    [Bindable("widthChanged")]
-    [Inspectable(category="General")]
-    [PercentProxy("percentWidth")]
-    /**
-     *  The width of the container, in pixels. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */    
-    override public function get width():Number
-    {
-        if (_resizeMode == _SCALE_UINT)
-            return super.width * $scaleX;
-
-        return super.width;
-    }
-    
-    [Bindable("heightChanged")]
-    [Inspectable(category="General")]
-    [PercentProxy("percentHeight")]
-    /**
-     *  The height of the container, in pixels. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */    
-    override public function get height():Number
-    {
-        if (_resizeMode == _SCALE_UINT)
-            return super.height * $scaleY;
-
-        return super.height;
+        // Invalidate the display list so that our validateMatrix() gets called.
+        invalidateDisplayList();
     }
     
     /**
@@ -820,6 +670,9 @@ public class GroupBase extends UIComponent implements IViewport
     {
         if (_layout && layoutInvalidateSizeFlag)
         {
+            var oldMeasuredWidth:Number = measuredWidth;
+            var oldMeasuredHeight:Number = measuredHeight;
+            
             super.measure();
         
             layoutInvalidateSizeFlag = false;
@@ -832,7 +685,33 @@ public class GroupBase extends UIComponent implements IViewport
                 measuredMinWidth = 0;
                 measuredMinHeight = 0;
             }
+
+            // Make sure that we invalidate the display list if the measured
+            // size changes, as we always size our content at the measured size when in scale mode.
+            if (_resizeMode == _SCALE_UINT && (measuredWidth != oldMeasuredWidth || measuredHeight != oldMeasuredHeight))
+                invalidateDisplayList();
         }
+    }
+
+    /**
+     *  @private
+     */
+    override protected function validateMatrix():void
+    {
+        // Update the stretchXY before the matrix gets validates
+        if (_resizeMode == _SCALE_UINT)
+        {
+            var stretchX:Number = 1;
+            var stretchY:Number = 1;            
+
+            if (measuredWidth != 0)
+                stretchX = width / measuredWidth;
+            if (measuredHeight != 0)
+                stretchY = height / measuredHeight;
+
+            setStretchXY(stretchX, stretchY);
+        }
+        super.validateMatrix();
     }
 
     /**
@@ -844,8 +723,8 @@ public class GroupBase extends UIComponent implements IViewport
         {
             unscaledWidth = measuredWidth;
             unscaledHeight = measuredHeight;
-        }  
-        
+        }
+
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
 		if (maskChanged)
