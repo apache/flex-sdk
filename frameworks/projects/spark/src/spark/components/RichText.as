@@ -535,7 +535,7 @@ public class RichText extends TextGraphicElement
 		var moduleFactory:IFlexModuleFactory;
 		
 		var fontLookup:String = getStyle("fontLookup");
-		if (fontLookup == "auto")
+		if (fontLookup != FontLookup.DEVICE)
         {
 			var font:String = getStyle("fontFamily");
 			var bold:Boolean = getStyle("fontWeight") == "bold";
@@ -566,11 +566,12 @@ public class RichText extends TextGraphicElement
                     moduleFactory = sm;
             }
         }
-        else
+
+        if (!moduleFactory && fontLookup == FontLookup.EMBEDDED_CFF)
         {
-            moduleFactory = fontLookup == FontLookup.EMBEDDED_CFF ?
-                			fontContext :
-            				null;
+            // if we couldn't find the font and somebody insists it is
+            // embedded, try the default fontContext
+            moduleFactory = fontContext;
         }
         
         return moduleFactory;
