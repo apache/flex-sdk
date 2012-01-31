@@ -262,11 +262,8 @@ public class Scale extends AnimateTransform
         var xProp:String = applyChangesPostLayout ? "postLayoutScaleX" : "scaleX";
         var yProp:String = applyChangesPostLayout ? "postLayoutScaleY" : "scaleY";
         
-        if (!(isNaN(scaleXFrom) && isNaN(scaleXTo) && isNaN(scaleXBy)))
-            addMotionPath(xProp, scaleXFrom, scaleXTo, scaleXBy);
-        
-        if (!(isNaN(scaleYFrom) && isNaN(scaleYTo) && isNaN(scaleYBy)))
-            addMotionPath(yProp, scaleYFrom, scaleYTo, scaleYBy);
+        addMotionPath(xProp, scaleXFrom, scaleXTo, scaleXBy);
+        addMotionPath(yProp, scaleYFrom, scaleYTo, scaleYBy);
         
         super.initInstance(instance);
     }    
