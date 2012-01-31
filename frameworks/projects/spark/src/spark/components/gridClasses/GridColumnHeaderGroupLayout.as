@@ -11,17 +11,16 @@
 
 package spark.components.supportClasses
 {
-import flash.geom.Rectangle;
-
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 
 import spark.components.DataGroup;
-import spark.components.supportClasses.GridColumn;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
+
+[ExcludeClass]
 
 public class ColumnHeaderBarLayout extends LayoutBase
 {
