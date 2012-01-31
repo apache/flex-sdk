@@ -209,7 +209,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  you can also create a custom skin for the container that 
  *  includes the Scroller component. </p>
  * 
- *  <p>The IViewport interface define a viewport for the components that implement it.
+ *  <p>The IViewport interface defines a viewport for the components that implement it.
  *  A viewport is a rectangular subset of the area of a container that you want to display, 
  *  rather than displaying the entire container.
  *  The scroll bars control the viewport's <code>horizontalScrollPosition</code> and
@@ -452,7 +452,7 @@ public class Scroller extends SkinnableComponent
      *  set to true to enable scrolling.
      * 
      *  The Scroller does not support rotating the viewport directly.  The viewport's
-     *  contents can be transformed arbitrarily, but the viewport itself can not.
+     *  contents can be transformed arbitrarily, but the viewport itself cannot.
      * </p>
      * 
      *  This property is Bindable.
