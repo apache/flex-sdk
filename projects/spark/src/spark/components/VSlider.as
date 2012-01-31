@@ -17,8 +17,8 @@ import flash.geom.Point;
 
 import mx.components.baseClasses.FxSlider;
 import mx.core.UIComponent;
-import mx.layout.ILayoutItem;
-import mx.layout.LayoutItemFactory;
+import mx.layout.ILayoutElement;
+import mx.layout.LayoutElementFactory;
 
 [IconFile("FxVSlider.png")]
 
@@ -58,9 +58,9 @@ public class FxVSlider extends FxSlider
         {
         if (track)
         {
-            var trackLItem:ILayoutItem = 
-                LayoutItemFactory.getLayoutItemFor(track);
-            return trackLItem.actualSize.y;
+            var trackLElement:ILayoutElement = 
+                LayoutElementFactory.getLayoutElementFor(track);
+            return trackLElement.getLayoutHeight();
         }
         else
            return 0;
@@ -71,9 +71,9 @@ public class FxVSlider extends FxSlider
      */
     override protected function calculateThumbSize():Number
     {
-        var thumbLItem:ILayoutItem = 
-            LayoutItemFactory.getLayoutItemFor(thumb);
-        return thumbLItem.actualSize.y;
+        var thumbLElement:ILayoutElement = 
+            LayoutElementFactory.getLayoutElementFor(thumb);
+        return thumbLElement.getLayoutHeight();
     }
 
     //--------------------------------------------------------------------------
@@ -94,24 +94,24 @@ public class FxVSlider extends FxSlider
     {
         if (thumb)
         {
-            var thumbLItem:ILayoutItem = 
-                LayoutItemFactory.getLayoutItemFor(thumb);
+            var thumbLElement:ILayoutElement = 
+                LayoutElementFactory.getLayoutElementFor(thumb);
 
             var trackPos:Number = 0;
             var trackLen:Number = 0;
             
             if (track)
             {
-                var trackLItem:ILayoutItem = 
-                    LayoutItemFactory.getLayoutItemFor(track);
+                var trackLElement:ILayoutElement = 
+                    LayoutElementFactory.getLayoutElementFor(track);
                     
-                trackLen = trackLItem.actualSize.y;
-                trackPos = trackLItem.actualPosition.y;
+                trackLen = trackLElement.getLayoutHeight();
+                trackPos = trackLElement.getLayoutPositionY();
             }
             
-            thumbLItem.setActualPosition(thumbLItem.actualPosition.x, 
+            thumbLElement.setLayoutPosition(thumbLElement.getLayoutPositionX(), 
                                          Math.round(trackPos + trackLen - thumbPos
-                                         - thumbLItem.actualSize.y)); 
+                                         - thumbLElement.getLayoutHeight())); 
         }
     }
     
@@ -130,13 +130,13 @@ public class FxVSlider extends FxSlider
     override protected function pointToPosition(localX:Number, 
                                                 localY:Number):Number
     {
-        var trackLItem:ILayoutItem = 
-            LayoutItemFactory.getLayoutItemFor(track);
-        var trackLen:Number = trackLItem.actualSize.y;
+        var trackLElement:ILayoutElement = 
+            LayoutElementFactory.getLayoutElementFor(track);
+        var trackLen:Number = trackLElement.getLayoutHeight();
         
-        var thumbLItem:ILayoutItem = 
-            LayoutItemFactory.getLayoutItemFor(thumb);
-        var thumbH:Number = thumbLItem.actualSize.y;
+        var thumbLElement:ILayoutElement = 
+            LayoutElementFactory.getLayoutElementFor(thumb);
+        var thumbH:Number = thumbLElement.getLayoutHeight();
     
         return trackLen - localY - thumbH; 
     }
@@ -147,9 +147,9 @@ public class FxVSlider extends FxSlider
     override protected function pointClickToPosition(localX:Number,
                                                      localY:Number):Number
     {
-        var thumbLItem:ILayoutItem = 
-            LayoutItemFactory.getLayoutItemFor(thumb);
-        var thumbH:Number = thumbLItem.actualSize.y; 
+        var thumbLElement:ILayoutElement = 
+            LayoutElementFactory.getLayoutElementFor(thumb);
+        var thumbH:Number = thumbLElement.getLayoutHeight(); 
         
         return pointToPosition(localX, localY) + (thumbH / 2);
     }
@@ -168,7 +168,7 @@ public class FxVSlider extends FxSlider
 	        var r:Point = localToGlobal(o);        
 			r = tipAsDisplayObject.parent.globalToLocal(r);
 			
-			// TODO (jszeto) Change to use ILayoutItem.setActualPosition?
+			// TODO (jszeto) Change to use ILayoutElement.setLayoutPosition?
         	tipAsDisplayObject.x = Math.floor(r.x < 0 ? 0 : r.x);
         	tipAsDisplayObject.y = Math.floor(r.y < 0 ? 0 : r.y);
     	}
