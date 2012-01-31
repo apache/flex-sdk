@@ -294,6 +294,10 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      *  Placeholder for mixin by ButtonAccImpl.
      */
     mx_internal static var createAccessibilityImplementation:Function;
+    
+    // FIXME (rfrishbe): These should be styles
+    private static const DELAY_TO_SHOW_SELECTION_IN_TOUCH_MODE:int = 150;
+    private static const DELAY_TO_REMOVE_SELECTION_IN_TOUCH_MODE:int = 100;
 
     //--------------------------------------------------------------------------
     //
@@ -358,6 +362,22 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      *  Timer for doing auto-repeat.
      */
     private var autoRepeatTimer:Timer;
+    
+    /**
+     *  @private
+     *  Timer for putting the button in the down state on a delay
+     *  timer because of touch input.
+     */
+    private var mouseDownSelectTimer:Timer;
+    
+    /**
+     *  @private
+     *  Timer for putting the button in the up state.  This makes sure 
+     *  even when we have a delay to select an item and someone mouses up
+     *  before that delay, the user still gets some visual feedback that 
+     *  the button was actually selected.
+     */
+    private var mouseUpDeselectTimer:Timer;
     
     //--------------------------------------------------------------------------
     //
@@ -828,14 +848,29 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     {
         if (!enabled)
             return "disabled";
-
+        
         if (isDown())
             return "down";
-            
+        
         if (hovered || mouseCaptured)
             return "over";
-            
+        
         return "up";
+    }
+    
+    /**
+     *  @private
+     */ 
+    override public function styleChanged(styleName:String):void
+    {
+        var allStyles:Boolean = styleName == null || styleName == "styleName";
+        
+        super.styleChanged(styleName);
+        
+        if (allStyles || styleName == "inputMode")
+        {
+            addHandlers();
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -849,12 +884,49 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      */
     protected function addHandlers():void
     {
-        addEventListener(MouseEvent.ROLL_OVER, mouseEventHandler);
-        addEventListener(MouseEvent.ROLL_OUT, mouseEventHandler);
+        addOrRemoveRollOverRollOutHandlers();
         addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler);
         addEventListener(MouseEvent.MOUSE_UP, mouseEventHandler);
         addEventListener(MouseEvent.CLICK, mouseEventHandler);
-        addEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, touchScrollDragStart);
+        addEventListener(TouchScrollEvent.TOUCH_SCROLL_START, touchScrollStartHandler);
+    }
+    
+    /**
+     *  @private
+     *  Keeps track of whether rollover/rollout events were added
+     * 
+     *  We need to be careful about calling add/remove event listener
+     *  in ItemRenderer because of the reference counting going on in 
+     *  GroupBase.  We don't have the same issues here in ButtonBase, but 
+     *  it seems safer and more consistent to follow the same pattern.
+     */
+    private var rolloverEventsAdded:Boolean = false;
+    
+    /**
+     *  @private
+     *  Adds or removes handlers for rollover/rollout depending on 
+     *  if inputMode == mouse or not.
+     */
+    private function addOrRemoveRollOverRollOutHandlers():void
+    {
+        if (getStyle("inputMode") == "mouse")
+        {
+            if (!rolloverEventsAdded)
+            {
+                rolloverEventsAdded = true;
+                addEventListener(MouseEvent.ROLL_OVER, mouseEventHandler);
+                addEventListener(MouseEvent.ROLL_OUT, mouseEventHandler);
+            }
+        }
+        else
+        {
+            if (rolloverEventsAdded)
+            {
+                rolloverEventsAdded = false;
+                removeEventListener(MouseEvent.ROLL_OVER, mouseEventHandler);
+                removeEventListener(MouseEvent.ROLL_OUT, mouseEventHandler);
+            }
+        }
     }
     
     /**
@@ -901,8 +973,13 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         if (keyboardPressed)
             return true;
         
-        if (mouseCaptured && (hovered || stickyHighlighting))
-            return true;
+        if (mouseCaptured)
+        {
+            // if in touch mode, we never go in to the hovered state
+            if (getStyle("inputMode") == "touch" || hovered || stickyHighlighting)
+                return true;
+        }
+
         return false;
     }
 
@@ -936,15 +1013,15 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
             return;
 
         if (needsTimer)
-            startTimer();
+            startAutoRepeatTimer();
         else
-            stopTimer();
+            stopAutoRepeatTimer();
     }
 
     /**
      *  @private
      */
-    private function startTimer():void
+    private function startAutoRepeatTimer():void
     {
         autoRepeatTimer = new Timer(1);
         autoRepeatTimer.delay = getStyle("repeatDelay");
@@ -955,12 +1032,59 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     /**
      *  @private
      */
-    private function stopTimer():void
+    private function stopAutoRepeatTimer():void
     {
         autoRepeatTimer.stop();
         autoRepeatTimer = null;
     }
-
+    
+    /**
+     *  @private
+     *  Starts timer to select the button
+     */
+    private function startSelectButtonAfterDelayTimer():void
+    {
+        mouseDownSelectTimer = new Timer(DELAY_TO_SHOW_SELECTION_IN_TOUCH_MODE, 1);
+        mouseDownSelectTimer.addEventListener(TimerEvent.TIMER_COMPLETE, mouseDownSelectTimer_timerCompleteHandler);
+        mouseDownSelectTimer.start();
+    }
+    
+    /**
+     *  @private
+     */
+    private function stopSelectButtonAfterDelayTimer():void
+    {
+        if (mouseDownSelectTimer)
+        {
+            mouseDownSelectTimer.stop();
+            mouseDownSelectTimer = null;
+        }
+    }
+    
+    /**
+     *  @private
+     *  Starts timer to deselect the button if the mouseup happened too quickly 
+     *  after the mousedown so that no mousedown state was entered in to.
+     */
+    private function startDeselectButtonAfterDelayTimer():void
+    {
+        mouseUpDeselectTimer = new Timer(DELAY_TO_REMOVE_SELECTION_IN_TOUCH_MODE, 1);
+        mouseUpDeselectTimer.addEventListener(TimerEvent.TIMER_COMPLETE, mouseUpDeselectTimer_timerCompleteHandler);
+        mouseUpDeselectTimer.start();
+    }
+    
+    /**
+     *  @private
+     */
+    private function stopDeselectButtonAfterDelayTimer():void
+    {
+        if (mouseUpDeselectTimer)
+        {
+            mouseUpDeselectTimer.stop();
+            mouseUpDeselectTimer = null;
+        }
+    }
+    
     /**
      *  This method is called when handling a <code>MouseEvent.MOUSE_UP</code> event
      *  when the user clicks on the button. It is only called when the button
@@ -1036,17 +1160,18 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     /**
      *  @private
      */
-    protected function touchScrollDragStart(event:TouchScrollEvent):void
+    private function touchScrollStartHandler(event:TouchScrollEvent):void
     {
+        // if we have a timer going on, let's stop it to make sure we don't
+        // select the button later
+        stopSelectButtonAfterDelayTimer();
+        
         // cancel the rollover/clickdown on and go back to a normal state
         hovered = false;
+        mouseCaptured = false;
         
-        if (mouseCaptured)
-        {
-            // FIXME (rfrishbe): do we call buttonReleased if we didn't actually get a mouseUp event?
-            buttonReleased();
-            mouseCaptured = false;
-        }
+        // no need to call buttonReleased() as that's only called for a 
+        // successfull down and up user gesture
     }
     
     /**
@@ -1076,25 +1201,45 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                 if (mouseEvent.buttonDown && !mouseCaptured)
                     return;
                 hovered = true;
-//                event.preventDefault();
                 break;
             }
 
             case MouseEvent.ROLL_OUT:
             {
                 hovered = false;
-//                event.preventDefault();
                 break;
             }
             
             case MouseEvent.MOUSE_DOWN:
             {
+                // since mouseDowns are cancellable, let's check to see 
+                // if anyone's handled it already
+                if (event.isDefaultPrevented())
+                    break;
+
+                // if we were going to unhighlight ourselves, don't do it as we 
+                // are just going to highlight again
+                stopDeselectButtonAfterDelayTimer();
+                
                 // When the button is down we need to listen for mouse events outside the button so that
                 // we update the state appropriately on mouse up.  Whenever mouseCaptured changes to false,
                 // it will take care to remove those handlers.
                 addSystemMouseHandlers();
-                mouseCaptured = true;
-//                event.preventDefault();
+                
+                // if we're in touchMode, let's delay our selection until later
+                // otherwise, when touch scrolling, the button might flicker
+                if (getStyle("inputMode") == "touch")
+                {
+                    startSelectButtonAfterDelayTimer();
+                }
+                else
+                {
+                    mouseCaptured = true;
+                }
+                
+                // We can cancel mouseDown's thanks to re-dispatching the event in SystemManager.
+                // This prevents other people (like ItemRenderers) from handling this mouseDown as well
+                event.preventDefault();
                 break;
             }
 
@@ -1104,13 +1249,30 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                 // was captured before.
                 if (event.target == this)
                 {
-                    hovered = true;
+                    // only set hovered if we are in mouse inputMode
+                    hovered = (getStyle("inputMode") == "mouse");
                     
                     if (mouseCaptured)
                     {
                         buttonReleased();
                         mouseCaptured = false;
-//                        event.preventDefault();
+                    }
+                    
+                    if (mouseDownSelectTimer && mouseDownSelectTimer.running)
+                    {
+                        // We never even flashed the down state for this click operation.
+                        // There are two possibilities for being here:
+                        //    1) mouseCaptured wasn't set to true (meaning this is the first click)
+                        //    2) mouseCaptured was true (meaning a click operation hadn't finished 
+                        //       and we find ourselves in here again--perhaps it was a doublet tap).
+                        // In either case, let's make sure that down state shows up for a little bit
+                        // before going back to the up state.
+                        
+                        // stop the original timer, put it in mouse down state, then start a new 
+                        // timer to undo the mouse down state
+                        stopSelectButtonAfterDelayTimer();
+                        mouseCaptured = true;
+                        startDeselectButtonAfterDelayTimer();
                     }
                 }
                 break;
@@ -1126,7 +1288,6 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                     event.stopImmediatePropagation();
                 else
                     clickHandler(MouseEvent(event));
-//                event.preventDefault();
                 return;
             }
         }
@@ -1182,6 +1343,22 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     private function autoRepeat_timerHandler(event:TimerEvent):void
     {
         dispatchEvent(new FlexEvent(FlexEvent.BUTTON_DOWN));
+    }
+    
+    /**
+     *  @private
+     */
+    private function mouseDownSelectTimer_timerCompleteHandler(event:TimerEvent):void
+    {
+        mouseCaptured = true;
+    }
+    
+    /**
+     *  @private
+     */
+    private function mouseUpDeselectTimer_timerCompleteHandler(event:TimerEvent):void
+    {
+        mouseCaptured = false;
     }
     
     /**
