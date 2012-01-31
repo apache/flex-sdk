@@ -22,6 +22,7 @@ Application
 
 Border
 {
+    borderStyle : "solid"; 
     skinClass: ClassReference("spark.skins.spark.BorderSkin");
 }
 
