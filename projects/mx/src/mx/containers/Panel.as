@@ -488,7 +488,7 @@ public class Panel extends Container
      *  @private
      */
     private var autoSetRoundedCorners:Boolean;
-    
+
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -1781,8 +1781,8 @@ public class Panel extends Container
         ISystemManager2(systemManager).getSandboxRoot().addEventListener(
             MarshalMouseEvent.MOUSE_UP, stage_mouseLeaveHandler);
 
-		// let folks know we've started to drag.
-        dispatchEvent(new Event("startDragging", true));
+        // add the mouse shield so we can drag over untrusted applications.
+        ISystemManager2(systemManager).deployMouseShields(true);
     }
 
     /**
@@ -1802,7 +1802,8 @@ public class Panel extends Container
 
         regX = NaN;
         regY = NaN;
-        dispatchEvent(new Event("stopDragging", true));
+
+        ISystemManager2(systemManager).deployMouseShields(false);
     }
 
     /**
@@ -1890,6 +1891,8 @@ public class Panel extends Container
     		// trace("all the mouse moves were not turned off");
     		return;
     	}
+    	
+    	// trace("systemManager_mouseMoveHandler " + event);
         move(event.stageX - regX, event.stageY - regY);
     }
 
@@ -1898,6 +1901,7 @@ public class Panel extends Container
      */
     private function systemManager_mouseUpHandler(event:MouseEvent):void
     {
+        // trace("systemManager_mouseUpHandler: " + event);
         if (!isNaN(regX))
             stopDragging();
     }
@@ -1907,6 +1911,7 @@ public class Panel extends Container
      */
     private function stage_mouseLeaveHandler(event:Event):void
     {
+        // trace("stage_mouseLeaveHandler: " + event);
         if (!isNaN(regX))
             stopDragging();
     }
