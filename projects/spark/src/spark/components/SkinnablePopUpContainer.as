@@ -30,7 +30,6 @@ import mx.effects.IEffect;
 import mx.effects.Parallel;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
-import mx.events.ResizeEvent;
 import mx.events.SandboxMouseEvent;
 import mx.managers.PopUpManager;
 import mx.managers.SystemManager;
@@ -875,7 +874,10 @@ public class SkinnablePopUpContainer extends SkinnableContainer
                         stage_softKeyboardActivateHandler, true, EventPriority.DEFAULT, true);
                     smStage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE,
                         stage_softKeyboardDeactivateHandler, true, EventPriority.DEFAULT, true);
-                    systemManager.addEventListener(Event.RESIZE, systemManagerResizeHandler);
+                    
+                    // Use lower priority listener to allow subclasses to act 
+                    // on the resize event before the soft keyboard effect does.
+                    systemManager.addEventListener(Event.RESIZE, systemManager_resizeHandler, false, EventPriority.EFFECT);
 
                     updateSoftKeyboardEffect(true);
                 }
@@ -894,7 +896,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
                     stage_softKeyboardActivateHandler, true);
                 smStage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE,
                     stage_softKeyboardDeactivateHandler, true);
-                systemManager.removeEventListener(Event.RESIZE, systemManagerResizeHandler);
+                systemManager.removeEventListener(Event.RESIZE, systemManager_resizeHandler);
             }
 
             // We just finished closing, remove from the PopUpManager.
@@ -1015,10 +1017,6 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     private function stage_orientationChangeHandler(event:Event):void
     {
         softKeyboardEffectOrientationChanging = false;
-        
-        // Update now. We might not see an extra ACTIVATE or DEACTIVATE after
-        // orientation change.
-        updateSoftKeyboardEffect(true);
     }
     
     /**
@@ -1067,7 +1065,12 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             softKeyboardEffectPendingEventTimer.stop();
             softKeyboardEffectPendingEventTimer = null;
 
-            return;
+            // If we caught a mouse down during the timer, we wait for the next
+            // mouseUp event. There is no effect to play. If this isn't a mouse
+            // event and the timer completed, then fall through and play the
+            // pending effect.
+            if (mouseDownDuringTimer)
+                return;
         }
 
         // Sanity check that a pendingEvent still exists and that the pop-up
@@ -1103,6 +1106,9 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         }
         else
         {
+            // Remove resize listeners
+            uninstallActiveResizeListener();
+            
             // If the deactivate effect is complete, uninstall listeners for 
             // mouse delay and orientation change listeners
             uninstallSoftKeyboardStateChangeListeners();
@@ -1124,7 +1130,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      *  Update effect immediately after orientation change is
      *  followed by a system manager resize.
      */
-    private function systemManagerResizeHandler(event:Event):void
+    private function systemManager_resizeHandler(event:Event):void
     {
         // Guard against extraneous resizing during orientation changing.
         // See SDK-31860.
@@ -1151,8 +1157,13 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         if (softKeyboardEffect && softKeyboardEffect.isPlaying)
             softKeyboardEffect.stop();
         
+        // Uninstall resize listeners during the effect. Listeners are 
+        // installed again after the effect is complete or immediately affter
+        // the size and position are snapped.
+        uninstallActiveResizeListener();
+        
         var softKeyboardRect:Rectangle = systemManager.stage.softKeyboardRect;
-        var isKeyboardOpen:Boolean = (softKeyboardRect.height > 0);
+        var isKeyboardOpen:Boolean = isOpen && (softKeyboardRect.height > 0);
         
         // Capture start values if not set
         if (isNaN(softKeyboardEffectCachedYPosition))
@@ -1232,8 +1243,6 @@ public class SkinnablePopUpContainer extends SkinnableContainer
 
         var duration:Number = getStyle("softKeyboardEffectDuration");
         
-        uninstallActiveResizeListener();
-        
         // Only create an effect when not snapping and the duration is
         // non-negative. An effect will not be created by default if there is
         // no change.
@@ -1253,14 +1262,10 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             // No effect, snap. Set position and size explicitly.
             this.y = yToLocal;
 
-            // If the pop-up is closed, remember to clear the explicit height
-            if (!isOpen && !softKeyboardEffectExplicitHeightFlag)
-                this.height = NaN;
-            else
-                this.height = heightToLocal;
-
             if (isOpen)
             {
+                this.height = heightToLocal;
+                
                 // Validate so that other listeners like Scroller get the 
                 // updated dimensions.
                 validateNow();
@@ -1276,8 +1281,13 @@ public class SkinnablePopUpContainer extends SkinnableContainer
                 // Uninstall mouse delay and orientation change listeners
                 uninstallSoftKeyboardStateChangeListeners();
                 
+                // Clear explicit size leftover from Resize
+                softKeyboardEffectResetExplicitSize();
+                
                 // Clear start values
                 softKeyboardEffectCachedYPosition = NaN;
+                setSoftKeyboardEffectExplicitWidthFlag(false);
+                setSoftKeyboardEffectExplicitHeightFlag(false);
                 setSoftKeyboardEffectCachedHeight(NaN);
             }
         }
@@ -1395,6 +1405,29 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             removeEventListener("explicitHeightChanged", resizeHandler);
             resizeListenerInstalled = false;
         }
+    }
+    
+    /**
+     *  @private
+     *  Clear explicit size that remains after a Resize effect.
+     */
+    mx_internal function softKeyboardEffectResetExplicitSize():void
+    {
+        // Only remove and restore listeners if they are currently installed.
+        var installed:Boolean = resizeListenerInstalled;
+        
+        if (installed)
+            uninstallActiveResizeListener();
+        
+        // Remove explicit settings if due to Resize effect
+        if (!softKeyboardEffectExplicitWidthFlag)
+            explicitWidth = NaN;
+        
+        if (!softKeyboardEffectExplicitHeightFlag)
+            explicitHeight = NaN;
+        
+        if (installed)
+            installActiveResizeListener();
     }
 }
 }
