@@ -31,8 +31,8 @@ import mx.events.PropertyChangeEvent;
 import mx.managers.IFocusManagerComponent;
 import flash.display.InteractiveObject;
 
-include "../styles/metadata/AdvancedTextLayoutFormatStyles.as"
-include "../styles/metadata/BasicTextLayoutFormatStyles.as"
+include "../styles/metadata/BasicInheritingTextStyles.as"
+include "../styles/metadata/AdvancedInheritingTextStyles.as"
 include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
