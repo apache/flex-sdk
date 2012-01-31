@@ -71,7 +71,7 @@ import mx.events.DragEvent;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.ListEvent;
-import mx.events.MarshalMouseEvent;
+import mx.events.SandboxRootMouseEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
@@ -80,7 +80,6 @@ import mx.events.TweenEvent;
 import mx.managers.DragManager;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
-import mx.managers.ISystemManager2;
 import mx.skins.halo.ListDropIndicator;
 import mx.styles.StyleManager;
 import mx.utils.ObjectUtil;
@@ -8892,8 +8891,8 @@ public class ListBase extends ScrollControlBase
         pt = DisplayObject(event.target).localToGlobal(pt);
         mouseDownPoint = globalToLocal(pt);
 
-        ISystemManager2(systemManager).getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true, 0, true);
-        ISystemManager2(systemManager).getSandboxRoot().addEventListener(MarshalMouseEvent.MOUSE_UP, mouseLeaveHandler, false, 0, true);
+        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true, 0, true);
+        systemManager.getSandboxRoot().addEventListener(SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, mouseLeaveHandler, false, 0, true);
 
         if (!dragEnabled)
         {
@@ -8915,8 +8914,8 @@ public class ListBase extends ScrollControlBase
 
     private function mouseIsUp():void
     {
-        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
-        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(MarshalMouseEvent.MOUSE_UP, mouseLeaveHandler);
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
+        systemManager.getSandboxRoot().removeEventListener(SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, mouseLeaveHandler);
 
         if (!dragEnabled && dragScrollingInterval != 0)
         {
