@@ -9,27 +9,27 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.effects
+package spark.effects
 {
-import mx.effects.effectClasses.FxFadeInstance;
+import spark.effects.supportClasses.FadeInstance;
 
 import mx.effects.IEffectInstance;
 
 /**
  * 
- *  @includeExample examples/FxFadeEffectExample.mxml
+ *  @includeExample examples/FadeEffectExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxFade extends FxAnimate
+public class Fade extends Animate
 {
-    public function FxFade(target:Object=null)
+    public function Fade(target:Object=null)
     {
         super(target);
-        instanceClass = FxFadeInstance;
+        instanceClass = FadeInstance;
     }
     
     //--------------------------------------------------------------------------
@@ -97,7 +97,7 @@ public class FxFade extends FxAnimate
     {
         super.initInstance(instance);
         
-        var fadeInstance:FxFadeInstance = FxFadeInstance(instance);
+        var fadeInstance:FadeInstance = FadeInstance(instance);
 
         fadeInstance.alphaFrom = alphaFrom;
         fadeInstance.alphaTo = alphaTo;
