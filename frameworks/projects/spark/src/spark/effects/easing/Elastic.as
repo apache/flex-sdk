@@ -14,11 +14,11 @@ package spark.effects.easing
 import mx.effects.easing.Elastic;
 
 /**
- * The Elastic class implements easing functionality where the object
- * movement is defined by an exponentially decaying sine wave. The 
- * target object will decelerate toward the end value and past it
- * and will continue to oscillate around that value in smaller increments
- * before ending up on that end value.
+ *  The Elastic class implements easing functionality where the target object
+ *  movement is defined by an exponentially decaying sine wave. 
+ *  The effect target decelerates toward the end value, and continues past the end value. 
+ *  It then oscillates around the end value in smaller and smaller increments, 
+ *  before reaching the end value. 
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -34,7 +34,7 @@ public class Elastic implements IEaser
     //--------------------------------------------------------------------------
 
     /**
-     *  Constructs an Elastic easer.
+     *  Constructor.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -52,7 +52,7 @@ public class Elastic implements IEaser
     //--------------------------------------------------------------------------
 
     /**
-     *  @copy spark.effects.easing.IEaser#ease
+     *  @inheritDoc
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
