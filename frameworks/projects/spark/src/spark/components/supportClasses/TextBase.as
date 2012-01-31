@@ -34,6 +34,7 @@ import mx.utils.NameUtil;
 
 import spark.components.Group;
 import spark.layouts.BasicLayout;
+import spark.core.IGraphicElement;
 
 /**
  *  The base class for GraphicElements such as TextBox and TextGraphic
@@ -208,7 +209,7 @@ public class TextGraphicElement extends GraphicElement
     /**
      *  @private
      */
-    override public function set displayObject(value:DisplayObject):void
+    override protected function setDisplayObject(value:DisplayObject):void
     {        
         if (displayObject == value)
             return;
@@ -226,8 +227,7 @@ public class TextGraphicElement extends GraphicElement
             invalidateProperties();
         }
              
-        super.displayObject = value;
-        
+        super.setDisplayObject(value);
     }    
   
     //--------------------------------------------------------------------------
@@ -525,6 +525,17 @@ public class TextGraphicElement extends GraphicElement
     	}
     }
 
+    /**
+     *  @private
+     */
+    override public function canShareWithNext(element:IGraphicElement):Boolean
+    {
+        // We can share with the next GraphicElement only if it is also
+        // a TextGraphicElement, as TextGraphicElements add child DisplayObjects
+        // instead of drawing the the DisplayObject's graphics.
+        return element is TextGraphicElement && super.canShareWithNext(element);
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: GraphicElement
@@ -756,7 +767,7 @@ public class TextGraphicElement extends GraphicElement
         // position of the lines has remained the same.
         if (compose)
             composeTextLines(unscaledWidth, unscaledHeight);
-        else if (shareIndex != -1)
+        else if (sharedIndex != -1)
             mx_internal::adjustTextLines();
             
         // If the text is overset it always has to be clipped (as well as if 
@@ -772,7 +783,7 @@ public class TextGraphicElement extends GraphicElement
         if (clipText)
         {
             mx_internal::alwaysCreateDisplayObject = true;
-            if (shareIndex > 0)
+            if (sharedIndex > 0)
                 return;
         }
         
