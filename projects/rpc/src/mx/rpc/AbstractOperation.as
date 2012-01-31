@@ -160,9 +160,14 @@ public class AbstractOperation extends AbstractInvoker
      * the method call. If there are no arguments passed, the arguments object
      * is used as the source of parameters.
      *
+     * @param args Optional arguments passed in as part of the method call. If there
+     * are no arguments passed, the arguments object is used as the source of 
+     * parameters.
+     *
      * @return AsyncToken Call using the asynchronous completion token pattern.
      * The same object is available in the <code>result</code> and
      * <code>fault</code> events from the <code>token</code> property.
+     *
      */
     /* abstract */ public function send(... args:Array):AsyncToken
     {
