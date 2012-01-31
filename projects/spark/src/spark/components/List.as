@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 package spark.components
-{
+{ 
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.FocusEvent;
@@ -20,14 +20,14 @@ import flash.ui.Keyboard;
 
 import mx.core.IVisualElement;
 import mx.core.mx_internal; 
-import mx.events.IndexChangedEvent;
 import mx.managers.IFocusManagerComponent;
 
 import spark.components.supportClasses.ListBase;
+import spark.core.NavigationUnit;
+import spark.events.IndexChangeEvent;
 import spark.events.RendererExistenceEvent;
 import spark.layouts.HorizontalLayout;
 import spark.layouts.VerticalLayout;
-import spark.core.NavigationUnit;
 
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
 
@@ -401,7 +401,7 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             var temp:Vector.<int> = new Vector.<int>(); 
             temp.push(_proposedSelectedIndices[0]); 
-            _proposedSelectedIndices = temp; 
+            _proposedSelectedIndices = temp;  
         }
         // Keep _proposedSelectedIndex in-sync with multiple selection properties. 
         if (!isEmpty(_proposedSelectedIndices))
@@ -435,14 +435,14 @@ public class List extends ListBase implements IFocusManagerComponent
         // the bindings update correctly. 
         if (dispatchChangedEvents && retVal)
         {
-            var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.CHANGE);
+            var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CHANGE);
             e.oldIndex = oldSelectedIndex;
             e.newIndex = _selectedIndex;
             dispatchEvent(e);
             
-            e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
+            e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
             e.oldIndex = oldCaretIndex; 
-            e.newIndex = caretIndex; 
+            e.newIndex = caretIndex;
             dispatchEvent(e);    
         }
         
@@ -857,7 +857,7 @@ public class List extends ListBase implements IFocusManagerComponent
         var i:int; 
         var curr:Number; 
         var newInterval:Vector.<int> = new Vector.<int>(); 
-        var e:IndexChangedEvent; 
+        var e:IndexChangeEvent; 
         
         if (selectedIndex == NO_SELECTION || doingWholesaleChanges)
         {
@@ -872,12 +872,12 @@ public class List extends ListBase implements IFocusManagerComponent
                 // If the selection properties have been adjusted to account for items that
                 // have been added or removed, send out a "change" event and 
                 // "caretChange" event so any bindings to them are updated correctly.
-                e = new IndexChangedEvent(IndexChangedEvent.CHANGE);
+                e = new IndexChangeEvent(IndexChangeEvent.CHANGE);
                 e.oldIndex = -1;
                 e.newIndex = _selectedIndex;
                 dispatchEvent(e);
                 
-                e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
+                e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
                 e.oldIndex = -1; 
                 e.newIndex = _caretIndex;
                 dispatchEvent(e); 
@@ -958,8 +958,7 @@ public class List extends ListBase implements IFocusManagerComponent
             // caretIndex backing variable. 
             var oldIndex:Number = caretIndex; 
             _caretIndex = getLastItemValue(newInterval);
-             
-            e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
+            e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
             e.oldIndex = oldIndex; 
             e.newIndex = caretIndex; 
             dispatchEvent(e); 
@@ -972,7 +971,7 @@ public class List extends ListBase implements IFocusManagerComponent
             // match the selectedIndex; 
             
             // FIXME (dsubrama): We should revisit the synchronous nature of the 
-            // de-careting/re-careting behavior. 
+            // de-careting/re-careting behavior.
             itemShowingCaret(caretIndex, false); 
             caretIndexAdjusted = true; 
             invalidateProperties(); 
@@ -1093,7 +1092,7 @@ public class List extends ListBase implements IFocusManagerComponent
     {   
         super.keyDownHandler(event);
 
-        if (!dataProvider || !layout)
+        if (!dataProvider || !layout || event.isDefaultPrevented())
             return;
         
         // Hitting the space bar means the current caret item, that is 
@@ -1162,7 +1161,7 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             var oldCaretIndex:Number = caretIndex; 
             setCurrentCaretIndex(proposedNewIndex);
-            var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
+            var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
             e.oldIndex = oldCaretIndex; 
             e.newIndex = caretIndex; 
             dispatchEvent(e);    
