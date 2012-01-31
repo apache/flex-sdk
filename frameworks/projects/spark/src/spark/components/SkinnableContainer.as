@@ -377,6 +377,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     //
     //--------------------------------------------------------------------------
     
+	[Bindable]
     [SkinPart(required="false")]
     
     /**
