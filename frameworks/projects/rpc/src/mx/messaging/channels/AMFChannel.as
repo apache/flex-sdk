@@ -20,6 +20,7 @@ import flash.net.Responder;
 import mx.core.mx_internal;
 import mx.logging.Log;
 import mx.messaging.FlexClient;
+import mx.messaging.MessageResponder;
 import mx.messaging.config.ConfigMap;
 import mx.messaging.config.ServerConfig;
 import mx.messaging.events.ChannelFaultEvent;
@@ -305,7 +306,7 @@ public class AMFChannel extends NetConnectionChannel
         {
             var msg:CommandMessage = new CommandMessage();
             msg.operation = CommandMessage.DISCONNECT_OPERATION;
-            internalSend(new AMFFireAndForgetResponder(msg));
+            internalSend(new MessageResponder(null, msg, null));
         }
         // Shut down locally.
         setConnected(false);
@@ -513,24 +514,4 @@ public class AMFChannel extends NetConnectionChannel
     }
 }
 
-}
-
-//------------------------------------------------------------------------------
-//
-// Private Classes
-//
-//------------------------------------------------------------------------------
-
-import mx.messaging.MessageResponder;
-import mx.messaging.messages.IMessage;
-
-/**
- *  Helper class for sending a fire-and-forget disconnect message.
- */
-class AMFFireAndForgetResponder extends MessageResponder
-{
-    public function AMFFireAndForgetResponder(message:IMessage)
-    {
-        super(null, message, null);
-    }
 }
