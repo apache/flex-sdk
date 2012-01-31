@@ -616,10 +616,6 @@ class NetConnectionMessageResponder extends MessageResponder
      */
     override protected function requestTimedOut():void
     {
-        if (handled)
-            return;
-            
-        disconnect();
         statusHandler(createRequestTimeoutErrorMessage());
     }
 
