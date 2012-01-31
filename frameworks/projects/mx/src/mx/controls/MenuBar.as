@@ -1777,7 +1777,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
         // already exist.
         var menu:Menu = getMenuAt(index);
         var sm:ISystemManager = systemManager.topLevelSystemManager;
-        var screen:Rectangle = sm.getVisibleApplicationRect();
+        var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
 
         // pop it up if we haven't already.  this allows us to validate the menu and get correct sizes
         if (menu.parentDisplayObject && (!menu.parent || !menu.parent.contains(menu.parentDisplayObject)))
