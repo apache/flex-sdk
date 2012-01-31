@@ -215,7 +215,17 @@ public class List extends Selector
         var item:* = dataGroup.getItemSkin(item);
         
         if (item)
-            item.selected = selected;
+        {
+            if ("selected" in item)
+                item.selected = selected;
+            else
+            {
+                // TODO: localize below (and other messages)
+                throw new Error("The item needs to support the \"selected\" property " + 
+                        "for selection to work.  An easy way to accomplish this is by wrapping " + 
+                        "your component in a DefaultComplexItemRenderer");
+            }
+        }
     }
 	
 	/**
