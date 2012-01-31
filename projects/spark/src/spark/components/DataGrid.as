@@ -351,6 +351,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         "columnSeparator",
         "headerColumnSeparator",        
         "hoverIndicator",
+        "rowBackground",
         "rowSeparator",
         "selectionIndicator"];
         
@@ -362,7 +363,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [SkinPart(required="false", type="mx.core.IFactory")]
     
     /**
-     *  A reference to IVisualElement used to render the alternatingRowColors style
+     *  The IVisualElement class used to render the alternatingRowColors style
      */
     public var alternatingRowColorsBackground:IFactory;
     
@@ -374,7 +375,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [SkinPart(required="false", type="mx.core.IFactory")]
     
     /**
-     *  Used to render the alternatingRowColors style.
+     *  The IVisualElement class used to render the grid's caret indicator.
      */
     public var caretIndicator:IFactory;
     
@@ -398,7 +399,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [SkinPart(required="false", type="mx.core.IFactory")]
     
     /**
-     *  Used to render the vertical separator between columns.
+     *  The IVisualElement class used to render the vertical separator between columns. 
      */
     public var columnSeparator:IFactory;
     
@@ -435,7 +436,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [SkinPart(required="false", type="mx.core.IFactory")]
     
     /**
-     *  Used to render the vertical separator between column headers.
+     *  The IVisualElement class used to render the vertical separator between header columns. 
      */
     public var headerColumnSeparator:IFactory;
 
@@ -447,9 +448,21 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [SkinPart(required="false", type="mx.core.IFactory")]
     
     /**
-     *  Used to provide mouse hover feedback.
+     *  The IVisualElement class used to provide hover feedback.
      */
     public var hoverIndicator:IFactory;
+    
+    //----------------------------------
+    //  rowBackground
+    //----------------------------------
+    
+    [Bindable]
+    [SkinPart(required="false", type="mx.core.IFactory")]
+    
+    /**
+     *  The IVisualElement class used to render the background of each row.
+     */
+    public var rowBackground:IFactory;        
     
     //----------------------------------
     //  rowSeparator
@@ -459,7 +472,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [SkinPart(required="false", type="mx.core.IFactory")]
     
     /**
-     *  Used to render the horizontal separator between rows.
+     *  The IVisualElement class used to render the horizontal separator between header rows. 
      */
     public var rowSeparator:IFactory;
     
@@ -483,7 +496,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [SkinPart(required="false", type="mx.core.IFactory")]
     
     /**
-     *  Used to render selected rows or cells.
+     *  The IVisualElement class used to render selected rows or cells.
      */
     public var selectionIndicator:IFactory;
     
@@ -538,7 +551,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         typicalItem: uint(1 << 9),
         variableRowHeight: uint(1 << 10),
         dataTipField: uint(1 << 11),
-        dataTipFunction: uint(1 << 12)
+        dataTipFunction: uint(1 << 12),
+        resizableColumns: uint(1 << 13)
     };
     
     /**
@@ -562,6 +576,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         columns: null,
         dataProvider: null,
         itemRenderer: null,
+        resizableColumns: true,
         requestedRowCount: int(10),
         requestedColumnCount: int(-1),
         requestedMinRowCount: int(-1),
@@ -1335,6 +1350,31 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     //----------------------------------
+    //  resizableColumns(delegates to grid.resizableColumns)
+    //----------------------------------
+    
+    /**
+     *  @copy spark.components.Grid#resizableColumns
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get resizableColumns():Boolean
+    {
+        return getGridProperty("resizableColumns");
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set resizableColumns(value:Boolean):void
+    {
+        setGridProperty("resizableColumns", value);
+    }        
+    
+    //----------------------------------
     //  rowHeight(delegates to grid.rowHeight)
     //----------------------------------
     
@@ -1561,7 +1601,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  unless the event is dispatched to it.
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
-    {   
+    {
         // If the key is passed down to the Scroller it will come back here when
         // it bubbles back up.  It may or may not have default prevented.
         if (event.eventPhase != EventPhase.AT_TARGET)
@@ -3190,7 +3230,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  @copy spark.components.supportClasses.Grid#ensureIndexIsVisible
+     *  @copy spark.components.supportClasses.Grid#ensureCellIsVisible
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
