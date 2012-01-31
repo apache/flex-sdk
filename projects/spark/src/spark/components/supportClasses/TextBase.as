@@ -460,8 +460,11 @@ public class TextBase extends UIComponent
         var constrainedWidth:Number =
             !isNaN(_widthConstraint) ? _widthConstraint : explicitWidth;
             
+        // for measurement, try not to collapse so small we don't measure
+        // anything
+        var fontSize:Number = getStyle("fontSize") 
         var allLinesComposed:Boolean =
-            composeTextLines(constrainedWidth, explicitHeight);
+            composeTextLines(Math.max(constrainedWidth, fontSize), Math.max(explicitHeight, fontSize));
         
         // Anytime we are composing we need to invalidate the display list
         // as we may have messed up the text lines.
