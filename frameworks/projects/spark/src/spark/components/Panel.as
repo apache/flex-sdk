@@ -39,7 +39,7 @@ import spark.primitives.supportClasses.TextGraphicElement;
  *  @includeExample examples/PanelExample.mxml
  *
  *  @see SkinnableContainer
- *  @see spark.skins.default.PanelSkin
+ *  @see spark.skins.spark.PanelSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -85,7 +85,7 @@ public class Panel extends SkinnableContainer
      *  The skin part that defines the appearance of the 
      *  title text in the container.
      *
-     *  @see spark.skins.default.PanelSkin
+     *  @see spark.skins.spark.PanelSkin
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
