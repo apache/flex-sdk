@@ -310,6 +310,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
         super();
 
         tabEnabled = true;
+        tabFocusEnabled = true;
     }
 
     //--------------------------------------------------------------------------
