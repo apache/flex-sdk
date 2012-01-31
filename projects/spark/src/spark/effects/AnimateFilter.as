@@ -8,11 +8,11 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects
+package spark.effects
 {
 
-import mx.effects.interpolation.IEaser;
-import mx.effects.effectClasses.FxAnimateFilterInstance;
+import spark.effects.easing.IEaser;
+import spark.effects.supportClasses.AnimateFilterInstance;
 
 import mx.core.mx_internal;
 import mx.effects.Effect;
@@ -29,23 +29,23 @@ use namespace mx_internal;
  * by the animationProperties. 
  * 
  * Example usage is as follows:
- * @example FxAnimateFilter example:
+ * @example AnimateFilter example:
  * <listing version="3.0">
  * &lt;?xml version="1.0" encoding="utf-8"?&gt;
- * &lt;FxApplication xmlns="http://ns.adobe.com/mxml/2009" &gt;
+ * &lt;Application xmlns="http://ns.adobe.com/mxml/2009" &gt;
  * 
  * &lt;Script&gt;
  * &lt;![CDATA[
  * 
  * import mx.effects.*;
- * import mx.filters.DropShadowFilter;
+ * import spark.filters.DropShadowFilter;
  * 
- * // Use FxAnimateFilter to animate the color, distance, and angle
+ * // Use AnimateFilter to animate the color, distance, and angle
  * // of a DropShadowFilter.
  * 
  * private function doDropShadowFilterSample():void{
  *     var df:DropShadowFilter = new DropShadowFilter();
- *     var anim:FxAnimateFilter = new FxAnimateFilter(btn1, df);
+ *     var anim:AnimateFilter = new AnimateFilter(btn1, df);
  *     
  *     anim.animationProperties = [
  *         new AnimationProperty("color", 0, 0x0000FF),
@@ -64,7 +64,7 @@ use namespace mx_internal;
  * 
  * &lt;Button id="btn1" x="50" y="50" label="Animate a DropShadowFilter" click="doDropShadowFilterSample()" /&gt;
  * 
- * &lt;/FxApplication&gt;
+ * &lt;/Application&gt;
  * </listing>
  *  
  *  @langversion 3.0
@@ -72,7 +72,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxAnimateFilter extends FxAnimate
+public class AnimateFilter extends Animate
 {
     include "../core/Version.as";
     
@@ -90,10 +90,10 @@ public class FxAnimateFilter extends FxAnimate
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxAnimateFilter(target:Object = null, filter:IBitmapFilter = null)
+    public function AnimateFilter(target:Object = null, filter:IBitmapFilter = null)
     {
         super(target);
-        instanceClass = FxAnimateFilterInstance;
+        instanceClass = AnimateFilterInstance;
         this.bitmapFilter = filter;
     }
     
@@ -138,7 +138,7 @@ public class FxAnimateFilter extends FxAnimate
     override protected function initInstance(instance:IEffectInstance):void
     {
         super.initInstance(instance);
-        var animateInstance:FxAnimateFilterInstance = instance as FxAnimateFilterInstance;
+        var animateInstance:AnimateFilterInstance = instance as AnimateFilterInstance;
         animateInstance.bitmapFilter = bitmapFilter;
     }
 }
