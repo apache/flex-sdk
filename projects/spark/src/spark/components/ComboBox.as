@@ -59,36 +59,132 @@ B-Feature
 */
 
 /**
- *  Botttom inset in pixels for the textInput
+ *  Bottom inset, in pixels, for the text in the 
+ *  prompt area of the control.  
  * 
  *  @default 3
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
 /**
- *  Left inset in pixels for the textInput
+ *  Left inset, in pixels, for the text in the 
+ *  prompt area of the control.  
  * 
  *  @default 3
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="paddingLeft", type="Number", format="Length", inherit="no")]
 
 /**
- *  Right inset in pixels for the textInput
+ *  Right inset, in pixels, for the text in the 
+ *  prompt area of the control.  
  * 
  *  @default 3
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="paddingRight", type="Number", format="Length", inherit="no")]
 
 /**
- *  Top inset in pixels for the textInput
+ *  Top inset, in pixels, for the text in the 
+ *  prompt area of the control.  
  * 
  *  @default 5
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
 // TODO Fill out ASDoc
 /**
- *  ComboBox
+ *  The ComboBox control is a child class of the DropDownList control. 
+ *  Like the DropDownList control, when the user selects an item from 
+ *  the drop-down list in the ComboBox control, the data item appears 
+ *  in the prompt area of the control. 
+ *
+ *  <p>One difference between the controls is that the prompt area of 
+ *  the ComboBox control is implemented by using the TextInput control, 
+ *  instead of the Label control for the DropDownList control. 
+ *  Therefore, a user can edit the prompt area of the control to enter 
+ *  a value that is not one of the predefined options.</p>
+ *
+ *  <p>For example, the DropDownList control only lets the user select 
+ *  from a list of predefined items in the control. 
+ *  The ComboBox control lets the user either select a predefined item, 
+ *  or enter a new item into the prompt area. 
+ *  Your application can recognize that a new item has been entered and, 
+ *  optionally, add it to the list of items in the control.</p>
+ *
+ *  <p>The ComboBox control also searches the item list as the user 
+ *  enters characters into the prompt area. As the user enters characters, 
+ *  the drop-down area of the control opens. 
+ *  It then and scrolls to and highlights the closest match in the item list.</p>
+ * 
+ *  <p>The ComboBox control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td></td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td></td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Default skin class</td>
+ *           <td>spark.skins.spark.ComboBoxSkin</td>
+ *        </tr>
+ *     </table>
+ *
+ *  @mxml <p>The <code>&lt;s:ComboBox&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:ComboBox
+ *    <strong>Properties</strong>
+ *    itemMatchingFunction="null"
+ *    labelToItemFunction="null"
+ *    maxChars="0"
+ *    openOnInput="true"
+ *    restrict=""
+ *
+ *    <strong>Styles</strong>
+ *    paddingBottom="3"
+ *    paddingLeft="3"
+ *    paddingRight="3"
+ *    paddingTop="5"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.skins.spark.ComboBoxSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class ComboBox extends DropDownList
 {
@@ -98,7 +194,7 @@ public class ComboBox extends DropDownList
     //
     //--------------------------------------------------------------------------    
     /**
-     *  Optional skin part that holds the input text or the selectedItem text 
+     *  Optional skin part that holds the input text or the selectedItem text. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -132,7 +228,8 @@ public class ComboBox extends DropDownList
     //
     //--------------------------------------------------------------------------
     /**
-     *  Static constant representing the value "custom selectedItem"
+     *  Static constant representing the value of the <code>selectedIndex</code> property
+     *  when the user enters a value into the prompt area, and the value is committed. 
      */
     public static const CUSTOM_SELECTED_ITEM:int = ListBase.CUSTOM_SELECTED_ITEM;
     
@@ -157,21 +254,32 @@ public class ComboBox extends DropDownList
     //--------------------------------------------------------------------------
     
     /**
-     *  The function referenced by this property takes an input string and returns
-     *  the items in the dataProvider that match the input. 
-     *  The items are returned as a Vector of indicies in the dataProvider. 
+     *  Specifies a callback function used to search the item list as the user 
+     *  enters characters into the prompt area. 
+     *  As the user enters characters, the drop-down area of the control opens. 
+     *  It then and scrolls to and highlights the closest match in the item list.
      * 
-     *  The function signature is this:
+     *  <p>The function referenced by this property takes an input string and returns
+     *  the items in the data provider that match the input. 
+     *  The items are returned as a Vector of indices in the data provider. </p>
      * 
-     *  <pre>function myMatchingFunction(comboBox:ComboBox, inputText:String):Vector</pre>
+     *  <p>The callback function must have the following signature: </p>
      * 
-     *  If the value is null, the ComboBox will find matches using the following algorithm:
+     *  <pre>
+     *    function myMatchingFunction(comboBox:ComboBox, inputText:String):Vector</pre>
      * 
-     *  If an input string of length n is equivalent to the first n characters 
+     *  <p>If the value of this property is null, the ComboBox finds matches 
+     *  using the default algorithm.  
+     *  By default, if an input string of length n is equivalent to the first n characters 
      *  of an item (ignoring case), then it is a match to that item. For example, 'aRiz' 
-     *  is a match to "Arizona" while 'riz' is not.
+     *  is a match to "Arizona" while 'riz' is not.</p>
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public var itemMatchingFunction:Function = null;
     
@@ -182,17 +290,26 @@ public class ComboBox extends DropDownList
     private var labelToItemFunctionChanged:Boolean = false;
     
     /**
-     *  The function referenced by this propery is called when textInput's text
-     *  is committed and is not found in the dataProvider. 
+     *  Specifies a callback function to convert a new value entered 
+     *  into the prompt area to the same data type as the data items in the data provider.
+     *  The function referenced by this properly is called when the text in the prompt area 
+     *  is committed, and is not found in the data provider. 
      * 
-     *  The function signature is this:
+     *  <p>The callback function must have the following signature: </p>
      * 
-     *  function myLabelToItem(value:String):Object
+     *  <pre>
+     *    function myLabelToItem(value:String):Object</pre>
      * 
-     *  The function returns an Object that should be the same type as the items 
-     *  in the dataProvider.
+     *  <p>Where <code>value</code> is the String entered in the prompt area.
+     *  The function returns an Object that is the same type as the items 
+     *  in the data provider.</p>
      * 
-     *  The default function returns the parameter. 
+     *  <p>The default callback function returns <code>value</code>. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function set labelToItemFunction(value:Function):void
     {
@@ -220,9 +337,15 @@ public class ComboBox extends DropDownList
     private var maxCharsChanged:Boolean = false;
     
     /**
-     *  The maximum number of characters that the textInput can contain, as entered by a user.   
+     *  The maximum number of characters that the prompt area can contain, as entered by a user. 
+     *  A value of 0 corresponds to no limit.
      * 
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function set maxChars(value:int):void
     {
@@ -247,9 +370,14 @@ public class ComboBox extends DropDownList
     //--------------------------------------------------------------------------
     
     /**
-     *  If true, the dropDown will open whenever the user edits the textInput.
+     *  If <code>true</code>, the drop-down list opens when the user edits the prompt area.
      * 
      *  @default true 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public var openOnInput:Boolean = true;
     
@@ -261,9 +389,16 @@ public class ComboBox extends DropDownList
     private var restrictChanged:Boolean;
     
     /**
-     *  Indicates the set of characters that a user can enter into the textInput.  
+     *  Specifies the set of characters that a user can enter into the prompt area.
+     *  By default, the user can enter any characters, corresponding to a value of
+     *  an empty string.
      * 
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function set restrict(value:String):void
     {
@@ -401,6 +536,9 @@ public class ComboBox extends DropDownList
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private 
+     */
     override protected function commitProperties():void
     {
         //trace("CB.commitProperties selectedIndex",selectedIndex,"input string", textInput.text);
