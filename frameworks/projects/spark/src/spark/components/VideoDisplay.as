@@ -358,8 +358,8 @@ public class VideoElement extends GraphicElement
      *  <code>play()</code>.</p>
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
     public function get enabled():Boolean
@@ -1244,8 +1244,6 @@ class FlexNCManager extends NCManagerDynamicStream
      * @copy INCManager#connectToURL()
      * @see INCManager#connectToURL() 
      *
-     * @langversion 3.0
-     * @playerversion Flash 9.0.28.0
      */
     override public function connectToURL(url:String):Boolean {
         //ifdef DEBUG
