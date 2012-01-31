@@ -1285,10 +1285,10 @@ public class Tree extends List implements IIMESupport
     {
         var vm:EdgeMetrics = viewMetrics;
 
-        if (horizontalScrollBar)
+        if (horizontalScrollBar && horizontalScrollBar.visible)
             vm.bottom -= horizontalScrollBar.minHeight;
 
-        if (verticalScrollBar)
+        if (verticalScrollBar && verticalScrollBar.visible)
             vm.right -= verticalScrollBar.minWidth;
 
         listContent.scrollRect = new Rectangle(
