@@ -23,6 +23,8 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.utils.MatrixUtil;
 
+use namespace mx_internal;
+
 /**
  *  The SpriteVisualElement class is a light-weight Sprite-based implemention 
  *  of IVisualElement.  It can be dropped in to Spark containers and be laid 
@@ -310,7 +312,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function get percentHeight():Number
     {
-        return mx_internal::_percentHeight;
+        return _percentHeight;
     }
 
     /**
@@ -318,10 +320,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function set percentHeight(value:Number):void
     {
-        if (mx_internal::_percentHeight == value)
+        if (_percentHeight == value)
             return;
 
-        mx_internal::_percentHeight = value;
+        _percentHeight = value;
         invalidateParentSizeAndDisplayList();
     }
 
@@ -342,7 +344,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function get percentWidth():Number
     {
-        return mx_internal::_percentWidth;
+        return _percentWidth;
     }
 
     /**
@@ -350,10 +352,10 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
      */
     public function set percentWidth(value:Number):void
     {
-        if (mx_internal::_percentWidth == value)
+        if (_percentWidth == value)
             return;
         
-        mx_internal::_percentWidth = value;
+        _percentWidth = value;
         invalidateParentSizeAndDisplayList();
     }
     
