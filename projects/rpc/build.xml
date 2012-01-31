@@ -20,6 +20,7 @@
 	<target name="clean">
 		<delete file="bundles.properties"/>
 		<delete file="${frameworks.dir}/libs/rpc.swc"/>
+		<delete file="${frameworks.dir}/libs/rpc.swc.incr"/>
 		<ant dir="bundles/en_US" target="clean"/>
 		<ant dir="bundles/ja_JP" target="clean"/>
 	</target>
