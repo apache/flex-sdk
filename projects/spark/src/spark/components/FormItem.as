@@ -22,7 +22,7 @@ import spark.core.IDisplayText;
 use namespace mx_internal;
 
 /**
- *  Specifies the image source to use for the error indicator. 
+ *  Specifies the image source to use for the required indicator. 
  *
  *  The default value is "assets/RequiredIndicator.png".
  *  
@@ -34,7 +34,7 @@ use namespace mx_internal;
 [Style(name="requiredIndicatorSource", type="Object", inherit="no")]
 
 /**
- *  Specifies the image source to use for the required indicator. 
+ *  Specifies the image source to use for the error indicator. 
  *
  *  The default value is "assets/ErrorIndicator.png".
  *  
