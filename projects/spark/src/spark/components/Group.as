@@ -65,6 +65,12 @@ use namespace mx_internal;
 [Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
 
 //--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="content", kind="property")]
+
+//--------------------------------------
 //  Other metadata
 //--------------------------------------
 
@@ -866,6 +872,7 @@ public class Group extends GroupBase implements IVisualContainer
         
         if (keepLayeringEnabled == false)
             layeringMode = ITEM_ORDERED_LAYERING;        
+        invalidateDisplayList();        
     }
     
     /**
