@@ -599,9 +599,29 @@ public final class Animation
      */
     private static function addAnimation(animation:Animation):void
     {
-        animation.id = activeAnimations.length;
         
-        activeAnimations.push(animation);
+        // Because of how autoCenterTransform works, depending on the
+        // current size of the object for a correct calculation, we
+        // should ensure that any size-changing animations are processed
+        // first in each frame, so each new animation gets inserted at the
+        // front it if deals with width or height. Note that this will
+        // only work for Resize effects, which only animate width/height.
+        // We do not exhaustively search all motionPaths of any given animation.
+        if (animation.motionPaths && animation.motionPaths.length > 0 &&
+            animation.motionPaths[0] &&
+            (animation.motionPaths[0].property == "width" ||
+             animation.motionPaths[0].property == "height"))
+        {
+            activeAnimations.splice(0, 0, animation);
+            animation.id = 0;
+            for (var i:int = 1; i < activeAnimations.length; ++i)
+                Animation(activeAnimations[i]).id = i;
+        }
+        else
+        {
+            animation.id = activeAnimations.length;
+            activeAnimations.push(animation);
+        }
         
         if (!timer)
         {
