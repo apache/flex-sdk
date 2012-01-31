@@ -206,11 +206,65 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  &lt;s:SkinnableContainer
  *    <strong>Properties</strong>
  *    autoLayout="true"
- *    clipAndEnableScrolling="false"
  *    creationPolicy="auto"
  *    horizontalScrollPosition="null"
  *    layout="BasicLayout"
- *    verticalScrollPosition="null"
+ *  
+ *    <strong>Styles</strong>
+ *    accentColor="0x0099FF"
+ *    alignmentBaseline="useDominantBaseline"
+ *    alternatingItemColors=""
+ *    backgroundAlpha="1.0"
+ *    backgroundColor="0xFFFFFF"
+ *    baselineShift="0.0"
+ *    blockProgression="TB"
+ *    breakOpportunity="auto"
+ *    cffHinting="horizontal_stem"
+ *    color="0"
+ *    contentBackgroundAlpha=""
+ *    contentBackgroundColor=""
+ *    digitCase="default"
+ *    digitWidth="default"
+ *    direction="LTR"
+ *    dominantBaseline="auto"
+ *    firstBaselineOffset="auto"
+ *    focusColor=""
+ *    focusedTextSelectionColor=""
+ *    fontFamily="Times New Roman"
+ *    fontLookup="device"
+ *    fontSize="12"
+ *    fontStyle="normal"
+ *    fontWeight="normal"
+ *    inactiveTextSelectionColor="0xE8E8E8"
+ *    justificationRule="auto"
+ *    justificationStyle="auto"
+ *    kerning="auto"
+ *    leadingModel="auto"
+ *    ligatureLevel="common"
+ *    lineHeight="120%"
+ *    lineThrough="false"
+ *    locale="en"
+ *    paragraphEndIndent="0"
+ *    paragraphSpaceAfter="0"
+ *    paragraphSpaceBefore="0"
+ *    paragraphStartIndent="0"
+ *    renderingMode="CFF"
+ *    rollOverColor=""
+ *    symbolColor=""
+ *    tabStops="null"
+ *    textAlign="start"
+ *    textAlignLast="start"
+ *    textAlpha="1"
+ *    textDecoration="none"
+ *    textIndent="0"
+ *    textJustify="inter_word"
+ *    textRotation="auto"
+ *    trackingLeft="0"
+ *    trackingRight="0"
+ *    typographicCase="default"
+ *    unfocusedTextSelectionColor=""
+ *    verticalScrollPolicy="auto"
+ *    whiteSpaceCollapse="collapse"
  *  
  *    <strong>Events</strong>
  *    elementAdd="<i>No default</i>"
@@ -527,7 +581,7 @@ public class SkinnableContainer extends SkinnableContainerBase
 
     /**
      *  A factory object that creates the initial value for the
-     *  content property.
+     *  <code>content</code> property.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -884,7 +938,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     private var _deferredContentCreated:Boolean;
 
     /**
-     *  True if deferred content has been created
+     *  Contains <code>true</code> if deferred content has been created.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
