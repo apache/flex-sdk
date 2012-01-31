@@ -2101,7 +2101,46 @@ public class DataGrid extends SkinnableContainerBase
         g.drawRect(0, 0, focusOwnerWidth, focusOwnerHeight);
         $addChild(focusOwner);
         focusOwner.tabEnabled = true;
+        focusOwner.tabIndex = tabIndex;
         focusOwner.$visible = true;
+    }
+    
+    /**
+     *  @private
+     *  Ensure that the DataGrid appears in the correct tab order, despite the fact that its
+     *  focusOwner gets the focus.
+     */
+    override public function set tabIndex(index:int):void
+    {
+        super.tabIndex = index;
+        if (focusOwner)
+            focusOwner.tabIndex = index;
+    }
+    
+    /**
+     *  @private
+     *  Sync the focusOwner's copy of this value because the we can't cover this case in
+     *  DataGridAccImpl/get_accDescription(childID). Currently get_accDescription() is never
+     *  called with childID=0.
+     */
+    override public function set accessibilityDescription(value:String):void
+    {
+        super.accessibilityDescription = value;
+        if (focusOwner)
+            focusOwner.accessibilityDescription = value;
+    }
+    
+    /**
+     *  @private
+     *  Sync the focusOwner's copy of this value because the we can't cover this case in
+     *  DataGridAccImpl/get_accShortcut(childID). Currently get_accShortcut() is never
+     *  called with childID=0.
+     */
+    override public function set accessibilityShortcut(value:String):void
+    {
+        super.accessibilityShortcut = value;
+        if (focusOwner)
+            focusOwner.accessibilityShortcut = value;
     }
 
     /**
