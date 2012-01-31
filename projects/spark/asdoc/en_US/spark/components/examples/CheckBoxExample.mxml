@@ -8,7 +8,7 @@
            [Bindable]
            public var totalCost:Number = 4.50;
 
-           // This event handler adding and removing condiments from the hamburger.
+           // This event handler adds/removes the cost of condiments to/from the total cost.
            private function modifyBurger(evt:MouseEvent):void {
                // Add 0.25 to the total cost for every condiment. Delete 0.25 for
                // every condiment removed.
