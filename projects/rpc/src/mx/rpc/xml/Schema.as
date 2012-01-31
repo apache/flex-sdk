@@ -200,11 +200,6 @@ public class Schema
 
         2. Also, check that the schema being added does not cause a cyclic
         relationship.
-    *  
-    *  @langversion 3.0
-    *  @playerversion Flash 9
-    *  @playerversion AIR 1.1
-    *  @productversion Flex 3
     */
     public function addImport(targetNamespace:Namespace, schema:Schema):void
     {
