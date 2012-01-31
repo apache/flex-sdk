@@ -422,7 +422,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var playheadTimeLabel:TextGraphicElement;
+    public var playheadTimeDisplay:TextGraphicElement;
     
     [SkinPart(required="false")]
     
@@ -538,7 +538,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var totalTimeLabel:TextGraphicElement;
+    public var totalTimeDisplay:TextGraphicElement;
     
     [SkinPart(required="false")]
     
@@ -1159,10 +1159,10 @@ public class VideoPlayer extends SkinnableComponent
             if (scrubBar)
                 updateScrubBar();
 
-            if (playheadTimeLabel)
+            if (playheadTimeDisplay)
                 updatePlayheadTime();
             
-            if (totalTimeLabel)
+            if (totalTimeDisplay)
                 updateTotalTime();
         }
         else if (instance == playButton)
@@ -1218,12 +1218,12 @@ public class VideoPlayer extends SkinnableComponent
         {
             fullScreenButton.addEventListener(MouseEvent.CLICK, fullScreenButton_clickHandler);
         }
-        else if (instance == playheadTimeLabel)
+        else if (instance == playheadTimeDisplay)
         {
             if (videoElement)
                 updatePlayheadTime();
         }
-        else if (instance == totalTimeLabel)
+        else if (instance == totalTimeDisplay)
         {
             if (videoElement)
                 updateTotalTime();
@@ -1471,12 +1471,12 @@ public class VideoPlayer extends SkinnableComponent
     */
     private function updateTotalTime():void
     {
-        totalTimeLabel.text = formatTimeValue(totalTime);
+        totalTimeDisplay.text = formatTimeValue(totalTime);
     }
     
     /**
      *  Formats a time value, given in seconds, into a string that 
-     *  gets used for the playheadTimeLabel and the totalTimeLabel.
+     *  gets used for the playheadTimeDisplay and the totalTimeDisplay.
      * 
      *  @param value Value in seconds of the time to format
      * 
@@ -1514,7 +1514,7 @@ public class VideoPlayer extends SkinnableComponent
      */
     private function updatePlayheadTime():void
     {
-        playheadTimeLabel.text = formatTimeValue(playheadTime);
+        playheadTimeDisplay.text = formatTimeValue(playheadTime);
     } 
     
     //--------------------------------------------------------------------------
@@ -1529,7 +1529,7 @@ public class VideoPlayer extends SkinnableComponent
     private function videoElement_completeHandler(event:spark.events.VideoEvent):void
     {
         // TODO: needed??
-        if (totalTimeLabel)
+        if (totalTimeDisplay)
             updateTotalTime();
         
         dispatchEvent(event);
@@ -1543,7 +1543,7 @@ public class VideoPlayer extends SkinnableComponent
         if (scrubBar)
             updateScrubBar();
         
-        if (totalTimeLabel)
+        if (totalTimeDisplay)
             updateTotalTime();
         
         dispatchEvent(event);
@@ -1557,7 +1557,7 @@ public class VideoPlayer extends SkinnableComponent
         if (scrubBar)
             updateScrubBar();
         
-        if (playheadTimeLabel)
+        if (playheadTimeDisplay)
             updatePlayheadTime();
         
         // for binding purposes
@@ -1572,7 +1572,7 @@ public class VideoPlayer extends SkinnableComponent
         if (scrubBar)
             updateScrubBar();
         
-        if (totalTimeLabel)
+        if (totalTimeDisplay)
             updateTotalTime();
         
         // for binding purposes
@@ -1587,7 +1587,7 @@ public class VideoPlayer extends SkinnableComponent
         if (scrubBar)
             updateScrubBar();
         
-        if (playheadTimeLabel)
+        if (playheadTimeDisplay)
             updatePlayheadTime();
         
         dispatchEvent(event);
