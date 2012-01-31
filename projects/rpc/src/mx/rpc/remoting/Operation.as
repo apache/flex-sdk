@@ -13,10 +13,20 @@ package mx.rpc.remoting
 {
 
 import mx.core.mx_internal;
+import mx.managers.CursorManager;
+import mx.messaging.events.MessageEvent;
+import mx.messaging.messages.AsyncMessage;
+import mx.messaging.messages.IMessage;
 import mx.messaging.messages.RemotingMessage;
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;
 import mx.rpc.AbstractOperation;
 import mx.rpc.AbstractService;
+import mx.rpc.AsyncDispatcher;
 import mx.rpc.AsyncToken;
+import mx.rpc.Fault;
+import mx.rpc.events.FaultEvent;
+import mx.rpc.mxml.Concurrency;
 import mx.utils.ObjectUtil;
 
 use namespace mx_internal;
@@ -43,12 +53,39 @@ public class Operation extends AbstractOperation
         super(remoteObject, name);
 
         argumentNames = [];
+
+        this.remoteObject = mx.rpc.remoting.RemoteObject(remoteObject);
     }
 
 
     //---------------------------------
     // Properties
     //---------------------------------
+
+    [Inspectable(enumeration="multiple,single,last", defaultValue="multiple", category="General")]
+    /**
+     * The concurrency for this Operation.  If it has not been explicitly set the setting from the RemoteObject
+     * will be used.
+     */
+    public function get concurrency():String
+    {
+        if (_concurrencySet)
+        {
+            return _concurrency;
+        }
+        //else
+        return remoteObject.concurrency;
+    }
+
+    /**
+     *  @private
+     */
+    public function set concurrency(c:String):void
+    {
+        _concurrency = c;
+        _concurrencySet = true;
+    }
+
 
     [Inspectable(defaultValue="true", category="General")]
 
@@ -72,13 +109,49 @@ public class Operation extends AbstractOperation
     }
 
     /**
+     * Whether this operation should show the busy cursor while it is executing.
+     * If it has not been explicitly set the setting from the RemoteObject
+     * will be used.
+     */
+    public function get showBusyCursor():Boolean
+    {
+        if (_showBusyCursorSet)
+        {
+            return _showBusyCursor;
+        }
+        //else
+        return remoteObject.showBusyCursor;
+    }
+
+    public function set showBusyCursor(sbc:Boolean):void
+    {
+        _showBusyCursor = sbc;
+        _showBusyCursorSet = true;
+    }
+
+
+    /**
      * An ordered list of the names of the arguments to pass to a method invocation.  Since the arguments object is
      * a hashmap with no guaranteed ordering, this array helps put everything together correctly.
      * It will be set automatically by the MXML compiler, if necessary, when the Operation is used in tag form.
      */
     public var argumentNames:Array;
 
+    //--------------------------------------------------------------------------
+    //
+    // Private Variables
+    // 
+    //--------------------------------------------------------------------------
+
+    private var _concurrency:String;
+    
+    private var _concurrencySet:Boolean;
+    
     private var _makeObjectsBindableSet:Boolean;
+
+    private var _showBusyCursor:Boolean;
+    
+    private var _showBusyCursorSet:Boolean;
 
     //---------------------------------
     // Methods
@@ -94,6 +167,25 @@ public class Operation extends AbstractOperation
 
         if (operationManager != null)
             return operationManager(args);
+
+        if (Concurrency.SINGLE == concurrency && activeCalls.hasActiveCalls())
+        {
+            var token:AsyncToken = new AsyncToken(null);
+            var m:String = resourceManager.getString(
+                "rpc", "pendingCallExists");
+            var fault:Fault = new Fault("ConcurrencyError", m);
+            var faultEvent:FaultEvent = FaultEvent.createEvent(fault, token);
+            new AsyncDispatcher(dispatchRpcEvent, [faultEvent], 10);
+            return token;
+        }
+
+        // We delay endpoint initialization until now because MXML codegen may set 
+        // the destination attribute after the endpoint and will clear out the 
+        // channelSet.
+        if (asyncRequest.channelSet == null && remoteObject.endpoint != null)
+        {
+            remoteObject.mx_internal::initEndpoint();
+        }
 
         if (!args || (args.length == 0 && this.arguments))
         {
@@ -119,6 +211,69 @@ public class Operation extends AbstractOperation
         return invoke(message);
     }
 
+    /**
+     * @inheritDoc
+     */
+    override public function cancel(id:String = null):AsyncToken
+    {
+        if (showBusyCursor)
+        {
+            CursorManager.removeBusyCursor();
+        }
+        return super.cancel(id);
+    }
+
+    override mx_internal function setService(ro:AbstractService):void
+    {
+        super.setService(ro);
+        remoteObject = mx.rpc.remoting.RemoteObject(ro);
+    }
+
+    override mx_internal function invoke(message:IMessage, token:AsyncToken = null):AsyncToken
+    {
+        if (showBusyCursor)
+        {
+            CursorManager.setBusyCursor();
+        }
+
+        return super.invoke(message, token);
+    }
+
+    /*
+     * Kill the busy cursor, find the matching call object and pass it back
+     */
+    override mx_internal function preHandle(event:MessageEvent):AsyncToken
+    {
+        if (showBusyCursor)
+        {
+            CursorManager.removeBusyCursor();
+        }
+
+        var wasLastCall:Boolean = activeCalls.wasLastCall(AsyncMessage(event.message).correlationId);
+        var token:AsyncToken = super.preHandle(event);
+
+        if (Concurrency.LAST == concurrency && !wasLastCall)
+        {
+            return null;
+        }
+        //else
+        return token;
+    }
+
+
+    //--------------------------------------------------------------------------
+    //
+    // Variables
+    // 
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private var resourceManager:IResourceManager = ResourceManager.getInstance();
+
+    mx_internal var remoteObject:mx.rpc.remoting.RemoteObject;
 }
+    
 
 }
