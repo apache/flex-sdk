@@ -238,6 +238,27 @@ public class RichEditableTextContainerManager extends TextContainerManager
 
         super.focusInHandler(event);
     }    
+
+    /**
+     *  @private
+     */
+    override public function focusOutHandler(event:FocusEvent):void
+    {
+        textView.focusOutHandler(event);
+
+        super.focusOutHandler(event);
+    }    
+
+    /**
+     *  @private
+     */
+    override public function keyDownHandler(event:KeyboardEvent):void
+    {
+        textView.keyDownHandler(event);
+
+        if (!event.isDefaultPrevented())
+            super.keyDownHandler(event);
+    }    
 }
 
 }
