@@ -406,11 +406,13 @@ public class FxTrackBase extends FxRange
 
     /**
      *  Returns the size of the thumb button
-     *  given the current range, pageSize, and trackSize settings.
+     *  given the current setting of the range, 
+     *  <code>trackSize</code>, or other settings.
      *  Subclasses should override this to calculate the correct size in
      *  the units of position.
      * 
-     *  @default 0
+     *  @return The size of the thumb button. 
+     *  The default size is 0.
      */
     protected function calculateThumbSize():Number
     {
@@ -418,11 +420,21 @@ public class FxTrackBase extends FxRange
     }
 
     /**
-     *  From a MouseEvent object that contains the position where the thumb was dragged to, and
-     *  the previous value of the thumb position, return a new
-     *  value based on the difference calculated in the MouseDown event 
-     *  and the new position. The value is also restricted to the allowed
-     *  values here. This method usually should not be overridden.
+     *  From a MouseEvent object that contains the 
+     *  position where the thumb button was dragged to, and
+     *  the previous position of the thumb button, 
+     *  return the value corresponding to the new position. 
+     *  The value is restricted to the range defined by the 
+     *  <code>minimum</code> and <code>maximum</code> values. 
+     *
+     *  <p>This method usually should not be overridden.</p>
+     *
+     *  @param prevValue The previous position of the thumb button.
+     *
+     *  @param event A MouseEvent object.
+     *
+     *  @return The value that corresponds to the new track position
+     *  as calculated by the <code>nearestValidValue()</code> method.  
      */
     protected function calculateNewValue(prevValue:Number, event:MouseEvent):Number
     {
