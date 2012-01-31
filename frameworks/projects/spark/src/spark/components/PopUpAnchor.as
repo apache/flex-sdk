@@ -455,18 +455,26 @@ public class PopUpAnchor extends UIComponent
         }
         else if (popUp.parent != null && displayPopUp == false)
         {
-            PopUpManager.removePopUp(popUp);
-            popUpIsDisplayed = false;
-            popUp.explicitWidth = popUpWidth;
-            popUp.explicitHeight = popUpHeight;
-            
-            /*if (popUpFactory)
-            {
-                _popUp.styleName = null;
-                _popUp = null;
-                popUpFactory.reset();
-            }*/
+            removeAndResetPopUp();
         }
+    }
+    
+    /**
+     *  @private
+     */
+    private function removeAndResetPopUp():void
+    {
+        PopUpManager.removePopUp(popUp);
+        popUpIsDisplayed = false;
+        popUp.explicitWidth = popUpWidth;
+        popUp.explicitHeight = popUpHeight;
+        
+        /*if (popUpFactory)
+        {
+            _popUp.styleName = null;
+            _popUp = null;
+            popUpFactory.reset();
+        }*/
     }
     
     /**
@@ -573,8 +581,10 @@ public class PopUpAnchor extends UIComponent
      */ 
     private function removedFromStageHandler(event:Event):void
     {
+        if (popUp.parent != null)
+            removeAndResetPopUp();
+        
         addedToStage = false;
-        // TODO (jszeto) Remove popup from PopUpManager
     }
     
 }
