@@ -14,11 +14,9 @@
 	</fx:Script>
 
 	<!-- Panel used as a container for Spark VSlider control examples -->
-	<mx:Panel title="Spark VSlider Control Example" height="75%" width="75%" paddingTop="10"
-	    paddingLeft="10" horizontalCenter="0" verticalCenter="0">
+	<s:Panel title="Spark VSlider Control Example" height="75%" width="75%" >
 
-
-		<s:Group>
+		<s:Group  left="10" top="10">
             <!-- Spark VSlider that calls the function changePosition anytime the value is
 		        changed -->
 		    <s:VSlider id="vSlider" minimum="20" maximum="200" liveDragging="true"
@@ -27,7 +25,7 @@
                 creationComplete="fxImage.x=vSlider.value" />
         </s:Group>
 
-        <mx:Text width="100%" text="Drag the slider to move the image"/>
+        <s:SimpleText width="100%" text="Drag the slider to move the image" left="10" bottom="10"/>
 
-	</mx:Panel>
+	</s:Panel>
 </s:Application>
