@@ -32,9 +32,9 @@ import mx.managers.IFocusManagerComponent;
  *  If the <code>autoRepeat</code> property is <code>true</code>,
  *  this event is dispatched repeatedly as long as the button stays down.
  *
- *  @eventType mx.events.AnimationEvent.BUTTON_DOWN
+ *  @eventType mx.events.FlexEvent.BUTTON_DOWN
  */
-[Event(name="buttonDown", type="mx.events.AnimationEvent")]
+[Event(name="buttonDown", type="mx.events.FlexEvent")]
 
 /**
  *  Number of milliseconds to wait after the first <code>buttonDown</code>
