@@ -28,6 +28,8 @@ import mx.controls.MXFTETextInput; MXFTETextInput;
 import mx.core.UIFTETextField; UIFTETextField;
 import spark.core.ContentCache; ContentCache;
 import spark.core.SpriteVisualElement; SpriteVisualElement;
+import spark.components.supportClasses.CellPosition; CellPosition;
+import spark.components.supportClasses.CellRegion; CellRegion;
 import spark.components.supportClasses.ListItemDragProxy; ListItemDragProxy;
 import spark.skins.spark.ApplicationSkin; ApplicationSkin;
 import spark.skins.spark.BorderContainerSkin; BorderContainerSkin;
