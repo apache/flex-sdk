@@ -145,7 +145,7 @@ public class NumericStepperDownSkin extends Border
 		var cornerRadius:Number = getStyle("cornerRadius");
 		var fillAlphas:Array = getStyle("fillAlphas");
 		var fillColors:Array = getStyle("fillColors");
-		StyleManager.getColorNames(fillColors);
+        styleManager.getColorNames(fillColors);
 		var themeColor:uint = getStyle("themeColor");		
 		
 		// Derivative styles.
