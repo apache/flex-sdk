@@ -17,6 +17,11 @@ import mx.core.mx_internal;
 
 /**
  *  The skin for all the states of the icon in a PopUpMenuButton.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class PopUpMenuIcon extends PopUpIcon
 {
@@ -30,6 +35,11 @@ public class PopUpMenuIcon extends PopUpIcon
 
     /**
      *  Constructor	 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function PopUpMenuIcon()
     {
