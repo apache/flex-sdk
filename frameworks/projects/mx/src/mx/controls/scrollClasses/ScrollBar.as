@@ -1565,6 +1565,12 @@ public class ScrollBar extends UIComponent
             trackScrollTimer = new Timer(getStyle("repeatDelay"), 1);
             trackScrollTimer.addEventListener(TimerEvent.TIMER, trackScrollTimerHandler);
         }
+        else
+        {
+            trackScrollTimer.delay = getStyle("repeatDelay");
+            trackScrollTimer.repeatCount = 1;
+        }
+
         trackScrollTimer.start();
     }
 
