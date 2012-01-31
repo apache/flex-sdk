@@ -253,12 +253,12 @@ public class TextGraphic extends TextGraphicElement
                 }
                 else if (content is Array)
                 {
-                    textFlow = createEmptyTextFlow();
+                    textFlow = new TextFlow();
                     textFlow.mxmlChildren = content as Array;
                 }
                 else if (content is FlowElement)
                 {
-                    textFlow = createEmptyTextFlow();
+                    textFlow = new TextFlow();
                     textFlow.mxmlChildren = [ content ];
                 }
 			    else if (content is String)
