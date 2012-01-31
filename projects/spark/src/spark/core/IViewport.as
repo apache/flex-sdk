@@ -106,7 +106,7 @@ public interface IViewport extends IVisualElement
      *  Returns the amount one would have to add to the viewport's current 
      *  horizontalScrollPosition to scroll by the requested "scrolling" unit.
      * 
-     *  The value of unit must be one of the following mx.core.ScrollUnit
+     *  The value of unit must be one of the following spark.core.ScrollUnit
      *  constants: LEFT, RIGHT, PAGE_LEFT, PAGE_RIGHT, HOME, END.
      * 
      *  To scroll by a single column use LEFT or RIGHT and to scroll to the
@@ -125,7 +125,7 @@ public interface IViewport extends IVisualElement
      *  Returns the amount one would have to add to the viewport's current 
      *  verticalScrollPosition to scroll by the requested "scrolling" unit.
      * 
-     *  The value of unit must be one of the following mx.core.ScrollUnit
+     *  The value of unit must be one of the following spark.core.ScrollUnit
      *  constants: UP, DOWN, PAGE_UP, PAGE_DOWN, HOME, END.
      * 
      *  To scroll by a single row use UP or DOWN and to scroll to the
