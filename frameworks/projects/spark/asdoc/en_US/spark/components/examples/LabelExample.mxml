@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TextBoxExample.mxml -->
+<Application xmlns="http://ns.adobe.com/mxml/2009">
+     <Canvas top="0" bottom="0" left="0" right="0">
+          <Graphic>
+               <TextBox x="0" y="200" height="75" width="75">
+                    <text>Hello World!</text>
+               </TextBox>
+          </Graphic>
+     </Canvas>
+</Application>
