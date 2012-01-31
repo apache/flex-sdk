@@ -14,6 +14,7 @@ package mx.components
 
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
+import flash.geom.Rectangle;
 
 import mx.components.baseClasses.GroupBase;
 import mx.core.ILayoutElement;
@@ -238,7 +239,9 @@ public class Group extends GroupBase implements IVisualElementContainer
             _mxmlContentType = MXML_CONTENT_TYPE_UNKNOWN;
             
         mxmlContentChanged = true;
+        maskChanged = true;
         invalidateProperties();
+        invalidateDisplayList();
     }
 
     /**
@@ -279,8 +282,6 @@ public class Group extends GroupBase implements IVisualElementContainer
         {
             mxmlContentChanged = false;
             initializeChildrenArray();
-            
-            maskChanged = true; 
         }
     
         // Need to initializeChildrenArray before calling super.commitProperties
@@ -387,6 +388,16 @@ public class Group extends GroupBase implements IVisualElementContainer
 	        // Mark the last shared displayObject valid
 	        if (currentSharedSprite)
 	        	currentSharedSprite.invalid = false;
+        }
+        
+        if (scaleGridChanged)
+        {
+        	scaleGridChanged = false;
+        	
+        	scale9Grid = new Rectangle(scaleGridLeft, 
+        							   scaleGridTop,	
+        							   scaleGridRight - scaleGridLeft, 
+        							   scaleGridBottom - scaleGridTop);
         }
     }
 
