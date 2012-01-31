@@ -80,7 +80,11 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     //----------------------------------    
         
     private var _layout:LayoutBase;  // initialized in the ctor
-        
+    
+    /**
+     *  The layout object for this container.  This object determines 
+     *  how the items are laid out.
+     */
     public function get layout():LayoutBase
     {
         return _layout;
@@ -103,6 +107,20 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     
     private var _resizeMode:uint = ResizeMode._NORMAL_UINT;
     
+    /**
+     *  The ResizeMode for this container.  If the resize mode
+     *  is set to ResizeMode.NORMAL, resizing is done by laying 
+     *  out the children with our new width and height.  If the 
+     *  resize mode is set to ResizeMode.SCALE, all of the children 
+     *  will keep their unscaled width and height and the children 
+     *  will be scaled to change size.
+     * 
+     * <p>For more info, check out the ResizeMode class.</p>
+     * 
+     * @default ResizeMode.NORMAL
+     * 
+     * @see flex.core.ResizeMode
+     */
     public function get resizeMode():String
     {
         return ResizeMode.toString(_resizeMode);
@@ -132,7 +150,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     override public function setActualSize(w:Number, h:Number):void
     {
@@ -202,7 +220,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     /**
      *  Override so that we can return correct width when in scale mode. 
      */    
-   [PercentProxy("percentWidth")]
+    [PercentProxy("percentWidth")]
     override public function get width():Number
     {
         if (_resizeMode == ResizeMode._SCALE_UINT)
@@ -214,7 +232,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     /**
      *  Override so that we can return correct height when in scale mode. 
      */    
-   [PercentProxy("percentHeight")]
+    [PercentProxy("percentHeight")]
     override public function get height():Number
     {
         if (_resizeMode == ResizeMode._SCALE_UINT)
@@ -224,14 +242,17 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
     
     /**
-     *  @inheritDoc
-     */    
+     *  @private
+     */
     override protected function skipMeasure():Boolean
     {
         // We never want to skip measure, if we resize by scaling
         return _resizeMode == ResizeMode._SCALE_UINT ? false : super.skipMeasure();
     }
-    
+
+    /**
+     *  @private
+     */
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -275,6 +296,9 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         }        
     }
 
+    /**
+     *  @private
+     */
     override protected function measure():void
     {
         super.measure();
@@ -283,6 +307,9 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
             _layout.measure();
     }
     
+    /**
+     *  @private
+     */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         if (_resizeMode == ResizeMode._SCALE_UINT)
@@ -309,6 +336,9 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         
     [Bindable]
 
+    /**
+     *  @copy flex.intf.IViewport#horizontalScrollPosition
+     */
     public function get horizontalScrollPosition():Number 
     {
         return (layout) ? layout.horizontalScrollPosition : 0;
@@ -325,7 +355,10 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     //----------------------------------
     
     [Bindable]
-
+    
+    /**
+     *  @copy flex.intf.IViewport#verticalScrollPosition
+     */
     public function get verticalScrollPosition():Number 
     {
         return (layout) ? layout.verticalScrollPosition : 0;
@@ -341,11 +374,17 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     //  horizontal,verticalScrollPositionDelta
     //----------------------------------
 
+    /**
+     *  @copy flex.intf.IViewport#horizontalScrollPositionDelta
+     */
     public function horizontalScrollPositionDelta(unit:uint):Number
     {
         return (layout) ? layout.horizontalScrollPositionDelta(unit) : 0;     
     }
     
+    /**
+     *  @copy flex.intf.IViewport#verticalScrollPositionDelta
+     */
     public function verticalScrollPositionDelta(unit:uint):Number
     {
         return (layout) ? layout.verticalScrollPositionDelta(unit) : 0;     
@@ -367,8 +406,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     [Inspectable(category="General")]    
 
     /**
-     * The positive extent of this Group's content, relative to the 0,0
-     * origin, along the X axis.
+     *  @copy flex.core.IViewport#contentWidth
      */
     public function get contentWidth():Number 
     {
@@ -394,8 +432,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     [Inspectable(category="General")]    
 
     /**
-     * The positive extent of this Group's content, relative to the 0,0 
-     * origin, along the Y axis.
+     *  @copy flex.core.IViewport#contentWidth
      */
     public function get contentHeight():Number 
     {
@@ -433,6 +470,9 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     //  clipContent
     //----------------------------------
     
+    /**
+     *  @copy flex.intf.IViewport#clipContent
+     */
     public function get clipContent():Boolean 
     {
         return (layout) ? layout.clipContent : false;
@@ -467,6 +507,9 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     // This is the same as UIComponent's focusPane getter/setter but it uses
     // super.add/removeChild.
 
+    /**
+     *  @private
+     */
     override public function get focusPane():Sprite
     {
         return _focusPane;
@@ -507,8 +550,8 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     //--------------------------------------------------------------------------
     
      /**
-     *  The number of layout items in this Group. Typically this is the same
-     *  as the number of items in the Group.
+     *  The number of layout items in this container. Typically this is the same
+     *  as the number of items in the container.
      */
     public function get numLayoutItems():int
     {
@@ -516,11 +559,11 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
     
     /**
-     *  Gets the <i>n</i>th layout item in the Group. For visual items, the 
+     *  Gets the <i>n</i>th layout item in the container. For visual items, the 
      *  layout item is the item itself. For data items, the layout item is the 
      *  item renderer instance that is associated with the item.
      *
-     *  @param index The index of the item to retrieve.
+     *  @param index The index of the layout item to retrieve.
      *
      *  @return The layout item at the specified index.
      */
@@ -575,6 +618,9 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     private var maskTypeChanged:Boolean;
     private var originalMaskFilters:Array;
     
+    /**
+     *  Documentation is not currently available. 
+     */
     public function get maskType():String
     {
         return _maskType;
@@ -598,7 +644,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
+     *  Documentation is not currently available. 
      */
     public function elementChanged(e:IGraphicElement):void
     {
@@ -608,7 +654,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
     
     /**
-     *  @inheritDoc
+     *  Documentation is not currently available. 
      */
     public function elementSizeChanged(e:IGraphicElement):void
     {
@@ -618,7 +664,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
     
     /**
-     * @inheritDoc
+     *  Documentation is not currently available. 
      */
     public function elementLayerChanged(e:IGraphicElement):void
     {
@@ -629,7 +675,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
     
     /**
-     *  @inheritDoc
+     *  Documentation is not currently available. 
      */
     public function get parentGraphic():Graphic
     {
@@ -637,7 +683,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
     
     /**
-     *  @inheritDoc
+     *  Documentation is not currently available. 
      */
     public function addMaskElement(mask:DisplayObject, target:IGraphicElement):void
     {
@@ -645,7 +691,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
     }
     
     /**
-     *  @inheritDoc
+     *  Documentation is not currently available. 
      */
     public function removeMaskElement(mask:DisplayObject, target:IGraphicElement):void
     {
