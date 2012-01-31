@@ -33,6 +33,8 @@ public class AnimateTransformScale3D extends AnimateTransformScale
     public function AnimateTransformScale3D(target:Object=null)
     {
         super(target);
+        applyLocalProjection = true;
+        affectLayout = false;
     }
 
     //--------------------------------------------------------------------------
@@ -89,7 +91,14 @@ public class AnimateTransformScale3D extends AnimateTransformScale
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
-        addMotionPath("scaleZ", scaleZFrom, scaleZTo, scaleZBy);
+        if(affectLayout)
+        {
+           addMotionPath("scaleZ", scaleZFrom, scaleZTo, scaleZBy);
+        }
+        else
+        {
+            addPostLayoutMotionPath("postLayoutScaleZ", scaleZFrom, scaleZTo, scaleZBy);
+        }
         super.initInstance(instance);
     }    
     
