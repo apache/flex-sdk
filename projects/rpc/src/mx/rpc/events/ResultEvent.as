@@ -172,6 +172,11 @@ public class ResultEvent extends AbstractEvent
             token.applyResult(this);
     }
 
+    mx_internal function setResult(r:Object):void
+    {
+        _result = r;
+    }
+
 
     //--------------------------------------------------------------------------
     //
