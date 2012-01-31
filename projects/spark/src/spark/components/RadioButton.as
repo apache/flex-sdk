@@ -9,13 +9,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 
 /**
  *  Documentation is not currently available.
  */
-public class RadioButton extends ToggleButton
+public class FxRadioButton extends FxToggleButton
 {
     include "../core/Version.as";
 
@@ -28,7 +28,7 @@ public class RadioButton extends ToggleButton
     /**
      *  Constructor. 
      */    
-	public function RadioButton()
+	public function FxRadioButton()
 	{
 		super();
 	}
