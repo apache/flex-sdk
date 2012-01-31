@@ -2,7 +2,7 @@
 <!-- Simple example to demonstrate the s:Fade class. -->
 <s:Application
 	xmlns:fx="http://ns.adobe.com/mxml/2009"
-    xmlns:mx="library://ns.adobe.com/flex/halo"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
     xmlns:s="library://ns.adobe.com/flex/spark">
 
     <fx:Declarations>
