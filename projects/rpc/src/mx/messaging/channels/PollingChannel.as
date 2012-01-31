@@ -19,6 +19,7 @@ import flash.utils.Timer;
 import mx.core.mx_internal;
 import mx.logging.Log;
 import mx.messaging.Channel;
+import mx.messaging.ChannelSet;
 import mx.messaging.ConsumerMessageDispatcher;
 import mx.messaging.MessageAgent;
 import mx.messaging.MessageResponder;
@@ -28,6 +29,7 @@ import mx.messaging.messages.CommandMessage;
 import mx.messaging.messages.IMessage;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
+import mx.messaging.Consumer;
 
 use namespace mx_internal;
 
@@ -128,6 +130,38 @@ public class PollingChannel extends Channel
     // Properties
     // 
     //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  connected
+    //----------------------------------   
+       
+    /**
+     *  @private
+     *  Reset polling state following a transient disconnect if possible.
+     * 
+     *  @param value The new connected state.
+     */
+    override protected function setConnected(value:Boolean):void
+    {
+        if (connected != value)
+        {
+            if (value) // Potentially a transient reconnect; check for subscribed Consumers.
+            {
+                for each (var channelSet:ChannelSet in channelSets)
+                {
+                    for each (var agent:MessageAgent in channelSet.messageAgents)
+                    {
+                        if (agent is Consumer && (agent as Consumer).subscribed)
+                        {
+                            enablePolling();
+                        }
+                    } 
+                }
+            }
+            
+            super.setConnected(value);
+        }
+    }        
        
     //----------------------------------
 	//  piggybackingEnabled
@@ -477,7 +511,7 @@ public class PollingChannel extends Channel
         
         _pollingRef = -1;
         _shouldPoll = false;
-        pollOutstanding = false;        
+        pollOutstanding = false;
     }
 
 
@@ -539,17 +573,17 @@ public class PollingChannel extends Channel
             if (timerRunning)
                 _timer.stop();
         
-            var msg:CommandMessage = new CommandMessage();
-            msg.operation = CommandMessage.POLL_OPERATION;
+            var poll:CommandMessage = new CommandMessage();
+            poll.operation = CommandMessage.POLL_OPERATION;
             // Pass a null clientId - this indicates that we're polling for 
             // any subscriptions for this client as opposed to receive()'ing 
             // messages for a single Consumer instance subscribed to a specific destination.
             if (Log.isDebug())
-                _log.debug("'{0}' channel sending poll message\n{1}\n", id, msg.toString());
+                _log.debug("'{0}' channel sending poll message\n{1}\n", id, poll.toString());
     
             try
             {
-                internalSend(new PollCommandMessageResponder(null, msg, this, _log));
+                internalSend(new PollCommandMessageResponder(null, poll, this, _log));
                 pollOutstanding = true;
             }
             catch(e:Error)
@@ -706,7 +740,7 @@ class PollCommandMessageResponder extends MessageResponder
      */
     override protected function resultHandler(msg:IMessage):void
     {      
-        PollingChannel(channel).pollOutstanding = false;
+        var pollingChannel:PollingChannel = channel as PollingChannel;        
         
         if (suppressHandlers)
         {
@@ -719,8 +753,10 @@ class PollCommandMessageResponder extends MessageResponder
             return;
         }
                 
-        if ((msg is CommandMessage))
+        if (msg is CommandMessage) // Poll response containing pushed messages.
         {    
+            pollingChannel.pollOutstanding = false;
+            
             // Return early if the response is tagged as a no-op poll.
             if (msg.headers[CommandMessage.NO_OP_POLL_HEADER] == true)
                 return;
@@ -750,15 +786,14 @@ class PollCommandMessageResponder extends MessageResponder
                 }
             }
         }
-        else if (msg is AcknowledgeMessage)
+        else if (msg is AcknowledgeMessage) // Empty response (no messages to push).
         {
+            pollingChannel.pollOutstanding = false;            
             // The server returns an empty ack if there are no messages to return. 
             // We don't need to do anything here.            
         }
-        else
+        else // Generally, the result of a connection failure while the poll was on the network.
         {
-            // This should never happen.
-            // If it does, treat it as a status (error) and return.
         	var errMsg:ErrorMessage = new ErrorMessage();
         	errMsg.faultDetail = resourceManager.getString(
 				"messaging", "receivedNull");
@@ -766,6 +801,7 @@ class PollCommandMessageResponder extends MessageResponder
         	return;
        	}
        	
+       	// If no errors, continue the polling interval.
        	if (msg.headers[CommandMessage.POLL_WAIT_HEADER] != null)
        	{
        	    doPoll(msg.headers[CommandMessage.POLL_WAIT_HEADER]); 
