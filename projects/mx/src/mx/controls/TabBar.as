@@ -31,6 +31,11 @@ use namespace mx_internal;
  *  This event is sent only if the data provider is not a ViewStack container.
  *
  *  @eventType mx.events.ItemClickEvent.ITEM_CLICK
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemClick", type="mx.events.ItemClickEvent")]
 
@@ -43,6 +48,11 @@ use namespace mx_internal;
  *  first tab navigation item. 
  *  
  *  @default "tabStyleName"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="firstTabStyleName", type="String", inherit="no")]
 
@@ -55,12 +65,22 @@ use namespace mx_internal;
  * and <code>"right"</code>.
  *
  * @default "center"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */[Style(name="horizontalAlign", type="String", enumeration="left,center,right", inherit="no")]
 
 /**
  *  Number of pixels between tab navigation items in the horizontal direction.
  * 
  *  @default -1
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalGap", type="Number", format="Length", inherit="no")]
 
@@ -69,6 +89,11 @@ use namespace mx_internal;
  *  last tab navigation item. 
  *  
  *  @default "tabStyleName" 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="lastTabStyleName", type="String", inherit="no")]
 
@@ -77,6 +102,11 @@ use namespace mx_internal;
  *  of the selected tab navigation item. 
  * 
  *  @default "activeTabStyle" 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectedTabTextStyleName", type="String", inherit="no")]
 
@@ -85,6 +115,11 @@ use namespace mx_internal;
  *  navigation items.
  * 
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="tabStyleName", type="String", inherit="no")]
 
@@ -95,6 +130,11 @@ use namespace mx_internal;
  *  If you set this property, the specified value overrides this calculation.
  * 
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="tabHeight", type="Number", format="Length", inherit="no")]
 
@@ -103,6 +143,11 @@ use namespace mx_internal;
  *  If undefined, the default tab widths are calculated from the label text.
  * 
  *  @default undefined 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="tabWidth", type="Number", format="Length", inherit="no")]
 
@@ -115,12 +160,22 @@ use namespace mx_internal;
  * and <code>"bottom"</code>.
  *
  * @default "middle"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */[Style(name="verticalAlign", type="String", enumeration="top,middle,bottom", inherit="no")]
 
 /**
  *  Number of pixels between tab navigation items in the vertical direction.
  * 
  *  @default -1
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalGap", type="Number", format="Length", inherit="no")]
 
@@ -235,6 +290,11 @@ use namespace mx_internal;
  *  </pre>
  *
  *  @includeExample examples/TabBarExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TabBar extends ToggleButtonBar
 {
@@ -260,6 +320,11 @@ public class TabBar extends ToggleButtonBar
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function TabBar()
     {
