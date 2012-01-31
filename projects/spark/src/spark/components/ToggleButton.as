@@ -36,6 +36,8 @@ import mx.events.FlexEvent;
 // TODO EGeorgie: figure out whether we need this?
 [DefaultBindingProperty(source="selected", destination="label")]
 
+[IconFile("FxToggleButton.png")]
+
 /**
  *  The FxToggleButton component defines a toggle button. 
  *  Clicking the button toggles it between the up and an down states.
