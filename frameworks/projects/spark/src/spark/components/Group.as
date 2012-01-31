@@ -35,8 +35,8 @@ import mx.graphics.graphicsClasses.TextGraphicElement;
 import mx.components.baseClasses.GroupBase;
 import mx.controls.Label;
 import mx.core.IFactory;
-import mx.core.IVisualContainer;
-import mx.core.IVisualItem;
+import mx.core.IVisualElementContainer;
+import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
@@ -86,7 +86,7 @@ use namespace mx_internal;
  *  @includeExample examples/GroupExample.mxml
  *
  */
-public class Group extends GroupBase implements IVisualContainer
+public class Group extends GroupBase implements IVisualElementContainer
 {
     /**
      *  Constructor.
@@ -247,9 +247,9 @@ public class Group extends GroupBase implements IVisualContainer
         
         if (_content !== null)
         {
-            for (var i:int = 0; i < numItems; i++)
+            for (var i:int = 0; i < numElements; i++)
             {
-                itemAdded(getItemAt(i), i);
+                itemAdded(getElementAt(i), i);
             }
         }
         
@@ -291,10 +291,10 @@ public class Group extends GroupBase implements IVisualContainer
         // Check whether we manage the elements, or are they managed by an ItemRenderer
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
         // Validate element properties
-        var length:int = numItems;
+        var length:int = numElements;
         for (var i:int = 0; i < length; i++)
         {
-            var element:GraphicElement = getItemAt(i) as GraphicElement;
+            var element:GraphicElement = getElementAt(i) as GraphicElement;
             if (element)
                 element.validateProperties();
         }
@@ -311,10 +311,10 @@ public class Group extends GroupBase implements IVisualContainer
         // Check whether we manage the elements, or are they managed by an ItemRenderer
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
         // Validate element size
-        var length:int = numItems;
+        var length:int = numElements;
         for (var i:int = 0; i < length; i++)
         {
-            var element:GraphicElement = getItemAt(i) as GraphicElement;
+            var element:GraphicElement = getElementAt(i) as GraphicElement;
             if (element)
                 element.validateSize();
         }
@@ -337,10 +337,10 @@ public class Group extends GroupBase implements IVisualContainer
         
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
         // Iterate through the graphic elements, clear their graphics and draw them
-        var length:int = numItems;
+        var length:int = numElements;
         for (var i:int = 0; i < length; i++)
         {
-            var element:GraphicElement = getItemAt(i) as GraphicElement;
+            var element:GraphicElement = getElementAt(i) as GraphicElement;
             if (element)
                 element.validateDisplayList();
         }
@@ -353,9 +353,9 @@ public class Group extends GroupBase implements IVisualContainer
     //--------------------------------------------------------------------------
     
     /**
-     *  The number of items in this group.
+     *  @inheritDoc
      */
-    public function get numItems():int
+    public function get numElements():int
     {
         if (_content === null)
             return 0;
@@ -367,15 +367,9 @@ public class Group extends GroupBase implements IVisualContainer
     }
     
     /**
-     *  Returns the item that exists at the specified index.
-     *
-     *  @param index The index of the item to retrieve.
-     *
-     *  @return The item at the specified index.
-     * 
-     *  @throws RangeError If the index position does not exist in the child list.
+     *  @inheritDoc
      */ 
-    public function getItemAt(index:int):Object
+    public function getElementAt(index:int):Object
     {
         // check for RangeError:
         checkForRangeError(index);
@@ -393,7 +387,7 @@ public class Group extends GroupBase implements IVisualContainer
      *  @private 
      *  Checks the range of index to make sure it's valid
      */ 
-    private function checkForRangeError(index:int, addingItem:Boolean = false):void
+    private function checkForRangeError(index:int, addingElement:Boolean = false):void
     {
         // figure out the maximum allowable index
         var maxIndex:int = -1;
@@ -405,8 +399,8 @@ public class Group extends GroupBase implements IVisualContainer
         else if (_contentType == CONTENT_TYPE_ARRAY)
             maxIndex = content.length - 1;
         
-        // if adding an item, we allow an extra index at the end
-        if (addingItem)
+        // if adding an element, we allow an extra index at the end
+        if (addingElement)
             maxIndex++;
             
         if (index > maxIndex)
@@ -414,50 +408,19 @@ public class Group extends GroupBase implements IVisualContainer
     }
  
     /**
-     *  Adds an item to this Group. The item is added after all other
-     *  items and on top of all other items.  (To add an item to a specific 
-     *  index position, use the <code>addChildAt()</code> method.)
-     * 
-     * <p>If you add an item object that already has a different
-     * container as a parent, the object is removed from the child 
-     * list of the other container.</p>  
-     *
-     *  @param item The item to add as a child of this Group instance.
-     *
-     *  @return The item that was added to the Group.
-     * 
-     *  @event itemAdded ItemExistenceChangedEvent Dispatched when the item is added to the child list.
-     * 
-     *  @throws ArgumentError If the child is the same as the parent.
-     */   
-    public function addItem(item:Object):Object
+     *  @inheritDoc
+     */
+    public function addElement(element:Object):Object
     {
-        return addItemAt(item, numItems);
+        return addElementAt(element, numElements);
     }
     
     /**
-     *  Adds an item to this Group. The item is added at the index
-     *  position specified.  An index of 0 represents the first item
-     *  and the back (bottom) of the display list.
-     *
-     *  @param item The item to add as a child of this Group instance.
-     * 
-     *  @param index The index position to which the item is added. If 
-     *  you specify a currently occupied index position, the child object 
-     *  that exists at that position and all higher positions are moved 
-     *  up one position in the child list.
-     *
-     *  @return The item that was added to the Group.
-     * 
-     *  @event itemAdded Dispatched when the item is added to the child list
-     * 
-     *  @throws ArgumentError If the child is the same as the parent.
-     * 
-     *  @throws RangeError If the index position does not exist in the child list.
+     *  @inheritDoc
      */
-    public function addItemAt(item:Object, index:int):Object
+    public function addElementAt(element:Object, index:int):Object
     {
-        if (item == this)
+        if (element == this)
             throw new ArgumentError("Cannot add yourself as a child of yourself");
             
         // check for RangeError:
@@ -478,47 +441,33 @@ public class Group extends GroupBase implements IVisualContainer
         }
         
         if (_contentType == CONTENT_TYPE_ARRAY)
-            _content.splice(index, 0, item);
+            _content.splice(index, 0, element);
         
-        itemAdded(item, index);
+        itemAdded(element, index);
         
         needsDisplayObjectAssignment = true;
         invalidateProperties();
         
-        return item;
+        return element;
     }
     
     /**
-     *  Removes the specified item from the child list of this group.
-     *  The index positions of any items above the item in the Group 
-     *  are decreased by 1.
-     *
-     *  @param item The item to be removed from the Group.
-     *
-     *  @return The item removed from the Group.
-     * 
-     *  @throws ArgumentError If the item parameter is not a child of this object.
+     *  @inheritDoc
      */
-    public function removeItem(item:Object):Object
+    public function removeElement(element:Object):Object
     {
-        return removeItemAt(getItemIndex(item));
+        return removeElementAt(getElementIndex(element));
     }
     
     /**
-     *  Removes an item from the specified index position in the Group.
-     *
-     *  @param index The index of the item to remove.
-     *
-     *  @return The item removed from the Group.
-     * 
-     *  @throws RangeError If the index does not exist in the child list.
+     *  @inheritDoc
      */
-    public function removeItemAt(index:int):Object
+    public function removeElementAt(index:int):Object
     {
         // check RangeError
         checkForRangeError(index);
         
-        var item:Object;
+        var element:Object;
         
         if (_content === null)
             return null;
@@ -534,13 +483,13 @@ public class Group extends GroupBase implements IVisualContainer
             {
                 var removed:Array = _content.splice(index, 1);
                 if (removed && removed.length > 0)
-                    item = removed[0];
+                    element = removed[0];
                 break;  
             }
                 
             case CONTENT_TYPE_UNKNOWN:
             {
-                item = _content;
+                element = _content;
                 _content = null;
                 break;
             }    
@@ -549,19 +498,13 @@ public class Group extends GroupBase implements IVisualContainer
         needsDisplayObjectAssignment = true;
         invalidateProperties();
         
-        return item;
+        return element;
     }
     
     /**
-     *  Returns the index position of an item.
-     *
-     *  @param item The item to identify.
-     *
-     *  @return The index position of the item to identify.
-     * 
-     *  @throws ArgumentError If the item is not a child of this object.
+     *  @inheritDoc
      */ 
-    public function getItemIndex(item:Object):int
+    public function getElementIndex(element:Object):int
     {
         var index:int = -1;
         
@@ -569,83 +512,49 @@ public class Group extends GroupBase implements IVisualContainer
         {
             case CONTENT_TYPE_UNKNOWN:
             {
-                if (_content == item)
+                if (_content == element)
                     index = 0;
                 break;
             }
             
             case CONTENT_TYPE_ARRAY:
             {
-                index = _content.indexOf(item);
+                index = _content.indexOf(element);
                 break;
             }
         }
         
         if (index == -1)
-            throw ArgumentError(item + " is not found in this Group");
+            throw ArgumentError(element + " is not found in this Group");
         else
             return index;
     }
     
     /**
-     *  Changes the position of an existing child in the Group.
-     * 
-     *  <p>When you call the <code>setItemIndex()</code> method and specify an 
-     *  index position that is already occupied, the only positions 
-     *  that change are those in between the item's former and new position.
-     *  All others will stay the same.</p>
-     *
-     *  <p>If an item is moved to an index 
-     *  lower than its current index, the index of all items in between increases
-     *  by 1.  If an item is moved to an index
-     *  higher than its current index, the index of all items in between 
-     *  decreases by 1.</p>
-     *
-     *  @param item The item for which you want to change the index number.
-     * 
-     *  @param index The resulting index number for the item.
-     * 
-     *  @throws RangeError - If the index does not exist in the child list.
-     *
-     *  @throws ArgumentError - If the item parameter is not a child 
-     *  of this object.
+     *  @inheritDoc
      */
-    public function setItemIndex(item:Object, index:int):void
+    public function setElementIndex(element:Object, index:int):void
     {
         // check for RangeError...this is done in addItemAt
         // but we want to do it before removing the item
         checkForRangeError(index);
         
-        removeItem(item);
-        addItemAt(item, index);
+        removeElement(element);
+        addElementAt(element, index);
     }
     
     /**
-     *  Swaps the index of the two specified items. All other items
-     *  remain in the same index position.
-     *
-     *  @param item1 The first item.
-     * 
-     *  @param item2 The second item.
-     * 
-     *  @throws ArgumentError If either item is not a child of this object.
+     *  @inheritDoc
      */
-    public function swapItems(item1:Object, item2:Object):void
+    public function swapElements(element1:Object, element2:Object):void
     {
-        swapItemsAt(getItemIndex(item1), getItemIndex(item2));
+        swapElementsAt(getElementIndex(element1), getElementIndex(element2));
     }
     
     /**
-     *  Swaps the items at the two specified index positions in 
-     *  the Group.  All other items remain in the same index position.
-     *
-     *  @param index1 The index of the first item.
-     * 
-     *  @param index2 The index of the second item.
-     * 
-     *  @throws RangeError If either index does not exist in the child list.
+     *  @inheritDoc
      */
-    public function swapItemsAt(index1:int, index2:int):void
+    public function swapElementsAt(index1:int, index2:int):void
     {
         // Make sure that index1 is the smaller index so that addItemAt 
         // doesn't RTE
@@ -658,14 +567,101 @@ public class Group extends GroupBase implements IVisualContainer
         else if (index1 == index2)
             return;
         
-        var item1:Object = getItemAt(index1);
-        var item2:Object = getItemAt(index2);
+        var element1:Object = getElementAt(index1);
+        var element2:Object = getElementAt(index2);
         
-        removeItem(item1);
-        removeItem(item2);
+        removeElement(element1);
+        removeElement(element2);
         
-        addItemAt(item2, index1);
-        addItemAt(item1, index2);
+        addElementAt(element2, index1);
+        addElementAt(element1, index2);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  DEPRECATED Methods ...
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  This method is deprecated and will be removed from Group.
+     */
+    public function get numItems():int
+    {
+        return numElements;
+    }
+    
+    /**
+     *  This method is deprecated and will be removed from Group.
+     */
+    public function getItemAt(index:int):Object
+    {
+        return getElementAt(index);
+    }
+    
+        
+    /**
+     *  This method is deprecated and will be removed from Group.
+     */
+    public function getItemIndex(item:Object):int
+    {
+        return getElementIndex(item);
+    }
+    
+    /**
+     *  This method is deprecated and will be removed from Group.
+     */
+    public function addItem(item:Object):Object
+    {
+        return addElement(item);
+    }
+    
+    /**
+     *  This method is deprecated and will be removed from Group.
+     */
+    public function addItemAt(item:Object, index:int):Object
+    {
+        return addElementAt(item, index);
+    }
+    
+    /**
+     *  This method is deprecated and will be removed from Group.
+     */
+    public function removeItem(item:Object):Object
+    {
+        return removeElement(item);
+    }
+    
+    /**
+     *  This method is deprecated and will be removed from Group.
+     */
+    public function removeItemAt(index:int):Object
+    {
+        return removeElementAt(index);
+    }
+    
+    /**
+     *  This method is deprecated and will be removed from Group.
+     */
+    public function setItemIndex(item:Object, index:int):void
+    {
+        setElementIndex(item, index);
+    }
+    
+    /**
+     *  This method is deprecated and will be removed from Group.
+     */
+    public function swapItems(item1:Object, item2:Object):void
+    {
+        swapElements(item1, item2);
+    }
+    
+    /**
+     *  This method is deprecated and will be removed from Group.
+     */
+    public function swapItemsAt(index1:int, index2:int):void
+    {
+        swapElementsAt(index1, index2);
     }
     
     //--------------------------------------------------------------------------
@@ -682,7 +678,7 @@ public class Group extends GroupBase implements IVisualContainer
      */
     override public function get numLayoutItems():int
     {
-        return numItems;
+        return numElements;
     }
     
     /**
@@ -692,9 +688,9 @@ public class Group extends GroupBase implements IVisualContainer
      */ 
     override public function getLayoutItemAt(index:int):ILayoutItem
     {
-        var item:Object = getItemAt(index);
+        var element:Object = getElementAt(index);
 
-        return LayoutItemFactory.getLayoutItemFor(item);
+        return LayoutItemFactory.getLayoutItemFor(element);
     }
 
     
@@ -729,7 +725,7 @@ public class Group extends GroupBase implements IVisualContainer
     {
         var child:DisplayObject;
                 
-        if (item is IVisualItem && (item as IVisualItem).layer != 0)
+        if (item is IVisualElement && (item as IVisualElement).layer != 0)
             invalidateLayering();
 
         if (item is GraphicElement) 
@@ -767,7 +763,7 @@ public class Group extends GroupBase implements IVisualContainer
      */
     protected function itemRemoved(index:int):void
     {       
-        var item:Object = getItemAt(index);
+        var item:Object = getElementAt(index);
         var childDO:DisplayObject = item as DisplayObject;
         
         dispatchEvent(new ItemExistenceChangedEvent(
@@ -804,8 +800,8 @@ public class Group extends GroupBase implements IVisualContainer
      */
     private function assignDisplayObjects():void
     {
-        var topLayerItems:Vector.<IVisualItem>;
-        var bottomLayerItems:Vector.<IVisualItem>;        
+        var topLayerItems:Vector.<IVisualElement>;
+        var bottomLayerItems:Vector.<IVisualElement>;        
         var keepLayeringEnabled:Boolean = false;
         
         mergeData.currentAssignableDO  = canShareDisplayObject ? this : null;
@@ -813,27 +809,27 @@ public class Group extends GroupBase implements IVisualContainer
         mergeData.insertIndex = 0;
 
         // Iterate through all of the items
-        var len:int = numItems; 
+        var len:int = numElements; 
         for (var i:int = 0; i < len; i++)
         {  
-            var item:Object = getItemAt(i);
+            var item:Object = getElementAt(i);
             
             if (layeringMode != ITEM_ORDERED_LAYERING)
             {
                 var layer:Number = 0;
-                if (item is IVisualItem)
-                    layer = (item as IVisualItem).layer;
+                if (item is IVisualElement)
+                    layer = (item as IVisualElement).layer;
                 if (layer != 0)
                 {               
                     if (layer > 0)
                     {
-                        if (topLayerItems == null) topLayerItems = new Vector.<IVisualItem>();
+                        if (topLayerItems == null) topLayerItems = new Vector.<IVisualElement>();
                         topLayerItems.push(item);
                         continue;                   
                     }
                     else
                     {
-                        if (bottomLayerItems == null) bottomLayerItems = new Vector.<IVisualItem>();
+                        if (bottomLayerItems == null) bottomLayerItems = new Vector.<IVisualElement>();
                         bottomLayerItems.push(item);
                         continue;                   
                     }
@@ -884,10 +880,10 @@ public class Group extends GroupBase implements IVisualContainer
      *  first the layer property, and then the item order, so a stable sort is important (and the 
      *  built in flash sort is not stable).
      */
-    private static function sortOnLayer(a:Vector.<IVisualItem>):void
+    private static function sortOnLayer(a:Vector.<IVisualElement>):void
     {
         var len:Number = a.length;
-        var tmp:IVisualItem;
+        var tmp:IVisualElement;
         if (len<= 1)
             return;
         for (var i:int = 1;i<len;i++)
@@ -979,14 +975,14 @@ public class Group extends GroupBase implements IVisualContainer
         var host:DisplayObject;
         
         // TODO (rfrishbe): need to check for DisplayObject?
-        if (item is IVisualItem)
-            host = IVisualItem(item).parent; 
+        if (item is IVisualElement)
+            host = IVisualElement(item).parent; 
         else if (item is DisplayObject)
             host = DisplayObject(item).parent;
         
         // Remove the item from the group if that group isn't this group
-        if (host && host is Group && host != this)
-            Group(host).removeItem(item);
+        if (host && host is IVisualElementContainer && host != this)
+            IVisualElementContainer(host).removeElement(item);
         else if (host && host is DataGroup && host != this)
         {
             var dp:IList = DataGroup(host).dataProvider;
