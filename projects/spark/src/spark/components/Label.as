@@ -152,31 +152,6 @@ public class TextBox extends TextGraphicElement
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden methods: GraphicElement
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    override protected function updateDisplayList(unscaledWidth:Number, 
-                                                  unscaledHeight:Number):void
-    {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-
-        // The updateDisplayList() method of a GraphicElement can get called
-        // when its style chain hasn't been initialized.
-        // In that case, composeTextLines() must not be called.
-        if (!mx_internal::styleChainInitialized)
-            return;
-
-        composeTextLines(unscaledWidth, unscaledHeight);
-
-        mx_internal::clip(unscaledWidth, unscaledHeight);
-	}
-
-    //--------------------------------------------------------------------------
-    //
     //  Methods
     //
     //--------------------------------------------------------------------------
@@ -204,6 +179,9 @@ public class TextBox extends TextGraphicElement
         mx_internal::removeTextLines();
 		createTextLines(elementFormat);
         mx_internal::addTextLines(DisplayObjectContainer(displayObject));
+        
+        // Just recomposed so reset.
+        mx_internal::stylesChanged = false;                
     }
 
 	/**
