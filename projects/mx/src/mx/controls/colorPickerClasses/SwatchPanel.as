@@ -339,7 +339,7 @@ include "../../styles/metadata/TextStyles.as"
  *
  *  <p>It can be set to either the mx.core.TextInput class
  *  (to use the classic Halo TextInput control)
- *  or the mx.controls.TLFTextInput class
+ *  or the mx.controls.MXFTETextInput class
  *  (to use the Spark TextInput component based on the Text Layout Framework 
  *  to get improved text rendering, including bidirectional layout).</p>
  *
@@ -1220,8 +1220,8 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
             }
 
             
-            // TLFTextInput does not maintain its selection when the
-            // text is reset.  Remember to maintain soft link to FTETextInput.
+            // MXFTETextInput does not maintain its selection when the
+            // text is reset.  Remember to maintain soft link to MXFTETextInput.
             if (!(textInput is TextInput))
             {
                 var anchorPosition:int = textInput.selectionAnchorPosition;
