@@ -11,14 +11,13 @@
 
 package mx.components
 {
-import flash.ui.Keyboard;
-import mx.layout.ILayoutItem;
-import mx.layout.LayoutItemFactory;
 import mx.components.baseClasses.FxScrollBar;
+import mx.core.IViewport;
 import mx.core.ScrollUnit;  
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
-import flash.events.Event;
+import mx.layout.ILayoutItem;
+import mx.layout.LayoutItemFactory;
 
 [IconFile("FxVScrollBar.png")]
 
@@ -65,6 +64,17 @@ public class FxVScrollBar extends FxScrollBar
         else
             return 0;
     }
+    
+    override public function set viewport(newViewport:IViewport):void
+    {
+        super.viewport = newViewport;
+        if (newViewport)
+        {
+            maximum = newViewport.contentHeight - newViewport.height;
+            pageSize = newViewport.height;
+            value = newViewport.verticalScrollPosition;
+        }
+    }    
     
     //--------------------------------------------------------------------------
     //
