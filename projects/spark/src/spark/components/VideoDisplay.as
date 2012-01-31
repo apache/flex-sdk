@@ -395,9 +395,12 @@ public class VideoDisplay extends UIComponent
     //  autoPlay
     //----------------------------------
     
-    [Inspectable(category="General", defaultValue="true")]
-    
+    /**
+     * @private
+     */
     private var _autoPlay:Boolean = true;
+    
+    [Inspectable(category="General", defaultValue="true")]
     
     /**
      *  Specifies whether the video starts playing immediately when the
