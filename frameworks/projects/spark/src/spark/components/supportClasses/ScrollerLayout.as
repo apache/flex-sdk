@@ -37,7 +37,7 @@ public class ScrollerLayout extends LayoutBase
      *  @private
      *  SDT - Scrollbar Display Threshold.  If the content size exceeds the
      *  viewport's size by SDT, then we show a scrollbar.  For example, if the 
-     *  contentWidth >= viewport width + SDT, show the vertical scrollbar.
+     *  contentWidth >= viewport width + SDT, show the horizontal scrollbar.
      */
     private static const SDT:Number = 1.0;
 
@@ -69,7 +69,7 @@ public class ScrollerLayout extends LayoutBase
         // TODO(hmuller):prefer to do nothing if transform doesn't change size, see UIComponent/nonDeltaLayoutMatrix()
         var cw:Number = viewport.contentWidth;
         var ch:Number = viewport.contentHeight;
-        if ((cw == 0) && (ch == 0))
+        if (((cw == 0) && (ch == 0)) || (isNaN(cw) || isNaN(ch)))
             return new Point(0,0);
         return MatrixUtil.transformSize(new Point(cw, ch), viewport.getLayoutMatrix());
     }
