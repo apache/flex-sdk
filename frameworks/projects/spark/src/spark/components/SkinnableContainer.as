@@ -168,6 +168,25 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
+/**
+ *  When in touch interaction mode, the number of milliseconds to wait before showing the 
+ *  component in a visually down state.
+ * 
+ *  <p>The reason for this delay is because when a user initiates a scroll gesture, we don't want 
+ *  components to flicker as they touch the screen.  By having a reasonable delay, we make 
+ *  sure that the user still gets feedback when they press down on a component, but that the 
+ *  feedback doesn't come too quickly that it gets displayed during a scroll gesture 
+ *  operation.</p>
+ *  
+ *  <p>If the mobile theme is applied, the default value for this style is 100 ms for 
+ *  components inside of a Scroller and 0 ms for components outside of a Scroller.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="touchDelay", type="Number", format="Time", inherit="yes", minValue="0.0")]
 
 [IconFile("SkinnableContainer.png")]
 
