@@ -73,30 +73,28 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *  If you need those capabilities, please see the RichEditableText
  *  class.</p>
  *
- *  <p>RichText, which is new with Flex 4, makes use of the new
- *  Text Layout Framework (TLF) library, which in turn builds on
- *  the new Flash Text Engine (FTE) in Flash Player 10.
+ *  <p>RichText uses the Text Layout Framework (TLF) library, which in turn builds on
+ *  the Flash Text Engine (FTE) in Flash Player 10.
  *  In combination, they provide rich text layout using
  *  high-quality international typography.</p>
  *
  *  <p>The Spark architecture provides three text "primitives" -- 
- *  Label, RichText, and RichEditableText --
- *  as part of its pay-only-for-what-you-need philosophy.
+ *  Label, RichText, and RichEditableText.
  *  Label is the fastest and most lightweight
  *  because it uses only FTE, not TLF,
  *  but it is limited in its capabilities: no rich text,
  *  no scrolling, no selection, and no editing.
  *  RichText adds the ability to display rich text
  *  with complex layout, but is still completely non-interactive.
- *  RichEditableText is the slowest and heaviest,
+ *  RichEditableText is the heaviest-weight,
  *  but offers most of what TLF can do.
- *  You should use the fastest text primitive that meets your needs.</p>
+ *  You should use the lightest-weight text primitive that meets your needs.</p>
  *
  *  <p>RichText is similar to the MX control mx.controls.Text.
- *  The MX control used the older TextField class, instead of TLF,
+ *  The Text control uses the older TextField class, instead of TLF,
  *  to display text.</p>
  *
- *  <p>The most important differences to understand are
+ *  <p>The most important differences between RichText and Text are:
  *  <ul>
  *    <li>RichText offers better typography, better support
  *        for international languages, and better text layout than Text.</li>
@@ -104,7 +102,6 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *        while Text does not.</li>
  *    <li>Text is selectable, while RichText does not support selection.</li>
  *  </ul></p>
- *
  *
  *  <p>RichText uses TLF's object-oriented model of rich text,
  *  in which text layout elements such as divisions, paragraphs, spans,
@@ -120,8 +117,8 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *  the richness of a TextFlow, you should consider using
  *  Label instead.</p>
  *
- *  <p>At compile time, you can simply put TLF markup tags inside
- *  the RichText tag, as in
+ *  <p>At compile time, you can put TLF markup tags inside
+ *  the RichText tag, as the following example shows:
  *  <pre>
  *  &lt;s:RichText&gt;Hello &lt;s:span fontWeight="bold"&gt;World!&lt;/s:span&gt;&lt;/s:RichText&gt;
  *  </pre>
@@ -146,19 +143,18 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *
  *  <p>If you don't specify any kind of width for a RichText,
  *  then the longest line, as determined by these explicit line breaks,
- *  will determine the width of the Label.</p>
+ *  determines the width of the Label.</p>
  *
- *  <p>When you specify some kind of width, the text wraps at the right
+ *  <p>When you specify a width, the text wraps at the right
  *  edge of the component and the text is clipped when there is more
  *  text than fits.
- *  If you set the <code>lineBreak</code> style to <code>"explicit"</code>,
+ *  If you set the <code>lineBreak</code> style to <code>explicit</code>,
  *  new lines will start only at explicit lines breaks, such as
- *  if you use CR (<code>"\r"</code>), LF (<code>"\n"</code>),
- *  or CR+LF (<code>"\r\n"</code>) in <code>text</code>
+ *  if you use CR (<code>\r</code>), LF (<code>\n</code>),
+ *  or CR+LF (<code>\r\n</code>) in <code>text</code>
  *  or if you use <code>&lt;p&gt;</code> and <code>&lt;br/&gt;</code>
- *  in TLF markup.
- *  In that case, lines that are wider than the control
- *  will be clipped.</p>
+ *  in TLF markup. In that case, lines that are wider than the control
+ *  are clipped.</p>
  *
  *  <p>If you have more text than you have room to display it,
  *  RichText can truncate the text for you.
@@ -179,23 +175,23 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *  right-to-left (RTL) text such as Arabic, and bidirectional text
  *  such as a French phrase inside of an Arabic one.
  *  If the predominant text direction is right-to-left,
- *  set the <code>direction</code> style to <code>"rtl"</code>.
+ *  set the <code>direction</code> style to <code>rtl</code>.
  *  The <code>textAlign</code> style defaults to <code>"start"</code>,
  *  which makes the text left-aligned when <code>direction</code>
- *  is <code>"ltr"</code> and right-aligned when <code>direction</code>
- *  is <code>"rtl"</code>.
+ *  is <code>ltr</code> and right-aligned when <code>direction</code>
+ *  is <code>rtl</code>.
  *  To get the opposite alignment,
- *  set <code>textAlign</code> to <code>"end"</code>.</p>
+ *  set <code>textAlign</code> to <code>end</code>.</p>
  *
  *  <p>RichText uses TLF's StringTextFlowFactory and TextFlowTextLineFactory
  *  classes to create one or more TextLine objects to statically display
  *  its text.
  *  For performance, its TextLines do not contain information
- *  about individual glyphs; for more info, see
- *  flash.text.engine.TextLineValidity.STATIC.</p>
+ *  about individual glyphs; for more info, see the TextLineValidity class.</p>
  *
  *  @see spark.components.RichEditableText
  *  @see spark.components.Label
+ *  @see flash.text.engine.TextLineValidity
  *  
  *  @includeExample examples/RichTextExample.mxml
  *  
@@ -707,10 +703,10 @@ public class RichText extends TextBase implements IFontContextComponent
     /**
      *  <p>The maskType defines how the mask is applied to the component.</p> 
      * 
-     *  <p>The possible values are MaskType.CLIP, MaskType.ALPHA and 
-     *  MaskType.LUMINOSITY.</p>  
+     *  <p>The possible values are <code>MaskType.CLIP</code>, <code>MaskType.ALPHA</code> and 
+     *  <code>MaskType.LUMINOSITY</code>.</p>  
      * 
-     *  <p>Clip Masking</p>
+     *  <p><strong>Clip Masking</strong></p>
      * 
      *  <p>When masking in clip mode, a clipping masks is reduced to 1-bit.  This means that a mask will 
      *  not affect the opacity of a pixel in the source content; it either leaves the value unmodified, 
@@ -728,7 +724,7 @@ public class RichText extends TextBase implements IFontContextComponent
      *  result, the alpha channel of the source bitmap is irrelevant when part of a mask -- the bitmap 
      *  affects the mask in the same manner as solid filled rectangle of equivalent dimensions.</p>
      * 
-     *  <p>Alpha Masking</p>
+     *  <p><strong>Alpha Masking</strong></p>
      * 
      *  <p>In alpha mode, the opacity of each pixel in the source content is multiplied by the opacity 
      *  of the corresponding region of the mask.  i.e., a pixel in the source content with an opacity of 
@@ -745,7 +741,7 @@ public class RichText extends TextBase implements IFontContextComponent
      *  alpha channel, and will affect the final rendered content. This holds true for both BitmapGraphics 
      *  and bitmap filled shapes and paths.</p>
      * 
-     *  <p>Luminosity Masking</p>
+     *  <p><strong>Luminosity Masking</strong></p>
      * 
      *  <p>A luminosity mask, sometimes called a 'soft mask', works very similarly to an alpha mask
      *  except that both the opacity and RGB color value of a pixel in the source content is multiplied
@@ -765,6 +761,8 @@ public class RichText extends TextBase implements IFontContextComponent
      * 
      *  <p>Objects being masked by luminosity masks can set properties to control the RGB color value and 
      *  clipping of the mask. See the luminosityInvert and luminosityClip attributes.</p>
+     * 
+     *  @see spark.core.MaskType
      * 
      *  @default MaskType.CLIP
      *  
@@ -855,7 +853,7 @@ public class RichText extends TextBase implements IFontContextComponent
      *  mask clips the masked content. This property can 
      *  only have an effect if the graphic element has a 
      *  mask applied to it that is of type 
-     *  MaskType.LUMINOSITY.  
+     *  <code>MaskType.LUMINOSITY</code>.  
      * 
      *  @default false 
      *  @see #maskType 
@@ -917,7 +915,7 @@ public class RichText extends TextBase implements IFontContextComponent
      *
      *  <p>If you set the <code>textFlow</code> and get the <code>text</code>,
 	 *  the text in each paragraph will be separated by a single
-     *  LF ("\n").</p>
+     *  LF (<code>\n</code>).</p>
      *
      *  <p>If you set the <code>text</code> to a String such as
 	 *  <code>"Hello World"</code> and get the <code>textFlow</code>,
@@ -925,12 +923,12 @@ public class RichText extends TextBase implements IFontContextComponent
 	 *  with a single SpanElement.</p>
      *
      *  <p>If the text contains explicit line breaks --
-     *  CR ("\r"), LF ("\n"), or CR+LF ("\r\n") --
+     *  CR (<code>\r</code>), LF (<code>\n</code>), or CR+LF (<code>\r\n</code>) --
      *  then the content will be set to a TextFlow
      *  which contains multiple paragraphs, each with one span.</p>
      *
 	 *  <p>To turn a TextFlow object into TLF markup,
-	 *  use the <code>TextFlowUtil.export()</code> markup.</p>
+	 *  use the markup returned from the <code>TextFlowUtil.export()</code> method.</p>
 	 *
 	 *  @see spark.utils.TextFlowUtil#importFromString()
 	 *  @see spark.utils.TextFlowUtil#importFromXML()
