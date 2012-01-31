@@ -317,6 +317,8 @@ public class SkinnableContainer extends SkinnableContainerBase
     
     private var _creationPolicy:String = "auto";
     
+    [Inspectable(enumeration="auto,all,none", defaultValue="auto")]
+    
     /**
      *  @inheritDoc
      *
