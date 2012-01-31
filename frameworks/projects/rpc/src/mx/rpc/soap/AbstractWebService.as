@@ -205,7 +205,7 @@ public class AbstractWebService extends AbstractService
 
     /**
      * Specifies the port within the WSDL document that this WebService should
-     * use
+     * use.
      */
     public function get port():String
     {
@@ -354,6 +354,7 @@ public class AbstractWebService extends AbstractService
      * The header can be provided in a pre-encoded form as an XML instance, or
      * as a SOAPHeader instance which leaves the encoding up to the internal
      * SOAP encoder.
+     *  
      * @param header The SOAP header to add to all operations.
      */
     public function addHeader(header:Object):void
@@ -363,10 +364,11 @@ public class AbstractWebService extends AbstractService
 
     /**
      * Add a header that will be applied to all operations of this WebService.
-     * @param qnameLocal the localname for the header QName
-     * @param qnameNamespace the namespace for header QName
-     * @param headerName the name of the header
-     * @param headerValue the value of the header
+     *  
+     * @param qnameLocal The localname for the header QName.
+     * @param qnameNamespace The namespace for the header QName.
+     * @param headerName The name of the header.
+     * @param headerValue The value of the header.
      */
     public function addSimpleHeader(qnameLocal:String, qnameNamespace:String, headerName:String, headerValue:String):void
     {
@@ -385,8 +387,9 @@ public class AbstractWebService extends AbstractService
 
     /**
      * Returns a header if a match is found based on QName, localName, and URI.
+     *  
      * @param qname QName of the SOAPHeader.
-     * @param headerName Name of a header in the SOAPHeader content (Optional)
+     * @param headerName (Optional) Name of a header in the SOAPHeader content.
      *
      * @return A header if a match is found based on QName, localName, and URI.
      */
@@ -417,8 +420,9 @@ public class AbstractWebService extends AbstractService
 
     /**
      * Removes the header with the given QName from all operations.
+     *  
      * @param qname QName of the SOAPHeader.
-     * @param headerName Name of a header in the SOAPHeader content (Optional)
+     * @param headerName (Optional) Name of a header in the SOAPHeader content.
      */
     public function removeHeader(qname:QName, headerName:String = null):void
     {
@@ -451,8 +455,8 @@ public class AbstractWebService extends AbstractService
      * header from the proxy to the endpoint. If useProxy is false this property
      * will be ignored.
      *
-     * @param remoteUsername the username to pass to the remote endpoint
-     * @param remotePassword the password to pass to the remote endpoint
+     * @param remoteUsername The username to pass to the remote endpoint.
+     * @param remotePassword The password to pass to the remote endpoint.
      * @param charset The character set encoding to use while encoding the
      * remote credentials. The default is null, which implies the legacy charset
      * of ISO-Latin-1. The only other supported charset is &quot;UTF-8&quot;.
