@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics.graphicsClasses
+package mx.graphics.baseClasses
 {
 
 import flash.display.Graphics;
