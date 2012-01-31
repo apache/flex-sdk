@@ -504,9 +504,9 @@ public class GridDimensions
             var node:GridRowNode = rowList.find(row);
             if (node)
             {
-                if (!isNaN(node.fixedHeight))
+                if (node.fixedHeight >= 0)
                     height = node.fixedHeight;
-                else if (!isNaN(node.maxCellHeight))
+                else if (node.maxCellHeight >= 0)
                     height = node.maxCellHeight;
             }
         }
