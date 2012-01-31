@@ -16,6 +16,8 @@ import flash.display.Loader;
 import flash.display.LoaderInfo;
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.events.IOErrorEvent;
+import flash.events.SecurityErrorEvent;
 import flash.net.URLRequest;
 import flash.system.LoaderContext;
 import flash.utils.Dictionary;
@@ -104,16 +106,55 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     //--------------------------------------------------------------------------
     
     /**
-     *  @private
      *  Map of source to CacheEntryNode.
-     */  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
     protected var cachedData:Dictionary = new Dictionary();
     
     /**
-     *  @private
      *  Ordered (MRU) list of CacheEntryNode instances.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
      */
     protected var cacheEntries:LinkedList = new LinkedList();
+    
+    /**
+     *  List of queued CacheEntryNode instances.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    protected var requestQueue:LinkedList = new LinkedList();
+    
+    /**
+     *  List of queued CacheEntryNode instances currently executing.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    protected var activeRequests:LinkedList = new LinkedList();
+    
+    /**
+     *  Identifier of the currently prioritized content grouping.
+     *  @default "_DEFAULT_"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    protected var priorityGroup:String = "_DEFAULT_";
         
     //--------------------------------------------------------------------------
     //
@@ -131,7 +172,8 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     private var _enableCaching:Boolean = true;
     
     /**
-     *  Enables caching behavior and functionality.
+     *  Enables caching behavior and functionality. Applies only to new
+     *  load() requests.
      * 
      *  @default true
      *  
@@ -164,9 +206,10 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     private var _enableQueueing:Boolean = false;
     
     /**
-     *  Enables queuing behavior and functionality.
+     *  Enables queuing behavior and functionality. Applies only to new
+     *  load() requests.
      * 
-     *  @default false;
+     *  @default false
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -271,7 +314,7 @@ public class ContentCache extends EventDispatcher implements IContentLoader
         if (value != _maxCacheEntries)
         {
             _maxCacheEntries = value;
-            enforceMaximumEntries();
+            enforceMaximumCacheEntries();
         }
     }
     
@@ -293,25 +336,41 @@ public class ContentCache extends EventDispatcher implements IContentLoader
         if (!cacheEntry || cacheEntry.value == UNTRUSTED || !enableCaching)
         {             
             // No previously cached entry or the entry is marked as
-            // unshareable (untrusted).
+            // unshareable (untrusted), we must execute a Loader request
+            // for the data.
             var loader:Loader = new Loader();
-            var loaderContext:LoaderContext = new LoaderContext();
-            loaderContext.checkPolicyFile = true;
-			
-			// Listen for completion so we can manage our cache entry upon
-			// failure or if the loaded data is deemed unshareable.
-			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loader_completeHandler, 
-				false, 0, true);
-			
+            
+            // Listen for completion so we can manage our cache entry upon
+            // failure or if the loaded data is deemed unshareable.
+            loader.contentLoaderInfo.addEventListener(Event.COMPLETE, 
+                loader_completeHandler, false, 0, true);
+            loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, 
+                loader_completeHandler, false, 0, true);
+            loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, 
+                loader_completeHandler, false, 0, true);
+            
             var urlRequest:URLRequest = source is URLRequest ? 
                 source as URLRequest : new URLRequest(source as String);
             
-            loader.load(urlRequest, loaderContext);
+            if (enableQueueing)
+            {
+                // Queue load request.
+                queueRequest(urlRequest, loader, contentLoaderGrouping);
+            }
+            else
+            {
+                // Execute Loader
+                var loaderContext:LoaderContext = new LoaderContext();
+                loaderContext.checkPolicyFile = true;
+                loader.load(urlRequest, loaderContext);
+            }
+            
+            // Create ContentRequest instance to return to caller.
             contentRequest = new ContentRequest(this, loader.contentLoaderInfo);
             
-            // Now cache our new loader info.
+            // Now cache our new loader info if applicable.
             if (!cacheEntry && enableCaching) 
-                addCacheEntry(source, loader.contentLoaderInfo);
+                addCacheEntry(key, loader.contentLoaderInfo);
         }
         else
         {
@@ -340,7 +399,8 @@ public class ContentCache extends EventDispatcher implements IContentLoader
      */
     public function getCacheEntry(source:Object):Object
     {
-        var cacheEntry:CacheEntryNode = cachedData[source];
+        var key:Object = source is URLRequest ? URLRequest(source).url : source;
+        var cacheEntry:CacheEntryNode = cachedData[key];
         return cacheEntry ? cacheEntry.value : null;
     }
     
@@ -394,15 +454,41 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     {
         var key:Object = source is URLRequest ? URLRequest(source).url : source;
         var node:CacheEntryNode = cachedData[key];
-		
+        
         if (node)
             cacheEntries.remove(node);
         
         node = new CacheEntryNode(key, value);
         cachedData[source] = node;
         cacheEntries.unshift(node);
-        enforceMaximumEntries();
+        enforceMaximumCacheEntries();
     }
+    
+    /**
+     *  If size of our cache exceeds our maximum, we release the least
+     *  recently used entries necessary to meet our limit.
+     * 
+     *  @private
+     */
+    mx_internal function enforceMaximumCacheEntries():void
+    {
+        if (_maxCacheEntries <= 0)
+            return;
+        
+        while (cacheEntries.length > _maxCacheEntries)
+        {
+            var node:CacheEntryNode = cacheEntries.pop() as CacheEntryNode;
+            var key:Object = (node.source is URLRequest) ? 
+                URLRequest(node.source).url : node.source;
+            delete cachedData[key];
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Queueing Methods
+    //
+    //--------------------------------------------------------------------------
     
     /**
      *  Promotes a content grouping to the head of the loading queue.
@@ -418,27 +504,139 @@ public class ContentCache extends EventDispatcher implements IContentLoader
      */
     public function prioritize(contentLoaderGrouping:String):void
     {
-        // TODO (crl)
+        priorityGroup = contentLoaderGrouping;
+        shiftPriority();
+        processQueue();
     }
-        
+         
     /**
-     *  If size of our cache exceeds our maximum, we release the least
-     *  recently used entries necessary to meet our limit.
+     *  Process the request queue and execute any pending requests until we
+     *  reach our maxActiveRequests limit.
      * 
      *  @private
      */
-    mx_internal function enforceMaximumEntries():void
+    mx_internal function queueRequest(source:URLRequest, loader:Loader, queueGroup:String):void
     {
-        if (_maxCacheEntries <= 0 || cacheEntries.length <= _maxCacheEntries)
-            return;
-    
-        while (cacheEntries.length > _maxCacheEntries)
+        var node:QueueEntryNode = new QueueEntryNode(source, loader, queueGroup);
+        
+        if (queueGroup == priorityGroup)
         {
-            var node:CacheEntryNode = cacheEntries.pop() as CacheEntryNode;
-            delete cachedData[node.source];
+            // Our new request matches the current priority group, so insert
+            // after all currently queued instances of the same priority group.
+            
+            var current:QueueEntryNode = requestQueue.head as QueueEntryNode;
+            
+            while (current && current.next && current.queueGroup == priorityGroup)
+                current = current.next as QueueEntryNode;
+            
+            if (current)
+            {
+                if (current.queueGroup == priorityGroup)
+                    requestQueue.insertAfter(node, current);
+                else
+                    requestQueue.insertBefore(node, current);
+            }
+            else
+                requestQueue.push(node);              
+        }    
+        else
+        {
+            // No active priority group, just push to request queue.
+            requestQueue.push(node);
+        }
+        
+        processQueue();
+    }
+    
+    /**
+     *  Process the request queue and execute any pending requests until we
+     *  reach our maxActiveRequests limit.
+     * 
+     *  @private
+     */
+    mx_internal function processQueue():void
+    {
+        if (activeRequests.length < maxActiveRequests && requestQueue.length > 0)
+        {
+            var node:QueueEntryNode = requestQueue.shift() as QueueEntryNode;
+            if (node)
+            {
+                // Execute load request.
+                var loaderContext:LoaderContext = new LoaderContext();
+                loaderContext.checkPolicyFile = true;
+                var loader:Loader = node.value;
+                loader.load(node.urlRequest, loaderContext);
+
+                // Promote to active list.
+                activeRequests.push(node);
+            }
         }
     }
     
+    /**
+     *  Reorder our request queue giving priorityGroup preference.
+     *  @private
+     */
+    mx_internal function shiftPriority():void
+    {
+        var current:QueueEntryNode = requestQueue.tail as QueueEntryNode;
+        var prioritizedNodes:LinkedList = new LinkedList();
+        
+        // Requeue
+        requeueActive();
+        
+        // Remove all nodes matching current priority queue.
+        while (current) 
+        {
+            var candidate:QueueEntryNode = current;
+            current = current.prev as QueueEntryNode;
+            if (candidate.queueGroup == priorityGroup)
+            {
+                requestQueue.remove(candidate);
+                prioritizedNodes.push(candidate);
+            }
+        }   
+
+        // Reinsert to head of list in original queued order.
+        while (prioritizedNodes.length)
+        {
+            current = prioritizedNodes.shift() as QueueEntryNode;
+            requestQueue.unshift(current);
+        }
+    }
+    
+    /**
+     *  Requeues all active requests.
+     * 
+     *  @private
+     */
+    mx_internal function requeueActive():void
+    {
+        var current:QueueEntryNode = activeRequests.head as QueueEntryNode;
+        while (current)
+        {
+            var activeNode:QueueEntryNode = current;
+            current = current.next as QueueEntryNode;
+            if (activeNode.queueGroup != priorityGroup)
+            {
+                // Remove from active list and invoke close() on the Loader.
+                // We'll reinvoke load() again once the queued request is 
+                // serviced.
+                activeRequests.remove(activeNode);
+
+                try 
+                {
+                    Loader(activeNode.value).close();
+                }
+                catch (e:Error) {}
+                finally
+                {
+                    requestQueue.unshift(activeNode);
+                }
+            }
+            
+        }
+    }
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -456,19 +654,41 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     private function loader_completeHandler(e:Event):void
     {
         var loaderInfo:LoaderInfo = e.target as LoaderInfo;
-        if (loaderInfo && !loaderInfo.childAllowsParent)
+       
+        if (e.type == Event.COMPLETE && loaderInfo && !loaderInfo.childAllowsParent)
         {
             // Detected that our loader cannot be shared or cached. Mark 
             // as such and notify and possibly active content requests.
             addCacheEntry(loaderInfo.url, UNTRUSTED);
             dispatchEvent(new LoaderInvalidationEvent(LoaderInvalidationEvent.INVALIDATE_LOADER, loaderInfo));
         }
+        else if (e.type == IOErrorEvent.IO_ERROR || e.type == SecurityErrorEvent.SECURITY_ERROR)
+        {
+            // Not suitable for caching.  Lookup our loader info in our cache since
+            // the ioError event does not provide us the original url.
+            var cachedRequest:CacheEntryNode = cacheEntries.find(e.target) as CacheEntryNode;
+            if (cachedRequest)
+                removeCacheEntry(cachedRequest.source);
+        }
+        
+        // Remove the related loader from our activeRequests list if applicable.
+        if (activeRequests.length > 0 || requestQueue.length > 0)
+        {
+            var node:LinkedListNode = activeRequests.remove(loaderInfo.loader);
+            processQueue();
+        }
+        
+        // Remove our listeners.
         loaderInfo.removeEventListener(Event.COMPLETE, loader_completeHandler);
+        loaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, loader_completeHandler); 
+        loaderInfo.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, loader_completeHandler); 
     }
 }
 }
 
 import mx.utils.LinkedListNode;
+import flash.display.Loader;
+import flash.net.URLRequest;
 
 /**
  *  Represents a single cache entry.
@@ -476,7 +696,7 @@ import mx.utils.LinkedListNode;
  */
 class CacheEntryNode extends LinkedListNode
 {
-    public function CacheEntryNode(source:Object, value:Object):void
+    public function CacheEntryNode(source:Object, value:Object, queueGroup:String=null):void
     {
         super(value);
         this.source = source;
@@ -491,4 +711,38 @@ class CacheEntryNode extends LinkedListNode
      *  @private
      */
     public var source:Object;
+}
+
+/**
+ *  Represents a single queue entry.
+ *  @private
+ */
+class QueueEntryNode extends LinkedListNode
+{
+    public function QueueEntryNode(urlRequest:URLRequest, loader:Loader, queueGroup:String):void
+    {
+        super(loader);
+        this.urlRequest = urlRequest;
+        this.queueGroup = queueGroup;
+    }   
+    
+    //----------------------------------
+    //  source
+    //----------------------------------
+    
+    /**
+     *  Key into cachedData map for this cache entry.
+     *  @private
+     */
+    public var urlRequest:URLRequest;
+    
+    //----------------------------------
+    //  queueGroup
+    //----------------------------------
+    
+    /**
+     *  Queue group name used for prioritizing queued cached entry requests.
+     *  @private
+     */
+    public var queueGroup:String;
 }
