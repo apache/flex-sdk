@@ -53,6 +53,18 @@ import spark.utils.LabelUtil;
 [Event(name="selectionChanged", type="mx.events.IndexChangedEvent")]
 
 /**
+ *  Dispatched after the focus has changed.  
+ *
+ *  @eventType mx.events.IndexChangedEvent.ITEM_FOCUS_CHANGED
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="itemFocusChanged", type="mx.events.IndexChangedEvent")]
+
+/**
  *  The ListBase class is the base class for all components that support
  *  selection.
  *  
@@ -609,10 +621,12 @@ public class ListBase extends SkinnableDataContainer
      */
     override public function updateRenderer(renderer:IVisualElement):void
     {
-        //First clean up any old, stale properties like selected      
+        //First clean up any old, stale properties like selected and caret      
         if (renderer is IItemRenderer && IItemRenderer(renderer).selected)
+        {
             IItemRenderer(renderer).selected = false;
-            
+            IItemRenderer(renderer).caret = false; 
+        }    
         //Now run through and initialize the renderer correctly
         super.updateRenderer(renderer); 
           
@@ -667,6 +681,25 @@ public class ListBase extends SkinnableDataContainer
     protected function itemSelected(index:int, selected:Boolean):void
     {
         // Subclasses must override this method to display the selection.
+    }
+    
+    /**
+     *  Called when an item is in its caret state or not. 
+     *  Subclasses must override this method to display the caret.  
+     *
+     *  @param index The item index that was put into caret state. 
+     *
+     *  @param inFocus <code>true</code> if the item is in the caret state,  
+     *  and <code>false</code> if it is not.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function itemInCaret(index:int, caret:Boolean):void
+    {
+        // Subclasses must override this method to display the caret. 
     }
     
     /**
