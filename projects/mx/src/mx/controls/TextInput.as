@@ -212,6 +212,7 @@ include "../styles/metadata/TextStyles.as"
 
 [Exclude(name="selectionActivePosition", kind="method")]
 [Exclude(name="selectionAnchorPosition", kind="method")]
+[Exclude(name="baseColor", kind="style")]
 
 /**
  *  The TextInput control is a single-line text field
