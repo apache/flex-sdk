@@ -17,23 +17,23 @@ import mx.core.ILayoutElement;
 import spark.layouts.supportClasses.LayoutBase;
 
 /**
- *  The ButtonBarHorizontalLayout is a layout specifically designed for the
+ *  The ButtonBarHorizontalLayout class is a layout specifically designed for the
  *  Spark ButtonBar skins.
- *
  *  The layout lays out the children horizontally, left to right.
  *  
- *  The layout measures such that all children are sized at their preferred size.
- * 
+ *  <p>The layout attempts to size all children to their preferred size.
  *  If there is enough space, each child is set to its preferred size, plus any
- *  excess space evenly distributed between the children.
+ *  excess space evenly distributed among the children.</p>
  * 
- *  If there is not enough space for all the children to be sized to their
+ *  <p>If there is not enough space for all the children to be sized to their
  *  preferred size, then the children that are smaller than the average width
- *  will be allocated their preferred size and the rest of the elements will be
- *  reduced equally.
+ *  are allocated their preferred size and the rest of the elements are
+ *  reduced equally.</p>
  * 
- *  All children are set to the height of the parent.
+ *  <p>All children are set to the height of the parent.</p>
  * 
+ *  @see spark.skins.spark.ButtonBarSkin
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
