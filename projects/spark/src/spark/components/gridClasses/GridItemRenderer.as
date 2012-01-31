@@ -16,11 +16,15 @@ import flash.events.Event;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
+import mx.core.ILayoutDirectionElement;
 import mx.core.IToolTip;
+import mx.core.IUIComponent;
+import mx.core.LayoutDirection;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.ToolTipEvent;
 import mx.managers.ISystemManager;
+import mx.managers.ToolTipManager;
 
 import spark.components.Grid;
 import spark.components.Group;
@@ -78,7 +82,82 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
 {
     include "../../core/Version.as";
     
-    //--------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
+	//
+	//  Static Methods
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  Shows the tooltip for one of the grid's item renderers.
+	 *  This is the handler for the <code>ToolTipEvent.TOOL_TIP_SHOW</code>
+	 *  event in GridItemRenderer, DefaultGridItemRenderer, and 
+	 *  UITextFieldGridItemRenderer which are installed by the corresponding
+	 *  constructors.
+	 *  The item renderer's tool tip is computed just before it is shown.
+	 * 
+	 *  If the item renderer's column <code>showDataTips<code> property is true, 
+	 *  a placeholder tool tip is registered with the tool tip manager so that 
+	 *  mouse handlers are put in place to detect when the tool tip should be
+	 *  shown by calling this handler.
+	 *   
+	 *  This handler replaces the placeholder text with the actual text and 
+	 *  resizes the tooltip before moving it into position.  
+	 *  The tip is positioned over the item renderer with the origin of the tip 
+	 *  at 0, 0, after accounting for the layoutDirection of the grid.
+	 *  
+	 *  The current target is expected to implement IGridItemRenderer and
+	 *  IUIComponent.
+	 */	
+	static mx_internal function toolTipShowHandler(event:ToolTipEvent):void
+	{
+		var toolTip:IToolTip = event.toolTip;
+		
+		const renderer:IGridItemRenderer = event.currentTarget as IGridItemRenderer;
+		if (!renderer)
+			return;
+		
+		const uiComp:IUIComponent = event.currentTarget as IUIComponent;
+		if (!uiComp)
+			return;
+		
+		// Determine if the toolTip needs to be adjusted for RTL layout.
+		const mirror:Boolean = renderer.layoutDirection == LayoutDirection.RTL;
+		
+		// Lazily compute the tooltip text and recalculate its width.
+		toolTip.text = renderer.column.itemToDataTip(renderer.data);
+		ToolTipManager.sizeTip(toolTip);
+		
+		// Move the origin of the tooltip to the origin of this item renderer
+		
+		var sm:ISystemManager = uiComp.systemManager.topLevelSystemManager;
+		var sbRoot:DisplayObject = sm.getSandboxRoot();
+		var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
+		
+		const x:int = mirror ? renderer.width - toolTip.width : 0;
+		var pt:Point = new Point(x, 0);
+		
+		pt = uiComp.localToGlobal(pt);
+		pt = sbRoot.globalToLocal(pt);          
+		
+		toolTip.move(pt.x, Math.round(pt.y + (renderer.height - toolTip.height) / 2));
+		
+		const screenRight:Number = screen.x + screen.width;
+		pt.x = toolTip.x;
+		pt.y = toolTip.y;
+		pt = sbRoot.localToGlobal(pt);
+		
+		if (pt.x + toolTip.width > screenRight)
+		{
+			pt.x = toolTip.x - (pt.x + toolTip.width - screenRight);
+			toolTip.move(pt.x, toolTip.y);
+		}
+		
+		if (mirror && pt.x < 0)
+			toolTip.move(0, toolTip.y);
+	}
+         
+   //--------------------------------------------------------------------------
     //
     //  Constructor
     //
@@ -98,7 +177,8 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         
         setCurrentStateNeeded = true;
         
-        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);           
+        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, 
+						 GridItemRenderer.toolTipShowHandler);           
     }
     
     //--------------------------------------------------------------------------
@@ -711,37 +791,6 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     public function discard(willBeRecycled:Boolean):void
     {
     }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Event Handlers
-    //
-    //-------------------------------------------------------------------------- 
-    
-    // TODO (hmuller) - this code should be common with DefaultGridItemRenderer
-    private function toolTipShowHandler(event:ToolTipEvent):void
-    {
-        var toolTip:IToolTip = event.toolTip;
-        
-        toolTip.text = column.itemToDataTip(data);  // Lazily compute the tooltip text
-        
-        // Move the origin of the tooltip to the origin of this item renderer
-        
-        var sm:ISystemManager = systemManager.topLevelSystemManager;
-        var sbRoot:DisplayObject = sm.getSandboxRoot();
-        var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
-        var pt:Point = new Point(0, 0);
-        pt = localToGlobal(pt);
-        pt = sbRoot.globalToLocal(pt);          
-        
-        toolTip.move(pt.x, Math.round(pt.y + (height - toolTip.height) / 2));
-        
-        var screenRight:Number = screen.x + screen.width;
-        pt.x = toolTip.x;
-        pt.y = toolTip.y;
-        pt = sbRoot.localToGlobal(pt);
-        if (pt.x + toolTip.width > screenRight)
-            toolTip.move(toolTip.x - (pt.x + toolTip.width - screenRight), toolTip.y);
-    }
+            
 }
 }
