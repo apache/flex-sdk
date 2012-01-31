@@ -1226,12 +1226,12 @@ public class Container extends UIComponent
     //  creationPolicy
     //----------------------------------
 
-    [Inspectable(enumeration="all,auto,none")]
-
     // Internal flag used when creationPolicy="none".
     // When set, the value of the backing store _creationPolicy
     // style is "auto" so descendants inherit the correct value.
     private var creationPolicyNone:Boolean = false;
+    
+    [Inspectable(enumeration="all,auto,none")]
     
     /**
      *  The child creation policy for this MX Container.
