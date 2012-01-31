@@ -3130,7 +3130,7 @@ public class Scroller extends SkinnableComponent
         // if it's someone else and we've started scrolling, cancel this event
         // if it's someone else and we haven't started scrolling, don't do anything
         // here yet. Worry about it in the touchInteractionStartHandler().
-        if (event.relatedObject != this && (horizontalScrollInProgress || verticalScrollInProgress))
+        if (event.relatedObject != this && inTouchInteraction)
         {
             event.preventDefault();
         }
