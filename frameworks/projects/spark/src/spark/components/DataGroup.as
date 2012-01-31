@@ -778,7 +778,7 @@ public class DataGroup extends GroupBase
         for (var i:int = startIndex; i <= endIndex; i++)
         {  
             var myItemRenderer:IVisualElement = getElementAt(i);
-            var layer:Number = myItemRenderer.layer;
+            var layer:Number = myItemRenderer.depth;
             
             if (layer != 0)
             {               
@@ -1289,7 +1289,7 @@ public class DataGroup extends GroupBase
         }
 
         if ((_layeringFlags & LAYERING_ENABLED) || 
-            (child is IVisualElement && (child as IVisualElement).layer != 0))
+            (child is IVisualElement && (child as IVisualElement).depth != 0))
             invalidateLayering();
             
         return super.addChildAt(child, index != -1 ? index : super.numChildren);
