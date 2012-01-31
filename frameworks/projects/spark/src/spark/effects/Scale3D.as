@@ -28,7 +28,7 @@ import spark.effects.effectClasses.AnimateTransformInstance;
  */   
 public class AnimateTransformScale3D extends AnimateTransformScale
 {
-    include "../../spark.core.Version.as";
+    include "../core/Version.as";
 
     public function AnimateTransformScale3D(target:Object=null)
     {
