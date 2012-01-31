@@ -26,7 +26,7 @@ import mx.managers.PopUpManager;
 import mx.styles.ISimpleStyleClient;
 import mx.utils.MatrixUtil;
 
-import spark.core.RelativePosition;
+import spark.components.PopUpPosition;
 
 use namespace mx_internal;
 
@@ -70,13 +70,7 @@ public class PopUpAnchor extends UIComponent
     private var popUpIsDisplayed:Boolean = false;
     private var addedToStage:Boolean = false;
     
-    // TODO (jszeto) Update to new vector syntax
-    private static var decomposition:Vector.<Number> = new Vector.<Number>();
-    decomposition.push(0);
-    decomposition.push(0);
-    decomposition.push(0);
-    decomposition.push(0);
-    decomposition.push(0);    
+    private static var decomposition:Vector.<Number> = new <Number>[0,0,0,0,0];
     
     //--------------------------------------------------------------------------
     //
@@ -248,16 +242,16 @@ public class PopUpAnchor extends UIComponent
     //  popUpPosition
     //----------------------------------
     
-    private var _popUpPosition:String = RelativePosition.EXACT;
+    private var _popUpPosition:String = PopUpPosition.TOP_LEFT;
     
     /**
      *  Position of the popUp when it is opened. 
-     *  Possible values are "left", "right", "above", "below", "center", and "exact"
+     *  Possible values are "left", "right", "above", "below", "center", and "topLeft"
      * 
      *   
-     *  @default RelativePosition.EXACT
+     *  @default PopUpPosition.TOP_LEFT
      * 
-     *  @see spark.core.RelativePosition
+     *  @see spark.core.PopUpPosition
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -346,21 +340,21 @@ public class PopUpAnchor extends UIComponent
         {
             switch(popUpPosition)
             {
-                case RelativePosition.BELOW :
+                case PopUpPosition.BELOW :
                     if (popUpBounds.bottom > screen.bottom)
-                        adjustedPosition = RelativePosition.ABOVE; 
+                        adjustedPosition = PopUpPosition.ABOVE; 
                     break;
-                case RelativePosition.ABOVE :
+                case PopUpPosition.ABOVE :
                     if (popUpBounds.top < screen.top)
-                        adjustedPosition = RelativePosition.BELOW; 
+                        adjustedPosition = PopUpPosition.BELOW; 
                     break;
-                case RelativePosition.LEFT :
+                case PopUpPosition.LEFT :
                     if (popUpBounds.left < screen.left)
-                        adjustedPosition = RelativePosition.RIGHT; 
+                        adjustedPosition = PopUpPosition.RIGHT; 
                     break;
-                case RelativePosition.RIGHT :
+                case PopUpPosition.RIGHT :
                     if (popUpBounds.right > screen.right)
-                        adjustedPosition = RelativePosition.LEFT; 
+                        adjustedPosition = PopUpPosition.LEFT; 
                     break;
             }
         }
@@ -380,19 +374,19 @@ public class PopUpAnchor extends UIComponent
                 // then revert to the original position. 
                 switch(adjustedPosition)
                 {
-                   case RelativePosition.BELOW :
+                   case PopUpPosition.BELOW :
                         if (adjustedBounds.bottom > screen.bottom)
                             adjustedPosition = null; 
                         break;
-                    case RelativePosition.ABOVE :
+                    case PopUpPosition.ABOVE :
                         if (adjustedBounds.top < screen.top)
                             adjustedPosition = null; 
                         break;
-                    case RelativePosition.LEFT :
+                    case PopUpPosition.LEFT :
                         if (adjustedBounds.left < screen.left)
                             adjustedPosition = null; 
                         break;
-                    case RelativePosition.RIGHT :
+                    case PopUpPosition.RIGHT :
                         if (adjustedBounds.right > screen.right)
                             adjustedPosition = null;  
                         break;
@@ -498,27 +492,27 @@ public class PopUpAnchor extends UIComponent
     {
         switch(placement)
         {
-            case RelativePosition.BELOW:
+            case PopUpPosition.BELOW:
                 registrationPoint.x = 0;
                 registrationPoint.y = unscaledHeight;
                 break;
-            case RelativePosition.ABOVE:
+            case PopUpPosition.ABOVE:
                 registrationPoint.x = 0;
                 registrationPoint.y = -popUpHeight;
                 break;
-            case RelativePosition.LEFT:
+            case PopUpPosition.LEFT:
                 registrationPoint.x = -popUpWidth;
                 registrationPoint.y = 0;
                 break;
-            case RelativePosition.RIGHT:
+            case PopUpPosition.RIGHT:
                 registrationPoint.x = unscaledWidth;
                 registrationPoint.y = 0;
                 break;            
-            case RelativePosition.CENTER:
+            case PopUpPosition.CENTER:
                 registrationPoint.x = (unscaledWidth - popUpWidth) / 2;
                 registrationPoint.y = (unscaledHeight - popUpHeight) / 2;
                 break;            
-            case RelativePosition.EXACT:
+            case PopUpPosition.TOP_LEFT:
                 // already 0,0
                 break;
         }
