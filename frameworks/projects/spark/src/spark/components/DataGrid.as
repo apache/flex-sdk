@@ -120,26 +120,6 @@ use namespace mx_internal;
  */
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
-/**
- *  The class implementing IUITextField that is used by this component
- *  to render text.
- *
- *  <p>It can be set to either the mx.core.UITextField class
- *  (to use the classic TextField class built into Flash Player)
- *  or the mx.core.UIFTETextField class
- *  (to use the Text Layout Framework to get improved text rendering,
- *  including bidirectional layout).</p>
- *
- *  @default mx.core.UITextField
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="textFieldClass", type="Class", inherit="no")]
-
-
 include "../styles/metadata/BasicNonInheritingTextStyles.as"
 include "../styles/metadata/BasicInheritingTextStyles.as"
 
@@ -2183,21 +2163,16 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  @private
      */
-    public function prepareItemRenderer(renderer:IVisualElement, recycle:Boolean):void
+    public function prepareItemRenderer(renderer:IGridItemRenderer, willBeRecycled:Boolean):void
     {            
-        // Set the owner
-        if (renderer is IItemRenderer)
-        {
-            IItemRenderer(renderer).owner = this;
-        }
+        renderer.owner = this;
     }
     
     /**
      *  @private
      */
-    public function discardItemRenderer(renderer:IVisualElement, recycle:Boolean):void
+    public function discardItemRenderer(renderer:IGridItemRenderer, hasBeenRecycled:Boolean):void
     {
-        // TODO (jszeto)
     }
     
     //--------------------------------------------------------------------------
