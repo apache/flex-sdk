@@ -997,14 +997,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
         }
         else // Not attempting failover.
         {
-    	    // If we own the wait guard for initial Channel connects release it.
-    	    if (_ownsWaitGuard)
-    	    {
-    	        _ownsWaitGuard = false;
-    	        FlexClient.getInstance().waitForFlexClientId = false; // Allow other Channels to connect.
-    	    }
-            
-            _connecting = false;
+    	    connectCleanup();
         }
         
         if (reconnecting)
@@ -1018,18 +1011,10 @@ public class Channel extends EventDispatcher implements IMXMLObject
 	 */
 	protected function connectSuccess():void
 	{
-	    // If we own the wait guard for initial Channel connects release it.
-	    if (_ownsWaitGuard)
-	    {
-	        _ownsWaitGuard = false;
-	        FlexClient.getInstance().waitForFlexClientId = false; // Allow other Channels to connect.
-	    }
-	    
 	    shutdownConnectTimer();
-	    _connecting = false;
 	    
-        // if there were any attached agents that needed configuration they
-        // should be reset
+        // If there were any attached agents that needed configuration they
+        // should be reset.
         if (ServerConfig.fetchedConfig(endpoint))
         {
     		for (var i:int = 0; i < channelSets.length; i++)
@@ -1050,7 +1035,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
 	          
 	    dispatchEvent(ChannelEvent.createEvent(ChannelEvent.CONNECT, this, reconnecting));
 	                                                            
-        setReconnecting(false);
+        connectCleanup();
 	}
 	
 	/**
@@ -1099,7 +1084,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
 	    }
 	    else
 	    {
-	        _connecting = false;
+	        connectCleanup();
 	    }
 		
 		dispatchEvent(ChannelEvent.createEvent(ChannelEvent.DISCONNECT, this, 
@@ -1363,6 +1348,24 @@ public class Channel extends EventDispatcher implements IMXMLObject
             // Nothing left to failover to; reset to primary.
             resetToPrimaryURI();         
         }
+    }
+    
+    /**
+     *  @private
+     *  Cleanup following a connect or failover attempt.
+     */
+    private function connectCleanup():void
+    {
+        // If we own the wait guard for initial Channel connects release it.
+        if (_ownsWaitGuard)
+        {
+            _ownsWaitGuard = false;
+            FlexClient.getInstance().waitForFlexClientId = false; // Allow other Channels to connect.
+        }
+        
+        _connecting = false;
+        
+        setReconnecting(false); // Ensure the reconnecting flag is turned off; failover is not being attempted.
     }
     
     /**
