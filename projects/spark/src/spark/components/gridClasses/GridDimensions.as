@@ -455,20 +455,22 @@ public class GridDimensions
     /**
      *  Returns the width of the column at the given index. Returns
      *  the width specified by setColumnWidth. If no width has been
-     *  specified, returns the defaultColumnWidth.
+     *  specified, returns the typical width. If no typical width has
+     *  been set, it returns the defaultColumnWidth.
      */
     public function getColumnWidth(col:int):Number
     {    
         var w:Number = NaN;
+
+        w = _columnWidths[col];
         
-        // out of bounds col will throw an error..should we handle it?
-        if (_columnWidths)
-            w = _columnWidths[col];
+        if (isNaN(w))
+            w = typicalCellWidths[col];
         
-        if (!isNaN(w))
-            return w;
+        if (isNaN(w))
+            w = this.defaultColumnWidth;
         
-        return this.defaultColumnWidth;
+        return w;
     }
     
     /**
@@ -477,8 +479,7 @@ public class GridDimensions
     public function setColumnWidth(col:int, width:Number):void
     {
         // out of bounds col will throw an error..should we handle it?
-        if (_columnWidths)
-            _columnWidths[col] = width;
+        _columnWidths[col] = width;
     }
 
     /**
@@ -545,20 +546,12 @@ public class GridDimensions
      *  Returns the X coordinate of the origin of the specified cell.
      */
     public function getCellX(row:int, col:int):Number
-    {
-        if (!_columnWidths)
-            return col * (defaultColumnWidth + columnGap);
-        
+    {   
         var x:Number = 0;
         
         for (var i:int = 0; i < col; i++)
         {
-            var temp:Number = _columnWidths[i];
-            
-            if (isNaN(temp))
-                x += defaultColumnWidth + columnGap;
-            else
-                x += temp + columnGap;
+            x += getColumnWidth(i) + columnGap;
         }
         
         return x;
@@ -973,9 +966,6 @@ public class GridDimensions
      */
     public function getColumnIndexAt(x:Number, y:Number):int
     {
-        if (!_columnWidths)
-            return x / (defaultColumnWidth + columnGap);
-        
         var cur:Number = x;
         var i:int;
         
@@ -983,11 +973,20 @@ public class GridDimensions
         {
             var temp:Number = _columnWidths[i];
             
+            // fall back on typical widths if the actual width isn't set.
             if (isNaN(temp))
-                cur -= defaultColumnWidth + columnGap;
-            else
-                cur -= temp + columnGap;
+            {
+                temp = typicalCellWidths[i];
+                if (temp == 0) // invisible column
+                    continue;
+            }
             
+            // fall back on defaultColumnWidth
+            if (isNaN(temp))
+                temp = defaultColumnWidth;
+            
+            cur -= temp + columnGap;
+
             if (cur <= 0)
                 return i;
         }
@@ -1002,23 +1001,41 @@ public class GridDimensions
      */
     public function getContentWidth(columnCountOverride:int = -1):Number
     {
-		const nCols:int = (columnCountOverride == -1) ? columnCount : columnCountOverride;
+		const nCols:int = (columnCountOverride == -1) ? _columnCount : columnCountOverride;
         var contentWidth:Number = 0;
+        var width:Number;
+        var measuredColCount:int = 0;
+        
+        for (var i:int = 0; (i < _columnCount) && (measuredColCount < nCols); i++)
+        {
+            if (i >= _columnWidths.length)
+            {
+                contentWidth += defaultColumnWidth;
+                measuredColCount++;
+                continue;
+            }
+            
+            width = _columnWidths[i];
+            
+            // fall back on typical width
+            if (isNaN(width))
+            {
+                width = typicalCellWidths[i];
+                // column.visible==false, skip this column.
+                if (width == 0)
+                    continue;
+            }
+            
+            // fall back on defaultColumnWidth
+            if (isNaN(width))
+                width = defaultColumnWidth;
+            
+            contentWidth += width;
+            measuredColCount++;
+        }
         
         if (nCols > 1)
             contentWidth += (nCols - 1) * columnGap;
-        
-        // short circuit for no column widths set yet.
-        if (!_columnWidths)
-            return contentWidth + nCols * defaultColumnWidth;
-        
-        for (var i:int = 0; i < nCols; i++)
-        {
-            if ((i >= _columnWidths.length) || isNaN(_columnWidths[i]))
-                contentWidth += defaultColumnWidth;
-            else
-                contentWidth += _columnWidths[i];
-        }
         
         return contentWidth;
     }
@@ -1063,15 +1080,24 @@ public class GridDimensions
     {
         const nCols:int = (columnCountOverride == -1) ? _columnCount : columnCountOverride;
         var contentWidth:Number = 0;
+        var measuredColCount:int = 0;
         
-        for (var columnIndex:int = 0; columnIndex < nCols; columnIndex++)
+        for (var columnIndex:int = 0; (columnIndex < _columnCount) && (measuredColCount < nCols); columnIndex++)
         {
+            // column.visible==false columns will have a typicalCellWidth of 0, so skip them.
             var width:Number = columnIndex < _columnCount ? typicalCellWidths[columnIndex] : NaN;
-            contentWidth += isNaN(width) ? 0 : width;
+            if (width == 0)
+                continue;
+            
+            if (isNaN(width))
+                width = defaultColumnWidth;
+            
+            contentWidth += width;
+            measuredColCount++;
         }
         
         if (nCols > 1)
-            contentWidth += (nCols - 1) * columnGap;
+            contentWidth += (measuredColCount - 1) * columnGap;
 
         return contentWidth;
     }
@@ -1241,9 +1267,8 @@ public class GridDimensions
         
         rowList.clearColumns(startColumn, count);
         
+        clearTypicalCellWidthsAndHeights();
         clearVector(_columnWidths, NaN, startColumn, count);
-        clearVector(typicalCellWidths, NaN, startColumn, count);
-        clearVector(typicalCellHeights, NaN, startColumn, count);
         
         // cache is invalid because node values might have changed
         recentNode = null;
@@ -1427,7 +1452,7 @@ public class GridDimensions
         recentNode = null;
         recentNode2 = null;
     }
-
+    
     /**
      *  Handles changes in the dataProvider.
      */
