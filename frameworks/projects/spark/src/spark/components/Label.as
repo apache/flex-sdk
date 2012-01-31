@@ -1228,7 +1228,7 @@ public class Label extends TextBase
                                                         
                 // 4. Get the initial truncation position on the target 
                 // line given this allowed width. 
-                // FIXME (gosmith): What if textLines[truncLineIndex] is a backgroundColor
+                // FIXME (cframpto): What if textLines[truncLineIndex] is a backgroundColor
                 // Shape instead of a TextLine?
                 var truncateAtCharPosition:int = getTruncationPosition(
                     TextLine(textLines[truncLineIndex]), allowedWidth);
