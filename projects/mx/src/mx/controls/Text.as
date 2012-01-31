@@ -116,6 +116,11 @@ include "../styles/metadata/LeadingStyle.as"
  *  @see mx.controls.TextInput
  *  @see mx.controls.TextArea
  *  @see mx.controls.RichTextEditor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Text extends Label
 {
@@ -152,6 +157,16 @@ public class Text extends Label
         inside updateDisplayList(), which will cause measure() and
         updateDisplayList() to be called a second time.
 
+    *  
+
+    *  @langversion 3.0
+
+    *  @playerversion Flash 9
+
+    *  @playerversion AIR 1.1
+
+    *  @productversion Flex 3
+
     */
 
     //--------------------------------------------------------------------------
@@ -162,6 +177,11 @@ public class Text extends Label
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Text()
     {
@@ -390,6 +410,11 @@ public class Text extends Label
         // a capital and decending character using the current font.
         if (!t || t.length < 2)
             t = "Wj";
+        *  
+        *  @langversion 3.0
+        *  @playerversion Flash 9
+        *  @playerversion AIR 1.1
+        *  @productversion Flex 3
         */
 
         // Don't call super.measure();
