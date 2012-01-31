@@ -64,32 +64,32 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
     }
 
     //----------------------------------
-    //  showFocusIndicator
+    //  caret
     //----------------------------------
 
     /**
      *  @private
-     *  Storage for the showFocusIndicator property 
+     *  Storage for the caret property 
      */
-    private var _showFocusIndicator:Boolean = false;
+    private var _caret:Boolean = false;
 
     /**
      *  @inheritDoc 
      */    
-    public function get showFocusIndicator():Boolean
+    public function get caret():Boolean
     {
-        return _showFocusIndicator;
+        return _caret;
     }
     
     /**
      *  @private
      */    
-    public function set showFocusIndicator(value:Boolean):void
+    public function set caret(value:Boolean):void
     {
-        if (value == _showFocusIndicator)
+        if (value == _caret)
             return;
 
-        _showFocusIndicator = value;
+        _caret = value;
         mx_internal::drawFocusAnyway = true;
         drawFocus(value);
     }
