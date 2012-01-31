@@ -2539,12 +2539,16 @@ public class TileBase extends ListBase
 
         if (!collection) return;
 
-        switch (event.keyCode)
+        // If rtl layout, need to swap LEFT for RIGHT so correct action
+        // is done.
+        var keyCode:int = mapKeycodeForLayoutDirection(event);
+                
+        switch (keyCode)
         {
             case Keyboard.UP:
             case Keyboard.DOWN:
             {
-                moveSelectionVertically(event.keyCode,
+                moveSelectionVertically(keyCode,
                                         event.shiftKey, 
                                         event.ctrlKey);
                 event.stopPropagation();
@@ -2554,7 +2558,7 @@ public class TileBase extends ListBase
             case Keyboard.LEFT:
             case Keyboard.RIGHT:
             {
-                moveSelectionHorizontally(event.keyCode, 
+                moveSelectionHorizontally(keyCode, 
                                           event.shiftKey, 
                                           event.ctrlKey);
                 event.stopPropagation();
@@ -2568,13 +2572,13 @@ public class TileBase extends ListBase
             {
                 if (direction == TileBaseDirection.VERTICAL)
                 {
-                    moveSelectionHorizontally(event.keyCode, 
+                    moveSelectionHorizontally(keyCode, 
                                               event.shiftKey, 
                                               event.ctrlKey);
                 }
                 else
                 {
-                    moveSelectionVertically(event.keyCode, 
+                    moveSelectionVertically(keyCode, 
                                             event.shiftKey, 
                                             event.ctrlKey);
                 }
@@ -2597,7 +2601,7 @@ public class TileBase extends ListBase
 
             default:
             {
-                if (findKey(event.keyCode))
+                if (findKey(keyCode))
                     event.stopPropagation();
             }
         }
