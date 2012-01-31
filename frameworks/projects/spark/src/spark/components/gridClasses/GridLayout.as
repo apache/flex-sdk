@@ -11,6 +11,7 @@
 
 package spark.components.gridClasses
 {
+import flash.events.Event;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 import flash.utils.getTimer;
@@ -413,16 +414,11 @@ public class GridLayout extends LayoutBase
         }
         
         // Find the index of the last GridColumn.visible==true column
+        
         const columns:IList = grid.columns;
         const lastVisibleColumnIndex:int = (columns) ? grid.getPreviousVisibleColumnIndex(grid.columns.length) : -1;
         if (!columns || lastVisibleColumnIndex < 0)
-        {
-            // HACK: Make sure columnHeaderGroup fixes itself
-            var dg:DataGrid = grid.dataGrid;
-            if (dg && dg.columnHeaderGroup)
-                dg.columnHeaderGroup.invalidateDisplayList();
             return;
-        }
         
         // Layout the item renderers and compute new values for visibleRowIndices et al
         
@@ -485,11 +481,6 @@ public class GridLayout extends LayoutBase
         visibleColumnSeparators = layoutLinearElements(grid.columnSeparator, overlayLayer, 
             visibleColumnSeparators, oldVisibleColumnIndices, visibleColumnIndices, layoutColumnSeparator, lastVisibleColumnIndex);
         
-        // HACK
-        dg = grid.dataGrid;
-        if (dg && dg.columnHeaderGroup)
-            dg.columnHeaderGroup.invalidateDisplayList();
-        
         // Layout the hoverIndicator, caretIndicator, and selectionIndicators        
         
         layoutHoverIndicator(backgroundLayer);
@@ -502,11 +493,13 @@ public class GridLayout extends LayoutBase
         backgroundLayer.validateNow();
         selectionLayer.validateNow();
         overlayLayer.validateNow();
-
+        
         // The old visible row,column indices are no longer needed
         
         oldVisibleRowIndices.length = 0;
         oldVisibleColumnIndices.length = 0;
+        
+        grid.dataGrid.dispatchEvent(new Event("invalidateSize"));
                 
         if (enablePerformanceStatistics)
         {
@@ -702,6 +695,7 @@ public class GridLayout extends LayoutBase
             // GridColumn.visible==false columns have a typical size of (0,0)
             // to distinguish them from the GridColumn.visible==true columns
             // that aren't in view yet.
+            
             if (!column.visible)
             {
                 gridDimensions.setTypicalCellWidth(columnIndex, 0);
@@ -879,11 +873,11 @@ public class GridLayout extends LayoutBase
         const colGap:int = gridDimensions.columnGap;
         
         // Compute the row,column index and bounds of the upper left "start" cell
-                
+         
         const startColIndex:int = gridDimensions.getColumnIndexAt(scrollX, scrollY);
         const startRowIndex:int = gridDimensions.getRowIndexAt(scrollX, scrollY);
         const startCellX:Number = gridDimensions.getCellX(startRowIndex, startColIndex); 
-        const startCellY:Number = gridDimensions.getCellY(startRowIndex, startColIndex);        
+        const startCellY:Number = gridDimensions.getCellY(startRowIndex, startColIndex); 
         
         // Compute newVisibleColumns
         
@@ -930,8 +924,10 @@ public class GridLayout extends LayoutBase
                 if (renderer.parent != rendererLayer)
                     rendererLayer.addElement(renderer);
                 newVisibleItemRenderers.push(renderer);
+
                 initializeItemRenderer(renderer, rowIndex, colIndex);
                 
+                // TBD(hmuller): if takeVisibleItemRenderer returned true, should we skip prepare?()
                 renderer.prepare(!createdGridElement);
                 
                 var colWidth:Number = gridDimensions.getColumnWidth(colIndex);
