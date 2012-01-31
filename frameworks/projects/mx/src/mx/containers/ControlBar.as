@@ -151,7 +151,7 @@ public class ControlBar extends Box
             if (typeSelector)
             {
                 if (typeSelector.getStyle("borderStyle") === undefined)
-                    typeSelector.setStyle("borderStyle", "controlBar");
+                    typeSelector.setStyle("borderStyle", "none");
             }
         }
     }
