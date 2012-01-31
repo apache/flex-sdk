@@ -187,7 +187,7 @@ include "../styles/metadata/FocusStyles.as"
  *  
  *  <p>To define the appearance of tabs in a TabNavigator, you can define style properties in a 
  *  Tab type selector, as the following example shows:</p>
- *  <PRE>
+ *  <pre>
  *  &lt;mx:Style&gt;
  *    Tab {
  *       fillColors: #006699, #cccc66;
@@ -196,7 +196,7 @@ include "../styles/metadata/FocusStyles.as"
  *       downSkin: ClassReference("CustomSkinClass");
  *    }  
  *  &lt;/mx:Style&gt;
- *  </PRE>
+ *  </pre>
  * 
  *  <p>The Tab type selector defines values on the hidden mx.controls.tabBarClasses.Tab 
  *  class. The default values for the Tab type selector are defined in the 
@@ -204,7 +204,7 @@ include "../styles/metadata/FocusStyles.as"
  * 
  *  <p>You can also define the styles in a class selector that you specify using 
  *  the <code>tabStyleName</code> style property; for example:</p>
- *  <PRE>
+ *  <pre>
  *  &lt;mx:Style&gt;
  *    TabNavigator {
  *       tabStyleName:myTabStyle;
@@ -217,7 +217,7 @@ include "../styles/metadata/FocusStyles.as"
  *       downSkin: ClassReference("CustomSkinClass");
  *    }
  *  &lt;/mx:Style&gt;
- *  </PRE>
+ *  </pre>
  *
  *  <p>A TabNavigator container has the following default sizing characteristics:</p>
  *     <table class="innertable">
