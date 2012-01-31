@@ -219,7 +219,7 @@ public class DropDownController extends EventDispatcher
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get closeOnResize():Boolean
     {
