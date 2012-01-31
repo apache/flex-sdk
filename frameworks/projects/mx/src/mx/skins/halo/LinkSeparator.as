@@ -21,6 +21,11 @@ import mx.skins.ProgrammaticSkin;
 
 /**
  *  The skin for the separator between the Links in a LinkBar.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class LinkSeparator extends ProgrammaticSkin
 {
@@ -34,6 +39,11 @@ public class LinkSeparator extends ProgrammaticSkin
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function LinkSeparator()
 	{
@@ -83,6 +93,11 @@ public class LinkSeparator extends ProgrammaticSkin
 
 	/**
 	 *  We don't use 'is' to prevent dependency issues
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private static var boxes:Object = {};
 
