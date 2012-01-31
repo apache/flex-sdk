@@ -215,7 +215,7 @@ public class FxList extends FxListBase
      */
     override protected function itemSelected(item:Object, selected:Boolean):void
     {
-        var item:* = dataGroup.getItemSkin(item);
+        var item:Object = dataGroup.getItemRenderer(item);
         
         if (item)
         {
@@ -361,10 +361,10 @@ public class FxList extends FxListBase
      */
     private function dataGroup_itemAddHandler(event:ItemExistenceChangedEvent):void
     {
-        var skin:* = dataGroup.getItemSkin(event.relatedObject);
+        var renderer:Object = dataGroup.getItemRenderer(event.relatedObject);
         
-        if (skin)
-            skin.addEventListener("click", item_clickHandler);
+        if (renderer)
+            renderer.addEventListener("click", item_clickHandler);
     }
     
     /**
@@ -373,10 +373,10 @@ public class FxList extends FxListBase
      */
     private function dataGroup_itemRemoveHandler(event:ItemExistenceChangedEvent):void
     {        
-        var skin:* = dataGroup.getItemSkin(event.relatedObject);
+        var renderer:Object = dataGroup.getItemRenderer(event.relatedObject);
         
-        if (skin)
-            skin.removeEventListener("click", item_clickHandler);
+        if (renderer)
+            renderer.removeEventListener("click", item_clickHandler);
     }
     
     /**
@@ -387,7 +387,7 @@ public class FxList extends FxListBase
     {
         // Multiple selection needs to be added here....
         
-        selectedItem = dataGroup.getSkinItem(DisplayObject(event.currentTarget));
+        selectedItem = dataGroup.getRendererItem(DisplayObject(event.currentTarget));
     }
 }
 
