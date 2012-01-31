@@ -15,6 +15,8 @@ package mx.components
 import flash.events.Event;
 import flash.events.MouseEvent;
 
+import mx.core.ISelectableRenderer;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.utils.BitFlagUtil;
 
@@ -51,7 +53,7 @@ import mx.utils.BitFlagUtil;
  *
  *  @includeExample examples/FxToggleButtonExample.mxml
  */
-public class FxToggleButton extends FxButton
+public class FxToggleButton extends FxButton implements ISelectableRenderer
 {
     include "../core/Version.as";
 
@@ -67,6 +69,8 @@ public class FxToggleButton extends FxButton
     public function FxToggleButton()
     {
         super();
+
+        flags = BitFlagUtil.update(flags, allowDeselectionFlag, true);
     }
     
     // -----------------------------------------------------------------------
@@ -83,8 +87,38 @@ public class FxToggleButton extends FxButton
     /**
      *  @private
      */    
-    protected static const lastFlag:uint = selectedFlag;
+    protected static const showFocusIndicatorFlag:uint = FxButton.lastFlag << 2;
+
+    /**
+     *  @private
+     */    
+    protected static const allowDeselectionFlag:uint = FxButton.lastFlag << 4;
+
+    /**
+     *  @private
+     */    
+    protected static const lastFlag:uint = allowDeselectionFlag;
     
+    /**
+     *  <code>true</code> if the button can be set to
+	 *  <code>selected = false</code>
+     */    
+    public function get allowDeselection():Boolean
+    {
+        return BitFlagUtil.isSet(flags, allowDeselectionFlag);
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set allowDeselection(value:Boolean):void
+    {
+        if (BitFlagUtil.isSet(flags, allowDeselectionFlag) == value)
+            return;
+         
+        flags = BitFlagUtil.update(flags, allowDeselectionFlag, value);
+    }
+
     [Bindable]
     
     /**
@@ -110,6 +144,29 @@ public class FxToggleButton extends FxButton
         invalidateButtonState();
     }
 
+    /**
+     *  <code>true</code> if the button should display
+     *  as if it has focus even if it doesn't.
+     */    
+    public function get showFocusIndicator():Boolean
+    {
+        return BitFlagUtil.isSet(flags, showFocusIndicatorFlag);
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set showFocusIndicator(value:Boolean):void
+    {
+        if (BitFlagUtil.isSet(flags, showFocusIndicatorFlag) == value)
+            return;
+         
+        flags = BitFlagUtil.update(flags, showFocusIndicatorFlag, value);
+
+		mx_internal::drawFocusAnyway = true;
+		drawFocus(value);
+    }
+
     //--------------------------------------------------------------------------
     //
     //  States
@@ -133,6 +190,9 @@ public class FxToggleButton extends FxButton
     override protected function onClick(event:MouseEvent):void
     {
         super.onClick(event);
+
+		if (selected && !allowDeselection)
+			return;
 
         selected = !selected;
         dispatchEvent(new Event(Event.CHANGE));
