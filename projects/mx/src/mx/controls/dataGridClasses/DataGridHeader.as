@@ -28,6 +28,7 @@ import mx.controls.DataGrid;
 import mx.core.EdgeMetrics;
 import mx.core.FlexSprite;
 import mx.core.IFlexDisplayObject;
+import mx.core.IUIComponent;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.events.DataGridEvent;
@@ -284,7 +285,7 @@ public class DataGridHeader extends DataGridHeaderBase
             // expand all headers to be of maximum height
             for (var i:int = 0; i < headerItems.length; i++)
                 headerItems[i].setActualSize(headerItems[i].width, maxHeaderHeight);
-
+            
             for (i = 0; i < oldHeaderItems.length; i++)
             {
                 item = oldHeaderItems[i];
@@ -532,18 +533,25 @@ public class DataGridHeader extends DataGridHeaderBase
                 continue;
             }
 
+            // Spark skins don't measure if the width is specified.
+            var skinWidth:Number;
+            if (sepSkin is IUIComponent)
+                skinWidth = IUIComponent(sepSkin).getExplicitOrMeasuredWidth();
+            else
+                skinWidth = sepSkin.measuredWidth;
+            
             sep.visible = true;
             sep.x = headerItems[i].x +
-                    visibleColumns[i].width - Math.round(sepSkin.measuredWidth / 2);
+                    visibleColumns[i].width - Math.round(skinWidth / 2);
             if (i > 0)
             {
                 sep.x = Math.max(sep.x,
-                                 separators[i - 1].x + Math.round(sepSkin.measuredWidth / 2));
+                                 separators[i - 1].x + Math.round(skinWidth / 2));
             }
             sep.y = 0;
-            sepSkin.setActualSize(sepSkin.measuredWidth, Math.ceil(cachedHeaderHeight));
-            
-            // Draw invisible background for separator affordance
+            sepSkin.setActualSize(skinWidth, Math.ceil(cachedHeaderHeight));
+
+                        // Draw invisible background for separator affordance
             sep.graphics.clear();
             sep.graphics.beginFill(0xFFFFFF, 0);
             sep.graphics.drawRect(-separatorAffordance, 0,
@@ -862,7 +870,7 @@ public class DataGridHeader extends DataGridHeaderBase
             // Initialise and return without actually moving anything.
 
             startX = event.stageX;
-
+            
             // Set this to null so sort doesn't happen.
             lastItemDown = null;
 
@@ -888,7 +896,7 @@ public class DataGridHeader extends DataGridHeaderBase
             dgSelectionLayer.addChild(DisplayObject(proxy));
 
             proxy.data = c;
-            proxy.styleName = getStyle("headerDragProxyStyleName");
+            proxy.styleName = getStyle("headerDragProxyStyleName"); 
             UIComponentGlobals.layoutManager.validateClient(proxy, true);
             proxy.setActualSize(c.width, dataGrid._explicitHeaderHeight ?
                 dataGrid.headerHeight : proxy.getExplicitOrMeasuredHeight());
@@ -932,21 +940,29 @@ public class DataGridHeader extends DataGridHeaderBase
             return;
         }
 
+        // Global coordinates.
         var deltaX:Number = event.stageX - startX;
         dgSelectionLayer = Sprite(dataGrid.getChildByName("columnDragSelectionLayer"));
 
+        // If the mouse pointer over the right (layoutDirection=”ltr”) or 
+        // left (layoutDirection=”rtl”) half of the column, the drop indicator 
+        // should be shown before the next column.
+        var deltaXInLocalCoordinates:Number = 
+            (layoutDirection == "ltr" ? +deltaX : -deltaX);
+        
         // Move header selection.
         s = Sprite(dgSelectionLayer.getChildByName("headerSelection"));
         if (s)
-            s.x += deltaX;
-
-        // Move header proxy.
+            s.x += deltaXInLocalCoordinates;
+        
+         // Move header proxy.
         item = IListItemRenderer(dgSelectionLayer.getChildByName("headerDragProxy"));
         if (item)
-            item.move(item.x + deltaX, item.y);
-
+            item.move(item.x + deltaXInLocalCoordinates, item.y);
+        
+        // Global coordinates.
         startX += deltaX;
-
+        
         var allVisibleColumns:Array = dataGrid.getAllVisibleColumns();
         var pt:Point = new Point(event.stageX, event.stageY);
         pt = dataGrid.globalToLocal(pt);
@@ -960,8 +976,9 @@ public class DataGridHeader extends DataGridHeaderBase
 
             if (pt.x < xx + ww)
             {
-                // If the mouse pointer over the right half of the column, the
-                // drop indicator should be shown before the next column.
+                // If the mouse pointer over the right (ltr) or left (rtl) half 
+                // of the column, the drop indicator should be shown before 
+                // the next column.
                 if (pt.x > xx + ww / 2)
                 {
                     i++;
@@ -1524,7 +1541,7 @@ public class DataGridHeader extends DataGridHeaderBase
     //
     //--------------------------------------------------------------------------
 
-    /**
+   /**
      *  @private
      */
     override public function invalidateSize():void
