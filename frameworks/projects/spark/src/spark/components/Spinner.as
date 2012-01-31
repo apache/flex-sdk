@@ -13,7 +13,9 @@ package spark.components
 {
 
 import flash.events.Event;
+import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
+import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
 import mx.events.FlexEvent;
@@ -437,6 +439,47 @@ public class Spinner extends Range implements IFocusManagerComponent
                 event.stopPropagation();
         }
     }
+    
+    /**
+     *  @private
+     *  If the component is in focus, then it should respond to mouseWheel events. We listen to these
+     *  events on systemManager in the capture phase because this behavior should have the highest priority. 
+     */ 
+    override protected function focusInHandler(event:FocusEvent):void
+    {
+        super.focusInHandler(event);
+        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, true);
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function focusOutHandler(event:FocusEvent):void
+    {
+        super.focusOutHandler(event);
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, true);
+    }
+    
+    /**
+     *  Handles the <code>mouseWheel</code> event when the component is in focus. The spinner is 
+     *  moved by the amount of the mouse event delta multiplied by the <code>stepSize</code>.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    protected function system_mouseWheelHandler(event:MouseEvent):void
+    {
+        if (!event.isDefaultPrevented())
+        {
+            var newValue:Number = nearestValidValue(value + event.delta * stepSize, stepSize);
+            setValue(newValue);
+            event.preventDefault();
+        }
+    }
+    
+    
 }
 
 }
