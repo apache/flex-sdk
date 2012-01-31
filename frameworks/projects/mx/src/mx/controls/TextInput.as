@@ -129,6 +129,30 @@ include "../styles/metadata/PaddingStyles.as"
 include "../styles/metadata/TextStyles.as"
 
 /**
+ *  Color of the content area of the component.
+ *   
+ *  @default 0xFFFFFF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  Color of focus ring when the component is in focus
+ *   
+ *  @default 0x70B2EE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  Number of pixels between the component's bottom border
  *  and the bottom edge of its content area.
  *
