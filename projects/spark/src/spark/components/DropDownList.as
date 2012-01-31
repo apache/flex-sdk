@@ -20,7 +20,7 @@
 - Do we need inline-renderer properties (data, listData)?
 
 Keyboard Interaction
-- FxList current dispatches selectionChanged on arrowUp/Down. Should we subclass FxList
+- List current dispatches selectionChanged on arrowUp/Down. Should we subclass List
 and change behavior to commit value only on ENTER, SPACE, or CTRL-UP?
 
 TODO List
@@ -51,7 +51,7 @@ TODO List
 
 */
 
-package mx.components
+package spark.components
 {
 
 import flash.events.Event;
@@ -59,12 +59,12 @@ import flash.events.KeyboardEvent;
 import flash.ui.Keyboard;
 
 import mx.collections.IList;
-import mx.components.baseClasses.DropDownBase;
-import mx.components.baseClasses.FxListBase;
+import spark.components.supportClasses.DropDownBase;
+import spark.components.supportClasses.ListBase;
 import mx.core.IFactory;
 import mx.core.mx_internal;
 import mx.events.IndexChangedEvent;
-import mx.graphics.baseClasses.TextGraphicElement;
+import spark.primitives.supportClasses.TextGraphicElement;
 import mx.events.CollectionEvent;
 import mx.collections.ListCollectionView;
 import mx.collections.CursorBookmark;
@@ -72,7 +72,7 @@ import mx.events.FlexEvent;
 import mx.collections.ICollectionView;
 import mx.events.CollectionEventKind;
 import mx.collections.IViewCursor;
-import mx.utils.LabelUtil;
+import spark.utils.LabelUtil;
 
 /**
  *  Dispatched when the FxComboBox contents changes as a result of user
@@ -128,7 +128,7 @@ public class DropDownList extends DropDownBase
      // TODO (jszeto) We want this to be required. But when the skin part is in a state,
      // it hasn't been created yet and we get an RTE.
 	[SkinPart(required="false")]
-	public var dropDown:FxListBase;
+	public var dropDown:ListBase;
 	
 	/**
      *  Constructor. 
@@ -218,7 +218,7 @@ public class DropDownList extends DropDownBase
 			
 			if (_dataProvider)
 			{
-				// TODO (jszeto) Change to match FxList implementation
+				// TODO (jszeto) Change to match List implementation
 				collection = new ListCollectionView(IList(value));
 				collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, collection_changeHandler, false, 0, true);
 				iterator = collection.createCursor();
@@ -451,7 +451,7 @@ public class DropDownList extends DropDownBase
      */  
     public function set selectedIndex(value:int):void
     {
-    	// TODO (jszeto) Change selectedIndex/Item to match FxListBase implementation
+    	// TODO (jszeto) Change selectedIndex/Item to match ListBase implementation
     	// We want the selectedIndex to be committed as soon as possible. 
     	// If we have a collection, then update the selectedIndex
     	 
@@ -632,7 +632,7 @@ public class DropDownList extends DropDownBase
     {
     	super.initializeDropDown();
     	
-    	// TODO (jszeto) Look at FxDataContainer to see pattern for passing
+    	// TODO (jszeto) Look at SkinnableDataContainer to see pattern for passing
     	// these values
 		dropDown.dataProvider = dataProvider;
 		dropDown.selectedIndex = selectedIndex;
@@ -762,7 +762,7 @@ public class DropDownList extends DropDownBase
         	
         	if (isOpen)
         	{
-        		// TODO (jszeto) Clean this up once we have FxList support for 
+        		// TODO (jszeto) Clean this up once we have List support for 
         		// not sending selection_change on keydown.
         		inKeyNavigation = true;
         		// TODO (jszeto) Clean this up when SDK-19738 is fixed
@@ -864,7 +864,7 @@ public class DropDownList extends DropDownBase
 	 */ 
     protected function collection_changeHandler(event:CollectionEvent):void
     {
-    	// TODO (jszeto) Change this to use FxListBase implementation
+    	// TODO (jszeto) Change this to use ListBase implementation
     	
         var requiresValueCommit:Boolean = false;
 
