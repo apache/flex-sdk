@@ -79,6 +79,15 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *          &lt;/s:NavigatorContent&gt; 
  *      &lt;/mx:ViewStack&gt; </pre>
  *  
+ *  <p>The ButtonBar control has the following default characteristics:</p>
+ *  <table class="innertable">
+ *     <tr><th>Characteristic</th><th>Description</th></tr>
+ *     <tr><td>Default size</td><td>Large enough to display all buttons</td></tr>
+ *     <tr><td>Minimum size</td><td>0 pixels</td></tr>
+ *     <tr><td>Maximum size</td><td>No limit</td></tr>
+ *     <tr><td>Default skin class</td><td>spark.skins.spark.ButtonBarSkin</td></tr>
+ *  </table>
+ *  
  *  @mxml <p>The <code>&lt;s:ButtonBar&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
