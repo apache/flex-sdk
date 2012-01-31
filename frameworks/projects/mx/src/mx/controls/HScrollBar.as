@@ -86,10 +86,10 @@ use namespace mx_internal;
  *  display state:</p>
  *
  *  <ul>
- *    <li>Minimum range value</li>
- *    <li>Maximum range value</li>
+ *    <li>Minimum range value.</li>
+ *    <li>Maximum range value.</li>
  *    <li>Current position - must be within the
- *    minimum and maximum range values</li>
+ *    minimum and maximum range values.</li>
  *    <li>Viewport size - represents the number of items
  *    in the range that you can display at one time. The
  *    number of items must be less than or equal to the 
