@@ -13,6 +13,7 @@ package spark.components
 {
 import flash.display.DisplayObject;
 import flash.events.Event;
+import flash.events.IEventDispatcher;
 
 import mx.collections.IList;
 import mx.core.IDataRenderer;
@@ -242,7 +243,7 @@ public class DataGroup extends GroupBase
         }
 
         super.addChild(obj);
-        updateRenderer(renderer, _typicalItem);
+        updateRenderer(renderer, 0, _typicalItem);
         if (obj is IInvalidating)
             IInvalidating(obj).validateNow();
         setTypicalLayoutElement(renderer);
@@ -770,7 +771,7 @@ public class DataGroup extends GroupBase
      *  new properties like owner, label, selected, etc. 
      * 
      */
-    private function updateRenderer(renderer:IVisualElement, data:Object):void
+    private function updateRenderer(renderer:IVisualElement, index:int, data:Object):void
     {
         if (!renderer)
            return;
@@ -787,6 +788,10 @@ public class DataGroup extends GroupBase
         if (!renderer.owner)
             renderer.owner = this; 
         
+        // Set the index
+        if (renderer is IItemRenderer)
+            IItemRenderer(renderer).index = index;
+        
         // If a delegate is specified defer to the rendererUpdateDelegate
         // to update the renderer.
         if (_rendererUpdateDelegate)
@@ -795,7 +800,7 @@ public class DataGroup extends GroupBase
         // Else if we're the owner, set the label to the toString()
         // of the data 
         else if (renderer.owner == this && renderer is IItemRenderer)
-            IItemRenderer(renderer).label = itemToLabel(data); 
+            IItemRenderer(renderer).label = itemToLabel(data);
         
         // technically if this got called "recursively", this renderersBeingUpdated flag
         // would be prematurely set to false, but in most cases, this check should be 
@@ -1049,7 +1054,7 @@ public class DataGroup extends GroupBase
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        renderFillForMouseOpaque();
+        renderBackgroundFill();
 
         if (layout && layout.useVirtualLayout)
         {
@@ -1168,7 +1173,7 @@ public class DataGroup extends GroupBase
             
             if (createdIR || recycledIR) 
             {
-                updateRenderer(elt, item);
+                updateRenderer(elt, index, item);
                 if (!isNaN(eltWidth) || !isNaN(eltHeight))
                 {
                     // If we're going to set the width or height of this
@@ -1225,6 +1230,35 @@ public class DataGroup extends GroupBase
         _layeringFlags |= (LAYERING_ENABLED | LAYERING_DIRTY);
         invalidateProperties();
     }
+    
+    /**
+     *  @private
+     *  Recomputes every renderer's index.
+     *  This is useful when an item gets added that may change the renderer's 
+     *  index.  In turn, this index may cuase the renderer to change appearance, 
+     *  like when alternatingItemColors is used.
+     */
+    private function resetRenderersIndices():void
+    {
+        if (indexToRenderer.length > 0)
+        {
+            var vLayout:Boolean = layout && layout.useVirtualLayout;
+            var renderer:IItemRenderer;
+            
+            var endIndex:int = vLayout ? virtualLayoutEndIndex : indexToRenderer.length - 1;
+            var startIndex:int = vLayout ? virtualLayoutStartIndex : 0;
+            // FIXME (rfrishbe): figure out how to iterate over item renderers
+            for (var i:int = startIndex; i <= endIndex; i++)
+            {
+                renderer = indexToRenderer[i] as IItemRenderer;
+                
+                if (renderer)
+                    renderer.index = i;
+                // TODO (rfrishbe): could make this more optimal by only re-computing a subset of the visible
+                // item renderers, but it's probably not worth it
+            }
+        }
+    }
         
     /**
      *  Adds the itemRenderer for the specified dataProvider item to this DataGroup.
@@ -1266,7 +1300,7 @@ public class DataGroup extends GroupBase
         var myItemRenderer:IVisualElement = createRendererForItem(item);
         indexToRenderer.splice(index, 0, myItemRenderer);
         addItemRendererToDisplayList(myItemRenderer as DisplayObject, index);
-        updateRenderer(myItemRenderer, item);
+        updateRenderer(myItemRenderer, index, item);
         dispatchEvent(new RendererExistenceEvent(
                       RendererExistenceEvent.RENDERER_ADD, false, false, 
                       myItemRenderer, index, item));
@@ -1448,8 +1482,9 @@ public class DataGroup extends GroupBase
                     var pe:PropertyChangeEvent = event.items[i]; 
                     if (pe)
                     {
-                        var renderer:IVisualElement = indexToRenderer[dataProvider.getItemIndex(pe.source)];
-                        updateRenderer(renderer, pe.source); 
+                        var index:int = dataProvider.getItemIndex(pe.source);
+                        var renderer:IVisualElement = indexToRenderer[index];
+                        updateRenderer(renderer, index, pe.source); 
                     }
                 }
                 break;
@@ -1467,6 +1502,10 @@ public class DataGroup extends GroupBase
         {
             itemAdded(items[i], location + i);
         }
+        
+        // the order might have changed, so we might need to redraw the other 
+        // renderers that are order-dependent (for instance alternatingItemColor)
+        resetRenderersIndices();
     }
     
     /**
@@ -1479,6 +1518,10 @@ public class DataGroup extends GroupBase
         {
             itemRemoved(items[i], location + i);
         }
+        
+        // the order might have changed, so we might need to redraw the other 
+        // renderers that are order-dependent (for instance alternatingItemColor)
+        resetRenderersIndices();
     }
     
     /**
