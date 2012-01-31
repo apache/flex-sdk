@@ -84,6 +84,11 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  The ListBase class is the base class for all components that support
  *  selection. 
  *
+ *  <p><b>Note: </b>The Spark list-based controls (the Spark ListBase class and its subclasses
+ *  such as ButtonBar, ComboBox, DropDownList, List, and TabBar) do not support the BasicLayout class
+ *  as the value of the <code>layout</code> property. 
+ *  Do not use BasicLayout with the Spark list-based controls.</p>
+ *
  *  @mxml <p>The <code>&lt;s:ListBase&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
