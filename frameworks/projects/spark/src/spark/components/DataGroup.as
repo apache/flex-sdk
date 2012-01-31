@@ -951,6 +951,8 @@ public class DataGroup extends GroupBase
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        renderFillForMouseOpaque();
+
         if (layout && layout.useVirtualLayout)
         {
             virtualLayoutUnderway = true;
