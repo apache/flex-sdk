@@ -732,7 +732,7 @@ public class ServerConfig
         {
             channelIds = getChannelIds(destinationConfig);
             clustered = (destinationConfig.properties.network.cluster.length() > 0) ? true : false;
-        }
+        }       
 
         var channelSetId:String = channelIds.join(",") + ":" + clustered;
 
@@ -743,11 +743,10 @@ public class ServerConfig
         else
         {
             var channelSet:ChannelSet = new channelSetFactory(channelIds, clustered);
-            if (clustered)
-            {
-                channelSet.initialDestinationId = destinationId;
-            }
-            _channelSets[channelSetId] = channelSet;
+            var heartbeatMillis:int = serverConfigData["flex-client"]["heartbeat-interval-millis"];
+            if (heartbeatMillis > 0) channelSet.heartbeatInterval = heartbeatMillis;
+            if (clustered) channelSet.initialDestinationId = destinationId;
+            _channelSets[channelSetId] = channelSet;           
             return channelSet;
         }
     }
