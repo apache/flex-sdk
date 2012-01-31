@@ -1036,9 +1036,9 @@ public class Grid extends Group
      * 
      *  <p>This property has no effect if any of the following are true;
      *  <ul>
-     *      <li><code>requestedRowCount</code> is set
-     *      <li>the actual size of the grid has been explicitly set
-     *      <li>the grid is inside a Scroller component
+     *      <li><code>requestedRowCount</code> is set</li>
+     *      <li>the actual size of the grid has been explicitly set</li>
+     *      <li>the grid is inside a Scroller component</li>
      *  </ul>
      *  </p>
      * 
@@ -1123,9 +1123,9 @@ public class Grid extends Group
      * 
      *  <p>This property has no effect if any of the following are true;
      *  <ul>
-     *      <li><code>requestedColumnCount</code> is set
-     *      <li>the actual size of the grid has been explicitly set
-     *      <li>the grid is inside a Scroller component
+     *      <li><code>requestedColumnCount</code> is set</li>
+     *      <li>the actual size of the grid has been explicitly set</li>
+     *      <li>the grid is inside a Scroller component</li>
      *  </ul>
      *  </p>
      *  
@@ -1918,7 +1918,7 @@ public class Grid extends Group
         
         invalidateSize();
         invalidateDisplayList();
-		dispatchChangeEvent("typicalItemChanged");
+        dispatchChangeEvent("typicalItemChanged");
     }
     
     //----------------------------------
@@ -3320,7 +3320,7 @@ public class Grid extends Group
             updateCaretForDataProviderChange(event);
         
         if (gridDimensions && hoverRowIndex != -1)
-	        updateHoverForDataProviderChange(event);	
+            updateHoverForDataProviderChange(event);    
 
         invalidateSize();
         invalidateDisplayList();
@@ -3448,7 +3448,7 @@ public class Grid extends Group
             updateCaretForColumnsChange(event);                
         
         if (gridDimensions && hoverColumnIndex != -1)
-            updateHoverForColumnsChange(event);	
+            updateHoverForColumnsChange(event); 
 
         invalidateSize();
         invalidateDisplayList();        
