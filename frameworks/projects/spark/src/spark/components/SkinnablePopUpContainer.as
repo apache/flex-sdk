@@ -18,6 +18,7 @@ import flash.events.SoftKeyboardEvent;
 import flash.geom.Rectangle;
 
 import mx.core.FlexGlobals;
+import mx.core.FlexVersion;
 import mx.core.mx_internal;
 import mx.effects.IEffect;
 import mx.effects.Parallel;
@@ -25,6 +26,7 @@ import mx.events.FlexEvent;
 import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
 import mx.managers.SystemManager;
+import mx.styles.StyleProtoChain;
 
 import spark.effects.Move;
 import spark.effects.Resize;
@@ -45,6 +47,9 @@ use namespace mx_internal;
  *  <code>closed</code> to <code>normal</code> skin state and the transition 
  *  to that state completes.</p>
  *
+ *  <p>Note: As of Flex 4.6, SkinnablePopUp container inherits its styles
+ *  from the stage and not its owner.</p>
+ * 
  *  @eventType spark.events.PopUpEvent.OPEN
  * 
  *  @langversion 3.0
@@ -628,6 +633,19 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     *  Force callout inheritance chain to start at the style root.
+     */
+    override mx_internal function initProtoChain():void
+    {
+        // Maintain backwards compatibility of popup style inheritance 
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_6)
+            super.initProtoChain();
+        else
+            StyleProtoChain.initProtoChain(this, false);
+    }
+    
     /**
      *  @private 
      */
