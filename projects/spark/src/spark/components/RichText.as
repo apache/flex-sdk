@@ -888,30 +888,54 @@ public class RichText extends TextBase implements IFontContextComponent
 	 */
 	override mx_internal function composeTextLines(width:Number = NaN,
 												   height:Number = NaN):Boolean
-	{
+	{   
+        // If there is no explicit width but there is an explicit
+        // maxWidth use that.
+        if (isNaN(width) && !isNaN(explicitMaxWidth))
+            width = explicitMaxWidth;
+        
 		super.composeTextLines(width, height);
 		
 		// Ignore damage events while we're re-composing the text lines.
         ignoreDamageEvent = true;
 
 		// Set the composition bounds to be used by createTextLines().
-		// If the width or height is NaN, it will be computed by this method
+        // If there is no explicit width, and there is no explicit maxWidth,
+        // the width will be computed by this method.
+		// If the height is NaN, it will be computed by this method
 		// by the time it returns.
 		// The bounds are then used by the addTextLines() method
 		// to determine the isOverset flag.
 		// The composition bounds are also reported by the measure() method.
+        
 		bounds.x = 0;
 		bounds.y = 0;
-		bounds.width = isNaN(width) ? maxWidth : width;
+        bounds.width = width;
 		bounds.height = height;
 		
 		removeTextLines();
 		releaseTextLines();
 		
 		createTextLines();
+        
+        // Truncation only done if not measuring width and line breaks are
+        // toFit.  So if we are measuring, create the text lines to figure
+        // out their size and then recreate them using this size so truncation 
+        // will be done.
+        if (maxDisplayedLines != 0 && !isTruncated &&
+            getStyle("lineBreak") == "toFit")
+        {
+            var bp:String = getStyle("blockProgression");
+            if ((isNaN(width) && bp == "tb") || (isNaN(height) && bp != "tb"))
+            {
+                textLines.length = 0;
+                // bounds contains the measured size of the lines created above
+                createTextLines();
+            }
+        }
 		
-        // TODO (rfrishbe): can we optimize the "this" away since we know what the displayObject is now
-		addTextLines(this);
+        // Add the new text lines to the container.
+        addTextLines();
 		
 		// Figure out if the text overruns the available space for composition.
 		isOverset = isTextOverset(width, height);
