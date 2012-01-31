@@ -1903,7 +1903,7 @@ public class SpriteVisualElement extends FlexSprite
             return x;
 
         var topLeft:Point = new Point(0, 0);
-        MatrixUtil.transformBounds(new Point(width, height), m, topLeft);
+        MatrixUtil.transformBounds(width, height, m, topLeft);
         return topLeft.x;
     }
 
@@ -1922,7 +1922,7 @@ public class SpriteVisualElement extends FlexSprite
             return y;
 
         var topLeft:Point = new Point(0, 0);
-        MatrixUtil.transformBounds(new Point(width, height), m, topLeft);
+        MatrixUtil.transformBounds(width, height, m, topLeft);
         return topLeft.y;
     }
 
@@ -2045,7 +2045,7 @@ public class SpriteVisualElement extends FlexSprite
             return x;
 
         var topLeft:Point = new Point(0, 0);
-        MatrixUtil.transformBounds(new Point(preferredWidth, preferredHeight), m, topLeft);
+        MatrixUtil.transformBounds(preferredWidth, preferredHeight, m, topLeft);
         return topLeft.x;
     }
 
@@ -2064,7 +2064,7 @@ public class SpriteVisualElement extends FlexSprite
             return y;
 
         var topLeft:Point = new Point(0, 0);
-        MatrixUtil.transformBounds(new Point(preferredWidth, preferredHeight), m, topLeft);
+        MatrixUtil.transformBounds(preferredWidth, preferredHeight, m, topLeft);
         return topLeft.y;
     }
 
@@ -2495,10 +2495,7 @@ public class SpriteVisualElement extends FlexSprite
         {
             var m:Matrix = nonDeltaLayoutMatrix();
             if (m)
-            {
-                var size:Point = new Point(width, height);
-                width = MatrixUtil.transformSize(size, m).x;
-            }
+                width = MatrixUtil.transformSize(width, height, m).x;
         }
 
         return width;
@@ -2527,10 +2524,7 @@ public class SpriteVisualElement extends FlexSprite
         {
             var m:Matrix = nonDeltaLayoutMatrix();
             if (m)
-            {
-                var size:Point = new Point(width, height);
-                height = MatrixUtil.transformSize(size, m).y;
-            }
+                height = MatrixUtil.transformSize(width, height, m).y;
         }
 
         return height;
