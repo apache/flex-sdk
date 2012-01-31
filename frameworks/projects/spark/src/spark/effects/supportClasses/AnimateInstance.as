@@ -735,9 +735,12 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             setupParentLayout(false);
             cacheConstraints();
         }
-        if (disabledConstraintsMap && !disableLayout)
+        else if (disabledConstraintsMap)
+        {
             for (var constraint:String in disabledConstraintsMap)
                 cacheConstraint(constraint);
+            disabledConstraintsMap = null;
+        }
 
         finalizeValues();
     }
@@ -785,12 +788,11 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
 
     private function animationCleanup():void
     {
-        if (disableLayout || disabledConstraintsMap)
+        if (disableLayout)
         {
             reenableConstraints();
             if (disableLayout)
                 setupParentLayout(true);
-            disabledConstraintsMap = null;
         }
     }
     
