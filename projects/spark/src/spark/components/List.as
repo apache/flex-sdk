@@ -341,9 +341,20 @@ public class List extends ListBase implements IFocusManagerComponent
     }
 
     /**
-     *  @private
-     *  The set/get overrides here only exist as a place to document the fact that
-     *  the default for this inherited property is now true.  See the List constructor.
+     *  Overrides the inherited default property , it is true for this class.
+     * 
+     *  Sets the value of the <code>useVirtualLayout</code> property
+     *  of the layout associated with this control.  
+     *  If the layout is subsequently replaced and the value of this 
+     *  property is <code>true</code>, then the new layout's 
+     *  <code>useVirtualLayout</code> property is set to <code>true</code>.
+     *
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function set useVirtualLayout(value:Boolean):void
     {
