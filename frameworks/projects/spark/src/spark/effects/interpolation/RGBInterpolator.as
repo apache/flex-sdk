@@ -79,7 +79,6 @@ public class ColorInterpolator implements IInterpolator
         var newR:uint = startR + deltaR * fraction;
         var newG:uint = startG + deltaG * fraction;
         var newB:uint = startB + deltaB * fraction;
-        var newColor:uint = newR << 16 | newG << 8 | newB;
         return newR << 16 | newG << 8 | newB;
     }
 
