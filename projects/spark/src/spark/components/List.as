@@ -256,7 +256,7 @@ public class FxList extends FxListBase
     {
         super.itemSelected(index, selected);
         
-        var renderer:Object = dataGroup.mx_internal::getRendererForItemAt(index);
+        var renderer:Object = dataGroup.getRendererForItemAt(index);
         
         if (renderer)
         {
