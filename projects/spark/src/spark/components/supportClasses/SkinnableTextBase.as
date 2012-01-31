@@ -340,9 +340,6 @@ public class SkinnableTextBase extends SkinnableComponent
     public function SkinnableTextBase()
     {
         super();
-        
-        // cache iOS property
-        isIOS = (Capabilities.version.indexOf("IOS") == 0);
     }
     
     //--------------------------------------------------------------------------
@@ -378,7 +375,7 @@ public class SkinnableTextBase extends SkinnableComponent
      *  @private
      *  Variable that determines whether this application is running on iOS.
      */
-    private var isIOS:Boolean = false;
+    private static var isIOS:Boolean = (Capabilities.version.indexOf("IOS") == 0);
     
     //--------------------------------------------------------------------------
     //
