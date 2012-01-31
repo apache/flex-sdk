@@ -1154,8 +1154,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      */
     private function startVirtualLayout():void
     {
-        virtualLayoutUnderway = true;
-        
         // lazily create the virtualRendererIndices vectors
         
         if (!virtualRendererIndices)
@@ -1189,7 +1187,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      */
     private function finishVirtualLayout():void
     {
-        virtualLayoutUnderway = false;
 
         if (oldVirtualRendererIndices.length == 0)
             return;
@@ -1301,12 +1298,18 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         drawBackground();
         
         if (layout && layout.useVirtualLayout)
-            startVirtualLayout();   // sets virtualLayoutUnderway=true
+		{
+			virtualLayoutUnderway = true;
+            startVirtualLayout();   
+		}			
         
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
         if (virtualLayoutUnderway)
-            finishVirtualLayout();  // sets virtualLayoutUnderway=false
+		{
+            finishVirtualLayout();
+			virtualLayoutUnderway = false;
+		}
     }
     
     /**
