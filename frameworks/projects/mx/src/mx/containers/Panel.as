@@ -383,6 +383,8 @@ include "../styles/metadata/ModalTransparencyStyles.as";
 
 [IconFile("Panel.png")]
 
+[Alternative(replacement="spark.components.Panel", since="4.0")]
+
 /**
  *  A Halo Panel container consists of a title bar, a caption, a border,
  *  and a  content area for its children.
