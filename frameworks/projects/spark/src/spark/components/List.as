@@ -30,6 +30,8 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IUID;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
+import mx.events.CollectionEvent;
+import mx.events.CollectionEventKind;
 import mx.events.DragEvent;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
@@ -2088,6 +2090,31 @@ public class List extends ListBase implements IFocusManagerComponent
             return;
         
         renderer.removeEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override protected function dataProvider_collectionChangeHandler(event:Event):void
+    {
+        super.dataProvider_collectionChangeHandler(event);
+        
+        if (event is CollectionEvent)
+        {
+            var ce:CollectionEvent = CollectionEvent(event);
+            
+            // from a filter or sort, we should clear our selection.
+            if (ce.kind == CollectionEventKind.REFRESH)
+            {
+                multipleSelectionChanged = true;
+                invalidateProperties();
+            }
+        }
     }
     
     /**
