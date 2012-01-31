@@ -14,10 +14,10 @@ package spark.effects.easing
 import mx.effects.easing.Bounce;
 
 /**
- * The Bounce class implements easing functionality simulating gravity
- * pulling on and bouncing the target object. The object
- * movement accelerates toward the end value and then bounces against
- * it several times.
+ *  The Bounce class implements easing functionality simulating gravity
+ *  pulling on and bouncing the target object. 
+ *  The movement of the effect target accelerates toward the end value, 
+ *  and then bounces against the end value several times. 
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -33,7 +33,7 @@ public class Bounce implements IEaser
     //--------------------------------------------------------------------------
     
     /**
-     *  Constructs a Bounce easer.
+     *  Constructor.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -51,7 +51,7 @@ public class Bounce implements IEaser
     //--------------------------------------------------------------------------
     
     /**
-     *  @copy spark.effects.easing.IEaser#ease
+     *  @inheritDoc
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
