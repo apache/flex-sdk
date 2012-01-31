@@ -42,6 +42,7 @@ import mx.managers.IFocusManagerContainer;
 //  Excluded APIs
 //--------------------------------------
 
+[Exclude(name="focusBlendMode", kind="style")]
 [Exclude(name="focusThickness", kind="style")]
 
 /**
