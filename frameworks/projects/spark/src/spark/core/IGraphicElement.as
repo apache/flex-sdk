@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package flex.graphics
+package mx.graphics
 {
 import flash.display.DisplayObject;
 import flash.display.Graphics;
