@@ -15,6 +15,7 @@ package mx.graphics
 import flash.display.DisplayObjectContainer;
 import flash.geom.Rectangle;
 
+import flashx.tcal.conversion.ITextImporter;
 import flashx.tcal.conversion.TextFilter;
 import flashx.tcal.elements.FlowElement;
 import flashx.tcal.elements.ParagraphElement;
@@ -57,6 +58,20 @@ public class TextGraphic extends TextGraphicElement
 
 	//--------------------------------------------------------------------------
 	//
+	//  Class variables
+	//
+	//--------------------------------------------------------------------------
+
+	/**
+	 *  @private
+     *  Since this static var gets initialized by calling a method
+     *  in another class, we initialize it in the constructor to avoid
+     *  any class-initialization-order problems.
+	 */
+    private static var textImporter:ITextImporter;
+
+	//--------------------------------------------------------------------------
+	//
 	//  Constructor
 	//
 	//--------------------------------------------------------------------------
@@ -67,6 +82,9 @@ public class TextGraphic extends TextGraphicElement
 	public function TextGraphic()
 	{
 		super();
+
+        if (!textImporter)
+            textImporter = TextFilter.getImporter(TextFilter.TCAL_FORMAT);
 
 		_content = textFlow = createEmptyTextFlow();
 	}
@@ -292,12 +310,11 @@ public class TextGraphic extends TextGraphicElement
 	 */
 	private function importMarkup(markup:String):TextFlow
 	{
-		markup =
-			'<TextGraphic xmlns="http://ns.adobe.com/fxg/2008">' +
-			    '<content>' + markup + '</content>' +
-			'</TextGraphic>';
+		markup = '<TextFlow xmlns="http://ns.adobe.com/tcal/2008">' +
+                 markup +
+                 '</TextFlow>';
 		
-		return TextFilter.importToFlow(markup, TextFilter.FXG_FORMAT);
+		return textImporter.importToFlow(markup);
 	}
 
 	/**
