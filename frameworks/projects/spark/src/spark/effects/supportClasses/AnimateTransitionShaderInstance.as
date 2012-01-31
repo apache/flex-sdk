@@ -20,25 +20,31 @@ import flash.utils.ByteArray;
 
 import mx.containers.Panel;
 import mx.core.Application;
+import mx.core.IUIComponent;
 import mx.core.UIComponent;
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;
 
-import spark.effects.AnimateShaderTransition;
-import spark.effects.SimpleMotionPath;
+import spark.effects.AnimateTransitionShader;
 import spark.effects.animation.Animation;
+import spark.effects.animation.MotionPath;
+import spark.effects.animation.SimpleMotionPath;
+import spark.primitives.supportClasses.GraphicElement;
+import spark.utils.BitmapUtil;
     
 /**
- *  The AnimateShaderTransitionInstance class implements the instance class for the
- *  AnimateShaderTransition effect. Flex creates an instance of this class when
- *  it plays a AnimateShaderTransition effect; you do not create one yourself.
+ *  The AnimateTransitionShaderInstance class implements the instance class for the
+ *  AnimateTransitionShader effect. Flex creates an instance of this class when
+ *  it plays a AnimateTransitionShader effect; you do not create one yourself.
  *
- *  @see spark.effects.AnimateShaderTransition
+ *  @see spark.effects.AnimateTransitionShader
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class AnimateShaderTransitionInstance extends AnimateInstance
+public class AnimateTransitionShaderInstance extends AnimateInstance
 {
     include "../../core/Version.as";
 
@@ -52,15 +58,51 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function AnimateShaderTransitionInstance(target:Object)
+    public function AnimateTransitionShaderInstance(target:Object)
     {
         super(target);
         // Automatically keep disappearing targets around during this effect
         autoRemoveTarget = true;
     }
 
+    //--------------------------------------------------------------------------
+    //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+    
     /**
-     *  @copy spark.effects.AnimateShaderTransition#bitmapFrom
+     *  @private
+     *  Storage for the resourceManager getter.
+     *  This gets initialized on first access,
+     *  not at static initialization time, in order to ensure
+     *  that the Singleton registry has already been initialized.
+     */
+    private static var _resourceManager:IResourceManager;
+    
+    /**
+     *  @private
+     *  A reference to the object which manages
+     *  all of the application's localized resources.
+     *  This is a singleton instance which implements
+     *  the IResourceManager interface.
+     */
+    private static function get resourceManager():IResourceManager
+    {
+        if (!_resourceManager)
+            _resourceManager = ResourceManager.getInstance();
+
+        return _resourceManager;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @copy spark.effects.AnimateTransitionShader#bitmapFrom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -70,7 +112,7 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
     public var bitmapFrom:BitmapData;
     
     /**
-     *  @copy spark.effects.AnimateShaderTransition#bitmapTo
+     *  @copy spark.effects.AnimateTransitionShader#bitmapTo
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -80,17 +122,17 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
     public var bitmapTo:BitmapData;
 
     /**
-     *  @copy spark.effects.AnimateShaderTransition#shaderCode
+     *  @copy spark.effects.AnimateTransitionShader#shaderByteCode
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var shaderCode:ByteArray;
+    public var shaderByteCode:ByteArray;
     
     /**
-     *  @copy spark.effects.AnimateShaderTransition#shaderProperties
+     *  @copy spark.effects.AnimateTransitionShader#shaderProperties
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -100,7 +142,7 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
     public var shaderProperties:Object;
 
     /**
-     * The Shader that is created using the <code>shaderCode</code>
+     * The Shader that is created using the <code>shaderByteCode</code>
      * property as the underlying byte code. Each instance needs its
      * own separate Shader, but can share the byte code. When each instance
      * is played, create the Shader that the instance uses.
@@ -182,9 +224,9 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
         // Last-ditch effort - if we don't have bitmaps yet, then just grab a 
         // snapshot of the current target
         if (!bitmapFrom)
-            bitmapFrom = AnimateShaderTransition.getSnapshot(target);
+            bitmapFrom = getSnapshot(target);
         if (!bitmapTo)
-            bitmapTo = AnimateShaderTransition.getSnapshot(target);
+            bitmapTo = getSnapshot(target);
 
         // Fix up the visibility if it's becoming visible
         if (propertyChanges &&
@@ -193,15 +235,15 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
         {
             target.visible = true;
         }
-        shader = new Shader(shaderCode);
+        shader = new Shader(shaderByteCode);
         if (shader.data)
         {
             shader.data.from.input = bitmapFrom;
             shader.data.to.input = bitmapTo;
             
-            motionPaths = [
-                new SimpleMotionPath("progress", 0, 1, duration)
-            ];
+            motionPaths = new <MotionPath>[
+                new SimpleMotionPath("progress", 0, 1, duration)];
+
             // auto-set width/height if exposed in shader
             if ("width" in shader.data)
                 shader.data.width.value = [bitmapFrom.width];
@@ -223,6 +265,14 @@ public class AnimateShaderTransitionInstance extends AnimateInstance
         super.play();
     }    
     
+    private function getSnapshot(target:Object):BitmapData
+    {
+        if (target is GraphicElement)
+            return GraphicElement(target).getBitmapData(true, 0, false);
+        else if (!(target is IUIComponent))
+            throw new Error(resourceManager.getString("sparkEffects", "cannotOperateOn"));
+        return BitmapUtil.getSnapshot(IUIComponent(target));
+    }
     /**
      * Unlike Animate's setValue we assign the new value to the filter
      * associated with our effect instance rather than the target of 
