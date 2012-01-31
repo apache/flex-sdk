@@ -839,7 +839,7 @@ public class GridDimensions
             }
             
             // check if target Y is within default row heights range.
-            if (targetY > currentY && targetY < nextY)
+            if (targetY >= currentY && targetY < nextY)
             {
                 index = index + Math.ceil(Number(targetY - currentY)/(defaultRowHeight + rowGap));
                 break;
