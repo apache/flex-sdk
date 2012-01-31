@@ -15,8 +15,10 @@ package spark.components.supportClasses
 import flash.accessibility.Accessibility;
 import flash.accessibility.AccessibilityProperties;
 import flash.display.DisplayObject;
+import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
+import flash.events.MouseEvent;
 import flash.system.Capabilities;
 
 import flashx.textLayout.elements.TextFlow;
@@ -24,8 +26,11 @@ import flashx.textLayout.events.SelectionEvent;
 
 import mx.core.IIMESupport;
 import mx.core.IVisualElement;
+import mx.core.InteractionMode;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.events.SandboxMouseEvent;
+import mx.events.TouchInteractionEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
 
@@ -336,7 +341,36 @@ public class SkinnableTextBase extends SkinnableComponent
     {
         super();
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //-------------------------------------------------------------------------- 
 
+    /**
+     *  @private
+     */  
+    private var touchHandlersAdded:Boolean = false;
+    
+    /**
+     *  @private
+     *  True if we received a mouseDown and we haven't receieved a mouseUp yet
+     */
+    private var isMouseDown:Boolean = false;
+    
+    /**
+     *  @private
+     *  True if setFocus is called while isMouseDown is true
+     */
+    private var delaySetFocus:Boolean = false;
+    
+    /**
+     *  @private
+     *  The target from the current mouseDown event
+     */
+    private var mouseDownTarget:InteractiveObject;
+    
     //--------------------------------------------------------------------------
     //
     //  Skin parts
@@ -1217,6 +1251,33 @@ public class SkinnableTextBase extends SkinnableComponent
             accessibilityPropertiesChanged = false;
         }
     }
+    
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        super.styleChanged(styleProp);
+        
+        if (!styleProp ||
+            styleProp == "styleName" || styleProp == "interactionMode")
+        {
+            if (getStyle("interactionMode") == InteractionMode.TOUCH && !touchHandlersAdded)
+            {
+                addEventListener(MouseEvent.MOUSE_DOWN, touchMouseDownHandler);
+                addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START,
+                    touchInteractionStartHandler);
+                touchHandlersAdded = true;
+            }
+            else if (getStyle("interactionMode") == InteractionMode.MOUSE && touchHandlersAdded)
+            {
+                removeEventListener(MouseEvent.MOUSE_DOWN, touchMouseDownHandler);
+                removeEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START,
+                    touchInteractionStartHandler);
+                touchHandlersAdded = false;
+            }
+        }
+    }
 
     /**
      *  @private
@@ -1336,8 +1397,16 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     override public function setFocus():void
     {
+        // If the mouse is down, then we don't want the TextField to get focus until mouse up. 
+        // Otherwise, this was called programmatically and we want the soft keyboard to appear immediately.
+        // Note that isMouseDown can only be true when we are in InteractionMode == TOUCH. 
         if (textDisplay)
-            textDisplay.setFocus();
+        {
+            if (isMouseDown)
+                delaySetFocus = true;
+            else
+                textDisplay.setFocus();
+        }
     }
 
     /**
@@ -1952,6 +2021,78 @@ public class SkinnableTextBase extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
 
+
+    /**
+     * @private
+     * Called if we are in touch interaction mode and we receive a mouseDown
+     */  
+    private function touchMouseDownHandler(event:MouseEvent):void
+    {
+        isMouseDown = true;
+        mouseDownTarget = event.target as InteractiveObject;
+                
+        // Wait for a mouseUp somewhere
+        systemManager.getSandboxRoot().addEventListener(
+            MouseEvent.MOUSE_UP, touchMouseUpHandler, false, 0, true);
+        systemManager.getSandboxRoot().addEventListener(
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, touchMouseUpHandler, false, 0, true);
+    }
+    
+    /**
+     * @private
+     * Called if we are in touch interaction mode and a mouseUp occurs on the stage while isMouseDown is true
+     */ 
+    private function touchMouseUpHandler(event:Event):void
+    {        
+        /* 
+         We set the focus on the component on mouseUp to activate the softKeyboard   
+         We only set focus if the following conditions are met:
+         1. mouseUp occurs on this component
+         2. mouseDown occured on any subcomponent besides the textDisplay OR
+         mouseDown occurred on textDisplay and mouseUp did not occur on textDisplay
+        
+         The mouseDown and mouseUp on textDisplay case is handled by the Player
+        */        
+        if ((event.target is DisplayObject && contains(DisplayObject(event.target))) 
+            && (delaySetFocus ||
+             (mouseDownTarget == textDisplay && event.target != textDisplay)))
+        {
+            if (textDisplay)
+                textDisplay.setFocus();
+        }
+        
+        clearMouseDownState();
+    }
+       
+    /**
+     * @private
+     * Called if we are inside of a Scroller and the user has started a scroll gesture
+     */
+    private function touchInteractionStartHandler(event:TouchInteractionEvent):void
+    {
+        // Clear out the state because starting a scroll gesture should never 
+        // open the soft keyboard
+        clearMouseDownState();
+    }    
+    
+    /**
+     * @private
+     * Helper function to clear the state if the mouse is up or we started as scroll gesture
+     */
+    private function clearMouseDownState():void
+    {
+        if (isMouseDown)
+        {
+            systemManager.getSandboxRoot().removeEventListener(
+                MouseEvent.MOUSE_UP, touchMouseUpHandler, false);
+            systemManager.getSandboxRoot().removeEventListener(
+                SandboxMouseEvent.MOUSE_UP_SOMEWHERE, touchMouseUpHandler, false);
+            isMouseDown = false;
+            delaySetFocus = false;
+            mouseDownTarget = null;
+        }
+    }
+    
     /**
      *  @private
      *  Called when the RichEditableText dispatches a 'selectionChange' event.
