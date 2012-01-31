@@ -14,6 +14,7 @@ package spark.components
 
 import spark.components.supportClasses.ToggleButtonBase;
 
+[Exclude(name="textAlign", kind="style")]
 
 [IconFile("ToggleButton.png")]
 
