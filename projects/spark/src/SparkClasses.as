@@ -26,13 +26,13 @@ internal class Flex4Classes
 import mx.skins.spark.FxApplicationSkin; FxApplicationSkin;
 import mx.skins.spark.FxButtonSkin; FxButtonSkin;
 import mx.skins.spark.FxCheckBoxSkin; FxCheckBoxSkin;
-import mx.skins.spark.FxDataComponentSkin; FxDataComponentSkin;
+import mx.skins.spark.FxDataContainerSkin; FxDataContainerSkin;
 import mx.skins.spark.FxHScrollBarSkin; FxHScrollBarSkin;
 import mx.skins.spark.FxHScrollBarThumbSkin; FxHScrollBarThumbSkin;
 import mx.skins.spark.FxHSliderSkin; FxHSliderSkin;
 import mx.skins.spark.FxHSliderThumbSkin; FxHSliderThumbSkin;
 import mx.skins.spark.FxHSliderTrackSkin; FxHSliderTrackSkin;
-import mx.skins.spark.FxItemsComponentSkin; FxItemsComponentSkin;
+import mx.skins.spark.FxContainerSkin; FxContainerSkin;
 import mx.skins.spark.FxListSkin; FxListSkin;
 import mx.skins.spark.FxNumericStepperSkin; FxNumericStepperSkin;
 import mx.skins.spark.FxRadioButtonSkin; FxRadioButtonSkin;
