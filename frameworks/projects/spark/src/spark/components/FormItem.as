@@ -129,33 +129,35 @@ public class FormItem extends SkinnableContainer
     //----------------------------------
     //  helpContent
     //----------------------------------
-    private var _helpContent:IDeferredInstance;
+    private var _helpContent:Array;
     private var helpContentChanged:Boolean = false;
     
-    [Bindable("labelChanged")]
+    [Bindable("helpContentChanged")]
     [Inspectable(category="General", defaultValue="")]
     
-    /**
-     *  A factory object that creates the mxmlContent for the
-     *  <code>helpContentGroup</code> skin part. 
+    /** 
+     *  The set of components to include in the help content 
+     *  area of the FormItem.
      * 
-     *  @default undefined
+     *  @default null
      */
-    public function set helpContent(value:IDeferredInstance):void
+    public function get helpContent():Array
     {
-        _helpContent = value;
-        helpContentChanged = true;
-        invalidateProperties();
+        if (helpContentGroup)
+            return helpContentGroup.getMXMLContent();
+        else
+            return _helpContent;
     }
     
     /**
      *  @private
      */
-    public function get helpContent():IDeferredInstance
+    public function set helpContent(value:Array):void
     {
-        return _helpContent;
+        _helpContent = value;
+        helpContentChanged = true;
+        invalidateProperties();
     }
-    
     
     //----------------------------------
     //  label
@@ -431,14 +433,8 @@ public class FormItem extends SkinnableContainer
     {
         if (_helpContent && helpContentGroup && helpContentChanged)
         {            
-            helpContentChanged = false;
-            
-            var content:Object = _helpContent.getInstance();
-            
-            if (!(content is Array))
-                content = [content];
-            
-            helpContentGroup.mxmlContent = content as Array; 
+            helpContentChanged = false;            
+            helpContentGroup.mxmlContent = _helpContent; 
         }
     }
     
