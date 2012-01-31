@@ -774,6 +774,7 @@ public class DataGroup extends GroupBase
      */
     private function updateRenderer(renderer:IVisualElement, index:int, data:Object):void
     {
+        // THIS NEEDS TO STAY IN SYNCH WITH ListItemDragProxy.as
         if (!renderer)
            return;
 
