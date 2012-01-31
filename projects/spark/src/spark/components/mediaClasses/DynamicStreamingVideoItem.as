@@ -72,14 +72,14 @@ public class DynamicStreamingVideoItem extends Object
     //
     //--------------------------------------------------------------------------
     
-    [Inspectable(category="General", defaultValue="0")]
-    
     //----------------------------------
     //  bitrate
     //----------------------------------
     
     private var _bitrate:Number = 0;
 
+    [Inspectable(category="General", defaultValue="0")]
+    
     /**
      *  The bit rate for the video stream.
      * 
