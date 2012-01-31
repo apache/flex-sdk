@@ -353,13 +353,20 @@ public class GridColumn extends EventDispatcher
     [Bindable("itemRendererFunctionChanged")]
     
     /**
-     *  If specified, the value of this property must be a function 
+     *  If specified, the value of this property must be an idempotent function 
      *  that returns an item renderer IFactory based on its dataProvider item 
-     *  parameter.  Specifying an itemRendererFunction makes it possible to 
-     *  employ more than one item renderer in this column.  
+     *  and column parameters.  Specifying an itemRendererFunction makes it possible to 
+     *  employ more than one item renderer in this column.
+     * 
+     *  <p>The itemRendererFunction's signature must match the following:
+     *
+     *  <pre>itemRendererFunction(item:Object, column:GridColumn):IFactory</pre>
+     *
+     *  The item parameter is the dataProvider item for an entire row; it's 
+     *  the value of <code>grid.dataProvider.getItemAt(rowIndex)</code>.  The second
+     *  parameter is this column.</p> 
      * 
      *  <p>Here's an example of an itemRendererFunction:</p>
-     * 
      *  <pre>
      *  function myItemRendererFunction(item:Object, column:GridColumn):IFactory
      *  {
@@ -400,9 +407,10 @@ public class GridColumn extends EventDispatcher
     [Bindable("labelFunctionChanged")]
     
     /**
-     *  A idempotent function that converts a dataProvider item into a column-specific string
+     *  An idempotent function that converts a dataProvider item into a column-specific string
      *  that's used to initialize the item renderer's <code>label</code> property.
-     *  A labelFunction can be use to combine the values of several dataProvider item
+     * 
+     *  <p>A labelFunction can be use to combine the values of several dataProvider item
      *  properties into a single string.  If specified, this property is used by the 
      *  <code>itemToLabel()</code> method, which computes the value of each item 
      *  renderer's label property in this column.
@@ -789,7 +797,9 @@ public class GridColumn extends EventDispatcher
     public function itemToRenderer(item:Object):IFactory
     {
         const itemRendererFunction:Function = itemRendererFunction;
-        return (itemRendererFunction != null) ? itemRendererFunction(item) : itemRenderer;
+        var factory:IFactory = (itemRendererFunction != null) ? itemRendererFunction(item, this) : itemRenderer;
+        
+        return factory;
     }
     
     /**
