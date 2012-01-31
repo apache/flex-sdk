@@ -67,7 +67,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="borderAlpha", type="Number", inherit="no", theme="spark")]
+[Style(name="borderAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
 
 /**
  *  The color of the border for this component.
@@ -101,7 +101,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark")]
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark", minValue="0.0", maxValue="1.0")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
