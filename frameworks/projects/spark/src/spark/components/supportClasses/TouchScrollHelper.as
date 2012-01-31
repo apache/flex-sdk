@@ -25,6 +25,7 @@ import mx.core.mx_internal;
 import mx.events.SandboxMouseEvent;
 import mx.events.TouchInteractionEvent;
 import mx.events.TouchInteractionReason;
+import mx.managers.ISystemManager;
 import mx.utils.GetTimerUtil;
 
 use namespace mx_internal;
@@ -358,10 +359,16 @@ public class TouchScrollHelper
      */
     private function installMouseListeners():void
     {
-        var sbRoot:DisplayObject = target.systemManager.getSandboxRoot();
+        const sm:ISystemManager = target.systemManager;
+        const sbRoot:DisplayObject = sm.getSandboxRoot();
         
         sbRoot.addEventListener(MouseEvent.MOUSE_MOVE, sbRoot_mouseMoveHandler, true);
         sbRoot.addEventListener(MouseEvent.MOUSE_UP, sbRoot_mouseUpHandler, true);
+
+        // If mouseUp is on StageText the only way to know that is to listen for it on the Stage.
+        if (sm.stage && sm.isTopLevelRoot())
+            sm.stage.addEventListener(MouseEvent.MOUSE_UP, sbRoot_mouseUpHandler);
+        
         sbRoot.addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, sbRoot_mouseUpHandler);
         
         target.systemManager.deployMouseShields(true);
@@ -372,13 +379,18 @@ public class TouchScrollHelper
      */
     private function uninstallMouseListeners():void
     {
-        var sbRoot:DisplayObject = target.systemManager.getSandboxRoot();
+        const sm:ISystemManager = target.systemManager;
+        const sbRoot:DisplayObject = sm.getSandboxRoot();
         
         // mouse events added in installMouseListeners()
         sbRoot.removeEventListener(MouseEvent.MOUSE_MOVE, sbRoot_mouseMoveHandler, true);
         sbRoot.removeEventListener(MouseEvent.MOUSE_UP, sbRoot_mouseUpHandler, true);
-        sbRoot.removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, sbRoot_mouseUpHandler);
         
+        if (sm.stage && sm.isTopLevelRoot())
+            sm.stage.removeEventListener(MouseEvent.MOUSE_UP, sbRoot_mouseUpHandler);
+        
+        sbRoot.removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, sbRoot_mouseUpHandler);
+
         target.systemManager.deployMouseShields(false);
     }
     
@@ -577,7 +589,7 @@ public class TouchScrollHelper
             dragTimer.stop();
         }
     }
-    
+
     /**
      *  @private
      *  Called when the user releases the mouse/touches up
