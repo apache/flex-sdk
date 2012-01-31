@@ -864,7 +864,7 @@ public class NavBar extends Box
         {
             var item:Object = _dataProvider.getItemAt(i);
             var navItem:Button;
-            if (item is String)
+            if (item is String && labelFunction == null)
             {
                 navItem = Button(createNavItem(String(item)));
             }
