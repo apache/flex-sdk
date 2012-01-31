@@ -122,7 +122,7 @@ public class StreamingVideoSource extends Object
     [Inspectable(category="General")]
     [ArrayElementType("spark.components.mediaClasses.StreamItem")]
     
-    // TODO (rfrishbe): change to vectors when possible
+    // FIXME (rfrishbe): change to vectors when possible
 
     /**
      *  The metadata info object with properties describing the FLB file.
