@@ -33,13 +33,31 @@ use namespace mx_internal;
 [DefaultProperty("popUp")]
 
 /**
- *  This component is used to position a drop-down element,
- *  such as a DropDownList component, in layout. Because a drop-down 
- *  element is added to the display list by the PopUpManager, it doesn't normally 
- *  participate in layout. The PopUp component is a UIComponent that is added to a 
+ *  The PopUpAnchor component is used to position a control that pops up
+ *  or drops down, such as a DropDownList component, in layout. Because a popup or drop-down 
+ *  control is added to the display list by the PopUpManager, it doesn't normally 
+ *  participate in layout. The PopUpAnchor component is a UIComponent that is added to a 
  *  container and is laid out. It is then responsible for sizing and 
- *  positioning the dropDown element relative to itself.
+ *  positioning the popup or drop-down control relative to itself. 
+ *  It has no visual appearance.
  *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;PopUpAnchor&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;PopUpAnchor
+ * 
+ *    <strong>Properties</strong>
+ *    displayPopUp="false"
+ *    popUp=""
+ *    popUpHeightMatchesAnchorHeight="false"
+ *    popUpPosition="topLeft"
+ *    popUpWidthMatchesAnchorWidth="false"
+ *  /&gt;
+ *  </pre>
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -85,7 +103,7 @@ public class PopUpAnchor extends UIComponent
     private var _popUpHeightMatchesAnchorHeight:Boolean = false;
     
     /**
-     *  If true, the popUp's height is set to the value of the PopUpAnchor's height.
+     *  If true, the height of the <code>popUp</code> control is set to the value of the PopUpAnchor's height.
      * 
      *  @default false
      *  
@@ -119,7 +137,7 @@ public class PopUpAnchor extends UIComponent
     private var _popUpWidthMatchesAnchorWidth:Boolean = false;
     
     /**
-     *  If true, the popUp's width is set to the value of the PopUpAnchor's width.
+     *  If true, the width of the <code>popUp</code> control is set to the value of the PopUpAnchor's width.
      * 
      *  @default false
      *  
@@ -154,7 +172,7 @@ public class PopUpAnchor extends UIComponent
     
     
     /**
-     *  If true, adds the popUp to the PopUpManager. If false, removes it.  
+     *  If true, adds the <code>popUp</code> control to the PopUpManager. If false, removes it.  
      *  
      *  @default false
      * 
@@ -207,10 +225,11 @@ public class PopUpAnchor extends UIComponent
     [Bindable ("popUpChanged")]
     
     /**
-     *  IFlexDisplayObject to add to the PopUpManager when the PopUpAnchor is opened. 
-     *  If the popUp implements IFocusManagerContainer, the popUp will have its
-     *  own FocusManager so that, if the user uses the Tab key to navigate between
-     *  controls, only the controls in the popUp are accessed. 
+     *  The IFlexDisplayObject to add to the PopUpManager when the PopUpAnchor is opened. 
+     *  If the <code>popUp</code> control implements IFocusManagerContainer, the 
+     *  <code>popUp</code> control will have its
+     *  own FocusManager. If the user uses the Tab key to navigate between
+     *  controls, only the controls in the <code>popUp</code> control are accessed. 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -245,13 +264,15 @@ public class PopUpAnchor extends UIComponent
     private var _popUpPosition:String = PopUpPosition.TOP_LEFT;
     
     /**
-     *  Position of the popUp when it is opened. 
-     *  Possible values are "left", "right", "above", "below", "center", and "topLeft"
+     *  Position of the <code>popUp</code> control when it is opened, relative
+     *  to the PopUpAnchor component.
+     *  Possible values are <code>"left", "right", "above", "below", "center",</code>
+     *  and <code>"topLeft"</code>.
      * 
      *   
      *  @default PopUpPosition.TOP_LEFT
      * 
-     *  @see spark.core.PopUpPosition
+     *  @see spark.components.PopUpPosition
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -295,8 +316,8 @@ public class PopUpAnchor extends UIComponent
     //--------------------------------------------------------------------------   
     
     /**
-     *  Call this function to update the popUp's transform matrix. Typically, 
-     *  this function is called while performing an effect on the PopUpAnchor. 
+     *  Updates the <code>popUp</code> control's transform matrix. Typically, 
+     *  you would call this function while performing an effect on the PopUpAnchor. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -309,11 +330,11 @@ public class PopUpAnchor extends UIComponent
     }
     
     /**
-     *  Called when the popUp is positioned, when it is displayed,
-     *  or when updatePopUpTransform() is called. Override this function to 
-     *  alter the position of the popUp.  
+     *  Called when the <code>popUp</code> control is positioned, when it is displayed,
+     *  or when <code>updatePopUpTransform()</code> is called. Override this function to 
+     *  alter the position of the <code>popUp</code> control.  
      * 
-     *  @return The absolute position of the popUp in the global coordinate system  
+     *  @return The absolute position of the <code>popUp</code> control in the global coordinate system.  
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
