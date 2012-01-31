@@ -40,7 +40,7 @@ use namespace mx_internal;
 /**
  *  Dispached after the <code>selectionAnchorPosition</code> and/or
  *  <code>selectionActivePosition</code> properties have changed
- *  due to a user interaction.
+ *  for any reason.
  *
  *  @eventType mx.events.FlexEvent.SELECTION_CHANGE
  *  
@@ -101,10 +101,10 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
-
 /**
- *  The base class for skinnable components that include RichEditableText
- *  in their skin.
+ *  The base class for skinnable components, such as the Spark TextInput
+ *  and TextArea, that include an instance of RichEditableText in their skin
+ *  to provide rich text display, scrolling, selection, and editing.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -230,12 +230,42 @@ public class SkinnableTextBase extends SkinnableComponent
         return getBaselinePositionForPart(textDisplay);
     }
     
+    //----------------------------------
+    //  maxWidth
+    //----------------------------------
 
-    //--------------------------------------------------------------------------
-    //
-    //  Properties
-    //
-    //--------------------------------------------------------------------------
+    /**
+     *  @private
+     */
+    override public function get maxWidth():Number
+    {
+        if (textDisplay)
+            return textDisplay.maxWidth;
+            
+        // want the default to be default max width for UIComponent
+        var v:* = textDisplayProperties.maxWidth;
+        return (v === undefined) ? super.maxWidth : v;        
+    }
+
+    /**
+     *  @private
+     */
+    override public function set maxWidth(value:Number):void
+    {
+        if (textDisplay)
+        {
+            textDisplay.maxWidth = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), MAX_WIDTH_PROPERTY_FLAG, true);
+        }
+        else
+        {
+            textDisplayProperties.maxWidth = value;
+        }
+
+        // Generate an UPDATE_COMPLETE event.
+        invalidateProperties();                    
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -248,7 +278,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @copy flash.text.TextField#displayAsPassword
+     *  @copy spark.primitives.RichEditableText#displayAsPassword
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -291,9 +321,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  Specifies whether the user is allowed to edit the text in this control.
-     *
-     *  @default true
+     *  @copy spark.primitives.RichEditableText#editable
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -335,8 +363,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  A flag that indicates whether the IME should
-     *  be enabled when the component receives focus.
+     *  @copy spark.primitives.RichEditableText#enableIME
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -353,18 +380,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  Specifies the IME (input method editor) mode.
-     *  The IME enables users to enter text in Chinese, Japanese, and Korean.
-     *  Flex sets the specified IME mode when the control gets the focus,
-     *  and sets it back to the previous value when the control loses the focus.
-     *
-     *  <p>The flash.system.IMEConversionMode class defines constants for the
-     *  valid values for this property.
-     *  You can also specify <code>null</code> to specify no IME.</p>
-     *
-     *  @default null
-     * 
-     *  @see flash.system.IMEConversionMode
+     *  @copy spark.primitives.RichEditableText#imeMode
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -406,14 +422,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  The maximum number of characters that the RichEditableText can contain,
-     *  as entered by a user.
-     *  A script can insert more text than maxChars allows;
-     *  the maxChars property indicates only how much text a user can enter.
-     *  If the value of this property is 0,
-     *  a user can enter an unlimited amount of text. 
-     * 
-     *  @default 0
+     *  @copy spark.primitives.RichEditableText#maxChars
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -451,48 +460,11 @@ public class SkinnableTextBase extends SkinnableComponent
     }
 
     //----------------------------------
-    //  maxWidth
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    override public function get maxWidth():Number
-    {
-        if (textDisplay)
-            return textDisplay.maxWidth;
-            
-        // want the default to be default max width for UIComponent
-        var v:* = textDisplayProperties.maxWidth;
-        return (v === undefined) ? super.maxWidth : v;        
-    }
-
-    /**
-     *  @private
-     */
-    override public function set maxWidth(value:Number):void
-    {
-        if (textDisplay)
-        {
-            textDisplay.maxWidth = value;
-            textDisplayProperties = BitFlagUtil.update(
-                uint(textDisplayProperties), MAX_WIDTH_PROPERTY_FLAG, true);
-        }
-        else
-        {
-            textDisplayProperties.maxWidth = value;
-        }
-
-        // Generate an UPDATE_COMPLETE event.
-        invalidateProperties();                    
-    }
-
-    //----------------------------------
     //  restrict
     //----------------------------------
 
     /**
-     *  @copy flash.text.TextField#restrict
+     *  @copy spark.primitives.RichEditableText#restrict
      * 
      *  @default null
      *  
@@ -536,10 +508,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  Specifies whether the text can be selected.
-     *  Making the text selectable lets you copy text from the control.
-     *
-     *  @default true;
+     *  @copy spark.primitives.RichEditableText#selectable
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -588,13 +557,7 @@ public class SkinnableTextBase extends SkinnableComponent
     [Bindable("selectionChange")]
     
     /**
-     *  The active position of the selection.
-     *  The "active" point is the end of the selection
-     *  which is changed when the selection is extended.
-     *  The active position may be either the start
-     *  or the end of the selection. 
-     *
-     *  @default -1
+     *  @copy spark.primitives.RichEditableText#selectionActivePosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -618,13 +581,7 @@ public class SkinnableTextBase extends SkinnableComponent
     [Bindable("selectionChange")]
     
     /**
-     *  The anchor position of the selection.
-     *  The "anchor" point is the stable end of the selection
-     *  when the selection is extended.
-     *  The anchor position may be either the start
-     *  or the end of the selection.
-     *
-     *  @default -1
+     *  @copy spark.primitives.RichEditableText#selectionAnchorPosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -641,13 +598,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  Determines when text selections should be highlighted.
-     *  
-     *  Possible values are <code>ALWAYS</code>, <code>WHEN_FOCUSED</code>, and <code>WHEN_ACTIVE</code>.
-     *  
-     *  @see mx.components.TextSelectionHighlighting
-     * 
-     *  @default null
+     *  @copy spark.primitives.RichEditableText#selectionHighlighting
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -690,7 +641,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  The text String displayed by this component.
+     *  @copy spark.primitives.RichEditableText#text
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -743,7 +694,7 @@ public class SkinnableTextBase extends SkinnableComponent
     [SkinPart(required="false")]
 
     /**
-     *  The RichEditableText that must be present
+     *  The RichEditableText that may be present
      *  in any skin assigned to this component.
      *  
      *  @langversion 3.0
@@ -878,12 +829,82 @@ public class SkinnableTextBase extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
 
-    //----------------------------------
-    //  content
-    //----------------------------------
+    /**
+     *  @copy spark.primitives.RichEditableText#insertText()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function insertText(text:String):void
+    {
+        if (!textDisplay)
+            return;
 
-    // TextArea has this, TextInput does not.
+        textDisplay.insertText(text);
+        
+        // This changes text so generate an UPDATE_COMPLETE event.
+        invalidateProperties();
+    }
+
+    /**
+     *  @copy spark.primitives.RichEditableText#appendText()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function appendText(text:String):void
+    {
+        if (!textDisplay)
+            return;
+
+        textDisplay.appendText(text);
+        
+        // This changes text so generate an UPDATE_COMPLETE event.
+        invalidateProperties();
+    }
     
+    /**
+     *  @copy spark.primitives.RichEditableText#selectRange()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function selectRange(anchorIndex:int, activeIndex:int):void
+    {
+        if (!textDisplay)
+            return;
+
+        textDisplay.selectRange(anchorIndex, activeIndex);
+
+        // This changes the selection so generate an UPDATE_COMPLETE event.
+        invalidateProperties();
+    }
+
+    /**
+     *  @copy spark.primitives.RichEditableText#selectAll()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function selectAll():void
+    {
+        if (!textDisplay)
+            return;
+
+        textDisplay.selectAll();
+
+        // This changes the selection so generate an UPDATE_COMPLETE event.
+        invalidateProperties();
+    }
+
     /**
      *  @private
      */
@@ -910,10 +931,6 @@ public class SkinnableTextBase extends SkinnableComponent
         invalidateProperties();                    
      }
 
-    //----------------------------------
-    //  heightInLines
-    //----------------------------------
-    
     /**
      *  @private
      */
@@ -947,10 +964,6 @@ public class SkinnableTextBase extends SkinnableComponent
         // Generate an UPDATE_COMPLETE event.
         invalidateProperties();                    
     }
-
-    //----------------------------------
-    //  textFlow
-    //----------------------------------
 
     /**
      *  @private  
@@ -995,10 +1008,6 @@ public class SkinnableTextBase extends SkinnableComponent
         invalidateProperties();                    
     }
 
-    //----------------------------------
-    //  widthInChars
-    //----------------------------------
-    
     /**
      *  The default width for the Text components, measured in characters.
      *  The width of the "M" character is used for the calculation.
@@ -1036,82 +1045,6 @@ public class SkinnableTextBase extends SkinnableComponent
 
         // Generate an UPDATE_COMPLETE event.
         invalidateProperties();                    
-    }
-    
-    /**
-     *  Selects the entire text range.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function selectAll():void
-    {
-        if (!textDisplay)
-            return;
-
-        textDisplay.selectAll();
-
-        // This changes the selection so generate an UPDATE_COMPLETE event.
-        invalidateProperties();
-    }
-
-    /**
-     *  @copy flashx.textLayout.edit.ISelectionManager#selectRange()
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function selectRange(anchorIndex:int, activeIndex:int):void
-    {
-        if (!textDisplay)
-            return;
-
-        textDisplay.selectRange(anchorIndex, activeIndex);
-
-        // This changes the selection so generate an UPDATE_COMPLETE event.
-        invalidateProperties();
-    }
-
-    /**
-     *  @copy spark.primitives.RichEditableText#insertText()
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function insertText(text:String):void
-    {
-        if (!textDisplay)
-            return;
-
-        textDisplay.insertText(text);
-        
-        // This changes text so generate an UPDATE_COMPLETE event.
-        invalidateProperties();
-    }
-
-    /**
-     *  @copy spark.primitives.RichEditableText#appendText()
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function appendText(text:String):void
-    {
-        if (!textDisplay)
-            return;
-
-        textDisplay.appendText(text);
-        
-        // This changes text so generate an UPDATE_COMPLETE event.
-        invalidateProperties();
     }
     
     /**
