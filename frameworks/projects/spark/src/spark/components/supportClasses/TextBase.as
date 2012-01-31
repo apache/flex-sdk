@@ -12,27 +12,17 @@
 package flex.graphics.graphicsClasses
 {
 
-import flash.display.DisplayObject;
 import flash.display.Graphics;
 import flash.display.Sprite;
-import flash.geom.Point;
-import flash.text.engine.FontPosture;
-import flash.text.engine.FontWeight;
-import flash.text.engine.Kerning;
-import flash.utils.getQualifiedClassName;
 
 import flex.graphics.IDisplayObjectElement;
 
 import mx.core.mx_internal;
 import mx.styles.CSSStyleDeclaration;
-import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.ObjectUtil;
-
-import text.formats.TextAlign;
-import text.formats.VerticalAlign;
 
 /**
  *  Documentation is not currently available.
@@ -66,7 +56,8 @@ public class TextGraphicElement extends GraphicElement
 	//  needsDisplayObject
 	//----------------------------------
 
-	// TODO!!! Always return a DO for now. We need to optimize this later. 
+	// TODO!!! Always return a DisplayObject for now.
+    // We need to optimize this later. 
     
     /**
      *  @private
