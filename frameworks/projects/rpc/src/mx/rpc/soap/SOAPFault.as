@@ -21,6 +21,19 @@ import mx.rpc.Fault;
  */
 public class SOAPFault extends Fault
 {
+    /**
+     * Constructs a new SOAPFault.
+     *
+     * @param faultCode The fully qualified name of the fault code.
+     * 
+     * @param faultString The description of the fault.
+     *
+     * @param detail Any extra details of the fault.
+     *
+     * @param element The raw XML of the SOAP fault.
+     *
+     * @param faultactor Information about who caused the SOAP fault.
+     */
     public function SOAPFault(faultCode:QName,
                        faultString:String,
                        detail:String = null,
@@ -106,6 +119,13 @@ public class SOAPFault extends Fault
     // 
     //--------------------------------------------------------------------------
 
+    /**
+     * Returns the String "SOAPFault" plus the faultCode, faultString, and
+     * faultDetail.
+     *
+     * @return Returns the String "SOAPFault" plus the faultCode, faultString, and
+     * faultDetail.
+     */
     override public function toString():String
     {
         return "SOAPFault (" + faultCode + "): " + faultString + " " + faultDetail;
