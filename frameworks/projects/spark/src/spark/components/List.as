@@ -792,7 +792,9 @@ public class List extends ListBase implements IFocusManagerComponent
     {
         // TODO (jszeto) Do a deep compare of the vectors
         if (_proposedSelectedIndices == value || 
-            (value.length == 1 && value[0] == selectedIndex))
+            (value && value.length == 1 && 
+             selectedIndices && selectedIndices.length == 1 &&    
+             value[0] == selectedIndices[0]))
             return; 
         
         if (dispatchChangeEvent)
