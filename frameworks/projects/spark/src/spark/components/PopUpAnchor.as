@@ -514,7 +514,8 @@ public class PopUpAnchor extends UIComponent
         if (matrix)
         {
             matrix.invert();
-            matrix.concat(MatrixUtil.getConcatenatedMatrix(this));
+            //matrix.concat(MatrixUtil.getConcatenatedMatrix(this));
+            matrix.concat(MatrixUtil.getConcatenatedComputedMatrix(this));            
         }
         
         return matrix;
