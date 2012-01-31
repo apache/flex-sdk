@@ -6361,7 +6361,6 @@ public class ListBase extends ScrollControlBase
                             anchorIndex = index;
                             anchorBookmark = collectionIterator.bookmark;
                         }
-						items.splice(i, 1);
                         break;
                     }
                     
@@ -6377,7 +6376,7 @@ public class ListBase extends ScrollControlBase
                 catch(e2:ItemPendingError)
                 {
                     e2.addResponder(new ItemResponder(selectionDataPendingResultHandler, selectionDataPendingFailureHandler,
-                                                            new ListBaseSelectionDataPending(false, index, items, CursorBookmark.FIRST, index)));
+                                                            new ListBaseSelectionDataPending(false, index, items.slice(i + 1), CursorBookmark.FIRST, index)));
                     return;
                 }
             }
