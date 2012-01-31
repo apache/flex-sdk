@@ -330,7 +330,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     /**
      *  @private
      */
-    protected static const lastFlag:uint                = 1 << 5;
+    protected static const explicitToolTip:uint         = 1 << 6;
+    /**
+     *  @private
+     */
+    protected static const lastFlag:uint                = 1 << 6;
 
     /**
      *  An instance of the Flags32 class used to manipulate Boolean properties.
@@ -647,6 +651,50 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     {
         dispatchEvent(new FlexEvent(FlexEvent.BUTTON_DOWN));
     }
+    
+    //----------------------------------
+    //  toolTip
+    //----------------------------------
+
+    [Inspectable(category="General", defaultValue="null")]
+
+    /**
+     *  @private
+     */
+    override public function set toolTip(value:String):void
+    {
+        super.toolTip = value;
+
+        flags.update(explicitToolTip, value != null);
+        
+        // If explicit tooltip is cleared, we need to make sure our
+        // updateDisplayList is called, so that we add automatic tooltip
+        // in case the label is truncated.
+        if (!flags.isSet(explicitToolTip))
+            invalidateDisplayList();
+    }
+
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number,
+                                                  unscaledHeight:Number):void
+    {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+
+        // Bail out if we don't have a label or the tooltip is not explicitly set.
+        if (!labelField || flags.isSet(explicitToolTip))
+            return;
+
+        // Check if the label text is truncated
+        // TODO EGeorgie: use TextGraphicElement API to check for truncated text.
+        labelField.validateNow();
+        var truncated:Boolean = labelField.actualSize.x < labelField.preferredSize.x ||
+                                labelField.actualSize.y < labelField.preferredSize.y;
+        
+        // If the label is truncated, show the whole label string as a tooltip
+        super.toolTip = truncated ? labelField.text : null;
+    } 
 }
 
 }
