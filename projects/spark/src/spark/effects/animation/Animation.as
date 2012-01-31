@@ -38,7 +38,7 @@ import flex.events.AnimationEvent;
  *
  * @eventType flex.events.AnimationEvent.ANIMATION_UPDATE
  */
-[Event(name="animationUpdate", type="mx.events.AnimationEvent")]
+[Event(name="animationUpdate", type="flex.events.AnimationEvent")]
 
 /**
  * Dispatched when the animation begins a new repetition, for
@@ -155,7 +155,7 @@ public class Animation extends EventDispatcher
     private var numRepeats:Number;
 
     private var easingFunction:Function;
-    private var defaultEaser:IEaser = new Sine(.5); 
+    private static var defaultEaser:IEaser = new Sine(.5); 
     
     //--------------------------------------------------------------------------
     //
@@ -184,7 +184,7 @@ public class Animation extends EventDispatcher
      * is supplied to the Animation to handle calculating intermediate
      * values.
      * 
-     * @see interpolator
+     * @see #interpolator
      */
     public var startValue:Object;
 
@@ -198,7 +198,7 @@ public class Animation extends EventDispatcher
      * is supplied to the Animation to handle calculating intermediate
      * values.
      * 
-     * @see interpolator
+     * @see #interpolator
      */
     public var endValue:Object;
 
@@ -287,7 +287,7 @@ public class Animation extends EventDispatcher
      * each new cycle. This parameter is used starting with the first repetition,
      * not the first cycle. For a delay before the initial start, use
      * the <code>startDelay</code> property. Must be a value >= 0.
-     * @see startDelay
+     * @see #startDelay
      * 
      * @default 0
      */
@@ -433,7 +433,7 @@ public class Animation extends EventDispatcher
      * @private
      * Storage for the easer property.
      */
-    private var _easer:IEaser;
+    private var _easer:IEaser = defaultEaser;
     /**
      * Sets the easing behavior for this Animation. This IEaser
      * object will be used to convert the elapsed fraction of 
@@ -456,7 +456,7 @@ public class Animation extends EventDispatcher
     {
         if (!value)
         {
-            easer = Linear.getInstance();
+            value = Linear.getInstance();
         }
         _easer = value;
     }
@@ -712,22 +712,16 @@ public class Animation extends EventDispatcher
         startTime = clockTime - playheadTime;
         
         _doSeek = true;
+        
+        if (!_isPlaying)
+        {
+            setupInterpolation();
+            _intervalTime = getTimer();
+            startTime = _intervalTime - playheadTime;
+            doInterval();
+        }
     }
 
-    /**
-     * @private
-     * 
-     * Utility method for setting up easing for this Animation. If
-     * no easing is set, or the <code>easer</code> variable is null,
-     * easing will default to the private <code>defaultEasier</code> 
-     * value.
-     */
-    private function setupEasing():void
-    {
-        if (!easer)
-            easer = defaultEaser;
-    }
-    
     /**
      * Sets up interpolation for the animation. If there is no interpolator
      * set on the animation, then it figures out whether it should use
@@ -877,7 +871,6 @@ public class Animation extends EventDispatcher
     {
         numRepeats = 1;
         setupInterpolation();
-        setupEasing();        
         var value:Object = getCurrentValue(0);
         sendAnimationEvent(AnimationEvent.ANIMATION_START, value);
 
