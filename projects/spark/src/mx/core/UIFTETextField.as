@@ -2082,7 +2082,7 @@ public class UIFTETextField extends FTETextField
                 var fontModuleFactory:IFlexModuleFactory = 
                     embeddedFontRegistry.getAssociatedModuleFactory(
                     textFormat.font, textFormat.bold, textFormat.italic,
-                        this, moduleFactory);
+                        this, moduleFactory, creatingSystemManager(), true);
     
                 // if we found the font, then it is embedded. 
                 // Some fonts are not listed in info(), so are not in the above registry.
@@ -2091,15 +2091,6 @@ public class UIFTETextField extends FTETextField
                 {
                     fontContext = ISWFContext(fontModuleFactory);
                     embedFonts = true;
-                }
-                else
-                {
-                    var sm:ISystemManager = creatingSystemManager();
-                    embedFonts = sm != null && sm.isFontFaceEmbedded(textFormat);
-                    if (embedFonts)
-                        fontContext = ISWFContext(sm);
-                    else
-                        fontContext = null;
                 }
             }
             else
