@@ -986,7 +986,6 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
     /**
      *  The set of styles to pass from the MenuBar to the menuBar items.
      *  @see mx.styles.StyleProxy
-     *  @review
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
