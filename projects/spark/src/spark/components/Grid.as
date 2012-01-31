@@ -2492,7 +2492,7 @@ package spark.components
          *  @playerversion AIR 2.0
          *  @productversion Flex 4.5
          */        
-        public function isCellVisible(rowIndex:int, columnIndex:int):Boolean
+        public function isCellVisible(rowIndex:int, columnIndex:int = -1):Boolean
         {
             return gridLayout.isCellVisible(rowIndex, columnIndex);
         }
@@ -2595,7 +2595,7 @@ package spark.components
         private function getGridColumn(columnIndex:int):GridColumn
         {
             const columns:IList = columns;
-            if ((columns == null) || (columnIndex <= 0) || (columnIndex >= columns.length))
+            if ((columns == null) || (columnIndex < 0) || (columnIndex >= columns.length))
                 return null;
             
             return columns.getItemAt(columnIndex) as GridColumn;
