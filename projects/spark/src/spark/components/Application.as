@@ -134,7 +134,7 @@ use namespace mx_internal;
  *    frameRate="24"
  *    pageTitle""
  *    preloader="<i>No default</i>"
- *    preloaderBaseColor="<i>No default</i>"
+ *    preloaderChromeColor="<i>No default</i>"
  *    scriptRecursionLimit="1000"
  *    scriptTimeLimit="60"
  *    usePreloader="true"
@@ -554,16 +554,16 @@ public class Application extends SkinnableContainer
     public var preloader:Object;
     
     //----------------------------------
-    //  preloaderBaseColor
+    //  preloaderChromeColor
     //----------------------------------
     
     [Inspectable(defaultValue="0xCCCCCC", format="Color")]
     
     /**
-     *  Specifies the base color used by the default preloader component. This property
-     *  has the same effect as the <code>baseColor</code> style used by Spark skins.
+     *  Specifies the chrome color used by the default preloader component. This property
+     *  has the same effect as the <code>chromeColor</code> style used by Spark skins.
      *  Typically this property should be set to the same value as the 
-     *  Application container's <code>baseColor</code> style property.
+     *  Application container's <code>chromeColor</code> style property.
      *    
      *  <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      * 
@@ -577,7 +577,7 @@ public class Application extends SkinnableContainer
      * component. It is here so that it gets picked up by the compiler and included 
      * in the info() structure for the generated system manager. The download progress bar
      * grabs the value directly from the info() structure. */
-    public var preloaderBaseColor:uint;
+    public var preloaderChromeColor:uint;
 
     //----------------------------------
     //  scriptRecursionLimit
