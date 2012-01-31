@@ -1043,15 +1043,16 @@ public class ListBase extends SkinnableDataContainer
             return false;
         }
         
-        // Step 3: commit the selection change and caret change 
-        if (_selectedIndex != NO_SELECTION)
-            itemSelected(_selectedIndex, false);
-        if (_proposedSelectedIndex != NO_SELECTION && _proposedSelectedIndex != CUSTOM_SELECTED_ITEM)
-            itemSelected(_proposedSelectedIndex, true);
+        // Step 3: commit the selection change and caret change
         _selectedIndex = _proposedSelectedIndex;
-        setCurrentCaretIndex(_proposedSelectedIndex); 
         _proposedSelectedIndex = NO_PROPOSED_SELECTION;
         
+        if (oldSelectedIndex != NO_SELECTION)
+            itemSelected(oldSelectedIndex, false);
+        if (_selectedIndex != NO_SELECTION && _selectedIndex != CUSTOM_SELECTED_ITEM)
+            itemSelected(_selectedIndex, true);
+        setCurrentCaretIndex(_selectedIndex); 
+
         // Step 4: dispatch the "change" event and "caretChange" 
         // events based on the dispatchChangeEvents parameter. Overrides may  
         // chose to dispatch the change/caretChange events 
