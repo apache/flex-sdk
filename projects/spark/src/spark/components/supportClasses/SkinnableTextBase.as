@@ -104,12 +104,18 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     /**
      *  @private
      */
+    private var enabledChanged:Boolean = false;
+
+    /**
+     *  @private
+     */
     override public function set enabled(value:Boolean):void
     {
         if (value == enabled)
             return;
         
         super.enabled = value;
+        enabledChanged = true;
         
         invalidateSkinState();
     }
@@ -479,7 +485,10 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 
     [Bindable("change")]
     [Bindable("textChanged")]
-    
+
+    // Compiler will strip leading and trailing whitespace from text string.
+    [CollapseWhiteSpace]
+       
     /**
      *  The text String displayed by this component.
      */
@@ -536,6 +545,12 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
             displayAsPasswordChanged = false;
         }
 
+        if (enabledChanged)
+        {
+            textView.enabled = super.enabled;
+            enabledChanged = false;
+        }
+        
         if (editableChanged)
         {
             textView.editable = _editable;
@@ -733,13 +748,18 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         // represented by (-1, -1), even when the Sprite has focus.
         // But then no insertion point blinks and you can't enter any text.
         // So if this component is in that state when it takes focus,
-        // it changes the selection to (0, 0).
-        if (selectionAnchorPosition == -1 && selectionActivePosition == -1)
-            setSelection(int.MAX_VALUE, int.MAX_VALUE);
-
-        // Only editable text should have a focus ring.
-        if (focusManager && editable)
-            focusManager.showFocusIndicator = true;
+        // it changes the selection to the end of the text.
+        if (enabled && editable)
+        {
+            if (selectionAnchorPosition == -1 && selectionActivePosition == -1)
+            {
+                setSelection(int.MAX_VALUE, int.MAX_VALUE);
+            }
+            
+            // Only editable text should have a focus ring.
+            if (focusManager)
+                focusManager.showFocusIndicator = true;
+        }
         
         super.focusInHandler(event);
     }
