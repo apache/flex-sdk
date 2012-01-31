@@ -174,7 +174,8 @@ public class GridColumn extends EventDispatcher
             dataFieldPath = [value];
         
         dispatchChangeEvent("dataFieldChanged");
-        // TBD invalidate grid
+        
+        maybeInvalidateGrid();
     }
     
     //----------------------------------
@@ -449,7 +450,8 @@ public class GridColumn extends EventDispatcher
 
         _labelFunction = value;
         dispatchChangeEvent("labelFunctionChanged");
-        // TBD invalidate grid        
+        
+        maybeInvalidateGrid();
     }
     
     //----------------------------------
