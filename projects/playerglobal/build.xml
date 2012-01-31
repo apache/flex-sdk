@@ -14,12 +14,71 @@
     <property name="FLEX_HOME" location="${basedir}/../../.."/>
     <property file="${FLEX_HOME}/build.properties"/>
     <property name="local.playerglobal.version" value="10"/>
+	<property name="locale" value="en_US"/>
 
-    <target name="main" depends="clean,compile,en_US" />
-
-    <target name="other.locales" depends="de_DE,fr_FR,ja_JP,ru_RU,zh_CN" description="Build other locale SWCs"/>
-
-    <target name="clean">
+	<macrodef name="bundle">
+		<attribute name="locale"/>
+			<sequential>
+				<echo message="Compiling frameworks/locale/@{locale}/playerglobal_rb.swc"/>
+				<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+				<compc fork="true" output="${FLEX_HOME}/frameworks/locale/@{locale}/playerglobal_rb.swc"
+					locale="@{locale}">
+					<jvmarg line="${compc.jvm.args}"/>
+					<target-player>10</target-player>
+					<include-resource-bundles bundle="empty"/>
+					<include-namespaces/>
+					<include-classes>Empty</include-classes>
+					<source-path path-element="${basedir}/bundles/@{locale}"/>
+					<source-path path-element="${basedir}/src"/>
+					<include-libraries/>
+					<library-path/>
+					<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+						<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+						<include name="framework.swc"/>
+					</external-library-path>
+				</compc>
+		</sequential>
+	</macrodef>	
+	
+	<macrodef name="fat-swc">
+		<attribute name="locale"/>
+		<attribute name="dita.dir"/>
+		<sequential>
+			<mkdir dir="${basedir}/bundles/@{locale}/docs" />
+			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/playerglobal_rb.swc" update="true">
+				<zipfileset dir="@{dita.dir}" prefix="docs">
+					<include name="*.*"/>
+				</zipfileset>
+			</zip>
+			<delete dir="${basedir}/bundles/@{locale}/docs" failonerror="false"/>
+		</sequential>
+	</macrodef>	
+		
+	<macrodef name="bundler">
+	<attribute name="locale"/>
+	<attribute name="dita-dir"/>
+	<sequential>
+		<bundle locale="@{locale}"/>
+		<fat-swc locale="@{locale}" dita.dir="@{dita-dir}" />
+	</sequential>
+	</macrodef>
+	<target name="main" depends="compile" description="Clean build of framework.swc and en_US">
+		<bundle locale="${locale}"/>
+	</target>
+	
+	<target name="other.locales" depends="bundles-clean,bundles" description="Build other locale SWCs"/>
+	
+	<!-- This is a private target for building automation_flashflexkit_rb.swc for various locales. -->
+	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
+	<target name="bundles">
+		<bundler locale="de_DE" dita-dir="${basedir}/bundles/en_US/docs"/><!-- German resources -->
+		<bundler locale="fr_FR" dita-dir="${basedir}/bundles/en_US/docs"/><!-- French resources -->
+		<bundler locale="ja_JP" dita-dir="${basedir}/bundles/en_US/docs"/><!-- Japanese resources -->
+		<bundler locale="ru_RU" dita-dir="${basedir}/bundles/en_US/docs"/><!-- Swedish resources -->
+		<bundler locale="zh_CN" dita-dir="${basedir}/bundles/en_US/docs"/><!-- Simplified Chinese resources -->
+	</target>
+	
+    <target name="bundles-clean">
         <delete failonerror="false">
             <fileset dir="${FLEX_HOME}/frameworks/locale">
                 <include name="*/playerglobal_rb.swc"/>
@@ -56,82 +115,7 @@
             </external-library-path>
         </compc>
     </target>
-
-    <!-- updates playerglobal_rb.swc with asdoc xml -->
-	<!-- Use dita.dir until we have all the translated dita files -->
-    <target name="fat-swc">
-        <mkdir dir="${basedir}/bundles/${locale}/docs" />
-        <zip destfile="${FLEX_HOME}/frameworks/locale/${locale}/playerglobal_rb.swc" update="true">
-            <zipfileset dir="${dita.dir}" prefix="docs">
-                <include name="*.*"/>
-				<exclude name="ASDoc_Config.xml"/>
-				<exclude name="overviews.xml"/>
-            </zipfileset>
-        </zip>
-    </target>
-
-    <!-- Targets for compiling playerglobal_rb.swc for various locales -->
-    <target name="de_DE" description="German resources">
-        <antcall target="bundle">
-            <param name="locale" value="de_DE"/>
-        </antcall>
-        <antcall target="fat-swc">
-            <param name="locale" value="de_DE"/>
-			<param name="dita.dir" value="${basedir}/bundles/en_US/docs"/>
-        </antcall>
-    </target>
-
-    <target name="en_US" description="American English resources">
-        <antcall target="bundle">
-            <param name="locale" value="en_US"/>
-        </antcall>
-        <antcall target="fat-swc">
-            <param name="locale" value="en_US"/>
-			<param name="dita.dir" value="${basedir}/bundles/en_US/docs"/>
-        </antcall>
-    </target>
-
-    <target name="fr_FR" description="French resources">
-        <antcall target="bundle">
-            <param name="locale" value="fr_FR"/>
-        </antcall>
-        <antcall target="fat-swc">
-            <param name="locale" value="fr_FR"/>
-			<param name="dita.dir" value="${basedir}/bundles/en_US/docs"/>
-        </antcall>
-    </target>
-
-    <target name="ja_JP" description="Japanese resources">
-        <antcall target="bundle">
-            <param name="locale" value="ja_JP"/>
-        </antcall>
-        <antcall target="fat-swc">
-            <param name="locale" value="ja_JP"/>
-			<param name="dita.dir" value="${basedir}/bundles/en_US/docs"/>
-        </antcall>
-    </target>
-
-    <target name="ru_RU" description="Swedish resources">
-        <antcall target="bundle">
-            <param name="locale" value="ru_RU"/>
-			
-        </antcall>
-        <antcall target="fat-swc">
-            <param name="locale" value="ru_RU"/>
-			<param name="dita.dir" value="${basedir}/bundles/en_US/docs"/>
-        </antcall>
-    </target>
-
-    <target name="zh_CN" description="Simplified Chinese resources">
-        <antcall target="bundle">
-            <param name="locale" value="zh_CN"/>
-        </antcall>
-        <antcall target="fat-swc">
-            <param name="locale" value="zh_CN"/>
-			<param name="dita.dir" value="${basedir}/bundles/en_US/docs"/>
-        </antcall>
-    </target>
-
+    
     <target name="doc">
     
 	</target>
