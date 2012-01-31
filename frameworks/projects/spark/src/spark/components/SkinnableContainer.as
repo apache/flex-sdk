@@ -233,8 +233,6 @@ public class SkinnableContainer extends SkinnableContainerBase
     public function SkinnableContainer()
     {
         super();
-        
-        tabChildren = true;
     }
     
     //--------------------------------------------------------------------------
