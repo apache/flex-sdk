@@ -109,6 +109,11 @@ public interface IGraphicElement extends IVisualElement
      *    into that same displayObject, and the first element that draws
      *    has its mode set to <code>DisplayObjectMode.OWNS_SHARED_OBJECT</code></li>
      *  </ul>
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
      function get displayObjectSharingMode():String;
 
@@ -167,7 +172,7 @@ public interface IGraphicElement extends IVisualElement
      *  Determines whether this element can draw itself to the
      *  <code>sharedDisplayObject</code> of the sequence.
      * 
-     *  <p>Typically implementers will return <code>true</code> when this
+     *  <p>Typically implementers return <code>true</code> when this
      *  IGraphicElement can cumulatively draw in the shared
      *  DisplayObject <code>graphics</code> property.
      *  In all cases where this IGraphicElement needs to set
@@ -176,7 +181,7 @@ public interface IGraphicElement extends IVisualElement
      *  Examples for such properties are rotation, scale, transform,
      *  mask, alpha, filters, color transform, 3D, and layer.</p>
      *
-     *  <p>When this method returns true, subsequent calls to the getter of the
+     *  <p>When this method returns <code>true</code>, subsequent calls to the getter of the
      *  <code>displayObject</code> property must return the same display object.</p>
      *
      *  <p>In certain cases, the <code>sharedDisplayObject</code> property might be
@@ -186,6 +191,8 @@ public interface IGraphicElement extends IVisualElement
      *  <p>When this IGraphicElement needs to rebuild its sequence,
      *  it notifies the <code>IGraphicElementContainer</code> by calling its
      *  <code>invalidateGraphicElementSharing()</code> method.</p>
+     *
+     *  @param sharedDisplayObject The shared DisplayObject.
      * 
      *  @return Returns <code>true</code> when this IGraphicElement can draw itself
      *  to the shared DisplayObject of the sequence.
