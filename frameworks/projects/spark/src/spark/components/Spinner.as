@@ -40,9 +40,14 @@ import mx.managers.IFocusManagerComponent;
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  Skin states for this component.
+ *  Normal State
  */
-[SkinStates("normal", "disabled")]
+[SkinState("normal")]
+
+/**
+ *  Disabled State
+ */
+[SkinState("disabled")]
 
 [IconFile("FxSpinner.png")]
 
