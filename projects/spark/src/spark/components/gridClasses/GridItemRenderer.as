@@ -11,11 +11,16 @@
 
 package spark.components.supportClasses
 {
+import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.geom.Point;
+import flash.geom.Rectangle;
 
+import mx.core.IToolTip;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.events.ToolTipEvent;
+import mx.managers.ISystemManager;
 
 import spark.components.Group;
 import spark.components.IGridItemRenderer;
@@ -54,6 +59,8 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         super();
         
         setCurrentStateNeeded = true;
+        
+        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);           
     }
     
     //--------------------------------------------------------------------------
@@ -477,6 +484,28 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     }
     
     /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        super.updateDisplayList(width, height);
+        
+        // If the effective value of showDataTips has changed for this column, then
+        // set the renderer's tooltTip property to a placeholder.  The real tooltip
+        // text is computed in the TOOL_TIP_SHOW handler below.
+        
+        // TBD(hmuller) - this code should be common with DefaultGridItemRenderer        
+        
+        const showDataTips:Boolean = column.getShowDataTips();
+        const dataTip:String = toolTip;
+        if (showDataTips && !dataTip)
+            toolTip = "<dataTip>";
+        else if (!showDataTips && dataTip)
+            toolTip = null;
+    } 
+        
+    
+    /**
      *  @inheritDoc
      */
     public function prepare(willBeRecycled:Boolean):void
@@ -488,6 +517,38 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      */
     public function discard(hasBeenRecycled:Boolean):void
     {
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //-------------------------------------------------------------------------- 
+    
+    // TBD(hmuller) - this code should be common with DefaultGridItemRenderer
+    private function toolTipShowHandler(event:ToolTipEvent):void
+    {
+        var toolTip:IToolTip = event.toolTip;
+        
+        toolTip.text = column.itemToDataTip(data);  // Lazily compute the tooltip text
+        
+        // Move the origin of the tooltip to the origin of this item renderer
+        
+        var sm:ISystemManager = systemManager.topLevelSystemManager;
+        var sbRoot:DisplayObject = sm.getSandboxRoot();
+        var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
+        var pt:Point = new Point(0, 0);
+        pt = localToGlobal(pt);
+        pt = sbRoot.globalToLocal(pt);          
+        
+        toolTip.move(pt.x, Math.round(pt.y + (height - toolTip.height) / 2));
+        
+        var screenRight:Number = screen.x + screen.width;
+        pt.x = toolTip.x;
+        pt.y = toolTip.y;
+        pt = sbRoot.localToGlobal(pt);
+        if (pt.x + toolTip.width > screenRight)
+            toolTip.move(toolTip.x - (pt.x + toolTip.width - screenRight), toolTip.y);
     }
 }
 }
