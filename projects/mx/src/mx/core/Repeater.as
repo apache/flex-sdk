@@ -43,6 +43,11 @@ use namespace mx_internal;
  *  properties are updated.
  *
  *  @eventType mx.events.FlexEvent.REPEAT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="repeat", type="mx.events.FlexEvent")]
 
@@ -52,6 +57,11 @@ use namespace mx_internal;
  *  property is empty or <code>null</code>.
  *
  *  @eventType mx.events.FlexEvent.REPEAT_END
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="repeatEnd", type="mx.events.FlexEvent")]
 
@@ -62,6 +72,11 @@ use namespace mx_internal;
  *  property is empty or <code>null</code>.
  *
  *  @eventType mx.events.FlexEvent.REPEAT_START
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="repeatStart", type="mx.events.FlexEvent")]
 
@@ -120,6 +135,11 @@ use namespace mx_internal;
  *  @see mx.core.UIComponent
  *  @see mx.core.UIComponentDescriptor
  *  @see flash.events.EventDispatcher
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Repeater extends UIComponent implements IRepeater
 {
@@ -133,6 +153,11 @@ public class Repeater extends UIComponent implements IRepeater
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Repeater()
     {
@@ -203,6 +228,11 @@ public class Repeater extends UIComponent implements IRepeater
 
     /**
      *  An Array of UIComponentDescriptor objects for this Repeater's children.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var childDescriptors:Array /* of UIComponentDescriptor */;
 
@@ -219,6 +249,11 @@ public class Repeater extends UIComponent implements IRepeater
 
     /**
      *  The container that contains this Repeater.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get container():IContainer
     {
@@ -240,6 +275,11 @@ public class Repeater extends UIComponent implements IRepeater
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get count():int
     {
@@ -273,6 +313,11 @@ public class Repeater extends UIComponent implements IRepeater
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get currentIndex():int
     {
@@ -295,6 +340,11 @@ public class Repeater extends UIComponent implements IRepeater
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get currentItem():Object
     {
@@ -338,6 +388,11 @@ public class Repeater extends UIComponent implements IRepeater
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataProvider():Object
     {
@@ -445,6 +500,11 @@ public class Repeater extends UIComponent implements IRepeater
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get recycleChildren():Boolean
     {
@@ -474,6 +534,11 @@ public class Repeater extends UIComponent implements IRepeater
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get startingIndex():int
     {
@@ -514,6 +579,11 @@ public class Repeater extends UIComponent implements IRepeater
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initializeRepeater(container:IContainer,
                                        recurse:Boolean):void
@@ -535,6 +605,11 @@ public class Repeater extends UIComponent implements IRepeater
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function executeChildBindings():void
     {
