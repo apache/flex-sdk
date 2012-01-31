@@ -335,6 +335,14 @@ public class TextGraphic extends TextGraphicElement
      */
     override protected function measure():void
     {
+        super.measure();
+        
+        // The measure() method of a GraphicElement can get called
+        // when its style chain hasn't been initialized.
+        // In that case, compose() must not be called.
+        if (!mx_internal::styleChainInitialized)
+            return;
+
         compose(explicitWidth, explicitHeight);
 
         var bounds:Rectangle = textFlowComposer.bounds;
@@ -350,6 +358,12 @@ public class TextGraphic extends TextGraphicElement
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
+        // The updateDisplayList() method of a GraphicElement can get called
+        // when its style chain hasn't been initialized.
+        // In that case, compose() must not be called.
+        if (!mx_internal::styleChainInitialized)
+            return;
+
         compose(unscaledWidth, unscaledHeight);
     }
 
