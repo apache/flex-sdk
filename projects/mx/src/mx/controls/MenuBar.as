@@ -220,7 +220,7 @@ include "../styles/metadata/TextStyles.as"
 
 /**
  *  A MenuBar control defines a horizontal, top-level menu bar that contains
- *  one or menu items. Clicking on a top-level menu item opens a pop-up submenu
+ *  one or more menus. Clicking on a top-level menu item opens a pop-up submenu
  *  that is an instance of the Menu control.
  *
  *  <p>The top-level menu bar of the MenuBar control is generally always visible. 
