@@ -140,7 +140,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;GroupBase
+ *  &lt;s:GroupBase
  *    <strong>Properties</strong>
  *    autoLayout="true"
  *    clipAndEnableScrolling="false"
@@ -1350,11 +1350,11 @@ public class GroupBase extends UIComponent implements IViewport
     {
         if (_mask !== value)
         {
-			if (_mask && _mask.parent === this)
-			{       
-				super.removeChild(_mask);
-			}     
-			
+            if (_mask && _mask.parent === this)
+            {       
+                super.removeChild(_mask);
+            }     
+            
             _mask = value;
             maskChanged = true;
             invalidateDisplayList();            
