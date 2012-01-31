@@ -37,6 +37,7 @@ import mx.messaging.config.LoaderConfig;
 import mx.netmon.NetworkMonitor;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
+import flash.events.HTTPStatusEvent;
 
 use namespace mx_internal;
 
@@ -166,6 +167,7 @@ public class DirectHTTPChannel extends Channel
         urlLoader.addEventListener(IOErrorEvent.IO_ERROR, httpMsgResp.errorHandler);
         urlLoader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, httpMsgResp.securityErrorHandler);
         urlLoader.addEventListener(Event.COMPLETE, httpMsgResp.completeHandler);
+        urlLoader.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpMsgResp.httpStatusHandler);
         urlLoader.load(urlRequest);
     }
 
@@ -266,12 +268,14 @@ import mx.core.mx_internal;
 import mx.messaging.MessageAgent;
 import mx.messaging.MessageResponder;
 import mx.messaging.channels.DirectHTTPChannel;
+import mx.messaging.messages.AbstractMessage;
 import mx.messaging.messages.AcknowledgeMessage;
 import mx.messaging.messages.HTTPRequestMessage;
 import mx.messaging.messages.ErrorMessage;
 import mx.messaging.messages.IMessage;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
+import flash.events.HTTPStatusEvent;
 
 use namespace mx_internal;
 
@@ -300,18 +304,31 @@ class DirectHTTPMessageResponder extends MessageResponder
         clientId = channel.clientId;
     }
 
+    //--------------------------------------------------------------------------
+    //
+    // Variables
+    // 
+    //--------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    private var clientId:String;
+
+    /**
+     * @private
+     */
+    private var lastStatus:int;
+
+    /**
+     * @private
+     */
+    private var resourceManager:IResourceManager = ResourceManager.getInstance();
+
     /**
      *  The URLLoader associated with this responder.
      */
     public var urlLoader:URLLoader;
-    
-    private var clientId:String;
-    
-    /**
-     * @private
-     */
-	private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
 
 	//--------------------------------------------------------------------------
 	//
@@ -347,6 +364,8 @@ class DirectHTTPMessageResponder extends MessageResponder
         msg.faultDetail = resourceManager.getString(
 			"messaging", "httpRequestError.details", [ details ]);
         msg.rootCause = event;
+        msg.body = URLLoader(event.target).data;
+        msg.headers[AbstractMessage.STATUS_CODE_HEADER] = lastStatus;
         agent.fault(msg, message);
     }
 
@@ -368,10 +387,12 @@ class DirectHTTPMessageResponder extends MessageResponder
         msg.correlationId = message.messageId;
         msg.faultCode = "Channel.Security.Error";
         msg.faultString = resourceManager.getString(
-			"messaging", "securityError");
+            "messaging", "securityError");
         msg.faultDetail = resourceManager.getString(
-			"messaging", "securityError.details", [ message.destination ]);
+            "messaging", "securityError.details", [ message.destination ]);
         msg.rootCause = event;
+        msg.body = URLLoader(event.target).data;
+        msg.headers[AbstractMessage.STATUS_CODE_HEADER] = lastStatus;
         agent.fault(msg, message);
     }
 
@@ -385,9 +406,18 @@ class DirectHTTPMessageResponder extends MessageResponder
         ack.clientId = clientId;
         ack.correlationId = message.messageId;
         ack.body = URLLoader(event.target).data;
+        ack.headers[AbstractMessage.STATUS_CODE_HEADER] = lastStatus;
         agent.acknowledge(ack, message);
     }
-    
+
+    /**
+     *  @private
+     */
+    public function httpStatusHandler(event:HTTPStatusEvent):void
+    {
+        lastStatus = event.status;
+    }
+
     /**
      *  Handle a request timeout by closing our associated URLLoader and
      *  faulting the message to the agent.
@@ -398,8 +428,9 @@ class DirectHTTPMessageResponder extends MessageResponder
         urlLoader.removeEventListener(IOErrorEvent.IO_ERROR, errorHandler);
 	    urlLoader.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
 	    urlLoader.removeEventListener(Event.COMPLETE, completeHandler);
+	    urlLoader.removeEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
         urlLoader.close();
-        
+
         status(null);
         // send the ack
         var ack:AcknowledgeMessage = new AcknowledgeMessage();
