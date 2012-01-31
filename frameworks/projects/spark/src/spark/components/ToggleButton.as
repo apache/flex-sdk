@@ -115,6 +115,8 @@ public class ToggleButton extends Button
 
     protected function clickHandler(event:MouseEvent):void
     {
+        if (!isEnabled)
+            return;
         selected = !selected;
         dispatchEvent(new Event(Event.CHANGE));
         event.updateAfterEvent();
