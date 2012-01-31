@@ -34,6 +34,14 @@ import spark.core.IGraphicElement;
 import spark.core.ISharedDisplayObject;
 import spark.events.ElementExistenceEvent;
 import spark.components.supportClasses.TextBase;
+import spark.primitives.shaders.ColorBurnShader;
+import spark.primitives.shaders.ColorDodgeShader;
+import spark.primitives.shaders.ColorShader;
+import spark.primitives.shaders.ExclusionShader;
+import spark.primitives.shaders.HueShader;
+import spark.primitives.shaders.LuminosityShader;
+import spark.primitives.shaders.SaturationShader;
+import spark.primitives.shaders.SoftLightShader;
 
 use namespace mx_internal;
 
@@ -313,6 +321,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      */
     private var _blendMode:String = "auto";  
     private var blendModeChanged:Boolean;
+	private var blendShaderChanged:Boolean;
     private var blendModeExplicitlySet:Boolean;
 
     [Inspectable(category="General", enumeration="auto,add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay,colordodge,colorburn,exclusion,softlight,hue,saturation,color,luminosity", defaultValue="auto")]
@@ -348,17 +357,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         if (blendModeExplicitlySet && value == _blendMode)
             return;
         
-    	// FIXME (dsubrama): Temporarily exit when blendMode is set
-    	// to one of the AIM blendModes; support for this will come
-    	// shortly. 
-        if (value == "colordodge" || 
-        	value =="colorburn" || value =="exclusion" || 
-        	value =="softlight" || value =="hue" || 
-        	value =="saturation" || value =="color" 
-        	|| value =="luminosity")
-            return;
-        
-        //The default blendMode in FXG is 'auto'. There are only
+    	//The default blendMode in FXG is 'auto'. There are only
         //certain cases where this results in a rendering difference,
         //one being when the alpha of the Group is > 0 and < 1. In that
         //case we set the blendMode to layer to avoid the performance
@@ -387,10 +386,26 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
 
         else 
         {
-            var oldValue:String = _blendMode;
-            _blendMode = value;
-            blendModeExplicitlySet = true;
-            blendModeChanged = true;
+			var oldValue:String = _blendMode;
+			_blendMode = value;
+			
+			// If one of the non-native Flash blendModes is set, 
+			// record the new value and set the appropriate 
+			// blendShader on the display object. 
+			if (value == "colordodge" || 
+				value =="colorburn" || value =="exclusion" || 
+				value =="softlight" || value =="hue" || 
+				value =="saturation" || value =="color" 
+				|| value =="luminosity")
+			{
+				blendModeExplicitlySet = true;
+				blendShaderChanged = true;
+			}
+			else
+			{
+            	blendModeExplicitlySet = true;
+            	blendModeChanged = true;
+			}
         
             // Only need to re-do display object assignment if blendmode was normal
             // and is changing to something else, or the blend mode was something else 
@@ -733,7 +748,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     {
         super.commitProperties();
         
-        if (blendModeChanged)
+        if (blendModeChanged && !blendShaderChanged)
         {
             blendModeChanged = false;
             if (_blendMode == "auto" && alpha < 1 && alpha > 0)
@@ -741,8 +756,36 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             else if (_blendMode == "auto" && alpha == 1 || alpha == 0)
                 super.blendMode = BlendMode.NORMAL;
             else 
-                super.blendMode = _blendMode; 
+                super.blendMode = _blendMode; 			
         }
+		
+		if (blendShaderChanged)
+		{
+			// The graphic element's blendMode was set to a non-Flash 
+			// blendMode. We mimic the look by instantiating the 
+			// appropriate shader class and setting the blendShader
+			// property on the displayObject. 
+			blendShaderChanged = false; 
+			switch(_blendMode)
+			{
+				case "color": 
+					super.blendShader = new ColorShader(); 
+				case "colordodge": 
+					super.blendShader = new ColorDodgeShader(); 
+				case "colorburn": 
+					super.blendShader = new ColorBurnShader(); 
+				case "exclusion": 
+					super.blendShader = new ExclusionShader();
+				case "hue": 
+					super.blendShader = new HueShader(); 
+				case "luminosity":
+					super.blendShader = new LuminosityShader(); 
+				case "saturation": 
+					super.blendShader = new SaturationShader(); 
+				case "softlight":
+					super.blendShader = new SoftLightShader(); 
+			}
+		}
         
         if (needsDisplayObjectAssignment)
         {
