@@ -178,6 +178,12 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     // -----------------------------------------------------------------------
     
     /**
+     *  @private <code>true</code> when we need to check whether to dispatch
+     *  a button down event
+     */
+     private var checkForButtonDownConditions:Boolean = false; 
+    
+    /**
      *  <code>true</code> when the mouse pointer is over the button. 
      */ 
     public function get isHoveredOver():Boolean
@@ -197,7 +203,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
         if (!flags.update(isHoveredOverFlag, value))
             return;
 
-        invalidateSkinState();
+        invalidateButtonState();
     }
 
     /**
@@ -222,7 +228,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
         if (!flags.update(isMouseCapturedFlag, value))
             return;
 
-        invalidateSkinState();
+        invalidateButtonState();
 
         // System mouse handlers are not needed when the button is not mouse captured
         if (!value)
@@ -235,14 +241,15 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     public function get isEnabled():Boolean { return enabled; }
 
     /**
-     *  @inheritDoc
+     *  @private
      */
     override public function set enabled(value:Boolean):void
     {
         if (isEnabled == value)
             return;
         super.enabled = value;
-        invalidateSkinState();
+        
+        invalidateButtonState();
     }
     
     /**
@@ -266,7 +273,8 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     {
         if (!flags.update(isKeyboardPressedFlag, value))
             return;
-        invalidateSkinState();
+        
+        invalidateButtonState();
     }
     
     /**
@@ -291,8 +299,8 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     {
         if (!flags.update(stickyHighlightingFlag, value))
             return;
-
-        invalidateSkinState();
+        
+        invalidateButtonState();
     }
 
     /**
@@ -336,7 +344,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
@@ -351,6 +359,30 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
             // stylesheet. This is a temporary workaround to support
             // inline text styles for Buttons and subclasses.
             labelField.styleName = this;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
+        
+        if (checkForButtonDownConditions)
+        {
+            var isCurrentlyDown:Boolean = isDown();
+
+            // Only if down state has changed, do we need to do something
+            if (flags.update(downEventFiredFlag, isCurrentlyDown))
+            {
+                if( isCurrentlyDown )
+                    dispatchEvent(new FlexEvent(FlexEvent.BUTTON_DOWN));
+            
+                checkAutoRepeatTimerConditions( isCurrentlyDown );
+            }
+            
+            checkForButtonDownConditions = false;
         }
     }
 
@@ -372,13 +404,25 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
             return true;
         return false;
     }
+    
+    /**
+     *  Marks the button state invalid, so that the button skin's state
+     *  can be set properly and "buttonDown" events can be dispatched where
+     *  appropriate.
+     */
+    protected function invalidateButtonState():void
+    {
+        checkForButtonDownConditions = true;
+        invalidateProperties();
+        invalidateSkinState();
+    }
 
     // GetState returns a string representation of the component's state as
     // a combination of some of its public properties   
     /**
-     *  @inheritDoc
+     *  @private
      */
-    protected override function getUpdatedSkinState():String
+    override protected function getCurrentSkinState():String
     {
         if (!isEnabled)
             return "disabled";
@@ -390,31 +434,6 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
             return "over";
             
         return "up";
-    }
-    
-    /**
-     *  @inheritDoc
-     */
-    override protected function commitSkinState(newState:String):void
-    {
-        super.commitSkinState(newState);
-        
-        // Our state has changed, see whether we need to start/stop dispatching buttonDown
-        checkDownEventConditions();
-    } 
-
-    private function checkDownEventConditions():void
-    {
-        var isCurrentlyDown:Boolean = isDown();
-
-        // If down state hasn't changed, simply return
-        if (!flags.update(downEventFiredFlag, isCurrentlyDown))
-            return;
-
-        if( isCurrentlyDown )
-            dispatchEvent(new FlexEvent(FlexEvent.BUTTON_DOWN));
-        
-        checkAutoRepeatTimerConditions( isCurrentlyDown );
     }
 
     //--------------------------------------------------------------------------
@@ -433,7 +452,6 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
         addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler);
         addEventListener(MouseEvent.MOUSE_UP, mouseEventHandler);
         addEventListener(MouseEvent.CLICK, mouseEventHandler);
-        addEventListener("enabledChanged", enableChangedHandler);
     }
     
     private function addSystemMouseHandlers():void
@@ -448,14 +466,6 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
         systemManager.stage.removeEventListener(Event.MOUSE_LEAVE, mouseEventHandler);
     }
     
-    /**
-     *  @private
-     */
-    protected function enableChangedHandler(event:Event):void
-    {
-        // Since enabled is part of our state, we need to invalidate it on changes.
-        invalidateSkinState();
-    }
     
     /**
      *  @private
