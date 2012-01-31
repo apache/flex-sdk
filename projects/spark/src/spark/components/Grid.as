@@ -2013,8 +2013,8 @@ package spark.components
          *  <p>Each index represents an item in <code>dataProvider</code> 
          *  to include in the selection.</p>
          *
-         *  @param startRowIndex 0-based row index of the first row in the selection
-         *  @param endRowIndex 0-based row index of the last row in the selection
+         *  @param rowIndex 0-based row index of the first row in the selection.
+         *  @param rowCount Number of rows in the selection.
          * 
          *  @return True if no errors, or false if any of the indices are invalid
          *  or <code>startRowIndex</code> is not less than or equal to 
@@ -2027,13 +2027,13 @@ package spark.components
          *  @playerversion AIR 2.0
          *  @productversion Flex 4.5
          */
-        public function selectIndices(startRowIndex:int, endRowIndex:int):Boolean
+        public function selectIndices(rowIndex:int, rowCount:int):Boolean
         {
             const selectionChanged:Boolean = 
-                gridSelection.setRows(startRowIndex, endRowIndex);
+                gridSelection.setRows(rowIndex, rowCount);
             if (selectionChanged)
             {
-                caretRowIndex = endRowIndex;
+                caretRowIndex = rowIndex + rowCount - 1;
                 caretColumnIndex = -1;
                 
                 invalidateDisplayList()
@@ -2294,8 +2294,8 @@ package spark.components
                 rowCount, columnCount);
             if (selectionChanged)
             {
-                caretRowIndex = rowIndex + rowCount;
-                caretColumnIndex = columnIndex + columnCount;
+                caretRowIndex = rowIndex + rowCount - 1;
+                caretColumnIndex = columnIndex + columnCount - 1;
                     
                 invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
@@ -2324,8 +2324,12 @@ package spark.components
          *  @playerversion AIR 2.0
          *  @productversion Flex 4.5
          */
-        public function ensureIndexIsVisible(rowIndex:int, columnIndex:int = -1):void
+        public function ensureCellIsVisible(rowIndex:int, columnIndex:int = -1):void
         {
+            // be safe
+            if (rowIndex < 0)
+                return;
+            
             // A cell's index as defined by LayoutBase it's just its position
             // in the row-major linear ordering of the grid's cells.
             
@@ -2861,7 +2865,6 @@ package spark.components
                 case CollectionEventKind.ADD:
                     if (oldCaretRowIndex >= location)
                         caretRowIndex += event.items.length;
-                    // TBD: call ensureIndexIsVisible
                     break;
                
                 case CollectionEventKind.REMOVE:
@@ -2872,7 +2875,6 @@ package spark.components
                             caretRowIndex = -1;
                         else
                             caretRowIndex -= itemsLength;    
-                        // TBD: call ensureIndexIsVisible
                     }
                     
                     break;
@@ -2883,7 +2885,6 @@ package spark.components
                         itemsLength = event.items.length;
                         if ((oldCaretRowIndex >= oldLocation) && (oldCaretRowIndex < (oldLocation + itemsLength)))
                             caretRowIndex += location - oldLocation;
-                        // TBD: call ensureIndexIsVisible
                     }
                     break;                        
                     
@@ -2898,8 +2899,7 @@ package spark.components
                     horizontalScrollPosition = 0;
                     verticalScrollPosition = 0;
                     break;
-            }
-             
+            }            
         }
         
         /**
@@ -2946,6 +2946,9 @@ package spark.components
             if (gridSelection)
                 gridSelection.dataProviderCollectionChanged(event);
                 
+            // ToDo:  do we need to do any scrolling to keep either the hover
+            // indicator or the caret indicator visible?
+            
             if (caretRowIndex != -1)
                 updateCaretForDataProviderChange(event);
             
