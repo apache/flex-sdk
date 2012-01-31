@@ -23,6 +23,8 @@ import mx.events.AnimationEvent;
 import mx.events.EffectEvent;
 import mx.styles.IStyleClient;
 
+import spark.effects.MotionPath;
+
 use namespace mx_internal;
 
 [DefaultProperty("animationProperties")]
@@ -298,7 +300,7 @@ public class FxAnimate extends Effect
                 affectedProperties = new Array(animationProperties.length);
                 for (var i:int = 0; i < animationProperties.length; ++i)
                 {
-                    var effectHolder:AnimationProperty = AnimationProperty(animationProperties[i]);
+                    var effectHolder:MotionPath = MotionPath(animationProperties[i]);
                     affectedProperties[i] = effectHolder.property;
                 }
             }
