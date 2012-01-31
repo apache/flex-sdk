@@ -58,6 +58,11 @@ include "../../styles/metadata/TextStyles.as"
  *  @see mx.controls.Menu
  *  @see mx.controls.menuClasses.IMenuBarItemRenderer
  *  @see mx.controls.menuClasses.MenuItemRenderer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 
 public class MenuBarItem extends UIComponent implements IMenuBarItemRenderer, IFontContextComponent
@@ -84,6 +89,11 @@ public class MenuBarItem extends UIComponent implements IMenuBarItemRenderer, IF
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function MenuBarItem()
     {
@@ -103,6 +113,11 @@ public class MenuBarItem extends UIComponent implements IMenuBarItemRenderer, IF
 
     /**
      *  The skin defining the border and background for this MenuBarItem.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var currentSkin:IFlexDisplayObject;
     
@@ -112,6 +127,11 @@ public class MenuBarItem extends UIComponent implements IMenuBarItemRenderer, IF
 
     /**
      *  The IFlexDisplayObject that displays the icon in this MenuBarItem.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var icon:IFlexDisplayObject;
 
@@ -121,16 +141,31 @@ public class MenuBarItem extends UIComponent implements IMenuBarItemRenderer, IF
 
     /**
      *  The UITextField that displays the text in this MenuBarItem.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var label:IUITextField;
     
     /**
      *  The default skin's style name
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var skinName:String = "itemSkin";
     
     /**
      *  Flags used to save information about the skin and icon styles
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var defaultSkinUsesStates:Boolean = false;
     private var checkedDefaultSkin:Boolean = false;
@@ -204,6 +239,11 @@ public class MenuBarItem extends UIComponent implements IMenuBarItemRenderer, IF
      *  All item renderers must implement the IDataRenderer interface.
      *
      *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get data():Object
     {
@@ -258,6 +298,11 @@ public class MenuBarItem extends UIComponent implements IMenuBarItemRenderer, IF
      *  @copy mx.controls.menuClasses.IMenuBarItemRenderer#menuBar 
      * 
      *  @see mx.controls.menuClasses.IMenuBarItemRenderer#menuBar
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get menuBar():MenuBar
     {
@@ -289,6 +334,11 @@ public class MenuBarItem extends UIComponent implements IMenuBarItemRenderer, IF
      *  @copy mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemIndex 
      * 
      *  @see mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemIndex
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get menuBarItemIndex():int
     {
@@ -320,6 +370,11 @@ public class MenuBarItem extends UIComponent implements IMenuBarItemRenderer, IF
      *  @copy mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemState
      * 
      *  @see mx.controls.menuClasses.IMenuBarItemRenderer#menuBarItemState
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get menuBarItemState():String
     {
@@ -356,6 +411,11 @@ public class MenuBarItem extends UIComponent implements IMenuBarItemRenderer, IF
 	 *  when this MenuBarItem is selected.
 	 * 
 	 *  @default "undefined"
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get dataProvider():Object
 	{
