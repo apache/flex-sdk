@@ -922,6 +922,7 @@ public class GridLayout extends LayoutBase
     {
         for each (var renderer:IVisualElement in renderers)
             freeItemRenderer(renderer);
+        renderers.length = 0;
     }
     
     //--------------------------------------------------------------------------
@@ -1574,14 +1575,29 @@ public class GridLayout extends LayoutBase
      */
     private function dataProviderCollectionReset(event:CollectionEvent):Boolean
     {
-        visibleRowIndices.length = 0;
-        visibleColumnIndices.length = 0;
-        visibleItemRenderersBounds.setEmpty();
-        visibleGridBounds.setEmpty();    
         freeGridElements(visibleRowBackgrounds);
         freeGridElements(visibleRowSeparators);
-        freeItemRenderers(visibleItemRenderers);
+        visibleRowIndices.length = 0;
 
+        freeGridElements(visibleColumnBackgrounds);
+        freeGridElements(visibleColumnSeparators);        
+        visibleColumnIndices.length = 0;
+        
+        freeItemRenderers(visibleItemRenderers);
+        
+        freeGridElements(visibleSelectionIndicators);
+        visibleRowSelectionIndices.length = 0;
+        visibleColumnSelectionIndices.length = 0;
+        
+        freeGridElement(hoverIndicator)
+        hoverIndicator = null;
+        
+        freeGridElement(caretIndicator);
+        caretIndicator = null;
+        
+        visibleItemRenderersBounds.setEmpty();
+        visibleGridBounds.setEmpty();
+               
         return true;
     }
     
@@ -1696,6 +1712,7 @@ public class GridLayout extends LayoutBase
     {
         for each (var elt:IVisualElement in elements)
             freeGridElement(elt);
+        elements.length = 0;
     }      
     
     private function removeGridElement(element:IVisualElement):void
