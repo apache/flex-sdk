@@ -151,7 +151,9 @@ import spark.components.SkinnableContainer;
  *  the appearance of the border and background fill of the container. 
  *
  *  <p><b>Note: </b>Becasue you use CSS styles and class properties to control 
- *  the appearance of the Border container, you cannot create a custom skin for it.</p>
+ *  the appearance of the Border container, you typically do not create a custom skin for it.
+ *  If you do create a custom skin, your skin class should apply any styles to control the 
+ *  appearance of the container.</p>
  *  
  *  <p>The Border control has the following default characteristics:</p>
  *  <table class="innertable">
@@ -257,7 +259,7 @@ public class Border extends SkinnableContainer
     private var _borderStroke:IStroke;
     
     /**
-     *  Defines the border of the Border container. 
+     *  Defines the stroke of the Border container. 
      *  Setting this property override the <code>borderAlpha</code>, 
      *  <code>borderColor</code>, <code>borderStyle</code>, <code>borderVisible</code>, 
      *  and <code>borderWeight</code> styles.  
