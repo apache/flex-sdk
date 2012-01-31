@@ -19,6 +19,11 @@ import mx.effects.easing.Elastic;
  * target object will decelerate toward the end value and past it
  * and will continue to oscillate around that value in smaller increments
  * before ending up on that end value.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class Elastic implements IEaser
 {
@@ -30,6 +35,11 @@ public class Elastic implements IEaser
 
     /**
      *  Constructs an Elastic easer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function Elastic()
     {
