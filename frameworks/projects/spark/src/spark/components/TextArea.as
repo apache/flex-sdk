@@ -61,30 +61,6 @@ use namespace mx_internal;
 [Style(name="verticalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
 
 //--------------------------------------
-//  Skin states
-//--------------------------------------
-
-/**
- *  Normal State
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("normal")]
-
-/**
- *  Disabled State
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("disabled")]
-
-//--------------------------------------
 //  Other metadata
 //--------------------------------------
 
