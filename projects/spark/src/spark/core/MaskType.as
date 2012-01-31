@@ -14,6 +14,11 @@ package mx.graphics
 
 /**
  *  Defines the mask types available for a GraphicElement.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public final class MaskType
 {
@@ -21,11 +26,21 @@ public final class MaskType
 
     /**
      *  The mask either displays the pixel or doesn't. Strokes and bitmap filters are not used. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const CLIP:String = "clip";
 
     /**
      *  The mask respects opacity and uses the strokes and bitmap filters of the mask.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const ALPHA:String = "alpha";
 }
