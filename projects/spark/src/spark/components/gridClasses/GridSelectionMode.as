@@ -2,12 +2,12 @@ package spark.components.supportClasses
 {
 
 /**
- *  The SelectionMode class defines the legal constant values for the DataGrid 
+ *  The GridSelectionMode class defines the legal constant values for the DataGrid 
  *  <code>selectionMode</code> property.
  */
-public final class SelectionMode
+public final class GridSelectionMode
 {
-    public function SelectionMode()
+    public function GridSelectionMode()
     {
         super();
     }
