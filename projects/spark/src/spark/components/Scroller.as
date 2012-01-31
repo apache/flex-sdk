@@ -1551,7 +1551,7 @@ public class Scroller extends SkinnableComponent
     /** 	 
      *  @private 	 
      */ 	 
-    private function stopAnimations():void 	 
+    mx_internal function stopAnimations():void 	 
     { 	 
         if (throwEffect && throwEffect.isPlaying) 	 
             throwEffect.stop(); 	 
