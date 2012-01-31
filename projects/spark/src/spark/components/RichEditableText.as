@@ -325,31 +325,31 @@ public class TextView extends UIComponent implements IViewport
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  clipContent
+    //  clipAndEnableScrolling
     //----------------------------------
         
     /**
      *  @private
      */
-    private var _clipContent:Boolean = true;
+    private var _clipAndEnableScrolling:Boolean = true;
     
     /**
-     *  @copy mx.layout.LayoutBase#clipContent
+     *  @copy mx.layout.LayoutBase#clipAndEnableScrolling
      */
-    public function get clipContent():Boolean 
+    public function get clipAndEnableScrolling():Boolean 
     {
-        return _clipContent;
+        return _clipAndEnableScrolling;
     }
     
     /**
      *  @private
      */
-    public function set clipContent(value:Boolean):void 
+    public function set clipAndEnableScrolling(value:Boolean):void 
     {
-        if (value == _clipContent) 
+        if (value == _clipAndEnableScrolling) 
             return;
     
-        _clipContent = value;
+        _clipAndEnableScrolling = value;
         // TBD implement this
     }
         
@@ -630,7 +630,7 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  @copy mx.layout.LayoutBase#getHorizontalScrollPositionDelta
      */
-    public function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
+    public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
     {
         // TBD: replace provisional implementation
         var scrollR:Rectangle = scrollRect;
@@ -640,7 +640,7 @@ public class TextView extends UIComponent implements IViewport
         var maxDelta:Number = contentWidth - scrollR.width - scrollR.x;
         var minDelta:Number = -scrollR.x; 
             
-        switch (unit)
+        switch (scrollUnit)
         {
             case ScrollUnit.UP:
                 return (scrollR.x <= 0) ? 0 : -1;
@@ -1010,7 +1010,7 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  @copy mx.layout.LayoutBase#getVerticalScrollPositionDelta
      */
-    public function getVerticalScrollPositionDelta(unit:ScrollUnit):Number
+    public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
     {
         // TBD: replace provisional implementation
         var scrollR:Rectangle = scrollRect;
@@ -1022,7 +1022,7 @@ public class TextView extends UIComponent implements IViewport
         
         var flowComposer:IFlowComposer = textFlow.flowComposer;
             
-        switch (unit)
+        switch (scrollUnit)
         {
             case ScrollUnit.UP:
             {
