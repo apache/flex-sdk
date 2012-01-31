@@ -3415,6 +3415,7 @@ public class RichEditableText extends UIComponent
                     FontLookup.EMBEDDED_CFF :
                     FontLookup.DEVICE;
             }
+            fontDescription.fontLookup = s;
         }
          
         s = getStyle("fontStyle");
