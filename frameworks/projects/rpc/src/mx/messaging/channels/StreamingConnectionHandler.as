@@ -425,7 +425,7 @@ public class StreamingConnectionHandler extends EventDispatcher
         chunkBuffer = null;
         hexChunkSize = null;
         dataBytesToRead = -1;
-        dataOffset = 0;        
+        dataOffset = 0;
     }
 
     /**
@@ -622,6 +622,8 @@ public class StreamingConnectionHandler extends EventDispatcher
                                 // shut down and not attempt to reconnect.
                                 var statusEvent:StatusEvent = new StatusEvent(StatusEvent.STATUS, false, false, DISCONNECT_CODE, "status");
                                 dispatchEvent(statusEvent);
+                                // Exit parse loop - channel shut down will reset parser state.
+                                return; 
                             }
                             else  // Regular message; dispatch it.
                             {
