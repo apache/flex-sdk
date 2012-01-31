@@ -255,33 +255,6 @@ public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implement
     }
 
 
-    //--------------------------------------------------------------------------
-    //
-    // Internal Methods
-    // 
-    //--------------------------------------------------------------------------
-
-    /**
-     *@private
-     */
-    mx_internal function initEndpoint():void
-    {
-        if (endpoint != null)
-        {
-            var chan:Channel;
-            if (endpoint.indexOf("https") == 0)
-            {
-                chan = new SecureAMFChannel(null, endpoint);
-            }
-            else
-            {
-                chan = new AMFChannel(null, endpoint);
-            }
-            channelSet = new ChannelSet();
-            channelSet.addChannel(chan);
-        }
-    }
-
 
     //--------------------------------------------------------------------------
     //
