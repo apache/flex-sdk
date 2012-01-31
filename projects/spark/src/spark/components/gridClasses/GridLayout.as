@@ -1617,8 +1617,10 @@ public class GridLayout extends LayoutBase
         const factory:IFactory = grid.caretIndicator; 
         caretIndicator = layoutIndicator(layer, factory, caretIndicator, rowIndex, colIndex);  
 
-        // Show/hide caret based on the showCaret property.
-        if (caretIndicator)
+        // Hide caret based on the showCaret property. Don't show caret
+        // if its already hidden by layoutIndicator() because it has 
+        // an invalid position.
+        if (caretIndicator && !_showCaret)
             caretIndicator.visible = _showCaret;
     }
     
