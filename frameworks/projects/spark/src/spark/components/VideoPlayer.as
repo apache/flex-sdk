@@ -540,7 +540,7 @@ public class VideoPlayer extends SkinnableComponent
      *  videoElementProperties stores booleans as to whether these properties 
      *  have been explicitely set or not.
      */
-    private var videoElementProperties:Object = {};
+    private var videoElementProperties:Object;
     
     //--------------------------------------------------------------------------
     //
@@ -552,29 +552,30 @@ public class VideoPlayer extends SkinnableComponent
     //  enabled
     //----------------------------------
 
-    private var wasPlayingBeforeDisabled:Boolean;
-
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  <p>Setting enabled to <code>false</code> disables the UI and 
+     *  pauses the video if it was currently playing.  Re-enabling the component
+     *  does not cause the video to continue playing again; you must 
+     *  explicitly call <code>play()</code>.</p>
+     * 
+     *  <p>Even though the component is initially paused while disabled, 
+     *  if you would like to play the video or perform some other action 
+     *  while disabled, you may still do so through method calls, like 
+     *  <code>play()</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
      */
     override public function set enabled(value:Boolean):void
     {
-        // TODO (rfrishbe): what about autoPlay and manual calls to play()?
         super.enabled = value;
         
-        if (!value && videoElement)
-        {
-            if (playing || wasPlayingBeforeDisabled)
-                wasPlayingBeforeDisabled = true;
-            else
-                wasPlayingBeforeDisabled = false;
-            videoElement.pause();
-        }
-        else if (wasPlayingBeforeDisabled)
-        {
-            wasPlayingBeforeDisabled = false;
-            videoElement.play();
-        }
+        if (videoElement)
+            videoElement.enabled = value;
     }
     
     //--------------------------------------------------------------------------
@@ -599,7 +600,15 @@ public class VideoPlayer extends SkinnableComponent
      */
     public function get autoPlay():Boolean
     {
-        return (videoElement) ? videoElement.autoPlay : videoElementProperties.autoPlay;
+        if (videoElement)
+        {
+            return videoElement.autoPlay;
+        }
+        else
+        {
+            var v:* = videoElementProperties.autoPlay;
+            return (v === undefined) ? true : v;
+        }
     }
 
     /**
@@ -613,8 +622,14 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                                                         AUTO_PLAY_PROPERTY_FLAG, true);
         }
-        else
+        else if (videoElementProperties)
+        {
             videoElementProperties.autoPlay = value;
+        }
+        else
+        {
+            videoElementProperties = {autoPlay: value};
+        }
     }
     
     //----------------------------------
@@ -633,7 +648,15 @@ public class VideoPlayer extends SkinnableComponent
      */
     public function get autoRewind():Boolean
     {
-        return (videoElement) ? videoElement.autoRewind : videoElementProperties.autoRewind;
+        if (videoElement)
+        {
+            return videoElement.autoRewind;
+        }
+        else
+        {
+            var v:* = videoElementProperties.autoRewind;
+            return (v === undefined) ? true : v;
+        }
     }
     
     /**
@@ -647,8 +670,14 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                                                         AUTO_REWIND_PROPERTY_FLAG, true);
         }
-        else
+        else if (videoElementProperties)
+        {
             videoElementProperties.autoRewind = value;
+        }
+        else
+        {
+            videoElementProperties = {autoRewind: value};
+        }
     }
     
     //----------------------------------
@@ -667,7 +696,15 @@ public class VideoPlayer extends SkinnableComponent
      */
     public function get maintainAspectRatio():Boolean
     {
-        return (videoElement) ? videoElement.maintainAspectRatio : videoElementProperties.maintainAspectRatio;
+        if (videoElement)
+        {
+            return videoElement.maintainAspectRatio;
+        }
+        else
+        {
+            var v:* = videoElementProperties.maintainAspectRatio;
+            return (v === undefined) ? true : v;
+        }
     }
     
     /**
@@ -681,8 +718,14 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                                                         MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG, true);
         }
-        else
+        else if (videoElementProperties)
+        {
             videoElementProperties.maintainAspectRatio = value;
+        }
+        else
+        {
+            videoElementProperties = {maintainAspectRatio: value};
+        }
     }
     
     //----------------------------------
@@ -701,7 +744,15 @@ public class VideoPlayer extends SkinnableComponent
      */
     public function get muted():Boolean
     {
-        return (videoElement) ? videoElement.muted : videoElementProperties.muted;
+        if (videoElement)
+        {
+            return videoElement.muted;
+        }
+        else
+        {
+            var v:* = videoElementProperties.muted;
+            return (v === undefined) ? false : v;
+        }
     }
     
     /**
@@ -715,11 +766,14 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                                                         MUTED_PROPERTY_FLAG, true);
         }
-        else
+        else if (videoElementProperties)
+        {
             videoElementProperties.muted = value;
-        
-        if (muteButton)
-            muteButton.selected = value;
+        }
+        else
+        {
+            videoElementProperties = {muted: value};
+        }
     }
     
     //----------------------------------
@@ -784,7 +838,15 @@ public class VideoPlayer extends SkinnableComponent
      */
     public function get source():Object
     {
-        return (videoElement) ? videoElement.source : videoElementProperties.source;
+        if (videoElement)
+        {
+            return videoElement.source;
+        }
+        else
+        {
+            var v:* = videoElementProperties.source;
+            return (v === undefined) ? null : v;
+        }
     }
 
     /**
@@ -798,8 +860,14 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                                                         SOURCE_PROPERTY_FLAG, true);
         }
-        else
+        else if (videoElementProperties)
+        {
             videoElementProperties.source = value;
+        }
+        else
+        {
+            videoElementProperties = {source: value};
+        }
     }
     
     //----------------------------------
@@ -843,7 +911,15 @@ public class VideoPlayer extends SkinnableComponent
      */
     public function get volume():Number
     {
-        return (videoElement) ? videoElement.volume : videoElement.volume;
+        if (videoElement)
+        {
+            return videoElement.volume;
+        }
+        else
+        {
+            var v:* = videoElementProperties.volume;
+            return (v === undefined) ? 1 : v;
+        }
     }
     
     /**
@@ -855,10 +931,16 @@ public class VideoPlayer extends SkinnableComponent
         {
             videoElement.volume = value;
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
-                                                 VOLUME_PROPERTY_FLAG, true);
+                                                        VOLUME_PROPERTY_FLAG, true);
+        }
+        else if (videoElementProperties)
+        {
+            videoElementProperties.volume = value;
         }
         else
-            videoElementProperties.volume = value;
+        {
+            videoElementProperties = {volume: value};
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -935,6 +1017,19 @@ public class VideoPlayer extends SkinnableComponent
     {
         if (instance == videoElement)
         {
+            videoElement.addEventListener(spark.events.VideoEvent.CLOSE, dispatchEvent);
+            videoElement.addEventListener(spark.events.VideoEvent.COMPLETE, dispatchEvent);
+            videoElement.addEventListener(spark.events.VideoEvent.METADATA_RECEIVED, videoElement_metaDataReceivedHandler);
+            videoElement.addEventListener(spark.events.VideoEvent.PLAYHEAD_UPDATE, videoElement_playHeadUpdateHandler);
+            videoElement.addEventListener(ProgressEvent.PROGRESS, videoElement_progressHandler);
+            videoElement.addEventListener(spark.events.VideoEvent.READY, dispatchEvent);
+            videoElement.addEventListener(fl.video.VideoEvent.STATE_CHANGE, videoElement_stateChangeHandler);
+            videoElement.addEventListener("playingChanged", videoElement_playingChangedHandler);
+            
+            // just strictly for binding purposes
+            videoElement.addEventListener("sourceChanged", dispatchEvent);
+            videoElement.addEventListener("volumeChanged", videoElement_volumeChangedHandler);
+            
             // copy proxied values from videoProperties (if set) to video
             
             var newVideoProperties:uint = 0;
@@ -983,17 +1078,7 @@ public class VideoPlayer extends SkinnableComponent
             
             videoElementProperties = newVideoProperties;
             
-            videoElement.addEventListener(spark.events.VideoEvent.CLOSE, dispatchEvent);
-            videoElement.addEventListener(spark.events.VideoEvent.COMPLETE, dispatchEvent);
-            videoElement.addEventListener(spark.events.VideoEvent.METADATA_RECEIVED, videoElement_metaDataReceivedHandler);
-            videoElement.addEventListener(spark.events.VideoEvent.PLAYHEAD_UPDATE, videoElement_playHeadUpdateHandler);
-            videoElement.addEventListener(ProgressEvent.PROGRESS, videoElement_progressHandler);
-            videoElement.addEventListener(fl.video.VideoEvent.STATE_CHANGE, videoElement_stateChangeHandler);
-            videoElement.addEventListener("playingChanged", videoElement_playingChangedHandler);
-            
-            // just strictly for binding purposes
-            videoElement.addEventListener("sourceChanged", dispatchEvent);
-            videoElement.addEventListener("volumeChanged", videoElement_volumeChangedHandler);
+            videoElement.enabled = enabled;
             
             if (volumeBar)
                 volumeBar.value = volume;
@@ -1049,6 +1134,7 @@ public class VideoPlayer extends SkinnableComponent
             scrubBar.addEventListener(TrackBaseEvent.THUMB_PRESS, scrubBar_thumbPressHandler);
             scrubBar.addEventListener(TrackBaseEvent.THUMB_RELEASE, scrubBar_thumbReleaseHandler);
             scrubBar.addEventListener(Event.CHANGE, scrubBar_changeHandler);
+            scrubBar.addEventListener("changing", scrubBar_changingHandler);
         }
         else if (instance == fullScreenButton)
         {
@@ -1102,6 +1188,7 @@ public class VideoPlayer extends SkinnableComponent
             videoElement.removeEventListener(spark.events.VideoEvent.METADATA_RECEIVED, videoElement_metaDataReceivedHandler);
             videoElement.removeEventListener(spark.events.VideoEvent.PLAYHEAD_UPDATE, videoElement_playHeadUpdateHandler);
             videoElement.removeEventListener(ProgressEvent.PROGRESS, videoElement_progressHandler);
+            videoElement.removeEventListener(spark.events.VideoEvent.READY, dispatchEvent);
             videoElement.removeEventListener(fl.video.VideoEvent.STATE_CHANGE, videoElement_stateChangeHandler);
             videoElement.removeEventListener("playingChanged", videoElement_playingChangedHandler);
             
@@ -1139,6 +1226,7 @@ public class VideoPlayer extends SkinnableComponent
             scrubBar.removeEventListener(TrackBaseEvent.THUMB_PRESS, scrubBar_thumbPressHandler);
             scrubBar.removeEventListener(TrackBaseEvent.THUMB_RELEASE, scrubBar_thumbReleaseHandler);
             scrubBar.removeEventListener(Event.CHANGE, scrubBar_changeHandler);
+            scrubBar.removeEventListener("changing", scrubBar_changingHandler);
         }
         else if (instance == fullScreenButton)
         {
@@ -1224,7 +1312,7 @@ public class VideoPlayer extends SkinnableComponent
         if (!videoElement)
             return;
         
-        if (!scrubBarMouseCaptured)
+        if (!scrubBarMouseCaptured && !scrubBarChanging)
         {
             scrubBar.minimum = 0;
             scrubBar.maximum = videoElement.totalTime;
@@ -1490,6 +1578,8 @@ public class VideoPlayer extends SkinnableComponent
         // set the fullScreen variable back to false and remove this event listener
         fullScreen = false;
         stage.removeEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
+        fullScreenHideControlTimer.reset();
+        fullScreenHideControlTimer = null;
         
         // remove the event listeners to hide the controls
         systemManager.removeEventListener(MouseEvent.MOUSE_DOWN, resetFullScreenHideControlTimer);
@@ -1581,6 +1671,20 @@ public class VideoPlayer extends SkinnableComponent
     
     /**
      *  @private
+     *  We are in the process of changing the timestamp
+     */
+    private var scrubBarChanging:Boolean;
+    
+    /**
+     *  @private
+     */
+    private function scrubBar_changingHandler(event:Event):void
+    {
+        scrubBarChanging = true;
+    }
+    
+    /**
+     *  @private
      */
     private function scrubBar_thumbPressHandler(event:TrackBaseEvent):void
     {
@@ -1617,6 +1721,7 @@ public class VideoPlayer extends SkinnableComponent
         }
         else
         {
+            scrubBarChanging = false;
             seek(scrubBar.value);
         }
     }
