@@ -774,11 +774,6 @@ package spark.components
         
         /**
          *  @private
-         */    
-        private var errorCaught:Boolean = false;
-        
-        /**
-         *  @private
          *  Hold the previous editingMode while using a specific instance manager
          *  so that the editingMode can be restored when the instance manager is
          *  released.
@@ -4216,22 +4211,16 @@ package spark.components
                     // set to anything other than unknown(English)      
                     try
                     {
-                        if (!errorCaught &&
-                            IME.conversionMode != IMEConversionMode.UNKNOWN)
+                        if (IME.conversionMode != IMEConversionMode.UNKNOWN)
                         {
                             IME.conversionMode = _imeMode;
                         }
-                        errorCaught = false;
                     }
                     catch(e:Error)
                     {
-                        // Once an error is thrown, focusIn is called 
-                        // again after the Alert is closed, throw error 
-                        // only the first time.
-                        errorCaught = true;
-                        var message:String = ResourceManager.getInstance().getString(
-                            "controls", "unsupportedMode", [ _imeMode ]);          
-                        throw new Error(message);
+                        // on Windows, setting a Japanese IME mode when in
+                        // english throws an error (on Mac it doesn't)
+                        // so ignore errors we get.
                     }
                 }            
             }
