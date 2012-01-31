@@ -24,6 +24,11 @@ import mx.controls.listClasses.ListBaseContentHolder;
  *  alternating row colors can show through the control.
  *
  *  @see mx.controls.DataGrid
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DataGridLockedRowContentHolder extends ListBaseContentHolder
 {
@@ -32,6 +37,11 @@ public class DataGridLockedRowContentHolder extends ListBaseContentHolder
      *  Constructor.
      *
      *  @param parentList The DataGrid control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DataGridLockedRowContentHolder(parentList:ListBase)
     {
@@ -43,6 +53,11 @@ public class DataGridLockedRowContentHolder extends ListBaseContentHolder
 
     /**
      * The measured height of the DataGrid control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get measuredHeight():Number
     {
