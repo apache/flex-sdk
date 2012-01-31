@@ -6,6 +6,11 @@ import mx.graphics.baseClasses.ISharedGraphicsDisplayObject;
 /**
  *  <code>GraphicElement</code> creates shared <code>DsiplayObject</code> of type
  *  <code>InvalidatingSprite</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class InvalidatingSprite extends Sprite implements ISharedGraphicsDisplayObject
 {
@@ -18,6 +23,11 @@ public class InvalidatingSprite extends Sprite implements ISharedGraphicsDisplay
 
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get redrawRequested():Boolean
     {
