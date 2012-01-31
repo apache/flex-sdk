@@ -368,7 +368,7 @@ public class RadioButton extends Button implements IFocusManagerGroup, IToggleBu
      *  if this RadioButton is part of a group defined by a RadioButtonGroup control.
      *
      *  @default "undefined"
-     *  @throws ArgumentError if Flex 4 or later and the groupName starts with _fx_ 
+     *  @throws ArgumentError Throws an ArgumentError if you are using Flex 4 or later and the groupName starts with the string "_fx_". 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
