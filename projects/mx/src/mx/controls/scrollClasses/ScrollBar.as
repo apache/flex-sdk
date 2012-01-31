@@ -1047,7 +1047,11 @@ public class ScrollBar extends UIComponent
         // off whenever we resize the scrollbar (because caching hurts
         // performance during a resize animation)
         if (cacheAsBitmap)
-            cacheHeuristic = scrollThumb.cacheHeuristic = false;
+        {
+            cacheHeuristic = false;
+            if(scrollThumb)
+            	scrollThumb.cacheHeuristic = false;
+        }
        
         upArrow.setActualSize(upArrow.getExplicitOrMeasuredWidth(),
                               upArrow.getExplicitOrMeasuredHeight());
