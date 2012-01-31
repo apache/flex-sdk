@@ -55,9 +55,12 @@ use namespace mx_internal;
 
 /**
  *  The ControlBar container lets you place controls
- *  at the bottom of a Panel or TitleWindow container.
+ *  at the bottom of a Halo Panel or Halo TitleWindow container.
  *  The <code>&lt;mx:ControlBar&gt;</code> tag must be the last child tag
- *  of the enclosing tag for the Panel or TitleWindow container.
+ *  of the enclosing tag for the Halo Panel or Halo TitleWindow container.
+ *
+ *  <p><b>Note:</b> The Spark Panel container does not support the ControlBar container. 
+ *  Modify the skin of the Spark Panel container to add this functionality.</p>
  *
  *  <p>The ControlBar is a Box with a background
  *  and default style properties.</p>
@@ -93,158 +96,160 @@ use namespace mx_internal;
  *  &lt;/mx:ControlBar&gt;
  *  </pre>
  *
+ *  @see mx.containers.Panel
+ *
  *  @includeExample examples/SimpleControlBarExample.mxml
  */
 public class ControlBar extends Box
 {
-	include "../core/Version.as";
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    include "../core/Version.as";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 */
-	public function ControlBar()
-	{
-		super();
+    /**
+     *  Constructor.
+     */
+    public function ControlBar()
+    {
+        super();
 
         // ControlBar defaults to direction="horizontal", but can be changed
-		// later if desired
-		direction = BoxDirection.HORIZONTAL;
-	}
+        // later if desired
+        direction = BoxDirection.HORIZONTAL;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  enabled
-	//----------------------------------
+    //----------------------------------
+    //  enabled
+    //----------------------------------
 
     [Inspectable(category="General", enumeration="true,false", defaultValue="true")]
 
-	/**
-	 *  @private
-	 */
-	override public function set enabled(value:Boolean):void
-	{
-		if (value != super.enabled)
-		{
-			super.enabled = value;
-			
-			// Since ControlBar typically has a transparent background and sits on top
-			// of a translucent part of the panel, we don't want the default overlay.
-			// Instead of the overlay, set the alpha value here.
-			alpha = value ? 1 : 0.4;
-		}
-	}
+    /**
+     *  @private
+     */
+    override public function set enabled(value:Boolean):void
+    {
+        if (value != super.enabled)
+        {
+            super.enabled = value;
+            
+            // Since ControlBar typically has a transparent background and sits on top
+            // of a translucent part of the panel, we don't want the default overlay.
+            // Instead of the overlay, set the alpha value here.
+            alpha = value ? 1 : 0.4;
+        }
+    }
 
-	//----------------------------------
-	//  horizontalScrollPolicy
-	//----------------------------------
+    //----------------------------------
+    //  horizontalScrollPolicy
+    //----------------------------------
 
-	[Inspectable(environment="none")]
+    [Inspectable(environment="none")]
 
-	/**
-	 *  @private
-	 */
-	override public function get horizontalScrollPolicy():String
-	{
-		return ScrollPolicy.OFF;
-	}
+    /**
+     *  @private
+     */
+    override public function get horizontalScrollPolicy():String
+    {
+        return ScrollPolicy.OFF;
+    }
 
-	/**
-	 *  @private
-	 */
-	override public function set horizontalScrollPolicy(value:String):void
-	{
-		// A ControlBar never scrolls.
-		// Its horizontalScrollPolicy is initialized to "off" and can't be changed.
-	}
+    /**
+     *  @private
+     */
+    override public function set horizontalScrollPolicy(value:String):void
+    {
+        // A ControlBar never scrolls.
+        // Its horizontalScrollPolicy is initialized to "off" and can't be changed.
+    }
 
-	//----------------------------------
-	//  includeInLayout
-	//----------------------------------
+    //----------------------------------
+    //  includeInLayout
+    //----------------------------------
 
     [Inspectable(category="General", defaultValue="true")]
 
-	/**
-	 *  @private
-	 */
-	override public function set includeInLayout(value:Boolean):void
-	{
-		if (includeInLayout != value)
-		{
-			super.includeInLayout = value;
+    /**
+     *  @private
+     */
+    override public function set includeInLayout(value:Boolean):void
+    {
+        if (includeInLayout != value)
+        {
+            super.includeInLayout = value;
 
-			var p:Container = parent as Container;
-			if (p)
-				p.invalidateViewMetricsAndPadding();
-		}
-	}
+            var p:Container = parent as Container;
+            if (p)
+                p.invalidateViewMetricsAndPadding();
+        }
+    }
 
-	//----------------------------------
-	//  verticalScrollPolicy
-	//----------------------------------
+    //----------------------------------
+    //  verticalScrollPolicy
+    //----------------------------------
 
-	[Inspectable(environment="none")]
+    [Inspectable(environment="none")]
 
-	/**
-	 *  @private
-	 */
-	override public function get verticalScrollPolicy():String
-	{
-		return ScrollPolicy.OFF;
-	}
+    /**
+     *  @private
+     */
+    override public function get verticalScrollPolicy():String
+    {
+        return ScrollPolicy.OFF;
+    }
 
-	/**
-	 *  @private
-	 */
-	override public function set verticalScrollPolicy(value:String):void
-	{
-		// A ControlBar never scrolls.
-		// Its verticalScrollPolicy is initialized to "off" and can't be changed.
-	}
+    /**
+     *  @private
+     */
+    override public function set verticalScrollPolicy(value:String):void
+    {
+        // A ControlBar never scrolls.
+        // Its verticalScrollPolicy is initialized to "off" and can't be changed.
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override public function invalidateSize():void
-	{
-		super.invalidateSize();
+    /**
+     *  @private
+     */
+    override public function invalidateSize():void
+    {
+        super.invalidateSize();
 
-		// Since controlbar isn't a "child" of Panel, we need to call
-		// invalidateViewMetricsAndPadding() here when our size is invalidated.
-		// This causes our parent Panel to adjust size.
-		if (parent && parent is Container)
-			Container(parent).invalidateViewMetricsAndPadding();
-	}
+        // Since controlbar isn't a "child" of Panel, we need to call
+        // invalidateViewMetricsAndPadding() here when our size is invalidated.
+        // This causes our parent Panel to adjust size.
+        if (parent && parent is Container)
+            Container(parent).invalidateViewMetricsAndPadding();
+    }
 
-	/**
-	 *  @private
-	 */
-	override protected function updateDisplayList(unscaledWidth:Number,
-												  unscaledHeight:Number):void
-	{
-		super.updateDisplayList(unscaledWidth, unscaledHeight);
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number,
+                                                  unscaledHeight:Number):void
+    {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-		// Make sure we don't have an opaque background for the ControlBar,
-		// otherwise the background turns white.
-		if (contentPane)
-			contentPane.opaqueBackground = null;
-	}
+        // Make sure we don't have an opaque background for the ControlBar,
+        // otherwise the background turns white.
+        if (contentPane)
+            contentPane.opaqueBackground = null;
+    }
 }
 
 }
