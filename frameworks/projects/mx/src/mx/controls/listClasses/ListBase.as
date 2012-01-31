@@ -196,8 +196,6 @@ include "../../styles/metadata/PaddingStyles.as"
  *  the number of columns is an odd number, you will get a checkerboard pattern.
  *  </p>
  *
- *  <p>Only takes effect if no <code>backgroundColor</code> is specified.</p>
- *
  *  @default undefined
  *  
  *  @langversion 3.0
@@ -2252,10 +2250,9 @@ public class ListBase extends ScrollControlBase
         // methods if they want to
         iterator = collection.createCursor();
         collectionIterator = collection.createCursor(); //IViewCursor(collection);
-
         // trace("ListBase added change listener");
         collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false, 0, true);
-
+		
         clearSelectionData();
 
         var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
@@ -7353,15 +7350,27 @@ public class ListBase extends ScrollControlBase
             }
 
             len = selectionDataArray.length;
+            var selectionData:ListBaseSelectionData;
+            var lastSelectionData:ListBaseSelectionData = firstSelectionData;
             if (len)
             {
-                uid = itemToUID(selectionDataArray[0].data);
-                insertSelectionDataBefore(uid, selectionDataArray[0], firstSelectionData);
+                selectionData = selectionDataArray[0];
+                if (selectionData) // can be null if selectedItem not in DP
+                {
+                    uid = itemToUID(selectionData.data);
+                    insertSelectionDataBefore(uid, selectionData, firstSelectionData);
+                    lastSelectionData = selectionData;
+                }
             }
             for (i = 1; i < len; i++)
             {
-                uid = itemToUID(selectionDataArray[i].data);
-                insertSelectionDataAfter(uid, selectionDataArray[i], selectionDataArray[i - 1]);
+                selectionData = selectionDataArray[i];
+                if (selectionData) // can be null if selectedItem not in DP
+                {
+                    uid = itemToUID(selectionData.data);
+                    insertSelectionDataAfter(uid, selectionData, lastSelectionData);
+                    lastSelectionData = selectionData;
+                }
             }
             selectionDataArray = null;
             proposedSelectedItemIndexes = null;
@@ -9015,7 +9024,7 @@ public class ListBase extends ScrollControlBase
         if (!iteratorValid)
             return;
 
-        if (!collection)
+        if (!collection || collection.length == 0)
             return;
 
         switch (event.keyCode)
