@@ -661,8 +661,6 @@ public class SkinnableTextBase extends SkinnableComponent
     /**
      *  @private
      */
-    private var _selectionActivePosition:int = -1;
-
     [Bindable("selectionChange")]
     
     /**
@@ -675,7 +673,7 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     public function get selectionActivePosition():int
     {
-        return _selectionActivePosition;
+        return textDisplay ? textDisplay.selectionActivePosition : -1;
     }
 
     //----------------------------------
@@ -685,8 +683,6 @@ public class SkinnableTextBase extends SkinnableComponent
     /**
      *  @private
      */
-    private var _selectionAnchorPosition:int = -1;
-
     [Bindable("selectionChange")]
     
     /**
@@ -699,7 +695,7 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     public function get selectionAnchorPosition():int
     {
-        return _selectionAnchorPosition;
+        return textDisplay ? textDisplay.selectionAnchorPosition : -1;
     }
 
     //----------------------------------
@@ -1372,10 +1368,6 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     private function textDisplay_selectionChangeHandler(event:Event):void
     {
-        // Update our storage variables for the selection indices.
-        _selectionAnchorPosition = textDisplay.selectionAnchorPosition;
-        _selectionActivePosition = textDisplay.selectionActivePosition;
-        
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
     }
