@@ -396,11 +396,11 @@ public class AbstractWebService extends AbstractService
 
     [Inspectable(defaultValue="undefined", category="General")]
     /**
-     * Custom function to be used to escape XML special characters before
-     * encoding any simple content. Valid for all operations on the web
-     * service unless specifically overwritten on the operation level.
-     * If none is provided, the defaults to whatever is set by the particular
-     * implementation of IXMLEncoder.
+     *  Custom function to be used to escape XML special characters before
+     *  encoding any simple content. Valid for all operations on the web
+     *  service unless specifically overwritten on the operation level.
+     *  If none is provided, the default function is whatever is set by the particular
+     *  implementation of IXMLEncoder.
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
