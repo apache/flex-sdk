@@ -37,6 +37,27 @@ use namespace mx_internal;
  *  you usually combine it as part of another group of components to
  *  provide scrolling functionality.</p>
  *
+ *  <p>The HScrollBar control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>85 pixels wide by 15 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td>35 pixels wide and 35 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *     </table>
+ *
+ *
  *  @mxml
  *  <p>The <code>&lt;HScrollBar&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
