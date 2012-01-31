@@ -190,7 +190,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     /**
      *  The number of FxRadioButtons that belong to this FxRadioButtonGroup.
      *
-     *  @default "undefined"
+     *  @default "0"
      */
     public function get numRadioButtons():int
     {
@@ -327,11 +327,17 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  @param index The index of the  control in the
      *  FxRadioButtonGroup control, where the index of the first control is 0.
      *
-     *  @return The specified FxRadioButton control.
+     *  @return The specified FxRadioButton control if index between
+     *  0 and numRadioButtons, otherwise null.
+     * 
+     *  @see numRadioButtons
      */
     public function getRadioButtonAt(index:int):FxRadioButton
     {
-        return radioButtons[index];
+        if (index >= 0 && index < numRadioButtons)
+            return radioButtons[index];
+            
+        return null;
     }
 
     /**
