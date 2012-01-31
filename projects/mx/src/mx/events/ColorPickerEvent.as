@@ -18,6 +18,11 @@ import flash.events.Event;
  *  Represents events that are specific to the ColorPicker control,
  *  such as when the user rolls the mouse over or out of a swatch in
  *  the swatch panel.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ColorPickerEvent extends Event
 {
@@ -54,6 +59,11 @@ public class ColorPickerEvent extends Event
 	 *  </table>
 	 *
      *  @eventType change
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static const CHANGE:String = "change";
 
@@ -81,6 +91,11 @@ public class ColorPickerEvent extends Event
 	 *  </table>
 	 *
      *  @eventType enter
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ENTER:String = "enter";
 
@@ -110,6 +125,11 @@ public class ColorPickerEvent extends Event
 	 *  </table>
 	 *
      *  @eventType itemRollOut
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_ROLL_OUT:String = "itemRollOut";
 
@@ -139,6 +159,11 @@ public class ColorPickerEvent extends Event
 	 *  </table>
 	 *
      *  @eventType itemRollOver
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ITEM_ROLL_OVER:String = "itemRollOver";
 
@@ -163,6 +188,11 @@ public class ColorPickerEvent extends Event
 	 *
 	 *  @param color The RGB color that was rolled over, rolled out of,
 	 *  selected, or entered.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ColorPickerEvent(
 						type:String, bubbles:Boolean = false,
@@ -188,6 +218,11 @@ public class ColorPickerEvent extends Event
     /**
 	 *  The RGB color that was rolled over, rolled out of, selected, or
 	 *  entered.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var color:uint;
 
@@ -202,6 +237,11 @@ public class ColorPickerEvent extends Event
 	 *  will have default value -1; it is not set in this case because
 	 *  the user can enter an RGB string that doesn't match any color
 	 *  in the data provider.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var index:int;
 
