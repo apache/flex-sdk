@@ -12,6 +12,7 @@
 package mx.components
 {
 
+import flash.events.Event;
 import mx.components.baseClasses.ButtonBase;
 import mx.core.IButton;
  
@@ -81,6 +82,7 @@ public class FxButton extends ButtonBase implements IButton
      */
     private var _emphasized:Boolean = false;
 
+    [Bindable("emphasizedChanged")]
     [Inspectable(category="General", defaultValue="false")]
 
     /**
@@ -108,14 +110,43 @@ public class FxButton extends ButtonBase implements IButton
             return;
             
         _emphasized = value;
+        emphasizeStyleName();  
+        dispatchEvent(new Event("emphasizedChanged"));
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+    
+    override public function set styleName(value:Object):void
+    {
+        super.styleName = value;
+        
+        // We need to ensure to re-apply the emphasized style if appropriate.
+        if (value == null || value is String)
+        {
+            if (!value || (_emphasized && value.indexOf(" emphasized") == -1))
+                emphasizeStyleName();
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    private function emphasizeStyleName():void
+    {
         var style:String = styleName is String ? styleName as String : "";
         
         if (!styleName || styleName is String)
         {
             if (_emphasized)
-                styleName = style + " emphasized";
+                super.styleName = style + " emphasized";
             else 
-                styleName = style.split(" emphasized").join("");
+                super.styleName = style.split(" emphasized").join("");
         }   
     }
 }
