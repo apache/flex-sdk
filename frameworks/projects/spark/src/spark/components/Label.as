@@ -22,7 +22,6 @@ import flash.text.engine.FontDescription;
 import flash.text.engine.FontMetrics;
 import flash.text.engine.Kerning;
 import flash.text.engine.LineJustification;
-import flash.text.engine.TabStop;
 import flash.text.engine.SpaceJustifier;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
@@ -155,6 +154,37 @@ public class TextBox extends TextGraphicElement
     //  Methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Certain styles require the text to be recomposed when the height
+     *  changes.
+     */
+    override protected function composeOnHeightChange():Boolean
+    {
+        var verticalAlign:String = getStyle("verticalAlign");
+        var topAligned:Boolean = (verticalAlign == "top");
+
+        return !topAligned;
+    }
+
+    /**
+     *  @private
+     *  Certain styles require the text to be recomposed when the width
+     *  changes.
+     */
+    override protected function composeOnWidthChange():Boolean
+    {
+        var direction:String = getStyle("direction");
+        var textAlign:String = getStyle("textAlign");
+
+        var leftAligned:Boolean =
+            textAlign == "left" ||
+            textAlign == "start" && direction == "ltr" ||
+            textAlign == "end" && direction == "rtl";
+
+        return !leftAligned;   
+    }
     
     /**
      *  @private
