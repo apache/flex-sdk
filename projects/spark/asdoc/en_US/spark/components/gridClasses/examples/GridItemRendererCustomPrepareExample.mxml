@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Examples of custom GridItemRenderers that use the prepare() method to configure visual properties.
+
+This example is identical to DataGridCustomBindingRenderer.as except that instead of using 
+data bindings, all visual elements are configured by GridItemRenderer/prepare() method 
+overrides.
+
+-->
+
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <fx:Script>
+        <![CDATA[
+            // Incrementally change all of the date items' min, max, value, and call properties.
+            private function changeData(delta:Number):void
+            {
+                for each (var item:Object in dataGrid.dataProvider)
+                {
+                    item.value = (item.value + delta) % 100;
+                    item.min = (item.min + delta) % 100;
+                    item.max = (item.max + delta) % 100;
+                    item.call = item.value > 50;
+                }
+            }
+        ]]>
+    </fx:Script>
+    
+    <fx:Style>
+        .nameColumn {
+            fontSize: 18;
+            left: 5; 
+            right: 5;
+            top: 9;
+        }        
+    </fx:Style>
+    
+    <s:Panel title="Spark DataGrid Control Example of custom GridItemRenderers that use the prepare() method to configure visual properties"
+             width="75%" height="75%" 
+             horizontalCenter="0" verticalCenter="0">
+        
+        <s:controlBarContent>
+            <s:HGroup verticalAlign="baseline">
+                <s:Label text="Shake Data"/>            
+                <s:HSlider id="hsl" minimum="0" maximum="50" change="changeData(hsl.value)"/>
+            </s:HGroup>
+        </s:controlBarContent>
+            
+        <s:DataGrid id="dataGrid" left="5" right="5" top="5" bottom="5">
+            <s:columns>
+                <s:ArrayList>
+                    <s:GridColumn dataField="name" headerText="Name">
+                        <s:itemRenderer>
+                            <fx:Component>
+                                <s:GridItemRenderer>
+                                    <fx:Script>
+                                        <![CDATA[
+                                            override public function prepare(hasBeenRecycled:Boolean):void
+                                            {
+                                                nameLabel.text = data.name;
+                                            }
+                                        ]]>
+                                    </fx:Script>
+                                    <s:Label id="nameLabel" maxDisplayedLines="1" styleName="nameColumn"/> 
+                                </s:GridItemRenderer>
+                            </fx:Component>
+                        </s:itemRenderer>
+                    </s:GridColumn>
+                    
+                    <s:GridColumn dataField="value" headerText="Statistics">
+                        <s:itemRenderer>
+                            <fx:Component>
+                                <s:GridItemRenderer clipAndEnableScrolling="true">
+                                    <fx:Script>
+                                        <![CDATA[
+                                            override public function prepare(hasBeenRecycled:Boolean):void
+                                            {
+                                                valueDial.rotation = (data.value / 100) * 360;
+                                                minBar.height = (data.min / 100) * 30;
+                                                maxBar.height = (data.max / 100) * 30;                                                
+                                            }
+                                        ]]>
+                                    </fx:Script>                                
+                                    <s:Group left="5" top="5" bottom="5">
+                                        <s:Ellipse x="0" y="0" width="30" height="30">
+                                            <s:stroke>
+                                                <s:SolidColorStroke color="0x272F32" weight="2"/>
+                                            </s:stroke>
+                                            <s:fill>
+                                                <s:SolidColor color="0x9DBDC6"/>
+                                            </s:fill>
+                                        </s:Ellipse>
+                                        <s:Line id="valueDial" transformX="15" transformY="15"
+                                                xFrom="15" yFrom="15" xTo="27" yTo="15">
+                                            <s:stroke>
+                                                <s:SolidColorStroke color="0xFF3D2E" weight="3"/>
+                                            </s:stroke>
+                                        </s:Line>
+                                        <s:Rect id="minBar" x="40" y="30" scaleY="-1" width="15">
+                                            <s:fill>
+                                                <s:SolidColor color="0xFF3D2E"/>
+                                            </s:fill>
+                                        </s:Rect>
+                                        <s:Rect id="maxBar" x="60" y="30" scaleY="-1" width="15">
+                                            <s:fill>
+                                                <s:SolidColor color="0xFF3D2E"/>
+                                            </s:fill>
+                                        </s:Rect>                                    
+                                    </s:Group>
+                                </s:GridItemRenderer>
+                            </fx:Component>
+                        </s:itemRenderer>                            
+                    </s:GridColumn>
+                    
+                    <s:GridColumn dataField="value" headerText="Value">
+                        <s:itemRenderer>
+                            <fx:Component>
+                                <s:GridItemRenderer clipAndEnableScrolling="true">
+                                    <fx:Script>
+                                        <![CDATA[
+                                            override public function prepare(hasBeenRecycled:Boolean):void
+                                            {
+                                                valueSlider.minimum = data.min;
+                                                valueSlider.maximum = data.max;
+                                                valueSlider.value = data.value;
+                                            }
+                                            
+                                            private function valueChange():void
+                                            {
+                                                data.value = valueSlider.value;
+                                            }
+                                        ]]>
+                                    </fx:Script>                                
+                                    <s:HSlider id="valueSlider" left="5" right="5" verticalCenter="0" change="valueChange()"/>
+                                </s:GridItemRenderer>
+                            </fx:Component>
+                        </s:itemRenderer>
+                    </s:GridColumn>
+                    
+                    <s:GridColumn dataField="call" headerText="Call">
+                        <s:itemRenderer>
+                            <fx:Component>
+                                <s:GridItemRenderer clipAndEnableScrolling="true">
+                                    <fx:Script>
+                                        <![CDATA[
+                                            override public function prepare(hasBeenRecycled:Boolean):void
+                                            {
+                                                callCheckBox.selected = data.call;
+                                                callRadioButton.selected = data.call;
+                                                callTextInput.text = String(data.call);
+                                            }
+                                            
+                                            private function valueChange():void
+                                            {
+                                                data.call = callCheckBox.selected;
+                                            }
+                                        ]]>
+                                    </fx:Script>    
+                                    <s:HGroup left="5" top="9" right="5" verticalAlign="baseline">
+                                        <s:CheckBox id="callCheckBox" change="valueChange()"/>
+                                        <s:RadioButton id="callRadioButton" enabled="false"/>
+                                        <s:TextInput id="callTextInput" enabled="false"/>
+                                    </s:HGroup>
+                                </s:GridItemRenderer>
+                            </fx:Component>
+                        </s:itemRenderer>
+                    </s:GridColumn>
+                </s:ArrayList>
+            </s:columns>
+            
+            <s:ArrayCollection>
+                <s:DataItem min="10" max="85" value="15" name="Abrasive" price="100.11" call="false"/>
+                <s:DataItem min="15" max="75" value="25" name="Brush" price="110.01" call="true"/>
+                <s:DataItem min="30" max="65" value="45" name="Clamp" price="120.02" call="false"/>
+                <s:DataItem min="20" max="85" value="65" name="Drill" price="130.03" call="true"/>
+                <s:DataItem min="40" max="95" value="85" name="Epoxy" price="140.04" call="false"/>
+                <s:DataItem min="70" max="99" value="95" name="File" price="150.05" call="true"/>
+                <s:DataItem min="60" max="85" value="80" name="Gouge" price="160.06" call="false"/>
+                <s:DataItem min="40" max="70" value="60" name="Hook" price="170.07" call="true"/>
+                <s:DataItem min="10" max="40" value="20" name="Ink" price="180.08" call="false"/>
+                <s:DataItem min="5" max="30" value="10" name="Jack" price="190.09" call="true"/>         
+            </s:ArrayCollection>
+        </s:DataGrid>
+    </s:Panel>
+</s:Application>
