@@ -125,12 +125,15 @@ public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implement
     * Value that indicates how to handle multiple calls to the same service. The default
     * value is multiple. The following values are permitted:
     * <ul>
-    * <li>multiple Existing requests are not cancelled, and the developer is
+    * <li>multiple - Existing requests are not cancelled, and the developer is
     * responsible for ensuring the consistency of returned data by carefully
     * managing the event stream. This is the default.</li>
-    * <li>single Only a single request at a time is allowed on the operation;
-    * multiple requests generate a fault.</li>
-    * <li>last Making a request cancels any existing request.</li>
+    * <li>single - Making only one request at a time is allowed on the method; additional requests made 
+    * while a request is outstanding are immediately faulted on the client and are not sent to the server.</li>
+    * <li>last - Making a request causes the client to ignore a result or fault for any current outstanding request. 
+    * Only the result or fault for the most recent request will be dispatched on the client. 
+    * This may simplify event handling in the client application, but care should be taken to only use 
+    * this mode when results or faults for requests may be safely ignored.</li>
     * </ul>
     */
     public function get concurrency():String
