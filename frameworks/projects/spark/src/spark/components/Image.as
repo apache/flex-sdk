@@ -203,7 +203,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="backgroundAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
+[Style(name="backgroundAlpha", type="Number", inherit="no", theme="spark, mobile", minValue="0.0", maxValue="1.0")]
 
 /**
  *  The background color for this component.
@@ -215,7 +215,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="backgroundColor", type="uint", format="Color", inherit="no", theme="spark")]
+[Style(name="backgroundColor", type="uint", format="Color", inherit="no", theme="spark, mobile")]
 
 /**
  *  When true, enables the 'loading' skin state.
