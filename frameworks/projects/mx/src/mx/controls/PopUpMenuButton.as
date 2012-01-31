@@ -372,6 +372,11 @@ public class PopUpMenuButton extends PopUpButton
      *  explicitly; for example, use &#064;icon to specify the <code>icon</code> attribute.</p>
      *
      *  @default "icon"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get iconField():String
     {
@@ -426,6 +431,11 @@ public class PopUpMenuButton extends PopUpButton
      *  </blockquote>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get iconFunction():Function
     {
