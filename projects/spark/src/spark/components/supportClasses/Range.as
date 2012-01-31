@@ -9,13 +9,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components.baseClasses
+package spark.components.supportClasses
 {
     
 import mx.events.FlexEvent;
 
 /**
- *  The FxRange class holds a value and an allowed range for that 
+ *  The Range class holds a value and an allowed range for that 
  *  value, defined by a <code>minimum</code> and <code>maximum</code> properties. 
  *  The <code>value</code> property 
  *  is always constrained to be between the current <code>minimum</code> and
@@ -27,18 +27,18 @@ import mx.events.FlexEvent;
  *  then <code>value</code> is also constrained to be a multiple of 
  *  <code>valueInterval</code>.
  * 
- *  <p>FxRange is a base class for various controls that require range
- *  functionality, including FxTrackBase and FxSpinner.</p>
+ *  <p>Range is a base class for various controls that require range
+ *  functionality, including TrackBase and Spinner.</p>
  * 
- *  @see mx.components.baseClasses.FxTrackBase
- *  @see mx.components.FxSpinner
+ *  @see mx.components.baseClasses.TrackBase
+ *  @see mx.components.Spinner
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */  
-public class FxRange extends FxComponent
+public class Range extends SkinnableComponent
 {
     include "../../core/Version.as";
 
@@ -56,7 +56,7 @@ public class FxRange extends FxComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxRange():void
+    public function Range():void
     {
         super();
     }
@@ -347,7 +347,7 @@ public class FxRange extends FxComponent
     /**
      *  Rounds a value to the closest multiple of  
      *  the specified interval, and constrains the result to the range 
-     *  defined by the FxRange object. 
+     *  defined by the Range object. 
      * 
      *  @param value The value to round.
      * 
