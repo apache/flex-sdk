@@ -52,7 +52,11 @@ public class GridDimensions
      *      }
      *      argArray.splice(0, 0, startIndex, 0);
      *      vec.splice.apply(vec, argArray);
-     *  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public static function insertValuesToVector(vec:Vector.<Number>, startIndex:int, values:Vector.<Number>):void
     {
@@ -76,6 +80,11 @@ public class GridDimensions
     /**
      *  Insert count elements of the specified value starting from
      *  startIndex.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public static function insertValueToVector(vec:Vector.<Number>, startIndex:int, count:int, value:Number):void
     {
@@ -94,6 +103,11 @@ public class GridDimensions
     /**
      *  Sets all of the numbers in a vector to be value unless otherwise
      *  specified.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public static function clearVector(vec:Vector.<Number>, value:Number, startIndex:int = 0, count:int = -1):void
     {
@@ -123,7 +137,7 @@ public class GridDimensions
     //
     //--------------------------------------------------------------------------
 
-    public var rowList:GridRowList = new GridRowList();
+    private var rowList:GridRowList = new GridRowList();
     private var _columnWidths:Vector.<Number> = new Vector.<Number>();
 
     //cache for cumulative y values.
@@ -144,7 +158,12 @@ public class GridDimensions
     //--------------------------------------------------------------------------
     
     /**
-     *  Constructor
+     *  Constructor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function GridDimensions()
     {
@@ -166,6 +185,11 @@ public class GridDimensions
     /**
      *  The number of rows in the Grid. If this is decreased, the 
      *  excess rows will be removed.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get rowCount():int
     {
@@ -195,8 +219,13 @@ public class GridDimensions
     private var _columnCount:int = 0;
     
     /**
-     *  The number of columns in the Grid. If this is decreased, the 
-     *  excess columns will be removed.
+     *  The number of columns in the Grid.
+     *  Setting this property will clear the cache.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get columnCount():int
     {
@@ -205,9 +234,6 @@ public class GridDimensions
     
     /**
      *  @private
-     * 
-     *  Clears the cache and resets GridDimensions such that the
-     *  number of columns is value.
      */
     public function set columnCount(value:int):void
     {
@@ -240,6 +266,11 @@ public class GridDimensions
      *  The gap between rows.
      * 
      *  @default 0 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get rowGap():Number
     {
@@ -270,7 +301,12 @@ public class GridDimensions
     /**
      *  The gap between columns.
      * 
-     *  @default 0 
+     *  @default 0
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
      */
     public function get columnGap():Number
     {
@@ -308,6 +344,11 @@ public class GridDimensions
      *  defaultRowHeight.</p>
      *
      *  @default NaN
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get defaultRowHeight():Number
     {
@@ -337,6 +378,11 @@ public class GridDimensions
     /**
      *  The default width of a column.
      *  If this changes, update the ASDoc for GridLayout/getItemRendererAt().
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public var defaultColumnWidth:Number = 150;
     
@@ -347,6 +393,11 @@ public class GridDimensions
     /**
      *  If variableRowHeight is false, calling getRowHeight
      *  will return the value of defaultRowHeight.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public var variableRowHeight:Boolean = false;  // default value must match Grid property default value
     
@@ -360,6 +411,11 @@ public class GridDimensions
      *  The minimum height of each row.
      * 
      *  @default 0
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get minRowHeight():Number
     {
@@ -388,6 +444,11 @@ public class GridDimensions
      *  The maximum height of each row.
      * 
      *  @default 10000
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get maxRowHeight():Number
     {
@@ -408,18 +469,22 @@ public class GridDimensions
 
     //--------------------------------------------------------------------------
     //
-    //  Class methods
+    //  Methods
     //
     //--------------------------------------------------------------------------
 
     /**
-     *  Returns the height of the row at the given index. Returns the
-     *  fixedRowHeight if set. If not, returns the height specified by
-     *  setRowHeight. If no height has been specified, returns the
-     *  natural height of the row (maximum height of its cells. If the
-     *  cells haven't been cached, returns defaultRowHeight.
-     *  The return value is always bounded by the minRowHeight and
-     *  maxRowHeight.
+     *  Returns the height of the row at the given index. If variableRowHeight
+     *  is true, then the height in precendence order is: the height set by setRowHeight,
+     *  the natural height of the row (determined by the maximum of its cell heights),
+     *  and defaultRowHeight. If variableRowHeight is false, then the height returned
+     *  is the defaultRowHeight. The returned height is always bounded by the minRowHeight
+     *  and maxRowHeight.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getRowHeight(row:int):Number
     {
@@ -444,8 +509,13 @@ public class GridDimensions
     /**
      *  Sets the height of a given row. This height takes precedence over
      *  the natural height of the row (determined by the maximum of its 
-     *  cell heights) and the defaultRowHeight. However, fixedRowHeight
-     *  takes precedence over this height.
+     *  cell heights) and the defaultRowHeight. However, if variableRowHeight
+     *  is true, this method has no effect.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function setRowHeight(row:int, height:Number):void
     {
@@ -472,6 +542,11 @@ public class GridDimensions
      *  the width specified by setColumnWidth. If no width has been
      *  specified, returns the typical width. If no typical width has
      *  been set, it returns the defaultColumnWidth.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getColumnWidth(col:int):Number
     {    
@@ -490,17 +565,26 @@ public class GridDimensions
     
     /**
      *  Sets the width of a given column.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function setColumnWidth(col:int, width:Number):void
     {
-        // out of bounds col will throw an error..should we handle it?
         _columnWidths[col] = width;
     }
 
     /**
      *  Returns the height of the specified cell. Returns the height
-     *  set by setCellHeight. If the height has not been specified,
+     *  specified by setCellHeight. If the height has not been specified,
      *  returns NaN.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getCellHeight(row:int, col:int):Number
     {
@@ -514,6 +598,11 @@ public class GridDimensions
     
     /**
      *  Sets the height of the specified cell.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function setCellHeight(row:int, col:int, height:Number):void
     {
@@ -541,6 +630,11 @@ public class GridDimensions
     /**
      *  Returns the layout bounds of the specified cell. The cell height
      *  and width are determined by its row's height and column's width.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getCellBounds(row:int, col:int):Rectangle
     {
@@ -559,6 +653,11 @@ public class GridDimensions
     
     /**
      *  Returns the X coordinate of the origin of the specified cell.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getCellX(row:int, col:int):Number
     {   
@@ -574,6 +673,11 @@ public class GridDimensions
     
     /**
      *  Returns the Y coordinate of the origin of the specified cell.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getCellY(row:int, col:int):Number
     { 
@@ -605,6 +709,7 @@ public class GridDimensions
     }
 
     /**
+     *  @private
      *  Returns the starting y value of the specified row. The row must be before
      *  startNode.
      *  
@@ -653,6 +758,7 @@ public class GridDimensions
     }
     
     /**
+     *  @private
      *  Returns the starting y value of the specified row. The row must be after
      *  startNode.
      *  
@@ -706,6 +812,11 @@ public class GridDimensions
     
     /**
      *  Returns the layout bounds of the specified row.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getRowBounds(row:int):Rectangle
     {
@@ -727,6 +838,11 @@ public class GridDimensions
      *  Return the dimensions of a row that's being used to "pad" the grid
      *  by filling unused space below the last row in a layout where all rows
      *  are visible.  Pad rows have index >= rowCount, height = defaultRowHeight.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getPadRowBounds(row:int):Rectangle
     {
@@ -759,6 +875,11 @@ public class GridDimensions
     
     /**
      *  Returns the layout bounds of the specified column.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getColumnBounds(col:int):Rectangle
     {
@@ -783,6 +904,11 @@ public class GridDimensions
      * 
      *  @return The index of the row at the coordinates provided. If the
      *  coordinates are out of bounds, return -1.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getRowIndexAt(x:Number, y:Number):int
     {
@@ -819,6 +945,7 @@ public class GridDimensions
     }
     
     /**
+     *  @private
      *  Checks if a certain y value lies in a row's bounds.
      */
     private function isYInRow(y:Number, startY:Number, node:GridRowNode):Boolean
@@ -837,6 +964,7 @@ public class GridDimensions
     }
     
     /**
+     *  @private
      *  Returns the index of the row that contains the specified y value.
      *  The row will be before startNode.
      *  
@@ -899,6 +1027,7 @@ public class GridDimensions
     }
     
     /**
+     *  @private
      *  Returns the index of the row that contains the specified y value.
      *  The row will be after startNode.
      *  
@@ -978,6 +1107,11 @@ public class GridDimensions
      *  Returns the index of the column at the specified coordinates. If
      *  the coordinates lie in a gap area, the index returned is the
      *  previous column. Returns -1 if the coordinates are out of bounds.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getColumnIndexAt(x:Number, y:Number):int
     {
@@ -1013,6 +1147,11 @@ public class GridDimensions
      *  Returns the total layout width of the content including gaps.   If 
 	 *  columnCountOverride is specified, then the overall width of as many columns
 	 *  is returned.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getContentWidth(columnCountOverride:int = -1):Number
     {
@@ -1059,6 +1198,11 @@ public class GridDimensions
      *  Returns the total layout height of the content including gaps.  If 
 	 *  rowHeightOverride is specified, then the overall height of as many rows
 	 *  is returned.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getContentHeight(rowCountOverride:int = -1):Number
     {
@@ -1090,6 +1234,11 @@ public class GridDimensions
      *  Returns the sum of the typical cell widths including gaps.  If 
 	 *  columnCountOverride is specified, then the overall typicalCellWidth 
      *  of as many columns is returned. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getTypicalContentWidth(columnCountOverride:int = -1):Number
     {
@@ -1121,6 +1270,11 @@ public class GridDimensions
      *  Returns the content height which is maximum cell height of the
      *  typical item times the total number of rows including gaps. 
      *  If rowCountOverride is specified, then we only include that many rows.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getTypicalContentHeight(rowCountOverride:int = -1):Number
     {
@@ -1139,6 +1293,11 @@ public class GridDimensions
     /**
      *  Return the preferred bounds width of the grid's typicalItem when rendered with the item renderer 
      *  for the specified column.  If no value has yet been specified, return NaN.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getTypicalCellWidth(columnIndex:int):Number
     {
@@ -1147,6 +1306,11 @@ public class GridDimensions
     
     /**
      *  Sets the preferred bounds width of the grid's typicalItem for the specified column.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function setTypicalCellWidth(columnIndex:int, value:Number):void
     {
@@ -1156,6 +1320,11 @@ public class GridDimensions
     /**
      *  Return the preferred bounds height of the grid's typicalItem when rendered with the item renderer 
      *  for the specified column.  If no value has yet been specified, return NaN.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */    
     public function getTypicalCellHeight(columnIndex:int):Number
     {
@@ -1164,6 +1333,11 @@ public class GridDimensions
     
     /**
      *  Sets the preferred bounds height of the grid's typicalItem for the specified column.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */    
     public function setTypicalCellHeight(columnIndex:int, value:Number):void
     {
@@ -1181,6 +1355,11 @@ public class GridDimensions
     
     /**
      *  Clears the typical cell for every column and row.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function clearTypicalCellWidthsAndHeights():void
     {
@@ -1188,11 +1367,22 @@ public class GridDimensions
         clearVector(typicalCellHeights, NaN);
         maxTypicalCellHeight = NaN;
     }
-        
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods for handling dataProvider and column list changes
+    //
+    //--------------------------------------------------------------------------
+    
     /**
      *  Inserts count number of rows starting from startRow. This shifts
      *  any rows after startRow down by count and will increment 
      *  rowCount.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function insertRows(startRow:int, count:int):void
     {
@@ -1203,6 +1393,11 @@ public class GridDimensions
      *  Inserts count number of columns starting from startColumn. This
      *  shifts any columns after startColumn down by count and will
      *  increment columnCount. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function insertColumns(startColumn:int, count:int):void
     {
@@ -1228,6 +1423,11 @@ public class GridDimensions
      *  Removes count number of rows starting from startRow. This
      *  shifts any rows after startRow up by count and will
      *  decrement rowCount.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function removeRows(startRow:int, count:int):void
     {
@@ -1238,6 +1438,11 @@ public class GridDimensions
      *  Removes count number of columns starting from startColumn. This
      *  shifts any columns after startColumn up by count and will
      *  decrement columnCount.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function removeColumns(startColumn:int, count:int):void
     {
@@ -1274,6 +1479,11 @@ public class GridDimensions
     /**
      *  Removes any nodes that occupy the indices between startRow
      *  and startRow + count.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function clearRows(startRow:int, count:int):void
     {
@@ -1302,6 +1512,11 @@ public class GridDimensions
     /**
      *  Clears any columns that occupy the indices between startColumn
      *  and startColumn + count.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function clearColumns(startColumn:int, count:int):void
     {
@@ -1322,6 +1537,11 @@ public class GridDimensions
     /**
      *  Moves count number of rows from the fromRow index to the toRow
      *  index. This operation will not affect rowCount.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function moveRows(fromRow:int, toRow:int, count:int):void
     {
@@ -1340,6 +1560,11 @@ public class GridDimensions
     /**
      *  Moves count number of columns from the fromCol index to the toCol
      *  index. This operation will not affect colCount.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function moveColumns(fromCol:int, toCol:int, count:int):void
     {
@@ -1355,6 +1580,11 @@ public class GridDimensions
     
     /**
      *  Removes all cells and sets rowCount to 0.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function clear():void
     {
@@ -1367,6 +1597,7 @@ public class GridDimensions
     }
     
     /**
+     *  @private
      *  Inserts count number of rows starting from startRow. This will increment 
      *  rowCount. If the nodes parameter is set, the nodes will be inserted
      *  to the rowList.
@@ -1416,6 +1647,7 @@ public class GridDimensions
     }
     
     /**
+     *  @private
      *  Removes count number of rows starting from startRow. This will
      *  decrement rowCount. Returns any removed nodes.
      */
@@ -1456,6 +1688,11 @@ public class GridDimensions
     
     /**
      *  Handles changes in the dataProvider.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function dataProviderCollectionChanged(event:CollectionEvent):void 
     {
@@ -1508,6 +1745,11 @@ public class GridDimensions
     
     /**
      *  Handles changes in columns.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function columnsCollectionChanged(event:CollectionEvent):void
     {
@@ -1553,11 +1795,12 @@ public class GridDimensions
     }
     
     /**
+     *  @private
      *  For debugging purposes.
      */
     public function toString():String
     {
-        // TODO: Build really useful string here.
+        // TODO (klin): Build really useful string here.
         return rowList.toString();
     }
 }
