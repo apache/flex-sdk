@@ -13,6 +13,12 @@ package spark.effects
 import flash.utils.ByteArray;
    
 /**
+ *  The CrossFade effect uses Pixel Bender, 
+ *  which is not supported for AIR mobile applications.
+ */
+[DiscouragedForProfile("mobileDevice")]
+
+/**
  * The CrossFade effect performs a bitmap transition effect by running a
  * <i>crossfade</i> between the first and second bitmaps.
  * The crossfade blends the two bitmaps over the duration of the 
