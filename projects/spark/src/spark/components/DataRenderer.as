@@ -28,9 +28,9 @@ import mx.events.FlexEvent;
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
 /**
- *  The base class for data components in Spark. 
+ *  The DataRenderer class is the base class for data components in Spark. 
  *
- *  <p>Note: This class may be removed in a later release.</p>
+ *  <p><b>Note:</b> This class may be removed in a later release.</p>
  *
  *  @mxml <p>The <code>&lt;s:DataRenderer&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
@@ -60,6 +60,14 @@ public class DataRenderer extends Group implements IDataRenderer
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function DataRenderer()
     {
         super();
