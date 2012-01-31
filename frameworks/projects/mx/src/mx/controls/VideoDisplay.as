@@ -48,6 +48,18 @@ include "../styles/metadata/BorderStyles.as"
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
+ *  Radius of component corners.
+ *  
+ *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo")]
+
+/**
  *  Dispatched when the NetConnection object is closed, whether by timing
  *  out or by calling the <code>close()</code> method.
  *  You use this event when working with Flash Media Server.
