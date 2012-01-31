@@ -218,7 +218,7 @@
 		</asdoc>
 
 		<!-- updates rpc.swc with asdoc xml -->
-		<zip destfile="${FLEX_HOME}/frameworks/locale/rpc_rb.swc" update="true">
+		<zip destfile="${FLEX_HOME}/frameworks/locale/en_US/rpc_rb.swc" update="true">
 		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
 			    <include name="*.*"/>
 				<exclude name="ASDoc_Config.xml"/>
