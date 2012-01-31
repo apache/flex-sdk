@@ -1828,6 +1828,7 @@ public class Menu extends List implements IFocusManagerContainer
         var menu:Menu = Menu(event.target);
         if (!event.isDefaultPrevented() && event.menu == menu)
         {
+            menu.supposedToLoseFocus = true;
             PopUpManager.removePopUp(menu);
             menu.removeEventListener(MenuEvent.MENU_HIDE, menuHideHandler);
         }
