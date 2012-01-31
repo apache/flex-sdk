@@ -15,7 +15,6 @@ package mx.components
 import flash.display.DisplayObject;
 import flash.display.InteractiveObject;
 import flash.events.ContextMenuEvent;
-import flash.events.ErrorEvent;
 import flash.events.Event;
 import flash.external.ExternalInterface;
 import flash.net.URLRequest;
@@ -25,18 +24,12 @@ import flash.ui.ContextMenu;
 import flash.ui.ContextMenuItem;
 import flash.utils.setInterval;
 import mx.core.ApplicationGlobals;
-import mx.core.EdgeMetrics;
-import mx.core.IFlexDisplayObject;
 import mx.core.Singleton;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
-import mx.effects.EffectManager;
-import mx.events.FlexEvent;
-import mx.layout.VerticalLayout;
 import mx.managers.FocusManager;
 import mx.managers.ILayoutManager;
 import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 
@@ -103,12 +96,9 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;Application
  *    <strong>Properties</strong>
- *    application="<i>No default</i>"
  *    frameRate="24"
- *    historyManagementEnabled="true|false"
  *    pageTitle"<i>No default</i>"
  *    preloader="<i>No default</i>"
- *    resetHistory="false|true"
  *    scriptRecursionLimit="1000"
  *    scriptTimeLimit="60"
  *    usePreloader="true|false"
@@ -131,38 +121,6 @@ public class FxApplication extends FxContainer
     //  Class properties
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  A reference to the top-level application.
-     *
-     *  <p>In general, there can be a hierarchy of Application objects,
-     *  because an Application can use a SWFLoader control to dynamically
-     *  load another Application.
-     *  You can use the <code>parentApplication</code> property of a UIComponent object 
-     *  to access the sub-Application in which that UIComponent lives,
-     *  and to walk up the hierarchy to the top-level Application.</p>
-     *
-     *  <p>Note: There are two reasons why <code>application</code> is typed as Object
-     *  rather than as Application. 
-     *  The first reason is for consistency with
-     *  the <code>parentApplication</code> property of UIComponent. 
-     *  That property is not typed as Application because it would make 
-     *  the UIComponent class dependent
-     *  on Application, slowing down compile times not only for SWCs
-     *  for also for MXML and AS components. 
-     *  Second, if it were typed as Application, you would not be able to access properties
-     *  and methods in the <code>&lt;Script&gt;</code> block 
-     *  of an <code>&lt;Application&gt;</code> tag without
-     *  casting it to the application's subclass, as the following example shows:</p>
-     * 
-     *  <pre>
-     *  MyApplication(Application.application).myAppMethod(). </pre>
-     *
-     */
-    public static function get application():Object
-    {
-        return ApplicationGlobals.application;
-    }
 
     //--------------------------------------------------------------------------
     //
@@ -265,7 +223,7 @@ public class FxApplication extends FxContainer
         
         dispatchEvent(new Event("backgroundColorUpdated"));
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Compile-time pseudo-properties
@@ -391,7 +349,7 @@ public class FxApplication extends FxContainer
     override public function get id():String
     {
         if (!super.id &&
-            this == FxApplication.application && 
+            this == ApplicationGlobals.application && 
             ExternalInterface.available)
         {
             return ExternalInterface.objectID;
@@ -460,26 +418,6 @@ public class FxApplication extends FxContainer
     //
     //--------------------------------------------------------------------------
 
-    // TODO (rfrishbe): remove historyManagementEnabled and resetHistory.
-    // Right now there are a few too many dependencies on these properties
-    // and on Application in general.  
-    // Dependencies are: BrowserManagerImpl.init, HistoryManagerImpl.submitQuery
-    // FlexPrintJob.addObject (3 places).
-
-    //----------------------------------
-    //  historyManagementEnabled
-    //----------------------------------
-
-    [Inspectable(defaultValue="true")]
-
-    /**
-     *  If <code>false</code>, the history manager will be disabled.
-     *  Setting to false is recommended when using the BrowserManager.
-     *
-     *  @default true
-     */
-    public var historyManagementEnabled:Boolean = true;
-
     //----------------------------------
     //  parameters
     //----------------------------------
@@ -507,28 +445,6 @@ public class FxApplication extends FxContainer
         return _parameters;
     }
 
-    //----------------------------------
-    //  resetHistory
-    //----------------------------------
-
-    [Inspectable(defaultValue="true")]
-
-    /**
-     *  If <code>true</code>, the application's history state is reset
-     *  to its initial state whenever the application is reloaded.
-     *  Applications are reloaded when any of the following occurs:
-     *  <ul>
-     *    <li>The user clicks the browser's Refresh button.</li>
-     *    <li>The user navigates to another web page, and then clicks
-     *    the browser's Back button to return to the Flex application.</li>
-     *    <li>The user loads a Flex application from the browser's
-     *    Favorites or Bookmarks menu.</li>
-     *  </ul>
-     *
-     *  @default true
-     */
-    public var resetHistory:Boolean = true;
-    
     //----------------------------------
     //  url
     //----------------------------------
