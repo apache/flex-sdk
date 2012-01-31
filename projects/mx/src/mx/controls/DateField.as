@@ -30,6 +30,7 @@ import mx.controls.listClasses.ListData;
 import mx.core.ClassFactory;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
+import mx.core.LayoutDirection;
 import mx.core.mx_internal;
 import mx.core.UIComponentGlobals;
 import mx.events.CalendarLayoutChangeEvent;
@@ -2274,7 +2275,8 @@ public class DateField extends ComboBase
         //var point = {};
         // point x will exactly appear on the icon.
         // Leaving 1 pixel for the border to appear.
-        var xPos:Number = (layoutDirection == "rtl" ? dropdown.getExplicitOrMeasuredWidth() : 0) 
+        var xPos:Number = (layoutDirection == LayoutDirection.RTL ? 
+                          dropdown.getExplicitOrMeasuredWidth() : 0) 
                           + unscaledWidth - downArrowButton.width; 
         
         var point:Point = new Point(xPos, 0);
