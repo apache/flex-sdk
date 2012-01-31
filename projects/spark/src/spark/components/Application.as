@@ -1132,6 +1132,9 @@ public class Application extends SkinnableContainer
      *  the stage is considered to be in "landscape" orientation.  Otherwise,
      *  portrait is returned.
      *  
+	 *  @return This method will return "landscape" if the application is
+	 *  in a landsacpe orientation, and "portrait" otherwise.
+	 * 
      *  @langversion 3.0
      *  @playerversion Flash 10.2
      *  @playerversion AIR 2.5
@@ -1139,9 +1142,15 @@ public class Application extends SkinnableContainer
      */
     public function get aspectRatio():String
     {
-        // TODO (chiedozi): Should use StageAspectRatio enums once added to player or
-        // create new enum class
-        return width > height ? "landscape" : "portrait";
+		var actualHeight:Number = height;
+
+		// If the application has resized itself in response to the
+		// softKeyboard becoming visible, we need to compare against
+		// the height without the keyboard active
+		if (isSoftKeyboardActive && softKeyboardBehavior == "none" && resizeForSoftKeyboard)
+			actualHeight += stage.softKeyboardRect.height;
+		
+        return width > actualHeight ? "landscape" : "portrait";
     }
     
     //----------------------------------
