@@ -27,6 +27,8 @@ import flash.geom.Vector3D;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.DesignLayer;
 import mx.core.FlexSprite;
+import mx.core.IFlexModule;
+import mx.core.IFlexModuleFactory;
 import mx.core.IID;
 import mx.core.IInvalidating;
 import mx.core.IUIComponent;
@@ -55,7 +57,7 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 public class SpriteVisualElement extends FlexSprite 
-    implements IVisualElement, IID
+    implements IVisualElement, IID, IFlexModule
 {
     /**
      *  Constructor.
@@ -699,6 +701,54 @@ public class SpriteVisualElement extends FlexSprite
         _id = value;
     }
 
+    //----------------------------------
+    //  moduleFactory
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the moduleFactory property.
+     */
+    private var _moduleFactory:IFlexModuleFactory;
+    
+    [Inspectable(environment="none")]
+    
+    /**
+     *  A module factory is used as context for using embeded fonts and for
+     *  finding the style manager that controls the styles for this 
+     *  component. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    public function get moduleFactory():IFlexModuleFactory
+    {
+        return _moduleFactory;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        var n:int = numChildren;
+        for (var i:int = 0; i < n; i++)
+        {
+            var child:IFlexModule = getChildAt(i) as IFlexModule;
+            if (!child)
+                continue;
+            
+            if (child.moduleFactory == null || child.moduleFactory == _moduleFactory)
+            {
+                child.moduleFactory = factory;
+            }
+        }
+        
+        _moduleFactory = factory;
+    }
+    
     //----------------------------------
     //  owner
     //----------------------------------
