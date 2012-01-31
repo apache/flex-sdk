@@ -421,7 +421,7 @@ public class Application extends LayoutContainer
     // allowed on the <mx:Application> tag. These attributes affect the MXML
     // compiler, but they aren't actually used in the runtime framework.
     // The declarations appear here in order to provide metadata about these
-    // attributes for FlexBuilder.
+    // attributes for Flash Builder.
 
     //----------------------------------
     //  frameRate
