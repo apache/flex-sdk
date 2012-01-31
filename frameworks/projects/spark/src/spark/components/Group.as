@@ -25,6 +25,14 @@ import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.graphics.shaderClasses.ColorBurnShader;
+import mx.graphics.shaderClasses.ColorDodgeShader;
+import mx.graphics.shaderClasses.ColorShader;
+import mx.graphics.shaderClasses.ExclusionShader;
+import mx.graphics.shaderClasses.HueShader;
+import mx.graphics.shaderClasses.LuminosityShader;
+import mx.graphics.shaderClasses.SaturationShader;
+import mx.graphics.shaderClasses.SoftLightShader;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
@@ -34,14 +42,6 @@ import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.ISharedDisplayObject;
 import spark.events.ElementExistenceEvent;
-import spark.primitives.supportClasses.shaders.ColorBurnShader;
-import spark.primitives.supportClasses.shaders.ColorDodgeShader;
-import spark.primitives.supportClasses.shaders.ColorShader;
-import spark.primitives.supportClasses.shaders.ExclusionShader;
-import spark.primitives.supportClasses.shaders.HueShader;
-import spark.primitives.supportClasses.shaders.LuminosityShader;
-import spark.primitives.supportClasses.shaders.SaturationShader;
-import spark.primitives.supportClasses.shaders.SoftLightShader;
 
 use namespace mx_internal;
 
@@ -387,11 +387,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             // If one of the non-native Flash blendModes is set, 
             // record the new value and set the appropriate 
             // blendShader on the display object. 
-            if (value == "colordodge" || 
-                value =="colorburn" || value =="exclusion" || 
-                value =="softlight" || value =="hue" || 
-                value =="saturation" || value =="color" ||
-                value =="luminosity")
+            if (isAIMBlendMode(value))
             {
                 blendShaderChanged = true;
             }
@@ -739,19 +735,27 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         if (blendModeChanged)
         {
             blendModeChanged = false;
-            if (!blendShaderChanged)
+            
+            // Figure out the correct blendMode value
+            // to set. 
+            if (_blendMode == "auto")
             {
-                if (_blendMode == "auto")
-                {
-                    if (alpha == 0 || alpha == 1) 
-                        super.blendMode = BlendMode.NORMAL;
-                    else
-                        super.blendMode = BlendMode.LAYER;
-                }
-                else 
-                    super.blendMode = _blendMode; 
+                if (alpha == 0 || alpha == 1) 
+                    super.blendMode = BlendMode.NORMAL;
+                else
+                    super.blendMode = BlendMode.LAYER;
             }
-            else
+            else if (!isAIMBlendMode(_blendMode))
+            {
+                super.blendMode = _blendMode;
+            }
+                // The blendMode is neither a native value, 
+                // or the 'auto' value so lets set blendMode 
+                // to normal.  
+            else 
+                super.blendMode = "normal"; 
+            
+            if (blendShaderChanged) 
             {
                 // The graphic element's blendMode was set to a non-Flash 
                 // blendMode. We mimic the look by instantiating the 
@@ -1085,6 +1089,20 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             
         if (index < 0 || index > maxIndex)
             throw new RangeError(resourceManager.getString("components", "indexOutOfRange", [index]));
+    }
+    
+    /**
+     * @private
+     */
+    private function isAIMBlendMode(value:String):Boolean
+    {
+        if (value == "colordodge" || 
+            value =="colorburn" || value =="exclusion" || 
+            value =="softlight" || value =="hue" || 
+            value =="saturation" || value =="color" ||
+            value =="luminosity")
+            return true; 
+        else return false; 
     }
  
     /**
