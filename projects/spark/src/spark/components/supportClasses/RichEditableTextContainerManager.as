@@ -234,18 +234,6 @@ public class RichEditableTextContainerManager extends TextContainerManager
     /**
      *  @private
      */
-    override public function setText(text:String):void
-    {
-        textDisplay.ignoreDamageEvent = true;
-        
-        super.setText(text);
-        
-        textDisplay.ignoreDamageEvent = false;
-    }
-
-    /**
-     *  @private
-     */
     override protected function createEditManager(
                         undoManager:flashx.undo.IUndoManager):IEditManager
     {
