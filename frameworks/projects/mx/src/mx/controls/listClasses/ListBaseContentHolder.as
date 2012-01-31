@@ -83,6 +83,7 @@ public class ListBaseContentHolder extends UIComponent
 
         setStyle("backgroundColor", "");
         setStyle("borderStyle", "none");
+        setStyle("borderSkin", null);
 
         // This invisible layer, which is a child of listContent
         // catches mouse events for all items
