@@ -17,7 +17,9 @@ import spark.primitives.supportClasses.TextGraphicElement;
 [IconFile("Panel.png")]
 
 /**
- *  The Panel class is container whose skin usually contains a title
+ *  The Panel class is container whose skin usually contains a title.
+ *
+ *  @includeExample examples/PanelExample.mxml
  *
  *  @see SkinnableContainer
  *  
