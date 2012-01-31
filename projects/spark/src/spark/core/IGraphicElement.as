@@ -18,7 +18,7 @@ import mx.core.IVisualElement;
 
 /**
  *  The <code>IGraphicElement</code> is implemented by IVisualElements that
- *  take advantage of the parent <code>Group's<code> <code>DisplayObject</code>
+ *  take advantage of the parent <code>Group's</code> <code>DisplayObject</code>
  *  management.
  *
  *  <p>One typical use case is <code>DisplayObject</code> sharing.  
@@ -83,7 +83,7 @@ public interface IGraphicElement extends IVisualElement
      *  of elements that share the same <code>DisplayObject</code>.
      * 
      *  A value of -1 indicates that this element doesn't
-     *  share its <code>displayObject<code> with other elements and its sequence
+     *  share its <code>displayObject</code> with other elements and its sequence
      *  doesn't contain any other elements.
      * 
      *  A value of 0 or greater indicates the position of this element in its
@@ -243,7 +243,7 @@ public interface IGraphicElement extends IVisualElement
      *  Called by the parent <code>Group</code> to redraw this element
      *  in its <code>displayObject</code> property.
      *
-     *  <p>If the element is the first in the sequence (<code>shareIndex</cpode>
+     *  <p>If the element is the first in the sequence (<code>shareIndex</code>
      *  is less than or equal to zero) it must clear the <code>displayObject</code>
      *  graphics and set it up as necessary for drawing the rest of the elements.</p>
      *
