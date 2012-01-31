@@ -1399,8 +1399,8 @@ public class RichEditableText extends UIComponent
         // is a selection.    
         if (getFocus() == this)
         {
-            content = value;
-            return;
+           content = importToFlow(value);
+           return;
         }
                     
         // Setting 'text' temporarily causes 'content' to become null.
@@ -1526,6 +1526,15 @@ public class RichEditableText extends UIComponent
         	selectionFormatsChanged = false;
         }
 
+        // If the text has line-ending sequences such as LF or CR+LF, 
+        // a TextFlow with multiple paragraph is produced as the 'content'. 
+        // Otherwise all of the multi-line text got stuffed into one span in 
+        // one paragraph. But when you have a large paragraph 
+        // (i.e., a large TextBlock), FTE is slow to break the first 
+        // TextLine because it analyzes all of the text first.       
+        if (textChanged && textHasLineBreaks())
+            content = importToFlow(_text);
+                          
         if (textChanged)
         {
         	if (debug)
@@ -2462,10 +2471,11 @@ public class RichEditableText extends UIComponent
      *  @private
      *  This will throw on import error.
      */
-    private function importToFlow(source:Object, format:String, 
+    private function importToFlow(source:Object, 
+                                  format:String = TextFilter.PLAIN_TEXT_FORMAT, 
                                   config:Configuration = null):TextFlow
     {
-        var importer:ITextImporter = TextFilter.getImporter(format);
+        var importer:ITextImporter = TextFilter.getImporter(format, config);
         
         // Throw import errors rather than return a null textFlow.
         // Alternatively, the error strings are in the Vector, importer.errors.
@@ -2474,6 +2484,15 @@ public class RichEditableText extends UIComponent
         return importer.importToFlow(source);        
     }
 
+    /**
+     *  @private
+     */
+    private function textHasLineBreaks():Boolean
+    {
+        return text.indexOf("\n") != -1 ||
+               text.indexOf("\r") != -1;
+    }
+    
     /**
      *  @private
      *  Is this a style associated with the SelectionFormat?
