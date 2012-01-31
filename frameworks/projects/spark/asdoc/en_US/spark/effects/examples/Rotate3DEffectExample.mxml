@@ -7,7 +7,7 @@
 
     <!-- Standalone effects must be declared in the "Declarations" tag in Flex 4 -->
     <fx:Declarations>
-        <s:Rotate3D id="rotateEffect" target="{targetBox}" angleXBy="180" angleYBy="180" duration="1000" autoCenterTransform="true"
+        <s:Rotate3D id="rotateEffect" target="{targetBox}" angleXFrom="0" angleXTo="180" angleYFrom="0" angleYTo="180" duration="1000" autoCenterTransform="true"
 	        effectStart="playButton.enabled=false" effectEnd="playButton.enabled=true;"/>
     </fx:Declarations>
 
