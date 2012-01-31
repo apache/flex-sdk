@@ -206,7 +206,7 @@ public class DropDownController extends EventDispatcher
      */ 
     private function addOpenTriggers():void
     {
-        // TODO (jszeto) Change this to be mouseDown. Figure out how to not 
+        // FIXME (jszeto): Change this to be mouseDown. Figure out how to not 
         // trigger systemManager_mouseDown.
         if (openButton)
         {
@@ -225,7 +225,7 @@ public class DropDownController extends EventDispatcher
      */ 
     private function removeOpenTriggers():void
     {
-        // TODO (jszeto) Change this to be mouseDown. Figure out how to not 
+        // FIXME (jszeto): Change this to be mouseDown. Figure out how to not 
         // trigger systemManager_mouseDown.
         if (openButton)
         {
@@ -244,7 +244,7 @@ public class DropDownController extends EventDispatcher
      */ 
     private function addCloseTriggers():void
     {
-        // TODO (jszeto) Change these to be marshall plan compliant
+        // FIXME (jszeto): Change these to be marshall plan compliant
         if (openButton)
         {
             if (isNaN(rollOverOpenDelay))
@@ -270,7 +270,7 @@ public class DropDownController extends EventDispatcher
      */ 
     private function removeCloseTriggers():void
     {
-        // TODO (jszeto) Change these to be marshall plan compliant
+        // FIXME (jszeto): Change these to be marshall plan compliant
         if (openButton)
         {
             if (isNaN(rollOverOpenDelay))
@@ -452,7 +452,7 @@ public class DropDownController extends EventDispatcher
         var target:DisplayObject = event.target as DisplayObject;
         
         // if the mouse is down, wait until it's released
-        // TODO (rfrishbe): Need to do something when they mouse up in 
+        // FIXME (rfrishbe): Need to do something when they mouse up in 
         // this case if they mouseup outside of the openButton/dropdown.
         if ((event is MouseEvent && MouseEvent(event).buttonDown) ||
             (event is SandboxMouseEvent && SandboxMouseEvent(event).buttonDown))
