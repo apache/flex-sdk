@@ -1984,9 +1984,22 @@ public class SpriteVisualElement extends FlexSprite
 	 */
 	public function getLayoutMatrix():Matrix
 	{
-		if (_layoutFeatures != null)
-		{
-			// esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+        if (_layoutFeatures != null || super.transform.matrix == null)
+        {
+            // TODO: this is a workaround for a situation in which the
+            // object is in 2D, but used to be in 3D and the player has not
+            // yet cleaned up the matrices. So the matrix property is null, but
+            // the matrix3D property is non-null. layoutFeatures can deal with
+            // that situation, so we allocate it here and let it handle it for
+            // us. The downside is that we have now allocated layoutFeatures
+            // forever and will continue to use it for future situations that
+            // might not have required it. Eventually, we should recognize
+            // situations when we can de-allocate layoutFeatures and back off
+            // to letting the player handle transforms for us.
+            if (_layoutFeatures == null)
+                initAdvancedLayoutFeatures();
+
+            // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
 			// since this is an internal class, we don't need to worry about developers
 			// accidentally messing with this matrix, _unless_ we hand it out. Instead,
 			// we hand out a clone.
@@ -2148,7 +2161,7 @@ public class SpriteVisualElement extends FlexSprite
                 xformPt.x = transformCenter.x;
                 xformPt.y = transformCenter.y;                
                 var xformedPt:Point = 
-                    super.transform.matrix.transformPoint(xformPt);
+                    transform.matrix.transformPoint(xformPt);
             }
             if (rotation != null && !isNaN(rotation.z))
                 this.rotation = rotation.z;
@@ -2172,7 +2185,7 @@ public class SpriteVisualElement extends FlexSprite
                 xformPt.x = transformCenter.x;
                 xformPt.y = transformCenter.y;                
                 var postXFormPoint:Point = 
-                    super.transform.matrix.transformPoint(xformPt);
+                    transform.matrix.transformPoint(xformPt);
                 if (translation != null)
                 {
                     x += translation.x - postXFormPoint.x;
@@ -2208,8 +2221,8 @@ public class SpriteVisualElement extends FlexSprite
 				xformPt.x = 0;
 				xformPt.y = 0;
 			}
-			var tmp:Point = (super.transform.matrix != null) ?
-				super.transform.matrix.transformPoint(xformPt) :
+			var tmp:Point = (transform.matrix != null) ?
+				transform.matrix.transformPoint(xformPt) :
 				xformPt;
 			if (position != null)
 			{            
