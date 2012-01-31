@@ -20,11 +20,11 @@ import flash.text.TextFormat;
 import flash.text.engine.FontLookup;
 import flash.text.engine.TextLine;
 
+import flashx.textLayout.compose.ITextLineCreator;
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
-import flashx.textLayout.elements.ITextLineCreator;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
@@ -128,7 +128,7 @@ public class RichText extends TextGraphicElement
 
         // Create a single Configuration used by all RichText instances.
         staticConfiguration = Configuration(
-        	StringTextLineFactory.defaultFactoryConfiguration).clone();
+        	StringTextLineFactory.defaultConfiguration).clone();
         staticConfiguration.textFlowInitialFormat = staticTextLayoutFormat;            
 
         // Create the factory used to create TextLines from 'text'.
@@ -305,11 +305,6 @@ public class RichText extends TextGraphicElement
      *  used to create the font.
      */
     mx_internal var embeddedFontContext:IFlexModuleFactory;
-
-    /**
-     *  @private
-     */
-    private var textLineCreator:ITextLineCreator;
 
     //--------------------------------------------------------------------------
     //
@@ -783,7 +778,12 @@ public class RichText extends TextGraphicElement
         mx_internal::embeddedFontContext = getEmbeddedFontContext();
         
         if (mx_internal::embeddedFontContext != oldEmbeddedFontContext)
-            textLineCreator = ITextLineCreator(mx_internal::embeddedFontContext);
+        {
+            staticTextFlowFactory.textLineCreator =
+                ITextLineCreator(mx_internal::embeddedFontContext)
+            staticStringFactory.textLineCreator = 
+                ITextLineCreator(mx_internal::embeddedFontContext)
+        }
         
         if (hostFormatChanged)
         {
@@ -803,7 +803,10 @@ public class RichText extends TextGraphicElement
             
             // There should always be a composer but be safe.
             if (textFlow.flowComposer)
-                textFlow.flowComposer.textLineCreator = textLineCreator;
+            {
+                textFlow.flowComposer.textLineCreator = 
+                    staticTextFlowFactory.textLineCreator;
+            }
         }
 
         return textFlow;
@@ -914,8 +917,8 @@ public class RichText extends TextGraphicElement
  		else
 		    return;
         
-        factory.bounds = mx_internal::bounds;   
-
+        factory.compositionBounds = mx_internal::bounds;   
+        
         // Set up the truncation options.
         var truncationOptions:TruncationOptions;
         if (truncation != 0)
@@ -929,18 +932,17 @@ public class RichText extends TextGraphicElement
 		
         if (textFlow)
         {
-            staticTextFlowFactory.createTextLines(
-            	addTextLine, textFlow, textLineCreator);
+            staticTextFlowFactory.createTextLines(addTextLine, textFlow);
         }
         else
         {
             // We know text is non-null since it got this far.
             staticStringFactory.text = mx_internal::_text;
             staticStringFactory.textFlowFormat = hostFormat;
-            staticStringFactory.createTextLines(addTextLine, textLineCreator);
+            staticStringFactory.createTextLines(addTextLine);
         }
         
-        mx_internal::bounds = factory.measuredBounds;
+        mx_internal::bounds = factory.contentBounds;
     }
 
     /**
