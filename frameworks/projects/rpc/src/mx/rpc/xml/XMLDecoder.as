@@ -51,6 +51,11 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
      * are wrapped to make them bindable. Objects are wrapped with
      * <code>mx.utils.ObjectProxy</code> and Arrays are wrapped with
      * <code>mx.collections.ArrayCollection</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get makeObjectsBindable():Boolean
     {
@@ -71,6 +76,11 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
      * to post process the decoded objects and identify which concrete
      * implementation of a potentially abstract type was used.
      * The default is false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get recordXSIType():Boolean
     {
@@ -85,6 +95,11 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
     /**
      * Maps XML Schema types by QName to ActionScript Classes in order to 
      * create strongly typed objects when decoding content.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get typeRegistry():SchemaTypeRegistry
     {
@@ -117,6 +132,11 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
      * @param definition If neither a top level element nor type exists in the
      * schema to describe how to decode this value, a custom element definition
      * can be provided.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function decode(xml:*, name:QName = null, type:QName = null, definition:XML = null):*
     {        
@@ -1784,6 +1804,11 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
      * Resets the decoder to its initial state, including resetting any 
      * Schema scope to the top level and releases the current XML document by
      * setting it to null.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function reset():void
     {
@@ -1974,6 +1999,11 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
      * the given name. If a single child element exists that contains simple
      * content, the simple content is returned unwrapped.
      * @see #parseValue
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getValue(parent:*, name:*, index:Number = -1):*
     {
@@ -2274,6 +2304,11 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
      * Tests whether a given namespace is included in a wildcard definition. If
      * no restrictions are provided the default behavior is to include all
      * namespaces.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function includeNamespace(namespaceURI:String, includedNamespaces:Array = null):Boolean
     {
@@ -2472,6 +2507,11 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
      *  If you need the package name as well, call the
      *  <code>getQualifiedClassName()</code> method in the flash.utils package.
      *  It will return a string such as <code>"mx.controls::Button"</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getUnqualifiedClassName(object:Object):String
     {
@@ -2502,11 +2542,21 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
      * The <code>mx.collections.IList</code> implementation to use when decoding
      * an array of values and <code>makeObjectsBindable</code> is set to true.
      * The default is <code>mx.collections.ArrayCollection</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static var listClass:Class = mx.collections.ArrayCollection;
 
     /**
      * The current, top level XML document to decode.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var document:XML;
     private var log:ILogger;
