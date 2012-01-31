@@ -20,6 +20,7 @@ import flash.geom.Vector3D;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
+import spark.components.Group;
 import spark.effects.animation.Animation;
 import spark.effects.animation.Keyframe;
 import spark.effects.animation.MotionPath;
@@ -679,12 +680,16 @@ public class AnimateTransformInstance extends AnimateInstance
                 setValue(motionPaths[i].property, 
                     anim.currentValue[motionPaths[i].property]);
         }
-        if (autoCenterTransform &&
-            (target.width != prevWidth || target.height != prevHeight))
+        if (autoCenterTransform)
         {
-            prevWidth = target.width;
-            prevHeight = target.height;
-            updateTransformCenter();
+            if (!disableLayout && target.parent is Group)
+                target.parent.validateNow();
+            if (target.width != prevWidth || target.height != prevHeight)
+            {
+                prevWidth = target.width;
+                prevHeight = target.height;
+                updateTransformCenter();
+            }
         }
         if (!isNaN(currentValues.scaleX) ||
             !isNaN(currentValues.scaleY) || 
