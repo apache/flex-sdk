@@ -19,12 +19,15 @@ package spark.components
      * 
      *  ISSUES:
      *  - Support auto-generation of numberLabel values?
-     * 
+     *  - Should we support developer overriding the layout defined value in columnWidths? 
+     *  If so, we need a seperate property or function like columnWidthsOverride
      * 
      */ 
     
     /**
-     *  TBD
+     *  SkinnableContainer with IFormItem children. It has a columnWidths property 
+     *  which is an array of numbers that correspond to the maximum width for 
+     *  each form column. Typically this is set by the FormLayout. 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -68,8 +71,7 @@ package spark.components
          *  @productversion Flex 4.5 
          */
         
-        // TODO Should we support developer overriding the layout defined value? 
-        // If so, we need a seperate property or function like columnWidthsOverride
+        // 
         public function get columnWidths():Vector.<Number>
         {
             return _columnWidths;
