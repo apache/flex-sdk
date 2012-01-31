@@ -16,8 +16,10 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
+import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.ui.Keyboard;
+import flash.utils.Timer;
 
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
@@ -259,6 +261,32 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
      */
     private var clickOffset:Point;  
         
+    /**
+     *  @private
+     *  Local coordinates of most recent mouse move.
+     */
+    private var mostRecentMousePoint:Point;
+    
+    /**
+     *  @private
+     *  Timer used to do drag scrolling.
+     */
+    private var dragTimer:Timer = null;
+    
+    /**
+     *  @private
+     *  True when there's a pending mouse move (stored in mostRecentMousePoint)
+     *  that needs to be handled in the dragTimer handler. 
+     */
+    private var dragPending:Boolean = false;
+
+    /**
+     *  @private
+     *  Maximum number of times per second we will change the slider position 
+     *  and update the display while dragging.
+     */
+    private static const MAX_DRAG_RATE:Number = 30;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -589,7 +617,7 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
     //  Overridden event handlers
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  @private
      */
@@ -635,16 +663,12 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
             updateDataTip(dataTipInstance, dataTipInitialPosition);
         }
     }
-
+    
     /**
      *  @private
      */
-    override protected function system_mouseMoveHandler(event:MouseEvent):void
-    {      
-        if (!track)
-            return;
-        
-        var p:Point = track.globalToLocal(new Point(event.stageX, event.stageY));
+    private function handleMousePoint(p:Point):void
+    {
         var newValue:Number = pointToValue(p.x - clickOffset.x, p.y - clickOffset.y);
         newValue = nearestValidValue(newValue, snapInterval);
         
@@ -661,7 +685,7 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
                 pendingValue = newValue;
             }
         }
-                  
+        
         if (dataTipInstance && showDataTip)
         { 
             dataTipInstance.data = formatDataTipText(pendingValue);
@@ -674,18 +698,93 @@ public class SliderBase extends TrackBase implements IFocusManagerComponent
                 tipAsUIComponent.validateNow();
                 tipAsUIComponent.setActualSize(tipAsUIComponent.getExplicitOrMeasuredWidth(),tipAsUIComponent.getExplicitOrMeasuredHeight());
             }
-            
+
             updateDataTip(dataTipInstance, dataTipInitialPosition);
         }
-        
-        event.updateAfterEvent();
     }
-    
+
+    /**
+     *  @private
+     */
+    override protected function system_mouseMoveHandler(event:MouseEvent):void
+    {      
+        if (!track)
+            return;
+
+        mostRecentMousePoint = track.globalToLocal(new Point(event.stageX, event.stageY));
+        if (!dragTimer)
+        {
+            dragTimer = new Timer(1000/MAX_DRAG_RATE, 0);
+            dragTimer.addEventListener(TimerEvent.TIMER, dragTimerHandler);
+        }
+        
+        if (!dragTimer.running)
+        {
+            // This changes the slider value and invalidates the display list.
+            handleMousePoint(mostRecentMousePoint);
+            event.updateAfterEvent();
+
+            // Start the periodic timer that will do subsequent drag 
+            // scrolling if necessary. 
+            dragTimer.start();
+            
+            // No additional mouse events received yet, so no scrolling pending.
+            dragPending = false;
+        }
+        else
+        {
+            dragPending = true;
+        }
+    }
+        
+    /**
+     *  @private
+     *  Used to periodically change the slider value during a drag gesture.
+     */
+    private function dragTimerHandler(event:TimerEvent):void
+    {
+        if (dragPending)
+        {
+            // This changes the slider value and invalidates the display list.
+            handleMousePoint(mostRecentMousePoint);
+
+            // Call updateAfterEvent() to make sure it looks smooth
+            event.updateAfterEvent();
+            
+            // No scroll is pending now. 
+            dragPending = false;
+        }
+        else
+        {
+            // The timer elapsed with no mouse events, so we'll
+            // just turn the timer off for now.  It will get turned
+            // back on if another mouse event comes in.
+            dragTimer.stop();
+        }
+    }
+        
     /**
      *  @private
      */
     override protected function system_mouseUpHandler(event:Event):void
     {
+        if (dragTimer)
+        {
+            if (dragPending)
+            {
+                // This changes the slider value and invalidates the display list.
+                handleMousePoint(mostRecentMousePoint);
+                
+                // Call updateAfterEvent() to make sure it looks smooth
+                if (event is MouseEvent)
+                    MouseEvent(event).updateAfterEvent();
+            }
+            // The drag gesture is over, so we no longer need the timer.
+            dragTimer.stop();
+            dragTimer.removeEventListener(TimerEvent.TIMER, dragTimerHandler);
+            dragTimer = null;
+        }
+        
         if ((getStyle("liveDragging") === false) && (value != pendingValue))
         {
             setValue(pendingValue);
