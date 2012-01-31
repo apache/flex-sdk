@@ -13,8 +13,9 @@ package mx.messaging.channels.amfx
 {
 
 import flash.utils.ByteArray;
-import flash.utils.describeType;
+import flash.utils.Dictionary;
 import flash.utils.IExternalizable;
+import flash.utils.describeType;
 import flash.xml.XMLDocument;
 
 import mx.logging.Log;
@@ -56,10 +57,7 @@ public class AMFXEncoder
     private static function encodePacket(xml:XML, obj:Object, headers:Array = null, context:AMFXContext = null):void
     {
         if (headers)
-        {
             encodeHeaders(xml, headers, context);
-        }
-
         encodeBody(xml, obj, context);
     }
 
@@ -122,6 +120,10 @@ public class AMFXEncoder
                 if (context.log)
                     context.log.warn("Cannot serialize type Class");
             }
+            else if (obj is Dictionary)
+            {
+                encodeDictionary(xml, obj as Dictionary, context);
+            }
             else
             {
                 encodeObject(xml, obj, context);
@@ -149,8 +151,7 @@ public class AMFXEncoder
         }
         else
         {
-            //Remember array object
-            context.addObject(array);
+            rememberObject(context, array);
 
             element = <array />;
 
@@ -228,13 +229,9 @@ public class AMFXEncoder
     private static function encodeBoolean(xml:XML, bool:Boolean):void
     {
         if (bool)
-        {
             xml.appendChild(X_TRUE.copy());
-        }
         else
-        {
             xml.appendChild(X_FALSE.copy());
-        }
     }
 
 
@@ -259,8 +256,7 @@ public class AMFXEncoder
         }
         else
         {
-            //Remember date object
-            context.addObject(date);
+            rememberObject(context, date);
 
             element = <date />;
             element.appendChild(new XML(date.getTime().toString()));
@@ -284,6 +280,41 @@ public class AMFXEncoder
 
     }
 
+    private static function encodeDictionary(xml:XML, dict:Dictionary, context:AMFXContext):void
+    {
+        var ref:int = context.findObject(dict);
+        var element:XML;
+        if (ref >= 0)
+        {
+            element = <ref />;
+            element.@["id"] = String(ref);
+        }
+        else
+        {
+            rememberObject(context, dict);
+
+            element = <dictionary />;
+
+            var classInfo:Object = ObjectUtil.getClassInfo(dict, null, CLASS_INFO_OPTIONS);
+            var properties:Array = classInfo.properties;
+            var count:uint = properties.length;
+
+            for (var i:uint = 0; i < count; i++)
+            {
+                var prop:Object = properties[i];
+                encodeValue(element, prop, context);
+                encodeValue(element, dict[prop], context);
+            }
+        }
+        element.@["length"] = String(count);
+        xml.appendChild(element);
+    }
+
+    private static function rememberObject(context:AMFXContext, obj:*):void
+    {
+        context.addObject(obj);
+    }
+
     private static function encodeObject(xml:XML, obj:*, context:AMFXContext):void
     {
         var ref:int = context.findObject(obj);
@@ -295,8 +326,7 @@ public class AMFXEncoder
         }
         else
         {
-            //Remember object
-            context.addObject(obj);
+            rememberObject(context, obj);
 
             element = <object />;
 
