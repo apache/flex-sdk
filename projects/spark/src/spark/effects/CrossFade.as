@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects
+package spark.effects
 {
 import flash.utils.ByteArray;
    
@@ -27,26 +27,26 @@ import flash.utils.ByteArray;
  * to this effect since it uses its own by default. However, if
  * a different Crossfade behavior is desired, a different shader may be
  * supplied, as long as it adheres to the constraints specified 
- * for the <code>shaderCode</code> property of FxAnimateBitmap.</p>
+ * for the <code>shaderCode</code> property of AnimateBitmap.</p>
  * 
- * @see mx.effects.FxAnimateShaderTransition#shaderCode
+ * @see mx.effects.AnimateShaderTransition#shaderCode
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxCrossFade extends FxAnimateShaderTransition
+public class CrossFade extends AnimateShaderTransition
 {
-    [Embed(source="FxCrossFade.pbj", mimeType="application/octet-stream")]
+    [Embed(source="CrossFade.pbj", mimeType="application/octet-stream")]
     private static var CrossFadeShaderClass:Class;
     private static var crossFadeShaderCode:ByteArray = new CrossFadeShaderClass();
 
-    public function FxCrossFade(target:Object=null)
+    public function CrossFade(target:Object=null)
     {
         super(target);
-        // Note that we do not need a separate FxCrossFadeInstance; the only
-        // addition that FxCrossFade adds is specifying the Crossfade
+        // Note that we do not need a separate CrossFadeInstance; the only
+        // addition that CrossFade adds is specifying the Crossfade
         // Pixel Bender shader. Everything else needed is in the 
         // superclass already.
         shaderCode = crossFadeShaderCode;
