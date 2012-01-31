@@ -40,6 +40,7 @@ import spark.components.IGridRowBackground;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.primitives.supportClasses.GraphicElement;
 import spark.skins.spark.DefaultGridItemRenderer;
+import spark.skins.spark.DefaultGridItemRenderer;
 
 use namespace mx_internal;
 
@@ -196,17 +197,9 @@ public class GridLayout extends LayoutBase
         if (!grid)
             return;
         
-        // If the hoverIndicator is visible then we're going to have to fixup its location
-        // at updateDisplayList() time.
-        
-        if ((grid.hoverRowIndex != -1) || (grid.hoverColumnIndex != -1))
-        {
-            const oldScrollR:Rectangle = grid.scrollRect;
-            const dx:Number = grid.horizontalScrollPosition - oldScrollR.x;
-            const dy:Number = grid.verticalScrollPosition - oldScrollR.y;
-            invalidateHoverLocation(dx, dy);
-        }
-        
+        grid.hoverRowIndex = -1;
+        grid.hoverColumnIndex = -1;
+                
         super.scrollPositionChanged();  // sets grid.scrollRect
         
         // Only invalidate if we're clipping and scrollR extends outside validBounds
@@ -454,7 +447,16 @@ public class GridLayout extends LayoutBase
 		grid.itemRendererGroup.addElement(renderer);
 
 		initializeItemRenderer(renderer, 0 /* rowIndex */, columnIndex, grid.typicalItem, false);
-		layoutItemRenderer(renderer, 0, 0, column.width, NaN);
+        
+        // The default width of a TextField is 100.  If autoWrap is true, and
+        // multiline is true, the measured text will wrap if it is wider than
+        // the width. This is not what we want when measuring the typicalItem
+        // unless the width is explicitly set on the column.
+        var w:Number = 
+            !isNaN(column.width) || !(renderer is DefaultGridItemRenderer) ? 
+            column.width : UIComponent.DEFAULT_MAX_WIDTH;
+        
+		layoutGridElement(renderer, 0, 0, w, NaN);
 		
 		grid.itemRendererGroup.removeElement(renderer);
 		return renderer;
@@ -924,6 +926,8 @@ public class GridLayout extends LayoutBase
     {
         renderer.visible = visible;
         
+        // This is needed so DataGrid's NonInheriting styles will be seen
+        // by the renderer.
         if (renderer is ISimpleStyleClient)
             ISimpleStyleClient(renderer).styleName = grid.gridOwner;
 
@@ -1469,39 +1473,11 @@ public class GridLayout extends LayoutBase
     }
     
 
-    private var hoverLocationIsValid:Boolean = true;
     private var mouseXOffset:Number = 0;
     private var mouseYOffset:Number = 0;
-    
-    /**
-     *  @private
-     *  In theory it would be enough to just set a flag here and then fixup the 
-     *  grid's hoverRow,ColumnIndex properties at updateDisplayList() time, based
-     *  on the current mouse position (grid.mouseX,Y).  Unfortunately, the mouseX,Y
-     *  DisplayObject properties aren't updated per the scrollRect until after 
-     *  the new layout has appeared on screen.  To account for that we accumulate
-     *  the deltas for grid.scrollRect.x,y here.   
-     */
-    private function invalidateHoverLocation(dx:Number, dy:Number):void
-    {
-        hoverLocationIsValid = false;
-        mouseXOffset += dx;
-        mouseYOffset += dy;
-    }
-    
+       
     private function layoutHoverIndicator(container:IVisualElementContainer):void
     {
-        if (!hoverLocationIsValid)
-        {
-            const mouseX:Number = grid.mouseX + mouseXOffset;
-            const mouseY:Number = grid.mouseY + mouseYOffset;
-            grid.hoverRowIndex = gridDimensions.getRowIndexAt(mouseX, mouseY);
-            grid.hoverColumnIndex = gridDimensions.getColumnIndexAt(mouseX, mouseY);
-            hoverLocationIsValid = true;
-            mouseXOffset = 0;
-            mouseYOffset = 0;
-        }
-        
         const rowIndex:int = grid.hoverRowIndex;
         const columnIndex:int = grid.hoverColumnIndex;
         const factory:IFactory = grid.hoverIndicator;
