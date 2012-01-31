@@ -19,14 +19,26 @@ public interface IViewport extends IEventDispatcher
     function get height():Number;
     
     /**
-     * The positive extent of the content, relative to the 0,0
-     * origin, along the X axis.
+     *  The positive extent of the content, relative to the 0,0
+     *  origin, along the X axis.
+     * 
+     *  The value of this property is defined relative to the container's
+     *  coordinate system.
+     * 
+     *  Implementations of this property must be Bindable and
+     *  they must generate events of type "propertyChange".
      */
     function get contentWidth():Number;
     
     /**
-     * The positive extent of the content, relative to the 0,0 
-     * origin, along the Y axis.
+     *  The positive extent of the content, relative to the 0,0 
+     *  origin, along the Y axis.
+     * 
+     *  The value of this property is defined relative to the container's
+     *  coordinate system.
+     *
+     *  Implementations of this property must be Bindable and
+     *  they must generate events of type "propertyChange".  
      */
     function get contentHeight():Number;
 
@@ -42,6 +54,9 @@ public interface IViewport extends IEventDispatcher
      *  Where <code>width</code> and <code>height</code> are properties
      *  of the target.
      * 
+     *  Implementations of this property must be Bindable and
+     *  they must generate events of type "propertyChange".
+     *   
      *  @default 0
      *  @see target
      *  @see verticalScrollPosition
@@ -61,6 +76,9 @@ public interface IViewport extends IEventDispatcher
      *  Where <code>width</code> and <code>height</code> are properties
      *  of the target.
      * 
+     *  Implementations of this property must be Bindable and
+     *  they must generate events of type "propertyChange".
+     *   
      *  @default 0
      *  @see horizontalScrollPosition
      */
@@ -77,7 +95,7 @@ public interface IViewport extends IEventDispatcher
      *  To scroll by a single row use UP or DOWN and to scroll to the
      *  first or last row, use HOME or END.
      */
-    function horizontalScrollPositionDelta(unit:uint):Number
+    function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
     
     /**
      *  Returns the amount one would have to add to the viewport's current 
@@ -89,18 +107,18 @@ public interface IViewport extends IEventDispatcher
      *  To scroll by a single row use UP or DOWN and to scroll to the
      *  first or last row, use HOME or END.
      */
-    function verticalScrollPositionDelta(unit:uint):Number
+    function getVerticalScrollPositionDelta(unit:ScrollUnit):Number
      
     /**
-     *  When scrolling is enabled, clip the target's contents by 
-     *  setting its scrollRect.  If this property is set to false,
-     *  then the target's scrollRect will be null, even if its
-     *  scrollPosition is non-zero or its content size is larger
-     *  than its actual size.
+     *  If true then clip the viewport's contents by setting its scrollRect
+     *  to a rectangle with origin at horizontalScrollPosition,
+     *  verticalScrollPosition and width and height equal to the 
+     *  viewport's width and height.
      * 
-     *  @default true
-     *  @see target
-     *  @see updateScrollRect
+     *  If false, the scrollRect is set to null.
+     * 
+     *  @default false
+     *  @see LayoutBase#updateScrollRect
      *  @see verticalScrollPosition
      *  @see horizontalScrollPosition
      */
