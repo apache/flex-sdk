@@ -43,6 +43,11 @@ include "../styles/metadata/GapStyles.as";
  *  and <code>"right"</code>.
  *
  *  @default "left"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalAlign", type="String", enumeration="left,center,right", inherit="no")]
 
@@ -50,6 +55,11 @@ include "../styles/metadata/GapStyles.as";
  *  Number of pixels between the label and child components of the form item.
  *
  *  @default 14
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="indicatorGap", type="Number", format="Length", inherit="yes")]
 
@@ -57,6 +67,11 @@ include "../styles/metadata/GapStyles.as";
  *  Specifies the skin to use for the required field indicator. 
  *
  *  The default value is the "mx.containers.FormItem.Required" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="indicatorSkin", type="Class", inherit="no")]
 
@@ -66,12 +81,22 @@ include "../styles/metadata/GapStyles.as";
  *  By default, the label uses the FormItem's inheritable styles or 
  *  those declared by FormItemLabel.  This style should be used instead 
  *  of FormItemLabel.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="labelStyleName", type="String", inherit="no")]
 
 /**
  *  Width of the form labels.
  *  The default is the length of the longest label in the form.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="labelWidth", type="Number", format="Length", inherit="yes")]
 
@@ -80,6 +105,11 @@ include "../styles/metadata/GapStyles.as";
  *  and the bottom edge of its content area.
  *  
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -88,6 +118,11 @@ include "../styles/metadata/GapStyles.as";
  *  and the right edge of its content area.
  *  
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingRight", type="Number", format="Length", inherit="no")]
 
@@ -96,6 +131,11 @@ include "../styles/metadata/GapStyles.as";
  *  and the top edge of its content area.
  *  
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -162,6 +202,11 @@ include "../styles/metadata/GapStyles.as";
  *  @see mx.controls.FormItemLabel
  *
  *  @includeExample examples/FormExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FormItem extends Container
 {
@@ -175,6 +220,11 @@ public class FormItem extends Container
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FormItem()
     {
@@ -253,6 +303,11 @@ public class FormItem extends Container
      *  controlled by the <code>textAlign</code> style property. 
      *
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get label():String
     {
@@ -319,6 +374,11 @@ public class FormItem extends Container
      *
      *  @default FormItemDirection.VERTICAL
      *  @see mx.containers.FormItemDirection
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get direction():String
     {
@@ -347,6 +407,11 @@ public class FormItem extends Container
     /**
      *  A read-only reference to the FormItemLabel subcomponent
      *  displaying the label of the FormItem.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get itemLabel():Label
     {
@@ -392,6 +457,11 @@ public class FormItem extends Container
      *  if you require input validation.</p>
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get required():Boolean
     {
@@ -527,6 +597,11 @@ public class FormItem extends Container
      *  plus <code>verticalGap</code> space between each child.
      *  The <code>paddingTop</code> and <code>paddingBottom</code>
      *  style properties and the height of the border are also added.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -868,6 +943,11 @@ public class FormItem extends Container
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
