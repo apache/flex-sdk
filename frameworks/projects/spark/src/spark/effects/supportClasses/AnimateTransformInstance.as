@@ -25,6 +25,7 @@ import spark.effects.animation.Animation;
 import spark.effects.animation.Keyframe;
 import spark.effects.animation.MotionPath;
 import spark.effects.easing.IEaser;
+import spark.effects.easing.Linear;
 import spark.effects.easing.Sine;
 
 use namespace mx_internal;
@@ -562,7 +563,8 @@ public class AnimateTransformInstance extends AnimateInstance
             {
                 // Attempt to use the same easer used in the existing keyframes. Assume that
                 // The first set of keyframes ends with the same easing that is applied elsewhere
-                // in this motion path. If that doesn't work, use the default for the SDK (Sine(.5))
+                // in this motion path. If that doesn't work, use Linear because we will already
+                // be easing the overall effect with the easer property
                 if (motionPaths.length > 0 &&
                     motionPaths[0] && motionPaths[0].keyframes && 
                     motionPaths[0].keyframes.length > 0 &&
@@ -572,7 +574,7 @@ public class AnimateTransformInstance extends AnimateInstance
                 }
                 else
                 {
-                    autoPropsEaser = new Sine(.5);
+                    autoPropsEaser = new Linear();
                 }
             }
             var mp:MotionPath = new MotionPath(s);
