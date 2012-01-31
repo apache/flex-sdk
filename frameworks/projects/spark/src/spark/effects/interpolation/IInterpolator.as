@@ -12,7 +12,7 @@ package mx.effects.interpolation
 {
 /**
  * The IInterpolator interface is used by classes that calculate
- * intermediate values for the Animation class. The Animation class
+ * values for the Animation class. The Animation class
  * can handle parametric interpolation between Number values and
  * arrays of Number values, but it cannot handle different types
  * of interpolation, or interpolation between different types of
@@ -34,6 +34,30 @@ public interface IInterpolator
      * provide.
      */
     function interpolate(fraction:Number,
-        startValue:*, endValue:*):*;   
+        startValue:Object, endValue:Object):Object;   
+
+    /**
+     * Given a base value and a value to add to it, this function
+     * returns the result of that increment operation. For example,
+     * if the objects are simple Numbers, the result would be
+     * <code>Number(baseValue) + Number(incrementValue)</code>.
+     * This function is called by the animation system when it
+     * needs to dynamically calculate a value given some starting
+     * value and a 'by' value that should be added to it, both of
+     * which are of type Object and cannot simply be added together.
+     */
+    function increment(baseValue:Object, incrementValue:Object):Object;
+
+    /**
+     * Given a base value and a value to subtract from it, this function
+     * returns the result of that decrement operation. For example,
+     * if the objects are simple Numbers, the result would be
+     * <code>Number(baseValue) - Number(incrementValue)</code>.
+     * This function is called by the animation system when it
+     * needs to dynamically calculate a value given some ending
+     * value and a 'by' value that should be subtracted from it, both of
+     * which are of type Object and cannot simply be subtracted.
+     */
+    function decrement(baseValue:Object, decrementValue:Object):Object;
 }
 }
