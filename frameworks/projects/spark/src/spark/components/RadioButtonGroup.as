@@ -321,6 +321,14 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         // value until it can be put in the group.
         _selectedValue = value;
         
+        // Clear the exisiting selecton if there is one.
+        if (value == null)
+        {
+            setSelection(null, false);
+            return;
+        }
+        
+        // Find the radio button value specified.
         var n:int = numRadioButtons;
         for (var i:int = 0; i < n; i++)
         {
@@ -546,12 +554,15 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         if (_selection == value)
             return;
             
-        if (value == null && _selection != null)
+        if (value == null)
         {
-            _selection.selected = false;
-            _selection = null;
-            if (fireChange)
-                dispatchEvent(new Event(Event.CHANGE));
+            if (selection != null)
+            {
+                _selection.selected = false;
+                _selection = null;
+                if (fireChange)
+                    dispatchEvent(new Event(Event.CHANGE));
+            }
         }
         else
         {
