@@ -317,20 +317,14 @@ public class GridItemEditor extends Group implements IGridItemEditor
     //  Methods
     //
     //--------------------------------------------------------------------------
-    /**
-     *  @inheritDoc 
-     */
-    public function cancel():void
-    {
-        clearErrorStringFromContainer(this);
-    }
-    
+
     /**
      *  @inheritDoc 
      */
     public function discard():void
     {
         // Clean up 
+        clearErrorStringFromContainer(this);
         removeEventListener(MouseEvent.MOUSE_UP, mouseUpDownHandler);
         removeEventListener(MouseEvent.MOUSE_DOWN, mouseUpDownHandler);
     }
