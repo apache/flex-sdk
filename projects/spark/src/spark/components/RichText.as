@@ -582,12 +582,6 @@ public class TextGraphic extends TextGraphicElement
         // Don't want this handler firing when we're re-composing the text lines.
         textFlow.removeEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);
         
-        // Temporary fix for SDK-18880.
-        // This won't be necessary when TLF allows
-        // FlowElements to be reparented.
-        if (contentChanged || textChanged)
-            textFlow.replaceChildren(0, textFlow.numChildren);                
-
         textFlow = createTextFlow();
         _content = textFlow;
 
