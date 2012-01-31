@@ -74,23 +74,6 @@ public class SkinnableComponent extends UIComponent
     //
     //--------------------------------------------------------------------------
     
-    private var _selected:Boolean = false;
-    
-    public function get selected():Boolean
-    {
-        return _selected;
-    }
-    
-    public function set selected(value:Boolean):void
-    {
-        if (_selected == value)
-            return;
-        
-        _selected = value;
-        
-        // TODO: Send notification
-    }
-    
     // we need all these getters/setters around skinObject so it
     // can be a public read-only Bindable variable and a protected
     // read/write variable.
