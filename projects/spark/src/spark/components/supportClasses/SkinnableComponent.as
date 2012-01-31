@@ -44,7 +44,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="chromeColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="chromeColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  Name of the skin class to use for this component when a validation error occurs. 
