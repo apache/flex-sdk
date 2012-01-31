@@ -17,6 +17,7 @@ import flash.ui.Keyboard;
 
 import mx.components.baseClasses.FxListBase;
 import mx.core.ClassFactory;
+import mx.core.IVisualElement;
 import mx.events.ItemExistenceChangedEvent;
 import mx.layout.HorizontalLayout;
 import mx.layout.VerticalLayout;
@@ -261,13 +262,6 @@ public class FxList extends FxListBase
         {
             if ("selected" in renderer)
                 renderer.selected = selected;
-            else
-            {
-                // TODO: localize below (and other messages)
-                throw new Error("The item renderer needs to support the \"selected\" property " + 
-                        "for selection to work.  An easy way to accomplish this is by wrapping " + 
-                        "your component in a DefaultComplexItemRenderer");
-            }
         }
     }
     
@@ -440,7 +434,7 @@ public class FxList extends FxListBase
     {
         // Multiple selection needs to be added here....
         
-        selectedIndex = dataGroup.getRendererItem(event.currentTarget);
+        selectedIndex = dataGroup.getRendererItem(event.currentTarget as IVisualElement);
     }
     
     /**
