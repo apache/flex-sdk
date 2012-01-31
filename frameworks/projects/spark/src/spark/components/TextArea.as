@@ -95,111 +95,113 @@ use namespace mx_internal;
 
 /**
  *  TextArea is a text-entry control that lets users enter and edit
- *  multiple lines of richly-formatted text.
- *
- *  <p>It can display horizontal and vertical scrollbars
- *  for scrolling through the text,
- *  and also supports vertical scrolling with the mouse wheel.</p>
+ *  multiple lines of richly formatted text. It can display horizontal and vertical scrollbars
+ *  for scrolling through the text and supports vertical scrolling with the mouse wheel.
  *
  *  <p>It does not include any user interface for changing
- *  the formatting of the text.
- *  But it offers APIs which can do this programmatically;
- *  these make it possible, for example, for you to create 
- *  a Bold button that makes the selected text bold.</p>
+ *  the formatting of the text but contains 
+ *  APIs that you can use to programmatically format text.
+ *  For example, you can create a 
+ *  a button that, when clicked, makes the selected text bold.</p>
  *
- *  <p>This Spark version of TextArea, which is new with Flex 4,
- *  makes use of the new Text Layout Framework (TLF) library,
- *  which in turn builds on the new Flash Text Engine (FTE)
+ *  <p>The Spark version of TextArea 
+ *  uses the Text Layout Framework (TLF) library,
+ *  which builds on the Flash Text Engine (FTE)
  *  in Flash Player 10.
  *  In combination, these layers provide text editing with
  *  high-quality international typography and layout.
  *  The older MX version of TextArea displays text using the older
  *  TextField class.</p>
  *
- *  <p>The most important differences to understand are:
+ *  <p>The most important differences between Spark TextArea and the
+ *  MX TextArea control are as follows:
  *  <ul>
- *    <li>The Spark version offers better typography, better support
+ *    <li>Spark TextArea offers better typography, better support
  *        for international languages, and better text layout.</li>
- *    <li>The Spark version has an object-oriented model of rich text,
+ *    <li>Spark TextArea has an object-oriented model of rich text,
  *        while the MX version does not.</li>
- *    <li>The Spark version has better support for displaying
+ *    <li>Spark TextArea has better support for displaying
  *        large amounts of text.</li>
- *    <li>The Spark version requires that fonts be embedded
+ *    <li>Spark TextArea requires that fonts be embedded
  *        differently than the MX version.
- *        Consult the documentation regarding how to use the
- *        <code>embedAsCFF</code> attribute when you embed a font.</li>
+ *        To learn how to use the
+ *        <code>embedAsCFF</code> attribute when you embed a font,
+ *    see the topic "Using embedded fonts" in <i>Using Flex SDK</i>.</li>
  *  </ul></p>
  *
- *  <p>The Spark TextArea uses TLF's object-oriented model of rich text,
+ *  <p>The Spark TextArea control uses the TLF object-oriented model of rich text,
  *  in which text layout elements such as divisions, paragraphs, spans,
  *  hyperlinks, and images are represented at runtime by ActionScript
- *  objects which can be programmatically accessed and manipulated.
+ *  objects. You can programmatically access and manipulate these objects.
  *  The central object in TLF for representing rich text is a
- *  TextFlow, so you specify rich text for the Spark TextArea to display
- *  by setting its <code>textFlow</code> property to a TextFlow instance.
- *  Please see the description of the <code>textFlow</code>
+ *  TextFlow. Specify rich text for a TextArea control
+ *  by setting its <a href="#textFlow"><code>textFlow</code></a> property to a TextFlow instance.
+ *  See the description of the <code>textFlow</code>
  *  property for information about how to create one,
- *  such as by importing TLF markup.
- *  If you don't need to display text that has multiple formats,
- *  simply set the <code>text</code> property to a "plain text" String.
- *  See the description of the <code>text</code> and <code>textFlow</code>
+ *  such as by importing TLF markup.</p>
+ * 
+ *  <p>If you don't need to display text that has multiple formats,
+ *  set the TextArea <code>text</code> property to a plain text string.
+ *  See the descriptions of the <code>text</code> and <code>textFlow</code>
  *  properties for information about how they interact;
  *  for example, you can set one and get the other.</p>
  *
- *  <p>At compile time, you can simply put TLF markup tags inside
- *  the TextArea tag, as in
+ *  <p>At compile time, you can put TLF markup tags inside
+ *  the TextArea tag, as in the following example:
  *  <pre>
  *  &lt;s:TextArea&gt;Hello &lt;s:span fontWeight="bold"&gt;World!&lt;/s:span&gt;&lt;/s:TextArea&gt;
  *  </pre>
- *  In this case, the MXML compiler sets the <code>content</code>
+ *  In this example, the MXML compiler sets the TextArea <code>content</code>
  *  property, causing a TextFlow to be automatically created
  *  from the FlowElements that you specify.</p>
  *
  *  <p>The default text formatting is determined by CSS styles
- *  such as <code>fontFamily</code>, <code>fontSize</code>.
+ *  such as <code>fontFamily</code> and <code>fontSize</code>.
  *  Any formatting information in the TextFlow overrides
  *  the default formatting provided by the CSS styles.</p>
  *
- *  <p>You can control the spacing between lines with the
- *  <code>lineHeight</code> style and the spacing between
- *  paragraphs with the <code>paragraphSpaceBefore</code>
- *  and <code>paragraphSpaceAfter</code> styles.
- *  You can align or justify the text using the <code>textAlign</code>
- *  and <code>textAlignLast</code> styles.
- *  You can inset the text from the controls border using the
- *  <code>paddingLeft</code>, <code>paddingTop</code>, 
- *  <code>paddingRight</code>, and <code>paddingBottom</code> styles.</p>
+ *  <p>You can control many characteristics of TextArea content with styles. Here
+ *  are a few popular ones:</p>
  *
- *  <p>By default, the text wraps at the right edge of the control
- *  and a vertical scrollbar appears automatically when there is more
- *  text than fits.
+ *  <ul><li>Control spacing between lines with the
+ *  <code>lineHeight</code> style.</li>
+ *  <li>Control the spacing between paragraphs with the 
+ *  <code>paragraphSpaceBefore</code> and <code>paragraphSpaceAfter</code> styles.</li>
+ *  <li>Align or justify text using the <code>textAlign</code> and <code>textAlignLast</code> styles.</li>
+ *  <li>Inset text from the border of the control using the <code>paddingLeft</code>, <code>paddingTop</code>, 
+ *  <code>paddingRight</code>, and <code>paddingBottom</code> styles.</li>
+ *  </ul>
+ *
+ *  <p>By default, the text wraps at the right edge of the control.
+ *  A vertical scrollbar automatically appears when there is more
+ *  text than fits in the TextArea.
  *  If you set the <code>lineBreak</code> style to <code>"explicit"</code>,
- *  new lines will start only at explicit lines breaks, such as
+ *  new lines start only at explicit line breaks, such as
  *  if you use CR (<code>"\r"</code>), LF (<code>"\n"</code>),
  *  or CR+LF (<code>"\r\n"</code>) in <code>text</code>
  *  or if you use <code>&lt;p&gt;</code> and <code>&lt;br/&gt;</code>
  *  in TLF markup.
- *  In that case, a horizontal scrollbar will automatically appear
- *  if any lines are wider than the control,</p>
+ *  In those cases, a horizontal scrollbar automatically appears
+ *  if any lines of text are wider than the control.</p>
  *
  *  <p>The <code>widthInChars</code> and <code>heightInChars</code>
- *  properties provide a convenient way to specify the width and height
+ *  properties let you specify the width and height of the TextArea 
  *  in a way that scales with the font size.
- *  Of course, you can also specify an explicit width or height in pixels,
- *  or use a percent width and height, or use constraints such as
+ *  You can also specify an explicit width or height in pixels,
+ *  or use a percent width and height or constraints such as
  *  <code>left</code> and <code>right</code>
  *  or <code>top</code> and <code>bottom</code>.</p>
  *
  *  <p>You can use the <code>maxChars</code> property to limit the number
- *  of character that the user can enter, and the <code>restrict</code>
+ *  of character that the user can enter and the <code>restrict</code>
  *  to limit which characters the user can enter.</p>
  *
  *  <p>When the user presses the Enter key, a new paragraph is started;
  *  it does not cause a line break within the current paragraph.</p>
  *
- *  <p>If you don't want the text to be editable,
+ *  <p>If you don't want text to be editable,
  *  set the <code>editable</code> property to <code>false</code>.
- *  If you don't even want it to be selectable,
+ *  If you don't want it to be selectable,
  *  set the <code>selectable</code> property to <code>false</code>.</p>
  *
  *  <p>This control is a skinnable control whose skin uses a
@@ -269,6 +271,8 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  *
+ *  @see #text
+ *  @see #textFlow
  *  @see spark.components.TextInput
  *  @see spark.skins.spark.TextAreaSkin
  *  @see spark.components.RichText
