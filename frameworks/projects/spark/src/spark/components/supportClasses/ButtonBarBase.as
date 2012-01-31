@@ -546,30 +546,29 @@ public class ButtonBarBase extends ListBase
         // iconFunction takes precedence.
         if (_iconFunction != null)
         {
-            ButtonBase(renderer).icon = _iconFunction(item);
+            ButtonBase(renderer).setStyle("icon", _iconFunction(item));
             return;
         }
         
         // iconField
-        if (_iconField && _iconField.length > 0)
+        if (_iconField && 
+            _iconField.length > 0 && 
+            item is Object)
         {
-            if (item is Object)
+            try
             {
-                try
+                if (item[_iconField] != null)
                 {
-                    if (item[_iconField] != null)
-                    {
-                        ButtonBase(renderer).icon = item[_iconField];
-                        return;
-                    }
+                    ButtonBase(renderer).setStyle("icon", item[_iconField]);
+                    return;
                 }
-                catch(e:Error)
-                {
-                }
+            }
+            catch(e:Error)
+            {
             }
         }
 
-        ButtonBase(renderer).icon = null;
+        ButtonBase(renderer).clearStyle("icon");
     }
     
     /**
