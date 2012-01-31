@@ -763,9 +763,10 @@ public class DataGridBase extends ListBase implements IFontContextComponent
                     }
                     catch(e:ItemPendingError)
                     {
-                        lastSeekPending = new ListBaseSeekPending(CursorBookmark.CURRENT, 0)
-                        e.addResponder(new ItemResponder(seekPendingResultHandler, seekPendingFailureHandler, 
-                                                        lastSeekPending));
+                        //AJH commented out to fix one bug.  We'll see if it causes others
+                        //lastSeekPending = new ListBaseSeekPending(CursorBookmark.CURRENT, 0)
+                        //e.addResponder(new ItemResponder(seekPendingResultHandler, seekPendingFailureHandler, 
+                        //                                lastSeekPending));
                         more = false;
                         iteratorValid = false;
                     }
