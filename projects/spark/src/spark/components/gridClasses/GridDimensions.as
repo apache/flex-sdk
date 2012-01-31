@@ -46,6 +46,8 @@ public class GridDimensions
     //cache for cumulative y values.
     private var startY:Number = 0;
     private var recentNode:GridRowNode = null;
+    private var startY2:Number = 0;
+    private var recentNode2:GridRowNode = null;
     
     private const typicalCellWidths:Array = new Array();
     private const typicalCellHeights:Array = new Array();
@@ -205,6 +207,7 @@ public class GridDimensions
         
         // reset recent node.
         recentNode = null;
+        recentNode2 = null;
     }
     
     //----------------------------------
@@ -425,12 +428,21 @@ public class GridDimensions
         if (!isNaN(fixedRowHeight))
             return;
         
-        var node:GridRowNode = rowList.insert(row);
+        var node:GridRowNode = rowList.find(row);
+        var oldHeight:Number = defaultRowHeight;
         
-        if (node)
+        if (node == null)
+            node = rowList.insert(row);
+        else
+            oldHeight = node.maxCellHeight;
+        
+        if (node && node.setCellHeight(col, height))
         {
-           if (node.setCellHeight(col, height))
-                recentNode = null;
+           if (recentNode && node.rowIndex < recentNode.rowIndex)
+               startY += node.maxCellHeight - oldHeight;
+           
+           if (recentNode2 && node.rowIndex < recentNode2.rowIndex)
+               startY2 += node.maxCellHeight - oldHeight;
         }
     }
     
@@ -480,44 +492,133 @@ public class GridDimensions
      *  Returns the Y coordinate of the origin of the specified cell.
      */
     public function getCellY(row:int, col:int):Number
-    {        // no cache so we use default heights for each row.
+    { 
+        // no cache so we use default heights for each row.
         if (!isNaN(fixedRowHeight))
             return row * (fixedRowHeight + rowGap);
         
         if (rowList.length == 0)
             return row * (defaultRowHeight + rowGap);
         
-        var node:GridRowNode = rowList.first;
-        var y:Number = 0;
-        var index:int = 0;
+        if (row == 0)
+            return 0;
+        
+        // initialize first node.
+        if (!recentNode2)
+        {
+            recentNode2 = rowList.first;
+            startY2 = recentNode2.rowIndex * (defaultRowHeight + rowGap);
+        }
+        
+        var y:Number;
+        var recentIndex:int = recentNode2.rowIndex;
+
+        if (row == recentIndex)
+            y = startY2;
+        else if (row < recentIndex)
+            y = getPrevYAt(row, recentNode2, startY2);
+        else
+            y = getNextYAt(row, recentNode2, startY2);
+
+        return y;
+    }
+
+    /**
+     *  Returns the starting y value of the specified row. The row must be before
+     *  startNode.
+     *  
+     *  @param row the target row
+     *  @param startNode the node to search from
+     *  @param startY the cumulative y value from the first row to the beginning
+     *  of startNode's row.
+     * 
+     *  @return the y value of the start of the row.
+     */
+    private function getPrevYAt(row:int, startNode:GridRowNode, startY:Number):Number
+    {
+        var node:GridRowNode = startNode;
+        var nodeY:Number = startY;
+        var prevNode:GridRowNode;
+        var currentY:Number = startY;
+        var indDiff:int;
         
         while (node)
         {
-            // success case: row index is <= to node's index.
-            if (row <= node.rowIndex)
+            if (node.rowIndex == row)
+                break;
+            
+            prevNode = node.prev;
+            
+            if (!prevNode || (row < node.rowIndex && row > prevNode.rowIndex))
             {
-                y += (row - index) * (defaultRowHeight + rowGap);
-                return y;
+                // at the beginning or somewhere between nodes
+                // so we've found the target row.
+                indDiff = node.rowIndex - row;
+                currentY -= indDiff * (defaultRowHeight + rowGap);
+                break;
             }
             
-            // otherwise, row index is > node's index
+            // subtract previous node's height and its gap.
+            indDiff = node.rowIndex - prevNode.rowIndex - 1;
+            nodeY = currentY = currentY - indDiff * (defaultRowHeight + rowGap) - (prevNode.maxCellHeight + rowGap); 
+            node = prevNode;
+        }
+
+        this.recentNode2 = node;
+        this.startY2 = nodeY;
+        
+        return currentY;
+    }
+    
+    /**
+     *  Returns the starting y value of the specified row. The row must be after
+     *  startNode.
+     *  
+     *  @param row the target row
+     *  @param startNode the node to search from
+     *  @param startY the cumulative y value from the first row to beginning of
+     *  startNode's row.
+     * 
+     *  @return the y value of the start of the row.
+     */
+    private function getNextYAt(row:int, startNode:GridRowNode, startY:Number):Number
+    {
+        var node:GridRowNode = startNode;
+        var nodeY:Number = startY;
+        var nextNode:GridRowNode;
+        var currentY:Number = startY;
+        var indDiff:int;
+        
+        while (node)
+        {
+            if (node.rowIndex == row)
+                break;
             
-            // case if node index is much greater than current index.
-            if (node.rowIndex > index)
+            currentY += node.maxCellHeight;
+            if (node.rowIndex < _rowCount - 1)
+                currentY += rowGap;
+            
+            nextNode = node.next;
+
+            if (!nextNode || (row > node.rowIndex && row < nextNode.rowIndex))
             {
-                y += (node.rowIndex - index) * (defaultRowHeight + rowGap);
-                index += node.rowIndex - index; // index == node.rowIndex
+                // at the beginning or somewhere between nodes
+                // so we've found the target row.
+                indDiff = row - node.rowIndex - 1;
+                currentY += indDiff * (defaultRowHeight + rowGap);
+                break;
             }
             
-            // index is now equal to node's index but row index is > node's index so we add node.
-            y += node.maxCellHeight;
-            index++;
-            node = node.next;
+            // add next node's maxCellHeight and rowGap
+            indDiff = nextNode.rowIndex - node.rowIndex - 1;
+            nodeY = currentY = currentY + indDiff * (defaultRowHeight + rowGap);
+            node = nextNode;
         }
         
-        // no more nodes, so we just add the rest.
-        y += (row - index) * (defaultRowHeight + rowGap);
-        return y;
+        this.recentNode2 = node;
+        this.startY2 = nodeY;
+        
+        return currentY;
     }
     
     /**
@@ -572,10 +673,7 @@ public class GridDimensions
             return y / (defaultRowHeight + rowGap);
         
         if (y == 0)
-        {
-            recentNode = null;
             return 0;
-        }
         
         // initialize first node.
         if (!recentNode)
@@ -633,7 +731,7 @@ public class GridDimensions
         var currentY:Number = startY;
         var prevY:Number;
         var targetY:Number = y;
-        
+
         while (node)
         {
             // check the current node.
@@ -696,7 +794,7 @@ public class GridDimensions
         var currentY:Number = startY;
         var nextY:Number;
         var targetY:Number = y;
-
+        
         while (node)
         {
             // check the current node.
@@ -826,14 +924,18 @@ public class GridDimensions
         var node:GridRowNode = rowList.first;
         var numRows:int = 0;
         
-        while (node)
+        while (node && node.rowIndex < nRows)
         {
             height += node.maxCellHeight;
             numRows++;
             node = node.next;
         }
         
-        return height + ((nRows - numRows) * (defaultRowHeight) + (nRows - 1) * rowGap);
+        var contentHeight:Number = height + (nRows - numRows) * defaultRowHeight;
+        if (nRows > 1)
+            contentHeight += (nRows - 1) * rowGap;
+        
+        return contentHeight;
     }
     
     /**
@@ -900,19 +1002,25 @@ public class GridDimensions
      */
     public function insertRows(startRow:int, count:int):void
     {
-        var startNode:GridRowNode = rowList.findNearest(startRow);
-        var tempNode:GridRowNode;
+        if (startRow < 0 || count <= 0)
+            return;
         
-        // shift indices by count.
-        if (startNode)
-            tempNode = startNode.next;
-        while (tempNode)
+        var node:GridRowNode = rowList.findNearest(startRow);
+        
+        // start on the index we're inserting at.
+        if (node && node.rowIndex < startRow)
+            node = node.next;
+        while (node)
         {
-            tempNode.rowIndex += count;
-            tempNode = tempNode.next;
+            node.rowIndex += count;
+            node = node.next;
         }
         
         this.rowCount += count;
+        
+        // cache is invalid now.
+        recentNode = null;
+        recentNode2 = null;
     }
     
     /**
@@ -966,7 +1074,9 @@ public class GridDimensions
         rowCount = 0;
         rowList.removeAll();
         this.recentNode = null;
+        this.recentNode2 = null;
         this.startY = 0;
+        this.startY2 = 0;
     }
 
     /**
@@ -995,7 +1105,7 @@ public class GridDimensions
      */
     private function dataProviderCollectionAdd(event:CollectionEvent):Boolean
     {
-        rowCount +=  event.items.length;
+        insertRows(event.location, event.items.length);
         return true;
     }
     
