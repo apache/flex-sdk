@@ -479,6 +479,11 @@ public class PopUpButton extends Button
      *  pop-up control from closing on activity.</p>
      *  
      *  @default true 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */     
     public function get closeOnActivity():Boolean
     {
