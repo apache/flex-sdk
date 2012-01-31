@@ -33,8 +33,8 @@ import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
 
 import spark.components.Group;
-import spark.layouts.BasicLayout;
 import spark.core.IGraphicElement;
+import spark.layouts.BasicLayout;
 
 /**
  *  The base class for GraphicElements such as TextBox and TextGraphic
@@ -137,6 +137,12 @@ public class TextGraphicElement extends GraphicElement
      *  @private
      */
     mx_internal var invalidateCompose:Boolean = true;    
+
+    /**
+     *  @private
+     *  True if the text was truncated.
+     */
+    mx_internal var isTextTruncated:Boolean = false;
 
     /**
      *  @private
@@ -986,6 +992,23 @@ public class TextGraphicElement extends GraphicElement
     }
 
     /**
+     *  Determines if the text, once composed, has been truncated.
+     *
+     *  @return <code>true</code> if the text has been truncated.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function isTruncated():Boolean
+    {
+        // For some reason, the compiler needs an explicit cast to Boolean
+        // to avoid a warning even though at runtime "is Boolean" is true.
+        return Boolean(mx_internal::isTextTruncated);
+    }
+    
+    /**
      *  @private
      */
     mx_internal function initProtoChain():void
@@ -1080,6 +1103,8 @@ public class TextGraphicElement extends GraphicElement
 	{
 	    _composeWidth = width;
 	    _composeHeight = height;
+	    
+	    mx_internal::isTextTruncated = false;
 	    
 	    return false;
 	}
