@@ -80,6 +80,22 @@ use namespace mx_internal;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
+
+  /**
+  *  You use the HTTPService class to represent an
+  *  HTTPService object in ActionScript. When you call the HTTPService object's
+  *  <code>send()</code> method, it makes an HTTP request to the
+  *  specified URL, and an HTTP response is returned. Optionally, you can pass
+  *  parameters to the specified URL. When you do not go through the server-based
+  *  proxy service, you can use only HTTP GET or POST methods. However, when you set
+  *  the useProxy  property to true and you use the server-based proxy service, you
+  *  can also use the HTTP HEAD, OPTIONS, TRACE, and DELETE methods.
+  *
+  *  <p><b>Note:</b> Due to a software limitation, HTTPService does not generate user-friendly
+  *  error messages when using GET.</p>
+  * 
+  *  @see mx.rpc.http.mxml.HTTPService
+  */
 public class HTTPService extends AbstractInvoker
 {
     //--------------------------------------------------------------------------
@@ -835,6 +851,11 @@ function xmlEncoder (myObj)
      *  as specified in the server configuration. For example, if you're connected over the my-rtmp channel
      *  and you log out using one of your RPC components, anything that was connected over my-rtmp is logged out.
      *  
+     *  <p><b>Note:</b> Adobe recommends that you use the mx.messaging.ChannelSet.logout() method
+     *  rather than this method. </p>
+     *
+     *  @see mx.messaging.ChannelSet#logout()   
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
