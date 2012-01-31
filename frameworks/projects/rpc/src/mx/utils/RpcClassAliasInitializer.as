@@ -46,6 +46,13 @@ import mx.messaging.messages.RemotingMessage;
 import mx.messaging.messages.SOAPMessage;
 import mx.utils.ObjectProxy;
 
+/**
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
 public class RpcClassAliasInitializer
 {
     /**
@@ -54,8 +61,8 @@ public class RpcClassAliasInitializer
      * classes for AMF serialization needed by the flex rpc library.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static function registerClassAliases():void
