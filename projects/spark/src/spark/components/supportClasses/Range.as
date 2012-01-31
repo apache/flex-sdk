@@ -245,7 +245,7 @@ public class Range extends SkinnableComponent
      */    
     public function set value(newValue:Number):void
     {
-        if (newValue == _value)
+        if (newValue == value)
             return;
         _changedValue = newValue;
         valueChanged = true;
