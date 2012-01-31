@@ -15,7 +15,6 @@ package mx.components
 import flash.events.Event;
 import flash.events.MouseEvent;
 
-import mx.core.ISelectableRenderer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
