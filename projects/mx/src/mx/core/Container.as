@@ -486,9 +486,15 @@ public class Container extends UIComponent
         
         showInAutomationHierarchy = false;
 
-        // If available, get soft-link to the TextView class to use in keyDownHandler().
-        if (ApplicationDomain.currentDomain.hasDefinition("spark.components.RichEditableText"))
-            textViewClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.RichEditableText"));
+        // If available, get soft-link to the RichEditableText class
+		// to use in keyDownHandler().
+        if (ApplicationDomain.currentDomain.hasDefinition(
+				"spark.components.RichEditableText"))
+		{
+            richEditableTextClass =
+				Class(ApplicationDomain.currentDomain.getDefinition(
+					"spark.components.RichEditableText"));
+		}
     }
 
     //--------------------------------------------------------------------------
@@ -637,9 +643,9 @@ public class Container extends UIComponent
     
     /**
      *  @private
-     *  Soft-link to TextView class object, if available.
+     *  Soft-link to RichEditableText class object, if available.
      */
-    private var textViewClass:Class;
+    private var richEditableTextClass:Class;
 
     //--------------------------------------------------------------------------
     //
@@ -5456,8 +5462,11 @@ public class Container extends UIComponent
         // ToDo: replace with universal scrolling scheme that provides same
         // experience as browser.
         var focusObj:Object = getFocus();
-        if ((focusObj is TextField) || (textViewClass && focusObj is textViewClass))
+        if ((focusObj is TextField) ||
+			(richEditableTextClass && focusObj is richEditableTextClass))
+		{
             return;
+		}
     
         // If the KeyBoardEvent can be canceled and a descendant has done so,
         // don't process it at all.  
