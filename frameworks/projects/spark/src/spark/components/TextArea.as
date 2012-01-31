@@ -439,9 +439,6 @@ public class TextArea extends SkinnableTextBase
             // The skin is loaded after the intial properties have been
             // set so these wipe out explicit sets.
             textDisplay.multiline = true;
-            
-            textDisplay.addEventListener("styleChanged", 
-                                         textDisplay_styleChangedHandler);
         }
         
         // The scroller, between textDisplay and this in the chain, should not 
@@ -460,20 +457,6 @@ public class TextArea extends SkinnableTextBase
         }
     }
 
-    /**
-     *  @private
-     */
-    override protected function partRemoved(partName:String, 
-                                            instance:Object):void
-    {                
-        super.partRemoved(partName, instance);
-                
-        if (instance == textDisplay)
-        {
-            textDisplay.removeEventListener("styleChanged", 
-                                            textDisplay_styleChangedHandler);
-        }
-    }    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -532,39 +515,6 @@ public class TextArea extends SkinnableTextBase
             return;
 
         textDisplay.scrollToRange(anchorPosition, activePosition);
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Event handlers
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Called when the RichEditableText dispatches a 'styleChanged' event.
-     */
-    private function textDisplay_styleChangedHandler(event:Event):void
-    {
-        if (!scroller)
-            return;
-            
-        // If there is a scroller and line breaks are "toFit" turn off the 
-        // horizontal scroll bar so the scroller will give us a consistent 
-        // width and the text will wrap in the same place.           
-        if (textDisplay.getStyle("lineBreak") == "toFit")
-        {
-            if (scroller.getStyle("horizontalScrollPolicy") != "off")
-                scroller.setStyle("horizontalScrollPolicy", "off");
-        }
-        else
-        {
-            // This could potentially wipe out a user specified setting.
-            // Workaround it by settting Scroller's horizontalScrollPolicy
-            // after every RET style change.
-            if (scroller.getStyle("horizontalScrollPolicy") == "off")
-                scroller.setStyle("horizontalScrollPolicy", "auto");
-        }
     }
 }
 
