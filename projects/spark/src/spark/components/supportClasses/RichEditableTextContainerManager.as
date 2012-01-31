@@ -216,7 +216,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         // by TLF's context menu.
         
         if (textDisplay.contextMenu)
-            userContextMenu = textDisplay.contextMenu;
+            userContextMenu = textDisplay.contextMenu as ContextMenu;
 
         if (!userContextMenu)
             userContextMenu = super.getContextMenu();
