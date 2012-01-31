@@ -2987,7 +2987,7 @@ public class Container extends UIComponent
         // contains the instance children if there are any; but if the
         // document defines any children, we have to use them instead.
 
-        if (isDocument && documentDescriptor && !processedDescriptors)
+        if (documentDescriptor && !processedDescriptors)
         {
             // NOTE: documentDescriptor.properties is a potentially
             // expensive function call, so do it only once.
