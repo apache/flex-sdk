@@ -48,6 +48,7 @@ use namespace mx_internal;
 
 [ResourceBundle("rpc")]
 
+[DefaultProperty("operationList")]
 /**
  *  You use the <code>&lt;mx:HTTPMultiService&gt;</code> tag to represent a
  *  collection of http operations.  Each one has a URL, method, parameters and
@@ -70,7 +71,6 @@ use namespace mx_internal;
  *  not generate user-friendly error messages when using GET and not using a proxy.</p>
  *  @see mx.rpc.http.mxml.HTTPMultiService, mx.rpc.http.HTTPService, mx.rpc.http.HTTPOperation
  */
-[DefaultProperty("operationList")]
 public dynamic class HTTPMultiService extends AbstractService
 {
     //--------------------------------------------------------------------------
