@@ -11,16 +11,16 @@
 
 package spark.components
 {
+
 import mx.collections.IList;
 import spark.components.Group;
 import mx.core.mx_internal;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.components.supportClasses.SkinnableContainerBase;
 import mx.core.ContainerCreationPolicy;
-import mx.core.IDeferredContentOwner;
+import spark.core.IDeferredContentOwner;
 import mx.core.IDeferredInstance;
 import mx.core.IFactory;
-import mx.core.INavigatorContent;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.IUIComponent;
@@ -1123,27 +1123,11 @@ public class SkinnableContainer extends SkinnableContainerBase
                     mxmlContent = deferredContent as Array;
                 else
                     mxmlContent = [deferredContent];
-                _deferredContentCreated = true;
                 dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
             }
         }
     }
-
-    private var _deferredContentCreated:Boolean;
-
-    /**
-     *  True if deferred content has been created
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get deferredContentCreated():Boolean
-    {
-        return _deferredContentCreated;
-    }
-
+    
     /**
      *  @private
      */
