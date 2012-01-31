@@ -23,6 +23,7 @@ import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
+import mx.graphics.shaderClasses.LuminosityMaskShader; 
 
 import spark.components.ResizeMode;
 import spark.core.IViewport;
@@ -30,7 +31,6 @@ import spark.core.MaskType;
 import spark.events.DisplayLayerObjectExistenceEvent;
 import spark.layouts.BasicLayout;
 import spark.layouts.supportClasses.LayoutBase;
-import spark.primitives.supportClasses.shaders.LuminosityMaskShader; 
 
 use namespace mx_internal;
 
