@@ -280,11 +280,12 @@ import spark.primitives.supportClasses.TextGraphicElement;
 
 /**
  *  The VideoPlayer class is skinnable video player that supports
- *  progressive download, multi-bitrate, and streaming video.
+ *  progressive download, multi-bitrate streaming, and streaming video.
  * 
  *  <p><code>VideoElement</code> is the chromeless version.</p>
  *
  *  @see spark.primitives.VideoElement
+ *  @see spark.skins.default.VideoPlayerSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -1152,10 +1153,10 @@ public class VideoPlayer extends SkinnableComponent
     //--------------------------------------------------------------------------
     
     /**
+     *  @throws TypeError If the skin hasn't been loaded and there is no videoElement.    
+     *
      *  @copy spark.primitives.VideoElement#pause()
      * 
-     *  @throws TypeError if the skin hasn't been loaded up yet
-     *                    and there's no videoElement.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
