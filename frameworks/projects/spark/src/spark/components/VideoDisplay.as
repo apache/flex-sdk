@@ -473,6 +473,36 @@ public class VideoDisplay extends UIComponent
      */
     private var inLoadingState3:Boolean;
     
+    /**
+     *  @private
+     * 
+     *  Old value of videoPlayer.currentTimeUpdateInterval. We store the old 
+     *  value when we are taken off the stage and pauseWhenHidden is true 
+     *  (removedFromStageHandler). We restore the old value when we are added
+     *  to the stage (addedToStageHandler). The value is used in setupSource()
+     *  to turn the timers back on if they were disabled. The value if also used
+     *  to check if we should turn off the timers in videoPlayer_seekChangeHandler
+     *  and videoPlayer_currentTimeChangeHandler.
+     *  This is done to keep this component from being pinned in memory by the timer 
+     *  associated the currentTimeUpdateInterval property.
+     */
+    private var oldCurrentTimeUpdateInterval:Number = NaN;
+    
+    /**
+     *  @private
+     * 
+     *  Old value of videoPlayer.bytesLoadedUpdateInterval. We store the old 
+     *  value when we are taken off the stage and pauseWhenHidden is true 
+     *  (removedFromStageHandler). We restore the old value when we are added
+     *  to the stage (addedToStageHandler). The value is used in setupSource()
+     *  to turn the timers back on if they were disabled. The value if also used
+     *  to check if we should turn off the timers in videoPlayer_seekChangeHandler
+     *  and videoPlayer_currentTimeChangeHandler.
+     *  This is done to keep this component from being pinned in memory by the timer 
+     *  associated the bytesLoadedUpdateInterval property.
+     */
+    private var oldBytesLoadedUpdateInterval:Number = NaN;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -1636,7 +1666,7 @@ public class VideoDisplay extends UIComponent
                 videoElement = new org.osmf.elements.VideoElement(dsr, new RTMPDynamicStreamingNetLoader());
             }
         }
-        else if (source is String)
+        else if (source is String && source != "")
         {
             var urlResource:URLResource = new URLResource(source as String);
             videoElement = mediaFactory.createMediaElement(urlResource);
@@ -1670,7 +1700,7 @@ public class VideoDisplay extends UIComponent
         // we're hidden or for some other reason), but we need to seek 
         // to the first frame, then we have to do this on our own 
         // by using our load() method.
-        if ((!autoPlay || !shouldBePlaying) && autoDisplayFirstFrame)
+        if (videoElement && (!autoPlay || !shouldBePlaying) && autoDisplayFirstFrame)
             load();
         
         // set videoPlayer's element to the newly constructed VideoElement
@@ -1679,6 +1709,14 @@ public class VideoDisplay extends UIComponent
         
         if (videoElement)
         {
+            // If we are loading a video, make sure the timers are restored in case
+            // they had been disabled. The timers will be disabled again if we are 
+            // only loading the first frame.
+            if (!isNaN(oldCurrentTimeUpdateInterval))
+            {
+                videoPlayer.currentTimeUpdateInterval = oldCurrentTimeUpdateInterval;
+                videoPlayer.bytesLoadedUpdateInterval = oldBytesLoadedUpdateInterval;
+            }
 
             if (videoElement.getMetadata(LayoutMetadata.LAYOUT_NAMESPACE) == null)
             {
@@ -1949,6 +1987,17 @@ public class VideoDisplay extends UIComponent
         addEnabledListeners();
         
         computeEffectiveVisibilityAndEnabled();
+
+        // When added to the stage, restore some videoPlayer timers that we had
+        // disabled when we went offstage.
+        if (!isNaN(oldCurrentTimeUpdateInterval))
+        {
+            videoPlayer.currentTimeUpdateInterval = oldCurrentTimeUpdateInterval;
+            videoPlayer.bytesLoadedUpdateInterval = oldBytesLoadedUpdateInterval;
+
+            oldCurrentTimeUpdateInterval = NaN;
+            oldBytesLoadedUpdateInterval = NaN;
+        }
         
         // being added to the display list will not pause the video, but 
         // it may play the video if pauseWhenHidden = true
@@ -1967,6 +2016,18 @@ public class VideoDisplay extends UIComponent
             removeVisibilityListeners();
         
         removeEnabledListeners();
+        
+        // Stop the timers associated with these intervals when we go 
+        // offscreen so we are not pinned in memory. Save the old
+        // values of the timers so we can restore them when we come
+        // back on stage.
+        if (pauseWhenHidden)
+        {
+            oldCurrentTimeUpdateInterval = videoPlayer.currentTimeUpdateInterval;
+            oldBytesLoadedUpdateInterval = videoPlayer.bytesLoadedUpdateInterval;
+            videoPlayer.currentTimeUpdateInterval = -1;
+            videoPlayer.bytesLoadedUpdateInterval = -1;
+        }
         
         // being removed from the display list will pause the video if 
         // pauseWhenHidden = true
@@ -2300,6 +2361,14 @@ public class VideoDisplay extends UIComponent
             videoPlayer.muted = beforeLoadMuted;
             if (videoPlayer.displayObject)
                 videoPlayer.displayObject.visible = true;
+
+            // Disable the TimeEvents again that we had
+            // enabled for loading a video while offstage.
+            if (!isNaN(oldCurrentTimeUpdateInterval))
+            {
+                videoPlayer.currentTimeUpdateInterval = -1;
+                videoPlayer.bytesLoadedUpdateInterval = -1;
+            }
         }
     }
     
@@ -2309,9 +2378,9 @@ public class VideoDisplay extends UIComponent
      *
      *  Work around for negative durations - see FM-1009.
      *  See want to seek to the first frame but can't because
-     *  the vidoe has a negative duration. So we listen to the
+     *  the video has a negative duration. So we listen to the
      *  current time. When we get a time change so we must be at
-     *  least the first frames so pause the video now and clean 
+     *  least the first frame so pause the video now and clean 
      *  up the load state variables.
      */ 
     private function videoPlayer_currentTimeChangeHandler(event:TimeEvent):void
@@ -2330,7 +2399,14 @@ public class VideoDisplay extends UIComponent
         inLoadingState1 = false;
         inLoadingState2 = false;
         inLoadingState3 = false;
-    
+
+        // Disable the TimeEvents again that we had
+        // enabled for loading a video while offstage.
+        if (!isNaN(oldCurrentTimeUpdateInterval))
+        {
+            videoPlayer.currentTimeUpdateInterval = -1;
+            videoPlayer.bytesLoadedUpdateInterval = -1;
+        }
     }
 
     /**
@@ -2340,7 +2416,7 @@ public class VideoDisplay extends UIComponent
      * 
      *  If we get a duration event that is negative while in 
      *  inLoadingState2 is true, then listen for the first time
-     *  change event so we can pauase the video.
+     *  change event so we can pause the video.
      */ 
     private function videoPlayer_durationChangeHandler(event:TimeEvent):void
     {
