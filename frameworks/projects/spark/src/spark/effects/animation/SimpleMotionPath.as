@@ -56,7 +56,7 @@ public class AnimationProperty extends MotionPath
     {
         super();
         this.property = property;
-        keyframes = [new KeyFrame(0, valueFrom), new KeyFrame(1, valueTo, valueBy)];
+        keyframes = [new KeyFrame(0, valueFrom), new KeyFrame(NaN, valueTo, valueBy)];
         if (valueFrom is Array && valueTo is Array)
             interpolator = NumberArrayInterpolator.getInstance();
     }
