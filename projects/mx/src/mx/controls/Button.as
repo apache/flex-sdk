@@ -64,6 +64,11 @@ use namespace mx_internal;
  *  this event is dispatched repeatedly as long as the button stays down.
  *
  *  @eventType mx.events.FlexEvent.BUTTON_DOWN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="buttonDown", type="mx.events.FlexEvent")]
 
@@ -79,6 +84,11 @@ use namespace mx_internal;
  *  user interacts with the control by using the mouse.
  *
  *  @eventType flash.events.Event.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="flash.events.Event")]
 
@@ -91,6 +101,11 @@ use namespace mx_internal;
  *  when the <code>data</code> property changes.</p>
  * 
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -109,6 +124,11 @@ include "../styles/metadata/TextStyles.as"
  *  is set to <code>left</code> or <code>right</code>.
  * 
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalGap", type="Number", format="Length", inherit="no")]
 
@@ -117,6 +137,11 @@ include "../styles/metadata/TextStyles.as"
  *  and the bottom of its content area.
  *  
  *  @default 0 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -125,6 +150,11 @@ include "../styles/metadata/TextStyles.as"
  *  and the top of its content area.
  *  
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -134,6 +164,11 @@ include "../styles/metadata/TextStyles.as"
  *  <code>repeatInterval</code>.
  * 
  *  @default 500
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="repeatDelay", type="Number", format="Time", inherit="no")]
 
@@ -142,6 +177,11 @@ include "../styles/metadata/TextStyles.as"
  *  if the user presses and holds the mouse on a button.
  *  
  *  @default 35
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="repeatInterval", type="Number", format="Time", inherit="no")]
 
@@ -149,6 +189,11 @@ include "../styles/metadata/TextStyles.as"
  *  Text color of the label as the user moves the mouse pointer over the button.
  *  
  *  @default 0x2B333C
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textRollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -156,6 +201,11 @@ include "../styles/metadata/TextStyles.as"
  *  Text color of the label as the user presses it.
  *  
  *  @default 0x000000
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textSelectedColor", type="uint", format="Color", inherit="yes")]
 
@@ -164,6 +214,11 @@ include "../styles/metadata/TextStyles.as"
  *  property is set to <code>"top"</code> or <code>"bottom"</code>.
  * 
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalGap", type="Number", format="Length", inherit="no")]
 
@@ -174,6 +229,11 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  Name of the class to use as the default skin for the background and border. 
  *  @default "mx.skins.halo.ButtonSkin"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="skin", type="Class", inherit="no", states="up, over, down, disabled, selectedUp, selectedOver, selectedDown, selectedDisabled")]
 
@@ -182,6 +242,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the button is not selected and the mouse is not over the control.
  *  
  *  @default "mx.skins.halo.ButtonSkin"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="upSkin", type="Class", inherit="no")]
 
@@ -190,6 +255,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the button is not selected and the mouse is over the control.
  *  
  *  @default "mx.skins.halo.ButtonSkin" 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="overSkin", type="Class", inherit="no")]
 
@@ -198,6 +268,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the button is not selected and the mouse button is down.
  *  
  *  @default "mx.skins.halo.ButtonSkin"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="downSkin", type="Class", inherit="no")]
 
@@ -206,6 +281,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the button is not selected and is disabled.
  * 
  *  @default "mx.skins.halo.ButtonSkin"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="disabledSkin", type="Class", inherit="no")]
 
@@ -214,6 +294,11 @@ include "../styles/metadata/TextStyles.as"
  *  when a toggle button is selected and the mouse is not over the control.
  * 
  *  @default "mx.skins.halo.ButtonSkin" 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectedUpSkin", type="Class", inherit="no")]
 
@@ -222,6 +307,11 @@ include "../styles/metadata/TextStyles.as"
  *  when a toggle button is selected and the mouse is over the control.
  *  
  *  @default "mx.skins.halo.ButtonSkin"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectedOverSkin", type="Class", inherit="no")]
 
@@ -230,6 +320,11 @@ include "../styles/metadata/TextStyles.as"
  *  when a toggle button is selected and the mouse button is down.
  *  
  *  @default "mx.skins.halo.ButtonSkin"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectedDownSkin", type="Class", inherit="no")]
 
@@ -238,6 +333,11 @@ include "../styles/metadata/TextStyles.as"
  *  when a toggle button is selected and disabled.
  * 
  *  @default "mx.skins.halo.ButtonSkin"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectedDisabledSkin", type="Class", inherit="no")]
 
@@ -246,6 +346,11 @@ include "../styles/metadata/TextStyles.as"
  *  Setting any other icon style overrides this setting.
  *  
  *  @default null 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="icon", type="Class", inherit="no", states="up, over, down, disabled, selectedUp, selectedOver, selectedDown, selectedDisabled")]
 
@@ -254,6 +359,11 @@ include "../styles/metadata/TextStyles.as"
  *  selected and the mouse is not over the button.
  * 
  *  @default null 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="upIcon", type="Class", inherit="no")]
 
@@ -262,6 +372,11 @@ include "../styles/metadata/TextStyles.as"
  *  selected and the mouse is over the control.
  * 
  *  @default null 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="overIcon", type="Class", inherit="no")]
 
@@ -270,6 +385,11 @@ include "../styles/metadata/TextStyles.as"
  *  selected and the mouse button is down.
  * 
  *  @default null 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="downIcon", type="Class", inherit="no")]
 
@@ -278,6 +398,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the button is disabled and not selected.
  * 
  *  @default null 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="disabledIcon", type="Class", inherit="no")]
 
@@ -286,6 +411,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the button is selected and the mouse button is up.
  * 
  *  @default null 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectedUpIcon", type="Class", inherit="no")]
 
@@ -294,6 +424,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the button is selected and the mouse is over the control.
  * 
  *  @default null 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectedOverIcon", type="Class", inherit="no")]
 
@@ -302,6 +437,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the button is selected and the mouse button is down.
  * 
  *  @default null 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectedDownIcon", type="Class", inherit="no")]
 
@@ -310,6 +450,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the button is selected and disabled.
  * 
  *  @default null 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectedDisabledIcon", type="Class", inherit="no")]
 
@@ -451,6 +596,11 @@ include "../styles/metadata/TextStyles.as"
  *  </pre>
  *
  *  @includeExample examples/ButtonExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Button extends UIComponent
        implements IDataRenderer, IDropInListItemRenderer,
@@ -479,6 +629,11 @@ public class Button extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Button()
     {
@@ -744,6 +899,11 @@ public class Button extends UIComponent
      *  The internal UITextField object that renders the label of this Button.
      * 
      *  @default null 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var textField:IUITextField;
 
@@ -799,6 +959,11 @@ public class Button extends UIComponent
      *  events if the user holds down the mouse button.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get autoRepeat():Boolean
     {
@@ -855,6 +1020,11 @@ public class Button extends UIComponent
      *
      *  @default null
      *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get data():Object
     {
@@ -928,6 +1098,11 @@ public class Button extends UIComponent
      *  is set to <code>true</code>. 
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get emphasized():Boolean
     {
@@ -951,6 +1126,11 @@ public class Button extends UIComponent
     
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get fontContext():IFlexModuleFactory
     {
@@ -994,6 +1174,11 @@ public class Button extends UIComponent
      *  property, the tooltip is displayed rather than the label text.</p>
      *
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get label():String
     {
@@ -1045,6 +1230,11 @@ public class Button extends UIComponent
      *  <code>ButtonLabelPlacement.TOP</code>.</p>
      *
      *  @default ButtonLabelPlacement.RIGHT
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelPlacement():String
     {
@@ -1091,6 +1281,11 @@ public class Button extends UIComponent
      *
      *  @default null
      *  @see mx.controls.listClasses.IDropInListItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get listData():BaseListData
     {
@@ -1169,6 +1364,11 @@ public class Button extends UIComponent
      *  <code>valueCommit</code> event.</p>
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selected():Boolean
     {
@@ -1219,6 +1419,11 @@ public class Button extends UIComponent
      *  not set its selected state based on a property in the <code>data</code> property.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var selectedField:String = null;
 
@@ -1239,6 +1444,11 @@ public class Button extends UIComponent
      *  this property to <code>true</code>.</p>
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var stickyHighlighting:Boolean = false;
 
@@ -1279,6 +1489,11 @@ public class Button extends UIComponent
      *  because only toggle buttons can be selected.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get toggle():Boolean
     {
@@ -2645,12 +2860,27 @@ public class Button extends UIComponent
         mouse up while over Button -> "over" phase
         continue with step 2 of first three sequences above
 
+    *  
+
+    *  @langversion 3.0
+
+    *  @playerversion Flash 9
+
+    *  @playerversion AIR 1.1
+
+    *  @productversion Flex 3
+
     */
 
     /**
      *  The default handler for the <code>MouseEvent.ROLL_OVER</code> event.
      *
      *  @param The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function rollOverHandler(event:MouseEvent):void
     {
@@ -2690,6 +2920,11 @@ public class Button extends UIComponent
      *  The default handler for the <code>MouseEvent.ROLL_OUT</code> event.
      *
      *  @param The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function rollOutHandler(event:MouseEvent):void
     {
@@ -2725,6 +2960,11 @@ public class Button extends UIComponent
      *  The default handler for the <code>MouseEvent.MOUSE_DOWN</code> event.
      *
      *  @param The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function mouseDownHandler(event:MouseEvent):void
     {
@@ -2758,6 +2998,11 @@ public class Button extends UIComponent
      *  The default handler for the <code>MouseEvent.MOUSE_UP</code> event.
      *
      *  @param The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function mouseUpHandler(event:MouseEvent):void
     {
@@ -2780,6 +3025,11 @@ public class Button extends UIComponent
      *  The default handler for the <code>MouseEvent.CLICK</code> event.
      *
      *  @param The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function clickHandler(event:MouseEvent):void
     {
