@@ -20,14 +20,14 @@ import flex.graphics.graphicsClasses.TextFlowComposer;
 import flex.graphics.graphicsClasses.TextGraphicElement;
 import flex.utils.TextUtil;
 
+import text.elements.FlowElement;
+import text.elements.ParagraphElement;
+import text.elements.SpanElement;
+import text.elements.TextFlow;
+import text.formats.ICharacterFormat;
+import text.formats.IContainerFormat;
+import text.formats.IParagraphFormat;
 import text.importExport.TextFilter;
-import text.model.FlowElement;
-import text.model.ICharacterFormat;
-import text.model.IContainerFormat;
-import text.model.IParagraphFormat;
-import text.model.Paragraph;
-import text.model.Span;
-import text.model.TextFlow;
 
 [DefaultProperty("content")]
 
@@ -615,8 +615,8 @@ public class TextGraphic extends TextGraphicElement
 	private function createEmptyTextFlow():TextFlow
 	{
 		var textFlow:TextFlow = new TextFlow();
-		var p:Paragraph = new Paragraph();
-		var span:Span = new Span();
+		var p:ParagraphElement = new ParagraphElement();
+		var span:SpanElement = new SpanElement();
 		textFlow.replaceElements(0, 0, p);
 		p.replaceElements(0, 0, span);
 		return textFlow;
