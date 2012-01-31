@@ -104,7 +104,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  @private
      *  storage for the autoDrawBackground property 
      */ 
-    private var _autoDrawBackground:Boolean = false;
+    private var _autoDrawBackground:Boolean = true;
     
     /**
      *  Whether the item renderer should handle drawing the 
@@ -117,7 +117,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  <code>selectionColor</code>) 
      *  and the state that the item renderer is in.</p>
      * 
-     *  @default false
+     *  @default true
      */
     public function get autoDrawBackground():Boolean
     {
