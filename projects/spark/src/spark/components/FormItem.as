@@ -435,8 +435,6 @@ package spark.components
             {
                 uicElt.addEventListener(FlexEvent.VALID, element_validHandler);
                 uicElt.addEventListener(FlexEvent.INVALID, element_invalidHandler);
-               /* uicElt.showErrorSkin = false;
-                uicElt.showErrorTip = false;*/
             }
         }
         
@@ -454,8 +452,6 @@ package spark.components
             {
                 uicElt.removeEventListener(FlexEvent.VALID, element_validHandler);
                 uicElt.removeEventListener(FlexEvent.INVALID, element_invalidHandler);
-                /*uicElt.showErrorSkin = true;
-                uicElt.showErrorTip = true;*/
             }
         }
         
