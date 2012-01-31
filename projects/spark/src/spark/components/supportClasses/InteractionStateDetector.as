@@ -354,7 +354,6 @@ public class InteractionStateDetector extends EventDispatcher
         
         if (touchDelay > 0)
         {
-            // just use touchDelay rather than have minimumDownStateTime like Button has
             mouseUpDeselectTimer = new Timer(touchDelay, 1);
             mouseUpDeselectTimer.addEventListener(TimerEvent.TIMER_COMPLETE, mouseUpDeselectTimer_timerCompleteHandler);
             mouseUpDeselectTimer.start();
