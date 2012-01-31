@@ -23,9 +23,10 @@ import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.managers.IFocusManagerComponent;
 
+import spark.components.gridClasses.GridColumnHeaderGroupLayout;
+import spark.components.gridClasses.GridColumn;
 import spark.components.gridClasses.IDataGridElement;
-import spark.components.supportClasses.ColumnHeaderBarLayout;
-import spark.components.supportClasses.GridColumn;
+import spark.components.gridClasses.IGridItemRenderer;
 import spark.events.GridEvent;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.utils.MouseEventUtil;
@@ -63,7 +64,7 @@ use namespace mx_internal;
 
 /**
  *  Dispatched after a GRID_MOUSE_DOWN event when the mouse button is released, even
- *  if the mouse is no longer within the ColumnHeaderBar.
+ *  if the mouse is no longer within the GridColumnHeaderGroup.
  *
  *  @eventType spark.events.GridEvent.GRID_MOUSE_UP
  * 
@@ -269,7 +270,7 @@ use namespace mx_internal;
 //  Other metadata
 //--------------------------------------
 
-[IconFile("ColumnHeaderBar.png")]
+[IconFile("GridColumnHeaderGroup.png")]
 
 /**
  *  Displays a row of column headers and separators aligned with the grid's layout.  
@@ -283,7 +284,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusManagerComponent 
+public class GridColumnHeaderGroup extends Group implements IDataGridElement, IFocusManagerComponent 
 {
     include "../core/Version.as";
     
@@ -295,11 +296,11 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function ColumnHeaderBar()
+    public function GridColumnHeaderGroup()
     {
         super();
         
-        layout = new ColumnHeaderBarLayout();
+        layout = new GridColumnHeaderGroupLayout();
         layout.clipAndEnableScrolling = true;
         
         overlayGroup = new Group();
@@ -475,7 +476,7 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
     
     /**
      *  The container for columnSeparator visual elements.  By default it's an 
-     *  element of the ColumnHeaderBar's overlay.
+     *  element of the GridColumnHeaderGroup's overlay.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -604,7 +605,7 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
     //--------------------------------------------------------------------------
     
     /**
-     *  @copy spark.components.supportClasses.ColumnHeaderBarLayout#getColumnIndexAt()
+     *  @copy spark.components.gridClasses.GridColumnHeaderGroupLayout#getColumnIndexAt()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -613,11 +614,11 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
      */
     public function getHeaderIndexAt(x:Number, y:Number):int
     {
-        return ColumnHeaderBarLayout(layout).getHeaderIndexAt(x, y);
+        return GridColumnHeaderGroupLayout(layout).getHeaderIndexAt(x, y);
     }
     
     /**
-     *  @copy spark.components.supportClasses.ColumnHeaderBarLayout#getSeparatorIndexAt()
+     *  @copy spark.components.gridClasses.GridColumnHeaderGroupLayout#getSeparatorIndexAt()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -626,11 +627,11 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
      */
     public function getSeparatorIndexAt(x:Number, y:Number):int
     {
-        return ColumnHeaderBarLayout(layout).getSeparatorIndexAt(x, y);
+        return GridColumnHeaderGroupLayout(layout).getSeparatorIndexAt(x, y);
     }    
         
     /**
-     *  @copy spark.components.supportClasses.ColumnHeaderBarLayout#getHeaderRendererAt()
+     *  @copy spark.components.gridClasses.GridColumnHeaderGroupLayout#getHeaderRendererAt()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -639,11 +640,11 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
      */
     public function getHeaderRendererAt(columnIndex:int):IGridItemRenderer
     {
-        return ColumnHeaderBarLayout(layout).getHeaderRendererAt(columnIndex);
+        return GridColumnHeaderGroupLayout(layout).getHeaderRendererAt(columnIndex);
     }
     
     /**
-     *  @copy spark.components.supportClasses.ColumnHeaderBarLayout#getHeaderBounds()
+     *  @copy spark.components.gridClasses.GridColumnHeaderGroupLayout#getHeaderBounds()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -652,7 +653,7 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
      */
     public function getHeaderBounds(columnIndex:int):Rectangle
     {
-        return ColumnHeaderBarLayout(layout).getHeaderBounds(columnIndex);
+        return GridColumnHeaderGroupLayout(layout).getHeaderBounds(columnIndex);
     }
     
     //--------------------------------------------------------------------------
@@ -670,9 +671,9 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
     private var downSeparatorIndex:int = -1;   // separator button press occurred on
     
     /**
-     *  This method is called when a MOUSE_DOWN event occurs within the column header bar and 
+     *  This method is called when a MOUSE_DOWN event occurs within the column header group and 
      *  for all subsequent MOUSE_MOVE events until the button is released (even if the 
-     *  mouse leaves the column header bar).  The last event in such a "down drag up" gesture is 
+     *  mouse leaves the column header group).  The last event in such a "down drag up" gesture is 
      *  always a MOUSE_UP.  By default this method dispatches GRID_MOUSE_DOWN, 
      *  GRID_MOUSE_DRAG, or a GRID_MOUSE_UP event in response to the the corresponding
      *  mouse event on a column header or SEPARATOR_MOUSE_DOWN, SEPARATOR_MOUSE_DRAG, 
@@ -683,7 +684,7 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
      *  column header or separator under the mouse.  
      * 
      *  @param event A MOUSE_DOWN, MOUSE_MOVE, or MOUSE_UP MouseEvent from a 
-     *  down/move/up gesture initiated within the column header bar.
+     *  down/move/up gesture initiated within the column header group.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -693,10 +694,10 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
     protected function chb_mouseDownDragUpHandler(event:MouseEvent):void
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventHeaderBarXY:Point = globalToLocal(eventStageXY);
-        const eventSeparatorIndex:int = getSeparatorIndexAt(eventHeaderBarXY.x, 0);
+        const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
+        const eventSeparatorIndex:int = getSeparatorIndexAt(eventHeaderGroupXY.x, 0);
         const eventColumnIndex:int = 
-            (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderBarXY.x, 0) : -1;
+            (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderGroupXY.x, 0) : -1;
         
         var gridEventType:String;
         switch(event.type)
@@ -726,7 +727,7 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
         }
         
         const columnIndex:int = (eventSeparatorIndex != -1) ? eventSeparatorIndex : eventColumnIndex;
-        dispatchGridEvent(event, gridEventType, eventHeaderBarXY, columnIndex);
+        dispatchGridEvent(event, gridEventType, eventHeaderGroupXY, columnIndex);
     }
     
     /**
@@ -743,7 +744,7 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
      *  GRID_ROLL_OVER event and to receive a SEPARATOR_ROLL_OUT event for
      *  every SEPARATOR_ROLL_OVER event.
      * 
-     *  @param event A MOUSE_MOVE MouseEvent within the column header bar
+     *  @param event A MOUSE_MOVE MouseEvent within the column header group
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -753,25 +754,25 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
     protected function chb_mouseMoveHandler(event:MouseEvent):void
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventHeaderBarXY:Point = globalToLocal(eventStageXY);
-        const eventSeparatorIndex:int = getSeparatorIndexAt(eventHeaderBarXY.x, 0);
+        const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
+        const eventSeparatorIndex:int = getSeparatorIndexAt(eventHeaderGroupXY.x, 0);
         const eventColumnIndex:int = 
-            (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderBarXY.x, 0) : -1;
+            (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderGroupXY.x, 0) : -1;
         
         if (eventSeparatorIndex != rollSeparatorIndex)
         {
             if (rollSeparatorIndex != -1)
-                dispatchGridEvent(event, GridEvent.SEPARATOR_ROLL_OUT, eventHeaderBarXY, rollSeparatorIndex);
+                dispatchGridEvent(event, GridEvent.SEPARATOR_ROLL_OUT, eventHeaderGroupXY, rollSeparatorIndex);
             if (eventSeparatorIndex != -1)
-                dispatchGridEvent(event, GridEvent.SEPARATOR_ROLL_OVER, eventHeaderBarXY, eventSeparatorIndex);
+                dispatchGridEvent(event, GridEvent.SEPARATOR_ROLL_OVER, eventHeaderGroupXY, eventSeparatorIndex);
         } 
         
         if (eventColumnIndex != rollColumnIndex)
         {
             if (rollColumnIndex != -1)
-                dispatchGridEvent(event, GridEvent.GRID_ROLL_OUT, eventHeaderBarXY, rollColumnIndex);
+                dispatchGridEvent(event, GridEvent.GRID_ROLL_OUT, eventHeaderGroupXY, rollColumnIndex);
             if (eventColumnIndex != -1)
-                dispatchGridEvent(event, GridEvent.GRID_ROLL_OVER, eventHeaderBarXY, eventColumnIndex);
+                dispatchGridEvent(event, GridEvent.GRID_ROLL_OVER, eventHeaderGroupXY, eventColumnIndex);
         } 
         
         rollColumnIndex = eventColumnIndex;
@@ -779,11 +780,11 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
     }
     
     /**
-     *  Called when the mouse moves out of the ColumnHeaderbar. 
+     *  Called when the mouse moves out of the GridColumnHeaderGroup. 
      *  By default it dispatches either a GRID_ROLL_OUT or a
      *  SEPARATOR_ROLL_OUT event.
      * 
-     *  @param event A ROLL_OUT MouseEvent from the column header bar.
+     *  @param event A ROLL_OUT MouseEvent from the column header group.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -793,12 +794,12 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
     protected function chb_mouseRollOutHandler(event:MouseEvent):void
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventHeaderBarXY:Point = globalToLocal(eventStageXY);
+        const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
         
         if (rollSeparatorIndex != -1)
-            dispatchGridEvent(event, GridEvent.SEPARATOR_ROLL_OUT, eventHeaderBarXY, rollSeparatorIndex);
+            dispatchGridEvent(event, GridEvent.SEPARATOR_ROLL_OUT, eventHeaderGroupXY, rollSeparatorIndex);
         else if (rollColumnIndex != -1)
-            dispatchGridEvent(event, GridEvent.GRID_ROLL_OUT, eventHeaderBarXY, rollColumnIndex);
+            dispatchGridEvent(event, GridEvent.GRID_ROLL_OUT, eventHeaderGroupXY, rollColumnIndex);
 
         rollColumnIndex = -1;
         rollSeparatorIndex = -1;
@@ -806,11 +807,11 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
     
     /**
      *  This method is called whenever a CLICK MouseEvent occurs on the 
-     *  column header bar if both the corresponding down and up events occur 
+     *  column header group if both the corresponding down and up events occur 
      *  within the same column header cell. By default it dispatches a 
      *  GRID_CLICK event.
      * 
-     *  @param event A CLICK MouseEvent from the column header bar.
+     *  @param event A CLICK MouseEvent from the column header group.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -820,15 +821,15 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
     protected function chb_clickHandler(event:MouseEvent):void 
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventHeaderBarXY:Point = globalToLocal(eventStageXY);
-        const eventSeparatorIndex:int = getSeparatorIndexAt(eventHeaderBarXY.x, 0);
+        const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
+        const eventSeparatorIndex:int = getSeparatorIndexAt(eventHeaderGroupXY.x, 0);
         const eventColumnIndex:int = 
-            (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderBarXY.x, 0) : -1;
+            (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderGroupXY.x, 0) : -1;
         
         if ((eventSeparatorIndex != -1) && (downSeparatorIndex == eventSeparatorIndex))
-            dispatchGridEvent(event, GridEvent.SEPARATOR_CLICK, eventHeaderBarXY, eventSeparatorIndex);
+            dispatchGridEvent(event, GridEvent.SEPARATOR_CLICK, eventHeaderGroupXY, eventSeparatorIndex);
         else if ((eventColumnIndex != -1) && (downColumnIndex == eventColumnIndex))
-            dispatchGridEvent(event, GridEvent.GRID_CLICK, eventHeaderBarXY, eventColumnIndex);
+            dispatchGridEvent(event, GridEvent.GRID_CLICK, eventHeaderGroupXY, eventColumnIndex);
     }
     
     /**
@@ -836,7 +837,7 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
      *  if the corresponding sequence of down and up events occur within 
      *  the same column header cell.  It dispatches a GRID_DOUBLE_CLICK event.
      * 
-     *  @param event A DOUBLE_CLICK MouseEvent from the column header bar.
+     *  @param event A DOUBLE_CLICK MouseEvent from the column header group.
      * 
      *  @see flash.display.InteractiveObject#doubleClickEnabled    
      * 
@@ -848,21 +849,21 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
     protected function chb_doubleClickHandler(event:MouseEvent):void 
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventHeaderBarXY:Point = globalToLocal(eventStageXY);
-        const eventSeparatorIndex:int = getSeparatorIndexAt(eventHeaderBarXY.x, 0);
+        const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
+        const eventSeparatorIndex:int = getSeparatorIndexAt(eventHeaderGroupXY.x, 0);
         const eventColumnIndex:int = 
-            (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderBarXY.x, 0) : -1;
+            (eventSeparatorIndex == -1) ? getHeaderIndexAt(eventHeaderGroupXY.x, 0) : -1;
         
         if ((eventSeparatorIndex != -1) && (downSeparatorIndex == eventSeparatorIndex))
-            dispatchGridEvent(event, GridEvent.SEPARATOR_DOUBLE_CLICK, eventHeaderBarXY, eventSeparatorIndex);
+            dispatchGridEvent(event, GridEvent.SEPARATOR_DOUBLE_CLICK, eventHeaderGroupXY, eventSeparatorIndex);
         else if ((eventColumnIndex != -1) && (downColumnIndex == eventColumnIndex))
-            dispatchGridEvent(event, GridEvent.GRID_DOUBLE_CLICK, eventHeaderBarXY, eventColumnIndex);
+            dispatchGridEvent(event, GridEvent.GRID_DOUBLE_CLICK, eventHeaderGroupXY, eventColumnIndex);
     }    
     
     /**
      *  @private
      */
-    private function dispatchGridEvent(mouseEvent:MouseEvent, type:String, headerBarXY:Point, columnIndex:int):void
+    private function dispatchGridEvent(mouseEvent:MouseEvent, type:String, headerGroupXY:Point, columnIndex:int):void
     {
         const column:GridColumn = getColumnAt(columnIndex);
         const item:Object = null;
@@ -878,7 +879,7 @@ public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusMa
         
         const event:GridEvent = new GridEvent(
             type, bubbles, cancelable, 
-            headerBarXY.x, headerBarXY.y, -1, columnIndex, column, item, itemRenderer, 
+            headerGroupXY.x, headerGroupXY.y, -1, columnIndex, column, item, itemRenderer, 
             relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta);
         dispatchEvent(event);
     }     
