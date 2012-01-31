@@ -135,12 +135,65 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  The ButtonBase component is the base class for the all Spark button components.
  *  Button and ToggleButtonBase are subclasses of ButtonBase.
  *  ToggleButton, CheckBox and RadioButton are subclasses of ToggleButtonBase.
+ * 
+ *  @mxml
  *
- *  @see mx.components.Button
+ *  <p>The <code>&lt;ButtonBase&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;ButtonBase
+ *    <strong>Properties</strong>
+ *    autoRepeat="false"
+ *    content="null"
+ *    label=""
+ *    stickyHighlighting="false"
+ *  
+ *    <strong>Events</strong>
+ *    buttonDown="<i>No default</i>"
+ *
+ *    <strong>Styles</strong>
+ *    alignmentBaseline="USE_DOMINANT_BASELINE"
+ *    baselineShift="0.0"
+ *    breakOpportunity="AUTO"
+ *    cffHinting="HORIZONTAL_STEM"
+ *    color="0"
+ *    digitCase="DEFAULT"
+ *    digitWidth="DEFAULT"
+ *    direction="LTR"
+ *    dominantBaseline="AUTO"
+ *    focusColor=""
+ *    fontFamily="Times New Roman"
+ *    fontLookup="DEVICE"
+ *    fontSize="12"
+ *    fontStyle="NORMAL"
+ *    fontWeight="NORMAL"
+ *    justificationRule="AUTO"
+ *    justificationStyle="AUTO"
+ *    kerning="AUTO"
+ *    ligatureLevel="COMMON"
+ *    lineHeight="120%"
+ *    lineThrough="false"
+ *    locale="en"
+ *    renderingMode="CFF"
+ *    repeatDelay="500"
+ *    repeatInterval="35"
+ *    textAlign="START"
+ *    textAlignLast="START"
+ *    textAlpha="1"
+ *    textDecoration="NONE"
+ *    textJustify="INTER_WORD"
+ *    trackingLeft="0"
+ *    trackingRight="0"
+ *    typographicCase="DEFAULT"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.components.Button
  *  @see spark.components.supportClasses.ToggleButtonBase
- *  @see mx.components.ToggleButton
- *  @see mx.components.CheckBox
- *  @see mx.components.RadioButton
+ *  @see spark.components.ToggleButton
+ *  @see spark.components.CheckBox
+ *  @see spark.components.RadioButton
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
