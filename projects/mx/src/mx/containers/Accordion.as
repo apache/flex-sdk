@@ -1112,7 +1112,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         for (var i:int = 0; i < n; i++)
         {
             var button:Button = getHeaderAt(i);
-            var child:IUIComponent = IUIComponent(getChildAt(i));
+            var child:IUIComponent = getLayoutChildAt(i);
 
             minWidth = Math.max(minWidth, button.minWidth);
             minHeight += headerHeight;
@@ -1231,7 +1231,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         for (var i:int = 0; i < n; i++)
         {
             var header:Button = getHeaderAt(i);
-            var content:IUIComponent = IUIComponent(getChildAt(i));
+            var content:IUIComponent = getLayoutChildAt(i);
 
             header.move(x, y);
             header.setActualSize(localContentWidth, headerHeight);
