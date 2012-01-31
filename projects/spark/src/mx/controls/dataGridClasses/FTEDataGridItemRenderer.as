@@ -328,7 +328,7 @@ public class TLFDataGridItemRenderer extends UITLFTextField
      */
     override public function getStyle(styleProp:String):*
     {
-        return (StyleManager.inheritingStyles[styleProp]) ?        
+        return (styleManager.inheritingStyles[styleProp]) ?        
             inheritingStyles[styleProp] : nonInheritingStyles[styleProp];
     }
 
@@ -366,7 +366,7 @@ public class TLFDataGridItemRenderer extends UITLFTextField
         // then regenerate the UIComponent's proto chain (and the proto chains
         // of this UIComponent's descendants).
         var isInheritingStyle:Boolean =
-            StyleManager.isInheritingStyle(styleProp);
+            styleManager.isInheritingStyle(styleProp);
         var isProtoChainInitialized:Boolean =
             inheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED;
         if (isInheritingStyle)
@@ -582,7 +582,7 @@ public class TLFDataGridItemRenderer extends UITLFTextField
                 for (var c:int=0; c < styleNames.length; c++)
                 {
                     if (styleNames[c].length) {
-                        classSelectors.push(StyleManager.getStyleDeclaration("." + 
+                        classSelectors.push(styleManager.getStyleDeclaration("." + 
                             styleNames[c]));
                     }
                 }
@@ -594,7 +594,7 @@ public class TLFDataGridItemRenderer extends UITLFTextField
         // getting the tail of the proto chain, which is:
         //  - for non-inheriting styles, the global style sheet
         //  - for inheriting styles, my parent's style object
-        var nonInheritChain:Object = StyleManager.stylesRoot;
+        var nonInheritChain:Object = styleManager.stylesRoot;
 
         var p:IStyleClient = parent as IStyleClient;
         if (p)
@@ -605,7 +605,7 @@ public class TLFDataGridItemRenderer extends UITLFTextField
         }
         else
         {
-            inheritChain = StyleManager.stylesRoot;
+            inheritChain = styleManager.stylesRoot;
         }
 
         // Working backwards up the list, the next element in the
@@ -687,7 +687,7 @@ public class TLFDataGridItemRenderer extends UITLFTextField
                className != "mx.core.UITLFTextField")
         {
             var s:CSSStyleDeclaration =
-                StyleManager.getStyleDeclaration(className);
+                styleManager.getStyleDeclaration(className);
             
             if (s)
             {
