@@ -14,7 +14,6 @@ package spark.primitives
 
 import flash.events.Event;
 import flash.events.FocusEvent;
-import flash.events.IOErrorEvent;
 import flash.events.KeyboardEvent;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
@@ -30,9 +29,9 @@ import flash.text.engine.TextLine;
 import flash.ui.Keyboard;
 
 import flashx.textLayout.compose.ITextLineCreator;
-import flashx.textLayout.container.ContainerController;
 import flashx.textLayout.container.TextContainerManager;
 import flashx.textLayout.conversion.ConversionType;
+import flashx.textLayout.conversion.ITextExporter;
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.edit.EditManager;
@@ -43,10 +42,7 @@ import flashx.textLayout.edit.SelectionManager;
 import flashx.textLayout.edit.SelectionState;
 import flashx.textLayout.edit.TextScrap;
 import flashx.textLayout.elements.Configuration;
-import flashx.textLayout.elements.FlowElement;
 import flashx.textLayout.elements.InlineGraphicElementStatus;
-import flashx.textLayout.elements.ParagraphElement;
-import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.CompositionCompletionEvent;
 import flashx.textLayout.events.DamageEvent;
@@ -66,7 +62,6 @@ import flashx.textLayout.operations.PasteOperation;
 import flashx.textLayout.tlf_internal;
 import flashx.undo.IUndoManager;
 
-import mx.core.EmbeddedFont;
 import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
 import mx.core.IIMESupport;
@@ -77,9 +72,10 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.ISystemManager;
 import mx.resources.ResourceManager;
+import mx.utils.ObjectUtil;
 import mx.utils.StringUtil;
 
-import spark.components.TextSelectionVisibility;
+import spark.components.TextSelectionHighlighting;
 import spark.core.CSSTextLayoutFormat;
 import spark.core.IViewport;
 import spark.core.NavigationUnit;
@@ -88,6 +84,7 @@ import spark.primitives.supportClasses.RichEditableTextContainerManager;
 import spark.utils.TextUtil;
 
 use namespace mx_internal;
+//use namespace tlf_internal;
 
 //--------------------------------------
 //  Events
@@ -197,8 +194,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  Displays text. 
  *  
  *  <p>RichEditableText has more functionality than SimpleText and RichText. In 
- *  addition to the text rendering capabilities of RichText, TextView also 
- * supports hyperlinks, scrolling, selecting, and editing.</p>
+ *  addition to the text rendering capabilities of RichText, RichEditableText 
+ *  also  supports hyperlinks, scrolling, selecting, and editing.</p>
  *  
  *  <p>The RichEditableText class is similar to the spark.components.TextArea 
  *  control, except that it does not have chrome.</p>
@@ -232,9 +229,28 @@ public class RichEditableText extends UIComponent
     
     /**
      *  @private
+     *  This method initializes the static vars of this class.
+     *  Rather than calling it at static initialization time,
+     *  we call it in the constructor to do the class initialization
+     *  when the first instance is created.
+     *  (It does an immediate return if it has already run.)
+     *  By doing so, we avoid any static initialization issues
+     *  related to whether this class or the TLF classes
+     *  that it uses are initialized first.
      */
     private static function initClass():void
     {
+        if (classInitialized)
+            return;
+
+        staticTextLayoutFormat = new TextLayoutFormat();
+        staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
+        staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
+            
     	// Create a single Configuration used by all TextContainerManager 
     	// instances.  It tells the TextContainerManager that we don't want it 
     	// to handle the ENTER key, because we need the ENTER key to behave 
@@ -243,14 +259,21 @@ public class RichEditableText extends UIComponent
     		Configuration(TextContainerManager.defaultConfiguration).clone();
     	staticTextContainerManagerConfiguration.manageEnterKey = false;
     	
-    	staticTextLayoutFormat = new TextLayoutFormat;
-    	
-    	staticImportConfiguration = new Configuration();
-    	
-    	staticTextFormat = new TextFormat();
-    }
+        staticPlainTextImporter =
+            TextFilter.getImporter(TextFilter.PLAIN_TEXT_FORMAT);
+        
+        // Throw import errors rather than return a null textFlow.
+        // Alternatively, the error strings are in the Vector, importer.errors.
+        staticPlainTextImporter.throwOnError = true;
     
-    initClass();    
+        staticPlainTextExporter =
+            TextFilter.getExporter(TextFilter.PLAIN_TEXT_FORMAT);
+            
+        // Used for embedded fonts.        	
+    	staticTextFormat = new TextFormat();
+    	
+    	classInitialized = true;
+    } 
     
     //--------------------------------------------------------------------------
     //
@@ -260,24 +283,35 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
+     */
+    private static var classInitialized:Boolean = false;
+    
+    /**
+     *  @private
 	 *  Used for telling TextContainerManager not to process the Enter key.
      */
     private static var staticTextContainerManagerConfiguration:Configuration;
     
     /**
      *  @private
-     *  Used for determining whitespace processing
-     *  when the 'content' property is set.
+     *  Used for determining whitespace processing when setting 'content'.
      */
     private static var staticTextLayoutFormat:TextLayoutFormat;
         
     /**
      *  @private
-     *  Used for determining whitespace processing
-     *  when the 'content' property is set.
+     *  This TLF object is used to import a 'text' String
+     *  containing linebreaks to create a multiparagraph TextFlow.
      */
-    private static var staticImportConfiguration:Configuration;
-    
+    private static var staticPlainTextImporter:ITextImporter;
+
+    /**
+     *  @private
+     *  This TLF object is used to export a TextFlow as plain 'text',
+     *  by walking the leaf FlowElements in the TextFlow.
+     */
+    private static var staticPlainTextExporter:ITextExporter;
+        
     /**
      *  @private
      *  Used in getEmbeddedFontContext().
@@ -363,6 +397,11 @@ public class RichEditableText extends UIComponent
     {
         super();
         
+        initClass();
+        
+        // Use the setter.
+        text = "";
+
         // Create the TLF TextContainerManager, using this component
         // as the DisplayObjectContainer for its TextLines.
         // This TextContainerManager instance persists for the lifetime
@@ -414,32 +453,26 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  This object reports the TLF formats that correspond
-     *  to this component's CSS styles.
+     *  This object determines the default text formatting used
+     *  by this component, based on its CSS styles.
+     *  It is set to null by stylesInitialized() and styleChanged(),
+     *  and recreated whenever necessary in commitProperties().
      */
     private var hostFormat:ITextLayoutFormat;
 
     /**
      *  @private
-     *  This variable is initialize to true so that hostFormat
-     *  gets initialized the first time through commitProperties().
+     *  It is set to NaN by stylesInitialized() and styleChanged(),
+     *  and recreated whenever necessary in calculateFontMetrics().
      */
-    private var hostFormatChanged:Boolean = true;
-
-    /**
-     *  @private
-     */
-    private var fontMetricsInvalid:Boolean = false;
+    private var ascent:Number = NaN;
     
     /**
      *  @private
+     *  It is set to NaN by stylesInitialized() and styleChanged(),
+     *  and recreated whenever necessary in calculateFontMetrics().
      */
-    private var ascent:Number;
-    
-    /**
-     *  @private
-     */
-    private var descent:Number;
+    private var descent:Number = NaN;
 
     /**
      *  @private
@@ -457,7 +490,7 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      */
-    private var textDamaged:Boolean = false;
+    mx_internal var ignoreDamageEvent:Boolean = false;
 
     /**
      *  @private
@@ -530,9 +563,6 @@ public class RichEditableText extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-        // Update ascent, if fontMetrics changed.
-        calculateFontMetrics();    
-
         return getStyle("paddingTop") + ascent;
     }
 
@@ -751,42 +781,6 @@ public class RichEditableText extends UIComponent
     //
     //--------------------------------------------------------------------------
 
-    //----------------------------------
-    //  autoSize
-    //----------------------------------
-        
-    /**
-     *  @private
-     *  The default is true.
-     */
-    private var _autoSize:Boolean = true;
-
-    /**
-     *  Documentation is not currently available.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get autoSize():Boolean 
-    {
-        return _autoSize;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set autoSize(value:Boolean):void 
-    {
-        if (value == _autoSize) 
-            return;
-    
-        _autoSize = value;
-
-        invalidateSize();
-        invalidateDisplayList();
-    }
         
     //----------------------------------
     //  content
@@ -820,36 +814,35 @@ public class RichEditableText extends UIComponent
     [RichTextContent]
         
     /**
-     *  Documentation is not currently available.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get content():Object
-    {
-        return _content;
-    }
-
-    /**
-     *  @private
+     *  This write-only property is for internal use by the MXML compiler.
+     *  Please use the <code>textFlow</code> property to set
+     *  rich text content.
      */
     public function set content(value:Object):void
     {
+        // Treat setting the 'content' to null
+        // as if 'text' were being set to the empty String
+        // (which is the default state).
+        if (value == null)
+        {
+            text = "";
+            return;
+        }
+        
         if (value == _content)
             return;
-
-        // Setting 'content' temporarily causes 'text' to become null.
-        // Later, after the 'content' has been committed into the TextFlow,
-        // getting 'text' will extract the text from the TextFlow.
-        _text = null;
-        textDamaged = true;
-        textChanged = false;
-
+        
         _content = value;
         contentChanged = true;
-
+        
+        // Of 'text', 'textFlow', and 'content', the last one set wins.
+        textChanged = false;
+        textFlowChanged = false;
+        
+        // The other two are now invalid and must be recalculated when needed.
+        _text = null;
+        _textFlow = null;
+                
         invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
@@ -979,7 +972,7 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      */
-    private var _heightInLines:Number = 10;
+    private var _heightInLines:Number = NaN;
 
     /**
      *  @private
@@ -989,11 +982,11 @@ public class RichEditableText extends UIComponent
     /**
      *  The height of the control, in lines.
      *  
-     *  <p>TextView's measure() method does not determine the measured size from 
-     *  the text to be displayed, because a TextView often starts out with no 
-     *  text. Instead it uses this property, and the widthInChars property 
-     *  to determine its measuredWidth and measuredHeight. These are 
-     *  similar to the cols and rows of an HTML TextArea.</p>
+     *  <p>RichEditableText's measure() method does not determine the measured
+     *   size from the text to be displayed, because a RichEditableText often 
+     *  starts out with no text. Instead it uses this property, and the 
+     *  widthInChars property to determine its measuredWidth and measuredHeight. 
+     *  These are similar to the cols and rows of an HTML TextArea.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1016,6 +1009,7 @@ public class RichEditableText extends UIComponent
         _heightInLines = value;
         heightInLinesChanged = true;
 
+        invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
     }
@@ -1090,7 +1084,7 @@ public class RichEditableText extends UIComponent
     private var _maxChars:int = 0;
 
     /**
-     *  The maximum number of characters that the TextView can contain,
+     *  The maximum number of characters that the RichEditableText can contain,
      *  as entered by a user.
      *  A script can insert more text than maxChars allows;
      *  the maxChars property indicates only how much text a user can enter.
@@ -1130,7 +1124,8 @@ public class RichEditableText extends UIComponent
      *  Determines whether the user can enter multiline text.
      *  If <code>true</code>, the Enter key starts a new paragraph.
      *  If <code>false</code>, the Enter key doesn't affect the text
-     *  but causes the TextView to dispatch an <code>"enter"</code> event.
+     *  but causes the RichEditableText to dispatch an <code>"enter"</code> 
+     *  event.
      * 
      *  @default true
      *  
@@ -1290,18 +1285,18 @@ public class RichEditableText extends UIComponent
     }
 
     //----------------------------------
-    //  selectionVisibility
+    //  selectionHighlighting
     //----------------------------------
 
     /**
      *  @private
      */
-    private var _selectionVisibility:String =
-        TextSelectionVisibility.WHEN_FOCUSED;
+    private var _selectionHighlighting:String =
+        TextSelectionHighlighting.WHEN_FOCUSED;
 
     /**
      *  @private
-     *  To indicate either selection visibility or selection styles have
+     *  To indicate either selection highlighting or selection styles have
      *  changed.
      */
     private var selectionFormatsChanged:Boolean = false;
@@ -1311,29 +1306,29 @@ public class RichEditableText extends UIComponent
      *  
      *  Possible values are <code>ALWAYS</code>, <code>WHEN_FOCUSED</code>, and <code>WHEN_ACTIVE</code>.
      *  
-     *  @see mx.components.TextSelectionVisibility
+     *  @see mx.components.TextSelectionHighlighting
      * 
-     *  @default TextSelectionVisibility.WHEN_FOCUSED
+     *  @default TextSelectionHighlighting.WHEN_FOCUSED
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get selectionVisibility():String 
+    public function get selectionHighlighting():String 
     {
-        return _selectionVisibility;
+        return _selectionHighlighting;
     }
     
     /**
      *  @private
      */
-    public function set selectionVisibility(value:String):void
+    public function set selectionHighlighting(value:String):void
     {
-        if (value == _selectionVisibility)
+        if (value == _selectionHighlighting)
             return;
             
-        _selectionVisibility = value;
+        _selectionHighlighting = value;
         selectionFormatsChanged = true;
         
         invalidateProperties();
@@ -1357,7 +1352,7 @@ public class RichEditableText extends UIComponent
     [Bindable("change")]
 
     /**
-     *  The text String displayed by this TextView.
+     *  The text String displayed by this RichEditableText.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1366,55 +1361,62 @@ public class RichEditableText extends UIComponent
      */
     public function get text():String 
     {
-        if (textDamaged && !displayAsPassword)
-        {    
-            _text = _textContainerManager.getText("\n");
-            textDamaged = false;
+        // Extracting the plaintext from a TextFlow is somewhat expensive,
+        // as it involves iterating over the leaf FlowElements in the TextFlow.
+        // Therefore we do this extraction only when necessary, namely when
+        // you first set the 'content' or the 'textFlow'
+        // (or mutate the TextFlow), and then get the 'text'.
+        if (_text == null)
+        {
+            // If 'content' was last set,
+            // we have to first turn that into a TextFlow.
+            if (_content != null)
+                _textFlow = createTextFlowFromContent(_content);
+                    
+            // Once we have a TextFlow, we can export its plain text.
+            _text = staticPlainTextExporter.export(
+                _textFlow, ConversionType.STRING_TYPE) as String;
+            // Remove the trailing paragraph terminator.
+            _text = _text.substring(0, _text.length - 1);
         }
-        
+
         return _text;
     }
     
     /**
      *  @private
+     *  This will create a TextFlow with a single paragraph with a single span 
+     *  with exactly the text specified.  If there is whitespace and line 
+     *  breaks in the text, they will remain, regardless of the settings of
+     *  the lineBreak and whiteSpaceCollapse styles.
      */
     public function set text(value:String):void
-    {       
-        // Text is never null.  null is converted to 0-length string. 
+    {
+        // Treat setting the 'text' to null
+        // as if it were set to the empty String
+        // (which is the default state).
         if (value == null)
             value = "";
-            
-        if (value == _text)
-            return;
         
-        // If we have focus, then we need to immediately create a TextFlow so
-        // the interaction manager will be created and editing/selection can
-        // be done without having to mouse click or mouse hover over this field.
-        // Normally this is done in our focusIn handler by making sure there
-        // is a selection.    
-
-        // If the text has line-ending sequences such as LF or CR+LF, 
-        // a TextFlow with multiple paragraph is produced as the 'content'. 
-        // Otherwise all of the multi-line text got stuffed into one span in 
-        // one paragraph. But when you have a large paragraph 
-        // (i.e., a large TextBlock), FTE is slow to break the first 
-        // TextLine because it analyzes all of the text first.       
-        if (getFocus() == this || textHasLineBreaks(value))
-        {
-           content = importToFlow(value);
-           return;
-        }
-                                                              
-        // Setting 'text' temporarily causes 'content' to become null.
-        // Later, after the 'text' has been committed into the TextFlow,
-        // getting 'content' will return the TextFlow.
-        _content = null;
-        contentChanged = false;
+        // Don't return early if value is the same as _text,
+        // because _text might have been produced from setting
+        // 'textFlow' or 'content'.
+        // For example, if you set a TextFlow corresponding to
+        // "Hello <span color="OxFF0000">World</span>"
+        // and then get the 'text', it will be the String "Hello World"
+        // But if you then set the 'text' to "Hello World"
+        // this represents a change: the "World" should no longer be red.
         
         _text = value;
-        textDamaged = false;
-        
         textChanged = true;
+        
+        // Of 'text', 'textFlow', and 'content', the last one set wins.
+        textFlowChanged = false;
+        contentChanged = false;
+        
+        // The other two are now invalid and must be recalculated when needed.
+        _textFlow = null;
+        _content = null;
         
         invalidateProperties();
         invalidateSize();
@@ -1426,15 +1428,72 @@ public class RichEditableText extends UIComponent
     //----------------------------------
     
     /**
-     *  Documentation is not currently available.
+     *  @private
+     *  Storage for the textFlow property.
+     */
+    private var _textFlow:TextFlow;
+    
+    /**
+     *  @private
+     */
+    private var textFlowChanged:Boolean = false;
+    
+    /**
+     *  The TextFlow displayed by this component.
+     * 
+     *  <p>A TextFlow is the most important class
+     *  in the Text Layout Framework.
+     *  It is the root of a tree of FlowElements
+     *  representing rich text content.</p>
+     * 
+     *  @default
      */
     public function get textFlow():TextFlow
     {
-    	if (debug)
-    		trace("getTextFlow()");
-    	return _textContainerManager.getTextFlow();
+        // We might not have a valid _textFlow for two reasons:
+        // either because the 'text' was set (which is the state
+        // after construction) or because the 'content' was set.
+        if (!_textFlow)
+        {
+            if (_content != null)
+                _textFlow = createTextFlowFromContent(_content);
+            else
+                _textFlow = staticPlainTextImporter.importToFlow(_text);
+        }
+        
+        return _textFlow;
     }
     
+    public function set textFlow(value:TextFlow):void
+    {
+        // Treat setting the 'textFlow' to null
+        // as if 'text' were being set to the empty String
+        // (which is the default state).
+        if (value == null)
+        {
+            text = "";
+            return;
+        }
+        
+        if (value == _textFlow)
+            return;
+            
+        _textFlow = value;
+        textFlowChanged = true;
+        
+        // Of 'text', 'textFlow', and 'content', the last one set wins.
+        textChanged = false;
+        contentChanged = false;
+        
+        // The other two are now invalid and must be recalculated when needed.
+        _text = null
+        _content = null;
+        
+        invalidateProperties();
+        invalidateSize();
+        invalidateDisplayList();
+    }
+
     //----------------------------------
     //  widthInChars
     //----------------------------------
@@ -1443,7 +1502,7 @@ public class RichEditableText extends UIComponent
      *  @private
      *  These are measured in ems.
      */
-    private var _widthInChars:Number = 15;
+    private var _widthInChars:Number = NaN;
 
     /**
      *  @private
@@ -1494,8 +1553,8 @@ public class RichEditableText extends UIComponent
     override protected function commitProperties():void
     {
         super.commitProperties();
-        
-        if (hostFormatChanged)
+
+        if (!hostFormat)
         {
 	        // If the CSS styles for this component specify an embedded font,
 	        // embeddedFontContext will be set to the module factory that
@@ -1513,8 +1572,6 @@ public class RichEditableText extends UIComponent
         		// the fontLookup format is set to either
         		// "device" or "embedded" depending on whether
         		// embeddedFontContext is null or non-null.
-
-            hostFormatChanged = false;
         }
         
         if (selectionFormatsChanged)
@@ -1526,6 +1583,12 @@ public class RichEditableText extends UIComponent
         	selectionFormatsChanged = false;
         }
 
+        // If fontMetrics changed, recalculate the ascent, and descent.
+        if (isNaN(ascent) || isNaN(descent))
+            calculateFontMetrics();    
+    
+        // EditingMode needs to be current before attempting to set a
+        // selection below.
         if (enabledChanged || selectableChanged || editableChanged)
         {
             updateEditingMode();
@@ -1534,55 +1597,86 @@ public class RichEditableText extends UIComponent
             editableChanged = false;
             selectableChanged = false;          
         }
-                        
+
+        // Only one of textChanged, textFlowChanged, and contentChanged
+        // will be true; the other two will be false because each setter
+        // guarantees this.
+
         if (textChanged)
         {
-        	if (debug)
-        		trace("setText()");
-        	
-            _textContainerManager.setText(_text);
-        
-            dispatchChangeEvent = true;
-
-            textChanged = false;
+            // If the text has linebreaks (CR, LF, or CF+LF)
+            // create a multi-paragraph TextFlow from it
+            // and use the TextFlowTextLineFactory to render it.
+            // Otherwise the StringTextLineFactory will put
+            // all of the lines into a single paragraph
+            // and FTE performance will degrade on a large paragraph.
+            
+            // If we have focus, then we need to immediately create a 
+            // TextFlow sothe interaction manager will be created and 
+            // editing/selection can be done without having to mouse click 
+            // or mouse hover over this field.  Normally this is done in our 
+            // focusIn handler by making sure there is a selection.  Test this
+            // by clicking an arrow in the NumericStepper and then entering
+            // a number without clicking on the input field first.    
+                        
+            if (_text.indexOf("\n") != -1 || _text.indexOf("\r") != -1 ||
+                getFocus() == this)
+            {
+                _textFlow = staticPlainTextImporter.importToFlow(_text);
+                _textContainerManager.setTextFlow(_textFlow);
+            }
+            else
+            {
+                _textContainerManager.setText(_text);
+            }
+        }
+        else if (textFlowChanged)
+        {
+            _textContainerManager.setTextFlow(_textFlow);
         }
         else if (contentChanged)
         {
-        	var textFlow:TextFlow = createTextFlowFromContent();
-        	
-        	if (debug)
-        		trace("setTextFlow()");
-        	_textContainerManager.setTextFlow(textFlow);
+            _textFlow = createTextFlowFromContent(_content);
+            _textContainerManager.setTextFlow(_textFlow);
 
+            // Content converted to textFlow.
+            _content = null;
+        }                        
+         
+        if (textChanged || textFlowChanged || contentChanged)
+        {
             dispatchChangeEvent = true;
             
-            contentChanged = false;        	   
-        }
-
-        // Text or content changed.
-        if (dispatchChangeEvent)
-        {
-            // Handle case where content is intially displayed as password.         
-            if (displayAsPassword)
-               displayAsPasswordChanged = true;
-               
-            // If the text or content changed, there is no selection.  If we 
-            // already have focus, set the selection, since we've already 
-            // executed our focusIn handler where this is normally done.
-            if (editingMode != EditingMode.READ_ONLY && getFocus() == this)
-                setSelectionBasedOnScrolling();               
-        }
+            // If the text, textFlow or content changed, there is no selection.
+            // If we already have focus, set the selection, since we've 
+            // already  executed our focusIn handler where this is normally 
+            // done.
+            if (getFocus() == this)
+                setSelectionBasedOnScrolling();  
                 
+            // Handle the case where the initial text, textFlow or content 
+            // is displayed as a password.
+            if (displayAsPassword)
+                displayAsPasswordChanged = true;
+
+            textChanged = false;
+            textFlowChanged = false;
+            contentChanged = false;             
+        }
+        
         // If displayAsPassword changed, it only applies to the display, 
-        // not the underlying text.  Do not mark the textFlow as changed.
+        // not the underlying text.
         if (displayAsPasswordChanged)
         {
+            var oldAnchorPosition:int = _selectionAnchorPosition;
+            var oldActivePosition:int = _selectionActivePosition;
+            
             // If there is any text, convert it to the passwordChar.
             if (displayAsPassword)
             {
                 // Make sure _text is set with the actual text before we
                 // change the displayed text.
-                _text = _textContainerManager.getText("\n");
+                _text = text;
                 
                 // ToDo: if content, should the paragraph terminators be
                 // left in the string so the displayAsPassword string has the
@@ -1595,14 +1689,19 @@ public class RichEditableText extends UIComponent
             }
             else
             {
-                // Was displayAsPassword.  Now display as plain text.
+                // Text was displayed as password.  Now display as plain text.
                 _textContainerManager.setText(_text);
             }
-
-            textDamaged = false;
+            
+            // Must preserve the selection, if there was one.
+            selectRange(oldAnchorPosition, oldActivePosition);
+            
             displayAsPasswordChanged = false;
         }
         
+        if (heightInLinesChanged || widthInCharsChanged || 
+            clipAndEnableScrollingChanged)
+                
         if (clipAndEnableScrollingChanged)
         {
             // Not sure if there is any real difference between on and auto.
@@ -1619,6 +1718,7 @@ public class RichEditableText extends UIComponent
             }
             clipAndEnableScrollingChanged = false;
         }
+        
                                     
         if (horizontalScrollPositionChanged)
         {
@@ -1723,19 +1823,25 @@ public class RichEditableText extends UIComponent
             actuallyAutoSizing = false;
             return true;
         }
-        
-        var oldActuallyAutoSizing:Boolean = actuallyAutoSizing;
-        
-        // AutoSize if it is requested and this component isn't the viewport
-        // of a scroller.  autoSize and scrolling don't play well together.            
-        actuallyAutoSizing = _autoSize && !_clipAndEnableScrolling;
-        
-        // If we're autoSizing now, make sure we aren't scrolled from previously
-        // not being autoSized.
-        if (actuallyAutoSizing && !oldActuallyAutoSizing)
+             
+        // ToDo: consider moving to commitProperties()
+        if (isNaN(widthInChars) && isNaN(heightInLines))
         {
-            _textContainerManager.horizontalScrollPosition = 0;
-            _textContainerManager.verticalScrollPosition = 0;
+            // Can only autoSize if this component isn't the viewport
+            // of a scroller.  autoSize and scrolling don't play well together.
+            actuallyAutoSizing = !_clipAndEnableScrolling;
+            
+            // If we're autoSizing, make sure we aren't scrolled from
+            // previously not being autoSized.
+            if (actuallyAutoSizing)
+            {
+                _textContainerManager.horizontalScrollPosition = 0;
+                _textContainerManager.verticalScrollPosition = 0;
+            }
+        }
+        else
+        {
+            actuallyAutoSizing = false;
         }
         
         return false;        
@@ -1748,9 +1854,6 @@ public class RichEditableText extends UIComponent
     {
         super.measure();
         
-        // Recalculate the ascent, and descent, if fontMetrics changed.
-        calculateFontMetrics();    
-    
         if (actuallyAutoSizing)
         {
             measureForAutoSize();
@@ -1807,9 +1910,10 @@ public class RichEditableText extends UIComponent
     override public function stylesInitialized():void
     {
         super.stylesInitialized();
-
-        fontMetricsInvalid = true;
-        hostFormatChanged = true;
+        
+        ascent = NaN;
+        descent = NaN;
+        hostFormat = null;
     }
 
     /**
@@ -1827,31 +1931,31 @@ public class RichEditableText extends UIComponent
         if (styleProp == null || styleProp == "styleName" ||
             styleProp == "fontFamily" || styleProp == "fontSize")
         {
-            fontMetricsInvalid = true;
+            ascent = NaN;
+            descent = NaN;
         }
 
-        // If null or "styleName" is passed, indicating that
-        // multiple styles may have changed, set a flag indicating
-        // that hostContainerFormat, hostParagraphFormat,
-        // and hostCharacterFormat need to be recalculated later.
-        // But if a single style has changed, update the corresponding
-        // property in either hostContainerFormat, hostParagraphFormat,
-        // or hostCharacterFormat immediately.
+        // If null or "styleName" is passed it indicates that
+        // multiple styles may have changed.  Otherwise it is a single style
+        // so mark whether it is the selectionFormat that changed or the
+        // hostFormat that changed.
         if (styleProp == null || styleProp == "styleName")
         {
-            hostFormatChanged = true;
+            hostFormat = null;
             selectionFormatsChanged = true;
         }
-        else if (isSelectionFormat(styleProp))
+        else if (styleProp == "focusedTextSelectionColor" || 
+                 styleProp == "unfocusedTextSelectionColor" ||
+                 styleProp == "inactiveTextSelectionColor")
         {
             selectionFormatsChanged = true;
         }
         else
         {
-            hostFormatChanged = true;
+            hostFormat = null;
         }
 
-        // Need to regenerate text flow.
+        // Need to create new format(s).
         invalidateProperties();
     }
 
@@ -2084,28 +2188,40 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
+     *  When this is called the component has focus.
      */
     private function setSelectionBasedOnScrolling(always:Boolean=true):void
     {
-        // Only set the selection if there isn't already one.
-        if (!always)
-        {
-            var done:Boolean = false;
-            var sm:ISelectionManager = getSelectionManager();
-            if (sm.hasSelection())
-                done = true;
-            releaseSelectionManager();
+        // No selection if read-only.
+        if (editingMode == EditingMode.READ_ONLY)
+            return;
             
-            if (done)
-                return;
-        }
-        
+        var selectionManager:ISelectionManager = getSelectionManager();        
+
+        // Only set the selection if there isn't already one.
+        if (!always && selectionManager.hasSelection())
+        {
+            releaseSelectionManager();
+            return;
+        }            
+
         // If scrolling, the selection/insertion point is at the begining.
         // Othewise, it is at the end.
-        if (_clipAndEnableScrolling)                
-            setSelection(0, 0);
-        else
-            setSelection(int.MAX_VALUE, int.MAX_VALUE);
+        var position:int = _clipAndEnableScrolling ? 0 : int.MAX_VALUE;                
+
+        selectionManager.setSelection(position, position); 
+        
+        // This should not be necessary but it is if the text is changed after
+        // the component already has focus.  The initial selectionFormatState
+        // is SelectionFormatState.UNFOCUSED.
+        if (!selectionManager.focused)       
+            selectionManager.setFocus();
+                
+        // Refresh the selection.  This does not cause a damage event.
+        selectionManager.refreshSelection();
+        
+        releaseSelectionManager();
+        
     }
     
     /**
@@ -2189,9 +2305,6 @@ public class RichEditableText extends UIComponent
      */
     private function calculateFontMetrics():void
     {
-        if (!fontMetricsInvalid)
-            return;
-            
         // If the CSS styles for this component specify an embedded font,
         // embeddedFontContext will be set to the module factory that
         // should create TextLines (since they must be created in the
@@ -2250,8 +2363,6 @@ public class RichEditableText extends UIComponent
         
         ascent = textLine.ascent;
         descent = textLine.descent;
-
-        fontMetricsInvalid = false;                    
     }
     
     /**
@@ -2260,11 +2371,20 @@ public class RichEditableText extends UIComponent
     private function calculateWidthInChars():Number
     {
     	var em:Number = getStyle("fontSize");
-    	
+
+        var effectiveWidthInChars:int;
+            	
+        // If both height and width are NaN but there is a scroller, can't
+        // autoSize so use 15 chars.  Otherwise if only width is NaN, use 1.                
+    	if (isNaN(_widthInChars))
+    	   effectiveWidthInChars = isNaN(_heightInLines) ? 15 : 1;
+    	else
+    	   effectiveWidthInChars = _widthInChars;
+    	   
     	// Without the explicit casts, if padding values are non-zero, the
     	// returned width is a very large number.
     	return getStyle("paddingLeft") +
-    		   widthInChars * em +
+    		   effectiveWidthInChars * em +
     		   getStyle("paddingRight");
     }
     
@@ -2276,10 +2396,19 @@ public class RichEditableText extends UIComponent
     private function calculateHeightInLines():Number
     {
         var height:Number = getStyle("paddingTop") + getStyle("paddingBottom");
-            
-        if (heightInLines == 0)
+        
+        if (_heightInLines == 0)
             return height;
-                        
+        
+        var effectiveHeightInLines:int;
+        
+        // If both height and width are NaN but there is a scroller, can't
+        // autoSize so use 10 lines.  Otherwise if only height is NaN, use 1.
+        if (isNaN(_heightInLines))
+            effectiveHeightInLines = isNaN(_widthInChars) ? 10 : 1;   
+        else
+            effectiveHeightInLines = _heightInLines;
+            
         // Position of the baseline of first line in the container.
         value = getStyle("firstBaselineOffset");
         if (value == lineHeight)
@@ -2291,7 +2420,7 @@ public class RichEditableText extends UIComponent
 
         // Distance from baseline to baseline.  Can be +/- number or 
         // or +/- percent (in form "120%") or "undefined".  
-        if (heightInLines > 1)
+        if (effectiveHeightInLines > 1)
         {
             var value:Object = getStyle("lineHeight");     
             var lineHeight:Number =
@@ -2301,7 +2430,7 @@ public class RichEditableText extends UIComponent
             if (isNaN(lineHeight))
                 lineHeight = getStyle("fontSize") * 1.2;
             
-            height += (heightInLines - 1) * lineHeight;
+            height += (effectiveHeightInLines - 1) * lineHeight;
         }            
         
         // Add in descent of last line.
@@ -2310,197 +2439,27 @@ public class RichEditableText extends UIComponent
         return height;
     }
         
+
     /**
      *  @private
      */
-    private function createEmptyTextFlow():TextFlow
-    {
-        var textFlow:TextFlow = new TextFlow();
-        var p:ParagraphElement = new ParagraphElement();
-        var span:SpanElement = new SpanElement();
-        textFlow.replaceChildren(0, 0, p);
-        p.replaceChildren(0, 0, span);
-        return textFlow;
-    }
-    
-    /**
-     *  @private
-     */
-    private function createTextFlowFromMarkup(markup:Object):TextFlow
-    {
-        // The whiteSpaceCollapse format determines how whitespace
-        // is processed when markup is imported.
-        staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
-        staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
-        staticTextLayoutFormat.whiteSpaceCollapse =
-            getStyle("whiteSpaceCollapse");
-        staticImportConfiguration.textFlowInitialFormat =
-            staticTextLayoutFormat;
-
-        if (markup is XML || markup is String)
-        {
-            // We need to wrap the markup in a <TextFlow> tag
-            // unless it already has one.
-            // Note that we avoid trying to convert it to XML
-            // (in order to test whether the outer tag is <TextFlow>)
-            // unless it contains the substring "TextFlow".
-            // And if we have to do the conversion, then
-            // we use the markup in XML form rather than
-            // having TLF reconvert it to XML.
-            var wrap:Boolean = true;
-            if (markup is XML || markup.indexOf("TextFlow") != -1)
-            {
-                try
-                {
-                    var xmlMarkup:XML = XML(markup);
-                    if (xmlMarkup.localName() == "TextFlow")
-                    {
-                        wrap = false;
-                        markup = xmlMarkup;
-                    }
-                }
-                catch(e:Error)
-                {
-                }
-            }
-
-            if (wrap)
-            {
-                if (markup is String)
-                {
-                    markup = 
-                        '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
-                        markup +
-                        '</TextFlow>';
-                }
-                else
-                {
-                    // It is XML.  Create a root element and add the markup
-                    // as it's child.
-                    var ns:Namespace = 
-                        new Namespace("http://ns.adobe.com/textLayout/2008");
-                                                 
-                    xmlMarkup = <TextFlow />;
-                    xmlMarkup.setNamespace(ns);            
-                    xmlMarkup.setChildren(markup);  
-                                        
-                    // The namespace of the root node is not inherited by
-                    // the children so it needs to be explicitly set on
-                    // every element, at every level.  If this is not done
-                    // the import will fail with an "Unexpected namespace"
-                    // error.
-                    for each (var element:XML in xmlMarkup..*::*)
-                       element.setNamespace(ns);
-
-                    markup = xmlMarkup;
-                }
-            }
-        }
-        
-        return importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT,
-                            staticImportConfiguration);
-    }
-    
-    /**
-     *  @private
-     */
-    private function createTextFlowFromChildren(children:Array):TextFlow
+    private function createTextFlowFromContent(content:Object):TextFlow
     {
         var textFlow:TextFlow = new TextFlow();
 
         // The whiteSpaceCollapse format determines how whitespace
         // is processed when the children are set.
-        staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
-        staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
         staticTextLayoutFormat.whiteSpaceCollapse =
             getStyle("whiteSpaceCollapse");
         textFlow.hostFormat = staticTextLayoutFormat;
 
-        textFlow.mxmlChildren = children;
+        textFlow.mxmlChildren = content is Array ?
+                                content as Array :
+                                [ content ];
 
         return textFlow;
     }
-
-    /**
-     *  @private
-     */
-    private function createTextFlowFromContent():TextFlow
-    {
-    	var textFlow:TextFlow;
-    	
-        if (_content is TextFlow)
-        {
-            textFlow = TextFlow(_content);
-        }
-        else if (_content is Array)
-        {
-            textFlow = createTextFlowFromChildren(_content as Array);
-        }
-        else if (_content is FlowElement)
-        {
-            textFlow = createTextFlowFromChildren([ _content ]);
-        }
-        else if (_content is String || _content is XML)
-        {
-            textFlow = createTextFlowFromMarkup(_content);
-        }
-        else if (_content == null)
-        {
-            textFlow = createEmptyTextFlow();
-        }
-        else
-        {
-            textFlow = createTextFlowFromMarkup(_content.toString());
-        }
         
-        return textFlow;
-    }
-    
-    /**
-     *  @private
-     *  This will throw on import error.
-     */
-    private function importToFlow(source:Object, 
-                                  format:String = TextFilter.PLAIN_TEXT_FORMAT, 
-                                  config:Configuration = null):TextFlow
-    {
-        var importer:ITextImporter = TextFilter.getImporter(format, config);
-        
-        // Throw import errors rather than return a null textFlow.
-        // Alternatively, the error strings are in the Vector, importer.errors.
-        importer.throwOnError = true;
-        
-        return importer.importToFlow(source);        
-    }
-
-    /**
-     *  @private
-     */
-    private function textHasLineBreaks(s:String):Boolean
-    {
-        return s.indexOf("\n") != -1 || s.indexOf("\r") != -1;
-    }
-    
-    /**
-     *  @private
-     *  Is this a style associated with the SelectionFormat?
-     */
-    private function isSelectionFormat(styleProp:String):Boolean
-    {        
-        return styleProp &&
-               (styleProp == "selectionColor" || 
-                styleProp == "unfocusedSelectionColor" ||
-                styleProp == "inactiveSelectionColor");
-    }
-       
     /**
      *  @private
      */
@@ -2520,17 +2479,33 @@ public class RichEditableText extends UIComponent
     }
 
     /**
-     *  Sets the selection range.  By default, the entire range is selected.
-     *  If you pass negative numbers for the position, it will deselect. 
+     *  Selects the entire text range.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function setSelection(anchorPosition:int = 0,
-                                 activePosition:int = int.MAX_VALUE):void
+    public function selectAll():void
     {
+        selectRange(0, int.MAX_VALUE);
+    }
+
+    /**
+     *  Sets the selection range.  If either position is negative, it will
+     *  deselect the text range.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function selectRange(anchorPosition:int,
+                                activePosition:int):void
+    {
+        // Make sure all properties are committed before doing the operation.
+        validateNow();
+
 		var selectionManager:ISelectionManager = getSelectionManager();
         
         selectionManager.setSelection(anchorPosition, activePosition);        
@@ -2549,11 +2524,14 @@ public class RichEditableText extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function scrollToPosition(anchorPosition:int = 0,
-                                     activePosition:int = int.MAX_VALUE):void
+    public function scrollToRange(anchorPosition:int = 0,
+                                  activePosition:int = int.MAX_VALUE):void
     {
-       // Scrolls so that the text position is visible in the container. 
-       textContainerManager.scrollToPosition(anchorPosition, activePosition);       
+        // Make sure all properties are committed before doing the operation.
+        validateNow();
+
+        // Scrolls so that the text position is visible in the container. 
+        textContainerManager.scrollToPosition(anchorPosition, activePosition);       
     }
         
     /**
@@ -2591,9 +2569,9 @@ public class RichEditableText extends UIComponent
     }
     
     /**
-     *  Appends the specified text to the end of the TextView,
+     *  Appends the specified text to the end of the RichEditableText,
      *  as if you had clicked at the end and typed it.
-     *  When TextView supports vertical scrolling,
+     *  When RichEditableText supports vertical scrolling,
      *  it will scroll to ensure that the last line
      *  of the inserted text is visible.
      *  
@@ -2624,46 +2602,33 @@ public class RichEditableText extends UIComponent
     }
 
     /**
-     *  Returns a String containing markup describing
-     *  this TextView's TextFlow.
-     *  This markup String has the appropriate format
-     *  for setting the <code>content</code> property.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function export():XML
-    {
-        return XML(TextFilter.export(textFlow, TextFilter.TEXT_LAYOUT_FORMAT,
-                                     ConversionType.XML_TYPE));
-    }
-
-    /**
-     *  Returns an Object containing name/value pairs of text attributes
+     *  Returns a TextLayoutFormat object with the requestedFormats set
      *  for the specified range.
      *  If an attribute is not consistently set across the entire range,
-     *  its value will be null.
-     *  You can specify an Array containing names of the attributes
-     *  that you want returned; if you don't, all attributes will be returned.
-     *  If you don't specify a range, the selected range is used.
+     *  its value will be undefined.
+     *  You can specify an Array containing names of the formats attributes
+     *  that you want returned; if you don't, all formats attributes will be
+     *   returned.  If you don't specify a range, the selected range is used.
      *  For example, calling
-     *  <code>getSelectionFormat()</code>
+     *  <code>getFormatOfRange()</code>
      *  might return <code>({ fontSize: 12, color: null })</code>
      *  if the selection is uniformly 12-point but has multiple colors.
-     *  The supported attributes are those in the
-     *  ICharacterAttributes and IParagraphAttributes interfaces.
+     *  The supported formats are those in TextLayoutFormat.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getSelectionFormat(names:Array = null):Object
+    public function getFormatOfRange(requestedFormats:Vector.<String>=null,
+                                     anchorPosition:int=-1,
+                                     activePosition:int=-1):TextLayoutFormat
     {
-        var format:Object = {};
-        
+        var format:TextLayoutFormat = new TextLayoutFormat();
+ 
+         // Make sure all properties are committed before doing the operation.
+        validateNow();
+
         var selectionManager:ISelectionManager = getSelectionManager();
                 
         // This internal TLF object maps the names of format properties
@@ -2682,11 +2647,11 @@ public class RichEditableText extends UIComponent
         var needParagraphFormat:Boolean = false;
         var needCharacterFormat:Boolean = false;
 
-        if (!names)
+        if (!requestedFormats)
         {
-            names = [];
+            requestedFormats = new Vector.<String>;
             for (p in description)
-                names.push(p);
+                requestedFormats.push(p);
             
             needContainerFormat = true;
             needParagraphFormat = true;
@@ -2694,7 +2659,7 @@ public class RichEditableText extends UIComponent
         }
         else
         {
-            for each (p in names)
+            for each (p in requestedFormats)
             {
                 if (!(p in description))
                     continue;
@@ -2716,6 +2681,20 @@ public class RichEditableText extends UIComponent
         var paragraphFormat:ITextLayoutFormat;
         var characterFormat:ITextLayoutFormat;
         
+        // Unfortunatley getCommonContainerFormat() works only on the curent
+        // selection, so if another selection is requested, we have to 
+        // temporarily change the current selection and then restore it when
+        // we are done.
+        var oldAnchorPosition:int;
+        var oldActivePosition:int;
+        if (anchorPosition != -1 && activePosition != -1)
+        {
+            oldAnchorPosition = _selectionAnchorPosition;
+            oldActivePosition = _selectionActivePosition;
+            
+            selectionManager.setSelection(anchorPosition, activePosition);        
+        }                       
+                               
         if (needContainerFormat)
             containerFormat = selectionManager.getCommonContainerFormat();
         
@@ -2725,8 +2704,13 @@ public class RichEditableText extends UIComponent
         if (needCharacterFormat)
             characterFormat = selectionManager.getCommonCharacterFormat();
 
+        if (anchorPosition != -1 && activePosition != -1)
+        {
+            selectionManager.setSelection(oldAnchorPosition, oldActivePosition);
+        }        
+        
         // Extract the requested formats to return.
-        for each (p in names)
+        for each (p in requestedFormats)
         {
             if (!(p in description))
                 continue;
@@ -2743,28 +2727,34 @@ public class RichEditableText extends UIComponent
         
         // All done with the selection manager.
         releaseSelectionManager();
-
+        
         return format;
     }
 
     /**
-     *  Applies a set of name/value pairs of text attributes
-     *  to the specified range.
-     *  A value of null does not get applied.
+     *  Applies the text format to the specified range.  
+     *  A value of undefined does not get applied.
      *  If you don't specify a range, the selected range is used.
      *  For example, calling
-     *  <code>setSelectionFormat({ fontSize: 12, color: 0xFF0000 })</code>
+     *  <code>var textLayoutFormat:TextLayoutFormat = new TextLayoutFormat();</code>
+     *  <code>textLayoutFormat.fontSize = 12;</code>
+     *  <code>textLayoutFormat.color;</code>
+     *  <code>setFormatOfRange(textLayoutFormat);</code>
      *  will set the fontSize and color of the selection.
-     *  The supported attributes are those in the
-     *  ICharacterFormat and IParagraphFormat interfaces.
+     *  The supported format attributes are those in TextFormatLayout.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function setSelectionFormat(attributes:Object):void
+    public function setFormatOfRange(format:TextLayoutFormat,
+                                     anchorPosition:int=-1,
+                                     activePosition:int=-1):void
     {
+         // Make sure all properties are committed before doing the operation.
+        validateNow();
+        
         var editManager:IEditManager = getEditManager();
         
         // Assign each specified attribute to one of three format objects,
@@ -2780,36 +2770,43 @@ public class RichEditableText extends UIComponent
         // whether it is container-, paragraph-, or character-level.
         var description:Object = TextLayoutFormat.tlf_internal::description;
         
-        for (var p:String in attributes)
+        for (var p:String in description) 
         {
-            if (!(p in description))
+            if (format[p] === undefined)
                 continue;
-                
+                                
             var category:String = description[p].category;
             
             if (category == Category.CONTAINER)
             {
                 if (!containerFormat)
                    containerFormat =  new TextLayoutFormat();
-                containerFormat[p] = attributes[p];
+                containerFormat[p] = format[p];
             }
             else if (category == Category.PARAGRAPH)
             {
                 if (!paragraphFormat)
                    paragraphFormat =  new TextLayoutFormat();
-                paragraphFormat[p] = attributes[p];
+                paragraphFormat[p] = format[p];
             }
             else if (category == Category.CHARACTER)
             {
                 if (!characterFormat)
                    characterFormat =  new TextLayoutFormat();
-                characterFormat[p] = attributes[p];
+                characterFormat[p] = format[p];
             }
         }
-        
-        // Apply the three format objects to the current selection.
+
+        var selectionState:SelectionState =
+            anchorPosition == -1 || activePosition == -1 ? null :                       
+            new SelectionState(editManager.textFlow, 
+                               anchorPosition, 
+                               activePosition);
+
+        // Apply the three format objects to the current selection if
+        // selectionState is null, else the specified selection.
         editManager.applyFormat(
-        	characterFormat, paragraphFormat, containerFormat);
+        	characterFormat, paragraphFormat, containerFormat, selectionState);
         
         // All done with the edit manager.
         releaseEditManager();
@@ -2837,16 +2834,17 @@ public class RichEditableText extends UIComponent
         // DeleteTextOperation or the InsertTextOperation which are also part
         // of the paste.
         dispatchChangingEvent = false;
-                        
+
         var selectionState:SelectionState = new SelectionState(
-        	textFlow, op.absoluteStart, op.absoluteStart + pastedText.length);             
+        	op.textFlow, op.absoluteStart, 
+        	op.absoluteStart + pastedText.length);             
         editManager.deleteText(selectionState);
 
         // Insert the same text, the same place where the paste was done.
         // This will go thru the InsertPasteOperation and do the right
         // things with restrict, maxChars and displayAsPassword.
         selectionState = new SelectionState(
-        	textFlow, op.absoluteStart, op.absoluteStart);
+        	op.textFlow, op.absoluteStart, op.absoluteStart);
         editManager.insertText(pastedText, selectionState);        
 
         // All done with the edit manager.
@@ -2865,12 +2863,16 @@ public class RichEditableText extends UIComponent
      *  @private
      *  RichEditableTextContainerManager overrides focusInHandler and calls
      *  this before executing it's own focusInHandler.
+     * 
+     *  NOTE: In some cases TCM calls the focusInHandler twice during one
+     *  focusIn event.  Ensure that this code works correctly if it is
+     *  called twice.
      */
     mx_internal function focusInHandler(event:FocusEvent):void
     {
         //trace("focusIn handler");
             
-        if (_editable)
+        if (editingMode == EditingMode.READ_WRITE)
         {
             // If no selection, give it one so that the underlying selection
             // manager is put in place if it isn't already there and editing
@@ -2917,14 +2919,15 @@ public class RichEditableText extends UIComponent
      */
     mx_internal function focusOutHandler(event:FocusEvent):void
     {
-        // By default, we clear the undo history when a TextView loses focus.
+        // By default, we clear the undo history when a RichEditableText loses 
+        // focus.
         if (clearUndoOnFocusOut && undoManager)
             undoManager.clearAll();
                     
         if (focusManager)
             focusManager.defaultButtonEnabled = true;
 
-        if (_imeMode != null && _editable)
+        if (_imeMode != null && editingMode == EditingMode.READ_WRITE)
         {
             // When IME.conversionMode is unknown it cannot be
             // set to anything other than unknown(English)
@@ -2955,7 +2958,7 @@ public class RichEditableText extends UIComponent
         		getEditManager().splitParagraph();
         		releaseEditManager();
                 event.preventDefault();
-                event.stopImmediatePropagation();
+                //event.stopImmediatePropagation();
             }
             else
             {
@@ -3065,11 +3068,38 @@ public class RichEditableText extends UIComponent
      */
     private function textContainerManager_damageHandler(event:DamageEvent):void
     {
-        //trace("damageHandler", event.damageAbsoluteStart, event.damageLength);
+        //trace("damageHandler", id, event.damageAbsoluteStart, event.damageLength);
+
+        // setText triggers a damage event which we want to ignore.  We 
+        // override TCM.setText() in RETCM and set this flag before calling the
+        // superclass.
+        if (ignoreDamageEvent || event.damageLength == 0)
+            return;
+
+        // If there are pending changes, don't wipe them out.  We have
+        // not gotten to commitProperties() yet.
+        if (textChanged || textFlowChanged || contentChanged)
+            return;
+                               
+        // In this case we always maintain _text with the underlying text and
+        // display the appropriate number of passwordChars.  If there are any
+        // interactive editing operations _text is updated during the operation.
+        // ToDo: what about the case where the textContainerManager textFlow
+        // is modified programatically and the text is different?  This could
+        // only be done with an mx_internal interface. 
+        if (displayAsPassword)
+            return;
+                        
+        // Invalidate _text and _content.
+        _text = null;
+        _content = null;        
+        _textFlow = _textContainerManager.getTextFlow();
         
-        textDamaged = true;
-        
-        invalidateDisplayList();
+        // We don't need to call invalidateProperties()
+        // because the hostFormat and the _textFlow are still valid.
+
+        invalidateSize();        
+        invalidateDisplayList();  
     }
 
     /**
@@ -3237,7 +3267,7 @@ public class RichEditableText extends UIComponent
             }
         }
  
-        // Dispatch a 'changing' event from the TextView
+        // Dispatch a 'changing' event from the RichEditableText
         // as notification that an editing operation is about to occur.
         if (dispatchChangingEvent)
         {
@@ -3246,7 +3276,7 @@ public class RichEditableText extends UIComponent
             newEvent.operation = op;
             dispatchEvent(newEvent);
             
-            // If the event dispatched from this TextView is canceled,
+            // If the event dispatched from this RichEditableText is canceled,
             // cancel the one from the EditManager, which will prevent
             // the editing operation from being processed.
             if (newEvent.isDefaultPrevented())
@@ -3269,7 +3299,7 @@ public class RichEditableText extends UIComponent
         if (event.operation is PasteOperation)
             handlePasteOperation(PasteOperation(event.operation));
 
-        // Dispatch a 'change' event from the TextView
+        // Dispatch a 'change' event from the RichEditableText
         // as notification that an editing operation has occurred.
         var newEvent:TextOperationEvent =
             new TextOperationEvent(TextOperationEvent.CHANGE);
