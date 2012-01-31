@@ -458,7 +458,7 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
 
     //--------------------------------------------------------------------------
     //
-    //  Overridden methods: UIComponent
+    //  Overridden methods: UIComponent, ButtonBase
     //
     //--------------------------------------------------------------------------
 
@@ -507,6 +507,34 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
             else if (group.selection == this)
                 _group.selection = null;   
         }
+    }
+    
+    /**
+     *  @private
+     *  Set radio button to selected and dispatch that there has been a change.
+     */ 
+    override protected function buttonReleased():void
+    {
+        if (!enabled || selected)
+            return; // prevent a selected button from dispatching "click"
+        
+        if (!radioButtonGroup)
+            addToGroup();
+        
+        // Must call super.buttonReleased() before setting
+        // the group's selection.
+        super.buttonReleased();
+        
+        group.setSelection(this);
+        
+        // Dispatch an itemClick event from the RadioButtonGroup.
+        var itemClickEvent:ItemClickEvent =
+            new ItemClickEvent(ItemClickEvent.ITEM_CLICK);
+        itemClickEvent.label = label;
+        itemClickEvent.index = indexNumber;
+        itemClickEvent.relatedObject = this;
+        itemClickEvent.item = value;
+        group.dispatchEvent(itemClickEvent);
     }
     
     //--------------------------------------------------------------------------
@@ -713,40 +741,6 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
                 break;
             }
         }
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden event handlers: Button
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Set radio button to selected and dispatch that there has been a change.
-     */
-    override protected function clickHandler(event:MouseEvent):void
-    {
-        if (!enabled || selected)
-            return; // prevent a selected button from dispatching "click"
-
-        if (!radioButtonGroup)
-            addToGroup();
-
-        // Must call super.clickHandler() before setting
-        // the group's selection.
-        super.clickHandler(event);
-
-        group.setSelection(this);
-
-        // Dispatch an itemClick event from the RadioButtonGroup.
-        var itemClickEvent:ItemClickEvent =
-            new ItemClickEvent(ItemClickEvent.ITEM_CLICK);
-        itemClickEvent.label = label;
-        itemClickEvent.index = indexNumber;
-        itemClickEvent.relatedObject = this;
-        itemClickEvent.item = value;
-        group.dispatchEvent(itemClickEvent);
     }
 }
 
