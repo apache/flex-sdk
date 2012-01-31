@@ -13,6 +13,7 @@ package spark.accessibility
 {
 
 import mx.accessibility.AccConst;
+import mx.accessibility.AccImpl
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
@@ -102,6 +103,34 @@ public class ToggleButtonAccImpl extends ButtonBaseAccImpl
     
     /**
      *  @private
+     *  Returns the name of the component.
+	 *  If accessibilityName is set and divided by a comma, the first part 
+     *  will be exposed as the default name, and the second part as the name 
+     *  when the button is pressed.
+     *
+     *  @param childID uint.
+     *
+     *  @return Name of the component.
+     *
+     */
+    override public function get_accName(childID:uint):String
+    {
+        var accName:String;
+        if (master.accessibilityName && master.accessibilityName.indexOf(",") != -1) 
+        {
+            accName = AccImpl.getFormName(master);
+            var stateNames:Array = master.accessibilityName.split(",");
+            accName += " " + (ToggleButtonBase(master).selected ? 
+                stateNames[1] : stateNames[0]);
+        }
+        else
+            accName = super.get_accName(0);
+        
+        return accName;
+    }
+    
+    /**
+     *  @private
      *  IAccessible method for returning the state of the ToggleButton.
      *  States are predefined for all the components in MSAA.
      *  Values are assigned to each state.
@@ -115,7 +144,8 @@ public class ToggleButtonAccImpl extends ButtonBaseAccImpl
     override public function get_accState(childID:uint):uint
     {
         var accState:uint = getState(childID);
-        if (ToggleButtonBase(master).selected)
+        if (ToggleButtonBase(master).selected && (!master.accessibilityName ||
+            master.accessibilityName.indexOf(",") == -1))
             accState |= AccConst.STATE_SYSTEM_PRESSED;
         
         return accState;
