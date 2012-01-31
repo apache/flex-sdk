@@ -48,7 +48,11 @@ public class Operation extends AbstractOperation
     //---------------------------------
 
     /**
-     * Creates a new Operation. 
+     *  Creates a new Operation. 
+     *
+     *  @param service The HTTPMultiService object defining the service.
+     *
+     *  @param name The name of the service.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -110,6 +114,9 @@ public class Operation extends AbstractOperation
     private var _methodSet:Boolean = false;
     private var _method:String;
 
+    /**
+     *  @inheritDoc
+     */
     override public function get method():String
     {
         if (_methodSet)
@@ -117,6 +124,9 @@ public class Operation extends AbstractOperation
 
         return _multiService.method;
     }
+    /**
+     *  @private
+     */
     override public function set method(m:String):void
     {
         _method = m;
@@ -132,12 +142,18 @@ public class Operation extends AbstractOperation
     }
 
     private var _showBusyCursorSet:Boolean = false;
+    /**
+     *  @inheritDoc
+     */
     override public function get showBusyCursor():Boolean
     {
         if (_showBusyCursorSet)
             return super.showBusyCursor;
         return _multiService.showBusyCursor;    
     }
+    /**
+     *  @private
+     */
     override public function set showBusyCursor(b:Boolean):void
     {
         super.showBusyCursor = b;
@@ -181,6 +197,9 @@ public class Operation extends AbstractOperation
 
     private var _useProxySet:Boolean = false;
 
+    /**
+     *  @inheritDoc
+     */
     override public function get useProxy():Boolean
     {
         if (_useProxySet)
@@ -188,6 +207,9 @@ public class Operation extends AbstractOperation
         return _multiService.useProxy;
     }
 
+    /**
+     *  @private
+     */
     override public function set useProxy(value:Boolean):void
     {
         _useProxySet = true;
@@ -196,6 +218,9 @@ public class Operation extends AbstractOperation
 
     private var _contentTypeSet:Boolean = false;
 
+    /**
+     *  @inheritDoc
+     */
     override public function get contentType():String
     {
         if (_contentTypeSet)
@@ -203,6 +228,9 @@ public class Operation extends AbstractOperation
         return _multiService.contentType;
     }
 
+    /**
+     *  @private
+     */
     override public function set contentType(ct:String):void
     {
         _contentTypeSet = ct != null;
@@ -295,6 +323,9 @@ public class Operation extends AbstractOperation
 
     private var _resultFormatSet:Boolean = false;
 
+    /**
+     *  @inheritDoc
+     */
     override public function get resultFormat():String
     {
         if (_resultFormatSet)
@@ -302,12 +333,18 @@ public class Operation extends AbstractOperation
         return _multiService.resultFormat;
     }
 
+    /**
+     *  @private
+     */
     override public function set resultFormat(rf:String):void
     {
         _resultFormatSet = rf != null;
         super.resultFormat = rf;
     }
 
+    /**
+     *  @private
+     */
     override protected function getSerializationFilter():SerializationFilter
     {
         var sf:SerializationFilter = serializationFilter;
@@ -316,6 +353,9 @@ public class Operation extends AbstractOperation
         return sf;
     }
 
+    /**
+     *  @private
+     */
     override protected function getHeaders():Object
     {
         // TODO: support combining the headers maps if both are specified
