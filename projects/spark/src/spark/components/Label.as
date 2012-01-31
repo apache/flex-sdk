@@ -16,7 +16,6 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
 import flash.display.Shape;
-import flash.display.Sprite;
 import flash.geom.Rectangle;
 import flash.text.TextFormat;
 import flash.text.engine.EastAsianJustifier;
@@ -27,23 +26,20 @@ import flash.text.engine.FontMetrics;
 import flash.text.engine.Kerning;
 import flash.text.engine.LineJustification;
 import flash.text.engine.SpaceJustifier;
-import flash.text.engine.TextBlock;
 import flash.text.engine.TextBaseline;
+import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
-import flash.text.engine.TextLineValidity;
 
 import flashx.textLayout.compose.ITextLineCreator;
 import flashx.textLayout.compose.TextLineRecycler;
 
-import mx.core.mx_internal;
-import mx.core.EmbeddedFont;
-import mx.core.EmbeddedFontRegistry;
 import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
 import mx.core.IUIComponent;
 import mx.core.Singleton;
+import mx.core.mx_internal;
 import mx.managers.ISystemManager;
 
 import spark.primitives.supportClasses.TextGraphicElement;
@@ -328,11 +324,12 @@ public class SimpleText extends TextGraphicElement
         bounds.width = width;
         bounds.height = height;
 
-        // Remove the text lines from the container and then release them for
+        // Remove the TextLines from the container and then release them for
         // reuse, if supported by the player.
         removeTextLines();
         releaseTextLines();
         
+		// Create the TextLines.
 		var allLinesComposed:Boolean = createTextLines(elementFormat);
         
         // Need truncation if all the following are true
@@ -347,8 +344,18 @@ public class SimpleText extends TextGraphicElement
             truncateText(width, height);
         }
         
-        // Done with the lines now.  
+        // Detach the TextLines from the TextBlock that created them.
         releaseLinesFromTextBlock();
+        
+        // Remember the original position of each TextLine.
+		// When TextLines are children of a shared DisplayObject,
+		// these original positions must be offset by drawX and drawY.
+		var n:int = textLines.length;
+        for (var i:int = 0; i < n; i++)
+        {
+        	textLinesX[i] = textLines[i].x;
+        	textLinesY[i] = textLines[i].y;
+        }
                                                        
         // Add the new text lines to the container.
         addTextLines(DisplayObjectContainer(drawnDisplayObject));
@@ -840,7 +847,7 @@ public class SimpleText extends TextGraphicElement
 			// We'll keep this line. Put it into the textLines array.
 			textLine = nextTextLine;
 			textLines[n++] = textLine;
-			
+
 			// Assign its location based on left/top alignment.
 			// Its x position is 0 by default.
 			textLine.y = nextY;
