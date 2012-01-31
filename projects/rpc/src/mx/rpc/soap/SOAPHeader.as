@@ -15,6 +15,11 @@ package mx.rpc.soap
 /**
  * You use a SOAPHeader to specify the headers that need 
  * to be added to a SOAP envelope of a WebService Operation request.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SOAPHeader
 {
@@ -25,6 +30,11 @@ public class SOAPHeader
      * @param qname The qualified name of the SOAP header.
      *
      * @param content The content to send for the header value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function SOAPHeader(qname:QName, content:Object)
     {
@@ -40,11 +50,21 @@ public class SOAPHeader
      * Otherwise, you can provide the value as a String or Number, etc. and the underlying SOAP encoder
      * attempts to encode the value correctly based on the QName provided in the SOAPHeader
      * (with the last resort being xsd:anyType if a type definition is not present).     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var content:Object;
 
     /**
      * The qualified name of the SOAP header.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var qname:QName;
 
@@ -59,6 +79,11 @@ public class SOAPHeader
      * Specifies whether the header must be understood by the endpoint. If
      * the header is handled but must be understood the endpoint should
      * return a SOAP fault.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var mustUnderstand:Boolean;
     
@@ -67,6 +92,11 @@ public class SOAPHeader
      * potential chain of endpoints processing a SOAP request. If defined, 
      * this value is used to specify the <code>actor</code> for the SOAP 
      * header.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var role:String;
 
