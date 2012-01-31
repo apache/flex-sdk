@@ -1,4 +1,4 @@
-    ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
 //  Copyright 2008 Adobe Systems Incorporated
@@ -138,6 +138,21 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  @productversion Flex 4
  */
 [Style(name="dragIndicatorClass", type="Class", inherit="no")]
+
+/**
+ *  If a <code>dropIndicator</code> skin part is not specified in the List skin,
+ *  then an instance of this class is created and used for the default drop
+ *  indicator during drag and drop operations where the List is a potential
+ *  drop target.
+ *
+ *  @default spark.skins.spark.ListDropIndicator
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="dropIndicatorSkin", type="Class", inherit="no")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:rollOverColor
@@ -1235,12 +1250,17 @@ public class List extends ListBase implements IFocusManagerComponent
     }
     
     /**
-     *  @private
-     *
-     *  Gets an instance of a class that displays the visuals
-     *  during a drag and drop operation.
+     *  Creates an instance of a class that is used to display the visuals
+     *  of the dragged items during a drag and drop operation.
+	 *  The default <code>DragEvent.DRAG_START</code> handler passes the
+	 *  instance to the <code>DragManager.doDrag()</code> method. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    private function createDragIndicator():IFlexDisplayObject
+    public function createDragIndicator():IFlexDisplayObject
     {
         var dragIndicator:IFlexDisplayObject;
         var dragIndicatorClass:Class = Class(getStyle("dragIndicatorClass"));
@@ -1253,7 +1273,7 @@ public class List extends ListBase implements IFocusManagerComponent
         
         return dragIndicator;
     }
-    
+
     /**
      *  Adds the selected items to the DragSource object as part of
      *  a drag-and-drop operation.
@@ -1315,9 +1335,9 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @param event The MouseEvent object.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function item_mouseDownHandler(event:MouseEvent):void
     {
@@ -1341,8 +1361,11 @@ public class List extends ListBase implements IFocusManagerComponent
             
             // Check to see if we're deselecting the currently selected item 
             if (event.ctrlKey && selectedIndex == newIndex)
-                selectedIndex = NO_SELECTION;
-                // Otherwise, select the new item 
+			{
+				pendingSelectionOnMouseUp = true;
+				pendingSelectionCtrlKey = true;
+				pendingSelectionShiftKey = event.shiftKey;
+			}
             else
                 selectedIndex = newIndex;
         }
@@ -1399,9 +1422,9 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @param event The MouseEvent object.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function mouseMoveHandler(event:MouseEvent):void
     {
@@ -1439,8 +1462,16 @@ public class List extends ListBase implements IFocusManagerComponent
         // If dragging failed, but we had a pending selection, commit it here
         if (pendingSelectionOnMouseUp && !DragManager.isDragging)
         {
-            selectedIndices = calculateSelectedIndicesInterval(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey);
-        }
+			if (allowMultipleSelection)
+			{
+            	selectedIndices = calculateSelectedIndicesInterval(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey);
+	        }
+			else
+			{
+				// Must be deselecting the current selected item.
+				selectedIndex = NO_SELECTION;
+			}
+		}
 
         // Always clean up the flag, even if currently dragging.
         pendingSelectionOnMouseUp = false;
@@ -1463,9 +1494,9 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @param event The MouseEvent object.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function mouseUpHandler(event:Event):void
     {
@@ -1488,6 +1519,81 @@ public class List extends ListBase implements IFocusManagerComponent
         return layout.calculateDropLocation(event);
     }
 
+	/**
+	 *  Creates and instance of the dropIndicator class that is used to
+	 *  display the visuals of the drop location during a drag and dorp
+	 *  operation. The instance is set in the layout's 
+	 *  <code>dropIndicator</code> property.
+	 * 
+	 *  @return Returns the dropIndicator that was set in the layout.
+	 *
+	 *  @see #destroyDropIndicator
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+	 */
+	public function createDropIndicator():DisplayObject
+	{
+		// Do we have a drop indicator already?
+		if (layout.dropIndicator)
+			return layout.dropIndicator;
+		
+		var dropIndicatorInstance:DisplayObject;
+		if (dropIndicator)
+		{
+			dropIndicatorInstance = DisplayObject(createDynamicPartInstance("dropIndicator"));
+		}
+		else
+		{
+			var dropIndicatorClass:Class = Class(getStyle("dropIndicatorSkin"));
+			if (dropIndicatorClass)
+				dropIndicatorInstance = new dropIndicatorClass();
+		}
+		if (dropIndicatorInstance is IVisualElement)
+			IVisualElement(dropIndicatorInstance).owner = this;
+
+		// Set it in the layout
+		layout.dropIndicator = dropIndicatorInstance;
+		return dropIndicatorInstance;
+	}
+	
+	/**
+	 *  Releases the dropIndicator instance that is currently set in the layout.
+	 *
+	 *  @return Returns the dropIndicator that was removed. 
+	 * 
+	 *  @see #createDropIndicator
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+	 */
+	public function destroyDropIndicator():DisplayObject
+	{
+		var dropIndicatorInstance:DisplayObject = layout.dropIndicator;
+		if (!dropIndicatorInstance)
+			return null;
+		
+		// Release the reference from the layout
+		layout.dropIndicator = null;
+		
+		// Release it if it's a dynamic skin part
+		var count:int = numDynamicParts("dropIndicator");
+		for (var i:int = 0; i < count; i++)
+		{
+			if (dropIndicatorInstance == getDynamicPartAt("dropIndicator", i))
+			{
+				// This was a dynamic part, remove it now:
+				removeDynamicPartInstance("dropIndicator", dropIndicatorInstance);
+				break;
+			}
+		}
+		return dropIndicatorInstance;
+	}
+	
     /**
      *  @private
      *  Handles <code>DragEvent.DRAG_ENTER</code> events.  This method
@@ -1518,11 +1624,7 @@ public class List extends ListBase implements IFocusManagerComponent
             
             // Create the dropIndicator instance. The layout will take care of
             // parenting, sizing, positioning and validating the dropIndicator.
-            if (dropIndicator)
-                layout.dropIndicator = DisplayObject(createDynamicPartInstance("dropIndicator"));
-            
-            // Show drop indicator
-            layout.showDropIndicator(dropLocation);
+			createDropIndicator();
             
             // Show focus
             drawFocusAnyway = true;
@@ -1530,6 +1632,9 @@ public class List extends ListBase implements IFocusManagerComponent
             
             // Notify manager we can drop
             DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
+
+			// Show drop indicator
+			layout.showDropIndicator(dropLocation);
         }
         else
         {
@@ -1563,15 +1668,15 @@ public class List extends ListBase implements IFocusManagerComponent
         var dropLocation:DropLocation = calculateDropLocation(event);
         if (dropLocation)
         {
-            // Show drop indicator
-            layout.showDropIndicator(dropLocation);
-
             // Show focus
             drawFocusAnyway = true;
             drawFocus(true);
             
             // Notify manager we can drop
             DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
+
+			// Show drop indicator
+			layout.showDropIndicator(dropLocation);
         }
         else
         {
@@ -1617,7 +1722,7 @@ public class List extends ListBase implements IFocusManagerComponent
         drawFocusAnyway = false;
         
         // Destroy the dropIndicator instance
-        layout.dropIndicator = null;
+		destroyDropIndicator();
     }
     
     /**
@@ -1648,6 +1753,7 @@ public class List extends ListBase implements IFocusManagerComponent
         
         // Hide the drop indicator
         layout.hideDropIndicator();
+		destroyDropIndicator();
         
         // Hide focus
         drawFocus(false);
