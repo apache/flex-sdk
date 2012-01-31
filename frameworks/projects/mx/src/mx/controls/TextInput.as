@@ -695,6 +695,7 @@ public class TextInput extends UIComponent implements ITextInput
         {
             text = newText;
             textSet = false;
+            textField.setSelection(0, 0);
         }
 
         dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
