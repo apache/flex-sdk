@@ -940,7 +940,7 @@ public class GroupBase extends UIComponent implements IViewport
             
                 if (!_mask.parent)
                 {
-                    // FIXME (jszeto): This needs to be a sibling because alpha
+                    // TODO (jszeto): Does this need to be attached to a sibling?
                     super.addChild(_mask);
                     var maskComp:UIComponent = _mask as UIComponent;
                     if (maskComp)
@@ -1252,7 +1252,7 @@ public class GroupBase extends UIComponent implements IViewport
         {
              super.removeChild(_focusPane);
              
-             // FIXME (jszeto): remove mask?  SDK-15310
+             // TODO (jszeto): remove mask?  SDK-15310
             _focusPane = null;
         }
     }
