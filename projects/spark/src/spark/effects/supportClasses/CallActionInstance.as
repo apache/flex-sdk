@@ -15,12 +15,12 @@ package spark.effects.supportClasses
 import mx.effects.effectClasses.ActionEffectInstance;
 
 /**
- *  The CallFunctionActionInstance class implements the instance class
- *  for the CallFunctionAction effect.
- *  Flex creates an instance of this class when it plays a CallFunctionAction
+ *  The CallActionInstance class implements the instance class
+ *  for the CallAction effect.
+ *  Flex creates an instance of this class when it plays a CallAction
  *  effect; you do not create one yourself.
  *
- *  @see flex.effects.CallFunctionAction
+ *  @see spark.effects.CallAction
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -63,7 +63,7 @@ public class CallActionInstance extends ActionEffectInstance
     //----------------------------------
 
     /** 
-     * Function that will be called on the target when this effect plays
+     *  @copy spark.effects.CallAction#functionName
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -77,8 +77,7 @@ public class CallActionInstance extends ActionEffectInstance
     //----------------------------------
 
     /** 
-     * Parameters that will be supplied to the function that is called
-     * by this effect
+     *  @copy spark.effects.CallAction#parameters
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
