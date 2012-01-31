@@ -33,6 +33,7 @@ import mx.managers.ILayoutManager;
 import mx.managers.ISystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
+import mx.utils.LoaderUtil;
 
 use namespace mx_internal;
 
@@ -598,7 +599,7 @@ public class Application extends SkinnableContainer
     /**
      *  @private
      *  Storage for the url property.
-     *  This variable is set in the initialize() method of SystemManager.
+     *  This variable is set in the initialize().
      */
     mx_internal var _url:String;
 
@@ -673,7 +674,7 @@ public class Application extends SkinnableContainer
         
         var sm:ISystemManager = systemManager;
         
-        _url = sm.loaderInfo.url;
+        _url = LoaderUtil.normalizeURL(sm.loaderInfo);
         _parameters = sm.loaderInfo.parameters;
 
         initManagers(sm);
