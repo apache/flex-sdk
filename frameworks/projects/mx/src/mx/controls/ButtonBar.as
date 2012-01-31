@@ -44,6 +44,11 @@ use namespace mx_internal;
  *  does not refer to a ViewStack container.
  *
  *  @eventType mx.events.ItemClickEvent.ITEM_CLICK
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemClick", type="mx.events.ItemClickEvent")]
 
@@ -56,17 +61,32 @@ use namespace mx_internal;
  *  If undefined, the height of each button is determined by the font styles
  *  applied to the container.
  *  If you set this property, the specified value overrides this calculation.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="buttonHeight", type="Number", format="Length", inherit="no")]
 
 /**
  *  Name of CSS style declaration that specifies styles for the buttons.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="buttonStyleName", type="String", inherit="no")]
 
 /**
  *  Width of each button, in pixels.
  *  If undefined, the default width of each button is calculated from its label text.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="buttonWidth", type="Number", format="Length", inherit="no")]
 
@@ -74,6 +94,11 @@ use namespace mx_internal;
  *  Name of CSS style declaration that specifies styles for the first button.
  *  If this is unspecified, the default value
  *  of the <code>buttonStyleName</code> style property is used.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="firstButtonStyleName", type="String", inherit="no")]
 
@@ -86,6 +111,11 @@ use namespace mx_internal;
  * and <code>"right"</code>.
  *
  * @default "center"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalAlign", type="String", enumeration="left,center,right", inherit="no")]
 
@@ -93,6 +123,11 @@ use namespace mx_internal;
  *  Number of pixels between children in the horizontal direction.
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalGap", type="Number", format="Length", inherit="no")]
 
@@ -100,6 +135,11 @@ use namespace mx_internal;
  *  Name of CSS style declaration that specifies styles for the last button.
  *  If this is unspecified, the default value
  *  of the <code>buttonStyleName</code> style property is used.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  *//**
  * Vertical alignment of all buttons within the ButtonBar. Since individual 
  * buttons stretch to fill the entire ButtonBar, this style is only useful if you
@@ -109,6 +149,11 @@ use namespace mx_internal;
  * and <code>"bottom"</code>.
  *
  * @default "middle"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="lastButtonStyleName", type="String", inherit="no")]
 
@@ -121,6 +166,11 @@ use namespace mx_internal;
  * and <code>"bottom"</code>.
  *
  * @default "middle"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalAlign", type="String", enumeration="top,middle,bottom", inherit="no")]
 
@@ -128,6 +178,11 @@ use namespace mx_internal;
  *  Number of pixels between children in the vertical direction.
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalGap", type="Number", format="Length", inherit="no")]
 
@@ -262,6 +317,11 @@ use namespace mx_internal;
  *  @see mx.controls.ToggleButtonBar
  *  @see mx.controls.LinkBar
  *  @includeExample examples/ButtonBarExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
  public class ButtonBar extends NavBar implements IFocusManagerComponent
 {
@@ -275,6 +335,11 @@ use namespace mx_internal;
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ButtonBar()
     {
