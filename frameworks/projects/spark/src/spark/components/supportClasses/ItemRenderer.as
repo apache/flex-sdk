@@ -193,6 +193,8 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      */    
     private var _itemIndex:int;
     
+    [Bindable("dataChange")]
+    
     /**
      *  @inheritDoc 
      *
@@ -350,7 +352,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      */ 
     private var _label:String = "";
     
-    [Bindable("textChanged")]
+    [Bindable("dataChange")]
     
     /**
      *  @inheritDoc 
@@ -375,9 +377,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         // Push the label down into the labelDisplay,
         // if it exists
         if (labelDisplay)
-            labelDisplay.text = _label; 
-            
-        dispatchEvent(new FlexEvent("textChanged"));
+            labelDisplay.text = _label;
     }
     
     //--------------------------------------------------------------------------
