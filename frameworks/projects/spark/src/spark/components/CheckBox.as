@@ -25,7 +25,7 @@ import spark.components.supportClasses.ToggleButtonBase;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 [IconFile("CheckBox.png")]
 
