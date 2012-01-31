@@ -1264,9 +1264,12 @@ public class Application extends SkinnableContainer
         // orientation change animation occurs.  These events are only dispatched on iOS
         // devices.  These events are not wrapped by iOS version checks so that they still
         // execute in ADL
-        sm.stage.addEventListener("orientationChanging", stage_orientationChangingHandler);
-        sm.stage.addEventListener("orientationChange", stage_orientationChange);
-                
+        if (sm && sm.stage && sm.isTopLevelRoot())
+        {
+            sm.stage.addEventListener("orientationChanging", stage_orientationChangingHandler);
+            sm.stage.addEventListener("orientationChange", stage_orientationChange);
+        }
+        
         _url = LoaderUtil.normalizeURL(sm.loaderInfo);
         _parameters = sm.loaderInfo.parameters;
 
