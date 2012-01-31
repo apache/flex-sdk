@@ -52,7 +52,7 @@ import spark.layouts.supportClasses.LayoutBase;
  */
 [Event(name="rendererRemove", type="spark.events.RendererExistenceEvent")]
 
-include "../styles/metadata/BasicTextLayoutFormatStyles.as"
+include "../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  Color of focus ring when the component is in focus.
