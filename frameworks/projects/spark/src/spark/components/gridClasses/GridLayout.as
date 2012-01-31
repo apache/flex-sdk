@@ -941,8 +941,8 @@ public class GridLayout extends LayoutBase
                     else
                         allocatedItemRenderers.push(renderer);
                 }
-            
-                rendererLayer.addElement(renderer);
+                if (renderer.parent != rendererLayer)
+                    rendererLayer.addElement(renderer);
                 newVisibleItemRenderers.push(renderer);
                 initializeItemRenderer(renderer, rowIndex, colIndex);
                 
