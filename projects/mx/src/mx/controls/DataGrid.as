@@ -4802,6 +4802,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
         if (r && r != itemEditorInstance && 
                     (lastItemDown == r || itemRendererContains(lastItemDown, lastItemFocused)))
         {
+            // if lastItemDown != r, we clicked in one cell and dragged to another.
+            // if lastItemFocused is in that cell, then we give lastItemDown the
+            // edit session
+            if (lastItemDown != r)
+                r = lastItemDown;
+
             lastItemFocused = null;
             pos = itemRendererToIndices(r);
 
