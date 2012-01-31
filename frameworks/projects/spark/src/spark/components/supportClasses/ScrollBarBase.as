@@ -23,7 +23,7 @@ import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  @copy spark.components.supportClasses.GroupBase#symbolColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -59,7 +59,7 @@ import mx.events.ResizeEvent;
  *    the minimum range value and the maximum range value.</li>
  *  </ul>
  *
- *  @see mx.core.IViewport
+ *  @see spark.core.IViewport
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
