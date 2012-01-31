@@ -1848,7 +1848,7 @@ public class Grid extends Group implements IDataGridElement
     /**
      *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
      *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns the 
-     *  item in the <code>dataProvider</code> that is currently selected or
+     *  item in the the data provider that is currently selected or
      *  <code>undefined</code> if no rows are selected.  
      * 
      *  <p>When the user changes the selection by interacting with the 
@@ -1943,7 +1943,7 @@ public class Grid extends Group implements IDataGridElement
      *  
      *  <p>The default value is an empty <code>Vector.&lt;Object&gt;</code></p>
      * 
-     *  @return Vector of <code>dataProvider</code> items.
+     *  @return Vector of data provider items.
      *  
      *  @see spark.components.Grid#dataProvider
      * 
@@ -2206,12 +2206,13 @@ public class Grid extends Group implements IDataGridElement
 
     /**
      *  Clears cached column width data that had been based on the 
-     *  typicalItem and requests a new layout pass.   This method should 
-     *  be called if some aspect of the typicalItem has changed that should
-     *  be reflected by the Grid's layout.  
+     *  <code>typicalItem</code> property, and requests a new layout pass.   
+     *  Call this method if some aspect of the <code>typicalItem</code> 
+     *  has changed that should be reflected by the Grid's layout.  
      * 
-     *  <p>This method is called automatically if the typicalItem is changed directly, i.e.
-     *  if the property is set to a new value that's not "==" to current value.</p>
+     *  <p>This method is called automatically if the <code>typicalItem</code> 
+     *  is changed directly. That means if the property is set to a new value 
+     *  that is not "==" to current value.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2314,8 +2315,8 @@ public class Grid extends Group implements IDataGridElement
      *  is not <code>GridSelectionMode.NONE</code>.  Removes the caret and
      *  sets the anchor to the initial item.
      *
-     *  @return True if the selection changed or false if there was nothing
-     *  previously selected.
+     *  @return <code>true</code> if the selection changed.
+     *  <code>false</code> if there was nothing previously selected.
      *    
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2349,15 +2350,15 @@ public class Grid extends Group implements IDataGridElement
     
     /**
      *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code>
-     *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns true if the row 
-     *  at <code>index></code> is in the current selection.
+     *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns <code>true</code> 
+     *  if the row at <code>index></code> is in the current selection.
      * 
-     *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
+     *  <p>The <code>rowIndex</code> is the index in the data provider
      *  of the item containing the selected cell.</p>
      *
      *  @param rowIndex The 0-based row index of the row.
      * 
-     *  @return True if the selection contains the row.
+     *  @return <code>true</code> if the selection contains the row.
      *    
      *  @see spark.components.Grid#dataProvider
      * 
@@ -2373,12 +2374,12 @@ public class Grid extends Group implements IDataGridElement
     
     /**
      *  If <code>selectionMode</code> is 
-     *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns true if the rows 
-     *  in <code>indices</code> are in the current selection.
+     *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns <code>true</code> 
+     *  if the rows in <code>indices</code> are in the current selection.
      * 
      *  @param rowIndices Vector of 0-based row indices to include in selection. 
      * 
-     *  @return True if the current selection contains these rows.
+     *  @return <code>true</code> if the current selection contains these rows.
      *    
      *  @see spark.components.Grid#dataProvider
      * 
@@ -2399,12 +2400,13 @@ public class Grid extends Group implements IDataGridElement
      *  the caret position to this row.
      *  For all other selection modes, this method has no effect.
      * 
-     *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
+     *  <p>The <code>rowIndex</code> is the index in the data provider
      *  of the item containing the selected cell.</p>
      *
      *  @param rowIndex The 0-based row index of the cell.
      *
-     *  @return True if no errors, or false if <code>index</code> is invalid or
+     *  @return <code>true</code> if if no errors.
+     *  <code>false</code> if <code>index</code> is invalid, or
      *  the <code>selectionMode</code> is invalid. 
      *    
      *  @see spark.components.Grid#caretColumnIndex
@@ -2442,12 +2444,13 @@ public class Grid extends Group implements IDataGridElement
      *  the selection and sets the caret position to this row.
      *  For all other selection modes, this method has no effect.
      * 
-     *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
+     *  <p>The <code>rowIndex</code> is the index in the data provider 
      *  of the item containing the selected cell.</p>
      *
      *  @param rowIndex The 0-based row index of the cell.
      *
-     *  @return True if no errors, or false if <code>index</code> is invalid or
+     *  @return <code>true</code> if no errors.
+     *  <code>false</code> if <code>index</code> is invalid or
      *  the <code>selectionMode</code> is invalid. 
      *    
      *  @see spark.components.Grid#caretColumnIndex
@@ -2486,12 +2489,13 @@ public class Grid extends Group implements IDataGridElement
      *  from the selection and sets the caret position to this row.
      *  For all other selection modes, this method has no effect.
      * 
-     *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
+     *  <p>The <code>rowIndex</code> is the index in the data provider 
      *  of the item containing the selected cell.</p>
      *
      *  @param rowIndex The 0-based row index of the cell.
      *
-     *  @return True if no errors, or false if <code>index</code> is invalid or
+     *  @return <code>true</code> if no errors.
+     *  <code>false</code> if <code>index</code> is invalid or
      *  the <code>selectionMode</code> is invalid. 
      *       
      *  @see spark.components.Grid#caretColumnIndex
@@ -2529,15 +2533,17 @@ public class Grid extends Group implements IDataGridElement
      *  <code>endRowIndex</code>.
      *  For all other selection modes, this method has no effect.
      * 
-     *  <p>Each index represents an item in <code>dataProvider</code> 
+     *  <p>Each index represents an item in the data provider  
      *  to include in the selection.</p>
      *
      *  @param rowIndex 0-based row index of the first row in the selection.
+     * 
      *  @param rowCount Number of rows in the selection.
      * 
-     *  @return True if no errors, or false if any of the indices are invalid
-     *  or <code>startRowIndex</code> is not less than or equal to 
-     *  <code>endRowIndex</code> or the <code>selectionMode</code> is invalid. 
+     *  @return <code>true</code> if no errors.
+     *  <code>false</code> if any of the indices are invalid, 
+     *  if <code>startRowIndex</code> is not less than or equal to 
+     *  <code>endRowIndex</code>, or the <code>selectionMode</code> is invalid. 
      *    
      *  @see spark.components.Grid#dataProvider
      * 
@@ -2572,18 +2578,18 @@ public class Grid extends Group implements IDataGridElement
     
     /**
      *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_CELL</code>
-     *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns true if the cell 
-     *  is in the current selection.
+     *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns <code>true</code> 
+     *  if the cell is in the current selection.
      * 
      *  <p>The <code>rowIndex</code> must be between 0 and the
-     *  length of <code>dataProvider</code>.  The <code>columnIndex</code>
+     *  length of the data provider.  The <code>columnIndex</code>
      *  must be between 0 and the length of <code>columns</code>. </p>
      *
      *  @param rowIndex The 0-based row index of the cell.
      *
      *  @param columnIndex The 0-based column index of the cell.
      *  
-     *  @return True if the current selection contains the cell.
+     *  @return <code>true</code> if the current selection contains the cell.
      * 
      *  @see spark.components.Grid#columns
      *  @see spark.components.Grid#dataProvider
@@ -2600,11 +2606,11 @@ public class Grid extends Group implements IDataGridElement
     
     /**
      *  If <code>selectionMode</code> is 
-     *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns true if the cells 
-     *  in the cell region are in the current selection.
+     *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns <code>true</code> 
+     *  if the cells in the cell region are in the current selection.
      * 
      *  <p>The <code>rowIndex</code> must be between 0 and the
-     *  length of <code>dataProvider</code>.  The <code>columnIndex</code>
+     *  length of the data provider.  The <code>columnIndex</code>
      *  must be between 0 and the length of <code>columns</code>. </p>
      *
      *  @param rowIndex The 0-based row index of the cell.
@@ -2617,8 +2623,8 @@ public class Grid extends Group implements IDataGridElement
      *  @param columnCount Number of columns, starting at 
      *  <code>columnIndex</code> to include in the cell region.
      * 
-     *  @return True if the current selection contains all the cells in the cell
-     *  region.
+     *  @return <code>true</code> if the current selection contains all 
+     *  the cells in the cell region.
      * 
      *  @see spark.components.Grid#columns
      *  @see spark.components.Grid#dataProvider
@@ -2642,7 +2648,7 @@ public class Grid extends Group implements IDataGridElement
      *  and the caret position to this cell.
      *  For all other selection modes, this method has no effect.
      * 
-     *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
+     *  <p>The <code>rowIndex</code> is the index in the data provider 
      *  of the item containing the selected cell.  The <code>columnIndex</code>
      *  is the index in <code>columns</code> of the column containing the
      *  selected cell.</p>
@@ -2651,7 +2657,8 @@ public class Grid extends Group implements IDataGridElement
      *
      *  @param columnIndex The 0-based column index of the cell.
      * 
-     *  @return True if no errors, or false if <code>rowIndex</code> 
+     *  @return <code>true</code> if if no errors.
+     *  <code>false</code> if <code>rowIndex</code> 
      *  or <code>columnIndex</code> is invalid or the <code>selectionMode</code> 
      *  is invalid.     
      *  
@@ -2692,7 +2699,7 @@ public class Grid extends Group implements IDataGridElement
      *  the selection and sets the caret position to the cell.
      *  For all other selection modes, this method has no effect.
      * 
-     *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
+     *  <p>The <code>rowIndex</code> is the index in the data provider 
      *  of the item containing the selected cell.  The <code>columnIndex</code>
      *  is the index in <code>columns</code> of the column containing the
      *  selected cell.</p>
@@ -2701,8 +2708,9 @@ public class Grid extends Group implements IDataGridElement
      *
      *  @param columnIndex The 0-based column index of the cell.
      * 
-     *  @return True if no errors, or false if <code>rowIndex</code> 
-     *  or <code>columnIndex</code> is invalid or the <code>selectionMode</code> 
+     *  @return <code>true</code> if no errors.
+     *  <code>false</code> if <code>rowIndex</code> 
+     *  or <code>columnIndex</code> is invalid, or the <code>selectionMode</code> 
      *  is invalid.     
      *  
      *  @see spark.components.Grid#caretColumnIndex
@@ -2742,7 +2750,7 @@ public class Grid extends Group implements IDataGridElement
      *  from the selection and sets the caret position to the cell.
      *  For all other selection modes, this method has no effect.
      * 
-     *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
+     *  <p>The <code>rowIndex</code> is the index in the data provider 
      *  of the item containing the selected cell.  The <code>columnIndex</code>
      *  is the index in <code>columns</code> of the column containing the
      *  selected cell.</p>
@@ -2751,7 +2759,8 @@ public class Grid extends Group implements IDataGridElement
      *
      *  @param columnIndex The 0-based column index of the cell.
      * 
-     *  @return True if no errors, or false if <code>rowIndex</code> 
+     *  @return <code>true</code> if no errors.
+     *  <code>false</code> if <code>rowIndex</code> 
      *  or <code>columnIndex</code> is invalid or the <code>selectionMode</code> 
      *  is invalid.     
      *  
@@ -2791,7 +2800,7 @@ public class Grid extends Group implements IDataGridElement
      *  caret position to the last cell in the cell region.
      *  For all other selection modes, this method has no effect.
      * 
-     *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
+     *  <p>The <code>rowIndex</code> is the index in the data provider 
      *  of the item containing the origin of the cell region.  
      *  The <code>columnIndex</code>
      *  is the index in <code>columns</code> of the column containing the
@@ -2811,7 +2820,8 @@ public class Grid extends Group implements IDataGridElement
      *  @param columnCount Number of columns, starting at 
      *  <code>columnIndex</code> to include in the cell region.
      * 
-     *  @return True if no errors, or false if the cell region is invalid or 
+     *  @return <code>true</code> if no errors.
+     *  <code>false</code> if the cell region is invalid or 
      *  the <code>selectionMode</code> is invalid.     
      *  
      *  @see spark.components.Grid#caretColumnIndex
@@ -2881,14 +2891,18 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  If necessary, set the verticalScrollPosition and horizontalScrollPosition 
-     *  properties so that the specified cell is completely visible. If rowIndex
-     *  is -1 and columnIndex is specified, then just adjust the horizontalScrollPosition
-     *  so that the specified column is visible. If columnIndex is -1 and rowIndex
-     *  is specified, then just adjust the verticalScrollPosition so that the specified
-     *  row is visible.
+     *  If necessary, set the <code>verticalScrollPosition</code> and 
+     *  <code>horizontalScrollPosition</code> properties so that the 
+     *  specified cell is completely visible. 
+     *  If <code>rowIndex</code> is -1 and <code>columnIndex</code> is specified, 
+     *  then just adjust the <code>horizontalScrollPosition</code>
+     *  so that the specified column is visible. 
+     *  If <code>columnIndex</code> is -1 and <code>rowIndex</code>
+     *  is specified, then just adjust the <code>verticalScrollPosition</code> 
+     *  so that the specified row is visible.
      * 
      *  @param rowIndex The 0-based row index of the item renderer's cell, or -1 to specify a column.
+     *  
      *  @param columnIndex The 0-based column index of the item renderer's cell, or -1 to specify a row.
      *  
      *  @langversion 3.0
@@ -2953,7 +2967,12 @@ public class Grid extends Group implements IDataGridElement
     }        
     
     /**
-     *  @copy spark.components.gridClasses.GridLayout#getVisibleRowIndices()
+     *  Return the data provider indices of the currently visible rows.  
+     *  Note that the item renderers for the first and last rows 
+     *  may only be partially visible.  
+     *  The returned vector's contents are in the order they're displayed.
+     * 
+     *  @return A vector of the visible row indices.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2966,7 +2985,23 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.gridClasses.GridLayout#getVisibleColumnIndices()
+     *  Return the indices of the currently visible columns.  Note that the 
+     *  item renderers for the first and last columns may only be partially visible.  
+     *  The returned vector's contents are in the order they're displayed.
+     * 
+     *  <p>The following example function uses this method to compute a vector of 
+     *  visible GridColumn objects.</p>
+     *  <pre>
+     *  function getVisibleColumns():Vector.&lt;GridColumn&gt;
+     *  {
+     *      var visibleColumns = new Vector.&lt;GridColumn&gt;;
+     *      for each (var columnIndex:int in grid.getVisibleColumnIndices())
+     *          visibleColumns.push(grid.columns.getItemAt(columnIndex));
+     *      return visibleColumns;
+     *  }
+     *  </pre> 
+     * 
+     *  @return A vector of the visible column indices.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2979,7 +3014,18 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.gridClasses.GridLayout#getCellBounds()
+     *  Returns the current pixel bounds of the specified cell, or null if no such cell exists.
+     *  Cell bounds are reported in grid coordinates.
+     * 
+     *  <p>If all of the columns for the the specfied row and all of the rows preceeding 
+     *  it have not yet been scrolled into view, the returned bounds may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     * 
+     *  @param rowIndex The 0-based index of the row.
+     *
+     *  @param columnIndex The 0-based index of the column. 
+     *
+     *  @return A <code>Rectangle</code> that represents the cell's pixel bounds, or null.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2992,7 +3038,16 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.gridClasses.GridLayout#getRowBounds()
+     *  Returns the current pixel bounds of the specified row, or null if no such row exists.
+     *  Row bounds are reported in grid coordinates.
+     *
+     *  <p>If all of the columns for the the specfied row and all of the rows preceeding 
+     *  it have not yet been scrolled into view, the returned bounds may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     * 
+     *  @param rowIndex The 0-based index of the row.
+     * 
+     *  @return A <code>Rectangle</code> that represents the row's pixel bounds, or null.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3005,7 +3060,15 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.gridClasses.GridLayout#getColumnBounds()
+     *  Returns the current pixel bounds of the specified column, or null if no such column exists.
+     *  Column bounds are reported in grid coordinates.
+     * 
+     *  <p>If all of the cells in the specified column have not yet been scrolled into view, the 
+     *  returned bounds may only be an approximation, based on the column's <code>typicalItem</code>.</p>
+     *  
+     *  @param columnIndex The 0-based index of the column. 
+     *
+     *  @return A <code>Rectangle</code> that represents the column's pixel bounds, or null.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3018,7 +3081,19 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.gridClasses.GridLayout#getRowIndexAt()
+     *  Returns the row index corresponding to the specified coordinates,
+     *  or -1 if the coordinates are out of bounds. 
+     *  The coordinates are resolved with respect to the grid.
+     * 
+     *  <p>If all of the columns or rows for the grid have not yet been scrolled
+     *  into view, the returned index may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     *  
+     *  @param x The x coordinate.
+     * 
+     *  @param y The y coordinate.
+     *
+     *  @return The index of the row corresponding to the specified coordinates.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3031,7 +3106,19 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.gridClasses.GridLayout#getColumnIndexAt()
+     *  Returns the column index corresponding to the specified coordinates,
+     *  or -1 if the coordinates are out of bounds. The coordinates are 
+     *  resolved with respect to the grid.
+     * 
+     *  <p>If all of the columns or rows for the grid have not yet been scrolled
+     *  into view, the returned index may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     *  
+     *  @param x The pixel's x coordinate relative to the grid.
+     *
+     *  @param y The pixel's y coordinate relative to the grid.
+     *
+     *  @return The index of the column, or -1 if the coordinates are out of bounds. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3066,7 +3153,28 @@ public class Grid extends Group implements IDataGridElement
     }
 
     /**
-     *  @copy spark.components.gridClasses.GridLayout#getCellAt()
+     *  Return the row and column indices of the cell that overlaps the pixel at the 
+     *  specified grid coordinate.
+     *  If no such cell exists, null is returned.
+     * 
+     *  <p>The example function below uses this method to compute the value of the 
+     *  <code>dataField</code> for a grid cell.</p> 
+     *  <pre>
+     *  function getCellData(x:Number, y:Number):Object
+     *  {
+     *      var cell:CellPosition = getCellAt(x, y);
+     *      if (!cell)
+     *          return null;
+     *      var GridColumn:column = grid.columns.getItemAt(cell.columnIndex);
+     *      return grid.dataProvider.getItemAt(cell.rowIndex)[column.dataField];
+     *  }
+     *  </pre> 
+     * 
+     *  @param x The pixel's x coordinate relative to the grid.
+     *
+     *  @param y The pixel's y coordinate relative to the grid.
+     *
+     *  @return The cell position, or null. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3079,7 +3187,16 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.gridClasses.GridLayout#getCellsAt()
+     *  Returns a vector of CellPosition objects whose 
+     *  <code>rowIndex</code> and <code>columnIndex</code> properties specify the 
+     *  row and column indices of the cells that overlap the specified grid region.  
+     *  If no such cells exist, an empty vector is returned.
+     *  
+     *  @param x The x coordinate of the pixel at the origin of the region, relative to the grid.
+     * 
+     *  @param x The x coordinate of the pixel at the origin of the region, relative to the grid. 
+     *  
+     *  @return A vector of objects like <code>Vector.&lt;Object&gt;([{rowIndex:0, columnIndex:0}, ...])</code>. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3136,7 +3253,33 @@ public class Grid extends Group implements IDataGridElement
     }      
     
     /**
-     *  @copy spark.components.gridClasses.GridLayout#getItemRendererAt()
+     *  If the requested item renderer is visible, returns a reference to 
+     *  the item renderer currently displayed at the specified cell.  
+     *  Note that once the returned item renderer is no longer visible it may be 
+     *  recycled and its properties reset.  
+     * 
+     *  <p>If the requested item renderer is not visible. then 
+     *  each time this method is called, a new item renderer is created.  
+     *  The new item renderer is not visible</p>
+     * 
+     *  <p>If the specified column does not have an explicit width, then the width
+     *  of this cell is based on the <code>typicalItem</code>.  
+     *  If a <code>typicalItem</code> was not specified or has not been measured yet, 
+     *  then the item renderer's width defaults to <code>150</code>.</p>
+     * 
+     *  <p>If the grid property <code>variableRowHeight</code> is 
+     *  <code>true</code> (the default) and an overall row height hasn't been 
+     *  cached for the specified row, then the item renderer's height is based 
+     *  on the <code>typicalItem</code>.  
+     *  If the <code>typicalItem</code> was not 
+     *  specified or has not been measured yet, then the item renderer's height 
+     *  defaults to its preferred height.</p>
+     *  
+     *  @param rowIndex The 0-based row index of the item renderer's cell.
+     * 
+     *  @param columnIndex The 0-based column index of the item renderer's cell.
+     * 
+     *  @return The item renderer or null if the cell location is invalid.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3149,7 +3292,19 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.gridClasses.GridLayout#isCellVisible()
+     *  Returns <code>true</code> if the specified cell is at least partially visible. 
+     *  If <code>columnIndex == -1</code>, then return 
+     *  <code>true</code> if the specified row is at least partially visible. 
+     *  If <code>rowIndex == -1</code>, then return <code>true</code> 
+     *  if the specified column is at least partially visible. 
+     *  If both <code>columnIndex</code> and <code>rowIndex</code> are -1, 
+     *  then return <code>false</code>.
+     *  
+     *  @param rowIndex The 0-based row index of the item renderer's cell.
+     * 
+     *  @param columnIndex The 0-based column index of the item renderer's cell.
+     * 
+     *  @return True if the specified cell (or row if columnIndex == -1) is at least partially visible
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3286,20 +3441,24 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  If the specified cell is visible, it will be redisplayed.  If variableRowHeight=true
+     *  If the specified cell is visible, it is redisplayed.  
+     *  If <code>variableRowHeight=true</code>, 
      *  then doing so may cause the height of the corresponding row to change.
      * 
-     *  <p>If columnIndex is -1, then the entire row is invalidated.  Similarly if rowIndex is -1,
-     *  the entire column is invalidated.</p>
+     *  <p>If columnIndex is -1, then the entire row is invalidated.  
+     *  Similarly if <code>rowIndex is -1</code>, then the entire column is invalidated.</p>
      * 
      *  <p>This method should be called when there is a change to any aspect of 
-     *  the dataProvider item at rowIndex that might have some impact on the way the 
-     *  specified cell is displayed. Calling this method is similar to calling 
-     *  <code>dataProvider.itemUpdated()</code>, which advises the Grid that all rows
-     *  displaying the specified item should be redisplayed.  Using this method can
-     *  be relatively efficient, since it narrows the scope of the change to a single cell.</p>
+     *  the data provider item at <code>rowIndex</code> that might have some 
+     *  impact on the way the  specified cell is displayed. 
+     *  Calling this method is similar to calling the
+     *  <code>dataProvider.itemUpdated()</code> method, which advises the Grid that all rows
+     *  displaying the specified item should be redisplayed.  
+     *  Using this method can be relatively efficient, since it narrows 
+     *  the scope of the change to a single cell.</p>
      * 
      *  @param rowIndex The 0-based row index of the cell that changed, or -1.
+     *
      *  @param column Index The 0-based column index of the cell that changed or -1.
      *  
      *  @langversion 3.0
@@ -3512,6 +3671,7 @@ public class Grid extends Group implements IDataGridElement
     private var mouseDownColumnIndex:int = -1;
     
     /**
+     *  @private
      *  This method is called when a MOUSE_DOWN event occurs within the grid and 
      *  for all subsequent MOUSE_MOVE events until the button is released (even if the 
      *  mouse leaves the grid).  The last event in such a "down drag up" gesture is 
@@ -3556,6 +3716,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
+     *  @private
      *  This method is called whenever a MOUSE_MOVE event occurs within the grid
      *  without the button pressed.  By default it dispatches a GRID_ROLL_OVER for the
      *  first MOUSE_MOVE GridEvent whose location is within a grid cell, and a 
@@ -3589,6 +3750,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
+     *  @private
      *  This method is called whenever a ROLL_OUT occurs on the grid.
      *  By default it dispatches a GRID_ROLL_OUT event.
      * 
@@ -3615,6 +3777,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
+     *  @private
      *  This method is called whenever a GRID_MOUSE_UP occurs on the grid.
      *  By default it dispatches a GRID_MOUSE_UP event.
      * 
@@ -3645,6 +3808,7 @@ public class Grid extends Group implements IDataGridElement
     }
 
     /**
+     *  @private
      *  This method is called whenever a CLICK MouseEvent occurs on the grid if both
      *  the corresponding down and up events occur within the same grid cell.
      *  By default it dispatches a GRID_CLICK event.
@@ -3669,6 +3833,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
+     *  @private
      *  This method is called whenever a DOUBLE_CLICK MouseEvent occurs on the grid
      *  if the corresponding sequence of down and up events occur within the same grid cell.
      *  By default it dispatches a GRID_DOUBLE_CLICK event.
