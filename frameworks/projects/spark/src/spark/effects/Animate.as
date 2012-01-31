@@ -11,8 +11,8 @@
 package mx.effects
 {
 
-import mx.effects.easing.IEaser;
-import mx.effects.easing.Sine;
+import mx.effects.fxEasing.IEaser;
+import mx.effects.fxEasing.Sine;
 import mx.effects.effectClasses.FxAnimateInstance;
 import mx.events.AnimationEvent;
 
@@ -148,8 +148,8 @@ public class FxAnimate extends Effect
      * the animation into an eased fraction, which will then be used to
      * calculate the value at that eased elapsed fraction.
      * 
-     * @default mx.effects.easing.Sine(.5)
-     * @see mx.effects.easing.Sine
+     * @default mx.effects.fxEasing.Sine(.5)
+     * @see mx.effects.fxEasing.Sine
      */
     public var easer:IEaser = defaultEaser;
     
