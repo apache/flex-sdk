@@ -47,6 +47,11 @@ include "../styles/metadata/FocusStyles.as"
  *  Name of CSS style declaration that specifies styles for the first tab.
  *  If this is unspecified, the default value
  *  of the <code>tabStyleName</code> style property is used.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="firstTabStyleName", type="String", inherit="no")]
 
@@ -66,12 +71,22 @@ include "../styles/metadata/FocusStyles.as"
  *  <p>To see a difference between the alignments,
  *  the total width of all the tabs must be less than
  *  the width of the TabNavigator container.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalAlign", type="String", enumeration="left,center,right", inherit="no")]
 
 /**
  *  Separation between tabs, in pixels.
  *  The default value is -1, so that the borders of adjacent tabs overlap.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalGap", type="Number", format="Length", inherit="no")]
 
@@ -79,12 +94,22 @@ include "../styles/metadata/FocusStyles.as"
  *  Name of CSS style declaration that specifies styles for the last tab.
  *  If this is unspecified, the default value
  *  of the <code>tabStyleName</code> style property is used.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="lastTabStyleName", type="String", inherit="no")]
 
 /**
  *  Name of CSS style declaration that specifies styles for the text
  *  of the selected tab.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectedTabTextStyleName", type="String", inherit="no")]
 
@@ -94,6 +119,11 @@ include "../styles/metadata/FocusStyles.as"
  *  When this property is <code>undefined</code>, the height of each tab is
  *  determined by the font styles applied to this TabNavigator container.
  *  If you set this property, the specified value overrides this calculation.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="tabHeight", type="Number", format="Length", inherit="no")]
 
@@ -101,6 +131,11 @@ include "../styles/metadata/FocusStyles.as"
  *  Name of CSS style declaration that specifies styles for the tabs.
  *  
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="tabStyleName", type="String", inherit="no")]
 
@@ -118,6 +153,11 @@ include "../styles/metadata/FocusStyles.as"
  *  <p>The label text on a tab is truncated if it does not fit in the tab.
  *  If a tab label is truncated, a tooltip with the full label text is
  *  displayed when a user rolls the mouse over the tab.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="tabWidth", type="Number", format="Length", inherit="no")]
 
@@ -128,6 +168,11 @@ include "../styles/metadata/FocusStyles.as"
  *  value move the tab bar to the left. 
  * 
  *  @default 0 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="tabOffset", type="Number", format="Length", inherit="no")]
 
@@ -290,6 +335,11 @@ include "../styles/metadata/FocusStyles.as"
  *
  *  @see mx.containers.ViewStack
  *  @see mx.controls.TabBar
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TabNavigator extends ViewStack implements IFocusManagerComponent
 {
@@ -314,6 +364,11 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function TabNavigator()
     {
@@ -423,6 +478,11 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
 
     /**
      *  A reference to the TabBar inside this TabNavigator.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var tabBar:TabBar;
 
@@ -452,6 +512,11 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
      *  The set of styles to pass from the TabNavigator to the tabBar.
      *  @see mx.styles.StyleProxy
      *  @review
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get tabBarStyleFilters():Object
     {
@@ -535,6 +600,11 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
      * 
      *  @see mx.core.UIComponent#measure()
      *  @see mx.containers.ViewStack#measure()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -624,6 +694,11 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
      *  <code>scaleY</code> property of the component.
      * 
      *  @see mx.core.UIComponent#updateDisplayList()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
@@ -768,6 +843,11 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
      *  @param index Index in the navigator's TabBar control.
      *
      *  @return The tab at the specified index.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getTabAt(index:int):Button
     {
