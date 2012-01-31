@@ -11,19 +11,22 @@
 
 package spark.components.supportClasses
 {
-import flash.events.EventDispatcher;
-import flash.events.IEventDispatcher;
-import mx.events.FlexEvent;
-import mx.core.mx_internal;
-import mx.events.DropdownEvent;
-import flash.events.MouseEvent;
-import flash.events.Event;
-import flash.events.KeyboardEvent;
-import flash.ui.Keyboard;
-import flash.events.FocusEvent;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
- 
+import flash.events.Event;
+import flash.events.EventDispatcher;
+import flash.events.FocusEvent;
+import flash.events.IEventDispatcher;
+import flash.events.KeyboardEvent;
+import flash.events.MouseEvent;
+import flash.events.TimerEvent;
+import flash.ui.Keyboard;
+import flash.utils.Timer;
+
+import mx.core.mx_internal;
+import mx.events.DropdownEvent;
+import mx.events.FlexEvent;
+
 /**
  *  DropDownController handles the mouse, keyboard, and focus
  *  interactions for an anchor button and its dropDown. This helper class
@@ -75,15 +78,11 @@ public class DropDownController extends EventDispatcher
 		if (_button === value)
 			return;
 		
-		if (_button)
-			_button.removeEventListener(FlexEvent.BUTTON_DOWN, button_buttonDownHandler);
-			
+		removeOpenTriggers();
+					
 		_button = value;
-		
-    	// TODO (jszeto) Change this to be mouseDown. Figure out how to not 
-    	// trigger systemManager_mouseDown.
-    	if (_button)
-			_button.addEventListener(FlexEvent.BUTTON_DOWN, button_buttonDownHandler);
+
+        addOpenTriggers();
 		
 	}
 	
@@ -146,12 +145,137 @@ public class DropDownController extends EventDispatcher
     {
     	return _isOpen;
     }
+    
+    //----------------------------------
+    //  rolloverOpenDelay
+    //----------------------------------
+    
+    private var _rollOverOpenDelay:Number = Number.NaN;
+    private var rollOverOpenDelayTimer:Timer;
+    
+    /**
+     *  If set, this is the delay to wait for opening the drop down 
+     *  when the button is rolled over.  If set to NaN, then the drop 
+     *  down will open on click, not rollover.
+     * 
+     *  @default Number.NaN
+     *         
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get rollOverOpenDelay():Number
+    {
+        return _rollOverOpenDelay;
+    }
+    
+    /**
+     *  @private 
+     */
+    public function set rollOverOpenDelay(value:Number):void
+    {
+        if (_rollOverOpenDelay == value)
+            return;
+        
+        removeOpenTriggers();
+                    
+        _rollOverOpenDelay = value;
+
+        addOpenTriggers();
+    }
 		
 	//--------------------------------------------------------------------------
     //
     //  Methods
     //
-    //--------------------------------------------------------------------------   
+    //--------------------------------------------------------------------------  
+    
+    /**
+     *  @private 
+     *  Adds event triggers to the button to open the popup.
+     * 
+     *  <p>This is called from the button setter after the button has been set.</p>
+     */ 
+    private function addOpenTriggers():void
+    {
+        // TODO (jszeto) Change this to be mouseDown. Figure out how to not 
+        // trigger systemManager_mouseDown.
+        if (button)
+        {
+            if (isNaN(rollOverOpenDelay))
+                button.addEventListener(FlexEvent.BUTTON_DOWN, button_buttonDownHandler);
+            else
+                button.addEventListener(MouseEvent.ROLL_OVER, button_rollOverHandler);
+        }
+    }
+    
+    /**
+     *  @private
+     *  Removes event triggers from the button to open the popup.
+     * 
+     *  <p>This is called from the button setter after the button has been set.</p>
+     */ 
+    private function removeOpenTriggers():void
+    {
+        // TODO (jszeto) Change this to be mouseDown. Figure out how to not 
+        // trigger systemManager_mouseDown.
+        if (button)
+        {
+            if (isNaN(rollOverOpenDelay))
+                button.removeEventListener(FlexEvent.BUTTON_DOWN, button_buttonDownHandler);
+            else
+                button.removeEventListener(MouseEvent.ROLL_OVER, button_rollOverHandler);
+        }
+    }
+    
+    /**
+     *  @private
+     *  Adds event triggers close the popup.
+     * 
+     *  <p>This is called when the drop down is popped up.</p>
+     */ 
+    private function addCloseTriggers():void
+    {
+        // TODO (jszeto) Change these to be marshall plan compliant
+        if (button)
+        {
+            if (isNaN(rollOverOpenDelay))
+            {
+                button.systemManager.addEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
+                button.systemManager.addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
+            }
+            else
+            {
+                button.systemManager.addEventListener(MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler);
+                button.systemManager.addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
+            }
+        }
+    }
+    
+    /**
+     *  @private
+     *  Adds event triggers close the popup.
+     * 
+     *  <p>This is called when the drop down is closed.</p>
+     */ 
+    private function removeCloseTriggers():void
+    {
+        // TODO (jszeto) Change these to be marshall plan compliant
+        if (button)
+        {
+            if (isNaN(rollOverOpenDelay))
+            {
+                button.systemManager.removeEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
+                button.systemManager.removeEventListener(Event.RESIZE, systemManager_resizeHandler);
+            }
+            else
+            {
+                button.systemManager.removeEventListener(MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler);
+                button.systemManager.removeEventListener(Event.RESIZE, systemManager_resizeHandler);
+            }
+        }
+    } 
 
 	/**
      *  Opens the dropDown and dispatches a <code>DropdownEvent.OPEN</code> event. 
@@ -165,9 +289,7 @@ public class DropDownController extends EventDispatcher
     {
     	if (!isOpen)
     	{
-    		// TODO (jszeto) Change these to be marshall plan compliant
-    		button.systemManager.addEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
-    		button.systemManager.addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
+    	    addCloseTriggers();
     		
     		_isOpen = true;
     		button.mx_internal::keepDown = true; // Force the button to stay in the down state
@@ -201,9 +323,7 @@ public class DropDownController extends EventDispatcher
         	
         	dispatchEvent(dde);
         	
-        	// TODO (jszeto) Change these to be marshall plan compliant
-        	button.systemManager.removeEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
-        	button.systemManager.removeEventListener(Event.RESIZE, systemManager_resizeHandler);
+        	removeCloseTriggers();
     	}
     }	
 		
@@ -229,6 +349,57 @@ public class DropDownController extends EventDispatcher
         else
             openDropDown();
     }
+    
+    /**
+     *  Called when the button's rollOver event is dispatched. This function opens 
+     *  the dropDown, or opens the drop down after the rollOverOpenDelay.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    protected function button_rollOverHandler(event:MouseEvent):void
+    {
+        if (rollOverOpenDelay == 0)
+            openDropDown();
+        else
+        {
+            button.addEventListener(MouseEvent.ROLL_OUT, button_rollOutHandler);
+            rollOverOpenDelayTimer = new Timer(rollOverOpenDelay, 1);
+            rollOverOpenDelayTimer.addEventListener(TimerEvent.TIMER_COMPLETE, rollOverDelay_timerCompleteHandler);
+            rollOverOpenDelayTimer.start();
+        }
+    }
+    
+    /**
+     *  @private 
+     *  Called when the button's rollOut event is dispatched while waiting 
+     *  for the rollOverOpenDelay.  This will cancel the timer so we don't open
+     *  any more.
+     */ 
+    private function button_rollOutHandler(event:MouseEvent):void
+    {
+        if (rollOverOpenDelayTimer && rollOverOpenDelayTimer.running)
+        {
+            rollOverOpenDelayTimer.stop();
+            rollOverOpenDelayTimer = null;
+        }
+        
+        button.removeEventListener(MouseEvent.ROLL_OUT, button_rollOutHandler);
+    }
+    
+    /**
+     *  @private
+     *  Called when the rollOverDelay Timer is up and we should show the drop down.
+     */ 
+     private function rollOverDelay_timerCompleteHandler(event:TimerEvent):void
+     {
+         button.removeEventListener(MouseEvent.ROLL_OUT, button_rollOutHandler);
+         rollOverOpenDelayTimer = null;
+         
+         openDropDown();
+     }
 			
 	/**
      *  Called when the systemManager receives a mouseDown event. This closes
@@ -250,6 +421,48 @@ public class DropDownController extends EventDispatcher
     	{
     		closeDropDown(true);
     	} 
+    }
+    
+    /**
+     *  Called when the dropdown is popped up from a rollover and the mouse moves 
+     *  anywhere on the screen.  If the mouse moves over the button or the dropdown, 
+     *  the popup will stay open.  Otherwise, the popup will close.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    protected function systemManager_mouseMoveHandler(event:MouseEvent):void
+    {
+        var target:DisplayObject = event.target as DisplayObject;
+        
+        // if the mouse is down, wait until it's released
+        // TODO (rfrishbe): Need to do something when they mouse up in 
+        // this case if they mouseup outside of the button/dropdown.
+        if (event.buttonDown)
+            return;
+        
+        if (target)
+        {
+            // check if the target is the button or contained within the button
+            if (button.contains(target))
+                return;
+            
+            // check if the target is the dropdown or contained within the dropdown
+            if (dropDown is DisplayObjectContainer)
+            {
+                if (DisplayObjectContainer(dropDown).contains(target))
+                    return;
+            }
+            else
+            {
+                if (target == dropDown)
+                    return;
+            }
+        }
+        
+        closeDropDown(true);
     }
     
     /**
