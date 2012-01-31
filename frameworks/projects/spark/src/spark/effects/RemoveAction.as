@@ -161,7 +161,7 @@ public class RemoveAction extends Effect
         {
             if (target.parent == null)
             {
-                // TODO : workaround for current situation of mis-match between
+                // FIXME (chaase): workaround for current situation of mis-match between
                 // Group having 'item's and Flex3 components having 'parent's
                 if (value is IVisualElementContainer)
                     IVisualElementContainer(value).addElementAt(target as IVisualElement, Math.min(props.index, 
