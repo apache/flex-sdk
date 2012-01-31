@@ -110,7 +110,7 @@ use namespace mx_internal;
  *  </pre>
  *
  *  @see spark.components.RadioButton
- *  
+ *  @includeExample examples/RadioButtonGroupExample.mxml
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
