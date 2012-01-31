@@ -1434,7 +1434,7 @@ public class Menu extends List implements IFocusManagerContainer
             // do x
             var screen:Rectangle;
             var pt:Point = new Point(x, y);
-            pt = DisplayObject(this.document).localToGlobal(pt);
+            pt = sbRoot.localToGlobal(pt);
     
             if (sm != sbRoot)
             {
