@@ -9,24 +9,24 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
-import mx.components.baseClasses.FxScrollBar;
+import spark.components.supportClasses.ScrollBar;
 import mx.core.ILayoutElement;
-import mx.core.IViewport;
-import mx.core.ScrollUnit;
+import spark.core.IViewport;
+import spark.core.ScrollUnit;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
-import mx.layout.LayoutElementFactory;
+import spark.layout.supportClasses.LayoutElementFactory;
 
-[IconFile("FxVScrollBar.png")]
+[IconFile("VScrollBar.png")]
 
 /**
- *  The FxVScrollBar (vertical ScrollBar) control lets you control
+ *  The VScrollBar (vertical ScrollBar) control lets you control
  *  the portion of data that is displayed when there is too much data
  *  to fit vertically in a display area.
  * 
- *  <p>Although you can use the FxVScrollBar control as a stand-alone control,
+ *  <p>Although you can use the VScrollBar control as a stand-alone control,
  *  you usually combine it as part of another group of components to
  *  provide scrolling functionality.</p>
  *  
@@ -35,7 +35,7 @@ import mx.layout.LayoutElementFactory;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxVScrollBar extends FxScrollBar
+public class VScrollBar extends ScrollBar
 {
     include "../core/Version.as";
 
@@ -53,7 +53,7 @@ public class FxVScrollBar extends FxScrollBar
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */    
-    public function FxVScrollBar()
+    public function VScrollBar()
     {
         super();
     }
@@ -88,7 +88,7 @@ public class FxVScrollBar extends FxScrollBar
             var vsp:Number = newViewport.verticalScrollPosition;
             // Special case: if contentHeight is 0, assume that it hasn't been 
             // updated yet.  Making the maximum==vsp here avoids trouble later
-            // when FxRange constrains value
+            // when Range constrains value
             var cHeight:Number = newViewport.contentHeight;
             maximum = (cHeight == 0) ? vsp : cHeight - newViewport.height;
             pageSize = newViewport.height;
@@ -162,7 +162,7 @@ public class FxVScrollBar extends FxScrollBar
     }
     
     /**
-     *  Returns the position of the thumb button on an FxVScrollBar control, 
+     *  Returns the position of the thumb button on an VScrollBar control, 
      *  which is equal to the <code>localY</code> parameter.
      * 
      *  @param localX The X position relative to the scrollbar control.
@@ -214,8 +214,8 @@ public class FxVScrollBar extends FxScrollBar
      *  @param increase Whether the page scroll is up (<code>true</code>) or
      *  down (<code>false</code>). 
      * 
-     *  @see mx.components.baseClasses.FxTrackBase#page()
-     *  @see mx.components.baseClasses.FxTrackBase#setValue()
+     *  @see mx.components.baseClasses.TrackBase#page()
+     *  @see mx.components.baseClasses.TrackBase#setValue()
      *  @see mx.core.IViewport
      *  @see mx.core.IViewport#verticalScrollPosition
      *  @see mx.core.IViewport#getVerticalScrollPositionDelta()     
@@ -252,8 +252,8 @@ public class FxVScrollBar extends FxScrollBar
      *  @param increase Whether the line scoll is up (<code>true</code>) or
      *  down (<code>false</code>). 
      * 
-     *  @see mx.components.baseClasses.FxTrackBase#step()
-     *  @see mx.components.baseClasses.FxTrackBase#setValue()
+     *  @see mx.components.baseClasses.TrackBase#step()
+     *  @see mx.components.baseClasses.TrackBase#setValue()
      *  @see mx.core.IViewport
      *  @see mx.core.IViewport#verticalScrollPosition
      *  @see mx.core.IViewport#getVerticalScrollPositionDelta()
@@ -319,7 +319,7 @@ public class FxVScrollBar extends FxScrollBar
             var vsp:Number = viewport.verticalScrollPosition;
             // Special case: if contentHeight is 0, assume that it hasn't been 
             // updated yet.  Making the maximum==vsp here avoids trouble later
-            // when FxRange constrains value
+            // when Range constrains value
             var cHeight:Number = viewport.contentHeight;
             maximum = (cHeight == 0) ? vsp : cHeight - viewport.height;
             pageSize = viewport.height;
