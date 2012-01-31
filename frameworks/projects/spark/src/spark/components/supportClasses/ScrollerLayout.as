@@ -13,16 +13,12 @@
 package spark.components.supportClasses
 {
 
-import spark.components.supportClasses.ScrollBar;
-import spark.components.Group;
 import mx.core.ILayoutElement;
-import spark.core.IViewport;
 import mx.core.ScrollPolicy;
-import spark.layout.supportClasses.LayoutBase;
-import spark.layout.supportClasses.LayoutElementFactory;
+
 import spark.components.Scroller;
-import spark.components.supportClasses.GroupBase;
-import spark.components.supportClasses.Skin;
+import spark.core.IViewport;
+import spark.layout.supportClasses.LayoutBase;
 
 [ExcludeClass]
 
@@ -34,11 +30,6 @@ public class ScrollerLayout extends LayoutBase
     public function ScrollerLayout()    
     {
         super();
-    }
-    
-    static private function LayoutElementFor(item:Object):ILayoutElement
-    {
-        return (item) ? LayoutElementFactory.getLayoutElementFor(item) : null;
     }
     
     private function getScroller():Scroller
@@ -78,7 +69,7 @@ public class ScrollerLayout extends LayoutBase
         var viewport:IViewport = scroller.viewport;
         if (viewport)
         {
-            var viewportElt:ILayoutElement = LayoutElementFor(viewport);
+            var viewportElt:ILayoutElement = ILayoutElement(viewport);
             measuredW = viewportElt.getPreferredBoundsWidth();
             measuredH = viewportElt.getPreferredBoundsHeight();
         }
@@ -107,17 +98,15 @@ public class ScrollerLayout extends LayoutBase
         
         if (showHSB)
         {
-            var hsbElt:ILayoutElement = LayoutElementFor(hsb);
-            measuredH += hsbElt.getPreferredBoundsHeight();
-            minW += hsbElt.getMinBoundsWidth();              
-            minH += hsbElt.getMinBoundsHeight();  
+            measuredH += hsb.getPreferredBoundsHeight();
+            minW += hsb.getMinBoundsWidth();              
+            minH += hsb.getMinBoundsHeight();  
         }
         if (showVSB)
         {
-            var vsbElt:ILayoutElement = LayoutElementFor(vsb);
-            measuredW += vsbElt.getPreferredBoundsWidth();
-            minW += vsbElt.getMinBoundsWidth();
-            minH += vsbElt.getMinBoundsHeight();
+            measuredW += vsb.getPreferredBoundsWidth();
+            minW += vsb.getMinBoundsWidth();
+            minH += vsb.getMinBoundsHeight();
         }
         
         var g:GroupBase = target;
@@ -150,8 +139,6 @@ public class ScrollerLayout extends LayoutBase
         var viewport:IViewport = scroller.viewport;
         var hsb:ScrollBar = scroller.horizontalScrollBar;
         var vsb:ScrollBar = scroller.verticalScrollBar;
-        var hsbElt:ILayoutElement = LayoutElementFor(hsb);
-        var vsbElt:ILayoutElement = LayoutElementFor(vsb);
            
         // Decide which scrollbars will be visible
         var showHSB:Boolean = false;
@@ -188,14 +175,14 @@ public class ScrollerLayout extends LayoutBase
         var hsbH:Number = 0;
         if (showHSB) 
         {
-            hsbH = hsbElt.getPreferredBoundsHeight();
+            hsbH = hsb.getPreferredBoundsHeight();
             viewportH -= hsbH;
         }
         var viewportW:Number = w;
         var vsbW:Number = 0;
         if (showVSB) 
         {
-            vsbW = vsbElt.getPreferredBoundsWidth();
+            vsbW = vsb.getPreferredBoundsWidth();
             viewportW -= vsbW;
         }
         
@@ -205,20 +192,20 @@ public class ScrollerLayout extends LayoutBase
         if (showVSB && !showHSB && hAuto && (viewport.contentWidth > viewportW))
         {
             showHSB = true;
-            hsbH = hsbElt.getPreferredBoundsHeight();                
+            hsbH = hsb.getPreferredBoundsHeight();                
             viewportH -= hsbH;
         }
         else if (!showVSB && showHSB && vAuto && (viewport.contentHeight > viewportH))
         {
             showVSB = true;
-            vsbW = vsbElt.getPreferredBoundsWidth();                
+            vsbW = vsb.getPreferredBoundsWidth();                
             viewportW -= vsbW;
         }
 
         // layout the viewport
         if (viewport)
         {
-            var viewportElt:ILayoutElement = LayoutElementFor(viewport);
+            var viewportElt:ILayoutElement = ILayoutElement(viewport);
             viewportElt.setLayoutBoundsSize(viewportW, viewportH);
             viewportElt.setLayoutBoundsPosition(0,0);
         }
@@ -227,14 +214,14 @@ public class ScrollerLayout extends LayoutBase
         if (hsb) hsb.visible = showHSB;
         if (showHSB)
         {
-            hsbElt.setLayoutBoundsSize(Math.max(hsbElt.getMinBoundsWidth(), viewportW), hsbH);
-            hsbElt.setLayoutBoundsPosition(0, h - hsbH);
+            hsb.setLayoutBoundsSize(Math.max(hsb.getMinBoundsWidth(), viewportW), hsbH);
+            hsb.setLayoutBoundsPosition(0, h - hsbH);
         }
         if (vsb) vsb.visible = showVSB;
         if (showVSB)
         {
-            vsbElt.setLayoutBoundsSize(vsbW, Math.max(vsbElt.getMinBoundsHeight(), viewportH));
-            vsbElt.setLayoutBoundsPosition(w - vsbW, 0);
+            vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), viewportH));
+            vsb.setLayoutBoundsPosition(w - vsbW, 0);
         }
         
         target.setContentSize(w, h);
