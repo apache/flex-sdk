@@ -12,35 +12,20 @@
 package spark.components.supportClasses
 {
 
-import __AS3__.vec.Vector;
-
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
-import flash.geom.ColorTransform;
-import flash.geom.Matrix;
 import flash.geom.Rectangle;
 
-import mx.collections.ICollectionView;
-import mx.collections.IList;
-import mx.collections.ListCollectionView;
-import mx.controls.Label;
-import mx.core.IFactory;
-import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import mx.events.CollectionEvent;
-import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
-import mx.events.PropertyChangeEventKind;
-import mx.utils.MatrixUtil;
 
 import spark.components.ResizeMode;
 import spark.core.IViewport;
 import spark.core.MaskType;
-import spark.events.RendererExistenceEvent;
 import spark.layouts.BasicLayout;
 import spark.layouts.supportClasses.LayoutBase;
 
@@ -1281,10 +1266,15 @@ public class GroupBase extends UIComponent implements IViewport
     }
     
     /**
-     *  Layouts that honor the <code>useVirtualLayout</code> flag will use this method
-     *  to get layout elements that are "in view", i.e. that are within 
-     *  the Group's scrollRect.
+     *  Layouts that honor the <code>useVirtualLayout</code> flag will use this 
+     *  method at updateDisplayList() time to get layout elements that are "in view", 
+     *  i.e. that are within the Group's scrollRect.
      * 
+     *  <p>If the element to be returned wasn't already a visible child, i.e. if 
+     *  it was created or recycled, then the element's initial size is set with 
+     *  setLayoutBoundsSize() before it's validated.  This is important for components, 
+     *  like text, that reflow when the layout is justified to the Group's width or height.</p>
+     *  
      *  <p>The returned layout element will have been validated.</p>
      * 
      *  <p>This method will lazily create or "recycle" and validate layout
@@ -1294,6 +1284,8 @@ public class GroupBase extends UIComponent implements IViewport
      *  support virutalization will call it.</p>
      * 
      *  @param index The index of the element to retrieve.
+     *  @param eltWidth If specified, the newly created or recycled element's initial width.
+     *  @param eltHeight If specified, the newly created or recycled element's initial height.
      *  @return The validated element at the specified index.
      * 
      *  @langversion 3.0
@@ -1301,7 +1293,7 @@ public class GroupBase extends UIComponent implements IViewport
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getVirtualElementAt(index:int):IVisualElement
+    public function getVirtualElementAt(index:int, eltWidth:Number=NaN, eltHeight:Number=NaN):IVisualElement
     {
         return getElementAt(index);            
     }
