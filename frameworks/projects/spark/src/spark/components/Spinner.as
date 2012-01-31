@@ -120,6 +120,10 @@ import spark.components.supportClasses.Range;
  *           <td>Maximum size</td>
  *           <td>10000 pixels wide and 10000 pixels high</td>
  *        </tr>
+ *        <tr>
+ *           <td>Default skin class</td>
+ *           <td>spark.skins.spark.SpinnerSkin</td>
+ *        </tr>
  *     </table>
  *
  *  @mxml
