@@ -432,11 +432,13 @@ public class TrackBase extends Range
     }
     /**
      *  @private
+     *  If the component is in focus, then it should respond to mouseWheel events. We listen to these
+     *  events on systemManager in the capture phase because this behavior should have the highest priority. 
      */ 
     override protected function focusInHandler(event:FocusEvent):void
     {
         super.focusInHandler(event);
-        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler);
+        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, true);
     }
     
     /**
@@ -445,7 +447,7 @@ public class TrackBase extends Range
     override protected function focusOutHandler(event:FocusEvent):void
     {
         super.focusOutHandler(event);
-        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler);
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, true);
     }
     
     /**
