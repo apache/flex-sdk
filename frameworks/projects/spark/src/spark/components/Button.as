@@ -32,6 +32,11 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
@@ -41,6 +46,11 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
  *  this event is dispatched repeatedly as long as the button stays down.
  *
  *  @eventType mx.events.FlexEvent.BUTTON_DOWN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="buttonDown", type="mx.events.FlexEvent")]
 
@@ -50,6 +60,11 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
  *  <code>repeatInterval</code>.
  * 
  *  @default 500
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="repeatDelay", type="Number", format="Time", inherit="no")]
 
@@ -58,26 +73,51 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
  *  if the user presses and holds the mouse on a button.
  *  
  *  @default 35
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="repeatInterval", type="Number", format="Time", inherit="no")]
 
 /**
  *  Up State of the Button
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("up")]
 
 /**
  *  Over State of the Button
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("over")]
 
 /**
  *  Down State of the Button
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("down")]
 
 /**
  *  Disabled State of the Button
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("disabled")]
  
@@ -106,6 +146,11 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
  *  <code>mouseUp</code> events whether enabled or disabled.</p>
  *
  *  @includeExample examples/FxButtonExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxButton extends FxComponent implements IFocusManagerComponent, IDataRenderer
 {
@@ -119,6 +164,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function FxButton()
     {
@@ -154,6 +204,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
     
     /**
      *  A skin part that defines the  label of the button. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var labelField:TextGraphicElement;
     
@@ -193,6 +248,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
      *  @eventType dataChange
      *  @see #label
      *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get data():Object
     {
@@ -233,6 +293,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
      *  @default ""
      *  @see #data
      *  @eventType dataChange
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set label(value:String):void
     {
@@ -265,6 +330,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
     /**
      *  Indicates whether the mouse pointer is over the button.
      *  Used to determine the skin state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     protected function get hoveredOver():Boolean
     {
@@ -288,6 +358,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
      *  Indicates whether the mouse is down and the mouse pointer was
      *  over the button when MouseEvent.MOUSE_DOWN was first dispatched.
      *  Used to determine the skin state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     protected function get mouseCaptured():Boolean
     {
@@ -326,6 +401,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
     /**
      *  Indicates whether a keyboard key is pressed while the button is in focus.
      *  Used to determine the skin state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     protected function get keyboardPressed():Boolean
     {
@@ -354,6 +434,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
      *  when the user drags the mouse off of it.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get stickyHighlighting():Boolean
     {
@@ -408,6 +493,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
 
     /**
      *  A uint to store bitflags (booleans compressed down into one integer).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected var flags:uint = 0;
 
@@ -499,6 +589,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
      *  Marks the button state invalid, so that the button skin's state
      *  can be set properly and "buttonDown" events can be dispatched where
      *  appropriate.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function invalidateButtonState():void
     {
@@ -577,6 +672,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
      *  target can be other than the FxButton - for example when the user presses the 
      *  FxButton, we listen for MOUSE_UP and MOUSE_UP_SOMEWHERE to handle cases where the user drags
      *  outside the FxButton and releases the mouse.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function mouseEventHandler(event:Event):void
     {
@@ -640,6 +740,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
      *  Override in subclasses to handle the click event rather than
      *  adding a separate handler. onClick will not get called if the
      *  button is disabled. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function onClick(event:MouseEvent):void
     {
@@ -707,6 +812,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
      *  events if the user holds down the mouse button.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get autoRepeat():Boolean
     {
