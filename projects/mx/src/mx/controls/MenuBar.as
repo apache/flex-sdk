@@ -51,7 +51,6 @@ import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
-import mx.styles.StyleManager;
 import mx.styles.StyleProxy;
 
 use namespace mx_internal;
