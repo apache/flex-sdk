@@ -21,10 +21,12 @@ import mx.collections.IList;
 import mx.core.IFactory;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
+import mx.events.PropertyChangeEvent;
 import mx.managers.CursorManager;
 import mx.managers.CursorManagerPriority;
 import mx.managers.IFocusManagerComponent;
 
+import spark.components.gridClasses.IDataGridElement;
 import spark.components.supportClasses.ColumnHeaderBarLayout;
 import spark.components.supportClasses.GridColumn;
 import spark.components.supportClasses.GridLayer;
@@ -274,14 +276,18 @@ use namespace mx_internal;
 [IconFile("ColumnHeaderBar.png")]
 
 /**
- *  The ColumnHeaderBar control defines
+ *  Displays a row of column headers and separators aligned with the grid's layout.  
+ * 
+ *  <p>Headers are rendererd with the headerRenderer and separators with the columnSeparator.
+ *  The layout, which can not be changed, is virtual: renderers and separators that have been 
+ *  scrolled out of view are reused.</p>
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-public class ColumnHeaderBar extends Group implements IFocusManagerComponent 
+public class ColumnHeaderBar extends Group implements IDataGridElement, IFocusManagerComponent 
 {
     include "../core/Version.as";
     
@@ -341,7 +347,7 @@ public class ColumnHeaderBar extends Group implements IFocusManagerComponent
     private var _headerRenderer:IFactory = null;
     
     /**
-     *  Returns the default header renderer
+     *  The IGridItemRenderer class used to renderer each column header.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -407,6 +413,62 @@ public class ColumnHeaderBar extends Group implements IFocusManagerComponent
         invalidateDisplayList();
         dispatchChangeEvent("columnSeparatorChanged");
     }
+    
+    //----------------------------------
+    //  dataGrid
+    //----------------------------------
+    
+    [Bindable("dataGridChanged")]
+    
+    private var _dataGrid:DataGrid = null;
+    
+    /**
+     *  The DataGrid that defines the column layout and horizontal scroll position for this component.
+     *  This property is set by the DataGrid after its grid skin part has been added.
+     * 
+     *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get dataGrid():DataGrid
+    {
+        return _dataGrid;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set dataGrid(value:DataGrid):void
+    {
+        if (_dataGrid == value)
+            return;
+        
+        if (_dataGrid && _dataGrid.grid)
+            _dataGrid.grid.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_changeEventHandler);
+
+        _dataGrid = value;
+        
+        if (_dataGrid && _dataGrid.grid)
+            _dataGrid.grid.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_changeEventHandler);
+        
+        layout.clearVirtualLayoutCache();
+        invalidateSize();
+        invalidateDisplayList();
+        
+        dispatchChangeEvent("dataGridChanged");
+    }
+    
+    /**
+     *  @private
+     */
+    private function grid_changeEventHandler(event:PropertyChangeEvent):void
+    {
+        if (event.property == "horizontalScrollPosition")
+            horizontalScrollPosition = Number(event.newValue);
+    }        
     
     //----------------------------------
     //  overlayGroup
@@ -777,25 +839,9 @@ public class ColumnHeaderBar extends Group implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
     
-    /**
-     *  @private
-     */
-    private function get dataGrid():DataGrid
-    {
-        return owner as DataGrid;
-    }
-    
-    /**
-     *  @private
-     */
-    private function get grid():Grid
-    {
-        return dataGrid ? dataGrid.grid : null;
-    }
-    
     private function getColumnAt(columnIndex:int):GridColumn
     {
-        const grid:Grid = grid;
+        const grid:Grid = (dataGrid) ? dataGrid.grid : null;
         if (!grid || !grid.columns)
             return null;
         
