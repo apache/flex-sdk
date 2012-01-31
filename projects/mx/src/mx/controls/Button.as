@@ -861,31 +861,6 @@ public class Button extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            var t:String = label;
-            if (!t)
-                t = "Wj";
-
-            // If we're dirty, force a relayout here
-            // so that our internal text field is positioned first;
-            // otherwise we get a stale value.
-            validateNow();
-
-            // If we havent specified a label and the placement is either top
-            // or bottom, we will set the baseline to less that half the height.
-            if (!label &&
-                (labelPlacement == ButtonLabelPlacement.TOP ||
-                 labelPlacement == ButtonLabelPlacement.BOTTOM))
-            {
-                var lineMetrics:TextLineMetrics = measureText(t);
-                return (measuredHeight - lineMetrics.height) / 2 +
-                       lineMetrics.ascent;
-            }
-
-            return textField.y + measureText(t).ascent;
-        }
-
         if (!validateBaselinePosition())
             return NaN;
 
@@ -1421,16 +1396,9 @@ public class Button extends UIComponent
 
             invalidateDisplayList();
             
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            {
-                 if (toggle)
-                    dispatchEvent(new Event(Event.CHANGE));
-            }
-            else
-            {
-                if (toggle && !isProgrammatic)
-                    dispatchEvent(new Event(Event.CHANGE));
-            }
+            if (toggle && !isProgrammatic)
+                dispatchEvent(new Event(Event.CHANGE));
+            
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         }
     }
@@ -1625,113 +1593,12 @@ public class Button extends UIComponent
             toggleChanged = false;
         }
     }
-
-    /**
-     *  @private 
-     *  Old version of the measure function
-     */
-    private function previousVersion_measure():void
-    {
-        super.measure();
-
-        var textWidth:Number = 0;
-        var textHeight:Number = 0;
-
-        if (label)
-        {
-            var lineMetrics:TextLineMetrics = measureText(label);
-            textWidth = lineMetrics.width;
-            textHeight = lineMetrics.height;
-
-            var paddingLeft:Number = getStyle("paddingLeft");
-            var paddingRight:Number = getStyle("paddingRight");
-            var paddingTop:Number = getStyle("paddingTop");
-            var paddingBottom:Number = getStyle("paddingBottom");
-
-            textWidth += paddingLeft + paddingRight + getStyle("textIndent"); 
-            textHeight += paddingTop + paddingBottom; 
-        }
-
-        // If the current skin defines a borderMetrics property,
-        // then use it; otherwise, use a default value.
-        var bm:EdgeMetrics;
-        try
-        {
-            bm = currentSkin["borderMetrics"];
-        }
-        catch(e:Error)
-        {
-            bm = new EdgeMetrics(3, 3, 3, 3);
-        }
-    
-        var tempCurrentIcon:IFlexDisplayObject = getCurrentIcon();  
-        var iconWidth:Number = tempCurrentIcon ? tempCurrentIcon.width : 0;
-        var iconHeight:Number = tempCurrentIcon ? tempCurrentIcon.height : 0;
-
-        var w:Number = 0;
-        var h:Number = 0;
-
-        if (labelPlacement == ButtonLabelPlacement.LEFT ||
-            labelPlacement == ButtonLabelPlacement.RIGHT)
-        {
-            w = textWidth + iconWidth;
-            if (iconWidth != 0)
-            {
-                var horizontalGap:Number = getStyle("horizontalGap");
-                w += (horizontalGap - 2 );
-            }
-            h = Math.max(textHeight, iconHeight + 6);
-        }
-        else
-        {
-            w = Math.max(textWidth, iconWidth);
-            h = textHeight + iconHeight;
-            if (iconHeight != 0)
-                h += getStyle("verticalGap");
-        }
-
-        if (bm)
-        {
-            w += bm.left + bm.right;
-            h += bm.top + bm.bottom
-        }
-
-        // Pad with additional spacing, but only if we have a label.
-        if (label && label.length != 0)
-            w += extraSpacing;
-        else
-            w += 6;
-
-        // Use the larger of the measured sizes and the skin's preferred sizes.
-        // Each skin should override measure() with their measuredWidth
-        // and measuredHeight.
-        if (currentSkin && (isNaN(skinMeasuredWidth) || isNaN(skinMeasuredHeight)))
-        {
-            skinMeasuredWidth = currentSkin.measuredWidth;
-            skinMeasuredHeight = currentSkin.measuredHeight;
-        }
-
-        if (!isNaN(skinMeasuredWidth))
-            w = Math.max(skinMeasuredWidth, w);
-
-        if (!isNaN(skinMeasuredHeight))
-            h = Math.max(skinMeasuredHeight, h);
-
-        measuredMinWidth = measuredWidth = w;
-        measuredMinHeight = measuredHeight = h;
-    }
     
     /**
      *  @private
      */
     override protected function measure():void
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            previousVersion_measure();
-            return;
-        }
-        
         super.measure();
 
         var textWidth:Number = 0;
@@ -2241,257 +2108,6 @@ public class Button extends UIComponent
             
         return newIcon;
     }
-    
-    private function previousVersion_layoutContents(unscaledWidth:Number,
-                                        unscaledHeight:Number,
-                                        offset:Boolean):void
-    {
-        var labelWidth:Number = 0;
-        var labelHeight:Number = 0;
-
-        var labelX:Number = 0;
-        var labelY:Number = 0;
-
-        var iconWidth:Number = 0;
-        var iconHeight:Number = 0;
-
-        var iconX:Number = 0;
-        var iconY:Number = 0;
-
-        var horizontalGap:Number = 2;
-        var verticalGap:Number = 2;
-
-        var paddingLeft:Number = getStyle("paddingLeft");
-        var paddingRight:Number = getStyle("paddingRight");
-        var paddingTop:Number = getStyle("paddingTop");
-        var paddingBottom:Number = getStyle("paddingBottom");
-
-        var textWidth:Number = 0;
-        var textHeight:Number = 0;
-
-        var lineMetrics:TextLineMetrics;
-
-        if (label)
-        {
-            lineMetrics = measureText(label);
-            if (lineMetrics.width > 0)
-            {
-                textWidth = paddingLeft + paddingRight +
-                            getStyle("textIndent") +  lineMetrics.width;
-            }
-            textHeight = lineMetrics.height;
-        }
-        else
-        {
-            lineMetrics = measureText("Wj");
-            textHeight = lineMetrics.height;
-        }
-
-        var n:Number = offset ? buttonOffset : 0;
-
-        var textAlign:String = getStyle("textAlign");
-        // Map new Spark values that might be set in a selector
-		// affecting both Halo and Spark components.
-        if (textAlign == "start") 
-            textAlign = TextFormatAlign.LEFT;
-        else if (textAlign == "end")
-            textAlign = TextFormatAlign.RIGHT;
-
-        var bm:EdgeMetrics = currentSkin &&
-                             currentSkin is IRectangularBorder ?
-                             IRectangularBorder(currentSkin).borderMetrics :
-                             null;
-
-        var viewWidth:Number = unscaledWidth;
-        var viewHeight:Number = unscaledHeight - paddingTop - paddingBottom;
-
-        if (bm)
-        {
-            viewWidth -= bm.left + bm.right;
-            viewHeight -= bm.top + bm.bottom;
-        }
-
-        if (currentIcon)
-        {
-            iconWidth = currentIcon.width;
-            iconHeight = currentIcon.height;
-        }
-
-        if (labelPlacement == ButtonLabelPlacement.LEFT ||
-            labelPlacement == ButtonLabelPlacement.RIGHT)
-        {
-            horizontalGap = getStyle("horizontalGap");
-
-            if (iconWidth == 0 || textWidth == 0)
-                horizontalGap = 0;
-
-            if (textWidth > 0)
-            {
-                textField.width = labelWidth = Math.max(viewWidth - iconWidth - horizontalGap -
-                    paddingLeft - paddingRight, 0);
-            }
-            else
-            {
-                textField.width = labelWidth = 0;
-            }
-            textField.height = labelHeight =
-                Math.min(viewHeight + 2, textHeight + UITextField.TEXT_HEIGHT_PADDING);
-
-            if (labelPlacement == ButtonLabelPlacement.RIGHT)
-            {
-                labelX = iconWidth + horizontalGap;
-
-                if (centerContent)
-                {
-                    if (textAlign == "left")
-                    {
-                        labelX += paddingLeft;
-                    }
-                    else if (textAlign == "right")
-                    {
-                        labelX += (viewWidth - labelWidth -
-                                   iconWidth - horizontalGap - paddingLeft);
-                    }
-                    else // "center" -- default value
-                    {
-                        var disp:Number = (viewWidth - labelWidth -
-                                   iconWidth - horizontalGap) / 2;
-                        labelX += Math.max(disp, paddingLeft);
-                    }
-                }
-
-                iconX = labelX - (iconWidth + horizontalGap);
-
-                if (!centerContent)
-                    labelX += paddingLeft;
-            }
-            else
-            {
-                labelX = viewWidth - labelWidth - iconWidth - horizontalGap -
-                         paddingRight;
-
-                if (centerContent)
-                {
-                    if (textAlign == "left")
-                        labelX = 2;
-                    else if (textAlign == "right")
-                        labelX -= 1;
-                    else if (labelX > 0) // "center" -- default value
-                        labelX = labelX / 2;
-                }
-
-                iconX  = labelX + labelWidth + horizontalGap;
-            }
-
-            iconY  = labelY = 0;
-
-            if (centerContent)
-            {
-                iconY  = Math.round((viewHeight - iconHeight) / 2) +
-                    paddingTop;
-                labelY = Math.round((viewHeight - labelHeight) / 2) +
-                    paddingTop;
-            }
-            else
-            {
-                labelY += Math.max(0, (viewHeight - labelHeight) / 2) +
-                    paddingTop;
-                iconY += Math.max(0, (viewHeight - iconHeight) / 2 - 1) +
-                    paddingTop;
-            }
-        }
-        else
-        {
-            verticalGap = getStyle("verticalGap");
-
-            if (iconHeight == 0 || textHeight == 0)
-                verticalGap = 0;
-
-            if (textWidth > 0)
-            {
-                textField.width = labelWidth =
-                    Math.min(viewWidth, textWidth + UITextField.TEXT_WIDTH_PADDING);
-                textField.height = labelHeight =
-                    Math.min(viewHeight - iconHeight + 1, textHeight + 5);
-            }
-            else
-            {
-                textField.width = labelWidth = 0;
-                textField.height = labelHeight = 0;
-            }
-
-            labelX = (viewWidth - labelWidth) / 2;
-
-            iconX = (viewWidth - iconWidth) / 2;
-
-            if (labelPlacement == ButtonLabelPlacement.TOP)
-            {
-                labelY = viewHeight - labelHeight - iconHeight - verticalGap;
-
-                if (centerContent && labelY > 0)
-                    labelY = labelY / 2;
-
-                labelY += paddingTop;
-
-                iconY = labelY + labelHeight + verticalGap - 3;
-            }
-            else
-            {
-                labelY = iconHeight + verticalGap + paddingTop;
-
-                if (centerContent)
-                {
-                    labelY += (viewHeight - labelHeight -
-                               iconHeight - verticalGap) / 2 + 1;
-                }
-
-                iconY = labelY - iconHeight - verticalGap + 3;
-            }
-
-        }
-        var buffX:Number = n;
-        var buffY:Number = n;
-
-        if (bm)
-        {
-            buffX += bm.left;
-            buffY += bm.top;
-        }
-
-        textField.x = labelX + buffX;
-        textField.y = labelY + buffY;
-        
-        if (currentIcon)
-        {
-            iconX += buffX;
-            iconY += buffY;
-
-            // dispatch a move on behalf of the icon
-            // the focus system uses that to adjust
-            // focus rectangles
-            var moveEvent:MoveEvent = new MoveEvent(MoveEvent.MOVE);
-            moveEvent.oldX = currentIcon.x;
-            moveEvent.oldY = currentIcon.y;
-
-            currentIcon.x = Math.round(iconX);
-            currentIcon.y = Math.round(iconY);
-            currentIcon.dispatchEvent(moveEvent);
-        }
-
-        // The skins and icons get created on demand as the user interacts
-        // with the Button, and as they are created they become the
-        // frontmost child.
-        // Here we ensure that the textField is the frontmost child,
-        // with the current icon behind it and the current skin behind that.
-        // Any other skins and icons are left behind these three,
-        // with arbitrary layering.
-        if (currentSkin)
-            setChildIndex(DisplayObject(currentSkin), numChildren - 1);
-        if (currentIcon)
-            setChildIndex(DisplayObject(currentIcon), numChildren - 1);
-        if (textField)
-            setChildIndex(DisplayObject(textField), numChildren - 1);
-    }
 
    /**
      *  @private
@@ -2502,12 +2118,6 @@ public class Button extends UIComponent
                                         unscaledHeight:Number,
                                         offset:Boolean):void
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            previousVersion_layoutContents(unscaledWidth, unscaledHeight, offset);
-            return;
-        }
-                
         var labelWidth:Number = 0;
         var labelHeight:Number = 0;
 
@@ -2736,7 +2346,7 @@ public class Button extends UIComponent
         checkedDefaultSkin = false;
         defaultSkinUsesStates = false;
         
-        if (initialized && FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
+        if (initialized)
         {
             viewSkin();
             invalidateSize();
