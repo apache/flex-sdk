@@ -21,7 +21,11 @@ import flash.ui.Keyboard;
 import mx.managers.IFocusManagerComponent;
 
 /**
- *  Slider
+ *  The FxSlider class lets users select a value by moving a slider thumb between 
+ *  the end points of the slider track. 
+ *  The current value of the slider is determined by the relative location of 
+ *  the thumb between the end points of the slider, 
+ *  corresponding to the slider's minimum and maximum values. 
  */
 public class FxSlider extends FxTrackBase implements IFocusManagerComponent
 {
@@ -62,9 +66,9 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
     private var _liveDragging:Boolean = false;
     
     /**
-     *  When liveDragging is enabled, the thumb's value is
+     *  When <code>true</code>, the thumb's value is
      *  committed as it is dragged along the track instead
-     *  of when the thumb is released.
+     *  of when the thumb button is released.
      * 
      *  @default false
      */
@@ -73,7 +77,10 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
         return _liveDragging;
     }
     
-    public function set liveDragging(value:Boolean):void
+    /**
+     *  @private
+     */
+     public function set liveDragging(value:Boolean):void
     {
         _liveDragging = value;
     }
@@ -122,9 +129,7 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
     }
 
     /**
-     *  Converts a point retrieved from clicking on the track
-     *  into a position. This allows subclasses to center
-     *  their thumb when clicking on the track.
+     *  @inheritDoc
      */
     protected function pointClickToPosition(localX:Number, 
                                             localY:Number):Number
@@ -190,6 +195,7 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
     //---------------------------------
 
     /**
+     *  @private
      *  Handle keyboard events. Left/Down decreases the value
      *  decreases the value by stepSize. The opposite for
      *  Right/Up arrows. The Home and End keys set the value
@@ -247,6 +253,7 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
     //---------------------------------
     
     /**
+     *  @private
      *  Handle mouse-down events for the slider track. We
      *  calculate the value based on the new position and then
      *  move the thumb to the correct location as well as
