@@ -163,6 +163,19 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Event(name="change", type="spark.events.TextOperationEvent")]
 
 /**
+ *  Dispatched when a keystroke is about to be input to
+ *  the component.
+ *
+ *  @eventType flash.events.TextEvent.TEXT_INPUT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="textInput", type="flash.events.TextEvent")]
+
+/**
  *  The base class for skinnable components, such as the Spark TextInput
  *  and TextArea, that include an instance of RichEditableText in their skin
  *  to provide rich text display, scrolling, selection, and editing.
@@ -253,6 +266,11 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 13;
         
+	/**
+	 *  @private
+	 */
+	private static const TYPICAL_TEXT_PROPERTY_FLAG:uint = 1 << 14;
+	
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -1370,7 +1388,48 @@ public class SkinnableTextBase extends SkinnableComponent
         invalidateProperties();                    
     }
 
-    /**
+	/**
+	 *  @see RichEditableText#typicalText
+	 *
+	 *  @private
+	 */
+	mx_internal function getTypicalText():String
+	{
+		var richEditableText:RichEditableText = textDisplay as RichEditableText;
+		
+		if (richEditableText)
+			return richEditableText.typicalText;
+		
+		// want the default to be NaN
+		var v:* = textDisplayProperties.typicalText;
+		return (v === undefined) ? null : v;
+	}
+	
+	/**
+	 *  @private
+	 */
+	mx_internal function setTypicalText(value:String):void
+	{
+		if (textDisplay)
+		{
+			var richEditableText:RichEditableText = textDisplay as RichEditableText;
+			
+			if (richEditableText)
+				richEditableText.typicalText = value;
+			textDisplayProperties = BitFlagUtil.update(
+				uint(textDisplayProperties), 
+				TYPICAL_TEXT_PROPERTY_FLAG, true);
+		}
+		else
+		{
+			textDisplayProperties.typicalText = value;
+		}
+		
+		// Generate an UPDATE_COMPLETE event.
+		invalidateProperties();                    
+	}
+
+	/**
      *  The default width for the Text components, measured in characters.
      *  The width of the "M" character is used for the calculation.
      *  So if you set this property to 5, it will be wide enough
@@ -1520,6 +1579,14 @@ public class SkinnableTextBase extends SkinnableComponent
                 uint(newTextDisplayProperties), TEXT_FLOW_PROPERTY_FLAG, true);
         }
 
+		if (textDisplayProperties.typicalText !== undefined && richEditableText)
+		{
+			richEditableText.typicalText = textDisplayProperties.typicalText;
+			newTextDisplayProperties = BitFlagUtil.update(
+				uint(newTextDisplayProperties), 
+				TYPICAL_TEXT_PROPERTY_FLAG, true);
+		}
+		
         if (textDisplayProperties.widthInChars !== undefined && richEditableText)
         {
             richEditableText.widthInChars = textDisplayProperties.widthInChars;
@@ -1619,11 +1686,17 @@ public class SkinnableTextBase extends SkinnableComponent
         }
 
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
-                              WIDTH_IN_CHARS_PROPERTY_FLAG) && richEditableText)
+                              TYPICAL_TEXT_PROPERTY_FLAG) && richEditableText)
         {
-            newTextDisplayProperties.widthInChars = richEditableText.widthInChars;
+            newTextDisplayProperties.typicalText = richEditableText.typicalText;
         }
             
+		if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+			WIDTH_IN_CHARS_PROPERTY_FLAG) && richEditableText)
+		{
+			newTextDisplayProperties.widthInChars = richEditableText.widthInChars;
+		}
+		
         // Switch from storing bit mask to storing properties.
         textDisplayProperties = newTextDisplayProperties;
     }
