@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 import flash.display.Stage;
 import flash.display.StageDisplayState;
 import flash.events.Event;
+import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -642,9 +643,15 @@ public class PopUpAnchor extends UIComponent
         else if (popUp is DisplayObject)
             DisplayObject(popUp).transform.matrix = m;
         
-        // apply the color transformation
-        DisplayObject(popUp).transform.colorTransform = $transform.concatenatedColorTransform
-            
+        // apply the color transformation, but restore alpha value of popup
+        var oldAlpha:Number = DisplayObject(popUp).alpha;
+        var tmpColorTransform:ColorTransform = $transform.concatenatedColorTransform;
+        if (tmpColorTransform != null)
+        {
+            tmpColorTransform.alphaMultiplier = oldAlpha;
+            tmpColorTransform.alphaOffset = 0;
+        }
+        DisplayObject(popUp).transform.colorTransform = tmpColorTransform;
     }
 
     //--------------------------------------------------------------------------
