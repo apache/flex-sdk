@@ -27,6 +27,7 @@ package spark.components
     import mx.events.FlexEvent;
     import mx.utils.ObjectUtil;
     
+    import spark.components.supportClasses.CellPosition;
     import spark.components.supportClasses.GridColumn;
     import spark.components.supportClasses.GridDimensions;
     import spark.components.supportClasses.GridLayout;
@@ -707,6 +708,10 @@ package spark.components
                 }
             }
             
+            // Reset the cursor here so that if it is set before commitProperties
+            // is run the change isn't wiped out.
+            caretRowIndex = caretColumnIndex = -1;
+            
             columnsChanged = true;
             invalidateProperties();
             invalidateSize();
@@ -795,6 +800,10 @@ package spark.components
             const newDataProvider:IList = dataProvider;
             if (newDataProvider)
                 newDataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler, false, 0, true);        
+            
+            // Reset the cursor here so that if it is set before commitProperties
+            // is run the change isn't wiped out.
+            caretRowIndex = caretColumnIndex = -1;
             
             dataProviderChanged = true;
             invalidateProperties();
@@ -1149,7 +1158,11 @@ package spark.components
         //----------------------------------
         
         /**
-         *  If true, a selection is required. TBDye
+         *  If <code>true</code> and the <code>selectionMode</code> is not 
+         *  <code>GridSelectionMode.NONE</code>, an item must always be selected 
+         *  in the grid.
+         *
+         *  @default false
          * 
          *  @langversion 3.0
          *  @playerversion Flash 10
@@ -1318,6 +1331,219 @@ package spark.components
         }    
         
         //----------------------------------
+        //  selectedCell
+        //----------------------------------
+        
+        [Bindable("selectionChange")]
+        [Bindable("valueCommit")]
+
+        /**
+         *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_CELL</code> 
+         *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns the first
+         *  selected cell starting at row 0 column 0 and progressing thru each
+         *  column in a row before moving to the next row.
+         * 
+         *  <p>When the user changes the selection by interacting with the 
+         *  control, the control dispatches the <code>selectionChange</code> 
+         *  event. When the user changes the selection programmatically, the 
+         *  control dispatches the <code>valueCommit</code> event.</p>
+         *
+         *  @default null
+         * 
+         *  @return CellPosition of the first selected cell or null if there is
+         *  no cell selection.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.0
+         *  @productversion Flex 4.5
+         */
+        public function get selectedCell():CellPosition
+        {
+            var selectedCells:Vector.<CellPosition> = gridSelection.allCells();
+            return selectedCells.length ? selectedCells[0] : null;
+        }
+                       
+        //----------------------------------
+        //  selectedCells
+        //----------------------------------
+        
+        [Bindable("selectionChange")]
+        [Bindable("valueCommit")]
+
+        /**
+         *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_CELL</code> 
+         *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns a Vector
+         *  of CellPosition objects representing the positions of the selected
+         *  cells in the grid.
+         * 
+         *  <p>When the user changes the selection by interacting with the 
+         *  control, the control dispatches the <code>selectionChange</code> 
+         *  event. When the user changes the selection programmatically, the 
+         *  control dispatches the <code>valueCommit</code> event.</p>
+         * 
+         *  @default []
+         * 
+         *  @return Vector of CellPosition objects where each element represents
+         *  a selected cell.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.0
+         *  @productversion Flex 4.5
+         */
+        public function get selectedCells():Vector.<CellPosition>
+        {
+            return gridSelection.allCells();
+        }
+
+        //----------------------------------
+        //  selectedIndex
+        //----------------------------------
+        
+        [Bindable("selectionChange")]
+        [Bindable("valueCommit")]
+
+        /**
+         *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
+         *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns the
+         *  rowIndex of the first selected row. 
+         * 
+         *  <p>When the user changes the selection by interacting with the 
+         *  control, the control dispatches the <code>selectionChange</code> 
+         *  event. When the user changes the selection programmatically, the 
+         *  control dispatches the <code>valueCommit</code> event.</p>
+         *
+         *  @default -1
+         * 
+         *  @return rowIndex of first selected row or -1 if there are no
+         *  selected rows.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.0
+         *  @productversion Flex 4.5
+         */
+        public function get selectedIndex():int
+        {
+            var selectedRows:Vector.<int> = gridSelection.allRows();
+            return selectedRows.length ? selectedRows[0] : -1;
+        }
+        
+        //----------------------------------
+        //  selectedIndices
+        //----------------------------------
+        
+        [Bindable("selectionChange")]
+        [Bindable("valueCommit")]
+
+        /**
+         *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
+         *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns a Vector of 
+         *  the selected rows indices.  For all other selection modes, this 
+         *  method has no effect.
+         * 
+         *  <p>When the user changes the selection by interacting with the 
+         *  control, the control dispatches the <code>selectionChange</code> 
+         *  event. When the user changes the selection programmatically, the 
+         *  control dispatches the <code>valueCommit</code> event.</p>
+         *
+         *  @default []
+         * 
+         *  @return Vector of ints where each element is the index in 
+         *  <code>dataProvider</code> of the selected row.
+         *  
+         *  @see spark.components.Grid#dataProvider
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.0
+         *  @productversion Flex 4.5
+         */
+        public function get selectedIndices():Vector.<int>
+        {
+            return gridSelection.allRows();
+        }
+        
+        //----------------------------------
+        //  selectedItem
+        //----------------------------------
+        
+        [Bindable("selectionChange")]
+        [Bindable("valueCommit")]
+        
+        /**
+         *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
+         *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns the 
+         *  item in the <code>dataProvider</code> that is currently selected or
+         *  <code>undefined</code> if not rows are selected.  
+         * 
+         *  <p>When the user changes the selection by interacting with the 
+         *  control, the control dispatches the <code>selectionChange</code> 
+         *  event. When the user changes the selection programmatically, the 
+         *  control dispatches the <code>valueCommit</code> event.</p>
+         *  @default undefined
+         * 
+         *  @return Vector of <code>dataProvider</code> items.
+         *  
+         *  @see spark.components.Grid#dataProvider
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.0
+         *  @productversion Flex 4.5
+         */
+        public function get selectedItem():Object
+        {
+            var rowIndex:int = selectedIndex;
+            if (rowIndex == -1)
+                return undefined;
+            
+            return getDataProviderItem(rowIndex);           
+        }
+        
+        //----------------------------------
+        //  selectedItems
+        //----------------------------------
+        
+        [Bindable("selectionChange")]
+        [Bindable("valueCommit")]
+
+        /**
+         *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
+         *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns a Vector of 
+         *  the dataProvider items that are currently selected
+         * 
+         *  <p>When the user changes the selection by interacting with the 
+         *  control, the control dispatches the <code>selectionChange</code> 
+         *  event. When the user changes the selection programmatically, the 
+         *  control dispatches the <code>valueCommit</code> event.</p>
+         *  @default []
+         * 
+         *  @return Vector of <code>dataProvider</code> items.
+         *  
+         *  @see spark.components.Grid#dataProvider
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.0
+         *  @productversion Flex 4.5
+         */
+        public function get selectedItems():Vector.<Object>
+        {
+            var rowIndices:Vector.<int> = selectedIndices;
+            if (rowIndices.length == 0)
+                return undefined;
+            
+            var items:Vector.<Object> = new Vector.<Object>();
+            
+            for each (var rowIndex:int in rowIndices)        
+                items.push(dataProvider.getItemAt(rowIndex));
+           
+            return items;
+        }
+        
+        //----------------------------------
         //  selectionIndicator
         //----------------------------------
         
@@ -1358,6 +1584,35 @@ package spark.components
         }    
         
         //----------------------------------
+        //  selectionLength (delegates to gridSelection.selectionLength)
+        //----------------------------------
+        
+        [Bindable("selectionChange")]
+        [Bindable("valueCommit")]
+        
+        /**
+         *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code>
+         *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns the
+         *  number of selected rows, and if <code>selectionMode</code> is 
+         *  <code>GridSelectionMode.SINGLE_CELLS</code>
+         *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns the
+         *  number of selected cells.
+         * 
+         *  @default 0
+         * 
+         *  @return Number of selected rows or cells.
+         *    
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.0
+         *  @productversion Flex 4.5
+         */
+        public function get selectionLength():int
+        {
+            return gridSelection.selectionLength;   
+        }
+        
+        //----------------------------------
         //  selectionMode (delegates to gridSelection.selectionMode)
         //----------------------------------
         
@@ -1365,13 +1620,23 @@ package spark.components
         [Inspectable(category="General", enumeration="none,row,multipleRows,cell,multipleCells", defaultValue="row")]
         
         /**
-         *  @copy spark.components.supportClasses.GridSelection#selectionMode
+         *  The selection mode of the control.  Possible values are:
+         *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, 
+         *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, 
+         *  <code>GridSelectionMode.NONE</code>, 
+         *  <code>GridSelectionMode.SINGLE_CELL</code>, and 
+         *  <code>GridSelectionMode.SINGLE_ROW</code>.
+         * 
+         *  <p>Changing the selectionMode causes the current selection to be 
+         *  cleared and the caretRowIndex and caretColumnIndex to be set to -1.</p>
          *
+         *  @default GridSelectionMode.SINGLE_ROW
+         * 
          *  @see spark.components.supportClasses.GridSelectionMode
          * 
          *  @langversion 3.0
          *  @playerversion Flash 10
-         *  @playerversion AIR 1.5
+         *  @playerversion AIR 2.0
          *  @productversion Flex 4.5
          */
         public function get selectionMode():String
@@ -1494,16 +1759,31 @@ package spark.components
         //--------------------------------------------------------------------------
         
         /**
-         *  Selects all rows and removes the caret, if <code>selectionMode</code>  
-         *  is <code>GridSelectionMode.MULTIPLE_ROWS</code>, or all cells, if 
-         *  <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_CELLS</code>.
-         *  For all other selection modes, this method has no effect.
+         *  If <code>selectionMode</code> is 
+         *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, selects all rows and
+         *  removes the caret or if <code>selectionMode</code> is 
+         *  <code>GridSelectionMode.MULTIPLE_CELLS</code> selects all cells  
+         *  and removes the caret.  For all other selection modes, this method 
+         *  has no effect.
          *
-         *  <p>If rows or columns are inserted after this method is called, the 
-         *  new rows or cells will be selected.</p>
+         *  <p>To clear the selection use <code>clearSelection</code>.</p>
+         * 
+         *  <p>If items are added to the <code>dataProvider</code> or 
+         *  <code>columns</code> are added after this method is called, the
+         *  new rows or cells in the new column will be selected.  This implicit
+         *  mode ends when the selection is cleared using 
+         *  <code>clearSelection</code> or reset using one of
+         *  <code>setSelectedCell</code>, <code>setSelectedCells</code>,
+         *  <code>setSelectedIndex</code>, <code>setSelectedIndices</code>.</p>
          * 
          *  @return True if the selection changed.
          *    
+         *  @see spark.components.Grid#clearSelection
+         *  @see spark.components.Grid#setSelectedCell
+         *  @see spark.components.Grid#setSelectedCells
+         *  @see spark.components.Grid#setSelectedIndex
+         *  @see spark.components.Grid#setSelectedIndices
+         * 
          *  @langversion 3.0
          *  @playerversion Flash 10
          *  @playerversion AIR 2.0
@@ -1579,33 +1859,9 @@ package spark.components
          *  @playerversion AIR 2.0
          *  @productversion Flex 4.5
          */
-        public function selectionContainsIndex(index:int):Boolean 
+        public function selectionContainsIndex(rowIndex:int):Boolean 
         {
-            return gridSelection.containsRow(index);
-        }
-        
-        /**
-         *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code>
-         *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns true if the row 
-         *  at <code>index></code> is in only item in current selection.
-         * 
-         *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
-         *  of the item containing the selected cell.</p>
-         *
-         *  @param rowIndex The 0-based row index of the row.
-         * 
-         *  @return True if the selection contains just this row.
-         *    
-         *  @see spark.components.Grid#dataProvider
-         * 
-         *  @langversion 3.0
-         *  @playerversion Flash 10
-         *  @playerversion AIR 2.0
-         *  @productversion Flex 4.5
-         */
-        public function selectionContainsOnlyIndex(index:int):Boolean 
-        {
-            return gridSelection.containsOnlyRow(index);
+            return gridSelection.containsRow(rowIndex);
         }
         
         /**
@@ -1613,7 +1869,7 @@ package spark.components
          *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns true if the rows 
          *  in <code>indices</code> are in the current selection.
          * 
-         *  @param indices Vector of 0-based row indices to include in selection. 
+         *  @param rowIndices Vector of 0-based row indices to include in selection. 
          * 
          *  @return True if the current selection contains these rows.
          *    
@@ -1624,30 +1880,9 @@ package spark.components
          *  @playerversion AIR 2.0
          *  @productversion Flex 4.5
          */
-        public function selectionContainsIndices(indices:Vector.<int>):Boolean 
+        public function selectionContainsIndices(rowIndices:Vector.<int>):Boolean 
         {
-            return gridSelection.containsRows(indices);
-        }
-        
-        /**
-         *  If <code>selectionMode</code> is 
-         *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns true if the rows 
-         *  in <code>indices</code> are the only items in the current selection.
-         * 
-         *  @param indices Vector of 0-based row indices to include in selection. 
-         * 
-         *  @return True if the current selection contains just these rows.
-         *    
-         *  @see spark.components.Grid#dataProvider
-         * 
-         *  @langversion 3.0
-         *  @playerversion Flash 10
-         *  @playerversion AIR 2.0
-         *  @productversion Flex 4.5
-         */
-        public function selectionContainsOnlyIndices(indices:Vector.<int>):Boolean 
-        {
-            return gridSelection.containsOnlyRows(indices);
+            return gridSelection.containsRows(rowIndices);
         }
         
         /**
@@ -1674,12 +1909,12 @@ package spark.components
          *  @playerversion AIR 2.0
          *  @productversion Flex 4.5
          */
-        public function setSelectedIndex(index:int):Boolean
+        public function setSelectedIndex(rowIndex:int):Boolean
         {
-            const selectionChanged:Boolean = gridSelection.setRow(index);
+            const selectionChanged:Boolean = gridSelection.setRow(rowIndex);
             if (selectionChanged)
             {
-                caretRowIndex = index;
+                caretRowIndex = rowIndex;
                 caretColumnIndex = -1;
                 
                 invalidateDisplayList()
@@ -1712,12 +1947,12 @@ package spark.components
          *  @playerversion AIR 2.0
          *  @productversion Flex 4.5
          */
-        public function addSelectedIndex(index:int):Boolean
+        public function addSelectedIndex(rowIndex:int):Boolean
         {
-            const selectionChanged:Boolean = gridSelection.addRow(index);
+            const selectionChanged:Boolean = gridSelection.addRow(rowIndex);
             if (selectionChanged)
             {
-                caretRowIndex = index;
+                caretRowIndex = rowIndex;
                 caretColumnIndex = -1;                
 
                 invalidateDisplayList()
@@ -1751,12 +1986,12 @@ package spark.components
          *  @playerversion AIR 2.0
          *  @productversion Flex 4.5
          */
-        public function removeSelectedIndex(index:int):Boolean
+        public function removeSelectedIndex(rowIndex:int):Boolean
         {
-            const selectionChanged:Boolean = gridSelection.removeRow(index);
+            const selectionChanged:Boolean = gridSelection.removeRow(rowIndex);
             if (selectionChanged)
             {
-                caretRowIndex = index;
+                caretRowIndex = rowIndex;
                 caretColumnIndex = -1;
                 
                 invalidateDisplayList()
@@ -1775,7 +2010,7 @@ package spark.components
          *  <p>Each element in the Vector is an index in <code>dataProvider</code> 
          *  of an item to include in the selection.</p>
          *
-         *  @param indices Vector of 0-based row indices to include in selection. 
+         *  @param rowIndices Vector of 0-based row indices to include in selection. 
          * 
          *  @return True if no errors, or false if any of the <code>indices</code> 
          *  are invalid or the <code>selectionMode</code> is invalid. 
@@ -1787,12 +2022,12 @@ package spark.components
          *  @playerversion AIR 2.0
          *  @productversion Flex 4.5
          */
-        public function selectIndices(indices:Vector.<int>):Boolean
+        public function setSelectedIndices(rowIndices:Vector.<int>):Boolean
         {
-            const selectionChanged:Boolean = gridSelection.setRows(indices);
+            const selectionChanged:Boolean = gridSelection.setRows(rowIndices);
             if (selectionChanged)
             {
-                caretRowIndex = indices[indices.length - 1];
+                caretRowIndex = rowIndices[rowIndices.length - 1];
                 caretColumnIndex = -1;
                 
                 invalidateDisplayList()
@@ -1801,30 +2036,7 @@ package spark.components
             
             return selectionChanged;
         }
-        
-        /**
-         *  Returns a Vector of the selected rows indices, 
-         *  if <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
-         *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>.
-         *  For all other selection modes, this method has no effect.
-         * 
-         *  @default []
-         * 
-         *  @return Vector of ints.  Each element is the index in 
-         *  <code>dataProvider</code> of the selected item.
-         *  
-         *  @see spark.components.Grid#dataProvider
-         * 
-         *  @langversion 3.0
-         *  @playerversion Flash 10
-         *  @playerversion AIR 2.0
-         *  @productversion Flex 4.5
-         */
-        public function allSelectedIndices():Vector.<int>
-        {
-            return gridSelection.allRows();
-        }
-        
+                
         //----------------------------------
         //  selection for cells
         //----------------------------------    
@@ -1855,34 +2067,6 @@ package spark.components
         public function selectionContainsCell(rowIndex:int, columnIndex:int):Boolean
         {
             return gridSelection.containsCell(rowIndex, columnIndex);
-        }
-        
-        /**
-         *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_CELL</code>
-         *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns true if the cell 
-         *  is the only item in the current selection.
-         * 
-         *  <p>The <code>rowIndex</code> must be between 0 and the
-         *  length of <code>dataProvider</code>.  The <code>columnIndex</code>
-         *  must be between 0 and the length of <code>columns</code>. </p>
-         *
-         *  @param rowIndex The 0-based row index of the cell.
-         *
-         *  @param columnIndex The 0-based column index of the cell.
-         *  
-         *  @return True if the current selection contains just this cell.
-         * 
-         *  @see spark.components.Grid#columns
-         *  @see spark.components.Grid#dataProvider
-         * 
-         *  @langversion 3.0
-         *  @playerversion Flash 10
-         *  @playerversion AIR 2.0
-         *  @productversion Flex 4.5
-         */
-        public function selectionContainsOnlyCell(rowIndex:int, columnIndex:int):Boolean
-        {
-            return gridSelection.containsOnlyCell(rowIndex, columnIndex);
         }
         
         /**
@@ -1919,45 +2103,6 @@ package spark.components
                                                     rowCount:int, columnCount:int):Boolean
         {
             return gridSelection.containsCellRegion(rowIndex, columnIndex, 
-                rowCount, columnCount);
-        }
-        
-        /**
-         *  If <code>selectionMode</code> is 
-         *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns true if the cells 
-         *  in the cell region are the only items the current selection.
-         * 
-         *  <p>The <code>rowIndex</code> must be between 0 and the
-         *  length of <code>dataProvider</code>.  The <code>columnIndex</code>
-         *  must be between 0 and the length of <code>columns</code>. </p>
-         *
-         *  @param rowIndex The 0-based row index of the cell.
-         *
-         *  @param columnIndex The 0-based column index of the cell.
-         *  
-         *  @param rowCount Number of rows, starting at <code>rowIndex</code> to 
-         *  include in the cell region.
-         *
-         *  @param columnCount Number of columns, starting at 
-         *  <code>columnIndex</code> to include in the cell region.
-         * 
-         *  @return True if the cells in the cell region are the only items in
-         *  current selection.
-         * 
-         *  @see spark.components.Grid#columns
-         *  @see spark.components.Grid#dataProvider
-         * 
-         *  @langversion 3.0
-         *  @playerversion Flash 10
-         *  @playerversion AIR 2.0
-         *  @productversion Flex 4.5
-         */
-        public function selectionContainsOnlyCellRegion(rowIndex:int, 
-                                                        columnIndex:int, 
-                                                        rowCount:int, 
-                                                        columnCount:int):Boolean
-        {
-            return gridSelection.containsOnlyCellRegion(rowIndex, columnIndex, 
                 rowCount, columnCount);
         }
         
@@ -2152,43 +2297,7 @@ package spark.components
             
             return selectionChanged;
         }
-        
-        /**
-         *  Returns a Vector of Objects representing the selected cells, 
-         *  if <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_CELL</code> 
-         *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>.
-         *  For all other selection modes, this method has no effect.
-         * 
-         *  <p>Each element in the Vector is an object which contains a 
-         *  <code>rowIndex</code> and a <code>columnIndex</code> property:</p>
-         * 
-         *  <p><code>
-         *      { rowIndex : r, columnIndex : c }
-         *  </code></p>
-         * 
-         *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
-         *  of the item containing the selected cell.  The <code>columnIndex</code>
-         *  is the index in <code>columns</code> of the column containing the
-         *  selected cell.</p>
-         * 
-         *  @default []
-         * 
-         *  @return Vector of objects which each contain a rowIndex and a 
-         *  columnIndex property and the corresponding values.
-         *  
-         *  @see spark.components.Grid#columns
-         *  @see spark.components.Grid#dataProvider
-         * 
-         *  @langversion 3.0
-         *  @playerversion Flash 10
-         *  @playerversion AIR 2.0
-         *  @productversion Flex 4.5
-         */
-        public function allSelectedCells():Vector.<Object>
-        {
-            return gridSelection.allCells();
-        }
-        
+               
         //--------------------------------------------------------------------------
         //
         //  GridLayout Cover Methods, Properties
@@ -2307,7 +2416,7 @@ package spark.components
          *  @playerversion AIR 2.0
          *  @productversion Flex 4.5
          */
-        public function getCellsAt(x:Number, y:Number, w:Number, h:Number):Vector.<Object>
+        public function getCellsAt(x:Number, y:Number, w:Number, h:Number):Vector.<CellPosition>
         { 
             return gridLayout.getCellsAt(x, y, w, h);
         }
@@ -2376,14 +2485,7 @@ package spark.components
                     if (columnsChanged && _columns)
                         gridDimensions.columnCount = _columns.length;
                 }
-                
-                // Don't wipe out a pending caret change.
-                if (!caretChanged)
-                {
-                    caretRowIndex = -1;
-                    caretColumnIndex = -1;
-                }
-                
+                                
                 dataProviderChanged = false;
                 columnsChanged = false;
             }
