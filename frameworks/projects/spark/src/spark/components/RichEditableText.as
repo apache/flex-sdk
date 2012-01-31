@@ -916,7 +916,7 @@ public class RichEditableText extends UIComponent
     /**
      *  Specifies whether the user is allowed to edit the text in this control.
      *
-     *  @default true;
+     *  @default true
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1201,7 +1201,7 @@ public class RichEditableText extends UIComponent
      *  Specifies whether the text can be selected.
      *  Making the text selectable lets you copy text from the control.
      *
-     *  @default true;
+     *  @default true
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2503,7 +2503,7 @@ public class RichEditableText extends UIComponent
     }
 
     /**
-     *  Sets the selection range.  If either position is negative, it will
+     *  Sets the selection range. If either position is negative, it will
      *  deselect the text range.
      *  
      *  @langversion 3.0
