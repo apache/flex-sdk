@@ -15,7 +15,7 @@ package spark.components
 import mx.core.mx_internal;
 import mx.utils.BitFlagUtil;
 
-import spark.primitives.supportClasses.TextGraphicElement;
+import spark.components.supportClasses.TextBase;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -214,7 +214,7 @@ public class Panel extends SkinnableContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var titleDisplay:TextGraphicElement;
+    public var titleDisplay:TextBase;
 
     //----------------------------------
     //  title
