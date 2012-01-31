@@ -21,6 +21,11 @@ use namespace mx_internal;
 
 /**
  *  The skin used for all color swatches in a ColorPicker.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SwatchSkin extends UIComponent
 {
@@ -34,6 +39,11 @@ public class SwatchSkin extends UIComponent
 
     /**
 	 *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function SwatchSkin()
     {
