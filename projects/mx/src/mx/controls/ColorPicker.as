@@ -1195,6 +1195,7 @@ public class ColorPicker extends ComboBase
             dropdownSwatch.validateDisplayList();
         }
 
+        dropdownSwatch.layoutDirection = layoutDirection;
         dropdownSwatch.scaleX = scaleX;
         dropdownSwatch.scaleY = scaleY;
 
