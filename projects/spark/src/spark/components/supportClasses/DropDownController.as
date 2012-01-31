@@ -550,15 +550,18 @@ public class DropDownController extends EventDispatcher
     public function processKeyDown(event:KeyboardEvent):Boolean
     {
         
+        if (event.isDefaultPrevented())
+            return true;
+        
         if (event.ctrlKey && event.keyCode == Keyboard.DOWN)
         {
             openDropDownHelper(true); // Programmatically open
-            event.stopPropagation();
+            event.preventDefault();
         }
         else if (event.ctrlKey && event.keyCode == Keyboard.UP)
         {
             closeDropDown(true);
-            event.stopPropagation();
+            event.preventDefault();
         }    
         else if (event.keyCode == Keyboard.ENTER)
         {
@@ -566,7 +569,7 @@ public class DropDownController extends EventDispatcher
             if (isOpen)
             {
                 closeDropDown(true);
-                event.stopPropagation();
+                event.preventDefault();
             }
         }
         else if (event.keyCode == Keyboard.ESCAPE)
@@ -575,7 +578,7 @@ public class DropDownController extends EventDispatcher
             if (isOpen)
             {
                 closeDropDown(false);
-                event.stopPropagation();
+                event.preventDefault();
             }
         }
         else
