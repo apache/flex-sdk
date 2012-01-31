@@ -366,12 +366,13 @@ public class Channel extends EventDispatcher implements IMXMLObject
 	    
     /**
      * @private
-     * 
-     * Channel property determines the level of performance information injection - whether
-     * we inject timestamps or not     
      */
-    protected var _recordMessageTimes:Boolean = false;    
-    
+    protected var _recordMessageTimes:Boolean = false;
+
+    /**
+     * Channel property determines the level of performance information injection - whether
+     * we inject timestamps or not. 
+     */
     public function get recordMessageTimes():Boolean
     {
     	return _recordMessageTimes;
@@ -383,12 +384,13 @@ public class Channel extends EventDispatcher implements IMXMLObject
 	    
     /**
      * @private
-     * 
-     * Channel property determines the level of performance information injection - whether
-     * we inject message sizes or not
      */
-    protected var _recordMessageSizes:Boolean = false;    
-    
+    protected var _recordMessageSizes:Boolean = false;
+
+    /**
+     * Channel property determines the level of performance information injection - whether
+     * we inject message sizes or not.
+     */   
     public function get recordMessageSizes():Boolean
     {
     	return _recordMessageSizes;
