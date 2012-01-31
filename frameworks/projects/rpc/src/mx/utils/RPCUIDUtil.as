@@ -17,6 +17,11 @@ import flash.utils.ByteArray;
 /**
  *  The RPCUIDUtil class is a copy of UIDUtil without some functions that
  *  cause dependency problems when RPC messages are put in a bootstrap loader.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RPCUIDUtil
 {
@@ -53,6 +58,11 @@ public class RPCUIDUtil
      *  we can do without player support for UID generation.</p>
      *
      *  @return The newly-generated UID.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function createUID():String
     {
@@ -111,6 +121,11 @@ public class RPCUIDUtil
      * 
      * @return String representation of the UID, or null if an invalid
      * ByteArray is provided.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function fromByteArray(ba:ByteArray):String
     {
@@ -143,6 +158,11 @@ public class RPCUIDUtil
      * @param uid The value to test whether it is formatted as a UID.
      * 
      * @return Returns true if the value is formatted as a UID.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isUID(uid:String):Boolean
     {
@@ -181,6 +201,11 @@ public class RPCUIDUtil
      * 
      * @return ByteArray 16 bytes in length representing the 128-bits of the
      * UID or null if the uid could not be converted.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function toByteArray(uid:String):ByteArray
     {
