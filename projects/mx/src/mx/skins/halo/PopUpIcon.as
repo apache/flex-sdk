@@ -16,6 +16,8 @@ import flash.display.Graphics;
 import mx.core.mx_internal;
 import mx.skins.ProgrammaticSkin;
 
+use namespace mx_internal;
+
 /**
  *  The skin for all the states of the icon in a PopUpButton.
  *  
@@ -104,7 +106,7 @@ public class PopUpIcon extends ProgrammaticSkin
         var g:Graphics = graphics;
 
         g.clear();
-        g.beginFill(mx_internal::arrowColor);
+        g.beginFill(arrowColor);
         g.moveTo(w / 2, height);
         g.lineTo(0, 0);
         g.lineTo(w, 0);
