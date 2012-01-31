@@ -264,7 +264,8 @@ public class Resize extends Animate
     override mx_internal function captureValues(propChanges:Array,
         setStartValues:Boolean, targetsToCapture:Array = null):Array
     {
-        var propertyChanges:Array = super.captureValues(propChanges, setStartValues);
+        var propertyChanges:Array = 
+            super.captureValues(propChanges, setStartValues, targetsToCapture);
         
         if (setStartValues)
         {
