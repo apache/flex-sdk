@@ -207,7 +207,6 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *    <strong>Properties</strong>
  *    autoLayout="true"
  *    creationPolicy="auto"
- *    horizontalScrollPosition="null"
  *    layout="BasicLayout"
  *  
  *    <strong>Styles</strong>
