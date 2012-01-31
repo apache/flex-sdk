@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+A DataGrid example that demonstrates the selectionChange and selectionChanging events, 
+the "multipleCells" selection mode, a dataProvider that's a two dimensional array of 
+numbers, and a column whose values are computed and can not be selected.
+
+This application displays the min, max, and average value of the selected cells.  The DataGrid's
+last column displays the computed min and max values for each row.   
+
+DataGrid supports five selection modes including GridSelectionMode.MULTIPLE_CELLS ("multipleCells").
+Specifying selectionMode="multipleCells" enables selection of individual cells with mouse click or 
+control-click or rectangular groups of cells with shift-click.  Each time the user attempts to
+change the selection the DataGrid dispatches a "selectionChanging" event and, if that event is
+not cancelled with event.preventDefault(), a "selectionChange" and a "valueCommit" event. 
+
+This application uses the changing event to cancel attempts to include the last column in the 
+selection, because the last column isn't part of the dataProvider, it's just a summary of the 
+row's values in term of the minumum and maximum.
+
+To handle the special case where the user attempts to select all cells by typing
+control-A, we cancel the selectionChanging event and then use  dataGrid.selectCellRegion()
+to select all cells except those in the last column.  The valueCommit event is dispatched
+when the selection changes for any reason, not just in response to user input, and so we
+use that to update the selectionMinimum,Maximum,Average variables.
+
+Each time the selection changes, the application's selectionChangeHandler() method updates
+the three bindable variables that are dispayed in the control bar.  The DataGrid's 
+selectedCells property contains the row,column indices of the selected cells as a 
+Vector of CellPosition objects.
+
+-->
+
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <!--
+        Defines three [Bindable] global variables
+    -->
+    <fx:Declarations>
+        <fx:Number id="selectionMinimum"/>
+        <fx:Number id="selectionMaximum"/>
+        <fx:Number id="selectionAverage"/>        
+    </fx:Declarations>
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.collections.ArrayCollection;
+            
+            import spark.components.gridClasses.CellPosition;
+            import spark.components.gridClasses.CellRegion;
+            import spark.events.GridSelectionEvent;
+            import spark.events.GridSelectionEventKind;
+            
+            // Create a dataProvider whose items are arrays of 6 random numbers.  The DataGrid's
+            // item renderer will display item[columnIndex].
+            
+            private function initializeDataProvider():void
+            {
+                const nRows:int = 100;
+                const nCols:int = 6;
+                
+                const dataArray:Array = new Array(nRows);
+                for (var rowIndex:int = 0; rowIndex < dataArray.length; rowIndex++)
+                {
+                    var values:Array = new Array(nCols);
+                    for (var columnIndex:int = 0; columnIndex < values.length; columnIndex++)
+                        values[columnIndex] = Math.round(Math.random() * 1000);
+                    dataArray[rowIndex] = values;
+                }
+                
+                dataGrid.dataProvider = new ArrayCollection(dataArray);
+                
+                const typicalItem:Array = new Array(nCols);
+                for (columnIndex = 0; columnIndex < typicalItem.length; columnIndex++)
+                    typicalItem[columnIndex] = 99999;
+                
+                dataGrid.typicalItem = typicalItem;
+            }
+            
+            // Return the dataProvider cell value displayed at rowIndex, columnIndex
+            
+            public function getCellValue(rowIndex:int, columnIndex:int):Number
+            {
+                return dataGrid.dataProvider.getItemAt(rowIndex)[columnIndex];
+            }
+            
+            // Update the Bindable variables: selectionMin,Max,Average based on the selected cells
+            
+            private function selectionChangeHandler():void
+            {
+                const selectedCells:Vector.<CellPosition> = dataGrid.selectedCells;
+                var min:Number = NaN;
+                var max:Number = NaN;
+                var sum:Number = 0;
+                
+                for each (var cell:CellPosition in selectedCells)
+                {
+                    var value:Number = getCellValue(cell.rowIndex, cell.columnIndex);
+                    min = isNaN(min) ? value : Math.min(min, value);
+                    max = isNaN(max) ? value : Math.max(max, value);
+                    sum += value;
+                }
+                
+                selectionMinimum = min;
+                selectionMaximum = max;
+                selectionAverage = (selectedCells.length > 0) ? Math.round((sum / selectedCells.length)) : NaN;
+            }
+            
+            // Prevent the user from selecting the last column
+            
+            private function selectionChangingHandler(event:GridSelectionEvent):void
+            {
+                const lastColumnIndex:int = dataGrid.columns.length - 1;
+                const selectionChange:CellRegion = event.selectionChange;
+                const rightSelectionIndex:int = selectionChange.columnIndex + selectionChange.columnCount - 1;
+                if (rightSelectionIndex == lastColumnIndex)
+                {
+                    event.preventDefault();
+                    
+                    // If the user was trying to select-All then do so after clipping the last column
+
+                    if (event.kind == GridSelectionEventKind.SELECT_ALL)
+                        dataGrid.selectCellRegion(0, 0, selectionChange.rowCount, selectionChange.columnCount - 1);
+                }
+                
+                
+            }
+        ]]>
+    </fx:Script>
+    
+    <!--
+       The DataGrid's dataProvider and typicalItem are set at initialize time by the
+       initializeDataProvider method.
+    -->
+    <s:Panel title="Spark DataGrid Control Example that demonstrates selection including a computed column which is not selectable"
+             width="75%" height="75%" 
+             horizontalCenter="0" verticalCenter="0">
+        <!--
+        To make the label look "disabled" when there's no selection, we set its alpha="0.5".
+        -->
+        <s:controlBarContent>
+            <s:Label alpha="{(dataGrid.selectionLength > 0) ? 1.0 : 0.5}"
+                     text="Selected Cells: minimum = {selectionMinimum}, maximum = {selectionMaximum}, average = {selectionAverage}"/>
+        </s:controlBarContent>
+
+        <s:DataGrid id="dataGrid" left="5" right="5"
+                alternatingRowColors="[0xFFFFFF, 0xEDFFE9]"
+                selectionMode="multipleCells"
+                valueCommit="selectionChangeHandler()"
+                selectionChanging="selectionChangingHandler(event)"
+                initialize="initializeDataProvider()">
+            
+            <!-- 
+                The default item renderer is used by the first 6 columns to display the dataProvider item's 
+                array element value at columnIndex.
+            -->
+            <s:itemRenderer>
+                <fx:Component>
+                    <s:DefaultGridItemRenderer>
+                        <fx:Script>
+                            <![CDATA[
+                                override public function prepare(hasBeenRecycled:Boolean):void
+                                {
+                                    label = data[columnIndex];
+                                }
+                            ]]>
+                        </fx:Script>
+                    </s:DefaultGridItemRenderer>
+                </fx:Component>
+            </s:itemRenderer>
+            
+            <s:columns>
+                <s:ArrayList>
+                    <!--
+                        The first six columns inherit the DataGrid's itemRenderer.
+                    -->
+                    <s:GridColumn headerText="C0"/>
+                    <s:GridColumn headerText="C1"/>    
+                    <s:GridColumn headerText="C2"/>    
+                    <s:GridColumn headerText="C3"/>
+                    <s:GridColumn headerText="C4"/>
+                    <s:GridColumn headerText="C5"/>
+                    
+                    <!--
+                        The last column specifies its own item renderer that displays the min and max
+                        values for the entire row.
+                    -->
+                    <s:GridColumn headerText="Row Min, Max">
+                        <s:itemRenderer>
+                            <fx:Component>
+                                <s:DefaultGridItemRenderer fontStyle="italic" color="0x734669">
+                                    <fx:Script>
+                                        <![CDATA[
+                                            override public function prepare(hasBeenRecycled:Boolean):void
+                                            {
+                                                var min:Number = Math.min.apply(null, data as Array);
+                                                var max:Number = Math.max.apply(null, data as Array);
+                                                label = min + ", " + max;
+                                            }
+                                        ]]>
+                                    </fx:Script>
+                                </s:DefaultGridItemRenderer>
+                            </fx:Component>
+                        </s:itemRenderer>                    
+                    </s:GridColumn>                
+                </s:ArrayList>
+            </s:columns>
+        </s:DataGrid>
+    </s:Panel>        
+</s:Application>
