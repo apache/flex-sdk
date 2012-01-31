@@ -16,9 +16,11 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
+import flash.globalization.LocaleID;
+import flash.globalization.NumberFormatter;
 
-import mx.core.mx_internal;
 import mx.core.IIMESupport;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
 
@@ -291,6 +293,17 @@ public class NumericStepper extends Spinner
      */
     public var textDisplay:TextInput;
 
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private var dataFormatter:NumberFormatter;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -748,9 +761,16 @@ public class NumericStepper extends Spinner
         var prevValue:Number = value;
         
         if (valueParseFunction != null)
+        {
             inputValue = valueParseFunction(textDisplay.text);
+        }
         else 
-            inputValue = Number(textDisplay.text);
+        {
+            if (dataFormatter == null)
+                dataFormatter = new NumberFormatter(LocaleID.DEFAULT);
+
+            inputValue = dataFormatter.parseNumber(textDisplay.text);
+        }
         
         if ((textDisplay.text && textDisplay.text.length != value.toString().length)
             || textDisplay.text == "" || (inputValue != value && 
