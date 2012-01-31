@@ -20,6 +20,11 @@
  *  Some components, such as the ApplicationControlBar container,
  *  have a different default value. For the ApplicationControlBar container, 
  *  the default value is <code>[ 0.0, 0.0 ]</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no")]
 
@@ -38,5 +43,10 @@
  *  <p>Some components, such as the ApplicationControlBar container,
  *  have a different default value. For the ApplicationControlBar container, 
  *  the default value is <code>[ 0xFFFFFF, 0xFFFFFF ]</code>.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no")]
