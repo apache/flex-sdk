@@ -538,8 +538,8 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override protected function itemShowingCaret(index:int, showsCaret:Boolean):void
     {
-    	super.itemShowingCaret(index, showsCaret); 
-    	
+        super.itemShowingCaret(index, showsCaret); 
+        
         var renderer:Object = dataGroup ? dataGroup.getElementAt(index) : null;
         
         if (renderer is IItemRenderer)
@@ -843,6 +843,9 @@ public class List extends ListBase implements IFocusManagerComponent
      *  removed from this component. 
      *   
      *  @param index The new index.
+     *   
+     *  @param add <code>true</code> if an item was added to the component, 
+     *  and <code>false</code> if an item was removed.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -955,7 +958,7 @@ public class List extends ListBase implements IFocusManagerComponent
             // caretIndex backing variable. 
             var oldIndex:Number = caretIndex; 
             _caretIndex = getLastItemValue(newInterval);
-        	 
+             
             e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
             e.oldIndex = oldIndex; 
             e.newIndex = caretIndex; 
