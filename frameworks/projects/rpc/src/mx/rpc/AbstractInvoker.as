@@ -41,6 +41,11 @@ use namespace mx_internal;
 /**
  * An invoker is an object that actually executes a remote procedure call (RPC).
  * For example, RemoteObject, HTTPService, and WebService objects are invokers.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class AbstractInvoker extends EventDispatcher
 {
@@ -82,6 +87,11 @@ public class AbstractInvoker extends EventDispatcher
 
     /**
      *  The result of the last invocation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get lastResult():Object
     {
@@ -92,6 +102,11 @@ public class AbstractInvoker extends EventDispatcher
 
     /**
      * When this value is true, anonymous objects returned are forced to bindable objects.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get makeObjectsBindable():Boolean
     {
@@ -116,6 +131,11 @@ public class AbstractInvoker extends EventDispatcher
      * of the result.  Typically the called function will at some point clear this
      * property temporarily, then invoke the operation again actually sending it to 
      * the server this time.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var operationManager:Function;
 
@@ -123,6 +143,11 @@ public class AbstractInvoker extends EventDispatcher
      * Specifies an optional return type for the operation.  Used in situations where 
      * you want to coerce the over-the-wire information into a specific ActionScript class
      * or to provide metadata for other services as to the return type of this operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var resultType:Class;
 
@@ -133,12 +158,22 @@ public class AbstractInvoker extends EventDispatcher
      * array or array collection.   When you set resultElementType, you do not have to set 
      * resultType.  In that case, the operation returns an Array if makeObjectsbindable is
      * false and an ArrayCollection otherwise.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var resultElementType:Class;
     
     /**
     *  Event dispatched for binding when the <code>result</code> property
     *  changes.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     mx_internal static const BINDING_RESULT:String = "resultForBinding";
 
@@ -157,6 +192,11 @@ public class AbstractInvoker extends EventDispatcher
      *         last service invocation is canceled.
      *  
      *  @return The AsyncToken associated with the call that is cancelled or null if no call was cancelled.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function cancel(id:String = null):AsyncToken
     {
@@ -175,6 +215,11 @@ public class AbstractInvoker extends EventDispatcher
      *          bound to the result to update. Otherwise, set to
      *          <code>false</code>.
      *          The default value is <code>true</code>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function clearResult(fireBindingEvent:Boolean = true):void
     {
@@ -192,6 +237,11 @@ public class AbstractInvoker extends EventDispatcher
      *  the service returns a new copy of the same object.  
      *
      *  @param the new value for the lastResult property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setResult(result:Object):void
     {
@@ -223,6 +273,11 @@ public class AbstractInvoker extends EventDispatcher
 
     /**
      * Monitor an rpc event that is being dispatched
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function monitorRpcEvent(event:AbstractEvent):void
     {
