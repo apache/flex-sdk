@@ -103,7 +103,13 @@ public class ButtonBarHorizontalLayout extends LayoutBase
             return;
     
         _gap = value;
-        invalidateTargetSizeAndDisplayList();
+
+        var g:GroupBase = target;
+        if (g)
+        {
+            g.invalidateSize();
+            g.invalidateDisplayList();
+        }
     }
 
     //--------------------------------------------------------------------------
