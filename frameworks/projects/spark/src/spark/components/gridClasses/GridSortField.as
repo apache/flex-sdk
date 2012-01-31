@@ -12,7 +12,7 @@
 package spark.components.gridClasses
 {
 
-import mx.collections.SortField;
+import spark.collections.SortField;
 
 [ExcludeClass]
 
@@ -41,9 +41,9 @@ public class GridSortField extends SortField
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function GridSortField(name:String=null, caseInsensitive:Boolean=false, descending:Boolean=false, numeric:Object=null)
+    public function GridSortField(name:String=null, descending:Boolean=false, numeric:Object=null)
     {
-        super(name, caseInsensitive, descending, numeric);
+        super(name, descending, numeric);
     }
     
     
