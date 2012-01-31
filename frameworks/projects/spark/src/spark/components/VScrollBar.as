@@ -15,6 +15,7 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.core.IInvalidating;
+import mx.core.InteractionMode;
 import mx.core.mx_internal;
 import mx.events.FlexMouseEvent;
 import mx.events.PropertyChangeEvent;
@@ -156,7 +157,20 @@ public class VScrollBar extends ScrollBarBase
         // updated yet.  Making the maximum==vsp here avoids trouble later
         // when Range constrains value
         var cHeight:Number = viewport.contentHeight;
-        maximum = (cHeight == 0) ? vsp : cHeight - viewportHeight;
+        
+        if (getStyle("interactionMode") == InteractionMode.TOUCH)
+        {
+            // For mobile, we allow the min/max to extend a little beyond the ends so
+            // we can support bounce/pull kinetic effects.
+            minimum = -viewportHeight;
+            maximum = (cHeight == 0) ? vsp + viewportHeight : cHeight;
+        }
+        else
+        {
+            minimum = 0;
+            maximum = (cHeight == 0) ? vsp : cHeight - viewportHeight;
+        }
+        
         pageSize = viewportHeight;
     }
     
@@ -221,17 +235,35 @@ public class VScrollBar extends ScrollBarBase
             return;
 
         var trackSize:Number = track.getLayoutBoundsHeight();
-        var range:Number = maximum - minimum;
 
+        var min:Number;
+        var max:Number;
+        if (getStyle("interactionMode") == InteractionMode.TOUCH)
+        {
+            // For calculating thumb position/size on mobile, we want to exclude
+            // the extra margin we added to minimum and maximum for bounce/pull. 
+            var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
+            
+            min = 0;
+            max = Math.max(0, maximum - viewportHeight);
+        }
+        else
+        {
+            min = minimum;
+            max = maximum;
+        }
+        var range:Number = max - min;
+
+        var fixedThumbSize:Boolean = !(getStyle("fixedThumbSize") === false); 
         var thumbPos:Point;
         var thumbPosTrackY:Number = 0;
         var thumbPosParentY:Number = 0;
         var thumbSize:Number = trackSize;
         if (range > 0)
         {
-            if (getStyle("fixedThumbSize") === false)
+            if (!fixedThumbSize)
             {
-                thumbSize = Math.min((pageSize / (range + pageSize)) * trackSize, trackSize)
+                thumbSize = Math.min((pageSize / (range + pageSize)) * trackSize, trackSize);
                 thumbSize = Math.max(thumb.minHeight, thumbSize);
             }
             else
@@ -240,10 +272,33 @@ public class VScrollBar extends ScrollBarBase
             }
             
             // calculate new thumb position.
-            thumbPosTrackY = (pendingValue - minimum) * ((trackSize - thumbSize) / range);
+            thumbPosTrackY = (pendingValue - min) * ((trackSize - thumbSize) / range);
         }
 
-        if (getStyle("fixedThumbSize") === false)
+        // Special thumb behavior for bounce/pull.  When the component is positioned
+        // beyond its min/max, we want the scroll thumb to shink in size. 
+        // Note: not checking interactionMode==TOUCH here because it is assumed that
+        // value will never exceed min/max unless in touch mode.
+        if (value < min)
+        {
+            if (!fixedThumbSize)
+            {
+                // Note:  we use thumb.width here to ensure the thumb doesn't get smaller than square.
+                thumbSize = Math.max(Math.max(thumb.width, thumb.minHeight), thumbSize + value);
+            }
+            thumbPosTrackY = min;
+        }
+        if (value > max)
+        {
+            if (!fixedThumbSize)
+            {
+                // Note:  we use thumb.width here to ensure the thumb doesn't get smaller than square.
+                thumbSize = Math.max(Math.max(thumb.width, thumb.minHeight), thumbSize - (value - max));
+            }
+            thumbPosTrackY = trackSize - thumbSize;
+        }
+
+        if (!fixedThumbSize)
             thumb.setLayoutBoundsSize(NaN, thumbSize);
         if (getStyle("autoThumbVisibility") === true)
             thumb.visible = thumbSize < trackSize;
@@ -430,12 +485,26 @@ public class VScrollBar extends ScrollBarBase
     override mx_internal function viewportContentHeightChangeHandler(event:PropertyChangeEvent):void
     {
         if (viewport)
+            updateMaximumAndPageSize();
+    }
+    
+    /**
+     *  @private 
+     */
+    override public function styleChanged(styleName:String):void
+    {
+        super.styleChanged(styleName);
+        
+        var allStyles:Boolean = !styleName || styleName == "styleName";
+        
+        if (allStyles || styleName == "interactionMode")
         {
-            var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
-            maximum = viewport.contentHeight - viewport.height;
+            if (viewport)
+                updateMaximumAndPageSize();
         }
     }
-
+    
+    
     /**
      *  @private
      *  Scroll vertically by event.delta "steps".  This listener is added to both the scrollbar 
