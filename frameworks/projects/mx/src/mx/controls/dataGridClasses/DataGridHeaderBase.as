@@ -43,12 +43,22 @@ use namespace mx_internal;
 /**
  *  The DataGridHeaderBase class defines the base class for the DataGridHeader class,
  *  the class that defines the item renderer for the DataGrid control. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DataGridHeaderBase extends UIComponent
 {
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DataGridHeaderBase()
     {
@@ -57,11 +67,21 @@ public class DataGridHeaderBase extends UIComponent
 
     /**
      *  a layer to draw selections
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var selectionLayer:Sprite;
 
     /**
      *  a function to clear selections
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function clearSelectionLayer():void
     {
