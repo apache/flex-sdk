@@ -18,26 +18,29 @@ import mx.managers.ILayoutManagerClient;
 import spark.components.DataGrid;
 
 /**
- *  DataGrid visual elements that must remain in sync with the grid's layout and scroll
- *  position must implement this interface.   When the DataGrid's grid skin part is added, 
- *  it will set its IDataGridElements' dataGrid property (the grid's owner is the DataGrid). 
- *  IDataGridElements should respond to this by adding listeners for dataGrid.grid scroll 
- *  position changes.  When the DataGrid is changed in a way that affects row/colunm layout, 
- *  all IDataGridElements will be invalidated.
+ *  Visual elements of the Spark DataGrid control that must 
+ *  remain in sync with the grid's layout and scroll
+ *  position must implement this interface.   
+ *  When the DataGrid control's <code>grid</code> skin part is added, 
+ *  it sets the <code>IDataGridElement.dataGrid</code> property. 
+ *  The IDataGridElements object can respond by adding event listeners 
+ *  for scroll position changes.  
+ *  When the DataGrid control is changed in a way that affects 
+ *  its row or column layout, all IDataGridElements object are invalidated.
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5 
  */
 public interface IDataGridElement extends IVisualElement, ILayoutManagerClient, IInvalidating
 {
     /**
-     *  The DataGrid whose layout and grid scroll position this element must stay in sync with.
+     *  The DataGrid control associated with this element.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     function get dataGrid():DataGrid;
