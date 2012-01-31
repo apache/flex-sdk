@@ -736,7 +736,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @private
      *  Internal storage for the selectedIndices property.
      */
-    private var _selectedIndices:Vector.<int>;
+    private var _selectedIndices:Vector.<int> = new Vector.<int>();
     
     /**
      *  @private
@@ -763,7 +763,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  contains a list of the selected indices in the reverse order in which they were selected. 
      *  That means the first element in the Vector corresponds to the last item selected.</p>
      *  
-     *  @default null
+     *  @default []
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -802,7 +802,11 @@ public class List extends ListBase implements IFocusManagerComponent
         
         if (dispatchChangeEvent)
             dispatchChangeAfterSelection = dispatchChangeEvent;
-        _proposedSelectedIndices = value;
+        
+        if (value)
+            _proposedSelectedIndices = value;
+        else
+            _proposedSelectedIndices = new Vector.<int>();
         multipleSelectionChanged = true;  
         invalidateProperties();
     }
@@ -825,7 +829,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  contains a list of the selected items in the reverse order in which they were selected. 
      *  That means the first element in the Vector corresponds to the last item selected.</p>
      * 
-     *  @default null
+     *  @default []
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -834,12 +838,10 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     public function get selectedItems():Vector.<Object>
     {
-        var result:Vector.<Object>;
+        var result:Vector.<Object> = new Vector.<Object>();
         
         if (selectedIndices)
         {
-            result = new Vector.<Object>();
-            
             var count:int = selectedIndices.length;
             
             for (var i:int = 0; i < count; i++)
@@ -854,12 +856,10 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     public function set selectedItems(value:Vector.<Object>):void
     {
-        var indices:Vector.<int>;
+        var indices:Vector.<int> = new Vector.<int>();
         
         if (value)
         {
-            indices = new Vector.<int>();
-            
             var count:int = value.length;
             
             for (var i:int = 0; i < count; i++)
@@ -2090,31 +2090,6 @@ public class List extends ListBase implements IFocusManagerComponent
             return;
         
         renderer.removeEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
-    }
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function dataProvider_collectionChangeHandler(event:Event):void
-    {
-        super.dataProvider_collectionChangeHandler(event);
-        
-        if (event is CollectionEvent)
-        {
-            var ce:CollectionEvent = CollectionEvent(event);
-            
-            // from a filter or sort, we should clear our selection.
-            if (ce.kind == CollectionEventKind.REFRESH)
-            {
-                multipleSelectionChanged = true;
-                invalidateProperties();
-            }
-        }
     }
     
     /**
