@@ -4,10 +4,10 @@
 
     <fx:Script>
         <![CDATA[
-            import mx.events.IndexChangedEvent;
+            import spark.events.IndexChangeEvent; 
 
             //this function is called when the selection is going to change
-            private function selectionChangingHandler(evt:IndexChangedEvent):void {
+            private function selectionChangingHandler(evt:IndexChangEvent):void {
                 var item:* = list.dataProvider.getItemAt(evt.newIndex);
                 if (item.type != "employee") {
                     evt.preventDefault();
