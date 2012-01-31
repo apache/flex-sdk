@@ -17,7 +17,7 @@ import flex.core.IDeferredContentOwner;
 import flex.core.SkinnableComponent;
 import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
-import flex.intf.ILayout;
+import flex.layout.LayoutBase;
 
 import mx.collections.IList;
 import mx.core.ContainerCreationPolicy;
@@ -234,12 +234,12 @@ public class ItemsComponent extends SkinnableComponent
     //  layout
     //----------------------------------
     
-    private var _layout:ILayout = null;
+    private var _layout:LayoutBase = null;
     
     /**
      *  @copy flex.core.Group#layout
      */
-    public function get layout():ILayout
+    public function get layout():LayoutBase
     {
         return (contentGroup) ? contentGroup.layout : _layout;
     }
@@ -247,7 +247,7 @@ public class ItemsComponent extends SkinnableComponent
     /**
      * @private
      */
-    public function set layout(value:ILayout):void
+    public function set layout(value:LayoutBase):void
     {
         _layout = value;  
         if (contentGroup)
