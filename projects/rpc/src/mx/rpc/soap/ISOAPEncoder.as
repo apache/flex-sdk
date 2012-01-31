@@ -16,8 +16,6 @@ import mx.rpc.wsdl.WSDLOperation;
 import mx.rpc.xml.SchemaConstants;
 import mx.rpc.xml.IXMLEncoder;
 
-[ExcludeClass]
-
 /**
  * An ISOAPEncoder is used to create SOAP 1.1 formatted requests for a web
  * service operation. A WSDLOperation provides the definition of how a SOAP
