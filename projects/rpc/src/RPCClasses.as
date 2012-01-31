@@ -56,6 +56,7 @@ import mx.utils.HashUtil; HashUtil;
 import mx.utils.HexDecoder; HexDecoder;
 import mx.utils.HexEncoder; HexEncoder;
 import mx.utils.Translator; Translator;
+import mx.utils.RpcClassAliasInitializer; RpcClassAliasInitializer;
 }
 
 }
