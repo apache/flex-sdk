@@ -159,8 +159,8 @@ public class NumericStepper extends Spinner implements IFocusManagerComponent
         }
         
         // Select all the text.
-        textInput.selectionAnchorIndex = 0;
-        textInput.selectionActiveIndex = int.MAX_VALUE;
+        textInput.selectionAnchorPosition = 0;
+        textInput.selectionActivePosition = int.MAX_VALUE;
     }
     
     //--------------------------------------------------------------------------
