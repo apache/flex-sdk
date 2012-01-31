@@ -78,9 +78,11 @@ use namespace mx_internal;
  *  </pre>
  *   
  *  @includeExample examples/VScrollBarExample.mxml
+ *
  *  @see spark.skins.spark.VScrollBarSkin
  *  @see spark.skins.spark.VScrollBarThumbSkin
  *  @see spark.skins.spark.VScrollBarTrackSkin
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -240,25 +242,19 @@ public class VScrollBar extends ScrollBarBase
     }
         
     /**
-     *  If <code>viewport</code> is not null, 
-     *  changes the vertical scroll position for a page up or page down operation 
-     *  by 
-     *  scrolling the viewport.
-     *  This method calculates the amount to scroll by calling the 
-     *  <code>IViewport.getVerticalScrollPositionDelta()</code> method 
-     *  with either <code>flash.ui.Keyboard.PAGE_UP</code> 
-     *  or <code>flash.ui.Keyboard.PAGE_DOWN</code>.
-     *  It then calls the <code>setValue()</code> method to 
-     *  set the <code>IViewport.verticalScrollPosition</code> property 
-     *  to the appropriate value.
+     *  Increment <code>value</code> by a page if <code>increase</code> is <code>true</code>, 
+     *  or decrement <code>value</code>  by a page if <code>increase</code> is <code>false</code>.
+     *  Increasing the scrollbar's <code>value</code> scrolls the viewport up. 
+     *  Decreasing the <code>value</code> scrolls to the viewport down.
+     *  
+     *  <p>If the <code>viewport</code> property is set, then its 
+     *  <code>getVerticalScrollPositionDelta()</code> method 
+     *  is used to compute the size of the page increment.  
+     *  If <code>viewport</code> is null, then the scrollbar's
+     *  <code>pageSize</code> property is used.</p>
      *
-     *  <p>If <code>viewport</code> is null, 
-     *  calling this method changes the vertical scroll position for 
-     *  a page up or page down operation by calling 
-     *  the <code>changeValueByPage()</code> method.</p>
-     *
-     *  @param increase Whether the page scroll is up (<code>true</code>) or
-     *  down (<code>false</code>). 
+     *  @param increase Whether to increment (<code>true</code>) or
+     *  decrement (<code>false</code>) <code>value</code>. 
      * 
      *  @see spark.components.supportClasses.ScrollBarBase#changeValueByPage()
      *  @see spark.components.supportClasses.Range#setValue()
