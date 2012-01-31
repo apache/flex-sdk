@@ -385,7 +385,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  *    autoPlay="true"
  *    autoRewind="false"
  *    enabled=""
- *    maintainAspectRatio="<i>No default</i>"
+ *    loop="false"
+ *    maintainAspectRatio="true"
  *    muted="false"
  *    source=""
  *    volume=".75"
@@ -427,22 +428,27 @@ public class VideoPlayer extends SkinnableComponent
     /**
      *  @private
      */
-    private static const MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG:uint = 1 << 2;
+    private static const LOOP_PROPERTY_FLAG:uint = 1 << 2;
     
     /**
      *  @private
      */
-    private static const MUTED_PROPERTY_FLAG:uint = 1 << 3;
+    private static const MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG:uint = 1 << 3;
     
     /**
      *  @private
      */
-    private static const SOURCE_PROPERTY_FLAG:uint = 1 << 4;
+    private static const MUTED_PROPERTY_FLAG:uint = 1 << 4;
     
     /**
      *  @private
      */
-    private static const VOLUME_PROPERTY_FLAG:uint = 1 << 5;
+    private static const SOURCE_PROPERTY_FLAG:uint = 1 << 5;
+    
+    /**
+     *  @private
+     */
+    private static const VOLUME_PROPERTY_FLAG:uint = 1 << 6;
     
     //--------------------------------------------------------------------------
     //
@@ -781,6 +787,54 @@ public class VideoPlayer extends SkinnableComponent
         else
         {
             videoElementProperties = {autoRewind: value};
+        }
+    }
+    
+    //----------------------------------
+    //  loop
+    //----------------------------------
+    
+    [Inspectable(Category="General", defaultValue="false")]
+    
+    /**
+     *  @copy spark.primitives.VideoElement#loop
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get loop():Boolean
+    {
+        if (videoElement)
+        {
+            return videoElement.loop;
+        }
+        else
+        {
+            var v:* = videoElementProperties.loop;
+            return (v === undefined) ? false : v;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    public function set loop(value:Boolean):void
+    {
+        if (videoElement)
+        {
+            videoElement.loop = value;
+            videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
+                LOOP_PROPERTY_FLAG, true);
+        }
+        else if (videoElementProperties)
+        {
+            videoElementProperties.loop = value;
+        }
+        else
+        {
+            videoElementProperties = {loop: value};
         }
     }
     
@@ -1178,6 +1232,13 @@ public class VideoPlayer extends SkinnableComponent
                                                             AUTO_REWIND_PROPERTY_FLAG, true);
                 }
                 
+                if (videoElementProperties.loop !== undefined)
+                {
+                    videoElement.loop = videoElementProperties.loop;
+                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                        LOOP_PROPERTY_FLAG, true);
+                }
+                
                 if (videoElementProperties.maintainAspectRatio !== undefined)
                 {
                     videoElement.maintainAspectRatio = videoElementProperties.maintainAspectRatio;
@@ -1368,6 +1429,12 @@ public class VideoPlayer extends SkinnableComponent
             if (BitFlagUtil.isSet(videoElementProperties as uint, AUTO_REWIND_PROPERTY_FLAG))
             {
                 newVideoProperties.autoRewind = videoElement.autoRewind;
+                propertySet = true;
+            }
+            
+            if (BitFlagUtil.isSet(videoElementProperties as uint, LOOP_PROPERTY_FLAG))
+            {
+                newVideoProperties.loop = videoElement.loop;
                 propertySet = true;
             }
             
