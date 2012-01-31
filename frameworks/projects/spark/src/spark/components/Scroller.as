@@ -36,26 +36,51 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#alternatingItemColors
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
 /**
  * @copy mx.components.baseClasses.GroupBase#rollOverColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
@@ -83,6 +108,11 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  policy, which can be <code>auto</code>, <code>on</code>, or <code>off</code>.
  *  The <code>auto</code> policy means that the scrollbar will be visible and included
  *  in the layout when the viewport's content is larger than the viewport itself.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 
 public class FxScroller extends FxComponent 
@@ -98,6 +128,11 @@ public class FxScroller extends FxComponent
     
     /**
      * Constructor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxScroller()
     {
@@ -133,6 +168,11 @@ public class FxScroller extends FxComponent
      *  set by the FxScroller's skin.
      * 
      *  This property is Bindable.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var horizontalScrollBar:FxHScrollBar;
     
@@ -150,6 +190,11 @@ public class FxScroller extends FxComponent
      *  set by the FxScroller's skin.
      * 
      *  This property is Bindable.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var verticalScrollBar:FxVScrollBar;
 
@@ -179,6 +224,11 @@ public class FxScroller extends FxComponent
      *  This property is Bindable.
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get viewport():IViewport
     {       
@@ -230,6 +280,11 @@ public class FxScroller extends FxComponent
     /**
      *  Boolean to let us know if we need to add system handlers or not.
      *  We can't do this early on because systemManager may be null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     private var systemListenersNeeded:Boolean = true;
     
@@ -283,6 +338,11 @@ public class FxScroller extends FxComponent
      *  @default ScrollPolicy.AUTO
      *
      *  @see mx.core.ScrollPolicy
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function get verticalScrollPolicy():String
     {
@@ -336,6 +396,11 @@ public class FxScroller extends FxComponent
      *  @default ScrollPolicy.AUTO
      *
      *  @see mx.core.ScrollPolicy
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function get horizontalScrollPolicy():String
     {
@@ -383,6 +448,11 @@ public class FxScroller extends FxComponent
      *  Returns 1 if there is a viewport, 0 otherwise.
      * 
      *  @return The number of visual elements in this visual container
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get numElements():int
     {
@@ -398,6 +468,11 @@ public class FxScroller extends FxComponent
      *  @return The element at the specified index.
      * 
      *  @throws RangeError If the index position does not exist in the child list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function getElementAt(index:int):IVisualElement
     {
@@ -416,6 +491,11 @@ public class FxScroller extends FxComponent
      *  @return The index position of the element to identify.
      * 
      *  @throws ArgumentError If the element is not a child of this object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function getElementIndex(element:IVisualElement):int
     {
@@ -431,6 +511,11 @@ public class FxScroller extends FxComponent
      *  <p>This operation is not supported in FxScroller.  FxScroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function addElement(element:IVisualElement):IVisualElement
     {
@@ -443,6 +528,11 @@ public class FxScroller extends FxComponent
      *  <p>This operation is not supported in FxScroller.  FxScroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function addElementAt(element:IVisualElement, index:int):IVisualElement
     {
@@ -455,6 +545,11 @@ public class FxScroller extends FxComponent
      *  <p>This operation is not supported in FxScroller.  FxScroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function removeElement(element:IVisualElement):IVisualElement
     {
@@ -467,6 +562,11 @@ public class FxScroller extends FxComponent
      *  <p>This operation is not supported in FxScroller.  FxScroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function removeElementAt(index:int):IVisualElement
     {
@@ -479,6 +579,11 @@ public class FxScroller extends FxComponent
      *  <p>This operation is not supported in FxScroller.  FxScroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setElementIndex(element:IVisualElement, index:int):void
     {
@@ -491,6 +596,11 @@ public class FxScroller extends FxComponent
      *  <p>This operation is not supported in FxScroller.  FxScroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function swapElements(element1:IVisualElement, element2:IVisualElement):void
     {
@@ -503,6 +613,11 @@ public class FxScroller extends FxComponent
      *  <p>This operation is not supported in FxScroller.  FxScroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function swapElementsAt(index1:int, index2:int):void
     {
