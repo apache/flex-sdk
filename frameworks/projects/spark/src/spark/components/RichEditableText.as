@@ -2489,7 +2489,7 @@ public class RichEditableText extends UIComponent
     }
     
     /**
-     *  Scrolls so that the text position is visible in the container. 
+     *  @copy flashx.textLayout.container.ContainerController#scrollToPosition() 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2499,15 +2499,8 @@ public class RichEditableText extends UIComponent
     public function scrollToPosition(anchorPosition:int = 0,
                                      activePosition:int = int.MAX_VALUE):void
     {
-       var selectionManager:ISelectionManager = getSelectionManager();
-
-       var controller:ContainerController = 
-                            textFlow.flowComposer.getControllerAt(0);
-
-        // ToDo: TextContainerManager should expose this interface                            
-        controller.scrollToPosition(anchorPosition, activePosition);                            
-
-        releaseSelectionManager();
+       // Scrolls so that the text position is visible in the container. 
+       inputManager.scrollToPosition(anchorPosition, activePosition);       
     }
         
     /**
