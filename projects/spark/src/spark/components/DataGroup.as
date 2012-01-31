@@ -278,8 +278,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (_typicalItem === value)
             return;
         _typicalItem = explicitTypicalItem = value;
-        typicalItemChanged = true;
-        invalidateProperties();
+        invalidateTypicalItemRenderer();
     }
     
     private function setTypicalLayoutElement(element:ILayoutElement):void
@@ -289,8 +288,20 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             layout.typicalLayoutElement = element;
     }
     
-    // TODO (jszeto) Get PARB'ed and make public?
-    mx_internal function resetTypicalLayoutElement():void
+    /** 
+     *  Call this method if some aspect of the <code>typicalItem</code> 
+     *  has changed that should be reflected by the layout.  
+     * 
+     *  <p>This method is called automatically if the <code>typicalItem</code> 
+     *  is changed directly. That means if the property is set to a new value 
+     *  that is not "==" to current value.</p>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 11
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2 
+     */
+    public function invalidateTypicalItemRenderer():void
     {
         typicalItemChanged = true;
         invalidateProperties();
