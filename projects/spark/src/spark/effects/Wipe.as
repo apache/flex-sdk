@@ -8,12 +8,12 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects
+package spark.effects
 {
 import flash.display.Shader;
 import flash.utils.ByteArray;
-
-import mx.effects.effectClasses.FxWipeInstance;
+import mx.effects.IEffectInstance;
+import spark.effects.supportClasses.WipeInstance;
 
 /**
  * This class performs a bitmap transition effect by running a
@@ -28,26 +28,26 @@ import mx.effects.effectClasses.FxWipeInstance;
  * a different Wipe behavior is desired, a different shader may be
  * supplied, as long as it adheres to the following constraints: 
  * obey the constraints specified for the <code>shaderCode</code>
- * property of FxAnimateShaderTransition, and supply three additional
- * parameters. The extra parameters required by the FxWipe shader 
+ * property of AnimateShaderTransition, and supply three additional
+ * parameters. The extra parameters required by the Wipe shader 
  * are an int <code>direction</code> parameter, 
  * whose values mean the same as the related String properties
- * in the FxWipe class, and floating point parameters
+ * in the Wipe class, and floating point parameters
  * <code>imageWidth</code> and <code>imageHeight</code>. All of these
  * parameters will be set on the shader when the effect starts playing,
  * so the parameters need to exist and do something appropriate in
  * order for the effect to function correctly.</p>
  * 
- * @see mx.effects.FxAnimateShaderTransition#shaderCode
+ * @see mx.effects.AnimateShaderTransition#shaderCode
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxWipe extends FxAnimateShaderTransition
+public class Wipe extends AnimateShaderTransition
 {
-    [Embed(source="FxWipe.pbj", mimeType="application/octet-stream")]
+    [Embed(source="Wipe.pbj", mimeType="application/octet-stream")]
     private static var WipeShaderClass:Class;
     private static var wipeShaderCode:ByteArray = new WipeShaderClass();
     
@@ -70,10 +70,10 @@ public class FxWipe extends FxAnimateShaderTransition
      */
     public var direction:String = WipeDirection.RIGHT;
     
-    public function FxWipe(target:Object=null)
+    public function Wipe(target:Object=null)
     {
         super(target);
-        instanceClass = FxWipeInstance;
+        instanceClass = WipeInstance;
         shaderCode = wipeShaderCode;
     }
 
@@ -84,7 +84,7 @@ public class FxWipe extends FxAnimateShaderTransition
     {
         super.initInstance(instance);
         
-        var wipeInstance:FxWipeInstance = FxWipeInstance(instance);
+        var wipeInstance:WipeInstance = WipeInstance(instance);
         wipeInstance.direction = direction;
     }
     
