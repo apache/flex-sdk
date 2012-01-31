@@ -1869,7 +1869,7 @@ public class Panel extends Container
      *  Returns a Rectangle containing the largest piece of header
      *  text (can be either the title or status, whichever is bigger).
      */
-    private function measureHeaderText():Rectangle
+    private function measureHeaderText(useDummyString:Boolean = false):Rectangle
     {
         var textWidth:Number = 20;
         var textHeight:Number = 14;
@@ -1884,6 +1884,19 @@ public class Panel extends Container
             metrics = textFormat.measureText(titleTextField.text, false);
             textWidth = metrics.width;
             textHeight = metrics.height;
+        }
+        else
+        {
+            if (useDummyString)
+            {
+                if (titleTextField)
+                {
+                    textFormat = titleTextField.getUITextFormat();
+                    metrics = textFormat.measureText("Wj", false);
+                    textWidth = metrics.width;
+                    textHeight = metrics.height;
+                }
+            }
         }
         
         if (statusTextField && statusTextField.text)
@@ -1923,9 +1936,14 @@ public class Panel extends Container
      *  Proxy to getHeaderHeight() for PanelSkin
      *  since we can't change its function signature
      */
-    mx_internal function getHeaderHeightProxy():Number
+    mx_internal function getHeaderHeightProxy(useDummyString:Boolean = false):Number
     {
-        return getHeaderHeight();
+        var headerHeight:Number = getStyle("headerHeight");
+        
+        if (isNaN(headerHeight))
+            headerHeight = measureHeaderText(useDummyString).height + HEADER_PADDING;
+        
+        return headerHeight;
     }
 
     /**
