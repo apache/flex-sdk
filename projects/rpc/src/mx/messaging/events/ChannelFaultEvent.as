@@ -180,8 +180,17 @@ public class ChannelFaultEvent extends ChannelEvent
      *  <code>faultDetails</code> properties.
      *
      *  <p>The format of the fault codes are provided by the remote destination, 
-     *  but will typically have the following form: <i>host.operation.error</i> 
-     *  e.g. <code>"Server.Connect.Failed"</code></p>
+     *  but will typically have the following form: <code>host.operation.error</code>
+     * or <code>Channel.operation.error</code>.
+     *  For example, <code>"Server.Connect.Failed"</code> and <code>Channel.Connect.Failed</code>.</p>
+     *  <p>
+     * Channel.Connect.Failed is issued by the Channel class and its subclasses
+     * (RTMPChannel, AMFChannel, HTTPChannel, and so forth) whenever there is an issue
+     * in a Channel's connect attempts to the remote destination. Channel.Call.Failed is
+     * issued by the AMFChannel when the channel is already connected but it gets a
+     * Call.Failed code from its underlying NetConnection.
+     * Only the AMFChannel class listens for NetConnection.Call.Failed, which gets
+     * converted to Channel.Call.Failed.     
      *
      *  @see #faultString
      *  @see #faultDetail
