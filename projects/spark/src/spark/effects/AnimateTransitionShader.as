@@ -88,7 +88,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:AnimateTransitionShader
+ *  &lt;s:AnimateTransitionShader
  *    <b>Properties</b>
  *    id="ID"
  *    bitmapFrom="no default"
