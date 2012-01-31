@@ -19,7 +19,7 @@ import flash.utils.ByteArray;
 
 import mx.core.IUIComponent;
 import mx.effects.effectClasses.FxAnimateShaderTransitionInstance;
-import mx.graphics.graphicsClasses.GraphicElement;
+import mx.graphics.baseClasses.GraphicElement;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
