@@ -67,6 +67,8 @@ import flashx.textLayout.formats.LineBreak;
 
 [DefaultProperty("text")]
 
+[DefaultTriggerEvent("change")]
+
 [IconFile("TextInput.png")]
 
 /**
