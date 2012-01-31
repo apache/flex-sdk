@@ -73,6 +73,7 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
 {
     public function Group():void
     {
+    	tabChildren = true;
     }
     
     private var skinRegistry:Dictionary;
@@ -428,6 +429,55 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
         {
             UIComponent(parent).invalidateSize();
             UIComponent(parent).invalidateDisplayList();
+        }
+    }
+    
+        //--------------------------------------------------------------------------
+    //
+    //  Properties: Overriden Focus management
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  focusPane
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the focusPane property.
+     */
+    private var _focusPane:Sprite;
+
+    [Inspectable(environment="none")]
+    
+    // TODO (rfrishbe): only reason we need to override focusPane getter/setter
+    // is because addChild/removeChild for Groups throw an RTE.
+    // This is the same as UIComponent's focusPane getter/setter but it uses
+    // super.add/removeChild.
+
+    override public function get focusPane():Sprite
+    {
+        return _focusPane;
+    }
+
+    override public function set focusPane(value:Sprite):void
+    {
+        if (value)
+        {
+            super.addChild(value);
+
+            value.x = 0;
+            value.y = 0;
+            value.scrollRect = null;
+
+            _focusPane = value;
+        }
+        else
+        {
+             super.removeChild(_focusPane);
+             
+             // TODO: remove mask?  SDK-15310
+            _focusPane = null;
         }
     }
     
