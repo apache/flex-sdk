@@ -15,11 +15,16 @@ package spark.accessibility
 import flash.accessibility.Accessibility;
 import flash.events.Event;
 import flash.events.MouseEvent;
-import spark.components.Panel;
-import spark.components.TitleWindow;
+
 import mx.accessibility.AccConst;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+
+import spark.components.Button;
+import spark.components.Panel;
+import spark.components.supportClasses.TextBase;
+import spark.components.TitleWindow;
+import spark.events.SkinPartEvent;
 
 use namespace mx_internal;
 
@@ -65,8 +70,11 @@ public class TitleWindowAccImpl extends PanelAccImpl
 	/**
 	 *  @private
 	 *  Creates a TitleWindow's AccessibilityImplementation object.
-	 *  This method is called from UIComponent's
-	 *  initializeAccessibility() method.
+	 *  This method is called from TitleWindow's
+	 *  partAdded() method, not its initializeAccessibility() method,
+	 *  because the TitleWindowAccImpl needs to be attached
+	 *  to the TitleWindow's titleBar.
+	 *  The partRemoved() method removes the acc impl from the titleDisplay.
 	 */
 	mx_internal static function createAccessibilityImplementation(
 								component:UIComponent):void
@@ -76,17 +84,22 @@ public class TitleWindowAccImpl extends PanelAccImpl
 		// If it were placed on the TitleWindow itself,
 		// the AccessibilityImplementations of the TitleWindow's children
 		// would be ignored.
-		var titleDisplay:UIComponent = TitleWindow(component).titleDisplay;
-        
+		var titleDisplay:TextBase = TitleWindow(component).titleDisplay;
 		if (titleDisplay)
         {
-            titleDisplay.accessibilityImplementation = new TitleWindowAccImpl(component);
-            if (TitleWindow(component).tabIndex > 0 && titleDisplay.tabIndex == -1)
+            titleDisplay.accessibilityImplementation =
+				new TitleWindowAccImpl(component);
+            
+			if (TitleWindow(component).tabIndex > 0 &&
+				titleDisplay.tabIndex == -1)
+			{
                 titleDisplay.tabIndex = TitleWindow(component).tabIndex;
-         }
+			}
 
-		Accessibility.sendEvent(titleDisplay, 0, AccConst.EVENT_OBJECT_CREATE);
-		Accessibility.updateProperties();
+			Accessibility.sendEvent(titleDisplay, 0,
+									AccConst.EVENT_OBJECT_CREATE);
+			Accessibility.updateProperties();
+		}
 	}
 
 	//--------------------------------------------------------------------------
@@ -112,11 +125,39 @@ public class TitleWindowAccImpl extends PanelAccImpl
 		
         role = AccConst.ROLE_SYSTEM_PANE;
         
-		TitleWindow(master).titleDisplay.addEventListener(MouseEvent.MOUSE_UP,
-													 eventHandler);
+		// TitleWindow has a titleDisplay and a closeButton as skin parts,
+		// and we need to listen to some of their events.
+		// They may or may not be present when this constructor is called.
+		// If they come or go later, we are notified via
+		// "partAdded" and "partRemoved" events.
 		
-		TitleWindow(master).closeButton.addEventListener(MouseEvent.MOUSE_UP,
-												   eventHandler);
+		var titleDisplay:TextBase = TitleWindow(master).titleDisplay;
+		if (titleDisplay)
+			titleDisplay.addEventListener(MouseEvent.MOUSE_UP, eventHandler);		
+		
+		var closeButton:Button = TitleWindow(master).closeButton;
+		if (closeButton)
+			closeButton.addEventListener(MouseEvent.MOUSE_UP, eventHandler);
+	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Overridden properties: AccImpl
+	//
+	//--------------------------------------------------------------------------
+	
+	//----------------------------------
+	//  eventsToHandle
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 *  Array of events that we should listen for from the master component.
+	 */
+	override protected function get eventsToHandle():Array
+	{
+		return super.eventsToHandle.concat([ SkinPartEvent.PART_ADDED,
+											 SkinPartEvent.PART_REMOVED ]);
 	}
 	
 	//--------------------------------------------------------------------------
@@ -160,6 +201,9 @@ public class TitleWindowAccImpl extends PanelAccImpl
 	 */
 	override protected function eventHandler(event:Event):void
 	{
+		var titleDisplay:TextBase;
+		var closeButton:Button;
+		
 		// Let AccImpl class handle the events
 		// that all accessible UIComponents understand.
 		$eventHandler(event);
@@ -181,6 +225,32 @@ public class TitleWindowAccImpl extends PanelAccImpl
 				}
 
 				Accessibility.updateProperties();
+				break;
+			}
+				
+			case SkinPartEvent.PART_ADDED:
+			{
+				titleDisplay = TitleWindow(master).titleDisplay;
+				if (SkinPartEvent(event).instance == titleDisplay)
+					titleDisplay.addEventListener(MouseEvent.MOUSE_UP, eventHandler);
+				
+				closeButton = TitleWindow(master).closeButton;
+				if (SkinPartEvent(event).instance == closeButton)
+					closeButton.addEventListener(MouseEvent.MOUSE_UP, eventHandler);
+
+				break;
+			}
+				
+			case SkinPartEvent.PART_REMOVED:
+			{
+				titleDisplay = TitleWindow(master).titleDisplay;
+				if (SkinPartEvent(event).instance == titleDisplay)
+					titleDisplay.removeEventListener(MouseEvent.MOUSE_UP, eventHandler);
+
+				closeButton = TitleWindow(master).closeButton;
+				if (SkinPartEvent(event).instance == closeButton)
+					closeButton.removeEventListener(MouseEvent.MOUSE_UP, eventHandler);
+				
 				break;
 			}
 		}
