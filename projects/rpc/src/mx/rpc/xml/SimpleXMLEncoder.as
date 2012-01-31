@@ -27,11 +27,11 @@ import mx.utils.ObjectUtil;
  */
 public class SimpleXMLEncoder
 {
-	//--------------------------------------------------------------------------
-	//
-	//  Class Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class Methods
+    //
+    //--------------------------------------------------------------------------
     /**
      * @private
      */
@@ -83,12 +83,17 @@ public class SimpleXMLEncoder
         return s;
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
+    /**
+     *  Constructor.
+     *
+     *  @param myXML The XML object.
+     */
     public function SimpleXMLEncoder(myXML:XMLDocument)
     {
         super();
@@ -96,29 +101,31 @@ public class SimpleXMLEncoder
         this.myXMLDoc = myXML ? myXML : new XMLDocument();
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
     private var myXMLDoc:XMLDocument;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
     /**
-     * Encodes an ActionScript object to XML using default serialization.
-     * 
-     * @param obj The ActionScript object to encode.
-     * 
-     * @param qname The qualified name of the child node.
-     * 
-     * @param parentNode An XMLNode under which to put the encoded
-     * value.
+     *  Encodes an ActionScript object to XML using default serialization.
+     *  
+     *  @param obj The ActionScript object to encode.
+     *  
+     *  @param qname The qualified name of the child node.
+     *  
+     *  @param parentNode An XMLNode under which to put the encoded
+     *  value.
+     *
+     *  @return The XMLNode object. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -132,7 +139,7 @@ public class SimpleXMLEncoder
         if (obj == null)
             return null;
 
-		// Skip properties that are functions
+        // Skip properties that are functions
         var typeType:uint = getDataTypeFromObject(obj);
         if (typeType == SimpleXMLEncoder.FUNCTION_TYPE)
             return null;
@@ -151,14 +158,14 @@ public class SimpleXMLEncoder
         if (typeType == SimpleXMLEncoder.OBJECT_TYPE)
         {
             var classInfo:Object = ObjectUtil.getClassInfo(obj, null, CLASS_INFO_OPTIONS);
-			var properties:Array = classInfo.properties;
-			var pCount:uint = properties.length;
-			for (var p:uint = 0; p < pCount; p++)
-			{
-				var fieldName:String = properties[p];
-				var propQName:QName = new QName("", fieldName);
-				encodeValue(obj[fieldName], propQName, myElement);
-			}
+            var properties:Array = classInfo.properties;
+            var pCount:uint = properties.length;
+            for (var p:uint = 0; p < pCount; p++)
+            {
+                var fieldName:String = properties[p];
+                var propQName:QName = new QName("", fieldName);
+                encodeValue(obj[fieldName], propQName, myElement);
+            }
         }
         else if (typeType == SimpleXMLEncoder.ARRAY_TYPE)
         {
@@ -218,24 +225,24 @@ public class SimpleXMLEncoder
     private function getDataTypeFromObject(obj:Object):uint
     {
         if (obj is Number)
-        	return SimpleXMLEncoder.NUMBER_TYPE;
+            return SimpleXMLEncoder.NUMBER_TYPE;
         else if (obj is Boolean)
-        	return SimpleXMLEncoder.BOOLEAN_TYPE;
+            return SimpleXMLEncoder.BOOLEAN_TYPE;
         else if (obj is String)
-        	return SimpleXMLEncoder.STRING_TYPE;
+            return SimpleXMLEncoder.STRING_TYPE;
         else if (obj is XMLDocument)
-			return SimpleXMLEncoder.XML_TYPE;
-		else if (obj is Date)
-			return SimpleXMLEncoder.DATE_TYPE;
-		else if (obj is Array)
-			return SimpleXMLEncoder.ARRAY_TYPE;
+            return SimpleXMLEncoder.XML_TYPE;
+        else if (obj is Date)
+            return SimpleXMLEncoder.DATE_TYPE;
+        else if (obj is Array)
+            return SimpleXMLEncoder.ARRAY_TYPE;
         else if (obj is Function)
             return SimpleXMLEncoder.FUNCTION_TYPE;
-		else if (obj is Object)
+        else if (obj is Object)
             return SimpleXMLEncoder.OBJECT_TYPE;
         else
             // Otherwise force it to string
-        	return SimpleXMLEncoder.STRING_TYPE;
+            return SimpleXMLEncoder.STRING_TYPE;
     }
 
 
