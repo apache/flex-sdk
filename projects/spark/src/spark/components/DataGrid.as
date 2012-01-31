@@ -279,7 +279,6 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 /**
  *  TBD(hmuller)
  */  
- 
 public class DataGrid extends SkinnableContainerBase implements IFocusManagerComponent, IGridItemRendererOwner
 {
     include "../core/Version.as";
@@ -339,18 +338,62 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  @private 
      *  IFactory valued skin parts that require special handling, see findSkinParts().
      */
-    private static const factorySkinPartNames:Array = ["alternatingRowColorsBackground"];    
+    private static const factorySkinPartNames:Array = [
+        "alternatingRowColorsBackground",
+        "caretIndicator",
+        "columnSeparator",
+        "headerColumnSeparator",        
+        "hoverIndicator",
+        "rowSeparator",
+        "selectionIndicator"];
+        
+    //----------------------------------
+    //  alternatingRowColorsBackground
+    //----------------------------------
+    
+    [Bindable]
+    [SkinPart(required="false", type="mx.core.IFactory")]
+    
+    /**
+     *  A reference to IVisualElement used to render the alternatingRowColors style
+     */
+    public var alternatingRowColorsBackground:IFactory;
+    
+    //----------------------------------
+    //  caretIndicator
+    //----------------------------------
+    
+    [Bindable]
+    [SkinPart(required="false", type="mx.core.IFactory")]
+    
+    /**
+     *  Used to render the alternatingRowColors style.
+     */
+    public var caretIndicator:IFactory;
     
     //----------------------------------
     //  columnHeaderBar
     //----------------------------------
     
+    [Bindable]
     [SkinPart(required="false", type="spark.components.columnHeaderBar")]
     
     /**
      *  A reference to the ColumnHeaderBar that displays the column headers.
      */
-    public var columnHeaderBar:ColumnHeaderBar;
+    public var columnHeaderBar:ColumnHeaderBar;    
+    
+    //----------------------------------
+    //  columnSeparator
+    //----------------------------------
+    
+    [Bindable]
+    [SkinPart(required="false", type="mx.core.IFactory")]
+    
+    /**
+     *  Used to render the vertical separator between columns.
+     */
+    public var columnSeparator:IFactory;
     
     //----------------------------------
     //  grid
@@ -362,29 +405,67 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  A reference to the Grid that displays the dataProvider.
      */
-    public var grid:spark.components.Grid;
+    public var grid:spark.components.Grid;    
+    
+    //----------------------------------
+    //  headerColumnSeparator
+    //----------------------------------
+    
+    [Bindable]
+    [SkinPart(required="false", type="mx.core.IFactory")]
+    
+    /**
+     *  Used to render the vertical separator between column headers.
+     */
+    public var headerColumnSeparator:IFactory;
+
+    //----------------------------------
+    //  hoverIndicator
+    //----------------------------------
+    
+    [Bindable]
+    [SkinPart(required="false", type="mx.core.IFactory")]
+    
+    /**
+     *  Used to provide mouse hover feedback.
+     */
+    public var hoverIndicator:IFactory;
+    
+    //----------------------------------
+    //  rowSeparator
+    //----------------------------------
+    
+    [Bindable]
+    [SkinPart(required="false", type="mx.core.IFactory")]
+    
+    /**
+     *  Used to render the horizontal separator between rows.
+     */
+    public var rowSeparator:IFactory;
     
     //----------------------------------
     //  scroller
     //----------------------------------
     
+    [Bindable]
     [SkinPart(required="false", type="spark.components.Scroller")]
     
     /**
      *  A reference to the Scroller that scrolls the grid.
      */
-    public var scroller:Scroller;
+    public var scroller:Scroller;    
     
     //----------------------------------
-    //  alternatingRowColorsBackground
+    //  selectionIndicator
     //----------------------------------
     
+    [Bindable]
     [SkinPart(required="false", type="mx.core.IFactory")]
     
     /**
-     *  A reference to IVisualElement used to render the alternatingRowColors style
+     *  Used to render selected rows or cells.
      */
-    public var alternatingRowColorsBackground:IFactory;
+    public var selectionIndicator:IFactory;
     
     /**
      *  @private
@@ -773,7 +854,50 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     {
         if (setGridProperty("itemRenderer", value))
             dispatchChangeEvent("itemRendererChanged");
-    }    
+    } 
+    
+    //----------------------------------
+    //  headerRenderer
+    //----------------------------------    
+    
+    [Bindable("headeRendererChanged")]
+    
+    private var _headerRenderer:IFactory;
+    
+    /**
+     *  The default headerRenderer for the columnHeaderBar skin part.
+     *  
+     *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get headerRenderer():IFactory
+    {
+        return _headerRenderer;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set headerRenderer(value:IFactory):void
+    {
+        if (value == _headerRenderer)
+            return;
+        
+        _headerRenderer = value;
+        
+        if (columnHeaderBar)
+        {
+            columnHeaderBar.layout.clearVirtualLayoutCache();
+            columnHeaderBar.invalidateSize();
+            columnHeaderBar.invalidateDisplayList();
+        }
+        
+        dispatchChangeEvent("headerRendererChanged");        
+    }       
     
     //----------------------------------
     //  preserveSelection (delegates to grid.preserveSelection)
@@ -1298,7 +1422,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             grid.gridSelection = gridSelection;
             grid.gridOwner = this;
             
-            // Cover Properties
+            // Grid cover Properties
             
             const modifiedGridProperties:Object = gridProperties;  // explicitly set properties
             gridProperties = {propertyBits:0};
@@ -1310,10 +1434,14 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 setGridProperty(propertyName, modifiedGridProperties[propertyName]);
             }
             
-            // IFactory valued skin parts => Grid visual element properties like selectionIndicator
-            // TBD(hmuller): add skin parts for selectionIndicator et al.
+            // IFactory valued skin parts => Grid visual element properties
             
             initializeGridRowBackground();
+            grid.columnSeparator = columnSeparator;
+            grid.rowSeparator = rowSeparator;
+            grid.hoverIndicator = hoverIndicator;
+            grid.caretIndicator = caretIndicator;
+            grid.selectionIndicator = selectionIndicator;
             
             // Event Handlers
             
@@ -1328,15 +1456,42 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             // Deferred operations (grid selection updates)
             
             for each (var deferredGridOperation:Function in deferredGridOperations)
-            deferredGridOperation(grid);
+                deferredGridOperation(grid);
             deferredGridOperations.length = 0;
         }
         
         if (instance == alternatingRowColorsBackground)
             initializeGridRowBackground();
         
+        if (grid)
+        {
+            if (instance == columnSeparator) 
+                grid.columnSeparator = columnSeparator;
+
+            if (instance == rowSeparator) 
+                grid.rowSeparator = rowSeparator;
+
+            if (instance == hoverIndicator) 
+                grid.hoverIndicator = hoverIndicator;
+
+            if (instance == caretIndicator) 
+                grid.caretIndicator = caretIndicator;
+
+            if (instance == selectionIndicator) 
+                grid.selectionIndicator = selectionIndicator;
+        }
+        
         if (instance == columnHeaderBar)
+        {
             columnHeaderBar.owner = this;
+            columnHeaderBar.columnSeparator = headerColumnSeparator;
+        }
+        
+        if (columnHeaderBar)
+        {
+            if (instance == headerColumnSeparator)
+                columnHeaderBar.columnSeparator = headerColumnSeparator;
+        }
     }
     
     /**
@@ -1378,12 +1533,46 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 if ((propertyBit & gridPropertyBits) == propertyBit)
                     gridProperties[propertyName] = getGridProperty(propertyName);                
             }
+            
+            // Visual Elements
+            
+            grid.rowBackground = null;
+            grid.columnSeparator = null;
+            grid.rowSeparator = null;
+            grid.hoverIndicator = null;
+            grid.caretIndicator = null;
+            grid.selectionIndicator = null;
         }
         
+        if (grid)
+        {
+            if (instance == columnSeparator) 
+                grid.columnSeparator = null;
+            
+            if (instance == rowSeparator) 
+                grid.rowSeparator = null;
+            
+            if (instance == hoverIndicator) 
+                grid.hoverIndicator = null;
+            
+            if (instance == caretIndicator) 
+                grid.caretIndicator = null;
+            
+            if (instance == selectionIndicator) 
+                grid.selectionIndicator = null;
+        }
+
         if (instance == columnHeaderBar)
         {
             columnHeaderBar.horizontalScrollPosition = 0;
             columnHeaderBar.owner = null;
+            columnHeaderBar.columnSeparator = null;
+        }
+        
+        if (columnHeaderBar)
+        {
+            if (instance == headerColumnSeparator)
+                columnHeaderBar.columnSeparator = null;
         }
     }
     
