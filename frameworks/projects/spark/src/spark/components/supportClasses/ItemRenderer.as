@@ -82,11 +82,15 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     [Bindable("contentBackgroundColorChanged")]
     [Bindable("dataChange")]
     /**
+     *  Color of the fill of an item renderer
+     *   
+     *  @default 0xFFFFFF
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-     */
+     */ 
     public function get contentBackgroundColor():uint
     {
         var alternatingColors:Array = getStyle("alternatingItemColors");
@@ -121,11 +125,16 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     
     [Bindable("rollOverColorChanged")]
     /**
+     *  Color of the highlight when the mouse is over an
+     *  item renderer
+     *   
+     *  @default 0xCEDBEF
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-     */
+     */   
     public function get rollOverColor():uint
     {
         return getStyle("rollOverColor");
@@ -141,11 +150,16 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     
     [Bindable("selectionColorChanged")]
     /**
+     *  Color of the fill of a selected item 
+     *  renderer 
+     *   
+     *  @default 0xA8C6EE
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-     */
+     */   
     public function get selectionColor():uint
     {
         return getStyle("selectionColor");
