@@ -198,7 +198,11 @@ public class TextView extends UIComponent implements IViewport
         super();
 
         _content = textFlow = createEmptyTextFlow();
-
+        
+        // Even if no text/content specified, want to have a flow composer
+        // so text can be input if the control is editable.
+        contentChanged = true;
+        
         mx_internal::undoManager.undoAndRedoItemLimit = int.MAX_VALUE;
             
         addEventListener(FocusEvent.FOCUS_IN, focusInHandler);
@@ -380,6 +384,14 @@ public class TextView extends UIComponent implements IViewport
     private var contentChanged:Boolean = false;
 
     /**
+     *  @private
+     *  If content is explicitly set, it will take precedence over text, if it 
+     *  is set as well.  Once content is set, it can be set to null and then text 
+     *  can be set.
+     */
+    private var contentSet:Boolean = false;
+
+    /**
      *  Documentation is not currently available.
      */
     public function get content():Object
@@ -403,6 +415,10 @@ public class TextView extends UIComponent implements IViewport
 
         _content = value;
         contentChanged = true;
+
+        // True, if content is non-null.  Once content is set, if then set 
+        // to null, text can be set.
+        contentSet = _content;
 
         invalidateSize();
         invalidateDisplayList();
@@ -952,14 +968,17 @@ public class TextView extends UIComponent implements IViewport
         // Setting 'text' temporarily causes 'content' to become null.
         // Later, after the 'text' has been committed into the TextFlow,
         // getting 'content' will return the TextFlow.
-        _content = null;
-        contentChanged = false;
-        
-        _text = value;
-        textChanged = true;
-        
-        invalidateSize();
-        invalidateDisplayList();
+        if (!contentSet)
+        {
+            _content = null;
+            contentChanged = false;
+            
+            _text = value;
+            textChanged = true;
+            
+            invalidateSize();
+            invalidateDisplayList();
+        }
     }
     
     //----------------------------------
