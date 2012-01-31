@@ -41,6 +41,7 @@ import spark.components.RichEditableText;
 import spark.components.TextSelectionHighlighting;
 import spark.core.IDisplayText;
 import spark.core.IEditableText;
+import spark.core.ISoftKeyboardHintClient;
 import spark.events.TextOperationEvent;
 
 use namespace mx_internal;
@@ -123,6 +124,17 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @productversion Flex 4
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
+
+/**
+ *  Controls the visibility of prompt text for this component when it is empty
+ *  and focused.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10.2
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5.2
+ */
+[Style(name="showPromptWhenFocused", type="Boolean", inherit="yes", theme="mobile")]
 
 //--------------------------------------
 //  Events
@@ -317,6 +329,26 @@ public class SkinnableTextBase extends SkinnableComponent
      *  @private
      */
     private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 14;
+    
+    /**
+     *  @private
+     */
+    private static const AUTO_CAPITALIZE_FLAG:uint = 1 << 15;
+    
+    /**
+     *  @private
+     */
+    private static const AUTO_CORRECT_FLAG:uint = 1 << 16;
+    
+    /**
+     *  @private
+     */
+    private static const RETURN_KEY_LABEL_FLAG:uint = 1 << 17;
+    
+    /**
+     *  @private
+     */
+    private static const SOFT_KEYBOARD_TYPE_FLAG:uint = 1 << 18;
 
     /**
      *  @private
@@ -1334,6 +1366,228 @@ public class SkinnableTextBase extends SkinnableComponent
         invalidateSkinState();
      }
 
+    //----------------------------------
+    //  Mobile soft-keyboard hints
+    //----------------------------------
+    
+    //----------------------------------
+    //  autoCapitalize
+    //----------------------------------
+    
+    /**
+     *  Hint indicating what captialization behavior soft keyboards should
+     *  use. 
+     *
+     *  Supported values are defined in flash.text.AutoCapitalize:
+     *      "none" - no automatic capitalization
+     *      "word" - capitalize the first letter following any space or
+     *          punctuation
+     *      "sentence" - captitalize the first letter following any period
+     *      "all" - capitalize every letter
+     *
+     *  <p><b>For the Desktop theme, this is not supported.</b></p>
+     * 
+     *  @default "none"
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get autoCapitalize():String
+    {
+        var softKeyboardClient:ISoftKeyboardHintClient = textDisplay as ISoftKeyboardHintClient;
+        
+        if (softKeyboardClient)
+            return softKeyboardClient.autoCapitalize; 
+        
+        var v:* = textDisplay ? undefined : textDisplayProperties.autoCapitalize;
+        return (v === undefined) ? "none" : v;
+    }
+    
+    public function set autoCapitalize(value:String):void
+    {
+        if (textDisplay)
+        {
+            var softKeyboardClient:ISoftKeyboardHintClient = textDisplay as ISoftKeyboardHintClient;
+            
+            if (softKeyboardClient)
+                softKeyboardClient.autoCapitalize = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), 
+                AUTO_CAPITALIZE_FLAG, true);
+        }
+        else
+        {
+            textDisplayProperties.autoCapitalize = value;
+        }
+        
+        // Generate an UPDATE_COMPLETE event.
+        invalidateProperties();                    
+    }
+    
+    //----------------------------------
+    //  autoCorrect
+    //----------------------------------
+    
+    /**
+     *  Hint indicating whether a soft keyboard should use its auto-correct
+     *  behavior, if supported.
+     *  <p><b>For the Desktop theme, this is not supported.</b></p>
+     * 
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3.0
+     *  @productversion Flex 4.5.2
+     */
+    public function get autoCorrect():Boolean
+    {
+        var softKeyboardClient:ISoftKeyboardHintClient = textDisplay as ISoftKeyboardHintClient;
+        
+        if (softKeyboardClient)
+            return softKeyboardClient.autoCorrect; 
+        
+        var v:* = textDisplay ? undefined : textDisplayProperties.autoCorrect;
+        return (v === undefined) ? false : v;
+    }
+    
+    public function set autoCorrect(value:Boolean):void
+    {
+        if (textDisplay)
+        {
+            var softKeyboardClient:ISoftKeyboardHintClient = textDisplay as ISoftKeyboardHintClient;
+            
+            if (softKeyboardClient)
+                softKeyboardClient.autoCorrect = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), 
+                AUTO_CORRECT_FLAG, true);
+        }
+        else
+        {
+            textDisplayProperties.autoCorrect = value;
+        }
+        
+        // Generate an UPDATE_COMPLETE event.
+        invalidateProperties();                    
+    }
+    
+    //----------------------------------
+    //  returnKeyLabel
+    //----------------------------------
+    
+    /**
+     *  Hint indicating what label should be displayed for the return key on
+     *  soft keyboards.
+     *
+     *  Supported values are defined in flash.text.ReturnKeyLabel:
+     *      "default" - default icon or label text
+     *      "done" - icon or label text indicating completed text entry
+     *      "go" - icon or label text indicating that an action should start
+     *      "next" - icon or label text indicating a move to the next field
+     *      "search" - icon or label text indicating that the entered text
+     *          should be searched for
+     *
+     *  <p><b>For the Desktop theme, this is not supported.</b></p>
+     * 
+     *  @default "default"
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3.0
+     *  @productversion Flex 4.5.2
+     */
+    public function get returnKeyLabel():String
+    {
+        var softKeyboardClient:ISoftKeyboardHintClient = textDisplay as ISoftKeyboardHintClient;
+        
+        if (softKeyboardClient)
+            return softKeyboardClient.returnKeyLabel; 
+        
+        var v:* = textDisplay ? undefined : textDisplayProperties.returnKeyLabel;
+        return (v === undefined) ? "default" : v;
+    }
+    
+    public function set returnKeyLabel(value:String):void
+    {
+        if (textDisplay)
+        {
+            var softKeyboardClient:ISoftKeyboardHintClient = textDisplay as ISoftKeyboardHintClient;
+            
+            if (softKeyboardClient)
+                softKeyboardClient.returnKeyLabel = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), 
+                RETURN_KEY_LABEL_FLAG, true);
+        }
+        else
+        {
+            textDisplayProperties.returnKeyLabel = value;
+        }
+        
+        // Generate an UPDATE_COMPLETE event.
+        invalidateProperties();                    
+    }
+    
+    //----------------------------------
+    //  softKeyboardType
+    //----------------------------------
+    
+    /**
+     *  Hint indicating what kind of soft keyboard should be displayed for
+     *  this component.
+     *
+     *  Supported values are defined in flash.text.SoftKeyboardType:
+     *      "default" - the default keyboard
+     *      "punctuation" - puts the keyboard into punctuation/symbol entry
+     *          mode
+     *      "url" - present soft keys appropriate for URL entry, such as a
+     *          specialized key that inserts '.com'
+     *      "number" - puts the keyboard into numeric keypad mode
+     *      "contact" - puts the keyboard into a mode appropriate for
+     *          entering contact information
+     *      "email" - puts the keyboard into e-mail addres entry mode, which
+     *          may make it easier to enter '@' or '.com'
+     *
+     *  <p><b>For the Desktop theme, this is not supported.</b></p>
+     * 
+     *  @default "default" 
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3.0
+     *  @productversion Flex 4.5.2
+     */
+    public function get softKeyboardType():String
+    {
+        var softKeyboardClient:ISoftKeyboardHintClient = textDisplay as ISoftKeyboardHintClient;
+        
+        if (softKeyboardClient)
+            return softKeyboardClient.softKeyboardType; 
+        
+        var v:* = textDisplay ? undefined : textDisplayProperties.softKeyboardType;
+        return (v === undefined) ? "default" : v;
+    }
+    
+    public function set softKeyboardType(value:String):void
+    {
+        if (textDisplay)
+        {
+            var softKeyboardClient:ISoftKeyboardHintClient = textDisplay as ISoftKeyboardHintClient;
+            
+            if (softKeyboardClient)
+                softKeyboardClient.softKeyboardType = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), 
+                SOFT_KEYBOARD_TYPE_FLAG, true);
+        }
+        else
+        {
+            textDisplayProperties.softKeyboardType = value;
+        }
+        
+        // Generate an UPDATE_COMPLETE event.
+        invalidateProperties();                    
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -1489,7 +1743,10 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     override protected function getCurrentSkinState():String
     {
-        if (focusManager && focusManager.getFocus() != focusManager.findFocusManagerComponent(this) && 
+        var showPromptWhenFocused:Boolean = getStyle("showPromptWhenFocused");
+        
+        if ((showPromptWhenFocused || 
+            focusManager && focusManager.getFocus() != focusManager.findFocusManagerComponent(this)) && 
             prompt != null && prompt != "")
         {
             if (text.length == 0)
@@ -1990,6 +2247,40 @@ public class SkinnableTextBase extends SkinnableComponent
                 uint(newTextDisplayProperties), 
                 WIDTH_IN_CHARS_PROPERTY_FLAG, true);
         }
+        
+        var softKeyboardClient:ISoftKeyboardHintClient = textDisplay as ISoftKeyboardHintClient;
+        
+        if (textDisplayProperties.autoCapitalize !== undefined && softKeyboardClient)
+        {
+            softKeyboardClient.autoCapitalize = textDisplayProperties.autoCapitalize;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties),
+                AUTO_CAPITALIZE_FLAG, true);
+        }
+        
+        if (textDisplayProperties.autoCorrect !== undefined && softKeyboardClient)
+        {
+            softKeyboardClient.autoCorrect = textDisplayProperties.autoCorrect;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties),
+                AUTO_CORRECT_FLAG, true);
+        }
+        
+        if (textDisplayProperties.returnKeyLabel !== undefined && softKeyboardClient)
+        {
+            softKeyboardClient.returnKeyLabel = textDisplayProperties.returnKeyLabel;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties),
+                RETURN_KEY_LABEL_FLAG, true);
+        }
+        
+        if (textDisplayProperties.softKeyboardType !== undefined && softKeyboardClient)
+        {
+            softKeyboardClient.softKeyboardType = textDisplayProperties.softKeyboardType;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties),
+                SOFT_KEYBOARD_TYPE_FLAG, true);
+        }
             
         // Switch from storing properties to bit mask of stored properties.
         textDisplayProperties = newTextDisplayProperties;    
@@ -2086,6 +2377,32 @@ public class SkinnableTextBase extends SkinnableComponent
             WIDTH_IN_CHARS_PROPERTY_FLAG) && richEditableText)
         {
             newTextDisplayProperties.widthInChars = richEditableText.widthInChars;
+        }
+        
+        var softKeyboardClient:ISoftKeyboardHintClient = textDisplay as ISoftKeyboardHintClient;
+        
+        if (BitFlagUtil.isSet(uint(textDisplayProperties),
+            AUTO_CAPITALIZE_FLAG) && softKeyboardClient)
+        {
+            newTextDisplayProperties.autoCapitalize = softKeyboardClient.autoCapitalize;
+        }
+        
+        if (BitFlagUtil.isSet(uint(textDisplayProperties),
+            AUTO_CORRECT_FLAG) && softKeyboardClient)
+        {
+            newTextDisplayProperties.autoCorrect = softKeyboardClient.autoCorrect;
+        }
+        
+        if (BitFlagUtil.isSet(uint(textDisplayProperties),
+            RETURN_KEY_LABEL_FLAG) && softKeyboardClient)
+        {
+            newTextDisplayProperties.returnKeyLabel = softKeyboardClient.returnKeyLabel;
+        }
+        
+        if (BitFlagUtil.isSet(uint(textDisplayProperties),
+            SOFT_KEYBOARD_TYPE_FLAG) && softKeyboardClient)
+        {
+            newTextDisplayProperties.softKeyboardType = softKeyboardClient.softKeyboardType;
         }
         
         // Switch from storing bit mask to storing properties.
@@ -2261,6 +2578,13 @@ public class SkinnableTextBase extends SkinnableComponent
         // The text component has changed.  Generate an UPDATE_COMPLETE event.
         invalidateDisplayList();
         
+        // We may have gone from empty to non-empty or vice-versa. This should
+        // cause the prompt to show or hide.
+        if (prompt != null && prompt != "" && skin && 
+            (skin.currentState.indexOf("WithPrompt") != -1 && text.length != 0 ||
+            skin.currentState.indexOf("WithPrompt") == -1 && text.length == 0))
+            invalidateSkinState();
+                
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
     }
