@@ -173,7 +173,7 @@ public class DropDownList extends List
      *  @productversion Flex 4
      */
     [SkinPart(required="false")]
-    public var labelElement:TextGraphicElement;
+    public var labelDisplay:TextGraphicElement;
     
     /**
      *  A skin part that defines the drop-down list area. When the DropDownList is open,
@@ -457,17 +457,17 @@ public class DropDownList extends List
     
     /**
      *  @private
-     *  Called whenever we need to update the text passed to the labelElement skin part
+     *  Called whenever we need to update the text passed to the labelDisplay skin part
      */
     // TODO (jszeto) Make this protected and make the name more generic (passing data to skin) 
     private function updateLabelElement():void
     {
-        if (labelElement)
+        if (labelDisplay)
         {
             if (selectedItem)
-                labelElement.text = LabelUtil.itemToLabel(selectedItem, labelField, labelFunction);
+                labelDisplay.text = LabelUtil.itemToLabel(selectedItem, labelField, labelFunction);
             else
-                labelElement.text = prompt;
+                labelDisplay.text = prompt;
         }   
     }
     
@@ -537,7 +537,7 @@ public class DropDownList extends List
             openButton.enabled = enabled;
         }
         
-        if (instance == labelElement)
+        if (instance == labelDisplay)
         {
             labelChanged = true;
             invalidateProperties();
