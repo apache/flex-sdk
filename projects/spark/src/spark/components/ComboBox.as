@@ -128,11 +128,11 @@ use namespace mx_internal;
  *        </tr>
  *        <tr>
  *           <td>Default size</td>
- *           <td></td>
+ *           <td>146 pixels wide by 23 pixels high</td>
  *        </tr>
  *        <tr>
  *           <td>Minimum size</td>
- *           <td></td>
+ *           <td>20 pixels wide by 23 pixels high</td>
  *        </tr>
  *        <tr>
  *           <td>Maximum size</td>
