@@ -297,6 +297,11 @@ public class SkinnableComponent extends UIComponent
     /**
      *  The state to be used when matching CSS pseudo-selectors. This override
      *  returns the current skin state instead of the component state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     override protected function get currentCSSState():String
     {
