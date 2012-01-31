@@ -654,7 +654,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
     
     private var _contentWidth:Number = 0;
     
-    [Bindable]
+    [Bindable("propertyChange")]
     [Inspectable(category="General")]    
 
     /**
@@ -666,9 +666,13 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         return _contentWidth;
     }
     
-    private function set contentWidth(value:Number):void 
+    private function setContentWidth(value:Number):void 
     {
+        if (value == _contentWidth)
+            return;
+    	var oldValue:Number = _contentWidth;
         _contentWidth = value;
+        dispatchPropertyChangeEvent("contentWidth", oldValue, value);        
     }
 
     //----------------------------------
@@ -677,7 +681,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
     
     private var _contentHeight:Number = 0;
     
-    [Bindable]
+    [Bindable("propertyChange")]
     [Inspectable(category="General")]    
 
     /**
@@ -689,9 +693,13 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         return _contentHeight;
     }
     
-    private function set contentHeight(value:Number):void 
+    private function setContentHeight(value:Number):void 
     {            
+        if (value == _contentHeight)
+            return;
+        var oldValue:Number = _contentHeight;
         _contentHeight = value;
+        dispatchPropertyChangeEvent("contentHeight", oldValue, value);        
     }    
 
     /**
@@ -708,8 +716,8 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
     {
         if ((w == _contentWidth) && (h == _contentHeight))
            return;
-        contentWidth = w;
-        contentHeight = h;
+        setContentWidth(w);
+        setContentHeight(h);
     }
 
     //--------------------------------------------------------------------------
