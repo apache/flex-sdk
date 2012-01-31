@@ -896,7 +896,10 @@ public class Tree extends List implements IIMESupport
      */
     public function get firstVisibleItem():Object
     {
-        return listItems[0][0].data;
+        if (listItems.length > 0 && listItems[0].length > 0) 
+            return listItems[0][0].data;
+        else
+            return null;
     }
     
     /**
