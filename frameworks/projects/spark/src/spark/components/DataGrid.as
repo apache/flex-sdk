@@ -4010,6 +4010,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             newWidth = Math.min(newWidth, maxWidth);
         
         resizeColumn.width = newWidth;
+        event.updateAfterEvent();
     } 
     
     /**
