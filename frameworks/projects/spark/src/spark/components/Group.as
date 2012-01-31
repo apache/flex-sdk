@@ -358,6 +358,9 @@ public class Group extends GroupBase implements IVisualElementContainer
     override public function notifyStyleChangeInChildren(
                         styleProp:String, recursive:Boolean):void
     {
+        if (contentChanged || !recursive) 
+            return;
+            
         var n:int = numElements;
         for (var i:int = 0; i < n; i++)
         {
@@ -365,11 +368,7 @@ public class Group extends GroupBase implements IVisualElementContainer
             if (child)
             {
                 child.styleChanged(styleProp);
-
-                // Always recursively call this function because of my
-                // descendants might have a styleName property that points
-                // to this object.  The recursive flag is respected in
-                // Container.notifyStyleChangeInChildren.
+                
                 if (child is IStyleClient)
                     IStyleClient(child).notifyStyleChangeInChildren(styleProp, recursive);
             }
@@ -393,7 +392,7 @@ public class Group extends GroupBase implements IVisualElementContainer
         {
             var child:Object = getItemAt(i);
 
-            if (child is IStyleClient)
+            if ( recursive && child is IStyleClient)
             {
                 // Does this object already have a proto chain?
                 // If not, there's no need to regenerate a new one.
