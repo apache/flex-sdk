@@ -479,7 +479,7 @@ public class Label extends TextBase
         // - compose width is specified
         // - content doesn't fit
         var lb:String = getStyle("lineBreak");
-        if (maxDisplayedLines && (lb == "toFit" || lb == "explicit") &&
+        if (maxDisplayedLines &&
             !doesComposedTextFit(height, width, allLinesComposed, maxDisplayedLines, lb))
         {
             truncateText(width, height, lb);
@@ -1006,7 +1006,7 @@ public class Label extends TextBase
         {
             bounds.width = paddingLeft + paddingRight;
             bounds.height = paddingTop + paddingBottom;
-            return createdAllLines;
+            return false;
         }
         
         // If not measuring the width, innerWidth remains the same since 
@@ -1124,6 +1124,24 @@ public class Label extends TextBase
         bounds.bottom = textLine.y + textLine.descent + paddingBottom;
         
         return createdAllLines;
+    }
+ 
+    /**
+     *  @private
+     *  Create textLine using paragraph terminator "\u2029" so it creates one
+     *  text line that we can use to get the baseline.  The height is 
+     *  important if the text is vertically aligned.
+     */ 
+    override mx_internal function createEmptyTextLine(height:Number=NaN):void
+    {
+        staticTextElement.text = "\u2029";
+        
+        bounds.width = NaN;
+        bounds.height = height;
+        
+        createTextLinesFromTextBlock(staticTextBlock, textLines, bounds);
+        
+        releaseLinesFromTextBlock();
     }
     
     /**
