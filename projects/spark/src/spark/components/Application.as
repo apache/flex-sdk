@@ -778,12 +778,13 @@ public class Application extends SkinnableContainer
 
     /**
      *  The image class for the SplashScreen preloader.
-     *  Typically you set this property to an embedded resource.
-     *  For example:
+     *  Typically you set this property to either an embedded resource
+     *  or the name of a <code>SplashScreenImage</code> class defined in a separate MXML file.
+     *  Example of setting splashScreenImage to an embedded image:
      *
      *  <pre>splashScreenImage="&#64;Embed('Default.png')"</pre>
      *
-     *  <p><b>Note:</b> The property has effect only when the <code>preloader</code> 
+     *  <p><b>Note:</b> The property has effect only when the <code>preloader</code>
      *  property is set to spark.preloaders.SplashScreen.
      *  The spark.preloaders.SplashScreen class is the default preloader for Mobile Flex applications.
      *  This property cannot be set by ActionScript code; it must be set in MXML code.</p>
@@ -1369,58 +1370,60 @@ public class Application extends SkinnableContainer
         // Manually update orientation width and height if the application's explicit
         // sizes aren't set.  If they are, we assume the application will handle
         // orientation on their own.
-        if (isNaN(explicitWidth) && isNaN(explicitHeight))
-        { 
-            if (!cachedDimensions)
-                cachedDimensions = new Dictionary();
-            
-            // remember the current dimensions
-            previousWidth = width;
-            previousHeight = height;
-            
-            var key:String = width + ":" + height;
-            
-            // On some platforms (e.g. iOS and Playbook) if the soft keyboard is up
-            // it deactivates before orientation change and reactivates after it; 
-            // the value of isSoftKeyboardActive thus changes during orientation change.
-            // We are remembering the initial value of isSoftKeyboardActivate in this
-            // situation for use in avoiding excessive resizing during the orientation change.
-            keyboardActiveInOrientationChange = isSoftKeyboardActive;
+        // SDK-30625: check stage for null since the Application may not be on-screen yet
+        // if orientation changes during start-up.
+        if (!stage || !isNaN(explicitWidth) || !isNaN(explicitHeight))
+            return;
 
-            // if we're rotating 180 degrees don't do any screen resizing
-            var beforeOrientation:String = event["beforeOrientation"];
-            var afterOrientation:String = event["afterOrientation"];
-            
-            if ((beforeOrientation == "default" && afterOrientation == "upsideDown") ||
-                (beforeOrientation == "upsideDown" && afterOrientation == "default") ||
-                (beforeOrientation == "rotatedLeft" && afterOrientation == "rotatedRight") ||
-                (beforeOrientation == "rotatedRight" && afterOrientation == "rotatedLeft"))
-                return;
+        if (!cachedDimensions)
+            cachedDimensions = new Dictionary();
+        
+        // remember the current dimensions
+        previousWidth = width;
+        previousHeight = height;
+        
+        var key:String = width + ":" + height;
+        
+        // On some platforms (e.g. iOS and Playbook) if the soft keyboard is up
+        // it deactivates before orientation change and reactivates after it; 
+        // the value of isSoftKeyboardActive thus changes during orientation change.
+        // We are remembering the initial value of isSoftKeyboardActivate in this
+        // situation for use in avoiding excessive resizing during the orientation change.
+        keyboardActiveInOrientationChange = isSoftKeyboardActive;
 
-            var newWidth:Number;
-            var newHeight:Number;
+        // if we're rotating 180 degrees don't do any screen resizing
+        var beforeOrientation:String = event["beforeOrientation"];
+        var afterOrientation:String = event["afterOrientation"];
+        
+        if ((beforeOrientation == "default" && afterOrientation == "upsideDown") ||
+            (beforeOrientation == "upsideDown" && afterOrientation == "default") ||
+            (beforeOrientation == "rotatedLeft" && afterOrientation == "rotatedRight") ||
+            (beforeOrientation == "rotatedRight" && afterOrientation == "rotatedLeft"))
+            return;
 
-            // if we have a cached value, use it
-            if (cachedDimensions[key])
-            {
-                newWidth = cachedDimensions[key].width;
-                newHeight = cachedDimensions[key].height;
-            }
-            else // no cached value; just swap the numbers for now
-            {
-                // use stageHeight as the new width if you can get it
-                newWidth = stage ? stage.stageHeight / scaleFactor : height;
-                newHeight = width;
-            }
-            
-            setActualSize(newWidth, newHeight);
-            
-            // Indicate that the width and height have changed because of orientation 
-            explicitSizingForOrientation = true;
-            
-            // Force a validation
-            validateNow();
+        var newWidth:Number;
+        var newHeight:Number;
+
+        // if we have a cached value, use it
+        if (cachedDimensions[key])
+        {
+            newWidth = cachedDimensions[key].width;
+            newHeight = cachedDimensions[key].height;
         }
+        else // no cached value; just swap the numbers for now
+        {
+            // use stageHeight as the new width if you can get it
+            newWidth = stage ? stage.stageHeight / scaleFactor : height;
+            newHeight = width;
+        }
+        
+        setActualSize(newWidth, newHeight);
+        
+        // Indicate that the width and height have changed because of orientation 
+        explicitSizingForOrientation = true;
+        
+        // Force a validation
+        validateNow();
     }
     
     /**
@@ -1432,16 +1435,18 @@ public class Application extends SkinnableContainer
      */
     private function stage_orientationChange(event:Event):void
     {
-        if (explicitSizingForOrientation)
+        // SDK-30625: check stage for null since the Application may not be on-screen yet
+        // if orientation changes during start-up.
+        if (!stage || !explicitSizingForOrientation)
+            return;
+
+        // update cache if keyboard was not previously active
+        if (!keyboardActiveInOrientationChange)
         {
-            // update cache if keyboard was not previously active
-            if (!keyboardActiveInOrientationChange)
-            {
-                updateScreenSizeCache(stage.stageWidth / scaleFactor, stage.stageHeight / scaleFactor);
-            }
-            
-            explicitSizingForOrientation = false;
+            updateScreenSizeCache(stage.stageWidth / scaleFactor, stage.stageHeight / scaleFactor);
         }
+        
+        explicitSizingForOrientation = false;
     }
 
     /**
