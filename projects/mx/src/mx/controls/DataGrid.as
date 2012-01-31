@@ -2552,12 +2552,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
                     {
                         if (i < lockedColumnCount)
                         {
-                            lockedColumnWidth += isNaN(col.explicitWidth) ? col.preferredWidth : col.explicitWidth;
+                            lockedColumnWidth += Math.max(isNaN(col.explicitWidth) ? col.preferredWidth : col.explicitWidth, col.minWidth);
                             visibleLockedColumns.push(col);
                         }
                         else
                             visibleColumns.push(col);
-                        totalWidth += isNaN(col.explicitWidth) ? col.preferredWidth : col.explicitWidth;
+                        totalWidth += Math.max(isNaN(col.explicitWidth) ? col.preferredWidth : col.explicitWidth, col.minWidth);
                         if (col.width != col.preferredWidth)
                             col.setWidth(col.preferredWidth);
                     }
