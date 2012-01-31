@@ -118,7 +118,7 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     
     /**
      *  @private
-     *  Storage for the blendMode property.
+     *  Storage for the bottom property.
      */
     private var _bottom:Object;
 
