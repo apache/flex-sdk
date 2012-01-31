@@ -16,8 +16,9 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 
-import mx.components.TextView;
 import mx.components.baseClasses.FxComponent;
+import mx.components.TextSelectionVisibility;
+import mx.components.TextView;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.TextOperationEvent;
@@ -287,6 +288,45 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     }
 
     //----------------------------------
+    //  selectionVisibility
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _selectionVisibility:String =
+        TextSelectionVisibility.WHEN_FOCUSED;
+
+    /**
+     *  @private
+     */
+    private var selectionVisibilityChanged:Boolean = false;
+
+    /**
+     *  Documentation is not currently available.
+     * 
+     *  @default null
+     */
+    public function get selectionVisibility():String 
+    {
+        return _selectionVisibility;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set selectionVisibility(value:String):void
+    {
+        if (value == _selectionVisibility)
+            return;
+        
+        _selectionVisibility = value;
+        selectionVisibilityChanged = true;
+
+        invalidateProperties();
+    }
+
+    //----------------------------------
     //  text
     //----------------------------------
 
@@ -369,6 +409,12 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         {
             textView.restrict = _restrict;
             restrictChanged = false;
+        }
+
+        if (selectionVisibilityChanged)
+        {
+            textView.selectionVisibility = _selectionVisibility;
+            selectionVisibilityChanged = false;
         }
         
         if (mx_internal::textChanged)
