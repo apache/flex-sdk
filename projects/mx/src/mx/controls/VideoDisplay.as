@@ -417,7 +417,7 @@ public class VideoDisplay extends UIComponent
      */
     public function get borderMetrics():EdgeMetrics
     {
-		return (border && border is IRectangularBorder) ?
+        return (border && border is IRectangularBorder) ?
                 IRectangularBorder(border).borderMetrics : EdgeMetrics.EMPTY;
     }
 
@@ -1360,9 +1360,10 @@ public class VideoDisplay extends UIComponent
     //--------------------------------------------------------------------------
 
     /**
-     *  Specifies whether to play a video stream from a camera. 
+     *  Specifies to play a video stream from a camera. 
      *  The video is displayed within the boundaries of the 
      *  control in the application window. 
+     *  Do not call the <code>play()</code> method when displaying a stream from a camera.
      *
      *  @param camera A Camera object that 
      *  is capturing video data.
@@ -1441,6 +1442,9 @@ public class VideoDisplay extends UIComponent
      *
      *  <p>If the control is in an unresponsive state, the request is
      *  queued.</p>
+     *
+     *  <p>To stream video from a camera, call the <code>attachCamera()</code> method, 
+     *  instead of the <code>play()</code> method.</p>
      */
     public function play():void
     {
