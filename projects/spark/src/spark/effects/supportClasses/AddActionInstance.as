@@ -19,14 +19,15 @@ import mx.components.Group;
 
 import mx.core.mx_internal;
 import mx.effects.effectClasses.ActionEffectInstance;
+import mx.effects.AddAction;
 
 /**
- *  The AddChildActionInstance class implements the instance class
- *  for the AddChildAction effect.
+ *  The AddActionInstance class implements the instance class
+ *  for the AddAction effect.
  *  Flex creates an instance of this class when it plays
- *  an AddChildAction effect; you do not create one yourself.
+ *  an AddAction effect; you do not create one yourself.
  *
- *  @see mx.effects.AddChildAction
+ *  @see mx.effects.AddAction
  */  
 public class AddActionInstance extends ActionEffectInstance
 {
@@ -168,7 +169,7 @@ public class AddActionInstance extends ActionEffectInstance
 			{
 				switch (position)
 				{
-					case "index":
+					case AddAction.INDEX:
 					{
 						if (index == -1)
 							addChild(relativeTo, target);
@@ -178,26 +179,26 @@ public class AddActionInstance extends ActionEffectInstance
 						break;
 					}
 					
-					case "before":
+					case AddAction.BEFORE:
 					{
 						addChildAt(getContainer(relativeTo), target,
 							getChildIndex(getContainer(relativeTo), relativeTo));
 						break;
 					}
 
-					case "after":
+					case AddAction.AFTER:
 					{
 						addChildAt(getContainer(relativeTo), target,
 							getChildIndex(getContainer(relativeTo), relativeTo) + 1);
 						break;
 					}
 					
-					case "firstChild":
+					case AddAction.FIRST_CHILD:
 					{
 						addChildAt(relativeTo, target, 0);
 					}
 					
-					case "lastChild":
+					case AddAction.LAST_CHILD:
 					{
 						addChild(relativeTo, target);
 					}
