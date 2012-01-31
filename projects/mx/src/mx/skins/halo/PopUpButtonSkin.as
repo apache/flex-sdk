@@ -148,7 +148,7 @@ public class PopUpButtonSkin extends UIComponent implements IProgrammaticSkin
         var cornerRadius:Number = getStyle("cornerRadius");
 		var fillAlphas:Array = getStyle("fillAlphas");
 		var fillColors:Array = getStyle("fillColors");
-        StyleManager.getColorNames(fillColors);
+        StyleManager.getStyleManager(moduleFactory).getColorNames(fillColors);
 		var highlightAlphas:Array = getStyle("highlightAlphas");		
         var themeColor:uint = getStyle("themeColor");
 
