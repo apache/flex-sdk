@@ -347,7 +347,9 @@ public class FxApplication extends FxContainer
      *    This property provides the same functionality as the
      *    HTML <code>&lt;title&gt;</code> tag.
      * 
-     *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code. 
+     * 	  The value set in MXML code is designed to be used by a tool to update the HTML templates 
+     *    provided with the SDK.</p>
      *
      *    @default ""
      *  
