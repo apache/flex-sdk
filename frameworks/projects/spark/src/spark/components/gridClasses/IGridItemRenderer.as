@@ -187,7 +187,7 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     /**
      *  Called from the item renderer owner's <code>updateDisplayList()</code> method 
      *  after all of the renderer's properties have been set.  
-     *  The <code>willBeRecycled</code> parameter is <code>false</code>
+     *  The <code>hasBeenRecycled</code> parameter is <code>false</code>
      *  if this renderer has not been used before, meaning it was not recycled.  
      *  This method is called when a renderer is about to become visible 
      *  and each time it's redisplayed because of a change in a renderer
@@ -217,7 +217,7 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     /**
      *  Called from the item renderer owner's <code>updateDisplayList()</code> method 
      *  when it has been determined that this renderer will no longer be visible.   
-     *  If the <code>hasBeenRecycled</code> parameter is <code>true</code>, 
+     *  If the <code>willBeRecycled</code> parameter is <code>true</code>, 
      *  then the owner adds this renderer to its internal free list for reuse.  
      *  Implementations can use this method to clear any renderer properties that are no longer needed.
      * 
