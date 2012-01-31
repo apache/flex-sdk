@@ -299,7 +299,7 @@ public class Application extends SkinnableContainer
     *  
     *  <p>Only the main application is allowed to set the <code>colorCorrection</code>
     *  property. If a nested application's needs to set the color correction property, it 
-    *  must set it by referencing the the main application's instance.</p>
+    *  must set it by referencing the main application's instance.</p>
     *
     *  @default ColorCorrection.DEFAULT
     *
