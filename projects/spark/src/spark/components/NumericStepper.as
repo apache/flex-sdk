@@ -53,7 +53,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  <p>The NumericStepper control consists of a single-line
  *  input text field and a pair of arrow buttons
  *  for stepping through the possible values.
- *  The Up Arrow and Down Arrow keys also cycle through 
+ *  The Up Arrow and Down Arrow keys and the mouse wheel also cycle through 
  *  the values. 
  *  An input value is committed when
  *  the user presses the Enter key, removes focus from the
