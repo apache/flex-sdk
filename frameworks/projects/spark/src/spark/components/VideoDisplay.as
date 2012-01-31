@@ -154,7 +154,7 @@ use namespace mx_internal;
  * Because this component does not define a skin for the mobile theme, Adobe
  * recommends that you not use it in a mobile application. Alternatively, you
  * can define your own mobile skin for the component. For more information,
- * see <a href="http://help.adobe.com/en_US/Flex/4.0/UsingSDK/WS53116913-F952-4b21-831F-9DE85B647C8A.html"/>Spark Skinning</a>.
+ * see <a href="http://help.adobe.com/en_US/Flex/4.0/UsingSDK/WS53116913-F952-4b21-831F-9DE85B647C8A.html">Spark Skinning</a>.
  */
 [DiscouragedForProfile("mobileDevice")]
 
@@ -281,8 +281,8 @@ public class VideoDisplay extends UIComponent
                 = (intrinsicWidth || availableWidth)
                 / (intrinsicHeight || availableHeight);
                 
-                if 	(	(scaleMode == ScaleMode.ZOOM && componentRatio < availableRatio) 
-                    ||	(scaleMode == ScaleMode.LETTERBOX && componentRatio > availableRatio)
+                if  (   (scaleMode == ScaleMode.ZOOM && componentRatio < availableRatio) 
+                    ||  (scaleMode == ScaleMode.LETTERBOX && componentRatio > availableRatio)
                 )
                 {
                     result 
@@ -315,8 +315,8 @@ public class VideoDisplay extends UIComponent
                 
                 result
                 = new Point
-                ( intrinsicWidth	|| availableWidth
-                    , intrinsicHeight	|| availableHeight
+                ( intrinsicWidth    || availableWidth
+                    , intrinsicHeight   || availableHeight
                 );
                 
                 break;
@@ -1689,12 +1689,12 @@ public class VideoDisplay extends UIComponent
                 layout.percentWidth = 100;
                 layout.percentHeight = 100;
                 videoElement.addMetadata(LayoutMetadata.LAYOUT_NAMESPACE, layout);
-            }				
+            }               
 
             if (videoElement && !videoContainer.containsMediaElement(videoElement) )
             {
                 videoContainer.addMediaElement(videoElement);
-            }				
+            }               
         }
         else
         {
