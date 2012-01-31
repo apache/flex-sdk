@@ -2262,7 +2262,7 @@ public class DateField extends ComboBase
                 if (dateChooserStyleName)
                 {
                     var styleDecl:CSSStyleDeclaration =
-                    StyleManager.getStyleDeclaration("." + dateChooserStyleName);
+                    styleManager.getStyleDeclaration("." + dateChooserStyleName);
                 
                     if (styleDecl)
                     {
@@ -2474,7 +2474,7 @@ public class DateField extends ComboBase
         if (dateChooserStyleName)
         {
             var styleDecl:CSSStyleDeclaration =
-            StyleManager.getStyleDeclaration("." + dateChooserStyleName);
+            styleManager.getStyleDeclaration("." + dateChooserStyleName);
 
             if (styleDecl)
                 _dropdown.styleDeclaration = styleDecl;
