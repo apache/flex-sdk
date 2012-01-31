@@ -834,7 +834,7 @@ function xmlEncoder (myObj)
 
             if (NetworkMonitor.isMonitoring())
             {
-		    //trace(" HTTPService: Recording Headers (useProxy = true)");
+            //trace(" HTTPService: Recording Headers (useProxy = true)");
                 message.recordHeaders = true;    
             }
 
@@ -860,9 +860,9 @@ function xmlEncoder (myObj)
             }
 
             if (NetworkMonitor.isMonitoring())
-	      {
-	    		//trace(" HTTPService: Recording Headers (useProxy = false)");
-	        	message.recordHeaders = true;    
+          {
+                //trace(" HTTPService: Recording Headers (useProxy = false)");
+                message.recordHeaders = true;    
             }
 
             message.url = URLUtil.getFullURL(rootURL, url);
@@ -1035,11 +1035,6 @@ function xmlEncoder (myObj)
 
     /*
      * Kill the busy cursor, find the matching call object and pass it back
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
     override mx_internal function preHandle(event:MessageEvent):AsyncToken
     {
