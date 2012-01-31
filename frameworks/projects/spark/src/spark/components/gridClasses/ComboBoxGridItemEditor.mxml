@@ -94,20 +94,7 @@ in accordance with the terms of the license agreement accompanying it.
             {
                 super.prepare();
 
-                // reposition combobox if it doesn't fit.
-                var cellBounds:Rectangle = column.grid.getCellBounds(rowIndex, columnIndex);
-                var gridRect:Rectangle = dataGrid.grid.getVisibleRect();
-                var globalCellTopLeft:Point = dataGrid.grid.localToGlobal(cellBounds.topLeft);
-                var availableWidth:Number = gridRect.right - globalCellTopLeft.x;  
-                if (availableWidth < comboBox.width &&
-                    globalCellTopLeft.x - gridRect.x > (comboBox.width - availableWidth))
-                {
-                    comboBox.move(comboBox.x - (comboBox.width - availableWidth), comboBox.y);
-                }
-            
                 comboBox.openDropDown();
-                bgRect.width = cellBounds.width - int(bgRect.left);
-                bgRect.height = cellBounds.height - int(bgRect.top);
             }
             
             
@@ -135,7 +122,7 @@ in accordance with the terms of the license agreement accompanying it.
     </fx:Script>
 
     <!--- Background to cover the cell that the combo box does not. -->
-    <s:Rect id="bgRect" top="1" left="1">
+    <s:Rect id="bgRect" top="1" left="1" bottom="0" right="0">
         <s:fill>
             <!--- Defines the color of the background. The default color is 0xFFFFFF. -->
             <s:SolidColor id="bgFill" color="0xFFFFFF" />
@@ -143,6 +130,6 @@ in accordance with the terms of the license agreement accompanying it.
     </s:Rect>
 
     <!--- The editor's ComboBox component. -->
-    <s:ComboBox id="comboBox" dataProvider="{dataProvider}" change="comboBox_changeHandler()" />
+    <s:ComboBox id="comboBox" width="100%" dataProvider="{dataProvider}" change="comboBox_changeHandler()" />
     
 </s:GridItemEditor>
