@@ -293,7 +293,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get resizeForSoftKeyboard():Boolean
     {
@@ -324,7 +324,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get moveForSoftKeyboard():Boolean
     {
@@ -413,7 +413,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function updatePopUpPosition():void
     {
@@ -510,7 +510,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected function createSoftKeyboardEffect(yTo:Number, heightTo:Number):IEffect
     {
