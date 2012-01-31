@@ -82,7 +82,7 @@ import mx.utils.StringUtil;
 import spark.components.TextSelectionVisibility;
 import spark.core.CSSTextLayoutFormat;
 import spark.core.IViewport;
-import spark.core.ScrollUnit;
+import spark.core.NavigationUnit;
 import spark.events.TextOperationEvent;
 import spark.primitives.supportClasses.RichEditableTextContainerManager;
 import spark.utils.TextUtil;
@@ -1873,7 +1873,7 @@ public class RichEditableText extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
+    public function getHorizontalScrollPositionDelta(navigationUnit:uint):Number
     {
         var scrollR:Rectangle = scrollRect;
         if (!scrollR)
@@ -1888,24 +1888,24 @@ public class RichEditableText extends UIComponent
         var em:Number = getStyle("fontSize");
             
         // ToDo: what if blockDirection!=TB and direction!=LTR?                   
-        switch (scrollUnit)
+        switch (navigationUnit)
         {
-            case ScrollUnit.LEFT:
+            case NavigationUnit.LEFT:
                 return (scrollR.left <= 0) ? 0 : Math.max(minDelta, -em);
                 
-            case ScrollUnit.RIGHT:
+            case NavigationUnit.RIGHT:
                 return (scrollR.right >= contentWidth) ? 0 : Math.min(maxDelta, em);
                 
-            case ScrollUnit.PAGE_LEFT:
+            case NavigationUnit.PAGE_LEFT:
                 return Math.max(minDelta, -scrollR.width);
                 
-            case ScrollUnit.PAGE_RIGHT:
+            case NavigationUnit.PAGE_RIGHT:
                 return Math.min(maxDelta, scrollR.width);
                 
-            case ScrollUnit.HOME: 
+            case NavigationUnit.HOME: 
                 return minDelta;
                 
-            case ScrollUnit.END: 
+            case NavigationUnit.END: 
                 return maxDelta;
                 
             default:
@@ -1925,7 +1925,7 @@ public class RichEditableText extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
+    public function getVerticalScrollPositionDelta(navigationUnit:uint):Number
     {
         var scrollR:Rectangle = scrollRect;
         if (!scrollR)
@@ -1937,24 +1937,24 @@ public class RichEditableText extends UIComponent
         var minDelta:Number = -scrollR.top;
                 
         // ToDo: what if blockDirection!=TB and direction!=LTR?                   
-        switch (scrollUnit)
+        switch (navigationUnit)
         {
-            case ScrollUnit.UP:
+            case NavigationUnit.UP:
                 return _textContainerManager.getScrollDelta(-1);
                 
-            case ScrollUnit.DOWN:
+            case NavigationUnit.DOWN:
                 return _textContainerManager.getScrollDelta(1);
                 
-            case ScrollUnit.PAGE_UP:
+            case NavigationUnit.PAGE_UP:
                 return Math.max(minDelta, -scrollR.height);
                 
-            case ScrollUnit.PAGE_DOWN:
+            case NavigationUnit.PAGE_DOWN:
                 return Math.min(maxDelta, scrollR.height);
                 
-            case ScrollUnit.HOME:
+            case NavigationUnit.HOME:
                 return minDelta;
                 
-            case ScrollUnit.END:
+            case NavigationUnit.END:
                 return maxDelta;
                 
             default:
