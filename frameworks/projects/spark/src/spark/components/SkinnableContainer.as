@@ -191,7 +191,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @productversion Flex 4
  */
 public class SkinnableContainer extends SkinnableContainerBase 
-       implements IDeferredContentOwner, IViewport, IVisualElementContainer
+       implements IDeferredContentOwner, IVisualElementContainer
 {
     include "../core/Version.as";
     
@@ -209,22 +209,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     /**
      *  @private
      */
-    private static const CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG:uint = 1 << 1;
-    
-    /**
-     *  @private
-     */
-    private static const HORIZONTAL_SCROLL_POSITION_PROPERTY_FLAG:uint = 1 << 2;
-    
-    /**
-     *  @private
-     */
-    private static const LAYOUT_PROPERTY_FLAG:uint = 1 << 3;
-    
-    /**
-     *  @private
-     */
-    private static const VERTICAL_SCROLL_POSITION_PROPERTY_FLAG:uint = 1 << 4;
+    private static const LAYOUT_PROPERTY_FLAG:uint = 1 << 1;
 
     //--------------------------------------------------------------------------
     //
@@ -405,121 +390,6 @@ public class SkinnableContainer extends SkinnableContainerBase
     }
     
     //----------------------------------
-    //  clipAndEnableScrolling
-    //----------------------------------
-    
-    /**
-     *  @inheritDoc
-     *
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get clipAndEnableScrolling():Boolean 
-    {
-        return (contentGroup) 
-            ? contentGroup.clipAndEnableScrolling 
-            : contentGroupProperties.clipAndEnableScrolling;
-    }
-
-    /**
-     *  @private
-     */
-    public function set clipAndEnableScrolling(value:Boolean):void 
-    {       
-        if (contentGroup)
-        {
-            contentGroup.clipAndEnableScrolling = value;
-            contentGroupProperties = BitFlagUtil.update(contentGroupProperties as uint, 
-                                                        CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG, true);
-        }
-        else
-            contentGroupProperties.clipAndEnableScrolling = value;
-    }
-    
-    //----------------------------------
-    //  contentWidth
-    //---------------------------------- 
-    
-    [Bindable("propertyChange")]
-    [Inspectable(category="General")]    
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get contentWidth():Number 
-    {
-        return (contentGroup) ? contentGroup.contentWidth : 0;  
-    }
-
-    //----------------------------------
-    //  contentHeight
-    //---------------------------------- 
-    
-    [Bindable("propertyChange")]
-    [Inspectable(category="General")]    
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get contentHeight():Number 
-    {
-        return (contentGroup) ? contentGroup.contentHeight : 0;
-    }
-    
-    //----------------------------------
-    //  horizontalScrollPosition
-    //----------------------------------
-        
-    [Bindable("propertyChange")]
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get horizontalScrollPosition():Number 
-    {
-        if (contentGroup)
-            return contentGroup.horizontalScrollPosition;
-        
-        var hsp:Number = contentGroupProperties.horizontalScrollPosition;
-        return isNaN(hsp) ? 0 : hsp;
-        
-    }
-
-    /**
-     *  @private
-     */
-    public function set horizontalScrollPosition(value:Number):void 
-    {
-        if (contentGroup)
-        {
-            contentGroup.horizontalScrollPosition = value;
-            contentGroupProperties = BitFlagUtil.update(contentGroupProperties as uint, 
-                                                        HORIZONTAL_SCROLL_POSITION_PROPERTY_FLAG, true);
-        }
-        else
-            contentGroupProperties.horizontalScrollPosition = value;
-    }
-    
-    //----------------------------------
     //  layout
     //----------------------------------
     
@@ -634,44 +504,6 @@ public class SkinnableContainer extends SkinnableContainerBase
         
         _mxmlContentFactory = value;
         mxmlContentCreated = false;
-    }
-    
-    //----------------------------------
-    //  verticalScrollPosition
-    //----------------------------------
-    
-    [Bindable("propertyChange")]
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get verticalScrollPosition():Number 
-    {
-        if (contentGroup)
-            return contentGroup.verticalScrollPosition;
-        
-        var vsp:Number = contentGroupProperties.verticalScrollPosition;
-        return isNaN(vsp) ? 0 : vsp;        
-    }
-
-    /**
-     *  @private
-     */
-    public function set verticalScrollPosition(value:Number):void 
-    {
-        if (contentGroup)
-        {
-            contentGroup.verticalScrollPosition = value;
-            contentGroupProperties = BitFlagUtil.update(contentGroupProperties as uint, 
-                                                        VERTICAL_SCROLL_POSITION_PROPERTY_FLAG, true);
-        }
-        else
-            contentGroupProperties.verticalScrollPosition = value;
     }
          
     //--------------------------------------------------------------------------
@@ -827,38 +659,6 @@ public class SkinnableContainer extends SkinnableContainerBase
         currentContentGroup.swapElementsAt(index1, index2);
     }
     
-    //----------------------------------
-    //  getHorizontal,VerticalScrollPositionDelta
-    //----------------------------------
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function getHorizontalScrollPositionDelta(navigationUnit:uint):Number
-    {
-        return (contentGroup) ?
-            contentGroup.getHorizontalScrollPositionDelta(navigationUnit) : 0;     
-    }
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function getVerticalScrollPositionDelta(navigationUnit:uint):Number
-    {
-        return (contentGroup) ? 
-            contentGroup.getVerticalScrollPositionDelta(navigationUnit) : 0;     
-    }
-
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -878,7 +678,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     {
         super.createChildren();
         
-        // FIXME (rfrishbe): When navigator support is added, this is where we would 
+        // TODO (rfrishbe): When navigator support is added, this is where we would 
         // determine if content should be created now, or wait until
         // later. For now, we always create content here unless
         // creationPolicy="none".
@@ -939,32 +739,11 @@ public class SkinnableContainer extends SkinnableContainerBase
                                                                AUTO_LAYOUT_PROPERTY_FLAG, true);
             }
             
-            if (contentGroupProperties.clipAndEnableScrolling !== undefined)
-            {
-                contentGroup.clipAndEnableScrolling = contentGroupProperties.clipAndEnableScrolling;
-                newContentGroupProperties = BitFlagUtil.update(newContentGroupProperties, 
-                                                               CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG, true);
-            }
-            
             if (contentGroupProperties.layout !== undefined)
             {
                 contentGroup.layout = contentGroupProperties.layout;
                 newContentGroupProperties = BitFlagUtil.update(newContentGroupProperties, 
                                                                LAYOUT_PROPERTY_FLAG, true);
-            }
-            
-            if (contentGroupProperties.horizontalScrollPosition !== undefined)
-            {
-                contentGroup.horizontalScrollPosition = contentGroupProperties.horizontalScrollPosition;
-                newContentGroupProperties = BitFlagUtil.update(newContentGroupProperties, 
-                                                               HORIZONTAL_SCROLL_POSITION_PROPERTY_FLAG, true);
-            }
-            
-            if (contentGroupProperties.verticalScrollPosition !== undefined)
-            {
-                contentGroup.verticalScrollPosition = contentGroupProperties.verticalScrollPosition;
-                newContentGroupProperties = BitFlagUtil.update(newContentGroupProperties, 
-                                                               VERTICAL_SCROLL_POSITION_PROPERTY_FLAG, true);
             }
             
             contentGroupProperties = newContentGroupProperties;
@@ -973,14 +752,6 @@ public class SkinnableContainer extends SkinnableContainerBase
                 ElementExistenceEvent.ELEMENT_ADD, contentGroup_elementAddedHandler);
             contentGroup.addEventListener(
                 ElementExistenceEvent.ELEMENT_REMOVE, contentGroup_elementRemovedHandler);
-            
-            if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
-            {
-                // the only reason we have this listener is to re-dispatch events.  So only add it here
-                // if someone's listening on us.
-                contentGroup.addEventListener(
-                    PropertyChangeEvent.PROPERTY_CHANGE, contentGroup_propertyChangeHandler);
-            }
             
             if (_placeHolderGroup)
             {
@@ -1010,8 +781,6 @@ public class SkinnableContainer extends SkinnableContainerBase
                 ElementExistenceEvent.ELEMENT_ADD, contentGroup_elementAddedHandler);
             contentGroup.removeEventListener(
                 ElementExistenceEvent.ELEMENT_REMOVE, contentGroup_elementRemovedHandler);
-            contentGroup.removeEventListener(
-                PropertyChangeEvent.PROPERTY_CHANGE, contentGroup_propertyChangeHandler);
             
             // copy proxied values from contentGroup (if explicitely set) to contentGroupProperties
             
@@ -1020,17 +789,8 @@ public class SkinnableContainer extends SkinnableContainerBase
             if (BitFlagUtil.isSet(contentGroupProperties as uint, AUTO_LAYOUT_PROPERTY_FLAG))
                 newContentGroupProperties.autoLayout = contentGroup.autoLayout;
             
-            if (BitFlagUtil.isSet(contentGroupProperties as uint, CLIP_AND_ENABLE_SCROLLING_PROPERTY_FLAG))
-                newContentGroupProperties.clipAndEnableScrolling = contentGroup.clipAndEnableScrolling;
-            
             if (BitFlagUtil.isSet(contentGroupProperties as uint, LAYOUT_PROPERTY_FLAG))
                 newContentGroupProperties.layout = contentGroup.layout;
-            
-            if (BitFlagUtil.isSet(contentGroupProperties as uint, HORIZONTAL_SCROLL_POSITION_PROPERTY_FLAG))
-                newContentGroupProperties.horizontalScrollPosition = contentGroup.horizontalScrollPosition;
-            
-            if (BitFlagUtil.isSet(contentGroupProperties as uint, VERTICAL_SCROLL_POSITION_PROPERTY_FLAG))
-                newContentGroupProperties.verticalScrollPosition = contentGroup.verticalScrollPosition;
                 
             contentGroupProperties = newContentGroupProperties;
             
@@ -1050,52 +810,6 @@ public class SkinnableContainer extends SkinnableContainerBase
             
             contentGroup.mxmlContent = null;
             contentGroup.layout = null;
-        }
-    }
-    
-    /**
-     *  @private
-     * 
-     *  This method is overridden so we can figure out when someone starts listening
-     *  for property change events.  If no one's listening for them, then we don't 
-     *  listen for them on our contentGroup.
-     */
-    override public function addEventListener(
-        type:String, listener:Function, useCapture:Boolean=false, priority:int=0, useWeakReference:Boolean=false) : void
-    {
-        super.addEventListener(type, listener, useCapture, priority, useWeakReference);
-        
-        // if it's a different type of event or the contentGroup doesn't
-        // exist, don't worry about it.  When the contentGroup, 
-        // gets created up, we'll check to see whether we need to add this 
-        // event listener to the contentGroup.
-        if (type == PropertyChangeEvent.PROPERTY_CHANGE && contentGroup)
-        {
-            contentGroup.addEventListener(
-                PropertyChangeEvent.PROPERTY_CHANGE, contentGroup_propertyChangeHandler);
-        }
-    }
-    
-    /**
-     *  @private
-     * 
-     *  This method is overridden so we can figure out when someone stops listening
-     *  for property change events.  If no one's listening for them, then we don't 
-     *  listen for them on our contentGroup.
-     */
-    override public function removeEventListener(type:String, listener:Function, useCapture:Boolean=false) : void
-    {
-        super.removeEventListener(type, listener, useCapture);
-        
-        // if no one's listening to us for this event any more, let's 
-        // remove our underlying event listener from the contentGroup.
-        if (type == PropertyChangeEvent.PROPERTY_CHANGE && contentGroup)
-        {
-            if (!hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
-            {
-                contentGroup.removeEventListener(
-                    PropertyChangeEvent.PROPERTY_CHANGE, contentGroup_propertyChangeHandler);
-            }
         }
     }
     
@@ -1183,24 +897,6 @@ public class SkinnableContainer extends SkinnableContainerBase
         
         // Re-dispatch the event
         dispatchEvent(event);
-    }
-    
-   /**
-    * @private
-    */
-    private function contentGroup_propertyChangeHandler(event:PropertyChangeEvent):void
-    {
-        // Re-dispatch the event if it's one other people are binding too
-        switch (event.property)
-        {
-            case 'contentWidth':
-            case 'contentHeight':
-            case 'horizontalScrollPosition':
-            case 'verticalScrollPosition':
-            {
-                dispatchEvent(event);
-            }
-        }
     }
 }
 
