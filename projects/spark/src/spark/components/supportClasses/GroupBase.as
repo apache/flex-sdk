@@ -1146,6 +1146,52 @@ public class GroupBase extends UIComponent implements IViewport
     }
 
     /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+	override public function setEstimatedSize(estimatedWidth:Number = NaN, 
+												estimatedHeight:Number = NaN,
+												invalidateSize:Boolean = true):void
+    {
+        var oldcw:Number = this.estimatedWidth;
+        var oldch:Number = this.estimatedHeight;
+        super.setEstimatedSize(estimatedWidth, estimatedHeight);
+		var sameWidth:Boolean = isNaN(estimatedWidth) && isNaN(oldcw) || estimatedWidth == oldcw;
+		var sameHeight:Boolean = isNaN(estimatedHeight) && isNaN(oldch) || estimatedHeight == oldch;
+		if (!(sameHeight && sameWidth))
+        {
+            if (!isNaN(explicitWidth) &&
+                !isNaN(explicitHeight))
+                return;
+    
+            if (_layout)
+                layout.setEstimatedSize(estimatedWidth, estimatedHeight, invalidateSize);
+        }
+        
+    }
+    
+    /**
+     *  @private
+     */
+    override public function validateEstimatedSizesOfChildren():void
+    {
+        if (!childEstimatedSizesChanged)
+            return;
+        
+        if (_layout)
+		{
+            layout.estimateSizesOfElements();
+			childEstimatedSizesChanged = false;
+		}
+        else
+            super.validateEstimatedSizesOfChildren();
+    }
+    
+    /**
      *  @private
      */
     override protected function validateMatrix():void
@@ -1753,7 +1799,7 @@ public class GroupBase extends UIComponent implements IViewport
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getVirtualElementAt(index:int, eltWidth:Number=NaN, eltHeight:Number=NaN):IVisualElement
+    public function getVirtualElementAt(index:int, eltWidth:Number=NaN, eltHeight:Number=NaN, skipValidation:Boolean = false):IVisualElement
     {
         return getElementAt(index);            
     }
