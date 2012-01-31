@@ -120,17 +120,18 @@ public class NetworkMonitor
     
     /**
      *  Adjust the URLRequest so that it goes through the monitor. 
-     *  The URLRequest sent to the monitor will have two headers: 
-     *  actualHostPort -- the real host:port for the url
-     *  correlationID  -- the correlationID for the request in case it's from 
-     *                    messaging (Image/Loader requests need to create
-     *                    their  own correlationIDs)
+     *  The URLRequest sent to the monitor will have two headers:
+     *  <ul>
+     *    <li><code>actualHostPort</code>: The real <code>host:port</code> for the URL.</li>
+     *    <li><code>correlationID</code>: The correlationID for the request in case it's from 
+     *                    messaging (Image/Loader requests need to create their  own correlationIDs)</li>
+     *  </ul>
      *
      *  @param urlRequest The URLRequest to adjust.
      *  (Relative URLs are supported.)
      *
-     *  @param rootURL Used to compute an absolute URL from the relative
-     *  if necessary, pass the SWFs URL.
+     *  @param rootURL Computes an absolute URL from the relative URL.
+     *  If necessary, pass the SWF file's URL as this value.
      *
      *  @param correlationID The correlationID that may be used
      *  for associated events.
@@ -150,8 +151,7 @@ public class NetworkMonitor
     
     /**
      *  Tell the monitor that an event occurred.
-     *  This may be used by the Loader to monitor Security and IOErrors
-     *  (not that Security will ever be thrown). 
+     *  This may be used by the Loader to monitor security and IO errors.
      *  It should not be used for the Loader's <code>complete</code> event.
      * 
      *  @param event The event that is about to occur (or occurred).
