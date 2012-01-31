@@ -1177,22 +1177,6 @@ public class PopUpButton extends Button
     
     /**
      *  @private
-     */    
-    mx_internal function getUnscaledWidth():Number
-    {
-        return unscaledWidth;
-    }
-
-    /**
-     *  @private
-     */    
-    mx_internal function getUnscaledHeight():Number
-    {
-        return unscaledHeight;
-    }
-
-    /**
-     *  @private
      */
     mx_internal function get isShowingPopUp():Boolean
     {
