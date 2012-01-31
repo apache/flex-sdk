@@ -357,7 +357,7 @@ public class DropDownController extends EventDispatcher
             
             _isOpen = true;
             // Force the button to stay in the down state
-            if(openButton)
+            if (openButton)
                 openButton.keepDown(true, !isProgrammatic); 
             
             dispatchEvent(new DropDownEvent(DropDownEvent.OPEN));
@@ -380,7 +380,7 @@ public class DropDownController extends EventDispatcher
         if (isOpen)
         {   
             _isOpen = false;
-            if(openButton)
+            if (openButton)
                 openButton.keepDown(false);
             
             var dde:DropDownEvent = new DropDownEvent(DropDownEvent.CLOSE, false, true);
@@ -489,11 +489,11 @@ public class DropDownController extends EventDispatcher
              || (dropDown is DisplayObjectContainer && 
                  !DisplayObjectContainer(dropDown).contains(DisplayObject(event.target))))))
         {
-            if(hitAreaAdditions != null)
+            if (hitAreaAdditions != null)
             {
-                for(var i:int = 0;i<hitAreaAdditions.length;i++)
+                for (var i:int = 0;i<hitAreaAdditions.length;i++)
                 {
-                    if(hitAreaAdditions[i] == event.target ||
+                    if (hitAreaAdditions[i] == event.target ||
                         ((hitAreaAdditions[i] is DisplayObjectContainer) && DisplayObjectContainer(hitAreaAdditions[i]).contains(event.target as DisplayObject)))
                         return;
                 }
@@ -529,11 +529,11 @@ public class DropDownController extends EventDispatcher
             // check if the target is the openButton or contained within the openButton
             if (openButton.contains(target))
                 return;
-            if(hitAreaAdditions != null)
+            if (hitAreaAdditions != null)
             {
-                for(var i:int = 0;i<hitAreaAdditions.length;i++)
+                for (var i:int = 0;i<hitAreaAdditions.length;i++)
                 {
-                    if(hitAreaAdditions[i] == target ||
+                    if (hitAreaAdditions[i] == target ||
                         ((hitAreaAdditions[i] is DisplayObjectContainer) && DisplayObjectContainer(hitAreaAdditions[i]).contains(target as DisplayObject)))
                         return;
                 }
