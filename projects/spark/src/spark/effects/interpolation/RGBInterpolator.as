@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects.interpolation
+package spark.effects.interpolation
 {
 /**
  * The RGBInterpolator class provides RGB-space interpolation between
