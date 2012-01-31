@@ -43,6 +43,11 @@ use namespace mx_internal;
  *  For the TileList control, use an instance of the DefaultTileListEffect class.</p>
  *
  * @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Effect(name="itemsChangeEffect", event="itemsChange")]
 
@@ -90,6 +95,11 @@ use namespace mx_internal;
  *  </pre>
  *
  *  @includeExample examples/TileListExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TileList extends TileBase
 {
@@ -103,6 +113,11 @@ public class TileList extends TileBase
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function TileList()
 	{
