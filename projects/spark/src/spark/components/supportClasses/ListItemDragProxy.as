@@ -25,7 +25,8 @@ import spark.components.IItemRenderer;
 import spark.components.List;
 
 /**
- *  The default drag proxy used when dragging from a Spark List based control.
+ *  The ListItemDragProxy class defines the default drag proxy used 
+ *  when dragging from a Spark List based control.
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -96,11 +97,11 @@ public class ListItemDragProxy extends Group
             offsetX = scrollRect.x;
             offsetY = scrollRect.y;
         }
-		
-		var perspectiveProjection:PerspectiveProjection = dataGroup.transform.perspectiveProjection;
+        
+        var perspectiveProjection:PerspectiveProjection = dataGroup.transform.perspectiveProjection;
         
         // Construct an image by adding clones of the visible item renderers
-		var elementsIn3D:Boolean = false;
+        var elementsIn3D:Boolean = false;
         var count:int = selection.length;
         for (var i:int = 0; i < count; i++)
         {
@@ -111,63 +112,63 @@ public class ListItemDragProxy extends Group
             if (!element || !(element is IItemRenderer))
                 continue;
             
-			if (element.is3D)
-				elementsIn3D = true;
-			
+            if (element.is3D)
+                elementsIn3D = true;
+            
             // Check visibility of the ItemRenderer. It's not guaranteed that the
             // dataGroup returns null for ItemRenderers outside the viewport
-			if (scrollRect)
-			{
-				var elementBounds:Rectangle;
-				if (element.hasLayoutMatrix3D)
-				{
-					// Bounds in child coordinates
-					elementBounds = new Rectangle(0, 0,
-												  element.getLayoutBoundsWidth(false), 
-												  element.getLayoutBoundsHeight(false));
+            if (scrollRect)
+            {
+                var elementBounds:Rectangle;
+                if (element.hasLayoutMatrix3D)
+                {
+                    // Bounds in child coordinates
+                    elementBounds = new Rectangle(0, 0,
+                                                  element.getLayoutBoundsWidth(false), 
+                                                  element.getLayoutBoundsHeight(false));
 
-					// Bounds transformed in 3D and projected to parent
-					elementBounds = MatrixUtil.projectBounds(elementBounds, 
-															 element.getLayoutMatrix3D(), 
-															 perspectiveProjection);
-				}
-				else
-					elementBounds = getElementBounds(element);
+                    // Bounds transformed in 3D and projected to parent
+                    elementBounds = MatrixUtil.projectBounds(elementBounds, 
+                                                             element.getLayoutMatrix3D(), 
+                                                             perspectiveProjection);
+                }
+                else
+                    elementBounds = getElementBounds(element);
 
-				if (!scrollRect.containsRect(elementBounds) && !scrollRect.intersects(elementBounds))
-					continue;
-			}
+                if (!scrollRect.containsRect(elementBounds) && !scrollRect.intersects(elementBounds))
+                    continue;
+            }
 
             var clone:IItemRenderer = cloneItemRenderer(IItemRenderer(element), list);
 
-			// Copy the dimensions
-			clone.width = element.width;
-			clone.height = element.height;
+            // Copy the dimensions
+            clone.width = element.width;
+            clone.height = element.height;
 
-			// Copy the transform
-			if (element.hasLayoutMatrix3D)
-				clone.setLayoutMatrix3D(element.getLayoutMatrix3D(), false);
-			else
-				clone.setLayoutMatrix(element.getLayoutMatrix(), false);
-			clone.x -= offsetX;
-			clone.y -= offsetY;
+            // Copy the transform
+            if (element.hasLayoutMatrix3D)
+                clone.setLayoutMatrix3D(element.getLayoutMatrix3D(), false);
+            else
+                clone.setLayoutMatrix(element.getLayoutMatrix(), false);
+            clone.x -= offsetX;
+            clone.y -= offsetY;
 
-			// Copy other relevant properties
-			clone.depth = element.depth;
-			clone.visible = element.visible;
-			if (element.postLayoutTransformOffsets)
-				clone.postLayoutTransformOffsets = element.postLayoutTransformOffsets;
-			
-			// Put it in a dragging state
-			clone.dragging = true;
+            // Copy other relevant properties
+            clone.depth = element.depth;
+            clone.visible = element.visible;
+            if (element.postLayoutTransformOffsets)
+                clone.postLayoutTransformOffsets = element.postLayoutTransformOffsets;
+            
+            // Put it in a dragging state
+            clone.dragging = true;
 
             // Add the clone as a child
             addElement(clone);
         }
 
         // Copy projection matrix, if there was an element in 3d.
-		if (elementsIn3D)
-			this.transform.perspectiveProjection = perspectiveProjection;
+        if (elementsIn3D)
+            this.transform.perspectiveProjection = perspectiveProjection;
     }
     
     //--------------------------------------------------------------------------
