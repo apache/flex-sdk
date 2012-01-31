@@ -43,7 +43,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:Scale
+ *  &lt;s:Scale
  *    id="ID"
  *    scaleXBy="val"
  *    scaleXFrom="val"
