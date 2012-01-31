@@ -125,7 +125,7 @@ include "../styles/metadata/PaddingStyles.as";
  *  In MXML, you can use the following syntax to set this property:
  *  <code>defaultLeafIcon="&#64;Embed(source='c.jpg');"</code>
  *
- *  @default TreeNodeIcon in assets.swf
+ *  The default value is the "TreeNodeIcon" symbol in the Assets.swf file.
  */
 [Style(name="defaultLeafIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -133,7 +133,7 @@ include "../styles/metadata/PaddingStyles.as";
  *  Specifies the icon that is displayed next to a parent item that is open so that its
  *  children are displayed.
  *
- *  @default TreeDisclosureOpen in assets.swf
+ *  The default value is the "TreeDisclosureOpen" symbol in the Assets.swf file.
  */
 [Style(name="disclosureOpenIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -141,7 +141,7 @@ include "../styles/metadata/PaddingStyles.as";
  *  Specifies the icon that is displayed next to a parent item that is closed so that its
  *  children are not displayed (the subtree is collapsed).
  *
- *  @default TreeDisclosureClosed in assets.swf
+ *  The default value is the "TreeDisclosureClosed" symbol in the Assets.swf file.
  */
 [Style(name="disclosureClosedIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -150,7 +150,7 @@ include "../styles/metadata/PaddingStyles.as";
  *  In MXML, you can use the following syntax to set this property:
  *  <code>folderOpenIcon="&#64;Embed(source='a.jpg');"</code>
  *
- *  @default TreeFolderOpen in assets.swf
+ *  The default value is the "TreeFolderOpen" symbol in the Assets.swf file.
  */
 [Style(name="folderOpenIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -159,7 +159,7 @@ include "../styles/metadata/PaddingStyles.as";
  *  In MXML, you can use the following syntax to set this property:
  *  <code>folderClosedIcon="&#64;Embed(source='b.jpg');"</code>
  *
- *  @default TreeFolderClosed in assets.swf
+ *  The default value is the "TreeFolderClosed" symbol in the Assets.swf file.
  */
 [Style(name="folderClosedIcon", type="Class", format="EmbeddedFile", inherit="no")]
 
@@ -307,12 +307,12 @@ include "../styles/metadata/PaddingStyles.as";
  *    <b>Styles</b>
  *    alternatingItemColors="undefined"
  *    backgroundDisabledColor="0xDDDDDD"
- *    defaultLeafIcon="<i>TreeNodeIcon in assets.swf</i>"
+ *    defaultLeafIcon="<i>'TreeNodeIcon' symbol in Assets.swf</i>"
  *    depthColors="undefined"
- *    disclosureClosedIcon="<i>TreeDisclosureClosed in assets.swf</i>"
- *    disclosureOpenIcon="<i>TreeDisclosureOpen in assets.swf</i>"
- *    folderClosedIcon="<i>TreeFolderClosed in assets.swf</i>"
- *    folderOpenIcon="<i>TreeFolderOpen in assets.swf</i>"
+ *    disclosureClosedIcon="<i>'TreeDisclosureClosed' symbol in Assets.swf</i>"
+ *    disclosureOpenIcon="<i>'TreeDisclosureOpen' symbol in Assets.swf</i>"
+ *    folderClosedIcon="<i>'TreeFolderClosed' symbol in Assets.swf</i>"
+ *    folderOpenIcon="<i>'TreeFolderOpen' symbol in Assets.swf</i>"
  *    indentation="17"
  *    openDuration="250"
  *    openEasingFunction="undefined"
