@@ -26,6 +26,8 @@ import mx.effects.interpolation.NumberArrayInterpolator;
 import mx.effects.interpolation.NumberInterpolator;
 import mx.effects.interpolation.Sine;
 import mx.events.AnimationEvent;
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;
 
 /**
  * Dispatched when the animation starts. The first 
@@ -61,6 +63,12 @@ import mx.events.AnimationEvent;
  * @eventType mx.events.AnimationEvent.ANIMATION_END
  */
 [Event(name="animationEnd", type="mx.events.AnimationEvent")]
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[ResourceBundle("sparkEffects")]
 
 /**
  * The Animation class defines an animation that happens between 
@@ -167,6 +175,13 @@ public class Animation extends EventDispatcher
     private static var delayedStartAnims:Vector.<Animation> =
         new Vector.<Animation>();
     private static var delayedStartTimes:Dictionary = new Dictionary();
+    
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private var resourceManager:IResourceManager =
+                                    ResourceManager.getInstance();
     
     //--------------------------------------------------------------------------
     //
@@ -890,8 +905,7 @@ public class Animation extends EventDispatcher
                 {
                     if (isNaN(startArray[i]))
                     {
-                        throw new Error("startValue array contains non-Numbers: " +
-                                        "must supply Interpolator to Animation");
+                        throw new Error(resourceManager.getString("sparkEffects", "startValContainsNonNums"));
                         return;
                     }
                 }                        
@@ -899,8 +913,7 @@ public class Animation extends EventDispatcher
                 {
                     if (isNaN(endArray[i]))
                     {
-                        throw new Error("endValue array contains non-Numbers: " +
-                                        "must supply Interpolator to Animation");
+                        throw new Error(resourceManager.getString("sparkEffects", "endValContainsNonNums"));
                         return;
                     }
                 }
