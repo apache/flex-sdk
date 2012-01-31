@@ -11,12 +11,13 @@
 
 package spark.components.supportClasses
 {
-import flash.display.DisplayObject;
+import flash.geom.PerspectiveProjection;
 import flash.geom.Rectangle;
+import flash.display.DisplayObject;
 
 import mx.core.IFactory;
-import mx.core.IInvalidating;
 import mx.core.IVisualElement;
+import mx.utils.MatrixUtil;
 
 import spark.components.DataGroup;
 import spark.components.Group;
@@ -79,8 +80,6 @@ public class ListItemDragProxy extends Group
         // may be affecting the appearance of the item renderers.
         this.styleName = list;
         
-        // Generate a dragImage
-        // FIXME (egeorgie): do we need to set the image size here?
         width = dataGroup.width
         height = dataGroup.height;
         
@@ -97,8 +96,11 @@ public class ListItemDragProxy extends Group
             offsetX = scrollRect.x;
             offsetY = scrollRect.y;
         }
+		
+		var perspectiveProjection:PerspectiveProjection = dataGroup.transform.perspectiveProjection;
         
         // Construct an image by adding clones of the visible item renderers
+		var elementsIn3D:Boolean = false;
         var count:int = selection.length;
         for (var i:int = 0; i < count; i++)
         {
@@ -109,36 +111,63 @@ public class ListItemDragProxy extends Group
             if (!element || !(element is IItemRenderer))
                 continue;
             
-            // FIXME (egeorgie): figure out a better way to test for 3D.
-            var displayObject:DisplayObject = element as DisplayObject;
-            var is3D:Boolean = false;
-            
+			if (element.is3D)
+				elementsIn3D = true;
+			
             // Check visibility of the ItemRenderer. It's not guaranteed that the
             // dataGroup returns null for ItemRenderers outside the viewport
-            if (scrollRect)
-            {
-                // FIXME (egeorgie): For elements with 3D, the bounds calculations will not be correct.
-                if (is3D)
-                {
-                }
-                else
-                {
-                    var elementBounds:Rectangle = getElementBounds(element);
-                    if (!scrollRect.containsRect(elementBounds) && !scrollRect.intersects(elementBounds))
-                        continue;
-                }
-            }
-            
+			if (scrollRect)
+			{
+				var elementBounds:Rectangle;
+				if (element.hasLayoutMatrix3D)
+				{
+					// Bounds in child coordinates
+					elementBounds = new Rectangle(0, 0,
+												  element.getLayoutBoundsWidth(false), 
+												  element.getLayoutBoundsHeight(false));
+
+					// Bounds transformed in 3D and projected to parent
+					elementBounds = MatrixUtil.projectBounds(elementBounds, 
+															 element.getLayoutMatrix3D(), 
+															 perspectiveProjection);
+				}
+				else
+					elementBounds = getElementBounds(element);
+
+				if (!scrollRect.containsRect(elementBounds) && !scrollRect.intersects(elementBounds))
+					continue;
+			}
+
             var clone:IItemRenderer = cloneItemRenderer(IItemRenderer(element), list);
-            clone.dragging = true; 
+
+			// Copy the dimensions
+			clone.width = element.width;
+			clone.height = element.height;
+
+			// Copy the transform
+			if (element.hasLayoutMatrix3D)
+				clone.setLayoutMatrix3D(element.getLayoutMatrix3D(), false);
+			else
+				clone.setLayoutMatrix(element.getLayoutMatrix(), false);
+			clone.x -= offsetX;
+			clone.y -= offsetY;
+
+			// Copy other relevant properties
+			clone.depth = element.depth;
+			clone.visible = element.visible;
+			if (element.postLayoutTransformOffsets)
+				clone.postLayoutTransformOffsets = element.postLayoutTransformOffsets;
+			
+			// Put it in a dragging state
+			clone.dragging = true;
 
             // Add the clone as a child
-            clone.x -= offsetX;
-            clone.y -= offsetY;
             addElement(clone);
         }
-        
-        // FIXME (egeorgie): copy projection matrix, if there was a renderer in 3d.
+
+        // Copy projection matrix, if there was an element in 3d.
+		if (elementsIn3D)
+			this.transform.perspectiveProjection = perspectiveProjection;
     }
     
     //--------------------------------------------------------------------------
@@ -201,16 +230,6 @@ public class ListItemDragProxy extends Group
         // The lis tis the IItemRendererOwner for this renderer.
         // It will update the renderer owner.
         list.updateRenderer(newRenderer);
-        
-        // setup the dimensions of the newRenderer
-        newRenderer.width = renderer.width;
-        newRenderer.height = renderer.height;
-        
-        // FIXME (egeorgie): Copy the appropriate matrix depending on 2D/3D
-        //newRenderer.setLayoutMatrix3D(renderer.getLayoutMatrix3D(), false);
-        newRenderer.setLayoutMatrix(renderer.getLayoutMatrix(), false);
-        
-        // FIXME (egeorgie): Copy the depth property
         return newRenderer;
     }
 }
