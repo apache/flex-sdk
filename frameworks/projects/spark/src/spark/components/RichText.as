@@ -75,6 +75,11 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
  *  @see mx.graphics.TextBox
  *  
  *  @includeExample examples/TextGraphicExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class TextGraphic extends TextGraphicElement
 {
@@ -108,6 +113,11 @@ public class TextGraphic extends TextGraphicElement
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function TextGraphic()
     {
@@ -271,6 +281,11 @@ public class TextGraphic extends TextGraphicElement
      *    </tr>
      *  </table>
      *  </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get content():Object 
     {
