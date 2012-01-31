@@ -4256,7 +4256,7 @@ public class ListBase extends ScrollControlBase
         // re-key the item renderers in visibleData
         reKeyVisibleData();
         
-        // FIXME (aharui): This code seems redundant with the code in cleanupAfterDataChangeEffect();
+        // TODO (aharui): This code seems redundant with the code in cleanupAfterDataChangeEffect();
         // need to investigate what's actually needed & where.
         var index:int = scrollPositionToIndex(horizontalScrollPosition - offscreenExtraColumnsLeft, verticalScrollPosition - offscreenExtraRowsTop);
         iterator.seek(CursorBookmark.FIRST,index);
