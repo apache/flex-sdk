@@ -23,9 +23,12 @@ import mx.core.IVisualElement;
 import spark.components.HSlider;
 
 /**
- *  The VideoScrubBar class is a video scrubbar/timeline that can show the
- *  current playHead, the amount previously played, and the loaded in part 
- *  of the video.  
+ *  The VideoScrubBar class defines a video timeline that shows the
+ *  current play head location in the video, the amount of the video previously played, 
+ *  and the loaded in part of the video.  
+ *  The timeline appears at the bottom of the VideoPlayer control.
+ *
+ *  @see spark.components.VideoPlayer 
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -197,9 +200,11 @@ public class ScrubBar extends HSlider
     }
     
     /**
-     *  Sets the size of the loaded range area
+     *  Sets the size of the loaded range area.
+     *  The loaded range area defines the area on the timeline that represents 
+     *  the currently loaded portion of the video.
      *
-     *  @param loadedRangeAreaSize The new size of the loaded in range area
+     *  @param loadedRangeAreaSize The new size of the loaded in range area.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -213,9 +218,11 @@ public class ScrubBar extends HSlider
     }
     
     /**
-     *  Sets the size of the played area
+     *  Sets the size of the played area.
+     *  The played area defines the area on the timeline that represents 
+     *  the part of the video that has been played. 
      *
-     *  @param playedAreaSize The new size of the played area
+     *  @param playedAreaSize The new size of the played area.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
