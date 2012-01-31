@@ -8,12 +8,12 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.graphics
+package spark.core
 {
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 
-import mx.components.Group;
+import spark.components.Group;
 import mx.core.IVisualElement;
 
 /**
