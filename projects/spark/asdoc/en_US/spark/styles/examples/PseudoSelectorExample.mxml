@@ -6,18 +6,18 @@
         @namespace s "library://ns.adobe.com/flex/spark";
         @namespace mx "library://ns.adobe.com/flex/mx";
         s|Button:up {
-            baseColor: #000000;
+            chromeColor: #000000;
             color: #FFFFFF;
         }
 
         s|Button:over {
-            baseColor: #484848;
+            chromeColor: #484848;
             fontWeight: "bold";
             color: #FFFFFF;
         }
 
         s|Button:down {
-            baseColor: #484848;
+            chromeColor: #484848;
             fontWeight: "bold";
             color: #FFFF66;
         }
@@ -49,7 +49,7 @@
     </fx:Script>
     <s:Panel title="Advanced CSS: Pseudo Selector Example" height="75%" width="75%"
         horizontalCenter="0" verticalCenter="0">
-        <s:Label text="The Spark Button below uses pseudo selectors to define its baseColor for each of its states."
+        <s:Label text="The Spark Button below uses pseudo selectors to define its chromeColor for each of its states."
         	x="10" y="10" />
         <s:Button id="submitButton" label="Submit Form" x="10" y="35"/>
 
