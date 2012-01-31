@@ -1,6 +1,7 @@
 package spark.components.supportClasses
 {
-
+import spark.components.supportClasses.GridDimensions;
+    
 [ExcludeClass]
     
 /**
@@ -115,7 +116,46 @@ public final class GridRowNode
         return updateMaxHeight();
     }
     
+    /**
+     *  Shifts values such that count columns are inserted
+     *  from the startIndex.
+     */
+    public function insertColumns(startColumn:int, count:int):void
+    {
+        GridDimensions.insertValueToVector(cellHeights, startColumn, count, 0);
+    }
     
+    /**
+     *  Removes and adds values such that the columns are moved.
+     */
+    public function moveColumns(fromCol:int, toCol:int, count:int):void
+    {
+        GridDimensions.insertValuesToVector(cellHeights, toCol, cellHeights.splice(fromCol, count));
+    }
+    
+    /**
+     *  Clears values such that count columns are 0.
+     */
+    public function clearColumns(startColumn:int, count:int):void
+    {
+        GridDimensions.clearVector(cellHeights, 0, startColumn, count);
+        updateMaxHeight();
+    }
+    
+    /**
+     *  Shifts values such that count columns are removed
+     *  from the startColumn.
+     *  We assume that cellHeights is the right length.
+     */
+    public function removeColumns(startColumn:int, count:int):void
+    {
+        cellHeights.splice(startColumn, count);
+        updateMaxHeight();
+    }
+    
+    /**
+     *  toString method for testing.
+     */
     public function toString():String
     {
         var s:String = "";
@@ -135,6 +175,5 @@ public final class GridRowNode
         
         return s;
     }
-    
 }
 }
