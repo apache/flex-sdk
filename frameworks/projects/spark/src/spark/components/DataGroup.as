@@ -846,7 +846,17 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             removeAllItemRenderers();   // indexToRenderer.length = 0
 
         if (layout && layout.useVirtualLayout)
-        {
+        {   
+            // Add any existing renderers to the free list.  A side-effect of
+            // this is that their layoutBoundsSize will be zero'ed so they will 
+            // remeasure the new data correctly.
+            if (virtualRendererIndices != null && 
+                virtualRendererIndices.length > 0)
+            {
+                startVirtualLayout();   
+                finishVirtualLayout();
+            }
+            
             // The item renderers will be created lazily, at updateDisplayList() time
             invalidateSize();
             invalidateDisplayList();
@@ -1158,6 +1168,9 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     /**
      *  @private
      *  Called before super.updateDisplayList() if layout.useVirtualLayout=true.
+     *  Also called by createItemRenderers to ready existing renderers
+     *  to be recycled by the following call to finishVirtualLayout.
+     * 
      *  Copies virtualRendererIndices to oldRendererIndices, clears virtualRendererIndices
      *  (which will be repopulated by subsequence getVirtualElementAt() calls), and
      *  calls ensureTypicalElement().
@@ -1185,7 +1198,10 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     
     /**
      *  @private
-     *  Called after super.updateDisplayList() finishes.
+     *  Called after super.updateDisplayList() finishes.  Also called by
+     *  createItemRenderers to recycle existing renderers that were added
+     *  to oldVirtualRendererIndices by the preceeding call to 
+     *  startVirtualLayout.
      * 
      *  Discard the ItemRenderers that aren't needed anymore, i.e. the ones
      *  not explicitly requested with getVirtualElementAt() during the most
@@ -1404,7 +1420,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 
                 indexToRenderer[index] = elt;
             }
-            
+
             addItemRendererToDisplayList(DisplayObject(elt));           
             setUpItemRenderer(elt, index, item);
             
