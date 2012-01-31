@@ -72,6 +72,31 @@ public class Move3D extends AnimateTransform3D
 {
     include "../core/Version.as";
     
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private static var AFFECTED_PROPERTIES:Array =
+        ["translationX", "translationY", "translationZ", 
+         "postLayoutTranslationX","postLayoutTranslationY","postLayoutTranslationZ",
+         "left", "right", "top", "bottom",
+         "horizontalCenter", "verticalCenter"];
+
+    private static var RELEVANT_STYLES:Array = 
+        ["left", "right", "top", "bottom",
+         "horizontalCenter", "verticalCenter"];
+
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+
     /** 
      *  Constructor.
      *
@@ -265,6 +290,22 @@ public class Move3D extends AnimateTransform3D
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override public function get relevantStyles():Array /* of String */
+    {
+        return RELEVANT_STYLES;
+    }   
+
+    /**
+     *  @private
+     */
+    override public function getAffectedProperties():Array /* of String */
+    {
+        return AFFECTED_PROPERTIES;
+    }
 
     /**
      * @private
