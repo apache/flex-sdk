@@ -8,13 +8,13 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package flex.effects
+package mx.effects
 {
 
-import flex.effects.easing.IEaser;
-import flex.effects.easing.Sine;
-import flex.effects.effectClasses.AnimateInstance;
-import flex.events.AnimationEvent;
+import mx.effects.easing.IEaser;
+import mx.effects.easing.Sine;
+import mx.effects.effectClasses.FxAnimateInstance;
+import mx.events.AnimationEvent;
 
 import mx.core.mx_internal;
 import mx.effects.Effect;
@@ -35,16 +35,16 @@ use namespace mx_internal;
  * <p>The <code>Effect.effectStart</code> event is dispatched 
  * before the <code>animationStart</code> event.</p>
  *
- * @eventType flex.events.AnimationEvent.ANIMATION_START
+ * @eventType mx.events.AnimationEvent.ANIMATION_START
  */
-[Event(name="animationStart", type="flex.events.AnimationEvent")]
+[Event(name="animationStart", type="mx.events.AnimationEvent")]
 
 /**
  * Dispatched every time the effect updates the target.
  * This event corresponds to a call to 
  * the <code>AnimateInstance.updateHandler()</code> method.
  *
- * @eventType flex.events.AnimationEvent.ANIMATION_UPDATE
+ * @eventType mx.events.AnimationEvent.ANIMATION_UPDATE
  */
 [Event(name="animationUpdate", type="mx.events.AnimationEvent")]
 
@@ -56,9 +56,9 @@ use namespace mx_internal;
  * Flex also dispatches an <code>animationUpdate</code> event 
  * for the effect at the same time.
  *
- * @eventType flex.events.AnimationEvent.ANIMATION_END
+ * @eventType mx.events.AnimationEvent.ANIMATION_END
  */
-[Event(name="animationRepeat", type="flex.events.AnimationEvent")]
+[Event(name="animationRepeat", type="mx.events.AnimationEvent")]
 
 /**
  * Dispatched when the effect ends.
@@ -71,9 +71,9 @@ use namespace mx_internal;
  * A repeating effect dispatches this event only after the 
  * final repetition.</p>
  *
- * @eventType flex.events.AnimationEvent.ANIMATION_END
+ * @eventType mx.events.AnimationEvent.ANIMATION_END
  */
-[Event(name="animationEnd", type="flex.events.AnimationEvent")]
+[Event(name="animationEnd", type="mx.events.AnimationEvent")]
 
 /**
  * This effect animates an arbitrary set of properties between values, as specified
@@ -90,7 +90,7 @@ use namespace mx_internal;
  * anim.play();
  * </listing>
  */
-public class Animate extends Effect
+public class FxAnimate extends Effect
 {
     include "../core/Version.as";
 
@@ -103,11 +103,11 @@ public class Animate extends Effect
     /**
      * Constructor. 
      */
-    public function Animate(target:Object = null)
+    public function FxAnimate(target:Object = null)
     {
         super(target);
           
-        instanceClass = AnimateInstance;
+        instanceClass = FxAnimateInstance;
         
         mx_internal::applyTransitionEndProperties = true;
     }
@@ -148,8 +148,8 @@ public class Animate extends Effect
      * the animation into an eased fraction, which will then be used to
      * calculate the value at that eased elapsed fraction.
      * 
-     * @default flex.effects.easing.Sine(.5)
-     * @see flex.effects.easing.Sine
+     * @default mx.effects.easing.Sine(.5)
+     * @see mx.effects.easing.Sine
      */
     public var easer:IEaser = defaultEaser;
     
@@ -161,7 +161,7 @@ public class Animate extends Effect
      * where the animation will reverse direction each iteration.
      * 
      * @default Animation.LOOP
-     * @see flex.effects.Animation#repeatBehavior
+     * @see mx.effects.Animation#repeatBehavior
      */
     public var repeatBehavior:String = Animation.LOOP;
     
@@ -205,7 +205,7 @@ public class Animate extends Effect
     {
         super.initInstance(instance);
         
-        var animateInstance:AnimateInstance = AnimateInstance(instance);
+        var animateInstance:FxAnimateInstance = FxAnimateInstance(instance);
 
         animateInstance.addEventListener(AnimationEvent.ANIMATION_START, animationEventHandler);
         animateInstance.addEventListener(AnimationEvent.ANIMATION_UPDATE, animationEventHandler);
