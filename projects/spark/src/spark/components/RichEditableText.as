@@ -31,6 +31,7 @@ package spark.components
     import flash.ui.Keyboard;
     
     import flashx.textLayout.compose.ISWFContext;
+	import flashx.textLayout.compose.TextLineRecycler;
     import flashx.textLayout.container.TextContainerManager;
     import flashx.textLayout.conversion.ConversionType;
     import flashx.textLayout.conversion.ITextExporter;
@@ -51,6 +52,8 @@ package spark.components
     import flashx.textLayout.events.FlowOperationEvent;
     import flashx.textLayout.events.SelectionEvent;
     import flashx.textLayout.events.StatusChangeEvent;
+	import flashx.textLayout.factory.StringTextLineFactory;
+	import flashx.textLayout.factory.TextFlowTextLineFactory;
     import flashx.textLayout.formats.BlockProgression;
     import flashx.textLayout.formats.Category;
     import flashx.textLayout.formats.ITextLayoutFormat;
@@ -310,9 +313,13 @@ package spark.components
      *  <code>maxWidth</code> as you type. It grows in height when you 
      *  press the Enter key to start a new line.</p>
      *
-     *  <p>The <code>widthInChars</code> and <code>heightInChars</code>
+     *  <p>The <code>widthInChars</code> and <code>heightInLines</code>
      *  properties provide a convenient way to specify the width and height
      *  in a way that scales with the font size.
+	 *  You can use the <code>typicalText</code> property as well.
+	 *  Note that if you use <code>typicalText</code>, the
+     *  <code>widthInChars</code> and <code>heightInLines</code>
+     *  are ignored.
      *  You can also specify an explicit width or height in pixels,
      *  or use a percent width and height, or use constraints such as
      *  <code>left</code> and <code>right</code>
@@ -398,6 +405,7 @@ package spark.components
      *    selectionHighlighting="TextSelectionHighlighting.WHEN_FOCUSED"
      *    text=""
      *    textFlow="<i>TextFlow</i>"
+     *    typicalText=null
      *    verticalScrollPosition="0"
      *    widthInChars="NaN"
      *  
@@ -524,6 +532,23 @@ package spark.components
          */
         private static var staticConfiguration:Configuration;
         
+		/**
+		 *  @private
+		 *  This TLF object composes TextLines from a text String.
+		 *  We use it when the 'typicalText' property is set to a String
+		 *  that doesn't contain linebreaks.
+		 */
+		private static var staticStringFactory:StringTextLineFactory;
+		
+		/**
+		 *  @private
+		 *  This TLF object composes TextLines from a TextFlow.
+		 *  We use it when the 'typicalText is set to a String
+		 *  that contains linebreaks (and therefore is interpreted
+		 *  as multiple paragraphs).
+		 */
+		private static var staticTextFlowFactory:TextFlowTextLineFactory;
+		
         /**
          *  @private
          *  This TLF object is used to import a 'text' String
@@ -637,6 +662,12 @@ package spark.components
         //
         //--------------------------------------------------------------------------
         
+		/**
+		 *  @private
+		 *  The composition bounds used when creating the TextLines.
+		 */
+		mx_internal var unbounded:Rectangle = new Rectangle(0, 0, NaN, NaN);
+		
         /**
          *  @private
          *  The hostFormat object in the _textContainerManager determines the 
@@ -1491,10 +1522,13 @@ package spark.components
          *  a percent height, or both <code>top</code> and <code>bottom</code>
          *  constraints.</p>
          *
+		 *  <p>This property will also be ignored if the <code>typicalText</code> 
+		 *  property is specified.</p>
+		 * 
          *  <p>RichEditableText's <code>measure()</code> method uses
          *  <code>widthInChars</code> and <code>heightInLines</code>
          *  to determine the <code>measuredWidth</code>
-         *  and <code>measuredHeight</code>. 
+         *  and <code>measuredHeight</code>.
          *  These are similar to the <code>cols</code> and <code>rows</code>
          *  of an HTML TextArea.</p>
          *
@@ -2189,6 +2223,70 @@ package spark.components
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                                   
         }
         
+		//----------------------------------
+		//  typicalText
+		//----------------------------------
+		
+		/**
+		 *  @private
+		 */
+		private var typicalTextChanged:Boolean;
+				
+		/**
+		 *  @private
+		 */
+		private var _typicalText:String;
+		
+		/**
+		 *  @private
+		 *  Used when _typicalText is multiline
+		 */
+		private var _typicalTextFlow:TextFlow;
+		
+		/**
+		 *  Text that is used to determine
+		 *  the default width and height of the control, 
+		 *  without actually being displayed.
+		 *
+		 *  <p>This property will be ignored if you specify an explicit width,
+		 *  a percent width, or both <code>left</code> and <code>right</code>
+		 *  constraints.</p>
+		 *
+		 *  <p>Use of this property causes the <code>widthInChars</code> 
+		 *  and <code>heightInLines</code> properties to be ignored. 
+		 *
+		 *  @default null
+		 *
+		 *  @see spark.primitives.heightInLines
+		 *  @see spark.primitives.widthInChars
+		 *
+		 *  @langversion 3.0
+		 *  @playerversion Flash 10.2
+		 *  @playerversion AIR 2.0
+		 *  @productversion Flex 4.5
+		 */
+		public function get typicalText():String 
+		{
+			return _typicalText;
+		}
+		
+		/**
+		 *  @private
+		 */
+		public function set typicalText(value:String):void
+		{
+			if (value == _typicalText)
+				return;
+			
+			_typicalText = value;
+			
+			typicalTextChanged = true;
+			
+			invalidateProperties();
+			invalidateSize();
+			invalidateDisplayList();
+		}
+		
         //----------------------------------
         //  widthInChars
         //----------------------------------
@@ -2226,6 +2324,9 @@ package spark.components
          *  a percent width, or both <code>left</code> and <code>right</code>
          *  constraints.</p>
          *
+		 *  <p>This property will also be ignored if the <code>typicalText</code> 
+		 *  property is specified.</p>
+		 * 
          *  <p>RichEditableText's <code>measure()</code> method uses
          *  <code>widthInChars</code> and <code>heightInLines</code>
          *  to determine the <code>measuredWidth</code>
@@ -2502,6 +2603,8 @@ package spark.components
          */
         override protected function measure():void 
         {
+			var bounds:Rectangle;
+			
             // If the damage handler is called while measuring text, this means
             // the text lines are damaged and the display needs to be updated. 
             // This flag tells the handler to invalidate just the display list.
@@ -2522,21 +2625,85 @@ package spark.components
             if (isMeasureFixed()) 
             {            
                 autoSize = false;
-                
-                // Go large.  For performance reasons, want to avoid a scrollRect 
-                // whenever possible in drawBackgroundAndSetScrollRect().  This is
-                // particularly true for 1 line TextInput components.
-                measuredWidth = !isNaN(explicitWidth) ? explicitWidth :
-                    Math.ceil(calculateWidthInChars());
-                measuredHeight = !isNaN(explicitHeight) ? explicitHeight :
-                    Math.ceil(calculateHeightInLines());
+				
+				if (typicalText)
+				{
+					if (typicalTextChanged)
+					{
+						// If the text has linebreaks (CR, LF, or CF+LF)
+						// create a multi-paragraph TextFlow from it
+						// and use the TextFlowTextLineFactory to render it.
+						// Otherwise the StringTextLineFactory will put
+						// all of the lines into a single paragraph
+						// and FTE performance will degrade on a large paragraph.
+						if (_typicalText.indexOf("\n") != -1 || _typicalText.indexOf("\r") != -1)
+						{
+							_typicalTextFlow = staticPlainTextImporter.importToFlow(_typicalText);
+							// this helped get the factory to generate the same bounds as the
+							// composer
+							_typicalTextFlow.hostFormat = _textContainerManager.hostFormat;
+						}
+						else
+							_typicalTextFlow = null;
+						typicalTextChanged = false;
+					}
+					// if multiline...
+					if (_typicalTextFlow)
+					{
+						// create the factory if needed
+						if (!staticTextFlowFactory)
+						{
+							staticTextFlowFactory = new TextFlowTextLineFactory();
+							// set bounds to natural bounds
+							staticTextFlowFactory.compositionBounds = unbounded;
+						}
+						if (_typicalTextFlow.flowComposer)
+						{
+							_typicalTextFlow.flowComposer.swfContext = 
+								ISWFContext(embeddedFontContext);
+						}						
+						staticTextFlowFactory.swfContext = ISWFContext(embeddedFontContext);
+						// create the textlines
+						staticTextFlowFactory.createTextLines(tossTextLine, _typicalTextFlow);
+						// get the bounds
+						bounds = staticTextFlowFactory.getContentBounds();
+					}
+					else // single line
+					{
+						// create the factory if needed
+						if (!staticStringFactory)
+						{
+							staticStringFactory = new StringTextLineFactory();
+							// set bounds to natural bounds
+							staticStringFactory.compositionBounds = unbounded;
+						}
+						// create the textlines
+						staticStringFactory.text = _typicalText;
+						staticStringFactory.textFlowFormat = _textContainerManager.hostFormat;
+						staticStringFactory.swfContext = ISWFContext(embeddedFontContext);
+						staticStringFactory.createTextLines(tossTextLine);
+						// get the bounds
+						bounds = staticStringFactory.getContentBounds();
+					}			
+					
+					measuredWidth = Math.ceil(bounds.width);
+					measuredHeight = Math.ceil(bounds.height);					
+				}
+				else
+				{
+	                // Go large.  For performance reasons, want to avoid a scrollRect 
+	                // whenever possible in drawBackgroundAndSetScrollRect().  This is
+	                // particularly true for 1 line TextInput components.
+	                measuredWidth = !isNaN(explicitWidth) ? explicitWidth :
+	                    Math.ceil(calculateWidthInChars());
+	                measuredHeight = !isNaN(explicitHeight) ? explicitHeight :
+	                    Math.ceil(calculateHeightInLines());
+				}
             }
             else
             {
                 var composeWidth:Number;
                 var composeHeight:Number;
-                
-                var bounds:Rectangle;
                 
                 // If we're here, then at one or both of the width and height can
                 // grow to fit the text.  It is important to figure out whether
@@ -3429,6 +3596,9 @@ package spark.components
                 return true;
             }
 
+			if (typicalText != null)
+				return true;
+			
             // Is there some sort of width and some sort of height?
             return  (!isNaN(explicitWidth) || !isNaN(_widthInChars) ||
                 !isNaN(widthConstraint)) &&
@@ -3548,6 +3718,10 @@ package spark.components
             // there is no room for text.
             if (width == 0 || height == 0) 
                 return false;
+			
+			// if we're using typical text, no need to remeasure
+			if (typicalText != null)
+				return false;
             
             if (!isNaN(widthConstraint))
             {
@@ -4540,6 +4714,15 @@ package spark.components
                 invalidateDisplayList();
             }
         }    
+		
+		/**
+		 *  @private
+		 *  release the textline as it is temporary.
+		 */
+		private function tossTextLine(textLine:DisplayObject):void
+		{
+			TextLineRecycler.addLineForReuse(TextLine(textLine));
+		}
 		
     }
 
