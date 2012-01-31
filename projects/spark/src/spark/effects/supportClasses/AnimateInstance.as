@@ -11,6 +11,7 @@
 
 package spark.effects.supportClasses
 {
+import flash.display.DisplayObject;
 import flash.events.TimerEvent;
 import flash.utils.Timer;
 
@@ -20,6 +21,7 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.effects.EffectInstance;
 import mx.events.EffectEvent;
+import mx.managers.SystemManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.IStyleClient;
@@ -817,17 +819,28 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             {
                 var parentStart:* = propertyChanges.start["parent"];
                 var parentEnd:* = propertyChanges.end["parent"];
-                if (parentStart && !parentEnd && parentStart is IVisualElementContainer)
+                if (parentStart && !parentEnd && 
+                    (parentStart is IVisualElementContainer || parentStart is SystemManager))
                 {
-                    var startContainer:IVisualElementContainer = 
-                        IVisualElementContainer(parentStart);
                     var startIndex:* = propertyChanges.start["index"];
-                    if (startIndex !== undefined && startIndex <= startContainer.numElements)
-                        startContainer.addElementAt(
-                            target as IVisualElement, int(startIndex));
+                    if (parentStart is IVisualElementContainer)
+                    {
+                        var startContainer:IVisualElementContainer = 
+                            IVisualElementContainer(parentStart);
+                        if (startIndex !== undefined && startIndex <= startContainer.numElements)
+                            startContainer.addElementAt(
+                                target as IVisualElement, int(startIndex));
+                        else
+                            startContainer.addElement(target as IVisualElement);
+                    }
                     else
-                        startContainer.addElement(
-                            target as IVisualElement);
+                    {
+                        var startMgr:SystemManager = parentStart as SystemManager;
+                        if (startIndex !== undefined && startIndex <= startMgr.numChildren)
+                            startMgr.addChildAt(target as DisplayObject, int(startIndex));
+                        else
+                            startMgr.addChild(target as DisplayObject);
+                    }
                     // GraphicElements may delay parenting their underlying displayObject until
                     // a layout pass, so let's force it to make sure we're ready to go
                     // FIXME (chaase): this should probably happen as a part of applyStartValues()
