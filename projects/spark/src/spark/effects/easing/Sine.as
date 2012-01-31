@@ -49,12 +49,13 @@ public class Sine extends EaseInOutBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function Sine(easeInFraction:Number = .5)
+    public function Sine(easeInFraction:Number = 0.5)
     {
         super(easeInFraction);
     }
 
     /**
+     *  @private
      *  Returns a value that represents the eased fraction during the 
      *  ease in phase of the animation. 
      *  The easing calculation for Sine is equal to 
@@ -77,6 +78,7 @@ public class Sine extends EaseInOutBase
     }
     
     /**
+     *  @private
      *  Returns a value that represents the eased fraction during the 
      *  ease out phase of the animation. 
      *  The easing calculation for Sine is equal to 
