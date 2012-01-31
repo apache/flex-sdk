@@ -87,6 +87,11 @@ include "../styles/metadata/IconColorStyles.as"
  *  </pre>
  *
  *  @includeExample examples/CheckBoxExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CheckBox extends Button
 {
@@ -112,6 +117,11 @@ public class CheckBox extends Button
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function CheckBox()
     {
