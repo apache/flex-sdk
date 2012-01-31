@@ -498,8 +498,6 @@ public class GridLayout extends LayoutBase
         
         oldVisibleRowIndices.length = 0;
         oldVisibleColumnIndices.length = 0;
-        
-        grid.dataGrid.dispatchEvent(new Event("invalidateSize"));
                 
         if (enablePerformanceStatistics)
         {
