@@ -93,7 +93,7 @@ public class AnimateColor extends Animate
      *  by this animation. 
      *  A color property is a property that takes 32-bit color value.
      * 
-     *  @default color
+     *  @default "color"
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
