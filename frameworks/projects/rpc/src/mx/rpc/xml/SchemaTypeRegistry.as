@@ -35,6 +35,13 @@ public class SchemaTypeRegistry
     // 
     //--------------------------------------------------------------------------
 
+    /**
+     * Returns the sole instance of this singleton class, creating it if it
+     * does not already exist.
+     *
+     * @return Returns the sole instance of this singleton class, creating it
+     * if it does not already exist.
+     */
     public static function getInstance():SchemaTypeRegistry
     {
         if (_instance == null)
@@ -85,7 +92,13 @@ public class SchemaTypeRegistry
     }
 
     /**
+     * Returns the Class for the collection type represented by the given
+     * Qname or String.
+     *
      * @param type The QName or String representing the collection type name.
+     *
+     * @return Returns the Class for the collection type represented by 
+     * the given Qname or String.
      */
     public function getCollectionClass(type:Object):Class
     {
@@ -118,6 +131,10 @@ public class SchemaTypeRegistry
      * top level Array type, or an implementation of <code>mx.collections.IList</code>. 
      * The definition can be a String representation of the fully qualified
      * class name or an instance of the Class itself.
+     *
+     * @param type The QName or String representation of the type name.
+     *
+     * @param definition The Class itself or class name as a String.
      */
     public function registerCollectionClass(type:Object, definition:Object):void
     {
