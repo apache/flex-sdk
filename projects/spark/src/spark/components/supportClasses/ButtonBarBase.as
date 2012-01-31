@@ -24,6 +24,8 @@ import mx.core.IFactory;
 import mx.core.ISelectableList;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
+import mx.events.IndexChangedEvent;
 import mx.managers.IFocusManagerComponent;
 
 import spark.components.ButtonBarButton;
@@ -123,10 +125,16 @@ public class ButtonBarBase extends ListBase
     override public function set dataProvider(value:IList):void
     {
         if (dataProvider is ISelectableList)
-            dataProvider.removeEventListener(Event.CHANGE, dataProvider_changeHandler);
+        {
+            dataProvider.removeEventListener(FlexEvent.VALUE_COMMIT, dataProvider_changeHandler);
+            dataProvider.removeEventListener(IndexChangedEvent.CHANGE, dataProvider_changeHandler);
+        }
         
         if (value is ISelectableList)
-            value.addEventListener(Event.CHANGE, dataProvider_changeHandler);
+        {
+            value.addEventListener(FlexEvent.VALUE_COMMIT, dataProvider_changeHandler);
+            value.addEventListener(IndexChangedEvent.CHANGE, dataProvider_changeHandler);
+        }
         
         super.dataProvider = value;
         
