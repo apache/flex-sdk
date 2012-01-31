@@ -29,12 +29,10 @@ import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
 
-import spark.components.supportClasses.DisplayPlane;
 import spark.components.supportClasses.GroupBase;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.ISharedDisplayObject;
-import spark.events.DisplayPlaneObjectExistenceEvent;
 import spark.events.ElementExistenceEvent;
 import spark.primitives.shaders.ColorBurnShader;
 import spark.primitives.shaders.ColorDodgeShader;
