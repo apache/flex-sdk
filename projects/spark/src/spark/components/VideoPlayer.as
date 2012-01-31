@@ -1508,6 +1508,9 @@ public class VideoPlayer extends SkinnableComponent
      */
     override protected function getCurrentSkinState():String
     {   
+        if (!videoDisplay || !videoDisplay.videoPlayer)
+            return null;
+        
         var state:String = videoDisplay.videoPlayer.state;
         
         // now that we have our video player's current state (atleast the one we care about)
