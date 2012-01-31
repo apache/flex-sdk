@@ -11,32 +11,25 @@
 
 package spark.components.gridClasses
 {
-import flash.display.DisplayObject;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 import flash.utils.getTimer;
 
 import mx.collections.IList;
 import mx.core.ClassFactory;
-import mx.core.IContainerInvalidating;
 import mx.core.IFactory;
 import mx.core.IInvalidating;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.Singleton;
-import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
-import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
-import mx.managers.ILayoutManagerClient;
-import mx.managers.ILayoutManagerContainerClient;
 
 import spark.components.DataGrid;
 import spark.components.Grid;
-import spark.components.supportClasses.GroupBase;
 import spark.core.IGraphicElement;
 import spark.layouts.supportClasses.LayoutBase;
 
@@ -202,30 +195,6 @@ public class GridLayout extends LayoutBase
     //----------------------------------
     //  useVirtualLayout
     //----------------------------------
-    
-    //----------------------------------
-    //  target
-    //----------------------------------
-    
-    private var _target:GroupBase;
-    
-    /**
-     * @private
-     */
-    override public function set target(value:GroupBase):void
-    {
-        if (_target == value)
-            return;
-        
-        if (_target)
-            _target.removeEventListener(FlexEvent.MEASURED_SIZE_FINAL, measuredSizeFinalHandler);
-        
-        _target = value;
-        super.target = value;
-        
-        if (_target)
-            _target.addEventListener(FlexEvent.MEASURED_SIZE_FINAL, measuredSizeFinalHandler, false, 0, true);
-    }    
 
     /**
      *  GridLayout only supports virtual layout, the value of this property can not be changed.
@@ -247,7 +216,7 @@ public class GridLayout extends LayoutBase
      */
     override public function set useVirtualLayout(value:Boolean):void
     {
-    }
+    }   
     
     //--------------------------------------------------------------------------
     //
@@ -451,36 +420,6 @@ public class GridLayout extends LayoutBase
     
     /**
      *  @private
-     *  Runs when a renderer's measured size has changed, typically because an asynchronously
-     *  loaded image has completed loading.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    private function measuredSizeFinalHandler(event:FlexEvent):void
-    {
-        if (!grid || !grid.variableRowHeight)
-            return;
-        
-        var target:DisplayObject = event.target.parent as DisplayObject;
-        var renderer:IGridItemRenderer = null;
-        
-        while (target)
-        {
-            renderer = target as IGridItemRenderer;
-            if (renderer)
-                break;
-            target = target.parent as DisplayObject;
-        }
-        
-        if (renderer && renderer.grid)
-            renderer.grid.invalidateCell(renderer.rowIndex, renderer.columnIndex);
-    }    
-    
-    /**
-     *  @private
      *  Computes new values for the grid's measuredWidth,Height and 
      *  measuredMinWidth,Height properties.  
      * 
@@ -666,7 +605,7 @@ public class GridLayout extends LayoutBase
 
     //--------------------------------------------------------------------------
     //
-    //  Grid Access
+    //  DataGrid Access
     //
     //--------------------------------------------------------------------------
     
@@ -2125,6 +2064,13 @@ public class GridLayout extends LayoutBase
         
         element.visible = false;
         
+        // Reset GridItemRenderers back to (0,0), otherwise when the element is reused
+        // it will be validated at its last layout size which causes problems with 
+        // text reflow.
+        
+        if (element is GridItemRenderer)
+            element.setLayoutBoundsSize(0, 0, false);        
+        
         const factory:IFactory = elementToFactoryMap[element]; 
         if (!factory)
             return false;
@@ -2204,26 +2150,9 @@ public class GridLayout extends LayoutBase
         {
             if (!isNaN(width) || !isNaN(height))
             {
-                var oldcw:Number = renderer.estimatedWidth;
-                var oldch:Number = renderer.estimatedHeight;
-                renderer.setEstimatedSize(width, height);
-                if (renderer is ILayoutManagerContainerClient)
-                {
-                    var sameWidth:Boolean = isNaN(width) && isNaN(oldcw) || width == oldcw;
-                    var sameHeight:Boolean = isNaN(height) && isNaN(oldch) || height == oldch;
-                    if (!(sameHeight && sameWidth))
-                    {
-                        if (renderer is IContainerInvalidating)
-                            IContainerInvalidating(renderer).invalidateEstimatedSizesOfChildren();
-                        ILayoutManagerContainerClient(renderer).validateEstimatedSizesOfChildren();
-                    }
-                }
-
                 if (validatingElt)
                 {
-                    if (validatingElt is ILayoutManagerClient)
-                        UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(validatingElt), true);
-                    else if (validatingElt is IGraphicElement)
+                    if (validatingElt is IGraphicElement)
                         validateGraphicElement(IGraphicElement(validatingElt));
                     else
                         validatingElt.validateNow();
