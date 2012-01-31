@@ -73,6 +73,9 @@ public class FxTextArea extends FxTextBase
 	//  text
 	//----------------------------------
 
+	[Bindable("change")]
+	[Bindable("textChanged")]
+
 	/**
 	 *  @private
 	 */
