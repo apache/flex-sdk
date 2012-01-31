@@ -9,15 +9,16 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 	
 import flash.events.Event;
 import flash.events.FocusEvent;
 
-import flex.component.TextView;
-import flex.core.SkinnableComponent;
-import flex.events.TextOperationEvent;
+import mx.components.TextView;
+import mx.components.baseClasses.FxTextBase;
+import mx.components.baseClasses.FxComponent;
+import mx.events.TextOperationEvent;
 
 import flashx.tcal.formats.LineBreak;
 
@@ -28,7 +29,7 @@ import flashx.tcal.formats.LineBreak;
 /**
  *  Dispatched when the user pressed the Enter key.
  */
-[Event(name="enter", type="mx.events.FlexEvent")]
+[Event(name="enter", type="mx.events.AnimationEvent")]
 
 //--------------------------------------
 //  Other metadata
@@ -44,7 +45,7 @@ import flashx.tcal.formats.LineBreak;
 /**
  *  Documentation is not currently available.
  */
-public class TextInput extends TextBase
+public class FxTextInput extends FxTextBase
 {
     include "../core/Version.as";
 
@@ -57,7 +58,7 @@ public class TextInput extends TextBase
     /**
      *  Constructor. 
      */    
-	public function TextInput()
+	public function FxTextInput()
 	{
 		super();
 	}
