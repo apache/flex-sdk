@@ -21,7 +21,7 @@ import mx.components.FxButton;
  *  Dispatched when the value of the control changes
  *  as a result of user interaction.
  *
- *  @eventType flash.events.Event
+ *  @eventType flash.events.Event.CHANGE
  */
 [Event(name="change", type="flash.events.Event")]
 
@@ -31,15 +31,15 @@ import mx.components.FxButton;
 [SkinStates("normal", "disabled")]
 
 /**
- *  TrackBase is a base class for components with a track
- *  and one or more thumbs such as Slider and ScrollBar. It
- *  declares two required SkinParts, <code>thumb</code> and
- *  <code>track</code>. TrackBase also provides the code for
- *  thumb dragging which is shared by Slider and ScrollBar.
+ *  The FxTrackBase class is a base class for components with a track
+ *  and one or more thumb buttons, such as FxSlider and FxScrollBar. It
+ *  declares two required skin parts: <code>thumb</code> and
+ *  <code>track</code>. 
+ *  The FxTrackBase class also provides the code for
+ *  dragging the thumb button, which is shared by the FxSlider and FxScrollBar classes.
  * 
- *  @see mx.components.Range
- *  @see mx.components.Slider
- *  @see mx.components.ScrollBar
+ *  @see mx.components.baseClasses.FxSlider
+ *  @see mx.components.baseClasses.FxScrollBar
  */
 public class FxTrackBase extends FxRange
 {
@@ -68,11 +68,11 @@ public class FxTrackBase extends FxRange
     [SkinPart]
     
     /**
-     *  <code>thumb</code> is a SkinPart that defines a button
+     *  A skin part that defines a button
      *  that can be dragged along the track to increase or
-     *  decrease the slider's <code>value</code> property.
-     *  Updates to the <code>value</code> through other means
-     *  will automatically update the position of the thumb
+     *  decrease the <code>value</code> property.
+     *  Updates to the <code>value</code> property 
+     *  automatically update the position of the thumb button
      *  with respect to the track.
      */
     public var thumb:FxButton;
@@ -80,9 +80,9 @@ public class FxTrackBase extends FxRange
     [SkinPart]
     
     /**
-     *  <code>track</code> is a SkinPart that defines a button
-     *  that, when  pressed, will set the <code>value</code>
-     *  to the value corresponding with that position.
+     *  A skin part that defines a button
+     *  that when  pressed sets the <code>value</code> property
+     *  to the value corresponding with the current button position on the track.
      */
     public var track:FxButton; 
 
@@ -102,7 +102,8 @@ public class FxTrackBase extends FxRange
     //--------------------------------------------------------------------------
     
     /**
-     *  Enable/disable this component. This also enables/disables any of the 
+     *  Enable (<code>true</code>) or disable (<code>false</code>) this component. 
+     *  This property also enables and disables any of the 
      *  skin parts for this component.
      */
     override public function set enabled(value:Boolean):void
@@ -112,24 +113,36 @@ public class FxTrackBase extends FxRange
         invalidateSkinState();
     }
     
+    /**
+     *  @inheritDoc
+     */
     override public function set maximum(value:Number):void
     {
         super.maximum = value;
         invalidateDisplayList();
     }
 
+    /**
+     *  @inheritDoc
+     */
     override public function set minimum(value:Number):void
     {
         super.minimum = value;
         invalidateDisplayList();
     }
     
+    /**
+     *  @inheritDoc
+     */
     override public function set value(newValue:Number):void
     {
         super.value = newValue;
         invalidateDisplayList();
     }
     
+    /**
+     *  @inheritDoc
+     */
     override protected function setValue(value:Number):void
     {
         super.setValue(value);
@@ -149,10 +162,13 @@ public class FxTrackBase extends FxRange
     private var _clickOffset:Point;
     
     /**
-     *  The clickOffset is the point in the local coordinates of 
-     *  the thumb where the last mouse down event occurred. This
-     *  is used by calculateNewValue() to determine what value
-     *  the thumb has been dragged to.
+     *  The point in the local coordinates of 
+     *  the thumb button where the last mouse down event occurred. 
+     *  This property is used by the <code>calculateNewValue()</code> method 
+     *  to determine the value that the thumb button has been dragged to.
+     *
+     *  @return Point object rerpresenting, in the local coordinates of 
+     *  the thumb button, where the last mouse down event occurred. 
      */
     protected function get clickOffset():Point
     {
@@ -164,12 +180,17 @@ public class FxTrackBase extends FxRange
     //---------------------------------
     
     /**
-     *  This method returns the size of the logical track. 
+     *  The size of the logical track. 
      *  Subclasses need to override this method to return 
-     *  an appropriate value. Note that this number can 
+     *  an appropriate value. 
+     *
+     *  <p>Note that this number can 
      *  represent any system of units, but those units must 
-     *  be consistent with the values returned by
-     *  pointToPosition, thumbSize, and valueToPosition.
+     *  be consistent with the values returned by the 
+     *  <code>pointToPosition()</code>, <code>calculateThumbSize()</code>, 
+     *  and <code>valueToPosition()</code> methods.</p>
+     *
+     *  @return The size of the logical track. 
      */
     protected function get trackSize():Number
     {
@@ -183,10 +204,10 @@ public class FxTrackBase extends FxRange
     private var _thumbSize:Number = 0;
     
     /**
-     *  The size of the thumb on the logical track in the 
+     *  The size of the thumb button on the logical track in the 
      *  units of the subclass, which must be consistent with 
-     *  trackSize, pointToPosition and valueToPosition. The 
-     *  default thumbSize on the logical track is 0.
+     *  <code>trackSize</code> property, and with 
+     *  the <code>pointToPosition()</code> and <code>valueToPosition()</code> methods. 
      * 
      *  @default 0
      */
@@ -195,6 +216,9 @@ public class FxTrackBase extends FxRange
         return _thumbSize;
     }
     
+    /**
+     *  @private
+     */
     protected function set thumbSize(value:Number):void
     {
         if (value == _thumbSize)
@@ -226,13 +250,13 @@ public class FxTrackBase extends FxRange
     /**
      *  @inheritDoc
      */
-	override protected function getUpdatedSkinState():String
-	{
-		return enabled ? "normal" : "disabled";
-	}
-	
+    override protected function getUpdatedSkinState():String
+    {
+        return enabled ? "normal" : "disabled";
+    }
+    
     /**
-     *  Adds event handlers to the track and thumb for mouse events.
+     *  @inheritDoc
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
@@ -255,7 +279,7 @@ public class FxTrackBase extends FxRange
     }
 
     /**
-     *  Remove event handlers from skin parts.
+     *  @inheritDoc
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
@@ -274,7 +298,10 @@ public class FxTrackBase extends FxRange
     }
 
     /**
-     *  Make the skins reflect the enabled state of TrackBase
+     *  Set the <code>enabled</code> property of the skins parts.
+     *
+     *  @param value <code>true</code> to enable the skin parts, 
+     *  and <code>false</code> to disable them.
      */
     protected function enableSkinParts(value:Boolean):void
     {
@@ -285,10 +312,16 @@ public class FxTrackBase extends FxRange
     }
     
     /**
-     *  Utility method which returns the Range value for a given
-     *  position on the track. The Range value is calculated by
-     *  finding what fraction of the logical track the position
-     *  represents and then multiplying that by the Range.
+     *  Return the value corresponding to a position on the track. 
+     *  The value is calculated by
+     *  finding what fraction of the logical track the <code>position</code>
+     *  represents, and then multiplying that by 
+     *  the range of possible values for the track.
+     *
+     *  @param position A position on the track.
+     *
+     *  @return A value, between <code>minimum</code> and <code>maximum</code>, 
+     *  corresponding to <code>position</code>.
      */
     protected function positionToValue(position:Number):Number
     {
@@ -303,11 +336,17 @@ public class FxTrackBase extends FxRange
     }
     
     /**
-     *  Utility function to calculate the thumb's position
-     *  corresponding to the given value. The thumb position
-     *  is calculated by finding what fraction of the range
-     *  the value represents, and then multiplying that by
-     *  the logical track size minus the logical thumb size.
+     *  Return the position of the thumb button on the track
+     *  corresponding to a given value. 
+     *  
+     *  <p>Calculate the thumb button position by finding 
+     *  the fraction of the range of possible values that 
+     *  <code>value</code> represents, and then multiplying that by
+     *  the logical track size, minus the logical thumb size.</p>
+     *
+     *  @param value A value, between <code>minimum</code> and <code>maximum</code>.
+     *
+     *  @return A position on the track corresponding to <code>value</code>.
      */
     protected function valueToPosition(value:Number):Number
     {
@@ -322,13 +361,23 @@ public class FxTrackBase extends FxRange
     }
     
     /**
-     *  This function returns a position on the slider relative to its
-     *  orientation and shape. The <code>localX</code> and <code>localY</code>
+     *  Returns a position on the track. 
+     *  The <code>localX</code> and <code>localY</code>
      *  values represent the location in the local coordinate system of the
-     *  track. Subclasses must override this method and return the
-     *  appropriate value for their situation. Values should not be clamped to
+     *  track. 
+     *
+     *  <p>Subclasses must override this method and return the
+     *  appropriate value. Values should not be clamped to
      *  the ends of the track, as that clamping will happen later, prior
-     *  to setting the thumb position.
+     *  to setting position of the thumb button.</p>
+     *
+     *  @param localX The X-location in the local coordinate system of the
+     *  track.
+     *
+     *  @param localY The Y-location in the local coordinate system of the
+     *  track.
+     *
+     *  @return The posisiton on the track.
      */
     protected function pointToPosition(localX:Number, localY:Number):Number
     {
@@ -336,22 +385,28 @@ public class FxTrackBase extends FxRange
     }
 
     /**
-     *  This method positions the thumb button correctly, given
-     *  the position. Subclasses should override this method to position 
-     *  the thumb appropriately for their situation.
+     *  Set the position of the thumb button. 
+     *
+     *  <p>Subclasses should override this method to position 
+     *  the thumb button.</p>
+     *
+     *  @param thumbPos The new position of the thumb button.
      */
     protected function positionThumb(thumbPos:Number):void {}
     
     /**
-     *  This method sizes the thumb button correctly, given
-     *  the thumbSize. Subclasses should override this method to size 
-     *  the thumb appropriately for their situation.
+     *  Sets the size of the thumb button.
+     *  
+     *  <p>Subclasses should override this method to size 
+     *  the thumb button.</p>
+     *
+     *  @param thembSize The new size of the thumb button.
      */
     protected function sizeThumb(thumbSize:Number):void {}
 
     /**
-     *  This utility method calculates an appropriate size for the thumb
-     *  button, given the current range, pageSize, and trackSize settings.
+     *  Returns the size of the thumb button
+     *  given the current range, pageSize, and trackSize settings.
      *  Subclasses should override this to calculate the correct size in
      *  the units of position.
      * 
@@ -363,9 +418,9 @@ public class FxTrackBase extends FxRange
     }
 
     /**
-     *  Given a MouseEvent that contains where the thumb was dragged to and
-     *  the previous value of the thumb, calculateNewValue() returns a new
-     *  value based on the difference calculated in the mouseDown handler
+     *  From a MouseEvent object that contains the position where the thumb was dragged to, and
+     *  the previous value of the thumb position, return a new
+     *  value based on the difference calculated in the MouseDown event 
      *  and the new position. The value is also restricted to the allowed
      *  values here. This method usually should not be overridden.
      */
@@ -409,6 +464,7 @@ public class FxTrackBase extends FxRange
     //---------------------------------
     
     /**
+     *  @private
      *  Handle mouse-down events on the scroll thumb. Records 
      *  the mouse down point in clickOffset.
      */
@@ -446,6 +502,7 @@ public class FxTrackBase extends FxRange
     }
 
     /**
+     *  @private
      *  Capture mouse-move events anywhere on or off the stage.
      *  First, we calculate the new value based on the new position
      *  using calculateNewValue(). Then, we move the thumb to 
@@ -480,6 +537,7 @@ public class FxTrackBase extends FxRange
     }
 
     /**
+     *  @private
      *  Handle mouse-up events anywhere on or off the stage.
      */
     protected function system_mouseUpHandler(event:MouseEvent):void
@@ -495,6 +553,7 @@ public class FxTrackBase extends FxRange
     //---------------------------------
     
     /**
+     *  @private
      *  Handle mouse-down events for the scroll track. Subclasses
      *  should override this method if they want the track to
      *  recognize mouse clicks on the track.
