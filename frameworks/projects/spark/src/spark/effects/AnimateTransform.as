@@ -226,6 +226,13 @@ public class AnimateTransform extends Animate
     private static var xformPosition:Vector3D = new Vector3D();
     private static var postLayoutPosition:Vector3D = new Vector3D();
 
+    // Caches the transform center when start values are captured
+    // Ensures same center point used to capture and apply start and
+    // end values
+    // TODO (chaase): More correct approach might be to animate the 
+    // transform center between start and end
+    private var transformCenterPerTarget:Dictionary = new Dictionary(true);
+
     /**
      * @private
      * This flag is set when any of the translationXYZ, rotationXYZ, scaleXYZ
@@ -1059,8 +1066,19 @@ public class AnimateTransform extends Animate
                 // TODO (chaase): do we really need this?
                 propChanges[i].stripUnchangedValues = false;
                 
-                var computedTransformCenter:Vector3D = 
-                    computeTransformCenterForTarget(target); 
+                var computedTransformCenter:Vector3D;
+                // cache transform center at captureStartValues time; this will
+                // force captureEndValues to use the transform center
+                if (!setStartValues && transformCenterPerTarget[target] !== undefined)
+                {
+                    computedTransformCenter = transformCenterPerTarget[target];
+                }
+                else
+                {
+                    computedTransformCenter = computeTransformCenterForTarget(target);
+                    if (setStartValues)
+                        transformCenterPerTarget[target] = computedTransformCenter;
+                }
                 target.transformPointToParent(computedTransformCenter, xformPosition,
                     null);               
                 valueMap.translationX = xformPosition.x;
@@ -1144,7 +1162,7 @@ public class AnimateTransform extends Animate
                 if(!isNaN(transformZ))
                     computedTransformCenter.z = transformZ; 
             }
-        }       
+        }
         return computedTransformCenter;
     }
 
@@ -1206,7 +1224,10 @@ public class AnimateTransform extends Animate
                     }
                 }
                 // Now transform it
-                var xformCenter:Vector3D = computeTransformCenterForTarget(target);
+                var xformCenter:Vector3D = 
+                    (transformCenterPerTarget[target] !== undefined) ?
+                    transformCenterPerTarget[target] :
+                    computeTransformCenterForTarget(target);
                 var tmpScale:Vector3D;
                 var tmpPosition:Vector3D;
                 var tmpRotation:Vector3D;
