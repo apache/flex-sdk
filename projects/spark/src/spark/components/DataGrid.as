@@ -1124,8 +1124,6 @@ public class DataGrid extends SkinnableContainerBase
             dispatchEvent(new FlexEvent(type));
     }
     
-    // TBD(hmuller): baselinePosition override
-    
     //----------------------------------
     //  columns (delegates to grid.columns)
     //----------------------------------
@@ -1169,15 +1167,6 @@ public class DataGrid extends SkinnableContainerBase
     /**
      *  @private
      */
-    private function getColumnsLength():uint
-    {
-        const columns:IList = columns;
-        return (columns) ? columns.length : 0;
-    }
-    
-    /**
-     *  @private
-     */
     private function getColumnAt(columnIndex:int):GridColumn
     {
         const grid:Grid = grid;
@@ -1187,6 +1176,25 @@ public class DataGrid extends SkinnableContainerBase
         const columns:IList = grid.columns;
         return ((columnIndex >= 0) && (columnIndex < columns.length)) ? columns.getItemAt(columnIndex) as GridColumn : null;
     }
+    
+    //----------------------------------
+    //  columnsLength
+    //---------------------------------- 
+    
+    /**
+     *  Returns the value of <code>columns.length</code> if the columns IList
+     *  was specified, otherwise 0.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5*
+     */
+    public function get columnsLength():int
+    {
+        const columns:IList = columns;
+        return (columns) ? columns.length : 0;
+    }    
     
     //----------------------------------
     //  dataProvider (delegates to grid.dataProvider)
@@ -1218,14 +1226,24 @@ public class DataGrid extends SkinnableContainerBase
             dispatchChangeEvent("dataProviderChanged");
     }
     
+    //----------------------------------
+    //  dataProviderLength
+    //---------------------------------- 
+    
     /**
-     *  @private
+     *  Returns the value of <code>dataProvider.length</code> if the dataProvider IList
+     *  was specified, otherwise 0.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    private function getDataProviderLength():uint
+    public function get dataProviderLength():int
     {
         const dataProvider:IList = dataProvider;
         return (dataProvider) ? dataProvider.length : 0;
-    }
+    }       
     
     //----------------------------------
     //  dataTipField (delegates to grid.dataTipField)
@@ -2046,10 +2064,18 @@ public class DataGrid extends SkinnableContainerBase
      *  accessibilityImplementation, rather than the DataGrid's, so that the MSAA 
      *  representation of descendant components will not be "obscured" by DataGridAccImpl.   
      * 
-     *  @see #createChidlren(), #setFocus(), #isOurFocus().
+     *  @see #createChildren(), #setFocus(), #isOurFocus().
      */ 
     mx_internal var focusOwner:UIComponent;
     
+    /**
+     *  @private
+     *  The accessibility implementation depends on the focusOwner's bounds, as in 
+     *  DisplayObject.getBounds(), which is defined by the bounds of what has been drawn,
+     *  not the focusOwner's width and height properties.
+     */ 
+    private var focusOwnerWidth:Number = 1;
+    private var focusOwnerHeight:Number = 1;
     
     /**
      *  @private
@@ -2067,14 +2093,12 @@ public class DataGrid extends SkinnableContainerBase
         focusOwner = new UIComponent();
         const g:Graphics = focusOwner.graphics;
         g.clear();
-        g.beginFill(0x000000, 0.0);
-        g.drawRect(0, 0, 1, 1);
-        g.endFill();
+        g.lineStyle(0, 0x000000, 0);
+        g.drawRect(0, 0, focusOwnerWidth, focusOwnerHeight);
         $addChild(focusOwner);
         focusOwner.tabEnabled = true;
         focusOwner.$visible = true;
     }
-    
 
     /**
      *  @private
@@ -2083,6 +2107,26 @@ public class DataGrid extends SkinnableContainerBase
     {
         if (DataGrid.createAccessibilityImplementation != null)
             DataGrid.createAccessibilityImplementation(this);
+    }
+    
+    /**
+     *  @private
+     *  Override to set proper width and height on focusOwner object that 
+     *  the DataGridAccImpl uses to compute the location of the DataGrid.
+     */
+    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        
+        if (focusOwner && ((focusOwnerWidth != unscaledWidth) || (focusOwnerHeight != unscaledHeight)))
+        {
+            focusOwnerWidth = unscaledWidth;
+            focusOwnerHeight = unscaledHeight;
+            const g:Graphics = focusOwner.graphics;
+            g.clear();
+            g.lineStyle(0, 0x000000, 0);
+            g.drawRect(0, 0, focusOwnerWidth, focusOwnerHeight);        
+        }
     }
     
     /**
@@ -2165,7 +2209,7 @@ public class DataGrid extends SkinnableContainerBase
     /**
      *  @private
      *  Used to prevent keyboard events that have been redispatched to the Scroller from being
-     *  redispatched a second time when the bubble back up.
+     *  redispatched a second time when they bubble back up.
      */
     private var scrollerEvent:KeyboardEvent = null;
     
@@ -2193,6 +2237,7 @@ public class DataGrid extends SkinnableContainerBase
         if (event.keyCode == Keyboard.A && event.ctrlKey)
         { 
             selectAllFromKeyboard();
+            event.preventDefault();
             return;
         }
 
@@ -2201,10 +2246,9 @@ public class DataGrid extends SkinnableContainerBase
 
         if (selectionMode == GridSelectionMode.NONE || 
             grid.caretRowIndex < 0 || 
-            grid.caretRowIndex >= getDataProviderLength() ||
+            grid.caretRowIndex >= dataProviderLength ||
             (isCellSelectionMode() && 
-                (grid.caretColumnIndex < 0 || 
-                    grid.caretColumnIndex >= getColumnsLength())))
+                (grid.caretColumnIndex < 0 || grid.caretColumnIndex >= columnsLength)))
         {
             // We're not going to handle this event, so give the scroller a chance.
             if (scroller && (scrollerEvent != event))
@@ -3958,8 +4002,8 @@ public class DataGrid extends SkinnableContainerBase
         
         const inRows:Boolean = isRowSelectionMode();
         
-        const rowCount:int = getDataProviderLength();
-        const columnCount:int = getColumnsLength();
+        const rowCount:int = dataProviderLength;
+        const columnCount:int = columnsLength;
         var visibleRows:Vector.<int>;
         var caretRowBounds:Rectangle;
         
