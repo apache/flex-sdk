@@ -451,10 +451,8 @@ package spark.components
         {
             _oldCaretColumnIndex = _caretColumnIndex;
 
-            if (caretColumnIndex == value)
+            if (caretColumnIndex == value || value < -1)
                 return;
-            
-            // ToDo: why isn't there any validation being done on value?
             
             _caretColumnIndex = value;
             
@@ -508,11 +506,9 @@ package spark.components
         {
             _oldCaretRowIndex = _caretRowIndex;
 
-            if (_caretRowIndex == value)
+            if (_caretRowIndex == value || value < -1)
                 return;
             
-            // ToDo: why isn't there any validation being done on value?
-
             _caretRowIndex = value;
             
             caretChanged = true;
@@ -723,11 +719,7 @@ package spark.components
                     newColumn.setColumnIndex(index);
                 }
             }
-            
-            // Reset the cursor here so that if it is set before commitProperties
-            // is run the change isn't wiped out.
-            caretRowIndex = caretColumnIndex = -1;
-            
+                                       
             columnsChanged = true;
             invalidateProperties();
             invalidateSize();
@@ -816,11 +808,7 @@ package spark.components
             const newDataProvider:IList = dataProvider;
             if (newDataProvider)
                 newDataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler, false, 0, true);        
-            
-            // Reset the cursor here so that if it is set before commitProperties
-            // is run the change isn't wiped out.
-            caretRowIndex = caretColumnIndex = -1;
-            
+                        
             dataProviderChanged = true;
             invalidateProperties();
             invalidateSize();
@@ -1845,10 +1833,7 @@ package spark.components
             anchorRowIndex = 0;
             anchorColumnIndex = 0;
             if (!requireSelection)
-            {
-                caretRowIndex = -1;
-                caretColumnIndex = -1;
-            }
+                initializeCaretPosition();
             
             invalidateDisplayList();
             
@@ -1990,10 +1975,7 @@ package spark.components
             const selectionChanged:Boolean = gridSelection.selectAll();
             if (selectionChanged)
             {               
-                // Remove the caret.
-                caretRowIndex = -1;
-                caretColumnIndex = -1;
-                
+                initializeCaretPosition()               
                 invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
             }
@@ -2024,8 +2006,7 @@ package spark.components
             }
             
             // Remove caret and reset the anchor.
-            caretRowIndex = -1;
-            caretColumnIndex = -1;
+            initializeCaretPosition();
             anchorRowIndex = 0;
             anchorColumnIndex = 0;
             
@@ -2747,7 +2728,10 @@ package spark.components
                     if (columnsChanged && _columns)
                         gridDimensions.columnCount = _columns.length;
                 }
-                                
+                     
+                if (!caretChanged)
+                    initializeCaretPosition();
+                
                 dataProviderChanged = false;
                 columnsChanged = false;
             }
@@ -2765,6 +2749,12 @@ package spark.components
             // changed.
             if (caretChanged)
             {
+                // Validate values now.  Need to let caret be set in the same
+                // update as the dp and/or columns.  -1 is a valid value.
+                if (_dataProvider && caretRowIndex >= _dataProvider.length)
+                    caretRowIndex = _dataProvider.length - 1;
+                if (_columns && caretColumnIndex >= _columns.length)
+                    caretColumnIndex =  _columns.length - 1;
                 dispatchCaretChangeEvent();
                 caretChanged = false;
             }            
@@ -3080,7 +3070,7 @@ package spark.components
                     {
                         itemsLength = event.items.length;
                         if (oldCaretRowIndex < (location + itemsLength))
-                            caretRowIndex = -1;
+                            caretRowIndex = _dataProvider.length > 0 ? 0 : -1; 
                         else
                             caretRowIndex -= itemsLength;    
                     }
@@ -3102,8 +3092,7 @@ package spark.components
                 
                 case CollectionEventKind.REFRESH:
                 case CollectionEventKind.RESET:
-                    caretRowIndex = -1;
-                    caretColumnIndex = -1;
+                    initializeCaretPosition();
                     horizontalScrollPosition = 0;
                     verticalScrollPosition = 0;
                     break;
@@ -3135,7 +3124,7 @@ package spark.components
                     {
                         itemsLength = event.items.length;
                         if (oldCaretColumnIndex < (location + itemsLength))
-                            caretColumnIndex = -1;
+                            caretColumnIndex = _columns.length > 0 ? 0 : -1; 
                         else
                             caretColumnIndex -= itemsLength;    
                     }                   
@@ -3154,8 +3143,7 @@ package spark.components
                 
                 case CollectionEventKind.REFRESH:
                 case CollectionEventKind.RESET:
-                    caretRowIndex = -1;
-                    caretColumnIndex = -1;
+                    initializeCaretPosition();
                     horizontalScrollPosition = 0;
                     verticalScrollPosition = 0;
                     break;
@@ -3376,6 +3364,15 @@ package spark.components
         //  Methods
         //
         //--------------------------------------------------------------------------  
+        
+        /**
+         *  @private
+         */
+        private function initializeCaretPosition():void
+        {
+            caretRowIndex = _dataProvider && _dataProvider.length > 0 ? 0 : -1; 
+            caretColumnIndex = _columns && _columns.length > 0 ? 0 : -1; 
+        }
         
         /**
          *  @private
