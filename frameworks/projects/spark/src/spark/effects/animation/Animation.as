@@ -593,7 +593,7 @@ public class Animation extends EventDispatcher
      */
     public function end():void
     {
-        if (_isPlaying)
+        if (_isPlaying || duration == 0)
         {
             // TODO (chaase): Check whether we already send out a final
             // UPDATE event with the end value; if so, this dup should be
@@ -813,8 +813,10 @@ public class Animation extends EventDispatcher
     {
         numRepeats = 1;
         setupInterpolation();
-        setupEasing();
-        
+        setupEasing();        
+        var value:Object = getCurrentValue(0);
+        sendAnimationEvent(AnimationEvent.ANIMATION_START, value);
+
         if (duration == 0)
         {
             id = -1; // use -1 to indicate that this animation was never added
@@ -822,10 +824,8 @@ public class Animation extends EventDispatcher
         }
         else
         {
-            var value:Object = getCurrentValue(0);
             // TODO (chaase): Make sure we're not already sending out an
             // UPDATE event with this start value
-            sendAnimationEvent(AnimationEvent.ANIMATION_START, value);
             sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, value);
             Animation.addAnimation(this);
             _isPlaying = true;
