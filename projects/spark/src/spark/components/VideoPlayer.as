@@ -13,6 +13,7 @@ package spark.components
 {
 import fl.video.VideoEvent;
 import fl.video.VideoState;
+import fl.video.flvplayback_internal;
 
 import flash.display.StageDisplayState;
 import flash.events.Event;
@@ -21,16 +22,19 @@ import flash.events.MouseEvent;
 import flash.events.ProgressEvent;
 import flash.geom.Rectangle;
 
-import spark.components.supportClasses.SkinnableComponent;
-import spark.components.supportClasses.Range;
+import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
-import spark.primitives.VideoElement;
-import spark.primitives.supportClasses.TextGraphicElement;
 import mx.utils.BitFlagUtil;
 
+import spark.components.supportClasses.ButtonBase;
+import spark.components.supportClasses.Range;
+import spark.components.supportClasses.SkinnableComponent;
+import spark.events.TrackBaseEvent;
 import spark.events.VideoEvent;
+import spark.primitives.VideoElement;
+import spark.primitives.supportClasses.TextGraphicElement;
 
 //--------------------------------------
 //  Events
@@ -277,12 +281,12 @@ public class VideoPlayer extends SkinnableComponent
     /**
      *  @private
      */
-    private static const LIVE_PROPERTY_FLAG:uint = 1 << 2;
+    private static const MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG:uint = 1 << 2;
     
     /**
      *  @private
      */
-    private static const MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG:uint = 1 << 3;
+    private static const MUTED_PROPERTY_FLAG:uint = 1 << 3;
     
     /**
      *  @private
@@ -293,11 +297,6 @@ public class VideoPlayer extends SkinnableComponent
      *  @private
      */
     private static const VOLUME_PROPERTY_FLAG:uint = 1 << 5;
-    
-    /**
-     *  @private
-     */
-    private static const MUTED_PROPERTY_FLAG:uint = 1 << 6;
     
     //--------------------------------------------------------------------------
     //
@@ -358,7 +357,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var fullScreenButton:Button;
+    public var fullScreenButton:ButtonBase;
     
     [SkinPart(required="false")]
     
@@ -385,7 +384,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var pauseButton:Button;
+    public var pauseButton:ButtonBase;
     
     [SkinPart(required="false")]
     
@@ -397,7 +396,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var playButton:Button;
+    public var playButton:ButtonBase;
     
     [SkinPart(required="false")]
     
@@ -437,7 +436,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var stopButton:Button;
+    public var stopButton:ButtonBase;
     
     [SkinPart(required="false")]
     
@@ -461,7 +460,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var volumeBar:Range;
+    public var volumeBar:VideoPlayerVolumeBar;
     
     //--------------------------------------------------------------------------
     //
@@ -595,40 +594,6 @@ public class VideoPlayer extends SkinnableComponent
         }
         else
             videoElementProperties.autoRewind = value;
-    }
-    
-    //----------------------------------
-    //  live
-    //----------------------------------
-
-    [Inspectable(category="General", defaultValue="false")]
-
-    /**
-     *  @copy spark.primitives.VideoElement#live
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get live():Boolean
-    {
-        return (videoElement) ? videoElement.live : videoElementProperties.live;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set live(value:Boolean):void
-    {
-        if (videoElement)
-        {
-            videoElement.live = value;
-            videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
-                                                        LIVE_PROPERTY_FLAG, true);
-        }
-        else
-            videoElementProperties.live = value;
     }
     
     //----------------------------------
@@ -860,8 +825,7 @@ public class VideoPlayer extends SkinnableComponent
      */
     override protected function getCurrentSkinState():String
     {
-        if (!enabled)
-            return "disabled";
+        var state:String;
         
         var currentState:String;
         
@@ -875,20 +839,38 @@ public class VideoPlayer extends SkinnableComponent
         switch (currentState)
         {
             case VideoState.BUFFERING:
+            case VideoState.LOADING:
+                state = VideoState.LOADING;
+                break;
+            case VideoState.PAUSED:
+                state = VideoState.STOPPED;
+                break;
             case VideoState.CONNECTION_ERROR:
             case VideoState.DISCONNECTED:
-            case VideoState.LOADING:
-            case VideoState.PAUSED:
             case VideoState.PLAYING:
-            case VideoState.SEEKING:
             case VideoState.STOPPED:
             {
-                previousState = currentState;
+                state = currentState;
                 break;
             }
         }
         
-        return previousState;
+        if (!state)
+            state = previousState;
+        else
+            previousState = state;
+        
+        // now that we have our video player's current state (atleast the one we care about)
+        // and that we've set the previous state to something we care about, let's figure 
+        // out our skin's state
+        
+        if (!enabled)
+            state="disabled"
+        
+        if (fullScreen)
+            return "fullScreen" + state.charAt(0).toUpperCase() + state.substring(1);
+        
+        return state;
     }
     
     /**
@@ -930,13 +912,6 @@ public class VideoPlayer extends SkinnableComponent
                                                         AUTO_REWIND_PROPERTY_FLAG, true);
             }
             
-            if (videoElementProperties.live !== undefined)
-            {
-                videoElement.live = videoElementProperties.live;
-                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                        LIVE_PROPERTY_FLAG, true);
-            }
-            
             if (videoElementProperties.maintainAspectRatio !== undefined)
             {
                 videoElement.maintainAspectRatio = videoElementProperties.maintainAspectRatio;
@@ -957,28 +932,24 @@ public class VideoPlayer extends SkinnableComponent
             videoElement.addEventListener(spark.events.VideoEvent.COMPLETE, dispatchEvent);
             videoElement.addEventListener(spark.events.VideoEvent.METADATA_RECEIVED, videoElement_metaDataReceivedHandler);
             videoElement.addEventListener(spark.events.VideoEvent.PLAYHEAD_UPDATE, videoElement_playHeadUpdateHandler);
-            videoElement.addEventListener(ProgressEvent.PROGRESS, dispatchEvent);
+            videoElement.addEventListener(ProgressEvent.PROGRESS, videoElement_progressHandler);
             videoElement.addEventListener(fl.video.VideoEvent.STATE_CHANGE, videoElement_stateChangeHandler);
             
             // just strictly for binding purposes
             videoElement.addEventListener("sourceChanged", dispatchEvent);
-            videoElement.addEventListener("volumeChanged", dispatchEvent);
+            videoElement.addEventListener("volumeChanged", videoElement_volumeChangedHandler);
             
             if (volumeBar)
                 volumeBar.value = volume;
             
             if (scrubBar)
-            {
-                scrubBar.minimum = 0;
-                scrubBar.maximum = videoElement.totalTime;
-                scrubBar.value = videoElement.playheadTime;
-            }
-            
+                updateScrubBar();
+
             if (playheadTimeLabel)
-                playheadTimeLabel.text = videoElement.playheadTime.toString();
+                updatePlayheadTime();
             
             if (totalTimeLabel)
-                totalTimeLabel.text = videoElement.totalTime.toString();
+                updateTotalTime();
             
             if (muteButton)
                 muteButton.selected = videoElement.muted;
@@ -1007,6 +978,8 @@ public class VideoPlayer extends SkinnableComponent
         else if (instance == volumeBar)
         {
             volumeBar.addEventListener(Event.CHANGE, volumeBar_changeHandler);
+            // TODO (rfrishbe): Need this to be a real event
+            volumeBar.addEventListener("muteButtonClick", muteButton_clickHandler);
             volumeBar.minimum = 0;
             volumeBar.maximum = 1;
             if (videoElement)
@@ -1014,14 +987,11 @@ public class VideoPlayer extends SkinnableComponent
         }
         else if (instance == scrubBar)
         {
-            if (videoElement)
-            {
-                scrubBar.minimum = 0;
-                scrubBar.maximum = videoElement.totalTime;
-                scrubBar.value = videoElement.playheadTime;
-            }
-            scrubBar.addEventListener(MouseEvent.MOUSE_DOWN, scrubBar_mouseEventHandler);
-            scrubBar.addEventListener(FlexEvent.VALUE_COMMIT, scrubBar_valueCommitHandler);
+            if (scrubBar)
+                updateScrubBar();
+            
+            scrubBar.addEventListener(TrackBaseEvent.THUMB_PRESS, scrubBar_thumbPressHandler);
+            scrubBar.addEventListener(TrackBaseEvent.THUMB_RELEASE, scrubBar_thumbReleaseHandler);
             scrubBar.addEventListener(Event.CHANGE, scrubBar_changeHandler);
         }
         else if (instance == fullScreenButton)
@@ -1031,12 +1001,12 @@ public class VideoPlayer extends SkinnableComponent
         else if (instance == playheadTimeLabel)
         {
             if (videoElement)
-                playheadTimeLabel.text = videoElement.playheadTime.toString();
+                updatePlayheadTime();
         }
         else if (instance == totalTimeLabel)
         {
             if (totalTimeLabel)
-                totalTimeLabel.text = videoElement.totalTime.toString();
+                updateTotalTime();
         }
     }
     
@@ -1063,9 +1033,6 @@ public class VideoPlayer extends SkinnableComponent
             if (BitFlagUtil.isSet(videoElementProperties as uint, AUTO_REWIND_PROPERTY_FLAG))
                 newVideoProperties.autoRewind = videoElement.autoRewind;
             
-            if (BitFlagUtil.isSet(videoElementProperties as uint, LIVE_PROPERTY_FLAG))
-                newVideoProperties.live = videoElement.live;
-            
             if (BitFlagUtil.isSet(videoElementProperties as uint, MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG))
                 newVideoProperties.maintainAspectRatio = videoElement.maintainAspectRatio;
             
@@ -1078,12 +1045,12 @@ public class VideoPlayer extends SkinnableComponent
             videoElement.removeEventListener(spark.events.VideoEvent.COMPLETE, videoElement_completeHandler);
             videoElement.removeEventListener(spark.events.VideoEvent.METADATA_RECEIVED, videoElement_metaDataReceivedHandler);
             videoElement.removeEventListener(spark.events.VideoEvent.PLAYHEAD_UPDATE, videoElement_playHeadUpdateHandler);
-            videoElement.removeEventListener(ProgressEvent.PROGRESS, dispatchEvent);
+            videoElement.removeEventListener(ProgressEvent.PROGRESS, videoElement_progressHandler);
             videoElement.removeEventListener(fl.video.VideoEvent.STATE_CHANGE, videoElement_stateChangeHandler);
             
             // just strictly for binding purposes
             videoElement.removeEventListener("sourceChanged", dispatchEvent);
-            videoElement.removeEventListener("volumeChanged", dispatchEvent);
+            videoElement.removeEventListener("volumeChanged", videoElement_volumeChangedHandler);
         }
         else if (instance == playButton)
         {
@@ -1108,11 +1075,12 @@ public class VideoPlayer extends SkinnableComponent
         else if (instance == volumeBar)
         {
             volumeBar.removeEventListener(Event.CHANGE, volumeBar_changeHandler);
+            volumeBar.removeEventListener("muteButtonClick", muteButton_clickHandler);
         }
         else if (instance == scrubBar)
         {
-            scrubBar.removeEventListener(MouseEvent.MOUSE_DOWN, scrubBar_mouseEventHandler);
-            scrubBar.removeEventListener(FlexEvent.VALUE_COMMIT, scrubBar_valueCommitHandler);
+            scrubBar.removeEventListener(TrackBaseEvent.THUMB_PRESS, scrubBar_thumbPressHandler);
+            scrubBar.removeEventListener(TrackBaseEvent.THUMB_RELEASE, scrubBar_thumbReleaseHandler);
             scrubBar.removeEventListener(Event.CHANGE, scrubBar_changeHandler);
         }
         else if (instance == fullScreenButton)
@@ -1191,6 +1159,73 @@ public class VideoPlayer extends SkinnableComponent
         videoElement.stop();
     }
     
+    /**
+     *  @private
+     */
+    private function updateScrubBar():void
+    {
+        if (!videoElement)
+            return;
+        
+        if (!scrubBarMouseCaptured)
+        {
+            scrubBar.minimum = 0;
+            scrubBar.maximum = videoElement.totalTime;
+            scrubBar.value = videoElement.playheadTime;
+        }
+        
+        if (scrubBar is VideoPlayerScrubBar)
+            VideoPlayerScrubBar(scrubBar).bufferedValue = videoElement.mx_internal::videoPlayer.bytesLoaded/videoElement.mx_internal::videoPlayer.bytesTotal * videoElement.totalTime;
+    }
+     
+   /**
+    *  @private
+    */
+    private function updateTotalTime():void
+    {
+        totalTimeLabel.text = formatTimeValue(totalTime);
+    }
+    
+    /**
+     *  Formats a time value, given in seconds, into a string that 
+     *  gets used for the playheadTimeLabel and the totalTimeLabel.
+     * 
+     *  @param value Value in seconds of the time to format
+     * 
+     *  @return Formatted time value
+     */
+    protected function formatTimeValue(value:Number):String
+    {
+        // default format: hours:minutes:seconds
+        var hours:uint = Math.floor(value/3600) % 24;
+        var minutes:uint = Math.floor(value/60) % 60;
+        var seconds:uint = Math.round(value) % 60;
+        
+        var result:String = "";
+        if (hours != 0)
+            result = hours + ":";
+        
+        if (result && minutes < 10)
+            result += "0" + minutes + ":";
+        else
+            result += minutes + ":";
+        
+        if (seconds < 10)
+            result += "0" + seconds;
+        else
+            result += seconds;
+        
+        return result;
+    }
+     
+    /**
+     *  @private
+     */
+    private function updatePlayheadTime():void
+    {
+        playheadTimeLabel.text = formatTimeValue(playheadTime);
+    } 
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -1202,8 +1237,9 @@ public class VideoPlayer extends SkinnableComponent
      */
     private function videoElement_completeHandler(event:spark.events.VideoEvent):void
     {
+        // TODO: needed??
         if (totalTimeLabel)
-            totalTimeLabel.text = videoElement.totalTime.toString();
+            updateTotalTime();
         
         dispatchEvent(event);
     }
@@ -1214,14 +1250,10 @@ public class VideoPlayer extends SkinnableComponent
     private function videoElement_metaDataReceivedHandler(event:spark.events.VideoEvent):void
     {
         if (scrubBar)
-        {
-            scrubBar.minimum = 0;
-            scrubBar.maximum = videoElement.totalTime;
-            scrubBar.value = videoElement.playheadTime;
-        }
+            updateScrubBar();
         
         if (totalTimeLabel)
-            totalTimeLabel.text = videoElement.totalTime.toString();
+            updateTotalTime();
         
         dispatchEvent(event);
     }
@@ -1231,15 +1263,21 @@ public class VideoPlayer extends SkinnableComponent
      */
     private function videoElement_playHeadUpdateHandler(event:spark.events.VideoEvent):void
     {
-        if (scrubBar && !scrubBarMouseCaptured)
-        {
-            scrubBar.minimum = 0;
-            scrubBar.maximum = videoElement.totalTime;
-            scrubBar.value = videoElement.playheadTime;
-        }
+        updateScrubBar();
         
         if (playheadTimeLabel)
-            playheadTimeLabel.text = videoElement.playheadTime.toString();
+            updatePlayheadTime();
+        
+        dispatchEvent(event);
+    }
+    
+    /**
+     *  @private
+     */
+    private function videoElement_progressHandler(event:ProgressEvent):void
+    {
+        if (scrubBar)
+            updateScrubBar();
         
         dispatchEvent(event);
     }
@@ -1251,6 +1289,7 @@ public class VideoPlayer extends SkinnableComponent
     {
         if (playPauseButton)
             playPauseButton.selected = playing;
+        
         invalidateSkinState();
         
         // don't dispatch the event here...this is an internal event
@@ -1259,17 +1298,44 @@ public class VideoPlayer extends SkinnableComponent
     /**
      *  @private
      */
+    private function videoElement_volumeChangedHandler(event:Event):void
+    {
+        if (volumeBar)
+            volumeBar.value = volume;
+        
+        dispatchEvent(event);
+    }
+    
+    /**
+     *  @private
+     *  Indicates whether we are in the full screen state or not.
+     *  We use this when determining our current skin state.
+     */
+    private var fullScreen:Boolean = false;
+    
+    /**
+     *  @private
+     */
     private function fullScreenButton_clickHandler(event:MouseEvent):void
     {
-        // TODO (rfrishbe): What should we do on full screen?
-        includeInLayout = false;
-        setLayoutBoundsSize(stage.fullScreenWidth, stage.fullScreenHeight);
-        videoElement.mx_internal::videoPlayer.smoothing = false;
-        videoElement.mx_internal::videoPlayer.deblocking = 0;
-        validateNow();
-        stage.fullScreenSourceRect = new Rectangle(0, 0, width, height);
-        stage.displayState = StageDisplayState.FULL_SCREEN;
-        stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
+        if (!fullScreen)
+        {
+            // TODO (rfrishbe): What should we do on full screen?
+            fullScreen = true;
+            invalidateSkinState();
+            includeInLayout = false;
+            setLayoutBoundsSize(stage.fullScreenWidth, stage.fullScreenHeight);
+            videoElement.mx_internal::videoPlayer.smoothing = false;
+            videoElement.mx_internal::videoPlayer.deblocking = 0;
+            validateNow();
+            stage.displayState = StageDisplayState.FULL_SCREEN;
+            stage.fullScreenSourceRect = new Rectangle(0, 0, width, height);
+            stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
+        }
+        else
+        {
+            stage.displayState = StageDisplayState.NORMAL;
+        }
     }
     
     private function fullScreenEventHandler(event:FullScreenEvent):void
@@ -1277,11 +1343,19 @@ public class VideoPlayer extends SkinnableComponent
         if (event.fullScreen)
             return;
         
+        fullScreen = false;
+        invalidateSkinState();
         stage.removeEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
-        setLayoutBoundsSize(NaN, NaN);
         includeInLayout = true;
         invalidateSize();
         invalidateDisplayList();
+//        var myParent:IVisualElementContainer = parent as IVisualElementContainer;
+//        if (myParent)
+//        {
+//            var index:int = myParent.getElementIndex(this);
+//            myParent.removeElement(this);
+//            myParent.addElementAt(this, index);
+//        }
     }
     
     /**
@@ -1349,25 +1423,34 @@ public class VideoPlayer extends SkinnableComponent
     
     /**
      *  @private
+     *  We pause the video when dragging the thumb for the scrub bar.  This 
+     *  stores whether we were paused or not.
      */
-    private function scrubBar_mouseEventHandler(event:MouseEvent):void
+    private var wasPlayingBeforeSeeking:Boolean;
+    
+    /**
+     *  @private
+     */
+    private function scrubBar_thumbPressHandler(event:TrackBaseEvent):void
     {
-        switch (event.type)
+        scrubBarMouseCaptured = true;
+        if (playing)
         {
-            case MouseEvent.MOUSE_DOWN:
-            {
-                scrubBarMouseCaptured = true;
-                systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, scrubBar_mouseEventHandler, true /*useCapture*/);
-                systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, scrubBar_mouseEventHandler);
-                break;
-            }
-            case MouseEvent.MOUSE_UP:
-            case SandboxMouseEvent.MOUSE_UP_SOMEWHERE:
-            {
-                scrubBarMouseCaptured = false;
-                break;
-            }
-            
+            pause();
+            wasPlayingBeforeSeeking = true;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function scrubBar_thumbReleaseHandler(event:TrackBaseEvent):void
+    {
+        scrubBarMouseCaptured = false;
+        if (wasPlayingBeforeSeeking)
+        {
+            play();
+            wasPlayingBeforeSeeking = false;
         }
     }
     
@@ -1376,16 +1459,15 @@ public class VideoPlayer extends SkinnableComponent
      */
     private function scrubBar_changeHandler(event:Event):void
     {
-        seek(scrubBar.value);
-    }
-    
-    /**
-     *  @private
-     */
-    private function scrubBar_valueCommitHandler(event:Event):void
-    {
-        //seek(scrubBar.value);
-        //play();
+        if (scrubBarMouseCaptured)
+        {
+            videoElement.mx_internal::videoPlayer.flvplayback_internal::flushQueuedCmds();
+            seek(scrubBar.value);
+        }
+        else
+        {
+            seek(scrubBar.value);
+        }
     }
 }
 }
