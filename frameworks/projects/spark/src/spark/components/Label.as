@@ -246,9 +246,10 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
     
     /**
      *  @private
+     *  Returns true if all lines were composed, otherwise false.
      */
     override protected function composeTextLines(width:Number = NaN,
-												 height:Number = NaN):void
+												 height:Number = NaN):Boolean
     {
         super.composeTextLines(width, height);
         
@@ -272,7 +273,7 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
         if (!recycleTextLines)
             mx_internal::textLines.length = 0;
         
-		var createdAllLines:Boolean = createTextLines(elementFormat);
+		var allLinesComposed:Boolean = createTextLines(elementFormat);
         
         // Need truncation if all the following are true
         // - truncation options exist (0=no trunc, -1=fill up bounds then trunc,
@@ -281,13 +282,13 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
         // - explicit line breaking is not used
         // - content doesn't fit
         if (truncation && getStyle("lineBreak") == "toFit" &&
-            !doesComposedTextFit(height, createdAllLines, truncation))
+            !doesComposedTextFit(height, allLinesComposed, truncation))
         {
             truncateText(width, height);
         }
         
         // Done with the lines now.  
-        releaseLinesFromTextBlock(mx_internal::textLines);
+        releaseLinesFromTextBlock();
         
         // If toFit and explicit width, adjust the bounds to match.
         // This will save a recompose and/or clip in updateDisplayList() if 
@@ -305,7 +306,9 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
         mx_internal::isOverset = mx_internal::isTextOverset(width, height);
         
         // Just recomposed so reset.
-        mx_internal::invalidateCompose = false;                
+        mx_internal::invalidateCompose = false;     
+        
+        return allLinesComposed;           
     }
 
 	/**
@@ -313,7 +316,7 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
      *  Cleans up and sets the validity of the lines disassociated with the 
      *  TextBlock to TextLineValidity.INVALID.
      */
-    private function releaseLinesFromTextBlock(textLines:Array):void
+    private function releaseLinesFromTextBlock():void
     {
         var firstLine:TextLine = staticTextBlock.firstLine;
         var lastLine:TextLine = staticTextBlock.lastLine;
@@ -876,24 +879,18 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
             
             // 1. Measure the space that the truncation indicator will take
             // by composing the truncation resource using the same bounds
-            // and formats.  Cache this and reuse until the indicator
-            // is modified.
-            if (!mx_internal::truncationIndicatorLines)
-                mx_internal::truncationIndicatorLines = new Array();
-            
-            var indicatorLines:Array = mx_internal::truncationIndicatorLines;
-            if (indicatorLines.length == 0)
-            {
-                staticTextElement.text = mx_internal::truncationIndicatorResource;
-            
-                var measureBounds:Rectangle = new Rectangle(0, 0, width, NaN);
-
-                createTextLinesFromTextBlock(staticTextBlock, 
-                                             indicatorLines, 
-                                             measureBounds);
-                                                   
-                releaseLinesFromTextBlock(indicatorLines);
-            }
+            // and formats.  The measured indicator lines could be cached but
+            // as well as being dependent on the indicator string, they are 
+            // dependent on the given width.            
+            staticTextElement.text = mx_internal::truncationIndicatorResource;
+            var indicatorLines:Array = new Array();
+            var indicatorBounds:Rectangle = new Rectangle(0, 0, width, NaN);
+    
+            createTextLinesFromTextBlock(staticTextBlock, 
+                                         indicatorLines, 
+                                         indicatorBounds);
+                                               
+            releaseLinesFromTextBlock();
                                                                                                          
             // 2. Move target line for truncation higher by as many lines 
             // as the number of full lines taken by the truncation 
