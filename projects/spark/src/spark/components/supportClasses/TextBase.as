@@ -29,6 +29,7 @@ import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
+import mx.utils.ObjectUtil;
 
 import text.formats.TextAlign;
 import text.formats.VerticalAlign;
@@ -37,7 +38,7 @@ import text.formats.VerticalAlign;
  *  Documentation is not currently available.
  */
 public class TextGraphicElement extends GraphicElement
-	implements IDisplayObjectElement, ISimpleStyleClient, IStyleClient
+	implements IDisplayObjectElement, IStyleClient
 {
 	include "../../core/Version.as";
 
@@ -634,7 +635,21 @@ public class TextGraphicElement extends GraphicElement
     public function set styleName(
         value:Object /* String, CSSStyleDeclaration, or UIComponent */):void
     {
-        // to be implemented
+        if (value == _styleName)
+            return;
+
+        _styleName = value;
+
+        // If inheritingStyles is undefined, then this object is being
+        // initialized and we haven't yet generated the proto chain.
+        // To avoid redundant work, don't bother to create
+        // the proto chain here.
+        if (inheritingStyles == StyleProtoChain.STYLE_UNINITIALIZED)
+            return;
+
+        regenerateStyleCache(true);
+
+        styleChanged("styleName");
     }
 
 	//--------------------------------------------------------------------------
@@ -652,14 +667,7 @@ public class TextGraphicElement extends GraphicElement
      */
     public function get className():String
     {
-        var name:String = getQualifiedClassName(this);
-        
-        // If there is a package name, strip it off.
-        var index:int = name.indexOf("::");
-        if (index != -1)
-            name = name.substr(index + 2);
-                
-        return name;
+        return ObjectUtil.getUnqualifiedClassName(this);
     }
     
     //----------------------------------
@@ -825,7 +833,7 @@ public class TextGraphicElement extends GraphicElement
      */
     public function styleChanged(styleProp:String):void
     {
-        // to be implemented
+        StyleProtoChain.styleChanged(this, styleProp);
     }
 
 	//--------------------------------------------------------------------------
@@ -849,7 +857,7 @@ public class TextGraphicElement extends GraphicElement
      */
     public function setStyle(styleProp:String, newValue:*):void
     {
-        // to be implemented
+        StyleProtoChain.setStyle(this, styleProp, newValue);
     }
 
     /**
@@ -865,8 +873,7 @@ public class TextGraphicElement extends GraphicElement
      */
     public function getClassStyleDeclarations():Array
     {
-        // to be implemented
-        return null;
+        return StyleProtoChain.getClassStyleDeclarations(this);
     }
 
     /**
@@ -875,7 +882,6 @@ public class TextGraphicElement extends GraphicElement
     public function notifyStyleChangeInChildren(
                         styleProp:String, recursive:Boolean):void
     {
-        // to be implemented
     }
 
     /**
@@ -883,7 +889,7 @@ public class TextGraphicElement extends GraphicElement
      */
     public function regenerateStyleCache(recursive:Boolean):void
     {
-        // to be implemented
+        mx_internal::initProtoChain();
     }
 
 	/**
@@ -891,7 +897,6 @@ public class TextGraphicElement extends GraphicElement
 	 */
     public function registerEffects(effects:Array /* of String */):void
     {
-        // to be implemented
     }
 
 	//--------------------------------------------------------------------------
@@ -913,7 +918,7 @@ public class TextGraphicElement extends GraphicElement
      */
     mx_internal function initProtoChain():void
     {
-        // to be implemented
+        StyleProtoChain.initProtoChain(this);
     }
 
 	/**
