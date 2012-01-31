@@ -263,6 +263,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
     //
     //--------------------------------------------------------------------------
     
+	[Bindable]
     [SkinPart(required="false")]
     
     /**
