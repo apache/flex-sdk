@@ -42,6 +42,7 @@ use namespace mx_internal;
 
 /**
  *  Dispatched after the channel has connected to its endpoint.
+ * <p>Channel and its subclasses issue a Channel.Connect.Failed code whenever there is an issue in a channel's  connect attempts to a remote destination. An AMFChannel object issues Channel.Call.Failed code when the channel is already connected but it gets a Call.Failed code from its underlying NetConnection.</p>
  *
  *  @eventType mx.messaging.events.ChannelEvent.CONNECT
  */
@@ -51,6 +52,12 @@ use namespace mx_internal;
  *  Dispatched after the channel has disconnected from its endpoint.
  *
  *  @eventType mx.messaging.events.ChannelEvent.DISCONNECT
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="channelDisconnect", type="mx.messaging.events.ChannelEvent")]
 
@@ -58,6 +65,12 @@ use namespace mx_internal;
  *  Dispatched after the channel has faulted.
  * 
  *  @eventType mx.messaging.events.ChannelFaultEvent.FAULT
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3  
  */
 [Event(name="channelFault", type="mx.messaging.events.ChannelFaultEvent")]
 
@@ -65,6 +78,12 @@ use namespace mx_internal;
  *  Dispatched when a channel receives a message from its endpoint.
  * 
  *  @eventType mx.messaging.events.MessageEvent.MESSAGE
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3  
  */
 [Event(name="message", type="mx.messaging.events.MessageEvent")]
 
@@ -72,6 +91,12 @@ use namespace mx_internal;
  *  Dispatched when a property of the channel changes.
  * 
  *  @eventType mx.events.PropertyChangeEvent.PROPERTY_CHANGE
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="propertyChange", type="mx.events.PropertyChangeEvent")]
 
@@ -98,6 +123,12 @@ use namespace mx_internal;
  *  <p><b>Note:</b> This class is for advanced use only.
  *  Use this class for creating custom channels like the existing RTMPChannel,
  *  AMFChannel, and HTTPChannel.</p>
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class Channel extends EventDispatcher implements IMXMLObject
 {
@@ -134,6 +165,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  @param id The id of this channel.
      * 
      *  @param uri The endpoint URI for this channel.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3      
      */
     public function Channel(id:String = null, uri:String = null)
     {
@@ -274,6 +311,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
     
     /**
      *  Provides access to the ChannelSets connected to the Channel.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get channelSets():Array
     {
@@ -293,6 +336,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
     /**
      *  Indicates whether this channel has established a connection to the 
      *  remote destination.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3      
      */
     public function get connected():Boolean
     {
@@ -334,6 +383,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  time to wait for a connection to be established.
      *  It is not reset for each failover URI that the channel may attempt 
      *  to connect to.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */ 
     public function get connectTimeout():int
     {
@@ -395,6 +450,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
     /**
      * Channel property determines the level of performance information injection - whether
      * we inject timestamps or not. 
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get recordMessageTimes():Boolean
     {
@@ -413,6 +474,11 @@ public class Channel extends EventDispatcher implements IMXMLObject
     /**
      * Channel property determines the level of performance information injection - whether
      * we inject message sizes or not.
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3      
      */   
     public function get recordMessageSizes():Boolean
     {
@@ -704,7 +770,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  Make sure to call <code>super.applySettings()</code> to apply common settings for the channel.
      *
      *  @param settings XML fragment of the services-config.xml file for this channel.
-     *  The following fragement includes the &lt;channel&gt; tag with
+     *  The following fragment includes the &lt;channel&gt; tag with
      *  all of its configuration settings:
      *  <pre>
      *  &lt;channel id="my-amf" type="mx.messaging.channels.AMFChannel"&gt;
