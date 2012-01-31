@@ -35,7 +35,7 @@ import mx.events.DropdownEvent;
 import mx.events.ListEvent;
 import mx.events.MenuEvent;
 import mx.events.FlexMouseEvent;
-import mx.events.SandboxRootMouseEvent;
+import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.PopUpManager;
 import mx.styles.ISimpleStyleClient;
@@ -484,9 +484,9 @@ public class PopUpButton extends Button
             
             _popUp.addEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE,
                                     popMouseDownOutsideHandler);
-            _popUp.addEventListener(SandboxRootMouseEvent.MOUSE_DOWN_SOMEWHERE,
+            _popUp.addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE,
                                     popMouseDownOutsideHandler);
-            _popUp.addEventListener(SandboxRootMouseEvent.MOUSE_WHEEL_SOMEWHERE,
+            _popUp.addEventListener(SandboxMouseEvent.MOUSE_WHEEL_SOMEWHERE,
                                     popMouseDownOutsideHandler);
                 
             _popUp.owner = this;
@@ -1137,7 +1137,7 @@ public class PopUpButton extends Button
                 close();
             }
         }
-        else if (event is SandboxRootMouseEvent)
+        else if (event is SandboxMouseEvent)
             close();
     }    
     
