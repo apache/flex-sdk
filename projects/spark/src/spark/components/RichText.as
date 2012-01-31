@@ -20,9 +20,12 @@ import flashx.tcal.elements.FlowElement;
 import flashx.tcal.elements.ParagraphElement;
 import flashx.tcal.elements.SpanElement;
 import flashx.tcal.elements.TextFlow;
+import flashx.tcal.formats.CharacterFormat;
+import flashx.tcal.formats.ContainerFormat;
 import flashx.tcal.formats.ICharacterFormat;
 import flashx.tcal.formats.IContainerFormat;
 import flashx.tcal.formats.IParagraphFormat;
+import flashx.tcal.formats.ParagraphFormat;
 
 import mx.graphics.graphicsClasses.TextFlowComposer;
 import mx.graphics.graphicsClasses.TextGraphicElement;
@@ -81,23 +84,37 @@ public class TextGraphic extends TextGraphicElement
 
     /**
      *  @private
-     *  This set keeps track of which text formats were specified
-     *  on the graphic element's TextFlow as opposed to on the
-     *  graphic element itself.
-     *
-     *  For example, if you have
-     *
-     *      <TextGraphic fontSize="10">
-     *          <content>
-     *              <TextFlow fontSize="20">
-     *                  ...
-     *              </TextFlow>
-     *          </content>
-     *      </TextGraphic>
-     *
-     *  then this set would be { fontSize: 20 }.
+     *  This object is determined by the CSS styles of the TextGraphic
+     *  and is updated by createTextFlow() when the hostFormatsInvalid flag
+     *  is true.
      */
-    private var textFlowTextFormat:Object = {};
+    private var hostCharacterFormat:CharacterFormat = new CharacterFormat();
+
+    /**
+     *  @private
+     *  This object is determined by the CSS styles of the TextGraphic
+     *  and is updated by createTextFlow() when the hostFormatsInvalid flag
+     *  is true.
+     */
+    private var hostParagraphFormat:ParagraphFormat = new ParagraphFormat();
+
+    /**
+     *  @private
+     *  This object is determined by the CSS styles of the TextGraphic
+     *  and is updated by createTextFlow() when the hostFormatsInvalid flag
+     *  is true.
+     */
+    private var hostContainerFormat:ContainerFormat = new ContainerFormat();
+
+	/**
+	 *  @private
+     *  This flag indicates whether hostCharacterFormat, hostParagraphFormat,
+     *  and hostContainerFormat need to be recalculated from the CSS styles
+     *  of the TextGraphic. It is set true by stylesInitialized() and also
+     *  when styleChanged() is called with a null argument, indicating that
+     *  multiple styles have changed.
+	 */
+    private var hostFormatsInvalid:Boolean = false;
 
 	/**
 	 *  @private
@@ -165,13 +182,11 @@ public class TextGraphic extends TextGraphicElement
 	 */
     override protected function measure():void
     {
-        var width:Number = !isNaN(explicitWidth) ? explicitWidth : NaN;
-        var height:Number = !isNaN(explicitHeight) ? explicitHeight : NaN;
-		compose(width, height);
+		compose(explicitWidth, explicitHeight);
 
-		var r:Rectangle = textFlowComposer.bounds;
-		measuredWidth = Math.ceil(r.width);
-		measuredHeight = Math.ceil(r.height);
+		var bounds:Rectangle = textFlowComposer.bounds;
+		measuredWidth = Math.ceil(bounds.width);
+		measuredHeight = Math.ceil(bounds.height);
 	}
 	
 	/**
@@ -184,6 +199,36 @@ public class TextGraphic extends TextGraphicElement
 		
 		compose(unscaledWidth, unscaledHeight);
 	}
+
+	/**
+	 *  @inheritDoc
+	 */
+    override public function stylesInitialized():void
+    {
+        super.stylesInitialized();
+
+        hostFormatsInvalid = true;
+    }
+
+	/**
+	 *  @inheritDoc
+	 */
+    override public function styleChanged(styleProp:String):void
+    {
+        super.styleChanged(styleProp);
+
+        // If null or "styleName" is passed, indicating that
+        // multiple styles may have changed, set a flag indicating
+        // that hostContainerFormat, hostParagraphFormat,
+        // and hostCharacterFormat need to be recalculated later.
+        // But if a single style has changed, update the corresponding
+        // property in either hostContainerFormat, hostParagraphFormat,
+        // or hostCharacterFormat immediately.
+        if (styleProp == null || styleProp == "styleName")
+            hostFormatsInvalid = true;
+        else
+            setHostFormat(styleProp);
+    }
 
 	//--------------------------------------------------------------------------
 	//
@@ -220,7 +265,28 @@ public class TextGraphic extends TextGraphicElement
 		p.replaceChildren(0, 0, span);
 		return textFlow;
 	}
-	
+
+	/**
+	 *  @private
+	 */
+    private function setHostFormat(styleProp:String):void
+    {
+        var value:* = getStyle(styleProp);
+        if (styleProp == "tabStops" && value === undefined)
+            value = [];
+
+        var kind:String = TextUtil.FORMAT_MAP[styleProp];
+
+        if (kind == TextUtil.CONTAINER)
+            hostContainerFormat[styleProp] = value;
+        
+        else if (kind == TextUtil.PARAGRAPH)
+            hostParagraphFormat[styleProp] = value;
+        
+        else if (kind == TextUtil.CHARACTER)
+            hostCharacterFormat[styleProp] = value;
+    }
+
 	/**
 	 *  @private
 	 */
@@ -240,8 +306,6 @@ public class TextGraphic extends TextGraphicElement
 	 */
 	private function createTextFlow():TextFlow
 	{
-        var p:String;
-
 		if (contentChanged || textChanged)
         {
             if (contentChanged)
@@ -284,63 +348,24 @@ public class TextGraphic extends TextGraphicElement
 				    textFlow = createEmptyTextFlow();
 			    }
             }
-
-            // Build a textFlowTextFormat object which keeps track
-            // of which text formats were specified on the TextFlow
-            // as opposed to on the TextGraphic.
-            // For example, if the 'content' were
-            // <TextFlow fontSize="12">...</TextFlow>
-            // then the textFlowTextFormat would be { fontSize: 12 }.
-            
-            var containerFormat:IContainerFormat =
-                textFlow.containerFormat;
-            var paragraphFormat:IParagraphFormat =
-                textFlow.paragraphFormat;
-            var characterFormat:ICharacterFormat =
-                textFlow.characterFormat;
-            
-            for each (p in TextUtil.ALL_FORMAT_NAMES)
-            {
-                var kind:String = TextUtil.FORMAT_MAP[p];
-
-                if (kind == TextUtil.CONTAINER &&
-                    containerFormat != null &&
-                    containerFormat[p] != null)
-                {
-                    textFlowTextFormat[p] = containerFormat[p];
-                }
-                else if (kind == TextUtil.PARAGRAPH &&
-                         paragraphFormat != null &&
-                         paragraphFormat[p] != null)
-                {
-                    textFlowTextFormat[p] = paragraphFormat[p];
-                }
-                else if (kind == TextUtil.CHARACTER &&
-                         characterFormat != null &&
-                         characterFormat[p] != null)
-                {
-                    textFlowTextFormat[p] = characterFormat[p];
-                }
-            }
         }
 
  		contentChanged = false;
 		textChanged = false;
 
-        // For each attribute whose value wasn't specified by the TextFlow,
-        // apply the value from the TextGraphic.
-        
-        for each (p in TextUtil.ALL_FORMAT_NAMES)
+        if (hostFormatsInvalid)
         {
-            if (!(p in textFlowTextFormat))
+            for each (var p:String in TextUtil.ALL_FORMAT_NAMES)
             {
-            	var value:* = getStyle(p);
-            	if (p == "tabStops" && value === undefined)
-            		value = [];
-            	textFlow[p] = value;
+                setHostFormat(p);
             }
-         }
-        
+            hostFormatsInvalid = false;
+        }
+
+        textFlow.hostCharacterFormat = hostCharacterFormat;
+        textFlow.hostParagraphFormat = hostParagraphFormat;
+        textFlow.hostContainerFormat = hostContainerFormat;
+
 		return textFlow;
 	}
 
