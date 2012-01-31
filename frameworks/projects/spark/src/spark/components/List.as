@@ -280,7 +280,7 @@ public class FxList extends FxListBase
     {
         super.itemSelected(index, selected);
         
-        var renderer:Object = dataGroup.mx_internal::getRendererForItemAt(index);
+        var renderer:Object = dataGroup.getRendererForItemAt(index);
         
         if (renderer)
         {
@@ -458,7 +458,7 @@ public class FxList extends FxListBase
     {
         // Multiple selection needs to be added here....
         
-        selectedIndex = dataGroup.mx_internal::getItemIndexForRenderer(event.currentTarget as IVisualElement);
+        selectedIndex = dataGroup.getItemIndexForRenderer(event.currentTarget as IVisualElement);
     }
     
     /**
