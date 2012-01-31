@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
-  Copyright (C) 2003-2007 Adobe Systems Incorporated.
-  restrictions on such code as contained in the End User License Agreement
-  All Rights Reserved. The following is Source Code and is subject to all
-  restrictions on such code as contained in the End User License Agreement
-  accompanying this product. 
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2007 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
 -->
+
 <mx:Parallel xmlns:mx="http://www.adobe.com/2006/mxml">
+
 	<mx:Metadata>
 		[Exclude(name="duration",kind="property")]
 		[Exclude(name="effectTargetHost",kind="property")]
@@ -197,4 +203,5 @@
 			<mx:Dissolve id="fadeIn2" alphaFrom="0.0" alphaTo="1.0" duration="350" color="0xffffff" filter="replacementItem"/>
 		</mx:Sequence>
 	</mx:children>
+
 </mx:Parallel>
