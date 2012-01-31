@@ -130,7 +130,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;TextArea
+ *  &lt;s:TextArea
  *    <strong>Properties</strong>
  *    heightInLines=""
  *    textFlow="24"
@@ -439,7 +439,7 @@ public class TextArea extends SkinnableTextBase
 
             // The skin is loaded after the intial properties have been
             // set so these wipe out explicit sets.
-			textDisplay.multiline = true;
+            textDisplay.multiline = true;
         }
         
         // The scroller, between textDisplay and this in the chain, should not 
