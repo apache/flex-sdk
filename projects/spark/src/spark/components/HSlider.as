@@ -96,7 +96,7 @@ public class HSlider extends Slider
     
     /**
      *  @private
-     *  TODO (jszeto) Update this to also use the ILayoutElement API
+     *  FIXME (jszeto): Update this to also use the ILayoutElement API
      */
     override protected function updateDataTip(dataTipInstance:IDataRenderer, initialPosition:Point):void
     {
