@@ -188,16 +188,13 @@ public class FxRange extends FxComponent
     }
 
 
-    /*
+    /**
      *  Implementation note: we temporarily store the new value in
      *  _changedValue and then update _value, by calling setValue()
      *  in commitProperties().  Only one "valueCommit" event is
      *  dispatched, even if this property has effectively changed
      *  twice per nearestValidValue().
-     *   
-    */
-
-    /**
+     *
      *  @private
      */    
     public function set value(newValue:Number):void
