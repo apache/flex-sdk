@@ -14,25 +14,24 @@ package spark.components
 
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
+import flash.events.MouseEvent;
 import flash.geom.Rectangle;
 
-import spark.components.supportClasses.GroupBase;
-import mx.core.Container;
 import mx.core.IFontContextComponent;
-import mx.core.ILayoutElement;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
-import mx.core.mx_internal;
 import mx.core.UIComponent;
-import spark.events.ElementExistenceEvent;
-import spark.core.IGraphicElement;
-import spark.core.ISharedDisplayObject;
-import spark.primitives.supportClasses.TextGraphicElement;
-import spark.layouts.supportClasses.LayoutBase;
+import mx.core.mx_internal;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
+
+import spark.components.supportClasses.GroupBase;
+import spark.core.IGraphicElement;
+import spark.core.ISharedDisplayObject;
+import spark.events.ElementExistenceEvent;
+import spark.primitives.supportClasses.TextGraphicElement;
 
 use namespace mx_internal;
 
@@ -312,6 +311,49 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         }
         
         invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  mouseOpaque
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the mouseOpaque property
+     */
+    private var _mouseOpaque:Boolean = true;
+    private var mouseEventReferenceCount:int;
+
+    [Inspectable(category="General")]
+    
+    /**
+     *  When set to true the mouseOpaque flag ensures that the entire bounds
+     *  of the Group are opaque to all mouse events such as clicks, rollOvers,
+     *  etc.
+     * 
+     *  @default true
+     *  
+     *  @langversion 4.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get mouseOpaque():Boolean
+    {
+        return _mouseOpaque;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set mouseOpaque(value:Boolean):void
+    {
+        if (value == _mouseOpaque)
+            return;
+            
+        _mouseOpaque = value;
+        if (mouseEventReferenceCount != 0)
+            invalidateDisplayList();
     }
     
     //----------------------------------
@@ -600,7 +642,69 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         	   !isNaN(scaleGridRight) &&
         	   !isNaN(scaleGridBottom);
     }
-    
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: EventDispatcher
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  We render a transparent background fill by default when we have mouse
+     *  listeners.
+     */
+    override public function addEventListener(type:String, listener:Function,
+        useCapture:Boolean = false, priority:int = 0,
+        useWeakReference:Boolean = false):void
+    {
+        super.addEventListener(type, listener, useCapture, priority, 
+            useWeakReference);
+
+        if (_mouseOpaque &&
+            type == MouseEvent.CLICK ||
+            type == MouseEvent.DOUBLE_CLICK ||
+            type == MouseEvent.MOUSE_DOWN ||
+            type == MouseEvent.MOUSE_MOVE ||
+            type == MouseEvent.MOUSE_OVER ||
+            type == MouseEvent.MOUSE_OUT ||
+            type == MouseEvent.ROLL_OUT ||
+            type == MouseEvent.ROLL_OVER ||
+            type == MouseEvent.MOUSE_UP ||
+            type == MouseEvent.MOUSE_WHEEL)
+        {
+            if (mouseEventReferenceCount++ == 0)
+                invalidateDisplayList();
+        }
+    }
+
+    /**
+     *  @private
+     *  We no longer render our default transparent background fill when we have 
+     *  no mouse listeners.
+     */
+    override public function removeEventListener( type:String, listener:Function,
+        useCapture:Boolean = false):void
+    {
+        super.removeEventListener(type, listener, useCapture);
+
+        if (_mouseOpaque && 
+            type == MouseEvent.CLICK ||
+            type == MouseEvent.DOUBLE_CLICK ||
+            type == MouseEvent.MOUSE_DOWN ||
+            type == MouseEvent.MOUSE_MOVE ||
+            type == MouseEvent.MOUSE_OVER ||
+            type == MouseEvent.MOUSE_OUT ||
+            type == MouseEvent.ROLL_OUT ||
+            type == MouseEvent.ROLL_OVER ||
+            type == MouseEvent.MOUSE_UP ||
+            type == MouseEvent.MOUSE_WHEEL)
+        {
+            if (--mouseEventReferenceCount == 0)
+                invalidateDisplayList();
+        }
+    }
+        
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: UIComponent
@@ -713,6 +817,14 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         var sharedDisplayObject:ISharedDisplayObject = this;
         if (sharedDisplayObject.redrawRequested)
             graphics.clear();
+        
+        // Render a transparent background fill as necessary to support the mouseOpaque flag.
+        if (_mouseOpaque && mouseEventReferenceCount != 0)
+        {
+            graphics.beginFill(0xFFFFFF, 0);
+            graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+            graphics.endFill();
+        }
         
         // Iterate through the graphic elements. If an element has a displayObject that has been 
         // invalidated, then validate all graphic elements that draw to this displayObject. 
