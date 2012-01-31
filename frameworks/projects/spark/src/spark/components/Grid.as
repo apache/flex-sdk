@@ -2764,7 +2764,7 @@ public class Grid extends Group
      */
     override protected function commitProperties():void
     {
-        if (!columns && dataProvider && (dataProvider.length > 0))
+        if (!columns && (typicalItem || (dataProvider && (dataProvider.length > 0))))
             columns = generateColumns();
         
         // If the dataProvider or columns change, reset the selection and 
