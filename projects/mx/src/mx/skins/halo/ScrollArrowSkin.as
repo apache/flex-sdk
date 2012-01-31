@@ -15,7 +15,6 @@ package mx.skins.halo
 import flash.display.GradientType;
 import flash.display.Graphics;
 import mx.controls.scrollClasses.ScrollBar;
-import mx.core.FlexVersion;
 import mx.skins.Border;
 import mx.styles.StyleManager;
 import mx.utils.ColorUtil;
@@ -182,12 +181,9 @@ public class ScrollArrowSkin extends Border
 		
 		// Opaque backing to force the scroll elements
 		// to match other components by default.
-		if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0 || name.indexOf("Disabled") == -1)
-		{
-			drawRoundRect(
-				0, 0, w, h, 0,
-				backgroundColor, 1);
-		}
+		drawRoundRect(
+			0, 0, w, h, 0,
+			backgroundColor, 1);
 
 		switch (name)
 		{
@@ -358,20 +354,17 @@ public class ScrollArrowSkin extends Border
 			}
 			
 			case "upArrowDisabledSkin":
-			{	
-				if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-				{		
-					// shadow
-					if (!horizontal)
-					{
-						drawRoundRect(
-							1, h - 4, w - 2, 8, 0,
-							[ derStyles.borderColorDrk1,
-							  derStyles.borderColorDrk1 ], [ .5, 0 ],
-							verticalGradientMatrix(1, h - 4, w - 2, 8),
-							GradientType.LINEAR, null, 
-							{ x: 1, y: h-4, w: w - 2, h: 4, r: 0 });
-					}
+            {	
+				// shadow
+				if (!horizontal)
+				{
+					drawRoundRect(
+						1, h - 4, w - 2, 8, 0,
+						[ derStyles.borderColorDrk1,
+						  derStyles.borderColorDrk1 ], [ .5, 0 ],
+						verticalGradientMatrix(1, h - 4, w - 2, 8),
+						GradientType.LINEAR, null, 
+						{ x: 1, y: h-4, w: w - 2, h: 4, r: 0 });
 				}
 
 				// intentionally fall through to the next case statement
@@ -379,39 +372,29 @@ public class ScrollArrowSkin extends Border
 			
 			case "downArrowDisabledSkin":
 			{
-				if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-				{
-	   				var disFillColors:Array = [ fillColors[0], fillColors[1] ];
-	   				var disFillAlphas:Array = [ fillAlphas[0] - 0.15, fillAlphas[1] - 0.15 ];
-	
-					// border
-					drawRoundRect(
-						0, 0, w, h, 0,
-						borderColors, 0.5,
-						horizontal ?
-						horizontalGradientMatrix(0, 0, w, h) :
-						verticalGradientMatrix(0, 0, w, h),
-						GradientType.LINEAR, null, 
-						{ x: 1, y: 1, w: w - 2, h: h - 2, r: 0 });  
-	
-					// fill
-					drawRoundRect(
-						1, 1, w - 2, h - 2, 0,
-						disFillColors, disFillAlphas,
-						horizontal ?
-						horizontalGradientMatrix(0, 0, w - 2, h - 2) :
-						verticalGradientMatrix(0, 0, w - 2, h - 2 / 2));
-	
-					arrowColor = getStyle("disabledIconColor");
-				}
-				else
-				{
-					drawRoundRect(
+   				var disFillColors:Array = [ fillColors[0], fillColors[1] ];
+   				var disFillAlphas:Array = [ fillAlphas[0] - 0.15, fillAlphas[1] - 0.15 ];
+
+				// border
+				drawRoundRect(
 					0, 0, w, h, 0,
-					0xFFFFFF, 0);
+					borderColors, 0.5,
+					horizontal ?
+					horizontalGradientMatrix(0, 0, w, h) :
+					verticalGradientMatrix(0, 0, w, h),
+					GradientType.LINEAR, null, 
+					{ x: 1, y: 1, w: w - 2, h: h - 2, r: 0 });  
+
+				// fill
+				drawRoundRect(
+					1, 1, w - 2, h - 2, 0,
+					disFillColors, disFillAlphas,
+					horizontal ?
+					horizontalGradientMatrix(0, 0, w - 2, h - 2) :
+					verticalGradientMatrix(0, 0, w - 2, h - 2 / 2));
+
+				arrowColor = getStyle("disabledIconColor");
 				
-					return;
-				}
 				break;
 			}
 			
