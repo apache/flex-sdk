@@ -737,27 +737,35 @@ public class SimpleText extends TextGraphicElement
             
             // 1. Measure the space that the truncation indicator will take
             // by composing the truncation resource using the same bounds
-            // and formats.
-            staticTextElement.text = mx_internal::truncationIndicatorResource;
-            var measureLines:Array = new Array();
-            var measureBounds:Rectangle = new Rectangle(0, 0, width, NaN);
-    
-            createTextLinesFromTextBlock(staticTextBlock, 
-                                         measureLines, 
-                                         measureBounds);
-                                               
-            releaseLinesFromTextBlock(measureLines);
-                                                                                  
+            // and formats.  Cache this and reuse until the indicator
+            // is modified.
+            if (!mx_internal::truncationIndicatorLines)
+                mx_internal::truncationIndicatorLines = new Array();
+            
+            var indicatorLines:Array = mx_internal::truncationIndicatorLines;
+            if (indicatorLines.length == 0)
+            {
+                staticTextElement.text = mx_internal::truncationIndicatorResource;
+            
+                var measureBounds:Rectangle = new Rectangle(0, 0, width, NaN);
+
+                createTextLinesFromTextBlock(staticTextBlock, 
+                                             indicatorLines, 
+                                             measureBounds);
+                                                   
+                releaseLinesFromTextBlock(indicatorLines);
+            }
+                                                                                                         
             // 2. Move target line for truncation higher by as many lines 
             // as the number of full lines taken by the truncation 
             // indicator.
-            truncLineIndex -= (measureLines.length - 1);
+            truncLineIndex -= (indicatorLines.length - 1);
             if (truncLineIndex >= 0)
             {
                 // 3. Calculate allowed width (width left over from the 
                 // last line of the truncation indicator).
                 var measuredTextLine:TextLine = 
-                        TextLine(measureLines[measureLines.length-1]);      
+                    TextLine(indicatorLines[indicatorLines.length - 1]);      
                 var allowedWidth:Number = 
                     measuredTextLine.specifiedWidth -
                     measuredTextLine.unjustifiedTextWidth;                          
