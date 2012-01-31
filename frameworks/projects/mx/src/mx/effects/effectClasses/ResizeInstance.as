@@ -14,8 +14,8 @@ package mx.effects.effectClasses
 
 import flash.events.Event;
 import mx.containers.Panel;
-import mx.core.ApplicationGlobals;
 import mx.core.Container;
+import mx.core.FlexGlobals;
 import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
 import mx.core.mx_internal;
@@ -490,7 +490,7 @@ public class ResizeInstance extends TweenEffectInstance
 		// Wait a frame before starting to restore the childrens' visibility.
 		// That way, we have a chance to run a measurement/layout pass with
 		// the final sizes and update the screen.
-		ApplicationGlobals.application.callLater(restorePanelChildren);
+		FlexGlobals.topLevelApplication.callLater(restorePanelChildren);
 				
 		super.onTweenEnd(value);		
 		
