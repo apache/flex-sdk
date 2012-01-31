@@ -643,7 +643,7 @@ public class DropDownList extends List
     	// set skin state
     	skin.currentState = getCurrentSkinState();
     	
-    	ensureIndexIsVisible(selectedIndex);
+    	ensureItemIsVisible(selectedIndex);
     	
     	dispatchEvent(event);
     }
