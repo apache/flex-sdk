@@ -14,12 +14,15 @@ package spark.components.supportClasses
 import flash.geom.Point;
 
 import mx.core.IUIComponent;
+import mx.core.mx_internal;
 import mx.core.ScrollPolicy;
 import mx.utils.MatrixUtil;
 
 import spark.components.Scroller;
 import spark.core.IViewport;
 import spark.layouts.supportClasses.LayoutBase;
+
+use namespace mx_internal;
 
 [ExcludeClass]
 
@@ -35,18 +38,9 @@ public class ScrollerLayout extends LayoutBase
 
     /**
      *  @private
-     *  SDT - Scrollbar Display Threshold.  If the content size exceeds the
-     *  viewport's size by SDT, then we show a scrollbar.  For example, if the 
-     *  contentWidth >= viewport width + SDT, show the horizontal scrollbar.
-     */
-    private static const SDT:Number = 1.0;
-
-    /**
-     *  @private
      *  Used by updateDisplayList() to prevent looping.
      */
     private var invalidationCount:int = 0;
-    
     
     /**
      *  @private
@@ -262,7 +256,7 @@ public class ScrollerLayout extends LayoutBase
             return;
             
         const minViewportInset:Number = scroller.minViewportInset;
-        const measuredSizeIncludesScrollBars:Boolean = scroller.measuredSizeIncludesScrollBars;
+        const measuredSizeIncludesScrollBars:Boolean = scroller.measuredSizeIncludesScrollBars && (scroller.getStyle("inputMode") == "mouse");
 
         var measuredW:Number = minViewportInset;
         var measuredH:Number = minViewportInset;
@@ -318,8 +312,8 @@ public class ScrollerLayout extends LayoutBase
                 var viewportPreferredW:Number =  viewport.getPreferredBoundsWidth();
                 var viewportContentW:Number = contentSize.x;
                 var viewportW:Number = viewport.getLayoutBoundsWidth();  // "current" size
-                var currentSizeNoHSB:Boolean = !isNaN(viewportW) && ((viewportW + SDT) > viewportContentW);
-                if (hAuto && !showHSB && ((viewportPreferredW + SDT) <= viewportContentW) && currentSizeNoHSB)
+                var currentSizeNoHSB:Boolean = !isNaN(viewportW) && ((viewportW + Scroller.SDT) > viewportContentW);
+                if (hAuto && !showHSB && ((viewportPreferredW + Scroller.SDT) <= viewportContentW) && currentSizeNoHSB)
                     measuredW += viewportW;
                 else
                     measuredW += Math.max(viewportPreferredW, (showHSB) ? hsb.getMinBoundsWidth() : 0);
@@ -327,8 +321,8 @@ public class ScrollerLayout extends LayoutBase
                 var viewportPreferredH:Number = viewport.getPreferredBoundsHeight();
                 var viewportContentH:Number = contentSize.y;
                 var viewportH:Number = viewport.getLayoutBoundsHeight();  // "current" size
-                var currentSizeNoVSB:Boolean = !isNaN(viewportH) && ((viewportH + SDT) > viewportContentH);
-                if (vAuto && !showVSB && ((viewportPreferredH + SDT) <= viewportContentH) && currentSizeNoVSB)
+                var currentSizeNoVSB:Boolean = !isNaN(viewportH) && ((viewportH + Scroller.SDT) > viewportContentH);
+                if (vAuto && !showVSB && ((viewportPreferredH + Scroller.SDT) <= viewportContentH) && currentSizeNoVSB)
                     measuredH += viewportH;
                 else
                     measuredH += Math.max(viewportPreferredH, (showVSB) ? vsb.getMinBoundsHeight() : 0);
@@ -427,18 +421,13 @@ public class ScrollerLayout extends LayoutBase
                 if (hsb && viewport)
                 {
                     hAuto = true;
-                    hsbVisible = (contentW >= (viewportW + SDT));
+                    hsbVisible = (contentW >= (viewportW + Scroller.SDT));
                 } 
-                break;
-
-            case ScrollPolicy.OVERLAY:
-                hsbVisible = scroller.horizontalScrollInProgress;
-                hsbTakeUpSpace = false;
                 break;
             
             default:
                 hsbVisible = false;
-        } 
+        }
 
         var vAuto:Boolean = false;
         var vsbTakeUpSpace:Boolean = true; // if visible
@@ -452,17 +441,22 @@ public class ScrollerLayout extends LayoutBase
                 if (vsb && viewport)
                 { 
                     vAuto = true;
-                    vsbVisible = (contentH >= (viewportH + SDT));
+                    vsbVisible = (contentH >= (viewportH + Scroller.SDT));
                 }                        
-                break;
-            
-            case ScrollPolicy.OVERLAY:
-                vsbVisible = scroller.verticalScrollInProgress;
-                vsbTakeUpSpace = false;
                 break;
             
             default:
                 vsbVisible = false;
+        }
+        
+        // if in touch mode, only show scrollbars if a scroll is currently in progress
+        if (scroller.getStyle("inputMode") == "touch")
+        {
+            hsbTakeUpSpace = false;
+            hsbVisible = scroller.horizontalScrollInProgress;
+            
+            vsbTakeUpSpace = false;
+            vsbVisible = scroller.verticalScrollInProgress;
         }
 
         // Reset the viewport's width,height to account for the visible scrollbars, unless
@@ -484,9 +478,9 @@ public class ScrollerLayout extends LayoutBase
         var hsbIsDependent:Boolean = false;
         var vsbIsDependent:Boolean = false;
         
-        if (vsbVisible && !hsbVisible && hAuto && (contentW >= (viewportW + SDT)))
+        if (vsbVisible && !hsbVisible && hAuto && (contentW >= (viewportW + Scroller.SDT)))
             hsbVisible = hsbIsDependent = true;
-        else if (!vsbVisible && hsbVisible && vAuto && (contentH >= (viewportH + SDT)))
+        else if (!vsbVisible && hsbVisible && vAuto && (contentH >= (viewportH + Scroller.SDT)))
             vsbVisible = vsbIsDependent = true;
 
         // If the HSB doesn't fit, hide it and give the space back.   Likewise for VSB.
@@ -565,11 +559,12 @@ public class ScrollerLayout extends LayoutBase
             var hsbH:Number = hsb.getPreferredBoundsHeight();
             hsb.setLayoutBoundsSize(Math.max(hsb.getMinBoundsWidth(), hsbW), hsbH);
             
-            // if in overlay mode, let's inset it by a bit
-            if (scroller.getStyle("horizontalScrollPolicy") == ScrollPolicy.OVERLAY)
-                hsb.setLayoutBoundsPosition(0, h - hsbH - 3);
-            else
+            // if in mouse mode, lay out scrollbars normally
+            // if in touch mode, we overlay the scrollbars, so let's inset it by a bit
+            if (scroller.getStyle("inputMode") == "mouse")
                 hsb.setLayoutBoundsPosition(0, h - hsbH);
+            else
+                hsb.setLayoutBoundsPosition(0, h - hsbH - 3);
         }
 
         if (vsbVisible)
@@ -578,12 +573,13 @@ public class ScrollerLayout extends LayoutBase
             var vsbH:Number = (hsbVisible && hsbTakeUpSpace) ? h - hsb.getPreferredBoundsHeight() : h;
             vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), vsbH));
             
-            // if in overlay mode, let's inset it by a bit
-            // FIXME (rfrishbe): shouldn't hardcode the 5 here
-            if (scroller.getStyle("verticalScrollPolicy") == ScrollPolicy.OVERLAY)
-                vsb.setLayoutBoundsPosition(w - vsbW - 3, 0);
-            else
+            // if in mouse mode, lay out scrollbars normally
+            // if in touch mode, we overlay the scrollbars, so let's inset it by a bit
+            // FIXME (rfrishbe): shouldn't hardcode the 3 here
+            if (scroller.getStyle("inputMode") == "mouse")
                 vsb.setLayoutBoundsPosition(w - vsbW, 0);
+            else
+                vsb.setLayoutBoundsPosition(w - vsbW - 3, 0);
         }
 
         // If we've added an auto scrollbar, then the measured size is likely to have been wrong.
