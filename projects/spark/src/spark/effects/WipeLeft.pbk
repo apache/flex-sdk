@@ -9,14 +9,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 <languageVersion : 1.0;>
-kernel FxWipe
+kernel WipeLeft
 <   namespace : "flex";
     vendor : "Adobe";
     version : 1;
-    description : "Directional wipe between two images for Flex effects";
+    description : "Wipe left between two images for Flex effects";
 >
 {
-    // first input is unused in FxAnimateTransitionShader effect
+    // first input is unused in AnimateTransitionShader effect
     input image4 src0;
     input image4 from;
     input image4 to;
