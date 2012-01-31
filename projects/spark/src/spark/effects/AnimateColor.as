@@ -27,7 +27,7 @@ import mx.styles.StyleManager;
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:AnimateColor
+ *  &lt;s:AnimateColor
  *    <b>Properties</b>
  *    id="ID"
  *    colorFrom="no default"
