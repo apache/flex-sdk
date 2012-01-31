@@ -17,6 +17,20 @@ import mx.collections.IList;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 
+[ExcludeClass]
+
+/**
+ *  A sparse data structure that represents the widths and heights of a grid.
+ *  
+ *  Provides efficient support for finding the cumulative y distance to the
+ *  start of a particular cell as well as finding the index of a particular
+ *  cell at a certain y value.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
 public class GridDimensions 
 {
     include "../../core/Version.as";
@@ -1337,14 +1351,13 @@ public class GridDimensions
         // TBD (klin): don't think we need to return booleans...
         switch (event.kind)
         {
-            case CollectionEventKind.ADD:    return dataProviderCollectionAdd(event);
+            case CollectionEventKind.ADD: return dataProviderCollectionAdd(event);
             case CollectionEventKind.REMOVE: return dataProviderCollectionRemove(event);
             case CollectionEventKind.REPLACE: return dataProviderCollectionReplace(event);
             case CollectionEventKind.MOVE: return dataProviderCollectionMove(event);
             case CollectionEventKind.REFRESH: return dataProviderCollectionRefresh(event);
             case CollectionEventKind.RESET: return dataProviderCollectionReset(event);
-            case CollectionEventKind.UPDATE: return true;
-                break;
+            case CollectionEventKind.UPDATE: return true; // handled by GridLayout
         }
         
         return false;
