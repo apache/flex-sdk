@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.primitives.supportClasses
+package spark.components.supportClasses
 {
 
 import flash.display.DisplayObject;
@@ -75,7 +75,7 @@ use namespace mx_internal;
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
 /**
- *  The base class for GraphicElements such as SimpleText and RichText
+ *  The base class for Spark Text controls such as Label and RichText
  *  which display text using CSS styles for the default format.
  *  
  *  <p>This class extends GraphicElement to implement
@@ -91,7 +91,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class TextGraphicElement extends GraphicElement
+public class TextBase extends UIComponent
     implements IAdvancedStyleClient
 {
     include "../../core/Version.as";
@@ -126,7 +126,7 @@ public class TextGraphicElement extends GraphicElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function TextGraphicElement()
+    public function TextBase()
     {
         super();
         
@@ -137,9 +137,11 @@ public class TextGraphicElement extends GraphicElement
             truncationIndicatorResource = resourceManager.getString(
                 "core", "truncationIndicator");
         }
+        
+        addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
                 
         // Register as a weak listener for "change" events from ResourceManager.
-        // If TextGraphicElements registered as a strong listener,
+        // If TextBases registered as a strong listener,
         // they wouldn't get garbage collected.
         resourceManager.addEventListener(
             Event.CHANGE, resourceManager_changeHandler, false, 0, true);
@@ -168,7 +170,7 @@ public class TextGraphicElement extends GraphicElement
     /**
      *  @private
 	 *  Keeps track of each TextLine's original x position when it was composed.
-	 *  Since multiple TextGraphicElements can share a single DisplayObject,
+	 *  Since multiple TextBases can share a single DisplayObject,
 	 *  the x position of the TextLine gets offset by drawX
 	 *  when it is added to the DisplayObject.
 	 *  We need to save the original position and offset it each time
@@ -177,10 +179,12 @@ public class TextGraphicElement extends GraphicElement
      */
     mx_internal var textLinesX:Vector.<Number> = new Vector.<Number>;
 
+    // FIXME (rfrishbe): can probably remove textLineX and textLineY
+    
     /**
      *  @private
 	 *  Keeps track of each TextLine's original y position when it was composed.
-	 *  Since multiple TextGraphicElements can share a single DisplayObject,
+	 *  Since multiple TextBases can share a single DisplayObject,
 	 *  the y position of the TextLine gets offset by drawY
 	 *  when it is added to the DisplayObject.
 	 *  We need to save the original position and offset it each time
@@ -188,20 +192,6 @@ public class TextGraphicElement extends GraphicElement
 	 *  makes the TextLines drift within the DisplayObject.
      */
     mx_internal var textLinesY:Vector.<Number> = new Vector.<Number>;
-
-    /**
-     *  @private
-     *  The offset applied to each textLine.x so that it is positioned
-     *  correctly in the display object container.
-     */
-    private var lastDrawX:Number = 0;
-
-    /**
-     *  @private
-     *  The offset applied to each textLine.y so that it is positioned
-     *  correctly in the display object container.
-     */
-    private var lastDrawY:Number = 0;
 
     /**
      *  @private
@@ -256,7 +246,7 @@ public class TextGraphicElement extends GraphicElement
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden properties: GraphicElement
+    //  Overridden properties: UIComponent
     //
     //--------------------------------------------------------------------------
         
@@ -278,34 +268,6 @@ public class TextGraphicElement extends GraphicElement
     }
 
     //----------------------------------
-    //  canShareWithPrevious
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    override public function canShareWithPrevious(element:IGraphicElement):Boolean
-    {
-        // TextGraphicElement always requires its own display object because
-        // Group doesn't support IGraphicElements with multiple display objects.
-        return false;
-    }
-
-    //----------------------------------
-    //  canShareWithNext
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    override public function canShareWithNext(element:IGraphicElement):Boolean
-    {
-        // TextGraphicElement always requires its own display object because
-        // Group doesn't support IGraphicElements with multiple display objects.
-        return false;
-    }
-
-    //----------------------------------
     //  visible
     //----------------------------------
     
@@ -324,207 +286,6 @@ public class TextGraphicElement extends GraphicElement
 
     	invalidateDisplayList();
 	}
-             
-    //--------------------------------------------------------------------------
-    //
-    //  Properties: ISimpleStyleClient
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  styleName
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the styleName property.
-     */
-    private var _styleName:Object /* String, CSSStyleDeclaration, or UIComponent */;
-
-    [Inspectable(category="General")]
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get styleName():Object /* String, CSSStyleDeclaration, or UIComponent */
-    {
-        return _styleName;
-    }
-
-    /**
-     *  @private
-     */
-    public function set styleName(
-        value:Object /* String, CSSStyleDeclaration, or UIComponent */):void
-    {
-        if (value == _styleName)
-            return;
-
-        _styleName = value;
-
-        // If inheritingStyles is undefined, then this object is being
-        // initialized and we haven't yet generated the proto chain.
-        // To avoid redundant work, don't bother to create
-        // the proto chain here.
-        if (inheritingStyles == StyleProtoChain.STYLE_UNINITIALIZED)
-            return;
-
-        regenerateStyleCache(true);
-
-        styleChanged("styleName");
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Properties: IStyleClient
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  className
-    //----------------------------------
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get className():String
-    {
-        return NameUtil.getUnqualifiedClassName(this);
-    }
-    
-    //----------------------------------
-    //  inheritingStyles
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the inheritingStyles property.
-     */
-    private var _inheritingStyles:Object =
-        StyleProtoChain.STYLE_UNINITIALIZED;
-    
-    [Inspectable(environment="none")]
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get inheritingStyles():Object
-    {
-        return _inheritingStyles;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set inheritingStyles(value:Object):void
-    {
-        _inheritingStyles = value;
-    }
-
-    //----------------------------------
-    //  nonInheritingStyles
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the nonInheritingStyles property.
-     */
-    private var _nonInheritingStyles:Object =
-        StyleProtoChain.STYLE_UNINITIALIZED;
-
-    [Inspectable(environment="none")]
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get nonInheritingStyles():Object
-    {
-        return _nonInheritingStyles;
-    }
-
-    /**
-     *  @private
-     */
-    public function set nonInheritingStyles(value:Object):void
-    {
-        _nonInheritingStyles = value;
-    }
-
-    //----------------------------------
-    //  styleDeclaration
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the styleDeclaration property.
-     */
-    private var _styleDeclaration:CSSStyleDeclaration;
-
-    [Inspectable(environment="none")]
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get styleDeclaration():CSSStyleDeclaration
-    {
-        return _styleDeclaration;
-    }
-
-    /**
-     *  @private
-     */
-    public function set styleDeclaration(value:CSSStyleDeclaration):void
-    {
-        _styleDeclaration = value;
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Properties: IAdvancedStyleClient
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  styleParent
-    //----------------------------------
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    public function get styleParent():IAdvancedStyleClient
-    {
-        return parent as IAdvancedStyleClient;
-    }
 
     //--------------------------------------------------------------------------
     //
@@ -653,8 +414,8 @@ public class TextGraphicElement extends GraphicElement
      */
     mx_internal function get styleChainInitialized():Boolean
     {
-        return _inheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED &&
-               _nonInheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED;
+        return inheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED &&
+               nonInheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED;
     }
 
     //----------------------------------
@@ -698,96 +459,6 @@ public class TextGraphicElement extends GraphicElement
             invalidateDisplayList();
         }
     }
-        
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden methods: GraphicElement
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    override public function setSharedDisplayObject(
-									displayObject:DisplayObject):Boolean
-    {
-        // TextGraphicElement always requires its own display object because
-        // Group doesn't support IGraphicElements with multiple display objects.
-        return false;
-    }
-
-    /**
-     *  @private
-     */
-    override protected function setDisplayObject(value:DisplayObject):void
-    {        
-        if (displayObject == value)
-            return;
-
-        // There is an exisiting d.o. so this element is either being moved
-        // to a different container (value != null) or it is being removed 
-        // (value == null).
-        if (displayObject)
-        {
-            // If there was a scroll rect remove it before we lose the reference
-            // to the display object. 
-            clip(false, 0, 0);
-        
-            displayObjectChanged = true;        
-            invalidateProperties();
-        }
-             
-        super.setDisplayObject(value);
-    }    
-  
-    /**
-     *  @private
-     */
-    override public function parentChanged(value:Group):void
-    {
-        // FIXME (egeorgie): we add event listener to the parent, as adding event
-        // listener to the TextGraphicElement itself doesn't work, as we perform
-        // double invalidation, but our updateDisplayList gets called only once
-        // and  the code in the base GraphicElement class assumes that
-        // updateDisplayList will get called twice.
-        if (parent)
-            parent.removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
-
-        // When this GraphicElement is removed from a Group,
-		// the Group calls this method with a null argument.
-		// In that case, the text lines must go away.
-	    if (!value)
-        {
-        	removeTextLines();
-        	releaseTextLines();
-        }
-        
-        super.parentChanged(value);
-
-        if (parent) 
-            parent.addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
-    }
-
-    /**
-     *  @private
-     */
-    override protected function commitProperties():void
-    {
-        super.commitProperties();
-        
-        if (displayObjectChanged)
-        {
-            // If there is a container, move any existing text to it, otherwise
-            // remove the text from the previous container.
-            removeTextLines();
-            if (drawnDisplayObject)
-                addTextLines(DisplayObjectContainer(drawnDisplayObject));
-            else
-                releaseTextLines();
-                       
-            displayObjectChanged = false;
-        }  
-    }    
     
     /**
      *  @private
@@ -797,7 +468,7 @@ public class TextGraphicElement extends GraphicElement
         // The measure() method of a GraphicElement can get called
         // when its style chain hasn't been initialized
         // or when no DisplayObject has been assigned to it.
-        if (!styleChainInitialized || !drawnDisplayObject)
+        if (!styleChainInitialized)
             return;
 
         // _widthConstraint trumps even explicitWidth as some layouts may choose
@@ -866,7 +537,7 @@ public class TextGraphicElement extends GraphicElement
             return;
 
         // If we don't measure
-        if (canSkipMeasurement())
+        if (skipMeasure())
             return;
 
         if (!isNaN(explicitHeight))
@@ -874,7 +545,7 @@ public class TextGraphicElement extends GraphicElement
 
         // We support reflow only in the case of constrained width and
         // unconstrained height. Note that we compare with measuredWidth,
-        // as for example the TextGraphicElement can be
+        // as for example the TextBase can be
         // constrained by the layout with "left" and "right", but the
         // container width itself may not be constrained and it would depend
         // on the element's measuredWidth.
@@ -911,8 +582,20 @@ public class TextGraphicElement extends GraphicElement
         // The updateDisplayList() method of a GraphicElement can get called
         // when its style chain hasn't been initialized
         // or when no DisplayObject has been assigned to it.
-        if (!styleChainInitialized || !drawnDisplayObject)
+        if (!styleChainInitialized)
             return;
+        
+        // FIXME (rfrishbe): do we still need this?
+        if (visibleChanged)
+        {
+            visibleChanged = false;
+            
+            var n:int = textLines.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                textLines[i].visible = visible && designLayer.effectiveVisibility;
+            }
+        }
 
         // Figure out if a compose is needed or maybe just clip what is already
         // composed.
@@ -963,25 +646,11 @@ public class TextGraphicElement extends GraphicElement
         // position of the lines has remained the same.
         if (compose)
             composeTextLines(unscaledWidth, unscaledHeight);
-        else if (displayObjectSharingMode != DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
-            adjustTextLines();
             
         // If the text is overset it always has to be clipped (as well as if 
         // it is being clipped to reduce the size to avoid a recomposition).              
         if (isOverset)
             clipText = true;
-
-        // We need to clip this text and it is in a container with other
-        // display objects.  Setting alwaysCreateDisplayObject to true will
-        // cause the display objects to be reassigned so that we get one of
-        // our own.  updateDisplayList() will be called with the new display
-        // object.  Once it's in it's own display object leave it there.
-        if (clipText)
-        {
-            alwaysCreateDisplayObject = true;
-            if (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_SHARED_OBJECT)
-                return;
-        }
         
         //trace(id, drawnDisplayObject.name, "udl", "compose", compose, "clip", 
         //      clipText, "bounds", bounds);        
@@ -994,192 +663,28 @@ public class TextGraphicElement extends GraphicElement
     	var backgroundColor:* = getStyle("backgroundColor");
     	if (backgroundColor !== undefined)
     	{
-	    	var g:Graphics = Sprite(drawnDisplayObject).graphics;
-	        g.lineStyle();
-	        g.beginFill(uint(backgroundColor), getStyle("backgroundAlpha"));
-	       	g.drawRect(drawX, drawY, unscaledWidth, unscaledHeight);
-	        g.endFill();
+            var g:Graphics = graphics;
+            g.lineStyle();
+            g.beginFill(uint(backgroundColor), getStyle("backgroundAlpha"));
+            g.drawRect(0, 0, unscaledWidth, unscaledHeight);
+            g.endFill();
 	    }
     }
-    
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overidden Methods: ISimpleStyleClient
+    //
+    //--------------------------------------------------------------------------
+
     /**
      *  @private
      */
-    override mx_internal function doUpdateDisplayList():void
+    override public function styleChanged(styleProp:String):void
     {
-		super.doUpdateDisplayList();
-		
-		if (visibleChanged)
-		{
-			visibleChanged = false;
-			
-			var n:int = textLines.length;
-			for (var i:int = 0; i < n; i++)
-			{
-				textLines[i].visible = _effectiveVisibility;
-			}
-		}
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Methods: ISimpleStyleClient
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function styleChanged(styleProp:String):void
-    {
-        StyleProtoChain.styleChanged(this, styleProp);
+        super.styleChanged(styleProp);
 
         invalidateTextLines();
-
-        if (styleProp && (styleProp != "styleName"))
-            dispatchEvent(new Event(styleProp + "Changed"));
-        else
-            dispatchEvent(new Event("allStylesChanged"));
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Methods: IStyleClient
-    //
-    //--------------------------------------------------------------------------
-
-    [Bindable(style="true")]
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function getStyle(styleProp:String):*
-    {
-        return StyleManager.isInheritingStyle(styleProp) ?
-               _inheritingStyles[styleProp] :
-               _nonInheritingStyles[styleProp];
-    }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function setStyle(styleProp:String, newValue:*):void
-    {
-        StyleProtoChain.setStyle(this, styleProp, newValue);
-    }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function clearStyle(styleProp:String):void
-    {
-        setStyle(styleProp, undefined);
-    }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function getClassStyleDeclarations():Array
-    {
-        return StyleProtoChain.getClassStyleDeclarations(this);
-    }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function notifyStyleChangeInChildren(
-                        styleProp:String, recursive:Boolean):void
-    {
-    }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function regenerateStyleCache(recursive:Boolean):void
-    {
-        initProtoChain();
-    }
-
-    /**
-     *  This method is required by the IStyleClient interface,
-     *  but doesn't do anything for TextGraphicElements.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function registerEffects(effects:Array /* of String */):void
-    {
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Methods: IAdvancedStyleClient
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  This method is required by the IAdvancedStyleClient interface,
-     *  but always returns false for TextGraphicElements as they do not have
-     *  state specific behavior.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    public function matchesCSSState(cssState:String):Boolean
-    {
-        return false;
-    }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    public function matchesCSSType(cssType:String):Boolean
-    {
-        return StyleProtoChain.matchesCSSType(this, cssType);
     }
 
     //--------------------------------------------------------------------------
@@ -1187,35 +692,6 @@ public class TextGraphicElement extends GraphicElement
     //  Methods
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  Flex calls the <code>stylesInitialized()</code> method when
-     *  the styles for a component are first initialized.
-     *
-     *  <p>This is an advanced method that you might override
-     *  when creating a subclass of TextGraphicElement.
-     *  Note that. unlike with UIComponents, Flex does not guarantee that
-     *  your TextGraphicElement's styles will be fully initialized before
-     *  the first time its component's <code>measure</code> and
-     *  <code>updateDisplayList</code> methods are called.</p>
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function stylesInitialized():void
-    {
-        invalidateTextLines();
-    }
-
-    /**
-     *  @private
-     */
-    mx_internal function initProtoChain():void
-    {
-        StyleProtoChain.initProtoChain(this);
-    }
 
     /**
      *  @private
@@ -1360,19 +836,12 @@ public class TextGraphicElement extends GraphicElement
 						
             //trace(container.name, "addTextLines", textLine.x, textLine.y, drawX, drawY);
 
-            textLine.x = textLinesX[i] + drawX;
-            textLine.y = textLinesY[i] + drawY;
+            textLine.x = textLinesX[i];
+            textLine.y = textLinesY[i];
             textLine.visible = visible;
             
 			addChildAtMethod(textLine, index);
 		}
-		
-		// If these lines went into a shared container these need to be saved
-		// so that the lines can be moved to another container without being
-		// recomposed.
-		// If the container isn't shared they will be relative to (0, 0).
-		lastDrawX = drawX;
-		lastDrawY = drawY;
 	}
 
 	/**
@@ -1408,9 +877,6 @@ public class TextGraphicElement extends GraphicElement
             textLine.y = textLinesY[i];
 			textLine.visible = true;
 		}
-		
-		lastDrawX = 0;
-		lastDrawY = 0;
 	}
 
     /**
@@ -1438,37 +904,6 @@ public class TextGraphicElement extends GraphicElement
         textLinesX.length = 0;
         textLinesY.length = 0;
    }
-
-    /**
-     *  @private
-     *  If the text lines are in a shared container then x and y have to be
-     *  adjusted if postLayoutTransformOffsets.x, postLayoutTransformOffsets.y,
-	 *  layoutX or layoutY changes.
-	 *  When these are changed, our updateDisplayList() is called
-	 *  but if we don't recompose we may need to adjust the position
-	 *  of the text lines.
-     */
-    mx_internal function adjustTextLines():void
-    {
-        var n:int = textLines.length;
-        if (n == 0)
-            return;
-
-        // Are there any adjustments to be made?
-        if (lastDrawX == drawX && lastDrawY == drawY)
-            return;
-            
-        for (var i:int = 0; i < n; i++)
-        {
-            var textLine:DisplayObject = textLines[i];
-            
-            textLine.x = textLinesX[i] + drawX;
-            textLine.y = textLinesY[i] + drawY;
-        }
-
-        lastDrawX = drawX;
-        lastDrawY = drawY;
-    }
     
     /**
      *  @private
@@ -1520,9 +955,10 @@ public class TextGraphicElement extends GraphicElement
      */
     mx_internal function clip(clipText:Boolean, w:Number, h:Number):void
 	{
+        // TODO (rfrishbe): What if someone else sets the scrollRect?
         if (clipText)
         {
-            var r:Rectangle = drawnDisplayObject.scrollRect;
+            var r:Rectangle = scrollRect;
             if (r)
             {
             	r.x = 0;
@@ -1534,12 +970,12 @@ public class TextGraphicElement extends GraphicElement
             {
             	r = new Rectangle(0, 0, w, h);
             }
-            drawnDisplayObject.scrollRect = r;
+            scrollRect = r;
             hasScrollRect = true;
         }
         else if (hasScrollRect)
         {
-            drawnDisplayObject.scrollRect = null;
+            scrollRect = null;
             hasScrollRect = false;
         }
     }
@@ -1549,8 +985,11 @@ public class TextGraphicElement extends GraphicElement
      *  Used to ensure baselinePosition will reflect something
      *  reasonable.
      */ 
-    mx_internal function validateBaselinePosition():void
+    override mx_internal function validateBaselinePosition():Boolean
     {
+        if (!parent)
+            return false;
+        
         // Ensure we're validated and that we have something to 
         // compute our baseline from.
         var isEmpty:Boolean = (text == "");
@@ -1564,6 +1003,8 @@ public class TextGraphicElement extends GraphicElement
             validateNow();  
             text = isEmpty ? "" : text;
         }
+        
+        return true;
     }
     
     //--------------------------------------------------------------------------
