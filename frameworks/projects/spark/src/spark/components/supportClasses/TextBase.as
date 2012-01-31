@@ -51,7 +51,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="backgroundAlpha", type="Number", inherit="no")]
+[Style(name="backgroundAlpha", type="Number", inherit="no", minValue="0.0", maxValue="1.0")]
 
 /**
  *  The color of the background of the entire
@@ -351,6 +351,8 @@ public class TextBase extends UIComponent
      *  @private
      */
 	private var _maxDisplayedLines:int = 0;
+    
+    [Inspectable(minValue="-1")]
     
     /**
      *  An integer which determines whether, and where,
