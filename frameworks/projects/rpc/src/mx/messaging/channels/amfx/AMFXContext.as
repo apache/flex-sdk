@@ -28,6 +28,12 @@ public class AMFXContext
     /**
      * Constructor.
      * Initializes object, trait info and string reference tables.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function AMFXContext()
     {
@@ -37,6 +43,12 @@ public class AMFXContext
 
     /**
      * Resets the trait info, object and string reference tables.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function reset():void
     {
@@ -50,6 +62,12 @@ public class AMFXContext
      * already contains this list of traits. If found,
      * the index of the trait info is returned, starting
      * from 0. If not found -1 is returned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function findTraitInfo(traitInfo:Object):int
     {
@@ -85,6 +103,12 @@ public class AMFXContext
      * already contains this object. If found, the index
      * of the object is returned, starting from 0. If
      * not found -1 is returned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function findObject(object:Object):int
     {
@@ -106,6 +130,12 @@ public class AMFXContext
      * of the string is returned, starting from 0. If
      * not found (or if the value passed is the empty string)
      * -1 is returned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function findString(str:String):int
     {
@@ -127,6 +157,12 @@ public class AMFXContext
     /**
      * Remember the trait info for an object in this context
      * for an encoding or decoding session.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function addTraitInfo(traitInfo:Object):void
     {
@@ -136,6 +172,12 @@ public class AMFXContext
     /**
      * Remember an object in this context for an encoding
      * or decoding session.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function addObject(obj:Object):void
     {
@@ -147,6 +189,12 @@ public class AMFXContext
      * or decoding session. Note that the empty string
      * is not remembered as it should not be serialized
      * by reference.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function addString(str:String):void
     {
@@ -160,6 +208,12 @@ public class AMFXContext
     /**
      * Retrieve trait info for an object by its reference
      * table index.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function getTraitInfo(ref:uint):*
     {
@@ -168,6 +222,12 @@ public class AMFXContext
 
     /**
      * Retrieve an object by its reference table index.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function getObject(ref:uint):*
     {
@@ -176,6 +236,12 @@ public class AMFXContext
 
     /**
      * Retrieve a string by its reference table index.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function getString(ref:uint):String
     {
@@ -184,21 +250,45 @@ public class AMFXContext
 
     /**
      * Trait Info reference table
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     internal var traits:Array;
 
     /**
      * Object reference table
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     internal var objects:Array;
 
     /**
      * Strings reference table
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     internal var strings:Array;
 
     /**
      * Log for the current encoder/decoder context.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public var log:ILogger;
 }
