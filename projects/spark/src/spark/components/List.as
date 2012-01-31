@@ -547,6 +547,9 @@ public class List extends ListBase implements IFocusManagerComponent
      *  If <code>true</code> multiple selection is enabled. 
      *  When switched at run time, the current selection
      *  is cleared. 
+     * 
+     *  This should not be turned on when <code>inputMode</code> 
+     *  is <code>touch</code>.
      *
      *  @default false
      *  
@@ -1190,8 +1193,10 @@ public class List extends ListBase implements IFocusManagerComponent
     {
         if (getStyle("inputMode") == "touch")
         {
-            if (pendingSelectionOnMouseUp && mouseDownIndex == index && mouseDownSelectTimer && !mouseDownSelectTimer.running)
-                return true;
+            // if we could be selecting, only show selection for that one item...don't even show
+            // it for the actual selectedIndex
+            if (pendingSelectionOnMouseUp && mouseDownSelectTimer && !mouseDownSelectTimer.running)
+                return mouseDownIndex == index;
         }
         
         return isItemIndexSelected(index);
@@ -1628,6 +1633,12 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             // select item visually now
             itemSelected(mouseDownIndex, true);
+            
+            // deselect old selected item
+            if (selectedIndex != NO_SELECTION)
+            {
+                itemSelected(selectedIndex, false);
+            }
         }
     }
 
@@ -1690,7 +1701,7 @@ public class List extends ListBase implements IFocusManagerComponent
             {
                 setSelectedIndices(calculateSelectedIndices(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey), true);
             }
-            else if (getStyle("inputMode") == "touch" && selectedIndex == NO_SELECTION)
+            else if (getStyle("inputMode") == "touch")
             {
                 setSelectedIndex(mouseDownIndex, true);
             }
@@ -1978,9 +1989,19 @@ public class List extends ListBase implements IFocusManagerComponent
             mouseDownCancelledFromScroll = true;
             
             // remove visual selection indicator
-            mouseDownSelectTimer.stop();
+            if (mouseDownSelectTimer)
+                mouseDownSelectTimer.stop();
             mouseDownSelectTimer = null;
+            
+            // unselect what we thought was selected
             itemSelected(mouseDownIndex, false);
+            
+            // reselect what actually is selected
+            if (selectedIndex != NO_SELECTION)
+            {
+                itemSelected(selectedIndex, true);
+            }
+            
             mouseDownIndex = -1;
             mouseDownPoint = null;
             pendingSelectionOnMouseUp = false;
