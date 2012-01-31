@@ -519,7 +519,9 @@ public dynamic class HTTPMultiService extends AbstractService
         if (_directChannelSet == null)
         {
             var dcs:ChannelSet = new ChannelSet();
-            dcs.addChannel(new DirectHTTPChannel("direct_http_channel"));
+            var dhc:DirectHTTPChannel = new DirectHTTPChannel("direct_http_channel");
+            dhc.requestTimeout = requestTimeout;
+            dcs.addChannel(dhc);
             _directChannelSet = dcs;            
         }
         return _directChannelSet;  
