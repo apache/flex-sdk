@@ -78,6 +78,11 @@ import mx.utils.TextUtil;
  *  due to a user interaction.
  *
  *  @eventType mx.events.FlexEvent.SELECTION_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="selectionChange", type="mx.events.FlexEvent")]
 
@@ -87,6 +92,11 @@ import mx.utils.TextUtil;
  *  to prevent the operation from being processed.
  *
  *  @eventType mx.events.FlexEvent.CHANGING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="changing", type="mx.events.TextOperationEvent")]
 
@@ -94,6 +104,11 @@ import mx.utils.TextUtil;
  *  Dispatched after a user editing operation is complete.
  *
  *  @eventType mx.events.FlexEvent.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="change", type="mx.events.TextOperationEvent")]
 
@@ -101,6 +116,11 @@ import mx.utils.TextUtil;
  *  Dispatched when the user pressed the Enter key.
  *
  *  @eventType mx.events.FlexEvent.ENTER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="enter", type="mx.events.FlexEvent")]
 
@@ -138,6 +158,11 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @see mx.graphics.TextGraphic
  *
  *  @includeExample examples/TextViewExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class TextView extends UIComponent implements IViewport
 {
@@ -188,6 +213,11 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function TextView()
     {
@@ -331,6 +361,11 @@ public class TextView extends UIComponent implements IViewport
     
     /**
      *  @copy mx.layout.LayoutBase#clipAndEnableScrolling
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get clipAndEnableScrolling():Boolean 
     {
@@ -373,6 +408,11 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get content():Object
     {
@@ -417,6 +457,11 @@ public class TextView extends UIComponent implements IViewport
     
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get contentHeight():Number
     {
@@ -436,6 +481,11 @@ public class TextView extends UIComponent implements IViewport
     
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get contentWidth():Number
     {
@@ -458,6 +508,11 @@ public class TextView extends UIComponent implements IViewport
     
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get displayAsPassword():Boolean
     {
@@ -496,6 +551,11 @@ public class TextView extends UIComponent implements IViewport
      *  Specifies whether the user is allowed to edit the text in this control.
      *
      *  @default true;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get editable():Boolean
     {
@@ -560,6 +620,11 @@ public class TextView extends UIComponent implements IViewport
      *  because a TextView often starts out with no text. Instead it uses this property, and the widthInChars property 
      *  to determine its measuredWidth and measuredHeight. These are 
      *  similar to the cols and rows of an HTML TextArea.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get heightInLines():Number
     {
@@ -599,6 +664,11 @@ public class TextView extends UIComponent implements IViewport
     
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get horizontalScrollPosition():Number
     {
@@ -625,6 +695,11 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  @copy mx.layout.LayoutBase#getHorizontalScrollPositionDelta
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
     {
@@ -683,6 +758,11 @@ public class TextView extends UIComponent implements IViewport
      *  @default null
      * 
      * @see flash.system.IMEConversionMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
      public function get imeMode():String
     {
@@ -715,6 +795,11 @@ public class TextView extends UIComponent implements IViewport
      *  a user can enter an unlimited amount of text. 
      * 
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get maxChars():int 
     {
@@ -745,6 +830,11 @@ public class TextView extends UIComponent implements IViewport
      *  but causes the TextView to dispatch an <code>"enter"</code> event.
      * 
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get multiline():Boolean 
     {
@@ -772,6 +862,11 @@ public class TextView extends UIComponent implements IViewport
      *  Documentation is not currently available.
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get restrict():String 
     {
@@ -805,6 +900,11 @@ public class TextView extends UIComponent implements IViewport
      *  Making the text selectable lets you copy text from the control.
      *
      *  @default true;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectable():Boolean
     {
@@ -842,6 +942,11 @@ public class TextView extends UIComponent implements IViewport
      *  or the end of the selection. 
      *
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectionActivePosition():int
     {
@@ -865,6 +970,11 @@ public class TextView extends UIComponent implements IViewport
      *  or the end of the selection.
      *
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectionAnchorPosition():int
     {
@@ -892,6 +1002,11 @@ public class TextView extends UIComponent implements IViewport
      *  Documentation is not currently available.
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectionVisibility():String 
     {
@@ -928,6 +1043,11 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  The text String displayed by this TextView.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get text():String 
     {
@@ -979,6 +1099,11 @@ public class TextView extends UIComponent implements IViewport
     
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get verticalScrollPosition():Number
     {
@@ -1005,6 +1130,11 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  @copy mx.layout.LayoutBase#getVerticalScrollPositionDelta
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
     {
@@ -1083,6 +1213,11 @@ public class TextView extends UIComponent implements IViewport
      *  to let the user enter 5 digits.
      *
      *  @default
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get widthInChars():Number 
     {
@@ -1195,6 +1330,11 @@ public class TextView extends UIComponent implements IViewport
         g.beginFill(0xEEEEEE, 1.0);
         g.drawRect(0, 0, unscaledWidth, unscaledHeight);
         g.endFill();
+        *  
+        *  @langversion 3.0
+        *  @playerversion Flash 10
+        *  @playerversion AIR 1.5
+        *  @productversion Flex 4
         */
 
         var flowComposer:IFlowComposer;
@@ -1275,6 +1415,11 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function stylesInitialized():void
     {
@@ -1287,6 +1432,11 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function styleChanged(styleProp:String):void
     {
@@ -1736,6 +1886,11 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  Sets the selection range and.  If the text is not editable or selectable
      *  this will also implicitly make the text selectable.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setSelection(anchorPosition:int = 0,
                                  activePosition:int = int.MAX_VALUE):void
@@ -1756,6 +1911,11 @@ public class TextView extends UIComponent implements IViewport
      *  if there was an insertion point, the new text is inserted there,
      *  otherwise the text is appended to the text that is there.
      *  An insertion point is then set after the new text.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function insertText(text:String):void
     {        
@@ -1786,6 +1946,11 @@ public class TextView extends UIComponent implements IViewport
      *  When TextView supports vertical scrolling,
      *  it will scroll to ensure that the last line
      *  of the inserted text is visible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function appendText(text:String):void
     {
@@ -1813,6 +1978,11 @@ public class TextView extends UIComponent implements IViewport
      *  this TextView's TextFlow.
      *  This markup String has the appropriate format
      *  for setting the <code>content</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function export():XML
     {
@@ -1834,6 +2004,11 @@ public class TextView extends UIComponent implements IViewport
      *  if the selection is uniformly 12-point but has multiple colors.
      *  The supported attributes are those in the
      *  ICharacterAttributes and IParagraphAttributes interfaces.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getSelectionFormat(names:Array = null):Object
     {
@@ -1931,6 +2106,11 @@ public class TextView extends UIComponent implements IViewport
      *  will set the fontSize and color of the selection.
      *  The supported attributes are those in the
      *  ICharacterFormat and IParagraphFormat interfaces.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setSelectionFormat(attributes:Object):void
     {
