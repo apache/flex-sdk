@@ -29,7 +29,7 @@ import mx.core.UIFTETextField; UIFTETextField;
 import spark.core.SpriteVisualElement; SpriteVisualElement;
 import spark.components.supportClasses.ListItemDragProxy; ListItemDragProxy;
 import spark.skins.spark.ApplicationSkin; ApplicationSkin;
-import spark.skins.spark.BorderSkin; BorderSkin;
+import spark.skins.spark.BorderContainerSkin; BorderContainerSkin;
 import spark.skins.spark.ButtonSkin; ButtonSkin;
 import spark.skins.spark.DefaultButtonSkin; DefaultButtonSkin;
 import spark.skins.spark.ButtonBarSkin; ButtonBarSkin;
