@@ -749,7 +749,7 @@ public class Group extends GroupBase implements IVisualElementContainer
         }
         
         dispatchEvent(new ItemExistenceChangedEvent(
-                      ItemExistenceChangedEvent.ITEM_ADD, false, false, item));
+                      ItemExistenceChangedEvent.ITEM_ADD, false, false, item, index));
         
         invalidateSize();
         invalidateDisplayList();
@@ -767,7 +767,7 @@ public class Group extends GroupBase implements IVisualElementContainer
         var childDO:DisplayObject = item as DisplayObject;
         
         dispatchEvent(new ItemExistenceChangedEvent(
-                      ItemExistenceChangedEvent.ITEM_REMOVE, false, false, item));        
+                      ItemExistenceChangedEvent.ITEM_REMOVE, false, false, item, index));        
         if (item && (item is GraphicElement))
         {
             item.parent = null;
