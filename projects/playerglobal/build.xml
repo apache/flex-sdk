@@ -42,11 +42,11 @@
 	
 	<macrodef name="fat-swc">
 		<attribute name="locale"/>
-		<attribute name="dita.dir"/>
 		<sequential>
+			<echo message="creating 'fat-swc' in playerglobal_rb.swc for @{locale}"/>
 			<mkdir dir="${basedir}/bundles/@{locale}/docs" />
 			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/playerglobal_rb.swc" update="true">
-				<zipfileset dir="@{dita.dir}" prefix="docs">
+				<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
 					<include name="*.*"/>
 				</zipfileset>
 			</zip>
@@ -55,27 +55,24 @@
 		
 	<macrodef name="bundler">
 	<attribute name="locale"/>
-	<attribute name="dita-dir"/>
 	<sequential>
 		<bundle locale="@{locale}"/>
-		<fat-swc locale="@{locale}" dita.dir="@{dita-dir}" />
+		<fat-swc locale="@{locale}"/>
 	</sequential>
 	</macrodef>
-	<target name="main" depends="compile" description="Clean build of framework.swc and en_US">
-		<bundle locale="${locale}"/>
-	</target>
-	
+	<target name="main"/>
+		
 	<target name="other.locales" depends="bundles-clean,bundles" description="Build other locale SWCs"/>
 	
 	<!-- This is a private target for building automation_flashflexkit_rb.swc for various locales. -->
 	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
 	<target name="bundles">
-		<bundler locale="en_US" dita-dir="${basedir}/bundles/en_US/docs"/><!-- Simplified Chinese resources -->
-		<bundler locale="de_DE" dita-dir="${basedir}/bundles/de_DE/docs"/><!-- German resources -->
-		<bundler locale="fr_FR" dita-dir="${basedir}/bundles/fr_FR/docs"/><!-- French resources -->
-		<bundler locale="ja_JP" dita-dir="${basedir}/bundles/ja_JP/docs"/><!-- Japanese resources -->
-		<bundler locale="ru_RU" dita-dir="${basedir}/bundles/ru_RU/docs"/><!-- Swedish resources -->
-		<bundler locale="zh_CN" dita-dir="${basedir}/bundles/zh_CN/docs"/><!-- Simplified Chinese resources -->
+		<bundler locale="en_US"/><!-- Simplified Chinese resources -->
+		<bundler locale="de_DE"/><!-- German resources -->
+		<bundler locale="fr_FR"/><!-- French resources -->
+		<bundler locale="ja_JP"/><!-- Japanese resources -->
+		<bundler locale="ru_RU"/><!-- Swedish resources -->
+		<bundler locale="zh_CN"/><!-- Simplified Chinese resources -->
 	</target>
 	
     <target name="bundles-clean">
@@ -87,12 +84,6 @@
         </delete>
     </target>
     
-    <target name="prepare">
-    </target>
-    
-    <target name="compile" depends="prepare">
-    </target>
-
     <!-- This is a private target for building playerglobal_rb.swc for various locales. -->
     <!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
     <target name="bundle">
@@ -115,9 +106,5 @@
             </external-library-path>
         </compc>
     </target>
-    
-    <target name="doc">
-    
-	</target>
-
+  
 </project>
