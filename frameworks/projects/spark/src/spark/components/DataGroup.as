@@ -720,8 +720,7 @@ public class DataGroup extends GroupBase
             {
                 IDataRenderer(elt).data = null;  // reduce probability of leaks
                 elt.visible = false;
-                if (elt is UIComponent) 
-                    UIComponent(elt).includeInLayout = false;
+                elt.includeInLayout = false;
                 freeRenderers.push(elt);
             }
             else
@@ -854,8 +853,7 @@ public class DataGroup extends GroupBase
                 {
                     elt = freeRenderers.pop();
                     elt.visible = true;
-                    if (elt is UIComponent)
-                        UIComponent(elt).includeInLayout = true;
+                    elt.includeInLayout = true;
                     if (elt is IDataRenderer)
                         IDataRenderer(elt).data = item;
                     recycledIR = true;
@@ -1052,10 +1050,6 @@ public class DataGroup extends GroupBase
 
             return child;
         }
-        else if (child.parent && child.parent is DataGroup)
-        {
-            DataGroup(child.parent)._removeChild(child);
-        }
 
         if ((_layeringFlags & LAYERING_ENABLED) || 
             (child is IVisualElement && (child as IVisualElement).layer != 0))
@@ -1199,20 +1193,6 @@ public class DataGroup extends GroupBase
     //  Methods: Access to overridden methods of base classes
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  This method allows access to the base class's implementation
-     *  of removeChild() (UIComponent's version), which can be useful since components
-     *  can override removeChild() and thereby hide the native implementation.  For 
-     *  instance, we override removeChild() here to throw an RTE to discourage people
-     *  from using this method.  We need this method so we can remove children
-     *  that were previously attached to another DataGroup (see addItemToDisplayList).
-     */
-    private function _removeChild(child:DisplayObject):DisplayObject
-    {
-        return super.removeChild(child);
-    }
     
     /**
      *  @inheritDoc
