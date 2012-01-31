@@ -13,12 +13,14 @@ package mx.containers.dividedBoxClasses
 {
 
 import flash.display.DisplayObject;
+import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import mx.containers.DividedBox;
 import mx.containers.DividerState;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.events.SandboxMouseEvent;
 
 use namespace mx_internal;
 
@@ -305,6 +307,9 @@ public class BoxDivider extends UIComponent
      */
     private function mouseOverHandler(event:MouseEvent):void
     {
+        if (event.buttonDown)
+            return;
+            
         isMouseOver = true;
         if (!DividedBox(owner).activeDivider)
         {
@@ -338,13 +343,18 @@ public class BoxDivider extends UIComponent
         // state = DividerState.DOWN;
         DividedBox(owner).changeCursor(this);
         DividedBox(owner).startDividerDrag(this, event);
-        systemManager.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
+        
+        var sbRoot:DisplayObject = systemManager.getSandboxRoot();
+        sbRoot.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
+        sbRoot.addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseUpHandler);
     }
 
     /**
      *  @private
+     * 
+     *  @param event MouseEvent or SandboxMouseEvent.
      */
-    private function mouseUpHandler(event:MouseEvent):void
+    private function mouseUpHandler(event:Event):void
     {
         // If a mouseOut was the last mouse event that occurred
         // make sure to restore the system cursor.
@@ -352,8 +362,11 @@ public class BoxDivider extends UIComponent
             DividedBox(owner).restoreCursor();
 
         state = DividerState.OVER;
-        DividedBox(owner).stopDividerDrag(this, event);
-        systemManager.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
+        DividedBox(owner).stopDividerDrag(this, event as MouseEvent);
+
+        var sbRoot:DisplayObject = systemManager.getSandboxRoot();
+        sbRoot.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
+        sbRoot.removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseUpHandler);
     }
 }
 
