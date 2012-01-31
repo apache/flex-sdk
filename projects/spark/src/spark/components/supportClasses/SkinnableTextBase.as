@@ -829,9 +829,15 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
      *  after an editing operation.
      */
     protected function textView_changeHandler(event:TextOperationEvent):void
-    {
-        // Update our storage variable for the text string.
-        mx_internal::_text = textView.text;
+    {        
+        // Update our storage variable for the text string.  Use the setter
+        // so that the textChanged event is dispatched which will maintain
+        // compatibility with the TextInput control.
+        text = textView.text;
+                
+        // Kill any programmatic change, including binding firing, that we 
+        // might be looking at.
+        mx_internal::textChanged = false;
 
         // Redispatch the event that came from the TextView.
         dispatchEvent(event);
