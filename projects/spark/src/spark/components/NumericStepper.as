@@ -34,8 +34,13 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  */
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
 
 [IconFile("NumericStepper.png")]
+[DefaultTriggerEvent("change")]
+
 /**
  *  The NumericStepper control lets you select
  *  a number from an ordered set.
