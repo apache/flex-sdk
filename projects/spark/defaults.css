@@ -66,6 +66,7 @@ ComboBox
 
 DataGrid
 {
+    textFieldClass: ClassReference("mx.core.UIFTETextField");
     skinClass: ClassReference("spark.skins.spark.DataGridSkin");
 }
 
