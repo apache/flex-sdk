@@ -185,6 +185,10 @@ use namespace mx_internal;
  *  <p>The <code>widthInChars</code> and <code>heightInChars</code>
  *  properties let you specify the width and height of the TextArea 
  *  in a way that scales with the font size.
+ *  You can use the <code>typicalText</code> property as well.
+ *  Note that if you use <code>typicalText</code>, the
+ *  <code>widthInChars</code> and <code>heightInLines</code>
+ *  are ignored.
  *  You can also specify an explicit width or height in pixels,
  *  or use a percent width and height or constraints such as
  *  <code>left</code> and <code>right</code>
@@ -257,6 +261,7 @@ use namespace mx_internal;
  *    <strong>Properties</strong>
  *    heightInLines="<i>Calculated default</i>"
  *    textFlow="<i>TextFlow</i>"
+ *    typicalText=null
  *    widthInChars="<i>Calculated default</i>"
  *  
  *    <strong>Styles</strong>
@@ -522,6 +527,33 @@ public class TextArea extends SkinnableTextBase
         setTextFlow(value);
     }
 
+	//----------------------------------
+	//  typicalText
+	//----------------------------------
+	
+	/**
+	 *  @default null
+	 *
+	 *  @see spark.components.RichEditableText#typicalText
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.2
+	 *  @playerversion AIR 2.0
+	 *  @productversion Flex 4.5
+	 */
+	public function get typicalText():String
+	{
+		return getTypicalText();
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set typicalText(value:String):void
+	{
+		setTypicalText(value);
+	}
+	
     //----------------------------------
     //  widthInChars
     //----------------------------------
