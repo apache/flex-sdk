@@ -1,60 +1,58 @@
 <?xml version="1.0"?>
-<!-- Simple example to demonstrate the FxList component -->
-<FxApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+<!-- Simple example to demonstrate the Spark List component -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+
     <fx:Script>
         <![CDATA[
-        import mx.events.IndexChangedEvent;
-        //this function is called when the selection is going to change
-        private function selectionChangingHandler(event:IndexChangedEvent):void
-        {
-            var item:* = list.dataProvider.getItemAt(event.newIndex);
-            if (item.type != "employee")
-            // Calling the preventDefault() method on the event will prevent the
-            // selection from changing.
-                event.preventDefault();
-        }
+            import mx.events.IndexChangedEvent;
+
+            //this function is called when the selection is going to change
+            private function selectionChangingHandler(evt:IndexChangedEvent):void {
+                var item:* = list.dataProvider.getItemAt(evt.newIndex);
+                if (item.type != "employee") {
+                    evt.preventDefault();
+                }
+            }
         ]]>
     </fx:Script>
+
     <s:Panel title="FxList Component Example"
-        height="75%" width="75%" layout="vertical" horizontalCenter="0"
-        verticalCenter="0" paddingTop="10" paddingBottom="10" paddingLeft="10"
-        paddingRight="10">
-        <Label text="Select a name to see employee's phone number"/>
-        <FxList id="list" width="100%" selectionChanging="selectionChangingHandler(event);">
-        <!-- itemRenderer is inline in this sample -->
-            <itemRenderer>
-                <fx:Component>
-                    <s:ItemRenderer>
-                        <s:states>
-                            <s:State name="normal" />
-                            <s:State name="hovered" />
-                            <s:State name="selected" />
-                        </s:states>
-                        <s:Rect left="0" right="0" top="0" bottom="0">
-                            <s:fill>
-                                <s:SolidColor color="0x999999" alpha="0" alpha.hovered="0.2"
-                                    alpha.selected="0.6" />
-                            </s:fill>
-                         </s:Rect>
-                         <Label id="nameLabel" text="{data.lastName}, {data.firstName}"/>
-                         <Label y="20" id="phoneLabel" text="{data.phone}"
-                             includeIn="selected" />
-                    </s:ItemRenderer>
-                </fx:Component>
-            </itemRenderer>
-            <dataProvider>
-                <ArrayCollection>
-                    <Object type="hr"       firstName="Ann"  lastName="Green"  />
-                    <Object type="employee" firstName="Tom"  lastName="Smith"
-                        phone="415-155-1212" />
-                    <Object type="employee" firstName="John" lastName="Black"
-                        phone="408-344-1234" />
-                    <Object type="employee" firstName="Jane" lastName="White"
-                        phone="415-235-7878" />
-                    <Object type="employee" firstName="Bill" lastName="Jones"
-                        phone="415-875-7800" />
-                </ArrayCollection>
-            </dataProvider>
-        </FxList>
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="20" right="20" top="20" bottom="20">
+            <s:SimpleText text="Select a name to see employee's phone number"/>
+            <s:List id="list" selectionChanging="selectionChangingHandler(event);">
+                <!-- itemRenderer is inline in this sample -->
+                <s:itemRenderer>
+                    <fx:Component>
+                        <s:ItemRenderer>
+                            <s:states>
+                                <s:State name="normal" />
+                                <s:State name="hovered" />
+                                <s:State name="selected" />
+                            </s:states>
+                            <s:Rect left="0" right="0" top="0" bottom="0">
+                                <s:fill>
+                                    <s:SolidColor color="0x999999" alpha="0" alpha.hovered="0.2"
+                                            alpha.selected="0.6" />
+                                </s:fill>
+                             </s:Rect>
+                             <s:SimpleText id="nameLabel" text="{data.lastName}, {data.firstName}"/>
+                             <s:SimpleText y="20" id="phoneLabel" text="{data.phone}" includeIn="selected" />
+                        </s:ItemRenderer>
+                    </fx:Component>
+                </s:itemRenderer>
+                <s:dataProvider>
+                    <s:ArrayList>
+                        <s:Object type="hr" firstName="Ann"  lastName="Green"  />
+                        <s:Object type="employee" firstName="Tom"  lastName="Smith" phone="415-155-1212" />
+                        <s:Object type="employee" firstName="John" lastName="Black" phone="408-344-1234" />
+                        <s:Object type="employee" firstName="Jane" lastName="White" phone="415-235-7878" />
+                        <s:Object type="employee" firstName="Bill" lastName="Jones" phone="415-875-7800" />
+                    </s:ArrayList>
+                </s:dataProvider>
+            </s:List>
+        </s:VGroup>
      </s:Panel>
-</FxApplication>
+
+</s:Application>
