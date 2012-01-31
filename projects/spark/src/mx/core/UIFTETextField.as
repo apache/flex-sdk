@@ -272,7 +272,7 @@ public class UIFTETextField extends FTETextField
 		 *  TLF itself has English-only messages,
 		 *  but higher layers like Flex can provide localized versions.
 		 */
-		GlobalSettings.getResourceStringFunction = TextUtil.getResourceString;
+		GlobalSettings.resourceStringFunction = TextUtil.getResourceString;
 		
         // Although a TextField's 'text' is initially "",
         // getLineMetrics() will return bad values until some text is set.
