@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components.baseClasses
 {
 
 import flash.events.Event;
@@ -17,6 +17,7 @@ import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
+import mx.components.FxButton;
 
 /**
  *  A ScrollBar control is used to help position
@@ -24,7 +25,7 @@ import flash.utils.Timer;
  *  to fit in a display area.
  *  
  *  <p>This control extends the Range class and
- *  is the base class for the HScrollBar and VScrollBar
+ *  is the base class for the FxHScrollBar and FxVScrollBar
  *  controls.</p> 
  * 
  *  <p>A ScrollBar consists of a track, a variable-size scroll thumb, and 
@@ -43,9 +44,9 @@ import flash.utils.Timer;
  *    the minimum range value and the maximum range value.</li>
  *  </ul>
  */
-public class ScrollBar extends TrackBase
+public class FxScrollBar extends FxTrackBase
 {
-    include "../core/Version.as";
+    include "../../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
@@ -67,7 +68,7 @@ public class ScrollBar extends TrackBase
     /**
      *  Constructor. 
      */
-    public function ScrollBar():void
+    public function FxScrollBar():void
     {
         super();
     }
@@ -85,7 +86,7 @@ public class ScrollBar extends TrackBase
      *  that, when pressed, will step the scrollbar "up", which is equivalent 
      *  to a decreasing step in the <code>value</code> property.
      */
-    public var decrementButton:Button;
+    public var decrementButton:FxButton;
     
     [SkinPart(required="false")]
     
@@ -94,7 +95,7 @@ public class ScrollBar extends TrackBase
      *  that, when pressed, will step the scrollbar "down", which is equivalent
      *  to a increasing step in the <code>value</code> property.
      */
-    public var incrementButton:Button;
+    public var incrementButton:FxButton;
     
     //--------------------------------------------------------------------------
     //
