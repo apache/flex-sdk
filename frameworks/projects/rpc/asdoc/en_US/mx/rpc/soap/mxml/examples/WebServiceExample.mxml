@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the WebService tag. -->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+
+<!--  Make sure the Flex Data Services proxy-config.xml file contains the following definition: 
+
+    <destination id="DefaultHTTP">
+        <properties>
+            <dynamic-url>http://ws.invesbot.com/~~</dynamic-url>
+        </properties>
+    </destination>
+-->
+
+    <mx:Script>
+        <![CDATA[
+            import mx.controls.Alert;        
+        ]]>    
+    </mx:Script>
+
+    <mx:WebService id="WS" wsdl="http://ws.invesbot.com/stockquotes.asmx?WSDL"
+        useProxy="true"
+        fault="Alert.show(event.fault.faultString), 'Error'">
+
+        <mx:operation name="GetQuote" resultFormat="object">
+            <mx:request>
+                <symbol>{stockSymbol.text}</symbol>
+            </mx:request>
+        </mx:operation>
+    </mx:WebService>
+
+    <mx:Panel title="WebService Example" height="75%" width="75%" 
+        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+
+        <mx:Label width="100%"  color="blue"
+            text="Enter a stock symbol to obtain a quote."/>
+
+        <mx:TextInput id="stockSymbol" text="ADBE"/>
+        <mx:Button label="Get Quote" click="WS.GetQuote.send()"/>
+
+        <mx:Text htmlText="Company: {WS.GetQuote.lastResult.GetQuoteResult.StockQuote.Company}"/>
+        <mx:Text htmlText="Current price: ${WS.GetQuote.lastResult.GetQuoteResult.StockQuote.Price}"/>
+
+    </mx:Panel>    
+</mx:Application>
