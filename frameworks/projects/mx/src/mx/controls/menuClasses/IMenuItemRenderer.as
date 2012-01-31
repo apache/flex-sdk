@@ -45,6 +45,11 @@ import mx.controls.Menu;
  *         _menu = value;
  *     }
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IMenuItemRenderer
 {
@@ -64,6 +69,11 @@ public interface IMenuItemRenderer
      *  renderer is a branch node, capable of popping up a sub menu.
      * 
      *  @return The reference to the Menu control. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get menu():Menu;
     
@@ -74,16 +84,31 @@ public interface IMenuItemRenderer
     
     /**
      *  The width of the icon.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get measuredIconWidth():Number;
     
     /**
      *  The width of the type icon (radio/check).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get measuredTypeIconWidth():Number;
     
     /**
      *  The width of the branch icon.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get measuredBranchIconWidth():Number;
 }
