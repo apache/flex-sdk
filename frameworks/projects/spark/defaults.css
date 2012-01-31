@@ -76,6 +76,11 @@ List
 	skinClass: ClassReference("spark.skins.default.ListSkin");
 }
 
+MuteButton
+{
+    skinClass: ClassReference("spark.skins.default.mediaClasses.normal.MuteButtonSkin");
+}
+
 NumericStepper
 {
     skinClass: ClassReference("spark.skins.default.NumericStepperSkin");
@@ -94,6 +99,11 @@ RadioButton
 Scroller
 {
     skinClass: ClassReference("spark.skins.default.ScrollerSkin");
+}
+
+ScrubBar
+{
+    skinClass: ClassReference("spark.skins.default.mediaClasses.normal.ScrubBarSkin");
 }
 
 Spinner
@@ -121,19 +131,9 @@ VideoPlayer
     skinClass: ClassReference("spark.skins.default.VideoPlayerSkin");
 }
 
-VideoPlayerScrubBar
+VolumeBar
 {
-    skinClass: ClassReference("spark.skins.default.VideoPlayerScrubBarSkin");
-}
-
-VideoPlayerVolumeBar
-{
-    skinClass: ClassReference("spark.skins.default.VideoPlayerVolumeBarSkin");
-}
-
-VideoPlayerVolumeBarMuteButton
-{
-    skinClass: ClassReference("spark.skins.default.VideoPlayerVolumeBarMuteButtonSkin");
+    skinClass: ClassReference("spark.skins.default.mediaClasses.normal.VolumeBarSkin");
 }
 
 VScrollBar
