@@ -726,7 +726,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         		resizeMode = ResizeMode.SCALE; // Force the resizeMode to scale	
         }
         
-        // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
+        // FIXME (egeorgie): we need to optimize this, iterating through all the elements is slow.
         // Validate element properties
         if (numGraphicElements > 0)
         {
@@ -748,7 +748,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         // Since IGraphicElement is not ILayoutManagerClient, we need to make sure we
         // validate sizes of the elements, even in cases where recursive==false.
         
-        // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
+        // FIXME (egeorgie): we need to optimize this, iterating through all the elements is slow.
         // Validate element size
         if (numGraphicElements > 0)
         {
@@ -889,7 +889,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
 
     /**
      *  @private
-     *  TODO: Most of this code is a duplicate of UIComponent::notifyStyleChangeInChildren,
+     *  FIXME (rfrishbe): Most of this code is a duplicate of UIComponent::notifyStyleChangeInChildren,
      *  refactor as appropriate to avoid code duplication once we have a common
      *  child iterator between UIComponent and Group.
      */ 
@@ -915,7 +915,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      *  @private
-     *  TODO: Most of this code is a duplicate of UIComponent::regenerateStyleCache,
+     *  FIXME (rfrishbe): Most of this code is a duplicate of UIComponent::regenerateStyleCache,
      *  refactor as appropriate to avoid code duplication once we have a common
      *  child iterator between UIComponent and Group.
      */ 
@@ -1356,7 +1356,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         if (child is IStyleClient)
             IStyleClient(child).notifyStyleChangeInChildren(null, true);
 
-        // TODO EGeorgie: why do we need this here? We should not be hard-coding
+        // FIXME (egeorgie): why do we need this here? We should not be hard-coding
         // against concrete GraphicElement types, maybe move this to a different
         // interface (IGraphicElement or IAdvancedStyleClient)?
         //
