@@ -424,7 +424,7 @@ public class TextArea extends SkinnableTextBase
      *  <p>The <code>content</code> property is the default property
      *  for TextArea, so that you can write MXML such as
      *  <pre>
-     *  &lt;s:TextArea&gt;Hello &lt;s:span fontWeight="bold"/&gt;World&lt;/s:span&gt;&lt;/s:TextArea&gt;
+     *  &lt;s:TextArea&gt;Hello &lt;s:span fontWeight="bold"&gt;World&lt;/s:span&gt;&lt;/s:TextArea&gt;
      *  </pre>
      *  and have the String and SpanElement that you specify
      *  as the content be used to create a TextFlow.</p>
