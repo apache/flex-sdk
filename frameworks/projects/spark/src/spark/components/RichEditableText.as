@@ -1561,20 +1561,28 @@ public class TextView extends UIComponent implements IViewport
             return;
            
         var selectionColor:* = getStyle("selectionColor");
+
+        var unfocusedSelectionColor:* = getStyle("unfocusedSelectionColor");
         var unfocusedAlpha:Number =
             selectionVisibility != TextSelectionVisibility.WHEN_FOCUSED ? 
             1.0 : 0.0;
+
+        var inactiveSelectionColor:* = getStyle("inactiveSelectionColor"); 
         var inactiveAlpha:Number =
             selectionVisibility == TextSelectionVisibility.ALWAYS ?
             1.0 : 0.0;
+            
         interactionManager.focusSelectionFormat = new SelectionFormat(
+            selectionColor, 1.0, BlendMode.NORMAL, 
             selectionColor, 1.0, BlendMode.NORMAL);
+        
         interactionManager.noFocusSelectionFormat = new SelectionFormat(
-            getStyle("unfocusedSelectionColor"), unfocusedAlpha,
-            BlendMode.NORMAL);
+            unfocusedSelectionColor, unfocusedAlpha, BlendMode.NORMAL,
+            unfocusedSelectionColor, unfocusedAlpha, BlendMode.NORMAL);
+        
         interactionManager.inactiveSelectionFormat = new SelectionFormat(
-            getStyle("inactiveSelectionColor"), inactiveAlpha,
-            BlendMode.NORMAL);
+            inactiveSelectionColor, inactiveAlpha, BlendMode.NORMAL,
+            inactiveSelectionColor, inactiveAlpha, BlendMode.NORMAL);
     }
         
     /**
