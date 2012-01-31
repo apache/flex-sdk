@@ -536,7 +536,7 @@ public class Scroller extends SkinnableComponent
         super();
         hasFocusableChildren = true;
         focusEnabled = false;
-        
+
         addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
         addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
     }
@@ -750,10 +750,10 @@ public class Scroller extends SkinnableComponent
      *  for both axes.  They determine the points at which bounce and
      *  pull occur.
      */
-    private var minVerticalScrollPosition:Number;
-    private var maxVerticalScrollPosition:Number;
-    private var minHorizontalScrollPosition:Number;
-    private var maxHorizontalScrollPosition:Number;
+    private var minVerticalScrollPosition:Number = 0;
+    private var maxVerticalScrollPosition:Number = 0;
+    private var minHorizontalScrollPosition:Number = 0;
+    private var maxHorizontalScrollPosition:Number = 0;
     
     /**
      *  @private
@@ -2074,16 +2074,16 @@ public class Scroller extends SkinnableComponent
      */
     private function determineNewPageScrollPosition(velocityX:Number, velocityY:Number):void
     {
-        // needdoc
+        // Convert the paging velocity threshold from inches/second to pixels/millisecond 
         var minVelocityPixels:Number = pageThrowVelocityThreshold * Capabilities.screenDPI / 1000;
         
         if (canScrollHorizontally)
         {
-            // needdoc
+            // Check both the throw velocity and the drag distance.  If either exceeds our threholds, then we switch to the next page.
             if (velocityX < -minVelocityPixels || viewport.horizontalScrollPosition >= currentPageScrollPosition + viewport.width * pageDragDistanceThreshold)
             {
-                // needdoc
                 // Go to the next horizontal page
+                // Set the new page scroll position so the throw effect animates the page into place
                 currentPageScrollPosition = Math.min(currentPageScrollPosition + viewport.width, viewport.contentWidth - viewport.width);
             }
             else if (velocityX > minVelocityPixels || viewport.horizontalScrollPosition <= currentPageScrollPosition - viewport.width * pageDragDistanceThreshold)
@@ -2097,9 +2097,11 @@ public class Scroller extends SkinnableComponent
         }
         else if (canScrollVertically)
         {
+            // Check both the throw velocity and the drag distance.  If either exceeds our threholds, then we switch to the next page.
             if (velocityY < -minVelocityPixels || viewport.verticalScrollPosition >= currentPageScrollPosition + viewport.height * pageDragDistanceThreshold)
             {
                 // Go to the next vertical page
+                // Set the new page scroll position so the throw effect animates the page into place
                 currentPageScrollPosition = Math.min(currentPageScrollPosition + viewport.height, viewport.contentHeight - viewport.height);     
             }
             else if (velocityY > minVelocityPixels || viewport.verticalScrollPosition <= currentPageScrollPosition - viewport.height * pageDragDistanceThreshold)
@@ -2133,14 +2135,17 @@ public class Scroller extends SkinnableComponent
 
         if (pageScrollingEnabled)
         {
-            // The throw velocity is greatly attenuated in paging mode
-            const PAGING_VELOCITY_FACTOR:Number = 0.25; 
-            velocityX *= PAGING_VELOCITY_FACTOR;
-            velocityY *= PAGING_VELOCITY_FACTOR;
-            
             // See whether a page switch is warranted for this touch gesture.
             determineNewPageScrollPosition(velocityX, velocityY);
             
+            // The throw velocity is greatly attenuated in paging mode.
+            // Note that this must be done after the call above to
+            // determineNewPageScrollPosition which compares the velocity
+            // to our threshold.
+            const PAGING_VELOCITY_FACTOR:Number = 0.25; 
+            velocityX *= PAGING_VELOCITY_FACTOR;
+            velocityY *= PAGING_VELOCITY_FACTOR;
+
             // Make the scroller "lock" to the current page
             if (canScrollHorizontally)
                 minHSP = maxHSP = currentPageScrollPosition;
@@ -2867,7 +2872,7 @@ public class Scroller extends SkinnableComponent
      *  @private
      */ 
     mx_internal function performThrow(velocityX:Number, velocityY:Number):void
-    {   
+    {
         // Don't throw if we're doing a text selection auto scroll
         if (textSelectionAutoScrollEnabled)
         {
