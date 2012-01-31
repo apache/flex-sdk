@@ -35,6 +35,7 @@ import mx.managers.ISystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
+import mx.utils.LoaderUtil;
 
 use namespace mx_internal;
 
@@ -868,7 +869,7 @@ public class Application extends LayoutContainer
     /**
      *  @private
      *  Storage for the url property.
-     *  This variable is set in the initialize() method of SystemManager.
+     *  This variable is set in the initialize() method.
      */
     mx_internal var _url:String;
 
@@ -975,7 +976,7 @@ public class Application extends LayoutContainer
 
         var sm:ISystemManager = systemManager;
         
-        _url = sm.loaderInfo.url;
+        _url = LoaderUtil.normalizeURL(sm.loaderInfo);
         _parameters = sm.loaderInfo.parameters;
 
         initManagers(sm);
