@@ -28,108 +28,111 @@ use namespace mx_internal;
  */
 public class ListItemDragProxy extends UIComponent
 {
-	include "../../core/Version.as";
+    include "../../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 */
-	public function ListItemDragProxy()
-	{
-		super();
-		
-	}
+    /**
+     *  Constructor.
+     */
+    public function ListItemDragProxy()
+    {
+        super();
+        
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: UIComponent
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override protected function createChildren():void
-	{
+    /**
+     *  @private
+     */
+    override protected function createChildren():void
+    {
         super.createChildren();
 
-		var items:Array /* of unit */ = ListBase(owner).selectedItems;
+        var items:Array /* of unit */ = ListBase(owner).selectedItems;
 
-		var n:int = items.length;
-		for (var i:int = 0; i < n; i++)
-		{
-			var src:IListItemRenderer = ListBase(owner).itemToItemRenderer(items[i]);
-			if (!src)
-				continue;
+        var n:int = items.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var src:IListItemRenderer = ListBase(owner).itemToItemRenderer(items[i]);
+            if (!src)
+                continue;
 
-			var o:IListItemRenderer = ListBase(owner).createItemRenderer(items[i]);
-	
-			o.styleName = ListBase(owner);
-			
-			if (o is IDropInListItemRenderer)
-			{
-				var listData:BaseListData =
-					IDropInListItemRenderer(src).listData;
-				
-				IDropInListItemRenderer(o).listData = items[i] ?
-													  listData :
-													  null;
-			}
+            var o:IListItemRenderer = ListBase(owner).createItemRenderer(items[i]);
+    
+            o.styleName = ListBase(owner);
+            
+            if (o is IDropInListItemRenderer)
+            {
+                var listData:BaseListData =
+                    IDropInListItemRenderer(src).listData;
+                
+                IDropInListItemRenderer(o).listData = items[i] ?
+                                                      listData :
+                                                      null;
+            }
 
-			o.data = items[i];
-			
-			addChild(DisplayObject(o));
+            o.data = items[i];
+            
+            addChild(DisplayObject(o));
 
-			var contentHolder:ListBaseContentHolder = src.parent as ListBaseContentHolder;
-			
-			o.setActualSize(src.width, src.height);
-			o.x = src.x + contentHolder.leftOffset;
-			o.y = src.y + contentHolder.topOffset;
+            var contentHolder:ListBaseContentHolder = src.parent as ListBaseContentHolder;
+            
+            o.setActualSize(src.width, src.height);
+            o.x = src.x + contentHolder.leftOffset;
+            o.y = src.y + contentHolder.topOffset;
 
-			measuredHeight = Math.max(measuredHeight, o.y + o.height);
-			measuredWidth = Math.max(measuredWidth, o.x + o.width);
-			o.visible = true;
-		}
+            measuredHeight = Math.max(measuredHeight, o.y + o.height);
+            measuredWidth = Math.max(measuredWidth, o.x + o.width);
+            o.visible = true;
+        }
 
-		invalidateDisplayList();
-	}
-	
-	override protected function measure():void
-	{
-		super.measure();
-		
-		var w:Number = 0;
-		var h:Number = 0;
-		var child:IListItemRenderer;
-		
-		for (var i:int = 0; i < numChildren; i++)
-		{
-			child = getChildAt(i) as IListItemRenderer;
-			
-			if (child)
-			{
-				/*trace("ListItemDragProxy.measure x",child.x,"y",child.y,"h",child.getExplicitOrMeasuredHeight(),
-						"w",child.getExplicitOrMeasuredWidth(),"child",child);
-				*/
-				w = Math.max(w, child.x + child.width);
-				h = Math.max(h, child.y + child.height);
-			}
-		}
-		
-		measuredWidth = measuredMinWidth = w;
-		measuredHeight = measuredMinHeight = h;
-	}
+        invalidateDisplayList();
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function measure():void
+    {
+        super.measure();
+        
+        var w:Number = 0;
+        var h:Number = 0;
+        var child:IListItemRenderer;
+        
+        for (var i:int = 0; i < numChildren; i++)
+        {
+            child = getChildAt(i) as IListItemRenderer;
+            
+            if (child)
+            {
+                /*trace("ListItemDragProxy.measure x",child.x,"y",child.y,"h",child.getExplicitOrMeasuredHeight(),
+                        "w",child.getExplicitOrMeasuredWidth(),"child",child);
+                */
+                w = Math.max(w, child.x + child.width);
+                h = Math.max(h, child.y + child.height);
+            }
+        }
+        
+        measuredWidth = measuredMinWidth = w;
+        measuredHeight = measuredMinHeight = h;
+    }
 }
 
 }
