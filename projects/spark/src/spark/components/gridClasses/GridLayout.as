@@ -243,7 +243,11 @@ public class GridLayout extends LayoutBase
         
         // HACK
         gridDimensions.rowCount = grid.dataProvider ? grid.dataProvider.length : 0;
-        gridDimensions.columnCount = grid.columns ? grid.columns.length : 0;
+        var numCols:int = gridDimensions.columnCount = grid.columns ? grid.columns.length : 0;
+        
+        // HACK #2 - copy column explicit widths to gridDimensions
+        for (var i:int = 0; i < numCols; i++)
+            gridDimensions.setColumnWidth(i, GridColumn(grid.columns.getItemAt(i)).width);
         
         // Layout the item renderers and compute new values for visibleRowIndices et al
         
@@ -359,7 +363,7 @@ public class GridLayout extends LayoutBase
     private function getDataProviderItem(rowIndex:int):Object
     {
         const dataProvider:IList = grid.dataProvider;
-        if ((dataProvider == null) || (rowIndex >= dataProvider.length))
+        if ((dataProvider == null) || (rowIndex >= dataProvider.length) || (rowIndex < 0))
             return null;
         
         return dataProvider.getItemAt(rowIndex);
