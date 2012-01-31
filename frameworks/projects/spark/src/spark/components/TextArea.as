@@ -181,7 +181,7 @@ public class FxTextArea extends FxTextBase
 	/**
 	 *  @private
 	 */
-	private var _heightInLines:int = 10;
+	private var _heightInLines:Number = 10;
 
 	/**
 	 *  @private
@@ -191,7 +191,7 @@ public class FxTextArea extends FxTextBase
 	/**
 	 *  Documentation is not currently available.
 	 */
-	public function get heightInLines():int
+	public function get heightInLines():Number
 	{
 		return _heightInLines;
 	}
@@ -199,7 +199,7 @@ public class FxTextArea extends FxTextBase
 	/**
 	 *  @private
 	 */
-	public function set heightInLines(value:int):void
+	public function set heightInLines(value:Number):void
 	{
 		if (value == _heightInLines)
 			return;
@@ -300,7 +300,7 @@ public class FxTextArea extends FxTextBase
 	/**
 	 *  @private
 	 */
-	private var _widthInChars:int = 20;
+	private var _widthInChars:Number = 20;
 
 	/**
 	 *  @private
@@ -316,7 +316,7 @@ public class FxTextArea extends FxTextBase
 	 *
 	 *  @default
 	 */
-	public function get widthInChars():int
+	public function get widthInChars():Number
 	{
 		return _widthInChars;
 	}
@@ -324,7 +324,7 @@ public class FxTextArea extends FxTextBase
 	/**
 	 *  @private
 	 */
-	public function set widthInChars(value:int):void
+	public function set widthInChars(value:Number):void
 	{
 		if (value == _widthInChars)
 			return;
