@@ -105,7 +105,7 @@ public class GridLayout extends LayoutBase
      */
     private const visibleItemRenderersBounds:Rectangle = new Rectangle();
     
-    /**
+	/**
      *  @private
      *  The viewport's bounding rectangle; often smaller then visibleItemRenderersBounds.
      *  Initialized by updateDisplayList with the current scrollPosition, and grid.width,Height.
@@ -393,14 +393,48 @@ public class GridLayout extends LayoutBase
         
         const hspChanged:Boolean = oldHorizontalScrollPosition != horizontalScrollPosition;
         const vspChanged:Boolean = oldVerticalScrollPosition != verticalScrollPosition;
-        
+
         oldHorizontalScrollPosition = horizontalScrollPosition;
         oldVerticalScrollPosition = verticalScrollPosition;
+        		
+        // Only invalidate if we're clipping and rows and/or columns covered
+		// by the scrollR changes.  If so, the visible row/column indicies need
+		// to be updated.
         
-        // Only invalidate if we're clipping and scrollR extends outside visisibleRenderersBounds
-        
-        const scrollR:Rectangle = grid.scrollRect;
-        if (scrollR && !visibleItemRenderersBounds.containsRect(scrollR))
+		var invalidate:Boolean;
+		
+		if (visibleRowIndices.length == 0 || visibleColumnIndices.length == 0)
+			invalidate = true;
+		
+		if (!invalidate && vspChanged)
+		{
+			const oldFirstRowIndex:int = visibleRowIndices[0];
+			const oldLastRowIndex:int = visibleRowIndices[visibleRowIndices.length - 1];
+			
+			const newFirstRowIndex:int = 
+				gridDimensions.getRowIndexAt(horizontalScrollPosition, verticalScrollPosition);
+			const newLastRowIndex:int = 
+				gridDimensions.getRowIndexAt(horizontalScrollPosition, verticalScrollPosition + target.height);
+			
+			if (oldFirstRowIndex != newFirstRowIndex || oldLastRowIndex != newLastRowIndex)
+				invalidate = true;
+		}
+		
+		if (!invalidate && hspChanged)
+		{
+			const oldFirstColIndex:int = visibleColumnIndices[0];			
+			const oldLastColIndex:int = visibleColumnIndices[visibleColumnIndices.length - 1];
+			
+			const newFirstColIndex:int = 
+				gridDimensions.getColumnIndexAt(horizontalScrollPosition, verticalScrollPosition);
+			const newLastColIndex:int = 
+				gridDimensions.getColumnIndexAt(horizontalScrollPosition + target.width, verticalScrollPosition);
+			
+			if (oldFirstColIndex != newFirstColIndex || oldLastColIndex != newLastColIndex)
+				invalidate = true;
+		}
+		
+		if (invalidate)
         {
             var reason:String = "none";
             if (vspChanged && hspChanged)
@@ -1109,10 +1143,7 @@ public class GridLayout extends LayoutBase
         }
         else
         {
-            visibleItemRenderersBounds.x = 0;
-            visibleItemRenderersBounds.y = 0;
-            visibleItemRenderersBounds.width = 0;
-            visibleItemRenderersBounds.height = 0;
+            visibleItemRenderersBounds.setEmpty();
         }
         
         // Update visibleItemRenderers et al
@@ -2364,8 +2395,28 @@ public class GridLayout extends LayoutBase
      */
     public function getCellsAt(x:Number, y:Number, w:Number, h:Number):Vector.<CellPosition>
     { 
-        // TODO(hmuller)
-        return new Vector.<Object>;
+        var cells:Vector.<CellPosition> = new Vector.<CellPosition>;
+		
+		if (w <= 0 || h <= 0)
+			return cells;
+		
+		// Get the row/column indexes of the corners of the region.
+		var topLeft:CellPosition = getCellAt(x, y);
+		var bottomRight:CellPosition = getCellAt(x + w, y + h);
+		if (!topLeft || !bottomRight)
+			return cells;
+		
+		for (var rowIndex:int = topLeft.rowIndex; 
+			 rowIndex <= bottomRight.rowIndex; rowIndex++)
+		{
+			for (var columnIndex:int = topLeft.columnIndex; 
+				 columnIndex <= bottomRight.columnIndex; columnIndex++)
+			{
+				cells.push(new CellPosition(rowIndex, columnIndex));
+			}
+		}
+		
+        return cells;
     }
     
     /**
