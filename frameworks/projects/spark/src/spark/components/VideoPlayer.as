@@ -16,6 +16,7 @@ import fl.video.VideoState;
 import fl.video.flvplayback_internal;
 
 import flash.display.DisplayObject;
+import flash.display.Stage;
 import flash.display.StageDisplayState;
 import flash.events.Event;
 import flash.events.FullScreenEvent;
@@ -28,6 +29,7 @@ import flash.geom.Rectangle;
 import flash.utils.Timer;
 
 import mx.core.ContainerGlobals;
+import mx.core.FlexGlobals;
 import mx.core.IFlexDisplayObject;
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
@@ -1114,6 +1116,22 @@ public class VideoPlayer extends SkinnableComponent
                     newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
                                                             MUTED_PROPERTY_FLAG, true);
                 }
+                
+                // these are state properties just carried over from an old video element
+                if (videoElementProperties.playheadTime !== undefined || 
+                    videoElementProperties.playing !== undefined)
+                {
+                    videoElement_updateCompleteHandlerProperties = {
+                        autoPlay: videoElement.autoPlay,
+                        playing: videoElementProperties.playing,
+                        playheadTime: videoElementProperties.playheadTime};
+                    
+                    // so the videoElement doesn't start playing...we'll handle it instead in 
+                    // videoElement_updateCompleteHandler
+                    videoElement.autoPlay = false;
+                    
+                    videoElement.addEventListener(FlexEvent.UPDATE_COMPLETE, videoElement_updateCompleteHandler);
+                }
             }
             
             videoElementProperties = newVideoProperties;
@@ -1202,6 +1220,36 @@ public class VideoPlayer extends SkinnableComponent
     
     /**
      *  @private
+     *  Holds the state of the video element when the skin is being swapped out.
+     *  This is so the new videoElement can load up and start playing 
+     *  where it left off.
+     */
+    private var videoElement_updateCompleteHandlerProperties:Object;
+    
+    /**
+     *  @private
+     *  We only listen for the updateComplete event on the videoElement when 
+     *  a skin has been swapped.  This is so we can push the old videoElement's 
+     *  state in to the new object, and we can start playing the video 
+     *  where it left off.
+     */
+    private function videoElement_updateCompleteHandler(event:FlexEvent):void
+    {
+        if (videoElement_updateCompleteHandlerProperties.autoPlay)
+            videoElement.autoPlay = true;
+        
+        if (videoElement_updateCompleteHandlerProperties.playheadTime !== undefined)
+            videoElement.seek(videoElement_updateCompleteHandlerProperties.playheadTime);
+        
+        if (videoElement_updateCompleteHandlerProperties.playing)
+            videoElement.play();
+        
+        videoElement_updateCompleteHandlerProperties = null;
+        videoElement.removeEventListener(FlexEvent.UPDATE_COMPLETE, videoElement_updateCompleteHandler);
+    }
+    
+    /**
+     *  @private
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
@@ -1247,6 +1295,13 @@ public class VideoPlayer extends SkinnableComponent
                 newVideoProperties.muted = videoElement.muted;
                 propertySet = true;
             }
+            
+            // push our current state (where we were in the video and whether we were playing)
+            // so that the new skin gets these as well
+            newVideoProperties.playheadTime = videoElement.playheadTime;
+            newVideoProperties.playing = videoElement.playing;
+            
+            videoElement.stop();
             
             if (propertySet)
                 videoElementProperties = newVideoProperties;
@@ -1569,17 +1624,10 @@ public class VideoPlayer extends SkinnableComponent
     
     /**
      *  @private
-     *  X-value before going in to full screen mode.  This way we 
-     *  can reset it to this afterwards.
+     *  Holds a list of properties for the "video player state" that will 
+     *  be restored when going out of fullScreen mode.
      */
-    private var beforeFullScreenX:Number;
-    
-    /**
-     *  @private
-     *  Y-value before going in to full screen mode.  This way we 
-     *  can reset it to this afterwards.
-     */
-    private var beforeFullScreenY:Number;
+    private var beforeFullScreenInfo:Object;
     
     /**
      *  @private
@@ -1597,6 +1645,10 @@ public class VideoPlayer extends SkinnableComponent
     {
         if (!fullScreen)
         {
+            // check to make sure we can go into fullscreen mode
+            if (!systemManager.getTopLevelRoot())
+                return;
+            
             fullScreen = true;
             
             // need it to go into full screen state for the skin
@@ -1605,28 +1657,53 @@ public class VideoPlayer extends SkinnableComponent
             // let's get it off of our layout system so it doesn't interfere with 
             // the sizing and positioning. Then let's resize it to be 
             // the full size of our screen.  Then let's position it off-screen so
-            // there are no other elements in the way. 
-            beforeFullScreenX = this.x;
-            beforeFullScreenY = this.y;
+            // there are no other elements in the way.
+            beforeFullScreenInfo = {parent: this.parent,
+                                    x: this.x,
+                                    y: this.y,
+                                    width: this.getPreferredBoundsWidth(false),
+                                    height: this.getPreferredBoundsHeight(false),
+                                    smoothing: videoElement.mx_internal::videoPlayer.smoothing,
+                                    deblocking: videoElement.mx_internal::videoPlayer.deblocking, 
+                                    includeInLayout: this.includeInLayout};
             includeInLayout = false;
-            setLayoutBoundsSize(stage.fullScreenWidth, stage.fullScreenHeight);
-            LayoutManager.getInstance().validateNow();
             
-            var newLocation:Point = parent.globalToLocal(new Point((-2*width), (-2*height)));
-            this.x = newLocation.x;
-            this.y = newLocation.y;
+            setLayoutBoundsSize(stage.fullScreenWidth, stage.fullScreenHeight);
+            
+            // remove from old parent
+            if (parent is IVisualElementContainer)
+            {
+                var ivec:IVisualElementContainer = IVisualElementContainer(parent);
+                beforeFullScreenInfo.childIndex = ivec.getElementIndex(this);
+                ivec.removeElement(this);
+            }
+            else
+            {
+                beforeFullScreenInfo.childIndex = parent.getChildIndex(this);
+                parent.removeChild(this);
+            }
+            
+            // add to new parent
+            if (FlexGlobals.topLevelApplication is IVisualElementContainer)
+                IVisualElementContainer(FlexGlobals.topLevelApplication).addElement(this);
+            else
+                FlexGlobals.topLevelApplication.addChild(this);
+            
+            this.x = -2*width;
+            this.y = -2*height;
             
             // this is for video performance reasons
             videoElement.mx_internal::videoPlayer.smoothing = false;
             videoElement.mx_internal::videoPlayer.deblocking = 0;
             
-            // now into full screen we go
-            // TODO: what if we're sandboxed...can we get the stage?
-            stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
+            this.validateNow();
             
-            var realPoint:Point = parent.localToGlobal(new Point(x, y));
-            stage.fullScreenSourceRect = new Rectangle(realPoint.x, realPoint.y, width, height);
-            stage.displayState = StageDisplayState.FULL_SCREEN;
+            systemManager.stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
+            
+            systemManager.stage.fullScreenSourceRect = new Rectangle(-2*width, -2*height, width, height);
+            
+            // TODO (rfrishbe): Should we make this FULL_SCREEN_INTERACTIVE if in AIR?
+            systemManager.stage.displayState = StageDisplayState.FULL_SCREEN;
             
             // start timer for detecting for mouse movements/clicks to hide the controls
             fullScreenHideControlTimer = new Timer(getStyle("fullScreenHideControlsDelay"), 1);
@@ -1634,17 +1711,18 @@ public class VideoPlayer extends SkinnableComponent
                 fullScreenHideControlTimer_timerCompleteHandler, false, 0, true);
             
             // use stage or systemManager?
-            systemManager.addEventListener(MouseEvent.MOUSE_DOWN, resetFullScreenHideControlTimer);
-            systemManager.addEventListener(MouseEvent.MOUSE_MOVE, resetFullScreenHideControlTimer);
-            systemManager.addEventListener(MouseEvent.MOUSE_WHEEL, resetFullScreenHideControlTimer);
+            systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_DOWN, resetFullScreenHideControlTimer);
+            systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, resetFullScreenHideControlTimer);
+            systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, resetFullScreenHideControlTimer);
             
             // keyboard events don't happen when in fullScreen mode, but could be in fullScreen and interactive mode
-            systemManager.addEventListener(KeyboardEvent.KEY_DOWN, resetFullScreenHideControlTimer);
+            systemManager.getSandboxRoot().addEventListener(KeyboardEvent.KEY_DOWN, resetFullScreenHideControlTimer);
+            
             fullScreenHideControlTimer.start();
         }
         else
         {
-            stage.displayState = StageDisplayState.NORMAL;
+            systemManager.stage.displayState = StageDisplayState.NORMAL;
         }
     }
     
@@ -1656,6 +1734,9 @@ public class VideoPlayer extends SkinnableComponent
     private function fullScreenHideControlTimer_timerCompleteHandler(event:TimerEvent):void
     {
         playerControls.visible = false;
+        
+        if (volumeBar)
+            volumeBar.closeDropDown(true);
     }
     
     /**
@@ -1693,24 +1774,36 @@ public class VideoPlayer extends SkinnableComponent
         
         // set the fullScreen variable back to false and remove this event listener
         fullScreen = false;
-        stage.removeEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
+        systemManager.stage.removeEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
         fullScreenHideControlTimer.stop();
         fullScreenHideControlTimer = null;
         
         // remove the event listeners to hide the controls
-        systemManager.removeEventListener(MouseEvent.MOUSE_DOWN, resetFullScreenHideControlTimer);
-        systemManager.removeEventListener(MouseEvent.MOUSE_MOVE, resetFullScreenHideControlTimer);
-        systemManager.removeEventListener(MouseEvent.MOUSE_WHEEL, resetFullScreenHideControlTimer);
-        systemManager.removeEventListener(KeyboardEvent.KEY_DOWN, resetFullScreenHideControlTimer);
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_DOWN, resetFullScreenHideControlTimer);
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_MOVE, resetFullScreenHideControlTimer);
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, resetFullScreenHideControlTimer);
+        systemManager.getSandboxRoot().removeEventListener(KeyboardEvent.KEY_DOWN, resetFullScreenHideControlTimer);
         
         // make the controls visible no matter what
         playerControls.visible = true;
         
         // reset it so we're re-included in the layout
-        // TODO (rfrishbe): run this by Evtim
-        this.x = beforeFullScreenX;
-        this.y = beforeFullScreenY;
-        includeInLayout = true;
+        this.x = beforeFullScreenInfo.x;
+        this.y = beforeFullScreenInfo.y;
+        this.setLayoutBoundsSize(beforeFullScreenInfo.width, beforeFullScreenInfo.height);
+        
+        videoElement.mx_internal::videoPlayer.smoothing = beforeFullScreenInfo.smoothing;
+        videoElement.mx_internal::videoPlayer.deblocking = beforeFullScreenInfo.deblocking;
+        
+        if (beforeFullScreenInfo.parent is IVisualElementContainer)
+            beforeFullScreenInfo.parent.addElementAt(this, beforeFullScreenInfo.childIndex);
+        else
+            beforeFullScreenInfo.parent.addChildAt(this, beforeFullScreenInfo.childIndex);
+        
+        includeInLayout = beforeFullScreenInfo.includeInLayout;
+        
+        beforeFullScreenInfo = null;
+        
         invalidateSkinState();
         invalidateSize();
         invalidateDisplayList();
