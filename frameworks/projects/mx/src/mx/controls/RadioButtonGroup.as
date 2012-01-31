@@ -67,6 +67,8 @@ use namespace mx_internal;
 
 [IconFile("RadioButtonGroup.png")]
 
+[Alternative(replacement="spark.components.RadioButtonGroup", since="4.0")]
+
 /**
  *  The RadioButtonGroup control defines a group of RadioButton controls
  *  that act as a single mutually exclusive control; therefore,
