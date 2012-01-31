@@ -23,6 +23,31 @@ import mx.layout.HorizontalLayout;
 import mx.layout.VerticalLayout;
 import mx.skins.spark.FxDefaultItemRenderer;
 
+/**
+ *  @copy mx.components.baseClasses.GroupBase#alternatingItemColors
+ */
+[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ */
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#rollOverColor
+ */
+[Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#selectionColor
+ */
+[Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+
 [IconFile("FxList.png")]
 
 /**
