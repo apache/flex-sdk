@@ -389,7 +389,6 @@ public class Spinner extends Range implements IFocusManagerComponent
             return;
                 
         var prevValue:Number = this.value;
-        var stopPropagation:Boolean = false;
                 
         switch (event.keyCode)
         {
@@ -397,7 +396,7 @@ public class Spinner extends Range implements IFocusManagerComponent
             //case Keyboard.LEFT:
             {
                 changeValueByStep(false);
-                stopPropagation = true;
+                event.preventDefault();
                 break;
             }
 
@@ -405,21 +404,21 @@ public class Spinner extends Range implements IFocusManagerComponent
             //case Keyboard.RIGHT:
             {
                 changeValueByStep(true);
-                stopPropagation = true;
+                event.preventDefault();
                 break;
             }
 
             case Keyboard.HOME:
             {
                 value = minimum;
-                stopPropagation = true;
+                event.preventDefault();
                 break;
             }
 
             case Keyboard.END:
             {
                 value = maximum;
-                stopPropagation = true;
+                event.preventDefault();
                 break;
             }
             
@@ -433,16 +432,6 @@ public class Spinner extends Range implements IFocusManagerComponent
         if (value != prevValue)
             dispatchEvent(new Event("change"));
 
-        // Flex 4 redispatches scrolling keyboard events with cancelable=true
-        // so typically we will preventDefault (read "cancel") here, rather
-        // than stopping dispatching.
-        if (stopPropagation)
-        {
-            if (event.cancelable)
-                event.preventDefault();
-            else
-                event.stopPropagation();
-        }
     }
     
     /**
