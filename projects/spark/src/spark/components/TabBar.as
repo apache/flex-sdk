@@ -44,6 +44,12 @@ use namespace mx_internal;  // ListBase/setCurrentCaretIndex(index);
  */
 [Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="spark")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[AccessibilityClass(implementation="spark.accessibility.TabBarAccImpl")]
+
 /**
  *  The TabBar class displays a set of identical tabs.  
  *  One tab can be selected at a time, and the first tab is selected by default.
@@ -117,6 +123,18 @@ public class TabBar extends ButtonBarBase implements IFocusManagerComponent
 {
     include "../core/Version.as";
     
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Placeholder for mixin by TabBarAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
+
     
     /**
      *  Constructor.
@@ -132,6 +150,21 @@ public class TabBar extends ButtonBarBase implements IFocusManagerComponent
 
         requireSelection = true;
         mouseFocusEnabled = false;        
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (TabBar.createAccessibilityImplementation != null)
+            TabBar.createAccessibilityImplementation(this);
     }
 }
 }
