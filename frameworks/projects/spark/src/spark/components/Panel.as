@@ -27,6 +27,8 @@ use namespace mx_internal;
 
 /**
  *  The alpha of the border for this component.
+ *
+ *  @default 0.5
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -37,6 +39,8 @@ use namespace mx_internal;
 
 /**
  *  The color of the border for this component.
+ *
+ *  @default 0
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -47,6 +51,8 @@ use namespace mx_internal;
 
 /**
  *  Controls the visibility of the border for this component.
+ *
+ *  @default true
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -57,6 +63,8 @@ use namespace mx_internal;
 
 /**
  *  The radius of the corners for this component.
+ *
+ *  @default 0
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -67,6 +75,8 @@ use namespace mx_internal;
 
 /**
  *  Controls the visibility of the drop shadow for this component.
+ *
+ *  @default true
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -99,6 +109,13 @@ use namespace mx_internal;
  *    controlBarLayout="HorizontalLayout"
  *    controlBarVisible="true"
  *    title=""
+ * 
+ *   <strong>Styles</strong>
+ *    borderAlpha="0.5"
+ *    borderColor="0"
+ *    borderVisible="true"
+ *    cornerRadius="0"
+ *    dropShadowVisible="true"
  *   &gt;
  *      ...
  *      <i>child tags</i>
