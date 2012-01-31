@@ -9,14 +9,15 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components.baseClasses
 {
 import flash.events.Event;
 
-import flex.events.FlexEvent;
-import flex.events.ItemExistenceChangedEvent;
+import mx.events.FlexEvent;
+import mx.events.ItemExistenceChangedEvent;
 
 import mx.collections.IList;
+import mx.components.FxDataComponent;
 import mx.events.IndexChangedEvent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
@@ -36,9 +37,9 @@ import mx.events.CollectionEventKind;
  *  The Selector class is the base class for all components that support
  *  selection.
  */
-public class Selector extends DataComponent
+public class FxSelector extends FxDataComponent
 {
-    include "../core/Version.as";
+    include "../../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
@@ -67,7 +68,7 @@ public class Selector extends DataComponent
 	/**
 	 *  Constructor.
 	 */
-	public function Selector()
+	public function FxSelector()
     {
     	super();
     }
