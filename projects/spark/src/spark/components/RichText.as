@@ -197,11 +197,6 @@ public class TextGraphic extends TextGraphicElement
      */
     override public function set text(value:String):void
     {
-        // If 'text' is being set after 'content', ignore it
-        // because 'content' has precedence.
-        if (contentChanged)
-            return;
-
         // Setting 'text' temporarily causes 'content' to become null.
         // Later, after the 'text' has been committed into the TextFlow,
         // getting 'content' will return the TextFlow.
