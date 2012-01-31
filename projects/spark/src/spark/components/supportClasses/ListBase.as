@@ -184,6 +184,8 @@ public class FxListBase extends FxDataContainer
     //  selectedItem
     //----------------------------------
     
+    private var _pendingSelectedItem:*;
+    
     [Bindable("selectionChanged")]
     /**
      *  The item that is currently selected. 
@@ -207,7 +209,10 @@ public class FxListBase extends FxDataContainer
      */
     public function get selectedItem():*
     {
-        if (selectedIndex == NO_SELECTION)
+        if (_pendingSelectedItem != undefined)
+            return _pendingSelectedItem;
+            
+        if (selectedIndex == NO_SELECTION || dataProvider == null)
            return undefined;
            
         return dataProvider.getItemAt(selectedIndex);
@@ -218,7 +223,11 @@ public class FxListBase extends FxDataContainer
      */
     public function set selectedItem(value:*):void
     {
-        selectedIndex = dataProvider.getItemIndex(value);
+        if (selectedItem == value)
+            return;
+        
+        _pendingSelectedItem = value;
+        invalidateProperties();
     }
 
     //----------------------------------
@@ -311,6 +320,13 @@ public class FxListBase extends FxDataContainer
                 // commitSelectedIndex() is called below.
                 _proposedSelectedIndex = 0;
             }
+        }
+        
+        if (_pendingSelectedItem !== undefined)
+        {
+            if (dataProvider)
+                _proposedSelectedIndex = dataProvider.getItemIndex(_pendingSelectedItem);
+            _pendingSelectedItem = undefined;
         }
         
         if (_proposedSelectedIndex != NO_PROPOSED_SELECTION)
