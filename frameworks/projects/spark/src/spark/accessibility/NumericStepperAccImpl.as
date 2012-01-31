@@ -16,6 +16,7 @@ import flash.accessibility.Accessibility;
 import flash.events.FocusEvent;
 import flash.events.Event;
 
+import mx.accessibility.AccConst;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
@@ -37,21 +38,6 @@ public class NumericStepperAccImpl extends SpinnerAccImpl
 {
     include "../core/Version.as";
     
-    /**
-     *  @private
-     */
-    private static const ROLE_SYSTEM_PUSHBUTTON:uint = 0x2B;
-
-    /**
-     *  @private
-     */
-    private static const ROLE_SYSTEM_TEXT:uint = 0x2A;
-    
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_FOCUS:uint = 0x8005;
-
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -112,7 +98,7 @@ public class NumericStepperAccImpl extends SpinnerAccImpl
     {
         super(master);
         
-        role = ROLE_SYSTEM_TEXT;
+        role = AccConst.ROLE_SYSTEM_TEXT;
         
         NumericStepper(master).textDisplay.addEventListener(Event.CHANGE,
             eventHandler);
@@ -127,7 +113,7 @@ public class NumericStepperAccImpl extends SpinnerAccImpl
      */
     private function focusInHandler(event:Event):void
     {
-        Accessibility.sendEvent(master, 0, EVENT_OBJECT_FOCUS);
+        Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_FOCUS);
     }
 }
 
