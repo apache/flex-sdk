@@ -121,6 +121,11 @@ public class GridLayout extends LayoutBase
         if (!grid)
             return;
         
+        const width:Number = grid.width;
+        const height:Number = grid.height;
+        if ((width > 0) && (height > 0))
+            updateGridDimensions(horizontalScrollPosition, verticalScrollPosition, width, height);        
+        
         var measuredWidth:Number = gridDimensions.getContentWidth(grid.requestedColumnCount);
         var measuredHeight:Number = gridDimensions.getContentHeight(grid.requestedRowCount);
 		var measuredMinWidth:Number = gridDimensions.getContentHeight(grid.requestedMinColumnCount);
@@ -321,7 +326,7 @@ public class GridLayout extends LayoutBase
 		const columnCount:int = gridDimensions.columnCount;
 		const columnGap:int = gridDimensions.columnGap;
 		const startCellX:Number = gridDimensions.getCellX(0 /* rowIndex */, startIndex);
-        const isFixedRowHeight:Boolean = !isNaN(grid.fixedRowHeight);
+        const isFixedRowHeight:Boolean = !grid.variableRowHeight;
         
         // Update the typicalCellWidth,Height as needed.   Avoid creating renderers or
         // the indices vector if possible
