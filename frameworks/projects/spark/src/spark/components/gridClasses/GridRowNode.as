@@ -71,11 +71,10 @@ public final class GridRowNode
     {
         // FIXME (klin): use max heap? might not be worth the overhead.
         var max:Number = 0;
-        var changed:Boolean = false;
-        for (var i:int = 0; i < _numColumns; i++)
-            max = Math.max(max, cellHeights[i]);
+        for each (var cellHeight:Number in cellHeights)
+            max = Math.max(max, cellHeight);
         
-        changed = maxCellHeight != max;
+        const changed:Boolean = maxCellHeight != max;
         maxCellHeight = max;
         return changed;
     }
