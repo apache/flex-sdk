@@ -423,41 +423,62 @@ public class AMFChannel extends NetConnectionChannel
 
     /**
      *  @private
+     *  Used by result and fault handlers to update the url of the underlying
+     *  NetConnection with session id.
+     */
+    protected function handleReconnectWithSessionId():void
+    {
+        if (_reconnectingWithSessionId)
+        {
+            _reconnectingWithSessionId = false;
+            shutdownNetConnection();
+            super.internalConnect(); // To avoid another ping request.
+            _ignoreNetStatusEvents = false;
+        }
+    }
+
+    /**
+     *  @private
      *  Called in response to the server ping to check connectivity.
      *  An error indicates that although the endpoint uri is reachable the Channel
      *  is still not able to connect.
      */
     protected function faultHandler(msg:ErrorMessage):void
     {
-        var faultEvent:ChannelFaultEvent = null;
-        // An authentication fault means we reached it which
-        // still means we can connect.
-        if (msg.faultCode == "Client.Authentication")
+        if (msg != null)
         {
-            resultHandler(msg);
-            faultEvent = ChannelFaultEvent.createEvent(this, false, "Channel.Authentication.Error", "warn", msg.faultString);
-            faultEvent.rootCause = msg;
-            dispatchEvent(faultEvent);
-        }
-        else
-        {
-            _log.debug("'{0}' fault handler called. {1}", id, msg.toString());
-
-            // Set the server assigned FlexClient Id.
-            if (FlexClient.getInstance().id == null && msg.headers[AbstractMessage.FLEX_CLIENT_ID_HEADER] != null)
-                FlexClient.getInstance().id = msg.headers[AbstractMessage.FLEX_CLIENT_ID_HEADER];
-
-            // Process the features advertised by the server endpoint.
-            if (msg.headers[CommandMessage.MESSAGING_VERSION] != null)
+            var faultEvent:ChannelFaultEvent = null;
+            // An authentication fault means we reached it which
+            // still means we can connect.
+            if (msg.faultCode == "Client.Authentication")
             {
-                var serverVersion:Number = msg.headers[CommandMessage.MESSAGING_VERSION] as Number;
-                handleServerMessagingVersion(serverVersion);
+                resultHandler(msg);
+                faultEvent = ChannelFaultEvent.createEvent(this, false, "Channel.Authentication.Error", "warn", msg.faultString);
+                faultEvent.rootCause = msg;
+                dispatchEvent(faultEvent);
             }
+            else
+            {
+                _log.debug("'{0}' fault handler called. {1}", id, msg.toString());
 
-            faultEvent = ChannelFaultEvent.createEvent(this, false, "Channel.Ping.Failed", "error", msg.faultDetail + " url: '" + endpoint + "'");
-            faultEvent.rootCause = msg;
-            connectFailed(faultEvent);
+                // Set the server assigned FlexClient Id.
+                if (FlexClient.getInstance().id == null && msg.headers[AbstractMessage.FLEX_CLIENT_ID_HEADER] != null)
+                    FlexClient.getInstance().id = msg.headers[AbstractMessage.FLEX_CLIENT_ID_HEADER];
+
+                // Process the features advertised by the server endpoint.
+                if (msg.headers[CommandMessage.MESSAGING_VERSION] != null)
+                {
+                    var serverVersion:Number = msg.headers[CommandMessage.MESSAGING_VERSION] as Number;
+                    handleServerMessagingVersion(serverVersion);
+                }
+
+                faultEvent = ChannelFaultEvent.createEvent(this, false, "Channel.Ping.Failed", "error", msg.faultDetail + " url: '" + endpoint + "'");
+                faultEvent.rootCause = msg;
+                connectFailed(faultEvent);
+            }
         }
+
+        handleReconnectWithSessionId();
     }
 
     /**
@@ -483,21 +504,12 @@ public class AMFChannel extends NetConnectionChannel
                 handleServerMessagingVersion(serverVersion);
             }
         }
-        // If the Channel is reconnecting with the session id in the url, don't
-        // report connectSuccess for the initial ping and allow the Channel to
-        // reconnect by removing the waitForFlexClientId lock.
-        if (_reconnectingWithSessionId)
-        {
-            // Allow the Channel to reconnect with the session id.
-            FlexClient.getInstance().waitForFlexClientId = false;
-            _reconnectingWithSessionId = false;
-        }
-        else
-        {
-            connectSuccess();
-            if (credentials != null && !(msg is ErrorMessage))
-                setAuthenticated(true);
-        }
+
+        handleReconnectWithSessionId();
+
+        connectSuccess();
+        if (credentials != null && !(msg is ErrorMessage))
+            setAuthenticated(true);
     }
 }
 
