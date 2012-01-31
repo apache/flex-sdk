@@ -331,7 +331,8 @@ public class ButtonBarBase extends ListBase
         const renderer:IItemRenderer = getItemRenderer(index) as IItemRenderer;
         if (renderer)
         {
-            setCurrentCaretIndex(index);  // causes itemShowingCaret() call
+            if (selected)
+                setCurrentCaretIndex(index);  // causes itemShowingCaret() call
             renderer.selected = selected;
         }
         
