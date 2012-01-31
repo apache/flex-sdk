@@ -768,6 +768,7 @@ public class Grid extends Group
     
     /**
      *  @private
+     *  This method is similar to mx.controls.DataGrid/generateCols().
      */
     private function generateColumns():IList
     {
@@ -779,7 +780,7 @@ public class Grid extends Group
         if (item)
         {
             itemColumns = new ArrayList();
-            const classInfo:Object = ObjectUtil.getClassInfo(item);
+            const classInfo:Object = ObjectUtil.getClassInfo(item, ["uid", "mx_internal_uid"]);
             if (classInfo)
             {
                 for each (var property:QName in classInfo.properties)
