@@ -22,11 +22,13 @@ import flash.events.TimerEvent;
 import flash.geom.Rectangle;
 import flash.utils.Timer;
 
+import mx.core.EventPriority;
 import mx.core.FlexGlobals;
 import mx.core.FlexVersion;
 import mx.core.mx_internal;
 import mx.effects.IEffect;
 import mx.effects.Parallel;
+import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
 import mx.managers.PopUpManager;
@@ -507,11 +509,18 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             // and runtime before the effect starts.
             addEventListener(Event.ENTER_FRAME, startEffect);
         }
-        else
+        // Do not restore the callout size if the pop-up is closed or closing.
+        else if (isOpen)
         {
             // No effect, set size and position explicitly
-            this.setLayoutBoundsPosition(this.getLayoutBoundsX(), yTo);
-            this.setLayoutBoundsSize(this.getLayoutBoundsWidth(), heightTo);
+            this.y = yTo;
+            this.height = heightTo;
+            
+            // Validate so that other listeners like Scroller get the updated dimensions
+            validateNow();
+            
+            if (!isSoftKeyboardEffectActive)
+                clearSizeAndPositionCache(null);
         }
     }
     
@@ -540,7 +549,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         var resize:Resize;
         var easer:IEaser = new Power(0, 5);
         
-        if (yTo != this.getLayoutBoundsY())
+        if (yTo != this.y)
         {
             move = new Move();
             move.target = this;
@@ -549,7 +558,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             move.easer = easer;
         }
         
-        if (heightTo != this.getLayoutBoundsHeight())
+        if (heightTo != this.height)
         {
             resize = new Resize();
             resize.target = this;
@@ -719,9 +728,18 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     {
         removeEventListener(Event.ENTER_FRAME, startEffect);
         
-        // Don't play the deactivate effect if the pop-up is closed
+        // Abort the deactivate effect if the pop-up is closed or closing.
+        // The close transition state change handler will restore the original
+        // size of the pop-up.
         if (!isOpen)
             return;
+        
+        // Clear the cached positions when the deactivate effect is complete
+        if (!isSoftKeyboardEffectActive)
+        {
+            effect.addEventListener(EffectEvent.EFFECT_END, clearSizeAndPositionCache);
+            effect.addEventListener(EffectEvent.EFFECT_STOP, clearSizeAndPositionCache);
+        }
         
         // Force the master clock of the animation engine to update its
         // current time so that the overhead of creating the effect is not 
@@ -755,19 +773,17 @@ public class SkinnablePopUpContainer extends SkinnableContainer
                 // Reset state
                 _isSoftKeyboardEffectActive = false;
                 
-                // Install soft keyboard event handling on the stage
                 if (smStage)
                 {
-                    smStage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
-                    smStage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardActivateHandler);
-                    smStage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardDeactivateHandler);
+                    // Install soft keyboard event handling on the stage
+                    smStage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
+                        softKeyboardActivateHandler, true, EventPriority.DEFAULT, true);
+                    smStage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
+                        softKeyboardDeactivateHandler, true, EventPriority.DEFAULT, true);
                     
                     // move and resize immediately if the soft keyboard is active
                     if (smStage.softKeyboardRect.height > 0)
-                    {
-                        softKeyboardActivatingHandler();
                         softKeyboardActivateHandler();
-                    }
                 }
             }
         }
@@ -780,32 +796,28 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             if (softKeyboardEffectEnabled && smStage)
             {
                 // Uninstall soft keyboard event handling
-                smStage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
-                smStage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardActivateHandler);
-                smStage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardDeactivateHandler);
+                smStage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
+                    softKeyboardActivateHandler, true);
+                smStage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
+                    softKeyboardDeactivateHandler, true);
             }
 
             // We just finished closing, remove from the PopUpManager.
             PopUpManager.removePopUp(this);
             addedToPopUpManager = false;
             owner = null;
+            
+            // Reset size and position if a deactivate effect was aborted while
+            // the close transition was playing.
+            if (!isNaN(cachedYPosition))
+                this.y = cachedYPosition;
+            
+            if (!isNaN(cachedHeight))
+                this.height = cachedHeight;
+            
+            if (!isNaN(cachedYPosition) || !isNaN(cachedHeight))
+                clearSizeAndPositionCache(null);
         }
-    }
-    
-    /**
-     *  @private
-     */
-    private function softKeyboardActivatingHandler(event:SoftKeyboardEvent=null):void
-    {
-        if (isSoftKeyboardEffectActive)
-            return;
-        
-        // save the original y-position and height
-        cachedYPosition = this.getLayoutBoundsY();
-        cachedHeight = this.getLayoutBoundsHeight();
-        
-        // reset cached keyboard height
-        cachedKeyboardHeight = 0;
     }
     
     /**
@@ -813,12 +825,21 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      */
     private function softKeyboardActivateHandler(event:SoftKeyboardEvent=null):void
     {
-        if (event.isDefaultPrevented())
-            return;
+        // Save the original y-position and height if this is the first 
+        // ACTIVATE event and an existing deactivate effect is not already in
+        // progress.
+        if (!isSoftKeyboardEffectActive && !effect)
+        {
+            cachedYPosition = this.y;
+            cachedHeight = this.height;
+            
+            // reset cached keyboard height
+            cachedKeyboardHeight = 0;
+        }
         
         var softKeyboardRect:Rectangle = systemManager.stage.softKeyboardRect;
         
-        // do not update if the keyboard has no height or if the height
+        // Do not update if the keyboard has no height or if the height
         // is unchanged
         if ((softKeyboardRect.height == 0) ||
             (cachedKeyboardHeight == softKeyboardRect.height))
@@ -835,8 +856,8 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         // All calculations are done in stage coordinates and converted back to
         // application coordinates when playing effects. Also note that
         // softKeyboardRect is also in stage coordinates.
-        var popUpY:Number = this.getLayoutBoundsY() * scaleFactor;
-        var popUpHeight:Number = this.getLayoutBoundsHeight() * scaleFactor;
+        var popUpY:Number = this.y * scaleFactor;
+        var popUpHeight:Number = this.height * scaleFactor;
         var overlapGlobal:Number = (popUpY + popUpHeight) - softKeyboardRect.y;
         
         var yToGlobal:Number = popUpY;
@@ -987,6 +1008,12 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         playDeactivateEffect(false);
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Private Methods
+    //
+    //--------------------------------------------------------------------------
+    
     /**
      *  @private
      *  Plays the deactivate effect to restore the original y-position and
@@ -1002,7 +1029,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         // Received a mouseDown event while the timer is still running. Stop
         // the timer and wait for the next mouseUp.
         var mouseDownDuringTimer:Boolean = isTimerRunning && 
-                                           (isMouseEvent && isMouseDown);
+            (isMouseEvent && isMouseDown);
         
         // Cleanup the timer if we're (a) waiting for the next mouseUp or if 
         // (b) this function was called for a non-mouse event
@@ -1028,6 +1055,33 @@ public class SkinnablePopUpContainer extends SkinnableContainer
                 SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
             
             prepareEffect(cachedYPosition, cachedHeight);
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function clearSizeAndPositionCache(event:EffectEvent):void
+    {
+        // Remove event listeners if we're listening to the deactivate effect
+        if (event)
+        {
+            event.target.removeEventListener(EffectEvent.EFFECT_END, clearSizeAndPositionCache);
+            event.target.removeEventListener(EffectEvent.EFFECT_STOP, clearSizeAndPositionCache);
+        }
+        
+        // Cleanup effect
+        effect = null;
+        
+        // Only clear the cached positions if the effect completed normally or
+        // if this was called directly from the close state transtion completion.
+        // The deactivate effect may stop preemtively if the keyboard is 
+        // activated again while the deactivate effect is playing. In that case,
+        // we want to save the cached positions from the first activation.
+        if (!event || (event.type == EffectEvent.EFFECT_END))
+        {
+            cachedYPosition = NaN;
+            cachedHeight = NaN;
         }
     }
 }
