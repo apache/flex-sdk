@@ -433,6 +433,8 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     {
         if (dragging && hasState("dragging"))
             return "dragging";
+        
+        // TODO (rfrishbe): do we need a down state here and would keyboard put it in the downstate?
 
         if (selected && showsCaret && hasState("selectedAndShowsCaret"))
             return "selectedAndShowsCaret";
