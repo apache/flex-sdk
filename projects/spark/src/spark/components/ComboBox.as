@@ -177,6 +177,7 @@ use namespace mx_internal;
  *    labelToItemFunction="null"
  *    maxChars="0"
  *    openOnInput="true"
+ *    prompt="null"
  *    restrict=""
  *
  *    <strong>Styles</strong>
@@ -420,10 +421,28 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     private var promptChanged:Boolean;
     
     /**
-     *  @default null
+     *  Text to be displayed if/when the input text is null.
+     * 
+     *  <p>Prompt text appears when the control is first created. Prompt text disappears 
+     *  when the control gets focus, when the input text is non-null, or when an item in the list is selected. 
+     *  Prompt text reappears when the control loses focus, but only if no text was entered 
+     *  (if the value of the text field is null or the empty string).</p>
+     *  
+     *  <p>You can change the style of the prompt text with CSS. If the control has prompt text 
+     *  and is not disabled, the style is defined by the <code>normalWithPrompt</code> pseudo selector. 
+     *  If the control is disabled, then the styles defined by the <code>disabledWithPrompt</code> pseudo selector are used.</p>
+     *  
+     *  <p>The following example CSS changes the color of the prompt text in TextInput controls. The ComboBox control uses
+     *  a TextInput control as a subcomponent for the prompt text and input, so its prompt text changes when you use this CSS:
+     *  <pre>
+     *  &#64;namespace s "library://ns.adobe.com/flex/spark";
+     *  s|TextInput:normalWithPrompt {
+     *      color: #CCCCFF;
+     *  }
+     *  </pre>
+     *  </p>
      *
-     *  Text to be displayed if/when the actual
-     *  text property is a null or empty string.
+     *  @default null
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.2
