@@ -33,6 +33,8 @@ package spark.effects.easing
  *    exponent="2" 
  *   /&gt;
  *  </pre>
+ *
+ *  @includeExample examples/SinePowerEffectExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
