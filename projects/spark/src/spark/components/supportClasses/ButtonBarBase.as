@@ -302,6 +302,7 @@ public class ButtonBarBase extends ListBase
     override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
+
         if (instance == dataGroup)
         {
             dataGroup.addEventListener(RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
@@ -319,6 +320,7 @@ public class ButtonBarBase extends ListBase
             dataGroup.removeEventListener(RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
             dataGroup.removeEventListener(RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
         }
+
         super.partRemoved(partName, instance);
     }
     
