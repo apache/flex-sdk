@@ -947,10 +947,12 @@ public class DataGroup extends GroupBase
         {
             // The next time updateDisplayList() runs, virtualLayoutStart,EndIndex
             // will become oldVirtualLayoutStart,End index.   See finishVirtualLayout().
-            if ((index >= virtualLayoutStartIndex) && (index <= virtualLayoutEndIndex))
+            if (index <= virtualLayoutEndIndex)
             {
+                if (index <= virtualLayoutStartIndex)
+                    virtualLayoutStartIndex += 1;
                 virtualLayoutEndIndex += 1;
-                indexToRenderer.splice(index, 0, null);
+                indexToRenderer.splice(index, 0, null);                
             }
 
             invalidateSize();
