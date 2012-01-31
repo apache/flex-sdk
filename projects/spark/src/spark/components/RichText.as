@@ -22,9 +22,9 @@ import flex.utils.TextUtil;
 
 import text.importExport.TextFilter;
 import text.model.FlowElement;
-import text.model.ICharacterAttributes;
-import text.model.IContainerAttributes;
-import text.model.IParagraphAttributes;
+import text.model.ICharacterFormat;
+import text.model.IContainerFormat;
+import text.model.IParagraphFormat;
 import text.model.Paragraph;
 import text.model.Span;
 import text.model.TextFlow;
@@ -68,7 +68,7 @@ public class TextGraphic extends TextGraphicElement
 
     /**
      *  @private
-     *  This set keeps track of which text attributes were specified
+     *  This set keeps track of which text formats were specified
      *  on the graphic element's TextFlow as opposed to on the
      *  graphic element itself.
      *
@@ -84,7 +84,7 @@ public class TextGraphic extends TextGraphicElement
      *
      *  then this set would be { fontSize: 20 }.
      */
-    private var textFlowTextAttributes:Object = {};
+    private var textFlowTextFormat:Object = {};
 
 	/**
 	 *  @private
@@ -103,7 +103,7 @@ public class TextGraphic extends TextGraphicElement
 
 	//--------------------------------------------------------------------------
 	//
-	//  Properties: Text Attributes
+	//  Properties: Text formatting
 	//
 	//--------------------------------------------------------------------------
 
@@ -653,12 +653,12 @@ public class TextGraphic extends TextGraphicElement
                 else if (content is Array)
                 {
                     textFlow = createEmptyTextFlow();
-                    textFlow.appendChildren = content as Array;
+                    textFlow.mxmlChildren = content as Array;
                 }
                 else if (content is FlowElement)
                 {
                     textFlow = createEmptyTextFlow();
-                    textFlow.appendChildren = [ content ];
+                    textFlow.mxmlChildren = [ content ];
                 }
 			    else if (content is String)
 			    {
@@ -685,41 +685,41 @@ public class TextGraphic extends TextGraphicElement
 			    }
             }
 
-            // Build a textFlowTextAttributes object which keeps track
-            // of which text attributes were specified on the TextFlow
+            // Build a textFlowTextFormat object which keeps track
+            // of which text formats were specified on the TextFlow
             // as opposed to on the TextGraphic.
             // For example, if the 'content' were
             // <TextFlow fontSize="12">...</TextFlow>
-            // then the textFlowTextAttributes would be { fontSize: 12 }.
+            // then the textFlowTextFormat would be { fontSize: 12 }.
             
-            var containerAttributes:IContainerAttributes =
-                textFlow.containerAttributes;
-            var paragraphAttributes:IParagraphAttributes =
-                textFlow.paragraphAttributes;
-            var characterAttributes:ICharacterAttributes =
-                textFlow.characterAttributes;
+            var containerFormat:IContainerFormat =
+                textFlow.containerFormat;
+            var paragraphFormat:IParagraphFormat =
+                textFlow.paragraphFormat;
+            var characterFormat:ICharacterFormat =
+                textFlow.characterFormat;
             
-            for each (p in TextUtil.ALL_ATTRIBUTE_NAMES)
+            for each (p in TextUtil.ALL_FORMAT_NAMES)
             {
-                var kind:String = TextUtil.ATTRIBUTE_MAP[p];
+                var kind:String = TextUtil.FORMAT_MAP[p];
 
                 if (kind == TextUtil.CONTAINER &&
-                    containerAttributes != null &&
-                    containerAttributes[p] != null)
+                    containerFormat != null &&
+                    containerFormat[p] != null)
                 {
-                    textFlowTextAttributes[p] = containerAttributes[p];
+                    textFlowTextFormat[p] = containerFormat[p];
                 }
                 else if (kind == TextUtil.PARAGRAPH &&
-                         paragraphAttributes != null &&
-                         paragraphAttributes[p] != null)
+                         paragraphFormat != null &&
+                         paragraphFormat[p] != null)
                 {
-                    textFlowTextAttributes[p] = paragraphAttributes[p];
+                    textFlowTextFormat[p] = paragraphFormat[p];
                 }
                 else if (kind == TextUtil.CHARACTER &&
-                         characterAttributes != null &&
-                         characterAttributes[p] != null)
+                         characterFormat != null &&
+                         characterFormat[p] != null)
                 {
-                    textFlowTextAttributes[p] = characterAttributes[p];
+                    textFlowTextFormat[p] = characterFormat[p];
                 }
             }
         }
@@ -730,9 +730,9 @@ public class TextGraphic extends TextGraphicElement
         // For each attribute whose value wasn't specified by the TextFlow,
         // apply the value from the TextGraphic.
         
-        for each (p in TextUtil.ALL_ATTRIBUTE_NAMES)
+        for each (p in TextUtil.ALL_FORMAT_NAMES)
         {
-            if (!(p in textFlowTextAttributes) && (p in this))
+            if (!(p in textFlowTextFormat) && (p in this))
                 textFlow[p] = this[p];
         }
         
