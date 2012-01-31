@@ -178,6 +178,7 @@ ToggleButton
 
 VideoPlayer
 {
+    dropShadowVisible: true;
     skinClass: ClassReference("spark.skins.spark.VideoPlayerSkin");
 }
 
