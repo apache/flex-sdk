@@ -191,6 +191,8 @@ include "../styles/metadata/TextStyles.as"
 [IconFile("TextInput.png")]
 
 [ResourceBundle("controls")]
+
+[Alternative(replacement="spark.components.TextInput", since="4.0")]
     
 /**
  *  The TextInput control is a single-line text field
