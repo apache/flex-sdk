@@ -124,17 +124,19 @@ include "../styles/metadata/GapStyles.as"
 [IconFile("ViewStack.png")]
 
 /**
- *  A ViewStack navigator container consists of a collection of child
- *  Halo containers stacked on top of each other, where only one child
+ *  An MX ViewStack navigator container consists of a collection of child
+ *  containers stacked on top of each other, where only one child
  *  at a time is visible.
  *  When a different child container is selected, it seems to replace
  *  the old one because it appears in the same location.
  *  However, the old child container still exists; it is just invisible.
  * 
- *  <p><b>Note:</b> The direct children of a Halo navigator container must be 
- *  Halo containers, either Halo layout or Halo navigator containers. 
- *  You cannot directly nest a control or a Spark container within a navigator; 
- *  they must be children of a child Halo container.</p>
+ *  <p><b>Note:</b> The direct children of an MX navigator container must be 
+ *  MX containers, either MX layout or MX navigator containers, 
+ *  or the Spark NavigatorContent container. 
+ *  You cannot directly nest a control or a Spark container 
+ *  other than the Spark NavigatorContent container within a navigator; 
+ *  they must be children of an child MX container.</p>
  *
  *  <p>A ViewStack container does not provide a user interface
  *  for selecting which child container is currently visible.
@@ -308,14 +310,14 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
     /**
      *  @private
      *  Remember which child has an overlay mask, if any.
-	 *  Used for the dissolve effect.
+     *  Used for the dissolve effect.
      */
     private var effectOverlayChild:UIComponent;
 
     /**
      *  @private
      *  Keep track of the overlay's targetArea
-	 *  Used for the dissolve effect.
+     *  Used for the dissolve effect.
      */
     private var effectOverlayTargetArea:RoundedRectangle;
 
