@@ -362,11 +362,60 @@ public class Animate extends Effect
         {
             if (motionPaths)
             {
+                var horizontalMove:Boolean;
+                var verticalMove:Boolean;
                 affectedProperties = new Array(motionPaths.length);
                 for (var i:int = 0; i < motionPaths.length; ++i)
                 {
                     var effectHolder:MotionPath = MotionPath(motionPaths[i]);
-                    affectedProperties[i] = effectHolder.property;
+                    affectedProperties.push(effectHolder.property);
+                    // Some properties side-affect others: add them to the list
+                    switch (effectHolder.property)
+                    {
+                        // left/right/top/bottom side-effect x/y/width/height
+                        case "left":
+                        case "right":
+                        case "horizontalCenter":
+                            horizontalMove = true;
+                            break;
+                        case "top":
+                        case "bottom":
+                        case "verticalCenter":
+                            verticalMove = true;
+                            break;
+                        // The next two let us capture the explicit values, so that we
+                        // can restore them if necessary when the effect ends
+                        case "width":
+                            if (affectedProperties.indexOf("explicitWidth") < 0)
+                                affectedProperties.push("explicitWidth");
+                            if (affectedProperties.indexOf("percentWidth") < 0)
+                                affectedProperties.push("percentWidth");
+                            break;
+                        case "height":
+                            if (affectedProperties.indexOf("explicitHeight") < 0)
+                                affectedProperties.push("explicitHeight");
+                            if (affectedProperties.indexOf("percentHeight") < 0)
+                                affectedProperties.push("percentHeight");
+                            break;
+                    }
+                }
+                if (horizontalMove)
+                {
+                    if (affectedProperties.indexOf("x") < 0)
+                        affectedProperties.push("x");
+                    if (affectedProperties.indexOf("width") < 0)
+                        affectedProperties.push("width");
+                    if (affectedProperties.indexOf("explicitWidth") < 0)
+                        affectedProperties.push("explicitWidth");
+                }
+                if (verticalMove)
+                {
+                    if (affectedProperties.indexOf("y") < 0)
+                        affectedProperties.push("y");
+                    if (affectedProperties.indexOf("height") < 0)
+                        affectedProperties.push("height");
+                    if (affectedProperties.indexOf("explicitHeight") < 0)
+                        affectedProperties.push("explicitHeight");
                 }
             }
             else
@@ -500,6 +549,129 @@ public class Animate extends Effect
     private function animationEventHandler(event:EffectEvent):void
     {
         dispatchEvent(event);
+    }
+    
+    /**
+     * @private
+     * Tell the propertyChanges array to keep all values, unchanged or not.
+     * This enables us to check later, when the effect is finished, whether
+     * we need to restore explicit height/width values.
+     */
+    override mx_internal function captureValues(propChanges:Array,
+                                                setStartValues:Boolean, 
+                                                targetsToCapture:Array = null):Array
+    {
+        var propertyChanges:Array = 
+            super.captureValues(propChanges, setStartValues, targetsToCapture);
+
+        // If we're capturing explicitWidth/Height values, don't strip unchanging
+        // values from propertyChanges; we want to know whether these values should
+        // be restored when the effect ends
+        var explicitValuesCaptured:Boolean = 
+            getAffectedProperties().indexOf("explicitWidth") >= 0 ||
+            getAffectedProperties().indexOf("explicitHeight") >= 0;
+        if (explicitValuesCaptured && setStartValues)
+        {
+            var n:int = propertyChanges.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                if (targetsToCapture == null || targetsToCapture.length == 0 ||
+                    targetsToCapture.indexOf(propertyChanges[i].target) >= 0)
+                {
+                    propertyChanges[i].stripUnchangedValues = false;
+                }
+            }
+        }
+        return propertyChanges;
+    }
+
+    /**
+     *  @private
+     *  After applying start values, check to see whether the values
+     *  contain percentWidth/percentHeight, which should be applied
+     *  after any width/height/explicitWidth/explicitHeight values.
+     */
+    override mx_internal function applyStartValues(propChanges:Array,
+                                                   targets:Array):void
+    {
+        super.applyStartValues(propChanges, targets);
+        // Special case for percentWidth/Height properties. If we are watching
+        // width/explicitWidth or height/explicitHeight values and also
+        // percentWidth/Height values, we have to make sure to apply the 
+        // percent values last to avoid having them get clobbered by
+        // applying the width/height values. We could either sort the
+        // propChanges array or just make sure the re-apply the percent
+        // values here, after we're done with the rest.
+        if (propChanges)
+        {
+            var n:int = propChanges.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                var target:Object = propChanges[i].target;
+                if (propChanges[i].start["percentWidth"] !== undefined && 
+                    "percentWidth" in target)
+                {
+                    target.percentWidth = propChanges[i].start["percentWidth"];
+                }
+                if (propChanges[i].start["percentHeight"] !== undefined && 
+                    "percentHeight" in target)
+                {
+                    target.percentWidth = propChanges[i].start["percentWidth"];
+                }
+            }
+        }
+    }
+        
+    /**
+     * @private
+     * When we're done, check to see whether explicitWidth/Height values
+     * for the target are NaN in the end state. If so, we should restore
+     * them to that value. This ensures that the target will be sized by
+     * its layout manager instead of by the width/height set during
+     * the effect.
+     */
+    override mx_internal function applyEndValues(propChanges:Array,
+                                                 targets:Array):void
+    {
+        super.applyEndValues(propChanges, targets);
+        // Special case for animating width/height during a transition, because
+        // we may have clobbered the explicitWidth/Height values which otherwise 
+        // would not have been set. We need to restore these values plus any
+        // associated layout constraint values (percentWidth/Height)
+        if (propChanges)
+        {
+            var n:int = propChanges.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                var target:Object = propChanges[i].target;
+                if (propChanges[i].end["explicitWidth"] !== undefined)
+                {
+                    if (isNaN(propChanges[i].end["explicitWidth"]) && 
+                        "explicitWidth" in target)
+                    {
+                        target.explicitWidth = NaN;
+                        if (propChanges[i].end["percentWidth"] !== undefined && 
+                            "percentWidth" in target)
+                        {
+                            target.percentWidth = propChanges[i].end["percentWidth"];
+                        }
+                    }
+                }
+                if (propChanges[i].end["explicitHeight"] !== undefined)
+                {
+                    if (isNaN(propChanges[i].end["explicitHeight"]) && 
+                        "explicitHeight" in target)
+                    {
+                        target.explicitHeight = NaN;
+                        if (propChanges[i].end["percentHeight"] !== undefined && 
+                            "percentHeight" in target)
+                        {
+                            target.percentHeight = propChanges[i].end["percentHeight"];
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 }
