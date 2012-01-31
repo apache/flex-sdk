@@ -15,7 +15,6 @@ package spark.components
 import flash.display.DisplayObject;
 import flash.text.TextFormat;
 
-import flashx.textLayout.tlf_internal;
 import flashx.textLayout.compose.ISWFContext;
 import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.conversion.ITextExporter;
@@ -30,6 +29,7 @@ import flashx.textLayout.factory.TextFlowTextLineFactory;
 import flashx.textLayout.factory.TextLineFactoryBase;
 import flashx.textLayout.factory.TruncationOptions;
 import flashx.textLayout.formats.ITextLayoutFormat;
+import flashx.textLayout.tlf_internal;
 
 import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
@@ -404,6 +404,12 @@ public class RichText extends TextBase
 	private var textChanged:Boolean = false;
 	
 	/**
+	 *  @private
+	 *  Source of text: one of "text", "textFlow" or "content".* 
+	 */
+    private var source:String = "text";
+	
+	/**
      *  @private
      */
     override public function get text():String
@@ -445,6 +451,11 @@ public class RichText extends TextBase
     	// (which is the default state).
     	if (value == null)
     		value = "";
+		
+		// If the most recent change to _text was caused by calling this method,
+		// then it's safe to short-cicuit in the same way that TextBase does.
+		if ((source == "text") && (value == _text))
+			return;
     	
     	// Don't return early if value is the same as _text,
     	// because _text might have been produced from setting
@@ -457,6 +468,7 @@ public class RichText extends TextBase
     	
     	_text = value;
     	textChanged = true;
+		source = "text";
     	
     	// If more than one of 'text', 'textFlow', and 'content' is set,
     	// the last one set wins.
@@ -576,6 +588,7 @@ public class RichText extends TextBase
     	
         _content = value;
         contentChanged = true;
+		source = "content";
         
 		// If more than one of 'text', 'textFlow', and 'content' is set,
 		// the last one set wins.
@@ -926,6 +939,7 @@ public class RichText extends TextBase
         
 		_textFlow = value;
 		textFlowChanged = true;
+		source = "textFlow";
 		
 		// If more than one of 'text', 'textFlow', and 'content' is set,
 		// the last one set wins.
