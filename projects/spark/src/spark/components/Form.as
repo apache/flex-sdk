@@ -33,6 +33,8 @@ use namespace mx_internal;
  */
 [DiscouragedForProfile("mobileDevice")]
 
+[IconFile("Form.png")]
+
 /**
  *  SkinnableContainer with FormItem children. 
  * 
