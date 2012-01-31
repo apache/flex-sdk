@@ -228,6 +228,8 @@ use namespace mx_internal;
 
 [DefaultProperty("dataProvider")]
 
+[DefaultTriggerEvent("itemClick")]
+
 [IconFile("TabBar.png")]
 
 [MaxChildren(0)]
