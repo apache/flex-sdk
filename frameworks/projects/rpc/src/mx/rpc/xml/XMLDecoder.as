@@ -194,28 +194,67 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
         return content;
     }
 
-
-
     /**
      * All content:
      *     (annotation?, (element | any)*)
      * 
-     * FIXME: This needs work, right now it treats all as a sequence.
+     * <ul>
+     * <li>maxOccurs for 'all' itself must be 1, minOccurs can be 0 or 1</li>
+     * <li>maxOccurs for element declarations must be 1, minOccurs can be
+     * 0 or 1</li>
+     * <li>'all' does not contain other groups and it must not appear in other
+     * structure groups - it must be at the top level of a complexType.</li>
+     * </ul>
+     * 
      * @private
      */
     public function decodeAll(definition:XML, parent:*, name:QName, valueElements:XMLList,
-                                context:DecodingContext = null, isRequired:Boolean = true):Boolean
+                                context:DecodingContext=null, isRequired:Boolean=true):Boolean
     {
-        //initialized context will indicate that all is nested, which is not valid
-        //minOccurs must be 0 or 1. maxOccurs must be 1
-        //on each contained element, minOccurs must be 0 or 1, maxOccurs must be 1
-        //can only contain element declarations, references and wildcards.
-        //no other groups are allowed to be nested inside an all group.
-        //We can just handle all checks here, so that whoever called this method
-        //shouldn't have to care how many elements we consumed.
-        return decodeSequence(definition, parent, name, valueElements, context, isRequired);
-    }
+        if (context == null)
+            context = new DecodingContext();
+//      else
+            // TODO: Do we want to throw an error? If context was not null, it
+            // means this all group is not at the top level of a complex type
 
+        var minOccurs:uint = getMinOccurs(definition);
+        var allElements:XMLList = definition.elements();
+        var hasSiblings:Boolean = allElements.length() > 1 || context.hasContextSiblings;
+        var requireChild:Boolean = isRequired && minOccurs > 0;
+
+        // groupSatisfied should be true even if there are no elements to
+        // process in the cases when we don't require any child elements to be
+        // there.
+        var groupSatisfied:Boolean = !requireChild;
+
+        for each (var childDefinition:XML in allElements)
+        {
+            // all elements can appear in any order but no more than once each
+            context.index = 0;
+            context.anyIndex = 0;
+
+            if (childDefinition.name() == constants.annotationQName)
+            {
+                // <annotation>
+                groupSatisfied = true; // just move on
+            }
+            else if (childDefinition.name() == constants.elementTypeQName)
+            {
+                // <element>
+                if (!decodeGroupElement(childDefinition, parent, valueElements, context, requireChild, hasSiblings))
+                    break;
+            }
+            else if (childDefinition.name() == constants.anyQName)
+            {
+                // <any>
+                if (!decodeAnyElement(childDefinition, parent, name, valueElements, context, requireChild))
+                    break;
+            }
+            groupSatisfied = true;
+        }
+
+        return groupSatisfied;
+    }
 
     public function decodeAnyType(parent:*, name:QName, valueElements:XMLList):void
     {
