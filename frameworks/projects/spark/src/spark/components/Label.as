@@ -645,7 +645,7 @@ public class SimpleText extends TextGraphicElement
 		// gets created and we can measure it.
 		// It will have a width of 0 but a height equal
 		// to the font's ascent plus descent.
-        staticTextElement.text = text.length > 0 ? text : "\u2029";
+        staticTextElement.text = text != null && text.length > 0 ? text : "\u2029";
 		staticTextElement.elementFormat = elementFormat;
 		staticTextBlock.content = staticTextElement;
 
