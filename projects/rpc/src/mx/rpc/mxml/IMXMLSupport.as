@@ -14,8 +14,7 @@ package mx.rpc.mxml
 
 /**
  *  Implementing this interface means that an RPC service
- *  can be used in an MXML document via tags
- *  since it supports the interfaces specified during Flex 1.
+ *  can be used in an MXML document by using MXML tags.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -31,14 +30,14 @@ public interface IMXMLSupport
     //--------------------------------------------------------------------------
 
     //----------------------------------
-	//  concurrency
+    //  concurrency
     //----------------------------------
 
     [Inspectable(enumeration="multiple,single,last", defaultValue="multiple", category="General")]
     
-	/**
+    /**
      *  The concurrency setting of the RPC operation or HTTPService.
-	 *  One of "multiple" "last" or "single."
+     *  One of "multiple" "last" or "single."
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -47,18 +46,18 @@ public interface IMXMLSupport
      */
     function get concurrency():String;
     
-	/**
+    /**
      *  @private
      */
     function set concurrency(value:String):void;
 
     //----------------------------------
-	//  showBusyCursor
+    //  showBusyCursor
     //----------------------------------
 
     /**
      *  Indicates whether the RPC operation or HTTPService
-	 *  should show the busy cursor while it is executing.
+     *  should show the busy cursor while it is executing.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -66,7 +65,7 @@ public interface IMXMLSupport
      *  @productversion Flex 3
      */
     
-	function get showBusyCursor():Boolean;
+    function get showBusyCursor():Boolean;
 
     /**
      *  @private
