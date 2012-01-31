@@ -853,6 +853,28 @@ public class Group extends GroupBase implements IVisualElementContainer,
     /**
      *  @private
      */ 
+    override public function validateProperties():void
+    {
+        super.validateProperties();
+        
+        // Property validation happens top-down, so now let's 
+        // validate graphic element properties after 
+        // calling super.validateProperties()
+        if (numGraphicElements > 0)
+        {
+            var length:int = numElements;
+            for (var i:int = 0; i < length; i++)
+            {
+                var element:IGraphicElement = getElementAt(i) as IGraphicElement;
+                if (element)
+                    element.validateProperties();
+            }
+        }
+    }
+    
+    /**
+     *  @private
+     */ 
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -951,18 +973,6 @@ public class Group extends GroupBase implements IVisualElementContainer,
             if (isValidScaleGrid())
                 resizeMode = ResizeMode.SCALE; // Force the resizeMode to scale 
         }
-        
-        // Validate element properties
-        if (numGraphicElements > 0)
-        {
-            var length:int = numElements;
-            for (var i:int = 0; i < length; i++)
-            {
-                var element:IGraphicElement = getElementAt(i) as IGraphicElement;
-                if (element)
-                    element.validateProperties();
-            }
-        }
     }
     
     /**
@@ -973,7 +983,9 @@ public class Group extends GroupBase implements IVisualElementContainer,
         // Since IGraphicElement is not ILayoutManagerClient, we need to make sure we
         // validate sizes of the elements, even in cases where recursive==false.
         
-        // Validate element size
+        // Size validation happens bottom-up, so now let's 
+        // validate graphic element size before 
+        // calling super.validateSize()
         if (numGraphicElements > 0)
         {
             var length:int = numElements;
@@ -1009,39 +1021,31 @@ public class Group extends GroupBase implements IVisualElementContainer,
     /**
      *  @private
      */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-    {       
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
+    override public function validateDisplayList():void
+    {
+        // call super.validateDisplayList() and let updateDisplayList() run
+        super.validateDisplayList();
 
         // If the DisplayObject assignment is still not completed, then postpone validation
-        // of the GraphicElements
+        // of the GraphicElements. invalidateDisplayList() will be called during the next 
+        // commitProperties() call since needsDisplayObjectAssignment=true, 
+        // so we will be re-running validateDisplayList() anyways
         if (needsDisplayObjectAssignment && invalidatePropertiesFlag)
             return;
         
-        // Clear the group's graphic because graphic elements might be drawing to it
-        // This isn't needed for DataGroup because there's no DisplayObject sharing
-        var sharedDisplayObject:ISharedDisplayObject = this;
-        if (sharedDisplayObject.redrawRequested)
-        {
-            graphics.clear();
-            drawBackground();
-            
-            // If a scaleGrid is set, make sure the extent of the groups bounds are filled so
-            // the player will scale our contents as expected. 
-            if (isValidScaleGrid() && resizeMode == ResizeMode.SCALE)
-            {
-                graphics.lineStyle();
-                graphics.beginFill(0, 0);
-                graphics.drawRect(0, 0, 1, 1);
-                graphics.drawRect(measuredWidth - 1, measuredHeight - 1, 1, 1);
-                graphics.endFill();
-            }
-        }
-                
+        // DisplayList validation happens top-down, so we should
+        // validate graphic element DisplayList after 
+        // calling super.validateDisplayList().  This is 
+        // gets tricky because of graphic-element sharing.  We clear
+        // Group's graphic's object in updateDisplayList() and handle the 
+        // rest of the DisplayList validation in here.
+        
         // Iterate through the graphic elements. If an element has a displayObject that has been 
         // invalidated, then validate all graphic elements that draw to this displayObject. 
         // The algorithm assumes that all of the elements that share a displayObject are in between
         // the element with the shared displayObject and the next element that has a displayObject.
+        
+        var sharedDisplayObject:ISharedDisplayObject = this;
         if (numGraphicElements > 0)
         {
             var length:int = numElements;
@@ -1049,8 +1053,8 @@ public class Group extends GroupBase implements IVisualElementContainer,
             {
                 var element:IGraphicElement = getElementAt(i) as IGraphicElement;
                 if (!element)
-                   continue;
-
+                    continue;
+                
                 // Do a special check for layer, we may stumble upon an element with layer != 0
                 // before we're done with the current shared sequence and we don't want to mark
                 // the sequence as valid, until we reach the next sequence.   
@@ -1077,18 +1081,60 @@ public class Group extends GroupBase implements IVisualElementContainer,
                     var elementDisplayObject:ISharedDisplayObject = element.displayObject as ISharedDisplayObject;
                     if (!elementDisplayObject || elementDisplayObject.redrawRequested)
                     {
-                       element.validateDisplayList();
-
-                       if (elementDisplayObject)
-                           elementDisplayObject.redrawRequested = false;
+                        element.validateDisplayList();
+                        
+                        if (elementDisplayObject)
+                            elementDisplayObject.redrawRequested = false;
                     }
                 }
             }
         }
-            
+        
         // Mark the last shared displayObject valid
         if (sharedDisplayObject)
             sharedDisplayObject.redrawRequested = false;
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        // let user's code (layout) run first before dealing with graphic element 
+        // sharing because that's when redraws can be requested
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        
+        // Clear the group's graphic because graphic elements might be drawing to it
+        // This isn't needed for DataGroup because there's no DisplayObject sharing
+        // This code exists in updateDisplayList() as opposed to validateDisplayList() 
+        // because of compatibility issues since most of this code was 
+        // refactored from updateDisplayList() and in to validateDisplayList().  User's code 
+        // already assumed that they could call super.updateDisplayList() and then be able to draw 
+        // into the Group's graphics object.  Because of that, the graphics.clear() call is left 
+        // in updateDisplayList() instead of in validateDisplayList() with the rest of the graphic 
+        // element sharing code.
+        var sharedDisplayObject:ISharedDisplayObject = this;
+        if (sharedDisplayObject.redrawRequested)
+        {
+            // clear the graphics here.  The pattern is usually to call graphics.clear() 
+            // before calling super.updateDisplayList() so what happens in super.updateDisplayList() 
+            // isn't erased.  However, in this case, what happens in super.updateDisplayList() isn't 
+            // much, and we want to make sure super.updateDisplayList() runs first since the layout 
+            // is what actually triggers the the shareDisplayObject to request to be redrawn.
+            graphics.clear();
+            drawBackground();
+            
+            // If a scaleGrid is set, make sure the extent of the groups bounds are filled so
+            // the player will scale our contents as expected. 
+            if (isValidScaleGrid() && resizeMode == ResizeMode.SCALE)
+            {
+                graphics.lineStyle();
+                graphics.beginFill(0, 0);
+                graphics.drawRect(0, 0, 1, 1);
+                graphics.drawRect(measuredWidth - 1, measuredHeight - 1, 1, 1);
+                graphics.endFill();
+            }
+        }
         
         if (scaleGridChanged)
         {
