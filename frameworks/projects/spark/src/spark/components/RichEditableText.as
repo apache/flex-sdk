@@ -753,12 +753,6 @@ public class RichEditableText extends UIComponent
      *  contents.
      */
     mx_internal var autoSize:Boolean = false;
-
-    /**
-     *  @private
-     *  True if need to scroll after updating the container.
-     */
-    mx_internal var scrollAfterUpdate:Boolean = false;
                 
     //--------------------------------------------------------------------------
     //
@@ -2587,18 +2581,6 @@ public class RichEditableText extends UIComponent
         }
             
         _textContainerManager.updateContainer();
-        
-        // Because our EditManager override of updateAllControllers() does
-        // not call the composer's flowComposer.updateAllControllers() 
-        // immediately, when an editing operation occurs, scrollToRange() in 
-        // EditManager.finalizeDo() may be a no-op and will need to be done 
-        // after the container is really updated.
-        if (scrollAfterUpdate)
-        {
-            _textContainerManager.scrollToRange(_selectionAnchorPosition, 
-                                                _selectionActivePosition);
-            scrollAfterUpdate = false;                                                
-        }
     }
 
     /**
