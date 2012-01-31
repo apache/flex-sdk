@@ -1268,23 +1268,23 @@ public class AnimateTransform extends Animate
                 // they might not have explcitly defined any offsets.  If that's the case, 
                 // we still need to capture default start values, so let's initialize the offsets
                 // to a default set anyway.
-                if(postLayoutTransformPropertiesSet && target.offsets == null)
+            if(postLayoutTransformPropertiesSet && target.postLayoutTransformOffsets == null)
                 {
-                    target.offsets = new TransformOffsets();
+            	target.postLayoutTransformOffsets = new TransformOffsets();
                 }
                 
                 // if the target doesn't have any offsets, there's no need to capture
                 // offset values.
-                if(target.offsets != null)
+            if(target.postLayoutTransformOffsets != null)
                 {
-                    var offsets:TransformOffsets = target.offsets;
-                    valueMap.postLayoutRotationX = offsets.rotationX;
-                    valueMap.postLayoutRotationY = offsets.rotationY;
-                    valueMap.postLayoutRotationZ = offsets.rotationZ;
+            	var postLayoutTransformOffsets:TransformOffsets = target.postLayoutTransformOffsets;
+            	valueMap.postLayoutRotationX = postLayoutTransformOffsets.rotationX;
+            	valueMap.postLayoutRotationY = postLayoutTransformOffsets.rotationY;
+            	valueMap.postLayoutRotationZ = postLayoutTransformOffsets.rotationZ;
     
-                    valueMap.postLayoutScaleX = offsets.scaleX;
-                    valueMap.postLayoutScaleY = offsets.scaleY;
-                    valueMap.postLayoutScaleZ = offsets.scaleZ;
+            	valueMap.postLayoutScaleX = postLayoutTransformOffsets.scaleX;
+            	valueMap.postLayoutScaleY = postLayoutTransformOffsets.scaleY;
+            	valueMap.postLayoutScaleZ = postLayoutTransformOffsets.scaleZ;
     
                     if (valueMap.postLayoutTranslationX === undefined ||
                         valueMap.postLayoutTranslationY === undefined ||
@@ -1462,19 +1462,19 @@ public class AnimateTransform extends Animate
                         position.z = xformPosition.z;
                 }
 
-                if(target.offsets != null)
+				if(target.postLayoutTransformOffsets != null)
                 {
-                    var offsets:TransformOffsets = target.offsets;
+					var postLayoutTransformOffsets:TransformOffsets = target.postLayoutTransformOffsets;
                     if (!isNaN(transitionValues.postLayoutRotationX) ||
                         !isNaN(transitionValues.postLayoutRotationY) || 
                         !isNaN(transitionValues.postLayoutRotationZ))
                     {
                         offsetRotation.x = !isNaN(transitionValues.postLayoutRotationX) ? 
-                            transitionValues.postLayoutRotationX : offsets.rotationX;
+			                transitionValues.postLayoutRotationX : postLayoutTransformOffsets.rotationX;
                         offsetRotation.y = !isNaN(transitionValues.postLayoutRotationY) ? 
-                            transitionValues.postLayoutRotationY : offsets.rotationY;
+			                transitionValues.postLayoutRotationY : postLayoutTransformOffsets.rotationY;
                         offsetRotation.z = !isNaN(transitionValues.postLayoutRotationZ) ? 
-                            transitionValues.postLayoutRotationZ : offsets.rotationZ;
+			                transitionValues.postLayoutRotationZ : postLayoutTransformOffsets.rotationZ;
                         tmpOffsetRotation = offsetRotation;
                     }
             
@@ -1483,11 +1483,11 @@ public class AnimateTransform extends Animate
                         !isNaN(transitionValues.postLayoutScaleZ))
                     {
                         offsetScale.x = !isNaN(transitionValues.postLayoutScaleX) ? 
-                            transitionValues.postLayoutScaleX : offsets.scaleX;
+			                transitionValues.postLayoutScaleX : postLayoutTransformOffsets.scaleX;
                         offsetScale.y = !isNaN(transitionValues.postLayoutScaleY) ? 
-                            transitionValues.postLayoutScaleY : offsets.scaleY;
+			                transitionValues.postLayoutScaleY : postLayoutTransformOffsets.scaleY;
                         offsetScale.z = !isNaN(transitionValues.postLayoutScaleZ) ? 
-                            transitionValues.postLayoutScaleZ : offsets.scaleZ;
+			                transitionValues.postLayoutScaleZ : postLayoutTransformOffsets.scaleZ;
                         tmpOffsetScale = offsetScale;
                     }
             
@@ -1780,8 +1780,8 @@ public class AnimateTransform extends Animate
             // flag.  In that case, we can assume that they need an offsets object if one doesn't already exist.
             // Second, if we captured post-layout changes from a state change. In that case, we can assume that since values were captured,
             // offsets must already exist.      
-            if(target.offsets == null)
-                target.offsets = new TransformOffsets();
+	        if(target.postLayoutTransformOffsets == null)
+	            target.postLayoutTransformOffsets = new TransformOffsets();
         
             if (_postLayoutTranslationX)
                 motionPaths.push(_postLayoutTranslationX);
