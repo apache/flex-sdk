@@ -130,6 +130,34 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
+ *  If true, any scrollbars inside this container will have thumbs with
+ *  fixed size.
+ *  
+ *  @default false
+ *  @see spark.components.supportClasses.ScrollBar#style:fixedThumbSize
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="fixedThumbSize", type="Boolean", inherit="yes")]
+
+/**
+ *  This style determines whether scrollbars inside this
+ *  container will animate smoothly when paging and stepping.
+ *  
+ *  @default true
+ *  @see spark.components.supportClasses.ScrollBar#style:smoothScrolling
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="smoothScrolling", type="Boolean", inherit="yes")]
+
+/**
  *  The GroupBase class defines the base class for components that display visual elements.
  *  A group component does not control the layout of the visual items that it contains. 
  *  Instead, the layout is handled by a separate layout component.
