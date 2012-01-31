@@ -372,11 +372,9 @@ public class RichEditableText extends UIComponent
         // Add event listeners on this component.
 
         // The focusInHandler is called by the TCMContainer focusInHandler.
-        
-        addEventListener(FocusEvent.FOCUS_OUT, focusOutHandler);
-        
-        addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-        
+        // The focusOutHandler is called by the TCMContainer focusOutHandler.
+        // The keyDownHandler is called by the TCMContainer keyDownHandler.
+                        
         addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
         
         // Add event listeners on its TextContainerManager.
@@ -1528,6 +1526,15 @@ public class RichEditableText extends UIComponent
         	selectionFormatsChanged = false;
         }
 
+        if (enabledChanged || selectableChanged || editableChanged)
+        {
+            updateEditingMode();
+            
+            enabledChanged = false;
+            editableChanged = false;
+            selectableChanged = false;          
+        }
+                        
         if (textChanged)
         {
         	if (debug)
@@ -1562,7 +1569,7 @@ public class RichEditableText extends UIComponent
             // If the text or content changed, there is no selection.  If we 
             // already have focus, set the selection, since we've already 
             // executed our focusIn handler where this is normally done.
-            if (getFocus() == this)
+            if (editingMode != EditingMode.READ_ONLY && getFocus() == this)
                 setSelectionBasedOnScrolling();               
         }
                 
@@ -1596,15 +1603,6 @@ public class RichEditableText extends UIComponent
             displayAsPasswordChanged = false;
         }
         
-        if (enabledChanged || selectableChanged || editableChanged)
-        {
-        	updateEditingMode();
-        	
-            enabledChanged = false;
-            editableChanged = false;
-            selectableChanged = false;        	
-        }
-                        
         if (clipAndEnableScrollingChanged)
         {
             // Not sure if there is any real difference between on and auto.
@@ -2914,8 +2912,10 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
+     *  RichEditableTextContainerManager overrides focusOutHandler and calls
+     *  this before executing it's own focusOutHandler.
      */
-    override protected function focusOutHandler(event:FocusEvent):void
+    mx_internal function focusOutHandler(event:FocusEvent):void
     {
         // By default, we clear the undo history when a TextView loses focus.
         if (clearUndoOnFocusOut && undoManager)
@@ -2938,8 +2938,10 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
+     *  RichEditableTextContainerManager overrides keyDownHandler and calls
+     *  this before executing it's own keyDownHandler.
      */ 
-    override protected function keyDownHandler(event:KeyboardEvent):void
+    mx_internal function keyDownHandler(event:KeyboardEvent):void
     {
         if (editingMode != EditingMode.READ_WRITE)
         	return;
@@ -2948,8 +2950,12 @@ public class RichEditableText extends UIComponent
         {
             if (multiline)
             {
+                // This is the same code that is in the EditManager for handling
+                // the enter key.
         		getEditManager().splitParagraph();
         		releaseEditManager();
+                event.preventDefault();
+                event.stopImmediatePropagation();
             }
             else
             {
