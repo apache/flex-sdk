@@ -227,9 +227,6 @@ public class RichEditableText extends UIComponent implements IViewport
     {
         super();
         
-        // This is for mirroring, not for the textFlow.
-        dir = "ltr";
-
         // Even if no text/content specified, want to have a flow composer
         // so text can be input if the control is editable.  Use setter.
         content = textFlow = createEmptyTextFlow();
