@@ -39,7 +39,7 @@ import spark.effects.supportClasses.WipeInstance;
  *  
  *  @mxml
  *
- *  <p>The <code>&lt;mx:Wipe&gt;</code> tag
+ *  <p>The <code>&lt;s:Wipe&gt;</code> tag
  *  inherits all of the tag attributes of its superclass,
  *  and adds the following tag attributes:</p>
  *
