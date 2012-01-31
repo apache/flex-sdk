@@ -2397,6 +2397,15 @@ public class Slider extends UIComponent
         var tPlacement:String =  getStyle("dataTipPlacement");
         var tOffset:Number = getStyle("dataTipOffset");
 
+        // If the layoutDirection is rtl, swap left and right placement
+        if (layoutDirection == "rtl")   
+        {
+            if (tPlacement == "left")
+                tPlacement = "right";
+            else if (tPlacement == "right")
+                tPlacement = "left";
+        }
+        
         // Need to special case tooltip position because the tooltip movieclip
         // resides in the root movie clip, instead of the Slider movieclip
         if (_direction == SliderDirection.HORIZONTAL)
@@ -2449,6 +2458,9 @@ public class Slider extends UIComponent
                 relX -= (dataTip.width - thumb.height) / 2;
             }
         }
+        
+        if (layoutDirection == "rtl")
+            relX += dataTip.width;
         
         var o:Point = new Point(relX, relY);
         var r:Point = localToGlobal(o);
