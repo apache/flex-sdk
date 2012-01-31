@@ -38,7 +38,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:MotionPath 
+ *  &lt;s:MotionPath 
  *    id="ID"
  *    interpolator="NumberInterpolator"
  *    keyframes="val"
