@@ -628,6 +628,13 @@ public class ListBase extends SkinnableDataContainer
     
     /**
      *  @private
+     *  Keeps track of whether the caret should change when selection changes. 
+     *  By default it is true
+     */
+    mx_internal var changeCaretOnSelection:Boolean = true;
+    
+    /**
+     *  @private
      *  Internal storage for the selectedIndex property.
      */
     mx_internal var _selectedIndex:int = NO_SELECTION;
@@ -688,21 +695,26 @@ public class ListBase extends SkinnableDataContainer
      * 
      *  @param dispatchChangeEvent if true, the component will dispatch a "change" event if the
      *  value has changed. Otherwise, it will dispatch a "valueCommit" event. 
+     * 
+     *  @param changeCaret if true, the caret will be set to the selectedIndex as a side-effect of calling 
+     *  this method.  If false, caretIndex won't change.
      */
-    mx_internal function setSelectedIndex(value:int, dispatchChangeEvent:Boolean = false):void
+    mx_internal function setSelectedIndex(value:int, dispatchChangeEvent:Boolean = false, changeCaret:Boolean = true):void
     {
         if (value == selectedIndex)
         {
             // this should short-circuit, but we should check to make sure 
             // that caret doesn't need to be changed either, as that's a side
             // effect of setting selectedIndex
-            setCurrentCaretIndex(selectedIndex);
+            if (changeCaret)
+                setCurrentCaretIndex(selectedIndex);
             
             return;
         }
         
         if (dispatchChangeEvent)
             dispatchChangeAfterSelection = (dispatchChangeAfterSelection || dispatchChangeEvent);
+        changeCaretOnSelection = changeCaret;
         _proposedSelectedIndex = value;
         invalidateProperties();
     }
@@ -1289,7 +1301,8 @@ public class ListBase extends SkinnableDataContainer
             itemSelected(oldSelectedIndex, false);
         if (_selectedIndex != NO_SELECTION && _selectedIndex != CUSTOM_SELECTED_ITEM)
             itemSelected(_selectedIndex, true);
-        setCurrentCaretIndex(_selectedIndex); 
+        if (changeCaretOnSelection)
+            setCurrentCaretIndex(_selectedIndex); 
 
         // Step 4: dispatch the "change" event and "caretChange" 
         // events based on the dispatchChangeEvents parameter. Overrides may  
@@ -1311,11 +1324,17 @@ public class ListBase extends SkinnableDataContainer
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
             
             //Dispatch the caretChange event 
-            e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
-            e.oldIndex = oldCaretIndex; 
-            e.newIndex = caretIndex; 
-            dispatchEvent(e);
+            if (changeCaretOnSelection)
+            {
+                e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
+                e.oldIndex = oldCaretIndex; 
+                e.newIndex = caretIndex; 
+                dispatchEvent(e);
+            }
         }
+        
+        // default changeCaretOnSelection back to true
+        changeCaretOnSelection = true;
         
         return true;
      }
@@ -1442,6 +1461,7 @@ public class ListBase extends SkinnableDataContainer
     mx_internal function dataProviderRefreshed():void
     {
         setSelectedIndex(NO_SELECTION, false);
+        // TODO (rfrishbe): probably don't need the setCurrentCaretIndex below
         setCurrentCaretIndex(NO_CARET);
     }
     
@@ -1628,6 +1648,7 @@ public class ListBase extends SkinnableDataContainer
                 if (dataProvider.length == 0)
                 {
                     setSelectedIndex(NO_SELECTION, false);
+                    // TODO (rfrishbe): probably don't need the setCurrentCaretIndex below
                     setCurrentCaretIndex(NO_CARET);
                 }
                 else
