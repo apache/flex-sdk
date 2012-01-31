@@ -15,6 +15,7 @@ package mx.graphics
 import flash.display.DisplayObjectContainer;
 import flash.geom.Rectangle;
 
+import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
@@ -22,9 +23,9 @@ import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.DamageEvent;
-import flashx.textLayout.formats.CharacterFormat;
-import flashx.textLayout.formats.ContainerFormat;
-import flashx.textLayout.formats.ParagraphFormat;
+import flashx.textLayout.formats.FormatValue;
+import flashx.textLayout.formats.TextLayoutFormat;
+import flashx.textLayout.tlf_internal;
 
 import mx.core.mx_internal;
 import mx.graphics.baseClasses.TextFlowComposer;
@@ -91,8 +92,8 @@ public class TextGraphic extends TextGraphicElement
      *  @private
      *  Used for determining whitespace processing during import.
      */
-    private static var staticCharacterFormat:CharacterFormat =
-        new CharacterFormat();
+    private static var staticTextLayoutFormat:TextLayoutFormat =
+        new TextLayoutFormat();
     
     /**
      *  @private
@@ -134,23 +135,7 @@ public class TextGraphic extends TextGraphicElement
      *  and is updated by createTextFlow() when the hostFormatsInvalid flag
      *  is true.
      */
-    private var hostCharacterFormat:CharacterFormat = new CharacterFormat();
-
-    /**
-     *  @private
-     *  This object is determined by the CSS styles of the TextGraphic
-     *  and is updated by createTextFlow() when the hostFormatsInvalid flag
-     *  is true.
-     */
-    private var hostParagraphFormat:ParagraphFormat = new ParagraphFormat();
-
-    /**
-     *  @private
-     *  This object is determined by the CSS styles of the TextGraphic
-     *  and is updated by createTextFlow() when the hostFormatsInvalid flag
-     *  is true.
-     */
-    private var hostContainerFormat:ContainerFormat = new ContainerFormat();
+    private var hostTextLayoutFormat:TextLayoutFormat = new TextLayoutFormat();
 
     /**
      *  @private
@@ -160,7 +145,7 @@ public class TextGraphic extends TextGraphicElement
      *  when styleChanged() is called with a null argument, indicating that
      *  multiple styles have changed.
      */
-    private var hostFormatsInvalid:Boolean = false;
+    private var hostTextLayoutFormatInvalid:Boolean = false;
 
     /**
      *  @private
@@ -420,7 +405,7 @@ public class TextGraphic extends TextGraphicElement
     {
         super.stylesInitialized();
 
-        hostFormatsInvalid = true;
+        hostTextLayoutFormatInvalid = true;
     }
 
     /**
@@ -438,9 +423,9 @@ public class TextGraphic extends TextGraphicElement
         // property in either hostContainerFormat, hostParagraphFormat,
         // or hostCharacterFormat immediately.
         if (styleProp == null || styleProp == "styleName")
-            hostFormatsInvalid = true;
+            hostTextLayoutFormatInvalid = true;
         else
-            setHostFormat(styleProp);
+            setHostTextLayoutFormat(styleProp);
             
         stylesChanged = true;
     }
@@ -484,22 +469,17 @@ public class TextGraphic extends TextGraphicElement
     /**
      *  @private
      */
-    private function setHostFormat(styleProp:String):void
+    private function setHostTextLayoutFormat(styleProp:String):void
     {
-        var value:* = getStyle(styleProp);
-        if (styleProp == "tabStops" && value === undefined)
-            value = [];
-
-        var kind:String = TextUtil.FORMAT_MAP[styleProp];
-
-        if (kind == TextUtil.CONTAINER)
-            hostContainerFormat[styleProp] = value;
+        if (styleProp in hostTextLayoutFormat)
+		{
+			var value:* = getStyle(styleProp);
         
-        else if (kind == TextUtil.PARAGRAPH)
-            hostParagraphFormat[styleProp] = value;
-        
-        else if (kind == TextUtil.CHARACTER)
-            hostCharacterFormat[styleProp] = value;
+			if (styleProp == "tabStops" && value === undefined)
+				value = [];
+
+			hostTextLayoutFormat[styleProp] = value;
+		}
     }
 
     /**
@@ -509,10 +489,16 @@ public class TextGraphic extends TextGraphicElement
     {
         // The whiteSpaceCollapse format determines how whitespace
         // is processed when markup is imported.
-		staticCharacterFormat.whiteSpaceCollapse =
+		staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
+        staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
+		staticTextLayoutFormat.whiteSpaceCollapse =
             getStyle("whiteSpaceCollapse");
-		staticConfiguration.textFlowInitialCharacterFormat =
-            staticCharacterFormat;
+		staticConfiguration.textFlowInitialFormat =
+            staticTextLayoutFormat;
 
         if (markup is String)
         {
@@ -562,9 +548,15 @@ public class TextGraphic extends TextGraphicElement
 
         // The whiteSpaceCollapse format determines how whitespace
         // is processed when the children are set.
-        staticCharacterFormat.whiteSpaceCollapse =
+		staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
+        staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
+        staticTextLayoutFormat.whiteSpaceCollapse =
             getStyle("whiteSpaceCollapse");
-        textFlow.hostCharacterFormat = staticCharacterFormat;
+        textFlow.hostTextLayoutFormat = staticTextLayoutFormat;
 
         textFlow.mxmlChildren = children;
 
@@ -621,18 +613,16 @@ public class TextGraphic extends TextGraphicElement
         contentChanged = false;
         textChanged = false;
 
-        if (hostFormatsInvalid)
+        if (hostTextLayoutFormatInvalid)
         {
-            for each (var p:String in TextUtil.ALL_FORMAT_NAMES)
+            for (var p:String in TextLayoutFormat.tlf_internal::description)
             {
-                setHostFormat(p);
+                setHostTextLayoutFormat(p);
             }
-            hostFormatsInvalid = false;
+            hostTextLayoutFormatInvalid = false;
         }
 
-        textFlow.hostCharacterFormat = hostCharacterFormat;
-        textFlow.hostParagraphFormat = hostParagraphFormat;
-        textFlow.hostContainerFormat = hostContainerFormat;
+        textFlow.hostTextLayoutFormat = new TextLayoutFormat(hostTextLayoutFormat);
 
         return textFlow;
     }
@@ -665,13 +655,13 @@ public class TextGraphic extends TextGraphicElement
         textFlowComposer.composeTextFlow(textFlow);
         
         textFlowComposer.addTextLines(DisplayObjectContainer(displayObject));
-        
         // Just recomposed so reset.
         stylesChanged = false;
         
         // Listen for "damage" events in case the textFlow is 
         // modified programatically.
         textFlow.addEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);        
+
 
         return textFlowComposer.isOverset;
     }
