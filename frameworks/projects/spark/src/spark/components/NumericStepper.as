@@ -25,7 +25,7 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#contentBackgroundColor
+ *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -379,29 +379,29 @@ public class NumericStepper extends Spinner
      *  @private
      */
     override protected function commitProperties():void
-    {	
+    {   
         super.commitProperties();
-		
-		if (maxChanged || stepSizeChanged || displayFormatFunctionChanged)
-    	{
-    		textInput.widthInChars = calculateWidestValue();
-    		maxChanged = false;
-    		stepSizeChanged = false;
-    		
-    		if (displayFormatFunctionChanged)
-    		{
+        
+        if (maxChanged || stepSizeChanged || displayFormatFunctionChanged)
+        {
+            textInput.widthInChars = calculateWidestValue();
+            maxChanged = false;
+            stepSizeChanged = false;
+            
+            if (displayFormatFunctionChanged)
+            {
                 applyDisplayFormatFunction();
                
                 displayFormatFunctionChanged = false;
-    		}
-    	}
-		
-		if (extractValueFunctionChanged)
-		{
-			commitTextInput(false);
-			extractValueFunctionChanged = false;
-		}
-			
+            }
+        }
+        
+        if (extractValueFunctionChanged)
+        {
+            commitTextInput(false);
+            extractValueFunctionChanged = false;
+        }
+            
         if (maxCharsChanged)
         {
             textInput.maxChars = _maxChars;
@@ -434,7 +434,7 @@ public class NumericStepper extends Spinner
         
         if (instance == textInput)
         {
-        	textInput.addEventListener(FlexEvent.ENTER,
+            textInput.addEventListener(FlexEvent.ENTER,
                                        textInput_enterHandler);
             textInput.addEventListener(FocusEvent.FOCUS_OUT, 
                                        textInput_focusOutHandler); 
@@ -530,9 +530,9 @@ public class NumericStepper extends Spinner
         var prevValue:Number = value;
         
         if (extractValueFunction != null)
-        	inputValue = extractValueFunction(textInput.text);
+            inputValue = extractValueFunction(textInput.text);
         else 
-        	inputValue = Number(textInput.text);
+            inputValue = Number(textInput.text);
         
         if (textInput.text == "" || (inputValue != value && 
             (Math.abs(inputValue - value) >= 0.000001 || isNaN(inputValue))))
@@ -569,12 +569,12 @@ public class NumericStepper extends Spinner
                               maximum.toString().length ?
                               minimum :
                               maximum;
-    	widestNumber += stepSize;
-    	
-    	if (displayFormatFunction != null)
-    	    return displayFormatFunction(widestNumber).length;
-    	else 
-    	   return widestNumber.toString().length;
+        widestNumber += stepSize;
+        
+        if (displayFormatFunction != null)
+            return displayFormatFunction(widestNumber).length;
+        else 
+           return widestNumber.toString().length;
     }
     
     /**
