@@ -14,11 +14,25 @@ import flash.utils.Dictionary;
 
 import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
+import flex.filters.BaseFilter;
+import flex.filters.IBitmapFilter;
+import flex.geom.Transform;
+import flex.graphics.Graphic;
+import flex.graphics.graphicsClasses.GraphicElement;
+import flex.graphics.IAssignableDisplayObjectElement;
+import flex.graphics.IDisplayObjectElement;
+import flex.graphics.IGraphicElement;
+import flex.graphics.IGraphicElementHost;
+import flex.graphics.MaskType;
+import flex.graphics.TransformUtil;
 import flex.intf.ILayout; 
+import flex.intf.ILayoutItem;
 import flex.layout.BasicLayout;
+import flex.layout.LayoutItemFactory;
 
 import mx.collections.IList;
-import flex.graphics.Graphic;
+import mx.collections.ICollectionView;
+import mx.collections.ListCollectionView;
 import mx.controls.Label;
 import mx.core.IDataRenderer;
 import mx.core.IDeferredInstance;
@@ -28,19 +42,7 @@ import mx.events.ChildExistenceChangedEvent;
 import mx.events.CollectionEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
-import flex.graphics.graphicsClasses.GraphicElement;
-import flex.graphics.IAssignableDisplayObjectElement;
-import flex.graphics.IDisplayObjectElement;
-import flex.graphics.IGraphicElement;
-import flex.graphics.IGraphicElementHost;
 import mx.managers.ILayoutManagerClient;
-import flex.graphics.MaskType;
-import flex.geom.Transform;
-import flex.graphics.TransformUtil;
-import flex.filters.IBitmapFilter;
-import flex.filters.BaseFilter;
-import mx.collections.ICollectionView;
-import mx.collections.ListCollectionView;
 
 /**
  *  Dispatched prior to the group's content being changed. This is only
@@ -702,14 +704,14 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
      *
      *  @return The layout item at the specified index.
      */
-    public function getLayoutItemAt(index:int):*
+    public function getLayoutItemAt(index:int):ILayoutItem
     {
-        var item:* = getItemAt(index);   
+        var item:* = getItemAt(index);
                
-        if (item is IGraphicElement && !alwaysUseItemRenderer)
-            return item;
-        else
-            return getItemSkin(item);
+        if (alwaysUseItemRenderer || !(item is IGraphicElement))
+            item = getItemSkin(item);
+
+        return LayoutItemFactory.getLayoutItemFor(item);
     }
 
     
