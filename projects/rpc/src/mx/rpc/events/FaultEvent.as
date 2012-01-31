@@ -197,11 +197,6 @@ public class FaultEvent extends AbstractEvent
 
     /*
      * Have the token apply the fault.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
     override mx_internal function callTokenResponders():void
     {
