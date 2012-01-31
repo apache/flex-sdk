@@ -48,7 +48,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:Move
+ *  &lt;s:Move
  *    id="ID"
  *    xBy="val"
  *    xFrom="val" 
