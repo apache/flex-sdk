@@ -2120,7 +2120,7 @@ public class ComboBox extends ComboBase
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
         // If the combo box is disabled, don't do anything
-        if(!enabled)
+        if (!enabled)
             return;
             
         // If a the editable field currently has focus, it is handling
