@@ -17,6 +17,9 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
+    <!-- overriding from build.properties -->
+    <property name="playerglobal.version" value="9"/>  
+
 	<target name="main" depends="clean,compile,en_US,ja_JP" description="Clean build of rpc.swc and its English and Japanese resources"/>
 
 	<target name="other.locales" depends="da_DK,de_DE,es_ES,fi_FI,fr_FR,it_IT,ko_KR,nb_NO,nl_NL,pt_BR,sv_SE,zh_CN,zh_TW" description="Build other locale SWCs"/>
@@ -58,6 +61,7 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/rpc.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
+            <target-player>9</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
 			<include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>
@@ -85,6 +89,7 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/locale/${locale}/rpc_rb.swc"
 			   locale="${locale}">
+            <target-player>9</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-resource-bundles bundle="collections"/>
 			<include-resource-bundles bundle="core"/>
