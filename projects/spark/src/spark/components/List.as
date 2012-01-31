@@ -30,7 +30,7 @@ import spark.skins.default.DefaultItemRenderer;
 
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#alternatingItemColors
+ *  @copy spark.components.supportClasses.GroupBase#alternatingItemColors
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -40,7 +40,7 @@ import spark.skins.default.DefaultItemRenderer;
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ *  @copy spark.components.supportClasses.GroupBase#contentBackgroundColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -50,7 +50,7 @@ import spark.skins.default.DefaultItemRenderer;
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#rollOverColor
+ *  @copy spark.components.supportClasses.GroupBase#rollOverColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -60,7 +60,7 @@ import spark.skins.default.DefaultItemRenderer;
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#selectionColor
+ *  @copy spark.components.supportClasses.GroupBase#selectionColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -70,7 +70,7 @@ import spark.skins.default.DefaultItemRenderer;
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  @copy spark.components.supportClasses.GroupBase#symbolColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
