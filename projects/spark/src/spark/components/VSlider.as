@@ -137,8 +137,15 @@ public class VSlider extends Slider
     
         var thumbRange:Number = track.getLayoutBoundsHeight() - thumb.getLayoutBoundsHeight();
         var range:Number = maximum - minimum;
-        var thumbPos:Number = (range > 0) ? thumbRange - (((pendingValue - minimum) / range) * thumbRange) : 0;
-        thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), Math.round(track.getLayoutBoundsY() + thumbPos));
+        
+        // calculate new thumb position.
+        var thumbPosTrackY:Number = (range > 0) ? thumbRange - (((pendingValue - minimum) / range) * thumbRange) : 0;
+        
+        // convert to parent's coordinates.
+        var thumbPos:Point = track.localToGlobal(new Point(0, thumbPosTrackY));
+        var thumbPosParentY:Number = thumb.parent.globalToLocal(thumbPos).y;
+        
+        thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), Math.round(thumbPosParentY));
     }
     
     /**
