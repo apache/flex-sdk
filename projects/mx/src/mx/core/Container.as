@@ -5458,7 +5458,12 @@ public class Container extends UIComponent
         var focusObj:Object = getFocus();
         if ((focusObj is TextField) || (textViewClass && focusObj is textViewClass))
             return;
-
+    
+        // If the KeyBoardEvent can be canceled and a descendant has done so,
+        // don't process it at all.  
+        if (event.isDefaultPrevented())
+            return;
+            
         var direction:String;
         var oldPos:Number;
 
