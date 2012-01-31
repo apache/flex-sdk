@@ -66,8 +66,6 @@ public class FxToggleButton extends FxButton
     public function FxToggleButton()
     {
         super();
-        
-        addEventListener(MouseEvent.CLICK, clickHandler);
     }
     
     // -----------------------------------------------------------------------
@@ -116,7 +114,7 @@ public class FxToggleButton extends FxButton
     //--------------------------------------------------------------------------
 
     /**
-     *  @inheritDoc
+     *  @private
      */ 
     protected override function getCurrentSkinState():String
     {
@@ -129,14 +127,10 @@ public class FxToggleButton extends FxButton
     /**
      *  @private
      */ 
-    protected function clickHandler(event:MouseEvent):void
+    override protected function onClick(event:MouseEvent):void
     {
-        // TODO EGeorgie: Currently we handle MouseEvent.CLICK in the base class
-        // where we call stopImmediatePropagation to prevent custom event listeners
-        // from being called when the button is disabled.
-        // Should we be using a second evnet handler and continue relying on that
-        // behavior in the subclasses, or should we have a single event hander
-        // in the base and override a method here instead? 
+        super.onClick(event);
+
         selected = !selected;
         dispatchEvent(new Event(Event.CHANGE));
         event.updateAfterEvent();
