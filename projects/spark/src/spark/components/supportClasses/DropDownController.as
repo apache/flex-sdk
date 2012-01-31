@@ -24,12 +24,8 @@ import flash.events.FocusEvent;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
  
-/*
-	TODO (jszeto) Needs ASDoc comments 
-*/
-
 /**
- *  DropDownController handles the mouse and keyboard
+ *  DropDownController handles the mouse, keyboard, and focus
  *  interactions for an anchor button and its dropDown. This helper class
  *  should be used by other dropDown components to handle the opening
  *  and closing of the dropDown due to user interactions.
@@ -41,6 +37,14 @@ import flash.display.DisplayObjectContainer;
  */
 public class DropDownController extends EventDispatcher
 {
+	/**
+	 *  Constructor
+	 * 
+	 *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+	 */
 	public function DropDownController(target:IEventDispatcher=null)
 	{
 		super(target);
@@ -59,7 +63,7 @@ public class DropDownController extends EventDispatcher
 	private var _button:ButtonBase;
 	
 	/**
-     *  @private
+     *  Reference to the button skin part of the dropDown component. 
      *         
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -150,8 +154,7 @@ public class DropDownController extends EventDispatcher
     //--------------------------------------------------------------------------   
 
 	/**
-     *  Initializes the dropDown and changes the skin state to open. 
-     * 
+     *  Opens the dropDown and dispatches a <code>DropdownEvent.OPEN</code> event. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -160,7 +163,6 @@ public class DropDownController extends EventDispatcher
      */ 
     public function openDropDown():void
     {
-		//trace("DDL.openDropDown isOpen",isOpen);
     	if (!isOpen)
     	{
     		// TODO (jszeto) Change these to be marshall plan compliant
@@ -175,12 +177,7 @@ public class DropDownController extends EventDispatcher
     }	
     
     /**
-     *  Changes the skin state to normal, commits the data from the dropDown and 
-     *  performs some cleanup.  
-     * 
-     *  The user can close the dropDown either in a committing or non-committing manner 
-     *  based on their interaction gesture. If the user has performed a committing 
-     *  gesture, then set commitData to true. 
+     *  Closes the dropDown and dispatches a <code>DropdownEvent.CLOSE</code> event.  
      *   
      *  @param commitData Flag indicating if the component should commit the selected
      *  data from the dropDown. 
@@ -192,7 +189,6 @@ public class DropDownController extends EventDispatcher
      */
     public function closeDropDown(commitData:Boolean):void
     {
-    	//trace("DDL.closeDropDown isOpen",isOpen);
     	if (isOpen)
     	{	
 			_isOpen = false;
@@ -228,7 +224,6 @@ public class DropDownController extends EventDispatcher
  	 */ 
     protected function button_buttonDownHandler(event:Event):void
     {
-    	//trace("DDL.button_buttonDownHandler");
         if (isOpen)
             closeDropDown(true);
         else
@@ -236,8 +231,8 @@ public class DropDownController extends EventDispatcher
     }
 			
 	/**
-     *  Called when the systemManager receives a mouseDown event. In the base class 
-     *  implementation, this closes the dropDown.  
+     *  Called when the systemManager receives a mouseDown event. This closes
+     *  the dropDown if the target is outside of the dropDown. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -258,8 +253,7 @@ public class DropDownController extends EventDispatcher
     }
     
     /**
-     *  @private
-     *  Close the dropDown if the stage has been resized. Don't commit the data.
+     *  Close the dropDown if the stage has been resized.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -272,7 +266,7 @@ public class DropDownController extends EventDispatcher
     }		
     
     /**
-     *  @private
+     *  Closes the dropDown if focus it is no longer in focus.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -289,21 +283,22 @@ public class DropDownController extends EventDispatcher
         if (isOpen)
         {
             // If focus is moving outside the dropdown...
-            // TODO (jszeto) Should we compare to the whole skin or just the dataGroup?
             if (!event.relatedObject ||
                 (!dropDown || 
                 	(dropDown is DisplayObjectContainer &&
                 	 !DisplayObjectContainer(dropDown).contains(event.relatedObject))))
             {
                 // Close the dropdown.
-                //trace("DDL.focusOutHandler");
                 closeDropDown(true);
             }
         }
     }
     
     /**
-	 *  @private
+	 *  Handles the keyboard user interactions.
+	 * 
+	 *  @return Returns true if the <code>keyCode</code> was 
+	 *  recognized and handled.
 	 * 
      *  @langversion 3.0
      *  @playerversion Flash 10
