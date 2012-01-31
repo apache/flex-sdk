@@ -9,27 +9,27 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
 import mx.collections.IList;
-import mx.components.Group;
+import spark.components.Group;
 import mx.core.mx_internal;
-import mx.components.baseClasses.FxComponent;
-import mx.components.baseClasses.FxContainerBase;
+import spark.components.supportClasses.SkinnableComponent;
+import spark.components.supportClasses.SkinnableContainerBase;
 import mx.core.ContainerCreationPolicy;
-import mx.core.IDeferredContentOwner;
+import spark.core.IDeferredContentOwner;
 import mx.core.IDeferredInstance;
 import mx.core.IFactory;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.IUIComponent;
-import mx.core.IViewport;
+import spark.core.IViewport;
 import mx.events.FlexEvent;
-import mx.events.ElementExistenceEvent;
+import spark.events.ElementExistenceEvent;
 import mx.events.PropertyChangeEvent;
-import mx.layout.BasicLayout;
-import mx.layout.LayoutBase;
+import spark.layout.BasicLayout;
+import spark.layout.supportClasses.LayoutBase;
 import mx.managers.IFocusManagerContainer;
 import mx.utils.BitFlagUtil;
 
@@ -58,7 +58,7 @@ import mx.utils.BitFlagUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="elementAdd", type="mx.events.ElementExistenceEvent")]
+[Event(name="elementAdd", type="spark.events.ElementExistenceEvent")]
 
 /**
  *  Dispatched when a visual element is removed to the content holder.
@@ -71,7 +71,7 @@ import mx.utils.BitFlagUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="elementRemove", type="mx.events.ElementExistenceEvent")]
+[Event(name="elementRemove", type="spark.events.ElementExistenceEvent")]
 
 include "../styles/metadata/AdvancedTextLayoutFormatStyles.as"
 include "../styles/metadata/BasicTextLayoutFormatStyles.as"
@@ -128,7 +128,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
 
-[IconFile("FxContainer.png")]
+[IconFile("SkinnableContainer.png")]
 
 //--------------------------------------
 //  Excluded APIs
@@ -137,17 +137,17 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [DefaultProperty("mxmlContentFactory")]
 
 /**
- *  The FxContainer class is the base class for all skinnable components that have 
+ *  The SkinnableContainer class is the base class for all skinnable components that have 
  *  visual content.
  *
- *  @see FxDataContainer
+ *  @see SkinnableDataContainer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxContainer extends FxContainerBase 
+public class SkinnableContainer extends SkinnableContainerBase 
        implements IDeferredContentOwner, IViewport, IVisualElementContainer
 {
     include "../core/Version.as";
@@ -197,7 +197,7 @@ public class FxContainer extends FxContainerBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxContainer()
+    public function SkinnableContainer()
     {
         super();
         
@@ -226,15 +226,15 @@ public class FxContainer extends FxContainerBase
     /**
      *  @private
      *  Several properties are proxied to contentGroup.  However, when contentGroup
-     *  is not around, we need to store values set on FxContainer.  This object 
+     *  is not around, we need to store values set on SkinnableContainer.  This object 
      *  stores those values.  If contentGroup is around, the values are stored 
      *  on the contentGroup directly.  However, we need to know what values 
-     *  have been set by the developer on the FxContainer (versus set on 
+     *  have been set by the developer on the SkinnableContainer (versus set on 
      *  the contentGroup or defaults of the contentGroup) as those are values 
      *  we want to carry around if the contentGroup changes (via a new skin). 
      *  In order to store this info effeciently, contentGroupProperties becomes 
      *  a uint to store a series of BitFlags.  These bits represent whether a 
-     *  property has been explicitely set on this FxContainer.  When the 
+     *  property has been explicitely set on this SkinnableContainer.  When the 
      *  contentGroup is not around, contentGroupProperties is a typeless 
      *  object to store these proxied properties.  When contentGroup is around,
      *  contentGroupProperties stores booleans as to whether these properties 
