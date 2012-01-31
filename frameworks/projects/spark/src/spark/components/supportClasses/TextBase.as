@@ -12,17 +12,17 @@
 package spark.primitives.supportClasses
 {
 
-import flash.display.DisplayObjectContainer;
-import flash.display.Graphics;
 import flash.display.DisplayObject;
-import flash.display.Sprite;
+import flash.display.DisplayObjectContainer;
 import flash.events.Event;
+import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.text.engine.TextLine;
 
 import flashx.textLayout.formats.LineBreak;
 
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.CSSStyleDeclaration;
@@ -30,6 +30,8 @@ import mx.styles.IAdvancedStyleClient;
 import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
+
+import spark.components.Group;
 
 /**
  *  The base class for GraphicElements such as TextBox and TextGraphic
@@ -140,6 +142,20 @@ public class TextGraphicElement extends GraphicElement
      *  Cache this since it accessed for every display list update.
      */
     mx_internal var lineBreakToFit:Boolean = true;
+
+    /**
+     *  @private
+     *  Cache the width constraint as set by the layout in setLayoutBoundsSize()
+     *  so that text reflow can be calculated during a subsequent measure pass.
+     */
+    private var _widthConstraint:Number = NaN;
+    
+    /**
+     *  @private
+     *  Cache the number of text lines during measure. We can optimize for
+     *  a single line text reflow, which is a lot of cases.
+     */
+    private var _measuredTextLineCount:int;
 
     //--------------------------------------------------------------------------
     //
@@ -482,35 +498,135 @@ public class TextGraphicElement extends GraphicElement
     /**
      *  @private
      */
+    override public function parentChanged(value:Group):void
+    {
+        // TODO EGeorgie: we add event listener to the parent, as adding event
+        // listener to the TextGraphicElement itself doesn't work, as we perform
+        // double invalidation, but our updateDisplayList gets called only once
+        // and  the code in the base GraphicElement class assumes that
+        // updateDisplayList will get called twice.
+        if (parent)
+            parent.removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
+
+        super.parentChanged(value);
+
+        if (parent) 
+            parent.addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
+    }
+
+    /**
+     *  @private
+     */
     override protected function measure():void
     {
-        super.measure();
-        
         // The measure() method of a GraphicElement can get called
         // when its style chain hasn't been initialized.
         // In that case, composeTextLines() must not be called.
         if (!mx_internal::styleChainInitialized)
             return;
 
-        composeTextLines(explicitWidth, explicitHeight);
-
+        // _widthConstraint trumps even explicitWidth as some layouts may choose
+        // to specify width different from the explicit.
+        var constrainedWidth:Number =
+            !isNaN(_widthConstraint) ? _widthConstraint : explicitWidth;
+        composeTextLines(constrainedWidth, explicitHeight);
+        
+        // Anytime we are composing we need to invalidate the display list
+        // as we may have messed up the text lines.
+        invalidateDisplayList();
+        
         // If width/height not explicitly set, put on next pixel boundary for 
         // crisp edges.  This should not impact isOverset which was calculated
         // with the pre-adjusted bounds values.  If explcitly set, use it so
         // that a recomposition can possibily be avoided in updateDisplayList().
         if (mx_internal::bounds.width != explicitWidth)
-            mx_internal::bounds.width = Math.ceil(mx_internal::bounds.width);
-
-        measuredWidth = mx_internal::bounds.width;         
-        
+            mx_internal::bounds.width = Math.ceil(mx_internal::bounds.width);        
         if (mx_internal::bounds.height != explicitHeight)
             mx_internal::bounds.height = Math.ceil(mx_internal::bounds.height);
 
-        measuredHeight = mx_internal::bounds.height;  
+        // If the measured height is not affected, then constrained
+        // width measurement is not neccessary.
+        if (!isNaN(_widthConstraint) && measuredHeight == mx_internal::bounds.height)
+            return;
+            
+        // Call super.measure() here insted of in the beginning of the method,
+        // as it zeroes the measuredWidth, measuredHeight and these values will
+        // still be valid if we decided to do an early return above.
+        super.measure();
+
+        measuredWidth = mx_internal::bounds.width;
+        measuredHeight = mx_internal::bounds.height;
         
+        // Remember the number of text lines during measure. We can use this to
+        // optimize the double measure scheme for text reflow.
+        _measuredTextLineCount = mx_internal::textLines.length;
+
         //trace("measure", measuredWidth, measuredHeight);
     }
+
+    /**
+     *  @private
+     *  We override the setLayoutBoundsSize to determine whether to perform
+     *  text reflow. This is a convenient place, as the layout passes NaN
+     *  for a dimension not constrained to the parent.
+     */
+    override public function setLayoutBoundsSize(width:Number=NaN,
+                                                 height:Number=NaN,
+                                                 postTransform:Boolean=true):void
+    {
+        super.setLayoutBoundsSize(width, height, postTransform);
+
+        // TODO EGeorgie: possible optimization - if we reflow the text
+        // immediately, we'll be able to detect whether the constrained
+        // width causes the measured height to change.
+        // Also certain layouts like vertical/horizontal will
+        // be able to get the better performance as subsequent elements
+        // will not go through updateDisplayList twice. This also has the
+        // potential of avoiding text compositing during measure.
+
+        // Did we already constrain the width?
+        if (_widthConstraint == width)
+            return;
+
+        // No reflow for explicit lineBreak
+        if (!mx_internal::lineBreakToFit)
+            return;
+
+        // If we don't measure
+        if (skipMeasure())
+            return;
+
+        if (!isNaN(explicitHeight))
+            return;
+
+        // We support reflow only in the case of constrained width and
+        // unconstrained height. Note that we compare with measuredWidth,
+        // as for example the TextGraphicElement can be
+        // constrained by the layout with "left" and "right", but the
+        // container width itself may not be constrained and it would depend
+        // on the element's measuredWidth.
+        var constrainedWidth:Boolean = !isNaN(width) && (width != measuredWidth); 
+        if (!constrainedWidth)
+            return;
             
+        // Special case - if we have a single line, then having a constraint larger
+        // than the measuredWidth will not result in measuredHeight change, as we
+        // will still have only a single line
+        if (_measuredTextLineCount == 1 && width > measuredWidth)
+            return;
+    
+        // We support reflow only when we don't have a transform.
+        // We could add support for scale, but not skew or rotation.
+        var matrix:Matrix;
+        if (postTransform)
+            matrix = computeMatrix();
+        if (null != matrix)
+            return;
+
+        _widthConstraint = width;
+        invalidateSize();
+    }
+
     /**
      *  @private
      */
@@ -968,6 +1084,18 @@ public class TextGraphicElement extends GraphicElement
 
         invalidateSize();
         invalidateDisplayList();
+    }
+
+    /**
+     *  @private
+     *  We clear the width constraint that's used for the text reflow
+     *  after the layout pass is complete.
+     */
+    private function updateCompleteHandler(event:FlexEvent):void
+    {
+        // Make sure that if we did a double pass, next time around we'll
+        // measure normally
+        _widthConstraint = NaN;
     }
 }
 
