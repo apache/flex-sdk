@@ -82,6 +82,8 @@ use namespace mx_internal;
 
 [IconFile("HScrollBar.png")]
 
+[Alternative(replacement="spark.components.HScrollBar", since="4.0")]
+
 /**
  *  The HScrollBar (horizontal ScrollBar) control lets you control
  *  the portion of data that is displayed when there is too much data
