@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects.fxEasing
+package mx.effects.interpolation
 {
 /**
  * Provides easing functionality using a Sine function and a
