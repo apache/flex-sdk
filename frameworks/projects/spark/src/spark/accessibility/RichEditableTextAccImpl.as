@@ -25,8 +25,88 @@ import spark.components.RichEditableText;
 use namespace mx_internal;
 
 /**
- *  RichEditableTextBaseAccImpl is a subclass of AccessibilityImplementation
- *  which implements accessibility for the RichEditableTextBaseClass class.
+ *  RichEditableTextAccImpl is the accessibility implementation class
+ *  for spark.components.RichEditableText.
+ *
+ *  <p>When a Spark RichEditableText is created,
+ *  its <code>accessibilityImplementation</code> property
+ *  is set to an instance of this class.
+ *  The Flash Player then uses this class to allow MSAA clients
+ *  such as screen readers to see and manipulate the RichEditableText.
+ *  See the mx.accessibility.AccImpl and
+ *  flash.accessibility.AccessibilityImplementation classes
+ *  for background information about accessibility implementation
+ *  classes and MSAA.</p>
+ *
+ *  <p><b>Children</b></p>
+ *
+ *  <p>A RichEditableText has no MSAA children.</p>
+ *
+ *  <p><b>Role</b></p>
+ *
+ *  <p>The MSAA Role of a RichEditableText is ROLE_SYSTEM_TEXT.</p>
+ *
+ *  <p><b>Name</b></p>
+ *
+ *  <p>The MSAA Name of a RichEditableText is, by default, the empty string.
+ *  When wrapped in a FormItem element, the Name is the FormItem's label.
+ *  To override this behavior,
+ *  set the RichEditableText's <code>accessibilityName</code> property.</p>
+ *
+ *  <p>When the Name changes,
+ *  a RichEditableText dispatches the MSAA event EVENT_OBJECT_NAMECHANGE.</p>
+ *
+ *  <p><b>Description</b></p>
+ *
+ *  <p>The MSAA Description of a RichEditableText is, by default,
+ *  the empty string, but you can set the RichEditableText's
+ *  <code>accessibilityDescription</code> property.</p>
+ *
+ *  <p><b>State</b></p>
+ *
+ *  <p>The MSAA State of a RichEditableText is a combination of:
+ *  <ul>
+ *    <li>STATE_SYSTEM_UNAVAILABLE (when enabled is false)</li>
+ *    <li>STATE_SYSTEM_FOCUSABLE (when enabled is true)</li>
+ *    <li>STATE_SYSTEM_FOCUSED
+ *    (when enabled is true and the RichEditableText has focus)</li>
+ *    <li>STATE_SYSTEM_PROTECTED (when displayAsPassword is true)</li>
+ *    <li>STATE_SYSTEM_READONLY (when editable is false)</li>
+ *  </ul></p>
+ *
+ *  <p>When the State changes,
+ *  a RichEditableText dispatches the MSAA event EVENT_OBJECT_STATECHANGE.</p>
+ *
+ *  <p><b>Value</b></p>
+ *
+ *  <p>The MSAA Value of a RichEditableText is equal to
+ *  its <code>text</code> property.</p>
+ *
+ *  <p>When the Value changes,
+ *  a RichEditableText dispatches the MSAA event EVENT_OBJECT_VALUECHANGE.</p>
+ *
+ *  <p><b>Location</b></p>
+ *
+ *  <p>The MSAA Location of a RichEditableText is its bounding rectangle.</p>
+ *
+ *  <p><b>Default Action</b></p>
+ *
+ *  <p>A RichEditableText does not have an MSAA DefaultAction.</p>
+ *
+ *  <p><b>Focus</b></p>
+ *
+ *  <p>A RichEditableText accepts focus. 
+ *  When it does so it dispatches the MSAA event EVENT_OBJECT_FOCUS.</p>
+ *
+ *  <p><b>Selection</b></p>
+ *
+ *  <p>A RichEditableText does not support selection in the MSAA sense,
+ *  and text selection is not part of Microsoft's IAccessibility COM interface.
+ *  But, in Player 10.1 and later, screen readers can determine
+ *  the currently selected text range via the <code>GetSelection()</code> method
+ *  in Adobe's ISimpleTextSelection COM interface, which calls the
+ *  <code>selectionAnchorIndex</code> and <code>selectionActiveIndex</code>
+ *  getters in this class.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
