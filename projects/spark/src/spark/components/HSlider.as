@@ -18,7 +18,7 @@ import flash.geom.Rectangle;
 
 import mx.core.IDataRenderer;
 
-import spark.components.supportClasses.Slider;
+import spark.components.supportClasses.SliderBase;
 
 //--------------------------------------
 //  Other metadata
@@ -85,7 +85,7 @@ import spark.components.supportClasses.Slider;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class HSlider extends Slider
+public class HSlider extends SliderBase
 {
     include "../core/Version.as";
 
