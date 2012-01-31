@@ -123,7 +123,7 @@ use namespace mx_internal;
  *  <p>This control dispatches a <code>FlexEvent.ENTER</code> event
  *  when the user pressed the Enter key rather than inserting a line
  *  break, because this control does not support entering multiple
- *  lines of text.</p>
+ *  lines of text. By default, this control has explicit line breaks.</p>
  *
  *  <p>This control is a skinnable control whose skin contains a
  *  RichEditableText instance that handles displaying and editing the text.
@@ -352,6 +352,10 @@ public class TextInput extends SkinnableTextBase
         if (instance == textDisplay)
         {
             textDisplay.multiline = false;
+
+            // Single line for interactive input.  Multi-line text can be
+            // set.
+            textDisplay.setStyle("lineBreak", "explicit");
             
             // TextInput should always be 1 line.
             textDisplay.heightInLines = 1;
