@@ -16,12 +16,10 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.utils.Dictionary;
 
 import mx.collections.ArrayList;
 import mx.collections.IList;
 import mx.core.IFactory;
-import mx.core.IVisualElement;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
@@ -33,7 +31,6 @@ import mx.utils.ObjectUtil;
 import spark.components.gridClasses.CellPosition;
 import spark.components.gridClasses.GridColumn;
 import spark.components.gridClasses.GridDimensions;
-import spark.components.gridClasses.GridLayer;
 import spark.components.gridClasses.GridLayout;
 import spark.components.gridClasses.GridSelection;
 import spark.components.gridClasses.GridSelectionMode;
@@ -60,7 +57,6 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 [Event(name="gridMouseDown", type="spark.events.GridEvent")]
-
 
 /**
  *  Dispatched after a GRID_MOUSE_DOWN event if the mouse moves before the button is released.
@@ -249,7 +245,7 @@ public class Grid extends Group implements IDataGridElement
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.4
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function Grid()
@@ -269,6 +265,9 @@ public class Grid extends Group implements IDataGridElement
         addEventListener(MouseEvent.DOUBLE_CLICK, grid_doubleClickHandler);        
     }
     
+    /**
+     *  @private
+     */
     private function get gridLayout():GridLayout
     {
         return layout as GridLayout;
@@ -301,13 +300,16 @@ public class Grid extends Group implements IDataGridElement
     //----------------------------------
     //  anchorColumnIndex
     //----------------------------------
-
-    [Bindable("anchorColumnIndexChanged")]
     
     private var _anchorColumnIndex:int = 0;
-
-    // True if either anchorColumnIndex or anchorRowIndex changes.
+    
+    /**
+     *  @private
+     *  True if either anchorColumnIndex or anchorRowIndex changes.
+     */
     private var anchorChanged:Boolean = false;
+    
+    [Bindable("anchorColumnIndexChanged")]
     
     /**
      *  The column index of the "anchor" for the next shift selection.
@@ -351,14 +353,13 @@ public class Grid extends Group implements IDataGridElement
         dispatchChangeEvent("anchorColumnIndexChanged");
     }
     
-    
     //----------------------------------
     //  anchorRowIndex
     //----------------------------------
     
-    [Bindable("anchorRowIndexChanged")]
-    
     private var _anchorRowIndex:int = 0; 
+    
+    [Bindable("anchorRowIndexChanged")]
     
     /**
      *  The row index of the "anchor" for the next shift selection.
@@ -402,9 +403,9 @@ public class Grid extends Group implements IDataGridElement
     //  caretIndicator
     //----------------------------------
     
-    [Bindable("caretIndicatorChanged")]
-    
     private var _caretIndicator:IFactory = null;
+    
+    [Bindable("caretIndicatorChanged")]
     
     /**
      *  A single visual element that's displayed for the caret row, if
@@ -418,7 +419,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get caretIndicator():IFactory
@@ -443,12 +444,11 @@ public class Grid extends Group implements IDataGridElement
     //  caretColumnIndex
     //----------------------------------
     
-    [Bindable("caretColumnIndexChanged")]
-    
     private var _caretColumnIndex:int = -1;
     private var _oldCaretColumnIndex:int = -1;
-    
     private var caretChanged:Boolean = false;
+    
+    [Bindable("caretColumnIndexChanged")]
     
     /**
      *  The column index of the caretIndicator visualElement if
@@ -495,15 +495,14 @@ public class Grid extends Group implements IDataGridElement
         dispatchChangeEvent("caretColumnIndexChanged");
     }
     
-    
     //----------------------------------
     //  caretRowIndex
     //----------------------------------
     
-    [Bindable("caretRowIndexChanged")]
-    
     private var _caretRowIndex:int = -1;
     private var _oldCaretRowIndex:int = -1;
+    
+    [Bindable("caretRowIndexChanged")]
     
     /**
      *  The row index of the caretIndicator visualElement if
@@ -554,9 +553,9 @@ public class Grid extends Group implements IDataGridElement
     //  hoverIndicator
     //----------------------------------
     
-    [Bindable("hoverIndicatorChanged")]
-    
     private var _hoverIndicator:IFactory = null;
+    
+    [Bindable("hoverIndicatorChanged")]
     
     /**
      *  A single visual element that's displayed for the row under the
@@ -571,7 +570,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get hoverIndicator():IFactory
@@ -596,9 +595,9 @@ public class Grid extends Group implements IDataGridElement
     //  hoverColumnIndex 
     //----------------------------------
     
-    [Bindable("hoverColumnIndexChanged")]
-    
     private var _hoverColumnIndex:int = -1;
+    
+    [Bindable("hoverColumnIndexChanged")]
     
     /**
      *  Specifies column index of the hoverIndicator visualElement if
@@ -635,18 +634,17 @@ public class Grid extends Group implements IDataGridElement
         
         _hoverColumnIndex = value;
         if (hoverIndicator)
-            invalidateDisplayList();         
+            invalidateDisplayList();
         dispatchChangeEvent("hoverColumnIndexChanged");
     }
-    
     
     //----------------------------------
     //  hoverRowIndex
     //----------------------------------
     
-    [Bindable("hoverRowIndexChanged")]
-    
     private var _hoverRowIndex:int = -1;
+
+    [Bindable("hoverRowIndexChanged")]
     
     /**
      *  Specifies column index of the hoverIndicator visualElement if
@@ -691,7 +689,7 @@ public class Grid extends Group implements IDataGridElement
     //  columns
     //----------------------------------    
     
-    private var _columns:IList = null; // list of GridColumns
+    private var _columns:IList = null;
     private var columnsChanged:Boolean = false;
     
     [Bindable("columnsChanged")]
@@ -705,6 +703,11 @@ public class Grid extends Group implements IDataGridElement
      *  @default null
      * 
      *  @see spark.components.Grid#dataProvider
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
      */
     public function get columns():IList
     {
@@ -798,7 +801,6 @@ public class Grid extends Group implements IDataGridElement
         
         return itemColumns;
     }
-   
     
     //----------------------------------
     //  dataProvider
@@ -816,6 +818,11 @@ public class Grid extends Group implements IDataGridElement
      *  @default null
      * 
      *  @see spark.components.Grid#columns
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
      */
     public function get dataProvider():IList
     {
@@ -865,6 +872,11 @@ public class Grid extends Group implements IDataGridElement
      *  @default null
      * 
      *  @see spark.components.gridClasses.GridColumn#dataTipField
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
      */
     public function get dataTipField():String
     {
@@ -880,7 +892,6 @@ public class Grid extends Group implements IDataGridElement
             return;
         
         _dataTipField = value;
-        
         invalidateDisplayList();
         dispatchChangeEvent("dataTipFieldChanged");
     }
@@ -899,6 +910,11 @@ public class Grid extends Group implements IDataGridElement
      *  @default null
      * 
      *  @see spark.components.gridClasses.GridColumn#dataTipField
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
      */
     public function get dataTipFunction():Function
     {
@@ -914,7 +930,6 @@ public class Grid extends Group implements IDataGridElement
             return;
         
         _dataTipFunction = value;
-        
         invalidateDisplayList();        
         dispatchChangeEvent("dataTipFunctionChanged");
     }    
@@ -923,11 +938,10 @@ public class Grid extends Group implements IDataGridElement
     //  itemRenderer
     //----------------------------------
     
-    [Bindable("itemRendererChanged")]
-    
     private var _itemRenderer:IFactory = null;
-    
     private var itemRendererChanged:Boolean = false;
+    
+    [Bindable("itemRendererChanged")]
     
     /**
      *  The item renderer that's used for columns that do not specify one.
@@ -936,7 +950,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5 
      */
     public function get itemRenderer():IFactory
@@ -965,9 +979,9 @@ public class Grid extends Group implements IDataGridElement
     //  columnSeparator
     //----------------------------------
     
-    [Bindable("columnSeparatorChanged")]
-    
     private var _columnSeparator:IFactory = null;
+    
+    [Bindable("columnSeparatorChanged")]
     
     /**
      *  A visual element that's displayed in between each column.
@@ -976,7 +990,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get columnSeparator():IFactory
@@ -1021,7 +1035,6 @@ public class Grid extends Group implements IDataGridElement
         _gridSelection = value;
     }
     
-    
     //----------------------------------
     //  gridDimensions (mx_internal)
     //----------------------------------
@@ -1050,9 +1063,9 @@ public class Grid extends Group implements IDataGridElement
     //  dataGrid
     //----------------------------------
     
-    [Bindable("dataGridChanged")]
-    
     private var _dataGrid:DataGrid = null;
+    
+    [Bindable("dataGridChanged")]
     
     /**
      *  The DataGrid for which this Grid is the grid skin part.
@@ -1061,7 +1074,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get dataGrid():DataGrid
@@ -1106,7 +1119,6 @@ public class Grid extends Group implements IDataGridElement
         gridSelection.preserveSelection = value;
     }
     
-    
     //----------------------------------
     //  requestedMinRowCount
     //----------------------------------
@@ -1131,7 +1143,7 @@ public class Grid extends Group implements IDataGridElement
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get requestedMinRowCount():int
@@ -1173,7 +1185,7 @@ public class Grid extends Group implements IDataGridElement
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4
      */
     public function get requestedRowCount():int
@@ -1192,7 +1204,6 @@ public class Grid extends Group implements IDataGridElement
         _requestedRowCount = value;
         invalidateSize();
     }
-    
     
     //----------------------------------
     //  requestedMinColumnCount
@@ -1218,7 +1229,7 @@ public class Grid extends Group implements IDataGridElement
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get requestedMinColumnCount():int
@@ -1259,7 +1270,7 @@ public class Grid extends Group implements IDataGridElement
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get requestedColumnCount():int
@@ -1333,7 +1344,7 @@ public class Grid extends Group implements IDataGridElement
      *  @see spark.components.gridClasses.GridColumn
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get resizableColumns():Boolean
@@ -1357,9 +1368,9 @@ public class Grid extends Group implements IDataGridElement
     //  rowBackground
     //----------------------------------
     
-    [Bindable("rowBackgroundChanged")]
-    
     private var _rowBackground:IFactory = null;
+    
+    [Bindable("rowBackgroundChanged")]
     
     /**
      *  A visual element that's displayed for each row.  
@@ -1368,7 +1379,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get rowBackground():IFactory
@@ -1393,18 +1404,11 @@ public class Grid extends Group implements IDataGridElement
     //  rowHeight
     //----------------------------------
     
-    /**
-     *  @private
-     */
-    private var _rowHeight:Number = NaN;      
-    
-    /**
-     *  @private
-     */
+    private var _rowHeight:Number = NaN;
     private var rowHeightChanged:Boolean;
     
-    [Inspectable(category="General", minValue="0.0")]            
     [Bindable("rowBackgroundChanged")]
+    [Inspectable(category="General", minValue="0.0")]
     
     /**
      *  If <code>variableRowHeight</code> is <code>false</code>, then 
@@ -1423,7 +1427,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get rowHeight():Number
@@ -1446,14 +1450,13 @@ public class Grid extends Group implements IDataGridElement
         dispatchChangeEvent("rowHeightChanged");            
     }
     
-    
     //----------------------------------
     //  rowSeparator
     //----------------------------------
     
-    [Bindable("rowSeparatorChanged")]
-    
     private var _rowSeparator:IFactory = null;
+    
+    [Bindable("rowSeparatorChanged")]
     
     /**
      *  A visual element that's displayed in between each row.
@@ -1462,7 +1465,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get rowSeparator():IFactory
@@ -1941,9 +1944,9 @@ public class Grid extends Group implements IDataGridElement
     //  selectionIndicator
     //----------------------------------
     
-    [Bindable("selectionIndicatorChanged")]
-    
     private var _selectionIndicator:IFactory = null;
+    
+    [Bindable("selectionIndicatorChanged")]
     
     /**
      *  A visual element that's displayed for each selected row, if
@@ -1957,7 +1960,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get selectionIndicator():IFactory
@@ -2060,7 +2063,6 @@ public class Grid extends Group implements IDataGridElement
         dispatchChangeEvent("selectionModeChanged");
     }
     
-    
     //----------------------------------
     //  showDataTips
     //----------------------------------
@@ -2095,24 +2097,15 @@ public class Grid extends Group implements IDataGridElement
             return;
         
         _showDataTips = value;
-
         invalidateDisplayList();
         dispatchEvent(new Event("showDataTipsChanged"));
     }
-        
     
     //----------------------------------
     //  typicalItem
     //----------------------------------
     
-    /**
-     *  @private
-     */
     private var _typicalItem:Object = null;
-
-    /**
-     *  @private
-     */
     private var typicalItemChanged:Boolean = false;
     
     [Bindable("typicalItemChanged")]
@@ -2129,7 +2122,7 @@ public class Grid extends Group implements IDataGridElement
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get typicalItem():Object
@@ -2172,21 +2165,14 @@ public class Grid extends Group implements IDataGridElement
         typicalItemChanged = true;       
         invalidateProperties();
         invalidateSize();
-        invalidateDisplayList();;
+        invalidateDisplayList();
     }
     
     //----------------------------------
     //  variableRowHeight
     //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _variableRowHeight:Boolean = false;
 
-    /**
-     *  @private
-     */
+    private var _variableRowHeight:Boolean = false;
     private var variableRowHeightChanged:Boolean = false;
     
     [Bindable("variableRowHeightChanged")]
@@ -2201,7 +2187,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get variableRowHeight():Boolean
@@ -2223,7 +2209,6 @@ public class Grid extends Group implements IDataGridElement
         
         dispatchChangeEvent("variableRowHeightChanged");            
     }
-    
     
     //--------------------------------------------------------------------------
     //
@@ -2836,6 +2821,7 @@ public class Grid extends Group implements IDataGridElement
     //-------------------------------------------------------------------------- 
     
     /** 
+     *  @private
      *  Update the scroll position so that the virtual Grid element at the specified
      *  index is visible.   Note that getScrollPositionDeltaToElement() is only 
      *  approximate when variableRowHeight=true, so calling this method once will
@@ -3102,7 +3088,6 @@ public class Grid extends Group implements IDataGridElement
     { 
         return gridDimensions.getCellY(rowIndex, columnIndex);
     }      
-    
     
     /**
      *  @copy spark.components.gridClasses.GridLayout#getItemRendererAt()
@@ -3674,7 +3659,6 @@ public class Grid extends Group implements IDataGridElement
         }            
     }
 
-
     /**
      *  @private
      *  Update hoverRowIndex if necessary.  This method should only be called when 
@@ -3993,6 +3977,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
+     *  @private
      *  Returns the index of the next GridColumn.visible==true column
      *  after index.
      *  Returns -1 if there are no more visible columns.
@@ -4018,6 +4003,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
+     *  @private
      *  Returns the index of the previous GridColumn.visible==true column
      *  before index.
      *  Returns -1 if there are no more visible columns.
