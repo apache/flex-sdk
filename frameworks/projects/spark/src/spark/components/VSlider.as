@@ -12,11 +12,13 @@
 package mx.components
 {
 
+import flash.display.DisplayObject;
 import flash.geom.Point;
 
+import mx.components.baseClasses.FxSlider;
+import mx.core.UIComponent;
 import mx.layout.ILayoutItem;
 import mx.layout.LayoutItemFactory;
-import mx.components.baseClasses.FxSlider;
 
 [IconFile("FxVSlider.png")]
 
@@ -150,6 +152,26 @@ public class FxVSlider extends FxSlider
         var thumbH:Number = thumbLItem.actualSize.y; 
         
         return pointToPosition(localX, localY) + (thumbH / 2);
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function positionDataTip():void
+    {
+    	var tipAsDisplayObject:DisplayObject = dataTipInstance as DisplayObject;
+    	
+    	if (tipAsDisplayObject)
+    	{
+			var relY:Number = thumb.y + (thumb.height - tipAsDisplayObject.height) / 2;
+	        var o:Point = new Point(dataTipOriginalPosition.x, relY);
+	        var r:Point = localToGlobal(o);        
+			r = tipAsDisplayObject.parent.globalToLocal(r);
+			
+			// TODO (jszeto) Change to use ILayoutItem.setActualPosition?
+        	tipAsDisplayObject.x = Math.floor(r.x < 0 ? 0 : r.x);
+        	tipAsDisplayObject.y = Math.floor(r.y < 0 ? 0 : r.y);
+    	}
     }
     
 }
