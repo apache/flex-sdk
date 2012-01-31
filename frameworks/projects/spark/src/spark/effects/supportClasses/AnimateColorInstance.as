@@ -9,14 +9,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.effects.effectClasses
+package spark.effects.supportClasses
 {
-import mx.effects.AnimationProperty;
-import mx.effects.interpolation.RGBInterpolator;
+import spark.effects.AnimationProperty;
+import spark.effects.interpolation.RGBInterpolator;
 import mx.styles.StyleManager;
 
 /**
- * The instance of the FxAnimateColor effect, which animates a change in
+ * The instance of the AnimateColor effect, which animates a change in
  * color by interpolating the from/to values per color channel
  *  
  *  @langversion 3.0
@@ -24,10 +24,10 @@ import mx.styles.StyleManager;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxAnimateColorInstance extends FxAnimateInstance
+public class AnimateColorInstance extends AnimateInstance
 {
     /**
-     * copy mx.effects.FxAnimateColor#colorFrom
+     * copy mx.effects.AnimateColor#colorFrom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -37,7 +37,7 @@ public class FxAnimateColorInstance extends FxAnimateInstance
     public var colorFrom:uint;
 
     /**
-     * copy mx.effects.FxAnimateColor#colorTo
+     * copy mx.effects.AnimateColor#colorTo
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -47,7 +47,7 @@ public class FxAnimateColorInstance extends FxAnimateInstance
     public var colorTo:uint;
 
     /**
-     * copy mx.effects.FxAnimateColor#colorPropertyName
+     * copy mx.effects.AnimateColor#colorPropertyName
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -56,7 +56,7 @@ public class FxAnimateColorInstance extends FxAnimateInstance
      */
     public var colorPropertyName:String;
 
-    public function FxAnimateColorInstance(target:Object)
+    public function AnimateColorInstance(target:Object)
     {
         super(target);
     }
