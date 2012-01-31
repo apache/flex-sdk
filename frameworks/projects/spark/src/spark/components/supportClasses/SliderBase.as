@@ -125,22 +125,14 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 
     private var animator:Animation = null;
     
+    private var dataTipInitialPosition:Point;
+    
+    private var dataTipInstance:IDataRenderer;
     //--------------------------------------------------------------------------
     //
     // Properties
     //
     //-------------------------------------------------------------------------- 	
-
-	/**
-	 *  The dataTip instance used by subclasses to control its behavior. The instance
-	 *  is non-null only when the dataTip has been popped up.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	protected var dataTipInstance:IDataRenderer;
 
 	//--------------------------------- 
     // dataTipformatFunction
@@ -186,17 +178,6 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 	{
 		return _dataTipFormatFunction;
 	}
-	
-	/**
-	 *  Starting position of the dataTip. Used by subclasses to 
-	 *  position the dataTip. 
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	protected var dataTipOriginalPosition:Point;
 	
 	//--------------------------------- 
     // dataTipPrecision
@@ -353,15 +334,17 @@ public class Slider extends TrackBase implements IFocusManagerComponent
    
     /**
      *  Used to position the data tip when it is visible. Subclasses must implement
-     *  this function and can use the dataTipOriginalPosition and dataTipInstance
-     *  properties. 
+     *  this function. 
      *  
+     *  @param dataTipInstance The dataTip instance to update and position
+     *  @param initialPosition The initial position of the dataTip in the skin
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function positionDataTip():void
+    protected function updateDataTip(dataTipInstance:IDataRenderer, initialPosition:Point):void
     {
 		// Override in the subclasses
     }
@@ -399,7 +382,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 	        dataTipInstance.data = formatDataTipText(value);
 	        
 	        // Force the dataTip to render so that we have the correct size since
-	        // positionDataTip might need the size
+	        // updateDataTip might need the size
 	        var tipAsUIComponent:UIComponent = dataTipInstance as UIComponent; 
 	        if (tipAsUIComponent)
 	        {
@@ -408,9 +391,9 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 	        								   tipAsUIComponent.getExplicitOrMeasuredHeight());
 	        }
 	        
-	        dataTipOriginalPosition = new Point(DisplayObject(dataTipInstance).x, 
+	        dataTipInitialPosition = new Point(DisplayObject(dataTipInstance).x, 
 	        									DisplayObject(dataTipInstance).y);   
-	        positionDataTip();
+	        updateDataTip(dataTipInstance, dataTipInitialPosition);
         }
     }
 
@@ -440,7 +423,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 	        dataTipInstance.data = formatDataTipText(pendingValue);
 	        
 	        // Force the dataTip to render so that we have the correct size since
-	        // positionDataTip might need the size
+	        // updateDataTip might need the size
 	        var tipAsUIComponent:UIComponent = dataTipInstance as UIComponent; 
 	        if (tipAsUIComponent)
 	        {
@@ -448,7 +431,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 	        	tipAsUIComponent.setActualSize(tipAsUIComponent.getExplicitOrMeasuredWidth(),tipAsUIComponent.getExplicitOrMeasuredHeight());
 	        }
 	        
-			positionDataTip();
+			updateDataTip(dataTipInstance, dataTipInitialPosition);
         }
         
         event.updateAfterEvent();
