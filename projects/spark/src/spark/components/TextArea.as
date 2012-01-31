@@ -18,7 +18,7 @@ import flash.events.FocusEvent;
 import flex.component.TextView;
 import flex.events.TextOperationEvent;
 
-import text.model.LineBreak;
+import text.formats.LineBreak;
 
 [DefaultProperty("content")]
 
