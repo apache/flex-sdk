@@ -566,42 +566,46 @@ public class ScrollerLayout extends LayoutBase
         switch(scroller.getStyle("horizontalScrollPolicy")) 
         {
             case ScrollPolicy.ON: 
+				_canScrollHorizontally = true;
                 hsbVisible = true;
                 break;
 
             case ScrollPolicy.AUTO: 
-                if (hsb && viewport)
+                if (viewport)
                 {
                     hAuto = true;
-                    hsbVisible = (contentW >= (viewportW + SDT));
+					_canScrollHorizontally = (contentW >= (viewportW + SDT));
+                    hsbVisible = (hsb && _canScrollHorizontally);
                 } 
                 break;
             
             default:
+				_canScrollHorizontally = false;
                 hsbVisible = false;
         }
-        _canScrollHorizontally = hsbVisible;
 
         var vAuto:Boolean = false;
         var vsbTakeUpSpace:Boolean = true; // if visible
         switch(scroller.getStyle("verticalScrollPolicy")) 
         {
            case ScrollPolicy.ON: 
-                vsbVisible = true; 
+                _canScrollVertically = true;
+                vsbVisible = true;
                 break;
 
             case ScrollPolicy.AUTO: 
-                if (vsb && viewport)
+                if (viewport)
                 { 
                     vAuto = true;
-                    vsbVisible = (contentH >= (viewportH + SDT));
+					_canScrollVertically = (contentH >= (viewportH + SDT));
+                    vsbVisible = (vsb && _canScrollVertically);
                 }                        
                 break;
             
             default:
+                _canScrollVertically = false;
                 vsbVisible = false;
         }
-        _canScrollVertically = vsbVisible;
         
         // if in touch mode, only show scrollbars if a scroll is currently in progress
         if (scroller.getStyle("interactionMode") == InteractionMode.TOUCH)
