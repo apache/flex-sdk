@@ -4054,7 +4054,7 @@ public class Grid extends Group implements IDataGridElement
             if (clearTypicalSizes)
                 gridDimensions.clearTypicalCellWidthsAndHeights();
             
-            gridDimensions.clear();
+            gridDimensions.clearHeights();
             
             // Reset row count because dataProvider length may have changed.
             gridDimensions.rowCount = _dataProvider ? _dataProvider.length : 0;
