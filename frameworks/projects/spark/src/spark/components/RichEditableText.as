@@ -302,7 +302,7 @@ public class TextView extends UIComponent implements IViewport
      */
     private var _contentHeight:Number = 0;
 
-    [Bindable("contentSizeChanged")]
+    [Bindable("propertyChange")]
     
     /**
      *  Documentation is not currently available.
@@ -321,7 +321,7 @@ public class TextView extends UIComponent implements IViewport
      */
     private var _contentWidth:Number = 0;
 
-    [Bindable("contentSizeChanged")]
+    [Bindable("propertyChange")]
     
     /**
      *  Documentation is not currently available.
@@ -387,7 +387,7 @@ public class TextView extends UIComponent implements IViewport
      */
     private var horizontalScrollPositionChanged:Boolean = false;
  
-    [Bindable("scrollPositionChanged")]
+    [Bindable("propertyChange")]
     
     /**
      *  Documentation is not currently available.
@@ -589,7 +589,7 @@ public class TextView extends UIComponent implements IViewport
      */
     private var verticalScrollPositionChanged:Boolean = false;
  
-    [Bindable("scrollPositionChanged")]
+    [Bindable("propertyChange")]
     
     /**
      *  Documentation is not currently available.
@@ -1102,13 +1102,13 @@ public class TextView extends UIComponent implements IViewport
      *  that you want returned; if you don't, all attributes will be returned.
      *  If you don't specify a range, the selected range is used.
      *  For example, calling
-     *  <code>getAttributes()</code>
+     *  <code>getSelectionFormat()</code>
      *  might return <code>({ fontSize: 12, color: null })</code>
      *  if the selection is uniformly 12-point but has multiple colors.
      *  The supported attributes are those in the
      *  ICharacterAttributes and IParagraphAttributes interfaces.
      */
-    public function getAttributes(names:Array = null):Object
+    public function getSelectionFormat(names:Array = null):Object
     {
         var selectionManager:ISelectionManager = textFlow.interactionManager;
                 
@@ -1187,12 +1187,12 @@ public class TextView extends UIComponent implements IViewport
      *  A value of null does not get applied.
      *  If you don't specify a range, the selected range is used.
      *  For example, calling
-     *  <code>setAttributes({ fontSize: 12, color: 0xFF0000 })</code>
+     *  <code>setSelectionFormat({ fontSize: 12, color: 0xFF0000 })</code>
      *  will set the fontSize and color of the selection.
      *  The supported attributes are those in the
      *  ICharacterFormat and IParagraphFormat interfaces.
      */
-    public function setAttributes(attributes:Object):void
+    public function setSelectionFormat(attributes:Object):void
     {
         var containerFormat:ContainerFormat;
         var paragraphFormat:ParagraphFormat;
@@ -1249,16 +1249,24 @@ public class TextView extends UIComponent implements IViewport
         var containerController:IContainerController =
             textFlow.flowComposer.getControllerAt(0);
 
+        var oldContentWidth:Number = _contentWidth;
         var newContentWidth:Number = containerController.contentWidth;
-        var newContentHeight:Number = containerController.contentHeight;
-        
-        if (newContentWidth != _contentWidth ||
-            newContentHeight != _contentHeight)
+        if (newContentWidth != oldContentWidth)
         {
             _contentWidth = newContentWidth;
-            _contentHeight = newContentHeight;
+            
+            dispatchPropertyChangeEvent(
+                "contentWidth", oldContentWidth, newContentWidth);
+        }
         
-            dispatchEvent(new Event("contentSizeChanged"));
+        var oldContentHeight:Number = _contentHeight;
+        var newContentHeight:Number = containerController.contentHeight;
+        if (newContentHeight != oldContentHeight)
+        {
+            _contentHeight = newContentHeight;
+            
+            dispatchPropertyChangeEvent(
+                "contentHeight", oldContentHeight, newContentHeight);
         }
     }
     
@@ -1272,18 +1280,26 @@ public class TextView extends UIComponent implements IViewport
         var containerController:IContainerController =
             textFlow.flowComposer.getControllerAt(0);
 
+        var oldHorizontalScrollPosition:Number = _horizontalScrollPosition;
         var newHorizontalScrollPosition:Number =
             containerController.horizontalScrollPosition;
-        var newVerticalScrollPosition:Number =
-            containerController.verticalScrollPosition;
-
-        if (newHorizontalScrollPosition != _horizontalScrollPosition ||
-            newVerticalScrollPosition != _verticalScrollPosition)
+        if (newHorizontalScrollPosition != oldHorizontalScrollPosition)
         {
             _horizontalScrollPosition = newHorizontalScrollPosition;
+            
+            dispatchPropertyChangeEvent("horizontalScrollPosition",
+                oldHorizontalScrollPosition, newHorizontalScrollPosition);
+        }
+        
+        var oldVerticalScrollPosition:Number = _verticalScrollPosition;
+        var newVerticalScrollPosition:Number =
+            containerController.verticalScrollPosition;
+        if (newVerticalScrollPosition != oldVerticalScrollPosition)
+        {
             _verticalScrollPosition = newVerticalScrollPosition;
-
-            dispatchEvent(new Event("scrollPositionChanged"))
+            
+            dispatchPropertyChangeEvent("verticalScrollPosition",
+                oldVerticalScrollPosition, newVerticalScrollPosition);
         }
     }
 
