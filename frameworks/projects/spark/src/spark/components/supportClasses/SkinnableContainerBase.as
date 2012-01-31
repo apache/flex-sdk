@@ -38,6 +38,12 @@ import mx.managers.IFocusManagerContainer;
  */
 [SkinState("disabled")]
 
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="focusThickness", kind="style")]
+
 /**
  *  Base class for skinnable container components.
  *  
