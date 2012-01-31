@@ -170,31 +170,6 @@ public class Spinner extends Range implements IFocusManagerComponent
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden properties: UIComponent
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  enabled
-    //----------------------------------
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function set enabled(value:Boolean):void
-    {
-        super.enabled = value;
-        enableSkinParts(value);
-        invalidateSkinState();
-    }
-
-    //--------------------------------------------------------------------------
-    //
     // Properties
     //
     //--------------------------------------------------------------------------
@@ -273,8 +248,6 @@ public class Spinner extends Range implements IFocusManagerComponent
                                         decrementButton_buttonDownHandler);
             decrementButton.autoRepeat = true;
         }
-        
-        enableSkinParts(enabled);
     }
 
     /**
@@ -292,22 +265,6 @@ public class Spinner extends Range implements IFocusManagerComponent
             decrementButton.removeEventListener(FlexEvent.BUTTON_DOWN, 
                                            decrementButton_buttonDownHandler);
         }
-    }
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function enableSkinParts(value:Boolean):void
-    {
-        if (incrementButton)
-            incrementButton.enabled = value;
-        if (decrementButton)
-            decrementButton.enabled = value;
     }
     
     /**
