@@ -421,17 +421,6 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     //  Methods
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  The radio button was added or removed from a radio button group or the
-     *  radio button group was enabled/disabled.  All of these events can impact
-     *  the skin state.
-     */
-    mx_internal function invalidateSkinState():void
-    {        
-        invalidateSkinState();
-    }    
     
     /**
      *  @private
