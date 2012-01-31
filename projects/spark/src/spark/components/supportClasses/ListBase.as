@@ -417,6 +417,10 @@ public class ListBase extends SkinnableDataContainer
     /**
      *  The name of the field in the data provider items to display 
      *  as the label. 
+     * 
+     *  If labelField is set to an empty string (""), no field will 
+     *  be considered on the data provider to represent label.
+     * 
      *  The <code>labelFunction</code> property overrides this property.
      *
      *  @default "label" 
