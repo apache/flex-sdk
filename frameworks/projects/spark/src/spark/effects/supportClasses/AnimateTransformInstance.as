@@ -462,10 +462,13 @@ public class AnimateTransformInstance extends AnimateInstance
                     for (j = 0; j < animProp.keyframes.length; ++j)
                     {
                         var kf:Keyframe = animProp.keyframes[j];
-                        if (animProp.property == "translationX")
-                            kf.value += transformCenter.x;
-                        else
-                            kf.value += transformCenter.y;
+                        if (isValidValue(kf.value))
+                        {
+                            if (animProp.property == "translationX")
+                                kf.value += transformCenter.x;
+                            else
+                                kf.value += transformCenter.y;
+                        }
                     }
                 }
             }
@@ -651,7 +654,7 @@ public class AnimateTransformInstance extends AnimateInstance
                 currentValues.scaleX : target["scaleX"];
             scale.y = !isNaN(currentValues.scaleY) ?
                 currentValues.scaleY : target["scaleY"];
-            scale.z = !isNaN(currentValues.scaleY) ?
+            scale.z = !isNaN(currentValues.scaleZ) ?
                 currentValues.scaleZ : target["scaleZ"];
             tmpScale = scale;
         }
