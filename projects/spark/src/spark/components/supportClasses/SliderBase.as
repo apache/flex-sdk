@@ -218,35 +218,35 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
 
-    /**
-     *  @private
-     */
+	/**
+	 *  @private
+	 */
     private var dataFormatter:NumberFormatter;
 
-    /**
-     *  @private
-     */
+	/**
+	 *  @private
+	 */
     private var animator:Animation = null;
     
-    /**
-     *  @private
-     */
+	/**
+	 *  @private
+	 */
     private var dataTipInitialPosition:Point;
     
-    /**
-     *  @private
-     */
+	/**
+	 *  @private
+	 */
     private var dataTipInstance:IDataRenderer;
 
-    /**
-     *  @private
-     */
+	/**
+	 *  @private
+	 */
     private var slideToValue:Number;
-    
-    /**
-     *  @private
-     */
-    private var isKeyDown:Boolean = false;
+	
+	/**
+	 *  @private
+	 */
+	private var isKeyDown:Boolean = false;
 
     /**
      *  @private
@@ -294,9 +294,9 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     //  dataTipformatFunction
     //---------------------------------
 
-    /**
-     *  @private
-     */
+	/**
+	 *  @private
+	 */
     private var _dataTipFormatFunction:Function;
     
     /**
@@ -333,9 +333,9 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         return _dataTipFormatFunction;
     }
 
-    /**
-     *  @private
-     */
+	/**
+	 *  @private
+	 */
     public function set dataTipFormatFunction(value:Function):void
     {
         _dataTipFormatFunction = value;
@@ -492,7 +492,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         // Don't draw the error skin
     }
 
-    //--------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
     //
     //  Methods
     //
@@ -547,41 +547,39 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      */
     private function animationUpdateHandler(animation:Animation):void
     {
-        // FIXME (klin): Should the animation be setting the value
-        // as it goes like ScrollBar does? Should this behavior
-        // depend on liveDragging?
+		// FIXME (klin): Should the animation be setting the value
+		// as it goes like ScrollBar does? Should this behavior
+		// depend on liveDraggin?
         pendingValue = animation.currentValue["value"];
     }
     
     /**
      *  @private
      *  Handles end event from the Animation that runs the animated slide.
-     *  We dispatch the "changeEnd" event at this time, after the animation
+     *  We dispatch the "change" event at this time, after the animation
      *  is done since each animation occurs after a user interaction.
      */
     private function animationEndHandler(animation:Animation):void
     {
         setValue(slideToValue);
-        
+
         dispatchEvent(new Event(Event.CHANGE));
-        dispatchEvent(new FlexEvent(FlexEvent.CHANGE_END));
     }
-    
-    /**
-     *  @private
-     *  Stops a running animation prematurely and sets the value
-     *  of the slider to the current pendingValue. We also dispatch
-     *  a "changeEnd" event since the user has started another interaction.
-     */
-    private function stopAnimation():void
-    {
-        animator.stop();
-        
-        setValue(nearestValidValue(pendingValue, snapInterval));
-        
-        dispatchEvent(new Event(Event.CHANGE));
-        dispatchEvent(new FlexEvent(FlexEvent.CHANGE_END));
-    }
+	
+	/**
+	 *  @private
+	 *  Stops a running animation prematurely and sets the value
+	 *  of the slider to the current pendingValue. We also dispatch
+	 *  a "change" event since the user has started another interaction.
+	 */
+	private function stopAnimation():void
+	{
+		animator.stop();
+
+		setValue(nearestValidValue(pendingValue, snapInterval));
+
+		dispatchEvent(new Event(Event.CHANGE));
+	}
 
     //--------------------------------------------------------------------------
     // 
@@ -594,32 +592,32 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      */
     override protected function thumb_mouseDownHandler(event:MouseEvent):void
     {
-        // finish previous animation
-        if (animator && animator.isPlaying)
-            stopAnimation();
-        
+		// finish previous animation
+		if (animator && animator.isPlaying)
+			stopAnimation();
+		
         super.thumb_mouseDownHandler(event);
         clickOffset = thumb.globalToLocal(new Point(event.stageX, event.stageY));
-                
+				
         // Popup a dataTip only if we have a SkinPart and the boolean flag is true
         if (dataTip && showDataTip && enabled)
         {
             dataTipInstance = IDataRenderer(createDynamicPartInstance("dataTip"));
-            
-            dataTipInstance.data = formatDataTipText(
-                nearestValidValue(pendingValue, snapInterval));
-            
-            var tipAsUIComponent:UIComponent = dataTipInstance as UIComponent;
-            
-            // Allow styles to be inherited from Slider.
-            if (tipAsUIComponent)
-            {
-                tipAsUIComponent.owner = this;
-                tipAsUIComponent.isPopUp = true;
-            }
+			
+			dataTipInstance.data = formatDataTipText(
+				nearestValidValue(pendingValue, snapInterval));
+			
+			var tipAsUIComponent:UIComponent = dataTipInstance as UIComponent;
+			
+			// Allow styles to be inherited from Slider.
+			if (tipAsUIComponent)
+			{
+				tipAsUIComponent.owner = this;
+				tipAsUIComponent.isPopUp = true;
+			}
 
-            systemManager.toolTipChildren.addChild(DisplayObject(dataTipInstance));
-            
+			systemManager.toolTipChildren.addChild(DisplayObject(dataTipInstance));
+			
             // Force the dataTip to render so that we have the correct size since
             // updateDataTip might need the size
             if (tipAsUIComponent)
@@ -648,14 +646,9 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         {
             dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_DRAG));
             if (getStyle("liveDragging") === true)
-            {
                 setValue(newValue);
-                dispatchEvent(new Event(Event.CHANGE));
-            }
             else
-            {
                 pendingValue = newValue;
-            }
         }
                   
         if (dataTipInstance && showDataTip)
@@ -683,10 +676,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     override protected function system_mouseUpHandler(event:Event):void
     {
         if ((getStyle("liveDragging") === false) && (value != pendingValue))
-        {
             setValue(pendingValue);
-            dispatchEvent(new Event(Event.CHANGE));
-        }
 
         if (dataTipInstance)
         {
@@ -704,9 +694,9 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      *  decreases the value by stepSize. The opposite for
      *  Right/Up arrows. The Home and End keys set the value
      *  to the min and max respectively.
-     *  
-     *  We dispatch changing events when the keystroke 
-     *  may both repeat and alter the value.
+	 *  
+	 *  We dispatch changing events when the keystroke 
+	 *  may both repeat and alter the value.
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
@@ -716,8 +706,8 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             return;
 
         if (animator && animator.isPlaying)
-            stopAnimation();
-        
+			stopAnimation();
+		
         // FIXME (hmuller): Provide a way to easily override the keyboard
         // behavior. This means having a callback in the subclasses
         // that tell the superclass all the positions in an array
@@ -731,18 +721,17 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             case Keyboard.DOWN:
             case Keyboard.LEFT:
             {
-                newValue = nearestValidValue(pendingValue - stepSize, snapInterval);
-                
-                if (prevValue != newValue)
-                {
-                    if (!isKeyDown)
-                    {
-                        dispatchEvent(new FlexEvent(FlexEvent.CHANGE_START));
-                        isKeyDown = true;
-                    }
-                    setValue(newValue);
-                    dispatchEvent(new Event(Event.CHANGE));
-                }
+				newValue = nearestValidValue(pendingValue - stepSize, snapInterval);
+				
+				if (prevValue != newValue)
+				{
+					if (!isKeyDown)
+					{
+						dispatchEvent(new FlexEvent(FlexEvent.CHANGING));
+						isKeyDown = true;
+					}
+					setValue(newValue);
+				}
                 event.preventDefault();
                 break;
             }
@@ -750,18 +739,17 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             case Keyboard.UP:
             case Keyboard.RIGHT:
             {
-                newValue = nearestValidValue(pendingValue + stepSize, snapInterval);
-                
-                if (prevValue != newValue)
-                {
-                    if (!isKeyDown)
-                    {
-                        dispatchEvent(new FlexEvent(FlexEvent.CHANGE_START));
-                        isKeyDown = true;
-                    }
-                    setValue(newValue);
-                    dispatchEvent(new Event(Event.CHANGE));
-                }
+				newValue = nearestValidValue(pendingValue + stepSize, snapInterval);
+				
+				if (prevValue != newValue)
+				{
+					if (!isKeyDown)
+					{
+						dispatchEvent(new FlexEvent(FlexEvent.CHANGING));
+						isKeyDown = true;
+					}
+                	setValue(newValue);
+				}
                 event.preventDefault();
                 break;
             }
@@ -769,8 +757,8 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             case Keyboard.HOME:
             {
                 value = minimum;
-                if (value != prevValue)
-                    dispatchEvent(new Event(Event.CHANGE));
+				if (value != prevValue)
+					dispatchEvent(new Event(Event.CHANGE));
                 event.preventDefault();
                 break;
             }
@@ -778,40 +766,40 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             case Keyboard.END:
             {
                 value = maximum;
-                if (value != prevValue)
-                    dispatchEvent(new Event(Event.CHANGE));
+				if (value != prevValue)
+					dispatchEvent(new Event(Event.CHANGE));
                 event.preventDefault();
                 break;
             }
         }
     }
-    
-    /**
-     *  @private
-     *  Handle keyboard release events. Allows us to send out changeEnd
-     *  event.
-     */
-    override protected function keyUpHandler(event:KeyboardEvent) : void
-    {
-        switch (event.keyCode)
-        {
-            case Keyboard.DOWN:
-            case Keyboard.LEFT:
-            case Keyboard.UP:
-            case Keyboard.RIGHT:
-            {
-                if (isKeyDown)
-                {
-                    // Dispatch "change" event only after a repeat occurs.
-                    dispatchEvent(new FlexEvent(FlexEvent.CHANGE_END));
-                    isKeyDown = false;
-                }
-                event.preventDefault();
-                break;
-            }
-        }
-    }
-        
+	
+	/**
+	 *  @private
+	 *  Handle keyboard release events. Allows us to send out exactly
+	 *  one change event per user gesture.
+	 */
+	override protected function keyUpHandler(event:KeyboardEvent) : void
+	{
+		switch (event.keyCode)
+		{
+			case Keyboard.DOWN:
+			case Keyboard.LEFT:
+			case Keyboard.UP:
+			case Keyboard.RIGHT:
+			{
+				if (isKeyDown)
+				{
+					// Dispatch "change" event only after a repeat occurs.
+					dispatchEvent(new Event(Event.CHANGE));
+					isKeyDown = false;
+				}
+				event.preventDefault();
+				break;
+			}
+		}
+	}
+	    
     /**
      *  @private
      *  Handle mouse-down events for the slider track. We
@@ -849,11 +837,11 @@ public class Slider extends TrackBase implements IFocusManagerComponent
                     // FIXME (chaase): hard-coding easer for now - how to style it?
                     animator.easer = new Sine(0);
                 }
-                
-                // Finish any current animation before we start the next one.
-                if (animator.isPlaying)
-                    stopAnimation();
-                
+				
+				// Finish any current animation before we start the next one.
+				if (animator.isPlaying)
+					stopAnimation();
+				
                 // holds the final value to be set when animation ends
                 slideToValue = newValue;
                 animator.duration = slideDuration * 
@@ -861,7 +849,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
                 animator.motionPaths = new <MotionPath>[
                     new SimpleMotionPath("value", pendingValue, slideToValue)];
                 
-                dispatchEvent(new FlexEvent(FlexEvent.CHANGE_START));
+                dispatchEvent(new FlexEvent(FlexEvent.CHANGING));
                 animator.play();
             }
             else
