@@ -2194,25 +2194,31 @@ public class VideoPlayer extends SkinnableComponent
                 x: this.x,
                 y: this.y,
                 explicitWidth: this.explicitWidth,
-                explicitHeight: this.explicitHeight};
+                explicitHeight: this.explicitHeight,
+                percentWidth: this.percentWidth,
+                percentHeight: this.percentHeight,
+                isPopUp: this.isPopUp};
             
             pauseWhenHidden = false;
             
-            // remove from old parent
-            if (parent is IVisualElementContainer)
+            if (!isPopUp)
             {
-                var ivec:IVisualElementContainer = IVisualElementContainer(parent);
-                beforeFullScreenInfo.childIndex = ivec.getElementIndex(this);
-                ivec.removeElement(this);
+                // remove from old parent
+                if (parent is IVisualElementContainer)
+                {
+                    var ivec:IVisualElementContainer = IVisualElementContainer(parent);
+                    beforeFullScreenInfo.childIndex = ivec.getElementIndex(this);
+                    ivec.removeElement(this);
+                }
+                else
+                {
+                    beforeFullScreenInfo.childIndex = parent.getChildIndex(this);
+                    parent.removeChild(this);
+                }
+                
+                // add as a popup
+                PopUpManager.addPopUp(this, FlexGlobals.topLevelApplication as DisplayObject, false, null, moduleFactory);
             }
-            else
-            {
-                beforeFullScreenInfo.childIndex = parent.getChildIndex(this);
-                parent.removeChild(this);
-            }
-            
-            // add as a popup
-            PopUpManager.addPopUp(this, FlexGlobals.topLevelApplication as DisplayObject);
             
             // Resize the component to be the full screen of the stage.
             // Push the component at (0,0).  It should be on top of everything 
@@ -2220,7 +2226,8 @@ public class VideoPlayer extends SkinnableComponent
             setLayoutBoundsSize(screenBounds.width, screenBounds.height, true);
             // set the explicit width/height to make sure this value sticks regardless 
             // of any other code or layout passes.  Calling setLayoutBoundsSize() before hand
-            // allows us to use postLayout width/height
+            // allows us to use postLayout width/height.
+            // Setting explictWidth/Height sets percentWidth/Height to NaN. 
             this.explicitWidth = width;
             this.explicitHeight = height;
             setLayoutBoundsPosition(0, 0, true);
@@ -2353,6 +2360,8 @@ public class VideoPlayer extends SkinnableComponent
         this.y = beforeFullScreenInfo.y;
         this.explicitWidth = beforeFullScreenInfo.explicitWidth;
         this.explicitHeight = beforeFullScreenInfo.explicitHeight;
+        this.percentWidth = beforeFullScreenInfo.percentWidth;
+        this.percentHeight = beforeFullScreenInfo.percentHeight;
         
         // sometimes there's no video object currently or there might not've been a 
         // video object when we went in to fullScreen mode.  There may be no videoObject
@@ -2363,15 +2372,18 @@ public class VideoPlayer extends SkinnableComponent
             videoDisplay.videoObject.deblocking = beforeFullScreenInfo.deblocking;
         }
         
-        // remove from top level application:
-        PopUpManager.removePopUp(this);
-        
-        // add back to original parent
-        if (beforeFullScreenInfo.parent is IVisualElementContainer)
-            beforeFullScreenInfo.parent.addElementAt(this, beforeFullScreenInfo.childIndex);
-        else
-            beforeFullScreenInfo.parent.addChildAt(this, beforeFullScreenInfo.childIndex);
-        
+        if (!beforeFullScreenInfo.isPopUp)
+        {
+            // remove from top level application:
+            PopUpManager.removePopUp(this);
+            
+            // add back to original parent
+            if (beforeFullScreenInfo.parent is IVisualElementContainer)
+                beforeFullScreenInfo.parent.addElementAt(this, beforeFullScreenInfo.childIndex);
+            else
+                beforeFullScreenInfo.parent.addChildAt(this, beforeFullScreenInfo.childIndex);
+        }
+
         // want to update pauseWhenHidden, but can't do it here
         // b/c the AIR window thinks it's invisible at this point
         // if we're on a Mac (a bug), so let's just defer this check
