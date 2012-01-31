@@ -30,6 +30,25 @@ import spark.globalization.SortingCollator;
 
 [ResourceBundle("collections")]
 
+//--------------------------------------
+//  Styles
+//--------------------------------------
+
+/**
+ *  The locale identifier that specifies the language, region, script
+ *  and optionally other related tags and keys.
+ *  The syntax of this identifier must follow the syntax defined
+ *  by the Unicode Technical Standard #35 (e.g. en-US, de-DE, zh-Hans-CN)
+ * 
+ *  @see http://www.unicode.org/reports/tr35/
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="locale", type="String", inherit="yes")]
+
 /**
  *  Provides the sorting information required to establish a sort on a field
  *  or property in a collection view.
@@ -365,7 +384,7 @@ public class SortField extends AdvancedStyleClient implements ISortField
     /**
      *  @inheritDoc
      *
-     *  @default false
+     *  @default null
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
