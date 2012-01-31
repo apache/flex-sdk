@@ -212,6 +212,22 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
                radioButtonGroup.enabled;
     }
     
+    //----------------------------------
+    //  suggestedFocusSkinExclusions
+    //----------------------------------
+    /** 
+     * @private 
+     */     
+    private static const focusExclusions:Array = ["labelDisplay"];
+    
+    /**
+     *  @private
+     */
+    override public function get suggestedFocusSkinExclusions():Array
+    {
+        return focusExclusions;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Properties
