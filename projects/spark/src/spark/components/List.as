@@ -9,23 +9,24 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.ui.Keyboard;
 
-import mx.components.baseClasses.FxListBase;
+import spark.components.supportClasses.ListBase;
 import mx.core.ClassFactory; 
-import mx.components.IItemRenderer;  
+import spark.components.IItemRenderer;
+import spark.components.supportClasses.ItemRenderer;  
 import mx.core.IVisualElement;
-import mx.events.RendererExistenceEvent;
+import spark.events.RendererExistenceEvent;
 import mx.events.FlexEvent;
-import mx.layout.HorizontalLayout;
-import mx.layout.VerticalLayout;
+import spark.layout.HorizontalLayout;
+import spark.layout.VerticalLayout;
 import mx.managers.IFocusManagerComponent;
-import mx.skins.spark.FxDefaultItemRenderer;
+import spark.skins.default.DefaultItemRenderer;
 
 
 /**
@@ -82,11 +83,11 @@ import mx.skins.spark.FxDefaultItemRenderer;
 //  Other metadata
 //--------------------------------------
 
-[IconFile("FxList.png")]
+[IconFile("List.png")]
 [DefaultTriggerEvent("selectionChanged")]
 
 /**
- *  The FxList control displays a vertical list of items.
+ *  The List control displays a vertical list of items.
  *  Its functionality is very similar to that of the SELECT
  *  form element in HTML.
  *  If there are more items than can be displayed at once, it
@@ -97,14 +98,14 @@ import mx.skins.spark.FxDefaultItemRenderer;
  *  The user can select one or more items from the list, depending
  *  on the value of the <code>allowMultipleSelection</code> property.
  *
- *  @includeExample examples/FxListExample.mxml
+ *  @includeExample examples/ListExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxList extends FxListBase implements IFocusManagerComponent
+public class List extends ListBase implements IFocusManagerComponent
 {
     include "../core/Version.as";
 
@@ -128,13 +129,13 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxList()
+    public function List()
     {
         super();
         
         // This listener handles the arrow keys.   It runs at capture time 
         // so that can cancel - Event.preventDefault() - events we've processed
-        // before they're seen by the skin's FxScroller
+        // before they're seen by the skin's Scroller
         addEventListener(KeyboardEvent.KEY_DOWN, list_keyDownHandler, true);
     }
     
