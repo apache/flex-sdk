@@ -21,6 +21,7 @@ import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 
+import spark.components.DataGrid;
 import spark.components.Grid;
 import spark.components.GridColumnHeaderGroup;
 import spark.components.Group;
@@ -646,8 +647,10 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         
         const columnHeaderGroup:GridColumnHeaderGroup = columnHeaderGroup;
 
-        if (columnHeaderGroup.dataGrid)
-            renderer.owner = grid.dataGrid;        
+        const dataGrid:DataGrid = columnHeaderGroup.dataGrid;
+        if (dataGrid)
+            renderer.owner = dataGrid;
+        
         renderer.hovered = columnIndex == columnHeaderGroup.hoverColumnIndex;
         renderer.down = columnIndex == columnHeaderGroup.downColumnIndex;
     }
