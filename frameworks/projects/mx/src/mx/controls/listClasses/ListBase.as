@@ -234,7 +234,7 @@ include "../../styles/metadata/PaddingStyles.as"
 /**
  *  The easingFunction for the selection effect.
  *  When an item is selected an effect plays as the background is colored.
- *  The default is a linear fade in of the color.  An easingFunction can be used 
+ *  The default is a linear fade in of the color. An easingFunction can be used 
  *  for controlling the selection effect.
  *
  *  @default undefined
@@ -473,7 +473,7 @@ public class ListBase extends ScrollControlBase
      *  the iterator's position is not valid (not positioned at the topmost
      *  item being displayed).
      *  If the component gets a page fault (an ItemPending error), 
-     *  it sets <code>iteratorValid</code> to <code>false</code>.  Code that
+     *  it sets <code>iteratorValid</code> to <code>false</code>. Code that
      *  normally handles the rendering of items checks this flag and does not 
      *  run until the page of data comes in from the server.
      */
@@ -513,7 +513,6 @@ public class ListBase extends ScrollControlBase
     /**
      *  The set of styles to pass from the ListBase to the listContent.
      *  @see mx.styles.StyleProxy
-     *  @review
      */
     protected function get listContentStyleFilters():Object
     {
@@ -558,7 +557,7 @@ public class ListBase extends ScrollControlBase
     /**
      *  A map of item renderers by factory.
      *  This property is a Dictionary indexed by itemRenderers
-     *  where the values are IFactory
+     *  where the values are IFactory.
      *
      */
     protected var factoryMap:Dictionary;
@@ -575,7 +574,7 @@ public class ListBase extends ScrollControlBase
     /**
      *  A map of free item renderers by factory.
      *  This property is a Dictionary indexed by factories
-     *  where the values are Dictionaries of itemRenderers
+     *  where the values are Dictionaries of itemRenderers.
      *
      */
     protected var freeItemRenderersByFactory:Dictionary;
@@ -589,7 +588,7 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  A hash map of item renderers that are not subject
-     *  to the layout algorithms of the list
+     *  to the layout algorithms of the list.
      */
     protected var unconstrainedRenderers:Dictionary = new Dictionary();
 
@@ -607,7 +606,7 @@ public class ListBase extends ScrollControlBase
     protected var runDataEffectNextUpdate:Boolean = false;
 
     /**
-     *  A flag indicating if a data change effect is currently running
+     *  A flag indicating if a data change effect is currently running.
      */
     protected var runningDataEffect:Boolean = false;
 
@@ -735,23 +734,23 @@ public class ListBase extends ScrollControlBase
      *  model, there is an anchor, a caret and a highlighted item.  When
      *  the mouse is being used for selection, the item under the mouse is
      *  highlighted as the mouse rolls over the item.  
-     *  When the mouse is clicked with no modifier keys (SHIFT or CTRL), the
+     *  When the mouse is clicked with no modifier keys (Shift or Ctrl), the
      *  set of selected items is cleared and the item under the highlight is
-     *  selected and becomes the anchor.  The caret is unused in mouse
+     *  selected and becomes the anchor. The caret is unused in mouse
      *  selection.  If there is an anchor and another item is selected while
-     *  using the SHIFT key, the old set of selected items is cleared, and
+     *  using the Shift key, the old set of selected items is cleared, and
      *  all items between the item and the anchor are selected.  Clicking
-     *  items while using the CTRL key toggles the selection of individual
+     *  items while using the Ctrl key toggles the selection of individual
      *  items and does not move the anchor.
      *
      *  <p>When selecting items using the keyboard, if the arrow keys are used
      *  with no modifier keys, the old selection is cleared and the new item
      *  is selected and becomes the anchor and the caret, and a caret indicator
-     *  is shown around the selection highlight.  If the user uses arrow keys
-     *  with the SHIFT key, the old selection is cleared and the items between
-     *  the anchor and the new item are selected.  The caret moves to the new
-     *  item.  If arrow keys are used with the CTRL key, just the caret moves.
-     *  The user can use the SPACE key to toggle selection of the item under
+     *  is shown around the selection highlight. If the user uses arrow keys
+     *  with the Shift key, the old selection is cleared and the items between
+     *  the anchor and the new item are selected. The caret moves to the new
+     *  item. If arrow keys are used with the Ctrl key, just the caret moves.
+     *  The user can use the Space key to toggle selection of the item under
      *  the caret.</p>
      */
     protected var caretItemRenderer:IListItemRenderer;
@@ -764,7 +763,7 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  A hash table of ListBaseSelectionData objects that track which
-     *  items are currently selected.  The table is indexed by the UID
+     *  items are currently selected. The table is indexed by the UID
      *  of the items.
      *
      *  @see mx.controls.listClasses.ListBaseSelectionData
@@ -772,27 +771,27 @@ public class ListBase extends ScrollControlBase
     protected var selectedData:Object = {};
 
     /**
-     *  A hash table of selection indicators.  This table allows the component
+     *  A hash table of selection indicators. This table allows the component
      *  to quickly find and remove the indicators when the set of selected
-     *  items is cleared.  The table is indexed by the item's UID.
+     *  items is cleared. The table is indexed by the item's UID.
      */
     protected var selectionIndicators:Object = {};
 
     /**
-     *  A hash table of selection tweens.  This allows the component to
+     *  A hash table of selection tweens. This allows the component to
      *  quickly find and clean up any tweens in progress if the set
-     *  of selected items is cleared.  The table is indexed by the item's UID.
+     *  of selected items is cleared. The table is indexed by the item's UID.
      */
     protected var selectionTweens:Object = {};
 
     /**
-     *  A bookmark to the item under the caret.  A bookmark allows the
+     *  A bookmark to the item under the caret. A bookmark allows the
      *  component to quickly seek to a position in the collection of items.
      */
     protected var caretBookmark:CursorBookmark;
 
     /**
-     *  A bookmark to the item that is the anchor.  A bookmark allows the
+     *  A bookmark to the item that is the anchor. A bookmark allows the
      *  component to quickly seek to a position in the collection of items.
      *  This property is used when selecting a set of items between the anchor
      *  and the caret or highlighted item, and when finding the selected item
@@ -859,7 +858,7 @@ public class ListBase extends ScrollControlBase
      *  This is different from itemsSizeChanged because it further indicates
      *  that re-applying the data items to the renderers may not invalidate them
      *  since the only thing that changed was whether or not the renderer should
-     *  factor in wordWrap into its size calculations
+     *  factor in wordWrap into its size calculations.
      */
     protected var wordWrapChanged:Boolean = false;
 
@@ -868,7 +867,7 @@ public class ListBase extends ScrollControlBase
      *  a page fault.  The component responds by suspending the rendering
      *  of items until the page of data arrives.
      *  The <code>finishKeySelection()</code> method will be called
-     *  when the paged data arrives
+     *  when the paged data arrives.
      */
     protected var keySelectionPending:Boolean = false;
     
@@ -1036,7 +1035,7 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  A separate IViewCursor used to find indices of items and
-     *  other things.  The collectionIterator can be at any
+     *  other things. The collectionIterator can be at any
      *  place within the set of items.
      */
     mx_internal var collectionIterator:IViewCursor;
@@ -1051,7 +1050,7 @@ public class ListBase extends ScrollControlBase
         return listItems;
     }
 
-	mx_internal var lastDragEvent:DragEvent;
+    mx_internal var lastDragEvent:DragEvent;
 
     //--------------------------------------------------------------------------
     //
@@ -1174,7 +1173,7 @@ public class ListBase extends ScrollControlBase
     //  horizontalScrollPosition
     //----------------------------------
 
-	[Bindable("scroll")]
+    [Bindable("scroll")]
     [Bindable("viewChanged")]
     [Inspectable(defaultValue="0")]
 
@@ -1236,12 +1235,12 @@ public class ListBase extends ScrollControlBase
         addClipMask(false);
     }
 
-	mx_internal function set $horizontalScrollPosition(value:Number):void
-	{
+    mx_internal function set $horizontalScrollPosition(value:Number):void
+    {
         var oldValue:int = super.horizontalScrollPosition;
-		if (oldValue != value)
-			super.horizontalScrollPosition = value;
-	}
+        if (oldValue != value)
+            super.horizontalScrollPosition = value;
+    }
 
     //----------------------------------
     //  verticalScrollPolicy
@@ -1326,12 +1325,12 @@ public class ListBase extends ScrollControlBase
         addClipMask((offscreenExtraRowsTop != oldoffscreenExtraRowsTop) || (offscreenExtraRowsBottom != oldoffscreenExtraRowsBottom));
     }
 
-	mx_internal function set $verticalScrollPosition(value:Number):void
-	{
+    mx_internal function set $verticalScrollPosition(value:Number):void
+    {
         var oldValue:int = super.verticalScrollPosition;
-		if (oldValue != value)
-			super.verticalScrollPosition = value;
-	}
+        if (oldValue != value)
+            super.verticalScrollPosition = value;
+    }
     
     private function makeRowsAndColumnsWithExtraRows(unscaledWidth:Number,unscaledHeight:Number):void
     {
@@ -1515,7 +1514,7 @@ public class ListBase extends ScrollControlBase
      *  If <code>true</code>, users can select multiple items.
      *  There is no option to disallow discontiguous selection.
      *  Standard complex selection options are always in effect 
-     *  (shift-click, control-click).
+     *  (Shift-click, Ctrl-click).
      *
      *  @default false
      */
@@ -1991,7 +1990,7 @@ public class ListBase extends ScrollControlBase
     {
         if (_dragEnabled && !value)
         {
-        	removeEventListener(DragEvent.DRAG_START, dragStartHandler, false);
+            removeEventListener(DragEvent.DRAG_START, dragStartHandler, false);
             removeEventListener(DragEvent.DRAG_COMPLETE,
                                 dragCompleteHandler, false);
         }
@@ -2000,8 +1999,8 @@ public class ListBase extends ScrollControlBase
 
         if (value)
         {
-        	addEventListener(DragEvent.DRAG_START, dragStartHandler, false,
-        				     EventPriority.DEFAULT_HANDLER);
+            addEventListener(DragEvent.DRAG_START, dragStartHandler, false,
+                             EventPriority.DEFAULT_HANDLER);
             addEventListener(DragEvent.DRAG_COMPLETE, dragCompleteHandler,
                              false, EventPriority.DEFAULT_HANDLER);
         }
@@ -2206,14 +2205,14 @@ public class ListBase extends ScrollControlBase
     /**
      *  The name of the field in the data provider object that determines what to 
      *  display as the icon. By default, the list class does not try to display 
-     *  icons with the text in the rows.  However, by specifying an icon 
+     *  icons with the text in the rows. However, by specifying an icon 
      *  field, you can specify a graphic that is created and displayed as an 
      *  icon in the row.  This property is ignored by DataGrid.
      *
      *  <p>The renderers will look in the data provider object for a property of 
      *  the name supplied as the iconField.  If the value of the property is a 
      *  Class, it will instantiate that class and expect it to be an instance 
-     *  of an IFlexDisplayObject.  If the value of the property is a String, 
+     *  of an IFlexDisplayObject. If the value of the property is a String, 
      *  it will look to see if a Class exists with that name in the application, 
      *  and if it can't find one, it will also look for a property on the 
      *  document with that name and expect that property to map to a Class.</p>
@@ -2811,7 +2810,7 @@ public class ListBase extends ScrollControlBase
     [Inspectable(category="General")]
 
     /**
-     *  An array of indices in the data provider of the selected items.  The
+     *  An array of indices in the data provider of the selected items. The
      *  items are in the reverse order that the user selected the items.
      *  @default [ ]
      */
@@ -2895,7 +2894,7 @@ public class ListBase extends ScrollControlBase
     [Inspectable(environment="none")]
 
     /**
-     *  An array of references to the selected items in the data provider.  The
+     *  An array of references to the selected items in the data provider. The
      *  items are in the reverse order that the user selected the items.
      *  @default [ ]
      */
@@ -2937,7 +2936,7 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  A flag that indicates whether dataTips are displayed for text in the rows.
-     *  If <code>true</code>, dataTips are displayed.  DataTips
+     *  If <code>true</code>, dataTips are displayed. DataTips
      *  are tooltips designed to show the text that is too long for the row.
      *  If you set a dataTipFunction, dataTips are shown regardless of whether the
      *  text is too long for the row.
@@ -2972,11 +2971,11 @@ public class ListBase extends ScrollControlBase
     /**
      *  The selected item, or the data or label field of the selected item.
      *  If the selected item is a Number or String
-     *  the value is the item.  If the item is an object, the value is
+     *  the value is the item. If the item is an object, the value is
      *  the data property if it exists, or the label property if it exists.
      *
      *  <p>Note: Using <code>selectedItem</code> is often preferable. This
-     *  property exists for backward compatibility with older applications</p>
+     *  property exists for backward compatibility with older applications.</p>
      */
     public function get value():Object
     {
@@ -3005,7 +3004,7 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  A flag that indicates whether the individual rows can have different
-     *  height.  This property is ignored by TileList and HorizontalList.
+     *  height. This property is ignored by TileList and HorizontalList.
      *  If <code>true</code>, individual rows can have different height values.
      * 
      *  @default false
@@ -3087,11 +3086,10 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Create objects that are children of this ListBase, in this case
+     *  Creates objects that are children of this ListBase; in this case,
      *  the <code>listContent</code> object that will hold all the item 
-     *  renderers.
-     *  Note that the item renderers are not created immediately, but later
-     *  when Flex calls the <code>updateDisplayList()</code> method.
+     *  renderers. The item renderers are not created immediately, but later
+     *  when the <code>updateDisplayList()</code> method is called.
      */
     override protected function createChildren():void
     {
@@ -3287,6 +3285,10 @@ public class ListBase extends ScrollControlBase
     /**
      *  Initiates a data change effect when there have been changes
      *  in the data provider.
+     *  
+     *  @param unscaledWidth The width of the control before external sizings are applied.
+     *  
+     *  @param unscaledHeight The height of the control before external sizings are applied.
      */
     protected function initiateDataChangeEffect(unscaledWidth:Number,
                                                 unscaledHeight:Number):void
@@ -3495,13 +3497,14 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Returns true if an item renderer is no longer being positioned
+     *  Returns <code>true</code> if an item renderer is no longer being positioned
      *  by the list's layout algorithm while a data change effect is
-     *  running as a result of a call to <code>unconstrainRenderer()</code>.
+     *  running as a result of a call to the <code>unconstrainRenderer()</code> method.
      * 
-     *  @param item An item renderer
+     *  @param item An item renderer.
      * 
-     * 
+     *  @return <code>true</code> if an item renderer is no longer being positioned
+     *  by the list's layout algorithm.
      */
     protected function isRendererUnconstrained(item:Object):Boolean
     {
@@ -3514,7 +3517,7 @@ public class ListBase extends ScrollControlBase
      *  any cached values used by the effect. This method is called by
      *  the Flex framework; you do not need to call it from your code.
      * 
-     *  @param event the EffectEvent
+     *  @param event The EffectEvent.
      */
     protected function finishDataChangeEffect(event:EffectEvent):void
     {
@@ -3683,7 +3686,7 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Called from updateDisplayList() to adjust the size and position of
+     *  Called from the <code>updateDisplayList()</code> method to adjust the size and position of
      *  listContent.
      */
     protected function adjustListContent(unscaledWidth:Number = -1,
@@ -3749,8 +3752,8 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Called by updateDisplayList() to remove existing item renderers
-     *  and clean up various caching structures when renderer changes.
+     *  Called by the <code>updateDisplayList()</code> method to remove existing item renderers
+     *  and clean up various caching structures when the renderer changes.
      */
     protected function purgeItemRenderers():void
     {
@@ -4021,9 +4024,9 @@ public class ListBase extends ScrollControlBase
     }
     
     /**
-     *  Seek to a position, and handle ItemPendingError if necessary
-     *  @param index Index into the collection
-     *  @return FALSE if ItemPendingError thrown
+     *  Seek to a position, and handle an ItemPendingError if necessary.
+     *  @param index Index into the collection.
+     *  @return <code>false</code> if an ItemPendingError is thrown.
      */
     protected function seekPositionSafely(index:int):Boolean
     {
@@ -4290,7 +4293,7 @@ public class ListBase extends ScrollControlBase
      *  of a variable in the document that holds the class for
      *  the icon.
      *  
-     *  @param data The item from which to extract the icon class
+     *  @param data The item from which to extract the icon class.
      *  @return The icon for the item, as a class reference or 
      *  <code>null</code> if none.
      */
@@ -4390,10 +4393,10 @@ public class ListBase extends ScrollControlBase
      *  the first renderer to be created.
      *
      *  @param byCount If true, make <code>rowsNeeded</code> number of rows
-     *  and ignore <code>bottom</code> parameter
+     *  and ignore <code>bottom</code> parameter.
      *
      *  @param rowsNeeded Number of rows to create if <code>byCount</code>
-     *  is true;
+     *  is true.
      *
      *  @return A Point containing the number of rows and columns created.
      */
@@ -4414,11 +4417,11 @@ public class ListBase extends ScrollControlBase
      *  out and the number of rows and columns in the TileList.
      *
      *  @param rowIndex The 0-based index of the row, including rows
-     *  scrolled off the top.  Thus, if <code>verticalScrollPosition</code>
+     *  scrolled off the top. Thus, if <code>verticalScrollPosition</code>
      *  is 2 then the first visible row has a rowIndex of 2.
      *
      *  @param colIndex The 0-based index of the column, including
-     *  columns scrolled off the left.  If 
+     *  columns scrolled off the left. If 
      *  <code>horizontalScrollPosition</code> is 2 then the first column
      *  on the left has a columnIndex of 2.
      *
@@ -4434,8 +4437,8 @@ public class ListBase extends ScrollControlBase
      *
      *  @param index The offset into the data provider.
      *
-     *  @return The row the item would be displayed at in the component,
-     *  -1 if not displayable in listContent container
+     *  @return The row the item would be displayed at in the component;
+     *  -1 if not displayable in listContent container.
      */
     protected function indexToRow(index:int):int
     {
@@ -4445,10 +4448,10 @@ public class ListBase extends ScrollControlBase
     /**
      *  The column for the data provider item at the given index.
      *
-     *  @param index The offset into the data provider
+     *  @param index The offset into the data provider.
      *
-     *  @return The column the item would be displayed at in the component,
-     *  -1 if not displayable in listContent container
+     *  @return The column the item would be displayed at in the component;
+     *  -1 if not displayable in listContent container.
      */
     protected function indexToColumn(index:int):int
     {
@@ -4467,19 +4470,19 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Returns a Point containing the columnIndex and rowIndex of an
-     *  item renderer.  Since item renderers are only created for items
-     *  within the set of viewable rows
+     *  item renderer. Because item renderers are only created for items
+     *  within the set of viewable rows,
      *  you cannot use this method to get the indices for items
-     *  that are not visible.  Also note that item renderers
+     *  that are not visible. Also note that item renderers
      *  are recycled so the indices you get for an item may change
      *  if that item renderer is reused to display a different item.
      *  Usually, this method is called during mouse and keyboard handling
      *  when the set of data displayed by the item renderers hasn't yet
      *  changed.
      *
-     *  @param item An item renderer
+     *  @param item An item renderer.
      *
-     *  @return A Point.  The <code>x</code> property is the columnIndex
+     *  @return A Point. The <code>x</code> property is the columnIndex
      *  and the <code>y</code> property is the rowIndex.
      */
     protected function itemRendererToIndices(item:IListItemRenderer):Point
@@ -4501,11 +4504,10 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Get an item renderer for the index of an item in the data provider,
-     *  if one exists.  Since item renderers only exist for items 
-     *  within the set of viewable rows
-     *  items, you cannot use this method for items that are not visible.
+     *  if one exists. Because item renderers only exist for items 
+     *  within the set of viewable rows, you cannot use this method for items that are not visible.
      *
-     *  @param index The offset into the data provider for an item
+     *  @param index The offset into the data provider for an item.
      *
      *  @return The item renderer that is displaying the item, or 
      *  <code>null</code> if the item is not currently displayed.
@@ -4525,15 +4527,14 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Returns the index of the item in the data provider of the item
-     *  being rendered by this item renderer.  Since item renderers
+     *  being rendered by this item renderer. Because item renderers
      *  only exist for items that are within the set of viewable
-     *  rows, you cannot
-     *  use this method for items that are not visible.
+     *  rows, you cannot use this method for items that are not visible.
      *
      *  @param itemRenderer The item renderer that is displaying the
      *  item for which you want to know the data provider index.
      *
-     *  @return The index of the item in the data provider
+     *  @return The index of the item in the data provider.
      */
     public function itemRendererToIndex(itemRenderer:IListItemRenderer):int
     {
@@ -4551,18 +4552,18 @@ public class ListBase extends ScrollControlBase
      *  in a data provider must either have a unique ID (UID)
      *  or one will be generated and associated with it.  This
      *  means that you cannot have an object or scalar value
-     *  appear twice in a data provider.  For example, the following
+     *  appear twice in a data provider. For example, the following
      *  data provider is not supported because the value "foo"
-     *  appears twice and the UID for a string is the string itself
+     *  appears twice and the UID for a string is the string itself:
      *
      *  <blockquote>
      *  <code>var sampleDP:Array = ["foo", "bar", "foo"]</code>
      *  </blockquote>
      *
      *  Simple dynamic objects can appear twice if they are two
-     *  separate instances.  The following is supported because
+     *  separate instances. The following is supported because
      *  each of the instances will be given a different UID because
-     *  they are different objects.
+     *  they are different objects:
      *
      *  <blockquote>
      *  <code>var sampleDP:Array = [{label: "foo"}, {label: "foo"}]</code>
@@ -4576,9 +4577,9 @@ public class ListBase extends ScrollControlBase
      *  sampleDP:Array = [foo, foo];</code>
      *  </blockquote>
      *
-     *  @param data The data provider item
+     *  @param data The data provider item.
      *
-     *  @return The UID as a string
+     *  @return The UID as a string.
      */
     protected function itemToUID(data:Object):String
     {
@@ -4588,13 +4589,13 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Find an item renderer based on its UID if it is visible
-     *  @param uid The UID of the item
-     *  @return The item renderer
+     *  Find an item renderer based on its UID if it is visible.
+     *  @param uid The UID of the item.
+     *  @return The item renderer.
      */
     protected function UIDToItemRenderer(uid:String):IListItemRenderer
     {
-		if (!listContent) return null;
+        if (!listContent) return null;
 
         return visibleData[uid];
     }
@@ -4606,7 +4607,7 @@ public class ListBase extends ScrollControlBase
      *  returns <code>null</code> if the item is not visible.
      *  For DataGrid, this will return the first column's renderer.
      *
-     *  @param item The data provider item
+     *  @param item The data provider item.
      *
      *  @return The item renderer or <code>null</code> if the item is not 
      *  currently displayed.
@@ -4637,7 +4638,7 @@ public class ListBase extends ScrollControlBase
      *  mouse event.
      *  
      *  @param event A MouseEvent that contains the position of
-     *  the mouse and the object it is over
+     *  the mouse and the object it is over.
      *
      *  @return The item renderer the mouse is over or 
      *  <code>null</code> if none.
@@ -4760,7 +4761,7 @@ public class ListBase extends ScrollControlBase
      *  future use for that data. Otherwise it is added to the
      *  general freeItemRenderers stack.
      *
-     *  @param item IListItemRenderer
+     *  @param item The renderer to add.
      */
     protected function addToFreeItemRenderers(item:IListItemRenderer):void
     {
@@ -4802,7 +4803,7 @@ public class ListBase extends ScrollControlBase
      *  reservedItemRenderers map. Otherwise (or if no reserved renderer
      *  is found) it retrieves from the freeItemRenderers stack.
      *
-     *  @param data Object The data to be presented by the item renderer
+     *  @param data Object The data to be presented by the item renderer.
      */
     protected function getReservedOrFreeItemRenderer(data:Object):IListItemRenderer
     {
@@ -5065,13 +5066,13 @@ public class ListBase extends ScrollControlBase
      *  color specified.
      * 
      *  @param indicator A Sprite that should contain the graphics
-     *  for that make a renderer look highlighted
-     *  @param x The suggested x position for the indicator
-     *  @param y The suggested y position for the indicator
-     *  @param width The suggested width for the indicator
-     *  @param height The suggested height for the indicator
-     *  @param color The suggested color for the indicator
-     *  @param itemRenderer The item renderer that is being highlighted
+     *  for that make a renderer look highlighted.
+     *  @param x The suggested x position for the indicator.
+     *  @param y The suggested y position for the indicator.
+     *  @param width The suggested width for the indicator.
+     *  @param height The suggested height for the indicator.
+     *  @param color The suggested color for the indicator.
+     *  @param itemRenderer The item renderer that is being highlighted.
      */
     protected function drawHighlightIndicator(
                                 indicator:Sprite, x:Number, y:Number,
@@ -5089,11 +5090,11 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Clears the highlight indicator in the given Sprite
+     *  Clears the highlight indicator in the given Sprite.
      *
      *  @param indicator A Sprite that should contain the graphics
-     *  for that make a renderer look highlighted
-     *  @param itemRenderer The item renderer that is being highlighted
+     *  for that make a renderer look highlighted.
+     *  @param itemRenderer The item renderer that is being highlighted.
      */
     protected function clearHighlightIndicator(indicator:Sprite,
                                 itemRenderer:IListItemRenderer):void
@@ -5108,13 +5109,13 @@ public class ListBase extends ScrollControlBase
      *  color specified.
      * 
      *  @param indicator A Sprite that should contain the graphics
-     *  for that make a renderer look highlighted
-     *  @param x The suggested x position for the indicator
-     *  @param y The suggested y position for the indicator
-     *  @param width The suggested width for the indicator
-     *  @param height The suggested height for the indicator
-     *  @param color The suggested color for the indicator
-     *  @param itemRenderer The item renderer that is being highlighted
+     *  for that make a renderer look highlighted.
+     *  @param x The suggested x position for the indicator.
+     *  @param y The suggested y position for the indicator.
+     *  @param width The suggested width for the indicator.
+     *  @param height The suggested height for the indicator.
+     *  @param color The suggested color for the indicator.
+     *  @param itemRenderer The item renderer that is being highlighted.
      */
     protected function drawSelectionIndicator(
                                 indicator:Sprite, x:Number, y:Number,
@@ -5138,13 +5139,13 @@ public class ListBase extends ScrollControlBase
      *  color specified.
      * 
      *  @param indicator A Sprite that should contain the graphics
-     *  for that make a renderer look highlighted
-     *  @param x The suggested x position for the indicator
-     *  @param y The suggested y position for the indicator
-     *  @param width The suggested width for the indicator
-     *  @param height The suggested height for the indicator
-     *  @param color The suggested color for the indicator
-     *  @param itemRenderer The item renderer that is being highlighted
+     *  for that make a renderer look highlighted.
+     *  @param x The suggested x position for the indicator.
+     *  @param y The suggested y position for the indicator.
+     *  @param width The suggested width for the indicator.
+     *  @param height The suggested height for the indicator.
+     *  @param color The suggested color for the indicator.
+     *  @param itemRenderer The item renderer that is being highlighted.
      */
     protected function drawCaretIndicator(
                                 indicator:Sprite, x:Number, y:Number,
@@ -5161,11 +5162,11 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Clears the caret indicator into the given Sprite
+     *  Clears the caret indicator into the given Sprite.
      * 
      *  @param indicator A Sprite that should contain the graphics
-     *  for that make a renderer look highlighted
-     *  @param itemRenderer The item renderer that is being highlighted
+     *  for that make a renderer look highlighted.
+     *  @param itemRenderer The item renderer that is being highlighted.
      */
     protected function clearCaretIndicator(
                                 indicator:Sprite,
@@ -5204,7 +5205,7 @@ public class ListBase extends ScrollControlBase
      *  Cleans up selection highlights and other associated graphics
      *  for a given item in the data provider.
      *
-     *  @param uid The UID of the data provider item
+     *  @param uid The UID of the data provider item.
      */
     protected function removeIndicators(uid:String):void
     {
@@ -5269,7 +5270,7 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Refresh all rows on next update.
+     *  Refresh all rows on the next update.
      */
     public function invalidateList():void
     {
@@ -5278,9 +5279,9 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Refreshes all rows now.  Calling this method can require substantial
-     *  processing, because can be expensive at it completely redraws all renderers
-     *  in the list and won't return until complete.
+     *  Refreshes all rows. Calling this method can require substantial
+     *  processing, because it completely redraws all renderers
+     *  in the list and does not return until complete.
      */
     protected function updateList():void
     {
@@ -5312,7 +5313,7 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Empty the visibleData hash table
+     *  Empty the visibleData hash table.
      */
     protected function clearVisibleData():void
     {
@@ -5320,7 +5321,7 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Update the keys in the visibleData hash table
+     *  Update the keys in the visibleData hash table.
      */
     protected function reKeyVisibleData():void
     {
@@ -5332,7 +5333,7 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  If false, renderers cannot invalidate size of List 
+     *  If false, renderers cannot invalidate size of List. 
      */
     protected function set allowItemSizeChangeNotification(value:Boolean):void
     {
@@ -5517,11 +5518,10 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Determines if the item renderer for a data provider item 
-     *  is highlighted (is rolled over via the mouse or
-     *  or under the caret via keyboard navigation).
+     *  is highlighted (is rolled over via the mouse or under the caret due to keyboard navigation).
      *
-     *  @param data The data provider item
-     *  @return <code>true</code> if the item is highlighted
+     *  @param data The data provider item.
+     *  @return <code>true</code> if the item is highlighted.
      */
     public function isItemHighlighted(data:Object):Boolean
     {
@@ -5545,8 +5545,8 @@ public class ListBase extends ScrollControlBase
      *  Determines if the item renderer for a data provider item 
      *  is selected.
      *
-     *  @param data The data provider item
-     *  @return <code>true</code> if the item is selected
+     *  @param data The data provider item.
+     *  @return <code>true</code> if the item is selected.
      */
     public function isItemSelected(data:Object):Boolean
     {
@@ -5563,8 +5563,8 @@ public class ListBase extends ScrollControlBase
      *  Determines if the item renderer for a data provider item 
      *  is selectable.
      *
-     *  @param data The data provider item
-     *  @return <code>true</code> if the item is selectable
+     *  @param data The data provider item.
+     *  @return <code>true</code> if the item is selectable.
      */
     public function isItemSelectable(data:Object):Boolean
     {
@@ -5603,19 +5603,19 @@ public class ListBase extends ScrollControlBase
     /**
      *  Updates the set of selected items given that the item renderer provided
      *  was clicked by the mouse and the keyboard modifiers are in the given
-     *  state.  This method also updates the display of the item renderers based
+     *  state. This method also updates the display of the item renderers based
      *  on their updated selected state.
      *
-     *  @param item The item renderer that was clicked
-     *  @param shiftKey <code>true</code> if the shift key was held down when
+     *  @param item The item renderer that was clicked.
+     *  @param shiftKey <code>true</code> if the Shift key was held down when
      *  the mouse was clicked.
-     *  @param ctrlKey <code>true</code> if the ctrl key was held down when
+     *  @param ctrlKey <code>true</code> if the Ctrl key was held down when
      *  the mouse was clicked.
      *  @param transition <code>true</code> if the graphics for the selected 
      *  state should be faded in using an effect.
      *
      *  @return <code>true</code> if the set of selected items changed.
-     *  Clicking on an already-selected item doesn't always change the set
+     *  Clicking on an already-selected item does not always change the set
      *  of selected items.
      */
     protected function selectItem(item:IListItemRenderer,
@@ -5842,21 +5842,21 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Moves the selection in a horizontal direction in response
-     *  to the user selecting items using the left-arrow or right-arrow
-     *  keys and modifiers such as  the Shift and Ctrl keys.  This method
+     *  to the user selecting items using the left arrow or right arrow
+     *  keys and modifiers such as the Shift and Ctrl keys. This method
      *  might change the <code>horizontalScrollPosition</code>, 
      *  <code>verticalScrollPosition</code>, and <code>caretIndex</code>
-     *  properties, and call the <code>finishKeySelection()</code>method
+     *  properties, and call the <code>finishKeySelection()</code> method
      *  to update the selection.
      *
      *  <p>Not implemented in ListBase because the default list
-     *  is single column and therefore doesn't scroll horizontally.</p>
+     *  is single column and therefore does not scroll horizontally.</p>
      *
-     *  @param code The key that was pressed (e.g. Keyboard.LEFT)
-     *  @param shiftKey <code>true</code> if the shift key was held down when
+     *  @param code The key that was pressed (for example, <code>Keyboard.LEFT</code>).
+     *  @param shiftKey <code>true</code> if the Shift key was held down when
      *  the keyboard key was pressed.
-     *  @param ctrlKey <code>true</code> if the ctrl key was held down when
-     *  the keyboard key was pressed
+     *  @param ctrlKey <code>true</code> if the Ctrl key was held down when
+     *  the keyboard key was pressed.
      */
     protected function moveSelectionHorizontally(code:uint, shiftKey:Boolean,
                                                  ctrlKey:Boolean):void
@@ -5866,18 +5866,18 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Moves the selection in a vertical direction in response
-     *  to the user selecting items using the up-arrow or down-arrow
-     *  Keys and modifiers such as the Shift and Ctrl keys.  This method
+     *  to the user selecting items using the up arrow or down arrow
+     *  Keys and modifiers such as the Shift and Ctrl keys. This method
      *  might change the <code>horizontalScrollPosition</code>, 
      *  <code>verticalScrollPosition</code>, and <code>caretIndex</code>
-     *  properties, and call the <code>finishKeySelection()</code>method
-     *  to update the selection
+     *  properties, and call the <code>finishKeySelection()</code> method
+     *  to update the selection.
      *
-     *  @param code The key that was pressed (e.g. Keyboard.DOWN)
-     *  @param shiftKey <code>true</code> if the shift key was held down when
+     *  @param code The key that was pressed (for example, <code>Keyboard.DOWN</code>).
+     *  @param shiftKey <code>true</code> if the Shift key was held down when
      *  the keyboard key was pressed.
-     *  @param ctrlKey <code>true</code> if the ctrl key was held down when
-     *  the keyboard key was pressed
+     *  @param ctrlKey <code>true</code> if the Ctrl key was held down when
+     *  the keyboard key was pressed.
      */
     protected function moveSelectionVertically(code:uint, shiftKey:Boolean,
                                                ctrlKey:Boolean):void
@@ -6039,9 +6039,8 @@ public class ListBase extends ScrollControlBase
      *  Sets selected items based on the <code>caretIndex</code> and 
      *  <code>anchorIndex</code> properties.  
      *  Called by the keyboard selection handlers
-     *  and by the <code>updateDisplayList</code> method in case the 
-     *  keyboard selection handler
-     *  got a page fault while scrolling to get more items.
+     *  and by the <code>updateDisplayList()</code> method in case the 
+     *  keyboard selection handler received a page fault while scrolling to get more items.
      */
     protected function finishKeySelection():void
     {
@@ -6056,16 +6055,16 @@ public class ListBase extends ScrollControlBase
         {
             // set caret to last full row of new screen
             // partial rows take what you can get
-        	if (onscreenRowCount - partialRow == 0)
-        	{
-	    		caretIndex = Math.min(verticalScrollPosition + onscreenRowCount - partialRow,
-	            	                  collection.length - 1);
-	        }
-	        else
-	        {
-	        	caretIndex = Math.min(verticalScrollPosition + onscreenRowCount - partialRow - 1,
-	            	                  collection.length - 1);
-	        }
+            if (onscreenRowCount - partialRow == 0)
+            {
+                caretIndex = Math.min(verticalScrollPosition + onscreenRowCount - partialRow,
+                                      collection.length - 1);
+            }
+            else
+            {
+                caretIndex = Math.min(verticalScrollPosition + onscreenRowCount - partialRow - 1,
+                                      collection.length - 1);
+            }
         }
 
         var listItem:IListItemRenderer;
@@ -6474,10 +6473,12 @@ public class ListBase extends ScrollControlBase
      *  Sets up the effect for applying the selection indicator.
      *  The default is a basic alpha tween.
      *
-     *  @param indicator A Sprite that contains the graphics depicting selection
+     *  @param indicator A Sprite that contains the graphics depicting selection.
+     *  
      *  @param uid The UID of the item being selected which can be used to index
-     *  into a table and track more than one selection effect
-     *  @param itemRenderer The item renderer that is being shown as selected
+     *  into a table and track more than one selection effect.
+     *  
+     *  @param itemRenderer The item renderer that is being shown as selected.
      */
     protected function applySelectionEffect(indicator:Sprite, uid:String,
                                             itemRenderer:IListItemRenderer):void
@@ -6516,14 +6517,13 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Makes a copy of the selected items in the order they were
-     *  selected.
+     *  Copies the selected items in the order that they were selected.
      *
      *  @param useDataField <code>true</code> if the array should
      *  be filled with the actual items or <code>false</code>
-     *  if the array should be filled with the indexes of the items
+     *  if the array should be filled with the indexes of the items.
      *
-     *  @return array of selected items
+     *  @return An array of selected items.
      */
     protected function copySelectedItems(useDataField:Boolean = true):Array
     {
@@ -6608,10 +6608,8 @@ public class ListBase extends ScrollControlBase
      *  method for the entire viewable area.</p>
      *
      *  @param pos The new scroll position.
-     *  @param deltaPos The change in position.  It is always
-     *  a positive number.
-     *  @param scrollUp <code>true</code> if scroll position
-     *  is getting smaller.
+     *  @param deltaPos The change in position. This value is always a positive number.
+     *  @param scrollUp <code>true</code> if the scroll position is getting smaller.
      */
     protected function scrollVertically(pos:int, deltaPos:int,
                                         scrollUp:Boolean):void
@@ -6752,12 +6750,12 @@ public class ListBase extends ScrollControlBase
                 pt = new Point(0,0);
 
 
-			try
-			{
-				// leave iterator where it's supposed to be
-				// even though this restores to bookmark, HVC can still IPE
-				iterator.seek(cursorPos, 0);
-			}
+            try
+            {
+                // leave iterator where it's supposed to be
+                // even though this restores to bookmark, HVC can still IPE
+                iterator.seek(cursorPos, 0);
+            }
             catch(e2:ItemPendingError)
             {
                 // trace("IPE in scrollVertically");
@@ -6803,11 +6801,11 @@ public class ListBase extends ScrollControlBase
                 try
                 {
                     iterator.seek(CursorBookmark.CURRENT, -modDeltaPos);
-					if (!iteratorValid)
-					{
-						iteratorValid = true;
-						lastSeekPending = null;
-					}
+                    if (!iteratorValid)
+                    {
+                        iteratorValid = true;
+                        lastSeekPending = null;
+                    }
                 }
                 catch(e3:ItemPendingError)
                 {
@@ -6826,20 +6824,20 @@ public class ListBase extends ScrollControlBase
                 actual = makeRowsAndColumns(0, curY, listContent.width, listContent.height, 0, 0, true, modDeltaPos);
                 allowRendererStealingDuringLayout = true;
                 
-				try
-				{
-					// trace("made " + actual.y);
-					iterator.seek(cursorPos, 0);
-				}
-				catch(e4:ItemPendingError)
-				{
-					// trace("IPE in scrollVertically");
-					lastSeekPending = new ListBaseSeekPending(cursorPos, 0)
-					e4.addResponder(new ItemResponder(seekPendingResultHandler, seekPendingFailureHandler,
-														lastSeekPending));
-					iteratorValid = false;
-					// we don't do anything here and will repaint when the rows arrive
-				}
+                try
+                {
+                    // trace("made " + actual.y);
+                    iterator.seek(cursorPos, 0);
+                }
+                catch(e4:ItemPendingError)
+                {
+                    // trace("IPE in scrollVertically");
+                    lastSeekPending = new ListBaseSeekPending(cursorPos, 0)
+                    e4.addResponder(new ItemResponder(seekPendingResultHandler, seekPendingFailureHandler,
+                                                        lastSeekPending));
+                    iteratorValid = false;
+                    // we don't do anything here and will repaint when the rows arrive
+                }
             }
 
             if ((actual.y == 0) && (modDeltaPos > 0))
@@ -6886,7 +6884,7 @@ public class ListBase extends ScrollControlBase
                      {
                         //removeIndicators(rowInfo[i].uid);
                         shiftRow(i, i + deltaPos, listItems[i].length, false);
-	                    moveIndicatorsVertically(rowInfo[i].uid, moveBlockDistance);
+                        moveIndicatorsVertically(rowInfo[i].uid, moveBlockDistance);
                      }
                 }
                 else
@@ -6911,10 +6909,10 @@ public class ListBase extends ScrollControlBase
     }                                       
 
     /**
-     *  Recycle a row that we don't need anymore
-     *, and remove its indicators
-     *  @param i The index of the row
-     *  @param numCols The number of columns in the row
+     *  Recycle a row that is no longer needed, and remove its indicators.
+     *  
+     *  @param i The index of the row to remove.
+     *  @param numCols The number of columns in the row.
      */
     protected function destroyRow(i:int, numCols:int):void
     {
@@ -6934,10 +6932,11 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Move a row vertically, and update the rowInfo record
-     *  @param i The index of the row
-     *  @param numCols The number of columns in the row
-     *  @param moveBlockDistance The distance to move
+     *  Move a row vertically, and update the rowInfo record.
+     *  
+     *  @param i The index of the row.
+     *  @param numCols The number of columns in the row.
+     *  @param moveBlockDistance The distance to move.
      */
     protected function moveRowVertically(i:int, numCols:int, moveBlockDistance:Number):void
     {
@@ -6952,12 +6951,12 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Shift a row in the arrays that reference rows
-     *  @param oldIndex Old index in the arrays
-     *  @param newIndex New index in the arrays
-     *  @param numCols The number of columns in the row
-     *  @param shiftItems TRUE if we actually move the item
-     *  FALSE if we simply change the items rowIndex
+     *  Shift a row in the arrays that reference rows.
+     *  
+     *  @param oldIndex Old index in the arrays.
+     *  @param newIndex New index in the arrays.
+     *  @param numCols The number of columns in the row.
+     *  @param shiftItems <code>true</code> if we actually move the item. <code>false</code> if we simply change the item's rowIndex.
      */
     protected function shiftRow(oldIndex:int, newIndex:int, numCols:int, shiftItems:Boolean):void
     {
@@ -6982,9 +6981,10 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Move the selection and highlight indicators vertically
-     *  @param uid UID used to find the indicators
-     *  @param moveBlockDistance The distance to move vertically
+     *  Move the selection and highlight indicators vertically.
+     *  
+     *  @param uid UID used to find the indicators.
+     *  @param moveBlockDistance The distance to move vertically.
      */
     protected function moveIndicatorsVertically(uid:String, moveBlockDistance:Number):void
     {
@@ -7000,9 +7000,10 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Move the selection and highlight indicators horizontally
-     *  @param uid UID used to find the indicators
-     *  @param moveBlockDistance The distance to move horizontally
+     *  Move the selection and highlight indicators horizontally.
+     *  
+     *  @param uid UID used to find the indicators.
+     *  @param moveBlockDistance The distance to move horizontally.
      */
     protected function moveIndicatorsHorizontally(uid:String, moveBlockDistance:Number):void
     {
@@ -7018,10 +7019,10 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Determine the height of the requested set of rows
-     *  @param startRowIdx index of first row
-     *  @param endRowIdx index of last row
-     *  @return total height of rows.
+     *  Determine the height of the requested set of rows.
+     *  @param startRowIdx The index of first row.
+     *  @param endRowIdx The index of last row.
+     *  @return The total height of the rows.
      */
     protected function sumRowHeights(startRowIdx:int, endRowIdx:int):Number
     {
@@ -7034,8 +7035,9 @@ public class ListBase extends ScrollControlBase
     
     /**
      *  Remove all remaining rows from the end of the
-     *  arrays that store references to the rows
-     *  @param numRows The row index to truncate from
+     *  arrays that store references to the rows.
+     *  
+     *  @param numRows The row index to truncate from.
      */
     protected function truncateRowArrays(numRows:int):void
     {
@@ -7044,8 +7046,7 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Add a blank row to the beginning of the
-     *  arrays that store references to the rows
+     *  Add a blank row to the beginning of the arrays that store references to the rows.
      */
     protected function addToRowArrays():void
     {
@@ -7055,8 +7056,9 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Remove the requested number of rows from the beginning of the 
-     *  arrays that store references to the rows
-     *  @param modDeltaPos The number of rows to remove
+     *  arrays that store references to the rows.
+     *  
+     *  @param modDeltaPos The number of rows to remove.
      */
     protected function restoreRowArrays(modDeltaPos:int):void
     {
@@ -7065,8 +7067,9 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Remove a row from the arrays that store references to the row
-     *  @param i The index of the row
+     *  Remove a row from the arrays that store references to the row.
+     *  
+     *  @param i The index of the row.
      */
     protected function removeFromRowArrays(i:int):void
     {
@@ -7091,10 +7094,8 @@ public class ListBase extends ScrollControlBase
      *  is single column and therefore doesn't scroll horizontally.</p>
      *
      *  @param pos The new scroll position.
-     *  @param deltaPos The change in position.  It is always
-     *  a positive number.
-     *  @param scrollUp <code>true</code> if scroll position
-     *  is getting smaller.
+     *  @param deltaPos The change in position. This value is always a positive number.
+     *  @param scrollUp <code>true</code> if scroll position is getting smaller.
      */
     protected function scrollHorizontally(pos:int, deltaPos:int, scrollUp:Boolean):void
     {
@@ -7104,9 +7105,9 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Creates an item renderer given the data object
-     *  @param The data object
-     *  @return The item renderer
+     *  Creates an item renderer given the data object.
+     *  @param The data object.
+     *  @return The item renderer.
      */
     public function createItemRenderer(data:Object):IListItemRenderer
     {
@@ -7119,7 +7120,7 @@ public class ListBase extends ScrollControlBase
      *  This method is called from the <code>updateDisplayList()</code> method
      *  after the rows and columns have been updated.
      *  The method should figures out what parameters to pass into the 
-     *  <code>setScrollBarProperties()</code> to properly set the ScrollBars up.
+     *  <code>setScrollBarProperties()</code> method to properly set up the ScrollBars.
      */
     protected function configureScrollBars():void
     {
@@ -7251,7 +7252,7 @@ public class ListBase extends ScrollControlBase
      *  to the drop target.
      *
      *  @param event A DragEvent that contains information about
-     *  the position of the mouse.  If <code>null</code> the
+     *  the position of the mouse. If <code>null</code> the
      *  method should return the <code>dropIndex</code> value from the 
      *  last valid event.
      *
@@ -7262,7 +7263,7 @@ public class ListBase extends ScrollControlBase
         if (event)
         {
             var item:IListItemRenderer;
-			var lastItem:IListItemRenderer;
+            var lastItem:IListItemRenderer;
             var pt:Point = new Point(event.localX, event.localY);
             pt = DisplayObject(event.target).localToGlobal(pt);
             pt = listContent.globalToLocal(pt);
@@ -7270,8 +7271,8 @@ public class ListBase extends ScrollControlBase
             var rc:int = listItems.length;
             for (var i:int = 0; i < rc; i++)
             {
-				if (listItems[i][0])
-					lastItem = listItems[i][0];
+                if (listItems[i][0])
+                    lastItem = listItems[i][0];
 
                 if (rowInfo[i].y <= pt.y && pt.y < rowInfo[i].y + rowInfo[i].height)
                 {
@@ -7285,12 +7286,12 @@ public class ListBase extends ScrollControlBase
                 lastDropIndex = itemRendererToIndex(item);
             }
             else
-			{
-				if (lastItem)
-					lastDropIndex = itemRendererToIndex(lastItem) + 1;
-				else
-					lastDropIndex = collection ? collection.length : 0;
-			}
+            {
+                if (lastItem)
+                    lastDropIndex = itemRendererToIndex(lastItem) + 1;
+                else
+                    lastDropIndex = collection ? collection.length : 0;
+            }
 
         }
 
@@ -7355,10 +7356,10 @@ public class ListBase extends ScrollControlBase
             listContent.addChild(DisplayObject(dropIndicator));
 
             if (collection)
-			{
-				if (dragScrollingInterval == 0)
-					dragScrollingInterval = setInterval(dragScroll, 15);
-			}
+            {
+                if (dragScrollingInterval == 0)
+                    dragScrollingInterval = setInterval(dragScroll, 15);
+            }
         }
 
         var rowCount:int = listItems.length;
@@ -7371,12 +7372,12 @@ public class ListBase extends ScrollControlBase
 
         var rc:Number = listItems.length;
         if (rowNum >= rc)
-		{
-			if (partialRow)
-				rowNum = rc - 1;
-			else
-				rowNum = rc;
-		}
+        {
+            if (partialRow)
+                rowNum = rc - 1;
+            else
+                rowNum = rc;
+        }
         
         if (rowNum < 0)
             rowNum = 0;
@@ -7409,6 +7410,10 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  The default failure handler when a seek fails due to a page fault.
+     *  
+     *  @param data The data that caused the error. 
+     *  
+     *  @param info Data about a seek operation that was interrupted by an ItemPendingError error.
      */
     protected function seekPendingFailureHandler(data:Object,
                                                  info:ListBaseSeekPending):void
@@ -7420,6 +7425,10 @@ public class ListBase extends ScrollControlBase
      *  This method checks to see if it has the most recent page fault result:
      *  if not it simply exits; if it does, it sets the iterator to
      *  the correct position.
+     *  
+     *  @param data The data that caused the error.
+     *  
+     *  @param info Data about a seek operation that was interrupted by an ItemPendingError error.
      */
     protected function seekPendingResultHandler(data:Object,
                                                 info:ListBaseSeekPending):void
@@ -7548,12 +7557,12 @@ public class ListBase extends ScrollControlBase
     /**
      *  Tries to find the next item in the data provider that
      *  starts with the character in the <code>eventCode</code> parameter.
-     *  You can override this to do fancier typeahead lookups.  The search
+     *  You can override this to do fancier typeahead lookups. The search
      *  starts at the <code>selectedIndex</code> location; if it reaches
      *  the end of the data provider it starts over from the beginning.
      *
-     *  @param eventCode The key that was pressed on the keyboard
-     *  @return <code>true</code> if a match was found
+     *  @param eventCode The key that was pressed on the keyboard.
+     *  @return <code>true</code> if a match was found.
      */
     protected function findKey(eventCode:int):Boolean
     {
@@ -7566,7 +7575,7 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Finds an item in the list based on a String,
-     *  and moves the selection to it.  The search
+     *  and moves the selection to it. The search
      *  starts at the <code>selectedIndex</code> location; if it reaches
      *  the end of the data provider it starts over from the beginning.
      *
@@ -8013,11 +8022,11 @@ public class ListBase extends ScrollControlBase
                     {
                         // trace("ListBase collectionEvent ADD adjust");
                         iterator.seek(CursorBookmark.FIRST);
-						if (!iteratorValid)
-						{
-							iteratorValid = true;
-							lastSeekPending = null;
-						}
+                        if (!iteratorValid)
+                        {
+                            iteratorValid = true;
+                            lastSeekPending = null;
+                        }
                     }
                     catch(e:ItemPendingError)
                     {
@@ -8088,11 +8097,11 @@ public class ListBase extends ScrollControlBase
                             try
                             {
                                 iterator.seek(CursorBookmark.FIRST);
-								if (!iteratorValid)
-								{
-									iteratorValid = true;
-									lastSeekPending = null;
-								}
+                                if (!iteratorValid)
+                                {
+                                    iteratorValid = true;
+                                    lastSeekPending = null;
+                                }
                             }
                             catch(e1:ItemPendingError)
                             {
@@ -8142,11 +8151,11 @@ public class ListBase extends ScrollControlBase
                             index = scrollPositionToIndex(horizontalScrollPosition,
                                                         verticalScrollPosition - offscreenExtraRowsTop);
                             iterator.seek(CursorBookmark.FIRST, index);
-							if (!iteratorValid)
-							{
-								iteratorValid = true;
-								lastSeekPending = null;
-							}
+                            if (!iteratorValid)
+                            {
+                                iteratorValid = true;
+                                lastSeekPending = null;
+                            }
                         }
                         catch(e2:ItemPendingError)
                         {
@@ -8232,11 +8241,11 @@ public class ListBase extends ScrollControlBase
                     try
                     {
                         iterator.seek(anchorBookmark, 0);
-						if (!iteratorValid)
-						{
-							iteratorValid = true;
-							lastSeekPending = null;
-						}
+                        if (!iteratorValid)
+                        {
+                            iteratorValid = true;
+                            lastSeekPending = null;
+                        }
                     }
                     catch(e:ItemPendingError)
                     {
@@ -8265,11 +8274,11 @@ public class ListBase extends ScrollControlBase
                         index = scrollPositionToIndex(horizontalScrollPosition, verticalScrollPosition);
                         iterator.seek(CursorBookmark.FIRST,
                                       index);
-						if (!iteratorValid)
-						{
-							iteratorValid = true;
-							lastSeekPending = null;
-						}
+                        if (!iteratorValid)
+                        {
+                            iteratorValid = true;
+                            lastSeekPending = null;
+                        }
                     }
                     catch(e:ItemPendingError)
                     {
@@ -8308,11 +8317,11 @@ public class ListBase extends ScrollControlBase
                 try
                 {
                     iterator.seek(CursorBookmark.FIRST);
-					if (!iteratorValid)
-					{
-						iteratorValid = true;
-						lastSeekPending = null;
-					}
+                    if (!iteratorValid)
+                    {
+                        iteratorValid = true;
+                        lastSeekPending = null;
+                    }
                     collectionIterator.seek(CursorBookmark.FIRST);
                 }
                 catch(e:ItemPendingError)
@@ -8428,7 +8437,7 @@ public class ListBase extends ScrollControlBase
     }
     
     /**
-     *  Prepare the data effect for the collection event
+     *  Prepares the data effect for the collection event.
      */
     protected function prepareDataEffect(ce:CollectionEvent):void
     {           
@@ -8499,16 +8508,16 @@ public class ListBase extends ScrollControlBase
             anchorIndex += length;
             
             placeHolder = iterator.bookmark;
-			try
-			{
-				iterator.seek(CursorBookmark.FIRST, anchorIndex);
-				anchorBookmark = iterator.bookmark;
-			}
-			catch (e:ItemPendingError)
-			{
-				e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
-								{ property: "anchorBookmark", value: anchorIndex } ));
-			}
+            try
+            {
+                iterator.seek(CursorBookmark.FIRST, anchorIndex);
+                anchorBookmark = iterator.bookmark;
+            }
+            catch (e:ItemPendingError)
+            {
+                e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
+                                { property: "anchorBookmark", value: anchorIndex } ));
+            }
             iterator.seek(placeHolder);
         }
             
@@ -8517,16 +8526,16 @@ public class ListBase extends ScrollControlBase
             caretIndex += length;
             
             placeHolder = iterator.bookmark;
-			try
-			{
-				iterator.seek(CursorBookmark.FIRST, caretIndex);
-				caretBookmark = iterator.bookmark;
-			}
-			catch (e:ItemPendingError)
-			{
-				e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
-								{ property: "caretBookmark", value: caretIndex } ));
-			}
+            try
+            {
+                iterator.seek(CursorBookmark.FIRST, caretIndex);
+                caretBookmark = iterator.bookmark;
+            }
+            catch (e:ItemPendingError)
+            {
+                e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
+                                { property: "caretBookmark", value: caretIndex } ));
+            }
             iterator.seek(placeHolder);
         }
         
@@ -8580,16 +8589,16 @@ public class ListBase extends ScrollControlBase
             anchorIndex -= length;
             
             placeHolder = iterator.bookmark;
-			try
-			{
-				iterator.seek(CursorBookmark.FIRST, anchorIndex);
-				anchorBookmark = iterator.bookmark;
-			}
-			catch (e:ItemPendingError)
-			{
-				e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
-								{ property: "anchorBookmark", value: anchorIndex } ));
-			}
+            try
+            {
+                iterator.seek(CursorBookmark.FIRST, anchorIndex);
+                anchorBookmark = iterator.bookmark;
+            }
+            catch (e:ItemPendingError)
+            {
+                e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
+                                { property: "anchorBookmark", value: anchorIndex } ));
+            }
             iterator.seek(placeHolder);
         }
             
@@ -8598,16 +8607,16 @@ public class ListBase extends ScrollControlBase
             caretIndex -= length;
             
             placeHolder = iterator.bookmark;
-			try
-			{
-				iterator.seek(CursorBookmark.FIRST, caretIndex);
-				caretBookmark = iterator.bookmark;
-			}
-			catch (e:ItemPendingError)
-			{
-				e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
-								{ property: "caretBookmark", value: caretIndex } ));
-			}
+            try
+            {
+                iterator.seek(CursorBookmark.FIRST, caretIndex);
+                caretBookmark = iterator.bookmark;
+            }
+            catch (e:ItemPendingError)
+            {
+                e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
+                                { property: "caretBookmark", value: caretIndex } ));
+            }
             iterator.seek(placeHolder);
         }
         
@@ -8634,12 +8643,12 @@ public class ListBase extends ScrollControlBase
         try 
         {
             iterator.seek(CursorBookmark.FIRST, info.value);
-			this[info.property] = iterator.bookmark;
+            this[info.property] = iterator.bookmark;
         }
         catch(e:ItemPendingError)
         {
-			e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
-						info ));
+            e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
+                        info ));
         }
         iterator.seek(placeHolder);
 
@@ -8740,9 +8749,8 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Handles <code>MouseEvent.MOUSE_OUT</code> events from any mouse targets
-     *  contained in the list including the renderers.  This method
-     *  finds out which renderer the mouse has left
-     *  and removes the highlights.
+     *  contained in the list including the renderers. This method
+     *  finds out which renderer the mouse has left and removes the highlights.
      *
      *  @param event The MouseEvent object.
      */
@@ -8847,7 +8855,7 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Handles <code>MouseEvent.MOUSE_DOWN</code> events from any mouse
-     *  targets contained in the list including the renderers.  This method
+     *  targets contained in the list including the renderers. This method
      *  finds the renderer that was pressed and prepares to receive
      *  a <code>MouseEvent.MOUSE_UP</code> event.
      *
@@ -8944,7 +8952,7 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Handles <code>MouseEvent.MOUSE_DOWN</code> events from any mouse
-     *  targets contained in the list including the renderers.  This method
+     *  targets contained in the list including the renderers. This method
      *  finds the renderer that was pressed and prepares to receive
      *  a <code>MouseEvent.MOUSE_UP</code> event.
      *
@@ -9004,7 +9012,7 @@ public class ListBase extends ScrollControlBase
 
     /**
      *  Handles <code>MouseEvent.MOUSE_CLICK</code> events from any mouse
-     *  targets contained in the list including the renderers.  This method
+     *  targets contained in the list including the renderers. This method
      *  determines which renderer was clicked
      *  and dispatches a <code>ListEvent.ITEM_CLICK</code> event.
      *
@@ -9084,7 +9092,7 @@ public class ListBase extends ScrollControlBase
         if (event.isDefaultPrevented())
             return;
 
-		lastDragEvent = event;
+        lastDragEvent = event;
 
         if (enabled && iteratorValid && event.dragSource.hasFormat("items"))
         {
@@ -9100,7 +9108,7 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Handles <code>DragEvent.DRAG_OVER</code> events.  This method
+     *  Handles <code>DragEvent.DRAG_OVER</code> events. This method
      *  determines if the DragSource object contains valid elements and uses
      *  the <code>showDropFeedback()</code> method to set up the UI feeback.
      *
@@ -9111,7 +9119,7 @@ public class ListBase extends ScrollControlBase
         if (event.isDefaultPrevented())
             return;
 
-		lastDragEvent = event;
+        lastDragEvent = event;
 
         if (enabled && iteratorValid && event.dragSource.hasFormat("items"))
         {
@@ -9126,7 +9134,7 @@ public class ListBase extends ScrollControlBase
     }
 
     /**
-     *  Handles <code>DragEvent.DRAG_EXIT</code> events.  This method hides
+     *  Handles <code>DragEvent.DRAG_EXIT</code> events. This method hides
      *  the UI feeback by calling the <code>hideDropFeedback()</code> method.
      *
      *  @param event The DragEvent object.
@@ -9136,17 +9144,17 @@ public class ListBase extends ScrollControlBase
         if (event.isDefaultPrevented())
             return;
 
-		lastDragEvent = null;
+        lastDragEvent = null;
 
         hideDropFeedback(event);
 
-		resetDragScrolling();
+        resetDragScrolling();
         
         DragManager.showFeedback(DragManager.NONE);
     }
 
     /**
-     *  Handles <code>DragEvent.DRAG_DROP events</code>.  This method  hides
+     *  Handles <code>DragEvent.DRAG_DROP events</code>. This method  hides
      *  the drop feedback by calling the <code>hideDropFeedback()</code> method.
      *
      *  <p>If the action is a <code>COPY</code>, 
@@ -9208,7 +9216,7 @@ public class ListBase extends ScrollControlBase
                 } 
             }
         }
-		lastDragEvent = null;
+        lastDragEvent = null;
 
     }
     
@@ -9218,9 +9226,11 @@ public class ListBase extends ScrollControlBase
      *  the copy's <code>uid</code> property (if present) with a 
      *  new value by calling the <code>UIDUtil.createUID()</code> method.
      * 
-     *  <p>This method is used for drag'n drop copy</p>
+     *  <p>This method is used for a drag and drop copy.</p>
      * 
-     *  @param item The item to copy
+     *  @param item The item to copy.
+     *  
+     *  @return The copy of the object.
      *
      *  @see mx.utils.ObjectUtil
      *  @see mx.utils.UIDUtil
@@ -9272,8 +9282,8 @@ public class ListBase extends ScrollControlBase
         
         // this can probably be removed b/c it's in dragExit and dragDrop, but leaving these two 
         // lines for now
-		lastDragEvent = null;
-		resetDragScrolling();
+        lastDragEvent = null;
+        resetDragScrolling();
     }
 
     /**
