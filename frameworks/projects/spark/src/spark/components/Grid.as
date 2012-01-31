@@ -742,7 +742,7 @@ package spark.components
         {
             var item:Object = typicalItem;
             if (!item && dataProvider && (dataProvider.length > 0))
-                item = dataProvider[0];
+                item = dataProvider.getItemAt(0);
             
             var itemColumns:IList = null;
             if (item)
@@ -812,12 +812,12 @@ package spark.components
         }
         
         //----------------------------------
-        //  defaultItemRenderer
+        //  itemRenderer
         //----------------------------------
         
-        [Bindable("defaultItemRendererChanged")]
+        [Bindable("itemRendererChanged")]
         
-        private var _defaultItemRenderer:IFactory = null;
+        private var _itemRenderer:IFactory = null;
         
         /**
          *  The item renderer that's used for columns that do not specify one.
@@ -829,21 +829,21 @@ package spark.components
          *  @playerversion AIR 1.5
          *  @productversion Flex 4.5 
          */
-        public function get defaultItemRenderer():IFactory
+        public function get itemRenderer():IFactory
         {
-            return _defaultItemRenderer;
+            return _itemRenderer;
         }
         
         /**
          *  @private
          */
-        public function set defaultItemRenderer(value:IFactory):void
+        public function set itemRenderer(value:IFactory):void
         {
-            if (_defaultItemRenderer == value)
+            if (_itemRenderer == value)
                 return;
             
-            _defaultItemRenderer = value;
-            dispatchChangeEvent("defaultItemRendererChanged");
+            _itemRenderer = value;
+            dispatchChangeEvent("itemRendererChanged");
         }    
         
         //----------------------------------
@@ -1275,8 +1275,11 @@ package spark.components
                 return;
             
             _rowHeight = value;
-            if (!variableRowHeight)
+            if (variableRowHeight)
+                gridDimensions.defaultRowHeight = value;
+            else
                 gridDimensions.fixedRowHeight = value;
+            
             dispatchChangeEvent("rowHeightChanged");            
         }
         
@@ -1475,7 +1478,8 @@ package spark.components
             if (value == variableRowHeight)
                 return;
             
-            gridDimensions.fixedRowHeight = rowHeight;
+            gridDimensions.fixedRowHeight = (value) ? NaN : rowHeight;
+            
             dispatchChangeEvent("variableRowHeightChanged");            
         }
         
