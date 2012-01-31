@@ -17,7 +17,6 @@ import flash.accessibility.AccessibilityProperties;
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
-import flash.events.MouseEvent;
 import flash.system.Capabilities;
 
 import flashx.textLayout.elements.TextFlow;
@@ -28,7 +27,6 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.TouchInteractionEvent;
-import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
 
@@ -1235,7 +1233,7 @@ public class SkinnableTextBase extends SkinnableComponent
                 PROMPT_TEXT_PROPERTY_FLAG))
             {
                 newPromptDisplayProperties.prompt = 
-                    textDisplay.text;
+                    promptDisplay.text;
             }
             promptDisplayProperties = newPromptDisplayProperties;
         }
