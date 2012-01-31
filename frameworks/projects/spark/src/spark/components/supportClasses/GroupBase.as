@@ -1405,11 +1405,6 @@ public class GroupBase extends UIComponent implements IViewport
     private var _focusPane:Sprite;
 
     [Inspectable(environment="none")]
-    
-    // FIXME (rfrishbe): only reason we need to override focusPane getter/setter
-    // is because addChild/removeChild for Groups throw an RTE.
-    // This is the same as UIComponent's focusPane getter/setter but it uses
-    // super.add/removeChild.
 
     /**
      *  @private
