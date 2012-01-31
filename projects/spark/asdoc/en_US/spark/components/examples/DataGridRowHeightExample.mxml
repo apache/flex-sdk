@@ -3,27 +3,52 @@
 <!--
 Demonstrate the DataGrid variableRowHeight and rowHeight properties. 
 
-PENDING: https://bugs.adobe.com/jira/browse/SDK-29478
+When variableRowHeight="false" (the default) use the slider to change the row height 
+of all the DataGrid's rows. When variableRowHeight="true", each row's height is computed.  
+With the variableRowHeight checkbox checked, try adding enough text to a string in the 
+"name" column to cause the renderer to wrap, or resize the column's width by dragging 
+the header's column separators.
+
+
+By default all of the rows in a DataGrid have the same height.  The rows' heights are
+defined by the rowHeight property and if its value is not specified, the computed "preferred" 
+height of the first row is used.   If the variableRowHeight property is set to true,
+then the height of each row is the maximum measured height of each cell that's been exposed,
+so far.  That means that when the DataGrid's columns aren't all visible and variableRowHeight="true", 
+scrolling new columns into view can cause a row's height to grow.   Similarly, the DataGrid
+uses the first row's height (or the rendered height of the "typicalItem", if it was specified)
+as an estimate for the heights of rows that haven't been scrolled into view yet.   This means
+that the DataGrid Grid's contentHeight, i.e. total height of all of the rows, can grow or even 
+shrink as it's scrolled, when variableRowHeight=true.  Since the scrollbar's thumb size reflects
+the content size, you may see its height change a little as you scroll, although as the number
+of rows gets large, this effect usually isn't noticeable.
+
+The runtime support for variable height rows requires quite a bit more bookkeeping than the 
+variableRowHeight="false" case and there's a commensurate impact on performance and footprint.
+That's why by default the DataGrid is configured for fixed height rows.   That said, item
+renderer complexity tends have a much bigger impact on display/scrolling performance, so 
+developers need not shy away from specifying variableRowHeight=true, even when optimizing for
+performance.
 
 -->
 
-<s:Application 
-    xmlns:fx="http://ns.adobe.com/mxml/2009" 
-    xmlns:s="library://ns.adobe.com/flex/spark">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark">
     
     <s:Panel title="Spark DataGrid Control Example which demonstrates the variableRowHeight and rowHeight properties"
              width="75%" height="75%" 
              horizontalCenter="0" verticalCenter="0">
+        
         <s:controlBarContent>
             <s:HGroup verticalAlign="baseline">
                 <s:CheckBox label="variableRowHeight={dataGrid.variableRowHeight}" selected="@{dataGrid.variableRowHeight}"/>
                 <s:Label text="      "/> <!-- blank space -->
-                <s:HSlider minimum="12" maximum="60" value="@{dataGrid.grid.rowHeight}"/>
+                <s:HSlider minimum="12" maximum="120" value="@{dataGrid.grid.rowHeight}"/>
                 <s:Label text="rowHeight={dataGrid.grid.rowHeight}"/>
             </s:HGroup>
-        </s:controlBarContent>
+        </s:controlBarContent>	
         
-        <s:DataGrid id="dataGrid" left="5" right="5" top="5" bottom="5">
+        <s:DataGrid id="dataGrid" left="5" right="5" top="5" bottom="5" editable="true">
             <s:ArrayCollection>
                 <s:DataItem key="1000" name="Abrasive" price="100.11" call="false"/>
                 <s:DataItem key="1001" name="Brush" price="110.01" call="true"/>
