@@ -190,18 +190,23 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="horizontalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
 
 /**
- *  A proxy for the scrollbars' liveDragging styles.   
+ *  A proxy for the <code>liveDragging</code> style of the scrollbars 
+ *  used by the Scroller component.   
  * 
- *  <p>If this style is set to true, then the scrollbars' liveDragging styles are set to true (the default),
- *  which means that dragging a scrollbar thumb immedidately updates the viewport's scroll position.
- *  If this style is set to false, then the scrollbars' liveDragging styles are set to false,
- *  which means that when a scrollbar thumb is dragged the viewport's scroll position is only updated 
+ *  <p>If this style is set to <code>true</code>, then the 
+ *  <code>liveDragging</code> styles are set to <code>true</code> (the default).
+ *  That means dragging a scrollbar thumb immediately updates the viewport's scroll position.
+ *  If this style is set to <code>false</code>, then the <code>liveDragging</code> styles 
+ *  are set to <code>false</code>.
+ *  That means when a scrollbar thumb is dragged the viewport's scroll position is only updated 
  *  then the mouse button is released.</p>
  * 
- *  <p>Setting this style to false can be helpful when updating the viewport's display is so 
+ *  <p>Setting this style to <code>false</code> can be helpful 
+ *  when updating the viewport's display is so 
  *  expensive that "liveDragging" performs poorly.</p> 
  *  
- *  <p>By default this style is undefined, which means that the scrollbar's liveDragging styles are not modified.</p>
+ *  <p>By default this style is <code>undefined</code>, which means that 
+ *  the <code>liveDragging</code> styles are not modified.</p>
  * 
  *  @default undefined
  * 
@@ -389,6 +394,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  <pre>
  *  &lt;s:Scroller
  *   <strong>Properties</strong>
+ *    ensureFocusedElementIsVisible="true"
  *    measuredSizeIncludesScrollBars="true"
  *    minViewportInset="0"
  *    viewport="null"
@@ -724,10 +730,25 @@ public class Scroller extends SkinnableComponent
     //---------------------------------- 
     
     /**
-     *  A value of true means when a descendant element gains focus, the Scroller will scroll
-     *  that element into view. 
-     * 
+     *  Some devices do not support a hardware keyboard. 
+     *  Instead, these devices use a keyboard that opens on 
+     *  the screen when necessary. 
+     *  A value of <code>true</code> means that when a component in 
+     *  the container wrapped by the scroller receives focus, 
+     *  the Scroller scrolls that component into view.
+     *
+     *  <p>When the keyboard closes, the parent container might be smaller 
+     *  than the available screen space. 
+     *  If the container is smaller than the available screen space, 
+     *  then the Scroller restores the scroll positions to 0, 
+     *  the top of the wrapped container.</p>
+     *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public var ensureFocusedElementIsVisible:Boolean = true;
     
@@ -1370,7 +1391,7 @@ public class Scroller extends SkinnableComponent
     //  Touch scrolling methods
     //
     //--------------------------------------------------------------------------
-	
+    
     /**
      *  @private
      *  Add touch listeners
@@ -2151,7 +2172,7 @@ public class Scroller extends SkinnableComponent
         
         touchScrollHelper.startScrollWatch(event);
     }
-    	
+        
     /**
      *  @private
      */
@@ -2159,7 +2180,7 @@ public class Scroller extends SkinnableComponent
     {
         var xMove:int = 0;
         var yMove:int = 0;
-		
+        
         if (scrollerLayout && scrollerLayout.canScrollHorizontally)
             xMove = dragX;
         
@@ -2195,7 +2216,7 @@ public class Scroller extends SkinnableComponent
         // clamp the values here
         newHSP = Math.min(Math.max(newHSP, -viewportWidth), maxWidth+viewportWidth);
         newVSP = Math.min(Math.max(newVSP, -viewportHeight), maxHeight+viewportHeight);
-		
+        
         viewport.horizontalScrollPosition = newHSP;
         viewport.verticalScrollPosition = newVSP;
     }
@@ -2264,141 +2285,141 @@ public class Scroller extends SkinnableComponent
         // scrollbars in overlay mode
         skin.invalidateDisplayList();
     }
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Text selection auto scroll
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 *  When true, use the text selection scroll behavior instead of the 
-	 *  typical "throw" behavior. This is only used when interactionMode="touch"
-	 */
-	mx_internal var textSelectionAutoScrollEnabled:Boolean = false;
-	private var textSelectionAutoScrollTimer:Timer;
-	private var minTextSelectionVScrollPos:int = 0;
-	private var maxTextSelectionVScrollPos:int = -1;
-	private var minTextSelectionHScrollPos:int = 0;
-	private var maxTextSelectionHScrollPos:int = -1;
-	private static const TEXT_SELECTION_AUTO_SCROLL_FPS:int = 10;
-	
-	/**
-	 *  @private
-	 *  Change scroll behavior when selecting text. 
-	 */
-	mx_internal function enableTextSelectionAutoScroll(enable:Boolean,
-					   minHScrollPosition:int = 0, maxHScrollPosition:int = -1,
-					   minVScrollPosition:int = 0, maxVScrollPosition:int = -1):void
-	{
-		if (getStyle("interactionMode") == InteractionMode.TOUCH)
-		{
-			this.textSelectionAutoScrollEnabled = enable;
-			this.minTextSelectionHScrollPos = minHScrollPosition;
-			this.maxTextSelectionHScrollPos = maxHScrollPosition;
-			this.minTextSelectionVScrollPos = minVScrollPosition;
-			this.maxTextSelectionVScrollPos = maxVScrollPosition;
-		}
-	}
-	
-	/**
-	 *  @private
-	 */
-	mx_internal function setUpTextSelectionAutoScroll():void
-	{
-		if (!textSelectionAutoScrollTimer)
-		{
-			textSelectionAutoScrollTimer = new Timer(1000 / TEXT_SELECTION_AUTO_SCROLL_FPS);
-			textSelectionAutoScrollTimer.addEventListener(TimerEvent.TIMER, 
-				textSelectionAutoScrollTimerHandler);
-			
-			textSelectionAutoScrollTimer.start();
-		}
-	}
-	
-	/**
-	 *  @private
-	 */
-	mx_internal function stopTextSelectionAutoScroll():void
-	{
-		if (textSelectionAutoScrollTimer)
-		{
-			textSelectionAutoScrollTimer.stop();
-			textSelectionAutoScrollTimer.removeEventListener(TimerEvent.TIMER,
-				textSelectionAutoScrollTimerHandler);
-			textSelectionAutoScrollTimer = null;
-		}
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function textSelectionAutoScrollTimerHandler(event:TimerEvent):void
-	{
-		const SLOW_SCROLL_THRESHOLD:int = 12;		// Distance from edge to trigger a slow scroll
-		const SLOW_SCROLL_SPEED:int = 20;			// Pixels per timer callback to scroll
-		const FAST_SCROLL_THRESHOLD:int = 3;		// Distance from edge to trigger a fast scroll
-		const FAST_SCROLL_DELTA:int = 30; 			// Added to SLOW_SCROLL_SPEED to determine fast speed
-		
-		var newVSP:Number = viewport.verticalScrollPosition;
-		var newHSP:Number = viewport.horizontalScrollPosition;
-		
-		if (scrollerLayout.canScrollHorizontally)
-		{
-			if (mouseX > width - SLOW_SCROLL_THRESHOLD)
-			{
-				newHSP += SLOW_SCROLL_SPEED;
-				
-				if (mouseX > width - FAST_SCROLL_THRESHOLD)
-					newHSP += FAST_SCROLL_DELTA;
-				
-				if (maxTextSelectionHScrollPos != -1 && newHSP > maxTextSelectionHScrollPos)
-					newHSP = maxTextSelectionHScrollPos;
-			}
-			
-			if (mouseX < SLOW_SCROLL_THRESHOLD)
-			{
-				newHSP -= SLOW_SCROLL_SPEED;
-				
-				if (mouseX < FAST_SCROLL_THRESHOLD)
-					newHSP -= FAST_SCROLL_DELTA;
-				
-				if (newHSP < minTextSelectionHScrollPos)
-					newHSP = minTextSelectionHScrollPos;
-    		}
-		}
-		
-		if (scrollerLayout.canScrollVertically)
-		{
-			if (mouseY > height - SLOW_SCROLL_THRESHOLD)
-			{
-				newVSP += SLOW_SCROLL_SPEED;
-				
-				if (mouseY > height - FAST_SCROLL_THRESHOLD)
-					newVSP += FAST_SCROLL_DELTA;
-				
-				if (maxTextSelectionVScrollPos != -1 && newVSP > maxTextSelectionVScrollPos)
-					newVSP = maxTextSelectionVScrollPos;
-			}
-			
-			if (mouseY < SLOW_SCROLL_THRESHOLD)
-			{
-				newVSP -= SLOW_SCROLL_SPEED;
-				
-				if (mouseY < FAST_SCROLL_THRESHOLD)
-					newVSP -= FAST_SCROLL_DELTA;
-				
-				if (newVSP < minTextSelectionVScrollPos)
-					newVSP = minTextSelectionVScrollPos;
-			}
-		}
-		
-		if (newHSP != viewport.horizontalScrollPosition)
-			viewport.horizontalScrollPosition = newHSP;
-		if (newVSP != viewport.verticalScrollPosition)
-			viewport.verticalScrollPosition = newVSP;
-	}
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Text selection auto scroll
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  When true, use the text selection scroll behavior instead of the 
+     *  typical "throw" behavior. This is only used when interactionMode="touch"
+     */
+    mx_internal var textSelectionAutoScrollEnabled:Boolean = false;
+    private var textSelectionAutoScrollTimer:Timer;
+    private var minTextSelectionVScrollPos:int = 0;
+    private var maxTextSelectionVScrollPos:int = -1;
+    private var minTextSelectionHScrollPos:int = 0;
+    private var maxTextSelectionHScrollPos:int = -1;
+    private static const TEXT_SELECTION_AUTO_SCROLL_FPS:int = 10;
+    
+    /**
+     *  @private
+     *  Change scroll behavior when selecting text. 
+     */
+    mx_internal function enableTextSelectionAutoScroll(enable:Boolean,
+                       minHScrollPosition:int = 0, maxHScrollPosition:int = -1,
+                       minVScrollPosition:int = 0, maxVScrollPosition:int = -1):void
+    {
+        if (getStyle("interactionMode") == InteractionMode.TOUCH)
+        {
+            this.textSelectionAutoScrollEnabled = enable;
+            this.minTextSelectionHScrollPos = minHScrollPosition;
+            this.maxTextSelectionHScrollPos = maxHScrollPosition;
+            this.minTextSelectionVScrollPos = minVScrollPosition;
+            this.maxTextSelectionVScrollPos = maxVScrollPosition;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function setUpTextSelectionAutoScroll():void
+    {
+        if (!textSelectionAutoScrollTimer)
+        {
+            textSelectionAutoScrollTimer = new Timer(1000 / TEXT_SELECTION_AUTO_SCROLL_FPS);
+            textSelectionAutoScrollTimer.addEventListener(TimerEvent.TIMER, 
+                textSelectionAutoScrollTimerHandler);
+            
+            textSelectionAutoScrollTimer.start();
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function stopTextSelectionAutoScroll():void
+    {
+        if (textSelectionAutoScrollTimer)
+        {
+            textSelectionAutoScrollTimer.stop();
+            textSelectionAutoScrollTimer.removeEventListener(TimerEvent.TIMER,
+                textSelectionAutoScrollTimerHandler);
+            textSelectionAutoScrollTimer = null;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function textSelectionAutoScrollTimerHandler(event:TimerEvent):void
+    {
+        const SLOW_SCROLL_THRESHOLD:int = 12;       // Distance from edge to trigger a slow scroll
+        const SLOW_SCROLL_SPEED:int = 20;           // Pixels per timer callback to scroll
+        const FAST_SCROLL_THRESHOLD:int = 3;        // Distance from edge to trigger a fast scroll
+        const FAST_SCROLL_DELTA:int = 30;           // Added to SLOW_SCROLL_SPEED to determine fast speed
+        
+        var newVSP:Number = viewport.verticalScrollPosition;
+        var newHSP:Number = viewport.horizontalScrollPosition;
+        
+        if (scrollerLayout.canScrollHorizontally)
+        {
+            if (mouseX > width - SLOW_SCROLL_THRESHOLD)
+            {
+                newHSP += SLOW_SCROLL_SPEED;
+                
+                if (mouseX > width - FAST_SCROLL_THRESHOLD)
+                    newHSP += FAST_SCROLL_DELTA;
+                
+                if (maxTextSelectionHScrollPos != -1 && newHSP > maxTextSelectionHScrollPos)
+                    newHSP = maxTextSelectionHScrollPos;
+            }
+            
+            if (mouseX < SLOW_SCROLL_THRESHOLD)
+            {
+                newHSP -= SLOW_SCROLL_SPEED;
+                
+                if (mouseX < FAST_SCROLL_THRESHOLD)
+                    newHSP -= FAST_SCROLL_DELTA;
+                
+                if (newHSP < minTextSelectionHScrollPos)
+                    newHSP = minTextSelectionHScrollPos;
+            }
+        }
+        
+        if (scrollerLayout.canScrollVertically)
+        {
+            if (mouseY > height - SLOW_SCROLL_THRESHOLD)
+            {
+                newVSP += SLOW_SCROLL_SPEED;
+                
+                if (mouseY > height - FAST_SCROLL_THRESHOLD)
+                    newVSP += FAST_SCROLL_DELTA;
+                
+                if (maxTextSelectionVScrollPos != -1 && newVSP > maxTextSelectionVScrollPos)
+                    newVSP = maxTextSelectionVScrollPos;
+            }
+            
+            if (mouseY < SLOW_SCROLL_THRESHOLD)
+            {
+                newVSP -= SLOW_SCROLL_SPEED;
+                
+                if (mouseY < FAST_SCROLL_THRESHOLD)
+                    newVSP -= FAST_SCROLL_DELTA;
+                
+                if (newVSP < minTextSelectionVScrollPos)
+                    newVSP = minTextSelectionVScrollPos;
+            }
+        }
+        
+        if (newHSP != viewport.horizontalScrollPosition)
+            viewport.horizontalScrollPosition = newHSP;
+        if (newVSP != viewport.verticalScrollPosition)
+            viewport.verticalScrollPosition = newVSP;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -2884,7 +2905,7 @@ class TouchScrollHelper
                 var scrollStartEvent:TouchInteractionEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_START, true, true);
                 scrollStartEvent.relatedObject = scroller;
                 scrollStartEvent.reason = TouchInteractionReason.SCROLL;
-				dispatchBubblingEventOnMouseDownedDisplayObject(scrollStartEvent);
+                dispatchBubblingEventOnMouseDownedDisplayObject(scrollStartEvent);
                 
                 isScrolling = true;
                 
@@ -2941,11 +2962,11 @@ class TouchScrollHelper
         // if we are scrolling (even if we just started scrolling)
         if (isScrolling)
         {
-			if (scroller.textSelectionAutoScrollEnabled)
-			{
-				scroller.setUpTextSelectionAutoScroll();
-				return;
-			}
+            if (scroller.textSelectionAutoScrollEnabled)
+            {
+                scroller.setUpTextSelectionAutoScroll();
+                return;
+            }
 
             // calculate the delta
             var dx:Number = event.stageX - scrollGestureAnchorPoint.x;
@@ -3026,14 +3047,14 @@ class TouchScrollHelper
         if (!isScrolling)
             return;
        
-		// Don't throw if we're doing a text selection auto scroll
-		if (scroller.textSelectionAutoScrollEnabled)
-		{
-			scroller.stopTextSelectionAutoScroll();
-			endTouchScroll();
-			return;
-		}
-		
+        // Don't throw if we're doing a text selection auto scroll
+        if (scroller.textSelectionAutoScrollEnabled)
+        {
+            scroller.stopTextSelectionAutoScroll();
+            endTouchScroll();
+            return;
+        }
+        
         if (dragTimer)
         {
             if (dragScrollPending)
@@ -3091,13 +3112,13 @@ class TouchScrollHelper
         }
         averageDt /= len-1;
         
-		// if off screen for some reason, let's end scrolling:
-		if (!scroller.stage)
-		{
+        // if off screen for some reason, let's end scrolling:
+        if (!scroller.stage)
+        {
             endTouchScroll();
-			return;
-		}
-		
+            return;
+        }
+        
         var lastMouseEventPoint:Point = mouseEventCoordinatesHistory[endIndex];
 
         // calculate the last velocity and make sure there was no pause that occurred
@@ -3193,40 +3214,40 @@ class TouchScrollHelper
         
         return new Point(velX,velY);
     }
-	
-	/**
-	 *  @private
-	 *  Helper method to dispatch bubbling events on mouseDownDisplayObject.  Since this 
-	 *  object can be off the display list, this may be tricky.  Technically, we should 
-	 *  grab all the live objects at the time of mouseDown and dispatch events to them 
-	 *  manually, but instead, we just use this heuristic, which is dispatch it to 
-	 *  mouseDownedDisplayObject.  If it's not inside of scroller and off the display list,
-	 *  then dispatch to scroller as well.
-	 * 
-	 *  <p>If you absolutely need to know the touch event ended, add event listeners 
-	 *  to the mouseDownedDisplayObject directly and don't rely on event 
-	 *  bubbling.</p>
-	 */
-	private function dispatchBubblingEventOnMouseDownedDisplayObject(event:Event):Boolean
-	{
-		var eventAccepted:Boolean = true;
-		if (mouseDownedDisplayObject)
-		{
-			eventAccepted = eventAccepted && mouseDownedDisplayObject.dispatchEvent(event);
-			if (!mouseDownedDisplayObject.stage)
-			{
-				if (scroller && !scroller.contains(mouseDownedDisplayObject))
-					eventAccepted = eventAccepted && scroller.dispatchEvent(event);
-			}
-		}
-		else
-		{
-			eventAccepted = eventAccepted && scroller.dispatchEvent(event);
-		}
-		
-		return eventAccepted;
-	}
-	
+    
+    /**
+     *  @private
+     *  Helper method to dispatch bubbling events on mouseDownDisplayObject.  Since this 
+     *  object can be off the display list, this may be tricky.  Technically, we should 
+     *  grab all the live objects at the time of mouseDown and dispatch events to them 
+     *  manually, but instead, we just use this heuristic, which is dispatch it to 
+     *  mouseDownedDisplayObject.  If it's not inside of scroller and off the display list,
+     *  then dispatch to scroller as well.
+     * 
+     *  <p>If you absolutely need to know the touch event ended, add event listeners 
+     *  to the mouseDownedDisplayObject directly and don't rely on event 
+     *  bubbling.</p>
+     */
+    private function dispatchBubblingEventOnMouseDownedDisplayObject(event:Event):Boolean
+    {
+        var eventAccepted:Boolean = true;
+        if (mouseDownedDisplayObject)
+        {
+            eventAccepted = eventAccepted && mouseDownedDisplayObject.dispatchEvent(event);
+            if (!mouseDownedDisplayObject.stage)
+            {
+                if (scroller && !scroller.contains(mouseDownedDisplayObject))
+                    eventAccepted = eventAccepted && scroller.dispatchEvent(event);
+            }
+        }
+        else
+        {
+            eventAccepted = eventAccepted && scroller.dispatchEvent(event);
+        }
+        
+        return eventAccepted;
+    }
+    
     /**
      *  @private
      *  When the touchScrollThrow is over, we should dispatch a touchInteractionEnd.
