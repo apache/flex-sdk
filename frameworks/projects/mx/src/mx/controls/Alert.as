@@ -561,7 +561,9 @@ public class Alert extends Panel
         if (!parent)
         {
             var sm:ISystemManager = ISystemManager(FlexGlobals.topLevelApplication.systemManager);
-            if (sm.useSWFBridge())
+		    // no types so no dependencies
+		    var mp:Object = sm.getImplementation("mx.managers.IMarshallPlanSystemManager");
+		    if (mp && mp.useSWFBridge())
                 parent = Sprite(sm.getSandboxRoot());
             else
                 parent = Sprite(FlexGlobals.topLevelApplication);
@@ -595,7 +597,13 @@ public class Alert extends Panel
 		// Setting a module factory allows the correct embedded font to be found.
         if (parent is UIComponent)
         	alert.moduleFactory = UIComponent(parent).moduleFactory;
-        	
+        else
+        {
+            alert.moduleFactory = FlexGlobals.topLevelApplication.moduleFactory;
+            // also set document is parent isn't a UIComponent
+            alert.document = FlexGlobals.topLevelApplication.document;
+        }
+
         PopUpManager.addPopUp(alert, parent, modal);
 
         alert.setActualSize(alert.getExplicitOrMeasuredWidth(),
