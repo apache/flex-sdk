@@ -157,9 +157,6 @@ public class TextBase extends UIComponent
         // added don't trap the mouse events.
         mouseChildren = false;
 		
-		// this component assumes that its coordinate system will not be mirrored
-		layoutDirection = "ltr";
-        
 		var resourceManager:IResourceManager = ResourceManager.getInstance();
                                     
 		if (!truncationIndicatorResource)
