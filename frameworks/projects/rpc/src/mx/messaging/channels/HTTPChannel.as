@@ -375,7 +375,7 @@ public class HTTPChannel extends PollingChannel
         }
 
         // Report the messaging version for this Channel.
-        msg.headers[CommandMessage.MESSAGING_VERSION] = messagingVersion;
+        // msg.headers[CommandMessage.MESSAGING_VERSION] = messagingVersion;
 
         // Indicate if requesting the dynamic configuration from the server.
         if (ServerConfig.needsConfig(this))
