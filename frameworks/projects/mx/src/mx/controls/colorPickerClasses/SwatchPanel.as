@@ -1335,7 +1335,12 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
 
         var currentRow:int = Math.floor(focusedIndex / columnCount);
 
-        switch (event.keyCode)
+            
+        // If rtl layout, need to swap LEFT for RIGHT so correct action
+        // is done.
+        var keyCode:int = mapKeycodeForLayoutDirection(event);
+                        
+        switch (keyCode)
         {
             case Keyboard.UP:
             {
