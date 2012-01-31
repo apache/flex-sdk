@@ -82,7 +82,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *    <strong>Properties</strong>
  *    arrowKeysWrapFocus="false"
  *    dataProvider="null"
- *    labelField="null"
+ *    labelField="label"
  *    labelFunction="null"
  *    requireSelection="false"
  *    selectedIndex="-1"
@@ -237,14 +237,14 @@ public class ListBase extends SkinnableDataContainer
     //  labelField
     //----------------------------------
     private var labelFieldOrFunctionChanged:Boolean; 
-    private var _labelField:String;
+    private var _labelField:String = "label";
     
     /**
      *  The name of the field in the data provider items to display 
      *  as the label. 
      *  The <code>labelFunction</code> property overrides this property.
      *
-     *  @default null 
+     *  @default "label" 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
