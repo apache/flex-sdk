@@ -582,7 +582,7 @@ public class ComboBox extends DropDownListBase
             else
                 setSelectedIndex(NO_SELECTION, true);
         }
-        else
+        else if (isDropDownOpen)
         {
             setSelectedIndex(actualProposedSelectedIndex, true);
         }
@@ -618,7 +618,7 @@ public class ComboBox extends DropDownListBase
         // If selectedIndex was set to CUSTOM_SELECTED_ITEM, and no selectedItem was specified,
         // then don't change the selectedIndex
         if (_proposedSelectedIndex == CUSTOM_SELECTED_ITEM && 
-            !_pendingSelectedItem)
+            _pendingSelectedItem == undefined)
         {
             _proposedSelectedIndex = NO_PROPOSED_SELECTION;
         }
