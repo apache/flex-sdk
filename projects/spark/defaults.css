@@ -46,7 +46,6 @@ ButtonBar
 
 CheckBox
 {
-    layoutDirection: "ltr";
     skinClass: ClassReference("spark.skins.spark.CheckBoxSkin");
 }
 
