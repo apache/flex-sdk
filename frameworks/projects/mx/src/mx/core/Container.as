@@ -29,6 +29,7 @@ import flash.text.TextField;
 import flash.text.TextLineMetrics;
 import flash.ui.Keyboard;
 import flash.utils.getDefinitionByName;
+import flash.utils.getQualifiedClassName;
 
 import mx.binding.BindingManager;
 import mx.containers.utilityClasses.PostScaleAdapter;
@@ -3449,6 +3450,19 @@ public class Container extends UIComponent
                 backgroundColor = getStyle("backgroundColor");
 
             var backgroundAlpha:Number = getStyle("backgroundAlpha");
+            
+            // If the borderSkin is a spark skin, use contentBackgroundColor instead of backgroundColor.
+            if (FlexVersion.compatibilityVersion > FlexVersion.VERSION_3_0)
+            {
+                var borderSkin:Class = getStyle("borderSkin");
+                
+                // There is no guaranteed way to check for spark skins. The closest we can do 
+                // is to look for "skins.spark" in the qualified class name
+                if (borderSkin && (getQualifiedClassName(borderSkin).indexOf("skins.spark") >= 0))
+                {
+                    backgroundColor = getStyle("contentBackgroundColor");
+                }
+            }
 
             if (!_clipContent ||
                 isNaN(Number(backgroundColor)) ||
@@ -3457,7 +3471,7 @@ public class Container extends UIComponent
             {
                 backgroundColor = null;
             }
-
+            
             // If there's a backgroundImage or background, unset
             // opaqueBackground.
             else if (getStyle("backgroundImage") ||
