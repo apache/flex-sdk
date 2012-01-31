@@ -8,37 +8,37 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package flex.effects
+package mx.effects
 {
 import flash.events.EventDispatcher;
 import flash.events.TimerEvent;
 import flash.utils.Timer;
 import flash.utils.getTimer;
 
-import flex.effects.easing.IEaser;
-import flex.effects.easing.Linear;
-import flex.effects.easing.Sine;
-import flex.effects.interpolation.ArrayInterpolator;
-import flex.effects.interpolation.IInterpolator;
-import flex.effects.interpolation.NumberArrayInterpolator;
-import flex.effects.interpolation.NumberInterpolator;
-import flex.events.AnimationEvent;
+import mx.effects.easing.IEaser;
+import mx.effects.easing.Linear;
+import mx.effects.easing.Sine;
+import mx.effects.interpolation.ArrayInterpolator;
+import mx.effects.interpolation.IInterpolator;
+import mx.effects.interpolation.NumberArrayInterpolator;
+import mx.effects.interpolation.NumberInterpolator;
+import mx.events.AnimationEvent;
 
 /**
  * Dispatched when the animation starts. The first 
  * <code>animationUpdate</code> event is dispatched at the 
  * same time.
  *
- * @eventType flex.events.AnimationEvent.ANIMATION_START
+ * @eventType mx.events.AnimationEvent.ANIMATION_START
  */
-[Event(name="animationStart", type="flex.events.AnimationEvent")]
+[Event(name="animationStart", type="mx.events.AnimationEvent")]
 
 /**
  * Dispatched every time the animation updates the target.
  *
- * @eventType flex.events.AnimationEvent.ANIMATION_UPDATE
+ * @eventType mx.events.AnimationEvent.ANIMATION_UPDATE
  */
-[Event(name="animationUpdate", type="flex.events.AnimationEvent")]
+[Event(name="animationUpdate", type="mx.events.AnimationEvent")]
 
 /**
  * Dispatched when the animation begins a new repetition, for
@@ -46,18 +46,18 @@ import flex.events.AnimationEvent;
  * An <code>animationUpdate</code> event is also dispatched 
  * at the same time.
  *
- * @eventType flex.events.AnimationEvent.ANIMATION_REPEAT
+ * @eventType mx.events.AnimationEvent.ANIMATION_REPEAT
  */
-[Event(name="animationRepeat", type="flex.events.AnimationEvent")]
+[Event(name="animationRepeat", type="mx.events.AnimationEvent")]
 
 /**
  * Dispatched when the effect ends. An <code>animationUpdate</code> event 
  * is also dispatched at the same time. A repeating animation dispatches 
  * this event only after the final repetition.
  *
- * @eventType flex.events.AnimationEvent.ANIMATION_END
+ * @eventType mx.events.AnimationEvent.ANIMATION_END
  */
-[Event(name="animationEnd", type="flex.events.AnimationEvent")]
+[Event(name="animationEnd", type="mx.events.AnimationEvent")]
 
 /**
  * The Animation class defines an animation that happens between 
@@ -84,8 +84,8 @@ import flex.events.AnimationEvent;
  * the start and end values and the easer and interpolator objects. These
  * values can then be used to set property values on target objects.</p>
  *
- *  @see flex.effects.Animate
- *  @see flex.effects.effectClasses.AnimateInstance
+ *  @see mx.effects.Animate
+ *  @see mx.effects.effectClasses.FxAnimateInstance
  */
 public class Animation extends EventDispatcher
 {
