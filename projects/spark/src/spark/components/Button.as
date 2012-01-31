@@ -347,6 +347,24 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
 
     //--------------------------------------------------------------------------
     //
+    //  Overridden properties: UIComponent
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function get baselinePosition():Number
+    {
+        return getBaselinePositionForPart(labelField);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
