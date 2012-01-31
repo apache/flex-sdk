@@ -213,6 +213,29 @@ public class ListBase extends SkinnableDataContainer
      */
     mx_internal var dispatchChangeAfterSelection:Boolean = false;
     
+    /**
+     *  @private
+     *  Used to keep track of whether selection transitions should play 
+     *  in the updateRenderer() code.  See turnOnSelectionTransitionsForOneFrame()
+     */
+    private var allowSelectionTransitions:Boolean = false;
+    
+    /**
+     *  @private
+     *  Used to keep track of whether caret transitions should play 
+     *  in the updateRenderer() code.  See turnOnCaretTransitionsForOneFrame()
+     */
+    private var allowCaretTransitions:Boolean = false;
+    
+    /**
+     *  @private
+     *  Used to keep track of whether we are in updateRenderer().  This is 
+     *  so we know that any calls to itemSelected() and itemShowingCaret(), 
+     *  are called based on a user-action (either interaction or programattic) 
+     *  and not through item renderer recycling.
+     */
+    private var inUpdateRenderer:Boolean;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -922,27 +945,48 @@ public class ListBase extends SkinnableDataContainer
      */
     override public function updateRenderer(renderer:IVisualElement, itemIndex:int, data:Object):void
     {
-        // If there are transitions bound to the renderer, lets turn them 
-        // off while we clear stale properties by setting ItemRenderer's 
-        // mx_internal property, playTransitions, to false.
-        if (renderer is ItemRenderer)
-            ItemRenderer(renderer).playTransitions = false; 
+        // We keep track of whether we are in updateRenderer().  This is 
+        // so we know that any calls to itemSelected() and itemShowingCaret(), 
+        // are called based on a user-action (either interaction or programattic) 
+        // and not through item renderer recycling.
+        inUpdateRenderer = true;
         
-        // First clean up any old, stale properties like selected and caret   
-        if (renderer is IItemRenderer)
+        // We need to deal with transitions appropriately.  If selection transitions 
+        // are on for updateRenderer() but caret transitions are not, then we want to 
+        // set the caret first (with transitions off) and then set the selection. 
+        // We do it in this order for this case because we want the last change 
+        // we make to cause a transition (if it's on).
+        // Otherwise, we set selection first and then caret.
+        if (allowSelectionTransitions && !allowCaretTransitions)
         {
-            // TODO (dsubrama): - Go through helper methods to do this. 
-            // Make itemSelected()/itemShowingCaret() pass around the renderer 
-            // instead of index
-            IItemRenderer(renderer).showsCaret = false;
-        }    
-        
-        // Set any new properties on the renderer now that it's going to 
-        // come back into use. 
-        itemSelected(itemIndex, shouldItemAppearSelected(itemIndex));
-
-        if (isItemIndexShowingCaret(itemIndex))
-            itemShowingCaret(itemIndex, true);
+            // no transitions for caret, so turn them off since this is just 
+            // due to item renderer recycling
+            if (renderer is ItemRenderer)
+                ItemRenderer(renderer).playTransitions = false;
+            
+            itemShowingCaret(itemIndex, isItemIndexShowingCaret(itemIndex));
+            
+            // turn on transitions for selection
+            if (renderer is ItemRenderer)
+                ItemRenderer(renderer).playTransitions = true;
+            
+            itemSelected(itemIndex, shouldItemAppearSelected(itemIndex));
+        }
+        else
+        {
+            // if selection transitions are on, turn them on.  otherwise, turn them off, 
+            // so we don't see them for item renderer recycling
+            if (renderer is ItemRenderer)
+                ItemRenderer(renderer).playTransitions = allowSelectionTransitions;
+            
+            itemSelected(itemIndex, shouldItemAppearSelected(itemIndex));
+            
+            // deal with transitions for caret appropriately
+            if (renderer is ItemRenderer)
+                ItemRenderer(renderer).playTransitions = allowCaretTransitions;
+                
+            itemShowingCaret(itemIndex, isItemIndexShowingCaret(itemIndex));
+        }
         
         // Now turn the transitions back on by setting playTransitions
         // back to true 
@@ -953,6 +997,9 @@ public class ListBase extends SkinnableDataContainer
         // call super.updateRenderer() last because super.updateRenderer()
         // sets the data on the item renderer, and that should be done last.
         super.updateRenderer(renderer, itemIndex, data); 
+        
+        // let us know we're out of updateRenderer()
+        inUpdateRenderer = false;
     }
     
     /**
@@ -997,6 +1044,13 @@ public class ListBase extends SkinnableDataContainer
      */
     protected function itemSelected(index:int, selected:Boolean):void
     {
+        // if this method is called from anywhere besides the updateRenderer(), 
+        // then we want transitions for selection to play.  This way if it's called 
+        // from the selectedIndex setter or through the keyDown handler or through 
+        // commitProperties(), transitions will be enabled for it.
+        if (!inUpdateRenderer)
+            turnOnSelectionTransitionsForOneFrame();
+            
         // Subclasses must override this method to display the selection.
     }
     
@@ -1016,6 +1070,13 @@ public class ListBase extends SkinnableDataContainer
      */
     protected function itemShowingCaret(index:int, showsCaret:Boolean):void
     {
+        // if this method is called from anywhere besides the updateRenderer(), 
+        // then we want transitions for caret to play.  This way if it's called 
+        // from the keyDown handler or through 
+        // commitProperties(), transitions will be enabled for it.
+        if (!inUpdateRenderer)
+            turnOnCaretTransitionsForOneFrame();
+        
         // Subclasses must override this method to display the caret.
     }
     
@@ -1291,6 +1352,80 @@ public class ListBase extends SkinnableDataContainer
             // the selected index backing variable.
             adjustSelection(selectedIndex - 1);
         }
+    }
+    
+    /**
+     *  @private
+     *  Turns on selection transitions for one frame.  We turn it on for 
+     *  one frame to make sure that no matter how the property gets set 
+     *  (synchronously in the event handler or asynchronously during validation)
+     *  that we make sure selection transitions will play appropriately.
+     */
+    private function turnOnSelectionTransitionsForOneFrame():void
+    {
+        // if already on, no need to run this again
+        // or if there's no systemManager, then we're not really initialized, so let's
+        // just keep transitions off.
+        if (allowSelectionTransitions || !systemManager)
+            return;
+        
+        allowSelectionTransitions = true;
+        
+        // We want to wait one frame after validation has occured before turning off 
+        // selection transitions again.  We tried using dataGroup's updateComplete event listener, 
+        // but because some validateNows() occur (before all of the event handling code has finished), 
+        // this was occuring too early.  We also tried just using callLater or ENTER_FRAME, but that 
+        // occurs before the LayoutManager has run, so we add an ENTER_FRAME handler with a 
+        // low priority to make sure it occurs after the LayoutManager pass.
+        systemManager.addEventListener(Event.ENTER_FRAME, allowSelectionTransitions_enterFrameHandler, false, -100);
+    }
+    
+    /**
+     *  @private
+     *  After waiting a frame, we want to turn off selection transitions
+     */
+    private function allowSelectionTransitions_enterFrameHandler(event:Event):void
+    {
+        event.target.removeEventListener(Event.ENTER_FRAME, allowSelectionTransitions_enterFrameHandler);
+        
+        allowSelectionTransitions = false;
+    }
+    
+    /**
+     *  @private
+     *  Turns on caret transitions for one frame.  We turn it on for 
+     *  one frame to make sure that no matter how the property gets set 
+     *  (synchronously in the event handler or asynchronously during validation)
+     *  that we make sure caret transitions will play appropriately.
+     */
+    private function turnOnCaretTransitionsForOneFrame():void
+    {
+        // if already on, no need to run this again
+        // or if there's no systemManager, then we're not really initialized, so let's
+        // just keep transitions off.
+        if (allowCaretTransitions || !systemManager)
+            return;
+        
+        allowCaretTransitions = true;
+        
+        // We want to wait one frame after validation has occured before turning off 
+        // selection transitions again.  We tried using dataGroup's updateComplete event listener, 
+        // but because some validateNows() occur (before all of the event handling code has finished), 
+        // this was occuring too early.  We also tried just using callLater or ENTER_FRAME, but that 
+        // occurs before the LayoutManager has run, so we add an ENTER_FRAME handler with a 
+        // low priority to make sure it occurs after the LayoutManager pass.
+        systemManager.addEventListener(Event.ENTER_FRAME, allowCaretTransitions_enterFrameHandler, false, -100);
+    }
+    
+    /**
+     *  @private
+     *  After waiting a frame, we want to turn off caret transitions
+     */
+    private function allowCaretTransitions_enterFrameHandler(event:Event):void
+    {
+        event.target.removeEventListener(Event.ENTER_FRAME, allowCaretTransitions_enterFrameHandler);
+        
+        allowCaretTransitions = false;
     }
     
     //--------------------------------------------------------------------------
