@@ -1408,7 +1408,7 @@ public class Scroller extends SkinnableComponent
             // clipped/obscured by the soft keyboard
             var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
             var eltBounds:Rectangle;
-            var adjustForSoftKeyboard:Boolean = topLevelApp &&
+            var adjustForSoftKeyboard:Boolean = topLevelApp && 
                                                 (!topLevelApp.resizeForSoftKeyboard) &&
                                                 (stage && stage.softKeyboardRect.height > 0);
             
@@ -1759,7 +1759,7 @@ public class Scroller extends SkinnableComponent
     /**
      *  @private 
      */
-    private function handleContentSizeChange():void
+    private function handleSizeChange():void
     {
         // The content size has changed, so the current scroll
         // position and/or any in-progress throw may need to be adjusted.
@@ -2040,12 +2040,12 @@ public class Scroller extends SkinnableComponent
     /**
      *  @private 
      */
-    private function handleContentSizeChangeOnUpdateComplete(event:FlexEvent):void
+    private function handleSizeChangeOnUpdateComplete(event:FlexEvent):void
     {
         viewport.removeEventListener(FlexEvent.UPDATE_COMPLETE, 
-            handleContentSizeChangeOnUpdateComplete);
+            handleSizeChangeOnUpdateComplete);
         
-        handleContentSizeChange();
+        handleSizeChange();
     }
     
     /**
@@ -2056,11 +2056,9 @@ public class Scroller extends SkinnableComponent
         if (getStyle("interactionMode") == InteractionMode.TOUCH)
         {
             // If the viewport dimensions have changed, then we may need to update the
-            // scroll ranges per the new viewport size.
-            // Note that the orientationChangeHandler serves the same purpose, but on
-            // some platforms (i.e. Android) the runtime sends the "orientationChange"
-            // event before the new viewport dimensions are set.
-            determineScrollRanges();
+            // scroll ranges and snap the scroll position per the new viewport size.
+            viewport.addEventListener(FlexEvent.UPDATE_COMPLETE, 
+                handleSizeChangeOnUpdateComplete);
         }
     }
     
@@ -2080,7 +2078,7 @@ public class Scroller extends SkinnableComponent
                     // may have changed.  In this case, we need to schedule an updateComplete 
                     // handler to check and potentially correct the scroll positions. 
                     viewport.addEventListener(FlexEvent.UPDATE_COMPLETE, 
-                        handleContentSizeChangeOnUpdateComplete);
+                        handleSizeChangeOnUpdateComplete);
                 }
                 break;
 
@@ -2175,7 +2173,7 @@ public class Scroller extends SkinnableComponent
             // Remember the page count so we'll know whether it changed.
             previousOrientationPageCount = getCurrentPageCount();
         }
-        else
+        else if (scrollSnappingMode != ScrollSnappingMode.NONE)
         {
             // For item snapping, we remember which specific element is currently snapped. 
             
@@ -2187,19 +2185,12 @@ public class Scroller extends SkinnableComponent
             // lastSnappedElement was set as a side-effect of the call to getSnappedPosition above.  
             orientationChangeSnapElement = lastSnappedElement;
         }
-    }
     
-    /**
-     *  @private 
-     */
-    private function orientationChangeHandler(event:Event):void
-    {
-        if (getStyle("interactionMode") == InteractionMode.TOUCH)
-        {
-            // When the orientation (landscape/portrait) changes, then the valid
-            // scroll position ranges may have changed.
-            checkScrollPosition();
-        }
+        // Force the viewport layout to clear its cache of element
+        // dimensions so it can be repopulated with correct values
+        // after the orientation change is complete.
+        if (viewportLayout)
+            viewportLayout.clearVirtualLayoutCache();
     }
     
     //--------------------------------------------------------------------------
@@ -3207,19 +3198,21 @@ public class Scroller extends SkinnableComponent
      */
     private function snapContentScrollPosition(snapHorizontal:Boolean = true, snapVertical:Boolean = true):void
     {
-        if (snapHorizontal)
-        {
-            viewport.horizontalScrollPosition = getSnappedPosition( 
-                Math.min(Math.max(minHorizontalScrollPosition, viewport.horizontalScrollPosition), maxHorizontalScrollPosition),
-                HORIZONTAL_SCROLL_POSITION);
+        // Note that we only snap the scroll position if content is present.  This allows existing scroll position
+        // values to be retained before content is added or when it is removed/readded.
+        if (snapHorizontal && viewport.contentWidth != 0)
+    {
+        viewport.horizontalScrollPosition = getSnappedPosition( 
+            Math.min(Math.max(minHorizontalScrollPosition, viewport.horizontalScrollPosition), maxHorizontalScrollPosition),
+            HORIZONTAL_SCROLL_POSITION);
         }
 
-        if (snapVertical)
+        if (snapVertical && viewport.contentHeight != 0)
         {
-            viewport.verticalScrollPosition = getSnappedPosition( 
-                Math.min(Math.max(minVerticalScrollPosition, viewport.verticalScrollPosition), maxVerticalScrollPosition),
-                VERTICAL_SCROLL_POSITION);
-        }
+        viewport.verticalScrollPosition = getSnappedPosition( 
+            Math.min(Math.max(minVerticalScrollPosition, viewport.verticalScrollPosition), maxVerticalScrollPosition),
+            VERTICAL_SCROLL_POSITION);
+    }
     }
     
     /**
@@ -3647,8 +3640,10 @@ public class Scroller extends SkinnableComponent
     {
         if (getStyle("interactionMode") == InteractionMode.TOUCH)
         {
-            systemManager.stage.addEventListener("orientationChange",orientationChangeHandler);
-            systemManager.stage.addEventListener("orientationChanging", orientationChangingHandler);
+            // Note that we listen for orientationChanging in the capture phase.  This is done so we get the event 
+            // before Application does to ensure that the pre-orientation-change dimensions are still in effect.
+            // On iOS, Application swaps the dimensions and forces a validation in its orientationChanging handler.
+            systemManager.stage.addEventListener("orientationChanging", orientationChangingHandler, true);
         }
     }
     
@@ -3658,10 +3653,7 @@ public class Scroller extends SkinnableComponent
     private function removedFromStageHandler(event:Event):void
     {
         if (getStyle("interactionMode") == InteractionMode.TOUCH)
-        {
-            systemManager.stage.removeEventListener("orientationChange",orientationChangeHandler);
-            systemManager.stage.removeEventListener("orientationChanging", orientationChangingHandler);
-        }
+            systemManager.stage.removeEventListener("orientationChanging", orientationChangingHandler, true);
     }
     
     /**
