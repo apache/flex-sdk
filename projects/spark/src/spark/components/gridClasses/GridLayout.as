@@ -381,8 +381,18 @@ public class GridLayout extends LayoutBase
         
         updateTypicalCellSizes();
         
+        var measuredRowCount:int = grid.requestedRowCount;
+        if (measuredRowCount == -1)
+        {
+            const rowCount:int = gridDimensions.rowCount;
+            if (grid.requestedMaxRowCount != -1)
+                measuredRowCount = Math.min(grid.requestedMaxRowCount, rowCount);
+            if (grid.requestedMinRowCount != -1)
+                measuredRowCount = Math.max(grid.requestedMinRowCount, measuredRowCount);                
+        }
+        
         var measuredWidth:Number = gridDimensions.getTypicalContentWidth(grid.requestedColumnCount);
-        var measuredHeight:Number = gridDimensions.getTypicalContentHeight(grid.requestedRowCount);
+        var measuredHeight:Number = gridDimensions.getTypicalContentHeight(measuredRowCount);
 		var measuredMinWidth:Number = gridDimensions.getTypicalContentWidth(grid.requestedMinColumnCount);
 		var measuredMinHeight:Number = gridDimensions.getTypicalContentHeight(grid.requestedMinRowCount);
 		
