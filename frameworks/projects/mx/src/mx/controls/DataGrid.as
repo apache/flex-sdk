@@ -314,7 +314,7 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  The class to use as the skin for the cursor that indicates that a column
  *  can be resized.
- *  @default mx.skins.halo.DataGridStretchCursor
+ *  The default value is the "cursorStretch" symbol from the Assets.swf file.
  */
 [Style(name="stretchCursor", type="Class", inherit="no")]
 
@@ -459,7 +459,7 @@ include "../styles/metadata/IconColorStyles.as"
  *    rollOverColor="#E3FFD6"
  *    selectionColor="#CDFFC1"
  *    sortArrowSkin="DataGridSortArrow"
- *    stretchCursor="DataGridStretchCursor"
+ *    stretchCursor="<i>"cursorStretch" symbol from the Assets.swf file</i>"
  *    verticalGridLineColor="#666666"
  *    verticalGridLines="false|true"
  *    verticalLockedSeparatorSkin="undefined"
