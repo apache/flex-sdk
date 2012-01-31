@@ -176,8 +176,6 @@ public class FxDataContainer extends FxContainerBase implements IViewport
      */
     public function set clipContent(value:Boolean):void 
     {       
-        if (skin)  // TEMPORARY fix for SDK-17751
-            skin.clipContent = value;
         if (dataGroup)
         {
             dataGroup.clipContent = value;
@@ -444,7 +442,6 @@ public class FxDataContainer extends FxContainerBase implements IViewport
             if (dataGroupProperties.clipContent !== undefined)
             {
                 dataGroup.clipContent = dataGroupProperties.clipContent;
-                skin.clipContent = dataGroupProperties.clipContent;  // TEMPORARY fix for SDK-17751
                 newDataGroupProperties = BitFlagUtil.update(newDataGroupProperties as uint, 
                                                             CLIP_CONTENT_PROPERTY_FLAG, true);
             }
