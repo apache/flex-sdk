@@ -163,7 +163,7 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="backgroundSkin", type="Class", inherit="no")]
 
 /**
- *  The default skin for a MenuBar item
+ *  The default skin for a MenuBar item.
  * 
  *  @default mx.skins.halo.ActivatorSkin 
  *  
@@ -187,7 +187,7 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="itemUpSkin", type="Class", inherit="no")]
 
 /**
- *  The skin when focus is over a MenuBar item either. 
+ *  The skin when focus is over a MenuBar item. 
  * 
  *  @default mx.skins.halo.ActivatorSkin
  *  
@@ -1171,8 +1171,8 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
     override protected function commitProperties():void
     {
         var i:int;
-		var cursor:IViewCursor;
-		        
+        var cursor:IViewCursor;
+                
         if (showRootChanged)
         {
             if (!_hasRoot)
@@ -1213,25 +1213,25 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
                                                   false,
                                                   EventPriority.DEFAULT_HANDLER, true);
                                         
-				if (tmpCollection.length > 0)
-				{
+                if (tmpCollection.length > 0)
+                {
                     cursor = tmpCollection.createCursor();
-				    i= 0;
-				    while (!cursor.afterLast)
-				    {
-					    try
-					    {
-					        insertMenuBarItem(i, cursor.current);
-					    }
-					    catch(e:ItemPendingError)
-					    {
-					      //we probably dont need to actively recover from here
-					    }
-					      	
-					    cursor.moveNext();
-					    i++;
-				    } 
-				}
+                    i= 0;
+                    while (!cursor.afterLast)
+                    {
+                        try
+                        {
+                            insertMenuBarItem(i, cursor.current);
+                        }
+                        catch(e:ItemPendingError)
+                        {
+                          //we probably dont need to actively recover from here
+                        }
+                            
+                        cursor.moveNext();
+                        i++;
+                    } 
+                }
             }
         }
         
@@ -1247,25 +1247,25 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
                 if (!tmpCollection)
                     tmpCollection = _rootModel;
                 
-				if (tmpCollection.length > 0)
-				{
-				    cursor = tmpCollection.createCursor();
-				    i= 0;
-				    while (!cursor.afterLast)
-				    {
-				      try
-				      {
-				          insertMenuBarItem(i, cursor.current);
-				      }
-				      catch(e:ItemPendingError)
-				      {
-				          //we probably dont need to actively recover from here
-				      }
-				      	
-				      cursor.moveNext();
-				      i++;
-				    } 
-				}
+                if (tmpCollection.length > 0)
+                {
+                    cursor = tmpCollection.createCursor();
+                    i= 0;
+                    while (!cursor.afterLast)
+                    {
+                      try
+                      {
+                          insertMenuBarItem(i, cursor.current);
+                      }
+                      catch(e:ItemPendingError)
+                      {
+                          //we probably dont need to actively recover from here
+                      }
+                        
+                      cursor.moveNext();
+                      i++;
+                    } 
+                }
             }
         }
         
