@@ -35,7 +35,7 @@ use namespace mx_internal;
  *  You can listen for this event and update the component
  *  when the <code>data</code> property changes.</p>
  *
- *  @eventType mx.events..DATA_CHANGE
+ *  @eventType mx.events.DATA_CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -65,13 +65,13 @@ public class TLFTextInput extends TextInput implements ITextInput
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 */
-	public function TLFTextInput()
-	{
-		super();
-	}
+    /**
+     *  Constructor.
+     */
+    public function TLFTextInput()
+    {
+        super();
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -159,25 +159,25 @@ public class TLFTextInput extends TextInput implements ITextInput
     }
     
 
-	//----------------------------------
-	//  fontContext
-	//----------------------------------
+    //----------------------------------
+    //  fontContext
+    //----------------------------------
 
-	/**
-	 *  Documentation is not currently available.
-	 */
-	public function get fontContext():IFlexModuleFactory
-	{
-		return null;
-	}
+    /**
+     *  Documentation is not currently available.
+     */
+    public function get fontContext():IFlexModuleFactory
+    {
+        return null;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set fontContext(value:IFlexModuleFactory):void
-	{
+    /**
+     *  @private
+     */
+    public function set fontContext(value:IFlexModuleFactory):void
+    {
         // not used for DefineFont4
-	}
+    }
 
     //----------------------------------
     //  horizontalScrollPosition
@@ -242,29 +242,29 @@ public class TLFTextInput extends TextInput implements ITextInput
         _listData = value;
     }
     
-	//----------------------------------
-	//  parentDrawsFocus
-	//----------------------------------
+    //----------------------------------
+    //  parentDrawsFocus
+    //----------------------------------
 
     private var _parentDrawsFocus:Boolean = false;
 
-	/**
-	 *  Documentation is not currently available.
-	 */
-	public function get parentDrawsFocus():Boolean
-	{
-		return _parentDrawsFocus;
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set parentDrawsFocus(value:Boolean):void
-	{
-	    _parentDrawsFocus = value;
-	}
+    /**
+     *  Documentation is not currently available.
+     */
+    public function get parentDrawsFocus():Boolean
+    {
+        return _parentDrawsFocus;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set parentDrawsFocus(value:Boolean):void
+    {
+        _parentDrawsFocus = value;
+    }
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Methods
     //
