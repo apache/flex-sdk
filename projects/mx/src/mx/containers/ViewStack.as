@@ -140,8 +140,9 @@ include "../styles/metadata/GapStyles.as"
  *  for selecting which child container is currently visible.
  *  Typically, you set its <code>selectedIndex</code> or
  *  <code>selectedChild</code> property in ActionScript in response to
- *  some user action. Alternately, you can associate a LinkBar, TabBar or ToggleButtonBar
- *  container with a ViewStack container to provide a navigation interface.
+ *  some user action. 
+ *  Alternately, you can associate an MX LinkBar, TabBar, ButtonBar, or ToggleButtonBar
+ *  control or a Spark ButtonBar control with a ViewStack container to provide a navigation interface.
  *  To do so, specify the ViewStack container as the value of the
  *  <code>dataProvider</code> property of the LinkBar, TabBar or
  *  ToggleButtonBar container.</p>
@@ -223,6 +224,10 @@ include "../styles/metadata/GapStyles.as"
  *  @includeExample examples/ViewStackExample.mxml
  *
  *  @see mx.controls.LinkBar
+ *  @see mx.controls.ButtonBar
+ *  @see mx.controls.TabBar
+ *  @see mx.controls.ToggleButtonBar
+ *  @see spark.components.ButtonBar
  *  @see mx.managers.HistoryManager
  *  @see mx.managers.LayoutManager
  *  
@@ -1505,7 +1510,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
      */
     public function get length():int
     {
-    	return numChildren;
+        return numChildren;
     }
 
     /**
@@ -1514,7 +1519,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
      */
     public function addItem(item:Object):void
     {
-    	addChild(item as DisplayObject);
+        addChild(item as DisplayObject);
     }
 
     /**
@@ -1523,7 +1528,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
      */
     public function addItemAt(item:Object, index:int):void
     {
-    	addChildAt(item as DisplayObject, index);
+        addChildAt(item as DisplayObject, index);
     }
 
     /**
@@ -1532,7 +1537,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
      */
     public function getItemAt(index:int, prefetch:int = 0):Object
     {
-    	return getChildAt(index);
+        return getChildAt(index);
     }
 
     /**
@@ -1541,7 +1546,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
      */
     public function getItemIndex(item:Object):int
     {
-    	return getChildIndex(item as DisplayObject);
+        return getChildIndex(item as DisplayObject);
     }
 
     /**
@@ -1552,7 +1557,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
                          oldValue:Object = null, 
                          newValue:Object = null):void
     {
-    	
+        
     }                         
 
     /**
@@ -1561,7 +1566,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
      */
     public function removeAll():void
     {
-    	removeAllChildren();
+        removeAllChildren();
     }
 
     /**
@@ -1580,9 +1585,9 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
      */
     public function setItemAt(item:Object, index:int):Object
     {
-    	var result:Object = removeChildAt(index);
-    	addChildAt(item as DisplayObject,index);
-    	return result;
+        var result:Object = removeChildAt(index);
+        addChildAt(item as DisplayObject,index);
+        return result;
     }
 
     /**
@@ -1594,7 +1599,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
         var result:Array = [];
         for(var i:int =0;i<numChildren;i++)
         {
-        	result.push(getChildAt(i));
+            result.push(getChildAt(i));
         }
         return result;
     }
