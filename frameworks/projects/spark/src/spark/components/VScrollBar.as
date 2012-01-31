@@ -419,7 +419,7 @@ public class VScrollBar extends ScrollBarBase
     mx_internal function mouseWheelHandler(event:MouseEvent):void
     {
         const vp:IViewport = viewport;
-        if (event.isDefaultPrevented() || !vp || !vp.visible)
+        if (event.isDefaultPrevented() || !vp || !vp.visible || !visible)
             return;
         
         var nSteps:uint = Math.abs(event.delta);
