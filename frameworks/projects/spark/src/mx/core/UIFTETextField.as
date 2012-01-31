@@ -23,7 +23,7 @@ import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 import flashx.textLayout.compose.ITextLineCreator;
 import mx.automation.IAutomationObject;
-import mx.core.TLFTextField;
+import mx.core.FTETextField;
 import mx.managers.ISystemManager;
 import mx.managers.IToolTipManagerClient;
 import mx.managers.SystemManager;
@@ -66,7 +66,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class UITLFTextField extends TLFTextField
+public class UIFTETextField extends FTETextField
                             implements IAutomationObject, IIMESupport,
                             IFlexModule,
                             IInvalidating, ISimpleStyleClient,
@@ -261,7 +261,7 @@ public class UITLFTextField extends TLFTextField
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function UITLFTextField()
+    public function UIFTETextField()
     {
         super();
 
@@ -1896,7 +1896,7 @@ public class UITLFTextField extends TLFTextField
         textFormat.sharpness = sharpness;
         textFormat.thickness = thickness;
         
-        textFormat.useTLF = true;
+        textFormat.useFTE = true;
         textFormat.direction = direction;
         textFormat.locale = locale;
         
@@ -2175,7 +2175,7 @@ public class UITLFTextField extends TLFTextField
 		// can affect both Halo and Spark components,
 		// we need to map "auto" and "on" to true
 		// and "off" to false for Halo components
-		// here and in TLFTextField.
+		// here and in FTETextField.
 		// For Spark components, Label and CSSTextLayoutFormat,
 		// do the opposite mapping of true to "on" and false to "off".
 		// We also support a value of "default"
