@@ -11,9 +11,11 @@
 package spark.effects.easing
 {
 /**
- * Provides utility constants for use in subclasses of EaseInOutBase.
+ *  The EasingFraction class defines constants for 
+ *  the <code>easeInFraction</code> property of the EaseInOutBase class.
  * 
- * @see EaseInOutBase
+ *  @see EaseInOutBase
+ *  @see EaseInOutBase#easeInFraction
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -23,11 +25,9 @@ package spark.effects.easing
 public final class EasingFraction
 {
     /**
-     * A utility constant which, when supplied as the 
-     * <code>easeInFraction</code> to a subclass of EaseInOutBase, 
-     * will create an easing instance
-     * that spends the entire animation easing in. This is equivalent
-     * to simply using the <code>easeInFraction = 1</code>.
+     *  Specifies that the easing instance
+     *  spends the entire animation easing in. This is equivalent
+     *  to setting the <code>easeInFraction</code> property to 1.0.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -37,11 +37,9 @@ public final class EasingFraction
     public static const IN:Number = 1;
 
     /**
-     * A utility constant which, when supplied as the 
-     * <code>easeInFraction</code> to a subclass of EaseInOutBase, 
-     * will create an easing instance
-     * that spends the entire animation easing out. This is equivalent
-     * to simply using the <code>easeInFraction = 0</code>.
+     *  Specifies that the easing instance
+     *  spends the entire animation easing out. This is equivalent
+     *  to setting the <code>easeInFraction</code> property to 0.0.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -51,12 +49,10 @@ public final class EasingFraction
     public static const OUT:Number = 0;
 
     /**
-     * A utility constant which, when supplied as the 
-     * <code>easeInFraction</code> to a subclass of EaseInOutBase, 
-     * will create an easing instance
-     * that eases in for the first half and eases out for the
-     * remainder. This is equivalent
-     * to simply using the <code>easeInFraction = .5</code>.
+     *  Specifies that an easing instance
+     *  that eases in for the first half and eases out for the
+     *  remainder. This is equivalent
+     *  to setting the <code>easeInFraction</code> property to 0.5.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
