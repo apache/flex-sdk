@@ -19,6 +19,12 @@ import mx.utils.OrderedObject;
 /**
  *  The ConfigMap class provides a mechanism to store the properties returned 
  *  by the server with the ordering of the properties maintained. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */ 
 public dynamic class ConfigMap extends OrderedObject
 {
@@ -32,6 +38,12 @@ public dynamic class ConfigMap extends OrderedObject
      * Constructor.
      *
      * @param item An Object containing name/value pairs.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function ConfigMap(item:Object=null)
     {
