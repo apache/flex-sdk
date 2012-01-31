@@ -26,8 +26,8 @@ import text.formats.LineBreak;
 //--------------------------------------
 
 /**
- *  Dispached after the <code>selectionAnchorIndex</code> and/or
- *  <code>selectionActiveIndex</code> properties have changed
+ *  Dispached after the <code>selectionAnchorPosition</code> and/or
+ *  <code>selectionActivePosition</code> properties have changed
  *  due to a user interaction.
  */
 [Event(name="selectionChange", type="flash.events.Event")]
@@ -100,45 +100,45 @@ public class TextInput extends SkinnableComponent
     //--------------------------------------------------------------------------
 
 	//----------------------------------
-	//  selectionActiveIndex
+	//  selectionActivePosition
     //----------------------------------
 
 	/**
 	 *  @private
 	 */
-	private var _selectionActiveIndex:int = -1;
+	private var _selectionActivePosition:int = -1;
 
 	/**
 	 *  @private
 	 */
-	private var selectionActiveIndexChanged:Boolean = false;
+	private var selectionActivePositionChanged:Boolean = false;
 
 	[Bindable("selectionChange")]
 	
 	/**
-	 *  The active index of the selection.
+	 *  The active position of the selection.
 	 *  The "active" point is the end of the selection
 	 *  which is changed when the selection is extended.
-	 *  The active index may be either the start
+	 *  The active position may be either the start
 	 *  or the end of the selection. 
 	 *
 	 *  @default -1
 	 */
-	public function get selectionActiveIndex():int
+	public function get selectionActivePosition():int
 	{
-		return _selectionActiveIndex;
+		return _selectionActivePosition;
 	}
 
 	/**
 	 *  @private
 	 */
-	public function set selectionActiveIndex(value:int):void
+	public function set selectionActivePosition(value:int):void
 	{
-		if (value == _selectionActiveIndex)
+		if (value == _selectionActivePosition)
 			return;
 		
-		_selectionActiveIndex = value;
-		selectionActiveIndexChanged = true;
+		_selectionActivePosition = value;
+		selectionActivePositionChanged = true;
 
 		invalidateProperties();
 		
@@ -146,45 +146,45 @@ public class TextInput extends SkinnableComponent
 	}
 
 	//----------------------------------
-	//  selectionAnchorIndex
+	//  selectionAnchorPosition
     //----------------------------------
 
 	/**
 	 *  @private
 	 */
-	private var _selectionAnchorIndex:int = -1;
+	private var _selectionAnchorPosition:int = -1;
 
 	/**
 	 *  @private
 	 */
-	private var selectionAnchorIndexChanged:Boolean = false;
+	private var selectionAnchorPositionChanged:Boolean = false;
 
 	[Bindable("selectionChange")]
 	
 	/**
-	 *  The anchor index of the selection.
+	 *  The anchor position of the selection.
 	 *  The "anchor" point is the stable end of the selection
 	 *  when the selection is extended.
-	 *  The anchor index may be either the start
+	 *  The anchor position may be either the start
 	 *  or the end of the selection.
 	 *
 	 *  @default -1
 	 */
-	public function get selectionAnchorIndex():int
+	public function get selectionAnchorPosition():int
 	{
-		return _selectionAnchorIndex;
+		return _selectionAnchorPosition;
 	}
 
 	/**
 	 *  @private
 	 */
-	public function set selectionAnchorIndex(value:int):void
+	public function set selectionAnchorPosition(value:int):void
 	{
-		if (value == _selectionAnchorIndex)
+		if (value == _selectionAnchorPosition)
 			return;
 		
-		_selectionAnchorIndex = value;
-		selectionAnchorIndexChanged = true;
+		_selectionAnchorPosition = value;
+		selectionAnchorPositionChanged = true;
 
 		invalidateProperties();
 
@@ -312,16 +312,16 @@ public class TextInput extends SkinnableComponent
 			textChanged = false;
 		}
 
-		if (selectionAnchorIndexChanged)
+		if (selectionAnchorPositionChanged)
 		{
-			textView.selectionAnchorIndex = _selectionAnchorIndex;
-			selectionAnchorIndexChanged = false
+			textView.selectionAnchorPosition = _selectionAnchorPosition;
+			selectionAnchorPositionChanged = false
 		}
 
-		if (selectionActiveIndexChanged)
+		if (selectionActivePositionChanged)
 		{
-			textView.selectionActiveIndex = _selectionActiveIndex;
-			selectionActiveIndexChanged = false
+			textView.selectionActivePosition = _selectionActivePosition;
+			selectionActivePositionChanged = false
 		}
 	}
 
@@ -387,8 +387,8 @@ public class TextInput extends SkinnableComponent
 	private function textView_selectionChangeHandler(event:Event):void
 	{
 		// Update our storage variables for the selection indices.
-		_selectionAnchorIndex = textView.selectionAnchorIndex;
-		_selectionActiveIndex = textView.selectionActiveIndex;
+		_selectionAnchorPosition = textView.selectionAnchorPosition;
+		_selectionActivePosition = textView.selectionActivePosition;
 		
 		// Redispatch the event that came from the TextView.
 		dispatchEvent(event);
