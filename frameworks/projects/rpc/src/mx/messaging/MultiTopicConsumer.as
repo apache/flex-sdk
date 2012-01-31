@@ -307,6 +307,9 @@ public class MultiTopicConsumer extends AbstractConsumer
         return msg;
     }
 
+    /**
+     * @private
+     */
     override protected function internalSend(message:IMessage, waitForClientId:Boolean = true):void
     {
         // If there is nothing to do with this message, do not send it - instead throw
@@ -333,7 +336,9 @@ public class MultiTopicConsumer extends AbstractConsumer
                 setSubscribed(true);
         }
     }
-
+    /**
+     * @private
+     */
     override protected function setSubscribed(value:Boolean):void
     {
         /* 
