@@ -26,7 +26,7 @@ import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.PropertyChangeEvent;
 
-import spark.utils.TextUtil;
+import spark.utils.FTETextUtil;
 
 use namespace mx_internal;
 
@@ -255,7 +255,7 @@ public class SkinnableComponent extends UIComponent
         // At the crossover height, these two calculations
         // produce the same result.
 
-        return TextUtil.calculateFontBaseline(this, height, moduleFactory);
+        return FTETextUtil.calculateFontBaseline(this, height, moduleFactory);
     }
 
     //----------------------------------
