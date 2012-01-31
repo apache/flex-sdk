@@ -579,6 +579,23 @@ public class FxScroller extends FxComponent
      *  <p>This operation is not supported in FxScroller.  FxScroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function removeAllElements():void
+    {
+        throw new ArgumentError(resourceManager.getString("components", "operationNotSupported"));
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  has one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
