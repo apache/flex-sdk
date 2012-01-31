@@ -17,6 +17,12 @@ import mx.messaging.Channel;
 
 /**
  *  The ChannelEvent is used to propagate channel events within the messaging system.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class ChannelEvent extends Event
 {
@@ -53,6 +59,12 @@ public class ChannelEvent extends Event
      *       failover or connect on an alternate channel.</td></tr>   
      *  </table>
      *  @eventType channelConnect 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */     
     public static const CONNECT:String = "channelConnect";
 
@@ -83,6 +95,12 @@ public class ChannelEvent extends Event
      *       failover or connect on an alternate channel.</td></tr>   
      *  </table>
      *  @eventType channelDisconnect
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */     
     public static const DISCONNECT:String = "channelDisconnect";
     
@@ -110,6 +128,12 @@ public class ChannelEvent extends Event
      *  is already connected.
      * 
      *  @return New ChannelEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */ 
     public static function createEvent(type:String, channel:Channel = null, 
             reconnecting:Boolean = false, rejected:Boolean = false, connected:Boolean = false):ChannelEvent
@@ -145,6 +169,12 @@ public class ChannelEvent extends Event
      * 
      *  @param connected Indicates whether the Channel that generated this event 
      *  is already connected.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function ChannelEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, 
             channel:Channel = null, reconnecting:Boolean = false, rejected:Boolean = false, 
@@ -166,16 +196,34 @@ public class ChannelEvent extends Event
     
     /**
      *  The Channel that generated this event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public var channel:Channel;
 
     /**
      * Indicates whether the Channel that generated this event is already connected.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */  
     public var connected:Boolean;
         
     /**
      *  Indicates whether the Channel that generated this event is reconnecting.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public var reconnecting:Boolean;
     
@@ -184,6 +232,12 @@ public class ChannelEvent extends Event
      *  This would be true in the event that the channel has been
      *  disconnected due to inactivity and should not attempt to failover or
      *  connect on an alternate channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public var rejected:Boolean;
     
@@ -219,6 +273,12 @@ public class ChannelEvent extends Event
      *  Clones the ChannelEvent.
      *
      *  @return Copy of this ChannelEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override public function clone():Event
     {
@@ -229,6 +289,12 @@ public class ChannelEvent extends Event
      *  Returns a string representation of the ChannelEvent.
      *
      *  @return String representation of the ChannelEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override public function toString():String
     {
