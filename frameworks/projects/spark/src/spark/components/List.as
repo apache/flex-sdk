@@ -2635,17 +2635,17 @@ public class List extends ListBase implements IFocusManagerComponent
                 {
                     newInterval = new Vector.<int>(); 
                 }
-                else if (index == 0)
+                else
                 {
                     // We can't just set selectedIndex to 0 directly
                     // since the previous value was 0 and the new value is
                     // 0, so the setter will return early.
                     _proposedSelectedIndex = 0; 
                     invalidateProperties();
-                    return;
-                }    
-                else
-                {
+                    
+                    if (index == 0)
+                        return;
+
                     newInterval.push(0);  
                 }
             }
