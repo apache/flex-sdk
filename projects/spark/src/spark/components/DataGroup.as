@@ -616,13 +616,16 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         // just the event with have the wrong item associated with it
         
         const renderer:IVisualElement = indexToRenderer[index] as IVisualElement;
-        var item:Object;
-        
-        if (renderer is IDataRenderer && (itemRenderer != null || itemRendererFunction != null))
-            item = IDataRenderer(renderer).data;
-        else
-            item = renderer;
-        itemRemoved(item, index);
+        if (renderer)
+        {
+            var item:Object;
+            
+            if (renderer is IDataRenderer && (itemRenderer != null || itemRendererFunction != null))
+                item = IDataRenderer(renderer).data;
+            else
+                item = renderer;
+            itemRemoved(item, index);
+        }
     }
     
     /**
