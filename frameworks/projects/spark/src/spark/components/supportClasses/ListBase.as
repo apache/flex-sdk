@@ -634,7 +634,7 @@ public class FxListBase extends FxDataContainer implements IItemRendererOwner
      *  Returns true if the selection was committed, or false if the selection
      *  was cancelled.
      */
-    private function commitSelectedIndex():Boolean
+    protected function commitSelectedIndex():Boolean
     {
         // Step 1: make sure the proposed selected index is in range.
         var maxIndex:int = dataProvider ? dataProvider.length - 1 : -1;
