@@ -128,7 +128,7 @@ import spark.components.supportClasses.Range;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;Spinner
+ *  &lt;s:Spinner
  *    <strong>Properties</strong>
  *    allowValueWrap="false"
  *  
@@ -374,9 +374,9 @@ public class Spinner extends Range implements IFocusManagerComponent
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
-    	if (event.isDefaultPrevented())
-    		return;
-    	        
+        if (event.isDefaultPrevented())
+            return;
+                
         var prevValue:Number = this.value;
         var stopPropagation:Boolean = false;
                 
