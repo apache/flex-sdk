@@ -1707,7 +1707,8 @@ public class ComboBox extends ComboBase
                 // Special case: Empty dataProvider.
                 if (!selectedIndexChanged && !selectedItemChanged)
                 {
-                    super.selectedIndex = -1;
+                	if (super.selectedIndex != -1)
+                    	super.selectedIndex = -1;
                     implicitSelectedIndex = true;
                     invalidateDisplayList();
                 }
