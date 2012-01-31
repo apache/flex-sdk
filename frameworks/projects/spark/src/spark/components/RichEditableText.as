@@ -1359,6 +1359,8 @@ public class RichEditableText extends UIComponent
      */
     private var textChanged:Boolean = false;
 
+    //[Bindable("change")]
+
     /**
      *  The text String displayed by this TextView.
      *  
@@ -1370,7 +1372,7 @@ public class RichEditableText extends UIComponent
     public function get text():String 
     {
         if (!displayAsPassword)
-            _text = getText();
+            _text = _textContainerManager.getText("\n");
         
         return _text;
     }
@@ -1587,7 +1589,7 @@ public class RichEditableText extends UIComponent
             {
                 // Make sure _text is set with the actual text before we
                 // change the displayed text.
-                _text = getText();
+                _text = _textContainerManager.getText("\n");
                 
                 // ToDo: if content, should the paragraph terminators be
                 // left in the string so the displayAsPassword string has the
@@ -2522,29 +2524,7 @@ public class RichEditableText extends UIComponent
     	
   		editingMode = newEditingMode;
     }
-      
-    /**
-     *  @private
-     *  Get the text from the textFlow.  This wrapper can go away once Vellum
-     *  gives us a getText that doesn't put a paragraph terminator on the
-     *  last paragraph.
-     */
-    private function getText():String
-    {
-        var t:String = _textContainerManager.getText("\n");
-        
-        // ToDo: asked TLF if they not put the terminator on the last
-        // paragraph
-        
-        // Remove terminator on the last paragraph, ie remove the last char.
-        // t true implies length > 0.
-        if (t != null && t.length > 0 && t.charAt(t.length-1) == "\n")
-            t = t.slice(0, -1);
-            
-        return t;            
-    }
-    
-      
+
     /**
      *  Sets the selection range.  By default, the entire range is selected.
      *  If you pass negative numbers for the position, it will deselect. 
