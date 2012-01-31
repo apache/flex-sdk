@@ -1147,16 +1147,28 @@ public class TextView extends UIComponent implements IViewport
 
         if (horizontalScrollPositionChanged)
         {
+            var oldHorizontalScrollPosition:Number = 
+                containerController.horizontalScrollPosition;
             containerController.horizontalScrollPosition =
-                _horizontalScrollPosition;
-            horizontalScrollPositionChanged = false;
+                _horizontalScrollPosition;            
+            dispatchPropertyChangeEvent("horizontalScrollPosition",
+                oldHorizontalScrollPosition, 
+                containerController.horizontalScrollPosition);
+            
+            horizontalScrollPositionChanged = false;            
         }
-
+        
         if (verticalScrollPositionChanged)
         {
+            var oldVerticalScrollPosition:Number = 
+                containerController.verticalScrollPosition;
             containerController.verticalScrollPosition =
                 _verticalScrollPosition;
-            verticalScrollPositionChanged = false;
+            dispatchPropertyChangeEvent("verticalScrollPosition",
+                oldVerticalScrollPosition, 
+                containerController.verticalScrollPosition);
+            
+            verticalScrollPositionChanged = false;            
         }
     }
 
