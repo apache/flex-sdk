@@ -122,16 +122,10 @@ public class Channel extends EventDispatcher implements IMXMLObject
 		super();
 
 		_log = Log.getLogger("mx.messaging.Channel");
-		_connecting = false;
 		_failoverIndex = -1;
 	    this.id = id;
 		_primaryURI = uri;
-		_shouldBeConnected = false;
 		this.uri = uri; // Current URI
-
-        // Don't know the authorization state in the beginning.  Assume true
-        // so that a logout can be done at the start.
-        authenticating = false;
 	}
 
     /**
@@ -202,7 +196,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
      * @private
      * Flag indicating whether the endpoint has been calculated from the uri.
      */   
-    private var _isEndpointCalculated:Boolean = false;
+    private var _isEndpointCalculated:Boolean;
 
     /**
      * @private
@@ -216,7 +210,14 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  @private
      *  Flag indicating whether this Channel owns the wait guard for managing initial connect attempts.
      */
-    private var _ownsWaitGuard:Boolean = false;
+    private var _ownsWaitGuard:Boolean;
+    
+    /**
+     *  @private
+     *  Indicates whether the Channel was previously connected successfully. Used for pinned reconnect
+     *  attempt before trying failover options.
+     */
+    private var _previouslyConnected:Boolean;
     
 	/**
 	 *  @private
@@ -229,15 +230,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
      */
     private var resourceManager:IResourceManager = ResourceManager.getInstance();   
 	
-	/**
-	 *  @private
-	 *  Indicates whether this channel should be connected to its endpoint.
-	 *  This flag is used to control when fail over should be attempted.
-	 */
-	private var _shouldBeConnected:Boolean;	
- 
-
-    //--------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
     //
     // Properties
     // 
@@ -286,6 +279,9 @@ public class Channel extends EventDispatcher implements IMXMLObject
 	{
 	    if (_connected != value)
 	    {
+	        if (_connected)
+	           _previouslyConnected = true;
+	        
 	        var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "connected", _connected, value)
 	        _connected = value;
 	        dispatchEvent(event);
@@ -570,6 +566,25 @@ public class Channel extends EventDispatcher implements IMXMLObject
 	public function set requestTimeout(value:int):void
 	{
 	    _requestTimeout = value;
+    }
+
+    //----------------------------------
+    //  shouldBeConnected
+    //----------------------------------
+    
+    /**
+     *  @private  
+     */
+    private var _shouldBeConnected:Boolean;
+    
+    /**
+     *  Indicates whether this channel should be connected to its endpoint.
+     *  This flag is used to control when fail over should be attempted and when disconnect
+     *  notification is sent to the remote endpoint upon disconnect or fault.
+     */
+    protected function get shouldBeConnected():Boolean
+    {
+        return _shouldBeConnected;
     }
 
 	//----------------------------------
@@ -1288,8 +1303,8 @@ public class Channel extends EventDispatcher implements IMXMLObject
      */
     private function shouldAttemptFailover():Boolean
     {
-        return (_shouldBeConnected && (_failoverURIs != null) &&  
-	                (_failoverURIs.length > 0));  
+        return (_shouldBeConnected && 
+               (_previouslyConnected || ((_failoverURIs != null) &&  (_failoverURIs.length > 0))));  
     } 
     
     /**
@@ -1298,6 +1313,18 @@ public class Channel extends EventDispatcher implements IMXMLObject
      */
     private function failover():void
     {
+        // Special-case retry on current URI.
+        if (_previouslyConnected)
+        {
+            _previouslyConnected = false;
+            setReconnecting(true);
+            var timer:Timer = new Timer(1, 1);
+            timer.addEventListener(TimerEvent.TIMER, reconnect);
+            timer.start();
+            return; // Exit early - if this fails the remaining failoverURIs will be tried next.
+        }
+        
+        // General failover handling.
         ++_failoverIndex;
         if ((_failoverIndex + 1) <= failoverURIs.length)
         {
