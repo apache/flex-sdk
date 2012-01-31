@@ -1095,7 +1095,11 @@ public class GridDimensions
         if (!isNaN(fixedRowHeight))
             return contentHeight + nRows * fixedRowHeight;
         
-        return contentHeight + nRows * defaultRowHeight;
+        // if typical cell heights have been specified.
+        if (!isFirstTypicalCellHeight)
+            return contentHeight + nRows * defaultRowHeight
+        
+        return 0;
     }
         
     /**
