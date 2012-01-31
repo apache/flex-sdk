@@ -659,7 +659,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable]
-    [SkinPart(required="false", type="mx.core.IFactory")]
+    [SkinPart(required="false", type="mx.core.IVisualElement")]
     
     /**
      *  The IVisualElement class used to render the <code>alternatingRowColors</code> style.
@@ -676,7 +676,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable]
-    [SkinPart(required="false", type="mx.core.IFactory")]
+    [SkinPart(required="false", type="mx.core.IVisualElement")]
     
     /**
      *  The IVisualElement class used to render the grid's caret indicator.
@@ -693,7 +693,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable]
-    [SkinPart(required="false", type="spark.components.GridColumnHeaderGroup")]
+    [SkinPart(required="false")]
     
     /**
      *  A reference to the GridColumnHeaderGroup object that displays the column headers.
@@ -710,7 +710,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable]
-    [SkinPart(required="false", type="mx.core.IFactory")]
+    [SkinPart(required="false", type="mx.core.IVisualElement")]
     
     /**
      *  The IVisualElement class used to render the vertical separator between columns. 
@@ -727,7 +727,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable]
-    [SkinPart(required="false", type="mx.core.IFactory")]
+    [SkinPart(required="false", type="mx.core.IVisualElement")]
     
     /**
      *  The IVisualElement class used to render a background behind
@@ -748,7 +748,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable]
-    [SkinPart(required="false", type="spark.components.Grid")]
+    [SkinPart(required="false")]
     
     /**
      *  A reference to the Grid control that displays row and columns.
@@ -765,7 +765,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable]
-    [SkinPart(required="false", type="mx.core.IFactory")]
+    [SkinPart(required="false", type="mx.core.IVisualElement")]
     
     /**
      *  The IVisualElement class used to provide hover feedback.
@@ -782,7 +782,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable]
-    [SkinPart(required="false", type="mx.core.IFactory")]
+    [SkinPart(required="false", type="mx.core.IVisualElement")]
     
     /**
      *  The IVisualElement class used to render the background of each row.
@@ -799,7 +799,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable]
-    [SkinPart(required="false", type="mx.core.IFactory")]
+    [SkinPart(required="false", type="mx.core.IVisualElement")]
     
     /**
      *  The IVisualElement class used to render the horizontal separator between header rows. 
@@ -816,7 +816,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable]
-    [SkinPart(required="false", type="spark.components.Scroller")]
+    [SkinPart(required="false")]
     
     /**
      *  A reference to the Scroller control in the skin class 
@@ -834,7 +834,7 @@ public class DataGrid extends SkinnableContainerBase
     //----------------------------------
     
     [Bindable]
-    [SkinPart(required="false", type="mx.core.IFactory")]
+    [SkinPart(required="false", type="mx.core.IVisualElement")]
     
     /**
      *  The IVisualElement class used to render selected rows or cells.
