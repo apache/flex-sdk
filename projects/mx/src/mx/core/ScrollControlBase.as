@@ -59,6 +59,16 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="baseColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
+ *  The alpha of the content background for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark")]
+
+/**
  *  Color of the content area of the component.
  *   
  *  @default 0xFFFFFF
