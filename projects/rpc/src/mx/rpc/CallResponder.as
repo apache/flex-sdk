@@ -113,7 +113,7 @@ public class CallResponder extends EventDispatcher implements IResponder
      *  method.  Additionally, if a fault occurs this value will still be set to
      *  the last successful result returned by a token monitored by this CallResponder.
      */
-    public var lastResult:Object;
+    public var lastResult:*;
 
 }
 
