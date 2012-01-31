@@ -600,11 +600,11 @@ public class AnimateTransform extends Animate
             // the target, but that's not the case currently.
             computedTransformCenter = new Vector3D(target.transformX,
                 target.transformY, target.transformZ);
-            if(!isNaN(transformX))
+            if (!isNaN(transformX))
                 computedTransformCenter.x = transformX; 
-            if(!isNaN(transformY))
+            if (!isNaN(transformY))
                 computedTransformCenter.y = transformY; 
-            if(!isNaN(transformZ))
+            if (!isNaN(transformZ))
                 computedTransformCenter.z = transformZ;
         }
         return computedTransformCenter;
@@ -767,18 +767,18 @@ public class AnimateTransform extends Animate
                         isNaN(offsetTranslation.z))
                     {
 
-                        if(currentXFormPositionComputed == false)
+                        if (currentXFormPositionComputed == false)
                         {
                             target.transformPointToParent(xformCenter,
                                 xformPosition, postLayoutPosition);
                             currentXFormPositionComputed = true;
                         }
                         
-                        if(isNaN(offsetTranslation.x))
+                        if (isNaN(offsetTranslation.x))
                             offsetTranslation.x = postLayoutPosition.x;
-                        if(isNaN(offsetTranslation.y))
+                        if (isNaN(offsetTranslation.y))
                             offsetTranslation.y = postLayoutPosition.y;
-                        if(isNaN(offsetTranslation.z))
+                        if (isNaN(offsetTranslation.z))
                             offsetTranslation.z = postLayoutPosition.z;
                     }
 
@@ -1008,7 +1008,7 @@ public class AnimateTransform extends Animate
             // flag.  In that case, we can assume that they need an offsets object if one doesn't already exist.
             // Second, if we captured post-layout changes from a state change. In that case, we can assume that since values were captured,
             // offsets must already exist.      
-            if(target.postLayoutTransformOffsets == null)
+            if (target.postLayoutTransformOffsets == null)
                 target.postLayoutTransformOffsets = new TransformOffsets();
         }
         // Feed startDelay directly into keyframe times
