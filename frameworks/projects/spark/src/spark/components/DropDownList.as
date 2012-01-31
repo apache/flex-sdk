@@ -13,10 +13,11 @@
 package spark.components
 {
 
+import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 
 import spark.components.supportClasses.TextBase;
-import spark.utils.LabelUtil;    
+import spark.utils.LabelUtil;
     
 use namespace mx_internal;
 
@@ -118,10 +119,11 @@ public class DropDownList extends DropDownListBase
     //  Variables
     //
     //--------------------------------------------------------------------------
-    /**
-     *  @private
-     */
+
     private var labelChanged:Boolean = false;
+    private var labelDisplayExplicitWidth:Number; 
+    private var labelDisplayExplicitHeight:Number; 
+    private var sizeSetByTypicalItem:Boolean;
     
     //--------------------------------------------------------------------------
     //
@@ -191,7 +193,46 @@ public class DropDownList extends DropDownListBase
         labelChanged = true;
         invalidateProperties();
     }
-
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Layouts use the preferred size of the <code>typicalItem</code>
+     *  when fixed row or column sizes are required, but a specific 
+     *  <code>rowHeight</code> or <code>columnWidth</code> value is not set.
+     *  Similarly virtual layouts use this item to define the size 
+     *  of layout elements that have not been scrolled into view.
+     *
+     *  <p>The container  uses the typical data item, and the associated item renderer, 
+     *  to determine the default size of the container children. 
+     *  By defining the typical item, the container does not have to size each child 
+     *  as it is drawn on the screen.</p>
+     *
+     *  <p>Setting this property sets the <code>typicalLayoutElement</code> property
+     *  of the layout.</p>
+     * 
+     *  <p>Restriction: if the <code>typicalItem</code> is an IVisualItem, it must not 
+     *  also be a member of the data Provider.</p>
+     * 
+     *  <p>Note: Setting typicalItem in DropDownList will override any explicit width or height
+     *  set on the labelDisplay. 
+     * 
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function set typicalItem(value:Object):void
+    {
+        super.typicalItem = value;
+        invalidateSize();
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -229,15 +270,58 @@ public class DropDownList extends DropDownListBase
     
     /**
      *  @private
+     */
+    override protected function measure():void
+    {
+        // If typicalItem is set, then use it for measurement
+        if (labelDisplay && typicalItem != null)
+        {   
+            // Save the labelDisplay's dimensions in case we clear out typicalItem
+            if (!sizeSetByTypicalItem)
+            {
+                labelDisplayExplicitWidth = labelDisplay.explicitWidth;
+                labelDisplayExplicitHeight = labelDisplay.explicitHeight;
+                sizeSetByTypicalItem = true;
+            }
+            
+            labelDisplay.explicitWidth = NaN;
+            labelDisplay.explicitHeight = NaN;
+            
+            // Swap in the typicalItem into the labelDisplay
+            updateLabelDisplay(typicalItem);
+            UIComponentGlobals.layoutManager.validateClient(skin, true);
+            
+            // Force the labelDisplay to be sized to the measured size
+            labelDisplay.width = labelDisplay.measuredWidth;
+            labelDisplay.height = labelDisplay.measuredHeight;
+            
+            // Set the labelDisplay back to selectedItem
+            updateLabelDisplay();
+        }
+        else if (sizeSetByTypicalItem && typicalItem == null)
+        {
+            // Restore the labelDisplay to its original size
+            labelDisplay.width = labelDisplayExplicitWidth;
+            labelDisplay.height = labelDisplayExplicitHeight;
+            sizeSetByTypicalItem = false;
+        }
+        
+        super.measure();
+    }
+    
+    /**
+     *  @private
      *  Called whenever we need to update the text passed to the labelDisplay skin part
      */
     // TODO (jszeto): Make this protected and make the name more generic (passing data to skin) 
-    override mx_internal function updateLabelDisplay():void
+    override mx_internal function updateLabelDisplay(displayItem:* = undefined):void
     {
         if (labelDisplay)
         {
-            if (selectedItem != null && selectedItem != undefined)
-                labelDisplay.text = LabelUtil.itemToLabel(selectedItem, labelField, labelFunction);
+            if (displayItem == undefined)
+                displayItem = selectedItem;
+            if (displayItem != null && displayItem != undefined)
+                labelDisplay.text = LabelUtil.itemToLabel(displayItem, labelField, labelFunction);
             else
                 labelDisplay.text = prompt;
         }   
