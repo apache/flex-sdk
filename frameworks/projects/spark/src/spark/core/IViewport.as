@@ -26,6 +26,12 @@ public interface IViewport extends IEventDispatcher
     
     function get horizontalScrollPosition():Number;
     function set horizontalScrollPosition(value:Number):void;
+    
+    function verticalScrollPositionDelta(unit:uint):Number
+    function horizontalScrollPositionDelta(unit:uint):Number
+    
+    function get clipContent():Boolean;
+    function set clipContent(value:Boolean):void;    
 }
 
 }
