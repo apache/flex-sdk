@@ -2211,8 +2211,8 @@ public class UIFTETextField extends FTETextField
         if (styleChangedFlag)
         {
             // direction is used by getTextStyles() so update it first.
-            direction = getStyle("direction");
-            locale = getStyle("locale");
+            super.direction = getStyle("direction");
+            super.locale = getStyle("locale");
             
             var textFormat:TextFormat = getTextStyles();
             if (textFormat.font)
