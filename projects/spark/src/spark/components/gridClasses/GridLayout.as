@@ -1431,7 +1431,7 @@ public class GridLayout extends LayoutBase
         
         const x:Number = bounds.x;
         const width:Number = bounds.width;
-        const y:Number = bounds.bottom; // TODO: should center on gap here.
+        const y:Number = bounds.bottom; // TODO (klin): should center on gap here.
         layoutGridElement(separator, x, y, width, height);
     }
     
@@ -1440,7 +1440,7 @@ public class GridLayout extends LayoutBase
         const r:Rectangle = visibleItemRenderersBounds;
         const width:Number = separator.getPreferredBoundsWidth();
         const height:Number = Math.max(r.height, visibleGridBounds.height); 
-        const x:Number = gridDimensions.getCellX(0, columnIndex) + gridDimensions.getColumnWidth(columnIndex); // TODO (hmuller): should center on gap here.
+        const x:Number = gridDimensions.getCellX(0, columnIndex) + gridDimensions.getColumnWidth(columnIndex); // TODO (klin): should center on gap here.
         const y:Number = r.y;
         layoutGridElement(separator, x, y, width, height);
     }
