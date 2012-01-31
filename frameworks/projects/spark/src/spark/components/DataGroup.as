@@ -52,6 +52,9 @@ import mx.styles.IStyleClient;
 [Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
 
 [DefaultProperty("dataProvider")] 
+
+[IconFile("DataGroup.png")]
+
 /**
  *  The DataGroup class is the base container class for data elements.
  *  The DataGroup class converts data elements to visual elements for display.
