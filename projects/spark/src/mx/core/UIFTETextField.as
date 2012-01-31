@@ -1229,7 +1229,7 @@ public class UIFTETextField extends FTETextField
         if (!stage)
             return textHeight + TEXT_HEIGHT_PADDING;
 
-        return textHeight * transform.concatenatedMatrix.a + TEXT_HEIGHT_PADDING;
+        return textHeight * transform.concatenatedMatrix.d + TEXT_HEIGHT_PADDING;
     }
 
     //----------------------------------
@@ -1299,7 +1299,7 @@ public class UIFTETextField extends FTETextField
         if (!stage)
             return textWidth + TEXT_WIDTH_PADDING;
 
-        return textWidth * transform.concatenatedMatrix.d + TEXT_WIDTH_PADDING;
+        return textWidth * transform.concatenatedMatrix.a + TEXT_WIDTH_PADDING;
     }
 
     //----------------------------------
