@@ -249,7 +249,7 @@ public class HScrollBar extends ScrollBarBase
         
         var min:Number;
         var max:Number;
-        if (getStyle("interactionMode") == InteractionMode.TOUCH)
+        if (getStyle("interactionMode") == InteractionMode.TOUCH && viewport)
         {
             // For calculating thumb position/size on mobile, we want to exclude
             // the extra margin we added to minimum and maximum for bounce/pull. 
