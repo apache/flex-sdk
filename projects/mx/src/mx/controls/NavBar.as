@@ -49,6 +49,11 @@ use namespace mx_internal;
  *  Dispatched when a navigation item is selected.
  *
  *  @eventType mx.events.ItemClickEvent.ITEM_CLICK
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemClick", type="mx.events.ItemClickEvent")]
 
@@ -114,6 +119,11 @@ use namespace mx_internal;
  *  @see mx.controls.TabBar
  *  @see mx.controls.ButtonBar
  *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class NavBar extends Box
 {
@@ -127,6 +137,11 @@ public class NavBar extends Box
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function NavBar()
     {
@@ -354,6 +369,11 @@ public class NavBar extends Box
      *  property is ignored.</p>
      *
      *  @default "undefined"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dataProvider():Object
     {
@@ -450,6 +470,11 @@ public class NavBar extends Box
      *  to display as the icon for each navigation item. 
      *
      *  @default "icon"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get iconField():String
     {
@@ -489,6 +514,11 @@ public class NavBar extends Box
      *  to display as the label for each navigation item. 
      *
      *  @default "label"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelField():String
     {
@@ -544,6 +574,11 @@ public class NavBar extends Box
      *
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelFunction():Function
     {
@@ -582,6 +617,11 @@ public class NavBar extends Box
      *  where the first item is at an index of 0.
      *
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedIndex():int
     {
@@ -619,6 +659,11 @@ public class NavBar extends Box
      *  to display as the tooltip label.
      *  
      *  @default "toolTip"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get toolTipField():String
     {
@@ -715,6 +760,11 @@ public class NavBar extends Box
      *  @param data Object to be rendered.
      *
      *  @return The string to be displayed based on the data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemToLabel(data:Object):String
     {
@@ -773,6 +823,11 @@ public class NavBar extends Box
      *  Typically, this is an icon that you have embedded in the application.
      *
      *  @return The created navigator item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function createNavItem(label:String,
                                      icon:Class = null):IFlexDisplayObject
@@ -790,6 +845,11 @@ public class NavBar extends Box
      *
      *  @param index The index of the selected item in the NavBar control.
      *  The first item is at an index of 0.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function hiliteSelectedNavItem(index:int):void
     {
@@ -802,6 +862,11 @@ public class NavBar extends Box
      *  By default, this method performs no action. 
      *  You can override this method in a subclass to 
      *  reset the navigator bar to a default state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function resetNavItems():void
     {
@@ -820,6 +885,11 @@ public class NavBar extends Box
      *  The first navigator item is at an index of 0.
      *
      *  @param label The new label text for the navigator item. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function updateNavItemLabel(index:int, label:String):void
     {
@@ -842,6 +912,11 @@ public class NavBar extends Box
      *
      *  @param icon The new icon for the navigator item. 
      *  Typically, this is an icon that you have embedded in the application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function updateNavItemIcon(index:int, icon:Class):void
     {
@@ -1218,6 +1293,11 @@ public class NavBar extends Box
      *  dispatches the <code>itemClick</code> event for the NavBar control.
      *
      *  @param event The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function clickHandler(event:MouseEvent):void
     {
