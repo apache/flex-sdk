@@ -76,6 +76,7 @@ package spark.components
     import mx.resources.ResourceManager;
     import mx.utils.StringUtil;
     
+    import spark.core.IEditableText;
     import spark.components.supportClasses.RichEditableTextContainerManager;
     import spark.core.CSSTextLayoutFormat;
     import spark.core.IViewport;
@@ -417,7 +418,8 @@ package spark.components
      *  @see flashx.textLayout.container.TextContainerManager
      */
     public class RichEditableText extends UIComponent
-        implements IFocusManagerComponent, IIMESupport, ISystemCursorClient, IViewport
+        implements IFocusManagerComponent, IIMESupport, ISystemCursorClient, 
+                   IViewport, IEditableText
     {
         include "../core/Version.as";
         
@@ -862,6 +864,19 @@ package spark.components
             invalidateDisplayList();
         }
         
+        //----------------------------------
+        // isTruncated
+        //----------------------------------
+        
+        /**
+         *  @private
+         */
+        public function get isTruncated():Boolean
+        {
+            // This class does not support truncation
+            return false;
+        }
+               
         //----------------------------------
         // percentHeight
         //----------------------------------
