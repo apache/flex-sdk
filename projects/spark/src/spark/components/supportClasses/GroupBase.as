@@ -27,7 +27,7 @@ import mx.events.PropertyChangeEvent;
 import spark.components.ResizeMode;
 import spark.core.IViewport;
 import spark.core.MaskType;
-import spark.events.DisplayPlaneObjectExistenceEvent;
+import spark.events.DisplayLayerObjectExistenceEvent;
 import spark.layouts.BasicLayout;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.primitives.shaders.LuminosityMaskShader; 
@@ -637,7 +637,7 @@ public class GroupBase extends UIComponent implements IViewport
 	 *  @private
 	 *  Storage for the overlay property 
 	 */
-	mx_internal var _overlay:DisplayPlane;
+	mx_internal var _overlay:DisplayLayer;
 
 	[Inspectable(category="General")]
 
@@ -651,13 +651,13 @@ public class GroupBase extends UIComponent implements IViewport
 	 *  @playerversion AIR 1.5
 	 *  @productversion Flex 4
 	 */
-	public function get overlay():DisplayPlane
+	public function get overlay():DisplayLayer
 	{
 		if (!_overlay)
 		{
-			_overlay = new DisplayPlane();
-			_overlay.addEventListener(DisplayPlaneObjectExistenceEvent.OBJECT_ADD, overlay_objectAdd);
-			_overlay.addEventListener(DisplayPlaneObjectExistenceEvent.OBJECT_REMOVE, overlay_objectRemove);
+			_overlay = new DisplayLayer();
+			_overlay.addEventListener(DisplayLayerObjectExistenceEvent.OBJECT_ADD, overlay_objectAdd);
+			_overlay.addEventListener(DisplayLayerObjectExistenceEvent.OBJECT_REMOVE, overlay_objectRemove);
 			
 			// Invalidate properties, so that if nothing was actually added to the
 			// overlay object, we'll clean it up:
@@ -668,9 +668,9 @@ public class GroupBase extends UIComponent implements IViewport
 	
 	/**
 	 *  @private
-	 *  Event listener to add overlay objects when added to the overlay DisplayPlane property.
+	 *  Event listener to add overlay objects when added to the overlay DisplayLayer.
 	 */
-	private function overlay_objectAdd(event:DisplayPlaneObjectExistenceEvent):void
+	private function overlay_objectAdd(event:DisplayLayerObjectExistenceEvent):void
 	{
 		super.addChildAt(event.object, event.index + numChildren - _overlay.numDisplayObjects + 1);
 	}
@@ -678,9 +678,9 @@ public class GroupBase extends UIComponent implements IViewport
 	/**
 	 *  @private
 	 *  Event listener to remove overlay objects when removed from the overlay
-	 *  DisplayPlane property.
+	 *  DisplayLayer.
 	 */
-	private function overlay_objectRemove(event:DisplayPlaneObjectExistenceEvent):void
+	private function overlay_objectRemove(event:DisplayLayerObjectExistenceEvent):void
 	{
 		// Remove the object from the display list
 		super.removeChild(event.object);
@@ -696,8 +696,8 @@ public class GroupBase extends UIComponent implements IViewport
 	 */
 	private function destroyOverlay():void
 	{
-		_overlay.removeEventListener(DisplayPlaneObjectExistenceEvent.OBJECT_ADD, overlay_objectAdd);
-		_overlay.removeEventListener(DisplayPlaneObjectExistenceEvent.OBJECT_REMOVE, overlay_objectRemove);
+		_overlay.removeEventListener(DisplayLayerObjectExistenceEvent.OBJECT_ADD, overlay_objectAdd);
+		_overlay.removeEventListener(DisplayLayerObjectExistenceEvent.OBJECT_REMOVE, overlay_objectRemove);
 		_overlay = null;
 	}
 
@@ -1027,7 +1027,7 @@ public class GroupBase extends UIComponent implements IViewport
                 if (!_mask.parent)
                 {
                     // TODO (jszeto): Does this need to be attached to a sibling?
-					overlay.addDisplayObject(_mask, OverlayDepth.MASK_DEPTH);
+					overlay.addDisplayObject(_mask, OverlayDepth.MASK);
                     var maskComp:UIComponent = _mask as UIComponent;
                     if (maskComp)
                     {
@@ -1370,7 +1370,7 @@ public class GroupBase extends UIComponent implements IViewport
     {
         if (value)
         {
-			overlay.addDisplayObject(value, OverlayDepth.FOCUS_DEPTH);
+			overlay.addDisplayObject(value, OverlayDepth.FOCUS_PANE);
 
             value.x = 0;
             value.y = 0;
