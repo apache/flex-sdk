@@ -31,6 +31,11 @@ include "../styles/metadata/GapStyles.as";
  *  Number of pixels between the container's bottom border
  *  and the bottom of its content area.
  *  The default value is 0.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -38,6 +43,11 @@ include "../styles/metadata/GapStyles.as";
  *  Number of pixels between the container's top border
  *  and the top of its content area.
  *  The default value is 0.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -128,6 +138,11 @@ include "../styles/metadata/GapStyles.as";
  *  @see mx.components.Container
  *  @see mx.containers.HBox
  *  @see mx.containers.VBox
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Box extends Container
 {
@@ -141,6 +156,11 @@ public class Box extends Container
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Box()
     {
@@ -181,6 +201,11 @@ public class Box extends Container
      *  and <code>BoxDirection.VERTICAL</code>.
      *
      *  @default BoxDirection.VERTICAL
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get direction():String
     {
@@ -272,6 +297,11 @@ public class Box extends Container
      *
      *  <p>These properties correspond to the layout properties listed
      *  previously and, therefore, are not separately documented.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -365,6 +395,11 @@ public class Box extends Container
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
@@ -401,6 +436,11 @@ public class Box extends Container
      *  of this container.
      *  A negative value indicates that the container must grow
      *  in order to accommodate the requested size.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function pixelsToPercent(pxl:Number):Number
     {
