@@ -232,6 +232,8 @@ use namespace mx_internal;
 
 [DefaultProperty("dataProvider")]
 
+[DefaultTriggerEvent("itemClick")]
+
 [IconFile("ButtonBar.png")]
 
 [MaxChildren(0)]
