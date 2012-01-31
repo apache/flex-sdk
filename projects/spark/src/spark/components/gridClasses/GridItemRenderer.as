@@ -496,7 +496,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         
         // TBD(hmuller) - this code should be common with DefaultGridItemRenderer        
         
-        const showDataTips:Boolean = column.getShowDataTips();
+        const showDataTips:Boolean = column && column.getShowDataTips();
         const dataTip:String = toolTip;
         if (showDataTips && !dataTip)
             toolTip = "<dataTip>";
