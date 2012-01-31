@@ -10,13 +10,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.effects
 {
-
 import mx.core.mx_internal;
 import mx.effects.Effect;
 import mx.effects.IEffectInstance;
 import mx.events.EffectEvent;
 
 import spark.effects.animation.Animation;
+import spark.effects.animation.MotionPath;
 import spark.effects.animation.RepeatBehavior;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Sine;
@@ -69,7 +69,6 @@ use namespace mx_internal;
  *  &lt;mx:Animate
  *    <b>Properties</b>
  *    id="ID"
- *    disableConstraints="false"
  *    disableLayout="false"
  *    easer="{spark.effects.easing.Sine(.5)}"
  *    interpolator="NumberInterpolator"
@@ -147,13 +146,13 @@ public class Animate extends Effect
      * @private
      * Storage for the motionPaths property. 
      */
-    private var _motionPaths:Array;
+    private var _motionPaths:Vector.<MotionPath>;
     [Inspectable(category="General", arrayType="spark.effects.MotionPath")]
     /**
-     * An Array of MotionPath objects, each of which holds the
+     * A Vector of MotionPath objects, each of which holds the
      * name of a property being animated and the values that the property
      * takes during the animation. 
-     * This Array takes precedence over
+     * This Vector takes precedence over
      * any properties declared in subclasses of Animate.
      * For example, if this Array is set directly on a Move effect, 
      * then any properties of the Move effect, such as <code>xFrom</code>, are ignored. 
@@ -163,14 +162,14 @@ public class Animate extends Effect
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get motionPaths():Array
+    public function get motionPaths():Vector.<MotionPath>
     {
         return _motionPaths;
     }
     /**
      * @private
      */
-    public function set motionPaths(value:Array):void
+    public function set motionPaths(value:Vector.<MotionPath>):void
     {
         _motionPaths = value;
     }
@@ -188,6 +187,18 @@ public class Animate extends Effect
      * This IEaser object is used to convert the elapsed fraction of 
      * the animation into an eased fraction, which is then used to
      * calculate the value at that eased elapsed fraction.
+     * 
+     * <p>Note that it is possible to have easing at both the effect
+     * level and the Keyframe level (where Keyframes hold the values/times
+     * used in the MotionPath structures), and these easing behaviors will
+     * build on each other. The <code>easer</code> provided
+     * here controls the easing of the overall effect, whereas that in the
+     * Keyframes controls the easing in any particular interval of the animation.
+     * By default, the easing for Animate is non-linear (Sine(.5)), whereas
+     * the easing for Keyframes is linear. If you desire an effect with easing
+     * at the keyframe level instead, you may prefer to set the easing of the
+     * effect to linear and then set the easing specifically on the Keyframes
+     * directly.</p>
      * 
      * @default spark.effects.easing.Sine(.5)
      *
@@ -284,38 +295,6 @@ public class Animate extends Effect
     }
     
     //----------------------------------
-    //  disableConstraints
-    //----------------------------------
-    /**
-     * @private
-     * Storage for the disableConstraints property. 
-     */
-    private var _disableConstraints:Boolean = false;
-    /**
-     * If <code>true</code>, the effect disable constraints on its
-     * targets while the effect is running. 
-     * The effect reenables constraints when the effect finishes.
-     * 
-     * @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get disableConstraints():Boolean
-    {
-        return _disableConstraints;
-    }
-    /**
-     * @private
-     */
-    public function set disableConstraints(value:Boolean):void
-    {
-        _disableConstraints = value;
-    }
-    
-    //----------------------------------
     //  disableLayout
     //----------------------------------
     /**
@@ -325,12 +304,10 @@ public class Animate extends Effect
     private var _disableLayout:Boolean = false;
     /**
      * If <code>true</code>, the effect disables layout on its
-     * targets' parent containers while the effect is running. 
-     * The effect sets the parent containers' <code>autoLayout</code> property to 
-     * false for the duration of the effect. 
-     *
-     * <p>Note that other events may
-     * occur in those containers that force layout to happen anyway.</p>
+     * targets' parent containers, setting the containers <code>autoLayout</code>
+     * property to false, and also disables any layout constraints on the 
+     * target objects. These properties will be restored when the effect
+     * finishes.
      * 
      * @default false
      *  
@@ -358,24 +335,7 @@ public class Animate extends Effect
     //--------------------------------------------------------------------------
 
     /**
-     *  Returns an Array of Strings, where each String is the name of a property that is changed by this effect. 
-     *  For example, the Move effect returns an Array that contains "x" and "y".
-     *
-     *  <p>Every subclass of Effect must implement this method. 
-     *  The method is used by the EffectManager to ensure that no two effects are trying 
-     *  to animate the same property of the same object at the same time.</p>
-     *
-     *  <p>By default, the affected properties are the same as those specified
-     *  in the <code>motionPaths</code> Array. If subclasses modify 
-     *  a different set of properties, they should override this
-     *  method.</p>
-     *
-     *  @return An Array of Strings specifying the names of the properties modified by this effect. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private 
      */
     override public function getAffectedProperties():Array /* of String */
     {
@@ -424,11 +384,10 @@ public class Animate extends Effect
             
         animateInstance.repeatBehavior = repeatBehavior;
         animateInstance.disableLayout = disableLayout;
-        animateInstance.disableConstraints = disableConstraints;
         
         if (motionPaths)
         {
-            animateInstance.motionPaths = [];
+            animateInstance.motionPaths = new Vector.<MotionPath>();
             for (var i:int = 0; i < motionPaths.length; ++i)
                 animateInstance.motionPaths[i] = motionPaths[i].clone();
         }
