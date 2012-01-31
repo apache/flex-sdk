@@ -15,7 +15,6 @@ package mx.controls.menuClasses
 import flash.display.DisplayObject;
 import flash.text.TextLineMetrics;
 import mx.controls.MenuBar;
-import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject; 
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
@@ -183,9 +182,6 @@ public class MenuBarItem extends UIComponent implements IMenuBarItemRenderer, IF
      */
     override public function get baselinePosition():Number
     {
-		if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-			return super.baselinePosition;
-			
 		if (!validateBaselinePosition())
 			return NaN;
 		
