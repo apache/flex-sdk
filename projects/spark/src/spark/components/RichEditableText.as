@@ -101,7 +101,7 @@ import spark.utils.TextUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="changing", type="mx.events.TextOperationEvent")]
+[Event(name="changing", type="spark.events.TextOperationEvent")]
 
 /**
  *  Dispatched after a user editing operation is complete.
@@ -113,7 +113,7 @@ import spark.utils.TextUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="change", type="mx.events.TextOperationEvent")]
+[Event(name="change", type="spark.events.TextOperationEvent")]
 
 /**
  *  Dispatched when the user pressed the Enter key.
@@ -418,7 +418,7 @@ public class RichEditableText extends UIComponent implements IViewport
     private var _clipAndEnableScrolling:Boolean = true;
     
     /**
-     *  @copy mx.layout.LayoutBase#clipAndEnableScrolling
+     *  @copy spark.layout.supportClasses.LayoutBase#clipAndEnableScrolling
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -764,7 +764,7 @@ public class RichEditableText extends UIComponent implements IViewport
     //----------------------------------
 
     /**
-     *  @copy mx.layout.LayoutBase#getHorizontalScrollPositionDelta
+     *  @copy spark.layout.supportClasses.LayoutBase#getHorizontalScrollPositionDelta
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1092,7 +1092,7 @@ public class RichEditableText extends UIComponent implements IViewport
      *  
      *  Possible values are <code>ALWAYS</code>, <code>WHEN_FOCUSED</code>, and <code>WHEN_ACTIVE</code>.
      *  
-     *  @see mx.components.TextSelectionVisibility
+     *  @see spark.components.TextSelectionVisibility
      * 
      *  @default TextSelectionVisibility.WHEN_FOCUSED
      *  
@@ -1221,7 +1221,7 @@ public class RichEditableText extends UIComponent implements IViewport
     //----------------------------------
 
     /**
-     *  @copy mx.layout.LayoutBase#getVerticalScrollPositionDelta
+     *  @copy spark.layout.supportClasses.LayoutBase#getVerticalScrollPositionDelta
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
