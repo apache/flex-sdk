@@ -12,11 +12,25 @@
 package spark.components
 {
 import flash.events.MouseEvent;
+import flash.events.Event;
 
 import spark.components.IItemRenderer;
 import mx.core.mx_internal;
 
 use namespace mx_internal;
+
+/**
+ *  Dispatched when the <code>data</code> property changes.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ * 
+ *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ * 
+ */
+[Event(name="dataChange", type="mx.events.FlexEvent")]
 
 /**
  *  The ButtonBarButton class defines the custom item renderer
@@ -143,6 +157,7 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
     //  data
     //----------------------------------
 
+    [Bindable("dataChange")]
     /**
      *  @inheritDoc 
      *  
@@ -162,6 +177,7 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
     public function set data(value:Object):void
     {
          content = value;
+         dispatchEvent(new Event("dataChange"));
     }
     
     //----------------------------------
