@@ -37,6 +37,16 @@ import spark.components.supportClasses.Range;
 [Event(name="change", type="flash.events.Event")]
 
 /**
+ *  The radius of the corners of this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="spark")]
+
+/**
  *  The alpha of the focus ring for this component.
  * 
  *  @langversion 3.0
