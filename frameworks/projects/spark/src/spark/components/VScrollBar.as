@@ -11,12 +11,13 @@
 
 package spark.components
 {
-import spark.components.supportClasses.ScrollBar;
 import mx.core.ILayoutElement;
-import spark.core.IViewport;
-import spark.core.ScrollUnit;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
+
+import spark.components.supportClasses.ScrollBar;
+import spark.core.IViewport;
+import spark.core.ScrollUnit;
 
 [IconFile("VScrollBar.png")]
 
@@ -156,7 +157,7 @@ public class VScrollBar extends ScrollBar
     override protected function sizeThumb(thumbSize:Number):void
     {
         thumb.height = thumbSize;
-        thumb.visible = thumbSize < trackSize;        
+        thumb.visible = thumbSize < trackSize;
     }
     
     /**
@@ -178,19 +179,6 @@ public class VScrollBar extends ScrollBar
                                                 localY:Number):Number
     {
         return localY;
-    }
-    
-    
-    /**
-     *  Implicitly update the viewport's verticalScrollPosition per the
-     *  specified scrolling unit, by setting the scrollbar's value.
-     *
-     *  @private
-     */
-    private function updateViewportVSP(scrollUnit:uint):void
-    {
-        var delta:Number = viewport.getVerticalScrollPositionDelta(scrollUnit);
-        setValue(viewport.verticalScrollPosition + delta);
     }
     
     /**
@@ -223,12 +211,37 @@ public class VScrollBar extends ScrollBar
     *  @playerversion AIR 1.5
     *  @productversion Flex 4
     */
-    override public function page(increase:Boolean = true):void
+     override public function page(increase:Boolean = true):void
     {
-        if (!viewport)
-            super.page(increase);
-        else
-            updateViewportVSP((increase) ? ScrollUnit.PAGE_DOWN : ScrollUnit.PAGE_UP);
+        var oldPageSize:Number;
+        if (viewport)
+        {
+            // Want to use ScrollBar's page() implementation to get the same
+            // animated behavior for scrollbars with and without viewports.
+            // For now, just change pageSize temporarily and call the superclass
+            // implementation.
+            oldPageSize = pageSize;
+            pageSize = Math.abs(viewport.getVerticalScrollPositionDelta(
+                (increase) ? ScrollUnit.PAGE_DOWN : ScrollUnit.PAGE_UP));
+        }
+        super.page(increase);
+        if (viewport)
+            pageSize = oldPageSize;
+    } 
+
+    /**
+     * @private
+     */
+    override protected function animatePaging(newValue:Number, pageSize:Number):void
+    {
+        if (viewport)
+        {
+            var vpPageSize:Number = Math.abs(viewport.getVerticalScrollPositionDelta(
+                (newValue > value) ? ScrollUnit.PAGE_DOWN : ScrollUnit.PAGE_UP));
+            super.animatePaging(newValue, vpPageSize);
+            return;
+        }        
+        super.animatePaging(newValue, pageSize);
     }
     
     /**
@@ -261,13 +274,24 @@ public class VScrollBar extends ScrollBar
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override public function step(increase:Boolean = true):void
+     override public function step(increase:Boolean = true):void
     {
-        if (!viewport)
-            super.step(increase);
-        else
-            updateViewportVSP((increase) ? ScrollUnit.DOWN : ScrollUnit.UP);
-    }
+        var oldStepSize:Number;
+        if (viewport)
+        {
+            // Want to use ScrollBar's step() implementation to get the same
+            // animated behavior for scrollbars with and without viewports.
+            // For now, just change pageSize temporarily and call the superclass
+            // implementation.
+            oldStepSize = stepSize;
+            stepSize = Math.abs(viewport.getVerticalScrollPositionDelta(
+                (increase) ? ScrollUnit.DOWN : ScrollUnit.UP));
+        }
+        super.step(increase);
+        if (viewport)
+            stepSize = oldStepSize;
+    } 
+    
     
     /**
      *  @private
