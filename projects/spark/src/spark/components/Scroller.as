@@ -1286,10 +1286,10 @@ public class Scroller extends SkinnableComponent
      *  By default, for mobile applications, scrolling is pixel based. 
      *  The final scroll location is any pixel location based on 
      *  the drag and throw gesture.
-     *  Set <code>pageScrollingEnabled</code> to <code>true</code> to 
+     *  Set <code>scrollSnappingMode</code> to other than <code>none</code> to 
      *  enable scroll snapping.
-     *  With scroll snapping enabled, scrolling is pixel based, 
-     *  but the content snaps to a final position based on the value of <code>scrollSnappingMode</code>.
+     *  With scroll snapping enabled, 
+	 *  the content snaps to a final position based on the value of <code>scrollSnappingMode</code>.
      *
      *  <p><b>Note: </b>This property is only valid when the <code>interactionMode</code> style 
      *  is set to <code>touch</code>, indicating a mobile application.</p>
