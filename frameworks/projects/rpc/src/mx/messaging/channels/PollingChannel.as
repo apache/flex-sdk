@@ -810,7 +810,8 @@ class PollCommandMessageResponder extends MessageResponder
     override protected function resultHandler(msg:IMessage):void
     {      
         var pollingChannel:PollingChannel = channel as PollingChannel;        
-        
+        channel.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, channelPropertyChangeHandler);
+
         if (suppressHandlers)
         {
             if (Log.isDebug())
@@ -889,6 +890,8 @@ class PollCommandMessageResponder extends MessageResponder
      */ 
     override protected function statusHandler(msg:IMessage):void
     {        
+        channel.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, channelPropertyChangeHandler);
+
         if (suppressHandlers)
         {
             if (Log.isDebug())
