@@ -50,7 +50,7 @@ use namespace mx_internal;
  *  id="<i>No default.</i>"
  *  endpoint="<i>No default.</i>"
  *  showBusyCursor="false|true"
- *  source="<i>No default.</i>" (currently, Macromedia ColdFusion only)
+ *  source="<i>No default.</i>" (currently, Adobe ColdFusion only)
  *  makeObjectsBindable="false|true"
  *  
  *  <b>Events</b>
@@ -112,7 +112,7 @@ public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implement
      *  @private
      */
     private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+                                    ResourceManager.getInstance();
 
     //--------------------------------------------------------------------------
     //
@@ -151,10 +151,12 @@ public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implement
      * This property allows the developer to quickly specify an endpoint for a RemoteObject
      * destination without referring to a services configuration file at compile time or programmatically creating 
      * a ChannelSet. It also overrides an existing ChannelSet if one has been set for the RemoteObject service.
-     * <p />
-     * If the endpoint url starts with "https" a SecureAMFChannel will be used, otherwise an AMFChannel will 
+     *
+     * <p>If the endpoint url starts with "https" a SecureAMFChannel will be used, otherwise an AMFChannel will 
      * be used. Two special tokens, {server.name} and {server.port}, can be used in the endpoint url to specify
-     * that the channel should use the server name and port that was used to load the SWF.
+     * that the channel should use the server name and port that was used to load the SWF. </p>
+     *
+     * <p><b>Note:</b> This property is required when creating AIR applications.</p>
      */
     public function get endpoint():String
     {
@@ -228,8 +230,8 @@ public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implement
             }
             else
             {
-				var message:String = resourceManager.getString(
-					"rpc", "noListenerForEvent", [ reason ]);
+                var message:String = resourceManager.getString(
+                    "rpc", "noListenerForEvent", [ reason ]);
                 throw new Error(message);
             }
         }
@@ -313,13 +315,13 @@ public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implement
 
     mx_internal var document:Object;
     
-	mx_internal var id:String;
+    mx_internal var id:String;
     
-	private var _concurrency:String;
+    private var _concurrency:String;
     
-	private var _showBusyCursor:Boolean;
+    private var _showBusyCursor:Boolean;
     
-	private var _endpoint:String;
+    private var _endpoint:String;
 }
 
 }
