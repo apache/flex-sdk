@@ -130,10 +130,12 @@ public class MotionPath
     {
         var mp:MotionPath = new MotionPath(property);
         mp.interpolator = interpolator;
-        mp.keyframes = [];
-        for (var i:int = 0; i < keyframes.length; ++i)
-            mp.keyframes[i] = keyframes[i].clone();
-
+        if (keyframes !== null)
+        {
+            mp.keyframes = [];
+            for (var i:int = 0; i < keyframes.length; ++i)
+                mp.keyframes[i] = keyframes[i].clone();
+        }
         return mp;
     }
 
@@ -173,6 +175,8 @@ public class MotionPath
      */
     public function getValue(fraction:Number):Object
     {
+        if (!keyframes)
+            return null;
         var n:int = keyframes.length;
         if (n == 2)
         {
@@ -184,6 +188,11 @@ public class MotionPath
             return interpolator.interpolate(easedF, keyframes[0].value,
                 keyframes[1].value);
         }
+        // if timeFraction on first keyframe is not set, call scaleKeyframes
+        // should not generally happen, but if getValue() is called before
+        // an owning effect is played, then timeFractions were not set
+        if (isNaN(keyframes[0].timeFraction))
+            scaleKeyframes(keyframes[keyframes.length-1].time);
         var prevT:Number = 0;
         var prevValue:Object = keyframes[0].value;
         for (var i:int = 1; i < n; ++i)
