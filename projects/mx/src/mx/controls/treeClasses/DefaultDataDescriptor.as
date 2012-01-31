@@ -45,7 +45,7 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
     include "../../core/Version.as";
 
     /**
-     *  Constructor
+     *  Constructor.
      */
     public function DefaultDataDescriptor()
     {
@@ -162,11 +162,12 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
     }
     
     /**
-     *  Returns true if the node actually has children. 
+     *  Determines if the node actually has children. 
      * 
      *  @param node The node object currently being evaluated.
      *  @param model The collection that contains the node; ignored by this class.
-     *  @return boolean indicating if this node currently has children
+     *  
+     *  @return <code>true</code> if this node currently has children.
      */
     public function hasChildren(node:Object, model:Object = null):Boolean
     {
@@ -199,7 +200,8 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *
      *  @param node The node object currently being evaluated.
      *  @param model The collection that contains the node; ignored by this class.
-     *  @return boolean indicating if this node is non-terminating
+     *  
+     *  @return <code>true</code> if this node is non-terminating.
      */
     public function isBranch(node:Object, model:Object = null):Boolean
     {
@@ -284,11 +286,12 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *     </li>
      * </ul>
      *
-     *  @param parent The node object that will parent the child
-     *  @param newChild The node object that will be parented by the node
-     *  @param index The 0-based index of where to put the child node relative to the parent
-     *  @param model The entire collection that this node is a part of
-     *  @return true if successful
+     *  @param parent The node object that will parent the child.
+     *  @param newChild The node object that will be parented by the node.
+     *  @param index The 0-based index of where to put the child node relative to the parent.
+     *  @param model The entire collection that this node is a part of.
+     *  
+     *  @return <code>true</code> if successful.
      */
     public function addChildAt(parent:Object, newChild:Object, index:int, model:Object = null):Boolean
     {
@@ -358,11 +361,12 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  access the child; otherwise, it uses the <code>parent</code> parameter
      *  and ignores the <code>model</code> parameter.
     *
-     *  @param parent The node object that currently parents the child node
-     *  @param child The node that is being removed
-     *  @param index The 0-based index of  the child node to remove relative to the parent
-     *  @param model The entire collection that this node is a part of
-     *  @return true if successful
+     *  @param parent The node object that currently parents the child node.
+     *  @param child The node that is being removed.
+     *  @param index The 0-based index of  the child node to remove relative to the parent.
+     *  @param model The entire collection that this node is a part of.
+     *  
+     *  @return <code>true</code> if successful.
      */
     public function removeChildAt(parent:Object, child:Object, index:int, model:Object = null):Boolean
     {
@@ -420,7 +424,8 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  a check box, or normal item.
      *
      *  @param node The node object for which to get the type.
-     *  @return  the value of the <code>type</code> attribute or field,
+     *  
+     *  @return  The value of the <code>type</code> attribute or field,
      *  or the empty string if there is no such field.
      */
     public function getType(node:Object):String
@@ -447,9 +452,10 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  This method is used by menu-based controls.
      *
      *  @param node The node for which to get the status.
-     *  @return the value of the node's <code>enabled</code>
+     *  
+     *  @return The value of the node's <code>enabled</code>
      *  attribute or field, or <code>true</code> if there is no such
-     *  entry or the value is not false.
+     *  entry or the value is not <code>false</code>.
      */
     public function isEnabled(node:Object):Boolean
     {
@@ -506,6 +512,7 @@ public class DefaultDataDescriptor implements ITreeDataDescriptor2, IMenuDataDes
      *  This method is used by menu-based controls.
      *
      *  @param node The node for which to get the status.
+     *  
      *  @return The value of the node's <code>toggled</code>
      *  attribute or field, or <code>false</code> if there is no such
      *  entry.
