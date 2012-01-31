@@ -729,7 +729,8 @@ public class GridSelection
     /**
      *  If the <code>selectionMode</code> is either <code>GridSelectionMode.SINGLE_CELLS</code> 
      *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, replaces the current 
-     *  selection with the cell at the given location.
+     *  selection with the cell at the given location.  The cell must be in
+     *  a visible column.
      * 
      *  @param rowIndex The 0-based row index.
      * 
@@ -739,7 +740,7 @@ public class GridSelection
      *  Returns <code>false</code> if 
      *  <code>rowIndex</code> is not a valid index in <code>dataProvider</code>, 
      *  if <code>columnIndex</code> is not a valid index in <code>columns</code>,
-     *  or if the <code>selectionMode</code> is invalid.
+     *  if the <code>selectionMode</code> is invalid or the column is not visible.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -751,14 +752,18 @@ public class GridSelection
         if (!validateCell(rowIndex, columnIndex))
             return false;
         
-        internalSetCellRegion(rowIndex, columnIndex, 1, 1);
+        // columns and indexes validated above.
+        const columnVisible:Boolean = isColumnVisible(columnIndex);
+        if (columnVisible)
+            internalSetCellRegion(rowIndex, columnIndex, 1, 1);
         
-        return true;
+        return columnVisible;
     }
         
     /**
      *  If the <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_CELLS</code>, 
-     *  adds the cell at the given location to the cell selection.
+     *  adds the cell at the given location to the cell selection.  The cell
+     *  must be in a visible column.
      * 
      *  @param rowIndex The 0-based row index.
      * 
@@ -768,7 +773,7 @@ public class GridSelection
      *  Returns <code>false</code> if 
      *  <code>rowIndex</code> is not a valid index in <code>dataProvider</code>, 
      *  if <code>columnIndex</code> is not a valid index in <code>columns</code>,
-     *  or if the <code>selectionMode</code> is invalid.
+     *  if the <code>selectionMode</code> is invalid or the column is not visible.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -780,9 +785,12 @@ public class GridSelection
         if (!validateCellRegion(rowIndex, columnIndex, 1, 1))
             return false;
         
-        internalAddCell(rowIndex, columnIndex);
+        // columns and indexes validated above.
+        const columnVisible:Boolean = isColumnVisible(columnIndex);
+        if (columnVisible)
+            internalAddCell(rowIndex, columnIndex);
         
-        return true;
+        return columnVisible;
     }
 
     /**
@@ -824,7 +832,10 @@ public class GridSelection
      *  The origin of the cell region is the cell location specified by
      *  <code>rowIndex</code> and <code>columnIndex</code>, the width is
      *  <code>columnCount</code> and the height is <code>rowCound</code>.
-     * 
+     *
+     *  <p>Only cells in columns which are visible at the time of selection are
+     *  included in the selection.</p>
+     *
      *  @param rowIndex The 0-based row index of the origin.
      * 
      *  @param columnsIndex The 0-based column index of the origin.
@@ -849,9 +860,35 @@ public class GridSelection
     {
         if (!validateCellRegion(rowIndex, columnIndex, rowCount, columnCount))
             return false;
-                       
-        internalSetCellRegion(rowIndex, columnIndex, rowCount, columnCount);
         
+        removeSelection();
+        
+        var startColumnIndex:int = columnIndex;
+        var curColumnCount:int = 0;
+        
+        const endColumnIndex:int = columnIndex + columnCount - 1;
+        for (var i:int = columnIndex; i <= endColumnIndex; i++)
+        {    
+            // columns and indexes validated above.
+            const columnVisible:Boolean = isColumnVisible(i);
+            if (columnVisible)
+            {
+                curColumnCount++;
+                continue;
+            }
+            
+            // This column isn't visible so commit the cell region.
+            internalAddCellRegion(rowIndex, startColumnIndex, rowCount, curColumnCount);
+            
+            curColumnCount = 0;
+            startColumnIndex = i + 1;
+        }
+             
+        // If the last column(s) are not visible, need to commit the last
+        // cell region.
+        if (curColumnCount > 0)
+            internalAddCellRegion(rowIndex, startColumnIndex, rowCount, curColumnCount);
+            
         return true;
     }
     
@@ -880,6 +917,15 @@ public class GridSelection
         return mode == GridSelectionMode.SINGLE_CELL || 
                 mode == GridSelectionMode.MULTIPLE_CELLS;
     }     
+    
+    /**
+     *  @private
+     *  Assumes columns is set and index is valid.
+     */
+    private function isColumnVisible(columnIndex:int):Boolean
+    {
+        return GridColumn(grid.columns.getItemAt(columnIndex)).visible;
+    }
     
     /**
      *  @private
@@ -1109,6 +1155,28 @@ public class GridSelection
         {
             selectedItem = grid.dataProvider.getItemAt(rowIndex);
         }
+    }
+
+    /**
+     *  @private
+     *  This should only be used for setCellRegion.  The selection should
+     *  be cleared first.  This will add a cellRegion to the list of cellRegions.
+     *  This allows the special-handling needed for setting a cell region 
+     *  which has one of more columns which are not visible and not to be
+     *  included in the selection.
+     *  
+     *  The code is not equipped to handle the general case of overlapping
+     *  cell regions.
+     */
+    private function internalAddCellRegion(rowIndex:int, columnIndex:int=0, 
+                                           rowCount:uint=1, columnCount:uint=1):void
+    {
+        const cr:CellRect = 
+            new CellRect(rowIndex, columnIndex, rowCount, columnCount, true);
+        
+        cellRegions.push(cr);
+        
+        _selectionLength += rowCount * columnCount;
     }
 
     /**
