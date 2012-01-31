@@ -39,7 +39,7 @@ use namespace mx_internal;
  *  The AMFChannel class provides the AMF support for messaging.
  *  You can configure this Channel to poll the server at an interval
  *  to approximate server push.
- *  You can also use this Channel with polling disabled to send RPC messages 
+ *  You can also use this Channel with polling disabled to send RPC messages
  *  to remote destinations to invoke their methods.
  *
  *  <p>
@@ -63,12 +63,12 @@ use namespace mx_internal;
  *  </p>
  *
  *  <p>
- *  When used in polling mode, this Channel polls the server for new messages 
+ *  When used in polling mode, this Channel polls the server for new messages
  *  based on the <code>polling-interval-seconds</code> property in the configuration file,
  *  and this can be changed by setting the <code>pollingInterval</code> property.
  *  The default value is 3 seconds.
- *  To enable polling, the channel must be connected and the <code>polling-enabled</code> 
- *  property in the configuration file must be set to <code>true</code>, or the 
+ *  To enable polling, the channel must be connected and the <code>polling-enabled</code>
+ *  property in the configuration file must be set to <code>true</code>, or the
  *  <code>pollingEnabled</code> property of the Channel must be set to <code>true</code>.
  *  </p>
  */
@@ -77,31 +77,38 @@ public class AMFChannel extends NetConnectionChannel
     //--------------------------------------------------------------------------
     //
     // Constructor
-    // 
+    //
     //--------------------------------------------------------------------------
-    
+
     /**
      *  Creates an new AMFChannel instance.
      *
      *  @param id The id of this Channel.
-     *  
+     *
      *  @param uri The uri for this Channel.
      */
     public function AMFChannel(id:String = null, uri:String = null)
     {
         super(id, uri);
-    }  
+    }
 
     //--------------------------------------------------------------------------
     //
     // Variables
-    // 
+    //
     //--------------------------------------------------------------------------
+
+    /**
+     * @private
+     * Flag used to indicate that the channel is in the process of reconnecting
+     * with the session id in the url.
+     */
+    protected var _reconnectingWithSessionId:Boolean;
 
     /**
      *  @private
      *  Flag used to control when we need to handle NetStatusEvents.
-     *  If the channel has shutdown due to reaching a connect timeout we need to 
+     *  If the channel has shutdown due to reaching a connect timeout we need to
      *  continue listening for events (such as 404s) but we've already shutdown so
      *  we must ignore them.
      */
@@ -116,13 +123,13 @@ public class AMFChannel extends NetConnectionChannel
     //--------------------------------------------------------------------------
     //
     // Properties
-    // 
+    //
     //--------------------------------------------------------------------------
 
     //----------------------------------
     //  piggybackingEnabled
     //----------------------------------
-    
+
     /**
      *  Indicates whether this channel will piggyback poll requests along
      *  with regular outbound messages when an outstanding poll is not in
@@ -133,7 +140,7 @@ public class AMFChannel extends NetConnectionChannel
     {
         return internalPiggybackingEnabled;
     }
-    
+
     /**
      *  @private
      */
@@ -145,7 +152,7 @@ public class AMFChannel extends NetConnectionChannel
     //----------------------------------
     //  pollingEnabled
     //----------------------------------
-    
+
     /**
      *  Indicates whether this channel is enabled to poll.
      */
@@ -171,12 +178,12 @@ public class AMFChannel extends NetConnectionChannel
      *  The value is in milliseconds.
      *  This value determines how often this Channel requests messages from
      *  the server, to approximate server push.
-     * 
+     *
      *  @throws ArgumentError If the pollingInterval is assigned a value of 0 or
      *                        less.
      */
     public function get pollingInterval():Number
-    {        
+    {
         return internalPollingInterval;
     }
 
@@ -215,11 +222,11 @@ public class AMFChannel extends NetConnectionChannel
     //--------------------------------------------------------------------------
     //
     // Overridden Public Methods
-    // 
+    //
     //--------------------------------------------------------------------------
-    
+
     /**
-     *  @private 
+     *  @private
      *  Processes polling related configuration settings.
      */
     override public function applySettings(settings:XML):void
@@ -228,27 +235,41 @@ public class AMFChannel extends NetConnectionChannel
         applyPollingSettings(settings);
     }
 
+    /**
+     *  @private
+     *  Overriding to be able to keep track of the fact that the Channel is in
+     *  the process of reconnecting with the session id, so the initial
+     *  NetConnection call can be discarded properly in the resultHandler.
+     */
+    override public function AppendToGatewayUrl(value:String):void
+    {
+        if (value != null && value != "" && _appendToURL != value)
+        {
+            super.AppendToGatewayUrl(value);
+            _reconnectingWithSessionId = true;
+        }
+    }
     //--------------------------------------------------------------------------
     //
     // Protected Methods
-    // 
+    //
     //--------------------------------------------------------------------------
 
     /**
-     *  @private 
+     *  @private
      *  Attempts to connect to the endpoint specified for this channel.
      */
     override protected function internalConnect():void
     {
         super.internalConnect();
         _ignoreNetStatusEvents = false;
-        
+
         // Ping the server to make sure that it is reachable.
         var msg:CommandMessage = new CommandMessage();
         if (credentials != null)
         {
             msg.operation = CommandMessage.LOGIN_OPERATION;
-            msg.body = credentials;    
+            msg.body = credentials;
         }
         else
         {
@@ -264,7 +285,7 @@ public class AMFChannel extends NetConnectionChannel
 
         // Add the FlexClient id header.
         setFlexClientIdOnMessage(msg);
-        
+
         netConnection.call(null, new Responder(resultHandler, faultHandler), msg);
         if (Log.isDebug())
             _log.debug("'{0}' pinging endpoint.", id);
@@ -274,7 +295,7 @@ public class AMFChannel extends NetConnectionChannel
      *  @private
      *  Disconnects from the remote destination.
      *  Because this channel uses a stateless HTTP connection, it sends a fire-and-forget
-     *  message to the server as it disconnects to allow the server to shut down any 
+     *  message to the server as it disconnects to allow the server to shut down any
      *  session or other resources that it may be managing on behalf of this channel.
      */
     override protected function internalDisconnect(rejected:Boolean = false):void
@@ -290,18 +311,18 @@ public class AMFChannel extends NetConnectionChannel
         setConnected(false);
         super.internalDisconnect(rejected);
     }
-    
+
     /**
      *  @private
      *  Shuts down the underlying NetConnection for the AMFChannel.
      *  The reason this override is necessary is because the NetConnection may dispatch
-     *  a NetStatusEvent after it has been closed and if we're not registered to listen for 
+     *  a NetStatusEvent after it has been closed and if we're not registered to listen for
      *  that event the Player will throw an RTE.
      *  The only time this can occur when the channel has been shut down due to a connect
      *  timeout but an error (i.e. 404) response from the server returns later.
      */
     override protected function shutdownNetConnection():void
-    {        
+    {
         _nc.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
         _nc.removeEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
         // Leave the NetStatusEvent statusHandler registered but set the ignore flag.
@@ -311,18 +332,18 @@ public class AMFChannel extends NetConnectionChannel
 
     /**
      *  @private
-     *  Called on the status event of the associated NetConnection when there is a 
+     *  Called on the status event of the associated NetConnection when there is a
      *  problem with the connection for this channel.
      */
     override protected function statusHandler(event:NetStatusEvent):void
-    {        
+    {
         if (_ignoreNetStatusEvents)
             return; // Ignore NetStatusEvents that are dispatched after the NetConnection has been closed.
-        
+
         var channelFault:ChannelFaultEvent;
 
         if (Log.isDebug())
-            _log.debug("'{0}' channel got status. {1}", id, ObjectUtil.toString(event.info));        
+            _log.debug("'{0}' channel got status. {1}", id, ObjectUtil.toString(event.info));
 
         var handled:Boolean = true;
         // We should always have a non-null info object.
@@ -336,8 +357,8 @@ public class AMFChannel extends NetConnectionChannel
                 {
                     if (info.code.indexOf("Call.Failed") != -1)
                     {
-                        channelFault = ChannelFaultEvent.createEvent(this, 
-                                        false, "Channel.Call.Failed", info.level, 
+                        channelFault = ChannelFaultEvent.createEvent(this,
+                                        false, "Channel.Call.Failed", info.level,
                                         info.code + ": " + info.description)
                         channelFault.rootCause = info;
                         // Dispatch the fault.
@@ -349,7 +370,7 @@ public class AMFChannel extends NetConnectionChannel
                      *
                      * If we didn't receive a NetConnection.Call.Failed, and the status
                      * info object has a level of "error" then we must have received one
-                     * of: 
+                     * of:
                      *     NetConnection.Connect.AppShutdown
                      *     NetConnection.Connect.Failed
                      *     NetConnection.Connect.Rejected
@@ -357,31 +378,31 @@ public class AMFChannel extends NetConnectionChannel
                      *
                      * In any case, at this point we need to indicate to the channel that
                      * it is disconnected which may trigger failover/hunting.
-                     */                                                                       
-                    internalDisconnect();                    
+                     */
+                    internalDisconnect();
                 }
                 else
                 {
-                    channelFault = ChannelFaultEvent.createEvent(this, 
-                                    false, "Channel.Connect.Failed", info.level, 
+                    channelFault = ChannelFaultEvent.createEvent(this,
+                                    false, "Channel.Connect.Failed", info.level,
                                     info.code + ": " + info.description + ": url: '" + endpoint + "'");
                     channelFault.rootCause = info;
-                    connectFailed(channelFault);                                       
+                    connectFailed(channelFault);
                 }
              }
              else
              {
-                 // Ignore NetConnection.Connect.Closed events when the 
+                 // Ignore NetConnection.Connect.Closed events when the
                  // Channel is in the process of failing over to another url but
-                 // it receives a delayed NetConnection.Connect.Closed for the 
-                 // previous failed url. 
-                 if (!connected)                                 
+                 // it receives a delayed NetConnection.Connect.Closed for the
+                 // previous failed url.
+                 if (!connected)
                     handled = (info.level == "status" && info.code.indexOf("Connect.Closed") != -1);
                  else
-                    handled = false;                          
+                    handled = false;
              }
          }
-         else 
+         else
          {
              handled = false;
          }
@@ -397,7 +418,7 @@ public class AMFChannel extends NetConnectionChannel
     //--------------------------------------------------------------------------
     //
     // Protected Methods
-    // 
+    //
     //--------------------------------------------------------------------------
 
     /**
@@ -446,11 +467,11 @@ public class AMFChannel extends NetConnectionChannel
      */
     protected function resultHandler(msg:IMessage):void
     {
-        // Update the ServerConfig with dynamic configuration                
+        // Update the ServerConfig with dynamic configuration
         if (msg != null)
         {
             ServerConfig.updateServerConfigData(msg.body as ConfigMap, endpoint);
-            
+
             // Set the server assigned FlexClient Id.
             if (FlexClient.getInstance().id == null && msg.headers[AbstractMessage.FLEX_CLIENT_ID_HEADER] != null)
                 FlexClient.getInstance().id = msg.headers[AbstractMessage.FLEX_CLIENT_ID_HEADER];
@@ -462,9 +483,21 @@ public class AMFChannel extends NetConnectionChannel
                 handleServerMessagingVersion(serverVersion);
             }
         }
-        connectSuccess();   
-        if (credentials != null && !(msg is ErrorMessage))
-            setAuthenticated(true);
+        // If the Channel is reconnecting with the session id in the url, don't
+        // report connectSuccess for the initial ping and allow the Channel to
+        // reconnect by removing the waitForFlexClientId lock.
+        if (_reconnectingWithSessionId)
+        {
+            // Allow the Channel to reconnect with the session id.
+            FlexClient.getInstance().waitForFlexClientId = false;
+            _reconnectingWithSessionId = false;
+        }
+        else
+        {
+            connectSuccess();
+            if (credentials != null && !(msg is ErrorMessage))
+                setAuthenticated(true);
+        }
     }
 }
 
@@ -473,7 +506,7 @@ public class AMFChannel extends NetConnectionChannel
 //------------------------------------------------------------------------------
 //
 // Private Classes
-// 
+//
 //------------------------------------------------------------------------------
 
 import mx.messaging.MessageResponder;
@@ -487,5 +520,5 @@ class AMFFireAndForgetResponder extends MessageResponder
     public function AMFFireAndForgetResponder(message:IMessage)
     {
         super(null, message, null);
-    }    
+    }
 }
