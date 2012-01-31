@@ -24,6 +24,7 @@ import flashx.textLayout.elements.IConfiguration;
 import flashx.undo.IUndoManager;
 import flashx.undo.UndoManager;
 
+import mx.styles.IStyleClient;
 import mx.core.mx_internal;
 
 import spark.primitives.RichEditableText;
@@ -108,15 +109,29 @@ public class RichEditableTextContainerManager extends TextContainerManager
             hasScrollRect = true;
         }
         
-        // Client must draw a background, even it if is 100% transparent.
+        // Client must draw a background to get mouse events,
+        // even it if is 100% transparent.
+    	// If backgroundColor is defined, fill the bounds of the component
+    	// with backgroundColor drawn with alpha level backgroundAlpha.
+    	// Otherwise, fill with transparent black.
+    	// (The color in this case is irrelevant.)
+    	var color:uint = 0x000000;
+    	var alpha:Number = 0.0;
+    	var styleableContainer:IStyleClient = container as IStyleClient;
+    	if (styleableContainer)
+    	{
+    		var backgroundColor:* =
+    			styleableContainer.getStyle("backgroundColor");
+    		if (backgroundColor !== undefined)
+    		{
+    			color = uint(backgroundColor);
+    			alpha = styleableContainer.getStyle("backgroundAlpha");
+    		}
+    	}
         var g:Graphics = container.graphics;
         g.clear();
         g.lineStyle();
-        var bc:Object = RichEditableText.mx_internal::backgroundColor;
-        if (bc != null)
-            g.beginFill(uint(bc)); 
-        else
-            g.beginFill(0x000000, 0);
+        g.beginFill(color, alpha);
         g.drawRect(scrollX, scrollY, width, height);
         g.endFill();
         
