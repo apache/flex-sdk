@@ -23,7 +23,6 @@ ButtonBase
 {
     lineBreak: "explicit";
     textAlign: "center";
-    verticalAlign: "middle";
 }
 
 FxButton
