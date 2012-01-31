@@ -925,7 +925,8 @@ public class GridLayout extends LayoutBase
 
                 initializeItemRenderer(renderer, rowIndex, colIndex);
                 
-                // TBD(hmuller): if takeVisibleItemRenderer returned true, should we skip prepare?()
+                // TBD(hmuller): if takeVisibleItemRenderer returned true, and initializeItemRenderer
+                // returned false - because nothing changed - don't run prepare().
                 renderer.prepare(!createdGridElement);
                 
                 var colWidth:Number = gridDimensions.getColumnWidth(colIndex);
