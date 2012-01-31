@@ -723,7 +723,7 @@ public class SpriteVisualElement extends FlexSprite
     private var _id:String;
 
     /**
-     *  @inheritDoc
+     *  The identity of the component. 
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1811,24 +1811,24 @@ public class SpriteVisualElement extends FlexSprite
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Called automatically by the MXML compiler when the SpriteVisualElement
-	 *  is created using an MXML tag.
-	 *  If you create the SpriteVisualElement through ActionScript you 
-	 *  must set the <code>id</code> property manually.
-	 *
-	 *  @param document The MXML document containing this SpriteVisualElement (not used).
-	 *  @param id The MXML id for this SpriteVisualElement.
-	 *  
+    /**
+     *  Called automatically by the MXML compiler when the SpriteVisualElement
+     *  is created using an MXML tag.
+     *  If you create the SpriteVisualElement through ActionScript you 
+     *  must set the <code>id</code> property manually.
+     *
+     *  @param document The MXML document containing this SpriteVisualElement (not used).
+     *  @param id The MXML id for this SpriteVisualElement.
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-	 */
-	public function initialized(document:Object, id:String):void
-	{
-		this.id = id;
-	}
+     */
+    public function initialized(document:Object, id:String):void
+    {
+        this.id = id;
+    }
 
     /**
      * @private
