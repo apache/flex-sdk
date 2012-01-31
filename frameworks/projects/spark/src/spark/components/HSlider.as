@@ -18,6 +18,7 @@ import flash.geom.Rectangle;
 
 import mx.core.IDataRenderer;
 import mx.core.IVisualElement;
+import mx.core.LayoutDirection;
 import mx.core.mx_internal;
 
 import spark.components.supportClasses.SliderBase;
@@ -166,7 +167,7 @@ public class HSlider extends SliderBase
 
 			// If this component's coordinate system is RTL (x increases to the right), then
 			// getLayoutBoundsX() returns the right edge, not the left.
-			if (layoutDirection == "rtl")
+			if (layoutDirection == LayoutDirection.RTL)
 				relX += tipAsDisplayObject.width;
 			
             var o:Point = new Point(relX, initialPosition.y);
