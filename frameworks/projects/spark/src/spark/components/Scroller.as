@@ -427,6 +427,37 @@ public class Scroller extends SkinnableComponent
         invalidateSkin();
     }
     
+    //---------------------------------
+    // smoothScrolling
+    //--------------------------------- 
+    
+    /**
+     * @private
+     * Backing storage for the smoothScrolling property
+     */
+    private var _smoothScrolling:Boolean = true;
+    
+    /**
+     * This property determines whether the scrollbar will animate
+     * smoothly when paging and stepping. When false, page and step
+     * operations will jump directly to the paged/stepped locations. 
+     * When true, the scrollbar, and any content it is scrolling, will
+     * animate to that location.
+     * 
+     * @default true
+     */
+    public function get smoothScrolling():Boolean
+    {
+        return _smoothScrolling;
+    }
+    public function set smoothScrolling(value:Boolean):void
+    {
+        _smoothScrolling = value;
+        if (verticalScrollBar)
+            verticalScrollBar.smoothScrolling = value;
+        if (horizontalScrollBar)
+            horizontalScrollBar.smoothScrolling = value;
+    }    
 
     //--------------------------------------------------------------------------
     // 
@@ -683,10 +714,16 @@ public class Scroller extends SkinnableComponent
         super.partAdded(partName, instance);
         
         if (instance == verticalScrollBar)
-            verticalScrollBar.viewport = viewport;            
+        {
+            verticalScrollBar.viewport = viewport;
+            verticalScrollBar.smoothScrolling = smoothScrolling;
+        }            
         
         if (instance == horizontalScrollBar)
-            horizontalScrollBar.viewport = viewport;            
+        {
+            horizontalScrollBar.viewport = viewport;
+            horizontalScrollBar.smoothScrolling = smoothScrolling;
+        }            
     }
     
     /**
