@@ -134,33 +134,47 @@ public class TextView extends UIComponent implements IViewport
             
     /**
      *  @private
-     *  This set keeps track of which text formats were specified
-     *  on the graphic element's TextFlow as opposed to on the
-     *  graphic element itself.
-     *
-     *  For example, if you have
-     *
-     *      <TextGraphic fontSize="10">
-     *          <content>
-     *              <TextFlow fontSize="20">
-     *                  ...
-     *              </TextFlow>
-     *          </content>
-     *      </TextGraphic>
-     *
-     *  then this set would be { fontSize: 20 }.
+     *  This object is determined by the CSS styles of the TextGraphic
+     *  and is updated by createTextFlow() when the hostFormatsInvalid flag
+     *  is true.
      */
-    private var textFlowTextFormat:Object = {};
+    private var hostCharacterFormat:CharacterFormat = new CharacterFormat();
+
+    /**
+     *  @private
+     *  This object is determined by the CSS styles of the TextGraphic
+     *  and is updated by createTextFlow() when the hostFormatsInvalid flag
+     *  is true.
+     */
+    private var hostParagraphFormat:ParagraphFormat = new ParagraphFormat();
+
+    /**
+     *  @private
+     *  This object is determined by the CSS styles of the TextGraphic
+     *  and is updated by createTextFlow() when the hostFormatsInvalid flag
+     *  is true.
+     */
+    private var hostContainerFormat:ContainerFormat = new ContainerFormat();
+
+	/**
+	 *  @private
+     *  This flag indicates whether hostCharacterFormat, hostParagraphFormat,
+     *  and hostContainerFormat need to be recalculated from the CSS styles
+     *  of the TextGraphic. It is set true by stylesInitialized() and also
+     *  when styleChanged() is called with a null argument, indicating that
+     *  multiple styles have changed.
+	 */
+    private var hostFormatsInvalid:Boolean = false;
 
     /**
      *  @private
      */
-    private var textAttributeChanged:Boolean = true;
-
+    private var stylesChanged:Boolean = false;
+    
     /**
      *  @private
      */
-    private var fontMetricsInvalid:Boolean = true;
+    private var fontMetricsInvalid:Boolean = false;
     
     /**
      *  @private
@@ -251,7 +265,6 @@ public class TextView extends UIComponent implements IViewport
         contentChanged = true;
         textInvalid = true;
 
-        invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
     }
@@ -526,7 +539,6 @@ public class TextView extends UIComponent implements IViewport
         _text = value;
         textChanged = true;
         
-        invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
     }
@@ -663,49 +675,17 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  @private
      */
-    override protected function commitProperties():void 
+    override protected function commitProperties():void
     {
         super.commitProperties();
 
-        // Recalculate the ascent, descent, and charWidth
-        // if these might have changed.
-        if (fontMetricsInvalid)
-        {
-            calculateFontMetrics();
-
-            fontMetricsInvalid = false;
-        }
-        
-        // Regenerate TextLines if necessary.
-        if (textChanged || contentChanged || textAttributeChanged)
-        {
-            // Eliminate detritus from the previous TextFlow.
-            if (textFlow && textFlow.flowComposer)
-                textFlow.flowComposer.removeControllerAt(0);
-
-            // Create a new TextFlow for the current text.
-            _content = textFlow = createTextFlow();
-                        
-            // Tell it where to create its TextLines.
-            var flowComposer:IFlowComposer = new StandardFlowComposer();
-            flowComposer.addController(
-                new DisplayObjectContainerController(this));
-            textFlow.flowComposer = flowComposer;
-            
-            // Give it an EditManager to make it editable.
-            textFlow.interactionManager = new TextViewEditManager(); 
-            
-            // Listen to events from the TextFlow and its EditManager.
-            addListeners(textFlow);
-            
-            textChanged = false;
-            contentChanged = false;
-            textAttributeChanged = false;
-        }
+        var flowComposer:IFlowComposer = textFlow.flowComposer;
+        if (!flowComposer)
+            return;
 
         var containerController:IContainerController =
-            textFlow.flowComposer.getControllerAt(0);
-        
+            flowComposer.getControllerAt(0);
+
         if (horizontalScrollPositionChanged)
         {
             containerController.horizontalScrollPosition =
@@ -727,6 +707,15 @@ public class TextView extends UIComponent implements IViewport
     override protected function measure():void 
     {
         super.measure();
+
+        // Recalculate the ascent, descent, and charWidth
+        // if these might have changed.
+        if (fontMetricsInvalid)
+        {
+            calculateFontMetrics();
+
+            fontMetricsInvalid = false;
+        }
 
         measuredWidth = Math.round(getStyle("paddingLeft") +
                         widthInChars * charWidth +
@@ -757,14 +746,83 @@ public class TextView extends UIComponent implements IViewport
         g.drawRect(0, 0, unscaledWidth, unscaledHeight);
         g.endFill();
         */
+
+        var flowComposer:IFlowComposer;
         
+        // Regenerate TextLines if necessary.
+        if (textChanged || contentChanged || stylesChanged)
+        {
+            // Eliminate detritus from the previous TextFlow.
+            if (textFlow && textFlow.flowComposer)
+                textFlow.flowComposer.removeControllerAt(0);
+
+            // Create a new TextFlow for the current text.
+            _content = textFlow = createTextFlow();
+                        
+            // Tell it where to create its TextLines.
+            flowComposer = new StandardFlowComposer();
+            flowComposer.addController(
+                new DisplayObjectContainerController(this));
+            textFlow.flowComposer = flowComposer;
+            
+            // Give it an EditManager to make it editable.
+            textFlow.interactionManager = new TextViewEditManager(); 
+            
+            // Listen to events from the TextFlow and its EditManager.
+            addListeners(textFlow);
+            
+            textChanged = false;
+            contentChanged = false;
+            stylesChanged = false;
+        }
+
         // Tell the TextFlow to generate TextLines within the
         // rectangle (0, 0, unscaledWidth, unscaledHeight).
-        var displayController:IFlowComposer = textFlow.flowComposer;
+        flowComposer = textFlow.flowComposer;
         var containerController:IContainerController =
-            displayController.getControllerAt(0);
+            flowComposer.getControllerAt(0);
         containerController.setCompositionSize(unscaledWidth, unscaledHeight);
-        displayController.updateAllContainers();
+        flowComposer.updateAllContainers();
+    }
+
+	/**
+	 *  @inheritDoc
+	 */
+    override public function stylesInitialized():void
+    {
+        super.stylesInitialized();
+
+        fontMetricsInvalid = true;
+        hostFormatsInvalid = true;
+        stylesChanged = true;
+    }
+
+	/**
+	 *  @inheritDoc
+	 */
+    override public function styleChanged(styleProp:String):void
+    {
+        super.styleChanged(styleProp);
+
+        if (styleProp == null || styleProp == "styleName" ||
+            styleProp == "fontFamily" || styleProp == "fontSize")
+        {
+            fontMetricsInvalid = true;
+        }
+
+        // If null or "styleName" is passed, indicating that
+        // multiple styles may have changed, set a flag indicating
+        // that hostContainerFormat, hostParagraphFormat,
+        // and hostCharacterFormat need to be recalculated later.
+        // But if a single style has changed, update the corresponding
+        // property in either hostContainerFormat, hostParagraphFormat,
+        // or hostCharacterFormat immediately.
+        if (styleProp == null || styleProp == "styleName")
+            hostFormatsInvalid = true;
+        else
+            setHostFormat(styleProp);
+
+        stylesChanged = true;
     }
 
     //--------------------------------------------------------------------------
@@ -819,6 +877,27 @@ public class TextView extends UIComponent implements IViewport
 	/**
 	 *  @private
 	 */
+    private function setHostFormat(styleProp:String):void
+    {
+        var value:* = getStyle(styleProp);
+        if (styleProp == "tabStops" && value === undefined)
+            value = [];
+
+        var kind:String = TextUtil.FORMAT_MAP[styleProp];
+
+        if (kind == TextUtil.CONTAINER)
+            hostContainerFormat[styleProp] = value;
+        
+        else if (kind == TextUtil.PARAGRAPH)
+            hostParagraphFormat[styleProp] = value;
+        
+        else if (kind == TextUtil.CHARACTER)
+            hostCharacterFormat[styleProp] = value;
+    }
+
+	/**
+	 *  @private
+	 */
 	private function importMarkup(markup:String):TextFlow
 	{
 		markup =
@@ -835,8 +914,6 @@ public class TextView extends UIComponent implements IViewport
 	 */
 	private function createTextFlow():TextFlow
 	{
-        var p:String;
-
 		if (contentChanged || textChanged)
         {
 		    if (contentChanged)
@@ -879,63 +956,24 @@ public class TextView extends UIComponent implements IViewport
 				    textFlow = createEmptyTextFlow();
 			    }
 		    }
-
-            // Build a textFlowTextFormat object which keeps track
-            // of which text formats were specified on the TextFlow
-            // as opposed to on the TextGraphic.
-            // For example, if the 'content' were
-            // <TextFlow fontSize="12">...</TextFlow>
-            // then the textFlowTextFormat would be { fontSize: 12 }.
-            
-            var containerFormat:IContainerFormat =
-                textFlow.containerFormat;
-            var paragraphFormat:IParagraphFormat =
-                textFlow.paragraphFormat;
-            var characterFormat:ICharacterFormat =
-                textFlow.characterFormat;
-            
-            for each (p in TextUtil.ALL_FORMAT_NAMES)
-            {
-                var kind:String = TextUtil.FORMAT_MAP[p];
-
-                if (kind == TextUtil.CONTAINER &&
-                    containerFormat != null &&
-                    containerFormat[p] != null)
-                {
-                    textFlowTextFormat[p] = containerFormat[p];
-                }
-                else if (kind == TextUtil.PARAGRAPH &&
-                         paragraphFormat != null &&
-                         paragraphFormat[p] != null)
-                {
-                    textFlowTextFormat[p] = paragraphFormat[p];
-                }
-                else if (kind == TextUtil.CHARACTER &&
-                         characterFormat != null &&
-                         characterFormat[p] != null)
-                {
-                    textFlowTextFormat[p] = characterFormat[p];
-                }
-            }
         }
 
-		contentChanged = false;
+ 		contentChanged = false;
 		textChanged = false;
 
-        // For each attribute whose value wasn't specified by the TextFlow,
-        // apply the value from the TextGraphic.
-        
-        for each (p in TextUtil.ALL_FORMAT_NAMES)
+        if (hostFormatsInvalid)
         {
-            if (!(p in textFlowTextFormat))
+            for each (var p:String in TextUtil.ALL_FORMAT_NAMES)
             {
-            	var value:* = getStyle(p);
-            	if (p == "tabStops" && value === undefined)
-            		value = null; // TODO Setting this to [] causes RTE during paste
-            	textFlow[p] = value;
+                setHostFormat(p);
             }
-         }
-        
+            hostFormatsInvalid = false;
+        }
+
+        textFlow.hostCharacterFormat = hostCharacterFormat;
+        textFlow.hostParagraphFormat = hostParagraphFormat;
+        textFlow.hostContainerFormat = hostContainerFormat;
+
 		return textFlow;
 	}
 
