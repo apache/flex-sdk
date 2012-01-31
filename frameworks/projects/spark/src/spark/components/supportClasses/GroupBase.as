@@ -777,7 +777,7 @@ public class GroupBase extends UIComponent implements IViewport
     {
         if (_mouseEnabledWhereTransparent)
             $invalidateDisplayList();
-	_hasMouseListeners = value;
+    _hasMouseListeners = value;
     }
     
     /**
@@ -991,7 +991,7 @@ public class GroupBase extends UIComponent implements IViewport
     //----------------------------------
 
     /**
-     *  @copy spark.core.IViewport#horizontalScrollPositionDelta
+     *  @copy spark.core.IViewport#horizontalScrollPositionDelta()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1004,7 +1004,7 @@ public class GroupBase extends UIComponent implements IViewport
     }
     
     /**
-     *  @copy spark.core.IViewport#verticalScrollPositionDelta
+     *  @copy spark.core.IViewport#verticalScrollPositionDelta()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1283,7 +1283,7 @@ public class GroupBase extends UIComponent implements IViewport
     }
     
     /**
-     *  @copy mx.core.IVisualElementContainer#getElementAt
+     *  @copy mx.core.IVisualElementContainer#getElementAt()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1322,7 +1322,7 @@ public class GroupBase extends UIComponent implements IViewport
     }
     
     /**
-     *  @copy mx.core.IVisualElementContainer#getElementIndex
+     *  @copy mx.core.IVisualElementContainer#getElementIndex()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
