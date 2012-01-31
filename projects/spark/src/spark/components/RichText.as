@@ -919,7 +919,7 @@ public class RichText extends TextBase
         if (_textFlow.flowComposer)
         {
             _textFlow.flowComposer.swfContext = 
-                ISWFContext(getEmbeddedSwfContext);  
+                ISWFContext(getEmbeddedFontContext());  
         }                    
         
         return _textFlow;
