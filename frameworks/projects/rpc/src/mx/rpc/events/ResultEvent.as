@@ -16,6 +16,7 @@ import flash.events.Event;
 
 import mx.core.mx_internal;
 import mx.messaging.messages.IMessage;
+import mx.messaging.messages.AbstractMessage;
 import mx.rpc.AsyncToken;
 
 use namespace mx_internal;
@@ -80,6 +81,9 @@ public class ResultEvent extends AbstractEvent
     {
         super(type, bubbles, cancelable, token, message);
 
+        if (message != null && message.headers != null)
+            _statusCode = message.headers[AbstractMessage.STATUS_CODE_HEADER] as int;
+
         _result = result;
     }
 
@@ -91,8 +95,8 @@ public class ResultEvent extends AbstractEvent
     //--------------------------------------------------------------------------
 
     /**
-     * In certain circumstances, headers may also be returned with a fault to
-     * provide further context to the failure.
+     * In certain circumstances, headers may also be returned with a result to
+     * provide further context.
      */
     public function get headers():Object
     {
@@ -115,6 +119,15 @@ public class ResultEvent extends AbstractEvent
         return _result;
     }
 
+    /**
+     * If the source message was sent via HTTP, this property provides access
+     * to the HTTP response status code (if available), otherwise the value is
+     * 0.
+     */ 
+    public function get statusCode():int
+    {
+        return _statusCode;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -147,7 +160,7 @@ public class ResultEvent extends AbstractEvent
      */
     override public function toString():String
     {
-        return formatToString("ResultEvent", "messageId", "type", "bubbles", "cancelable", "eventPhase");
+        return formatToString("ResultEvent", "messageId", "type", "bubbles", "cancelable", "eventPhase", "httpStatus");
     }
 
     /*
@@ -168,6 +181,7 @@ public class ResultEvent extends AbstractEvent
 
     private var _result:Object;
     private var _headers:Object;
+    private var _statusCode:int;
 }
 
 }
