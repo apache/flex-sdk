@@ -13,20 +13,26 @@
 package spark.components
 {
 import flash.events.Event;
+import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
+import flash.events.SoftKeyboardEvent;
 import flash.events.TimerEvent;
 import flash.geom.Point;
+import flash.geom.Rectangle;
 import flash.system.Capabilities;
 import flash.text.TextField;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
 
+import mx.core.EventPriority;
+import mx.core.FlexGlobals;
 import mx.core.IInvalidating;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.InteractionMode;
 import mx.core.LayoutDirection;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
@@ -34,7 +40,10 @@ import mx.events.FlexMouseEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.TouchInteractionEvent;
 import mx.managers.IFocusManagerComponent;
+import mx.styles.ISimpleStyleClient;
+import mx.styles.IStyleClient;
 
+import spark.components.supportClasses.GroupBase;
 import spark.components.supportClasses.ScrollerLayout;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.core.IViewport;
@@ -46,6 +55,7 @@ import spark.effects.animation.SimpleMotionPath;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Power;
 import spark.effects.easing.Sine;
+import spark.layouts.supportClasses.LayoutBase;
 import spark.utils.MouseEventUtil;
 
 use namespace mx_internal;
@@ -547,6 +557,9 @@ public class Scroller extends SkinnableComponent
         super();
         hasFocusableChildren = true;
         focusEnabled = false;
+        
+        addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+        addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -682,11 +695,34 @@ public class Scroller extends SkinnableComponent
      */
     private var inTouchInteraction:Boolean = false;
     
+    /**
+     *  @private
+     *  Keeps track of whether the Scroller is listening for softKeyboardEvents 
+     */    
+    private var softKeyboardEventHandlersAdded:Boolean = false;
+    
+    /**
+     *  @private 
+     */ 
+    private var lastFocusedElement:IVisualElement;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  ensureFocusedElementIsVisible
+    //---------------------------------- 
+    
+    /**
+     *  A value of true means when a descendant element gains focus, the Scroller will scroll
+     *  that element into view. 
+     * 
+     *  @default true
+     */ 
+    public var ensureFocusedElementIsVisible:Boolean = true;
     
     //----------------------------------
     //  horizontalScrollBar
@@ -996,6 +1032,75 @@ public class Scroller extends SkinnableComponent
                     checkForInvalidScrollPositions();
                 }
                 break;
+        }
+    }
+    
+    /**
+     *  @private 
+     *  Listens for any focusIn events from descendants 
+     */ 
+    override protected function focusInHandler(event:FocusEvent):void
+    {
+        super.focusInHandler(event);
+        
+        // When we gain focus, make sure the focused element is visible
+        if (viewport && ensureFocusedElementIsVisible)
+        {
+            var elt:IVisualElement = focusManager.getFocus() as IVisualElement; 
+            lastFocusedElement = elt;
+            
+            if (elt)
+                scrollElementIntoView(elt);
+        }
+        
+    }
+    
+    /**
+     *  @private
+     *  Scrolls the viewport so the element is visible in the viewable area  
+     */ 
+    private function scrollElementIntoView(element:IVisualElement):void
+    {   
+        var layout:LayoutBase = null;
+        
+        if (viewport is GroupBase)
+            layout = GroupBase(viewport).layout;
+        else if (viewport is SkinnableContainer)
+            layout = SkinnableContainer(viewport).layout;
+     
+        if (layout)
+        {
+            // Scroll the element into view
+            var delta:Point = layout.getScrollPositionDeltaToAnyElement(element);
+            
+            if (delta)
+            {
+                var eltBounds:Rectangle = layout.getChildElementBounds(element);
+                var focusThickness:Number = 0;
+                
+                viewport.horizontalScrollPosition += delta.x; 
+                viewport.verticalScrollPosition += delta.y;
+                
+                if (element is IStyleClient)
+                    focusThickness = IStyleClient(element).getStyle("focusThickness");
+                
+                // Make sure that the focus ring is visible. Top and left sides have priority
+                if (focusThickness)
+                {
+                    if (viewport.verticalScrollPosition > eltBounds.top - focusThickness)
+                        viewport.verticalScrollPosition = eltBounds.top - focusThickness;
+                    else if (viewport.verticalScrollPosition + height < eltBounds.bottom + focusThickness)
+                        viewport.verticalScrollPosition = eltBounds.bottom + focusThickness - height;
+                    
+                    if (viewport.horizontalScrollPosition > eltBounds.left - focusThickness)
+                        viewport.horizontalScrollPosition = eltBounds.left - focusThickness;
+                    else if (viewport.horizontalScrollPosition + width < eltBounds.right + focusThickness)
+                        viewport.horizontalScrollPosition = eltBounds.right + focusThickness - width;
+                }
+                                
+                if (viewport is UIComponent)
+                    UIComponent(viewport).validateNow();
+            }
         }
     }
     
@@ -2221,7 +2326,7 @@ public class Scroller extends SkinnableComponent
 				
 				if (newHSP < minTextSelectionHScrollPos)
 					newHSP = minTextSelectionHScrollPos;
-			}
+    		}
 		}
 		
 		if (scrollerLayout.canScrollVertically)
@@ -2254,6 +2359,95 @@ public class Scroller extends SkinnableComponent
 		if (newVSP != viewport.verticalScrollPosition)
 			viewport.verticalScrollPosition = newVSP;
 	}
+
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers: SoftKeyboard Interaction
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */  
+    private function addedToStageHandler(event:Event):void
+    {
+        var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
+     
+        // Only listen for softKeyboardEvents if the 
+        // softKeyboardBehavior attribute in the application descriptor equals "none"
+        // Check that the top level app has resizeForSoftKeyboard == true
+        if (topLevelApp && topLevelApp.resizeForSoftKeyboard && Application.softKeyboardBehavior == "none")
+        {
+            systemManager.stage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
+                softKeyboardActivateHandler, false, 
+                EventPriority.DEFAULT, true);
+            systemManager.stage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
+                softKeyboardDeactivateHandler, false, 
+                EventPriority.DEFAULT, true);  
+            
+            softKeyboardEventHandlersAdded = true;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function removedFromStageHandler(event:Event):void
+    {
+        if (softKeyboardEventHandlersAdded)
+        {
+            systemManager.stage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
+                softKeyboardActivateHandler, false);
+            systemManager.stage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
+                softKeyboardDeactivateHandler, false);
+            
+            softKeyboardEventHandlersAdded = false;
+        }
+    }
+    
+    /**
+     *  @private
+     *  Called when the soft keyboard is activated. Tells the top level 
+     *  application to resize itself
+     */  
+    private function softKeyboardActivateHandler(event:SoftKeyboardEvent):void
+    {
+        // Size of app has changed, so run this logic again
+        if (lastFocusedElement)
+            scrollElementIntoView(lastFocusedElement);
+    }
+    
+    /**
+     *  @private
+     *  Called when the soft keyboard is deactivated. Tells the top level 
+     *  application to resize itself and fix the scroll position if necessary
+     */ 
+    private function softKeyboardDeactivateHandler(event:SoftKeyboardEvent):void
+    {   
+        // Adjust the scroll position after the application's size is restored. 
+        adjustScrollPositionAfterSoftKeyboardDeactivate();
+    }
+    
+    /**
+     *  @private
+     */ 
+    mx_internal function adjustScrollPositionAfterSoftKeyboardDeactivate():void
+    {      
+        // If contentHeight is shorter than height, we no longer can scroll and we should reset to 0
+        // If contentHeight is taller than height, make sure the position doesn't 
+        // exceed the max scroll position
+        
+        if (viewport.contentHeight <= height)
+            viewport.verticalScrollPosition = 0;
+        else
+            viewport.verticalScrollPosition = Math.min(viewport.verticalScrollPosition, viewport.contentHeight - height);
+        
+        if (viewport.contentWidth <= width)
+            viewport.horizontalScrollPosition = 0;
+        else
+            viewport.horizontalScrollPosition = Math.min(viewport.horizontalScrollPosition, viewport.contentWidth - width);
+    }
+
 
 }
 
