@@ -295,22 +295,7 @@ public class DropDownListBase extends List
         // select the first item passed in. 
         return;
     }
-    
-    //----------------------------------
-    //  baselinePosition
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function get baselinePosition():Number
-    {
-        if (openButton)
-            return openButton.baselinePosition;
-        else
-            return NaN;
-    }
-    
+       
     //----------------------------------
     //  dataProvider
     //----------------------------------
