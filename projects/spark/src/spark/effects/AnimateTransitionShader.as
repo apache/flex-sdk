@@ -95,8 +95,7 @@ import mx.resources.ResourceManager;
  * 
  *  @see flash.display.BitmapData
  *  @see spark.effects.supportClasses.AnimateShaderTransitionInstance
- *  @see spark.primitives.GraphicElement
- *  @see flash.display.DisplayObject
+ *  @see spark.primitives.supportClasses.GraphicElement
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -274,6 +273,8 @@ public class AnimateShaderTransition extends Animate
      *  Creates the bitmap image for either the before or after stateof the target, if necessary.
      *
      *  @param target The Object to animate with this effect.  
+     *
+     *  @return A BitmapData object containing the image.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
