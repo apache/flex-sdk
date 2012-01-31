@@ -843,11 +843,13 @@ public class HaloBorder extends RectangularBorder
 
 				if (radiusObj)
 				{
-					var bottomRadius:Number =
-						bRoundedCorners ? radius : 0;
+					var topRadius:Number =
+ 						Math.max(radius - Math.max(bm.top, bm.left, bm.right), 0);
+ 					var bottomRadius:Number = bRoundedCorners ?
+ 						Math.max(radius - Math.max(bm.bottom, bm.left, bm.right), 0) : 0;
 
-					radiusObj = { tl: radius,
-							      tr: radius,
+					radiusObj = { tl: topRadius,
+							      tr: topRadius,
 							      bl: bottomRadius,
 							      br: bottomRadius };
 
