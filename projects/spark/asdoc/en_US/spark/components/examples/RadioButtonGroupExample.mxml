@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark" 
+               xmlns:mx="library://ns.adobe.com/flex/halo">
+    <fx:Script>
+        <![CDATA[   
+            
+            import mx.controls.Alert;
+            import mx.events.ItemClickEvent;
+            
+            private function handlePayment(event:ItemClickEvent):void {
+                if (event.currentTarget.selectedValue == "check") {
+                    Alert.show("You opted to pay by check."); 
+                } else if (event.currentTarget.selectedValue == "credit") {
+                    Alert.show("You opted to pay by credit card.");
+                }
+            }
+        ]]>
+    </fx:Script>
+    
+    <fx:Declarations>
+        <s:RadioButtonGroup id="paymentType" itemClick="handlePayment(event);"/>
+    </fx:Declarations>
+    <s:VGroup paddingLeft="10" paddingTop="10">
+        <s:RadioButton groupName="paymentType" 
+                       id="payCheck" 
+                       value="check" 
+                       label="Pay by check" 
+                       width="150"/>
+        <s:RadioButton groupName="paymentType" 
+                       id="payCredit" 
+                       value="credit" 
+                       label="Pay by credit card" 
+                       width="150"/>
+    </s:VGroup>
+</s:Application>
