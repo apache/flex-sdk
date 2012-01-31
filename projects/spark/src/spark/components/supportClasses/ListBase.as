@@ -935,7 +935,7 @@ public class ListBase extends SkinnableDataContainer
             // TODO (dsubrama): - Go through helper methods to do this. 
             // Make itemSelected()/itemShowingCaret() pass around the renderer 
             // instead of index
-            IItemRenderer(renderer).selected = false;
+            //IItemRenderer(renderer).selected = false;
             IItemRenderer(renderer).showsCaret = false;
             
             // Now turn the transitions back on by setting playTransitions
@@ -946,10 +946,13 @@ public class ListBase extends SkinnableDataContainer
         
         // Set any new properties on the renderer now that it's going to 
         // come back into use. 
+        itemSelected(itemIndex, isItemIndexSelected(itemIndex));
+	/*
         if (isItemIndexSelected(itemIndex))
             itemSelected(itemIndex, true);
+	*/
 
-    if (isItemIndexShowingCaret(itemIndex))
+        if (isItemIndexShowingCaret(itemIndex))
             itemShowingCaret(itemIndex, true);
         
         // Now run through and initialize the renderer correctly.  We 
