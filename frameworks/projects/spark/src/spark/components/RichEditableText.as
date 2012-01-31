@@ -3646,6 +3646,9 @@ public class RichEditableText extends UIComponent
      */
     private function addActivateHandlers():void
     {
+        if (!focusManager)
+            return;
+
         focusManager.addEventListener(FlexEvent.FLEX_WINDOW_ACTIVATE, 
             _textContainerManager.activateHandler, false, 0, true)
         focusManager.addEventListener(FlexEvent.FLEX_WINDOW_DEACTIVATE, 
