@@ -177,13 +177,80 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  The <code>auto</code> policy means that the scrollbar will be visible and included
  *  in the layout when the viewport's content is larger than the viewport itself.</p>
  * 
- *  <p>The Scroller skin layout cannot be changed, it's unconditionally set to a 
+ *  <p>The Scroller skin layout cannot be changed. It is unconditionally set to a 
  *  private layout implementation that handles the scroll policies.  Scroller skins
  *  can only provide replacement scrollbars.  To gain more control over the layout
  *  of a viewport and its scrollbars, instead of using Scroller, just add them 
  *  to a <code>Group</code> and use the scrollbar <code>viewport</code> property 
  *  to link them together.</p>
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;Scroller&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;Scroller
+ *   <strong>Properties</strong>
+ *    minViewportInset="0"
+ *    viewport="null"
  *  
+ *    <strong>Styles</strong>
+ *    alignmentBaseline="use_dominant_baseline"
+ *    alternatingItemColors=""
+ *    baselineShift="0.0"
+ *    blockProgression="TB"
+ *    breakOpportunity="auto"
+ *    cffHinting="horizontal_stem"
+ *    color="0"
+ *    contentBackgroundColor=""
+ *    digitCase="default"
+ *    digitWidth="default"
+ *    direction="LTR"
+ *    dominantBaseline="auto"
+ *    firstBaselineOffset="auto"
+ *    focusColor=""
+ *    focusedTextSelectionColor=""
+ *    fontFamily="Times New Roman"
+ *    fontLookup="device"
+ *    fontSize="12"
+ *    fontStyle="normal"
+ *    fontWeight="normal"
+ *    horizontalScrollPolicy="auto"
+ *    inactiveTextSelection=""
+ *    justificationRule="auto"
+ *    justificationStyle="auto"
+ *    kerning="auto"
+ *    leadingModel="auto"
+ *    ligatureLevel="common"
+ *    lineHeight="120%"
+ *    lineThrough="false"
+ *    locale="en"
+ *    paragraphEndIndent="0"
+ *    paragraphSpaceAfter="0"
+ *    paragraphSpaceBefore="0"
+ *    paragraphStartIndent="0"
+ *    renderingMode="CFF"
+ *    rollOverColor=""
+ *    symbolColor=""
+ *    tabStops="null"
+ *    textAlign="start"
+ *    textAlignLast="start"
+ *    textAlpha="1"
+ *    textDecoration="none"
+ *    textIndent="0"
+ *    textJustify="inter_word"
+ *    textRotation="auto"
+ *    trackingLeft="0"
+ *    trackingRight="0"
+ *    typographicCase="default"
+ *    unfocusedTextSelectionColor=""
+ *    verticalScrollPolicy="auto"
+ *    whiteSpaceCollapse="collapse"
+ *  /&gt;
+ *  </pre>
+ *  
+ *  @see spark.skins.spark.Scroller
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -239,7 +306,7 @@ public class Scroller extends SkinnableComponent
     /**
      *  A skin part that defines the horizontal scrollbar.
      * 
-     *  This property should be considered read-only, it's only
+     *  This property should be considered read-only. It is only
      *  set by the Scroller's skin.
      * 
      *  This property is Bindable.
@@ -261,7 +328,7 @@ public class Scroller extends SkinnableComponent
     /**
      *  A skin part that defines the vertical scrollbar.
      * 
-     *  This property should be considered read-only, it's only
+     *  This property should be considered read-only. It is only
      *  set by the Scroller's skin.
      * 
      *  This property is Bindable.
@@ -286,14 +353,15 @@ public class Scroller extends SkinnableComponent
      *  The viewport component to be scrolled.
      * 
      *  <p>
-     *  The viewport is added to the Scroller component's skin 
+     *  The viewport is added to the Scroller component's skin, 
      *  which lays out both the viewport and scrollbars.
      * 
-     *  When the viewport property is set, the viewport's clipAndEnableScrolling property is 
+     *  When the <code>viewport</code> property is set, the viewport's 
+     *  <code>clipAndEnableScrolling</code> property is 
      *  set to true to enable scrolling.
      * 
-     *  Scroller does not support rotating the viewport directly.  The viewport's
-     *  contents can be transformed arbitrarily but the viewport itself can not.
+     *  The Scroller does not support rotating the viewport directly.  The viewport's
+     *  contents can be transformed arbitrarily, but the viewport itself can not.
      * </p>
      * 
      *  This property is Bindable.
@@ -454,7 +522,7 @@ public class Scroller extends SkinnableComponent
     }
     
     /**
-     *  Returns the 0 if the element passed in is the viewport.  
+     *  Returns 0 if the element passed in is the viewport.  
      *  Otherwise, it throws an ArgumentError.
      *
      *  @param element The element to identify.
@@ -477,11 +545,11 @@ public class Scroller extends SkinnableComponent
     }
     
     /**
-     *  @inheritDoc
      * 
-     *  <p>This operation is not supported in Scroller.  Scroller only 
-     *  has one child.  Use the <code>viewport</code> property to manipulate 
-     *  it.</p>
+     *  This operation is not supported in Scroller.  
+     *  A Scroller control has only one child. 
+     *  Use the <code>viewport</code> property to manipulate 
+     *  it.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -494,11 +562,9 @@ public class Scroller extends SkinnableComponent
     }
     
     /**
-     *  @inheritDoc
-     * 
-     *  <p>This operation is not supported in Scroller.  Scroller only 
-     *  has one child.  Use the <code>viewport</code> property to manipulate 
-     *  it.</p>
+     *  This operation is not supported in Scroller.  
+     *  A Scroller control has only one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -511,11 +577,10 @@ public class Scroller extends SkinnableComponent
     }
     
     /**
-     *  @inheritDoc
      * 
-     *  <p>This operation is not supported in Scroller.  Scroller only 
-     *  has one child.  Use the <code>viewport</code> property to manipulate 
-     *  it.</p>
+     *  This operation is not supported in Scroller.  
+     *  A Scroller control has only one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -528,11 +593,10 @@ public class Scroller extends SkinnableComponent
     }
     
     /**
-     *  @inheritDoc
      * 
-     *  <p>This operation is not supported in Scroller.  Scroller only 
-     *  has one child.  Use the <code>viewport</code> property to manipulate 
-     *  it.</p>
+     *  This operation is not supported in Scroller.  
+     *  A Scroller control has only one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -545,11 +609,10 @@ public class Scroller extends SkinnableComponent
     }
     
     /**
-     *  @inheritDoc
      * 
-     *  <p>This operation is not supported in Scroller.  Scroller only 
-     *  has one child.  Use the <code>viewport</code> property to manipulate 
-     *  it.</p>
+     *  This operation is not supported in Scroller.  
+     *  A Scroller control has only one child. Use the <code>viewport</code> property to manipulate 
+     *  it.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -562,11 +625,10 @@ public class Scroller extends SkinnableComponent
     }
     
     /**
-     *  @inheritDoc
      * 
-     *  <p>This operation is not supported in Scroller.  Scroller only 
-     *  has one child.  Use the <code>viewport</code> property to manipulate 
-     *  it.</p>
+     *  This operation is not supported in Scroller.  
+     *  A Scroller control has only one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -579,11 +641,10 @@ public class Scroller extends SkinnableComponent
     }
     
     /**
-     *  @inheritDoc
      * 
-     *  <p>This operation is not supported in Scroller.  Scroller only 
-     *  has one child.  Use the <code>viewport</code> property to manipulate 
-     *  it.</p>
+     *  This operation is not supported in Scroller.  
+     *  A Scroller control has only one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -596,11 +657,10 @@ public class Scroller extends SkinnableComponent
     }
     
     /**
-     *  @inheritDoc
      * 
-     *  <p>This operation is not supported in Scroller.  Scroller only 
-     *  has one child.  Use the <code>viewport</code> property to manipulate 
-     *  it.</p>
+     *  This operation is not supported in Scroller.  
+     *  A Scroller control has only one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
