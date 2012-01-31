@@ -672,8 +672,18 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     }
 
     /**
-     *  @inheritDoc 
+     *  Updates the renderer for use/re-use. When a renderer is first 
+     *  created, or when it is recycled because of virtualization, this 
+     *  SkinnableDataContainer gets the chance to come in and set the 
+     *  renderer's <code>labelText</code> property as well as the 
+     *  <code>owner</code> property. This is how, from a renderer, one 
+     *  can access the parent component "owning" the renderer. In cases 
+     *  like Lists and SkinnableDataContainers, the owner property points
+     *  to the List or SkinnableDataContainer even though the dataGroup
+     *  part is actually parenting the renderers. 
      *  
+     *  @param renderer The renderer being updated 
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
