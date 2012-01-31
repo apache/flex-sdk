@@ -21,7 +21,6 @@ import flash.events.MouseEvent;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
-import flash.utils.Dictionary;
 
 import mx.collections.ICollectionView;
 import mx.collections.IList;
