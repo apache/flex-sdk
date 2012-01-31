@@ -82,6 +82,7 @@ public class Move3D extends AnimateTransform3D
         applyChangesPostLayout = true;
         applyLocalProjection = true;
         instanceClass = AnimateTransformInstance;
+        transformEffectSubclass = true;
     }
         
     //--------------------------------------------------------------------------
