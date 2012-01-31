@@ -9,14 +9,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 <languageVersion : 1.0;>
-kernel FxWipe
+kernel WipeUp
 <   namespace : "flex";
     vendor : "Adobe";
     version : 1;
-    description : "Directional wipe between two images for Flex effects";
+    description : "Wipe up between two images for Flex effects";
 >
 {
-    // first input is unused in FxAnimateTransitionShader effect
+    // first input is unused in AnimateTransitionShader effect
     input image4 src0;
     input image4 from;
     input image4 to;
@@ -47,7 +47,7 @@ kernel FxWipe
 
         // Use src0 in a branch we won't reach just to defeat the 
         // optimizer from removing the input parameter
-        if (((height * (1.0 - progress)) >= coord.y) 
+        if ((height * (1.0 - progress)) >= coord.y) 
             dst = sampleNearest(from, coord);
         else if (progress < 100.0)
             dst = sampleNearest(to, coord);
