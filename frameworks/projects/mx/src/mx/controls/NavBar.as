@@ -24,7 +24,6 @@ import mx.containers.BoxDirection;
 import mx.containers.ViewStack;
 import mx.core.ClassFactory;
 import mx.core.INavigatorContent;
-import mx.core.FlexVersion;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
 import mx.core.ScrollPolicy;
@@ -214,9 +213,6 @@ public class NavBar extends Box
      */
     override public function get baselinePosition():Number
     {
-		if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-			return super.baselinePosition;
-				    
 		if (!validateBaselinePosition())
 			return NaN;
 
