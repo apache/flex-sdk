@@ -2380,7 +2380,7 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
                 var property:XML = properties[0];
                 var propertyType:String = property.@type;
                 var tempValue:* = parent[propertyName];
-                if (propertyType == "Object" || propertyType == "*" || TypeIterator.isIterable(existingValue))
+                if (propertyType == "Object" || propertyType == "*" || TypeIterator.isIterable(tempValue))
                     existingValue = tempValue;
             }
         }
