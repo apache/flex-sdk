@@ -69,8 +69,14 @@ public class FxTextInput extends FxTextBase
         super();
     }
 
-    //----------------------------------
-    //  widthInChars
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+
+	//----------------------------------
+	//  widthInChars
     //----------------------------------
 
     /**
@@ -126,11 +132,11 @@ public class FxTextInput extends FxTextBase
         super.commitProperties();
 
         if (widthInCharsChanged)
-        {
-            textView.widthInChars = _widthInChars;
-            widthInCharsChanged = false;
-        }
-    }
+		{
+			textView.widthInChars = _widthInChars;
+			widthInCharsChanged = false;
+		}
+	}
 
     /**
      *  @private
