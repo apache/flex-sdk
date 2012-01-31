@@ -9,9 +9,9 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.core
+package mx.components
 {
-import mx.core.IDataRenderer;   
+import mx.core.IDataRenderer;	
 
 /**
  *  The Skin class defines the base class for all skins used by skinnable components. 
@@ -50,18 +50,18 @@ public class Skin extends Group implements IDataRenderer
     /**
      *  Constructor. 
      */    
-    public function Skin()
-    {
-        super();
-    }
-    
-    //--------------------------------------------------------------------------
+	public function Skin()
+	{
+		super();
+	}
+	
+	//--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-    
-    private var _data:Object;
+	
+	private var _data:Object;
     [Bindable]
     /**
      *  A reference to the component that hosts this skin instance.
