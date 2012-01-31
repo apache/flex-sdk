@@ -28,6 +28,7 @@ import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
 
+import spark.components.DataGrid;
 import spark.components.Grid;
 import spark.layouts.supportClasses.LayoutBase;
 
@@ -172,6 +173,7 @@ public class GridLayout extends LayoutBase
     public function GridLayout()
     {
         super();
+        gridDimensions = new GridDimensions();
     }
 
     //--------------------------------------------------------------------------
@@ -492,9 +494,9 @@ public class GridLayout extends LayoutBase
         
         // To avoid flashing, force all of the layers to render now
         
-        backgroundLayer.validateNow();
-        selectionLayer.validateNow();
-        overlayLayer.validateNow();
+        if (backgroundLayer) backgroundLayer.validateNow();
+        if (selectionLayer) selectionLayer.validateNow();
+        if (overlayLayer) overlayLayer.validateNow();
         
         // The old visible row,column indices are no longer needed
         
@@ -1642,9 +1644,13 @@ public class GridLayout extends LayoutBase
     
     private function layoutEditorIndicator(layer:GridLayer):void
     {
-        const rowIndex:int = grid.dataGrid.editorRowIndex;
-        const columnIndex:int = grid.dataGrid.editorColumnIndex;
-        var indicatorFactory:IFactory = grid.dataGrid.editorIndicator;
+        const dataGrid:DataGrid = grid.dataGrid;
+        if (!dataGrid)
+            return;
+        
+        const rowIndex:int = dataGrid.editorRowIndex;
+        const columnIndex:int = dataGrid.editorColumnIndex;
+        var indicatorFactory:IFactory = dataGrid.editorIndicator;
         
         // If the indicatorFactory has changed for the specified non-null indicator, 
         // then free the old indicator.
