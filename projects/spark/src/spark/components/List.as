@@ -1288,6 +1288,101 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  @private
+     *  Scroll the dataGroup with ensureIndexIsVisible() until newCaretIndex 
+     *  is visible.  The process can be iterative and the new item renderers
+     *  are not guaranteed to be in place until after "updateComplete", i.e. 
+     *  after all layout phases have completed.
+     * 
+     *  Note also: we're selecting the item at newCaretIndex, even though it's
+     *  possible that - before the dataProvider refresh - the caretItem and
+     *  selectedItem were different. 
+     */
+    private function ensureCaretVisibility(newCaretIndex:int):void
+    {
+        setSelectedIndex(newCaretIndex, false);
+        ensureIndexIsVisible(newCaretIndex);        
+    }
+    
+    /**
+     *  @private
+     *  At this point newCaretIndex is assumed to be visible, per a call to
+     *  ensureCaretVisibility().   Fine-tune the scroll position so that 
+     *  the itemRenderer at newCaretIndex appears at offsetX,Y relative 
+     *  to the dataGroup's upper left corner.
+     */
+    private function restoreCaretScrollPosition(newCaretIndex:int, offsetX:Number, offsetY:Number):void
+    {
+        const caretItemRenderer:IVisualElement = dataGroup.getElementAt(newCaretIndex);
+        if (!caretItemRenderer)
+            return;
+        
+        const newOffsetX:Number = caretItemRenderer.getLayoutBoundsX() - dataGroup.horizontalScrollPosition;
+        const newOffsetY:Number = caretItemRenderer.getLayoutBoundsY() - dataGroup.verticalScrollPosition;            
+        
+        dataGroup.verticalScrollPosition += newOffsetY - offsetY;
+        dataGroup.horizontalScrollPosition += newOffsetX - offsetX;
+    }
+    
+    /**
+     *  @private
+     *  Adjust the scroll position so that the currently visible caret item, if any, 
+     *  still appears in the same relative position.   If the caret isn't currently 
+     *  visible then resort to the ListBase behavior, which is just to clear the selection
+     *  and scroll to 0,0.
+     * 
+     *  This method implements just one of several possible heuristics for adjusting
+     *  the scroll position after a dataProvider refresh.
+     */
+    override mx_internal function dataProviderRefreshed():void
+    {
+        // At this point the dataProvider's contents have changed but the dataGroup's 
+        // item renderers have not.  If the caret item renderer is visible, find 
+        // its x,y "offset" relative to the dataGroup's position and then scroll
+        // so that the new caret item renderer appears at the same offset.
+        
+        if ((caretItem !== undefined) && dataGroup && dataGroup.dataProvider)
+        {
+            const newCaretIndex:int = dataGroup.dataProvider.getItemIndex(caretItem);
+            const caretItemRenderer:IVisualElement = dataGroup.getElementAt(caretIndex);
+            
+            if ((newCaretIndex != -1) && dataGroup.isElementVisible(caretItemRenderer)) 
+            {
+                const caretItemRendererX:Number = caretItemRenderer.getLayoutBoundsX();
+                const caretItemRendererY:Number = caretItemRenderer.getLayoutBoundsY();
+            
+                const caretOffsetX:Number = caretItemRendererX - dataGroup.horizontalScrollPosition;
+                const caretOffsetY:Number = caretItemRendererY - dataGroup.verticalScrollPosition;
+                
+                // Wait for updateComplete before updating the scroll position to ensure 
+                // newCaretIndex is visible, so that other listeners/parts have completed
+                // their responses to the refresh event.
+                
+                const updateCompleteListenerA:Function = function():void {
+                    dataGroup.removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteListenerA);
+                    ensureCaretVisibility(newCaretIndex);
+                    dataGroup.addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteListenerB);                    
+                    
+                };
+
+                // Wait for updateComplete before making the final update to the scroll position  
+                // so that layout bounds for the caret item renderer will have been computed.
+                
+                const updateCompleteListenerB:Function = function():void {
+                    dataGroup.removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteListenerB);                    
+                    restoreCaretScrollPosition(newCaretIndex, caretOffsetX, caretOffsetY);
+                };
+                
+                dataGroup.addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteListenerA);
+                
+                return;
+            }
+        }
+
+        super.dataProviderRefreshed();  // clears the selectedIndex, caretIndex
+    }
+    
+    /**
+     *  @private
      */
     override mx_internal function isItemIndexSelected(index:int):Boolean
     {
