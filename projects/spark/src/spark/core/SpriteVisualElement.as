@@ -19,15 +19,15 @@ import flash.geom.Matrix3D;
 import flash.geom.PerspectiveProjection;
 import flash.geom.Point;
 import flash.geom.Vector3D;
+
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.DesignLayer;
 import mx.core.FlexSprite;
+import mx.core.IID;
 import mx.core.IInvalidating;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
-import mx.utils.MatrixUtil;
-import mx.events.FlexEvent;
 import mx.geom.Transform;
 import mx.utils.MatrixUtil;
 
@@ -45,7 +45,8 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class SpriteVisualElement extends FlexSprite implements IVisualElement
+public class SpriteVisualElement extends FlexSprite 
+    implements IVisualElement, IID
 {
     /**
      *  Constructor.
@@ -556,6 +557,37 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
 
         _left = value;
         invalidateParentSizeAndDisplayList();
+    }
+    
+    //----------------------------------
+    //  id
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the id property.
+     */
+    private var _id:String;
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    public function get id():String
+    {
+        return _id;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set id(value:String):void
+    {
+        _id = value;
     }
 
     //----------------------------------
