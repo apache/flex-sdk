@@ -14,24 +14,22 @@ package spark.effects.supportClasses
 import flash.events.TimerEvent;
 import flash.utils.Timer;
 
-import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import spark.effects.animation.Animation;
 import mx.effects.EffectInstance;
-import spark.effects.easing.IEaser;
-import spark.effects.interpolation.IInterpolator;
-import spark.effects.interpolation.NumberInterpolator;
-import spark.events.AnimationEvent;
-import spark.layout.supportClasses.LayoutElementFactory;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.IStyleClient;
 
+import spark.effects.AnimationProperty;
 import spark.effects.KeyFrame;
 import spark.effects.MotionPath;
+import spark.effects.animation.Animation;
+import spark.effects.easing.IEaser;
+import spark.effects.interpolation.IInterpolator;
+import spark.events.AnimationEvent;
 
 use namespace mx_internal;
 
@@ -150,21 +148,6 @@ public class AnimateInstance extends EffectInstance
     protected var roundValues:Boolean;
 
     /**
-     * This flag indicates whether the effect changes properties which are
-     * potentially related to the various layout constraints that may act
-     * on the object. Setting this to true will cause the effect to disable
-     * all standard constraints (left, right, top, bottom, horizontalCenter,
-     * verticalCenter) for the duration of the animation, and re-enable them
-     * when the animation is complete.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    protected var affectsConstraints:Boolean;
-
-    /**
      * This flag indicates whether a subclass would like their target to 
      * be automatically kept around during a transition and removed when it
      * finishes. This capability applies specifically to effects like
@@ -184,8 +167,14 @@ public class AnimateInstance extends EffectInstance
      */
     protected var autoRemoveTarget:Boolean = false;
         
-    public var adjustConstraints:Boolean;    
+    /**
+     * @copy spark.effects.Animate#disableConstraints
+     */
+    public var disableConstraints:Boolean;    
 
+    /**
+     * @copy spark.effects.Animate#disableLayout
+     */
     public var disableLayout:Boolean;
     
     private var _easer:IEaser;    
@@ -589,6 +578,26 @@ public class AnimateInstance extends EffectInstance
     }
 
     /**
+     * This function is called by subclasses during the play() function
+     * to add an animation to the current set of <code>animationProperties</code>.
+     * The animation will be set up on the named constraint if the constraint
+     * is in the <code>propertyChanges</code> array (which is only true during
+     * transitions for properties/styles exposed by the effect) and the
+     * value of that constraint is different between the start and end states.
+     */ 
+    protected function setupConstraintAnimation(constraintName:String):void
+    {
+        var startVal:* = propertyChanges.start[constraintName];
+        var endVal:* = propertyChanges.end[constraintName];
+        if (startVal !== undefined && endVal !== undefined &&
+            startVal !== null && endVal !== null &&
+            startVal != endVal)
+        {
+            animationProperties.push(new AnimationProperty(constraintName, startVal, endVal));
+        }
+    }
+
+    /**
      * Handles start events from the animation.
      * If you override this method, ensure that you call the super method.
      *  
@@ -603,8 +612,8 @@ public class AnimateInstance extends EffectInstance
         // any startDelay) to cache constraints and disable layout. This
         // avoids problems with doing this too early and affecting other
         // effects that are running before this one.
-        if (affectsConstraints || adjustConstraints)
-            cacheConstraints(affectsConstraints);
+        if (disableConstraints)
+            cacheConstraints();
         if (disableLayout)
             setupParentLayout(false);
             
@@ -681,7 +690,7 @@ public class AnimateInstance extends EffectInstance
     protected function endHandler(event:AnimationEvent):void
     {
         dispatchEvent(event);
-        if (affectsConstraints || adjustConstraints)
+        if (disableConstraints)
             reenableConstraints();
         if (disableLayout)
             setupParentLayout(true);
@@ -782,71 +791,7 @@ public class AnimateInstance extends EffectInstance
         // there must have been no constraints to worry about
         if (constraintsHolder)
         {
-            if (adjustConstraints)
-            {
-                var layoutElement:ILayoutElement = LayoutElementFactory.getLayoutElementFor(target);
-                var parentW:int = 0;
-                var parentH:int = 0;
-                var targetX:Number = layoutElement.getLayoutBoundsX();
-                var targetY:Number = layoutElement.getLayoutBoundsY();
-                var targetW:Number = layoutElement.getLayoutBoundsWidth();
-                var targetH:Number = layoutElement.getLayoutBoundsHeight();
-                
-                // For 'bottom' or 'verticalCenter' we need the parent height
-                if (constraintsHolder["bottom"] !== undefined ||
-                    constraintsHolder["verticalCenter"] !== undefined)
-                {
-                    if ("parent" in target && target.parent)
-                    {
-                        parentH = target.parent.height;
-                    }
-                }
-                
-                // For 'right' or 'horizontalCenter' we need the parent width
-                if (constraintsHolder["right"] !== undefined ||
-                    constraintsHolder["horizontalCenter"] !== undefined)
-                {
-                    if ("parent" in target && target.parent)
-                    {
-                        parentW = target.parent.width;
-                    }
-                }
-
-                if (constraintsHolder["left"] !== undefined)
-                    constraintsHolder["left"] = Math.round(targetX);
-                if (constraintsHolder["top"] !== undefined)
-                    constraintsHolder["top"] = Math.round(targetY);
-
-                // Only bother adjusting 'right' if our target is
-                // parented to an object with a positive width
-                if (parentW > 0 && constraintsHolder["right"] !== undefined)
-                    constraintsHolder["right"] = parentW - targetX - targetW;
-
-                // Only bother adjusting 'bottom' if our target is
-                // parented to an object with a positive height
-                if (parentH > 0 && constraintsHolder["bottom"] !== undefined)
-                    constraintsHolder["bottom"] = parentH - targetY - targetH;
-
-                // Only bother adjusting 'horizontalCenter' if our target is
-                // parented to an object with a positive width
-                if (parentW > 0 && constraintsHolder["horizontalCenter"] !== undefined)
-                {
-                    // Layout uses horizontalCenter to calculate position this way
-                    // targetX = parentW / 2 - targetW / 2 + horizontalCenter
-                    constraintsHolder["horizontalCenter"] = targetX + targetW / 2 - parentW / 2;
-                }
-
-                // Only bother adjusting 'verticalCenter' if our target is
-                // parented to an object with a positive height
-                if (parentH > 0 && constraintsHolder["verticalCenter"] !== undefined)
-                {
-                    // Layout uses verticalCenter to calculate position this way
-                    // targetY = parentH / 2 - targetH / 2 + verticalCenter
-                    constraintsHolder["verticalCenter"] = targetY + targetH / 2 - parentH / 2;
-                }
-
-                // TODO EGeorgie: add support for 'baseline' constraint, when the new layouts support it.
-            }
+            // TODO EGeorgie: add support for 'baseline' constraint, when the new layouts support it.
             var left:* = reenableConstraint("left");
             var right:* = reenableConstraint("right");
             var top:* = reenableConstraint("top");
@@ -863,7 +808,7 @@ public class AnimateInstance extends EffectInstance
     }
     
     // TODO (chaase): Use IConstraintClient for this
-    private function cacheConstraint(name:String, disable:Boolean):*
+    private function cacheConstraint(name:String):*
     {
         var isProperty:Boolean = (name in target);
         var value:*;
@@ -876,26 +821,24 @@ public class AnimateInstance extends EffectInstance
             if (!constraintsHolder)
                 constraintsHolder = new Object();
             constraintsHolder[name] = value;
-            if (disable)
-            {
-                if (isProperty)
-                    target[name] = NaN;
-                else if (target is IStyleClient)
-                    target.setStyle(name, undefined);
-            }
+            // Now disable it - it will be re-enabled when effect finishes
+            if (isProperty)
+                target[name] = NaN;
+            else if (target is IStyleClient)
+                target.setStyle(name, undefined);
         }
         return value;
     }
     
-    private function cacheConstraints(disable:Boolean):void
+    private function cacheConstraints():void
     {
-        var left:* = cacheConstraint("left", disable);
-        var right:* = cacheConstraint("right", disable);
-        var top:* = cacheConstraint("top", disable);
-        var bottom:* = cacheConstraint("bottom", disable);
-        cacheConstraint("verticalCenter", disable);
-        cacheConstraint("horizontalCenter", disable);
-        cacheConstraint("baseline", disable);
+        var left:* = cacheConstraint("left");
+        var right:* = cacheConstraint("right");
+        var top:* = cacheConstraint("top");
+        var bottom:* = cacheConstraint("bottom");
+        cacheConstraint("verticalCenter");
+        cacheConstraint("horizontalCenter");
+        cacheConstraint("baseline");
         if (left != undefined && right != undefined && "explicitWidth" in target)
         {
             var w:Number = target.width;    
