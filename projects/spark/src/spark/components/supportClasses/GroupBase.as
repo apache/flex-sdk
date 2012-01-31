@@ -336,7 +336,7 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         if (maskChanged)
         {
             maskChanged = false;
-            if (_mask && (!_mask.parent || _mask.parent !== this))
+            if (_mask && !_mask.parent)
             {
                 super.addChild(_mask);
                 var maskComp:UIComponent = _mask as UIComponent;
