@@ -580,6 +580,21 @@ public class Scroller extends SkinnableComponent
     /**
      *  @private
      */
+    private var scrollRangesChanged:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var pageScrollingChanged:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var snappingModeChanged:Boolean = false;
+
+    /**
+     *  @private
+     */
     private var _pullEnabled:Boolean = true;
 
     /**
@@ -599,7 +614,8 @@ public class Scroller extends SkinnableComponent
 			return;
 		
         _pullEnabled = value;
-        determineScrollRanges();
+        scrollRangesChanged = true;
+        invalidateProperties();
     }
 
     /**
@@ -624,7 +640,8 @@ public class Scroller extends SkinnableComponent
 			return;
 		
         _bounceEnabled = value;
-        determineScrollRanges();
+        scrollRangesChanged = true;
+        invalidateProperties();
     }
     
     
@@ -1190,16 +1207,14 @@ public class Scroller extends SkinnableComponent
             return;
         
         _pageScrollingEnabled = value;
-        if (canScrollHorizontally)
+        if (getStyle("interactionMode") == InteractionMode.TOUCH)
         {
-            if (canScrollVertically)
+            if (canScrollHorizontally && canScrollVertically)
                 throw new Error(resourceManager.getString("components", "operationSupportedForOneAxisOnly"));
-
-            currentPageScrollPosition = viewport.horizontalScrollPosition;
-        }
-        else if (canScrollVertically)
-        {
-            currentPageScrollPosition = viewport.verticalScrollPosition;
+            
+            scrollRangesChanged = true;
+            pageScrollingChanged = true;
+            invalidateProperties();
         }
     }
  
@@ -1246,10 +1261,9 @@ public class Scroller extends SkinnableComponent
             if (canScrollHorizontally && canScrollVertically)
                 throw new Error(resourceManager.getString("components", "operationSupportedForOneAxisOnly"));
             
-            // TODO (eday): we really should use invalidateProperties/commitProperties to manage 
-            // the scroll ranges and positions
-            determineScrollRanges();
-            snapContentScrollPosition();
+            scrollRangesChanged = true;
+            snappingModeChanged = true;
+            invalidateProperties();
         }
     }
     
@@ -1545,12 +1559,7 @@ public class Scroller extends SkinnableComponent
 
         // See whether the current page scroll position still needs to be initialized.
         if (pageScrollingEnabled && isNaN(currentPageScrollPosition))
-        {
-            if (canScrollHorizontally)
-                currentPageScrollPosition = viewport.horizontalScrollPosition;
-            else if (canScrollVertically)
-                currentPageScrollPosition = viewport.verticalScrollPosition;
-        }
+            determineCurrentPageScrollPosition();
     }
         
     /**
@@ -1720,56 +1729,96 @@ public class Scroller extends SkinnableComponent
      */
     private function determineScrollRanges():void
     {
-        var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
-        var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
-
         minVerticalScrollPosition = maxVerticalScrollPosition = 0;
         minHorizontalScrollPosition = maxHorizontalScrollPosition = 0;
         
-        // For now, having both bounce and pull disabled puts us into a sort of
-        // "endless" scrolling mode, in which there are practically no minimum/maximum
-        // edges to bounce/pull against.
-        // TODO (eday): bounce and pull probably don't need to be controlled separately.  These 
-        // should be combined into a single property.
-        if (!bounceEnabled && !pullEnabled)
+        if (viewport)
         {
-            minVerticalScrollPosition = minHorizontalScrollPosition = -Number.MAX_VALUE;
-            maxVerticalScrollPosition = maxHorizontalScrollPosition = Number.MAX_VALUE;
-        }
-        else if (scrollSnappingMode == ScrollSnappingMode.NONE)
-        {
-            maxVerticalScrollPosition = viewport.contentHeight > viewportHeight ? 
-                viewport.contentHeight-viewportHeight : 0; 
-            maxHorizontalScrollPosition = viewport.contentWidth > viewportWidth ? 
-                viewport.contentWidth-viewportWidth : 0;
-        }
-        else
-        {
-            var layout:LayoutBase = viewportLayout;
-
-            // Nothing to do if there is no layout or no layout elements
-            if (!layout || layout.target.numElements == 0) 
-                return;
-
-            // Nothing to do if the viewport dimensions have not been set yet
-            if ((canScrollHorizontally && viewportWidth == 0) || (canScrollVertically && viewportHeight == 0)) 
-                return;
-
-            switch (scrollSnappingMode)
+            var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
+            var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
+            
+            // For now, having both bounce and pull disabled puts us into a sort of
+            // "endless" scrolling mode, in which there are practically no minimum/maximum
+            // edges to bounce/pull against.
+            // TODO (eday): bounce and pull probably don't need to be controlled separately.  These 
+            // should be combined into a single property.
+            if (!bounceEnabled && !pullEnabled)
             {
-                case ScrollSnappingMode.LEADING_EDGE:
-                    determineLeadingEdgeSnappingScrollRanges();
-                    break;
-                case ScrollSnappingMode.CENTER:
-                    determineCenterSnappingScrollRanges();
-                break;
-                case ScrollSnappingMode.TRAILING_EDGE:                
-                    determineTrailingEdgeSnappingScrollRanges();
-                    break;
+                minVerticalScrollPosition = minHorizontalScrollPosition = -Number.MAX_VALUE;
+                maxVerticalScrollPosition = maxHorizontalScrollPosition = Number.MAX_VALUE;
+            }
+            else if (scrollSnappingMode == ScrollSnappingMode.NONE)
+            {
+                var remaining:Number;
+                maxVerticalScrollPosition = viewport.contentHeight > viewportHeight ? 
+                    viewport.contentHeight-viewportHeight : 0; 
+                if (pageScrollingEnabled && canScrollVertically && viewportHeight != 0)
+                {
+                    // If the content height isn't an exact multiple of the viewport height,
+                    // then we make sure the max scroll position allows for a full page (including
+                    // padding) at the end.
+                    remaining = viewport.contentHeight % viewportHeight;
+                    if (remaining)
+                        maxVerticalScrollPosition += viewportHeight - remaining;                  
+                }
+                
+                maxHorizontalScrollPosition = viewport.contentWidth > viewportWidth ? 
+                    viewport.contentWidth-viewportWidth : 0;
+                if (pageScrollingEnabled && canScrollHorizontally && viewportWidth != 0)
+                {
+                    // If the content width isn't an exact multiple of the viewport width,
+                    // then we make sure the max scroll position allows for a full page (including
+                    // padding) at the end.
+                    remaining = viewport.contentWidth % viewportWidth;
+                    if (remaining)
+                        maxHorizontalScrollPosition += viewportWidth - remaining;                  
+                }
+            }
+            else
+            {
+                var layout:LayoutBase = viewportLayout;
+                
+                // Nothing to do if there is no layout or no layout elements
+                if (!layout || layout.target.numElements == 0) 
+                    return;
+                
+                // Nothing to do if the viewport dimensions have not been set yet
+                if ((canScrollHorizontally && viewportWidth == 0) || (canScrollVertically && viewportHeight == 0)) 
+                    return;
+                
+                switch (scrollSnappingMode)
+                {
+                    case ScrollSnappingMode.LEADING_EDGE:
+                        determineLeadingEdgeSnappingScrollRanges();
+                        break;
+                    case ScrollSnappingMode.CENTER:
+                        determineCenterSnappingScrollRanges();
+                        break;
+                    case ScrollSnappingMode.TRAILING_EDGE:                
+                        determineTrailingEdgeSnappingScrollRanges();
+                        break;
+                }
             }
         }
     }
 
+    /**
+     *  @private 
+     */
+    private function determineCurrentPageScrollPosition():void
+    {
+        if (canScrollHorizontally)
+        {
+            viewport.horizontalScrollPosition = getSnappedPosition(viewport.horizontalScrollPosition,HORIZONTAL_SCROLL_POSITION);
+            currentPageScrollPosition = viewport.horizontalScrollPosition;
+        }
+        else if (canScrollVertically)
+        {
+            viewport.verticalScrollPosition = getSnappedPosition(viewport.verticalScrollPosition,VERTICAL_SCROLL_POSITION);
+            currentPageScrollPosition = viewport.verticalScrollPosition;
+        }
+    }
+    
     /**
      *  @private 
      */
@@ -1809,9 +1858,8 @@ public class Scroller extends SkinnableComponent
                     // not due to a touch interaction or animation)
                     if (!inTouchInteraction && (!snapElementAnimation || !snapElementAnimation.isPlaying))
                     {
-                        // If snapping is enabled, we need to ensure the scroll position is always 
-                        // an appropriately snapped value.
-                        if (scrollSnappingMode != ScrollSnappingMode.NONE && !settingScrollPosition)
+                        // We need to ensure the scroll position is always an appropriately snapped value.
+                        if (!settingScrollPosition)
                         {
                             settingScrollPosition = true;
                             viewport[event.property] = getSnappedPosition(Number(event.newValue), String(event.property));
@@ -2191,12 +2239,12 @@ public class Scroller extends SkinnableComponent
             {
                 // Go to the next horizontal page
                 // Set the new page scroll position so the throw effect animates the page into place
-                currentPageScrollPosition = Math.min(currentPageScrollPosition + viewport.width, viewport.contentWidth - viewport.width);
+                currentPageScrollPosition = Math.min(currentPageScrollPosition + viewport.width, maxHorizontalScrollPosition);
             }
             else if (velocityX > minVelocityPixels || viewport.horizontalScrollPosition <= currentPageScrollPosition - viewport.width * pageDragDistanceThreshold)
             {
                 // Go to the previous horizontal page
-                currentPageScrollPosition = Math.max(currentPageScrollPosition - viewport.width, 0);     
+                currentPageScrollPosition = Math.max(currentPageScrollPosition - viewport.width, minHorizontalScrollPosition);     
             }
             
             // Ensure the new page position is snapped appropriately 
@@ -2209,12 +2257,12 @@ public class Scroller extends SkinnableComponent
             {
                 // Go to the next vertical page
                 // Set the new page scroll position so the throw effect animates the page into place
-                currentPageScrollPosition = Math.min(currentPageScrollPosition + viewport.height, viewport.contentHeight - viewport.height);     
+                currentPageScrollPosition = Math.min(currentPageScrollPosition + viewport.height, maxVerticalScrollPosition);     
             }
             else if (velocityY > minVelocityPixels || viewport.verticalScrollPosition <= currentPageScrollPosition - viewport.height * pageDragDistanceThreshold)
             {
                 // Go to the previous vertical page
-                currentPageScrollPosition = Math.max(currentPageScrollPosition - viewport.height, 0);     
+                currentPageScrollPosition = Math.max(currentPageScrollPosition - viewport.height, minVerticalScrollPosition);     
             }
 
             // Ensure the new page position is snapped appropriately 
@@ -2304,7 +2352,37 @@ public class Scroller extends SkinnableComponent
         var layout:LayoutBase = viewportLayout;
         var nearestElementIndex:int;
         var nearestElementBounds:Rectangle;
+        
+        var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
+        var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
 
+        if (scrollSnappingMode == ScrollSnappingMode.NONE && pageScrollingEnabled)
+        {
+            // If we're in paging mode and no snapping is enabled, then we must snap
+            // the position to the beginning of a page.  i.e. a multiple of the 
+            // viewport size.
+            var offset:Number;
+            if (canScrollHorizontally && propertyName == HORIZONTAL_SCROLL_POSITION && viewportWidth != 0)
+            {
+                // Get the offset into the current page.  If less than half way, snap
+                // to the beginning of the page.  Otherwise, snap to the beginning
+                // of the next page
+                offset = position % viewportWidth;
+                if (offset < viewportWidth / 2)
+                    position -= offset;
+                else
+                    position += viewportWidth - offset;
+            }
+            else if (canScrollVertically && propertyName == VERTICAL_SCROLL_POSITION && viewportHeight != 0)
+            {
+                offset = position % viewportHeight;
+                if (offset < viewportHeight / 2)
+                    position -= offset;
+                else
+                    position += viewportHeight - offset;
+            }
+        }
+        
         if (layout && layout.target.numElements > 0)
         {
             switch (_scrollSnappingMode)
@@ -2326,29 +2404,29 @@ public class Scroller extends SkinnableComponent
                 case ScrollSnappingMode.CENTER:
                     if (canScrollHorizontally && propertyName == HORIZONTAL_SCROLL_POSITION)
                     {
-                        nearestElementIndex = layout.getElementNearestScrollPosition(new Point(position + viewport.width/2, 0), "center");
+                        nearestElementIndex = layout.getElementNearestScrollPosition(new Point(position + viewportWidth/2, 0), "center");
                         nearestElementBounds = layout.getElementBounds(nearestElementIndex);
-                        position = nearestElementBounds.left + (nearestElementBounds.width / 2) - (viewport.width / 2);
+                        position = nearestElementBounds.left + (nearestElementBounds.width / 2) - (viewportWidth / 2);
                     }
                     else if (canScrollVertically && propertyName == VERTICAL_SCROLL_POSITION)
                     {
-                        nearestElementIndex = layout.getElementNearestScrollPosition(new Point(0, position + viewport.height/2), "center");
+                        nearestElementIndex = layout.getElementNearestScrollPosition(new Point(0, position + viewportHeight/2), "center");
                         nearestElementBounds = layout.getElementBounds(nearestElementIndex);
-                        position = nearestElementBounds.top + (nearestElementBounds.height / 2) - (viewport.height / 2);
+                        position = nearestElementBounds.top + (nearestElementBounds.height / 2) - (viewportHeight / 2);
                     }
                     break;
                 case ScrollSnappingMode.TRAILING_EDGE:                
                     if (canScrollHorizontally && propertyName == HORIZONTAL_SCROLL_POSITION)
                     {
-                        nearestElementIndex = layout.getElementNearestScrollPosition(new Point(position + viewport.width, 0), "bottomRight");
+                        nearestElementIndex = layout.getElementNearestScrollPosition(new Point(position + viewportWidth, 0), "bottomRight");
                         nearestElementBounds = layout.getElementBounds(nearestElementIndex);
-                        position = nearestElementBounds.right - viewport.width;
+                        position = nearestElementBounds.right - viewportWidth;
                     }
                     else if (canScrollVertically && propertyName == VERTICAL_SCROLL_POSITION)
                     {
-                        nearestElementIndex = layout.getElementNearestScrollPosition(new Point(0, position + viewport.height), "bottomRight");
+                        nearestElementIndex = layout.getElementNearestScrollPosition(new Point(0, position + viewportHeight), "bottomRight");
                         nearestElementBounds = layout.getElementBounds(nearestElementIndex);
-                        position = nearestElementBounds.bottom - viewport.height;
+                        position = nearestElementBounds.bottom - viewportHeight;
                     }
                     break;
             }
@@ -2551,6 +2629,32 @@ public class Scroller extends SkinnableComponent
             verticalScrollBar.viewport = null;
         else if (instance == horizontalScrollBar)
             horizontalScrollBar.viewport = null;
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
+        
+        if (scrollRangesChanged)
+        {
+            determineScrollRanges();
+            scrollRangesChanged = false;
+        }
+        
+        if (pageScrollingChanged)
+        {
+            determineCurrentPageScrollPosition();
+            pageScrollingChanged = false;
+        }
+        
+        if (snappingModeChanged)
+        {
+            snapContentScrollPosition();
+            snappingModeChanged = false;                
+        }
     }
     
     //--------------------------------------------------------------------------
