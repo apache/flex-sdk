@@ -31,9 +31,9 @@ use namespace mx_internal;
  * send(param1, param2) method, the body is typically formed by combining the argumentNames
  * property of the operation with the parameters sent.  An Object is created which uses the
  * argumentNames[i] as the key and the corresponding parameter as the value.
- * <p>
- * The exact way in which the HTTP operation arguments is put into the HTTP body is determined
- * by the serializationFilter used.
+ * 
+ * <p>The exact way in which the HTTP operation arguments is put into the HTTP body is determined
+ * by the serializationFilter used.</p>
  */
 public class Operation extends AbstractOperation
 {
