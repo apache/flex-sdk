@@ -1,9 +1,7 @@
 package flex.core {
 import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
 import flash.events.Event;
-import flash.events.EventDispatcher;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
@@ -14,8 +12,6 @@ import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
 import flex.geom.Transform;
 import flex.graphics.Graphic;
-import flex.graphics.IAssignableDisplayObjectElement;
-import flex.graphics.IDisplayObjectElement;
 import flex.graphics.IGraphicElement;
 import flex.graphics.IGraphicElementHost;
 import flex.graphics.MaskType;
@@ -38,7 +34,6 @@ import mx.core.UIComponent;
 import mx.events.CollectionEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
-import mx.managers.ILayoutManagerClient;
 import mx.styles.IStyleClient;
 
 //--------------------------------------
@@ -1035,6 +1030,10 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
                 for (var i:int = index - 1; i >= 0; i--)
                 {
                     var prevItem:* = getItemAt(i);
+                    
+                    if (!(prevItem is GraphicElement))
+                    	prevItem = getItemSkin(prevItem);
+                    	
                     if (prevItem is DisplayObject)
                         childIndex = super.getChildIndex(DisplayObject(prevItem)) ;
                     else if (prevItem is GraphicElement)
@@ -1136,11 +1135,18 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
             
     }
     
+    // Returns true if the Group's display object can be shared with graphic elements
+    // inside the group
+    private function get canShareDisplayObject():Boolean
+    {
+    	return blendMode == "normal";
+    }
+    
     // This function assumes that the only displayObjects are either items in the content array
     // or created directly for an item in the content array. 
     private function assignDisplayObjects(startIndex:int = 0):void
     {
-        var currentAssignableDO:DisplayObject = this;
+        var currentAssignableDO:DisplayObject = canShareDisplayObject ? this : null;
         var lastDisplayObject:DisplayObject = this;
         
         if (alwaysUseItemRenderer)
