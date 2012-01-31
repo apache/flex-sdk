@@ -18,6 +18,8 @@ import mx.styles.StyleManager;
 /**
  * This effect animates a change in color over time, interpolating
  * between given from/to color values on a per-channel basis.
+ *
+ *  @includeExample examples/FxAnimateColorEffectExample.mxml
  */
 public class FxAnimateColor extends FxAnimate
 {
