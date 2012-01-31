@@ -409,7 +409,7 @@ public class Box extends Container
         var n:int = numChildren;
         for (var i:int = 0; i < n; i++)
         {
-            var child:IUIComponent = IUIComponent(getChildAt(i));
+            var child:IUIComponent = getLayoutChildAt(i);
 
             var size:Number = vertical ? child.height : child.width;
             var perc:Number = vertical ? child.percentHeight : child.percentWidth;
