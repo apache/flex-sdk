@@ -34,6 +34,14 @@ import mx.core.INavigatorContent
  * 
  *  <p>The NavigatorContent container does not support the queued creation policy.</p>
  *
+ *  <p>The NavigatorContent container has the following default characteristics:</p>
+ *  <table class="innertable">
+ *     <tr><th>Characteristic</th><th>Description</th></tr>
+ *     <tr><td>Default size</td><td>Large enough to display its children</td></tr>
+ *     <tr><td>Minimum size</td><td>0 pixels</td></tr>
+ *     <tr><td>Maximum size</td><td>10000 pixels wide and 10000 pixels high</td></tr>
+ *  </table>
+ *
  *  @mxml
  *
  *  <p>The <code>&lt;s:NavigatorContent&gt;</code> tag inherits all of the tag 
