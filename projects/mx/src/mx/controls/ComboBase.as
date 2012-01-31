@@ -1390,11 +1390,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
 
     /**
      *  Handles changes to the TextInput that serves as the editable
-     *  text field in the component. The method sets 
+     *  text field in the component.  The method sets 
      *  <code>selectedIndex</code> to -1 (and therefore 
      *  <code>selectedItem</code> to <code>null</code>).
      * 
-     *  @param event The event that is triggered each time the text in the control changes.
+     *  @param event The event that is triggered each time the text in the control changes.     
      */
     protected function textInput_changeHandler(event:Event):void
     {
@@ -1429,11 +1429,11 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
     }
 
     /**
-     *  Performs some action when the drop-down button is pressed. This is
+     *  Performs some action when the drop-down button is pressed.  This is
      *  an abstract base class implementation, so it has no effect and is
      *  overridden by the subclasses.
-     *  
-     *  @param event The event that is triggered when the drop-down button is pressed.
+     * 
+     *  @param event The event that is triggered when the drop-down button is pressed.     
      */
     protected function downArrowButton_buttonDownHandler(event:FlexEvent):void
     {
