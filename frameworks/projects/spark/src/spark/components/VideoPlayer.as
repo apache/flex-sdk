@@ -328,6 +328,26 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
  * 
  *  <p><code>VideoElement</code> is the chromeless version.</p>
  *
+ *  <p>The VideoPlayer control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>263 pixels wide by 184 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td>0</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *     </table>
+ *
  *  @see spark.primitives.VideoElement
  *  @see spark.skins.spark.VideoPlayerSkin
  *  @see spark.skins.spark.mediaClasses.FullScreenButtonSkin
