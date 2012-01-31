@@ -28,6 +28,7 @@ import flash.utils.Timer;
 
 import mx.core.EventPriority;
 import mx.core.FlexGlobals;
+import mx.core.IFactory;
 import mx.core.IInvalidating;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
@@ -549,22 +550,6 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
-     *  Property used to communicate with ScrollerLayout to let it 
-     *  know when a horizontal scroll is in progress or not (and when 
-     *  the horizontal scroll bar should be hidden or not)
-     */
-    mx_internal var horizontalScrollInProgress:Boolean = false;
-    
-    /**
-     *  @private
-     *  Property used to communicate with ScrollerLayout to let it 
-     *  know when a vertical scroll is in progress or not (and when 
-     *  the vertical scroll bar should be hidden or not)
-     */
-    mx_internal var verticalScrollInProgress:Boolean = false;
-    
-    /**
-     *  @private
      *  Threshold for screen distance they must move to count as a scroll
      *  Based on 20 pixels on a 252ppi device.
      */
@@ -853,6 +838,69 @@ public class Scroller extends SkinnableComponent
     public var horizontalScrollBar:HScrollBar;
     
     //----------------------------------
+    //  horizontalScrollBarFactory
+    //---------------------------------- 
+    
+    [SkinPart(required="false", type="spark.components.HScrollBar")]
+    
+    /**
+     *  A skin part that defines the horizontal scroll bar component.
+     * 
+     *  The <code>horizontalScrollBar</code> skin part takes precedence over this
+     *  skin part.
+     * 
+     *  When Scroller creates an instance of this part, it will set the
+     *  <code>horizontalScrollBar</code> skin part to that instance.
+     * 
+     *  This property should be considered read-only. It is only
+     *  set by the Scroller's skin.
+     */
+    public var horizontalScrollBarFactory:IFactory;
+    
+    /**
+     *  Creates the horizontalScrollBar part from the horizontalScrollBarFactory part. 
+     */
+    private function ensureDeferredHScrollBarCreated():void
+    {
+        if (!horizontalScrollBar && horizontalScrollBarFactory)
+        {
+            horizontalScrollBar = HScrollBar(createDynamicPartInstance("horizontalScrollBarFactory"));
+            Group(this.skin).addElement(horizontalScrollBar);
+            partAdded("horizontalScrollBar", horizontalScrollBar);
+        }
+    }
+    
+    //----------------------------------
+    //  horizontalScrollInProgress
+    //---------------------------------- 
+
+    /**
+     *  Storage for the horizontalScrollInProgress property  
+     */
+    private var _horizontalScrollInProgress:Boolean = false;
+    
+    /**
+     *  @private
+     *  Property used to communicate with ScrollerLayout to let it 
+     *  know when a horizontal scroll is in progress or not (and when 
+     *  the horizontal scroll bar should be hidden or not)
+     */
+    mx_internal function get horizontalScrollInProgress():Boolean
+    {
+        return _horizontalScrollInProgress;
+    }
+    
+    /**
+     *  @private 
+     */
+    mx_internal function set horizontalScrollInProgress(value:Boolean):void
+    {
+        _horizontalScrollInProgress = value;
+        if (value && getStyle("interactionMode") == InteractionMode.TOUCH)
+            ensureDeferredHScrollBarCreated();
+    }
+
+    //----------------------------------
     //  verticalScrollBar
     //---------------------------------- 
     
@@ -874,6 +922,65 @@ public class Scroller extends SkinnableComponent
      */
     public var verticalScrollBar:VScrollBar;
 
+    //----------------------------------
+    //  verticalScrollBarFactory
+    //---------------------------------- 
+    
+    [SkinPart(required="false", type="spark.components.VScrollBar")]
+    
+    /**
+     *  A skin part that defines the vertical scroll bar.
+     * 
+     *  The <code>verticalScrollBar</code> skin part takes precedence over this
+     *  skin part.
+     * 
+     *  When Scroller creates an instance of this part, it will set the
+     *  <code>verticalScrollBar</code> skin part to that instance.
+     */
+    public var verticalScrollBarFactory:IFactory;
+    
+    /**
+     *  Creates the verticalScrollBar part from the verticalScrollBarFactory part. 
+     */
+    private function ensureDeferredVScrollBarCreated():void
+    {
+        if (!verticalScrollBar && verticalScrollBarFactory)
+        {
+            verticalScrollBar = VScrollBar(createDynamicPartInstance("verticalScrollBarFactory"));
+            Group(this.skin).addElement(verticalScrollBar);
+            partAdded("verticalScrollBar", verticalScrollBar);
+        }
+    }
+    
+    //----------------------------------
+    //  verticalScrollInProgress
+    //---------------------------------- 
+    
+    /**
+     *  Storage for the verticalScrollInProgress property  
+     */
+    private var _verticalScrollInProgress:Boolean = false;
+    
+    /**
+     *  @private
+     *  Property used to communicate with ScrollerLayout to let it 
+     *  know when a vertical scroll is in progress or not (and when 
+     *  the vertical scroll bar should be hidden or not)
+     */
+    mx_internal function get verticalScrollInProgress():Boolean
+    {
+        return _verticalScrollInProgress;
+    }
+    
+    /**
+     *  @private 
+     */
+    mx_internal function set verticalScrollInProgress(value:Boolean):void
+    {
+        _verticalScrollInProgress = value;
+        if (value && getStyle("interactionMode") == InteractionMode.TOUCH)
+            ensureDeferredVScrollBarCreated();
+    }
 
     //----------------------------------
     //  viewport - default property
@@ -2354,6 +2461,11 @@ public class Scroller extends SkinnableComponent
             }
             else
             {
+                // In case we're not in touch mode, we need to instantiate our deferred skin parts immediately
+                // TODO (egeorgie): support deferred scrollbar parts in non-touch mode
+                ensureDeferredHScrollBarCreated();
+                ensureDeferredHScrollBarCreated();
+                
                 uninstallTouchListeners();
             }
         }
@@ -2379,6 +2491,15 @@ public class Scroller extends SkinnableComponent
     override protected function attachSkin():void
     {
         super.attachSkin();
+        
+        if (getStyle("interactionMode") != InteractionMode.TOUCH)
+        {
+            // TODO (egeorgie): support deferred scrollbar parts in non-touch mode
+            // In case we're not in touch mode, we need to instantiate our deferred skin parts immediately
+            ensureDeferredHScrollBarCreated();
+            ensureDeferredVScrollBarCreated();
+        }
+        
         Group(skin).layout = new ScrollerLayout();
         installViewport();
         skin.addEventListener(MouseEvent.MOUSE_WHEEL, skin_mouseWheelHandler);
@@ -2411,7 +2532,6 @@ public class Scroller extends SkinnableComponent
             if (liveScrollingSet)
                 verticalScrollBar.setStyle("liveDragging", Boolean(liveScrolling));
         }
-        
         else if (instance == horizontalScrollBar)
         {
             horizontalScrollBar.viewport = viewport;
@@ -2429,7 +2549,6 @@ public class Scroller extends SkinnableComponent
         
         if (instance == verticalScrollBar)
             verticalScrollBar.viewport = null;
-        
         else if (instance == horizontalScrollBar)
             horizontalScrollBar.viewport = null;
     }
