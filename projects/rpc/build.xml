@@ -214,6 +214,7 @@
 		    <doc-classes class="RPCClasses"/>
 		    <doc-namespaces uri="http://www.adobe.com/2006/mxml"/>
 		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
+		    <jvmarg line="${compc.jvm.args}"/>
 		</asdoc>
 
 		<!-- updates rpc.swc with asdoc xml -->
