@@ -50,15 +50,15 @@ use namespace mx_internal;
  *  &lt;mx:Scale3D
  *    <b>Properties</b>
  *    id="ID"
+ *    scaleXBy="no default"
  *    scaleXFrom="no default"
  *    scaleXTo="no default"
- *    scaleXBy="no default"
+ *    scaleYBy="no default"
  *    scaleYFrom="no default"
  *    scaleYTo="no default"
- *    scaleYBy="no default"
+ *    scaleZBy="no default"
  *    scaleZFrom="no default"
  *    scaleZTo="no default"
- *    scaleZBy="no default"
  *  /&gt;
  *  </pre>
  *
