@@ -55,8 +55,8 @@ use namespace mx_internal;
 [Style(name="errorSkin", type="Class")]
 
 /**
- *  Name of the skin class to use for this component. The skin must be a class that extends
- *  the spark.components.supportClasses.Skin class. 
+ *  Name of the skin class to use for this component. The skin must be a class 
+ *  that extends UIComponent. 
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -91,7 +91,8 @@ use namespace mx_internal;
 
 /**
  *  The SkinnableComponent class defines the base class for skinnable components. 
- *  The skins used by a SkinnableComponent class are child classes of the Skin class.
+ *  The skins used by a SkinnableComponent class are typically child classes of 
+ *  the Skin class.
  *
  *  <p>Associate a skin class with a component class by setting the <code>skinClass</code> style property of the 
  *  component class. You can set the <code>skinClass</code> property in CSS, as the following example shows:</p>
@@ -166,7 +167,7 @@ public class SkinnableComponent extends UIComponent
      * @private 
      * Storage for skin instance
      */ 
-    private var _skin:Skin;
+    private var _skin:UIComponent;
     
     [Bindable("skinChanged")]
     
@@ -180,7 +181,7 @@ public class SkinnableComponent extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get skin():Skin
+    public function get skin():UIComponent
     {
         return _skin;
     }
@@ -190,7 +191,7 @@ public class SkinnableComponent extends UIComponent
      *  Setter for the skin instance.  This is so the bindable event
      *  is dispatched
      */ 
-    private function setSkin(value:Skin):void
+    private function setSkin(value:UIComponent):void
     {
         if (value === _skin)
            return;
@@ -533,7 +534,7 @@ public class SkinnableComponent extends UIComponent
         var skinClassFactory:IFactory = getStyle("skinFactory") as IFactory;        
         
         if (skinClassFactory)
-            setSkin( skinClassFactory.newInstance() as Skin );
+            setSkin( skinClassFactory.newInstance() as UIComponent );
         
         // Class
         if (!skin)
