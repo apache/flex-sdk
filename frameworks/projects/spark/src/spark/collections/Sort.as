@@ -68,14 +68,14 @@ import mx.utils.ObjectUtil;
  *     // Create the Sort instance.
  *     var sort:ISort = new Sort();
  *     // Set the sort field; sort on the last name first, first name second.
+ *     var sortfieldLastName:ISortField = new SortField("last",true);
+ *     var sortfieldFirstName:ISortField = new SortField("first",true);
  *     // Set the locale style to "en-US" to cause the strings
  *     // to be ordered according to the rules for English as used in the USA.
- *     var sortfieldLast:ISortField = new SortField("last",true);
- *     var sortfieldFirst:ISortField = new SortField("first",true);
- *     sortfieldLast.setStyle("locale","en-US");
- *     sortfieldFirst.setStyle("locale","en-US");
- *     sort.fields = [sortfieldLast, sortfieldFirst];
- *       // Assign the Sort object to the view.
+ *     sortfieldLastName.setStyle("locale","en-US");
+ *     sortfieldFirstName.setStyle("locale","en-US");
+ *     sort.fields = [sortfieldLastName, sortfieldFirstName];
+ *     // Assign the Sort object to the view.
  *     col.sort = sort;
  *     // Apply the sort to the collection.
  *     col.refresh();
@@ -89,14 +89,16 @@ import mx.utils.ObjectUtil;
  *  in the SortField object constructor.
  *  For example:
  *  <pre><code>
+ *     import spark.collections.*;
+ * 
  *     var col:ICollectionView = new ArrayCollection();
  *     col.addItem("California");
  *     col.addItem("Arizona");
- *     var sort:ISort = new Sort();
+ *     var sort:Sort = new Sort();
  *     // There is only one sort field, so use a <code>null</code> 
- *     // first parameter. Set the locale style to "en-US" to set
- *     // the language for the sort.
- *     var sortfield:ISortField = new SortField("null",true);
+ *     // first parameter. 
+ *     var sortfield:SortField = new SortField("null",true);
+ *     // Set the locale style to "en-US" to set the language for the sort.
  *     sortfield.setStyle("locale","en-US");
  *     sort.fields = [sortfield];
  *     col.sort = sort;
@@ -160,6 +162,10 @@ import mx.utils.ObjectUtil;
  *  /&gt;
  *  </pre>
  *
+  
+ *  @includeExample examples/SortExample1.mxml
+ *  @includeExample examples/SortExample2.mxml
+ * 
  *  @see mx.collections.ICollectionView
  *  @see spark.collections.SortField
  *
