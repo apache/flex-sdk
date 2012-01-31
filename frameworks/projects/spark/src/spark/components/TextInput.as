@@ -11,6 +11,7 @@
 
 package spark.components
 {
+
 import flash.events.Event;
 import flash.events.FocusEvent;
 
@@ -76,13 +77,13 @@ use namespace mx_internal;
 //  Other metadata
 //--------------------------------------
 
+[AccessibilityClass(implementation="spark.accessibility.TextInputAccImpl")]
+
 [DefaultProperty("text")]
 
 [DefaultTriggerEvent("change")]
 
 [IconFile("TextInput.png")]
-
-[AccessibilityClass(implementation="spark.accessibility.TextInputAccImpl")]
 
 /**
  *  TextInput is a text-entry control that lets users enter and edit
@@ -317,7 +318,6 @@ public class TextInput extends SkinnableTextBase
     //
     //--------------------------------------------------------------------------
 
-
     /**
      *  @private
      */
@@ -346,4 +346,3 @@ public class TextInput extends SkinnableTextBase
 }
 
 }
-
