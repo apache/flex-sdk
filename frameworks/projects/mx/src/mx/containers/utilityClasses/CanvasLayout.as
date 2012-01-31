@@ -18,7 +18,6 @@ import mx.containers.Canvas;
 import mx.containers.errors.ConstraintError;
 import mx.core.Container;
 import mx.core.EdgeMetrics;
-import mx.core.FlexVersion;
 import mx.core.IConstraintClient;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
@@ -837,52 +836,24 @@ public class CanvasLayout extends Layout
             var pw:Number = child.getExplicitOrMeasuredWidth();
             var ph:Number = child.getExplicitOrMeasuredHeight();
             
-            //Behavior check - 3.0 behavior respects explicitWidth in addition
-            //to left and right constraints
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
+            if (!isNaN(child.percentWidth) ||
+                (childConstraints && 
+                    !isNaN(childConstraints.left) && 
+                    !isNaN(childConstraints.right) &&
+                    isNaN(child.explicitWidth)))
             {
-                if (!isNaN(child.percentWidth) ||
+                pw = child.minWidth;
+            }
+        
+            if (!isNaN(child.percentHeight) ||
                     (childConstraints && 
-                        !isNaN(childConstraints.left) && 
-                        !isNaN(childConstraints.right)))
-                {
-                    pw = child.minWidth;
-                }
-            }
-            else
+                        !isNaN(childConstraints.top) && 
+                        !isNaN(childConstraints.bottom) &&
+                        isNaN(child.explicitHeight)))
             {
-                if (!isNaN(child.percentWidth) ||
-                    (childConstraints && 
-                        !isNaN(childConstraints.left) && 
-                        !isNaN(childConstraints.right) &&
-                        isNaN(child.explicitWidth)))
-                {
-                    pw = child.minWidth;
-                }
+                ph = child.minHeight;
             }
-            //Behavior check - 3.0 behavior respects explicitHeight in addition
-            //to top and bottom constraints
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            {
-                if (!isNaN(child.percentHeight) ||
-                        (childConstraints && 
-                            !isNaN(childConstraints.top) && 
-                            !isNaN(childConstraints.bottom)))
-                {
-                    ph = child.minHeight;
-                }
-            }
-            else 
-            {
-                if (!isNaN(child.percentHeight) ||
-                        (childConstraints && 
-                            !isNaN(childConstraints.top) && 
-                            !isNaN(childConstraints.bottom) &&
-                            isNaN(child.explicitHeight)))
-                {
-                    ph = child.minHeight;
-                }
-            }
+            
             r.x = cx
             r.y = cy
             r.width = pw;
