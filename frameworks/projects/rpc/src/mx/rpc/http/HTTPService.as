@@ -105,8 +105,8 @@ public class HTTPService extends AbstractInvoker
     {
         super();
 
-        operation = new AbstractOperation();
-        
+        operation = new HTTPOperation(this);
+                
         operation.makeObjectsBindable = true;
 
         operation._rootURL = rootURL;
@@ -931,5 +931,51 @@ function xmlEncoder (myObj)
     }
 
 }
-
 }
+
+import mx.core.mx_internal;
+
+import mx.rpc.events.AbstractEvent;
+import mx.rpc.http.AbstractOperation;
+import mx.rpc.http.HTTPService;
+
+/**
+ *  @private
+ *  
+ *  An HTTPService specific override that allow service level event listeners 
+ *  to handle RPC events.
+ */
+class HTTPOperation extends AbstractOperation 
+{
+    public function HTTPOperation(httpService:HTTPService, name:String=null)
+    {
+        super(null, name);
+        this.httpService = httpService;        
+    }
+
+    /**
+     *  @private
+     */ 
+    override mx_internal function dispatchRpcEvent(event:AbstractEvent):void
+    {
+        event.mx_internal::callTokenResponders();
+        if (!event.isDefaultPrevented())
+        {
+            if (hasEventListener(event.type))
+            {
+                dispatchEvent(event);
+            }
+            else
+            {
+                if (httpService != null)
+                    httpService.mx_internal::dispatchRpcEvent(event);                        
+            }            
+        }
+    }
+
+    /**
+     *  @private
+     */ 
+    private var httpService:HTTPService; 
+}
+
