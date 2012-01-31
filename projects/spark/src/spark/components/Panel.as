@@ -20,6 +20,11 @@ import mx.graphics.baseClasses.TextGraphicElement;
  *  The FxPanel class is container whose skin usually contains a title
  *
  *  @see FxContainer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxPanel extends FxContainer 
 {
@@ -33,6 +38,11 @@ public class FxPanel extends FxContainer
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxPanel()
     {
@@ -53,6 +63,11 @@ public class FxPanel extends FxContainer
 
     /**
      * A skin part that defines the middle button(s).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var titleField:TextGraphicElement;
 
@@ -67,6 +82,11 @@ public class FxPanel extends FxContainer
 	[Bindable]
     /**
      *  title that should appear in the header of the skin
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get title():String 
     {
