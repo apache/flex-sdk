@@ -212,14 +212,6 @@ public class SkinnableTextBase extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
 
-    /**
-     *  @private
-     *  If true, pass calls to drawFocus() up to the parent.
-     *  This is used when a component is part of a composite control
-     *  like NumericStepper or ComboBox;
-     */
-    mx_internal var parentDrawsFocus:Boolean = false;
-
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -789,7 +781,10 @@ public class SkinnableTextBase extends SkinnableComponent
             // Copy proxied values from textDisplayProperties (if set) to 
             //textDisplay.
             textDisplayAdded();            
-            
+
+            // Focus on this, rather than the inner RET component.
+            textDisplay.focusEnabled = false;
+
             // Start listening for various events from the RichEditableText.
 
             textDisplay.addEventListener(SelectionEvent.SELECTION_CHANGE,
@@ -866,21 +861,6 @@ public class SkinnableTextBase extends SkinnableComponent
     override protected function isOurFocus(target:DisplayObject):Boolean
     {
         return target == textDisplay || super.isOurFocus(target);
-    }
-
-    /**
-     *  @private
-     *  Forward the drawFocus to the parent, if requested.
-     */
-    override public function drawFocus(isFocused:Boolean):void
-    {
-        if (parentDrawsFocus)
-        {
-            IFocusManagerComponent(parent).drawFocus(isFocused);
-            return;
-        }
-
-        super.drawFocus(isFocused);
     }
     
     //--------------------------------------------------------------------------
