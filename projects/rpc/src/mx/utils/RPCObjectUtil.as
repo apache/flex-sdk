@@ -23,6 +23,11 @@ import mx.collections.IList;
 /**
  *  The RPCObjectUtil class is a subset of ObjectUtil, removing methods
  *  that create dependency issues when RPC messages are in a bootstrap loader.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RPCObjectUtil
 {
@@ -30,6 +35,11 @@ public class RPCObjectUtil
     
     /**
     *  Array of properties to exclude from debugging output.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     private static var defaultToStringExcludes:Array = ["password", "credentials"];
 
@@ -180,6 +190,11 @@ public class RPCObjectUtil
      *          yetDeeper = (Object)#0
      *  </pre>
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function toString(value:Object, 
                                     namespaceURIs:Array = null, 
@@ -380,6 +395,11 @@ public class RPCObjectUtil
      *    <li><code>name</code>: String containing the name of the class;</li>
      *    <li><code>properties</code>: Sorted list of the property names of the specified object.</li>
      *  </ul>
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public static function getClassInfo(obj:Object,
                                         excludes:Array = null,
