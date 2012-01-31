@@ -42,7 +42,7 @@ import spark.effects.easing.Sine;
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  Number of milliseconds after the first pageevent
+ *  Number of milliseconds after the first page event
  *  until subsequent page events occur.
  * 
  *  @default 500
@@ -87,7 +87,7 @@ import spark.effects.easing.Sine;
  *    <li><code>maximum</code>:Maximum range value.</li>
  *    <li><code>value</code>: Current position, which must be within the
  *    minimum and maximum range values.</li>
- *    <li>Viewport size: represents the number of items
+ *    <li>Viewport size: Represents the number of items
  *    in the range that you can display at one time. The
  *    number of items must be less than or equal to the 
  *    range, where the range is the set of values between
@@ -95,6 +95,11 @@ import spark.effects.easing.Sine;
  *  </ul>
  *
  *  @see spark.core.IViewport
+ *  @see spark.skins.default.ScrollerSkin
+ *  @see spark.skins.default.ScrollBarDownButtonSkin
+ *  @see spark.skins.default.ScrollBarLeftButtonSkin
+ *  @see spark.skins.default.ScrollBarRightButtonSkin
+ *  @see spark.skins.default.ScrollBarUpButtonSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -260,6 +265,10 @@ public class ScrollBar extends TrackBase
      * for all ScrollBars.
      * 
      * @default true
+     * @langversion 3.0
+     * @playerversion Flash 10
+     * @playerversion AIR 1.5
+     * @productversion Flex 4
      * @see #smoothScrolling
      */
     public static var smoothScrollingDefault:Boolean = true;
@@ -280,8 +289,13 @@ public class ScrollBar extends TrackBase
      * operations will jump directly to the paged/stepped locations. 
      * When true, the scrollbar, and any content it is scrolling, will
      * animate to that location.
-     * 
+     *
      * @default true
+     *
+     * @langversion 3.0
+     * @playerversion Flash 10
+     * @playerversion AIR 1.5
+     * @productversion Flex 4      
      */
     public function get smoothScrolling():Boolean
     {
@@ -378,7 +392,7 @@ public class ScrollBar extends TrackBase
      *  The viewport controlled by this scrollbar.
      * 
      *  If a viewport is specified, then changes to its actual size, content 
-     *  size, and scroll position, cause the corresponding ScrollBar methods to
+     *  size, and scroll position cause the corresponding ScrollBar methods to
      *  run:
      *  <ul>
      *  <li><code>viewportResizeHandler()</code></li>
@@ -389,14 +403,14 @@ public class ScrollBar extends TrackBase
      *  </ul>
      * 
      *  <p>The VScrollBar and HScrollBar classes override these methods to 
-     *  keep their pageSize, maximum, and value properties in sync with the
-     *  viewport.   Similarly, they override their page and step methods to
-     *  use the viewport's scrollPositionDelta methods to compute page and
+     *  keep their <code>pageSize</code>, <code>maximum</code>, and <code>value</code> properties in sync with the
+     *  viewport.   Similarly, they override their <code>page()</code> and <code>step()</code> methods to
+     *  use the viewport's <code>scrollPositionDelta</code> methods to compute page and
      *  and step offsets.</p>
      *    
      *  @default null
-     *       mx.components.VScrollBar
-     *  @see mx.components.HScrollBar
+     *  @see spark.components.VScrollBar
+     *  @see spark.components.HScrollBar
      *
      *  
      *  @langversion 3.0
@@ -560,10 +574,10 @@ public class ScrollBar extends TrackBase
 
     /**
      *  Adds or subtracts <code>pageSize</code> from <code>value</code>.
-     *  For an add, the new <code>value</code> is the closest multiple of <code>pageSize</code> 
+     *  For an addition, the new <code>value</code> is the closest multiple of <code>pageSize</code> 
      *  that is larger than the current <code>value</code>.
-     *  For an subtraction, the new <code>value</code> 
-     *  is the closets multiple of <code>pageSize</code> that is 
+     *  For a subtraction, the new <code>value</code> 
+     *  is the closest multiple of <code>pageSize</code> that is 
      *  smaller than the current value. 
      *  The minimum value of <code>value</code> is <code>pageSize</code>. 
      *
@@ -594,13 +608,13 @@ public class ScrollBar extends TrackBase
     }
 
     /**
-     *  Calculate the size for the thumb from the current range, pageSize, and
+     *  Calculates the size for the thumb from the current range, pageSize, and
      *  trackSize settings.
      * 
      *  If fixedThumbSize is true, then subclasses should return a value based
      *  on the thumb's preferred size instead.
      * 
-     *  @see fixedThumbSize
+     *  @see #fixedThumbSize
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -652,7 +666,7 @@ public class ScrollBar extends TrackBase
     
     
    /**
-    *  Called when the viewport's width or height changes, does nothing by default.
+    *  Called when the viewport's width or height value changes. Does nothing by default.
     *  
     *  @langversion 3.0
     *  @playerversion Flash 10
@@ -664,7 +678,7 @@ public class ScrollBar extends TrackBase
     }
     
    /**
-    *  Called when the viewport's contentWidth changes, does nothing by default.
+    *  Called when the viewport's <code>contentWidth</code> value changes. Does nothing by default.
     *  
     *  @langversion 3.0
     *  @playerversion Flash 10
@@ -676,7 +690,7 @@ public class ScrollBar extends TrackBase
     }
     
     /**
-     *  Called when the viewport's contentHeight changes, does nothing by default.
+     *  Called when the viewport's <code>contentHeight</code> value changes. Does nothing by default.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -688,7 +702,7 @@ public class ScrollBar extends TrackBase
     }
     
     /**
-     *  Called when the viewport's horizontalScrollPosition changes, does nothing by default.
+     *  Called when the viewport's <code>horizontalScrollPosition</code> value changes. Does nothing by default.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -700,7 +714,7 @@ public class ScrollBar extends TrackBase
     }  
     
     /**
-     *  Called when the viewport's verticalScrollPosition changes, does nothing by default. 
+     *  Called when the viewport's <code>verticalScrollPosition</code> value changes. Does nothing by default. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -716,13 +730,18 @@ public class ScrollBar extends TrackBase
     //---------------------------------
      
     /**
-     *  Handle a click on the increment or decrement button of the scroll bar. 
+     *  Handles a click on the increment or decrement button of the scroll bar. 
      *  This should cause a stepping operation, which is repeated if held down.
      *  The delay before repetition begins and the delay between repeated events
      *  are determined by the <code>repeatDelay</code> and 
      *  <code>repeatInterval</code> styles of the underlying Button objects.
      * 
      *  @see spark.components.Button
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4  
      */
     protected function button_buttonDownHandler(event:Event):void
     {
@@ -762,9 +781,17 @@ public class ScrollBar extends TrackBase
     }
     
     /**
-     *  Handle releasing the increment or decrement button of the scrollbar. 
+     *  Handles releasing the increment or decrement button of the scrollbar. 
      *  This ends the stepping operation started by the original buttonDown
      *  event on the button.
+     *
+     *  @see spark.components.Button
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4  
+     
      */
     protected function button_buttonUpHandler(event:Event):void
     {
@@ -887,6 +914,25 @@ public class ScrollBar extends TrackBase
         trackScrollTimer.start();
     }
 
+    /**
+     * Animates the operation to move to <code>newValue</code>.
+     * The <code>pageSize</code> parameter is used to compute the amount 
+     * of time taken to get to that value, so that the time taken to animate
+     * a paging operation is roughly the same as the non-animated version; 
+     * both operations should end up at the same place at about the same time.
+     *
+     * @param newValue The final value being paged to.
+     * @param pageSize The amount of horizontal or vertical movement requested.
+     * This value is used to compute, with the <code>repeatInterval</code> style,
+     * the total time taken to move to the new value. <code>pageSize</code>
+     * is usually set dynamically by the containing Scroller to the value required
+     * to view content at a logical content boundary.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     protected function animatePaging(newValue:Number, pageSize:Number):void
     {
         animatingSinglePage = false;
@@ -898,6 +944,26 @@ public class ScrollBar extends TrackBase
             nearestValidValue(newValue, pageSize), Linear.getInstance());
     }
 
+    /**
+     * Animates the operation to step to <code>newValue</code>.
+     * The <code>stepSize</code> parameter is used to compute the amount 
+     * of time taken to get to that value, so that the time taken to animate
+     * a stepping operation is roughly the same as the non-animated version; 
+     * both operations should end up at the same place at about the same time.
+     *
+     * @param newValue The final value being stepped to.
+     * @param stepSize The amount of stepping requested.
+     * This value is used to compute, with the <code>repeatInterval</code> style,
+     * the total time taken to step to the new value. <code>stepSize</code>
+     * is usually set dynamically by the containing Scroller to the value required
+     * to view content at a logical content boundary.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    
     protected function animateStepping(newValue:Number, stepSize:Number):void
     {
         steppingDown = (newValue > value);
