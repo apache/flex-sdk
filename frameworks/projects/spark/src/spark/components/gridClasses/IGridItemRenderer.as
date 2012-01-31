@@ -13,6 +13,8 @@ package spark.components.gridClasses
 {
 import mx.core.IDataRenderer;
 import mx.core.IVisualElement;
+
+import spark.components.Grid;
     
 /**
  *  The IGridItemRenderer interface defines the interface that item renderers 
@@ -44,9 +46,18 @@ import mx.core.IVisualElement;
 public interface IGridItemRenderer extends IDataRenderer, IVisualElement
 {
     /**
-     *  The zero-based index of the row being rendered.
-     *  That means that values are 0, 1, 2, ... , n - 1, 
-     *  where n is the total number of rows.
+     *  The Grid associated with this item renderer, typically just the value of
+     *  <code>column.grid</code>.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    function get grid():Grid;
+    
+    /**
+     *  The zero-based index of the row of the cell being rendered.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -162,6 +173,17 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
      */
     function get column():GridColumn;
     function set column(value:GridColumn):void;
+    
+    /**
+     *  The column index for this item renderer's cell, typically just the value of 
+     *  <code>column.columnIndex</code>.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5 
+     */
+    function get columnIndex():int;    
     
     /**
      *  Called from the item renderer owner's <code>updateDisplayList()</code> method 
