@@ -2360,8 +2360,10 @@ public class GridLayout extends LayoutBase
     }
     
     /**
-     *  True if the specified cell is at least partially visible.  If columnIndex == -1 then 
-     *  true is returned if the specified row is at least partially visible.
+     *  True if the specified cell is at least partially visible. If columnIndex == -1 then 
+     *  true is returned if the specified row is at least partially visible. If
+     *  rowIndex == -1, then true is returned if the specified column is at least partially
+     *  visible. If both columnIndex and rowIndex are -1, then false is returned.
      *  
      *  @param rowIndex The 0-based row index of the item renderer's cell.
      *  @param columnIndex The 0-based column index of the item renderer's cell.
@@ -2374,8 +2376,11 @@ public class GridLayout extends LayoutBase
      */ 
     public function isCellVisible(rowIndex:int, columnIndex:int):Boolean
     {
-        return (visibleRowIndices.indexOf(rowIndex) != -1) && 
-            ((columnIndex == -1) || (visibleColumnIndices.indexOf(columnIndex) != -1));
+        if (rowIndex == -1 && columnIndex == -1)
+            return false;
+        
+        return ((rowIndex == -1) || (visibleRowIndices.indexOf(rowIndex) != -1)) && 
+               ((columnIndex == -1) || (visibleColumnIndices.indexOf(columnIndex) != -1));
     }
     
     //--------------------------------------------------------------------------
