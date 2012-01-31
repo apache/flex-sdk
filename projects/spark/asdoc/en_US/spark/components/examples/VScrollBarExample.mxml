@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/halo"
+    xmlns:s="library://ns.adobe.com/flex/spark" >
+    
+    <mx:Box borderThickness="2" borderStyle="solid" x="10" y="10">
+        <s:HGroup>
+            <s:DataGroup id="viewport" left="10" top="10"
+                         clipAndEnableScrolling="true"
+                         itemRenderer="spark.skins.spark.DefaultItemRenderer">
+                <s:layout> 
+                    <s:VerticalLayout requestedRowCount="4"/> 
+                </s:layout> 
+                <s:dataProvider> 
+                    <s:ArrayCollection> 
+                        <fx:String>Alaska</fx:String>                
+                        <fx:String>Washington</fx:String>                
+                        <fx:String>Oregon</fx:String>                
+                        <fx:String>California</fx:String>                
+                        <fx:String>Hawai'i</fx:String>                
+                        <fx:String>Idaho</fx:String>                
+                        <fx:String>Montana</fx:String>                
+                        <fx:String>Nevada</fx:String>                
+                        <fx:String>Utah</fx:String>                
+                        <fx:String>New Mexico</fx:String>                
+                        <fx:String>Colorado</fx:String>
+                    </s:ArrayCollection>
+                </s:dataProvider> 
+            </s:DataGroup> 
+            <s:VScrollBar viewport="{viewport}" 
+                          left="{viewport.x + viewport.width + 10}" 
+                          top="10" 
+                          height="{viewport.height}"/>
+        </s:HGroup>
+    </mx:Box>    
+</s:Application>
