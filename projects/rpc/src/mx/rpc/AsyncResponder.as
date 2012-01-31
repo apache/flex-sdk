@@ -51,13 +51,11 @@ public class AsyncResponder implements IResponder
      *  @param result Function that should be called when the request has
      *          completed successfully.
      *          Must have the following signature:
-     *          <pre>
-     *          public function (result:Object, token:Object = null):void;</pre>
+     *          <pre>public function (result:Object, token:Object = null):void;</pre>
      *  @param fault Function that should be called when the request has
      *          completed with errors.
      *          Must have the following signature:
-     *          <pre>
-     *          public function (error:ErrorMessage, token:Object = null):void;</pre>
+     *          <pre>public function (error:ErrorMessage, token:Object = null):void;</pre>
      *  @param token Additional information to associate with
      *          this request.
      *  
