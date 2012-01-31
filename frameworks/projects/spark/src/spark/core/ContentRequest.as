@@ -219,11 +219,11 @@ public class ContentRequest extends EventDispatcher
         {
             var _contentLoaderInfo:LoaderInfo = LoaderInfo(_content);
             
-            _contentLoaderInfo.addEventListener(Event.COMPLETE, content_completeHandler);
-            _contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, content_ioErrorHandler);
-            _contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, dispatchEvent);
-            _contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, dispatchEvent);
-            _contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, dispatchEvent);
+            _contentLoaderInfo.addEventListener(Event.COMPLETE, content_completeHandler, false, 0, true);
+            _contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, content_ioErrorHandler, false, 0, true);
+            _contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, dispatchEvent, false, 0, true);
+            _contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, dispatchEvent, false, 0, true);
+            _contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, dispatchEvent, false, 0, true);
         }
     }
     
