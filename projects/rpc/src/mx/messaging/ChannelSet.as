@@ -930,7 +930,7 @@ public class ChannelSet extends EventDispatcher
             addEventListener(ChannelFaultEvent.FAULT, agent.channelFaultHandler);
             
             // If the ChannelSet is already connected, notify the agent.
-            if (connected)
+            if (connected && !agent.needsConfig)
                 agent.channelConnectHandler(ChannelEvent.createEvent(ChannelEvent.CONNECT,
                                                                      _currentChannel, 
                                                                      false,
@@ -1390,7 +1390,7 @@ public class ChannelSet extends EventDispatcher
      */
     public function send(agent:MessageAgent, message:IMessage):void
     {
-        if (_currentChannel != null && _currentChannel.connected)
+        if (_currentChannel != null && _currentChannel.connected && !agent.needsConfig)
         {    
             // Filter out any commands to trigger connection establishment, and ack them locally.            
             if ((message is CommandMessage) && (CommandMessage(message).operation == CommandMessage.TRIGGER_CONNECT_OPERATION))
