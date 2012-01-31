@@ -30,6 +30,7 @@ import mx.core.mx_internal;
 
 import spark.components.supportClasses.StreamItem;
 import spark.components.supportClasses.StreamingVideoSource;
+import spark.core.IGraphicElement;
 import spark.events.VideoEvent;
 import spark.primitives.supportClasses.GraphicElement;
 
@@ -207,33 +208,33 @@ public class VideoElement extends GraphicElement
     //
     //--------------------------------------------------------------------------
     
-    // We're overriding the displayObject getters/setters and methods to make 
-    // videoPlayer the DisplayObject for this video graphic element.
-    
     /**
      *  @private
      */
     override public function get displayObject():DisplayObject
     {
+        // The VideoElement always has its own DisplayObject
         return mx_internal::videoPlayer;
     }
 
     /**
      *  @private
      */
-    override public function set displayObject(value:DisplayObject):void
+    override public function setSharedDisplayObject(sharedDisplayObject:DisplayObject):Boolean
     {
-        // no-op
+        // The VideoElement never uses shared DisplayObject
+        return false;
     }
     
     /**
      *  @private
      */
-    override public function canDrawToShared(sharedDisplayObject:DisplayObject):Boolean
+    override public function canShareWithNext(element:IGraphicElement):Boolean
     {
+        // Other GraphicElements should never use our DisplayObject
         return false;
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -320,7 +321,7 @@ public class VideoElement extends GraphicElement
     {
         mx_internal::videoPlayer.autoRewind = value;
     }
-    
+        
     //----------------------------------
     //  maintainAspectRatio
     //----------------------------------
@@ -627,7 +628,7 @@ public class VideoElement extends GraphicElement
      */
     public function get volume():Number
     {
-        return mx_internal::videoPlayer.volume;
+            return mx_internal::videoPlayer.volume;
     }
     
     /**
@@ -660,8 +661,8 @@ public class VideoElement extends GraphicElement
             {
                 play();
             }
+            }
         }
-    }
     
     /**
      *  @private
@@ -754,7 +755,7 @@ public class VideoElement extends GraphicElement
             // play2();
             var streamingSource:StreamingVideoSource = source as StreamingVideoSource;
             var flvSource:DynamicStreamItem;
-            
+        
             // if paused, pass in null as the flvSource.  Otherwise, calling 
             // play(source) will reset the stream back to zero.  To restart the 
             // stream where it was paused, one needs to call play(null).
@@ -766,7 +767,7 @@ public class VideoElement extends GraphicElement
             {
                 flvSource =  new DynamicStreamItem();
                 sourceLastPlayed = source;
-                
+        
                 flvSource.uri = streamingSource.serverURI;
             
                 var n:int = streamingSource.streamItems.length;
@@ -794,7 +795,7 @@ public class VideoElement extends GraphicElement
         {
             // The progressive case
             var sourceString:String;
-            
+        
             // if paused, pass in null as the flvSource.  Otherwise, calling 
             // play(source) will reset the stream back to zero.  To restart the 
             // stream where it was paused, one needs to call play(null).
@@ -825,11 +826,11 @@ public class VideoElement extends GraphicElement
                 
                 seek(startTime);
                 
-                if (isNaN(duration))
+        if (isNaN(duration))
                     mx_internal::videoPlayer.play(null);
-                else
+        else
                     mx_internal::videoPlayer.play(null, false, duration);
-            }
+    }
             else
             {
                 // if we've played this video before or we don't 
@@ -837,7 +838,7 @@ public class VideoElement extends GraphicElement
                 // cases separately
                 if (!isNaN(startTime))
                     seek(startTime);
-                
+   
                 if (isNaN(duration))
                     mx_internal::videoPlayer.play(sourceString);
                 else
