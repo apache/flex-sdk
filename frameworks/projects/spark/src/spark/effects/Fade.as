@@ -34,7 +34,7 @@ import spark.effects.supportClasses.FadeInstance;
  *  and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:Fade 
+ *  &lt;s:Fade 
  *    id="ID"
  *    alphaFrom="val"
  *    alphaTo="val"
