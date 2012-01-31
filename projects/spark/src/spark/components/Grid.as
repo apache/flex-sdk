@@ -1825,7 +1825,7 @@ public class Grid extends Group implements IDataGridElement
      *  for programatic selection updates, for example when writing a keyboard
      *  or mouse event handler. </p> 
      *  
-     *  @default undefined
+     *  @default null
      * 
      *  @return Vector of <code>dataProvider</code> items.
      *  
@@ -2017,17 +2017,8 @@ public class Grid extends Group implements IDataGridElement
     [Bindable("valueCommit")]
     
     /**
-     *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code>
-     *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns the
-     *  number of selected rows, and if <code>selectionMode</code> is 
-     *  <code>GridSelectionMode.SINGLE_CELLS</code>
-     *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns the
-     *  number of selected cells.
+     *  @copy spark.components.gridClasses.GridSelection#selectionLength
      * 
-     *  @default 0
-     * 
-     *  @return Number of selected rows or cells.
-     *    
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
@@ -2245,34 +2236,7 @@ public class Grid extends Group implements IDataGridElement
     //--------------------------------------------------------------------------
     
     /**
-     *  If <code>selectionMode</code> is 
-     *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, selects all rows and
-     *  removes the caret or if <code>selectionMode</code> is 
-     *  <code>GridSelectionMode.MULTIPLE_CELLS</code> selects all cells  
-     *  and removes the caret.  For all other selection modes, this method 
-     *  has no effect.
-     *
-     *  <p>If items are added to the <code>dataProvider</code> or 
-     *  <code>columns</code> are added after this method is called, the
-     *  new rows or cells in the new column will be selected.</p>
-     * 
-     *  <p>This implicit "selectAll" mode ends when any of the following occur:
-     *  <ul>
-     *    <li>selection is cleared using <code>clearSelection</code></li>
-     *    <li>selection reset using one of <code>setSelectedCell</code>, 
-     *    <code>setSelectedCells</code>, <code>setSelectedIndex</code>, 
-     *    <code>selectIndices</code></li>
-     *    <li><code>dataProvider</code> is refreshed and <code>preserveSelection</code> is false</li>
-     *    <li><code>dataProvider</code> is reset</li>
-     *    <li><code>columns</code> is refreshed, 
-     *    <code>preserveSelection</code> is <code>false</code> and 
-     *    <code>selectionMode</code> is 
-     *    <code>GridSelectionMode.MULTIPLE_CELLS</code></li>
-     *    <li><code>columns</code> is reset and <code>selectionMode</code> is 
-     *    <code>GridSelectionMode.MULTIPLE_CELLS</code></li> 
-     *  </ul></p>
-     * 
-     *  @return True if the selection changed.
+     *  @copy spark.components.gridClasses.GridSelection#selectAll()
      *    
      *  @see spark.components.Grid#clearSelection
      *  @see spark.components.Grid#selectIndices
