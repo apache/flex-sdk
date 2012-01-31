@@ -69,7 +69,8 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  The value is an array of one or more colors. 
  *  The backgrounds of the list items alternate among the colors in the array. 
  * 
- *  @default undefined
+ *  <p>The default value for the Spark theme is <code>undefined</code>.
+ *  The default value for the Mobile theme is <code>0xFFFFFF</code>.</p>
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -103,9 +104,18 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark, mobile", minValue="0.0", maxValue="1.0")]
 
 /**
- *  Color of the fill of an item renderer.
- *   
- *  @default 0xFFFFFF
+ *  The color of the content background for this component.
+ * 
+ *  <p>For a List, changing <code>contentBackgroundColor</code> will 
+ *  change the content background color of the List; however, if the item renderer
+ *  is opaque, the user may not see any difference.  The item renderer's color is 
+ *  affected by <code>alternatingItemColors</code>.  In the Spark theme, by default, item 
+ *  renderers are transparent (<code>alternatingItemColors = undefined</code>); however, 
+ *  in the Mobile theme, item renderers are opaque by default 
+ *  (<code>alternatingItemColors = 0xFFFFFF</code>).</p>
+ *  
+ *  <p>The default value for the Spark theme is <code>0xFFFFFF</code>.
+ *  The default value for the Mobile theme is <code>0xF0F0F0</code>.</p> 
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -132,11 +142,8 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  <p>If <code>downColor</code> is set to <code>undefined</code>, 
  *  <code>downColor</code> is not used.</p>
  * 
- *  <p>The default value in the 
- *  spark theme is <code>undefined</code>.  The default value in the 
- *  mobile theme is <code>0xB2B2B2</code>.</p>
- *   
- *  @default undefined
+ *  <p>The default value for the Spark theme is <code>undefined</code>.
+ *  The default value for the Mobile theme is <code>0xE0E0E0</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
@@ -159,6 +166,8 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  Color of the highlights when the mouse is over the component.
+ * 
+ *  <p>This style is only applicable in mouse <code>interactionMode</code>.</p>
  * 
  *  @default 0xCEDBEF
  *  
