@@ -126,20 +126,28 @@ public class ContentRequest extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */
-    public function ContentRequest(contentLoader:IContentLoader,content:*,shared:Boolean=false)
+    public function ContentRequest(contentLoader:IContentLoader, content:*, 
+                                   shared:Boolean=false, complete:Boolean=false)
     {
         super();
         this.content = content;
         _shared = shared;
+        _complete = complete;
         contentLoader.addEventListener("invalidateLoader", contentLoader_invalidateLoaderHandler, false, 0, true);
     }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    private var _shared:Boolean;
     
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-    private var _shared:Boolean;
     
     //----------------------------------
     //  content
@@ -180,6 +188,8 @@ public class ContentRequest extends EventDispatcher
     //  complete
     //----------------------------------
     
+    private var _complete:Boolean;
+    
     /**
      *  Read-only flag. Returns true if content is 
      *  considered fully loaded and accessible.
@@ -189,12 +199,9 @@ public class ContentRequest extends EventDispatcher
     public function get complete():Boolean
     {
         if (_content && _content is LoaderInfo)
-        {
-            return (_content.bytesTotal > 0 && 
-                    _content.bytesTotal == _content.bytesLoaded);
-        }
-
-        return (_content != null);
+            return _complete;
+        else
+            return (_content != null);
     }
         
     //--------------------------------------------------------------------------
@@ -246,6 +253,7 @@ public class ContentRequest extends EventDispatcher
     {
         if (e.target == _content)
         {
+            _complete = true;
             dispatchEvent(e);
             removeLoaderListeners();
         }
