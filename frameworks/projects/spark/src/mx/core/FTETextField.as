@@ -3038,8 +3038,11 @@ public class FTETextField extends Sprite
 		// and needs to be regenerated on demand,
 		// because with htmlText what-you-set-is-not-what-you-get.
 		if (!styleSheet)
+        {
 			_htmlText = null;
-        
+            clearFlag(FLAG_HTML_TEXT_SET);
+        }
+
 		if (!textFlow)
             return;
         
