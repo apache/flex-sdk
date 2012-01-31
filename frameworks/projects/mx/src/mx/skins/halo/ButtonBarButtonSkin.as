@@ -147,8 +147,13 @@ public class ButtonBarButtonSkin extends Border
 		var cornerRadius:Number = getStyle("cornerRadius");
 		var fillAlphas:Array = getStyle("fillAlphas");
 		var fillColors:Array = getStyle("fillColors");
-		StyleManager.getColorNames(fillColors);
-		var highlightAlphas:Array = getStyle("highlightAlphas");		
+
+        if (styleName is UIComponent)
+            styleName.styleManager.getColorNames(fillColors);
+        else
+            StyleManager.getStyleManager(null).getColorNames(fillColors);
+
+        var highlightAlphas:Array = getStyle("highlightAlphas");		
 		var themeColor:uint = getStyle("themeColor");
 
 		// Derivative styles.
