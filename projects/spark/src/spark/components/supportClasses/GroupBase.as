@@ -15,7 +15,11 @@ package spark.components.supportClasses
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.events.GestureEvent;
 import flash.events.MouseEvent;
+import flash.events.PressAndTapGestureEvent;
+import flash.events.TouchEvent;
+import flash.events.TransformGestureEvent;
 import flash.filters.ShaderFilter;
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -905,6 +909,11 @@ public class GroupBase extends UIComponent implements IViewport
      *  ensures that the entire bounds of the Group respond to 
      *  mouse events such as click and roll over.
      * 
+     *  This property only goes in to effect if mouse, touch, or
+     *  gesture events are added to this instance.  In addition, 
+     *  it assumes that the calls to addEventListener()/removeEventListener()
+     *  are not superfluous.
+     * 
      *  @default true
      *  
      *  @langversion 4.0
@@ -1495,19 +1504,48 @@ public class GroupBase extends UIComponent implements IViewport
         super.addEventListener(type, listener, useCapture, priority, 
             useWeakReference);
 
-        if (type == MouseEvent.CLICK ||
-            type == MouseEvent.DOUBLE_CLICK ||
-            type == MouseEvent.MOUSE_DOWN ||
-            type == MouseEvent.MOUSE_MOVE ||
-            type == MouseEvent.MOUSE_OVER ||
-            type == MouseEvent.MOUSE_OUT ||
-            type == MouseEvent.ROLL_OUT ||
-            type == MouseEvent.ROLL_OVER ||
-            type == MouseEvent.MOUSE_UP ||
-            type == MouseEvent.MOUSE_WHEEL)
+        // This code below is not really accurate for two reasons:
+        // 1) MouseEvents bubble so someone up the chain
+        //    may be listening for this event, and we woudln't 
+        //    detect it here.
+        // 2) addEventListener()/removeEventListener() may be called 
+        //    multiple times with the same handler and may have no 
+        //    real effect on the component, but we're still incrementing
+        //    and decrementing the mouseEventReferenceCount here
+        //  Neither of these issues seem worth fixing as there aren't 
+        //  really great fixes for them, so it's just something we will 
+        //  document and live with for now.
+        
+        // mouse events, then touch events, then gesture events
+        switch (type)
         {
-            if (mouseEventReferenceCount++ == 0)
-                hasMouseListeners = true;
+            
+            case MouseEvent.CLICK:
+            case MouseEvent.DOUBLE_CLICK:
+            case MouseEvent.MOUSE_DOWN:
+            case MouseEvent.MOUSE_MOVE:
+            case MouseEvent.MOUSE_OVER:
+            case MouseEvent.MOUSE_OUT:
+            case MouseEvent.ROLL_OUT:
+            case MouseEvent.ROLL_OVER:
+            case MouseEvent.MOUSE_UP:
+            case MouseEvent.MOUSE_WHEEL:
+            case TouchEvent.TOUCH_BEGIN:
+            case TouchEvent.TOUCH_END:
+            case TouchEvent.TOUCH_MOVE:
+            case TouchEvent.TOUCH_OUT:
+            case TouchEvent.TOUCH_OVER:
+            case TouchEvent.TOUCH_ROLL_OUT:
+            case TouchEvent.TOUCH_ROLL_OVER:
+            case TouchEvent.TOUCH_TAP:
+            case GestureEvent.GESTURE_TWO_FINGER_TAP:
+            case PressAndTapGestureEvent.GESTURE_PRESS_AND_TAP:
+            case TransformGestureEvent.GESTURE_PAN:
+            case TransformGestureEvent.GESTURE_ROTATE:
+            case TransformGestureEvent.GESTURE_SWIPE:
+            case TransformGestureEvent.GESTURE_ZOOM:
+                if (mouseEventReferenceCount++ == 0)
+                    hasMouseListeners = true;
         }
     }
 
@@ -1521,19 +1559,37 @@ public class GroupBase extends UIComponent implements IViewport
     {
         super.removeEventListener(type, listener, useCapture);
 
-        if (type == MouseEvent.CLICK ||
-            type == MouseEvent.DOUBLE_CLICK ||
-            type == MouseEvent.MOUSE_DOWN ||
-            type == MouseEvent.MOUSE_MOVE ||
-            type == MouseEvent.MOUSE_OVER ||
-            type == MouseEvent.MOUSE_OUT ||
-            type == MouseEvent.ROLL_OUT ||
-            type == MouseEvent.ROLL_OVER ||
-            type == MouseEvent.MOUSE_UP ||
-            type == MouseEvent.MOUSE_WHEEL)
+        // see comment above in addEventListener()
+        // mouse events, then touch events, then gesture events
+        switch (type)
         {
-            if (--mouseEventReferenceCount == 0)
-                hasMouseListeners = false;
+            
+            case MouseEvent.CLICK:
+            case MouseEvent.DOUBLE_CLICK:
+            case MouseEvent.MOUSE_DOWN:
+            case MouseEvent.MOUSE_MOVE:
+            case MouseEvent.MOUSE_OVER:
+            case MouseEvent.MOUSE_OUT:
+            case MouseEvent.ROLL_OUT:
+            case MouseEvent.ROLL_OVER:
+            case MouseEvent.MOUSE_UP:
+            case MouseEvent.MOUSE_WHEEL:
+            case TouchEvent.TOUCH_BEGIN:
+            case TouchEvent.TOUCH_END:
+            case TouchEvent.TOUCH_MOVE:
+            case TouchEvent.TOUCH_OUT:
+            case TouchEvent.TOUCH_OVER:
+            case TouchEvent.TOUCH_ROLL_OUT:
+            case TouchEvent.TOUCH_ROLL_OVER:
+            case TouchEvent.TOUCH_TAP:
+            case GestureEvent.GESTURE_TWO_FINGER_TAP:
+            case PressAndTapGestureEvent.GESTURE_PRESS_AND_TAP:
+            case TransformGestureEvent.GESTURE_PAN:
+            case TransformGestureEvent.GESTURE_ROTATE:
+            case TransformGestureEvent.GESTURE_SWIPE:
+            case TransformGestureEvent.GESTURE_ZOOM:
+                if (--mouseEventReferenceCount == 0)
+                    hasMouseListeners = false;
         }
     }
     
