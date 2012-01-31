@@ -16,14 +16,11 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.ui.Keyboard;
 
-import mx.core.ClassFactory; 
 import mx.core.IVisualElement;
-import mx.events.FlexEvent;
+import mx.events.IndexChangedEvent;
 import mx.managers.IFocusManagerComponent;
 
-import spark.components.IItemRenderer;
-import spark.components.supportClasses.ItemRenderer;
-import spark.components.supportClasses.ListBase;  
+import spark.components.supportClasses.ListBase;
 import spark.events.RendererExistenceEvent;
 import spark.layouts.HorizontalLayout;
 import spark.layouts.VerticalLayout;
@@ -143,6 +140,7 @@ public class List extends ListBase implements IFocusManagerComponent
     //----------------------------------
     
     private var _allowMultipleSelection:Boolean = false;
+    private var allowMultipleSelectionChanged:Boolean = false; 
     
     /**
      *  Boolean flag controlling whether multiple selection
@@ -167,8 +165,15 @@ public class List extends ListBase implements IFocusManagerComponent
     {
         if (value == _allowMultipleSelection)
             return 
-            
+        
         _allowMultipleSelection = value;
+        
+        //Going from multiple to single, clear out selection  
+        if (!_allowMultipleSelection)
+        {
+            _proposedSelectedIndices = [NO_SELECTION]; 
+            commitMultipleSelection(); 
+        } 
     }
     
     //----------------------------------
@@ -200,9 +205,45 @@ public class List extends ListBase implements IFocusManagerComponent
             super.selectedIndex = value;
             return;
         }
-        
+        if (value == selectedIndex)
+            return; 
+            
         selectedIndices = [value];
-        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  selectedItem
+    //----------------------------------
+    
+    [Bindable("selectionChanged")]
+    /**
+     *  @private
+     */
+    override public function get selectedItem():*
+    {   
+        if (!allowMultipleSelection)
+            return super.selectedItem;
+            
+        if (_selectedIndices && _selectedIndices.length > 0)
+            return dataProvider.getItemAt(_selectedIndices[0]); 
+            
+        return NO_SELECTION;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set selectedItem(value:*):void
+    {
+        if (!allowMultipleSelection)
+        {
+            super.selectedItem = value;
+            return;
+        }
+        if (value == selectedItem)
+            return; 
+            
+        selectedItems = [value];
     }
     
     
@@ -241,7 +282,8 @@ public class List extends ListBase implements IFocusManagerComponent
         if (!allowMultipleSelection)
             return;
             
-        // ?? should we check to see if the selection changed?
+        if (_proposedSelectedIndices == value)
+            return; 
         
         multipleSelectionChanged = true;
         _proposedSelectedIndices = value;
@@ -390,6 +432,10 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  @private
+     *  Given a new selection interval, figure out which
+     *  items are newly added/removed from the selection interval and update
+     *  selection properties and view accordingly. Additionally, dispatch the 
+     *  selectionChanged event. 
      */
     private function commitMultipleSelection():void
     {
@@ -400,7 +446,8 @@ public class List extends ListBase implements IFocusManagerComponent
     
         if (!isEmpty(_selectedIndices) && !isEmpty(_proposedSelectedIndices))
         {
-            // Changing selection, determine which items were added
+            // Changing selection, determine which items were added to the 
+            // selection interval 
             count = _proposedSelectedIndices.length;
             for (i = 0; i < count; i++)
             {
@@ -408,7 +455,9 @@ public class List extends ListBase implements IFocusManagerComponent
                     addedItems.push(_proposedSelectedIndices[i]);
             }
             
-            // determine which items were removed
+            // Then determine which items were removed from the selection 
+            // interval 
+            count = _selectedIndices.length; 
             for (i = 0; i < count; i++)
             {
                 if (_proposedSelectedIndices.indexOf(_selectedIndices[i]) < 0)
@@ -426,11 +475,11 @@ public class List extends ListBase implements IFocusManagerComponent
             addedItems = _proposedSelectedIndices;
         }
         
-        // Commit
+        // Commit the selected Indices 
         _selectedIndices = _proposedSelectedIndices;
         _proposedSelectedIndices = null;
         
-        // un-select the old
+        // De-select the old items that were selected 
         if (removedItems.length > 0)
         {
             count = removedItems.length;
@@ -440,7 +489,7 @@ public class List extends ListBase implements IFocusManagerComponent
             }
         }
         
-        // select the new
+        // Select the new items in the new selection interval 
         if (addedItems.length > 0)
         {
             count = addedItems.length;
@@ -448,6 +497,92 @@ public class List extends ListBase implements IFocusManagerComponent
             {
                 itemSelected(addedItems[i], true);
             }
+        }
+        
+        //Dispatch the selectionChanged event
+        var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
+        e.multipleSelectionChange = true; 
+        dispatchEvent(e); 
+    }
+    
+    /**
+     *  @private
+     *  Taking into account which modifier keys were clicked, the new
+     *  selectedIndices interval is calculated. 
+     */
+    private function calculateSelectedIndicesInterval(renderer:IVisualElement, shiftKey:Boolean, ctrlKey:Boolean):Array
+    {
+        var i:int; 
+        var interval:Array = []; 
+        var index:Number = dataGroup.getElementIndex(renderer); 
+        
+        if (!shiftKey)
+        {
+            if (ctrlKey)
+            {
+                if (!isEmpty(selectedIndices))
+                {
+                    //Quick check to see if selectedIndices had only one selected item
+                    //and that item was de-selected
+                    if (selectedIndices.length == 1 && (selectedIndices[0] == index))
+                    {
+                        //selectedIndex = NO_SELECTION;
+                        return [NO_SELECTION];  
+                    }
+                    else
+                    {
+                        // Go through and see if the index passed in was in the 
+                        // selection model. If so, leave it out when constructing
+                        // the new interval so it is de-selected. 
+                        var found:Boolean = false; 
+                        for (i = 0; i < _selectedIndices.length; i++)
+                        {
+                            if (_selectedIndices[i] == index)
+                                found = true; 
+                            else if (_selectedIndices[i] != index)
+                                interval.push(_selectedIndices[i]); 
+                        }
+                        if (!found)
+                        {
+                            //Nothing from the selection model was de-selected. 
+                            //Instead, the Ctrl key was held down and we're doing a  
+                            //new add. 
+                            interval.push(index);   
+                        }
+                        for (var i:int = 0; i < interval.length; i++)
+                        {
+                            trace(interval[i]);
+                        }
+                        return interval; 
+                    } 
+                }
+            }
+            //A single item was newly selected, add that to the selection interval.  
+            else 
+                return [index];
+        }
+        
+        else (shiftKey)
+        {
+            //A contiguous selection action has occurred. Figure out which new 
+            //indices to add to the selection interval and return that. 
+            var start:Number = (!isEmpty(selectedIndices)) ? selectedIndices[0] : -1; 
+            var end:Number = index; 
+            if (start < end)
+            {
+                for (i = start; i <= end; i++)
+                {
+                    interval.push(i); 
+                }
+            }
+            else 
+            {
+                for (i = start; i >= end; i--)
+                {
+                    interval.push(i); 
+                }
+            }
+            return interval; 
         }
     }
     
@@ -497,9 +632,23 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     protected function item_clickHandler(event:MouseEvent):void
     {
-        // Multiple selection needs to be added here....
-        
-        selectedIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
+        if (!allowMultipleSelection)
+        {
+            //Single selection case 
+            var newIndex:Number = dataGroup.getElementIndex(event.currentTarget as IVisualElement);  
+            
+            //Check to see if we're deselecting the currently selected item 
+            if (event.ctrlKey && selectedIndex == newIndex)
+                selectedIndex = NO_SELECTION;  
+            //Otherwise, select the new item 
+            else 
+                selectedIndex = newIndex; 
+        }
+        else 
+        {
+            //Multiple selection is handled by the helper method below 
+            selectedIndices = calculateSelectedIndicesInterval(event.currentTarget as IVisualElement, event.shiftKey, event.ctrlKey); 
+        }
     }
     
     /**
@@ -545,18 +694,21 @@ public class List extends ListBase implements IFocusManagerComponent
 	        var delta:int = 0;
 	
 	        if (layout is VerticalLayout)
+	        {
 	            switch(event.keyCode)
 	            {
 	                case Keyboard.UP: delta = -1; break;
 	                case Keyboard.DOWN: delta = +1; break;
 	            }
+            }
 	        else if (layout is HorizontalLayout)
+	        {
 	            switch(event.keyCode)
 	            {
 	                case Keyboard.LEFT: delta = -1; break;
 	                case Keyboard.RIGHT: delta = +1; break;
 	            }
-	        
+	        }
 	        // Note that the KeyboardEvent is canceled even if the selectedIndex doesn't
 	        // change because we don't want another component to start handling these
 	        // events when the selectedIndex reaches a limit.
