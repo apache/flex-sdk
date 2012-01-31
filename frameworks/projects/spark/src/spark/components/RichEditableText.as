@@ -1089,8 +1089,12 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  Documentation is not currently available.
+     *  
+     *  Possible values are <code>ALWAYS</code>, <code>WHEN_FOCUSED</code>, and <code>WHEN_ACTIVE</code>.
+     *  
+     *  @see mx.components.TextSelectionVisibility
      * 
-     *  @default null
+     *  @default TextSelectionVisibility.WHEN_FOCUSED
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
