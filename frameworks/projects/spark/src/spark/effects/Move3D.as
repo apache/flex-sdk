@@ -16,27 +16,56 @@ import mx.effects.IEffectInstance;
 import spark.effects.supportClasses.AnimateTransformInstance;
     
 /**
- * This class is a utility wrapper around the AnimateTransform effect, exposing the
- * properties that make sense for someone wishing to merely move a target object
- * in 3D. An important difference between this TransformMove
- * effect and the previous Move effect is that the x and y property specifications
- * for TransformMove specify not absolute values of the x/y point on the target
- * object, but rather the change in x/y that should occur to the center around
- * which the overall transform is occuring. So if, for example, the 
- * <code>autoCenterTransform</code> property is set, then the from/to/by values
- * in this effect will define how much to move the center of the target, not the 
- * (x,y) of the target.
+ *  The Move3D class moves a target object in the x, y, and z dimensions.
+ *  The x, y, and z property specifications of the Move3D effect specify 
+ *  the change in x, y, and z that should occur to the transform center around
+ *  which the overall transform effect occurs. 
  * 
- * <p>Like all AnimateTransform-based effects, this effect will only work on subclasses
- * of UIComponent and GraphicElement, as these effects depend on specific
- * transform functions in those classes. Also, all of these effects run one single
- * effect instance on any given target at a time, which means that they will
- * share the transform center set by any of the contributing effects.</p>
+ *  <p>Like all AnimateTransform-based effects, this effect only works on subclasses
+ *  of UIComponent and GraphicElement, as these effects depend on specific
+ *  transform functions in those classes. 
+ *  Also, transform effects running in parallel on the same target run as a single
+ *  effect instance
+ *  Therefore, the transform effects share the transform center 
+ *  set by any of the contributing effects.</p>
+ *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:Move3D&gt;</code> tag
+ *  inherits all of the tag attributes of its superclass,
+ *  and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:Move3D
+ *    <b>Properties</b>
+ *    id="ID"
+ *    zBy="no default"
+ *    zFrom="no default"
+ *    zTo="no default"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.effects.Move
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */   
 public class Move3D extends Move
 {
     include "../core/Version.as";
     
+    /** 
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function Move3D(target:Object=null)
     {
         super(target);
@@ -52,8 +81,13 @@ public class Move3D extends Move
     [Inspectable(category="General", defaultValue="NaN")]
 
     /** 
-     *  Number of pixels by which to modify the z of the component.
+     *  Number of pixels by which to modify the z position of the target.
      *  Values may be negative.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var zBy:Number;
     
@@ -64,10 +98,14 @@ public class Move3D extends Move
     [Inspectable(category="General", defaultValue="NaN")]
 
     /** 
-     *  Initial z.
-     *  If omitted, Flex uses either the value in the start state,
-     *  if the effect is playing in a state transition, or the current
-     *  value in the target.
+     *  Initial z position of the target.
+     *  If omitted, Flex uses either the value in the starting view state, 
+     *  if the effect is playing in a transition, or the current value of the target.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var zFrom:Number;
 
@@ -78,10 +116,14 @@ public class Move3D extends Move
     [Inspectable(category="General", defaultValue="NaN")]
 
     /** 
-     *  Final z
-     *  If omitted, Flex uses either the value in the end state,
-     *  if the effect is playing in a state transition, or the current
-     *  value in the target.
+     *  Final z position of the target.
+     *  If omitted, Flex uses either the value in the starting state, 
+     *  if the effect is playing in a state transition, or the current value of the target.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var zTo:Number;
 
