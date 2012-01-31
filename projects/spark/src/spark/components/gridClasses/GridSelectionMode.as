@@ -18,6 +18,7 @@ public final class SelectionMode
     //
     //--------------------------------------------------------------------------
     
+    // ToDo(cframpto): need ASdoc
     public static const NONE:String = "none";
     public static const SINGLE_ROW:String = "row";
     public static const MULTIPLE_ROWS:String = "multipleRows";
