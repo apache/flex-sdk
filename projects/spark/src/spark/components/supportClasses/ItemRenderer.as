@@ -11,15 +11,14 @@
 
 package mx.components
 {
-import flash.display.DisplayObjectContainer;    
+import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.core.mx_internal;
-import mx.components.IItemRenderer;
-import mx.components.IItemRendererOwner;
 import mx.graphics.baseClasses.TextGraphicElement;
+import mx.styles.StyleManager;
 
 /**
  *  The ItemRenderer class is the base class for Spark item renderers.
@@ -59,9 +58,12 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     {
         var alternatingColors:Array = getStyle("alternatingItemColors");
         
-        if (alternatingColors)
+        if (alternatingColors && alternatingColors.length > 0)
         {
             var idx:int;
+            
+            // translate these colors into uints
+            StyleManager.getColorNames(alternatingColors);
             
             if (parent is DataGroup)
                 idx = DataGroup(parent).dataProvider.getItemIndex(data);
