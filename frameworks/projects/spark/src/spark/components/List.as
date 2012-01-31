@@ -1683,7 +1683,9 @@ public class List extends ListBase implements IFocusManagerComponent
      *  Creates an instance of a class that is used to display the visuals
      *  of the dragged items during a drag and drop operation.
      *  The default <code>DragEvent.DRAG_START</code> handler passes the
-     *  instance to the <code>DragManager.doDrag()</code> method. 
+     *  instance to the <code>DragManager.doDrag()</code> method.
+     *
+     *  @return The IFlexDisplayObject representing the drag indicator.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
