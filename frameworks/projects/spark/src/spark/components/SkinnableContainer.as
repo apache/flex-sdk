@@ -126,7 +126,7 @@ public class FxContainer extends FxContainerBase
     //
     //--------------------------------------------------------------------------
     
-    [SkinPart]
+    [SkinPart(required="true")]
     
     /**
      *  A required skin part that defines the Group where the content 
