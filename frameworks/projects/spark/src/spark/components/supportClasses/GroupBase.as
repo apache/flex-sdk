@@ -287,6 +287,8 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         super.scaleY = value;
     }
 
+    [Bindable("widthChanged")]
+    [Inspectable(category="General")]
     [PercentProxy("percentWidth")]
     /**
      *  The width of the container, in pixels. 
@@ -299,6 +301,8 @@ public class GroupBase extends UIComponent implements IGraphicElementHost, IView
         return super.width;
     }
     
+    [Bindable("heightChanged")]
+    [Inspectable(category="General")]
     [PercentProxy("percentHeight")]
     /**
      *  The height of the container, in pixels. 
