@@ -16,22 +16,38 @@ import mx.events.FlexEvent;
 
 /**
  *  The Range class holds a value and an allowed range for that 
- *  value, defined by a <code>minimum</code> and <code>maximum</code> properties. 
+ *  value, defined by <code>minimum</code> and <code>maximum</code> properties. 
  *  The <code>value</code> property 
  *  is always constrained to be between the current <code>minimum</code> and
  *  <code>maximum</code>, and the <code>minimum</code>,
  *  and <code>maximum</code> are always constrained
- *  to be in the proper numerical order such that
- *  (minimum &lt;= value &lt;= maximum) is <code>true</code>. 
- *  If <code>snapInterval</code> is not 0, 
- *  then <code>value</code> is also constrained to be a multiple of 
+ *  to be in the proper numerical order, such that
+ *  <code>(minimum &lt;= value &lt;= maximum)</code> is <code>true</code>. 
+ *  If the value of the <code>snapInterval</code> property is not 0, 
+ *  then the <code>value</code> property is also constrained to be a multiple of 
  *  <code>snapInterval</code>.
  * 
  *  <p>Range is a base class for various controls that require range
  *  functionality, including TrackBase and Spinner.</p>
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;Range&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;Range
+ *    <strong>Properties</strong>
+ *    maximum="100"
+ *    minimum="0"
+ *    snapInterval="1"
+ *    stepSize="1"
+ *    value="0"
+ *  /&gt;
+ *  </pre> 
  * 
- *  @see mx.components.baseClasses.TrackBase
- *  @see mx.components.Spinner
+ *  @see spark.components.supportClasses.TrackBase
+ *  @see spark.components.Spinner
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -79,7 +95,7 @@ public class Range extends SkinnableComponent
      *  The maximum valid <code>value</code>.
      * 
      *  <p>Changes to the value property are constrained
-     *  by commitProperties() to be less than or equal to
+     *  by <code>commitProperties()</code> to be less than or equal to
      *  maximum with the nearestValidValue() method.</p> 
      *
      *  @default 100
@@ -118,7 +134,7 @@ public class Range extends SkinnableComponent
      *  The minimum valid <code>value</code>.
      * 
      *  <p>Changes to the value property are constrained
-     *  by commitProperties() to be greater than or equal to
+     *  by <code>commitProperties()</code> to be greater than or equal to
      *  minimum with the nearestValidValue() method.</p> 
      *
      *  @default 0
@@ -156,11 +172,11 @@ public class Range extends SkinnableComponent
     /**
      *  The amount that the <code>value</code> property 
      *  changes when the <code>changeValueByStep()</code> method is called. It must
-     *  be a multiple of <code>snapInterval</code> unless 
+     *  be a multiple of <code>snapInterval</code>, unless 
      *  <code>snapInterval</code> is 0. 
      *  If <code>stepSize</code>
      *  is not a multiple, it is rounded to the nearest 
-     *  multiple &gt;= <code>snapInterval</code>.
+     *  multiple that is greater than or equal to <code>snapInterval</code>.
      *
      *  @default 1
      *  
@@ -199,9 +215,9 @@ public class Range extends SkinnableComponent
      *  The current value for this range.
      *  
      *  <p>Changes to the value property are constrained
-     *  by commitProperties() to be greater than or equal to
-     *  minimum, less than or equal to the maximum, and a
-     *  multiple of snapInterval with the nearestValidValue() 
+     *  by <code>commitProperties()</code> to be greater than or equal to
+     *  the <code>minimum</code> property, less than or equal to the <code>maximum</code> property, and a
+     *  multiple of <code>snapInterval</code> with the <code>nearestValidValue()</code>
      *  method.</p> 
      * 
      *  @default 0
@@ -245,7 +261,7 @@ public class Range extends SkinnableComponent
     private var snapIntervalChanged:Boolean = false;
 
     /**
-     *  If non-zero, valid values must be an integer multiple of this property,
+     *  If nonzero, valid values must be an integer multiple of this property,
      *  or equal to the minimum or the maximum.
      *  
      *  <p>If the value of this property is zero, then valid values are only constrained
@@ -346,26 +362,28 @@ public class Range extends SkinnableComponent
     }
     
     /**
-     *  Returns the integer multiple of interval that's closest to value, unless
-     *  value is closer to either the minimum or the maximum limit, in which
+     *  Returns the integer multiple of <code>interval</code> that's closest to <code>value</code>, unless
+     *  <code>value</code> is closer to either the minimum or the maximum limit, in which
      *  case the corresponding limit is returned.
      * 
-     *  <p>If interval=0 then the value is just clipped to the minimum, maximum 
+     *  <p>If <code>interval</code> is equal to 0, the value is clipped to the minimum and maximum 
      *  limits.</p>
      * 
-     *  <p>The valid values for a range are minimum, maximum, and the multiples
-     *  of interval in between. 
+     *  <p>The valid values for a range are defined by the <code>minimum</code> and <code>maximum</code>
+     *  properties and the multiples of the <code>interval</code> in between. 
      * 
-     *  The minimum and maximum need not be a multiple of snapInterval.</p>
+     *  The minimum and maximum values need not be a multiple of <code>snapInterval</code>.</p>
      * 
-     *  <p>For example if minimum=1, maximum=5, and snapInterval=2, the valid
+     *  <p>For example, if <code>minimum</code> is equal to 1, <code>maximum</code> is equal to 5,
+     *  and <code>snapInterval</code> is equal to 2, the valid
      *  values for the Range are 1, 2, 4, 5.
      * 
-     *  Similarly, if minimum=2, maximum=8, and snapInterval=1.5, the valid
-     *  values for the Range are 2, 3, 4.5. 6, 7.5, 8.</p>
+     *  Similarly, if <code>minimum</code> is equal to 2, <code>maximum</code> is equal to 8,
+     *  and <code>snapInterval</code> is equal to 1.5, the valid
+     *  values for the Range are 2, 3, 4.5, 6, 7.5, and 8.</p>
      * 
      *  @param value The input value.
-     *  @param interval Must be snapInterval or an integer multiple of snapInterval.
+     *  @param interval The value of snapInterval or an integer multiple of snapInterval.
      *  @return The valid value that's closest to the input.
      *  
      *  @langversion 3.0
@@ -402,9 +420,9 @@ public class Range extends SkinnableComponent
      *  Sets the backing store for the <code>value</code> property and 
      *  dispatches a <code>valueCommit</code> event if the property changes.  
      * 
-     *  <p>All updates to the value property cause a call to this method.</p>
+     *  <p>All updates to the <code>value</code> property cause a call to this method.</p>
      * 
-     *  <p>This method assumes that the caller has already used nearestValidValue() 
+     *  <p>This method assumes that the caller has already used the <code>nearestValidValue()</code> method
      *  to constrain the value parameter</p>
      * 
      *  @param value The new value of the <code>value</code> property.
@@ -427,9 +445,9 @@ public class Range extends SkinnableComponent
     }
     
     /**
-     *  Increase or decrease <code>value</code> by <code>stepSize</code>.
+     *  Increases or decreases <code>value</code> by <code>stepSize</code>.
      *
-     *  @param increase If true, add stepSize to value, otherwise subtract it.
+     *  @param increase If true, adds <code>stepSize</code> to <code>value</code>, otherwise, subtracts it.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
