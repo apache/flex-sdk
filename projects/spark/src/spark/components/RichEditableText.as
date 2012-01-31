@@ -2043,7 +2043,7 @@ public class TextView extends UIComponent implements IViewport
     private function textFlow_damageHandler(
                         event:DamageEvent):void
     {
-        trace("damageHandler", event.damageStart, event.damageLength);
+        //trace("damageHandler", event.damageStart, event.damageLength);
         
         // The text flow changed.  It could have been either/or content or
         // styles within the flow.
