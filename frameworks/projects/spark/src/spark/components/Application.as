@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
 import flash.display.DisplayObject;
@@ -40,7 +40,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Dispatched after the FxApplication has been initialized,
+ *  Dispatched after the Application has been initialized,
  *  processed by the LayoutManager, and attached to the display list.
  * 
  *  @eventType mx.events.FlexEvent.APPLICATION_COMPLETE
@@ -99,17 +99,17 @@ use namespace mx_internal;
 [ResourceBundle("components")]
 
 /**
- *  Flex defines a default, or FxApplication, container that lets you start
+ *  Flex defines a default, or Application, container that lets you start
  *  adding content to your application without explicitly defining
  *  another container.
  * 
  *  @mxml
  *
- *  <p>The <code>&lt;FxApplication&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;Application&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;FxApplication
+ *  &lt;Application
  *    <strong>Properties</strong>
  *    backgroundColor="white"
  *    colorCorrection="default"
@@ -134,7 +134,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxApplication extends FxContainer 
+public class Application extends SkinnableContainer 
 {
     include "../core/Version.as";
 
@@ -158,7 +158,7 @@ public class FxApplication extends FxContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxApplication()
+    public function Application()
     {
         name = "fxApplication";
 
@@ -197,19 +197,19 @@ public class FxApplication extends FxContainer
     
     /**
      *  @private
-     *  This flag indicates whether the width of the FxApplication instance
+     *  This flag indicates whether the width of the Application instance
      *  can change or has been explicitly set by the developer.
      *  When the stage is resized we use this flag to know whether the
-     *  width of the FxApplication should be modified.
+     *  width of the Application should be modified.
      */
     private var resizeWidth:Boolean = true;
     
     /**
      *  @private
-     *  This flag indicates whether the height of the FxApplication instance
+     *  This flag indicates whether the height of the Application instance
      *  can change or has been explicitly set by the developer.
      *  When the stage is resized we use this flag to know whether the
-     *  height of the FxApplication should be modified.
+     *  height of the Application should be modified.
      */
     private var resizeHeight:Boolean = true;
     
@@ -313,7 +313,7 @@ public class FxApplication extends FxContainer
     //--------------------------------------------------------------------------
 
     // These declarations correspond to the MXML-compile-time attributes
-    // allowed on the <FxApplication> tag. These attributes affect the MXML
+    // allowed on the <Application> tag. These attributes affect the MXML
     // compiler, but they aren't actually used in the runtime framework.
     // The declarations appear here in order to provide metadata about these
     // attributes for FlexBuilder.
@@ -545,14 +545,14 @@ public class FxApplication extends FxContainer
 
     /**
      *  An Object containing name-value
-     *  pairs representing the parameters provided to this FxApplication.
+     *  pairs representing the parameters provided to this Application.
      *
      *  <p>You can use a for-in loop to extract all the names and values
      *  from the parameters Object.</p>
      *
      *  <p>There are two sources of parameters: the query string of the
-     *  FxApplication's URL, and the value of the FlashVars HTML parameter
-     *  (this affects only the main FxApplication).</p>
+     *  Application's URL, and the value of the FlashVars HTML parameter
+     *  (this affects only the main Application).</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -576,7 +576,7 @@ public class FxApplication extends FxContainer
     mx_internal var _url:String;
 
     /**
-     *  The URL from which this FxApplication's SWF file was loaded.
+     *  The URL from which this Application's SWF file was loaded.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -608,9 +608,9 @@ public class FxApplication extends FxContainer
      *  using MXML, not using ActionScript, as the following example shows:</p>
      *
      *  <pre>
-     *    &lt;FxApplication viewSourceURL="http://path/to/source"&gt;
+     *    &lt;Application viewSourceURL="http://path/to/source"&gt;
      *      ...
-     *    &lt;/FxApplication&gt;</pre>
+     *    &lt;/Application&gt;</pre>
      *
      *  
      *  @langversion 3.0
