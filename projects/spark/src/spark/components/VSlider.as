@@ -28,8 +28,28 @@ import spark.components.supportClasses.Slider;
 [DefaultTriggerEvent("change")]
 
 /**
- *  The VSlider class defines a vertical slider component.
+ *  The VSlider (vertical slider) control lets users select a value
+ *  by moving a slider thumb between the end points of the slider track.
+ *  The slider track stretches from bottom to top. The current value of 
+ *  the slider is determined by the relative location of the thumb between
+ *  the end points of the slider, corresponding to the slider's minimum and maximum values.
+ * 
+ *  <p>The slider can allow a continuous range of values between its minimum and maximum values, 
+ *  or it can be restricted to values at concrete intervals between the minimum and maximum value. 
+ *  It can use a data tip to display its current value.</p>
  *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;VSlider&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds no tag attributes:</p>
+ *  <pre>
+ *  &lt;VSlider/&gt;
+ *  </pre>
+ *
+ *  @see spark.skins.spark.VSliderSkin
+ *  @see spark.skins.spark.VSliderThumbSkin
+ *  @see spark.skins.spark.VSliderTrackSkin
+ * 
  *  @includeExample examples/VSliderExample.mxml
  *  
  *  @langversion 3.0
