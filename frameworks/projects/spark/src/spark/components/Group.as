@@ -79,6 +79,9 @@ use namespace mx_internal;
 [Exclude(name="setChildIndex", kind="method")]
 [Exclude(name="swapChildren", kind="method")]
 [Exclude(name="swapChildrenAt", kind="method")]
+[Exclude(name="numChildren", kind="property")]
+[Exclude(name="getChildAt", kind="method")]
+[Exclude(name="getChildIndex", kind="method")]
 
 //--------------------------------------
 //  Other metadata
