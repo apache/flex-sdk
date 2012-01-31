@@ -16,6 +16,7 @@ import flash.geom.Point;
 
 import mx.core.EventPriority;
 import mx.core.IInvalidating;
+import mx.core.InteractionMode;
 import mx.core.mx_internal;
 import mx.events.FlexMouseEvent;
 import mx.events.PropertyChangeEvent;
@@ -158,7 +159,21 @@ public class HScrollBar extends ScrollBarBase
         // updated yet.  Making the maximum==hsp here avoids trouble later
         // when Range constrains value
         var cWidth:Number = viewport.contentWidth;
-        maximum = (cWidth == 0) ? hsp : cWidth - viewportWidth;
+
+        if (getStyle("interactionMode") == InteractionMode.TOUCH)
+        {
+            // For mobile, we allow the min/max to extend a little beyond the ends so
+            // we can support bounce/pull kinetic effects.
+            minimum = -viewportWidth;
+            maximum = (cWidth == 0) ? hsp + viewportWidth : cWidth;
+        }
+        else
+        {
+            minimum = 0;
+            maximum = (cWidth == 0) ? hsp : cWidth - viewportWidth;
+        }
+        
+        
         pageSize = viewportWidth;
     }
     
@@ -231,15 +246,33 @@ public class HScrollBar extends ScrollBarBase
             return;
         
         var trackSize:Number = track.getLayoutBoundsWidth();
-        var range:Number = maximum - minimum;
         
+        var min:Number;
+        var max:Number;
+        if (getStyle("interactionMode") == InteractionMode.TOUCH)
+        {
+            // For calculating thumb position/size on mobile, we want to exclude
+            // the extra margin we added to minimum and maximum for bounce/pull. 
+            var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
+
+            min = 0;
+            max = Math.max(0, maximum - viewportWidth);
+        }
+        else
+        {
+            min = minimum;
+            max = maximum;
+        }
+        var range:Number = max - min;
+        
+        var fixedThumbSize:Boolean = !(getStyle("fixedThumbSize") === false); 
         var thumbPos:Point;
         var thumbPosTrackX:Number = 0;
         var thumbPosParentX:Number = 0;
         var thumbSize:Number = trackSize;
         if (range > 0)
         {
-            if (getStyle("fixedThumbSize") === false)
+            if (!fixedThumbSize)
             {
                 thumbSize = Math.min((pageSize / (range + pageSize)) * trackSize, trackSize)
                 thumbSize = Math.max(thumb.minWidth, thumbSize);
@@ -250,10 +283,33 @@ public class HScrollBar extends ScrollBarBase
             }
             
             // calculate new thumb position.
-            thumbPosTrackX = (pendingValue - minimum) * ((trackSize - thumbSize) / range);
+            thumbPosTrackX = (pendingValue - min) * ((trackSize - thumbSize) / range);
+        }
+
+        // Special thumb behavior for bounce/pull.  When the component is positioned
+        // beyond its min/max, we want the scroll thumb to shink in size. 
+        // Note: not checking interactionMode==TOUCH here because it is assumed that
+        // value will never exceed min/max unless in touch mode.
+        if (pendingValue < min)
+        {
+            if (!fixedThumbSize)
+            {
+                // Note:  we use thumb.height here to ensure the thumb doesn't get smaller than square.
+                thumbSize = Math.max(Math.max(thumb.height, thumb.minWidth), thumbSize + pendingValue);
+            }
+            thumbPosTrackX = min;
+        }
+        if (pendingValue > max)
+        {
+            if (!fixedThumbSize)
+            {
+                // Note:  we use thumb.height here to ensure the thumb doesn't get smaller than square.
+                thumbSize = Math.max(Math.max(thumb.height, thumb.minWidth), thumbSize - (pendingValue - max));
+            }
+            thumbPosTrackX = trackSize - thumbSize;
         }
         
-        if (getStyle("fixedThumbSize") === false)
+        if (!fixedThumbSize)
             thumb.setLayoutBoundsSize(thumbSize, NaN);
         if (getStyle("autoThumbVisibility") === true)
             thumb.visible = thumbSize < trackSize;
@@ -438,9 +494,22 @@ public class HScrollBar extends ScrollBarBase
     override mx_internal function viewportContentWidthChangeHandler(event:PropertyChangeEvent):void
     {
         if (viewport)
+            updateMaximumAndPageSize();
+    }
+    
+    /**
+     *  @private 
+     */
+    override public function styleChanged(styleName:String):void
         {
-            var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;        
-            maximum = viewport.contentWidth - viewportWidth;
+        super.styleChanged(styleName);
+        
+        var allStyles:Boolean = !styleName || styleName == "styleName";
+        
+        if (allStyles || styleName == "interactionMode")
+        {
+            if (viewport)
+                updateMaximumAndPageSize();
         }
     }
     
