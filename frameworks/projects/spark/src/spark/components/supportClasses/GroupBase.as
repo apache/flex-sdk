@@ -148,19 +148,10 @@ public class GroupBase extends UIComponent implements IViewport
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function GroupBase(layout:LayoutBase = null)
+    public function GroupBase()
     {
         super();
         tabChildren = true;
-        
-        // our default layout is null.  Otherwise, use the layout 
-        // passed in via the constructor
-        if(layout == null)
-            _layout = new BasicLayout();
-        else
-            _layout = layout;
-        
-    	_layout.target = this;
     }
         
     //--------------------------------------------------------------------------
@@ -193,8 +184,10 @@ public class GroupBase extends UIComponent implements IViewport
     //----------------------------------
     //  layout
     //----------------------------------    
-        
-    private var _layout:LayoutBase;  // initialized in the ctor
+    
+    // layout is initialized in createChildren() if layout 
+    // hasn't been set yet by someone else
+    private var _layout:LayoutBase;
     private var _layoutProperties:Object = null;
     private var layoutInvalidateSizeFlag:Boolean = false;
     private var layoutInvalidateDisplayListFlag:Boolean = false;
@@ -234,18 +227,31 @@ public class GroupBase extends UIComponent implements IViewport
 
         if (value)
         {
-            value.clipAndEnableScrolling = clipAndEnableScrolling;
-            value.verticalScrollPosition = verticalScrollPosition;
-            value.horizontalScrollPosition = horizontalScrollPosition;
-            _layoutProperties = null;
+            if (_layoutProperties)
+            {
+                if (_layoutProperties.clipAndEnableScrolling !== undefined)
+                    value.clipAndEnableScrolling = _layoutProperties.clipAndEnableScrolling;
+                
+                if (_layoutProperties.verticalScrollPosition !== undefined)
+                    value.verticalScrollPosition = _layoutProperties.verticalScrollPosition;
+                
+                if (_layoutProperties.horizontalScrollPosition !== undefined)
+                    value.horizontalScrollPosition = _layoutProperties.horizontalScrollPosition;
+                
+                _layoutProperties = null;
+            }
+            
+            if (_layout)
+                value.clipAndEnableScrolling = _layout.clipAndEnableScrolling;
         }
-        else 
+        else
         {
-            _layoutProperties = {
-                verticalScrollPosition: _layout.verticalScrollPosition,
-                horizontalScrollPosition: _layout.horizontalScrollPosition,
-                clipAndEnableScrolling: _layout.clipAndEnableScrolling 
-            };
+            if (_layout)
+            {
+                // when the layout changes, we don't want to transfer over 
+                // horizontalScrollPosition and verticalScrollPosition
+                _layoutProperties = {clipAndEnableScrolling: _layout.clipAndEnableScrolling};
+            }
         }
 
         if (_layout)
@@ -274,9 +280,19 @@ public class GroupBase extends UIComponent implements IViewport
      */
     public function get horizontalScrollPosition():Number 
     {
-        return (_layout) 
-            ? _layout.horizontalScrollPosition 
-            : _layoutProperties.horizontalScrollPosition;
+        if (_layout)
+        {
+            return _layout.horizontalScrollPosition;
+        }
+        else if (_layoutProperties && 
+                _layoutProperties.horizontalScrollPosition !== undefined)
+        {
+            return _layoutProperties.horizontalScrollPosition;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     /**
@@ -285,9 +301,17 @@ public class GroupBase extends UIComponent implements IViewport
     public function set horizontalScrollPosition(value:Number):void 
     {
         if (_layout)
+        {
             _layout.horizontalScrollPosition = value;
-        else
+        }
+        else if (_layoutProperties)
+        {
             _layoutProperties.horizontalScrollPosition = value;
+        }
+        else
+        {
+            _layoutProperties = {horizontalScrollPosition: value};
+        }
     }
     
     //----------------------------------
@@ -306,9 +330,19 @@ public class GroupBase extends UIComponent implements IViewport
      */
     public function get verticalScrollPosition():Number 
     {
-        return (_layout) 
-            ? _layout.verticalScrollPosition 
-            : _layoutProperties.verticalScrollPosition;
+        if (_layout)
+        {
+            return _layout.verticalScrollPosition;
+        }
+        else if (_layoutProperties && 
+                _layoutProperties.verticalScrollPosition !== undefined)
+        {
+            return _layoutProperties.verticalScrollPosition;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     /**
@@ -317,9 +351,17 @@ public class GroupBase extends UIComponent implements IViewport
     public function set verticalScrollPosition(value:Number):void 
     {
         if (_layout)
+        {
             _layout.verticalScrollPosition = value;
-        else
+        }
+        else if (_layoutProperties)
+        {
             _layoutProperties.verticalScrollPosition = value;
+        }
+        else
+        {
+            _layoutProperties = {verticalScrollPosition: value};
+        }
     }
     
     //----------------------------------
@@ -336,7 +378,19 @@ public class GroupBase extends UIComponent implements IViewport
      */
     public function get clipAndEnableScrolling():Boolean 
     {
-        return (_layout) ? _layout.clipAndEnableScrolling : _layoutProperties.clipAndEnableScrolling;
+        if (_layout)
+        {
+            return _layout.clipAndEnableScrolling;
+        }
+        else if (_layoutProperties && 
+                _layoutProperties.clipAndEnableScrolling !== undefined)
+        {
+            return _layoutProperties.clipAndEnableScrolling;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**
@@ -345,9 +399,17 @@ public class GroupBase extends UIComponent implements IViewport
     public function set clipAndEnableScrolling(value:Boolean):void 
     {
         if (_layout)
+        {
             _layout.clipAndEnableScrolling = value;
-        else
+        }
+        else if (_layoutProperties)
+        {
             _layoutProperties.clipAndEnableScrolling = value;
+        }
+        else
+        {
+            _layoutProperties = {clipAndEnableScrolling: value};
+        }
 
         // clipAndEnableScrolling affects measured minimum size
         invalidateSize();
@@ -731,6 +793,21 @@ public class GroupBase extends UIComponent implements IViewport
     mx_internal function $invalidateDisplayList():void
     {
         super.invalidateDisplayList();
+    }
+	
+    /**
+     *  @inheritDoc
+     *  
+     *  <p>If the layout object has not been set yet, 
+     *  createChildren() assigns this container a 
+     *  default layout object, BasicLayout.</p>
+     */ 
+    override protected function createChildren():void
+    {
+        super.createChildren();
+        
+        if (!layout)
+            layout = new BasicLayout();
     }
     
     /**
