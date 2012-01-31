@@ -256,7 +256,8 @@ public class TextBase extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-        validateBaselinePosition();
+        if (!validateBaselinePosition())
+            return NaN;
         
         // Return the baseline of the first line of composed text.
         return textLines.length > 0 ? textLines[0].y : 0;
