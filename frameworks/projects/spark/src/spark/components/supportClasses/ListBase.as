@@ -875,7 +875,7 @@ public class ListBase extends SkinnableDataContainer
         
         var index:int
         if (renderer is IItemRenderer)
-            index = IItemRenderer(renderer).index;
+            index = IItemRenderer(renderer).itemIndex;
         else
             index = dataGroup.getElementIndex(renderer);
         
