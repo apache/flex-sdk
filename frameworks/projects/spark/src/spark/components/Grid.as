@@ -181,7 +181,7 @@ use namespace mx_internal;
  *  row index and column index properties, such as 
  *  <code>hoverRowIndex</code> and <code>columnRowIndex</code>.   
  *  An indicator can be any visual element.  
- *  Indicators that implement IGridElement can configure themselves 
+ *  Indicators that implement IGridVisualElement can configure themselves 
  *  according to the row and column in which they are used.</p>
  * 
  *  <p>The Grid control supports smooth scrolling.  
