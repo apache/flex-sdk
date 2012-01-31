@@ -9,14 +9,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 import flash.events.MouseEvent;
 
-import flex.core.DataGroup;
-import flex.core.MXMLComponent;
-import flex.layout.HorizontalLayout;
-import flex.layout.VerticalLayout;
+import mx.components.DataGroup;
+import mx.components.MXMLComponent;
+import mx.layout.HorizontalLayout;
+import mx.layout.VerticalLayout;
 
 /**
  *  The ItemRenderer class is the base class for List item renderers.
