@@ -24,6 +24,11 @@ use namespace mx_internal;
  * The event that indicates an RPC operation, such as a WebService SOAP request,
  * returned a header in the response. A new header event is dispatched for each
  * service header.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class HeaderEvent extends AbstractEvent
 {
@@ -51,6 +56,11 @@ public class HeaderEvent extends AbstractEvent
     *       Object listening for the event.</td></tr>
     *  </table>
     *  @eventType header 
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public static const HEADER:String = "header";
 
@@ -65,6 +75,11 @@ public class HeaderEvent extends AbstractEvent
      * @param header Object that holds the header of the call.
      * @param token AsyncToken that represents the call to the method. Used in the asynchronous completion token pattern.
      * @param message Source Message of the header.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function HeaderEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = true,
             header:Object = null, token:AsyncToken = null, message:IMessage = null)
@@ -76,6 +91,11 @@ public class HeaderEvent extends AbstractEvent
 
     /**
      * Header that the RPC call returned in the response.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get header():Object
     {
@@ -90,6 +110,11 @@ public class HeaderEvent extends AbstractEvent
      * @param message Source Message header.
      *
      * @return Returns a new HeaderEvent that doesn't bubble and is cancelable.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function createEvent(header:Object, token:AsyncToken, message:IMessage):HeaderEvent
     {
@@ -108,6 +133,11 @@ public class HeaderEvent extends AbstractEvent
      * Returns a string representation of the HeaderEvent.
      *
      * @return String representation of the HeaderEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function toString():String
     {
