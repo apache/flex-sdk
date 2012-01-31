@@ -333,9 +333,7 @@ public class TextGraphic extends TextGraphicElement
             mx_internal::_text = null;
             textChanged = false;
 
-            var oldValue:Object = _content;
             _content = value;
-            dispatchPropertyChangeEvent("content", oldValue, value);
 
             invalidateTextLines("content");
             invalidateSize();
