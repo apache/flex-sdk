@@ -604,6 +604,9 @@ public class RadioButton extends Button implements IFocusManagerGroup
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
+    	if (!enabled)
+    		return;
+    		
         switch (event.keyCode)
         {
             case Keyboard.DOWN:
