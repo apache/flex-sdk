@@ -537,55 +537,7 @@ public class GroupBase extends UIComponent implements IViewport
     /**
      *  @private
      */
-    override protected function commitProperties():void
-    {
-        super.commitProperties();
-                
-        if (maskChanged)
-        {
-            maskChanged = false;
-            if (_mask)
-            {
-            	maskTypeChanged = true;
-            
-	            if (!_mask.parent)
-            {
-            	// TODO!!! This needs to be a sibling because alpha
-                super.addChild(_mask);
-                var maskComp:UIComponent = _mask as UIComponent;
-                if (maskComp)
-                {
-	                	maskComp.validateProperties();
-                    maskComp.validateSize();
-                    maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
-                                           maskComp.getExplicitOrMeasuredHeight());
-                }
-            }
-        }
-        }
-        
-        if (maskTypeChanged)    
-        {
-            maskTypeChanged = false;
-            
-            if (_mask)
-            {
-                if (_maskType == MaskType.CLIP)
-                {
-                    // Turn off caching on mask
-                    _mask.cacheAsBitmap = false;
-                    // Save the original filters and clear the filters property
-                    originalMaskFilters = _mask.filters;
-                    _mask.filters = []; 
-                }
-                else if (_maskType == MaskType.ALPHA)
-                {
-                    _mask.cacheAsBitmap = true;
-                    cacheAsBitmap = true;
-                }
-            }
-        }        
-    }
+
     
     /**
      *  If virtualLayout is true and the layout supports
@@ -699,6 +651,51 @@ public class GroupBase extends UIComponent implements IViewport
         }  
         
         super.updateDisplayList(unscaledWidth, unscaledHeight);
+
+		if (maskChanged)
+        {
+            maskChanged = false;
+            if (_mask)
+            {
+            	maskTypeChanged = true;
+            
+		        if (!_mask.parent)
+	            {
+	            	// TODO!!! This needs to be a sibling because alpha
+	                super.addChild(_mask);
+	                var maskComp:UIComponent = _mask as UIComponent;
+	                if (maskComp)
+	                {
+		                maskComp.validateProperties();
+	                    maskComp.validateSize();
+	                    maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
+	                                           maskComp.getExplicitOrMeasuredHeight());
+	                }
+	            }
+	        }
+        }
+        
+        if (maskTypeChanged)    
+        {
+            maskTypeChanged = false;
+            
+            if (_mask)
+            {
+                if (_maskType == MaskType.CLIP)
+                {
+                    // Turn off caching on mask
+                    _mask.cacheAsBitmap = false; 
+                    // Save the original filters and clear the filters property
+                    originalMaskFilters = _mask.filters;
+                    _mask.filters = []; 
+                }
+                else if (_maskType == MaskType.ALPHA)
+                {
+                    _mask.cacheAsBitmap = true;
+                    cacheAsBitmap = true;
+                }
+            }
+        }       
 
         if (layoutInvalidateDisplayListFlag)
         {
@@ -932,7 +929,7 @@ public class GroupBase extends UIComponent implements IViewport
         {
             _mask = value;
             maskChanged = true;
-            invalidateProperties();            
+            invalidateDisplayList();            
         }
         super.mask = value;         
     } 
@@ -967,7 +964,7 @@ public class GroupBase extends UIComponent implements IViewport
         {
             _maskType = value;
             maskTypeChanged = true;
-            invalidateProperties();
+            invalidateDisplayList(); 
         }
     }
 
@@ -978,7 +975,6 @@ public class GroupBase extends UIComponent implements IViewport
      */
     mx_internal function graphicElementChanged(e:IGraphicElement):void
     {
-        // TODO!!! Optimize
         // Call super, so that we don't invalidate the layout
         super.invalidateDisplayList();
     }
@@ -990,7 +986,6 @@ public class GroupBase extends UIComponent implements IViewport
      */
     mx_internal function graphicElementSizeChanged(e:IGraphicElement):void
     {
-        // TODO!!! Optimize
         // Call super so that we don't invalidate the layout
         super.invalidateSize();
     }
@@ -1002,8 +997,6 @@ public class GroupBase extends UIComponent implements IViewport
      */
     mx_internal function graphicElementLayerChanged(e:IGraphicElement):void
     {
-        // TODO!!! Optimize
-        // TODO!!! Need to recalculate the elements
         // Call super, so that we don't invalidate the layout
         super.invalidateDisplayList();
     }
