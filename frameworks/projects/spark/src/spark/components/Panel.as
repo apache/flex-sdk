@@ -9,24 +9,24 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
-import mx.graphics.baseClasses.TextGraphicElement;
+import spark.primitives.supportClasses.TextGraphicElement;
 
-[IconFile("FxPanel.png")]
+[IconFile("Panel.png")]
 
 /**
- *  The FxPanel class is container whose skin usually contains a title
+ *  The Panel class is container whose skin usually contains a title
  *
- *  @see FxContainer
+ *  @see SkinnableContainer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxPanel extends FxContainer 
+public class Panel extends SkinnableContainer
 {
     include "../core/Version.as";
 
@@ -44,7 +44,7 @@ public class FxPanel extends FxContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxPanel()
+    public function Panel()
     {
         super();
     }
