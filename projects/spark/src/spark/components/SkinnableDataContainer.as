@@ -21,16 +21,6 @@ import mx.collections.IList;
 import mx.core.IFactory;
 import mx.managers.IFocusManagerContainer;
 
-/**
- *  Dispatched prior to the dataProvider being changed.
- */
-[Event(name="dataProviderChanging", type="flex.events.FlexEvent")]
-
-/**
- *  Dispatched after the dataProvider has changed.
- */
-[Event(name="dataProviderChanged", type="flex.events.FlexEvent")]
-
 [DefaultProperty("dataProvider")]
 
 /**
@@ -83,7 +73,7 @@ public class DataComponent extends ContainerBase
 	//  content
 	//----------------------------------	
 	
-	private var _dataProvider:*;
+	private var _dataProvider:IList;
 	
 	/**
 	 *  @copy flex.core.DataGroup#dataProvider
@@ -205,7 +195,7 @@ public class DataComponent extends ContainerBase
 	{
 		if (instance == dataGroup)
 		{
-			if (_dataProvider != undefined)
+			if (_dataProvider != null)
 			{
 				dataGroup.dataProvider = _dataProvider;
 			}
@@ -216,45 +206,7 @@ public class DataComponent extends ContainerBase
 				dataGroup.itemRenderer = _itemRenderer;
 				dataGroup.itemRendererFunction = _itemRendererFunction;
 			}
-
-			dataGroup.addEventListener(
-			    FlexEvent.DATA_PROVIDER_CHANGING, dataGroup_dataProviderChangingHandler);
-			dataGroup.addEventListener(
-			    FlexEvent.DATA_PROVIDER_CHANGED, dataGroup_dataProviderChangedHandler);
 		}
-	}
-
-	/**
-	 *  Called when a skin part is removed.
-	 */
-	override protected function partRemoved(partName:String, instance:Object):void
-	{
-		if (instance == dataGroup)
-		{
-			dataGroup.removeEventListener(
-			    FlexEvent.DATA_PROVIDER_CHANGING, dataGroup_dataProviderChangingHandler);
-			dataGroup.removeEventListener(
-			    FlexEvent.DATA_PROVIDER_CHANGED, dataGroup_dataProviderChangedHandler);
-		}
-	}
-		
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Event Handlers
-	//
-	//--------------------------------------------------------------------------
-	
-	private function dataGroup_dataProviderChangingHandler(event:FlexEvent):void
-	{
-		// Re-dispatch the event
-		dispatchEvent(event);
-	}
-	
-	private function dataGroup_dataProviderChangedHandler(event:FlexEvent):void
-	{
-		// Re-dispatch the event
-		dispatchEvent(event);
 	}
 }
 
