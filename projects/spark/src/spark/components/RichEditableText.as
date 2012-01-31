@@ -66,10 +66,12 @@ package spark.components
     import flashx.textLayout.tlf_internal;
     import flashx.undo.IUndoManager;
     
+    import mx.core.FlexVersion;
     import mx.core.IFlexModuleFactory;
     import mx.core.IIMESupport;
     import mx.core.ISystemCursorClient;
     import mx.core.UIComponent;
+	import mx.core.UIComponentGlobals;
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
     import mx.managers.IFocusManager;
@@ -787,20 +789,6 @@ package spark.components
         
         /**
          *  @private
-         *  Cache the width constraint as set by the layout in setLayoutBoundsSize()
-         *  so that text reflow can be calculated during a subsequent measure pass.
-         */
-        private var widthConstraint:Number = NaN;
-        
-        /**
-         *  @private
-         *  Cache the height constraint as set by the layout in setLayoutBoundsSize()
-         *  so that text reflow can be calculated during a subsequent measure pass.
-         */
-        private var heightConstraint:Number = NaN;
-        
-        /**
-         *  @private
          *  If the selection was via the selectRange() or selectAll() api, remember
          *  that until the next selection is set, either interactively or via the
          *  API.
@@ -876,7 +864,8 @@ package spark.components
         {
             super.explicitHeight = value;
             
-            heightConstraint = NaN;
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+                setEstimatedSize(estimatedWidth, NaN);
             
             // Because of autoSizing, the size and display might be impacted.
             invalidateSize();
@@ -894,7 +883,8 @@ package spark.components
         {
             super.explicitWidth = value;
             
-            widthConstraint = NaN;
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+                setEstimatedSize(NaN, estimatedHeight);
             
             // Because of autoSizing, the size and display might be impacted.
             invalidateSize();
@@ -924,8 +914,9 @@ package spark.components
         override public function set percentHeight(value:Number):void
         {
             super.percentHeight = value;
-            
-            heightConstraint = NaN;
+                        
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+                setEstimatedSize(estimatedWidth, NaN);
             
             // If we were autoSizing and now we are not we need to remeasure.
             invalidateSize();
@@ -943,7 +934,8 @@ package spark.components
         {
             super.percentWidth = value;
             
-            widthConstraint = NaN;
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+                setEstimatedSize(NaN, estimatedHeight);
             
             // If we were autoSizing and now we are not we need to remeasure.
             invalidateSize();
@@ -1562,7 +1554,8 @@ package spark.components
             _heightInLines = value;
             heightInLinesChanged = true;
             
-            heightConstraint = NaN;
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+                setEstimatedSize(estimatedWidth, NaN);
             
             invalidateProperties();
             invalidateSize();
@@ -2366,7 +2359,8 @@ package spark.components
             _widthInChars = value;
             widthInCharsChanged = true;
             
-            widthConstraint = NaN;
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+                setEstimatedSize(NaN, estimatedHeight);
             
             invalidateProperties();
             invalidateSize();
@@ -2502,10 +2496,8 @@ package spark.components
                 if (displayAsPassword)
                     displayAsPasswordChanged = true;
                 
-                // New text so remove any leftover constraints.
-                // Used if an item renderer is being recycled.
-                widthConstraint = NaN;
-                heightConstraint = NaN;
+                if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+                    setEstimatedSize(NaN, NaN);                
                 
                 textChanged = false;
                 textFlowChanged = false;
@@ -2704,10 +2696,12 @@ package spark.components
                     // Go large.  For performance reasons, want to avoid a scrollRect 
                     // whenever possible in drawBackgroundAndSetScrollRect().  This is
                     // particularly true for 1 line TextInput components.
-                    measuredWidth = !isNaN(explicitWidth) ? explicitWidth :
-                        Math.ceil(calculateWidthInChars());
-                    measuredHeight = !isNaN(explicitHeight) ? explicitHeight :
-                        Math.ceil(calculateHeightInLines());
+                    measuredWidth = !isNaN(estimatedWidth) ? estimatedWidth :
+									!isNaN(explicitWidth) ? explicitWidth :
+                        			Math.ceil(calculateWidthInChars());
+                    measuredHeight = !isNaN(estimatedHeight) ? estimatedHeight : 
+									!isNaN(explicitHeight) ? explicitHeight :
+                        			Math.ceil(calculateHeightInLines());
                 }
             }
             else
@@ -2722,16 +2716,16 @@ package spark.components
                 // compositionHeight is NaN to allow the text to grow.          
                 autoSize = true;
                 
-                if (!isNaN(widthConstraint) || !isNaN(explicitWidth) || 
+                if (!isNaN(estimatedWidth) || !isNaN(explicitWidth) || 
                     !isNaN(widthInChars))
                 {
                     // width specified but no height
                     // if no text, start at one line high and grow
                     
-                    if (!isNaN(widthConstraint))
-                        composeWidth = widthConstraint;
-                    else if (!isNaN(explicitWidth))                    
-                        composeWidth = explicitWidth;
+                    if (!isNaN(estimatedWidth))
+                        composeWidth = estimatedWidth;
+					else if (!isNaN(explicitWidth))                    
+						composeWidth = explicitWidth;
                     else
                         composeWidth = Math.ceil(calculateWidthInChars());
                     
@@ -2748,15 +2742,15 @@ package spark.components
                         measuredWidth = Math.ceil(bounds.width); 
                     measuredHeight = Math.ceil(bounds.bottom);
                 }
-                else if (!isNaN(heightConstraint) || !isNaN(explicitHeight) || 
+                else if (!isNaN(estimatedHeight) || !isNaN(explicitHeight) || 
                     !isNaN(_heightInLines))
                 {
                     // if no text, 1 char wide with specified height and grow
                     
-                    if (!isNaN(heightConstraint))
-                        composeHeight = heightConstraint;
-                    else if (!isNaN(explicitHeight))
-                        composeHeight = explicitHeight;
+                    if (!isNaN(estimatedHeight))
+                        composeHeight = estimatedHeight;
+					else if (!isNaN(explicitHeight))
+						composeHeight = explicitHeight;
                     else
                         composeHeight = calculateHeightInLines();
                     
@@ -2902,8 +2896,8 @@ package spark.components
          *  width and height are NaN unless there are constraints on them.
          */
         override public function setLayoutBoundsSize(
-                                    width:Number, height:Number,
-                                    postLayoutTransform:Boolean = true):void
+            width:Number, height:Number,
+            postLayoutTransform:Boolean = true):void
         {
             //trace("setLayoutBoundsSize", width, height);
             
@@ -2912,46 +2906,84 @@ package spark.components
             // between a measured width/height that is the same as the
             // constrained width/height to know whether that dimension can
             // be sized or must be fixed at the constrained value.                
-            heightConstraint = height;
-
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+                setEstimatedSize(estimatedWidth, height);
+			
+			if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+			{
+				var newEstimates:Boolean = false;
+				var cw:Number = estimatedWidth;
+				var ch:Number = estimatedHeight;
+				var oldcw:Number = cw;
+				var oldch:Number = ch;
+				// we got lied to, probably the constraints weren't accurate or
+				// couldn't be computed
+				if (!isNaN(width))
+				{
+					if (isNaN(estimatedWidth) || width != estimatedWidth)
+					{
+						cw = width;
+						newEstimates = true;
+					}
+				}
+				// we got lied to, probably the constraints weren't accurate or
+				// couldn't be computed
+				if (!isNaN(height))
+				{
+					if (isNaN(estimatedHeight) || height != estimatedHeight)
+					{
+						ch = height;
+						newEstimates = true;
+					}
+				}
+				if (newEstimates)
+				{
+					setEstimatedSize(cw, ch);
+					UIComponentGlobals.layoutManager.validateClient(this, true);
+					setEstimatedSize(oldcw, oldch, false);
+				}
+			}
+            
             super.setLayoutBoundsSize(width, height, postLayoutTransform);
-
-            // Did we already constrain the width?
-            if (widthConstraint == width)
-                return;
             
-            // No reflow for explicit lineBreak
-            if (getStyle("lineBreak") == "explicit")
-                return;
-            
-            // If we don't measure.
-            // Call super so we don't call the override
-            // and set autoSize to false;
-            if (super.canSkipMeasurement())
-                return;
-            
-            if (!isNaN(explicitHeight))
-                return;
-            
-            // We support reflow only in the case of constrained width and
-            // unconstrained height. Note that we compare with measuredWidth,
-            // as for example the RichEditableText can be
-            // constrained by the layout with "left" and "right", but the
-            // container width itself may not be constrained and it would depend
-            // on the element's measuredWidth.
-            var constrainedWidth:Boolean = !isNaN(width) && (width != measuredWidth) && (width != 0); 
-            if (!constrainedWidth)
-                return;
-            
-            // We support reflow only when we don't have a transform.
-            // We could add support for scale, but not skew or rotation.
-            if (postLayoutTransform && hasComplexLayoutMatrix)
-                return;
-            
-            widthConstraint = width;
-
-            invalidateSize();
-            
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+            {
+                // Did we already constrain the width?
+                if (estimatedWidth == width)
+                    return;
+                
+                // No reflow for explicit lineBreak
+                if (getStyle("lineBreak") == "explicit")
+                    return;
+                
+                // If we don't measure.
+                // Call super so we don't call the override
+                // and set autoSize to false;
+                if (super.canSkipMeasurement())
+                    return;
+                
+                if (!isNaN(explicitHeight))
+                    return;
+                
+                // We support reflow only in the case of constrained width and
+                // unconstrained height. Note that we compare with measuredWidth,
+                // as for example the RichEditableText can be
+                // constrained by the layout with "left" and "right", but the
+                // container width itself may not be constrained and it would depend
+                // on the element's measuredWidth.
+                var constrainedWidth:Boolean = !isNaN(width) && (width != measuredWidth) && (width != 0); 
+                if (!constrainedWidth)
+                    return;
+                
+                // We support reflow only when we don't have a transform.
+                // We could add support for scale, but not skew or rotation.
+                if (postLayoutTransform && hasComplexLayoutMatrix)
+                    return;
+                
+                setEstimatedSize(width, estimatedHeight);
+                
+                invalidateSize();
+            }            
         }
         
         /**
@@ -3054,6 +3086,39 @@ package spark.components
             }
             
             super.drawFocus(isFocused);
+        }
+        
+        /**
+         *  @inheritDoc
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10.2
+         *  @playerversion AIR 2.0
+         *  @productversion Flex 4.5
+         */
+        override public function setEstimatedSize(estimatedWidth:Number = NaN, 
+                                                  estimatedHeight:Number = NaN,
+                                                  invalidateSizeAllowed:Boolean = true):void
+        {
+            var oldcw:Number = this.estimatedWidth;
+            var oldch:Number = this.estimatedHeight;
+            super.setEstimatedSize(estimatedWidth, estimatedHeight, invalidateSizeAllowed);
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+            {
+				var sameWidth:Boolean = isNaN(estimatedWidth) && isNaN(oldcw) || estimatedWidth == oldcw;
+				var sameHeight:Boolean = isNaN(estimatedHeight) && isNaN(oldch) || estimatedHeight == oldch;
+				if (!(sameHeight && sameWidth))
+                {
+                    if (typicalText) return;
+                    
+                    if ((!isNaN(explicitWidth) || !isNaN(widthInChars)) &&
+                        (!isNaN(explicitHeight) || !isNaN(heightInLines)))
+                        return;
+         
+					if (invalidateSizeAllowed)
+                    	invalidateSize();
+                }
+            }            
         }
         
         //--------------------------------------------------------------------------
@@ -3635,9 +3700,9 @@ package spark.components
             
             // Is there some sort of width and some sort of height?
             return  (!isNaN(explicitWidth) || !isNaN(_widthInChars) ||
-                !isNaN(widthConstraint)) &&
+                !isNaN(estimatedWidth)) &&
                     (!isNaN(explicitHeight) || !isNaN(_heightInLines) ||
-                        !isNaN(heightConstraint));
+                        !isNaN(estimatedHeight));
         }
         
         /**
@@ -3757,12 +3822,12 @@ package spark.components
             if (typicalText != null)
                 return false;
             
-            if (!isNaN(widthConstraint))
+            if (!isNaN(estimatedWidth))
             {
                 // Do we have a constrained width and an explicit height?
                 // If so, the sizes are set so no need to remeasure now.
                 if (!isNaN(explicitHeight) || !isNaN(_heightInLines) ||
-                    !isNaN(heightConstraint))
+                    !isNaN(estimatedHeight))
                 {
                     return false;
                 }
@@ -3772,7 +3837,7 @@ package spark.components
                     return false;
             } 
             
-            if (!isNaN(heightConstraint))
+            if (!isNaN(estimatedHeight))
             {        
                 // Do we have a constrained height and an explicit width?
                 // If so, the sizes are set so no need to remeasure now.
