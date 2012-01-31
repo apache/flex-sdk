@@ -71,6 +71,19 @@ public class MXItemRenderer extends ItemRenderer implements IListItemRenderer, I
         focusEnabled = false;
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Flag to help us determine if we need to validate renderer state during
+     *  commitProperties.
+     */
+    private var rendererStateChanged:Boolean;
+    
     //----------------------------------
     //  listData
     //----------------------------------
@@ -164,14 +177,17 @@ public class MXItemRenderer extends ItemRenderer implements IListItemRenderer, I
         if (listData)
         {
             // see if we need to change state.  This is the only invalidation method guaranteed to be
-            // called.  We set up the renderers properties here so no matter what validation method gets
-            // called first, the properties are set up accordingly.
+            // called. 
             var listBase:mx.controls.listClasses.ListBase = mx.controls.listClasses.ListBase(listData.owner);
             if (listBase)
             {
-                showsCaret = listBase.isItemShowingCaret(data);
-                selected = listBase.isItemSelected(data);
-                super.hovered = listBase.isItemHighlighted(data);
+                if (showsCaret != listBase.isItemShowingCaret(data) ||
+                    selected != listBase.isItemSelected(data) ||
+                    super.hovered != listBase.isItemHighlighted(data))
+                {
+                    rendererStateChanged = true;
+                    invalidateProperties();
+                }
             }
         }
 
@@ -205,14 +221,23 @@ public class MXItemRenderer extends ItemRenderer implements IListItemRenderer, I
      */ 
     override protected function commitProperties():void
     {
+        // make sure itemIndex is correct before the base class does any computation
+        // based on it
         if (listData)
         {
-            // make sure itemIndex is correct before the base class does any computation
-            // based on it
             var listBase:mx.controls.listClasses.ListBase = mx.controls.listClasses.ListBase(listData.owner);
             itemIndex = listData.rowIndex + listBase.verticalScrollPosition;
         }
-
+        
+        // Validate renderer state prior to super.commitProperties.
+        if (rendererStateChanged && listBase)
+        {
+            rendererStateChanged = false;
+            showsCaret = listBase.isItemShowingCaret(data);
+            selected = listBase.isItemSelected(data);
+            super.hovered = listBase.isItemHighlighted(data);
+        }
+    
         super.commitProperties();
     }
 
