@@ -30,6 +30,8 @@ import mx.core.mx_internal;
 import spark.primitives.RichEditableText;
 import spark.components.TextSelectionVisibility;
 
+use namespace mx_internal;
+
 /**
  *  
  *  @langversion 3.0
@@ -143,13 +145,13 @@ public class RichEditableTextContainerManager extends TextContainerManager
      */
     override protected function getUndoManager():IUndoManager
     {
-        if (!textView.mx_internal::undoManager)
+        if (!textView.undoManager)
         {
-            textView.mx_internal::undoManager = new UndoManager();
-            textView.mx_internal::undoManager.undoAndRedoItemLimit = int.MAX_VALUE;
+            textView.undoManager = new UndoManager();
+            textView.undoManager.undoAndRedoItemLimit = int.MAX_VALUE;
         }
             
-        return textView.mx_internal::undoManager;
+        return textView.undoManager;
     }
     
     /**
@@ -209,7 +211,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
      */
     override public function focusInHandler(event:FocusEvent):void
     {
-        textView.mx_internal::focusInHandler(event);
+        textView.focusInHandler(event);
 
         super.focusInHandler(event);
     }    
