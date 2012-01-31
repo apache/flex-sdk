@@ -30,6 +30,11 @@ use namespace mx_internal;
 
 /**
  *  Defines the appearance of the default border for the Halo theme.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class HaloBorder extends RectangularBorder
 {
@@ -65,6 +70,11 @@ public class HaloBorder extends RectangularBorder
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function HaloBorder() 
 	{
@@ -763,6 +773,11 @@ public class HaloBorder extends RectangularBorder
 		var c4:Number = 0xC4CCCC;
 		var c5:Number = 0xEEEEEE;
 		var c6:Number = 0xD5DDDD;
+		*  
+		*  @langversion 3.0
+		*  @playerversion Flash 9
+		*  @playerversion AIR 1.1
+		*  @productversion Flex 3
 		*/
 
 		drawDropShadow(0, 0, width, height, 0, 0, 0, 0);
