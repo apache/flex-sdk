@@ -17,6 +17,11 @@ package mx.events
  *  the <code>clickTarget</code> property of the SliderEvent class.
  *
  *  @see mx.events.SliderEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public final class SliderEventClickTarget
 {
@@ -30,11 +35,21 @@ public final class SliderEventClickTarget
 
 	/**
 	 *  Specifies that the Slider's track was clicked.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const TRACK:String = "track";
 	
 	/**
 	 *  Specifies that the Slider's thumb was clicked.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const THUMB:String = "thumb";
 }
