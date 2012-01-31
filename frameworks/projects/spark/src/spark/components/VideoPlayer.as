@@ -1559,8 +1559,15 @@ public class VideoPlayer extends SkinnableComponent
             if (videoDisplay)
                 updateScrubBar();
             
+            // add thumbPress and thumbRelease so we pause the video while dragging
             scrubBar.addEventListener(TrackBaseEvent.THUMB_PRESS, scrubBar_thumbPressHandler);
             scrubBar.addEventListener(TrackBaseEvent.THUMB_RELEASE, scrubBar_thumbReleaseHandler);
+            
+            // add change to actually seek() when the change is complete
+            scrubBar.addEventListener(Event.CHANGE, scrubBar_changeHandler);
+            
+            // add changeEnd and changeStart so we don't update the scrubbar's value 
+            // while the scrubbar is moving around due to an animation
             scrubBar.addEventListener(FlexEvent.CHANGE_END, scrubBar_changeEndHandler);
             scrubBar.addEventListener(FlexEvent.CHANGE_START, scrubBar_changeStartHandler);
         }
@@ -1706,6 +1713,7 @@ public class VideoPlayer extends SkinnableComponent
         {
             scrubBar.removeEventListener(TrackBaseEvent.THUMB_PRESS, scrubBar_thumbPressHandler);
             scrubBar.removeEventListener(TrackBaseEvent.THUMB_RELEASE, scrubBar_thumbReleaseHandler);
+            scrubBar.removeEventListener(Event.CHANGE, scrubBar_changeHandler);
             scrubBar.removeEventListener(FlexEvent.CHANGE_END, scrubBar_changeEndHandler);
             scrubBar.removeEventListener(FlexEvent.CHANGE_START, scrubBar_changeStartHandler);
         }
@@ -2308,10 +2316,16 @@ public class VideoPlayer extends SkinnableComponent
     /**
      *  @private
      */
-    private function scrubBar_changeEndHandler(event:Event):void
+    private function scrubBar_changeHandler(event:Event):void
     {
         seek(scrubBar.value);
-        
+    }
+    
+    /**
+     *  @private
+     */
+    private function scrubBar_changeEndHandler(event:Event):void
+    {      
         scrubBarChanging = false;
     }
 }
