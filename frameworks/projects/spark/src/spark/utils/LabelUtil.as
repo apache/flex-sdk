@@ -12,6 +12,8 @@
 package spark.utils
 {
 
+import  mx.core.FlexVersion;
+    
 /**
  *  The LabelUtil class is used by components to determine the correct
  *  text to display for their renderers or sub-parts. 
@@ -46,7 +48,9 @@ public class LabelUtil
      * 
      *  @param item The data item. Null items return the empty string. 
      * 
-     *  @param labelField The field in the data item to return.
+     *  @param labelField The field in the data item to return. If labelField is set 
+     *  to an empty string (""), no field will be considered on the data item 
+     *  to represent label.
      * 
      *  @param labelFunction A function that takes the data item 
      *  as a single parameter and returns a String. 
@@ -98,6 +102,10 @@ public class LabelUtil
         if (item is String)
             return String(item);
 
+        // special case for empty labelField
+        if (labelField == "" && FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+            return "";
+        
         try
         {
             if (item !== null)
