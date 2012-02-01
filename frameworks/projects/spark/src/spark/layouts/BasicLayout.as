@@ -248,8 +248,6 @@ public class BasicLayout extends LayoutBase
 
         layoutTarget.measuredMinWidth = minWidth;
         layoutTarget.measuredMinHeight = minHeight;
-
-        layoutTarget.setContentSize(layoutTarget.measuredWidth, layoutTarget.measuredHeight);
     }
 
     /**
