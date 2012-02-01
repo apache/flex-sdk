@@ -128,6 +128,7 @@
 
     <!-- Label -->
     <TextBox id="labelElement"
+             verticalAlign="middle"
              left="18" right="0" top="3" bottom="3" verticalCenter="2" />
 
 </SparkSkin>
