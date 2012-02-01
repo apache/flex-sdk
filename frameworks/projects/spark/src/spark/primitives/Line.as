@@ -13,8 +13,10 @@ package spark.primitives
 {
 
 import flash.display.Graphics;
-import flash.events.EventDispatcher;
+import flash.display.GraphicsStroke;
+import flash.display.IGraphicsData;
 import flash.geom.Rectangle;
+
 import spark.primitives.supportClasses.StrokedElement;
 
 /**
@@ -242,6 +244,24 @@ public class Line extends StrokedElement
         measuredHeight = Math.abs(yFrom - yTo);
         measuredX = Math.min(xFrom, xTo);
         measuredY = Math.min(yFrom, yTo);
+    }
+
+    /**
+     * @private 
+     */
+    override protected function beginDraw(g:Graphics):void
+    {
+        var graphicsStroke:GraphicsStroke = stroke.generateGraphicsStroke(new 
+            Rectangle(drawX + measuredX, drawY + measuredY, 
+            Math.max(width, stroke.weight), Math.max(height, stroke.weight))); 
+        
+        // If the stroke returns a valid graphicsStroke object which is the 
+        // Drawing API-2 drawing commands to render this stroke, use that 
+        // to draw the stroke to screen 
+        if (graphicsStroke)
+            g.drawGraphicsData(new <IGraphicsData>[graphicsStroke]);
+        else 
+            super.beginDraw(g);
     }
 
     /**
