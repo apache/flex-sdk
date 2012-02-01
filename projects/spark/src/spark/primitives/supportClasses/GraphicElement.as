@@ -3551,11 +3551,9 @@ public class GraphicElement extends EventDispatcher
                     // and maskee to displayObject. 
                     if (!_mask.parent)
                     {
-                        MaskUtil.applyMask(_mask, parent);
-                        
-                        // Parent after applying the mask since it won't do
-                        // anything if there is a parent.
                         Sprite(displayObject).addChild(_mask);  
+                        
+                        MaskUtil.applyMask(_mask, parent);
                         
                         if (!_drawnDisplayObject)
                         {
