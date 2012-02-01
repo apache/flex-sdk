@@ -11,8 +11,11 @@
 
 -->
 
-<!--- The default skin class for the Spark ComboBoxButton component. 
-        
+<!--- The default wireframe skin class for the Spark ComboBoxButton component. 
+ 
+     @see spark.components.ComboBox        
+     @see spark.skins.wireframe.ComboBoxSkin
+
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
