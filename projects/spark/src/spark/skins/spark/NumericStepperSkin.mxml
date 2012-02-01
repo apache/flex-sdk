@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009">
+
+    <Metadata>
+        [HostComponent("flex.component.NumericStepper")]
+    </Metadata> 
+
+    <Button id="incrementButton" left="{textInput.width}" 
+            width="12" height="12" skinZZ="flex.skin.SpinnerIncrButtonSkin" />
+    <Button id="decrementButton" left="{textInput.width}" 
+            top="{incrementButton.height}" width="12" height="12" 
+            skinZZ="flex.skin.SpinnerDecrButtonSkin" />
+    <TextInput id="textInput" height="25" text="{hostComponent.value}"
+               skinZZ="flex.skin.TextInputSkin" />
+
+</Skin>
