@@ -18,7 +18,8 @@
       @playerversion AIR 1.5
       @productversion Flex 4
 -->
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:fb="http://ns.adobe.com/fb/2009">
 
     <fx:Metadata>
     <![CDATA[ 
@@ -29,14 +30,14 @@
     ]]>
     </fx:Metadata> 
     
-    <fx:Script>
+    <fx:Script fb:stylingSupport="true">
         /* Define the skin elements that should not be colorized. 
            For spinner buttons, the graphics are colorized but the arrow is not. */
         static private const exclusions:Array = ["arrow"];
 
-    /** 
-     * @copy spark.skins.SparkSkin#colorizeExclusions
-     */     
+        /**
+         * @private
+         */
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
@@ -48,6 +49,15 @@
         override public function get symbolItems():Array {return symbols};
         
         /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useBaseColor = true;
+            super.initializationComplete();
+        }
+        
+        /**
          *  @private
          */
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
@@ -55,13 +65,16 @@
             var cr:Number = getStyle("cornerRadius");
             
             if (cornerRadius != cr)
+            {
                 cornerRadius = cr;
+                fill.topRightRadiusX = cornerRadius;
+                highlight.topRightRadiusX = cornerRadius;
+            }
             
             super.updateDisplayList(unscaledWidth, unscaledHeight);
         }
         
-        [Bindable]
-        public var cornerRadius:Number = 2;
+        private var cornerRadius:Number = 2;
     </fx:Script>
     
     <s:states>
@@ -74,7 +87,7 @@
     <s:Group left="0" top="0" right="0" bottom="0">
         
         <!-- border/fill -->
-        <s:Rect left="0" top="0" right="0" bottom="0" width="18" height="16" topRightRadiusX="{cornerRadius}">
+        <s:Rect id="fill" left="0" top="0" right="0" bottom="0" width="18" height="16" topRightRadiusX="2">
             <s:stroke>
                 <s:SolidColorStroke color="0x686868" weight="1"/>
             </s:stroke>
@@ -91,7 +104,7 @@
         </s:Rect>
         
         <!-- highlight -->
-        <s:Rect left="1" top="1" right="1" bottom="1" topRightRadiusX="{cornerRadius}">
+        <s:Rect id="highlight" left="1" top="1" right="1" bottom="1" topRightRadiusX="2">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
                     <s:GradientEntry color="0xFFFFFF" 
