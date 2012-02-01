@@ -15,9 +15,9 @@ package spark.events
 import flash.events.Event;
 
 /**
- *  Dispatched by <code>SkinnablePopUpContainer</code> to single closing.
+ *  Dispatched by <code>SkinnablePopUpContainer</code> to single opening or closing.
  *  
- *  <p>The event provides a mechanism to pass commit information from the container to
+ *  <p>When closing, this event provides a mechanism to pass commit information to
  *  a listener.  One typical usage scenario is building a multiple-choice dialog with a 
  *  cancel button.  When a valid option is selected, the developer closes the dialog
  *  with a call to the <code>SkinnablePopUpContainer.close()</code> method, passing
@@ -31,7 +31,7 @@ import flash.events.Event;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class PopUpCloseEvent extends Event
+public class PopUpEvent extends Event
 {   
     //--------------------------------------------------------------------------
     //
@@ -40,8 +40,17 @@ public class PopUpCloseEvent extends Event
     //--------------------------------------------------------------------------
     
     /**
-     *
-     *  @eventType popUpClose
+     *  @eventType open
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static const OPEN:String = "open";
+
+    /**
+     *  @eventType close
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -59,17 +68,26 @@ public class PopUpCloseEvent extends Event
     /**
      *  Constructor.
      *
-     *  @param commit Indicates whether the listener should commit the data from the PopUp.
-     *  @param data The PopUp data to commit.
+     *  @param type The event type; indicates the action that caused the event.
+     *
+     *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.
+     *
+     *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
+     * 
+     *  @param commit <p>Indicates whether the listener should commit the data from the PopUp.
+     *  Only used with <code>PopUpEvent.CLOSE</code>.</p>
+     * 
+     *  @param data <p>The PopUp data to commit. Only used with <code>PopUpEvent.CLOSE</code>.</p>
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function PopUpCloseEvent(commit:Boolean = false, data:* = undefined)
+    public function PopUpEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false, 
+                               commit:Boolean = false, data:* = undefined)
     {
-        super(CLOSE);
+        super(type, bubbles, cancelable);
         this.commit = commit;
         this.data = data;
     }
@@ -86,6 +104,7 @@ public class PopUpCloseEvent extends Event
     
     /**
      *  Whether the listener should commit the PopUp data.
+     *  Only used with <code>PopUpEvent.CLOSE</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -100,6 +119,7 @@ public class PopUpCloseEvent extends Event
     
     /**
      *  The PopUp data to commit.
+     *  Only used with <code>PopUpEvent.CLOSE</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -119,7 +139,7 @@ public class PopUpCloseEvent extends Event
      */
     override public function clone():Event
     {
-        return new PopUpCloseEvent(commit, data);
+        return new PopUpEvent(type, bubbles, cancelable, commit, data);
     }
 }
 
