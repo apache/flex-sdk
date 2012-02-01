@@ -11,6 +11,13 @@
 
 -->
 
+<!--- The default skin class for the Spark NumericStepper component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
       minHeight="23" minWidth="40" 
       alpha.disabled="0.5">
@@ -20,8 +27,8 @@
     </fx:Metadata> 
     
     <s:states>
-    	<s:State name="normal" />
-    	<s:State name="disabled" />
+        <s:State name="normal" />
+        <s:State name="disabled" />
     </s:states>
 
     <s:Button id="incrementButton" right="0" top="0" height="50%" 
@@ -29,6 +36,6 @@
     <s:Button id="decrementButton" right="0" bottom="0" height="50%" 
               skinClass="spark.skins.wireframe.SpinnerDecrementButtonSkin" />
     <s:TextInput id="textDisplay" width="30" 
-    		     left="0" top="0" right="18" bottom="0" skinClass="spark.skins.wireframe.NumericStepperTextInputSkin"/>
+                 left="0" top="0" right="18" bottom="0" skinClass="spark.skins.wireframe.NumericStepperTextInputSkin"/>
 
 </s:Skin>
