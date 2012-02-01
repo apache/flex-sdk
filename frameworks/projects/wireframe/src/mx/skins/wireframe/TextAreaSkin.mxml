@@ -30,11 +30,11 @@ in accordance with the terms of the license agreement accompanying it.
     <s:Rect id="border" left="0" right="0" top="0" bottom="0">
         <s:stroke>            
             <!--- @private -->
-            <s:SolidColorStroke id="borderStroke" color="0x5380D0" />
+            <s:SolidColorStroke id="borderStroke" color="#707070" />
         </s:stroke>
         <s:fill>
             <!--- @private -->
-            <s:SolidColor id="bgFill" color="0xFFFFFF"/>
+            <s:SolidColor id="bgFill" color="#FFFFFF"/>
         </s:fill>
     </s:Rect>
 </s:Skin>
