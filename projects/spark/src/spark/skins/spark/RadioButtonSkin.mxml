@@ -47,6 +47,7 @@
          * @inheritDoc
          */
         override public function get symbolItems():Array {return symbols};
+		override public function get focusSkinExclusions():Array {return [labelDisplay]};
     </fx:Script>
     
     <s:states>
