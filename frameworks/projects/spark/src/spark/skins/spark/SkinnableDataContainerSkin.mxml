@@ -34,6 +34,12 @@
         <s:State name="disabled" />
     </s:states>
     
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:fill>
+            <s:SolidColor color="{getStyle('backgroundColor')}" alpha="{getStyle('backgroundAlpha')}" />
+        </s:fill>
+    </s:Rect>
+    
     <!--
       Note: setting the minimum size to 0 here so that changes to the host component's
       size will not be thwarted by this skin part's minimum size.   This is a compromise,
