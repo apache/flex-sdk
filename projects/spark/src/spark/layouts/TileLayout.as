@@ -1425,7 +1425,10 @@ public class TileLayout extends LayoutBase
              }
              case Keyboard.DOWN:
              {
-                 retVal = Math.min(currentIndex + columnCount, maxIndex)
+                 if (currentIndex == -1)
+                    retVal = 0; 
+                 else 
+                    retVal = Math.min(currentIndex + columnCount, maxIndex)
                  break; 
              }
              case Keyboard.UP:
