@@ -457,19 +457,7 @@ public class HorizontalLayout implements ILayout
         if (explicitColumnCount == -1) 
         	setColumnCount(visibleColumns);        
 
-        var r:Rectangle = layoutTarget.scrollRect;
-        if (r != null) 
-        {
-            r.width = unscaledWidth;
-            r.height = unscaledHeight;
-            layoutTarget.scrollRect = r;
-        }
-        else 
-        {
-        	var rx:Number = layoutTarget.horizontalScrollPosition;
-        	var ry:Number = layoutTarget.verticalScrollPosition;
-        	layoutTarget.scrollRect = new Rectangle(rx, ry, unscaledWidth, unscaledHeight);
-        }
+        BasicLayout.setScrollRect(layoutTarget, unscaledWidth, unscaledHeight);
     }
 
 
