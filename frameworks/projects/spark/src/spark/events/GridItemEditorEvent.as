@@ -17,7 +17,7 @@ import spark.components.IGridItemEditor;
 import spark.components.supportClasses.GridColumn;
 
 /**
- *  The DatGridEditEvent class represents events that are dispatched over 
+ *  This class represents events that are dispatched over 
  *  the life cycle of an item editor.
  *
  *  <p>The life cycle starts with the dispatch of an <code>
