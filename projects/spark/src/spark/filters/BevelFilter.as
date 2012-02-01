@@ -152,6 +152,8 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
     
     private var _angle:Number = 45;
     
+    [Inspectable(minValue="0.0", maxValue="360.0")]        
+    
     /**
      *   The angle of the bevel. Valid values are from 0 to 360°. 
      *   The angle value represents the angle of the theoretical light source falling on the 
@@ -215,6 +217,8 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
     
     private var _highlightAlpha:Number = 1.0;
     
+    [Inspectable(minValue="0.0", maxValue="1.0")]           
+    
     /**
      *  The alpha transparency value of the highlight color. The value is specified as a normalized 
      *  value from 0 to 1. For example, .25 sets a transparency value of 25%. 
@@ -273,6 +277,8 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
     //----------------------------------
     
     private var _shadowAlpha:Number = 1.0;
+    
+    [Inspectable(minValue="0.0", maxValue="1.0")]    
     
     /**
      *  The alpha transparency value of the shadow color. This value is specified as a 
