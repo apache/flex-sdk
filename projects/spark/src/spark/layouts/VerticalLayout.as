@@ -1313,8 +1313,6 @@ public class VerticalLayout extends LayoutBase
 }
 }
 
-[ExcludeClass]
-
 import mx.core.ILayoutElement;
 import mx.containers.utilityClasses.FlexChildInfo;
 
