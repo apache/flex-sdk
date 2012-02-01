@@ -12,14 +12,11 @@
 package spark.layouts.supportClasses
 {
 
+[ExcludeClass]
+
 /**
  *  @private
- *  Documentation is not currently available.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  The LayoutElementHelper class is for internal use only.
  */
 public class LayoutElementHelper
 {
@@ -47,8 +44,6 @@ public class LayoutElementHelper
         return Math.min(max, Math.max(min, val));
     }
 
-    // FIXME (egeorgie): this currently works only for constraints specified to
-    // the parent. Add constraintRow and constraintColumn support.
     /**
      *  @return returns the number for the passed in constraint value. Constraint value
      *  can be a Number, or a string in the format "col1:10".
