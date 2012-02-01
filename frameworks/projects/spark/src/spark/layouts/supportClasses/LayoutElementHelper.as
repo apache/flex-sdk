@@ -14,6 +14,11 @@ package mx.layout
 
 /**
  *  Documentation is not currently available.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class LayoutElementHelper
 {
@@ -30,6 +35,11 @@ public class LayoutElementHelper
     /**
      *  @return Returns <code>val</code> clamped to the range of
      *  <code>min</code> or <code>max</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static function pinBetween(val:Number, min:Number, max:Number):Number
     {
@@ -41,6 +51,11 @@ public class LayoutElementHelper
     /**
      *  @return returns the number for the passed in constraint value. Constraint value
      *  can be a Number, or a string in the format "col1:10".
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static function parseConstraintValue(value:Object):Number
     {
