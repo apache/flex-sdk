@@ -92,7 +92,7 @@
                     <s:ToggleButton id="playPauseButton" left="0" bottom="0" 
                             skinClass="spark.skins.spark.mediaClasses.normal.PlayPauseButtonSkin" 
                             skinClass.fullScreenStates="spark.skins.spark.mediaClasses.fullScreen.PlayPauseButtonSkin"
-                            focusIn="event.target.layer=1" focusOut="event.target.layer=0" />
+                            focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
                     
                     <!-- scrubbar + the playHeadTime/totalTime labels -->
                     <s:Group left="39" right="75" top="0" bottom="0">
@@ -164,13 +164,13 @@
                             right="37" bottom="0" 
                             skinClass="spark.skins.spark.mediaClasses.normal.VolumeBarSkin"
                             skinClass.fullScreenStates="spark.skins.spark.mediaClasses.fullScreen.VolumeBarSkin"
-                            focusIn="event.target.layer=1" focusOut="event.target.layer=0" />
+                            focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
                     
                     <!--- Defines the label and appearance of the Fullscreen button. -->
                     <s:Button id="fullScreenButton" right="0" bottom="0" label="Fullscreen" 
                             skinClass="spark.skins.spark.mediaClasses.normal.FullScreenButtonSkin"
                             skinClass.fullScreenStates="spark.skins.spark.mediaClasses.fullScreen.FullScreenButtonSkin"
-                            focusIn="event.target.layer=1" focusOut="event.target.layer=0" />
+                            focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
                             
                 </s:Group>
                 
