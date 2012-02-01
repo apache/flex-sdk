@@ -3216,7 +3216,7 @@ public class GraphicElement extends EventDispatcher
             // Can't use target's concatenatedMatrix, as it is sometimes wrong
             var m:Matrix = useLocalSpace ? 
                 displayObject.transform.matrix : 
-                MatrixUtil.getConcatenatedMatrix(displayObject, false);
+                MatrixUtil.getConcatenatedMatrix(displayObject, null);
             
             if (m)
                 m.translate(-rectBounds.x, -rectBounds.y);
