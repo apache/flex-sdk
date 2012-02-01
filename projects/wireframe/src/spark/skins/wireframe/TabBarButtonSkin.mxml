@@ -22,7 +22,7 @@ in accordance with the terms of the license agreement accompanying it.
     @playerversion AIR 1.5
     @productversion Flex 4
 -->
-<s:Skin 
+<s:SparkButtonSkin 
     xmlns:fx="http://ns.adobe.com/mxml/2009" 
     xmlns:s="library://ns.adobe.com/flex/spark" 
     xmlns:fb="http://ns.adobe.com/flashbuilder/2009" 
@@ -94,4 +94,4 @@ in accordance with the terms of the license agreement accompanying it.
              left="10" right="10" top="2" bottom="2">
     </s:Label>
     
-</s:Skin>
+</s:SparkButtonSkin>
