@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
-<!--- The default skin class for Spark TextInput component. -->
+<!--- The default skin class for Spark TextInput component.  
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-	  alpha.disabled="0.5">
+      alpha.disabled="0.5">
 
     <fx:Metadata>
     <![CDATA[ 
-	/** 
-	 * @copy spark.skins.default.ApplicationSkin#hostComponent
-	 */
-    	[HostComponent("spark.components.TextInput")]
+    /** 
+     * @copy spark.skins.default.ApplicationSkin#hostComponent
+     */
+        [HostComponent("spark.components.TextInput")]
     ]]>
     </fx:Metadata> 
     
@@ -26,9 +32,9 @@
         /* Define the skin elements that should not be colorized. */
         static private const exclusions:Array = ["background", "textView"];
 
-	/** 
-	 * @copy spark.skins.SparkSkin#colorizeExclusions
-	 */		
+    /** 
+     * @copy spark.skins.SparkSkin#colorizeExclusions
+     */     
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
@@ -46,11 +52,11 @@
     </s:states>
     
     <!-- border --> 
-	<s:Rect left="0" right="0" top="0" bottom="0">
+    <s:Rect left="0" right="0" top="0" bottom="0">
         <s:stroke>            
             <s:LinearGradientStroke rotation="90" weight="1">
-            	<s:GradientEntry color="0x000000" alpha="0.5525" />
-            	<s:GradientEntry color="0x000000" alpha="0.6375" />
+                <s:GradientEntry color="0x000000" alpha="0.5525" />
+                <s:GradientEntry color="0x000000" alpha="0.6375" />
             </s:LinearGradientStroke>
         </s:stroke>
     </s:Rect>
@@ -59,23 +65,23 @@
     <!--- Defines the appearance of the TextInput component's background. -->
     <s:Rect id="background" left="1" right="1" top="1" bottom="1">
         <s:fill>
-	    <!--- Defines the background fill color. -->
+        <!--- Defines the background fill color. -->
             <s:SolidColor id="bgFill" color="0xFFFFFF" />
         </s:fill>
     </s:Rect>
     
-	<!-- shadow -->
-	<s:Rect left="1" top="1" right="1" height="1">
-		<s:fill>
-			<s:SolidColor color="0x000000" alpha="0.12" />
-		</s:fill>
-	</s:Rect>
-	
-	<!-- text -->
+    <!-- shadow -->
+    <s:Rect left="1" top="1" right="1" height="1">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.12" />
+        </s:fill>
+    </s:Rect>
+    
+    <!-- text -->
     <s:RichEditableText id="textView"
               lineBreak="explicit"
               left="1" right="1" top="1" bottom="1" 
-			  paddingLeft="3" paddingTop="5"
+              paddingLeft="3" paddingTop="5"
               paddingRight="3" paddingBottom="3"/>
 
 </s:SparkSkin>
