@@ -638,7 +638,7 @@ public class VerticalLayout extends LayoutBase
         }
         
         if (virtualLayout)
-            updateDisplayListVirtual(i0);
+            g.invalidateDisplayList();
                 
         setIndexInView(i0, i1);
     }
@@ -967,7 +967,7 @@ public class VerticalLayout extends LayoutBase
      *  for the initial layout and then, if it has changed, we loop through 
      *  the layout items again and fix up the x/width values.
      */
-    private function updateDisplayListVirtual(startIndex:int = -1):void
+    private function updateDisplayListVirtual():void
     {
         var layoutTarget:GroupBase = target; 
         var eltCount:int = layoutTarget.numLayoutElements;
@@ -976,14 +976,12 @@ public class VerticalLayout extends LayoutBase
         var maxVisibleY:Number = minVisibleY + layoutTarget.height;
        
         updateLLV(layoutTarget);
-        if (startIndex < 0)            
-            startIndex = llv.indexOf(minVisibleY);     
+        var startIndex:int = llv.indexOf(minVisibleY);     
             
         var fixedRowHeight:Number = NaN;
         if (!variableRowHeight)
             fixedRowHeight = rowHeight;  // may query typicalLayoutElement, elt at index=0
          
-        layoutTarget.beginVirtualLayout(startIndex);
         var contentWidth:Number = llv.minorSize;
         var containerWidth:Number = Math.max(contentWidth, targetWidth);        
         var y:Number = llv.start(startIndex);
@@ -1026,7 +1024,6 @@ public class VerticalLayout extends LayoutBase
         setRowCount(index - startIndex);
         setIndexInView(startIndex, endIndex);
         layoutTarget.setContentSize(contentWidth, llv.end(llv.length - 1));
-        layoutTarget.endVirtualLayout(startIndex, endIndex);
     }
     
 
