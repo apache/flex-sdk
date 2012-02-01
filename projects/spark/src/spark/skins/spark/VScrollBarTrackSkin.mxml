@@ -11,48 +11,48 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxButton")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.Button")]
+    </fx:Metadata> 
     
-    <states>
-        <State name="up" />
-        <State name="down" />
-        <State name="over" />
-        <State name="disabled" />
-    </states>
+    <s:states>
+        <s:State name="up" />
+        <s:State name="down" />
+        <s:State name="over" />
+        <s:State name="disabled" />
+    </s:states>
 
 	<!-- border/fill -->
-    <Rect top="0" bottom="0" left="0" right="0" minWidth="14" minHeight="14">
-        <stroke>
-            <SolidColorStroke color="0x686868" weight="1"/>
-        </stroke>
-        <fill>
-            <SolidColor color="0xCACACA" />
-        </fill>
-    </Rect>
+    <s:Rect top="0" bottom="0" left="0" right="0" minWidth="14" minHeight="14">
+        <s:stroke>
+            <s:SolidColorStroke color="0x686868" weight="1"/>
+        </s:stroke>
+        <s:fill>
+            <s:SolidColor color="0xCACACA" />
+        </s:fill>
+    </s:Rect>
 
 	<!-- shadow -->
-	<Rect left="1" top="1" bottom="1" width="1">
-		<fill>
-			<SolidColor color="0x000000" alpha="0.24" />
-		</fill>
-	</Rect>
-	<Rect left="2" top="1" bottom="1" width="1">
-		<fill>
-			<SolidColor color="0x000000" alpha="0.12" />
-		</fill>
-	</Rect>
-	<Rect left="2" right="1" top="1" height="2">
-		<fill>
-			<SolidColor color="0x000000" alpha="0.12" />
-		</fill>
-	</Rect>
-	<Rect left="2" right="1" bottom="1" height="3">
-		<fill>
-			<SolidColor color="0x000000" alpha="0.12" />
-		</fill>
-	</Rect>
-</SparkSkin>
+	<s:Rect left="1" top="1" bottom="1" width="1">
+		<s:fill>
+			<s:SolidColor color="0x000000" alpha="0.24" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect left="2" top="1" bottom="1" width="1">
+		<s:fill>
+			<s:SolidColor color="0x000000" alpha="0.12" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect left="2" right="1" top="1" height="2">
+		<s:fill>
+			<s:SolidColor color="0x000000" alpha="0.12" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect left="2" right="1" bottom="1" height="3">
+		<s:fill>
+			<s:SolidColor color="0x000000" alpha="0.12" />
+		</s:fill>
+	</s:Rect>
+</s:SparkSkin>
