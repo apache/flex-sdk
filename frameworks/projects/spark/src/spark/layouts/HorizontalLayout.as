@@ -691,107 +691,21 @@ public class HorizontalLayout extends LayoutBase
     }
 
     /**
-     *  Overrides the default handling of UP/DOWN and 
-     *  PAGE_UP, PAGE_DOWN. 
-     * 
-     *  <ul>
-     * 
-     *  <li> 
-     *  <code>LEFT</code>
-     *  If the firstIndexInView element is partially visible then top justify
-     *  it, otherwise top justify the element at the previous index.
-     *  </li>
-     * 
-     *  <li> 
-     *  <code>RIGHT</code>
-     *  If the lastIndexInView element is partially visible, then bottom justify
-     *  it, otherwise bottom justify the element at the following index.
-     *  </li>
-     * 
-     *  <code>PAGE_UP</code>
-     *  <li>
-     *  If the firstIndexInView element is partially visible, then bottom
-     *  justify it, otherwise bottom justify element at the previous index.  
-     *  </li>
-     * 
-     *  <li> 
-     *  <code>PAGE_DOWN</code>
-     *  If the lastIndexInView element is partially visible, then top
-     *  justify it, otherwise top justify element at the following index.  
-     *  </li>
-     *  
-     *  </ul>
-     *   
-     *  @see firstIndexInView
-     *  @see lastIndexInView
-     *  @see horizontalScrollPosition
+     *  @private 
      */
-    override public function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
+    override protected function elementBoundsLeftOfScrollRect(scrollRect:Rectangle):Rectangle
     {
-        var g:GroupBase = target;
-        if (!g)
-            return 0;     
+        return findLayoutElementBounds(target, firstIndexInView, -1, scrollRect);
+    } 
 
-        var maxIndex:int = g.numLayoutElements -1;
-        if (maxIndex < 0)
-            return 0;
-            
-        var scrollR:Rectangle = g.scrollRect;
-        if (!scrollR)
-            return 0;
-            
-        var elementR:Rectangle = null;
-        switch(unit)
-        {
-            case ScrollUnit.LEFT:
-            case ScrollUnit.PAGE_LEFT:
-                elementR = findLayoutElementBounds(g, firstIndexInView, -1, scrollR);
-                break;
+    /**
+     *  @private 
+     */
+    override protected function elementBoundsRightOfScrollRect(scrollRect:Rectangle):Rectangle
+    {
+        return findLayoutElementBounds(target, lastIndexInView, +1, scrollRect);
+    } 
 
-            case ScrollUnit.RIGHT:
-            case ScrollUnit.PAGE_RIGHT:
-                elementR = findLayoutElementBounds(g, lastIndexInView, +1, scrollR);
-                break;
-
-            default:
-                return super.getHorizontalScrollPositionDelta(unit);
-        }
-        
-        if (!elementR)
-            return 0;
-            
-        var delta:Number = 0;     
-        switch (unit)
-        {
-            case ScrollUnit.LEFT:
-                delta = Math.max(-scrollR.width, elementR.left - scrollR.left);
-                break;
-                
-            case ScrollUnit.RIGHT:
-                delta = Math.min(scrollR.width, elementR.right - scrollR.right);
-                break;
-                
-            case ScrollUnit.PAGE_LEFT:
-                if ((elementR.left < scrollR.left) && (elementR.right >= scrollR.right))
-                    delta = Math.max(-scrollR.width, elementR.left - scrollR.left);
-                else
-                    delta = elementR.right - scrollR.right;
-                break;
-
-            case ScrollUnit.PAGE_RIGHT:
-                if ((elementR.left <= scrollR.left) && (elementR.right > scrollR.right))
-                    delta = Math.min(scrollR.width, elementR.right - scrollR.right);
-                else
-                    delta = elementR.left - scrollR.left;
-                break;
-        }
-        
-        var maxDelta:Number = g.contentWidth - scrollR.width - scrollR.x;
-        var minDelta:Number = -scrollR.x;
-        return Math.min(maxDelta, Math.max(minDelta, delta));        
-    }   
-    
-    
     /**
      *  @private
      *  Compute exact values for measuredWidth,Height and  measuredMinWidth,Height.
