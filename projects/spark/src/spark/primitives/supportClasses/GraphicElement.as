@@ -1522,7 +1522,7 @@ public class GraphicElement extends EventDispatcher
     }
     
     /**
-     *  
+     *  Documentation not available.
      */
     public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
     {
@@ -2156,6 +2156,9 @@ public class GraphicElement extends EventDispatcher
         return result;
     }
     
+    /**
+     *  
+     */
     public function get nextSiblingNeedsDisplayObject():Boolean
     {
         // TODO: The displayObject && visible test is a quick fix for MXMLG-228.
@@ -2165,11 +2168,17 @@ public class GraphicElement extends EventDispatcher
     
     private var _sharedDisplayObject:DisplayObject;
     
+    /**
+     *  
+     */
     public function set sharedDisplayObject(value:DisplayObject):void
     {
         _sharedDisplayObject = value;
     }
     
+    /**
+     *  @private
+     */
     public function get sharedDisplayObject():DisplayObject
     {
         return _sharedDisplayObject;
@@ -2184,6 +2193,17 @@ public class GraphicElement extends EventDispatcher
      *  Returns a bitmap snapshot of the GraphicElement.
      *  The bitmap contains all transformations and is reduced
      *  to fit the visual bounds of the object.
+     *  
+     *  @param transparent Whether or not the bitmap image supports per-pixel transparency. 
+     *  The default value is true (transparent). To create a fully transparent bitmap, set the value of the 
+     *  transparent parameter to true and the value of the fillColor parameter to 0x00000000 (or to 0). 
+     *  Setting the transparent property to false can result in minor improvements in rendering performance. 
+     *  
+     *  @param fillColor A 32-bit ARGB color value that you use to fill the bitmap image area. 
+     *  The default value is 0xFFFFFFFF (solid white).
+     *  
+     *  @return A bitmap snapshot of the GraphicElement. 
+     *  
      */
     public function getBitmapData(transparent:Boolean = true, fillColor:uint = 0xFFFFFFFF):BitmapData
     {
@@ -2193,10 +2213,10 @@ public class GraphicElement extends EventDispatcher
 
         if (displayObject && nextSiblingNeedsDisplayObject)
         {
-        	var m:Matrix = displayObject.transform.matrix;
-		
-			if (m)
-        		m.translate(-actualPosition.x, -actualPosition.y);
+            var m:Matrix = displayObject.transform.matrix;
+        
+            if (m)
+                m.translate(-actualPosition.x, -actualPosition.y);
             bitmapData.draw(displayObject, m);
         }
         else
@@ -2261,7 +2281,7 @@ public class GraphicElement extends EventDispatcher
      *  
      *  @param oldValue The previous value of the property.
      *  
-     *  @param value the new value of the property.
+     *  @param value The new value of the property.
      */
     protected function dispatchPropertyChangeEvent(prop:String, oldValue:*,
                                                    value:*):void
@@ -2275,8 +2295,8 @@ public class GraphicElement extends EventDispatcher
     // notifyElementLayerChanged()?
     
     /**
-     *  Utility method that notifies our host that we have changed and need
-     *  our layer to be updated.
+     *  Utility method that notifies the host that this element has changed and needs
+     *  its layer to be updated.
      */
     protected function notifyElementLayerChanged():void
     {
@@ -2386,7 +2406,7 @@ public class GraphicElement extends EventDispatcher
     /**
      *  Used by layout logic to validate the properties of a component
      *  by calling the <code>commitProperties()</code> method.
-     *  In general, subclassers should
+     *  In general, subclasses should
      *  override the <code>commitProperties()</code> method and not this method.
      */
     public function validateProperties():void
@@ -2450,8 +2470,8 @@ public class GraphicElement extends EventDispatcher
                 {
                     if (previousMask)
                     {
-                    	moveToParentSpace(previousMask);                    	
-                    	
+                        moveToParentSpace(previousMask);                        
+                        
                         elementHost.removeMaskElement(previousMask, this);
                         if (displayObject)
                             displayObject.mask = null;
@@ -2518,9 +2538,11 @@ public class GraphicElement extends EventDispatcher
     }
     
     /**
-     *  @return Returns true when the measureSizes() code can skip the call to
-     *  measure(). For example this is usually true when both explicitWidth and
-     *  explicitHeight are set. For path, this is true when the bounds of the path
+     *  Determines if the call to the <code>measure()</code> method can be skipped.
+     *  
+     *  @return Returns <code>true</code> when the <code>measureSizes()</code> method can skip the call to
+     *  the <code>measure()</code> method. For example this is usually <code>true</code> when both <code>explicitWidth</code> and
+     *  <code>explicitHeight</code> are set. For paths, this is <code>true</code> when the bounds of the path
      *  have not changed.
      */    
     protected function skipMeasure():Boolean
@@ -2677,8 +2699,7 @@ public class GraphicElement extends EventDispatcher
     //--------------------------------------------------------------------------
 
     /**
-     *  @return Returns a reference to the object in the layout tree
-     *  represented by this interface.
+     *  A reference to the object in the layout tree represented by this interface.
      */
     public function get target():Object
     {
@@ -2686,8 +2707,12 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
+     *  Gets the transformation matrix.
+     *  
+     *  @param actualMatrix
+     *  
      *  @return Returns the transformation matrix for this element, or null
-     *  if it is detla identity.
+     *  if it is delta identity.
      */
     protected function computeMatrix(actualMatrix:Boolean):Matrix
     {
@@ -2699,6 +2724,14 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
+     *  Transform the element's size.
+     *  
+     *  @param width The target width.
+     *  
+     *  @param height The target height.
+     *  
+     *  @param actualMatrix 
+     *  
      *  @return Returns the transformed size. Transformation is this element's
      *  transformation matrix.
      */
@@ -2721,6 +2754,17 @@ public class GraphicElement extends EventDispatcher
      *  Override for graphic elements that need specific calculation of
      *  coordinates of top-left corner of bounding box when resized to
      *  <code>width</code> and <code>height</code>.
+     *  
+     *  @param topLeft The origin of the bounds rectangle to be transformed. 
+     *  
+     *  @param width The target width.
+     *  
+     *  @param height The target height.
+     *  
+     *  @param m The transformation matrix.
+     *  
+     *  @return The top left point of the rectangle after transformation.
+     *  
      */
     protected function computeTopLeft(topLeft:Point, width:Number, height:Number, m:Matrix):Point
     {
@@ -2745,9 +2789,13 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  <code>setActualPosition</code> moves the item
+     *  Moves the item
      *  such that the left-top corner of the item's TBounds
      *  has the specified coordinates.
+     *  
+     *  @param x The new x position of the GraphicElement.
+     *  
+     *  @param y The new y position of the GraphicElement.
      */
     public function setActualPosition(x:Number, y:Number):void
     {
@@ -2791,27 +2839,30 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  <code>setActualSize</code> modifies the item size/transform
+     *  Modifies the item size/transform
      *  so that its TBounds have the specified <code>width</code>
      *  and <code>height</code>.
      *
-     *  If one of the desired TBounds dimensions is left unspecified, it's size
-     *  will be picked such that item can be optimally sized to fit the other
-     *  TBounds dimension. This is useful when the layout doesn't want to
+     *  <p>If one of the desired TBounds dimensions is left unspecified, its size
+     *  is set such that item can be optimally sized to fit the other
+     *  TBounds dimension. This is useful when the layout does not
      *  overconstrain the item in cases where the item TBounds width and height
-     *  are dependent (text, components with complex transforms, etc.)
+     *  are dependent (such as with text or with components that have complex transforms).</p>
      *
-     *  If both TBounds dimensions are left unspecified, the item will have its
-     *  preferred size set.
+     *  <p>If both TBounds dimensions are left unspecified, the item's preferred size is set.</p>
      *
-     *  <code>setActualSize</code> does not clip against <code>minSize</code> and
-     *  <code>maxSize</code> properties.
+     *  <p>The <code>setActualSize()</code> method does not clip against the <code>minSize</code> and
+     *  <code>maxSize</code> properties.</p>
      *
-     *  <code>setActualSize</code> must preserve the item's TBounds position,
+     *  <p>The <code>setActualSize</code> method must preserve the item's TBounds position,
      *  which means that in some cases it will move the item in addition to
-     *  changing its size.
+     *  changing its size.</p>
      *
-     *  @return Returns the TBounds of the new item size.
+     *  @param width The target width.
+     *  
+     *  @param height The target height.
+     *  
+     *  @return The TBounds of the new item size.
      */
     public function setActualSize(width:Number = Number.NaN,
                                   height:Number = Number.NaN):Point
@@ -2914,13 +2965,13 @@ public class GraphicElement extends EventDispatcher
 
         if(displayObject == null)
             return;
-		
-		if (_mask && isMaskInElementSpace)
+        
+        if (_mask && isMaskInElementSpace)
         {
-        	moveToParentSpace(_mask);
-        	isMaskInElementSpace = false;
+            moveToParentSpace(_mask);
+            isMaskInElementSpace = false;
         }
-			                    
+                                
         if(layoutFeatures.is3D)
         {
             displayObject.transform.matrix3D = layoutFeatures.computedMatrix3D;             
@@ -2937,8 +2988,8 @@ public class GraphicElement extends EventDispatcher
         
         if (_mask && !isMaskInElementSpace)
         {
-        	moveToLocalSpace(_mask);
-        	isMaskInElementSpace = true;
+            moveToLocalSpace(_mask);
+            isMaskInElementSpace = true;
         }
     }
     
