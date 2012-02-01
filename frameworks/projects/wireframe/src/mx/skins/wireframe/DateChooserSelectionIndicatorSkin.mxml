@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2009 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the selection indicator of a Halo DateChooser component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Script>
+    <![CDATA[
+        import mx.styles.StyleManager;
+        import mx.utils.ColorUtil;
+        
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        {
+            var selectionColor:uint = getStyle("selectionColor");       
+            if (selectionColor != StyleManager.NOT_A_COLOR)
+            {
+                fill.color = selectionColor;
+                stroke.color = ColorUtil.adjustBrightness(selectionColor, -45);
+            }
+
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        } 
+    ]]>
+    </fx:Script>
+
+    <s:Rect left="0" right="0" top="0" bottom="0" >
+        <s:fill>
+            <s:SolidColor id="fill" color="0xA8C6EE" alpha="1" />
+        </s:fill>
+        <s:stroke>
+            <s:SolidColorStroke id="stroke" color="0x86A6D4" />
+        </s:stroke>
+    </s:Rect>
+    
+</s:Skin>
