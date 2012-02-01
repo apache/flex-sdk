@@ -1090,7 +1090,7 @@ public class TileLayout extends LayoutBase
         // update _tileWidth,HeightCached based on visible elements    
         if ((visibleStartIndex != -1) && (visibleEndIndex != -1))
         {
-            for(var index:int = visibleStartIndex; index <= visibleEndIndex; index++)
+            for (var index:int = visibleStartIndex; index <= visibleEndIndex; index++)
                 updateVirtualTileSize(target.getVirtualElementAt(index));
         }
         
@@ -1261,7 +1261,7 @@ public class TileLayout extends LayoutBase
         // be added to DataGroup::freeRenderers
         
         var layoutTarget:GroupBase = target;
-        for(var i:int = oldVisibleStartIndex; i <= oldVisibleEndIndex; i++)
+        for (var i:int = oldVisibleStartIndex; i <= oldVisibleEndIndex; i++)
         {
             if ((i >= visibleStartIndex) && (i <= visibleEndIndex)) // skip past the visible range
             {
@@ -1741,7 +1741,7 @@ public class TileLayout extends LayoutBase
             yMinorDelta = 0;
         }
 
-        for(var index:int = visibleStartIndex; index <= visibleEndIndex; index++)
+        for (var index:int = visibleStartIndex; index <= visibleEndIndex; index++)
         {
             var el:ILayoutElement = null; 
             if (useVirtualLayout)
