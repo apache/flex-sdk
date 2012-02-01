@@ -33,7 +33,7 @@
 	    <!-- drop shadow -->
 	    <Ellipse left="-1" top="-1" right="-1" bottom="-1">
 	    	<stroke>
-	    		<LinearGradientStroke rotation="90">
+	    		<LinearGradientStroke rotation="90" weight="1">
                     <GradientEntry color="0x000000" 
                                    color.downStates="0xFFFFFF"
                                    alpha="0.011"
@@ -72,7 +72,7 @@
 		<!-- layer 6: highlight stroke (all states except down) -->
 		<Ellipse left="1" right="1" top="1" bottom="1">
 			<stroke>
-				<LinearGradientStroke rotation="90">
+				<LinearGradientStroke rotation="90" weight="1">
 					<GradientEntry color="0xFFFFFF" color.downStates="0x939393" alpha.overStates="0.22" />
 					<GradientEntry color="0xD8D8D8" color.downStates="0xB1B1B1" alpha.overStates="0.22" />
 				</LinearGradientStroke>
@@ -89,7 +89,7 @@
         <!-- border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
         <Ellipse left="0" top="0" right="0" bottom="0">
             <stroke>
-                <LinearGradientStroke rotation="90">
+                <LinearGradientStroke rotation="90" weight="1">
                     <GradientEntry color="0x000000" alpha="0.70" />
                     <GradientEntry color="0x000000" alpha="0.80" />
                 </LinearGradientStroke>
