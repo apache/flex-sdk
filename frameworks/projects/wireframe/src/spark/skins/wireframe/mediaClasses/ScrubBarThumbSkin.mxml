@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The wireframe skin class for the scrub bar thumb part of a Spark VideoPlayer component.  
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Metadata>
+        [HostComponent("spark.components.Button")]
+    </fx:Metadata>
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <!-- black line on top -->
+    <s:Rect width="1" x="7" y="0" height="7">
+        <s:fill>
+            <s:SolidColor color="0x6281C6"/>
+        </s:fill>
+    </s:Rect>
+    
+    <!-- now the base shape of the component -->
+    <s:Group y="6">
+    
+        <!-- shape border -->
+        <s:Path winding="evenOdd" data="M 4 2 L 4 10 L 11 10 L 11 3 L 10 3 L 10 2 L 9 2 L 9 1 L 6 1 L 6 2 L 5 2 L 5 3 L 4 3 L 4 2 Z">
+            <s:fill>
+                <s:SolidColor color="0x5481D1"/>
+            </s:fill>
+        </s:Path>
+        
+        <!-- shape fill -->
+        <s:Path winding="evenOdd" data="M 5 4 L 5 9 L 10 9 L 10 4 L 9 4 L 9 3 L 8 3 L 8 2 L 8 1 L 8 2 L 7 2 L 7 3 L 6 3 L 6 4 L 5 4 Z">
+            <s:fill>
+                <s:SolidColor color="0xFFFFFF" 
+                              color.over="0xEEF6FF"
+                              color.down="0x5481D1" />
+            </s:fill>
+        </s:Path>
+
+    </s:Group>
+    
+    <!-- for sizing/hit-test only -->
+    <s:Rect width="13" height="19">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0" />
+        </s:fill>
+    </s:Rect>
+    
+</s:Skin>
