@@ -16,7 +16,7 @@ import mx.components.FxApplication;
 import mx.core.Container;
 import mx.core.IUIComponent;
 import mx.effects.Animation;
-import mx.effects.PropertyValuesHolder;
+import mx.effects.AnimationProperty;
 import mx.events.AnimationEvent;
 import mx.events.EffectEvent;
 import mx.events.TweenEvent;
@@ -159,9 +159,9 @@ public class FxMoveInstance extends FxAnimateInstance
 			}
 		}
 
-        propertyValuesList = 
-            [new PropertyValuesHolder("x", [xFrom, xTo], xBy),
-             new PropertyValuesHolder("y", [yFrom, yTo], yBy)];
+        animationProperties = 
+            [new AnimationProperty("x", xFrom, xTo, xBy),
+             new AnimationProperty("y", yFrom, yTo, yBy)];
         
         // TODO (chaase): The Flex3 version of Move had logic for forcing clipping
         // off during the effect. We probably need something like this
