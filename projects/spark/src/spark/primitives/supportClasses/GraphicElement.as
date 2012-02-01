@@ -3354,6 +3354,76 @@ public class GraphicElement extends OnDemandEventDispatcher
                                        preferredHeightPreTransform(),
                                        postTransform);
     }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function getBoundsXAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    {
+        var strokeExtents:Point = getStrokeExtents(postTransform);
+        var m:Matrix = postTransform ? computeMatrix() : null;
+        if (!m)
+            return strokeExtents.x * -0.5 + this.measuredX + this.x;
+
+        if (!isNaN(width))
+            width -= strokeExtents.x;
+
+        if (!isNaN(height))
+            height -= strokeExtents.y;
+
+        // Calculate the width and height pre-transform:
+        var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                 preferredWidthPreTransform(),
+                                                 preferredHeightPreTransform(),
+                                                 minWidth, minHeight,
+                                                 maxWidth, maxHeight);
+        if (!newSize)
+            newSize = new Point(minWidth, minHeight);
+
+        var topLeft:Point = new Point(measuredX, measuredY);
+        MatrixUtil.transformBounds(newSize, m, topLeft);
+        return strokeExtents.x * -0.5 + topLeft.x;
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function getBoundsYAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    {
+        var strokeExtents:Point = getStrokeExtents(postTransform);
+        var m:Matrix = postTransform ? computeMatrix() : null;
+        if (!m)
+            return strokeExtents.y * -0.5 + this.measuredY + this.y;
+
+        if (!isNaN(width))
+            width -= strokeExtents.x;
+
+        if (!isNaN(height))
+            height -= strokeExtents.y;
+
+        // Calculate the width and height pre-transform:
+        var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                 preferredWidthPreTransform(),
+                                                 preferredHeightPreTransform(),
+                                                 minWidth, minHeight,
+                                                 maxWidth, maxHeight);
+        if (!newSize)
+            newSize = new Point(minWidth, minHeight);
+
+        var topLeft:Point = new Point(measuredX, measuredY);
+        MatrixUtil.transformBounds(newSize, m, topLeft);
+        return strokeExtents.y * -0.5 + topLeft.y;
+    }
 
     /**
      *  @inheritDoc 
@@ -3533,17 +3603,19 @@ public class GraphicElement extends OnDemandEventDispatcher
     }
 
     /**
-     *  @private
+     *  Used for the implementation of the ILayoutElement interface,
+     *  returns the explicit of measured width pre-transform.
      */
-    private function preferredWidthPreTransform():Number
+    protected function preferredWidthPreTransform():Number
     {
         return isNaN(explicitWidth) ? measuredWidth : explicitWidth;
     }
 
     /**
-     *  @private
+     *  Used for the implementation of the ILayoutElement interface,
+     *  returns the explicit of measured height pre-transform.
      */
-    private function preferredHeightPreTransform():Number
+    protected function preferredHeightPreTransform():Number
     {
         return isNaN(explicitHeight) ? measuredHeight: explicitHeight;
     }
