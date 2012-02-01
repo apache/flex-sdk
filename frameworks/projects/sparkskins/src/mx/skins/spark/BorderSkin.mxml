@@ -76,23 +76,15 @@
         {
             graphics.clear();
             
-            if (getStyle("borderStyle") == "none")
+            if (getStyle("borderVisible") == false || getStyle("borderStyle") == "none")
             {
                 border.visible = false;
-                // borderStyle = "none" still uses contentBackgroundColor
+                background.left = background.top = background.right = background.bottom = 0;
             }
             else
             {
-                if (getStyle("borderVisible") == false)
-                {
-                    border.visible = false;
-                    background.left = background.top = background.right = background.bottom = 0;
-                }
-                else
-                {
-                    border.visible = true;
-                    background.left = background.top = background.right = background.bottom = 1;
-                }
+                border.visible = true;
+                background.left = background.top = background.right = background.bottom = 1;
             }
             
             super.updateDisplayList(unscaledWidth, unscaledHeight);
