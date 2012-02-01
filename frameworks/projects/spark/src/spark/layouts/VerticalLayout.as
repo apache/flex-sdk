@@ -12,18 +12,20 @@
 package flex.layout
 {
 import flash.geom.Rectangle;
+import flash.events.EventDispatcher;
 
 import flex.core.Group;
 import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 
 import mx.containers.utilityClasses.Flex;
+import mx.events.PropertyChangeEvent;
 
 
 /**
  *  Documentation is not currently available.
  */
-public class VerticalLayout implements ILayout
+public class VerticalLayout extends EventDispatcher implements ILayout
 {
     include "../core/Version.as";
     
@@ -86,6 +88,15 @@ public class VerticalLayout implements ILayout
     //----------------------------------
     //  gap
     //----------------------------------
+    private function invalidateTargetSizeAndDisplayList():void
+    {
+        var layoutTarget:Group = target;
+        if (layoutTarget != null) 
+        {
+            layoutTarget.invalidateSize();
+            layoutTarget.invalidateDisplayList();
+        }
+    }
     
     private var _gap:int = 6;
     
@@ -106,39 +117,63 @@ public class VerticalLayout implements ILayout
      */
     public function set gap(value:int):void
     {
-        if (_gap == value) return;
+        if (_gap == value) 
+            return;
 
 		_gap = value;
- 	   	var layoutTarget:Group = target;
-    	if (layoutTarget != null) 
-    	{
-        	layoutTarget.invalidateSize();
-            layoutTarget.invalidateDisplayList();
-    	}
+        invalidateTargetSizeAndDisplayList();
     }
-    
-    //----------------------------------
-    //  explicitRowCount
-    //----------------------------------
-
-    /**
-     *  The row count requested by explicitly setting
-     *  <code>rowCount</code>.
-     */
-    protected var explicitRowCount:int = -1;
 
     //----------------------------------
     //  rowCount
     //----------------------------------
 
     private var _rowCount:int = -1;
+
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  Specifies the number of visible items..
+     * 
+     *  @default -1
+     */
+    public function get rowCount():int
+    {
+        return _rowCount;
+    }
+    
+    /**
+     *  Sets the <code>rowCount</code> property without causing
+     *  invalidation.  
+     * 
+     *  This method is intended to be used by subclass updateDisplayList() 
+     *  methods to sync the rowCount property with the actual number
+     *  of visible rows.
+     *
+     *  @param value The number of visible rows.
+     */
+    protected function setRowCount(value:int):void
+    {
+        if (_rowCount == value)
+            return;
+        var oldValue:int = _rowCount;
+        _rowCount = value;
+        dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "rowCount", oldValue, value));
+    }
+    
+    //----------------------------------
+    //  requestedRowCount
+    //----------------------------------
+
+    private var _requestedRowCount:int = -1;
     
     [Inspectable(category="General")]
 
     /**
      *  Specifies the number of items to display.
      * 
-     *  If <code>rowCount</code> is -1, then all of them items are displayed.
+     *  If <code>requestedRowCount</code> is -1, then all of the items are displayed.
      * 
      *  This value implies the layout's <code>measuredHeight</code>.
      * 
@@ -147,41 +182,23 @@ public class VerticalLayout implements ILayout
      * 
      *  @default -1
      */
-    public function get rowCount():int
+    public function get requestedRowCount():int
     {
-        return _rowCount;
+        return _requestedRowCount;
     }
 
     /**
      *  @private
      */
-    public function set rowCount(value:int):void
+    public function set requestedRowCount(value:int):void
     {
-        explicitRowCount = value;
-
-        if (_rowCount != value)
-        {
-            setRowCount(value);
- 		   	var layoutTarget:Group = target;
-        	if (layoutTarget != null) 
-        	{
-            	layoutTarget.invalidateSize();
-	            layoutTarget.invalidateDisplayList();
-        	}
-        }
-    }
-
-    /**
-     *  Sets the <code>rowCount</code> property without causing
-     *  invalidation or setting the <code>explicitRowCount</code>
-     *  property, which permanently locks in the number of rows.
-     *
-     *  @param v The row count.
-     */
-    protected function setRowCount(v:int):void
-    {
-        _rowCount = v;
-    }
+        if (_requestedRowCount == value)
+            return;
+                               
+        _requestedRowCount = value;
+        invalidateTargetSizeAndDisplayList();
+    }    
+    
 
     //----------------------------------
     //  explicitRowHeight
@@ -222,12 +239,7 @@ public class VerticalLayout implements ILayout
         if (_rowHeight != value)
         {
             setRowHeight(value);
- 		   	var layoutTarget:Group = target;
-        	if (layoutTarget != null) 
-        	{
-            	layoutTarget.invalidateSize();
-	            layoutTarget.invalidateDisplayList();
-        	}
+            invalidateTargetSizeAndDisplayList();
         }
     }
 
@@ -280,15 +292,13 @@ public class VerticalLayout implements ILayout
      */
     public function set variableRowHeight(value:Boolean):void
     {
-        if (value == _variableRowHeight) return;
+        if (value == _variableRowHeight) 
+            return;
         
         _variableRowHeight = value;
- 		var layoutTarget:Group = target;
-        if (layoutTarget != null) {
-    		layoutTarget.invalidateSize();
-        	layoutTarget.invalidateDisplayList();
-        }
+        invalidateTargetSizeAndDisplayList();
     }
+
 
     private function variableRowHeightMeasure(layoutTarget:Group):void
     {
@@ -298,7 +308,7 @@ public class VerticalLayout implements ILayout
         var preferredHeight:Number = 0;
         var visibleHeight:Number = 0;
         var visibleRows:uint = 0;
-        var explicitRowCount:int = explicitRowCount;
+        var reqRows:int = requestedRowCount;
          
         var count:uint = layoutTarget.numLayoutItems;
         var totalCount:uint = count; // How many items will be laid out
@@ -314,9 +324,9 @@ public class VerticalLayout implements ILayout
             preferredWidth = Math.max(preferredWidth, li.preferredSize.x);
             preferredHeight += li.preferredSize.y; 
             
-            var vrr:Boolean = (explicitRowCount != -1) && (visibleRows < explicitRowCount);
+            var vrr:Boolean = (reqRows != -1) && (visibleRows < reqRows);
 
-            if (vrr || (explicitRowCount == -1))
+            if (vrr || (reqRows == -1))
             {
                 var mw:Number =  hasPercentWidth(li) ? li.minSize.x : li.preferredSize.x;
                 var mh:Number = hasPercentHeight(li) ? li.minSize.y : li.preferredSize.y;                   
@@ -340,7 +350,7 @@ public class VerticalLayout implements ILayout
         }
         
         layoutTarget.measuredWidth = preferredWidth;
-        layoutTarget.measuredHeight = (explicitRowCount == -1) ? preferredHeight : visibleHeight;
+        layoutTarget.measuredHeight = (reqRows == -1) ? preferredHeight : visibleHeight;
 
         layoutTarget.measuredMinWidth = minWidth; 
         layoutTarget.measuredMinHeight = minHeight;
@@ -363,8 +373,9 @@ public class VerticalLayout implements ILayout
       			rowHeight = layoutTarget.getLayoutItemAt(0).preferredSize.y;
         	setRowHeight(rowHeight);
         }
-        
-        var visibleRows:uint = (explicitRowCount == -1) ? rows : explicitRowCount;
+
+        var reqRows:int = requestedRowCount;
+        var visibleRows:uint = (reqRows == -1) ? rows : reqRows;
         var contentHeight:Number = (rows * rowHeight) + ((rows > 1) ? (gap * (rows - 1)) : 0);
         var visibleHeight:Number = (visibleRows * rowHeight) + ((visibleRows > 1) ? (gap * (visibleRows - 1)) : 0);
         
@@ -438,8 +449,8 @@ public class VerticalLayout implements ILayout
         // TODO EGeorgie: horizontalAlign
         var hAlign:Number = 0;
         
-        // If rowCount wasn't set, then as the LayoutItems are positioned
-        // we'll count how many rows fall within the layoutTarget's scrollRect
+        // As the LayoutItems are positioned, we'll count how many rows 
+        // fall within the layoutTarget's scrollRect
         var visibleRows:uint = 0;
         var minVisibleY:Number = layoutTarget.verticalScrollPosition;
         var maxVisibleY:Number = minVisibleY + unscaledHeight;
@@ -458,12 +469,11 @@ public class VerticalLayout implements ILayout
             var dy:Number = lo.actualSize.y;
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);
-            if ((explicitRowCount == -1) && (y < maxVisibleY) && ((y + dy) > minVisibleY)) 
+            if ((y < maxVisibleY) && ((y + dy) > minVisibleY))
             	visibleRows += 1;
             y += dy + gap;
         }
-        if (explicitRowCount == -1) 
-        	setRowCount(visibleRows);
+        setRowCount(visibleRows);
         layoutTarget.setContentSize(maxX, maxY);
     }
     
