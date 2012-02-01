@@ -92,12 +92,17 @@ Move the indicator tooltip string to a resource bundle
     <s:layout>
         <s:FormItemLayout>
             <s:constraintColumns>
+                <!--- The column containing the sequence label. -->
                 <s:ConstraintColumn id="sequenceCol" />
+                <!--- The column containing the FormItem's label. -->
                 <s:ConstraintColumn id="labelCol" />
+                <!--- The column containing the FormItem's content. -->
                 <s:ConstraintColumn id="contentCol" width="100%"/>
+                <!--- The column containing the FormItem's help content. -->
                 <s:ConstraintColumn id="helpCol" maxWidth="200"/>
             </s:constraintColumns>         
             <s:constraintRows>
+                <!--- @private -->
                 <s:ConstraintRow id="row1" baseline="maxAscent:10" height="100%"/>
             </s:constraintRows>  
         </s:FormItemLayout>
@@ -111,14 +116,17 @@ Move the indicator tooltip string to a resource bundle
         </s:fill>
     </s:Rect>
     
+    <!--- @copy spark.components.FormItem#sequenceLabelDisplay -->
     <s:Label id="sequenceLabelDisplay" 
              fontWeight="bold"
              left="sequenceCol:10" right="sequenceCol:5"
              bottom="row1:10" baseline="row1:0"/>
+    <!--- @copy spark.components.FormItem#labelDisplay -->
     <s:Label id="labelDisplay"
              fontWeight="bold"
              left="labelCol:0" right="labelCol:5" 
              bottom="row1:10" baseline="row1:0"/>  
+    <!--- @copy spark.components.SkinnableContainer#contentGroup -->
     <!-- Don't show the error tip on the content elements -->
     <s:Group id="contentGroup" showErrorTip="false" showErrorSkin="true"
              left="contentCol:0" right="contentCol:1" 
@@ -130,15 +138,18 @@ Move the indicator tooltip string to a resource bundle
     <!-- Don't include the indicator in layout since we position it ourselves -->
     <s:Group x="{contentGroup.x + contentGroup.contentWidth + 4}" y="{contentGroup.y}"
              height="{Math.max(indicatorDisplay.height, contentGroup.contentHeight)}" includeInLayout="false">
+        <!--- @private -->
         <s:Image id="indicatorDisplay" verticalCenter="0"
                        toolTip="Required" toolTip.errorStates=""
                        includeIn="requiredStates,errorStates"/>
     </s:Group>
         
+    <!--- @copy spark.components.FormItem#helpContentGroup -->
     <s:Group id="helpContentGroup" excludeFrom="errorStates"
              fontStyle="italic" fontWeight="normal" color="0x666666"
              left="helpCol:27" right="helpCol:10"
              bottom="row1:10" baseline="row1:0"/>
+    <!--- @copy spark.components.FormItem#errorTextDisplay -->
     <s:RichText id="errorTextDisplay" includeIn="errorStates"
                 fontStyle="italic" fontWeight="normal" color="0xFE0000"
                 left="helpCol:27" right="helpCol:10"
