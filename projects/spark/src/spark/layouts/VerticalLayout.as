@@ -556,7 +556,7 @@ public class VerticalLayout extends LayoutBase
      */
     private var _variableRowHeight:Boolean = true;
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="true,false")]
 
     /**
      *  Specifies whether layout elements are allocated their 
