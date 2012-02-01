@@ -1177,28 +1177,6 @@ are identical, save the superclass and constructor names.  This file contains th
     {
     }    
     
-    //----------------------------------
-    //  styleDeclaration
-    //----------------------------------
-    
-    private var _styleDeclaration:CSSStyleDeclaration;
-    
-    /**
-     *  @private
-     */
-    public function get styleDeclaration():CSSStyleDeclaration
-    {
-        return _styleDeclaration;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set styleDeclaration(value:CSSStyleDeclaration):void
-    {
-        _styleDeclaration = value;
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Event Handlers
