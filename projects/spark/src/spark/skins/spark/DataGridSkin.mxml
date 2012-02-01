@@ -198,4 +198,9 @@ The default skin class for a Spark DataGrid component.
         </s:stroke>
     </s:Rect>    
 
+    <!-- @private
+         Where item editors are added to the data grid.
+    -->
+    <s:Group id="itemEditorLayer" includeInLayout="false" visible="false"/>
+    
 </s:SparkSkin>
