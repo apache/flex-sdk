@@ -12,7 +12,7 @@
 -->
 
 <Skin xmlns="http://ns.adobe.com/mxml/2009" 
-	  minWidth="21" minHeight="21" clipContent="false"
+	  minWidth="21" minHeight="21"
 	  alpha.disabledStates="0.5">
 
 	<!-- host component -->
