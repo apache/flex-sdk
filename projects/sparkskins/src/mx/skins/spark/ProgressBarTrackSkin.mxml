@@ -18,8 +18,19 @@
       @playerversion AIR 1.5
       @productversion Flex 4
 -->
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" minHeight="9">
-    
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" minHeight="9" >
+
+    <fx:Script>
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useBaseColor = true;
+            super.initializationComplete();
+        }
+    </fx:Script>
+        
     <!-- layer 1: border -->
     <s:Rect left="0" right="0" top="0" bottom="0" width="199">
         <s:stroke>
