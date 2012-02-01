@@ -344,9 +344,6 @@ public class ConstraintLayout extends LayoutBase
             if (maxAscentStr && maxAscentStr != "maxAscent")
                 throw new Error(ResourceManager.getInstance().getString("layout", "invalidBaselineOnRow",
                                                                         [ row.id, row.baseline ]));
-            
-            if (!isNaN(row.percentHeight))
-                throw new Error(ResourceManager.getInstance().getString("layout", "percentHeightRow"));
         }
         
         _constraintRows = temp;
@@ -430,14 +427,19 @@ public class ConstraintLayout extends LayoutBase
         {
             height += n;
         }
-        minHeight = height;
         
-        // Find minimum measured width by passing in 0 for the constrained width.
-        // This means that percentWidth columns will be set to their minWidth.
-        constrainPercentColumnWidths(colWidths, 0);
+        // Find minimum measured width/height by passing in 0 for the constrained size.
+        // This means that percent size regions will be set to their min size.
+        constrainPercentRegionSizes(colWidths, 0, true);
         for each (n in colWidths)
         {
             minWidth += n;
+        }
+        
+        constrainPercentRegionSizes(rowHeights, 0, false);
+        for each (n in rowHeights)
+        {
+            minHeight += n;
         }
         
         if (otherElements)
@@ -554,7 +556,7 @@ public class ConstraintLayout extends LayoutBase
     {
         parseConstraints();
         setColumnWidths(measureColumns(constrainedWidth));
-        setRowHeights(measureRows());
+        setRowHeights(measureRows(constrainedHeight));
     }
     
     /**
@@ -841,6 +843,7 @@ public class ConstraintLayout extends LayoutBase
         var maxExtent:Number;
         var remainingWidth:Number;
         
+        var j:int;
         var colWidth:Number = 0;
         
         // 1) Determine how much space the element needs to satisfy its
@@ -906,8 +909,8 @@ public class ConstraintLayout extends LayoutBase
         // 3) If the element causes a column to expand, update the column width to match.
         if (span == 1)
         {
-           // a) For the single spanning case, we only need to check if this element's 
-           //    required width is larger than the column's current width.
+            // a) For the single spanning case, we only need to check if this element's 
+            //    required width is larger than the column's current width.
             col = _constraintColumns[leftIndex];
             
             if (col.contentSize || !isNaN(col.percentWidth))
@@ -931,7 +934,6 @@ public class ConstraintLayout extends LayoutBase
             //    2) divide space evenly into content/percent size columns.
             var contentCols:Vector.<ConstraintColumn> = new Vector.<ConstraintColumn>();
             var contentColsIndices:Vector.<int> = new Vector.<int>();
-            var j:int;
             
             remainingWidth = maxExtent;
             for (j = leftIndex; j <= rightIndex; j++)
@@ -972,58 +974,78 @@ public class ConstraintLayout extends LayoutBase
     }
     
     /**
-     *  @private
-     *  Adjusts the widths of percent size columns to fill the constrainedWidth.
-     *  This method updates the provided column widths vector in place.
+     *  Adjusts the sizes of percent size columns or rows to fill the constrainedSize.
+     *  This method updates the provided column widths or row heights vector in place.
      *  
-     *  The percent size column widths are first reset to their minimum width. 
-     *  If the given column widths from the content and fixed size columns already
-     *  fill the available width, then the percent size column widths stay at their
-     *  minimum width. Otherwise, the remaining width is distributed to the percent 
-     *  size columns based on the ratio of the percentWidth to the sum of all the 
-     *  percent widths.
+     *  The term, "region", refers to a column or row.
+     *  The percent size region sizes are first reset to their minimum size. 
+     *  If the given region sizes from the content and fixed size regions already
+     *  fill the available space, then the percent size region sizes stay at their
+     *  minimum size. Otherwise, the remaining space is distributed to the percent 
+     *  size regions based on the ratio of its percent size to the sum of all the 
+     *  percent sizes.
      */
-    private function constrainPercentColumnWidths(colWidths:Vector.<Number>, constrainedWidth:Number):void
+    private function constrainPercentRegionSizes(sizes:Vector.<Number>, constrainedSize:Number, isColumns:Boolean):void
     {
         var col:ConstraintColumn;
-        var numCols:int = _constraintColumns.length;
+        var row:ConstraintRow;
+        var numSizes:int = isColumns ? _constraintColumns.length : _constraintRows.length;
+        
         var childInfoArray:Array /* of ConstraintRegionFlexChildInfo */ = [];
         var childInfo:ConstraintRegionFlexChildInfo;
-        var remainingWidth:Number = constrainedWidth;
-        var percentMinWidths:Number = 0;
+        var remainingSpace:Number = constrainedSize;
+        var percentMinSizes:Number = 0;
         var totalPercent:Number = 0;
         
-        // Set percent width columns back to minWidth and
-        // find the remaining width.
-        for (var i:int = 0; i < numCols; i++)
+        // Set percent size regions back to minSize and
+        // find the remaining space.
+        for (var i:int = 0; i < numSizes; i++)
         {
-            col = _constraintColumns[i];
-            if (!isNaN(col.percentWidth))
+            var percentSize:Number;
+            var minSize:Number;
+            var maxSize:Number;
+            
+            if (isColumns)
             {
-                colWidths[i] = (!isNaN(col.minWidth)) ? Math.ceil(Math.max(col.minWidth, 0)) : 0;
-                percentMinWidths += colWidths[i];
-                totalPercent += col.percentWidth;
+                col = _constraintColumns[i];
+                percentSize = col.percentWidth;
+                minSize = col.minWidth;
+                maxSize = col.maxWidth;
+            }
+            else
+            {
+                row = _constraintRows[i];
+                percentSize = row.percentHeight;
+                minSize = row.minHeight;
+                maxSize = row.maxHeight;
+            }
+
+            if (!isNaN(percentSize))
+            {
+                sizes[i] = (!isNaN(minSize)) ? Math.ceil(Math.max(minSize, 0)) : 0;
+                percentMinSizes += sizes[i];
+                totalPercent += percentSize;
                 
                 // Fill childInfoArray for distributing the width.
                 childInfo = new ConstraintRegionFlexChildInfo();
                 childInfo.index = i;
-                childInfo.percent = col.percentWidth;
-                childInfo.min = col.minWidth;
-                childInfo.max = col.maxWidth;
+                childInfo.percent = percentSize;
+                childInfo.min = minSize;
+                childInfo.max = maxSize;
                 childInfoArray.push(childInfo);
             }
             else
             {
-                remainingWidth -= colWidths[i];
+                remainingSpace -= sizes[i];
             }
         }
         
         // If there's space remaining, distribute the width to the percent size
         // columns based on their ratio of percentWidth to sum of all the percentWidths.
-        if (remainingWidth > percentMinWidths)
+        if (remainingSpace > percentMinSizes)
         {            
-            Flex.flexChildrenProportionally(constrainedWidth, 
-                                            remainingWidth,
+            Flex.flexChildrenProportionally(constrainedSize, 
+                                            remainingSpace,
                                             totalPercent,
                                             childInfoArray);
             
@@ -1031,14 +1053,14 @@ public class ConstraintLayout extends LayoutBase
             for each (childInfo in childInfoArray)
             {
                 // Make sure the calculated widths are rounded to pixel boundaries
-                var colWidth:Number = Math.round(childInfo.size + roundOff);
-                roundOff += childInfo.size - colWidth;
+                var size:Number = Math.round(childInfo.size + roundOff);
+                roundOff += childInfo.size - size;
                 
-                colWidths[childInfo.index] = colWidth;
+                sizes[childInfo.index] = size;
                 
-                // remainingWidth -= colWidth;
+                // remainingSpace -= size;
             }
-            // FIXME (klin): What do we do if there's remainingWidth after all this?
+            // FIXME (klin): What do we do if there's remainingSpace after all this?
         }
     }
     
@@ -1157,7 +1179,7 @@ public class ConstraintLayout extends LayoutBase
         // Adjust percent size columns to account for constraining width.
         if (!isNaN(constrainedWidth) && hasPercentSize)
         {
-            constrainPercentColumnWidths(colWidths, constrainedWidth);
+            constrainPercentRegionSizes(colWidths, constrainedWidth, true);
         }
         
         // Clear the cache only if we created it just for this method call.
@@ -1169,13 +1191,206 @@ public class ConstraintLayout extends LayoutBase
     
     /**
      *  @private
+     *  Updates the heights of content size and percent size rows that are spanned
+     *  by the specified element. This method updates the provided row heights 
+     *  vector in place. The algorithm is as follows:
+     * 
+     *  1) Determine the space needed by the element to satisfy its constraints
+     *     and be at its preferred size.
+     * 
+     *  2) Calculate the number of rows the element will span.
+     * 
+     *  3) If the element causes a row to expand, update the row height to match.
+     *     a) For the single spanning case, we only need to check if this element's 
+     *        required height is larger than the row's current height.
+     *     b) For the multiple spanning case, we distribute the remaining height after 
+     *        subtracting the fixed size rows across the content/percent size rows.
+     *        Then, we only update a row's height if the new divided height would cause
+     *        the row's height to expand.
+     * 
+     *  @param elementInfo The constraint information of the element.
+     *  @param colWidths The vector of column widths to update.
+     */
+    private function updateRowHeightsForElement(rowHeights:Vector.<Number>, elementInfo:ElementConstraintInfo):void
+    {
+        var layoutElement:ILayoutElement = elementInfo.layoutElement;
+        var numRows:int = _constraintRows.length;
+        var row:ConstraintRow;
+        
+        var topIndex:int = -1;
+        var bottomIndex:int = -1;
+        var span:int;
+        
+        var extY:Number = 0;
+        var preferredHeight:Number = layoutElement.getPreferredBoundsHeight();
+        var maxExtent:Number;
+        var remainingHeight:Number;
+        
+        var j:int;
+        var rowHeight:Number = 0;
+        
+        // 1) Determine how much space the element needs to satisfy its
+        //    constraints and be at its preferred height.
+        if (!isNaN(elementInfo.top))
+        {
+            extY += elementInfo.top;
+            if (elementInfo.topBoundary)
+                topIndex = elementInfo.rowSpanTopIndex;
+            else
+                topIndex = 0; // constrained to parent
+        }
+        
+        if (!isNaN(elementInfo.bottom))
+        {
+            extY += elementInfo.bottom;
+            if (elementInfo.bottomBoundary)
+                bottomIndex = elementInfo.rowSpanBottomIndex;
+            else
+                bottomIndex = numRows - 1; // constrained to parent
+        }
+        
+        // Only include baseline if at least one of top or bottom don't
+        // exist.
+        if (!isNaN(elementInfo.baseline) && (topIndex < 0 || bottomIndex < 0))
+        {
+            extY += elementInfo.baseline - layoutElement.baselinePosition;
+            
+            if (!isNaN(elementInfo.top))
+                extY -= elementInfo.top;
+            
+            if (elementInfo.baselineBoundary)
+            {
+                topIndex = elementInfo.baselineIndex;
+                
+                // add baseline offset.
+                extY += Number(rowBaselines[topIndex][0]); 
+                
+                // add maxAscent. maxAscent is 0 if not specified on the row.
+                if (rowMaxAscents)
+                    extY += rowMaxAscents[topIndex];
+            }
+            else
+            {
+                topIndex = 0;
+            }
+        }
+        
+        maxExtent = extY + preferredHeight;
+        remainingHeight = maxExtent;
+            
+        // 2) If either the top or the bottom constraint doesn't exist,
+        //    we must find the span of the element. We do this by
+        //    determining the index of the last row that the element
+        //    occupies in the unconstrained direction.
+        if (topIndex < 0 || bottomIndex < 0)
+        {
+            var isTop:Boolean = topIndex < 0;
+            var startIndex:int = isTop ? bottomIndex : topIndex;
+            var endIndex:int = isTop ? -1 : numRows;
+            var increment:int = isTop ? -1 : 1;
+            
+            if (isTop) // defaults to 0
+                topIndex = 0;
+            else // defaults to numRows - 1
+                bottomIndex = numRows - 1;
+            
+            for (j = startIndex; j != endIndex ; j += increment)
+            {
+                row = _constraintRows[j];
+                
+                // subtract fixed rows
+                if (!isNaN(row.explicitHeight))
+                    remainingHeight -= row.explicitHeight;
+                
+                if ((row.contentSize || !isNaN(row.percentHeight)) || remainingHeight < 0)
+                {
+                    if (isTop)
+                        topIndex = j;
+                    else
+                        bottomIndex = j;
+                    break;
+                }
+            }
+        }
+        // always 1 or positive.
+        span = bottomIndex - topIndex + 1;
+        
+        // 3) If the element causes a row to expand, update the row height to match.
+        if (span == 1)
+        {
+            // a) For the single spanning case, we only need to check if this element's 
+            //    required height is larger than the row's current height.
+            row = _constraintRows[topIndex];
+            
+            if (row.contentSize || !isNaN(row.percentHeight))
+            {   
+                rowHeight = Math.max(rowHeights[topIndex], extY + preferredHeight);
+                
+                if (constraintsDetermineHeight(elementInfo))
+                    rowHeight = Math.max(rowHeight, extY + layoutElement.getMinBoundsHeight());
+                
+                // bound with max height of row
+                if (!isNaN(row.maxHeight))
+                    rowHeight = Math.min(rowHeight, row.maxHeight);
+                
+                rowHeights[topIndex] = Math.ceil(rowHeight);
+            }
+        }
+        else
+        {
+            // b) multiple spanning case. span >= 2.
+            //    1) start from topIndex and subtract fixed rows
+            //    2) divide space evenly into content/percent size rows.
+            var contentRows:Vector.<ConstraintRow> = new Vector.<ConstraintRow>();
+            var contentRowsIndices:Vector.<int> = new Vector.<int>();
+            
+            remainingHeight = maxExtent;
+            for (j = topIndex; j <= bottomIndex; j++)
+            {
+                row = _constraintRows[j];
+                
+                if (!isNaN(row.explicitHeight))
+                {
+                    if (remainingHeight < row.height)
+                        break;
+                    
+                    remainingHeight -= row.height;
+                }
+                else if (row.contentSize || !isNaN(row.percentHeight))
+                {
+                    contentRows.push(row);
+                    contentRowsIndices.push(j);
+                }
+            }
+            
+            var numContentRows:Number = contentRows.length;
+            if (numContentRows > 0)
+            {
+                var splitHeight:Number = remainingHeight / numContentRows;
+                
+                for (j = 0; j < numContentRows; j++)
+                {
+                    row = contentRows[j];
+                    
+                    rowHeight = Math.max(rowHeights[contentRowsIndices[j]], splitHeight);
+                    if (!isNaN(row.maxHeight))
+                        rowHeight = Math.min(rowHeight, row.maxHeight);
+                    
+                    rowHeights[contentRowsIndices[j]] = Math.ceil(rowHeight);
+                }
+            }
+        }
+    }
+    
+    /**
+     *  @private
      *  Synonymous to measureColumns(), but with added baseline constraint.
      *  Baseline is only included in the measurement if at least one of the element's
      *  top or bottom constraint doesn't exist. The calculations are based on the
      *  current constraintCache. To update the constraintCache, one needs to call
      *  the parseConstraints() method.
      */
-    private function measureRows():Vector.<Number>
+    private function measureRows(constrainedHeight:Number = NaN):Vector.<Number>
     {
         if (_constraintRows.length <= 0)
             return new Vector.<Number>();
@@ -1185,15 +1400,18 @@ public class ConstraintLayout extends LayoutBase
         var numRows:Number = _constraintRows.length;
         var row:ConstraintRow;
         var hasContentSize:Boolean = false;
+        var hasPercentSize:Boolean = false;
         var rowHeights:Vector.<Number> = new Vector.<Number>();
         
         // Reset content size rows to 0.
         for (i = 0; i < numRows; i++)
         {
             row = _constraintRows[i];
-            if (row.contentSize)
+            
+            if (row.contentSize || !isNaN(row.percentHeight))
             {
-                hasContentSize = true;
+                hasContentSize ||= row.contentSize;
+                hasPercentSize ||= !isNaN(row.percentHeight);
                 
                 if (!isNaN(row.minHeight))
                     rowHeights[i] = Math.ceil(Math.max(row.minHeight, 0));
@@ -1216,186 +1434,19 @@ public class ConstraintLayout extends LayoutBase
         
         // Assumption: elements in rowSpanElements have one or more constraints touching a row.
         // This is enforced in parseElementConstraints().
-        if (rowSpanElements && hasContentSize)
+        if (rowSpanElements && (hasContentSize || hasPercentSize))
         {
-            var numRowSpanElements:Number = rowSpanElements.length;
-            
-            // Measure content size rows only single span for now.
-            // If multiple span, do nothing yet.
-            for (i = 0; i < numRowSpanElements; i++)
+            // Measure content/percent size columns.
+            for each (var elementInfo:ElementConstraintInfo in rowSpanElements)
             {
-                var elementInfo:ElementConstraintInfo = rowSpanElements[i];
-                var layoutElement:ILayoutElement = elementInfo.layoutElement;
-                var topIndex:int = -1;
-                var bottomIndex:int = -1;
-                var span:int;
-                
-                var extY:Number = 0;
-                var preferredHeight:Number = layoutElement.getPreferredBoundsHeight();
-                var maxExtent:Number;
-                var availableHeight:Number;
-                
-                var j:int;
-                var rowHeight:Number = 0;
-                
-                // Determine how much space the element needs to satisfy its
-                // constraints and be at its preferred height.
-                if (!isNaN(elementInfo.top))
-                {
-                    extY += elementInfo.top;
-                    if (elementInfo.topBoundary)
-                        topIndex = elementInfo.rowSpanTopIndex;
-                    else
-                        topIndex = 0; // constrained to parent
-                }
-                
-                if (!isNaN(elementInfo.bottom))
-                {
-                    extY += elementInfo.bottom;
-                    if (elementInfo.bottomBoundary)
-                        bottomIndex = elementInfo.rowSpanBottomIndex;
-                    else
-                        bottomIndex = numRows - 1; // constrained to parent
-                }
-                
-                // Only include baseline if at least one of top or bottom don't
-                // exist.
-                if (!isNaN(elementInfo.baseline) && (topIndex < 0 || bottomIndex < 0))
-                {
-                    extY += elementInfo.baseline - layoutElement.baselinePosition;
-                    
-                    if (!isNaN(elementInfo.top))
-                        extY -= elementInfo.top;
-                    
-                    if (elementInfo.baselineBoundary)
-                    {
-                        topIndex = elementInfo.baselineIndex;
-                        
-                        // add baseline offset.
-                        extY += Number(rowBaselines[topIndex][0]); 
-                            
-                        // add maxAscent. maxAscent is 0 if not specified on the row.
-                        if (rowMaxAscents)
-                            extY += rowMaxAscents[topIndex];
-                    }
-                    else
-                    {
-                        topIndex = 0;
-                    }
-                }
-                
-                maxExtent = extY + preferredHeight;
-                availableHeight = maxExtent
-                
-                // If either the top or the bottom constraint doesn't exist,
-                // we must find the span of the element. We do this by
-                // determining the index of the last column that the element
-                // occupies in the unconstrained direction.
-                if (topIndex < 0 || bottomIndex < 0)
-                {
-                    var isTop:Boolean = topIndex < 0;
-                    var startIndex:int = isTop ? bottomIndex : topIndex;
-                    var endIndex:int = isTop ? -1 : numRows;
-                    var increment:int = isTop ? -1 : 1;
-                    
-                    // defaults to 0
-                    if (isTop)
-                        topIndex = 0;
-                    else // defaults to numRows - 1
-                        bottomIndex = numRows - 1;
-                    
-                    for (j = startIndex; j != endIndex ; j += increment)
-                    {
-                        row = _constraintRows[j];
-                        
-                        // subtract fixed rows
-                        if (!isNaN(row.explicitHeight))
-                            availableHeight -= row.explicitHeight;
-                        
-                        if (row.contentSize || availableHeight < 0)
-                        {
-                            if (isTop)
-                                topIndex = j;
-                            else
-                                bottomIndex = j;
-                            break;
-                        }
-                    }
-                }
-                
-                // always 1 or positive.
-                span = bottomIndex - topIndex + 1;
-                //trace(span);
-                
-                if (span == 1)
-                {
-                    row = _constraintRows[topIndex];
-                    
-                    // only measure with when dealing with content size
-                    if (row.contentSize)
-                    {   
-                        rowHeight = Math.max(rowHeights[topIndex], extY + preferredHeight);
-                        
-                        if (constraintsDetermineHeight(elementInfo))
-                            rowHeight = Math.max(rowHeight, extY + layoutElement.getMinBoundsHeight());
-                        
-                        // bound with max height of row
-                        if (!isNaN(row.maxHeight))
-                            rowHeight = Math.min(rowHeight, row.maxHeight);
-                        
-                        rowHeights[topIndex] = Math.ceil(rowHeight);
-                    }
-                }
-                else
-                {
-                    // multiple spanning case. span >= 2.
-                    // 1) start from topIndex and subtract fixed rows
-                    // 2) divide space evenly into content size rows.
-                    var contentRows:Vector.<ConstraintRow> = new Vector.<ConstraintRow>();
-                    var contentRowsIndices:Vector.<int> = new Vector.<int>();
-                    
-                    availableHeight = maxExtent;
-                    
-                    for (j = topIndex; j <= bottomIndex; j++)
-                    {
-                        row = _constraintRows[j];
-                        
-                        if (!isNaN(row.explicitHeight))
-                        {
-                            availableHeight -= row.height;
-                            
-                            if (availableHeight < 0)
-                            {
-                                availableHeight += row.height;
-                                break;
-                            }
-                        }
-                        else if (row.contentSize)
-                        {
-                            contentRows.push(row);
-                            contentRowsIndices.push(j);
-                        }
-                    }
-                    
-                    var numContentRows:Number = contentRows.length;
-                    
-                    if (numContentRows > 0)
-                    {
-                        var splitHeight:Number = availableHeight / numContentRows;
-                        
-                        for (j = 0; j < numContentRows; j++)
-                        {
-                            row = contentRows[j];
-                            
-                            rowHeight = Math.max(rowHeights[contentRowsIndices[j]], splitHeight);
-                            if (!isNaN(row.maxHeight))
-                                rowHeight = Math.min(rowHeight, row.maxHeight);
-                            
-                            rowHeights[contentRowsIndices[j]] = Math.ceil(rowHeight);
-                        }
-                    }
-                }
+                updateRowHeightsForElement(rowHeights, elementInfo);
             }
+        }
+        
+        // Adjust percent size rows to account for constraining height.
+        if (!isNaN(constrainedHeight) && hasPercentSize)
+        {
+            constrainPercentRegionSizes(rowHeights, constrainedHeight, false);
         }
         
         return rowHeights;
