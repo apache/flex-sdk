@@ -2256,6 +2256,22 @@ public class GraphicElement extends OnDemandEventDispatcher
         }
     }
        
+    private var _alwaysCreateDisplayObject:Boolean;
+    
+    mx_internal function set alwaysCreateDisplayObject(value:Boolean):void
+    {
+    	if (value != _alwaysCreateDisplayObject)
+    	{
+    		_alwaysCreateDisplayObject = value;
+    		notifyElementLayerChanged();
+    	}
+    }
+    
+    mx_internal function get alwaysCreateDisplayObject():Boolean
+    {
+    	return _alwaysCreateDisplayObject;
+    }
+   
     /**
      *  <code>true</code> if the graphic element needs its own unique display object to render into.
      *  In general, you will not set this property, although if you extend the GraphicElement class, you
@@ -2264,13 +2280,15 @@ public class GraphicElement extends OnDemandEventDispatcher
     public function get needsDisplayObject():Boolean
     {
         var result:Boolean;
-        result = ((_filters && _filters.length > 0) || 
+        result = (alwaysCreateDisplayObject ||
+		(_filters && _filters.length > 0) || 
             _blendMode != BlendMode.NORMAL || _mask ||
             (layoutFeatures != null && (layoutFeatures.layoutScaleX != 1 || layoutFeatures.layoutScaleY != 1 || layoutFeatures.layoutScaleZ != 1 ||
             layoutFeatures.layoutRotationX != 0 || layoutFeatures.layoutRotationY != 0 || layoutFeatures.layoutRotationZ != 0 ||
             layoutFeatures.layoutZ  != 0)) ||  
             _colorTransform != null ||
-            _alpha != 1);
+            _alpha != 1 ||
+            layer != 0);
 
         if(layoutFeatures != null && layoutFeatures.offsets != null)
         {
