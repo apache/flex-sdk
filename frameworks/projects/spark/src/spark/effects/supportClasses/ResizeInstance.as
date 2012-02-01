@@ -16,6 +16,7 @@ import flash.events.Event;
 
 import mx.core.IUIComponent;
 
+import spark.effects.animation.Keyframe;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
     
@@ -253,9 +254,12 @@ public class ResizeInstance extends AnimateInstance
     {
         calculateDimensionChanges();
 
-        motionPaths = new <MotionPath>[
-            new SimpleMotionPath("width", widthFrom, widthTo, duration, widthBy),
-            new SimpleMotionPath("height", heightFrom, heightTo, duration, heightBy)];
+        motionPaths = new <MotionPath>[new MotionPath("width"),
+            new MotionPath("height")];
+        motionPaths[0].keyframes = new <Keyframe>[new Keyframe(0, widthFrom), 
+            new Keyframe(duration, widthTo, widthBy)];
+        motionPaths[1].keyframes = new <Keyframe>[new Keyframe(0, heightFrom), 
+            new Keyframe(duration, heightTo, heightBy)];
                 
         // Also animate any size-related constraints that change between
         // transition states
