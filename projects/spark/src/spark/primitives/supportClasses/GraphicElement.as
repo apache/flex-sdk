@@ -3991,7 +3991,7 @@ public class GraphicElement extends EventDispatcher
             newSize = new Point(minWidth, minHeight);
 
         var topLeft:Point = new Point(measuredX, measuredY);
-        MatrixUtil.transformBounds(newSize, m, topLeft);
+        MatrixUtil.transformBounds(newSize.x, newSize.y, m, topLeft);
         return strokeExtents.left + topLeft.x;
     }
     
@@ -4026,7 +4026,7 @@ public class GraphicElement extends EventDispatcher
             newSize = new Point(minWidth, minHeight);
 
         var topLeft:Point = new Point(measuredX, measuredY);
-        MatrixUtil.transformBounds(newSize, m, topLeft);
+        MatrixUtil.transformBounds(newSize.x, newSize.y, m, topLeft);
         return strokeExtents.top + topLeft.y;
     }
 
@@ -4048,7 +4048,7 @@ public class GraphicElement extends EventDispatcher
             return stroke + this.measuredX + this.x;
             
         var topLeft:Point = new Point(measuredX, measuredY);
-        MatrixUtil.transformBounds(new Point(_width, _height), m, topLeft);
+        MatrixUtil.transformBounds(_width, _height, m, topLeft);
         return stroke + topLeft.x;
     }
 
@@ -4070,7 +4070,7 @@ public class GraphicElement extends EventDispatcher
             return stroke + this.measuredY + this.y;
 
         var topLeft:Point = new Point(measuredX, measuredY);
-        MatrixUtil.transformBounds(new Point(_width, _height), m, topLeft);
+        MatrixUtil.transformBounds(_width, _height, m, topLeft);
         return stroke + topLeft.y;
     }
 
@@ -4120,7 +4120,7 @@ public class GraphicElement extends EventDispatcher
                                                postLayoutTransform:Boolean = true):Number
     {
         if (postLayoutTransform && hasComplexLayoutMatrix)
-            width = MatrixUtil.transformSize(new Point(width, height), 
+            width = MatrixUtil.transformSize(width, height, 
                                              layoutFeatures.layoutMatrix).x;
 
         // Take stroke into account
@@ -4150,7 +4150,7 @@ public class GraphicElement extends EventDispatcher
                                                 postLayoutTransform:Boolean = true):Number
     {
         if (postLayoutTransform && hasComplexLayoutMatrix)
-            height = MatrixUtil.transformSize(new Point(width, height), 
+            height = MatrixUtil.transformSize(width, height, 
                                               layoutFeatures.layoutMatrix).y;
 
         // Take stroke into account
