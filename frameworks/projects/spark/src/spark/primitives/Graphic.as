@@ -70,7 +70,7 @@ import spark.components.Group;
  *  of its superclass, and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:Graphic
+ *  &lt;s:Graphic
  *    <b>Properties</b>
  *    version
  *    viewHeight
