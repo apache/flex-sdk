@@ -92,16 +92,21 @@
     
     <fx:Declarations>
         <!-- Defines the appearance of the the List's drop indicator.
-             To customize the drop indicator appearance, create a custom ListSkin class. -->
+             To customize the drop indicator appearance, create a custom ListSkin class.
+             The List's layout will take care to size and position the dropIndicator.
+		     The size of the dropIndicator is typically set to the size of the gaps between the items.
+		     The minimum and maximum settings are typically respected only in the direction
+		     along the major axis (the gap axis).  For example a VerticalLayout will ignore the 
+		     minWidth and maxWidth settings, but respect minHeight and maxHeight. -->
         <fx:Component id="dropIndicator">
-            <s:Group includeInLayout="false" minWidth="4" minHeight="4" maxWidth="4" maxHeight="4">
-                <s:Rect left="0" right="0" top="0" bottom="0" radiusX="1" radiusY="1">
+            <s:Group minWidth="3" minHeight="3" maxWidth="3" maxHeight="3">
+                <s:Rect left="0" right="0" top="0" bottom="0">
                     <s:fill>
-                        <!--- Defines the color of the background. The default color is 0x888888. -->
-                        <s:SolidColor color="0x888888" />
+                        <!--- Defines the color of the background. -->
+                        <s:SolidColor color="0xBBBBBB" />
                     </s:fill>
                     <s:stroke>
-                        <s:SolidColorStroke color="0x686868" weight="1"/>
+                        <s:SolidColorStroke color="0x868686" weight="1"/>
                     </s:stroke>
                 </s:Rect>
             </s:Group>
