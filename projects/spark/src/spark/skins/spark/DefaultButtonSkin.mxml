@@ -27,7 +27,7 @@ an Alert. It is defined by the defaultButton property on a container.
     <fx:Metadata>
         <![CDATA[ 
         /** 
-         * @copy spark.skins.default.ApplicationSkin#hostComponent
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
          */
         [HostComponent("spark.components.Button")]
         ]]>
