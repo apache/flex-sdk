@@ -44,7 +44,7 @@ import mx.filters.IBitmapFilter;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;DropShadowFilter 
+ *  &lt;s:DropShadowFilter 
  *    <strong>Properties</strong>
  *    alpha="1"
  *    angle="45"
