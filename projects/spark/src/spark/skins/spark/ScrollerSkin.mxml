@@ -13,23 +13,23 @@
 
 <!--
 
-FxScroller unconditionally sets its skin's layout to private layout
-implementation that handles the scroll policies.  FxScroller skins can
+Scroller unconditionally sets its skin's layout to private layout
+implementation that handles the scroll policies.  Scroller skins can
 only provide replacement scrollbars.  The skin's layout and
 constraints or dimensions set on skin parts will not be honored.  To
 gain more control over the layout of a viewport and its scrollbars,
-instead of using FxScroller, add them to a Group and use the scrollbar
+instead of using Scroller, add them to a Group and use the scrollbar
 viewport property to link them together.
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
-    <Metadata>
-        [HostComponent("mx.components.FxScroller")]
-    </Metadata> 
+    <fx:Metadata>
+        [HostComponent("spark.components.Scroller")]
+    </fx:Metadata> 
         
-    <FxVScrollBar id="verticalScrollBar" visible="false" />
-    <FxHScrollBar id="horizontalScrollBar" visible="false" />
+    <s:VScrollBar id="verticalScrollBar" visible="false" />
+    <s:HScrollBar id="horizontalScrollBar" visible="false" />
 
-</Skin>
+</s:Skin>
