@@ -1072,7 +1072,9 @@ public class VerticalLayout extends LayoutBase
        
         updateLLV(layoutTarget);
         var startIndex:int = llv.indexOf(minVisibleY); 
-            
+        if (startIndex == -1)
+            return;
+                        
         var fixedRowHeight:Number = NaN;
         if (!variableRowHeight)
             fixedRowHeight = rowHeight;  // may query typicalLayoutElement, elt at index=0
