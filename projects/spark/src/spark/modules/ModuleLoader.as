@@ -118,7 +118,16 @@ import spark.components.Group;
 
 [ResourceBundle("modules")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
 [IconFile("ModuleLoader.png")]
+
+/**
+ *  Modules are not supported for AIR mobile applications.
+ */
+[DiscouragedForProfile("mobileDevice")]
 
 /**
  *  ModuleLoader is a component that behaves much like a SWFLoader except
