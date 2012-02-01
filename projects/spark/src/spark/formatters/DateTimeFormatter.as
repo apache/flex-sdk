@@ -198,7 +198,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
         if (g11nWorkingInstance)
             return g11nWorkingInstance.actualLocaleIDName;
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -307,7 +307,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
         if (g11nWorkingInstance)
             return g11nWorkingInstance.getDateStyle();
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -319,6 +319,8 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
 
     public function set dateStyle(value:String):void
     {
+        if(dateStyleOverride != null && dateStyleOverride == value)
+            return;
         dateStyleOverride = value;
 
         if (g11nWorkingInstance)
@@ -385,7 +387,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
         if (g11nWorkingInstance)
             return g11nWorkingInstance.getDateTimePattern();
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -397,6 +399,8 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
 
     public function set dateTimePattern(value:String):void
     {
+        if(dateTimePatternOverride != null && dateTimePatternOverride == value)
+            return;
         dateTimePatternOverride = value;
 
         if(g11nWorkingInstance)
@@ -469,7 +473,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
         if (g11nWorkingInstance)
             return g11nWorkingInstance.getTimeStyle();
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -481,6 +485,8 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
 
     public function set timeStyle(value:String):void
     {
+        if(timeStyleOverride != null && timeStyleOverride == value)
+            return;
         timeStyleOverride = value;
 
         if (g11nWorkingInstance)
@@ -553,7 +559,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      */
     override mx_internal function createWorkingInstance():void
     {
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -643,7 +649,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
                 g11nWorkingInstance.format(dateTime);
         }
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -707,7 +713,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
         if (g11nWorkingInstance)
             return g11nWorkingInstance.getMonthNames(nameStyle, context);
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -770,7 +776,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
         if (g11nWorkingInstance)
             return g11nWorkingInstance.getWeekdayNames(nameStyle, context);
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -804,7 +810,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
         if (g11nWorkingInstance)
             return g11nWorkingInstance.getFirstWeekday();
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
