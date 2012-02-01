@@ -42,6 +42,8 @@ public class BitmapUtil
      *  Creates a BitmapData representation of the target object.
      *
      *  @param target The object to capture in the resulting BitmapData  
+     *  @param visibleBounds If non-null, this Rectangle will be populated with
+     *  the visible bounds of the object, relative to the object itself.   
      *
      *  @return A BitmapData object containing the image.
      *
@@ -55,12 +57,19 @@ public class BitmapUtil
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static function getSnapshot(target:IUIComponent):BitmapData
+    public static function getSnapshot(target:IUIComponent, visibleBounds:Rectangle = null):BitmapData
     {
         // DisplayObject.getBounds() is not sufficient; we need the same
         // bounds as those used internally by the player
         var m:Matrix = MatrixUtil.getConcatenatedComputedMatrix(target as DisplayObject);
         var bounds:Rectangle = getRealBounds(DisplayObject(target), m);
+        if (visibleBounds != null)
+        {
+            visibleBounds.x = bounds.x - target.x;
+            visibleBounds.y = bounds.y - target.y;
+            visibleBounds.width = bounds.width;
+            visibleBounds.height = bounds.height;
+        }
         if (bounds.width == 0 || bounds.height == 0)
             return null;
         if (m)
