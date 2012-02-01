@@ -845,17 +845,6 @@ public class HorizontalLayout extends LayoutBase
      */
      private function updateLLV(layoutTarget:GroupBase):void
      {
-        var contentChangeDeltas:Vector.<int> = layoutTarget.mx_internal::contentChangeDeltas;
-        if (contentChangeDeltas)
-            for(var i:int = 0; i < contentChangeDeltas.length; i++)
-            {
-                var delta:int = contentChangeDeltas[i];
-                if (delta < 0)
-                    llv.remove(-(delta + 1));
-                else
-                    llv.insert(delta - 1);
-            }
-         
         var typicalElt:ILayoutElement = typicalLayoutElement;
         if (typicalElt)
         {
@@ -868,6 +857,24 @@ public class HorizontalLayout extends LayoutBase
             llv.length = layoutTarget.numElements;        
         llv.gap = gap;
      }
+
+    /**
+     *  @private
+     */
+     override public function elementAdded(index:int):void
+     {
+         if (useVirtualLayout)
+            llv.insert(index);
+     }
+
+    /**
+     *  @private
+     */
+     override public function elementRemoved(index:int):void
+     {
+        if (useVirtualLayout)
+            llv.remove(index);
+     }     
 
     /**
      *  @private 
@@ -889,7 +896,10 @@ public class HorizontalLayout extends LayoutBase
         
         updateLLV(layoutTarget);     
         if (variableColumnWidth)
+        {
+            var endIndex:int = Math.max(0, Math.min(measuredEltCount, eltCount) - 1);
             layoutTarget.measuredWidth =  llv.end(measuredEltCount - 1);
+        }
         else
         {
             var hgap:Number = (measuredEltCount > 1) ? (measuredEltCount - 1) * gap : 0;
