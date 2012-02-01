@@ -12,7 +12,8 @@
 -->
 
 <Skin xmlns="http://ns.adobe.com/mxml/2009"
-	  width="120" height="15">
+	  minWidth="85" minHeight="15"
+	  alpha.disabled="0.5">
 
     <Metadata>
     	[HostComponent("mx.components.FxHScrollBar")]
@@ -23,12 +24,12 @@
     	<State name="disabled" />
     </states>
     
-    <FxButton id="track" left="17" right="17"
-            skinZZ="mx.skins.spark.FxHScrollBarTrackSkin" />
+    <FxButton id="track" left="16" right="15"
+              skinZZ="mx.skins.spark.FxHScrollBarTrackSkin" />
     <FxButton id="thumb" skinZZ="mx.skins.spark.FxHScrollBarThumbSkin" />
     <FxButton id="decrementButton" left="0"
-            skinZZ="mx.skins.spark.FxScrollBarLeftButtonSkin" />
+              skinZZ="mx.skins.spark.FxScrollBarLeftButtonSkin" />
     <FxButton id="incrementButton" right="0"
-            skinZZ="mx.skins.spark.FxScrollBarRightButtonSkin" />
+              skinZZ="mx.skins.spark.FxScrollBarRightButtonSkin" />
 
 </Skin>
