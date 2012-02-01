@@ -49,13 +49,6 @@ public class Ellipse extends FilledElement
 	//
 	//--------------------------------------------------------------------------
 	
-    override public function get bounds():Rectangle
-	{		
-		return new Rectangle(0, 0,
-		                     isNaN(explicitWidth) ? 0 : explicitWidth,
-		                     isNaN(explicitHeight) ? 0 : explicitHeight);
-	}
-	
 	/**
 	 *  @inheritDoc
 	 */
