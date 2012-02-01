@@ -1016,18 +1016,18 @@ public class Path extends FilledElement
         var sx:Number = naturalBounds.width == 0 ? 1 : width / naturalBounds.width;
         var sy:Number = naturalBounds.height == 0 ? 1 : height / naturalBounds.height; 
 
-
+        var origin:Point = new Point(drawX, drawY);
         var bounds:Rectangle = new Rectangle(drawX + measuredX * sx,
                                              drawY + measuredY * sy,
                                              width, 
                                              height);
         if (stroke)
-            stroke.apply(g, bounds);
+            stroke.apply(g, bounds, origin);
         else
             g.lineStyle();
         
         if (fill)
-            fill.begin(g, bounds);
+            fill.begin(g, bounds, origin);
     }
  
     // FIXME (egeorgie): these are a short term fix for MAX to work around the fact
