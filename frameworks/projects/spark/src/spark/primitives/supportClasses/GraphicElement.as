@@ -25,6 +25,7 @@ import flash.geom.Matrix3D;
 import flash.geom.Point;
 import flash.geom.Transform;
 
+import mx.components.Group;
 import mx.components.baseClasses.GroupBase;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.IInvalidating;
@@ -2305,7 +2306,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         // to preseve original behavior before layout API unification.
         invalidateDisplayList();
         if (parent)
-            GroupBase(parent).elementLayerChanged(this);
+            Group(parent).graphicElementLayerChanged(this);
     }
 
     /**
@@ -2346,7 +2347,7 @@ public class GraphicElement extends OnDemandEventDispatcher
 
         // TODO EGeorgie: hook up directly with the layout manager?
         if (parent)
-            GroupBase(parent).elementSizeChanged(this);
+            Group(parent).graphicElementSizeChanged(this);
     }
 
     /**
@@ -2385,7 +2386,7 @@ public class GraphicElement extends OnDemandEventDispatcher
 
         // TODO EGeorgie: hook up directly with the layout manager?
         if (parent)
-            GroupBase(parent).elementChanged(this);
+            Group(parent).graphicElementChanged(this);
     }
 
     /**
