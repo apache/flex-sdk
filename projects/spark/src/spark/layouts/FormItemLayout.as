@@ -104,22 +104,5 @@ public class FormItemLayout extends ConstraintLayout
         target.invalidateDisplayList();
     }
     
-    /**
-     *  @private
-     *  Sets the column widths to the provided values.
-     */ 
-    private function setColumnWidths(value:Vector.<Number>):void
-    {
-        var constraintColumns:Vector.<ConstraintColumn> = this.constraintColumns;
-        var numCols:int = constraintColumns.length;
-        var totalWidth:Number = 0;
-        
-        for (var i:int = 0; i < numCols; i++)
-        {
-            constraintColumns[i].setActualWidth(value[i]);
-            constraintColumns[i].x = totalWidth;
-            totalWidth += value[i];
-        }
-    }
 }
 }
