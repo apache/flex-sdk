@@ -106,19 +106,25 @@ public class TextFlowUtil
                 
         // Create an importer for TEXT_LAYOUT_FORMAT
         // that collapses whitespace.
-        format = new TextLayoutFormat();
-        format.whiteSpaceCollapse = "collapse";
+        // Note: We have to make a copy of the textFlowInitialFormat,
+        // which has various formats set to "inherit",
+        // and then modify it and set it back.
         config = new Configuration();
-        config.textFlowInitialFormat = format;
+        format = new TextLayoutFormat(config.textFlowInitialFormat);
+		format.whiteSpaceCollapse = "collapse";
+		config.textFlowInitialFormat = format;
         collapsingTextLayoutImporter = TextFilter.getImporter(
             TextFilter.TEXT_LAYOUT_FORMAT, config);
         collapsingTextLayoutImporter.throwOnError = true;
-        
+		        
         // Create an importer for TEXT_LAYOUT_FORMAT
         // that preserves whitespace.
-        format = new TextLayoutFormat();
+		// Note: We have to make a copy of the textFlowInitialFormat,
+		// which has various formats set to "inherit",
+		// and then modify it and set it back.
+		config = new Configuration();
+		format = new TextLayoutFormat(config.textFlowInitialFormat);
         format.whiteSpaceCollapse = "preserve";
-        config = new Configuration();
         config.textFlowInitialFormat = format;
         preservingTextLayoutImporter = TextFilter.getImporter(
             TextFilter.TEXT_LAYOUT_FORMAT, config);
@@ -221,7 +227,7 @@ public class TextFlowUtil
                               markupToImport +
                               "</TextFlow>";
         }
-                
+        
         var importer:ITextImporter = whiteSpaceCollapse == "collapse" ?
                                      collapsingTextLayoutImporter :
                                      preservingTextLayoutImporter;
