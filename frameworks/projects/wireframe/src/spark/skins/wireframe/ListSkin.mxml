@@ -11,8 +11,11 @@
 
 -->
 
-<!--- The default skin class for the Spark List component. 
-        
+<!--- The default wireframe skin class for the Spark List component. 
+        Skin classes in the wireframe package are useful for using as a simple base for a custom skin.
+
+      @see spark.components.List
+
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
@@ -47,7 +50,7 @@
     <!--- The Scroller component to add scroll bars to the list. -->
     <s:Scroller left="0" top="0" right="0" bottom="0" id="scroller" 
         minViewportInset="1" focusEnabled="false">
-        <!--- @copy spark.components.supportClasses.SkinnableDataContainer#dataGroup -->
+        <!--- @copy spark.components.SkinnableDataContainer#dataGroup -->
         <s:DataGroup id="dataGroup" itemRenderer="spark.skins.spark.DefaultItemRenderer">
             <s:layout>
                 <s:VerticalLayout gap="0" horizontalAlign="contentJustify" />
