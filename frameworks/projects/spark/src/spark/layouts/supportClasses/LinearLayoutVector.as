@@ -59,8 +59,10 @@ public final class LinearLayoutVector
     private var blockTable:Vector.<Block> = new Vector.<Block>(0, false);
     
 
-    public function LinearLayoutVector()
+    public function LinearLayoutVector(majorAxis:uint = VERTICAL)
     {
+        super();
+        this.majorAxis = majorAxis;
     }
     
     
@@ -188,7 +190,7 @@ public final class LinearLayoutVector
     //  majorAxis
     //----------------------------------
     
-    private var _majorAxis:Number = VERTICAL;
+    private var _majorAxis:uint = VERTICAL;
     
     /**
      *  Defines how the <code>getBounds()</code> method maps from 
@@ -197,7 +199,7 @@ public final class LinearLayoutVector
      *  @default VERTICAL
      *  @see #cacheDimensions
      */
-    public function get majorAxis():Number
+    public function get majorAxis():uint
     {
         return _majorAxis;
     }
@@ -205,7 +207,7 @@ public final class LinearLayoutVector
     /**
      * @private
      */
-    public function set majorAxis(value:Number):void
+    public function set majorAxis(value:uint):void
     {
         _majorAxis = value;
     }
@@ -358,19 +360,14 @@ public final class LinearLayoutVector
      * 
      *  If <code>index &lt;(length-1)</code> then the value of this 
      *  function is defined as: 
-     *  <code>start(index) + get(index) + gap</code>.
-     * 
-     *  The gap isn't added for the last item.
+     *  <code>start(index) + get(index)</code>.
      * 
      *  @param index The item's index.
      *  @see #start
      */
     public function end(index:uint):Number
     {
-        var distance:Number = start(index) + getMajorSize(index);
-        if (index < (_length - 1))
-            distance += gap;
-       return distance;
+       return start(index) + getMajorSize(index);
     }
 
     /**
@@ -477,7 +474,7 @@ public final class LinearLayoutVector
         {
             setMajorSize(index, elt.getLayoutBoundsWidth());            
             minorSize = Math.max(minorSize, elt.getLayoutBoundsHeight());
-            var mh:Number =  isNaN(elt.percentHeight) ? elt.getPreferredBoundsWidth() : elt.getMinBoundsHeight();            
+            var mh:Number =  isNaN(elt.percentHeight) ? elt.getPreferredBoundsHeight() : elt.getMinBoundsHeight();            
             minMinorSize = Math.max(minMinorSize, mh);
         }
     }
