@@ -17,7 +17,7 @@
 
 	<!-- host component -->
 	<fx:Metadata>
-		[HostComponent("spark.components.ToggleButton")]
+		[HostComponent("spark.components.ButtonBarButton")]
 	</fx:Metadata>
 	
 	<!-- states -->
