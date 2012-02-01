@@ -115,15 +115,6 @@ The default skin class for a Spark DataGrid component.
             super.updateDisplayList(unscaledWidth, unscaledHeight);
         }
     </fx:Script>    
-
-    <!-- border -->
-    <!--- @private -->
-    <s:Rect left="0" right="0" top="0" bottom="0" id="border">
-        <s:stroke>
-            <!--- @private -->
-            <s:SolidColorStroke id="borderStroke" weight="1"/>
-        </s:stroke>
-    </s:Rect>
     
     <!-- fill -->
     <!--- Defines the background appearance of the list-based component. -->
@@ -134,72 +125,89 @@ The default skin class for a Spark DataGrid component.
         </s:fill>
     </s:Rect>
     
-    <s:VGroup horizontalAlign="justify" gap="-1" left="0" right="0" top="0" bottom="0">
-        <s:HGroup paddingLeft="1" gap="0">
-            <s:ColumnHeaderBar id="columnHeaderBar" skinClass="spark.skins.spark.ColumnHeaderBarSkin" width="100%"/>
-        </s:HGroup>
-        <s:Scroller id="scroller" minViewportInset="1" hasFocusableChildren="false" height="100%">
-            <s:Grid id="grid" itemRenderer="spark.skins.spark.DefaultGridItemRenderer"> 
-                <!--
-                <s:itemRenderer>
-                    <fx:Component>
-                        <s:GridItemRenderer>
-                            <s:Label id="labelDisplay" paddingLeft="7" paddingRight="7" paddingBottom="5" paddingTop="9" width="100%" height="100%"/> 
-                        </s:GridItemRenderer>
-                    </fx:Component>
-                </s:itemRenderer>
-                -->
-                
-                <s:caretIndicator>
-                    <fx:Component>
-                        <s:Rect>
-                            <s:stroke>
-                                <s:SolidColorStroke color="0x0167FF" weight="1"/>
-                            </s:stroke>
-                        </s:Rect>
-                    </fx:Component>
-                </s:caretIndicator>
-                
-                <s:selectionIndicator>
-                    <fx:Component>
-                        <s:Rect>
-                            <s:fill>
-                                <s:SolidColor color="0xA8C6EE"/>
-                            </s:fill>                
-                        </s:Rect>
-                    </fx:Component>           
-                </s:selectionIndicator>
-               
-                <s:columnSeparator>
-                    <fx:Component>
-                        <s:Line>
-                            <s:stroke>
-                                <s:SolidColorStroke color="0xE6E6E6" weight="1"/>
-                            </s:stroke>
-                        </s:Line>
-                    </fx:Component>
-                </s:columnSeparator>
-                <s:rowSeparator>
-                    <fx:Component>
-                        <s:Line>
-                            <s:stroke>
-                                <s:SolidColorStroke color="0xE6E6E6" weight="1"/>
-                            </s:stroke>
-                        </s:Line>
-                    </fx:Component>
-                </s:rowSeparator>
-                
-                <s:hoverIndicator>
-                    <fx:Component>
-                        <s:Rect>
-                            <s:fill>
-                                <s:SolidColor color="0xCEDBEF"/>
-                            </s:fill>
-                        </s:Rect>
-                    </fx:Component>            
-                </s:hoverIndicator>
-            </s:Grid>
-        </s:Scroller>
+    <s:VGroup horizontalAlign="justify" gap="0" left="0" right="0" top="0" bottom="0">
+        <s:ColumnHeaderBar id="columnHeaderBar" paddingLeft="1" paddingTop="1" paddingRight="1" headerRenderer="spark.skins.spark.DefaultGridHeaderRenderer">
+            <s:columnSeparator>
+                <fx:Component>
+                    <s:Line>
+                        <s:stroke>
+                            <s:SolidColorStroke color="0x696969" weight="1" caps="square"/>
+                        </s:stroke>
+                    </s:Line>
+                </fx:Component>
+            </s:columnSeparator>
+        </s:ColumnHeaderBar>
+
+        <s:VGroup horizontalAlign="justify" height="100%" gap="-1">
+            <s:Line id="headerSeparator">
+                <s:stroke>
+                    <s:SolidColorStroke color="0x696969" weight="1" caps="square"/>
+                </s:stroke>
+            </s:Line>          
+            
+            <s:Scroller id="scroller" minViewportInset="1" hasFocusableChildren="false" height="100%">
+                <s:Grid id="grid" itemRenderer="spark.skins.spark.DefaultGridItemRenderer">
+                    <s:caretIndicator>
+                        <fx:Component>
+                            <s:Rect>
+                                <s:stroke>
+                                    <s:SolidColorStroke color="0x0167FF" weight="1"/>
+                                </s:stroke>
+                            </s:Rect>
+                        </fx:Component>
+                    </s:caretIndicator>
+                    
+                    <s:selectionIndicator>
+                        <fx:Component>
+                            <s:Rect>
+                                <s:fill>
+                                    <s:SolidColor color="0xA8C6EE"/>
+                                </s:fill>                
+                            </s:Rect>
+                        </fx:Component>           
+                    </s:selectionIndicator>
+                    
+                    <s:columnSeparator>
+                        <fx:Component>
+                            <s:Line>
+                                <s:stroke>
+                                    <s:SolidColorStroke color="0xE6E6E6" weight="1" caps="square"/>
+                                </s:stroke>
+                            </s:Line>
+                        </fx:Component>
+                    </s:columnSeparator>
+                    
+                    <s:rowSeparator>
+                        <fx:Component>
+                            <s:Line>
+                                <s:stroke>
+                                    <s:SolidColorStroke color="0xE6E6E6" weight="1" caps="square"/>
+                                </s:stroke>
+                            </s:Line>
+                        </fx:Component>
+                    </s:rowSeparator>
+                    
+                    <s:hoverIndicator>
+                        <fx:Component>
+                            <s:Rect>
+                                <s:fill>
+                                    <s:SolidColor color="0xCEDBEF"/>
+                                </s:fill>
+                            </s:Rect>
+                        </fx:Component>            
+                    </s:hoverIndicator>
+                </s:Grid>
+            </s:Scroller>
+        </s:VGroup>            
     </s:VGroup>
+    
+    <!-- border -->
+    <!--- @private -->
+    <s:Rect left="0" right="0" top="0" bottom="0" id="border">
+        <s:stroke>
+            <!--- @private -->
+            <s:SolidColorStroke id="borderStroke" weight="1"/>
+        </s:stroke>
+    </s:Rect>    
 
 </s:SparkSkin>
