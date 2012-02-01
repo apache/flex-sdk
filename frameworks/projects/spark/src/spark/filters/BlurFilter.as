@@ -86,6 +86,8 @@ public class BlurFilter extends BaseFilter implements IBitmapFilter
 	
 	public function BlurFilter(blurX:Number = 4.0, blurY:Number = 4.0, quality:int = 1)
 	{
+		super();
+		
 		this.blurX = blurX;
 		this.blurY = blurY;
 		this.quality = quality;
