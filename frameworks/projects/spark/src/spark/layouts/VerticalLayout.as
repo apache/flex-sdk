@@ -902,7 +902,10 @@ public class VerticalLayout extends LayoutBase
         }
         
         if (useVirtualLayout)
+        {
             g.invalidateDisplayList();
+            g.validateNow();
+        }
                 
         setIndexInView(i0, i1);
     }
