@@ -14,7 +14,7 @@
 <Skin xmlns="http://ns.adobe.com/mxml/2009">
 
     <Metadata>
-    	[HostComponent("flex.component.Spinner")]
+    	[HostComponent("mx.components.FxSpinner")]
     </Metadata> 
     
     <states>
@@ -22,9 +22,9 @@
     	<State name="disabled" />
     </states>
     
-    <Button id="incrementButton" width="12" height="12" 
-            skinZZ="flex.skin.SpinnerIncrButtonSkin" />
-    <Button id="decrementButton" top="12" width="12" height="12"
-            skinZZ="flex.skin.SpinnerDecrButtonSkin" />
+    <FxButton id="incrementButton" width="12" height="12" 
+            skinZZ="mx.skins.spark.FxSpinnerIncrButtonSkin" />
+    <FxButton id="decrementButton" top="12" width="12" height="12"
+            skinZZ="mx.skins.spark.FxSpinnerDecrButtonSkin" />
 
 </Skin>
