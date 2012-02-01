@@ -172,6 +172,16 @@
                 border.topRightRadiusX = cornerRadius;
                 dropShadow.trRadius = cornerRadius;
                 dropShadow.tlRadius = cornerRadius;
+                
+                if (cbbg.visible)
+                {
+                    contentMaskRect.bottomLeftRadiusX = cornerRadius;
+                    contentMaskRect.bottomRightRadiusX = cornerRadius;
+                    border.bottomLeftRadiusX = cornerRadius;
+                    border.bottomRightRadiusX = cornerRadius;
+                    dropShadow.blRadius = cornerRadius;
+                    dropShadow.brRadius = cornerRadius;
+                }
             }
             
             backgroundFill.color = getStyle("backgroundColor");
