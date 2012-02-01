@@ -2968,7 +2968,10 @@ public class GraphicElement extends EventDispatcher
             var bitmapData:BitmapData = new BitmapData(Math.ceil(rectBounds.width), Math.ceil(rectBounds.height), transparent, fillColor);
  
                 
-            var m:Matrix = useLocalSpace ? displayObject.transform.matrix : displayObject.transform.concatenatedMatrix;
+            // Can't use target's concatenatedMatrix, as it is sometimes wrong
+            var m:Matrix = useLocalSpace ? 
+                displayObject.transform.matrix : 
+                MatrixUtil.getConcatenatedMatrix(displayObject);
             
             if (m)
                 m.translate(-rectBounds.x, -rectBounds.y);
@@ -2988,7 +2991,7 @@ public class GraphicElement extends EventDispatcher
             return get3DSnapshot(transparent, fillColor, useLocalSpace);
         }
     }
-            
+
    /**
      *  @private 
      *  Returns a bitmap snapshot of a 3D transformed displayObject. Since BitmapData.draw ignores
