@@ -24,7 +24,7 @@
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
-        static private const symbols:Array = ["arrowShadow"];
+        static private const symbols:Array = ["arrowFill"];
         override public function get symbolItems():Array {return symbols};
     </Script>
     
@@ -82,12 +82,8 @@
     <Path horizontalCenter="0" verticalCenter="0" id="arrow"
           data="M 3.0 0.0 L 3.0 1.0 L 4.0 1.0 L 4.0 2.0 L 5.0 2.0 L 5.0 3.0 L 0.0 3.0 L 0.0 2.0 L 1.0 2.0 L 1.0 1.0 L 2.0 1.0 L 2.0 0.0 L 3.0 0.0">
         <fill>
-            <SolidColor color="0" />
+        	<SolidColor id="arrowFill" color="0" alpha="0.8" />
         </fill>
-        <filters>
-            <DropShadowFilter id="arrowShadow" inner="true" knockout="true" angle="90" alpha="0.75" 
-                              color="0" distance="1" strength="1.7" blurX="4" blurY="4" />
-        </filters>
     </Path>            
     
 </SparkSkin>
