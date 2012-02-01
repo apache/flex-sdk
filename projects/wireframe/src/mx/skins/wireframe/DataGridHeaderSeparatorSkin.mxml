@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2009 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the separator of a Halo DataGrid component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						xmlns:s="library://ns.adobe.com/flex/spark" 
+						
+    					width="2" height="10" mouseEnabled="false" mouseChildren="false">    
+    
+    <!-- border -->
+    <s:Rect top="0" left="0" bottom="0" width="1">
+        <s:fill>
+            <s:SolidColor color="0x5581D1" />
+        </s:fill>
+    </s:Rect>
+</s:Skin>
