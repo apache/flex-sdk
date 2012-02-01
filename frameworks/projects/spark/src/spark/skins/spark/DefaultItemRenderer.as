@@ -70,7 +70,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  Color of focus ring when the component is in focus
@@ -82,7 +82,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  Color of the highlights when the mouse is over the component
@@ -107,7 +107,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 //--------------------------------------
 //  Excluded APIs
