@@ -1694,7 +1694,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     [Inspectable(category="General")]
 
     /**
-     *  The y position transform point of the element.
+     *  The z position transform point of the element.
      */
     public function get transformZ():Number
     {
