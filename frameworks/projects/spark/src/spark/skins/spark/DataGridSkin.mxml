@@ -80,73 +80,6 @@ The default skin class for a Spark DataGrid component.
         }
     </fx:Script>    
 
-    <fx:Declarations>
-        <fx:Component id="defaultItemRenderer">
-            <s:GridItemRenderer>
-                <s:Label id="labelDisplay" paddingLeft="3" paddingRight="3" paddingBottom="5" paddingTop="10"/> 
-            </s:GridItemRenderer>
-        </fx:Component>
-        
-        <fx:Component id="defaultCaretIndicator">
-            <s:Rect>
-                <s:stroke>
-                    <s:SolidColorStroke color="0xFFBC7A" weight="2"/>
-                </s:stroke>
-            </s:Rect>
-        </fx:Component>
-        
-        <fx:Component id="defaultSelectionIndicator">
-            <s:Rect>
-                <s:fill>
-                    <mx:SolidColor color="0xC082FF"/>
-                </s:fill>                
-            </s:Rect>
-        </fx:Component>           
-        
-        <fx:Component id="defaultColumnSeparator">
-            <s:Line>
-                <s:stroke>
-                    <s:SolidColorStroke color="0x000000" weight="1"/>
-                </s:stroke>
-            </s:Line>
-        </fx:Component>
-        
-        <fx:Component id="defaultRowSeparator">
-            <s:Line>
-                <s:stroke>
-                    <s:SolidColorStroke color="0x000000" weight="1"/>
-                </s:stroke>
-            </s:Line>
-        </fx:Component>
-        
-        <fx:Component id="defaultHoverIndicator">
-            <s:Rect>
-                <s:fill>
-                    <mx:SolidColor color="0xFFBC7A"/>
-                </s:fill>
-            </s:Rect>
-        </fx:Component>
-        
-        <fx:Component id="defaultRowBackground">
-            <s:Rect>
-                <fx:Script>
-                    <![CDATA[
-                        
-                        // TBD: should get a grid argument as well
-                        public function initializeGridElement(rowIndex:int, columnIndex:int):void
-                        {
-                            rowBackgroundFillColor.color = ((rowIndex & 1) == 0) ? 0xFFFFFF : 0xE9D2FF;
-                        }
-                        
-                    ]]>
-                </fx:Script>                
-                <s:fill>
-                    <mx:SolidColor id="rowBackgroundFillColor"/>
-                </s:fill>
-            </s:Rect>
-        </fx:Component>
-    </fx:Declarations>
-
     <!-- border -->
     <!--- @private -->
     <s:Rect left="0" right="0" top="0" bottom="0" id="border">
@@ -165,16 +98,90 @@ The default skin class for a Spark DataGrid component.
         </s:fill>
     </s:Rect>
     
-    <!--- The Scroller component to add scroll bars to the list. -->
-    <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" minViewportInset="1" hasFocusableChildren="false">
-        <s:Grid id="grid"
-            defaultItemRenderer="{defaultItemRenderer}"
-            caretIndicator="{defaultCaretIndicator}"
-            hoverIndicator="{defaultHoverIndicator}"
-            selectionIndicator="{defaultSelectionIndicator}"
-            rowBackground="{defaultRowBackground}"
-            rowSeparator="{defaultRowSeparator}"
-            columnSeparator="{defaultColumnSeparator}">
-        </s:Grid>
-    </s:Scroller>
+    <s:VGroup>      
+        <!--s:ColumnHeaderBar id="columnHeaderBar" skinClass="spark.skins.spark.ColumnHeaderBarSkin" /-->
+        <s:Scroller id="scroller" minViewportInset="1" hasFocusableChildren="false">
+            <s:Grid id="grid">
+                <s:defaultItemRenderer>
+                    <fx:Component>
+                        <s:GridItemRenderer>
+                            <s:Label id="labelDisplay" paddingLeft="3" paddingRight="3" paddingBottom="5" paddingTop="10"/> 
+                        </s:GridItemRenderer>
+                    </fx:Component>
+                </s:defaultItemRenderer>
+                
+                <s:caretIndicator>
+                    <fx:Component>
+                        <s:Rect>
+                            <s:stroke>
+                                <s:SolidColorStroke color="0xFFBC7A" weight="2"/>
+                            </s:stroke>
+                        </s:Rect>
+                    </fx:Component>
+                </s:caretIndicator>
+                
+                <s:selectionIndicator>
+                    <fx:Component>
+                        <s:Rect>
+                            <s:fill>
+                                <mx:SolidColor color="0xC082FF"/>
+                            </s:fill>                
+                        </s:Rect>
+                    </fx:Component>           
+                </s:selectionIndicator>
+                
+                <s:columnSeparator>
+                    <fx:Component>
+                        <s:Line>
+                            <s:stroke>
+                                <s:SolidColorStroke color="0x000000" weight="1"/>
+                            </s:stroke>
+                        </s:Line>
+                    </fx:Component>
+                </s:columnSeparator>
+                
+                <s:rowSeparator>
+                    <fx:Component>
+                        <s:Line>
+                            <s:stroke>
+                                <s:SolidColorStroke color="0x000000" weight="1"/>
+                            </s:stroke>
+                        </s:Line>
+                    </fx:Component>
+                </s:rowSeparator>
+                
+                <s:hoverIndicator>
+                    <fx:Component>
+                        <s:Rect>
+                            <s:fill>
+                                <mx:SolidColor color="0xFFBC7A"/>
+                            </s:fill>
+                        </s:Rect>
+                    </fx:Component>            
+                </s:hoverIndicator>
+                
+                <s:rowBackground>
+                    <fx:Component>
+                        <s:Rect>
+                            <fx:Script>
+                                <![CDATA[
+                                    
+                                    // TBD: should get a grid argument as well, class should implement IGridElement
+                                    public function initializeGridElement(rowIndex:int, columnIndex:int):void
+                                    {
+                                        rowBackgroundFillColor.color = ((rowIndex & 1) == 0) ? 0xFFFFFF : 0xE9D2FF;
+                                    }
+                                    
+                                ]]>
+                            </fx:Script>                
+                            <s:fill>
+                                <mx:SolidColor id="rowBackgroundFillColor"/>
+                            </s:fill>
+                        </s:Rect>
+                    </fx:Component>
+                </s:rowBackground>
+            </s:Grid>
+        </s:Scroller>
+    </s:VGroup>
+
 </s:SparkSkin>
