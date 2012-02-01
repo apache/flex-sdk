@@ -2121,8 +2121,17 @@ public class GraphicElement extends EventDispatcher
         // FIXME (egreenfi): optimize for simple translations
         allocateLayoutFeatures();
         var previous:Boolean = needsDisplayObject;
+        var prevX:Number = layoutFeatures.layoutX;
+        var prevY:Number = layoutFeatures.layoutY;
+        var prevZ:Number = layoutFeatures.layoutZ;
         layoutFeatures.transformAround(transformCenter,scale,rotation,translation,postLayoutScale,postLayoutRotation,postLayoutTranslation);
         invalidateTransform(previous != needsDisplayObject);
+        if (prevX != layoutFeatures.layoutX)
+            dispatchPropertyChangeEvent("x", prevX, layoutFeatures.layoutX);
+        if (prevY != layoutFeatures.layoutY)
+            dispatchPropertyChangeEvent("y", prevY, layoutFeatures.layoutY);
+        if (prevZ != layoutFeatures.layoutZ)
+            dispatchPropertyChangeEvent("z", prevZ, layoutFeatures.layoutZ);
     }
     
     /**
@@ -2483,11 +2492,13 @@ public class GraphicElement extends EventDispatcher
     {
         if (z == value)
             return;
+        var oldValue:Number = z;
         
         allocateLayoutFeatures();
         var previous:Boolean = needsDisplayObject;
         layoutFeatures.layoutZ = value;
         invalidateTransform(previous != needsDisplayObject);
+        dispatchPropertyChangeEvent("z", oldValue, value);
     }
 
     //----------------------------------
@@ -4067,6 +4078,11 @@ public class GraphicElement extends EventDispatcher
                 _x = newX;
                 _y = newY;
             }
+            if (newX != currentX)
+                dispatchPropertyChangeEvent("x", currentX, newX);
+            if (newY != currentY)
+                dispatchPropertyChangeEvent("y", currentY, newY);
+
             invalidateDisplayList();
         }
     }
@@ -4132,8 +4148,10 @@ public class GraphicElement extends EventDispatcher
             _width = width;
             _height = height;
             
-            dispatchPropertyChangeEvent("width", oldWidth, width);
-            dispatchPropertyChangeEvent("height", oldHeight, height);
+            if (width != oldWidth)
+                dispatchPropertyChangeEvent("width", oldWidth, width);
+            if (height != oldHeight)
+                dispatchPropertyChangeEvent("height", oldHeight, height);
 
             invalidateDisplayList();
         }
