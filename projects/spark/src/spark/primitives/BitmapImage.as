@@ -28,6 +28,11 @@ import mx.graphics.baseClasses.GraphicElement;
  *  coordinate space, filled with bitmap data drawn from a source file.
  *  
  *  @includeExample examples/BitmapGraphicExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class BitmapGraphic extends GraphicElement
 {
@@ -41,6 +46,11 @@ public class BitmapGraphic extends GraphicElement
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function BitmapGraphic()
     {
@@ -70,16 +80,31 @@ public class BitmapGraphic extends GraphicElement
     //----------------------------------
     /**
      *  The default state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected static const _NORMAL_UINT:uint = 0;
 
     /**
      *  Repeats the graphic.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected static const _REPEAT_UINT:uint = 1;
 
     /**
      *  Scales the graphic.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected static const _SCALE_UINT:uint = 2;
 
@@ -90,6 +115,11 @@ public class BitmapGraphic extends GraphicElement
      *  @param value The String to convert.
      *  
      *  @return The uint representation of the enum values.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected static function resizeModeToUINT(value:String):uint
     {
@@ -108,6 +138,11 @@ public class BitmapGraphic extends GraphicElement
      *  @param value The uint to convert.
      *  
      *  @return The String representation of the enum values.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected static function resizeModeToString(value:uint):String
     {
@@ -141,6 +176,11 @@ public class BitmapGraphic extends GraphicElement
      *  stretches to fill the region.
      * 
      *  @default <code>BitmapResizeMode.NORMAL</code>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get resizeMode():String 
     {
@@ -172,6 +212,11 @@ public class BitmapGraphic extends GraphicElement
      *  Set to <code>false</code> to end the fill at the edge of the region.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get repeat():Boolean 
     {
@@ -228,6 +273,11 @@ public class BitmapGraphic extends GraphicElement
      *  @see flash.display.Bitmap
      *  @see flash.display.BitmapData
      *  @see mx.graphics.BitmapFill
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get source():Object
     {
@@ -315,6 +365,11 @@ public class BitmapGraphic extends GraphicElement
      *  @copy flash.display.GraphicsBitmapFill#smooth
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set smooth(value:Boolean):void
     {
@@ -341,6 +396,11 @@ public class BitmapGraphic extends GraphicElement
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function measure():void
     {
@@ -350,6 +410,11 @@ public class BitmapGraphic extends GraphicElement
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
