@@ -3889,14 +3889,6 @@ public class GraphicElement extends EventDispatcher
     {
     	return performCheck && hasComplexLayoutMatrix ? layoutFeatures.layoutMatrix : null;
     }
-    
-    /**
-     *  @private
-     */
-    protected function getStroke():IStroke
-    {
-        return null;
-    }
 
     static private var _strokeExtents:Point = new Point();
 
@@ -3905,65 +3897,7 @@ public class GraphicElement extends EventDispatcher
     // now we assume they are the same on both sides.
     protected function getStrokeExtents(postLayoutTransform:Boolean = true):Point
     {
-        // TODO EGeorgie: currently we take only scale into account,
-        // but depending on joint style, cap style, etc. we need to take
-        // the whole matrix into account as well as examine every line segment...
-        var stroke:IStroke = getStroke();
-        if (!stroke)
-        {
-            _strokeExtents.x = 0;
-            _strokeExtents.y = 0;
-            return _strokeExtents;
-        }
-
-        // Stroke with weight 0 or scaleMode "none" is always drawn
-        // at "hairline" thickness, which is exactly one pixel.
-        var weight:Number = stroke.weight;
-        if (weight == 0)
-        {
-            _strokeExtents.x = 1;
-            _strokeExtents.y = 1;
-            return _strokeExtents;
-        }
-        
-        var scaleMode:String = stroke.scaleMode;
-        if (!scaleMode || scaleMode == LineScaleMode.NONE || !postLayoutTransform)
-        {
-            _strokeExtents.x = weight;
-            _strokeExtents.y = weight;
-            return _strokeExtents;
-        }
-
-        var sX:Number = scaleX;
-        var sY:Number = scaleY;
-
-        // TODO EGeorgie: stroke thickness depends on all matrix components,
-        // not only on scale.
-        if (scaleMode == LineScaleMode.NORMAL)
-        {
-            if (sX  == sY)
-                weight *= sX;
-            else
-                weight *= Math.sqrt(0.5 * (sX * sX + sY * sY));
-            
-            _strokeExtents.x = weight;
-            _strokeExtents.y = weight;
-            return _strokeExtents;
-        }
-        else if (scaleMode == LineScaleMode.HORIZONTAL)
-        {
-            _strokeExtents.x = weight * sX;
-            _strokeExtents.y = weight;
-            return _strokeExtents;
-        }
-        else if (scaleMode == LineScaleMode.VERTICAL)
-        {
-            _strokeExtents.x = weight;
-            _strokeExtents.y = weight * sY;
-            return _strokeExtents;
-        }
-
-        return null;
+		return _strokeExtents;
     }
 
     //--------------------------------------------------------------------------
