@@ -1,0 +1,58 @@
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2010 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The default skin class for the Spark Image skin progress bar preloader.  
+
+@see spark.components.Image
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4.5
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+        xmlns:fb="http://ns.adobe.com/flashbuilder/2009">
+    
+    <!-- host component -->
+    <fx:Metadata>
+        <![CDATA[ 
+        [HostComponent("spark.components.supportClasses.Range")]
+        ]]>
+    </fx:Metadata>
+    
+    <s:Rect height="9" width="26">
+        <s:stroke>
+            <s:SolidColorStroke color="#000000"/>
+        </s:stroke>
+        <s:fill>
+            <s:SolidColor color="#FFFFFF"/>
+        </s:fill>
+    </s:Rect>
+    
+    <s:Rect height="5" width="22" top="2" left="2">
+        <s:stroke>
+            <s:SolidColorStroke color="#000000"/>
+        </s:stroke>
+        <s:fill>
+            <s:SolidColor color="#FFFFFF"/>
+        </s:fill>
+    </s:Rect>
+    
+    <s:Group width="21" left="3" top="3" >
+        <s:Rect height="4" percentWidth="{hostComponent.value}">
+            <s:fill>
+                <s:SolidColor color="#B6B2A7"/>
+            </s:fill>
+        </s:Rect>
+    </s:Group>
+    
+    <s:Label left="29" verticalCenter="0"  text="{hostComponent.value}%" />
+</s:Skin>
