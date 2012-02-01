@@ -12,6 +12,8 @@
 -->
 
 <!--- The default skin class for the track on a Spark HScrollBar component.  
+
+       @see spark.components.HScrollBar
         
       @langversion 3.0
       @playerversion Flash 10
