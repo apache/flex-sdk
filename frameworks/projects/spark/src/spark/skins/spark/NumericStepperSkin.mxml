@@ -68,6 +68,7 @@ component is defined by the NumericStepperTextInputSkin class.
                     incrementButton.setStyle("cornerRadius", cr);
                 if (decrementButton)
                     decrementButton.setStyle("cornerRadius", cr);
+                cornerRadiusChanged = false;
             }
             
             if (borderStylesChanged)
@@ -75,6 +76,7 @@ component is defined by the NumericStepperTextInputSkin class.
                 textDisplay.setStyle("borderAlpha", getStyle("borderAlpha"));
                 textDisplay.setStyle("borderColor", getStyle("borderColor"));
                 textDisplay.setStyle("borderVisible", getStyle("borderVisible"));
+                borderStylesChanged = false;
             }
         }
         
