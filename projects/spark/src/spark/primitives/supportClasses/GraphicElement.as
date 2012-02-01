@@ -2255,9 +2255,10 @@ public class GraphicElement extends OnDemandEventDispatcher
             displayObject = null;
         }
     }
-       
+    
     private var _alwaysCreateDisplayObject:Boolean;
     
+    // TODO!! Remove once we have a better solution for a design tool to getBitmapData for hit testing
     mx_internal function set alwaysCreateDisplayObject(value:Boolean):void
     {
     	if (value != _alwaysCreateDisplayObject)
@@ -2271,7 +2272,23 @@ public class GraphicElement extends OnDemandEventDispatcher
     {
     	return _alwaysCreateDisplayObject;
     }
-   
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      *  <code>true</code> if the graphic element needs its own unique display object to render into.
      *  In general, you will not set this property, although if you extend the GraphicElement class, you
