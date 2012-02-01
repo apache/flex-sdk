@@ -173,7 +173,7 @@ public class Rect extends FilledElement
                                             layoutFeatures.layoutMatrix).width;
 
         // Take stroke into account
-        return width + getStrokeExtents(postLayoutTransform).x;
+        return width + getStrokeExtents(postLayoutTransform).width;
     }
 
     /**
@@ -188,7 +188,7 @@ public class Rect extends FilledElement
                                              layoutFeatures.layoutMatrix).height;
 
         // Take stroke into account
-        return height + getStrokeExtents(postLayoutTransform).y;
+        return height + getStrokeExtents(postLayoutTransform).height;
     }
     
     /**
@@ -201,16 +201,16 @@ public class Rect extends FilledElement
      */
     override public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
+        var strokeExtents:Rectangle = getStrokeExtents(postLayoutTransform);
         var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
-            return strokeExtents.x * -0.5 + this.x;
+            return strokeExtents.left + this.x;
 
         if (!isNaN(width))
-            width -= strokeExtents.x;
+            width -= strokeExtents.width;
 
         if (!isNaN(height))
-            height -= strokeExtents.y;
+            height -= strokeExtents.height;
 
         // Calculate the width and height pre-transform:
         var newSize:Point = MatrixUtil.fitBounds(width, height, m,
@@ -221,7 +221,7 @@ public class Rect extends FilledElement
         if (!newSize)
             newSize = new Point(minWidth, minHeight);
 
-        return strokeExtents.x * -0.5 +
+        return strokeExtents.left +
             getRoundRectBoundingBox(newSize.x, newSize.y, radiusX, radiusY, m).x;
     }
 
@@ -235,16 +235,16 @@ public class Rect extends FilledElement
      */
     override public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
+        var strokeExtents:Rectangle = getStrokeExtents(postLayoutTransform);
         var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
-            return strokeExtents.y * -0.5 + this.y;
+            return strokeExtents.top + this.y;
 
         if (!isNaN(width))
-            width -= strokeExtents.x;
+            width -= strokeExtents.width;
 
         if (!isNaN(height))
-            height -= strokeExtents.y;
+            height -= strokeExtents.height;
 
         // Calculate the width and height pre-transform:
         var newSize:Point = MatrixUtil.fitBounds(width, height, m,
@@ -255,7 +255,7 @@ public class Rect extends FilledElement
         if (!newSize)
             newSize = new Point(minWidth, minHeight);
 
-        return strokeExtents.y * -0.5 +
+        return strokeExtents.top +
             getRoundRectBoundingBox(newSize.x, newSize.y, radiusX, radiusY, m).y;
     }
 
@@ -264,7 +264,7 @@ public class Rect extends FilledElement
      */
     override public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
-        var stroke:Number = -getStrokeExtents(postLayoutTransform).x * 0.5;
+        var stroke:Number = getStrokeExtents(postLayoutTransform).left;
         if (postLayoutTransform && hasComplexLayoutMatrix)
             return stroke + getRoundRectBoundingBox(width, height, radiusX, radiusY, 
                                                     layoutFeatures.layoutMatrix).x;  
@@ -277,7 +277,7 @@ public class Rect extends FilledElement
      */
     override public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
     {
-        var stroke:Number = - getStrokeExtents(postLayoutTransform).y * 0.5;
+        var stroke:Number = getStrokeExtents(postLayoutTransform).top;
         if (postLayoutTransform && hasComplexLayoutMatrix)
             return stroke + getRoundRectBoundingBox(width, height, radiusX, radiusY, 
                                                     layoutFeatures.layoutMatrix).y;
