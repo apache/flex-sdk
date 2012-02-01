@@ -14,10 +14,13 @@ package spark.layouts
 
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
+import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.GroupBase;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.layouts.supportClasses.LayoutElementHelper;
+
+[ResourceBundle("layout")]
 
 /**
  *  The BasicLayout class arranges the layout elements according to their individual settings,
@@ -166,27 +169,24 @@ public class BasicLayout extends LayoutBase
     //  Methods
     //
     //--------------------------------------------------------------------------
-    
+
     /**
-     *  The BasicLayout class does not support virtualization.   
-     *  Setting this property to <code>true</code> generates a warning.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private 
      */
-   override public function set useVirtualLayout(value:Boolean):void
-   {
-       if (value)
-           trace("Warning: BasicLayout doesn't support virtualization");
-   }    
+    private function checkUseVirtualLayout():void
+    {
+        if (useVirtualLayout)
+            throw new Error(ResourceManager.getInstance().getString("layout", "basicLayoutNotVirtualized"));
+    }
 
     /**
      *  @private 
      */
     override public function measure():void
     {
+        // Check for unsuported values here instead of in the useVirtualLayout setter, as
+        // List may toggle the property several times before the actual layout pass.
+        checkUseVirtualLayout();
         super.measure();
         
         var layoutTarget:GroupBase = target;
@@ -366,6 +366,9 @@ public class BasicLayout extends LayoutBase
      */
     override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        // Check for unsuported values here instead of in the useVirtualLayout setter, as
+        // List may toggle the property several times before the actual layout pass.
+        checkUseVirtualLayout();
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
         var layoutTarget:GroupBase = target;
