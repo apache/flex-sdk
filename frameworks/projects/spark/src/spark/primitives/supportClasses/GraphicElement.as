@@ -2857,6 +2857,8 @@ public class GraphicElement extends EventDispatcher
 	
 	private var _layoutDirection:String = null;
 	
+    [Inspectable(category="General", enumeration="ltr,rtl")]
+    
     /**
      *  @inheritDoc
      */
