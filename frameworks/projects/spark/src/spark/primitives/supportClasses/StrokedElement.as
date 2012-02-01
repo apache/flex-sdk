@@ -11,26 +11,18 @@
 
 package flex.graphics
 {
-import flash.display.BlendMode;
-import flash.display.DisplayObject;
 import flash.display.Graphics;
+import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
-import flash.geom.ColorTransform;
-import flash.geom.Matrix;
-import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.geom.Transform;
 
-import flex.intf.ILayoutItem;
 import flex.geom.Transform;
 import flex.graphics.graphicsClasses.GraphicElement;
 
 import mx.core.mx_internal;
-import mx.core.UIComponent;
 import mx.events.PropertyChangeEvent;
-import mx.events.PropertyChangeEventKind;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 import mx.graphics.IStroke;
@@ -63,33 +55,7 @@ public class StrokedElement extends GraphicElement implements IDisplayObjectElem
 	//  Properties
 	//
 	//--------------------------------------------------------------------------
-
-	//----------------------------------
-	//  alwaysNeedsDisplayObject
-	//----------------------------------
 	
-	private var _alwaysNeedsDisplayObject:Boolean = false;
-	
-	/*
-	 *  Set this to true to force the Graphic Element to create an underlying Shape
-	 */
-	mx_internal function set alwaysNeedsDisplayObject(value:Boolean):void
-	{
-		if (value != _alwaysNeedsDisplayObject)
-		{
-			_alwaysNeedsDisplayObject = value;
-			notifyElementLayerChanged();
-		}
-	}
-	
-	mx_internal function get alwaysNeedsDisplayObject():Boolean
-	{
-		return _alwaysNeedsDisplayObject;
-	}
-	
-	// TODO!!! Optimize this so we don't always create a sprite
-	protected var needsSprite:Boolean = false;
-
 	//----------------------------------
 	//  stroke
 	//----------------------------------
@@ -145,14 +111,16 @@ public class StrokedElement extends GraphicElement implements IDisplayObjectElem
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
 	{
-	    if (!displayObject || !(displayObject is Sprite))
+		//trace("StrokedElement.updateDisplayList w",unscaledWidth,"h",unscaledHeight,"drawnDisplayObject",drawnDisplayObject,"this",this);                                                  	
+	    if (!drawnDisplayObject || !(drawnDisplayObject is Sprite))
 	        return;
+	    
+	    if (displayObject is Sprite)
+	       	Sprite(displayObject).graphics.clear();
+	    else if (displayObject is Shape)
+	    	Shape(displayObject).graphics.clear();
 	        
-	    var g:Graphics = (displayObject as Sprite).graphics;
-
-	    // TODO EGeorgie: clearing the graphics needs to be shared when
-	    // the display objects are shared.
-	    g.clear();
+	    var g:Graphics = (drawnDisplayObject as Sprite).graphics;
 
 		beginDraw(g);
 		drawElement(g);
@@ -164,16 +132,6 @@ public class StrokedElement extends GraphicElement implements IDisplayObjectElem
 	//  Methods
 	//
 	//--------------------------------------------------------------------------
-	
-	protected function clearDisplayObject():void
-	{
-		if (displayObject)
-		{
-			if (displayObject.parent)
-				displayObject.parent.removeChild(displayObject);
-			displayObject = null;
-		}
-	}
 	
 	/**
 	 *  Set up the drawing for this element. This is the first of three steps
