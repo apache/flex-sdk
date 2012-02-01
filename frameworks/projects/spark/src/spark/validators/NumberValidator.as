@@ -32,29 +32,32 @@ use namespace mx_internal;
 
 /**
  *  The NumberValidator class ensures that a String represents a valid number
- *  according to the conventions of a locale.  It can validate int,
- *  uint, and Number objects.
- *  This class uses the <code>locale</code> style for specifying the
- *  requested locale ID.
- * 
+ *  according to the conventions of a locale.  It can validate strings that 
+ *  represent  <code>int</code>,<code>uint</code>, and <code>Number</code> 
+ *  objects.
+ *
+ *  <p>This class uses the <code>locale</code> style for specifying the
+ *  requested locale ID.</p>
+ *
  *  <p>The validator can ensure that the input falls within a given range
- *  (specified by <code>minValue</code> and <code>maxValue</code>  properties),
+ *  (specified by <code>minValue</code> and <code>maxValue</code> properties),
  *  is an integer (specified by <code>domain</code>  property),
  *  is non-negative (specified by <code>allowNegative</code>  property),
- *  has the grouping of digits correct per the locale conventions,
- *  has the correct way of specifying negative numbers,
- *  and does not exceed the specified <code>fractionalDigits</code>. 
- *  The validator sets default property values from the operating system supplied
- *  locale data but they can be customized for specific needs.</p>
+ *  correctly specifies negative and positive numbers,
+ *  and does not exceed the specified number of<code>fractionalDigits</code>.
+ *  The validator sets default property values by making use of the 
+ *  <code>flash.globalization.NumberFormatter</code> and therefore the locale 
+ *  specific values are supplied by the operating system.</p>
  *
- *  <p>The flash.globalization.NumberFormatter class uses the underlying
- *  operating system for acquiring locale-specific data and parsing
- *  functionality. In case the operating system does not provide number
- *  formatting, this class provides fallback functionality.</p>
- *
+ *  <p>The <code>NumberValidator</code> class can be used in MXML declarations 
+ *  or in ActionScript code. This class uses the locale style for specifying the
+ *  requested Locale ID required by the 
+ *  <code>flash.globalization.NumberFormatter</code> class, and has methods and
+ *  properties that are bindable.</p>
+ *  
  *  @mxml
  *
- *  <p>The <code>&lt;s:NumberValidator&gt;</code> tag
+ *  <p>The <code>&lt;spark:NumberValidator&gt;</code> tag
  *  inherits all of the tag attributes of its superclass,
  *  and adds the following tag attributes:</p>
  *
@@ -100,13 +103,13 @@ public class NumberValidator extends NumberValidatorBase
      *  Constructs a new NumberValidator object to validate numbers according
      *  to the conventions of a given locale.
      *  <p>
-     *  The locale for this class is supplied by the <code>locale</code> style property.
+     *  The locale for this class is supplied by the <code>locale</code> style.
      *  The <code>locale</code> style can be set in several ways:
      *  </p>
      *  <ul>
-     *  <li>         
-     *  Inheriting the style from a UIComponent by calling the UIComponent's
-     *  <code>addStyleClient()</code> method.
+     *  <li>         *
+     *  Inheriting the style from a <code>UIComponent</code> by calling
+     *  the <code>UIComponent</code>'s <code>addStyleClient</code> method.
      *  </li>
      *  <li>
      *  By using the class in an MXML declaration and inheriting the
@@ -127,14 +130,20 @@ public class NumberValidator extends NumberValidatorBase
      *  </pre>
      *  </li>
      *  <li>
-     *  Calling the <code>setStyle()</code> method.
-     *  For example: <code>nv.setStyle("locale", "fr-FR");</code>
+     *  Calling the <code>setStyle</code> method.
+     *  For example:
+     *  <code>nv.setStyle("locale", "fr-FR")</code>
      *  </li>
      *  </ul>
      *  <p>
-     *  If the <code>locale</code> style is not set by one of the above techniques,
-     *  the methods of this class that depend on the locale throw an error.
-     *  </p>         
+     *  If the <code>locale</code> style is not set by one of the above 
+     *  techniques, the instance of this class will be added as a 
+     *  <code>StyleClient</code> to the <code>topLevelApplication</code> and 
+     *  will therefore inherit the <code>locale</code> style from the 
+     *  <code>topLevelApplication</code> object when the <code>locale</code> 
+     *  dependent property getter or <code>locale</code> dependent method is 
+     *  called.
+     *  </p>   
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -220,7 +229,8 @@ public class NumberValidator extends NumberValidatorBase
      *    </table>
      *
      *
-     *  @default dependent on the locale and operating system.
+     *  The default value is dependent on the <code>actual locale</code> and 
+     *  <code>operating system</code>.
      *
      *  @throws ArgumentError if the assigned value is not a number
      *  between 0 and 4.
@@ -326,8 +336,9 @@ public class NumberValidator extends NumberValidatorBase
      *
      *  @param value Object to validate.
      *
-     *  @return An Array of ValidationResult objects, with one ValidationResult
-     *  object for each field examined by the validator.
+     *  @return An <code>Array</code> of <code>ValidationResult</code> objects,
+     *  with one <code>ValidationResult</code> object for each field examined
+     *  by the validator.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -350,7 +361,6 @@ public class NumberValidator extends NumberValidatorBase
 
     /**
      *  @private
-     * 
      *  Load the error messages from the resource bundle.
      */
     override protected function resourcesChanged():void
@@ -371,8 +381,8 @@ public class NumberValidator extends NumberValidatorBase
     /**
      *  Convenience method for calling a validator from within a custom
      *  validation function. Each of the standard Flex validators has a similar
-     *  convenience method. Caller must check the ValidationResult objects in
-     *  the returned array for validation status.
+     *  convenience method. Caller must check the <code>ValidationResult</code>
+     *  objects in the returned array for validation status.
      *
      *  @param value A number string to validate.
      *
@@ -381,8 +391,9 @@ public class NumberValidator extends NumberValidatorBase
      *  For example, if the <code>value</code> parameter specifies value.number,
      *  the <code>baseField</code> value is "number".
      *
-     *  @return An Array of ValidationResult objects, with one ValidationResult
-     *  object for each field examined by the validator.
+     *  @return An <code>Array</code> of <code>ValidationResult</code> objects,
+     *  with one <code>ValidationResult</code> object for each field examined
+     *  by the validator.
      *
      *  @see mx.validators.ValidationResult
      *
