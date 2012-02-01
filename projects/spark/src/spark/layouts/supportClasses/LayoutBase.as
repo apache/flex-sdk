@@ -481,7 +481,7 @@ public class LayoutBase extends OnDemandEventDispatcher
             
         // Special case: if the scrollRect's origin is 0,0 and it's bigger 
         // than the target, then there's no where to scroll to
-        if ((scrollRect.x == 0) && (scrollRect.width >= g.width))
+        if ((scrollRect.x == 0) && (scrollRect.width >= g.contentWidth))
             return 0;  
 
         // maxDelta is the horizontalScrollPosition delta required 
@@ -633,7 +633,7 @@ public class LayoutBase extends OnDemandEventDispatcher
             
         // Special case: if the scrollRect's origin is 0,0 and it's bigger 
         // than the target, then there's no where to scroll to
-        if ((scrollRect.y == 0) && (scrollRect.height >= g.height))
+        if ((scrollRect.y == 0) && (scrollRect.height >= g.contentHeight))
             return 0;  
             
         // maxDelta is the horizontalScrollPosition delta required 
