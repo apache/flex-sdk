@@ -1453,7 +1453,8 @@ public class HorizontalLayout extends LayoutBase
         if (!variableColumnWidth)
             fixedColumnWidth = columnWidth;  // may query typicalLayoutElement, elt at index=0
         
-        
+        // Get the numElementsInLayout clamped to requested min/max
+        var columnsToMeasure:int = getColumsToMeasure(numElementsInLayout);
         var element:ILayoutElement;
         for (var i:int = 0; i < numElements; i++)
         {
@@ -1474,7 +1475,7 @@ public class HorizontalLayout extends LayoutBase
             }
             
             // Can we measure the width of this column?
-            if (requestedColumnCount == -1 || columnsMeasured < requestedColumnCount)
+            if (columnsMeasured < columnsToMeasure)
             {
                 getElementWidth(element, fixedColumnWidth, size);
                 preferredWidth += size.preferredSize;
@@ -1483,8 +1484,8 @@ public class HorizontalLayout extends LayoutBase
             }
         }
         
-        // Calculate the total number of columns to measure
-        var columnsToMeasure:int = getColumsToMeasure(numElementsInLayout);
+        // Calculate the total number of columns to measure again, since numElementsInLayout may have changed
+        columnsToMeasure = getColumsToMeasure(numElementsInLayout);
 
         // Do we need to measure more columns?
         if (columnsMeasured < columnsToMeasure)
