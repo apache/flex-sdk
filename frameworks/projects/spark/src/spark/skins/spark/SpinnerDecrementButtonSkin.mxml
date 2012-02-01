@@ -70,7 +70,9 @@
             {
                 cornerRadius = cr;
                 fill.bottomRightRadiusX = cornerRadius;
+                fill.bottomLeftRadiusX = cornerRadius;
                 highlight.bottomRightRadiusX = cornerRadius;
+                highlight.bottomLeftRadiusX = cornerRadius;
             }
             
             super.updateDisplayList(unscaledWidth, unscaledHeight);
@@ -90,7 +92,8 @@
         
         <!-- border/fill -->
         <!--- @private -->
-        <s:Rect id="fill" left="0" top="0" right="0" bottom="0" width="18" height="16" bottomRightRadiusX="2">
+        <s:Rect id="fill" left="0" top="0" right="0" bottom="0" width="18" height="16"
+                bottomRightRadiusX="2" bottomLeftRadiusX="2">
             <s:stroke>
                 <s:SolidColorStroke color="0x686868" weight="1"/>
             </s:stroke>
@@ -108,7 +111,8 @@
         
         <!-- highlight -->
         <!--- @private -->
-        <s:Rect id="highlight" left="1" top="1" right="1" bottom="1" bottomRightRadiusX="2">
+        <s:Rect id="highlight" left="1" top="1" right="1" bottom="1"
+                bottomRightRadiusX="2" bottomLeftRadiusX="2">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
                     <s:GradientEntry color="0xFFFFFF" 
