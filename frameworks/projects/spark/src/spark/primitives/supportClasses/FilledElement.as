@@ -105,7 +105,7 @@ public class FilledElement extends StrokedElement
 		// Don't call super.beginDraw() since it will also set up an 
 		// invisible fill.
 		
-		var bounds:Rectangle = new Rectangle(0, 0, width, height);
+		var bounds:Rectangle = new Rectangle(drawX, drawY, width, height);
 		if (stroke)
 			stroke.draw(g, bounds);
 		else
