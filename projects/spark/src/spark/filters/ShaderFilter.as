@@ -327,7 +327,8 @@ public dynamic class ShaderFilter extends Proxy
      */
     private function applyProperty(property:String, value:*):void
     {
-        if (!value) return;
+        if (value == null) 
+            return;
         
         var suffixPattern:RegExp = /_.$/;
         var match:Array = property.match(suffixPattern);
