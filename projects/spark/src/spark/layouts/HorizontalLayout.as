@@ -2416,8 +2416,11 @@ public class HorizontalLayout extends LayoutBase
             return super.getElementNearestScrollPosition(position, elementComparePoint);
         
         var g:GroupBase = GroupBase(target);
-        if (!g || !llv)
+        if (!g)
             return -1;
+        
+        // We need a valid LLV for this function
+        updateLLV(g);
         
         // Find the element which overlaps with the position
         var index:int = llv.indexOf(position.x);
