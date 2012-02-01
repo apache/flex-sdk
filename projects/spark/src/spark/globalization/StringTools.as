@@ -144,7 +144,7 @@ public class StringTools extends GlobalizationBase
         if (g11nWorkingInstance)
             return this.g11nWorkingInstance.actualLocaleIDName;
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -202,7 +202,7 @@ public class StringTools extends GlobalizationBase
      */
     override mx_internal function createWorkingInstance():void
     {
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -259,7 +259,7 @@ public class StringTools extends GlobalizationBase
         if (g11nWorkingInstance)
             return g11nWorkingInstance.toLowerCase(s);
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -294,7 +294,7 @@ public class StringTools extends GlobalizationBase
         if (g11nWorkingInstance)
             return g11nWorkingInstance.toUpperCase(s);
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
