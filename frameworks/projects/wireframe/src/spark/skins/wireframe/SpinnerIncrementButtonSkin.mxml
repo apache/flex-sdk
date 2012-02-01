@@ -11,52 +11,52 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxButton")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.Button")]
+    </fx:Metadata> 
     
-    <states>
-        <State name="up" />
-        <State name="over"/>
-        <State name="down" />
-        <State name="disabled" />
-    </states>
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over"/>
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
 
     <!-- border/fill -->
-	<Path data="M 0 0 h 16 Q 17 0 18 2 v 8 h -18 Z" 
+	<s:Path data="M 0 0 h 16 Q 17 0 18 2 v 8 h -18 Z" 
 		  left="0" top="0" right="0" bottom="0">
-        <stroke>
-            <SolidColorStroke color="0x5380D0" />
-        </stroke>
-        <fill>
-            <SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF" />
-        </fill>
-	</Path>    
+        <s:stroke>
+            <s:SolidColorStroke color="0x5380D0" />
+        </s:stroke>
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF" />
+        </s:fill>
+	</s:Path>    
     
     <!-- shadow (down state only) -->
-    <Path data="M 0 0 h 14 Q 16 0 16 2 v 6 h -16 Z" 
+    <s:Path data="M 0 0 h 14 Q 16 0 16 2 v 6 h -16 Z" 
 		  left="1" top="1" right="1" bottom="1" includeIn="down">
-    	<stroke>
-    		<LinearGradientStroke rotation="90">
-				<GradientEntry color="0x5380D0" alpha="0.25" />
-				<GradientEntry color="0x5380D0" alpha="0" />
-			</LinearGradientStroke>
-    	</stroke>
-    </Path>
+    	<s:stroke>
+    		<s:LinearGradientStroke rotation="90">
+				<s:GradientEntry color="0x5380D0" alpha="0.25" />
+				<s:GradientEntry color="0x5380D0" alpha="0" />
+			</s:LinearGradientStroke>
+    	</s:stroke>
+    </s:Path>
 
     <!-- arrow -->
-    <Path horizontalCenter="0" verticalCenter="0">
-        <fill>
-            <SolidColor color="0x4E6290" />
-        </fill>
-        <segments>
-            <MoveSegment x="9.5" y="4" />
-            <LineSegment x="12.5" y="7" />
-            <LineSegment x="6.5" y="7" />
-            <LineSegment x="9.5" y="4" />
-        </segments>
-    </Path>
+    <s:Path horizontalCenter="0" verticalCenter="0">
+        <s:fill>
+            <s:SolidColor color="0x4E6290" />
+        </s:fill>
+        <s:segments>
+            <s:MoveSegment x="9.5" y="4" />
+            <s:LineSegment x="12.5" y="7" />
+            <s:LineSegment x="6.5" y="7" />
+            <s:LineSegment x="9.5" y="4" />
+        </s:segments>
+    </s:Path>
 
-</Skin>
+</s:Skin>
