@@ -61,7 +61,7 @@
 				<include name="framework.swc"/>
 				<include name="spark.swc"/>
 				<include name="mx/mx.swc"/>
-				<include name="datavisualization.swc"/>
+				<include name="advancedgrids.swc"/>
                 <include name="osmf.swc"/>
                 <include name="textLayout.swc"/>
 			</external-library-path>
