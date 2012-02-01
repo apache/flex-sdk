@@ -52,7 +52,7 @@
     
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:fill>
-            <s:SolidColor id="bgFill"/>
+            <s:SolidColor id="bgFill" color="#FFFFFF"/>
         </s:fill>
     </s:Rect>
     
