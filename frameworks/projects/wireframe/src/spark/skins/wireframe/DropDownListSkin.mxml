@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+ 
+--> 
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" alpha.disabled=".5"> 
+
+    <!-- host component -->
+    <fx:Metadata>
+    <![CDATA[ 
+    /** 
+     * @copy spark.skins.default.ApplicationSkin#hostComponent
+     */
+        [HostComponent("spark.components.DropDownList")]
+    ]]>
+    </fx:Metadata> 
+
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="open" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <s:PopUpAnchor id="popUp"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
+        left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
+        popUpPosition="below" autoSizePopUpWidth="true">
+        
+		    <!--- 
+		          The drop down area of the skin. This includes borders, background colors, scrollers, and filters. 
+		          To create a custom drop down, edit this skin and create a custom skin class. 
+		    -->
+		        <s:Group id="dropDown" maxHeight="134" minHeight="22" >
+		    <!-- border/fill -->
+		    <s:Rect left="0" right="0" top="0" bottom="0">
+		    	<s:stroke>
+		    		<s:SolidColorStroke color="0x5380D0" />
+		    	</s:stroke>
+		    	<s:fill>
+		    		<s:SolidColor color="0xFFFFFF" />
+		    	</s:fill>
+		    </s:Rect>
+            
+            <s:Scroller left="0" top="0" right="0" bottom="0" focusEnabled="false" minViewportInset="1">
+                <s:DataGroup id="dataGroup" itemRenderer="spark.skins.default.DefaultItemRenderer">
+                    <s:layout>
+                        <s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
+                    </s:layout>
+                </s:DataGroup>
+            </s:Scroller>
+        
+            <s:filters>
+                <s:DropShadowFilter blurX="20" blurY="20" distance="5" angle="90" alpha="0.6" color="0x6087CC" />
+            </s:filters>
+        </s:Group>
+    </s:PopUpAnchor>
+    
+    <!--- The button used by the DropDownList. The default skin is DropDownListButtonSkin. -->
+    <s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
+        skinClass="spark.skins.wireframe.DropDownListButtonSkin" />  
+    <s:SimpleText id="labelElement" verticalAlign="middle" lineBreak="explicit"
+        left="7" right="30" top="2" bottom="2" verticalCenter="1" /> 
+
+</s:Skin>
