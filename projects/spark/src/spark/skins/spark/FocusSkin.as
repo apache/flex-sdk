@@ -24,6 +24,7 @@ import flash.geom.Rectangle;
 import mx.components.baseClasses.FxComponent;
 import mx.components.FxCheckBox;
 import mx.components.FxRadioButton;
+import mx.components.FxScroller;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
@@ -120,7 +121,17 @@ public class FxFocusSkin extends UIComponent
         // Show the label, if needed.
         if (hidLabelField)
             focusObject.labelField.displayObject.visible = true;
-             
+        
+        // Special case for Scroller - fill the entire rect.
+        // TODO: Figure out a better solution.
+        if (focusObject is FxScroller)
+        {
+            rect.x = rect.y = FOCUS_THICKNESS;
+            rect.width = focusObject.width;
+            rect.height = focusObject.height;
+            bitmapData.fillRect(rect, 0xFFFFFFFF);
+        }
+        
         // Transform the color to remove the transparency. The GlowFilter has the "knockout" property
         // set to true, which removes this image from the final display, leaving only the outer glow.
         rect.x = rect.y = FOCUS_THICKNESS;
