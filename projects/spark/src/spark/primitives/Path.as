@@ -98,7 +98,6 @@ public class Path extends FilledElement
     
     private var _data:String;
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -171,9 +170,7 @@ public class Path extends FilledElement
      *  @default null
      */
     public function set data(value:String):void
-    {
-        var oldValue:String = data;
-        
+    {        
         // Clear out the existing segments 
         segments = []; 
         
@@ -312,8 +309,6 @@ public class Path extends FilledElement
         // Set the _data backing var as the last step since notifyElementChanged
         // clears the value.
         _data = value;
-        
-        dispatchPropertyChangeEvent("data", oldValue, value);
     }
     
     /** 
@@ -373,7 +368,6 @@ public class Path extends FilledElement
     private var _segments:Array = [];
     
     [ArrayElementType("mx.graphics.PathSegment")]
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     /**
      *  The segments for the path. Each segment must be a subclass of PathSegment.
