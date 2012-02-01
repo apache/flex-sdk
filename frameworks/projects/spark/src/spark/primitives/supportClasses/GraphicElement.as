@@ -2615,6 +2615,7 @@ public class GraphicElement extends EventDispatcher
         // Put this back in once we implement drawingAPI2 
         /* if (!invalidateDisplayListFlag)
             return; */
+        var wasInvalid:Boolean = invalidateDisplayListFlag; 
         invalidateDisplayListFlag = false;
 
         // we commit our transform in two places. First, during commit properties, because our size depends on it,
@@ -2629,7 +2630,7 @@ public class GraphicElement extends EventDispatcher
             updateDisplayList(_width, _height);
         
         // If we aren't doing any more invalidation, send out an UpdateComplete event
-        if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag)
+        if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag && wasInvalid)
             dispatchUpdateComplete();
     }
 
