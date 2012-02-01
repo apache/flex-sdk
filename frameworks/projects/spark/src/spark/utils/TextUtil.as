@@ -19,9 +19,14 @@ import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.formats.ITextLayoutFormat;
+
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;
 import mx.utils.StringUtil;
 
 [ExcludeClass]
+
+[ResourceBundle("textLayout")]
 
 /**
  *  @private
@@ -132,6 +137,16 @@ public class TextUtil
             }
         }
     }
+
+    /**
+     *  @private
+     */
+	public static function getResourceString(resourceName:String,
+											 args:Array = null):String
+	{
+		var resourceManager:IResourceManager = ResourceManager.getInstance();
+		return resourceManager.getString("textLayout", resourceName, args);
+	}
 }
 
 }
