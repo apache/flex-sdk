@@ -113,6 +113,8 @@ public class GradientGlowFilter extends GradientFilter implements IBitmapFilter
 									   quality:int = 1, type:String = "outer", 
 									   knockout:Boolean = false)
 	{
+		super(colors, alphas, ratios);
+		
 		this.distance = distance;
 		this.angle = angle;
 		this.blurX = blurX;
@@ -121,8 +123,6 @@ public class GradientGlowFilter extends GradientFilter implements IBitmapFilter
 		this.quality = quality;
 		this.type = type;
 		this.knockout = knockout;
-		
-		super(colors, alphas, ratios);
 	}
 	
 	/**
