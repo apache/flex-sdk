@@ -30,7 +30,7 @@
  *  Amount to shift the baseline.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.baselineShift</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.baselineShift.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -47,7 +47,7 @@
  *  The type of CFF hinting used for this text.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.cffHinting</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.cffHinting.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -64,10 +64,10 @@
  *  Color of the text.
  * 
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.color</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.color.</b></p>
  *
  *  <p><b>For the Mobile theme, see
- *  spark.components.supportClasses.StyleableTextField Style color</b></p>
+ *  spark.components.supportClasses.StyleableTextField Style color.</b></p>
  *
  *  @see flashx.textLayout.formats.ITextLayoutFormat#color
  *  @see spark.components.supportClasses.StyleableTextField#style:color
@@ -83,7 +83,7 @@
  *  The type of digit case used for this text.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.digitCase</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.digitCase.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -100,7 +100,7 @@
  *  Type of digit width used for this text.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.digitWidth</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.digitWidth.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -117,7 +117,7 @@
  *  Specifies the default bidirectional embedding level of the text.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.direction</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.direction.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -135,7 +135,7 @@
  *  determine the vertical position of the element on the line.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.dominantBaseline</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.dominantBaseline.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -152,10 +152,10 @@
  *  The name of the font to use, or a comma-separated list of font names. 
  * 
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.fontFamily</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.fontFamily.</b></p>
  *
  *  <p><b>For the Mobile theme, see
- *  spark.components.supportClasses.StyleableTextField Style fontFamily</b></p>
+ *  spark.components.supportClasses.StyleableTextField Style fontFamily.</b></p>
  *
  *  @see flashx.textLayout.formats.ITextLayoutFormat#fontFamily
  *  @see spark.components.supportClasses.StyleableTextField#style:fontFamily
