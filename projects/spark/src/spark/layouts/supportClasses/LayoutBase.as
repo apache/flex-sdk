@@ -12,13 +12,16 @@
 package mx.layout
 {
 
+import flash.events.Event;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
 
 import mx.components.baseClasses.GroupBase;
+import mx.core.ScrollUnit;
+import mx.layout.ILayoutItem;
 import mx.utils.OnDemandEventDispatcher;
 
-    
+
 public class LayoutBase extends OnDemandEventDispatcher
 {
     //--------------------------------------------------------------------------
@@ -132,7 +135,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     //  clipContent
     //----------------------------------
         
-    private var _clipContent:Boolean = true;
+    private var _clipContent:Boolean = false;
     
     [Inspectable(category="General")]
     
@@ -168,7 +171,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     /**
      *  @copy flex.intf.IViewport#horizontalScrollPositionDelta
      */
-    public function horizontalScrollPositionDelta(unit:uint):Number
+    public function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
     {
         var g:GroupBase = target;
         if (!g)
@@ -187,22 +190,22 @@ public class LayoutBase extends OnDemandEventDispatcher
             
         switch (unit)
         {
-            case Keyboard.UP:
+            case ScrollUnit.LEFT:
                 return (scrollR.x <= 0) ? 0 : -1;
                 
-            case Keyboard.DOWN:
+            case ScrollUnit.RIGHT:
                 return (scrollR.x >= maxDelta) ? 0 : 1;
                 
-            case Keyboard.PAGE_UP:
+            case ScrollUnit.PAGE_LEFT:
                 return Math.max(minDelta, -scrollR.width);
                 
-            case Keyboard.PAGE_DOWN:
+            case ScrollUnit.PAGE_RIGHT:
                 return Math.min(maxDelta, scrollR.width);
                 
-            case Keyboard.HOME: 
+            case ScrollUnit.HOME: 
                 return minDelta;
                 
-            case Keyboard.END: 
+            case ScrollUnit.END: 
                 return maxDelta;
                 
             default:
@@ -213,7 +216,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     /**
      *  @copy flex.intf.IViewport#verticalScrollPositionDelta
      */
-    public function verticalScrollPositionDelta(unit:uint):Number
+    public function getVerticalScrollPositionDelta(unit:ScrollUnit):Number
     {
         var g:GroupBase = target;
         if (!g)
@@ -232,22 +235,22 @@ public class LayoutBase extends OnDemandEventDispatcher
             
         switch (unit)
         {
-        	case Keyboard.UP:
+        	case ScrollUnit.UP:
         	    return (scrollR.y <= 0) ? 0 : -1;
         	    
-        	case Keyboard.DOWN:
+        	case ScrollUnit.DOWN:
         	    return (scrollR.y >= maxDelta) ? 0 : 1;
         	    
-            case Keyboard.PAGE_UP:
+            case ScrollUnit.PAGE_UP:
                 return Math.max(minDelta, -scrollR.height);
                 
-            case Keyboard.PAGE_DOWN:
+            case ScrollUnit.PAGE_DOWN:
                 return Math.min(maxDelta, scrollR.height);
                 
-            case Keyboard.HOME: 
+            case ScrollUnit.HOME: 
                 return minDelta;
                 
-            case Keyboard.END: 
+            case ScrollUnit.END: 
                 return maxDelta;
                 
             default:
@@ -277,51 +280,32 @@ public class LayoutBase extends OnDemandEventDispatcher
     }
     
     /**
-     *  Conditionally sets the origin of the scrollRect to 
+     *  If clipContent is true, sets the origin of the scrollRect to 
      *  verticalScrollPosition,horizontalScrollPosition and its width
      *  width,height to w,h (the target's unscaled width,height).
      * 
-     *  This method must be called by updateDisplayList after the 
-     *  target's contentWidth and contentHeight properties have been 
-     *  set to the display list's actual limits.
-     * 
-     *  The target's scrollRect property is set if its contentWidth,Height
-     *  is larger than its width,height, or the target's 
-     *  vertical,horizontalScrollPosition is non-zero.
-     * 
-     *  If none of the above conditions are true, or if clipContent
-     *  is false, then the scrollRect is set to null.
-     * 
+     *  If clipContent is false, sets the scrollRect to null.
+     *  
      *  @param w The target's unscaled width.
      *  @param h The target's unscaled height.
      * 
      *  @see target
      *  @see flash.display.DisplayObject#scrollRect
      *  @see updateDisplayList
-     *  @see mx.components.GroupBase#contentWidth
-     *  @see mx.components.GroupBase#contentHeight
      */ 
-    protected function updateScrollRect(w:Number, h:Number):void
+    public function updateScrollRect(w:Number, h:Number):void
     {
         var g:GroupBase = target;
         if (!g)
             return;
             
-        if (!clipContent)
+        if (clipContent)
         {
-            g.scrollRect = null;
-            return;
-        }            
-
-        var hsp:Number = horizontalScrollPosition;
-        var vsp:Number = verticalScrollPosition;
-        var cw:Number = g.contentWidth;
-        var ch:Number = g.contentHeight;
-            
-        // Don't set the scrollRect needlessly.
-        if ((hsp != 0) || (vsp != 0) || (cw > w) || (ch > h))
+            var hsp:Number = horizontalScrollPosition;
+            var vsp:Number = verticalScrollPosition;
             g.scrollRect = new Rectangle(hsp, vsp, w, h);
-        else 
+        }
+        else
             g.scrollRect = null;
     } 
     
