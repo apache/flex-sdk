@@ -14,7 +14,9 @@
 <SparkSkin xmlns="http://ns.adobe.com/mxml/2009" implements="mx.core.IRectangularBorder">
     
     <Script>
+		<![CDATA[
 		import mx.core.EdgeMetrics;
+		import mx.core.IUIComponent;
 		
         /* Define the skin elements that should not be colorized. 
            For panel, border and title backround are skinned, but the content area and title text are not. */
@@ -25,10 +27,18 @@
         static private const contentFill:Array = ["bgFill"];
         override public function get contentItems():Array {return contentFill};
 
-		private static const metrics:EdgeMetrics = new EdgeMetrics(1, 32, 1, 1);
+		private var _metrics:EdgeMetrics = new EdgeMetrics(1, 32, 1, 1);
 		public function get borderMetrics():EdgeMetrics
 		{
-			return metrics;
+	        var hasPanelParent:Boolean = isPanel(parent);
+	        var controlBar:IUIComponent = hasPanelParent ? Object(parent).mx_internal::_controlBar : null;        
+	        
+	        if (controlBar && controlBar.includeInLayout)
+	        	_metrics.bottom = controlBar.getExplicitOrMeasuredHeight() + 1;
+	        else
+	        	_metrics.bottom = 1;
+	        	
+			return _metrics;
 		}
 		
 		public function get backgroundImageBounds():Rectangle
@@ -50,6 +60,62 @@
 		{
 		
 		}
+
+		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+		{
+	        var em:EdgeMetrics = borderMetrics;
+	        
+	        if (em.bottom > 1)
+	        {
+	        	cbbg.height = em.bottom - 1;
+	        	cbdiv.bottom = cbbg.height;
+	        	cbbg.visible = cbdiv.visible = true;
+	        }
+	        else
+	        {
+	        	cbbg.visible = cbdiv.visible = false;
+	        }
+	        
+	        super.updateDisplayList(unscaledWidth, unscaledHeight);
+		}
+		
+	   	/**
+		 *  We don't use 'is' to prevent dependency issues
+		 *  
+		 *  @langversion 3.0
+		 *  @playerversion Flash 9
+		 *  @playerversion AIR 1.1
+		 *  @productversion Flex 3
+		 */
+		private static var panels:Object = {};
+	
+		private static function isPanel(parent:Object):Boolean
+		{
+			var s:String = getQualifiedClassName(parent);
+			if (panels[s] == 1)
+				return true;
+	
+			if (panels[s] == 0)
+				return false;
+	
+			if (s == "mx.containers::Panel")
+			{
+				panels[s] == 1;
+				return true;
+			}
+	
+			var x:XML = describeType(parent);
+			var xmllist:XMLList = x.extendsClass.(@type == "mx.containers::Panel");
+			if (xmllist.length() == 0)
+			{
+				panels[s] = 0;
+				return false;
+			}
+			
+			panels[s] = 1;
+			return true;
+		}
+		]]>
     </Script>
     
     <!-- drop shadow -->
@@ -94,5 +160,19 @@
                 <GradientEntry color="0xBEBEBE" />
             </LinearGradientStroke>
        </stroke>
+    </Rect>
+    
+    <!-- layer 5: control bar background -->
+    <Rect id="cbbg" left="1" right="1" bottom="1" height="20">
+    	<fill>
+    		<SolidColor color="0xF6F6F6" />
+    	</fill>
+    </Rect>
+    
+    <!-- layer 6: control bar divider line -->
+    <Rect id="cbdiv" left="1" right="1" bottom="20" height="1">
+    	<fill>
+    		<SolidColor color="0xB9B9B9" />
+    	</fill>
     </Rect>
 </SparkSkin>
