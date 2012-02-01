@@ -492,7 +492,7 @@ package spark.skins
                 
                 var alignment:String = 
                     iconPlacement == IconPlacement.LEFT ||
-                    iconPlacement == IconPlacement.RIGHT ? "left" : "center"
+                    iconPlacement == IconPlacement.RIGHT ? "start" : "center"
                 
                 IStyleClient(labelDisplay).setStyle("textAlign", alignment);
             }
