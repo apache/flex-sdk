@@ -36,13 +36,23 @@
         <s:State name="disabled" />
     </s:states>
 
-    <s:Rect left="2" right="2" top="0" bottom="0" 
-          radiusX="3" radiusY="3" width="6">
+    <s:Rect left="3" right="2" top="0" bottom="0" 
+          radiusX="3" radiusY="3" >
         <s:stroke>
-            <s:SolidColorStroke color="0x5380D0" />
+            <s:SolidColorStroke color="#A9A9A9" />
         </s:stroke>
         <s:fill>
-            <s:SolidColor color="0xDEECFF" />
+            <s:SolidColor color="#D0D0D0" />
+        </s:fill>
+    </s:Rect>
+    
+    <!-- shadow rect -->
+    <s:Rect top="0" bottom="0" left="3" width="2" radiusX="3">
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="#000000" alpha="0.07" ratio="0" />
+                <s:GradientEntry color="#000000" alpha="0.1" ratio="1" />
+            </s:LinearGradient>
         </s:fill>
     </s:Rect>
 
