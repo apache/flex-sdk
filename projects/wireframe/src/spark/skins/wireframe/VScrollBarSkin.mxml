@@ -2,34 +2,35 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
       minWidth="15" minHeight="35"
-	  alpha.disabled="0.5">
+      alpha.disabled="0.5" alpha.inactive="0.5">
 
     <fx:Metadata>
-    	[HostComponent("spark.components.VScrollBar")]
+        [HostComponent("spark.components.VScrollBar")]
     </fx:Metadata> 
     
     <s:states>
-    	<s:State name="normal" />
-    	<s:State name="disabled" />
+        <s:State name="normal" />
+        <s:State name="disabled" />
+        <s:State name="inactive" />
     </s:states>
 
-    <s:Button id="track" top="17" bottom="17" height="54"
+    <s:Button id="track" top="17" bottom="17" height="51" 
             skinClass="spark.skins.wireframe.VScrollBarTrackSkin" />
-    <s:Button id="decrementButton" top="0" 
+    <s:Button id="decrementButton" top="0" enabled.inactive="false"
             skinClass="spark.skins.wireframe.ScrollBarUpButtonSkin" />
-    <s:Button id="incrementButton" bottom="0"
+    <s:Button id="incrementButton" bottom="0" enabled.inactive="false"
             skinClass="spark.skins.wireframe.ScrollBarDownButtonSkin" />
-    <s:Button id="thumb" skinClass="spark.skins.wireframe.VScrollBarThumbSkin" />
+    <s:Button id="thumb" skinClass="spark.skins.wireframe.VScrollBarThumbSkin" visible.inactive="false" />
 
 </s:Skin>
