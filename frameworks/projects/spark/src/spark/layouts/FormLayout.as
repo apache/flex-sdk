@@ -226,14 +226,15 @@ public class FormLayout extends VerticalLayout
             return;
         
         var formItems:Vector.<ILayoutElement> = getFormItems(layoutTarget);
+        var hPadding:Number = paddingLeft + paddingRight;
         
         // Calculate preferred width based on columns
         var columnMaxWidths:Vector.<Number> = columnWidthsOverride == null ? calculateColumnMaxWidths(formItems) : columnWidthsOverride;
-        var formWidth:Number = calculateColumnWidthsSum(columnMaxWidths);
+        var formWidth:Number = calculateColumnWidthsSum(columnMaxWidths) + hPadding;
         
         // Calculate minimum preferred width based on columns
         constrainPercentColumnWidths(columnMaxWidths, 0, formItems);
-        var formMinWidth:Number = calculateColumnWidthsSum(columnMaxWidths);
+        var formMinWidth:Number = calculateColumnWidthsSum(columnMaxWidths) + hPadding;
         
         // use measured column widths to set Form's measuredWidth
         // Assumes measuredWidth is already set in super.measure()
@@ -257,11 +258,12 @@ public class FormLayout extends VerticalLayout
         // Need to get the max column widths again because they might have changed
         // due to resolution of certain constraints
         var columnMaxWidths:Vector.<Number> = (columnWidthsOverride == null) ? calculateColumnMaxWidths(formItems) : columnWidthsOverride;
+        var hPadding:Number = paddingLeft + paddingRight;
         
         if (columnMaxWidths.length > 0)
         {
             // Adjust percent size columns to fit in the Form's width
-            constrainPercentColumnWidths(columnMaxWidths, unscaledWidth, formItems);
+            constrainPercentColumnWidths(columnMaxWidths, unscaledWidth - hPadding, formItems);
 
             for each (var formItem:ILayoutElement in formItems)
             {
@@ -272,7 +274,7 @@ public class FormLayout extends VerticalLayout
             
             // Recalculate contentWidth; contentHeight already includes padding.
             var contentWidth:Number = calculateColumnWidthsSum(columnMaxWidths);
-            layoutTarget.setContentSize(contentWidth + paddingLeft + paddingRight, layoutTarget.contentHeight);
+            layoutTarget.setContentSize(contentWidth + hPadding, layoutTarget.contentHeight);
         }
     }
     
