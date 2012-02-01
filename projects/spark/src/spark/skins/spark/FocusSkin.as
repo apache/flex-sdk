@@ -27,7 +27,7 @@ import mx.core.mx_internal;
 import flash.utils.Dictionary;
 
 /**
- *  Focus skins for Fx components.
+ *  Focus skins for Spark components.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
