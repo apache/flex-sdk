@@ -2191,8 +2191,10 @@ public class GraphicElement extends EventDispatcher
         // display objects across multiple graphic elements.
         var bitmapData:BitmapData = new BitmapData(actualSize.x, actualSize.y, transparent, fillColor);
 
-        var m:Matrix = displayObject.transform.matrix.clone();
-        m.translate(-actualPosition.x, -actualPosition.y);
+        var m:Matrix = displayObject.transform.matrix;
+		
+		if (m)
+        	m.translate(-actualPosition.x, -actualPosition.y);
         
         if (displayObject && nextSiblingNeedsDisplayObject)
             bitmapData.draw(displayObject, m);
@@ -2221,9 +2223,7 @@ public class GraphicElement extends EventDispatcher
             displayObject.mask = _mask;
             if (!isMaskInElementSpace)
             {
-                var maskMatrix:Matrix = _mask.transform.matrix;
-                maskMatrix.concat(displayObject.transform.matrix);
-                _mask.transform.matrix = maskMatrix;
+                moveToLocalSpace(_mask);
                 isMaskInElementSpace = true;
             }
         }
@@ -2449,6 +2449,8 @@ public class GraphicElement extends EventDispatcher
                 {
                     if (previousMask)
                     {
+                    	moveToParentSpace(previousMask);                    	
+                    	
                         elementHost.removeMaskElement(previousMask, this);
                         if (displayObject)
                             displayObject.mask = null;
@@ -2873,32 +2875,32 @@ public class GraphicElement extends EventDispatcher
     /**
      *  @private
      */
-    private function beginCommitTransformProps():void
+    private function moveToParentSpace(targ:DisplayObject):void
     {
-        if (_mask && isMaskInElementSpace)
-        {
-            var maskMatrix:Matrix = _mask.transform.matrix;
-            var dispObjMatrix:Matrix = displayObject.transform.matrix.clone();
+        /* if (_mask && isMaskInElementSpace)
+        { */
+        var targetMatrix:Matrix = targ.transform.matrix;
+        var dispObjMatrix:Matrix = displayObject.transform.matrix.clone();
 
-            dispObjMatrix.invert();
-            maskMatrix.concat(dispObjMatrix);
-            _mask.transform.matrix = maskMatrix;
-            isMaskInElementSpace = false;
-        }
+        dispObjMatrix.invert();
+        targetMatrix.concat(dispObjMatrix);
+        targ.transform.matrix = targetMatrix;
+        //isMaskInElementSpace = false;
+        //}
     }
 
     /**
      *  @private
      */
-    private function endCommitTransformProps():void
+    private function moveToLocalSpace(targ:DisplayObject):void
     {
-        if (_mask && !isMaskInElementSpace)
-        {
-            var maskMatrix:Matrix = _mask.transform.matrix;
-            maskMatrix.concat(displayObject.transform.matrix);
-            _mask.transform.matrix = maskMatrix;
-            isMaskInElementSpace = true;
-        }
+        //if (_mask && !isMaskInElementSpace)
+        //{
+        var targetMatrix:Matrix = targ.transform.matrix;
+        targetMatrix.concat(displayObject.transform.matrix);
+        targ.transform.matrix = targetMatrix;
+         //   isMaskInElementSpace = true;
+        //}
     }
 
     /**
@@ -2910,7 +2912,13 @@ public class GraphicElement extends EventDispatcher
 
         if(displayObject == null)
             return;
-                    
+		
+		if (_mask && isMaskInElementSpace)
+        {
+        	moveToParentSpace(_mask);
+        	isMaskInElementSpace = false;
+        }
+			                    
         if(layoutFeatures.is3D)
         {
             displayObject.transform.matrix3D = layoutFeatures.computedMatrix3D;             
@@ -2923,6 +2931,12 @@ public class GraphicElement extends EventDispatcher
         if (_colorTransform)
         {
             displayObject.transform.colorTransform = _colorTransform;
+        }
+        
+        if (_mask && !isMaskInElementSpace)
+        {
+        	moveToLocalSpace(_mask);
+        	isMaskInElementSpace = true;
         }
     }
     
