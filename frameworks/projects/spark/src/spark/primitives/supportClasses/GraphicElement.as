@@ -591,14 +591,13 @@ public class GraphicElement extends EventDispatcher
         _designLayer = value;
         
         if (_designLayer)
-        {
             _designLayer.addEventListener("layerPropertyChange", layer_PropertyChange, false, 0, true);
-            _effectiveAlpha = _alpha * _designLayer.effectiveAlpha;
-            _effectiveVisibility = _visible && _designLayer.effectiveVisibility;
-            alphaChanged = true;
-            visibleChanged = true;
-            invalidateProperties();
-        }
+        
+        _effectiveAlpha = _designLayer ? _alpha * _designLayer.effectiveAlpha : _alpha;
+        _effectiveVisibility = _designLayer ? _visible && _designLayer.effectiveVisibility : _visible;
+        alphaChanged = true;
+        visibleChanged = true;
+        invalidateProperties();
     }
         
     //----------------------------------
