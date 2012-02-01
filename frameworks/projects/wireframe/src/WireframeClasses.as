@@ -24,7 +24,6 @@ package
  */
 internal class WireframeClasses
 {
-	import spark.skins.wireframe.ApplicationSkin; ApplicationSkin;
 	import spark.skins.wireframe.ButtonBarFirstButtonSkin; ButtonBarFirstButtonSkin;
 	import spark.skins.wireframe.ButtonBarLastButtonSkin; ButtonBarLastButtonSkin;
 	import spark.skins.wireframe.ButtonBarMiddleButtonSkin; ButtonBarMiddleButtonSkin;
