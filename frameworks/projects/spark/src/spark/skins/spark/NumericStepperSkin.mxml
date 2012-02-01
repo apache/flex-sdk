@@ -25,9 +25,9 @@
     </states>
 
     <FxButton id="incrementButton" right="0" 
-              skinZZ="mx.skins.spark.FxSpinnerIncrButtonSkin" />
+              skinClass="mx.skins.spark.FxSpinnerIncrButtonSkin" />
     <FxButton id="decrementButton" right="0" bottom="0"
-              skinZZ="mx.skins.spark.FxSpinnerDecrButtonSkin" />
+              skinClass="mx.skins.spark.FxSpinnerDecrButtonSkin" />
     <FxTextInput id="textInput" width="30" 
     		     left="0" top="0" right="18" bottom="0" />
 </Skin>
