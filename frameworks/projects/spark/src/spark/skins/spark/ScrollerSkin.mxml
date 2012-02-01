@@ -26,7 +26,7 @@
         import mx.components.baseClasses.FxScrollBar;
         import mx.components.Group;
         import mx.layout.LayoutElementFactory;
-        import mx.layout.ILayoutElement;
+        import mx.core.ILayoutElement;
         import mx.core.IViewport;
         import mx.core.ScrollPolicy;
 
