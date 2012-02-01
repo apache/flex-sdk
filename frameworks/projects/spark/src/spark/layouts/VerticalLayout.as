@@ -1294,7 +1294,7 @@ public class VerticalLayout extends LayoutBase
 			   up small scrolls. */
 			if (!firstElement || !lastElement || 
 				scrollRect.top < firstElement.getLayoutBoundsY() || 
-				scrollRect.bottom > (lastElement.getLayoutBoundsY() + lastElement.getLayoutBoundsHeight()))
+				scrollRect.bottom >= (lastElement.getLayoutBoundsY() + lastElement.getLayoutBoundsHeight()))
 			{
 				g.invalidateDisplayList();
 			}
