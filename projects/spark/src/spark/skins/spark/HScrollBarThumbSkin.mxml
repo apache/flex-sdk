@@ -19,55 +19,44 @@
     
     <states>
         <State name="up" />
-        <State name="over"/>
+        <State name="over" />
         <State name="down" />
         <State name="disabled" />
     </states>
 
-    <content>
+    <!-- background -->
+    <Rect left="0" top="0" right="0" bottom="0" minWidth="24" minHeight="14"
+    	  radiusX="2" radiusY="2">
+        <stroke>
+            <SolidColorStroke color="0x3D5D92" color.disabled="0x9DADC9" />
+        </stroke>
+        <fill>
+            <SolidColor color="0xFFFFFF" />
+        </fill>
+    </Rect>
 
-        <Group left="0" top="0" right="0" bottom="0">
-            <!-- border -->
-            <Rect left="0" top="0" right="0" bottom="0" minWidth="12" minHeight="12">
-                <stroke>
-                    <SolidColorStroke color="0x808080" color.disabled="0xC0C0C0" />
-                </stroke>
-            </Rect>
-            <!-- fill -->
-            <Rect left="1" top="1" right="1" bottom="1" minWidth="10" minHeight="10">
-                <stroke>
-                    <SolidColorStroke color="0xFFFFFF" color.over="0xFAFAFA" color.down="0xEFEFEF" />
-                </stroke>
-                <fill>
-                    <SolidColor color="0xFFFFFF" color.over="0xF2F2F2" color.down="0xD8D8D8" />
-                </fill>
-            </Rect>
-        </Group>
-
-        <!-- Gripper -->
-        <Group horizontalCenter="-1" verticalCenter="0">
-            <Rect width="5" height="3">
-                <fill>
-                    <SolidColor color="0xFFFFFF" color.over="0xFAFAFA" color.down="0xEFEFEF" />
-                </fill>
-            </Rect>
-            <Line xFrom="1" xTo="1" yFrom="0" yTo="2">
-                <stroke>
-                    <SolidColorStroke color="0x666666" color.over="0x616161" color.down="0x565656" pixelHinting="true" />
-                </stroke>
-            </Line>
-            <Line xFrom="3" xTo="3" yFrom="0" yTo="2">
-                <stroke>
-                    <SolidColorStroke color="0x666666" color.over="0x616161" color.down="0x565656" pixelHinting="true" />
-                </stroke>
-            </Line>
-            <Line xFrom="5" xTo="5" yFrom="0" yTo="2">
-                <stroke>
-                    <SolidColorStroke color="0x666666" color.over="0x616161" color.down="0x565656" pixelHinting="true" />
-                </stroke>
-            </Line>
-        </Group>
-
-    </content>
+    <!-- Gripper -->
+    <Group horizontalCenter="-1" verticalCenter="0">
+        <Rect width="7" height="6">
+            <fill>
+                <SolidColor color="0xFFFFFF"  />
+            </fill>
+        </Rect>
+        <Line xFrom="1" xTo="1" yFrom="0" yTo="6">
+            <stroke>
+                <SolidColorStroke color="0x3D5D92" color.disabled="0x9DADC9" pixelHinting="true" />
+            </stroke>
+        </Line>
+        <Line xFrom="4" xTo="4" yFrom="0" yTo="6">
+            <stroke>
+                <SolidColorStroke color="0x3D5D92" color.disabled="0x9DADC9" pixelHinting="true" />
+            </stroke>
+        </Line>
+        <Line xFrom="7" xTo="7" yFrom="0" yTo="6">
+            <stroke>
+                <SolidColorStroke color="0x3D5D92" color.disabled="0x9DADC9" pixelHinting="true" />
+            </stroke>
+        </Line>
+    </Group>
 
 </Skin>
