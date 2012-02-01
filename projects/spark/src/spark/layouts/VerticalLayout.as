@@ -1008,7 +1008,8 @@ public class VerticalLayout extends LayoutBase
             preferredHeight += height;
             preferredWidth = Math.max(preferredWidth, width);
             minHeight += (isNaN(elt.percentHeight)) ? height : elt.getMinBoundsHeight();
-            minWidth = Math.max(minWidth, (isNaN(elt.percentWidth)) ? width : elt.getMinBoundsWidth());
+            var flexibleWidth:Boolean = !isNaN(elt.percentWidth) || horizontalAlign == HorizontalAlign.JUSTIFY;
+            minWidth = Math.max(minWidth, flexibleWidth ? elt.getMinBoundsWidth() : width);
 
             eltInLayoutCount += 1;
         }
@@ -1125,7 +1126,8 @@ public class VerticalLayout extends LayoutBase
         }
         layoutTarget.measuredWidth = llv.minorSize + hPadding;
                 
-        layoutTarget.measuredMinWidth = layoutTarget.measuredWidth;
+        layoutTarget.measuredMinWidth = (horizontalAlign == HorizontalAlign.JUSTIFY) ? 
+                llv.minMinorSize + hPadding : layoutTarget.measuredWidth;
         layoutTarget.measuredMinHeight = layoutTarget.measuredHeight;
     }
 
@@ -1489,7 +1491,9 @@ public class VerticalLayout extends LayoutBase
         // TODO: in the center or right case, we end up calculating percentWidth 
         // twice.  Once here for the contentWidth and once in distributeHeight
         // to size that particular element.
-        if (horizontalAlign != HorizontalAlign.LEFT)
+        if (horizontalAlign == HorizontalAlign.CONTENT_JUSTIFY ||
+           (clipAndEnableScrolling && (horizontalAlign == HorizontalAlign.CENTER ||
+                                       horizontalAlign == HorizontalAlign.RIGHT))) 
         {
             for (var i:int = 0; i < count; i++)
             {
@@ -1507,17 +1511,7 @@ public class VerticalLayout extends LayoutBase
             }
         }
 
-        // If we're justifying the elements, then all widths should be set to
-        // targetWidth.  If we're content justifying the elements, then 
-        // all widths should be set to the contentWidth.
-        // Otherwise restrictedWidth is ignored in distributedHeight.
-        var restrictedWidth:Number;
-        if (horizontalAlign == HorizontalAlign.JUSTIFY)
-            restrictedWidth = targetWidth;
-        else if (horizontalAlign == HorizontalAlign.CONTENT_JUSTIFY)
-            restrictedWidth = containerWidth;
-    
-        distributeHeight(targetWidth, targetHeight, restrictedWidth);
+        distributeHeight(targetWidth, targetHeight, containerWidth);
         
         // default to left (0)
         var hAlign:Number = 0;
