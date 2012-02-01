@@ -477,7 +477,7 @@ public class VerticalLayout extends LayoutBase
     //  requestedMinRowCount
     //----------------------------------
 
-    private var _requestedMinRowCount:int = 0;
+    private var _requestedMinRowCount:int = -1;
     
     [Inspectable(category="General", minValue="-1")]
 
@@ -491,7 +491,7 @@ public class VerticalLayout extends LayoutBase
      *  <p>If the actual size of the container has been explicitly set,
      *  then this property has no effect.</p>
      *
-     *  @default 0
+     *  @default -1
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1985,10 +1985,9 @@ public class VerticalLayout extends LayoutBase
      *  @private
      */
     override protected function calculateDragScrollDelta(dropLocation:DropLocation,
-                                                         timeInterval:int,
-                                                         timeElapsed:int):Point
+                                                         elapsedTime:Number):Point
     {
-        var delta:Point = super.calculateDragScrollDelta(dropLocation, timeInterval, timeElapsed);
+        var delta:Point = super.calculateDragScrollDelta(dropLocation, elapsedTime);
         // Don't scroll in the horizontal direction
         if (delta)
             delta.x = 0;
