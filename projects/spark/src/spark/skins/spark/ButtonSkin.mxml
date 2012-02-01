@@ -23,40 +23,26 @@
         <State name="down" />
         <State name="disabled" />
     </states>
+    
+    <!-- background -->
+    <Rect left="0" right="0" top="0" bottom="0" 
+    	  minWidth="70" minHeight="21"
+    	  radiusX="2" radiusY="2">
+        <stroke>            
+            <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
+        </stroke>
+        <fill>
+        	<SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF" />
+        </fill>
+    </Rect>
 
-    <content>
-        
-        <!-- border -->
-        <Rect left="0" right="0" top="0" bottom="0" minWidth="70" minHeight="24">
-            <stroke>            
-                <SolidColorStroke color="0x808080" color.disabled="0xC0C0C0" />
-            </stroke>
-        </Rect>
-        
-		<!-- fill -->
-        <Rect left="1" right="1" top="1" bottom="1" minWidth="68" minHeight="22">
-            <stroke>
-                <SolidColorStroke color="0xFFFFFF" color.over="0xFAFAFA" color.down="0xEFEFEF" />
-            </stroke>
-            <fill>
-                <SolidColor color="0xFFFFFF" color.over="0xF2F2F2" color.down="0xD8D8D8" />
-            </fill>
-        </Rect>
-
-        <!-- label -->
-		<TextBox text="{hostComponent.label}"
-                 fontFamily="Arial" fontSize="11"
-                 color="0x444444" color.disabled="0xC0C0C0"
-				 horizontalCenter="0" verticalCenter="0"
-				 left="10" right="10" top="4" bottom="2"
-				 textAlign="center" verticalAlign="middle">
-			<!--
-            <filters>
-				<DropShadowFilter angle="90" color="0xFFFFFF" distance="1" blurX="0" blurY="0" />
-			</filters>
-            -->
-		</TextBox>
-
-	</content>
+    <!-- label -->
+	<TextBox text="{hostComponent.label}"
+             fontFamily="Arial" fontSize="12"
+             color="0x2B4381" color.disabled="0x95A1C0"
+			 horizontalCenter="0" verticalCenter="1"
+			 left="10" right="10" top="2" bottom="2"
+			 textAlign="center" verticalAlign="middle">
+	</TextBox>
 
 </Skin>
