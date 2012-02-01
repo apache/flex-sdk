@@ -25,7 +25,7 @@
     
     <FxButton id="incrementButton" left="0" right="0" top="0" height="50%"  
             skinClass="wireframe.FxSpinnerIncrButtonSkin" />
-    <FxButton id="decrementButton" top="10" left="0" right="0" bottom="0" height="50%" 
+    <FxButton id="decrementButton" left="0" right="0" bottom="0" height="50%" 
             skinClass="wireframe.FxSpinnerDecrButtonSkin" />
 
 </Skin>
