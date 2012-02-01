@@ -42,15 +42,20 @@ HScrollBarThumbSkin and HScrollBarTrackSkin classes, respectively. -->
     	<s:State name="disabled" />
     </s:states>
     
+    <!--- Defines the skin class for the HScrollBarSkin's track. The default skin class is HScrollBarTrackSkin. -->
     <s:Button id="track" left="16" right="15" width="54"
               focusEnabled="false"
               skinClass="spark.skins.default.HScrollBarTrackSkin" />
+    <!--- Defines the skin class for the HScrollBarSkin's thumb. The default skin class is HScrollBarThumbSkin. -->
     <s:Button id="thumb" 
               focusEnabled="false"
               skinClass="spark.skins.default.HScrollBarThumbSkin" />
+
+    <!--- Defines the skin class for the left button of the HScrollBarSkin. The default skin class is ScrollBarLeftButtonSkin. -->
     <s:Button id="decrementButton" left="0"
               focusEnabled="false"
               skinClass="spark.skins.default.ScrollBarLeftButtonSkin" />
+    <!--- Defines the skin class for the right button of the HScrollBarSkin. The default skin class is ScrollBarRightButtonSkin. -->
     <s:Button id="incrementButton" right="0"
               focusEnabled="false"
               skinClass="spark.skins.default.ScrollBarRightButtonSkin" />
