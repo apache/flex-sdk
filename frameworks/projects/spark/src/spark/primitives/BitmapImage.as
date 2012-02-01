@@ -26,7 +26,6 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.net.URLRequest;
 import flash.system.LoaderContext;
-import flash.utils.getDefinitionByName;
 
 import spark.primitives.supportClasses.GraphicElement;
 
@@ -446,6 +445,8 @@ public class BitmapImage extends GraphicElement
         var repeatBitmap:Boolean = false;
         var fillScaleX:Number = 1;
         var fillScaleY:Number = 1;
+        var roundedDrawX:Number = Math.round(drawX);
+        var roundedDrawY:Number = Math.round(drawY);
     
         switch(_resizeMode)
         {
@@ -472,11 +473,13 @@ public class BitmapImage extends GraphicElement
             isNaN(_scaleGridLeft) ||
             isNaN(_scaleGridRight))
         {
+             
+            
             matrix.identity();
             matrix.scale(fillScaleX, fillScaleY);
-            matrix.translate(drawX, drawY);
+            matrix.translate(roundedDrawX, roundedDrawY);
             g.beginBitmapFill(_bitmapData, matrix, repeatBitmap, smooth);
-            g.drawRect(drawX, drawY, unscaledWidth, unscaledHeight);
+            g.drawRect(roundedDrawX, roundedDrawY, unscaledWidth, unscaledHeight);
             g.endFill();
         }
         else
@@ -539,11 +542,11 @@ public class BitmapImage extends GraphicElement
                     // Translate based on the difference between the source and destination coordinates,
                     // making sure to account for the new scale.
                     matrix.translate(destSection.x - sourceSection.x * matrix.a, destSection.y - sourceSection.y * matrix.d);
-                    matrix.translate(drawX, drawY);
+                    matrix.translate(roundedDrawX, roundedDrawY);
                     
                     // Draw the bitmap for the current section
                     g.beginBitmapFill(_bitmapData, matrix);
-                    g.drawRect(destSection.x + drawX, destSection.y + drawY, destSection.width, destSection.height);
+                    g.drawRect(destSection.x + roundedDrawX, destSection.y + roundedDrawY, destSection.width, destSection.height);
                     g.endFill();
                  }
             }
