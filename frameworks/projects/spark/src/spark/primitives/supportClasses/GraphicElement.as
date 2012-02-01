@@ -2581,7 +2581,11 @@ public class GraphicElement extends OnDemandEventDispatcher
             if (filtersChanged || displayObjectChanged)
             {
                 filtersChanged = false;
-                displayObject.filters = _clonedFilters;
+                
+                // there's a flash player bug...even setting filters to null here
+                // causes memory to skyrocket
+                if (filtersChanged || _clonedFilters)
+                    displayObject.filters = _clonedFilters;
             }
 
             if (maskChanged || displayObjectChanged)
