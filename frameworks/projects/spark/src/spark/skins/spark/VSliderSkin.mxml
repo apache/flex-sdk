@@ -19,8 +19,7 @@ VSliderThumbSkin and VSliderTrackSkin classes, respectively.
       @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-      minWidth="11" minHeight="100"
-      alpha.disabled="0.5">
+      minWidth="11" alpha.disabled="0.5">
 
     <fx:Metadata>
     <![CDATA[ 
@@ -36,10 +35,24 @@ VSliderThumbSkin and VSliderTrackSkin classes, respectively.
            For slider, the skin itself is colorized but the individual parts are not. */
         static private const exclusions:Array = ["track", "thumb"];
 
-    /** 
-     * @copy spark.skins.SparkSkin#colorizeExclusions
-     */     
+        /** 
+         * @copy spark.skins.SparkSkin#colorizeExclusions
+         */     
         override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /**
+         *  @private
+         */  
+        override protected function measure() : void
+        {
+            // Temporarily move the thumb to the top of the Slider so measurement
+            // doesn't factor in its y position. This allows resizing the
+            // VSlider to less than 100px in height. 
+            var thumbPos:Number = thumb.getLayoutBoundsY();
+            thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), 0);
+            super.measure();
+            thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), thumbPos);
+        }
     </fx:Script>
     
     <s:states>
@@ -70,7 +83,7 @@ VSliderThumbSkin and VSliderTrackSkin classes, respectively.
     </fx:Declarations>
     
     <!--- Defines the skin class for the VSliderSkin's track. The default skin class is VSliderTrackSkin. -->
-    <s:Button id="track" left="0" right="0" top="0" bottom="0" 
+    <s:Button id="track" left="0" right="0" top="0" bottom="0" minHeight="33" height="100"
               skinClass="spark.skins.spark.VSliderTrackSkin" />
     <!--- Defines the skin class for the VSliderSkin's thumb. The default skin class is VSliderThumbSkin. -->
     <s:Button id="thumb" left="0" right="0" width="11" height="11" 
