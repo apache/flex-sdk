@@ -27,6 +27,9 @@
         import mx.styles.StyleManager;
         import mx.utils.ColorUtil;
 
+        /**
+         * @private
+         */
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {
             var todayColor:uint = getStyle("todayColor");       
@@ -43,9 +46,11 @@
 
     <s:Rect left="0" right="0" top="0" bottom="0" >
         <s:fill>
+            <!--- @private -->
             <s:SolidColor id="fill" color="#C6D0DB" alpha="1" />
         </s:fill>
         <s:stroke>
+            <!--- @private -->
             <s:SolidColorStroke id="stroke" color="#9EAEC3" />
         </s:stroke>
     </s:Rect>
