@@ -20,15 +20,31 @@
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
+    <fx:Script>
+    <![CDATA[
+        import mx.styles.StyleManager;
+        import mx.utils.ColorUtil;
+        
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        {
+            var selectionColor:uint = getStyle("selectionColor");       
+            if (selectionColor != StyleManager.NOT_A_COLOR)
+            {
+                fill.color = selectionColor;
+                stroke.color = ColorUtil.adjustBrightness(selectionColor, -45);
+            }
+
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        } 
+    ]]>
+    </fx:Script>
+
     <s:Rect left="0" right="0" top="0" bottom="0" >
         <s:fill>
-            <s:SolidColor color="0xA8C6EE" alpha="1" />
+            <s:SolidColor id="fill" color="0xA8C6EE" alpha="1" />
         </s:fill>
-    </s:Rect>
-    
-    <s:Rect left="0" right="0" top="0" bottom="0" alpha="1" >
         <s:stroke>
-            <s:SolidColorStroke color="0x86A6D4" />
+            <s:SolidColorStroke id="stroke" color="0x86A6D4" />
         </s:stroke>
     </s:Rect>
     
