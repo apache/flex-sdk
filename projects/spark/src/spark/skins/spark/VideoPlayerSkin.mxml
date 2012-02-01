@@ -27,6 +27,9 @@
 
     <!-- host component -->
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.VideoPlayer")]
     </fx:Metadata>
     
@@ -78,14 +81,15 @@
     </s:states>
     
     <!-- drop shadow -->
+    <!--- @private -->
     <s:RectangularDropShadow id="shadow" blurX="17" blurY="17" alpha="0.32" distance="4" 
                 angle="90" color="#131313" left="0" top="0" right="0" bottom="0"/>
     
-    <!-- Video and player controls are clipped if they exceed the size of the 
-         component, but the drop shadow above is not clipped and sizes to the component.
-         We also set verticalScrollPosition so that when we do clip, rather than clipping  
-         off the bottom first, we clip off the top fist.  This is so the player controls 
-         are still visible when we start clipping. -->
+    <!--- Video and player controls are clipped if they exceed the size of the 
+          component, but the drop shadow above is not clipped and sizes to the component.
+          We also set verticalScrollPosition so that when we do clip, rather than clipping  
+          off the bottom first, we clip off the top fist.  This is so the player controls 
+          are still visible when we start clipping. -->
     <s:Group id="clippedGroup" clipAndEnableScrolling="true" left="0" top="0" right="0" bottom="0" 
              verticalScrollPosition="{Math.max(0, 184-clippedGroup.height)}">
     
@@ -100,16 +104,17 @@
                 </s:fill>
             </s:Rect>
             
-            <!--- The subcomponent that loads the video but does not define the appearance of the VideoPlayer component. -->
+            <!--- @copy spark.components.VideoPlayer#videoDisplay -->
             <s:VideoDisplay id="videoDisplay" bottom="24" left="1" right="1" top="1" />
             
             <!-- video player controls -->
             <s:Group left="0" right="0" height="24" bottom="0" bottom.fullScreenStates="150">
                 
                 <!-- actual controls with a maxWidth in non-fullScreen mode -->
+                <!--- @copy spark.components.VideoPlayer#playerControls -->
                 <s:Group bottom="0" horizontalCenter="0" left="0" right="0" maxWidth.fullScreenStates="755" id="playerControls">
                 
-                    <!--- Defines the label and appearance of the Play/Pause button. -->
+                    <!--- @copy spark.components.VideoPlayer#playPauseButton -->
                     <s:ToggleButton id="playPauseButton" left="0" bottom="0" 
                             skinClass="spark.skins.spark.mediaClasses.normal.PlayPauseButtonSkin" 
                             skinClass.fullScreenStates="spark.skins.spark.mediaClasses.fullScreen.PlayPauseButtonSkin"
@@ -161,6 +166,7 @@
                             <!-- spacer -->
                             <s:Rect width="7" height="1" />
                             
+                            <!--- @copy spark.components.VideoPlayer#scrubBar -->
                             <s:ScrubBar id="scrubBar" width="100%" liveDragging="true"
                                 skinClass="spark.skins.spark.mediaClasses.normal.ScrubBarSkin"
                                 skinClass.fullScreenStates="spark.skins.spark.mediaClasses.fullScreen.ScrubBarSkin" />
@@ -168,10 +174,12 @@
                             <!-- spacer -->
                             <s:Rect width="8" height="1" />
                             
+                            <!--- @copy spark.components.VideoPlayer#currentTimeDisplay -->
                             <s:Label id="currentTimeDisplay" color.fullScreenStates="0xFFFFFF" />
                             
-                            <s:Label id="timeDivider" text="/" color.fullScreenStates="0xFFFFFF" />
+                            <s:Label text="/" color.fullScreenStates="0xFFFFFF" />
                             
+                            <!--- @copy spark.components.VideoPlayer#durationDisplay -->
                             <s:Label id="durationDisplay" color.fullScreenStates="0xFFFFFF" />
                             
                             <!-- spacer -->
@@ -180,14 +188,14 @@
                     
                     </s:Group>
                     
-                    <!--- Defines the appearance of the volume bar. -->
+                    <!--- @copy spark.components.VideoPlayer#volumeBar -->
                     <s:VolumeBar id="volumeBar" snapInterval=".01" stepSize=".01" liveDragging="true"
                             right="37" bottom="0" 
                             skinClass="spark.skins.spark.mediaClasses.normal.VolumeBarSkin"
                             skinClass.fullScreenStates="spark.skins.spark.mediaClasses.fullScreen.VolumeBarSkin"
                             focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
                     
-                    <!--- Defines the label and appearance of the Fullscreen button. -->
+                    <!--- @copy spark.components.VideoPlayer#fullScreenButton -->
                     <s:Button id="fullScreenButton" right="0" bottom="0" label="Fullscreen" 
                             skinClass="spark.skins.spark.mediaClasses.normal.FullScreenButtonSkin"
                             skinClass.fullScreenStates="spark.skins.spark.mediaClasses.fullScreen.FullScreenButtonSkin"
