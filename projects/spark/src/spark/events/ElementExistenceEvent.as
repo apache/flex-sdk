@@ -96,15 +96,22 @@ public class ItemExistenceChangedEvent extends Event
 	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
 	 *
 	 *  @param relatedObject Reference to the item that was created or destroyed.
+	 * 
+	 *  @param index The index where the item was created or destroyed.
+	 * 
+	 *  @param renderer The renderer that was used for the item (if applicable)
 	 */
 	public function ItemExistenceChangedEvent(
 								type:String, bubbles:Boolean = false,
 								cancelable:Boolean = false,
-								relatedObject:* = undefined)
+								relatedObject:Object = null, 
+								index:int = -1, renderer:Object = null)
 	{
 		super(type, bubbles, cancelable);
 
 		this.relatedObject = relatedObject;
+		this.index = index;
+		this.renderer = renderer;
 	}
 
 	//--------------------------------------------------------------------------
@@ -112,6 +119,15 @@ public class ItemExistenceChangedEvent extends Event
 	//  Properties
 	//
 	//--------------------------------------------------------------------------
+	
+    //----------------------------------
+    //  index
+    //----------------------------------
+
+    /**
+     *  The index where the item was created or destroyed.
+     */
+    public var index:int;
 
 	//----------------------------------
 	//  relatedObject
@@ -120,7 +136,16 @@ public class ItemExistenceChangedEvent extends Event
 	/**
 	 *  Reference to the item that was created or destroyed.
 	 */
-	public var relatedObject:*;
+	public var relatedObject:Object;
+    
+    //----------------------------------
+    //  renderer
+    //----------------------------------
+
+    /**
+     *  The item renderer that was created or destroyed (if applicable).
+     */
+    public var renderer:Object;
 
 	//--------------------------------------------------------------------------
 	//
@@ -134,7 +159,7 @@ public class ItemExistenceChangedEvent extends Event
     override public function clone():Event
     {
         return new ItemExistenceChangedEvent(type, bubbles, cancelable,
-                                             relatedObject);
+                                             relatedObject, index, renderer);
     }
 }
 
