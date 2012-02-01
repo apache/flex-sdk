@@ -35,7 +35,7 @@ use namespace mx_internal;
  *
  *  @langversion 3.0
  *  @playerversion Flash 10.1
- *  @playerversion AIR 1.5
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Event(name="change", type="flash.events.Event")]
@@ -48,11 +48,13 @@ use namespace mx_internal;
  *  The locale identifier that specifies the language, region, script
  *  and optionally other related tags and keys.
  *  The syntax of this identifier must follow the syntax defined
- *  by the Unicode Technical Standard #35 (http//unicode.org/reports.tr35/)
+ *  by the Unicode Technical Standard #35 (e.g. en-US, de-DE, zh-Hans-CN)
+ * 
+ *  @see http://www.unicode.org/reports/tr35/
  *
  *  @langversion 3.0
  *  @playerversion Flash 10.1
- *  @playerversion AIR 1.5
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="locale", type="String", inherit="yes")]
@@ -90,7 +92,7 @@ public class GlobalizationBase extends AdvancedStyleClient
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function GlobalizationBase()
@@ -219,9 +221,11 @@ public class GlobalizationBase extends AdvancedStyleClient
      *  or a method of this class is called, or when a property is set.
      *  For the possible values see the description under each method.
      *
+     *  
+     * @see flash.globalization.LastOperationStatus
      *  @langversion 3.0
      *  @playerversion Flash 10.1
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get lastOperationStatus():String
@@ -273,9 +277,9 @@ public class GlobalizationBase extends AdvancedStyleClient
      *  all styles for this component have changed.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     override public function styleChanged(styleProp:String):void
     {
