@@ -535,9 +535,9 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-	public function setEstimatedSize(estimatedWidth:Number = NaN, 
-									 estimatedHeight:Number = NaN,
-									 invalidateSize:Boolean = true):void
+    public function setEstimatedSize(estimatedWidth:Number = NaN, 
+                                     estimatedHeight:Number = NaN,
+                                     invalidateSize:Boolean = true):void
     {
         
     }   
@@ -1222,7 +1222,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  The implementation calls <code>getElementBoundsLeftOfScrollRect()</code> and
      *  <code>getElementBoundsRightOfScrollRect()</code> to determine the bounds of
      *  the elements.  Layout classes usually override those methods instead of
-     *  getHorizontalScrollPositionDelta(). 
+     *  the <code>getHorizontalScrollPositionDelta()</code> method. 
      * 
      *  @see spark.core.NavigationUnit
      *  @see #getElementBoundsLeftOfScrollRect
@@ -1330,7 +1330,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     }
     
     /**
-     *  Returns the change to the horizontal scroll position to handle 
+     *  Returns the change to the vertical scroll position to handle 
      *  different scrolling options. 
      *  These options are defined by the NavigationUnit class:
      *  <code>DOWN</code>,  <code>END</code>, <code>HOME</code>, 
@@ -1382,8 +1382,8 @@ public class LayoutBase extends OnDemandEventDispatcher
      * 
      *  The implementation calls <code>getElementBoundsAboveScrollRect()</code> and
      *  <code>getElementBoundsBelowScrollRect()</code> to determine the bounds of
-     *  the elements.  Layout classes usually override those methods instead of
-     *  getVerticalScrollPositionDelta(). 
+     *  the elements. Layout classes usually override those methods instead of
+     *  the <code>getVerticalScrollPositionDelta()</code> method. 
      * 
      *  @see spark.core.NavigationUnit
      *  @see #getElementBoundsAboveScrollRect
