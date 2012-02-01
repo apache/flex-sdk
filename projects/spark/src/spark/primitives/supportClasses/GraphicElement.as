@@ -54,7 +54,6 @@ import mx.managers.ILayoutManagerClient;
 import mx.managers.LayoutManager;
 import mx.utils.MatrixUtil;
 import mx.utils.OnDemandEventDispatcher;
-import spark.primitives.supportClasses.ISharedGraphicsDisplayObject;
 use namespace mx_internal;
 
 /**
@@ -314,7 +313,7 @@ public class GraphicElement extends OnDemandEventDispatcher
             layoutFeatures.updatePending = true;
 
         // If we are sharing a display object we need to redraw
-        if (shareIndex >= 0)
+        if (sharedIndex >= 0)
             invalidateDisplayList();
         else
             invalidateProperties(); // We apply the transform in commitProperties
@@ -862,10 +861,9 @@ public class GraphicElement extends OnDemandEventDispatcher
         _height = value;
         dispatchPropertyChangeEvent("height", oldValue, value);
 
-        // Invalidate the display list, since we're changing the actual width
+        // Invalidate the display list, since we're changing the actual height
         // and we're not going to correctly detect whether the layout sets
-        // new actual width different from our previous value.
-        // TODO EGeorgie: is this worth optimizing?
+        // new actual height different from our previous value.
         invalidateDisplayList();
     }
 
@@ -2042,10 +2040,9 @@ public class GraphicElement extends OnDemandEventDispatcher
         
         dispatchPropertyChangeEvent("width", oldValue, value);
 
-        // Invalidate the display list, since we're changing the actual height
+        // Invalidate the display list, since we're changing the actual width
         // and we're not going to correctly detect whether the layout sets
-        // new actual height different from our previous value.
-        // TODO EGeorgie: is this worth optimizing?
+        // new actual width different from our previous value.
         invalidateDisplayList();
     }
 
@@ -2271,7 +2268,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @private
      */
-    public function set displayObject(value:DisplayObject):void
+    protected function setDisplayObject(value:DisplayObject):void
     {
         if (_displayObject == value)
             return;
@@ -2287,11 +2284,8 @@ public class GraphicElement extends OnDemandEventDispatcher
         dispatchPropertyChangeEvent("displayObject", oldValue, value);
 
         // We need to apply the display object related properties.
-        if (shareIndex <= 0)
-        {
-            displayObjectChanged = true;
-            invalidateProperties();
-        }
+        displayObjectChanged = true;
+        invalidateProperties();
     }
 
     //--------------------------------------------------------------------------
@@ -2316,7 +2310,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     {
         // If we don't share the display object, we will draw at 0,0
         // since the display object will be positioned at x,y
-        if (shareIndex == -1)
+        if (sharedIndex == -1)
             return 0;
             
         // Otherwise we draw at x,y since the display object will be
@@ -2343,7 +2337,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     {
         // If we don't share the display object, we will draw at 0,0
         // since the display object will be positioned at x,y
-        if (shareIndex == -1)
+        if (sharedIndex == -1)
             return 0;
             
         // Otherwise we draw at x,y since the display object will be
@@ -2410,7 +2404,8 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function createDisplayObject():DisplayObject
     {
-        return new InvalidatingSprite();
+        setDisplayObject(new InvalidatingSprite());
+        return displayObject;
     }
     
     private var _alwaysCreateDisplayObject:Boolean;
@@ -2470,9 +2465,12 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function canDrawToShared(sharedDisplayObject:DisplayObject):Boolean
+    public function setSharedDisplayObject(sharedDisplayObject:DisplayObject):Boolean
     {
-        return !needsDisplayObject && sharedDisplayObject is ISharedGraphicsDisplayObject;
+        if (!(sharedDisplayObject is Sprite) || _alwaysCreateDisplayObject || needsDisplayObject)
+            return false;
+        setDisplayObject(sharedDisplayObject);
+        return true;
     }
     
     /**
@@ -2483,12 +2481,12 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function closeSequence():Boolean
+    public function canShareWithPrevious(element:IGraphicElement):Boolean
     {
-        return _alwaysCreateDisplayObject;
+        // No need to check _alwaysCreateDisplayObject or needsDisplayObject,
+        // as those will be checked in setSharedDisplayObject
+        return element is GraphicElement;
     }
-
-    private var _shareIndex:int;
 
     /**
      *  @inheritDoc
@@ -2498,17 +2496,32 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function set shareIndex(value:int):void
+    public function canShareWithNext(element:IGraphicElement):Boolean
     {
-        _shareIndex = value;
+        return element is GraphicElement && !_alwaysCreateDisplayObject && !needsDisplayObject;
+    }
+
+    private var _sharedIndex:int;
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function set sharedIndex(value:int):void
+    {
+        _sharedIndex = value;
     }
 
     /**
      *  @private
      */
-    public function get shareIndex():int
+    public function get sharedIndex():int
     {
-        return _shareIndex;    
+        return _sharedIndex;    
     }
 
     protected function get drawnDisplayObject():DisplayObject
@@ -2548,11 +2561,11 @@ public class GraphicElement extends OnDemandEventDispatcher
             var restoreDisplayObject:Boolean = false;
             var oldDisplayObject:DisplayObject;
             
-            if (!displayObject || shareIndex != -1)
+            if (!displayObject || sharedIndex != -1)
             {
                 restoreDisplayObject = true;
                 oldDisplayObject = displayObject;
-                displayObject = new InvalidatingSprite();
+                setDisplayObject(new InvalidatingSprite());
                 UIComponent(parent).$addChild(displayObject);
                 invalidateDisplayList();
                 validateDisplayList();
@@ -2572,7 +2585,7 @@ public class GraphicElement extends OnDemandEventDispatcher
             if (restoreDisplayObject)
             {
                 UIComponent(parent).$removeChild(displayObject);
-                displayObject = oldDisplayObject;
+                setDisplayObject(oldDisplayObject);
             }
             return bitmapData;
         
@@ -2887,7 +2900,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         var updateTransform:Boolean = false;
         
         // If we are the first in the sequence, setup the displayObject properties
-        if (shareIndex <= 0 && displayObject)
+        if (sharedIndex <= 0 && displayObject)
         {
             if (alphaChanged || displayObjectChanged)
             {
@@ -2972,7 +2985,7 @@ public class GraphicElement extends OnDemandEventDispatcher
             }
             
             // If we don't share the DisplayObject, set the property directly.
-            if (displayObjectChanged && shareIndex == -1)
+            if (displayObjectChanged && sharedIndex == -1)
                 displayObject.visible = _visible;
 
             updateTransform = true;
@@ -2985,7 +2998,7 @@ public class GraphicElement extends OnDemandEventDispatcher
             
             // If we don't share the DisplayObject, set the property directly,
             // otherwise redraw.
-            if (shareIndex == -1)
+            if (sharedIndex == -1)
                 displayObject.visible = _visible;
             else
                 invalidateDisplayList();
@@ -3006,7 +3019,7 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function validateSize(recursive:Boolean = false):void
+    public function validateSize():void
     {
         if (!invalidateSizeFlag)
             return;
@@ -3166,10 +3179,10 @@ public class GraphicElement extends OnDemandEventDispatcher
 
         // TODO EGeorgie: don't clear the graphics if the GraphicElement is invisible and explicitly owns the DO?
         // If we are the first in the sequence, clear the graphics:
-        if (shareIndex <= 0 && drawnDisplayObject is ISharedGraphicsDisplayObject)
-            ISharedGraphicsDisplayObject(drawnDisplayObject).graphics.clear();
+        if (sharedIndex <= 0)
+            Sprite(drawnDisplayObject).graphics.clear();
 
-        if (visible || shareIndex == -1)
+        if (visible || sharedIndex == -1)
             updateDisplayList(_width, _height);
 
         // If we aren't doing any more invalidation, send out an UpdateComplete event
@@ -3768,7 +3781,7 @@ public class GraphicElement extends OnDemandEventDispatcher
 	        layoutFeatures.updatePending = false;
 
         // Only the first elment in the sequence updates the transform
-        if (shareIndex > 0 || !displayObject)
+        if (sharedIndex > 0 || !displayObject)
             return;
                                 
         if (layoutFeatures != null)
@@ -3781,7 +3794,7 @@ public class GraphicElement extends OnDemandEventDispatcher
 	        {
 	        	var m:Matrix = layoutFeatures.computedMatrix.clone();
 	        	// If the displayObject is shared, then put it at 0,0
-	        	if (shareIndex == 0)
+	        	if (sharedIndex == 0)
 	        	{
 	        		m.tx = 0;
 	        		m.ty = 0;
@@ -3792,7 +3805,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         else 
         {
         	// If the displayObject is shared, then put it at 0,0
-        	if (shareIndex == 0)
+        	if (sharedIndex == 0)
         	{
                 displayObject.x = 0;
                 displayObject.y = 0;
@@ -3940,7 +3953,7 @@ public class GraphicElement extends OnDemandEventDispatcher
                 {
                     _colorTransform = _transform.colorTransform;
                     
-                    if (displayObject && shareIndex == -1)
+                    if (displayObject && sharedIndex == -1)
                     {
                         displayObject.transform.colorTransform = _colorTransform;
                     }
