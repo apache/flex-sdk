@@ -29,6 +29,18 @@ The default header renderer for s:DataGrid columns.
     xmlns:mx="library://ns.adobe.com/flex/mx">
     
     <fx:Declarations>
+        <!--- The default value of the <code>sortIndicator</code> property.
+        It must be an IFactory for an IVisualElement.        
+        
+        <p>This value is specified in a <code>fx:Declaration</code> block and can be overridden
+        by a declaration with <code>id="defaultSortIndicator"</code>
+        in an MXML subclass.</p>
+        
+        @langversion 3.0
+        @playerversion Flash 10
+        @playerversion AIR 2.0
+        @productversion Flex 4.5
+        -->
         <fx:Component id="defaultSortIndicator">
             <s:Path data="M 4 7 L 7.5 0 0 0 Z" height="5" width="7" >
                 <s:fill>
@@ -228,10 +240,10 @@ The default header renderer for s:DataGrid columns.
     
     <s:HGroup left="7" right="7" top="5" bottom="5" gap="2" verticalAlign="middle">
        
-        <!-- Container for labelDisplay:TextBase  -->
+        <!--- Container for labelDisplay:TextBase.  -->
         <s:Group id="labelDisplayGroup" width="100%" />
         
-        <!-- Container for sortIndicator:IVisualElement  -->
+        <!--- Container for sortIndicator:IVisualElement.  -->
         <s:Group id="sortIndicatorGroup" includeInLayout="false" />
     
     </s:HGroup>
