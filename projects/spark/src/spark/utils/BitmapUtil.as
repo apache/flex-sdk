@@ -60,6 +60,10 @@ public class BitmapUtil
      *  or are not in a content that is accessible to the caller by having called the
      *  <code>Security.allowDomain()</code> method.
      *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static function getSnapshotWithPadding(target:IUIComponent, 
                                                   padding:int = 4, 
