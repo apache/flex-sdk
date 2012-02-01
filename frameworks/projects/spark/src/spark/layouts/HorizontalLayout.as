@@ -1030,10 +1030,10 @@ public class HorizontalLayout extends LayoutBase
                 
             // Consider the height of each element, inclusive of those outside
             // the requestedColumnCount range.
-            var height:Number = elt.getPreferredBoundsHeight();
+            var height:Number = Math.ceil(elt.getPreferredBoundsHeight());
             preferredHeight = Math.max(preferredHeight, height);
             var flexibleHeight:Boolean = !isNaN(elt.percentHeight) || verticalAlign == VerticalAlign.JUSTIFY;
-            minHeight = Math.max(minHeight, flexibleHeight ? elt.getMinBoundsHeight() : height);
+            minHeight = Math.max(minHeight, flexibleHeight ? Math.ceil(elt.getMinBoundsHeight()) : height);
             
             // If requestedColumnCount is specified, no need to consider the width
             // of cols outside the bounds of the "requested" range. Otherwise, we
@@ -1041,8 +1041,9 @@ public class HorizontalLayout extends LayoutBase
             if ((reqEltCount == -1) || ((reqEltCount != -1) && eltInLayoutCount < requestedColumnCount))
             {
                 var width:Number = isNaN(fixedColumnWidth) ? elt.getPreferredBoundsWidth() : fixedColumnWidth;
+                width = Math.ceil(width); // Round up to give it a whole pixel.
                 preferredWidth += width;
-                minWidth += (isNaN(elt.percentWidth)) ? width : elt.getMinBoundsWidth();
+                minWidth += (isNaN(elt.percentWidth)) ? width : Math.ceil(elt.getMinBoundsWidth());
                 eltInLayoutCount += 1;
             }
         }
@@ -1568,7 +1569,7 @@ public class HorizontalLayout extends LayoutBase
                 else
                     layoutElementHeight = layoutElement.getPreferredBoundsHeight();
                     
-                containerHeight = Math.max(containerHeight, layoutElementHeight);
+                containerHeight = Math.max(containerHeight, Math.ceil(layoutElementHeight));
             }
         }
 
@@ -1604,15 +1605,16 @@ public class HorizontalLayout extends LayoutBase
                 continue;
 
             // Set the layout element's position
-            var y:Number = y0 + (containerHeight - layoutElement.getLayoutBoundsHeight()) * vAlign;
+            var dx:Number = Math.ceil(layoutElement.getLayoutBoundsWidth());
+            var dy:Number = Math.ceil(layoutElement.getLayoutBoundsHeight());
+
+            var y:Number = y0 + (containerHeight - dy) * vAlign;
             // In case we have VerticalAlign.MIDDLE we have to round
             if (vAlign == 0.5)
                 y = Math.round(y);
             layoutElement.setLayoutBoundsPosition(x, y);
 
             // Update maxX,Y, first,lastVisibleIndex, and x
-            var dx:Number = layoutElement.getLayoutBoundsWidth();
-            var dy:Number = layoutElement.getLayoutBoundsHeight();
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);            
             if (!clipAndEnableScrolling || 
@@ -1664,7 +1666,7 @@ public class HorizontalLayout extends LayoutBase
         var layoutElement:ILayoutElement;
         
         // columnWidth can be expensive to compute
-        var cw:Number = (variableColumnWidth) ? 0 : columnWidth;
+        var cw:Number = (variableColumnWidth) ? 0 : Math.ceil(columnWidth);
         var count:uint = target.numElements;
         var totalCount:uint = count; // number of elements to use in gap calculation
         
@@ -1697,7 +1699,7 @@ public class HorizontalLayout extends LayoutBase
                 sizeLayoutElement(layoutElement, height, verticalAlign, 
                                   restrictedHeight, NaN, variableColumnWidth, cw);
                 
-                spaceToDistribute -= layoutElement.getLayoutBoundsWidth();
+                spaceToDistribute -= Math.ceil(layoutElement.getLayoutBoundsWidth());
             } 
         }
         
