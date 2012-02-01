@@ -29,16 +29,15 @@ is defined in the DropDownListButtonSkin class. -->
 		<s:State name="disabled" />
 	</s:states>
     
-    <!--- Defines the appearance of the DropDownList component's drop down area. -->    
-    <s:PopUp id="popup"  open.normal="false" open.open="true" includeIn="open"
-    	left="0" right="0" top="0" bottom="0" visible.open = "true" visible.normal="false"
-    	placement="below">
+    <s:PopUpAnchor id="popup"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
+    	left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
+    	popUpPosition="below" autoSizePopUpWidth="true">
     	
 	<!--- 
 	      The drop down area of the skin. This includes borders, background colors, scrollers, and filters. 
 	      To create a custom drop down, edit this skin and create a custom skin class. 
 	-->
-    	<s:Group id="dropDown" maxHeight="134" minHeight="22" visible.open = "true" visible.normal="false">
+    	<s:Group id="dropDown" maxHeight="134" minHeight="22" >
 	    	 <!-- border -->
 		    <s:Rect left="0" right="0" top="0" bottom="0">
 		    	<s:stroke>
@@ -72,10 +71,10 @@ is defined in the DropDownListButtonSkin class. -->
 	            <s:DropShadowFilter blurX="20" blurY="20" distance="5" angle="90" alpha="0.6" />
 	        </s:filters>
 	    </s:Group>
-	</s:PopUp>
+	</s:PopUpAnchor>
     
 	<!--- The button used by the DropDownList. The default skin is DropDownListButtonSkin. -->
-	<s:Button id="button" left="0" right="0" top="0" bottom="0" focusEnabled="false"
+	<s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
 		skinClass="spark.skins.default.DropDownListButtonSkin" />  
 	<s:SimpleText id="labelElement" verticalAlign="middle" 
 		left="7" right="30" top="2" bottom="2" verticalCenter="1" /> 
