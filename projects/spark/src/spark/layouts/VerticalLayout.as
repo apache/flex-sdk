@@ -574,7 +574,7 @@ public class VerticalLayout extends LayoutBase
             return;
         }
         
-        var scrollR:Rectangle = g.scrollRect;
+        var scrollR:Rectangle = getTargetScrollRect();
         if (!scrollR)
         {
             setIndexInView(0, n);
@@ -876,7 +876,15 @@ public class VerticalLayout extends LayoutBase
         var layoutTarget:GroupBase = target;
         if (!layoutTarget)
             return;
-        if (virtualLayout)
+            
+        if (layoutTarget.numLayoutElements == 0)
+        {
+            layoutTarget.measuredWidth = 0;
+            layoutTarget.measuredHeight = 0;
+            layoutTarget.measuredMinWidth = 0;
+            layoutTarget.measuredMinHeight = 0;
+        }            
+        else if (virtualLayout)
             measureVirtual(layoutTarget);
         else 
             measureReal(layoutTarget);
@@ -898,7 +906,7 @@ public class VerticalLayout extends LayoutBase
            case HorizontalAlign.JUSTIFY: 
                return targetWidth;
            case HorizontalAlign.CONTENT_JUSTIFY: 
-               return contentWidth;
+               return Math.max(elt.getPreferredBoundsWidth(), contentWidth);
        }
        return elt.getPreferredBoundsWidth();
     }
@@ -1001,7 +1009,7 @@ public class VerticalLayout extends LayoutBase
             contentWidth = llv.minorSize;
             if ((horizontalAlign != HorizontalAlign.LEFT) && (horizontalAlign != HorizontalAlign.JUSTIFY))
             {
-                for (index = startIndex; index < endIndex; index++)
+                for (index = startIndex; index <= endIndex; index++)
                 {
                     elt = layoutTarget.getLayoutElementAt(index);
                     w = calculateElementWidth(elt, targetWidth, contentWidth);
