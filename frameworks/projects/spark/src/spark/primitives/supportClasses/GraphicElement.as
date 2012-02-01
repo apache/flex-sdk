@@ -58,10 +58,10 @@ import mx.graphics.shaderClasses.SoftLightShader;
 import mx.managers.ILayoutManagerClient;
 import mx.utils.MatrixUtil;
 
-import spark.components.Group;
 import spark.components.supportClasses.InvalidatingSprite;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
+import spark.core.IGraphicElementHost;
 import spark.core.MaskType;
 import spark.utils.FTETextUtil;
 import spark.utils.MaskUtil;
@@ -624,7 +624,7 @@ public class GraphicElement extends EventDispatcher
      *  @private
      *  Storage for the parent property.
      */
-    private var _parent:DisplayObjectContainer;
+    private var _parent:IGraphicElementHost;
 
     /**
      *  @inheritDoc
@@ -636,7 +636,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get parent():DisplayObjectContainer
     {
-        return _parent;
+        return _parent as DisplayObjectContainer;
     }
     
     /**
@@ -647,7 +647,7 @@ public class GraphicElement extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function parentChanged(value:Group):void
+    public function parentChanged(value:IGraphicElementHost):void
     {
         _parent = value;
         invalidateLayoutDirection();
@@ -2791,7 +2791,7 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General", defaultValue="true")]
 
     /**
-     *  Specifies whether this element is included in the layout of the group.
+     *  Specifies whether this element is included in the layout of the parent.
      *
      *  @default true
      *  
@@ -3232,11 +3232,7 @@ public class GraphicElement extends EventDispatcher
         
         
         // Remove the target from its current parent, making sure to store the child index
-        var childIndex:int = dispObjParent.getChildIndex(displayObject);
-        if (dispObjParent is Group)
-            Group(dispObjParent).$removeChild(displayObject);
-        else
-            dispObjParent.removeChild(displayObject);
+        var displayObjectIndex:int = IGraphicElementHost(parent).detachDisplayObject(this); 
         
         // Parent the target to the drawSprite and then attach the drawSprite to the stage
         topLevel.addChild(drawSprite);
@@ -3265,10 +3261,7 @@ public class GraphicElement extends EventDispatcher
         topLevel.removeChild(drawSprite);
         
         // Reattach the target to its original parent at its original child position
-        if (dispObjParent is Group)
-            Group(dispObjParent).$addChildAt(displayObject, childIndex);
-        else
-            dispObjParent.addChildAt(displayObject, childIndex);
+        IGraphicElementHost(parent).attachDisplayObject(this, displayObjectIndex);
             
         // Restore the original 3D matrix
         displayObject.transform.matrix3D = oldMat3D;
@@ -3350,7 +3343,7 @@ public class GraphicElement extends EventDispatcher
     protected function invalidateDisplayObjectSharing():void
     {
         if (parent)
-            Group(parent).invalidateGraphicElementSharing(this);
+            IGraphicElementHost(parent).invalidateGraphicElementSharing(this);
     }
 
     /**
@@ -3373,7 +3366,7 @@ public class GraphicElement extends EventDispatcher
         invalidatePropertiesFlag = true;
 
         if (parent)
-            Group(parent).invalidateGraphicElementProperties(this);
+            IGraphicElementHost(parent).invalidateGraphicElementProperties(this);
     }
 
     /**
@@ -3399,7 +3392,7 @@ public class GraphicElement extends EventDispatcher
         invalidateSizeFlag = true;
 
         if (parent)
-            Group(parent).invalidateGraphicElementSize(this);
+            IGraphicElementHost(parent).invalidateGraphicElementSize(this);
     }
 
     /**
@@ -3443,10 +3436,10 @@ public class GraphicElement extends EventDispatcher
             return;
         invalidateDisplayListFlag = true;
 
-        // The Group will take care of redrawing all graphic elements that
+        // The IGraphicElementHost will take care of redrawing all graphic elements that
         // share the display object with this element.
         if (parent)
-            Group(parent).invalidateGraphicElementDisplayList(this);
+            IGraphicElementHost(parent).invalidateGraphicElementDisplayList(this);
     }
 
     /**
@@ -3499,7 +3492,8 @@ public class GraphicElement extends EventDispatcher
      *
      *  <p>You do not call this method directly.
      *  Flex calls the <code>commitProperties()</code> method when you
-     *  use the <code>addElement()</code> method to add an element to the group,
+     *  use the <code>addElement()</code> method to add an element to an 
+     *  <code>IGraphicElementHost</code> container such as Group,
      *  or when you call the <code>invalidateProperties()</code> method of the element.
      *  Calls to the <code>commitProperties()</code> method occur before calls to the
      *  <code>measure()</code> method. This lets you set property values that might
@@ -3803,7 +3797,8 @@ public class GraphicElement extends EventDispatcher
      *  method that you might override when creating a subclass of GraphicElement.
      *
      *  <p>You do not call this method directly. Flex calls the
-     *  <code>measure()</code> method when the element is added to a group
+     *  <code>measure()</code> method when the element is added to an
+     *  <code>IGraphicElementHost</code> container such as Group
      *  using the <code>addElement()</code> method, and when the element's
      *  <code>invalidateSize()</code> method is called. </p>
      *
@@ -3864,10 +3859,10 @@ public class GraphicElement extends EventDispatcher
      */
     public function validateDisplayList():void
     {
-        // Don't check the invalidateDisplayListFlag for early return, the Group takes care to
+        // Don't check the invalidateDisplayListFlag for early return, the IGraphicElementHost takes care to
         // call validateDisplayList() only for elements that need to redraw.
         // Note that even when invalidateDisplayListFlag is false for a particular element,
-        // the Group may still call it to redraw if it shares a display object with another
+        // the IGraphicElementHost may still call it to redraw if it shares a display object with another
         // element that is redrawing.
         // if (!invalidateDisplayListFlag)
         //    return;
@@ -3919,7 +3914,8 @@ public class GraphicElement extends EventDispatcher
      *
      *  <p>You do not call this method directly. Flex calls the
      *  <code>updateDisplayList()</code> method when the component is added 
-     *  to a group using the <code>addElement()</code> method, and when the element's
+     *  to an <code>IGraphicElementHost</code> container such as Group
+     *  using the <code>addElement()</code> method, and when the element's
      *  <code>invalidateDisplayList()</code> method is called. </p>
      *
      *  <p>This method is where you would do programmatic drawing
