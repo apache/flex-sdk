@@ -444,7 +444,6 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         super.updateDisplayList(width, height);
 
         labelDisplay.setActualSize(width - 10, height - 5);  // setActualSize() side-effects labelDisplay.textHeight
-        //LayoutElementUIComponentUtils.setLayoutBoundsSize(labelDisplay, width - 10, height - 5, nonDeltaLayoutMatrix());      
         updateMeasuredSize();  // See @private comment above 
         
         // If the Grid's row heights are fixed and the labelDisplay will not fit, then clip.
@@ -462,7 +461,6 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         }
         
         labelDisplay.move(5, 5);
-        //LayoutElementUIComponentUtils.setLayoutBoundsSize(labelDisplay, 5, 5, nonDeltaLayoutMatrix());          
     }
  
         
