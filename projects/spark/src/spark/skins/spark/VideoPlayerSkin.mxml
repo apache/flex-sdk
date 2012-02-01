@@ -56,6 +56,16 @@
             {
                 return exclusions;
             }
+            
+            /**
+             * @private
+             */
+            override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+            {
+                dropShadow.visible = getStyle("dropShadowVisible");
+                
+                super.updateDisplayList(unscaledWidth, unscaledHeight);
+            }
         ]]>
 
     </fx:Script>
@@ -82,7 +92,7 @@
     
     <!-- drop shadow -->
     <!--- @private -->
-    <s:RectangularDropShadow id="shadow" blurX="17" blurY="17" alpha="0.32" distance="4" 
+    <s:RectangularDropShadow id="dropShadow" blurX="17" blurY="17" alpha="0.32" distance="4" 
                 angle="90" color="#131313" left="0" top="0" right="0" bottom="0"/>
     
     <!--- Video and player controls are clipped if they exceed the size of the 
@@ -177,7 +187,8 @@
                             <!--- @copy spark.components.VideoPlayer#currentTimeDisplay -->
                             <s:Label id="currentTimeDisplay" color.fullScreenStates="0xFFFFFF" />
                             
-                            <s:Label text="/" color.fullScreenStates="0xFFFFFF" />
+                            <!--- @private -->
+                            <s:Label id="timeDivider" text="/" color.fullScreenStates="0xFFFFFF" />
                             
                             <!--- @copy spark.components.VideoPlayer#durationDisplay -->
                             <s:Label id="durationDisplay" color.fullScreenStates="0xFFFFFF" />
