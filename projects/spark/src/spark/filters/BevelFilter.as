@@ -44,6 +44,11 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
 	 *   therefore, the angle property has no effect.
 	 * 
 	 *   @default 45
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get angle():Number
 	{
@@ -68,6 +73,11 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
 	/**
 	 *  The offset distance of the bevel. Valid values are in pixels (floating point). 
 	 * 	@default 4
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get distance():Number
 	{
@@ -93,6 +103,11 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
 	 *  The alpha transparency value of the highlight color. The value is specified as a normalized 
 	 *  value from 0 to 1. For example, .25 sets a transparency value of 25%. 
 	 *  @default 1
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get highlightAlpha():Number
 	{
@@ -117,6 +132,11 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
 	/**
 	 *  The highlight color of the bevel. Valid values are in hexadecimal format, 0xRRGGBB. 
 	 *  @default 0xFFFFFF
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get highlightColor():uint
 	{
@@ -143,6 +163,11 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
 	 *  normalized value from 0 to 1. For example, .25 sets a transparency value of 25%.
 	 * 
 	 *  @default 1
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get shadowAlpha():Number
 	{
@@ -167,6 +192,11 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
 	/**
 	 *  The shadow color of the bevel. Valid values are in hexadecimal format, 0xRRGGBB. 
 	 *  @default 0x000000
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get shadowColor():uint
 	{
@@ -194,6 +224,11 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
  	 *  BitmapFilterType.OUTER — Glow on the outer edge of the object
 	 *  BitmapFilterType.INNER — Glow on the inner edge of the object; the default.
 	 *  BitmapFilterType.FULL — Glow on top of the object
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get type():String
 	{
