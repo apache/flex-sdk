@@ -2,62 +2,62 @@
 
 <!--
 
-        ADOBE SYSTEMS INCORPORATED
-        Copyright 2008 Adobe Systems Incorporated
-        All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-        NOTICE: Adobe permits you to use, modify, and distribute this file
-        in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
 <!--- The default skin class for a Spark DefaultComplexItemRenderer class. -->
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
         
-        <s:states>
-                <s:State name="normal"/>                        
-                <s:State name="hovered"/>
-                <s:State name="selected"/>
-        </s:states>
+    <s:states>
+            <s:State name="normal"/>                        
+            <s:State name="hovered"/>
+            <s:State name="selected"/>
+    </s:states>
+    
+    <fx:Script>
+        <![CDATA[
         
-        <fx:Script>
-	        <![CDATA[
-	        
-	                import mx.core.IVisualElement; 
-	                
-	                [Bindable("dataChanged")]
-	                override public function set data(value:Object):void
-	                {
-	                        super.data = value;
-	                        
-	                        //First lets remove everything from the contentGroup
-	                        contentGroup.removeAllElements();
-	                        
-	                        //Then add the new items anew 
-	                        if (value is Array)
-	                        {
-	                        	for (var i:int = 0; i < value.length; i++)
-	                        	{
-	                        		contentGroup.addElement(IVisualElement(value[i]));
-	                        	}
-	                        }
-	                        else
-	                           contentGroup.addElement(IVisualElement(value));
-	                }
-	        ]]>
-	</fx:Script>
-	
-	<s:Rect left="0" right="0" top="0" bottom="0">
-		<s:fill>
-			<s:SolidColor color="{contentBackgroundColor}"/>
-		</s:fill>
-		<s:fill.hovered>
-                        <s:SolidColor color="{rollOverColor}" />
-                </s:fill.hovered>
-                <s:fill.selected>
-                        <s:SolidColor color="{selectionColor}" />
-                </s:fill.selected>
-	</s:Rect>
-	<s:Group id="contentGroup" verticalCenter="0" left="2" right="2" top="2" bottom="2" />
+            import mx.core.IVisualElement; 
+            
+            [Bindable("dataChanged")]
+            override public function set data(value:Object):void
+            {
+                super.data = value;
+                
+                //First lets remove everything from the contentGroup
+                contentGroup.removeAllElements();
+                
+                //Then add the new items anew 
+                if (value is Array)
+                {
+                    for (var i:int = 0; i < value.length; i++)
+                    {
+                        contentGroup.addElement(IVisualElement(value[i]));
+                    }
+                }
+                else if (value is IVisualElement)
+                   contentGroup.addElement(IVisualElement(value));
+            }
+        ]]>
+    </fx:Script>
+    
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:fill>
+            <s:SolidColor color="{contentBackgroundColor}"/>
+        </s:fill>
+        <s:fill.hovered>
+            <s:SolidColor color="{rollOverColor}" />
+        </s:fill.hovered>
+        <s:fill.selected>
+            <s:SolidColor color="{selectionColor}" />
+        </s:fill.selected>
+    </s:Rect>
+    <s:Group id="contentGroup" verticalCenter="0" left="2" right="2" top="2" bottom="2" />
 
 </s:ItemRenderer>
