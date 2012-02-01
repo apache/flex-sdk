@@ -36,7 +36,7 @@ public final class Block
     public function Block()
     {
         super();
-        for(var i:int = 0; i < LinearLayoutVector.BLOCK_SIZE; i++)
+        for (var i:int = 0; i < LinearLayoutVector.BLOCK_SIZE; i++)
             sizes[i] = NaN;
     }
 }
