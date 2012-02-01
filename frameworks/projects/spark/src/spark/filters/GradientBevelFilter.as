@@ -3,7 +3,10 @@ package flex.filters
 	
 import flash.filters.BitmapFilter;
 import flash.filters.GradientBevelFilter;
+
 import mx.core.mx_internal;
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 
 use namespace mx_internal;
 
