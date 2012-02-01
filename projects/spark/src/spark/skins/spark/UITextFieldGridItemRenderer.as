@@ -56,25 +56,31 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 [Exclude(name="layoutDirection", kind="style")]
 
 /**
- *   A simple and efficient IGridItemRenderer that displays a single text label.  For 
- *   applications displaying Grids with large numbers of visible cells, this renderer
- *   provides optimum performance on Windows.   It is based on TextField, not FTE, 
- *   so it lacks support for some Spark text features.
+ *  The UITextFieldGridItemRenderer class defines simple and efficient 
+ *  item renderer that displays a single text label.  
+ *  For applications displaying grid controls with large numbers of visible cells, 
+ *  this renderer provides optimum performance on Microsoft Windows.   
+ *  It is based on TextField, not FTE, so it lacks support for some Spark text features.
  * 
- *   <p>UITextFieldGridItemRenderer will inherit its 
- *   <code>layoutDirection</code> from its parent.  
- *   It should not be set directly on UITextFieldGridItemRenderer.</p>
+ *  <p>UITextFieldGridItemRenderer inherits its the value of the 
+ *  <code>layoutDirection</code> property from its parent.  
+ *  It should not be set directly on UITextFieldGridItemRenderer.</p>
  *
- *   <p>Label text wrapping can be controlled with the lineBreak style.  For example
- *   a DataGrid configured like this:
- *   <code>lineBreak="explicit" variableRowHeight="false"</code> yields fixed height
- *   DataGrid cells whose labels do not wrap.</p>
+ *  <p>You can control the label text wrapping by using the <code>lineBreak</code> style.  
+ *  For example, setting  <code>lineBreak="explicit"</code> and <code>variableRowHeight="false"</code> 
+ *  creates fixed height cells whose labels do not wrap.</p>
  * 
- *   <p>This class is not intended to be subclassed or copied, it is
- *   effectively final.  Custom item renderers can be created in MXML with the 
- *   GridItemRenderer component.</p>
+ *  <p>The UITextFieldGridItemRenderer class is not intended to be subclassed or copied.
+ *  Create custom item renderers based on the  GridItemRenderer class.</p>
  * 
- *   @see spark.components.gridClasses.GridItemRenderer
+ *  @see spark.components.DataGrid
+ *  @see spark.components.gridClasses.GridItemRenderer
+ *  @see DefaultGridItemRenderer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class UITextFieldGridItemRenderer extends UITextField implements IGridItemRenderer, IStyleClient
 {
