@@ -172,8 +172,8 @@ public class BitmapImage extends GraphicElement
     private static var matrix:Matrix = new Matrix();  
     private var cachedSourceGrid:Array;
     private var cachedDestGrid:Array;
-    private var imageWidth:int;
-    private var imageHeight:int;
+    private var imageWidth:Number = NaN;
+    private var imageHeight:Number = NaN;
     private var loadedContent:DisplayObject;
     private var loadingContent:Object;
     private var previousUnscaledWidth:Number;
@@ -403,7 +403,7 @@ public class BitmapImage extends GraphicElement
         else
             return 0.5;
     }
-   
+    
     //----------------------------------
     //  preliminaryHeight
     //----------------------------------
@@ -527,76 +527,6 @@ public class BitmapImage extends GraphicElement
         _scaleMode = value;
         invalidateDisplayList();
     }
-        
-    //----------------------------------
-    //  source
-    //----------------------------------
-    
-    private var _source:Object;
-    
-    [Inspectable(category="General")]
-    
-    /**
-     *  The source used for the bitmap fill. The fill can render from various 
-     *  graphical sources, including the following: 
-     *  <ul>
-     *   <li>A Bitmap or BitmapData instance.</li>
-     *   <li>A class representing a subclass of DisplayObject. The BitmapFill 
-     *       instantiates the class and creates a bitmap rendering of it.</li>
-     *   <li>An instance of a DisplayObject. The BitmapFill copies it into a 
-     *       Bitmap for filling.</li>
-     *   <li>The name of an external image file. </li>
-     *  </ul>
-     *  
-     *  <p>If you use an image file for the source, it can be of type PNG, GIF, 
-     *  or JPG.</p>
-     *  
-     *  <p>To specify an embedded image source, you can use the &#64;Embed directive, 
-     *  as the following example shows:
-     *  <pre>
-     *  source="&#64;Embed('&lt;i&gt;image_location&lt;/i&gt;')"
-     *  </pre>
-     *  </p>
-     *  
-     *  <p>The image location can be specified via a URL, URLRequest, or file 
-     *  reference. If it is a file reference, its location is relative to the 
-     *  location of the file that is being compiled.</p>
-     *  
-     *  <p>The BitmapImage class is designed to work with embedded images or 
-     *  images that are loaded at run time.</p>
-     * 
-     *  <p>If the source is a Bitmap or BitmapData instance or is an external 
-     *  image file, it is the responsibility of the caller to dispose of the 
-     *  source once it is no longer needed. If ImageLoader created the BitmapData 
-     *  instance, then it will dispose of the BitmapData once the source has 
-     *  changed.</p>
-     *  
-     *  @see flash.display.Bitmap
-     *  @see flash.display.BitmapData
-     *  @see mx.graphics.BitmapFill
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get source():Object
-    {
-        return _source;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set source(value:Object):void
-    {        
-        if (value != _source)
-        {
-            _source = value;
-            sourceInvalid = true;
-            invalidateProperties();
-        }
-    }
     
     //----------------------------------
     //  smooth
@@ -670,6 +600,114 @@ public class BitmapImage extends GraphicElement
     public function get smoothingQuality():String
     {
         return _smoothingQuality;
+    }
+    
+    //----------------------------------
+    //  source
+    //----------------------------------
+    
+    private var _source:Object;
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  The source used for the bitmap fill. The fill can render from various 
+     *  graphical sources, including the following: 
+     *  <ul>
+     *   <li>A Bitmap or BitmapData instance.</li>
+     *   <li>A class representing a subclass of DisplayObject. The BitmapFill 
+     *       instantiates the class and creates a bitmap rendering of it.</li>
+     *   <li>An instance of a DisplayObject. The BitmapFill copies it into a 
+     *       Bitmap for filling.</li>
+     *   <li>The name of an external image file. </li>
+     *  </ul>
+     *  
+     *  <p>If you use an image file for the source, it can be of type PNG, GIF, 
+     *  or JPG.</p>
+     *  
+     *  <p>To specify an embedded image source, you can use the &#64;Embed directive, 
+     *  as the following example shows:
+     *  <pre>
+     *  source="&#64;Embed('&lt;i&gt;image_location&lt;/i&gt;')"
+     *  </pre>
+     *  </p>
+     *  
+     *  <p>The image location can be specified via a URL, URLRequest, or file 
+     *  reference. If it is a file reference, its location is relative to the 
+     *  location of the file that is being compiled.</p>
+     *  
+     *  <p>The BitmapImage class is designed to work with embedded images or 
+     *  images that are loaded at run time.</p>
+     * 
+     *  <p>If the source is a Bitmap or BitmapData instance or is an external 
+     *  image file, it is the responsibility of the caller to dispose of the 
+     *  source once it is no longer needed. If ImageLoader created the BitmapData 
+     *  instance, then it will dispose of the BitmapData once the source has 
+     *  changed.</p>
+     *  
+     *  @see flash.display.Bitmap
+     *  @see flash.display.BitmapData
+     *  @see mx.graphics.BitmapFill
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get source():Object
+    {
+        return _source;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set source(value:Object):void
+    {        
+        if (value != _source)
+        {
+            _source = value;
+            sourceInvalid = true;
+            invalidateProperties();
+        }
+    }
+    
+    //----------------------------------
+    //  sourceHeight
+    //----------------------------------
+    
+    /**
+     *  Provides the unscaled height of the original image data.
+     * 
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get sourceHeight():Number 
+    {
+        return imageHeight; 
+    }
+    
+    //----------------------------------
+    //  sourceWidth
+    //----------------------------------
+    
+    /**
+     *  Provides the unscaled width of the original image data.
+     * 
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get sourceWidth():Number 
+    {
+        return imageWidth; 
     }
     
     //----------------------------------
@@ -774,12 +812,7 @@ public class BitmapImage extends GraphicElement
      */
     override protected function commitProperties():void
     {
-        if (sourceInvalid || contentLoaderInvalid)
-            applySource();
-        
-        sourceInvalid = false;
-        contentLoaderInvalid = false;
-            
+        validateSource();
         super.commitProperties();
     }
     
@@ -949,7 +982,10 @@ public class BitmapImage extends GraphicElement
             isNaN(_scaleGridLeft) ||
             isNaN(_scaleGridRight))
         {
-            var sampledScale:Boolean = _smooth && _smoothingQuality == BitmapSmoothingQuality.HIGH;
+            var sampledScale:Boolean = _smooth && 
+                (_smoothingQuality == BitmapSmoothingQuality.HIGH) &&
+                (_fillMode == BitmapFillMode.SCALE);
+            
             var b:BitmapData = sampledScale ? resample(_bitmapData, fillWidth, fillHeight) : _bitmapData;
             
             if (sampledScale && _fillMode == BitmapFillMode.SCALE)
@@ -1127,10 +1163,7 @@ public class BitmapImage extends GraphicElement
         _scaleGridTop = NaN;
         _scaleGridBottom = NaN;
         var currentBitmapCreated:Boolean = false;
-                
-        // Clear any previously loaded content.
-        loadedContent = null;
-        
+                        
         // Reset byte counts and _trustedSource
         _bytesLoaded = NaN;
         _bytesTotal = NaN;
@@ -1253,12 +1286,13 @@ public class BitmapImage extends GraphicElement
     protected static function resample(bitmapData:BitmapData, newWidth:uint, 
                                        newHeight:uint):BitmapData
     {
-        var finalScale:Number = Math.min(newWidth/bitmapData.width, 
+        var finalScale:Number = Math.max(newWidth/bitmapData.width, 
             newHeight/bitmapData.height);
+                
         var finalData:BitmapData = bitmapData;
         
         if (finalScale > 1) 
-        {
+        { 
             finalData = new BitmapData(bitmapData.width * finalScale, 
                 bitmapData.height * finalScale, true, 0);
             
@@ -1274,28 +1308,30 @@ public class BitmapImage extends GraphicElement
         while (initialScale/drop < 1) 
             initialScale /= drop;
         
-        var bd:BitmapData = new BitmapData(Math.ceil(bitmapData.width * 
-            initialScale), Math.ceil(bitmapData.height * initialScale));
+        var w:Number = Math.floor(bitmapData.width * initialScale); 
+        var h:Number = Math.floor(bitmapData.height * initialScale); 
+        var bd:BitmapData = new BitmapData(w, h, bitmapData.transparent, 0);
         
         bd.draw(finalData, new Matrix(initialScale, 0, 0, initialScale), 
-                null, null, null, true);
+            null, null, null, true);
         finalData = bd;
-        
+            
         for (var scale:Number = initialScale * drop; 
-             Math.round(scale * 1000) >= Math.round(finalScale * 1000); 
-             scale *= drop) 
+            Math.round(scale * 1000) >= Math.round(finalScale * 1000); 
+            scale *= drop) 
         {
-            bd = new BitmapData(Math.ceil(bitmapData.width * scale), 
-                Math.ceil(bitmapData.height * scale));
-            bd.draw(finalData, new Matrix(drop, 0, 0, drop), null, null, 
-                null, true);
+            w = Math.floor(bitmapData.width * scale);
+            h = Math.floor(bitmapData.height * scale);
+            bd = new BitmapData(w, h, bitmapData.transparent, 0);
+            
+            bd.draw(finalData, new Matrix(drop, 0, 0, drop), null, null, null, true);
             finalData.dispose();
             finalData = bd;
-        }
+        } 
         
         return finalData;
     }
-    
+       
     /**
      * @private
      * Invoked upon completion of a load request.
@@ -1372,7 +1408,7 @@ public class BitmapImage extends GraphicElement
             loadedContent.parent.removeChild(loadedContent);
             loadedContent = null;
             setDisplayObject(null);
-            imageWidth = imageHeight = 0;
+            imageWidth = imageHeight = NaN;
         }
     }
     
@@ -1422,6 +1458,22 @@ public class BitmapImage extends GraphicElement
                 loader_securityErrorHandler);
             loadingContent.removeEventListener(HTTPStatusEvent.HTTP_STATUS, 
                 dispatchEvent);
+        }
+    }
+    
+    
+    /**
+     *  @private
+     *  Utility method which is invoked to initiate loading of our
+     *  source.
+     */
+    mx_internal function validateSource():void
+    {   
+        if (sourceInvalid || contentLoaderInvalid)
+        {
+            applySource();
+            sourceInvalid = false;
+            contentLoaderInvalid = false;
         }
     }
     
