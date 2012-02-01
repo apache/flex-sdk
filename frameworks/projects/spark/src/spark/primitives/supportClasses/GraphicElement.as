@@ -342,7 +342,7 @@ public class GraphicElement extends EventDispatcher
      */
     private var alphaChanged:Boolean = false;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0", maxValue="1.0")]
 
     /**
      *  @inheritDoc
