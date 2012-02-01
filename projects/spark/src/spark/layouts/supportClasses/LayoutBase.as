@@ -48,7 +48,7 @@ import spark.core.NavigationUnit;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;LayoutBase 
+ *  &lt;s:LayoutBase 
  *    <strong>Properties</strong>
  *    clipAndEnableScrolling="false"
  *    horizontalScrollPosition="0"
