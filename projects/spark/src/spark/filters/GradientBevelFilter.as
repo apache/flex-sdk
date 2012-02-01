@@ -53,7 +53,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds no tag attributes:</p>
  *
  *  <pre>
- *  &lt;GradientBevelFilter/&gt;
+ *  &lt;s:GradientBevelFilter/&gt;
  *  </pre>
  * 
  * @langversion 3.0
