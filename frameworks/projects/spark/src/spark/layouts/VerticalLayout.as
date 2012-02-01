@@ -44,7 +44,7 @@ public class VerticalLayout extends LayoutBase
 
     private static function calculatePercentWidth(layoutElement:ILayoutElement, width:Number):Number
     {
-    	var percentWidth:Number = LayoutElementHelper.pinBetween(layoutElement.percentWidth * 0.01 * width,
+    	var percentWidth:Number = LayoutElementHelper.pinBetween(Math.round(layoutElement.percentWidth * 0.01 * width),
     	                                                         layoutElement.getMinBoundsWidth(),
     	                                                         layoutElement.getMaxBoundsWidth() );
     	return percentWidth < width ? percentWidth : width;
@@ -1002,7 +1002,7 @@ public class VerticalLayout extends LayoutBase
        switch(horizontalAlign)
        {
            case HorizontalAlign.CENTER: 
-               return (containerWidth - eltWidth) * 0.5;
+               return Math.round((containerWidth - eltWidth) * 0.5);
            case HorizontalAlign.RIGHT: 
                return containerWidth - eltWidth;
        }
@@ -1189,6 +1189,9 @@ public class VerticalLayout extends LayoutBase
                 
             // Set the layout element's position
             var x:Number = (containerWidth - layoutElement.getLayoutBoundsWidth()) * hAlign;
+            // In case we have HorizontalAlign.CENTER we have to round
+            if (hAlign == 0.5)
+                x = Math.round(x);
             layoutElement.setLayoutBoundsPosition(x, y);
                             
             // Update maxX,Y, first,lastVisibleIndex, and y
@@ -1290,11 +1293,16 @@ public class VerticalLayout extends LayoutBase
                                                                 spaceToDistribute,
                                                                 totalPercentHeight,
                                                                 childInfoArray);
-            
+
+            var roundOff:Number = 0;            
             for each (childInfo in childInfoArray)
             {
+                // Make sure the calculated percentages are rounded to pixel boundaries
+                var childSize:int = Math.round(childInfo.size + roundOff);
+                roundOff += childInfo.size - childSize;
+
                 sizeLayoutElement(childInfo.layoutElement, width, horizontalAlign, 
-                               restrictedWidth, childInfo.size, 
+                               restrictedWidth, childSize, 
                                variableRowHeight, rh);
             }
         }
