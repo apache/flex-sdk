@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" 
+	  minWidth="21" minHeight="21"
+	  alpha.disabledStates="0.5">
+	
+	<!-- states -->
+	<states>
+        <State name="up" />
+        <State name="over" stateGroups="overStates" />
+        <State name="down" stateGroups="downStates" />
+        <State name="disabled" stateGroups="disabledStates" />
+        <State name="selectedUp" stateGroups="selectedStates, selectedUpStates" />
+        <State name="selectedOver" stateGroups="overStates, selectedStates" />
+        <State name="selectedDown" stateGroups="downStates, selectedStates" />
+        <State name="selectedDisabled" stateGroups="selectedUpStates, disabledStates, selectedStates" />
+	</states>
+	
+	<!-- layer 1: shadow -->
+    <Rect left="0" right="0" bottom="-1" height="1">
+        <fill>
+            <SolidColor color="0x000000" 
+                        color.downStates="0xFFFFFF" 
+                        alpha="0.07"
+                        alpha.downStates="0.5" />
+        </fill>
+    </Rect>
+	
+	<!-- layer 2: fill -->
+	<Rect left="1" right="1" top="1" bottom="1">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0xFFFFFF" 
+							   color.selectedUpStates="0xBBBDBD"
+							   color.overStates="0xBBBDBD" 
+							   color.downStates="0xAAAAAA" 
+							   alpha="0.85" 
+							   alpha.selectedOver="1" />
+				<GradientEntry color="0xD8D8D8" 
+							   color.selectedUpStates="0x9FA0A1"
+							   color.over="0x9FA0A1" 
+							   color.selectedOver="0x8E8F90"
+							   color.downStates="0x929496" 
+							   alpha="0.85"
+							   alpha.selectedOver="1" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 3: fill lowlight -->
+	<Rect left="1" right="1" bottom="1" height="9">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0x000000" alpha="0.0099" />
+				<GradientEntry color="0x000000" alpha="0.0627" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 4: fill highlight -->
+	<Rect left="1" right="1" top="1" height="9">
+		<fill>
+			<SolidColor color="0xFFFFFF" 
+					    alpha="0.33" 
+					    alpha.selectedUpStates="0.22"
+					    alpha.overStates="0.22" 
+					    alpha.downStates="0.12" />
+		</fill>
+	</Rect>
+	
+	<!-- layer 5: highlight stroke (all states except down) -->
+	<Rect left="1" right="1" top="1" bottom="1" excludeFrom="downStates">
+		<stroke>
+			<LinearGradientStroke rotation="90" weight="1">
+				<GradientEntry color="0xFFFFFF" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
+				<GradientEntry color="0xD8D8D8" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
+			</LinearGradientStroke>
+		</stroke>
+	</Rect>
+	
+	<!-- layer 6: highlight stroke (down state only) -->
+	<Rect left="1" top="1" bottom="1" width="1" includeIn="downStates, selectedUpStates, selectedOver">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.07" />
+		</fill>
+	</Rect>
+	<Rect right="1" top="1" bottom="1" width="1" includeIn="downStates, selectedUpStates, selectedOver">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.07" />
+		</fill>
+	</Rect>
+	<Rect left="1" top="1" right="1" height="1" includeIn="downStates, selectedUpStates, selectedOver">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.25" />
+		</fill>
+	</Rect>
+	<Rect left="1" top="2" right="1" height="1" includeIn="downStates, selectedUpStates, selectedOver">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.09" />
+		</fill>
+	</Rect>
+	
+	<!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    <Rect left="0" right="0" top="0" bottom="0" width="69" height="20">
+        <stroke>
+            <LinearGradientStroke rotation="90" weight="1">
+                <GradientEntry color="0x000000" 
+                               alpha="0.5625"
+                               alpha.down="0.6375"
+                               alpha.selectedStates="0.6375" />
+                <GradientEntry color="0x000000" 
+                               alpha="0.75" 
+                               alpha.down="0.85"
+                               alpha.selectedStates="0.85" />
+            </LinearGradientStroke>
+        </stroke>
+    </Rect>
+</SparkSkin>
