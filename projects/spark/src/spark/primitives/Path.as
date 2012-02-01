@@ -536,7 +536,7 @@ public class Path extends FilledElement
         if (!stroke)
         {
             _scaleX = w / bw;
-            _scaleY = h / bw;	
+            _scaleY = h / bh;	
         }
         else if (stroke.weight == 0 )
         {
