@@ -13,6 +13,8 @@
 
 <!--- The default skin class for the Spark Application component. 
         
+       @see spark.components.Application
+        
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
@@ -69,6 +71,7 @@
         </s:layout>
 
         <!--- 
+            @private
             Application Control Bar
         -->
         <s:Group id="topGroup" minWidth="0" minHeight="0"
