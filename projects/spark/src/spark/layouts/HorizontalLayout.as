@@ -45,12 +45,12 @@ public class HorizontalLayout extends LayoutBase
     
     private static function calculatePercentHeight(layoutElement:ILayoutElement, height:Number):Number
     {
-    	var percentHeight:Number = LayoutElementHelper.pinBetween(layoutElement.percentHeight * 0.01 * height,
+    	var percentHeight:Number = LayoutElementHelper.pinBetween(Math.round(layoutElement.percentHeight * 0.01 * height),
     	                                                          layoutElement.getMinBoundsHeight(),
     	                                                          layoutElement.getMaxBoundsHeight() );
     	return percentHeight < height ? percentHeight : height;
     }
-    
+
     private static function sizeLayoutElement(layoutElement:ILayoutElement, height:Number, 
                                               verticalAlign:String, restrictedHeight:Number, 
                                               width:Number, variableColumnWidth:Boolean, 
@@ -989,7 +989,7 @@ public class HorizontalLayout extends LayoutBase
        switch(verticalAlign)
        {
            case VerticalAlign.MIDDLE: 
-               return (containerHeight - eltHeight) * 0.5;
+               return Math.round((containerHeight - eltHeight) * 0.5);
            case VerticalAlign.BOTTOM: 
                return containerHeight - eltHeight;
        }
@@ -1157,7 +1157,7 @@ public class HorizontalLayout extends LayoutBase
         var visibleColumns:uint = 0;
         var minVisibleX:Number = layoutTarget.horizontalScrollPosition;
         var maxVisibleX:Number = minVisibleX + targetWidth
-            
+
         // Finally, position the LayoutElements and find the first/last
         // visible indices, the content size, and the number of 
         // visible elements. 
@@ -1166,17 +1166,20 @@ public class HorizontalLayout extends LayoutBase
         var maxY:Number = 0;     
         var firstColInView:int = -1;
         var lastColInView:int = -1;
-                
+
         for (var index:int = 0; index < count; index++)
         {
             layoutElement = layoutTarget.getElementAt(index);
             if (!layoutElement || !layoutElement.includeInLayout)
                 continue;
-                
+
             // Set the layout element's position
             var y:Number = (containerHeight - layoutElement.getLayoutBoundsHeight()) * vAlign;
+            // In case we have VerticalAlign.MIDDLE we have to round
+            if (vAlign == 0.5)
+                y = Math.round(y);
             layoutElement.setLayoutBoundsPosition(x, y);
-            
+
             // Update maxX,Y, first,lastVisibleIndex, and x
             var dx:Number = layoutElement.getLayoutBoundsWidth();
             var dy:Number = layoutElement.getLayoutBoundsHeight();
@@ -1261,7 +1264,7 @@ public class HorizontalLayout extends LayoutBase
             else
             {
                 sizeLayoutElement(layoutElement, height, verticalAlign, 
-                               restrictedHeight, NaN, variableColumnWidth, cw);
+                                  restrictedHeight, NaN, variableColumnWidth, cw);
                 
                 spaceToDistribute -= layoutElement.getLayoutBoundsWidth();
             } 
@@ -1277,12 +1280,16 @@ public class HorizontalLayout extends LayoutBase
                                                                 spaceToDistribute,
                                                                 totalPercentWidth,
                                                                 childInfoArray);
-            
+            var roundOff:Number = 0;
             for each (childInfo in childInfoArray)
             {
+                // Make sure the calculated percentages are rounded to pixel boundaries
+                var childSize:int = Math.round(childInfo.size + roundOff);
+                roundOff += childInfo.size - childSize;
+
                 sizeLayoutElement(childInfo.layoutElement, height, verticalAlign, 
-                               restrictedHeight, childInfo.size, 
-                               variableColumnWidth, cw); 
+                                  restrictedHeight, childSize, 
+                                  variableColumnWidth, cw); 
             }
         }
         return spaceToDistribute;
