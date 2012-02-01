@@ -36,7 +36,7 @@ import spark.core.IGraphicElement;
 use namespace mx_internal;
 
 /**
- *  Focus skins for Spark components.
+ *  Defines the "glow" around Spark components when the component has focus.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -92,6 +92,9 @@ public class FocusSkin extends HighlightBitmapCaptureSkin
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @inheritDoc
+     */
     override protected function get borderWeight() : Number
     {
         if (target)
@@ -108,7 +111,7 @@ public class FocusSkin extends HighlightBitmapCaptureSkin
     //--------------------------------------------------------------------------
     
     /**
-     *  @private
+     * @inheritDoc
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {   
