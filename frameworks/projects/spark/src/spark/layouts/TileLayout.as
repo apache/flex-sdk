@@ -18,8 +18,8 @@ import mx.core.ILayoutElement;
 import mx.events.PropertyChangeEvent;
 import spark.layout.HorizontalAlign;
 import spark.layout.supportClasses.LayoutBase;
-import spark.layout.TileJustifyColumns;
-import spark.layout.TileJustifyRows;
+import spark.layout.ColumnAlign;
+import spark.layout.RowAlign;
 import spark.layout.TileOrientation;
 import spark.layout.VerticalAlign;
 
@@ -107,7 +107,7 @@ public class TileLayout extends LayoutBase
      *  Horizontal space between columns.
      *
      *  @see #verticalGap
-     *  @see #justifyColumns
+     *  @see #columnAlign
      *  @default 6
      *  
      *  @langversion 3.0
@@ -147,7 +147,7 @@ public class TileLayout extends LayoutBase
      *  Vertical space between rows.
      *
      *  @see #horizontalGap
-     *  @see #justifyRows
+     *  @see #rowAlign
      *  @default 6
      *  
      *  @langversion 3.0
@@ -177,25 +177,17 @@ public class TileLayout extends LayoutBase
     //  columnCount
     //----------------------------------
 
-    private var explicitColumnCount:int = -1;
     private var _columnCount:int = -1;
 
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
-     *  Number of columns to be displayed.
      *  This property will contain the actual column count after
      *  <code>updateDisplayList()</code>.
-     *  Set to -1 to remove explicit override and allow the TileLayout to determine
-     *  the column count automatically.
-     *
-     *  Setting this property won't have any effect, if <code>orientation</code> is
-     *  set to TileOrientation.ROWS, <code>rowCount</code> is explicitly set, and the
-     *  container width is explicitly set.
      *
      *  @see #rowCount
-     *  @see #justifyColumns
+     *  @see #columnAlign
      *  @default -1
      *  
      *  @langversion 3.0
@@ -208,20 +200,55 @@ public class TileLayout extends LayoutBase
         return _columnCount;
     }
 
+    //----------------------------------
+    //  requestedColumnCount
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the requestedColumnCount property.
+     */
+    private var _requestedColumnCount:int = -1;
+    
+    [Inspectable(category="General")]
+
+    /**
+     *  Number of columns to be displayed.
+     *  Set to make sure the layout measures a specific number of columns.
+     * 
+     *  Set to -1 to remove explicit override and allow the TileLayout to determine
+     *  the column count automatically.
+     *
+     *  Setting this property won't have any effect, if <code>orientation</code> is
+     *  set to TileOrientation.ROWS, <code>rowCount</code> is explicitly set, and the
+     *  container width is explicitly set.
+     * 
+     *  @see #columnCount
+     *  @see #columnAlign
+     *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get requestedColumnCount():int
+    {
+        return _requestedColumnCount;
+    }
+
     /**
      *  @private
      */
-    public function set columnCount(value:int):void
+    public function set requestedColumnCount(value:int):void
     {
-        // Changing rowCount/columnCount explicit values may affect layout
-        // even if the current actual values are the same
-        if (value == explicitColumnCount)
+        if (_requestedColumnCount == value)
             return;
-        explicitColumnCount = value;
-
+                               
+        _requestedColumnCount = value;
         _columnCount = value;
         invalidateTargetSizeAndDisplayList();
-    }
+    }    
 
     //----------------------------------
     //  rowCount
@@ -231,25 +258,17 @@ public class TileLayout extends LayoutBase
      *  @private
      *  Storage for the rowCount property.
      */
-    private var explicitRowCount:int = -1;
     private var _rowCount:int = -1;
 
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
-     *  Number of rows to be displayed.
      *  This property will contain the actual row count after
      *  <code>updateDisplayList()</code>.
-     *  Set to -1 to remove explicit override and allow the TileLayout to determine
-     *  the row count automatically.
      *
-     *  Setting this property won't have any effect, if <code>orientation</code> is
-     *  set to TileOrientation.COLUMNS, <code>columnCount</code> is explicitly set, and the
-     *  container height is explicitly set.
-     *
+     *  @see #requestedRowCount
      *  @see #columnCount
-     *  @see #justifyRows
      *  @default -1
      *  
      *  @langversion 3.0
@@ -262,20 +281,55 @@ public class TileLayout extends LayoutBase
         return _rowCount;
     }
 
+    //----------------------------------
+    //  requestedRowCount
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the requestedRowCount property.
+     */
+    private var _requestedRowCount:int = -1;
+    
+    [Inspectable(category="General")]
+
+    /**
+     *  Number of rows to be displayed.
+     *  Set to make sure the layout measures a specific number of rows.
+     * 
+     *  Set to -1 to remove explicit override and allow the TileLayout to determine
+     *  the row count automatically.
+     *
+     *  Setting this property won't have any effect, if <code>orientation</code> is
+     *  set to TileOrientation.COLUMNS, <code>columnCount</code> is explicitly set, and the
+     *  container height is explicitly set.
+     * 
+     *  @see #rowCount
+     *  @see #rowAlign
+     *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get requestedRowCount():int
+    {
+        return _requestedRowCount;
+    }
+
     /**
      *  @private
      */
-    public function set rowCount(value:int):void
+    public function set requestedRowCount(value:int):void
     {
-        // Changing rowCount/columnCount explicit values may affect layout
-        // even if the current actual values are the same
-        if (value == explicitRowCount)
+        if (_requestedRowCount == value)
             return;
-        explicitRowCount = value;
-
+                               
+        _requestedRowCount = value;
         _rowCount = value;
         invalidateTargetSizeAndDisplayList();
-    }
+    }    
 
     //----------------------------------
     //  columnWidth
@@ -296,11 +350,11 @@ public class TileLayout extends LayoutBase
      *  determined from the maximum of elements' width.
      *  Set to NaN to remove explicit override.</p>
      *
-     *  If <code>justifyColumns</code> is set to "columnSize", the actual column width
+     *  If <code>columnAlign</code> is set to "justifyUsingWidth", the actual column width
      *  will grow to justify the fully-visible columns to the container width.
      *
      *  @see #rowHeight
-     *  @see #justifyColumns
+     *  @see #columnAlign
      *  @default NaN
      *  
      *  @langversion 3.0
@@ -345,11 +399,11 @@ public class TileLayout extends LayoutBase
      *  determined from the maximum of elements' height.
      *  Set to NaN to remove explicit override.</p>
      *
-     *  If <code>justifyRows</code> is set to "rowSize", the actual row height
+     *  If <code>rowAlign</code> is set to "justifyUsingHeight", the actual row height
      *  will grow to justify the fully-visible rows to the container height.
      *
      *  @see #columnWidth
-     *  @see #justifyRows
+     *  @see #rowAlign
      *  @default NaN
      *  
      *  @langversion 3.0
@@ -379,7 +433,7 @@ public class TileLayout extends LayoutBase
     //  horizontalAlign
     //----------------------------------
 
-    private var _elementHorizontalAlign:String = HorizontalAlign.JUSTIFY;
+    private var _horizontalAlign:String = HorizontalAlign.JUSTIFY;
 
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
@@ -402,20 +456,20 @@ public class TileLayout extends LayoutBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get elementHorizontalAlign():String
+    public function get horizontalAlign():String
     {
-        return _elementHorizontalAlign;
+        return _horizontalAlign;
     }
 
     /**
      *  @private
      */
-    public function set elementHorizontalAlign(value:String):void
+    public function set horizontalAlign(value:String):void
     {
-        if (_elementHorizontalAlign == value)
+        if (_horizontalAlign == value)
             return;
 
-        _elementHorizontalAlign = value;
+        _horizontalAlign = value;
         invalidateTargetSizeAndDisplayList();
     }
 
@@ -423,7 +477,7 @@ public class TileLayout extends LayoutBase
     //  verticalAlign
     //----------------------------------
 
-    private var _elementVerticalAlign:String = VerticalAlign.JUSTIFY;
+    private var _verticalAlign:String = VerticalAlign.JUSTIFY;
 
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
@@ -446,42 +500,42 @@ public class TileLayout extends LayoutBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get elementVerticalAlign():String
+    public function get verticalAlign():String
     {
-        return _elementVerticalAlign;
+        return _verticalAlign;
     }
 
     /**
      *  @private
      */
-    public function set elementVerticalAlign(value:String):void
+    public function set verticalAlign(value:String):void
     {
-        if (_elementVerticalAlign == value)
+        if (_verticalAlign == value)
             return;
 
-        _elementVerticalAlign = value;
+        _verticalAlign = value;
         invalidateTargetSizeAndDisplayList();
     }
 
     //----------------------------------
-    //  justifyColumns
+    //  columnAlign
     //----------------------------------
 
-    private var _justifyColumns:String = TileJustifyColumns.NONE;
+    private var _columnAlign:String = ColumnAlign.LEFT;
 
-    [Inspectable(category="General", enumeration="none,gapSize,columnSize", defaultValue="none")]
+    [Inspectable(category="General", enumeration="left,justifyUsingGap,justifyUsingWidth", defaultValue="left")]
 
     /**
      *  Specifies how to justify the fully visible columns to the container width.
-     *  ActionScript values can be <code>TileJustifyColumns.NONE</code>, <code>TileJustifyColumns.GAP_SIZE</code>
-     *  and <code>TileJustifyColumns.COLUMN_SIZE</code>.
-     *  MXML values can be <code>"none"</code>, <code>"gapSize"</code> and <code>"columnSize"</code>.
+     *  ActionScript values can be <code>ColumnAlign.LEFT</code>, <code>ColumnAlign.JUSTIFY_USING_GAP</code>
+     *  and <code>ColumnAlign.JUSTIFY_USING_WIDTH</code>.
+     *  MXML values can be <code>"left"</code>, <code>"justifyUsingGap"</code> and <code>"justifyUsingWidth"</code>.
      *
-     *  <p>When set to <code>TileJustifyColumns.NONE</code> - turns column justification off, there may
+     *  <p>When set to <code>ColumnAlign.LEFT</code> - turns column justification off, there may
      *  be partially visible columns or whitespace between the last column and
      *  the right edge of the container.  This is the default value.</p>
      *
-     *  <p>When set to <code>TileJustifyColumns.GAP_SIZE</code> - the <code>horizontalGap</code>
+     *  <p>When set to <code>ColumnAlign.JUSTIFY_USING_GAP</code> - the <code>horizontalGap</code>
      *  actual value will increase so that
      *  the last fully visible column right edge aligns with the container's right edge.
      *  In case there is only a single fully visible column, the <code>horizontalGap</code> actual value
@@ -490,7 +544,7 @@ public class TileLayout extends LayoutBase
      *  justification, but just determines the initial gap value, and after thatn justification
      *  may increases it.</p>
      *
-     *  <p>When set to <code>TileJustifyColumns.COLUMN_SIZE</code> - the <code>columnWidth</code>
+     *  <p>When set to <code>ColumnAlign.JUSTIFY_USING_WIDTH</code> - the <code>columnWidth</code>
      *  actual value will increase so that
      *  the last fully visible column right edge aligns with the container's right edge.  Note that
      *  explicitly setting the <code>columnWidth</code> does not turn off justification, but simply
@@ -498,50 +552,50 @@ public class TileLayout extends LayoutBase
      *
      *  @see #horizontalGap
      *  @see #columnWidth
-     *  @see #justifyRows
-     *  @default TileJustifyColumns.NONE
+     *  @see #rowAlign
+     *  @default ColumnAlign.LEFT
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get justifyColumns():String
+    public function get columnAlign():String
     {
-        return _justifyColumns;
+        return _columnAlign;
     }
 
     /**
      *  @private
      */
-    public function set justifyColumns(value:String):void
+    public function set columnAlign(value:String):void
     {
-        if (_justifyColumns == value)
+        if (_columnAlign == value)
             return;
 
-        _justifyColumns = value;
+        _columnAlign = value;
         invalidateTargetSizeAndDisplayList();
     }
 
     //----------------------------------
-    //  justifyRows
+    //  rowAlign
     //----------------------------------
 
-    private var _justifyRows:String = TileJustifyRows.NONE;
+    private var _rowAlign:String = RowAlign.TOP;
 
-    [Inspectable(category="General", enumeration="none,gapSize,rowSize", defaultValue="none")]
+    [Inspectable(category="General", enumeration="top,justifyUsingGap,justifyUsingHeight", defaultValue="top")]
 
     /**
      *  Specifies how to justify the fully visible rows to the container height.
-     *  ActionScript values can be <code>TileJustifyRows.NONE</code>, <code>TileJustifyRows.GAP_SIZE</code>
-     *  and <code>TileJustifyRows.ROW_SIZE</code>.
-     *  MXML values can be <code>"none"</code>, <code>"gapSize"</code> and <code>"rowSize"</code>.
+     *  ActionScript values can be <code>RowAlign.TOP</code>, <code>RowAlign.JUSTIFY_USING_GAP</code>
+     *  and <code>RowAlign.JUSTIFY_USING_HEIGHT</code>.
+     *  MXML values can be <code>"top"</code>, <code>"justifyUsingGap"</code> and <code>"justifyUsingHeight"</code>.
      *
-     *  <p>When set to <code>TileJustifyRows.NONE</code> - turns column justification off, there may
+     *  <p>When set to <code>RowAlign.TOP</code> - turns column justification off, there may
      *  be partially visible rows or whitespace between the last row and
      *  the bottom edge of the container.  This is the default value.</p>
      *
-     *  <p>When set to <code>TileJustifyRows.GAP_SIZE</code> - the <code>verticalGap</code>
+     *  <p>When set to <code>RowAlign.JUSTIFY_USING_GAP</code> - the <code>verticalGap</code>
      *  actual value will increase so that
      *  the last fully visible row bottom edge aligns with the container's bottom edge.
      *  In case there is only a single fully visible row, the <code>verticalGap</code> actual value
@@ -550,7 +604,7 @@ public class TileLayout extends LayoutBase
      *  justification, but just determines the initial gap value, and after that justification
      *  may increases it.</p>
      *
-     *  <p>When set to <code>TileJustifyRows.ROW_SIZE</code> - the <code>rowHeight</code>
+     *  <p>When set to <code>RowAlign.JUSTIFY_USING_HEIGHT</code> - the <code>rowHeight</code>
      *  actual value will increase so that
      *  the last fully visible row bottom edge aligns with the container's bottom edge.  Note that
      *  explicitly setting the <code>rowHeight</code> does not turn off justification, but simply
@@ -558,28 +612,28 @@ public class TileLayout extends LayoutBase
      *
      *  @see #verticalGap
      *  @see #rowHeight
-     *  @see #justifyColumns
-     *  @default TileJustifyRows.NONE
+     *  @see #columnAlign
+     *  @default RowAlign.TOP
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get justifyRows():String
+    public function get rowAlign():String
     {
-        return _justifyRows;
+        return _rowAlign;
     }
 
     /**
      *  @private
      */
-    public function set justifyRows(value:String):void
+    public function set rowAlign(value:String):void
     {
-        if (_justifyRows == value)
+        if (_rowAlign == value)
             return;
 
-        _justifyRows = value;
+        _rowAlign = value;
         invalidateTargetSizeAndDisplayList();
     }
 
@@ -674,7 +728,7 @@ public class TileLayout extends LayoutBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function dispatchEventsForActualValueChanges():void
+    private function dispatchEventsForActualValueChanges():void
     {
         if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
         {
@@ -714,7 +768,7 @@ public class TileLayout extends LayoutBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function updateActualValues(width:Number, height:Number):void
+    private function updateActualValues(width:Number, height:Number):void
     {
         // First, figure the tile size
         calculateTileSize();
@@ -728,22 +782,22 @@ public class TileLayout extends LayoutBase
         _verticalGap = explicitVerticalGap;
 
         // Justify
-        switch(justifyColumns)
+        switch (columnAlign)
         {
-            case TileJustifyColumns.GAP_SIZE:
+            case ColumnAlign.JUSTIFY_USING_GAP:
                 _horizontalGap = justifyByGapSize(width, _columnWidth, _horizontalGap, _columnCount);
             break;
-            case TileJustifyColumns.COLUMN_SIZE:
+            case ColumnAlign.JUSTIFY_USING_WIDTH:
                 _columnWidth = justifyByElementSize(width, _columnWidth, _horizontalGap, _columnCount);
             break;
         }
 
-        switch(justifyRows)
+        switch (rowAlign)
         {
-            case TileJustifyRows.GAP_SIZE:
+            case RowAlign.JUSTIFY_USING_GAP:
                 _verticalGap = justifyByGapSize(height, _rowHeight, _verticalGap, _rowCount);
             break;
-            case TileJustifyRows.ROW_SIZE:
+            case RowAlign.JUSTIFY_USING_HEIGHT:
                 _rowHeight = justifyByElementSize(height, _rowHeight, _verticalGap, _rowCount);
             break;
         }
@@ -754,12 +808,12 @@ public class TileLayout extends LayoutBase
         // and the count along the major axis.
         // Note that we do this *after* justification is taken into account as we want to
         // justify based on the explicit user settings.
-        if (-1 != explicitColumnCount && -1 != explicitRowCount)
+        if (-1 != _requestedColumnCount && -1 != _requestedRowCount)
         {
             if (orientation == TileOrientation.ROWS)
-                _rowCount = Math.max(_rowCount, Math.ceil(elementCount / Math.max(1, explicitColumnCount)));
+                _rowCount = Math.max(_rowCount, Math.ceil(elementCount / Math.max(1, _requestedColumnCount)));
             else
-                _columnCount = Math.max(_columnCount, Math.ceil(elementCount / Math.max(1, explicitRowCount)));
+                _columnCount = Math.max(_columnCount, Math.ceil(elementCount / Math.max(1, _requestedRowCount)));
         }
     }
     
@@ -782,20 +836,20 @@ public class TileLayout extends LayoutBase
     /**
      *  @private
      *  Calculates _columnCount and _rowCount based on width, height,
-     *  orientation, explicitColumnCount, explicitRowCount, _columnWidth, _rowHeight.
+     *  orientation, _requestedColumnCount, _requestedRowCount, _columnWidth, _rowHeight.
      *  _columnWidth and _rowHeight must be valid before calling.
      */
     private function calculateColumnAndRowCount(width:Number, height:Number, elementCount:int):void
     {
         _columnCount = _rowCount = -1;
 
-        if (-1 != explicitColumnCount || -1 != explicitRowCount)
+        if (-1 != _requestedColumnCount || -1 != _requestedRowCount)
         {
-            if (-1 != explicitRowCount)
-                _rowCount = Math.max(1, explicitRowCount);
+            if (-1 != _requestedRowCount)
+                _rowCount = Math.max(1, _requestedRowCount);
 
-            if (-1 != explicitColumnCount)
-                _columnCount = Math.max(1, explicitColumnCount);
+            if (-1 != _requestedColumnCount)
+                _columnCount = Math.max(1, _requestedColumnCount);
         }
         // Figure out number of columns or rows based on the explicit size along one of the axes
         else if (!isNaN(width) && (orientation == TileOrientation.ROWS || isNaN(height)))
@@ -1148,7 +1202,7 @@ public class TileLayout extends LayoutBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function sizeAndPositionElement(element:ILayoutElement,
+    private function sizeAndPositionElement(element:ILayoutElement,
                                               cellX:int,
                                               cellY:int,
                                               cellWidth:int,
@@ -1158,14 +1212,14 @@ public class TileLayout extends LayoutBase
         var childHeight:Number = NaN;
 
         // Determine size of the element
-        if (elementHorizontalAlign == "justify")
+        if (horizontalAlign == "justify")
             childWidth = cellWidth;
         else if (!isNaN(element.percentWidth))
             childWidth = Math.round(cellWidth * element.percentWidth * 0.01);
         else
             childWidth = element.getPreferredBoundsWidth();
 
-        if (elementVerticalAlign == "justify")
+        if (verticalAlign == "justify")
             childHeight = cellHeight;
         else if (!isNaN(element.percentHeight))
             childHeight = Math.round(cellHeight * element.percentHeight * 0.01);
@@ -1183,7 +1237,7 @@ public class TileLayout extends LayoutBase
         element.setLayoutBoundsSize(childWidth, childHeight);
 
         var x:Number = cellX;
-        switch (elementHorizontalAlign)
+        switch (horizontalAlign)
         {
             case "right":
                 x += cellWidth - element.getLayoutBoundsWidth();
@@ -1195,7 +1249,7 @@ public class TileLayout extends LayoutBase
         }
 
         var y:Number = cellY;
-        switch (elementVerticalAlign)
+        switch (verticalAlign)
         {
             case "bottom":
                 y += cellHeight - element.getLayoutBoundsHeight();
@@ -1245,6 +1299,29 @@ public class TileLayout extends LayoutBase
     {
         return Math.min(target.contentHeight, rowIndex * (_rowHeight + _verticalGap) + _rowHeight);
     }
+    
+    /**
+     *  @private 
+     *  Convenience function for subclasses that invalidates the
+     *  target's size and displayList so that both layout's <code>measure()</code>
+     *  and <code>updateDisplayList</code> methods get called.
+     * 
+     *  <p>Typically a layout invalidates the target's size and display list so that
+     *  it gets a chance to recalculate the target's default size and also size and
+     *  position the target's elements. For example changing the <code>gap</code>
+     *  property on a <code>VerticalLayout</code> will internally call this method
+     *  to ensure that the elements are re-arranged with the new setting and the
+     *  target's default size is recomputed.</p> 
+     */
+    private function invalidateTargetSizeAndDisplayList():void
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return;
+
+        g.invalidateSize();
+        g.invalidateDisplayList();
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -1280,8 +1357,8 @@ public class TileLayout extends LayoutBase
         updateActualValues(layoutTarget.explicitWidth, layoutTarget.explicitHeight);
 
         // For measure, any explicit overrides for rowCount and columnCount take precedence
-        var columnCount:int = explicitColumnCount != -1 ? Math.max(1, explicitColumnCount) : _columnCount;
-        var rowCount:int = explicitRowCount != -1 ? Math.max(1, explicitRowCount) : _rowCount;
+        var columnCount:int = _requestedColumnCount != -1 ? Math.max(1, _requestedColumnCount) : _columnCount;
+        var rowCount:int = _requestedRowCount != -1 ? Math.max(1, _requestedRowCount) : _rowCount;
 
         layoutTarget.measuredWidth = Math.round(columnCount * (_columnWidth + _horizontalGap) - _horizontalGap);
         layoutTarget.measuredHeight = Math.round(rowCount * (_rowHeight + _verticalGap) - _verticalGap);
