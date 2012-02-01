@@ -120,7 +120,7 @@ public class GlobalizationBase extends AdvancedStyleClient
      *  The code needs be able to find out if the locale style has been changed
      *  from earlier.
      */
-    mx_internal var localeStyle:String = null;
+    mx_internal var localeStyle:* = undefined;
 
     /**
      *  @private
@@ -362,7 +362,7 @@ public class GlobalizationBase extends AdvancedStyleClient
         // following such rule here. We update the lastOperationStatus only when
         // locale is undefined.
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -436,9 +436,9 @@ public class GlobalizationBase extends AdvancedStyleClient
      */
     private function localeChanged():void
     {
-        const newlocaleStyle:String = getStyle("locale");
+        const newlocaleStyle:*= getStyle("locale") ;
 
-        if (localeStyle == newlocaleStyle)
+        if (localeStyle !== undefined && localeStyle == newlocaleStyle)
             return;
 
         localeStyle = newlocaleStyle;
