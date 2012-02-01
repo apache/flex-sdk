@@ -481,7 +481,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (_dropIndicator)
         {
             _dropIndicator.visible = false;
-            target.overlay.addDisplayObject(_dropIndicator, OverlayDepth.DROP_INDICATOR_DEPTH);
+            target.overlay.addDisplayObject(_dropIndicator, OverlayDepth.DROP_INDICATOR);
 
             if (_dropIndicator is ILayoutManagerClient)
                 UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(_dropIndicator), true);
