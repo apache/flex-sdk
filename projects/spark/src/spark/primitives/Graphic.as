@@ -56,6 +56,10 @@ import mx.components.Group;
  *  <p>Graphic controls do not have backgrounds or borders
  *  and cannot take focus.</p>
  *  
+ *  <p>When placed in a container, a Graphic is positioned by the rules of the container. 
+ *  However, the graphics in the Graphic control are always sized and positioned relative
+ *  to the upper-left corner of the Graphics control.</p>
+ *  
  *  <p>The Graphic element can optionally contain a &lt;Group&gt; element.</p>
  *  
  *  @see mx.graphics.Group
@@ -118,7 +122,14 @@ public class Graphic extends Group
     private var _viewHeight:Number;
     
     /**
+     *  Defines the vertical space that the graphic uses in the layout. When you set this value, the content is not scaled. 
+     *  Whereas, if you specify the value of the <code>height</code> property, the content is scaled. 
      *  
+     *  <p>There are two cases where this can be useful:<br/>
+     *  1) Specify a <code>viewHeight</code> larger than the natural size of the content. You might do this so that the graphic takes 
+     *  up more space than its visual size. <br/><br/>
+     *  2) Specify a <code>viewHeight</code> that is smaller than the natural size of the content. You might do this if your graphic has extra
+     *  chrome or a border that extends past the edges of the graphic. In this scenario, be sure to disable clipping in your layout.</p>
      */
     public function get viewHeight():Number
     {
@@ -143,7 +154,14 @@ public class Graphic extends Group
     private var _viewWidth:Number;
     
     /**
+     *  Defines the horizontal space that the graphic uses in the layout. When you set this value, the content is not scaled. 
+     *  Whereas, if you specify the value of the <code>width</code> property, the content is scaled. 
      *  
+     *  <p>There are two cases where this can be useful:<br/>
+     *  1) Specify a <code>viewWidth</code> larger than the natural size of the content. You might do this so that the graphic takes 
+     *  up more space than its visual size. <br/><br/>
+     *  2) Specify a <code>viewWidth</code> that is smaller than the natural size of the content. You might do this if your graphic has extra
+     *  chrome or a border that extends past the edges of the graphic. In this scenario, be sure to disable clipping in your layout.</p>
      */
     public function get viewWidth():Number
     {
