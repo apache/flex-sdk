@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics
+package spark.primitives
 {
 
 import flash.events.EventDispatcher;
@@ -17,8 +17,8 @@ import flash.display.Graphics;
 import flash.geom.Rectangle;
 import flash.geom.Point;
 import flash.geom.Matrix;
-
 import mx.utils.MatrixUtil;
+import spark.primitives.supportClasses.FilledElement;
 
 /**
  *  The Ellipse class is a filled graphic element that draws an ellipse.
