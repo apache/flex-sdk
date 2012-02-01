@@ -167,7 +167,7 @@
     </s:Rect>
 
     <!--- Defines the scroller used to scroll the RichEditableText. -->
-    <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" minViewportInset="1">
+    <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" minViewportInset="1" measuredSizeIncludesScrollBars="false">
         <s:RichEditableText id="textDisplay"
                   heightInLines="10"
                   widthInChars="15" />
