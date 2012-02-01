@@ -22,6 +22,9 @@
       alpha.disabled="0.5" minHeight="23" minWidth="12">
 
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.Spinner")]
     </fx:Metadata> 
     
@@ -30,8 +33,12 @@
         <s:State name="disabled" />
     </s:states>
     
+    <!--- The default skin class is SpinnerIncrementButtonSkin. 
+          @copy spark.components.Spinner#incrementButton -->
     <s:Button id="incrementButton" left="0" right="0" top="0" height="50%"  
             skinClass="spark.skins.wireframe.SpinnerIncrementButtonSkin" />
+    <!--- The default skin class is SpinnerDecrementButtonSkin. 
+          @copy spark.components.Spinner#decrementButton -->
     <s:Button id="decrementButton" left="0" right="0" bottom="0" height="50%" 
             skinClass="spark.skins.wireframe.SpinnerDecrementButtonSkin" />
 
