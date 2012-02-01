@@ -309,8 +309,10 @@ public class ConstraintLayout extends LayoutBase
             applyConstraintsToElement(unscaledWidth, unscaledHeight, layoutElement);
             
             // update content limits
-            maxX = Math.max(maxX, layoutElement.getLayoutBoundsX() + layoutElement.getLayoutBoundsWidth());
-            maxY = Math.max(maxY, layoutElement.getLayoutBoundsY() + layoutElement.getLayoutBoundsHeight());
+            maxX = Math.max(maxX, layoutElement.getLayoutBoundsX() +
+                            layoutElement.getLayoutBoundsWidth());
+            maxY = Math.max(maxY, layoutElement.getLayoutBoundsY() +
+                            layoutElement.getLayoutBoundsHeight());
         }
         
         // Make sure that if the content spans partially over a pixel to the right/bottom,
@@ -373,6 +375,7 @@ public class ConstraintLayout extends LayoutBase
         var right:Number;
         var top:Number;
         var bottom:Number;
+        var baseline:Number;
         
         //Variables to track the boundaries from which
         //the offsets are calculated from. If null, the 
@@ -381,6 +384,7 @@ public class ConstraintLayout extends LayoutBase
         var rightBoundary:String;
         var topBoundary:String;
         var bottomBoundary:String;
+        var baselineBoundary:String;
         
         var message:String;
         
@@ -429,15 +433,29 @@ public class ConstraintLayout extends LayoutBase
             bottom = temp[1];
         }
         
+        temp = LayoutElementHelper.parseConstraintExp(layoutElement.baseline);
+        if (!temp)
+            baseline = NaN;
+        else if (temp.length == 1)
+            baseline = Number(temp[0]);
+        else
+        {
+            baselineBoundary = temp[0];
+            baseline = temp[1];
+        }
+        
         // save values into a Dictionary based on element name.
-        var elementInfo:ElementConstraintInfo = new ElementConstraintInfo(layoutElement, left, right, top, bottom,
+        var elementInfo:ElementConstraintInfo = new ElementConstraintInfo(layoutElement,
+            left, right, top, bottom, baseline,
             leftBoundary, rightBoundary,
-            topBoundary, bottomBoundary);
+            topBoundary, bottomBoundary, baselineBoundary);
         constraintCache[layoutElement] = elementInfo;
         
         // put into either column/row buckets or no column/row constraints buckets.
         var i:Number;
-        if (!(leftBoundary || rightBoundary) || !(topBoundary || bottomBoundary))
+        if (!(leftBoundary || rightBoundary) ||
+            !(topBoundary || bottomBoundary) ||
+            !baselineBoundary)
         {
             if (!otherElements)
                 otherElements = new Vector.<ElementConstraintInfo>();
@@ -502,10 +520,10 @@ public class ConstraintLayout extends LayoutBase
             }
         }
         
-        // TODO: Add baseline
-        if (topBoundary || bottomBoundary)
+        var numRows:Number = _constraintRows.length;
+        
+        if (topBoundary || bottomBoundary || baselineBoundary)
         {
-            var numRows:Number = _constraintRows.length;
             var rowid:String;
             
             if (!rowSpanElements)
@@ -553,6 +571,28 @@ public class ConstraintLayout extends LayoutBase
                 {
                     message = resourceManager.getString(
                         "containers", "columnNotFound", [ bottomBoundary ]);
+                    throw new ConstraintError(message);
+                }
+            }
+            
+            if (baselineBoundary)
+            {            
+                for (i = 0; i < numRows; i++)
+                {
+                    rowid = _constraintRows[i].id;
+                    
+                    if (baselineBoundary == rowid)
+                    {
+                        elementInfo.baselineIndex = i;
+                        break;
+                    }
+                }
+                
+                // throw error if no match.
+                if (elementInfo.baselineIndex < 0)
+                {
+                    message = resourceManager.getString(
+                        "containers", "columnNotFound", [ baselineBoundary ]);
                     throw new ConstraintError(message);
                 }
             }
@@ -788,8 +828,6 @@ public class ConstraintLayout extends LayoutBase
         {
             var numRowSpanElements:Number = rowSpanElements.length;
             
-            // TODO: Add baseline
-            
             // Measure content size rows only single span for now.
             // If multiple span, do nothing yet.
             for (i = 0; i < numRowSpanElements; i++)
@@ -825,6 +863,19 @@ public class ConstraintLayout extends LayoutBase
                         bottomIndex = elementInfo.rowSpanBottomIndex;
                     else
                         bottomIndex = numRows - 1; // constrained to parent
+                }
+                
+                // baseline could win if either are less than 0
+                if (!isNaN(elementInfo.baseline) && (topIndex < 0 || bottomIndex < 0))
+                {
+                    extY += elementInfo.baseline - layoutElement.baselinePosition;
+                    
+                    if (!isNaN(elementInfo.top))
+                        extY -= elementInfo.top;
+                    if (elementInfo.baselineBoundary)
+                        topIndex = elementInfo.baselineIndex;
+                    else
+                        topIndex = 0;
                 }
                 
                 maxExtent = extY + preferredHeight;
@@ -931,9 +982,7 @@ public class ConstraintLayout extends LayoutBase
         var minWidth:Number = 0;
         var minHeight:Number = 0;
         var count:int = otherElements.length;
-        
-        // TODO: Add baseline
-        
+
         for (var i:int = 0; i < count; i++)
         {
             var elementInfo:ElementConstraintInfo = otherElements[i];
@@ -975,11 +1024,24 @@ public class ConstraintLayout extends LayoutBase
             }
             
             // only measure if not constrained to rows.
-            if (!(elementInfo.topBoundary || elementInfo.bottomBoundary))
+            var hasTopOrBottom:Boolean = !(elementInfo.topBoundary || elementInfo.bottomBoundary);
+            var hasBaseline:Boolean = !elementInfo.baselineBoundary;
+            
+            if (hasTopOrBottom || hasBaseline)
             {
-                var top:Number       = elementInfo.top;
-                var bottom:Number    = elementInfo.bottom;
+                var top:Number;
+                var bottom:Number;
+                var baseline:Number;
                 var extY:Number;
+                
+                if (hasTopOrBottom)
+                {
+                    top = elementInfo.top;
+                    bottom = elementInfo.bottom;
+                }
+                
+                if (hasBaseline)
+                    baseline = elementInfo.baseline;
                 
                 if (!isNaN(top) && !isNaN(bottom))
                 {
@@ -987,6 +1049,10 @@ public class ConstraintLayout extends LayoutBase
                     // top + bottom so that the element is resized to its preferred
                     // size (if it's the one that pushes out the default size of the container).
                     extY = top + bottom;                
+                }
+                else if (!isNaN(baseline))
+                {
+                    extY = Math.round(baseline - layoutElement.baselinePosition);
                 }
                 else if (!isNaN(top) || !isNaN(bottom))
                 {
@@ -1014,7 +1080,9 @@ public class ConstraintLayout extends LayoutBase
         return new Point(Math.max(width, minWidth), Math.max(height, minHeight));
     }
     
-    private function applyConstraintsToElement(unscaledWidth:Number, unscaledHeight:Number, layoutElement:ILayoutElement):void
+    private function applyConstraintsToElement(unscaledWidth:Number,
+                                               unscaledHeight:Number,
+                                               layoutElement:ILayoutElement):void
     {
         //-------------------
         // Fixed Width
@@ -1031,11 +1099,13 @@ public class ConstraintLayout extends LayoutBase
         var right:Number = elementInfo.right;
         var top:Number = elementInfo.top;
         var bottom:Number = elementInfo.bottom;
+        var baseline:Number = elementInfo.baseline;
         
         var leftBoundary:String = elementInfo.leftBoundary;
         var rightBoundary:String = elementInfo.rightBoundary;
         var topBoundary:String = elementInfo.topBoundary;
         var bottomBoundary:String = elementInfo.bottomBoundary;
+        var baselineBoundary:String = elementInfo.baselineBoundary;
         
         var percentWidth:Number = layoutElement.percentWidth;
         var percentHeight:Number = layoutElement.percentHeight;
@@ -1054,6 +1124,7 @@ public class ConstraintLayout extends LayoutBase
         var rightHolder:Number = unscaledWidth;
         var topHolder:Number = 0;
         var bottomHolder:Number = unscaledHeight;
+        var baselineHolder:Number = 0;
         
         var i:Number;
         
@@ -1084,9 +1155,22 @@ public class ConstraintLayout extends LayoutBase
             bottomHolder = row.y + row.height;
         }
 
+        if (baselineBoundary)
+        {
+            row = _constraintRows[elementInfo.baselineIndex];
+            baselineHolder = row.y;
+        }
+        
         // available width
         availableWidth = Math.round(rightHolder - leftHolder);
-        availableHeight = Math.round(bottomHolder - topHolder);
+        
+        // cases are baseline with top and bottom, 
+        // baseline with top, baseline with bottom, no baseline
+        
+        if (!isNaN(baseline) && (isNaN(top) || isNaN(bottom)))
+            availableHeight = Math.round(bottomHolder - baselineHolder);
+        else
+            availableHeight = Math.round(bottomHolder - topHolder);
         
         // set width
         if (!isNaN(percentWidth))
@@ -1117,7 +1201,7 @@ public class ConstraintLayout extends LayoutBase
             elementMaxHeight = Math.min(layoutElement.getMaxBoundsHeight(),
                 maxSizeToFitIn(unscaledHeight, top, bottom, layoutElement.getLayoutBoundsY()));
         }
-        if (!isNaN(top) && !isNaN(bottom))
+        else if (!isNaN(top) && !isNaN(bottom))
         {
             elementHeight = availableHeight - top - bottom;
         }
@@ -1131,6 +1215,7 @@ public class ConstraintLayout extends LayoutBase
                 elementMaxWidth = layoutElement.getMaxBoundsWidth();
             elementWidth = Math.max(layoutElement.getMinBoundsWidth(), Math.min(elementMaxWidth, elementWidth));
         }
+        
         if (!isNaN(elementHeight))
         {
             if (isNaN(elementMaxHeight))
@@ -1152,8 +1237,9 @@ public class ConstraintLayout extends LayoutBase
             elementX = layoutElement.getLayoutBoundsX();
         
         // Vertical Position
-        // TODO: Add baseline here.
-        if (!isNaN(top))
+        if (!isNaN(baseline))
+            elementY = baselineHolder + Math.round(baseline - layoutElement.baselinePosition);
+        else if (!isNaN(top))
             elementY = topHolder + top;
         else if (!isNaN(bottom))
             elementY = bottomHolder - bottom - elementHeight;
@@ -1188,12 +1274,13 @@ class ElementConstraintInfo
         layoutElement:ILayoutElement,
         left:Number, right:Number, //hc:Number,
         top:Number, bottom:Number, //vc:Number,
-        /*baseline:Number, */leftBoundary:String = null,
+        baseline:Number, leftBoundary:String = null,
         rightBoundary:String = null, //hcBoundary:String = null,
         topBoundary:String = null, bottomBoundary:String = null,
-        /*vcBoundary:String = null, baselineBoundary:String = null*/
+        /*vcBoundary:String = null, */baselineBoundary:String = null,
         colSpanLeftIndex:int = -1, colSpanRightIndex:int = -1,
-        rowSpanTopIndex:int = -1, rowSpanBottomIndex:int = -1):void
+        rowSpanTopIndex:int = -1, rowSpanBottomIndex:int = -1,
+        baselineIndex:int = -1):void
     {
         super();
         
@@ -1207,7 +1294,7 @@ class ElementConstraintInfo
         this.top = top;
         this.bottom = bottom;
 /*        this.vc = vc;*/
-/*        this.baseline = baseline;*/
+        this.baseline = baseline;
         
         // boundaries (ie: parent, column or row edge)
         this.leftBoundary = leftBoundary;
@@ -1216,12 +1303,13 @@ class ElementConstraintInfo
         this.topBoundary = topBoundary;
         this.bottomBoundary = bottomBoundary;
 /*        this.vcBoundary = vcBoundary;*/
-/*        this.baselineBoundary = baselineBoundary;*/
+        this.baselineBoundary = baselineBoundary;
         
         this.colSpanLeftIndex = colSpanLeftIndex;
         this.colSpanRightIndex = colSpanRightIndex;
         this.rowSpanTopIndex = rowSpanTopIndex;
         this.rowSpanBottomIndex = rowSpanBottomIndex;
+        this.baselineIndex = baselineIndex;
     }
     
     //--------------------------------------------------------------------------
@@ -1245,10 +1333,11 @@ class ElementConstraintInfo
     public var topBoundary:String;
     public var bottomBoundary:String;
 /*    public var vcBoundary:String;*/
-/*    public var baselineBoundary:String;*/
+    public var baselineBoundary:String;
     
     public var colSpanLeftIndex:int;
     public var colSpanRightIndex:int;
     public var rowSpanTopIndex:int;
     public var rowSpanBottomIndex:int;
+    public var baselineIndex:int;
 }
