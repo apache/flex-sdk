@@ -16,14 +16,16 @@ import flash.events.Event;
 
 /**
  *  The GridCaretEvent class represents events that are dispatched when 
- *  the caret changes in a Spark DataGrid as the result of user interaction.
+ *  the caret changes in a Spark DataGrid control as the result of 
+ *  user interaction.
  *
  *  @see spark.components.DataGrid
  *  @see spark.components.Grid
+ *  @see spark.components.gridClasses.GridSelectionMode
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 public class GridCaretEvent extends Event
@@ -53,12 +55,12 @@ public class GridCaretEvent extends Event
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
      *     <tr><td><code>newColumnIndex</code></td><td>The zero-based column 
      *       index of the caret position after it was changed.  It is -1 if
-     *       the selectionMode is row-based.</td></tr>
+     *       the <code>selectionMode</code> is row-based.</td></tr>
      *     <tr><td><code>newRowIndex</code></td><td>The zero-based row index 
      *       of the caret position after it was changed.</td></tr>
      *     <tr><td><code>oldColumnIndex</code></td><td>The zero-based column 
      *       index of the caret position before it was changed.  It is -1 if
-     *       the selectionMode is row-based.</td></tr>
+     *       the <code>selectionMode</code> is row-based.</td></tr>
      *     <tr><td><code>oldRowIndex</code></td><td>The zero-based row index 
      *       of the caret position before it was changed.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
@@ -72,7 +74,7 @@ public class GridCaretEvent extends Event
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const CARET_CHANGE:String = "caretChange";
@@ -95,7 +97,7 @@ public class GridCaretEvent extends Event
      *  associated with the event can be prevented.
      *
      *  @param oldColumnIndex The zero-based column index of the caret position
-     *  before the change.  If the selectionMode is either 
+     *  before the change.  If the <code>selectionMode</code> is either 
      *  <code>SelectionMode.SINGLE_ROW</code> or 
      *  <code>SelectionMode.MULTIPLE_ROWS</code>, this is -1.
      * 
@@ -103,7 +105,7 @@ public class GridCaretEvent extends Event
      *  the change.
      * 
      *  @param newColumnIndex The zero-based column index of the caret position
-     *  after the change.  If the selectionMode is either 
+     *  after the change.  If the <code>selectionMode</code> is either 
      *  <code>SelectionMode.SINGLE_ROW</code> or 
      *  <code>SelectionMode.MULTIPLE_ROWS</code>, this is -1.
      * 
@@ -116,7 +118,7 @@ public class GridCaretEvent extends Event
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4
      */
     public function GridCaretEvent(type:String, 
@@ -147,7 +149,7 @@ public class GridCaretEvent extends Event
     //----------------------------------
 
     /**
-     *  The zero-based index of the row in the <code>dataProvider</code> of the
+     *  The zero-based index of the row of the
      *  caret position before it was changed.
      * 
      *  @default -1
@@ -157,7 +159,7 @@ public class GridCaretEvent extends Event
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public var oldRowIndex:int;
@@ -167,11 +169,11 @@ public class GridCaretEvent extends Event
     //----------------------------------
     
     /**
-     *  The zero-based index of the column in the <code>columns</code> of the
+     *  The zero-based index of the column of the
      *  caret position before it was changed.      
      * 
-     *  <p>If the selection mode is <code>SelectionMode.SINGLE_ROW</code> or 
-     *  <code>SelectionMode.MULTIPLE_ROWS</code> this will be -1 to indicate
+     *  <p>If the <code>selectionMode</code> is <code>SelectionMode.SINGLE_ROW</code> or 
+     *  <code>SelectionMode.MULTIPLE_ROWS</code>, this valueis -1 to indicate
      *  it is not being used.</p>
      *  
      *  @see spark.components.DataGrid#columns
@@ -179,7 +181,7 @@ public class GridCaretEvent extends Event
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public var oldColumnIndex:int;
@@ -189,7 +191,7 @@ public class GridCaretEvent extends Event
     //----------------------------------
     
     /**
-     *  The zero-based index of the row in the <code>dataProvider</code> of the
+     *  The zero-based index of the row of the
      *  caret position after it was changed.
      * 
      *  @see spark.components.DataGrid#dataProvider
@@ -197,7 +199,7 @@ public class GridCaretEvent extends Event
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public var newRowIndex:int;
@@ -207,10 +209,10 @@ public class GridCaretEvent extends Event
     //----------------------------------
     
     /**
-     *  The zero-based index of the column in the <code>columns</code> of the
+     *  The zero-based index of the column of the
      *  caret position after it was changed.  
      * 
-     *  <p>If the selection mode is <code>SelectionMode.SINGLE_ROW</code> or 
+     *  <p>If the <code>selectionMode</code> is <code>SelectionMode.SINGLE_ROW</code> or 
      *  <code>SelectionMode.MULTIPLE_ROWS</code> this will be -1 to indicate
      *  it is not being used.</p>
      *  
@@ -219,7 +221,7 @@ public class GridCaretEvent extends Event
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public var newColumnIndex:int;    
