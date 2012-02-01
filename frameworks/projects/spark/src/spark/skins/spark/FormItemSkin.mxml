@@ -112,11 +112,9 @@ Move the indicator tooltip string to a resource bundle
     </s:Rect>
     
     <s:Label id="sequenceLabelDisplay" 
-             fontWeight="bold" color="0x333333" 
              left="sequenceCol:10" right="sequenceCol:5"
              bottom="row1:10" baseline="row1:0"/>
     <s:Label id="labelDisplay"
-             fontWeight="bold" color="0x333333" 
              left="labelCol:0" right="labelCol:5" 
              bottom="row1:10" baseline="row1:0"/>  
     <!-- Don't show the error tip on the content elements -->
@@ -136,11 +134,11 @@ Move the indicator tooltip string to a resource bundle
     </s:Group>
         
     <s:Group id="helpContentGroup" excludeFrom="errorStates"
-             fontStyle="italic" color="0x666666"
+             fontStyle="italic" fontWeight="normal" color="0x666666"
              left="helpCol:27" right="helpCol:10"
              bottom="row1:10" baseline="row1:0"/>
     <s:RichText id="errorTextDisplay" includeIn="errorStates"
-                fontStyle="italic" color="0xFE0000"
+                fontStyle="italic" fontWeight="normal" color="0xFE0000"
                 left="helpCol:27" right="helpCol:10"
                 bottom="row1:10" baseline="row1:0" 
                 maxDisplayedLines="-1"/>    
