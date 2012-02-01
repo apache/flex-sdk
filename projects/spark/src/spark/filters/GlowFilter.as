@@ -100,6 +100,8 @@ public class GlowFilter extends BaseDimensionFilter implements IBitmapFilter
 							   strength:Number = 1, quality:int = 1, 
 							   inner:Boolean = false, knockout:Boolean = false)
 	{
+		super();
+		
 		this.color = color;
 		this.alpha = alpha;
 		this.blurX = blurX;
