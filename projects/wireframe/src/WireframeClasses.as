@@ -33,6 +33,7 @@ internal class WireframeClasses
 	import spark.skins.wireframe.CheckBoxSkin; spark.skins.wireframe.CheckBoxSkin;
     import spark.skins.wireframe.ComboBoxButtonSkin; ComboBoxButtonSkin;
     import spark.skins.wireframe.ComboBoxSkin; spark.skins.wireframe.ComboBoxSkin;
+    import spark.skins.wireframe.DataGridSkin; DataGridSkin;
 	import spark.skins.wireframe.DefaultButtonSkin; spark.skins.wireframe.DefaultButtonSkin;
 	import spark.skins.wireframe.DropDownListButtonSkin; DropDownListButtonSkin;
 	import spark.skins.wireframe.DropDownListSkin; DropDownListSkin;
