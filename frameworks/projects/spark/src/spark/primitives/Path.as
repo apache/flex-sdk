@@ -482,8 +482,77 @@ public class Path extends FilledElement
         measuredX = bounds.left;
         measuredY = bounds.top;
     }
- 
+    
+    /**
+     *  @private
+     *  @return Returns the axis aligned bounding box of the path resized to width, height and then
+     *  transformed with transformation matrix m.
+     */
+    private function getBoundingBox(width:Number, height:Number, m:Matrix):Rectangle
+    {
+        var sx:Number = measuredWidth == 0 ? 1 : width / measuredWidth;
+        var sy:Number = measuredHeight == 0 ? 1 : height / measuredHeight; 
 
+        var currentSubPathStartIndex:int = 0;
+        var prevSegment:PathSegment;
+        var pathBBox:Rectangle;
+        
+        for (var i:int = 0; i < segments.length; i++)
+        {
+            var segment:PathSegment = segments[i];
+            
+            if (segment is CloseSegment)
+            {   
+                if (segments[currentSubPathStartIndex] is MoveSegment)
+                    segment = new LineSegment(segments[currentSubPathStartIndex].x, segments[currentSubPathStartIndex].y);
+                else
+                    segment = new LineSegment();
+                    
+                currentSubPathStartIndex = i+1;
+            }
+
+            pathBBox = segment.getBoundingBox(prevSegment, sx, sy, m, pathBBox);
+            prevSegment = segment;
+        }
+        // If path is empty, it's untransformed bounding box is (0,0), so we return transformed point (0,0)
+        if (!pathBBox)
+            pathBBox = new Rectangle(m.tx, m.ty);
+        return pathBBox;
+    }
+    
+    /**
+     *  @inheritDoc 
+     */
+    override protected function transformSizeForLayout(width:Number, height:Number,
+                                                       actualMatrix:Boolean):Point
+    {
+        var size:Point = new Point(width, height);
+        var m:Matrix = computeMatrix(actualMatrix);
+        if (m)
+        {
+            var bbox:Rectangle = getBoundingBox(width, height, m);
+            size.x = bbox.width;
+            size.y = bbox.height;
+        }
+
+        // Take stroke into account
+        var strokeExtents:Point = getStrokeExtents();
+        size.x += strokeExtents.x;
+        size.y += strokeExtents.y;
+        return size;
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    override protected function computeTopLeft(topLeft:Point, width:Number, height:Number, m:Matrix):Point
+    {
+        var bbox:Rectangle = getBoundingBox(width, height, m);
+        topLeft.x = bbox.x;
+        topLeft.y = bbox.y;
+        return topLeft; 
+    }
+ 
     //TODO: these are a short term fix for MAX to work around the fact
     //that graphic elements can't differentiate between owning a display object
     //and sharing one.  The problem is, a previous graphic element might be
