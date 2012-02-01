@@ -21,8 +21,17 @@ import flashx.textLayout.operations.FlowOperation;
  *  when text content changes due to user operations
  *  such as inserting characters, backspacing, pasting,
  *  or changing text attributes.
+ *  
+ *  <p>This event is dispatched by subclasses of the SkinnableTextBase class. This
+ *  includes RichEditableText and classes that use RichEditableText such as ComboBox and
+ *  TextInput, as well as TextArea. Text controls that have no user interaction, 
+ *  such as RichText and Label, do not dispatch events of this type.</p>
  *
  *  @see spark.components.RichEditableText
+ *  @see spark.components.TextArea
+ *  @see spark.components.ComboBox
+ *  @see spark.components.TextInput
+ *  @see spark.components.supportClasses.SkinnableTextBase
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -154,6 +163,13 @@ public class TextOperationEvent extends Event
      *  <p>This might be an InsertTextOperation, a DeleteTextOperation,
      *  a SplitParagraphOperation, a CutOperation, a PasteOperation,
      *  an UndoOperation, or other subclass of FlowOperation.</p>
+     *
+     *  @see flashx.textLayout.operations.InsertTextOperation
+     *  @see flashx.textLayout.operations.DeleteTextOperation
+     *  @see flashx.textLayout.operations.SplitParagraphOperation
+     *  @see flashx.textLayout.operations.PasteOperation
+     *  @see flashx.textLayout.operations.CutOperation
+     *  @see flashx.textLayout.operations.UndoOperation
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
