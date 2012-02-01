@@ -2154,11 +2154,12 @@ public class GraphicElement extends EventDispatcher
         // NOTE: This code will not work correctly when we share
         // display objects across multiple graphic elements.
         var bitmapData:BitmapData = new BitmapData(actualSize.x, actualSize.y, transparent, fillColor);
-        var oldPos:Point = actualPosition;
+
+        var m:Matrix = displayObject.transform.matrix.clone();
+        m.translate(-actualPosition.x, -actualPosition.y);
         
-        setActualPosition(0, 0);
         if (displayObject && nextSiblingNeedsDisplayObject)
-            bitmapData.draw(displayObject, displayObject.transform.matrix);
+            bitmapData.draw(displayObject, m);
         else
         {
             var oldDisplayObject:DisplayObject = displayObject;
@@ -2171,9 +2172,6 @@ public class GraphicElement extends EventDispatcher
             displayObject = oldDisplayObject;
                 
         }
-                   
-        setActualPosition(oldPos.x, oldPos.y);
-    
         return bitmapData;
     }
 
