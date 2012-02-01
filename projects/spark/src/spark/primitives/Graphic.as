@@ -149,6 +149,9 @@ public class Graphic extends Group
     //
     //--------------------------------------------------------------------------
 
+	/**
+	 *  @inheritDoc
+	 */
 	override protected function measure():void
 	{
 		super.measure();
