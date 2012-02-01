@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+--> 
+<!--- The default skin class for the Spark DropDownList component. 
+The skin for the anchor button for a DropDownList component 
+is defined by the DropDownListButtonSkin class.  
+
+@see spark.components.DropDownList        
+@see spark.skins.spark.DropDownListButtonSkin
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:Skin xmlns:local="*" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" alpha.disabled=".5"> 
+    
+        
+    <!-- host component -->
+    <fx:Metadata>
+        <![CDATA[ 
+        /** 
+        * @copy spark.skins.spark.ApplicationSkin#hostComponent
+        */
+        [HostComponent("spark.components.ComboBox")]
+        ]]>
+    </fx:Metadata> 
+    
+    <fx:Script>
+        <![CDATA[
+            private var paddingChanged:Boolean;
+            private var cornerRadiusChanged:Boolean;
+            private var cornerRadius:Number = 0;            
+            
+            /**
+             *  @private
+             */
+            override protected function commitProperties():void
+            {
+                super.commitProperties();
+                
+                if (paddingChanged && textInput)
+                {
+                    // Push padding styles into the textDisplay
+                    var padding:Number;
+                    
+                    padding = getStyle("paddingLeft");
+                    if (textInput.getStyle("paddingLeft") != padding)
+                        textInput.setStyle("paddingLeft", padding);
+                    
+                    padding = getStyle("paddingTop");
+                    if (textInput.getStyle("paddingTop") != padding)
+                        textInput.setStyle("paddingTop", padding);
+                    
+                    padding = getStyle("paddingRight");
+                    if (textInput.getStyle("paddingRight") != padding)
+                        textInput.setStyle("paddingRight", padding);
+                    
+                    padding = getStyle("paddingBottom");
+                    if (textInput.getStyle("paddingBottom") != padding)
+                        textInput.setStyle("paddingBottom", padding);
+                    paddingChanged = false;
+                }
+                
+                if (cornerRadiusChanged)
+                {
+                    cornerRadiusChanged = false;
+                    
+                    /* var cr:Number = getStyle("cornerRadius");
+                    
+                    if (openButton)
+                        openButton.setStyle("cornerRadius", cr);
+                    if (textInput)
+                        textInput.setStyle("cornerRadius", cr); */
+                }
+            }
+            
+            /**
+             *  @private
+             */
+            override public function styleChanged(styleProp:String):void
+            {
+                super.styleChanged(styleProp);
+                
+                if (!styleProp || styleProp.indexOf("padding") == 0)
+                {
+                    paddingChanged = true;
+                    invalidateProperties();
+                }
+                if (!styleProp || styleProp == "cornerRadius")
+                {
+                    cornerRadiusChanged = true;
+                    invalidateProperties();
+                }                
+            }
+        ]]>
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="open" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <!--- 
+    The PopUpAnchor control that opens the drop-down list. 
+    -->
+    <s:PopUpAnchor id="popUp"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
+                   left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
+                   popUpPosition="below" popUpWidthMatchesAnchorWidth="true">
+        
+        <!--- 
+        The drop down area of the skin. 
+        This includes borders, background colors, scrollers, and filters. 
+        -->
+        <s:Group id="dropDown" maxHeight="134" minHeight="22" >
+            
+            <!-- drop shadow -->
+            <s:RectangularDropShadow blurX="20" blurY="20" alpha="1.0" distance="5" 
+                                     angle="90" color="#000000" left="0" top="0" right="0" bottom="0"/>
+            
+            <!-- border -->
+            <s:Rect left="0" right="0" top="0" bottom="0">
+                <s:stroke>
+                    <s:SolidColorStroke color="0x686868" weight="1"/>
+                </s:stroke>
+            </s:Rect>
+            
+            <!-- fill -->
+            <!---  
+            Defines the appearance of drop-down list's background fill.
+            -->
+            <s:Rect id="background" left="1" right="1" top="1" bottom="1" >
+                <s:fill>
+                    <!---  
+                    The color of the drop down's background fill.
+                    The default color is 0xFFFFFF.
+                    -->
+                    <s:SolidColor id="bgFill" color="0xFFFFFF" />
+                </s:fill>
+            </s:Rect>
+            
+            <s:Scroller left="0" top="0" right="0" bottom="0" focusEnabled="false" minViewportInset="1">
+                <!---  
+                The container for the data items in the drop-down list.
+                -->
+                <s:DataGroup id="dataGroup" itemRenderer="spark.skins.spark.DefaultItemRenderer">
+                    <s:layout>
+                        <s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
+                    </s:layout>
+                </s:DataGroup>
+            </s:Scroller>
+        </s:Group>
+    </s:PopUpAnchor>
+    
+    <!--- The anchor button used by the DropDownList. The default skin is DropDownListButtonSkin. -->
+    <s:Button id="openButton" width="20" right="0" top="0" bottom="0" focusEnabled="false" 
+              skinClass="spark.skins.spark.ComboBoxButtonSkin" />  
+    <!--- The prompt area of the DropDownList. -->
+    <s:TextInput id="textInput"
+                  left="0" right="19" top="0" bottom="0" 
+                  skinClass="spark.skins.spark.ComboBoxTextInputSkin"/> 
+    
+</s:Skin>
