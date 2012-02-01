@@ -11,13 +11,20 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009"
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
 	  minHeight="21" 
 	  alpha.disabled="0.5">
 
     <Metadata>
         [HostComponent("mx.components.FxNumericStepper")]
     </Metadata> 
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For numeric stepper, the skin itself is colorized but the individual parts are not. */
+        static private const exclusions:Array = ["textInput", "decrementButton", "incrementButton"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+    </Script>
     
     <states>
     	<State name="normal" />
@@ -32,4 +39,4 @@
     <!--TODO: Once SDK-18275 is fixed, we can remove the creationComplete handler -->          
     <FxTextInput id="textInput" left="0" top="0" right="18" bottom="0"
     	creationComplete="textInput.textView.setStyle('paddingLeft', 3);textInput.textView.setStyle('paddingRight', 6);"/>
-</Skin>
+</SparkSkin>
