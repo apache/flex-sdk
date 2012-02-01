@@ -15,10 +15,8 @@ import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.MouseEvent;
 
-import mx.core.IVisualElement;
-
-import spark.components.IGridItemRenderer;
-import spark.components.supportClasses.GridColumn;
+import spark.components.gridClasses.GridColumn;
+import spark.components.gridClasses.IGridItemRenderer;
 
 /**
  *  An extended mouse event that includes additional grid specific information based
