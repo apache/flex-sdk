@@ -845,6 +845,17 @@ public class HorizontalLayout extends LayoutBase
      */
      private function updateLLV(layoutTarget:GroupBase):void
      {
+        var contentChangeDeltas:Vector.<int> = layoutTarget.mx_internal::contentChangeDeltas;
+        if (contentChangeDeltas)
+            for(var i:int = 0; i < contentChangeDeltas.length; i++)
+            {
+                var delta:int = contentChangeDeltas[i];
+                if (delta < 0)
+                    llv.remove(-(delta + 1));
+                else
+                    llv.insert(delta - 1);
+            }
+         
         var typicalElt:ILayoutElement = typicalLayoutElement;
         if (typicalElt)
         {
