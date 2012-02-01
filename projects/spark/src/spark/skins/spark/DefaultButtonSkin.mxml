@@ -14,6 +14,8 @@ in accordance with the terms of the license agreement accompanying it.
 <!--- The default skin class for a Spark DefaultButton component. The DefaultButton component is used in panels such as 
 an Alert. It is defined by the defaultButton property on a container.  
 
+@see mx.controls.Alert
+
 @langversion 3.0
 @playerversion Flash 10
 @playerversion AIR 1.5
