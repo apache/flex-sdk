@@ -12,6 +12,8 @@
 -->
 
 <!--- The wireframe skin class for the fullScreen button of a Spark VideoPlayer component.  
+
+      @see spark.components.VideoPlayer
         
       @langversion 3.0
       @playerversion Flash 10
@@ -66,7 +68,7 @@
         </s:stroke>
     </s:Rect>
     
-    <!--- full screen symbol -->
+    <!--- Defines the full-screen symbol. -->
     <s:Group horizontalCenter="0" verticalCenter="0" id="fullScreenSymbol">
         <!-- size of area so left, right, bottom, top work well -->
         <s:Rect left="0" top="0" width="21" height="16">
