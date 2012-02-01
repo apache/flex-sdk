@@ -113,13 +113,8 @@ public class Path extends FilledElement
      *  property are translated into drawing commands and 
      *  coordinate parameters for those commands, and then
      *  drawn to screen. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */ 
-	protected var graphicsPath:GraphicsPath = new GraphicsPath(new Vector.<int>(), new Vector.<Number>());
+	mx_internal var graphicsPath:GraphicsPath = new GraphicsPath(new Vector.<int>(), new Vector.<Number>());
     
     //--------------------------------------------------------------------------
     //
@@ -455,8 +450,10 @@ public class Path extends FilledElement
     
     /**
      *  Fill rule for intersecting or overlapping path segments. 
+     *  Possible values are GraphicsPathWinding.EVEN_ODD or GraphicsPathWinding.NON_ZERO
      *
      *  @default evenOdd
+     *  @see flash.display.GraphicPathWinding 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -496,7 +493,7 @@ public class Path extends FilledElement
 
         
         // Draw element at (0,0):
-        renderGraphicsAtScale(0,0,1,1);
+        generateGraphicsPath(0,0,1,1);
         boundsShape.graphics.clear();
         boundsShape.graphics.drawPath(graphicsPath.commands, graphicsPath.data, winding);
 
@@ -522,7 +519,7 @@ public class Path extends FilledElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override protected function skipMeasure():Boolean
+    override protected function canSkipMeasurement():Boolean
     {
         // Don't measure when bounds are up to date.
         return _bounds != null;
@@ -590,12 +587,8 @@ public class Path extends FilledElement
                                                         height:Number,
                                                         postLayoutTransform:Boolean = true):Number
     {
-        if (postLayoutTransform)
-        {
-            var m:Matrix = computeMatrix();
-            if (m)
-                width = getBoundingBox(width, height, m).width;
-        }
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+            width = getBoundingBox(width, height, layoutFeatures.layoutMatrix).width;
 
         // Take stroke into account
         return width + getStrokeExtents().x;
@@ -608,12 +601,8 @@ public class Path extends FilledElement
                                                          height:Number,
                                                          postLayoutTransform:Boolean = true):Number
     {
-        if (postLayoutTransform)
-        {
-            var m:Matrix = computeMatrix();
-            if (m)
-                height = getBoundingBox(width, height, m).height;
-        }
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+            height = getBoundingBox(width, height, layoutFeatures.layoutMatrix).height;
 
         // Take stroke into account
         return height + getStrokeExtents().y;
@@ -630,7 +619,7 @@ public class Path extends FilledElement
     override public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
         var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
 
         if (!m)
         {
@@ -673,7 +662,7 @@ public class Path extends FilledElement
     override public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
         var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
 
         if (!m)
         {
@@ -711,7 +700,7 @@ public class Path extends FilledElement
     override public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
         var stroke:Number = -getStrokeExtents(postLayoutTransform).x * 0.5;
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
         {
             if (measuredX == 0)
@@ -729,7 +718,7 @@ public class Path extends FilledElement
     override public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
     {
         var stroke:Number = - getStrokeExtents(postLayoutTransform).y * 0.5;
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
         {
             if (measuredY == 0)
@@ -761,7 +750,7 @@ public class Path extends FilledElement
         									 width, 
         									 height);
         if (stroke)
-            stroke.draw(g, bounds);
+            stroke.apply(g, bounds);
         else
             g.lineStyle();
         
@@ -784,7 +773,7 @@ public class Path extends FilledElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */    
-    override protected function drawElement(g:Graphics):void
+    override protected function draw(g:Graphics):void
     {
         //TODO: temporary check until DOsharing and graphics caching is cleaned up
         //after MAX.  See above.
@@ -804,7 +793,7 @@ public class Path extends FilledElement
     	    var sx:Number = rcBounds.width == 0 ? 1 : width/rcBounds.width;
     	    var sy:Number = rcBounds.height == 0 ? 1 : height/rcBounds.height;
     	        	    
-	        renderGraphicsAtScale(drawX,drawY,sx,sy);
+	        generateGraphicsPath(drawX,drawY,sx,sy);
 	        graphicsPathChanged = false;
      	}
      	 
@@ -830,13 +819,8 @@ public class Path extends FilledElement
      * 
      *  @param sy A Number representing the scaleY at which to draw this
      *  path segment
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    protected function renderGraphicsAtScale(tx:Number,ty:Number,sx:Number,sy:Number):void    
+    mx_internal function generateGraphicsPath(tx:Number,ty:Number,sx:Number,sy:Number):void    
     {
         graphicsPath.commands = null;
         graphicsPath.data = null;
@@ -911,12 +895,12 @@ public class Path extends FilledElement
     }
 
     /**
-     *   @inheritDoc 
+     *  @inheritDoc
      */
-    override protected function notifyElementLayerChanged():void
+    override protected function invalidateDisplayObjectSharing():void
     {
         graphicsPathChanged = true;
-        super.notifyElementLayerChanged();
+        super.invalidateDisplayObjectSharing();
     }
     
     /**
