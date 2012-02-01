@@ -15,7 +15,9 @@ package spark.events
 import flash.events.Event;
 
 /**
- *  Represents events that are dispatched from a TrackBase component
+ *  Represents events that are dispatched from a TrackBase component.
+ *
+ *  @see spark.components.supportClasses.TrackBase
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
