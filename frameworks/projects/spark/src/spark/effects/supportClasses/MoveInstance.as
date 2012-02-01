@@ -174,12 +174,8 @@ public class MoveInstance extends AnimateInstance
             setupConstraintAnimation("percentHeight");
             setupConstraintAnimation("horizontalCenter");
             setupConstraintAnimation("verticalCenter");
-            // FIXME (chaase): also deal with baseline when it works in BasicLayout
+            setupConstraintAnimation("baseline");
         }
-        // FIXME (chaase): The Flex3 version of Move had logic for forcing clipping
-        // off during the effect. We probably need something like this
-        // in this version as well, but the implementation is TBD with the
-        // new container (Group) and layout management in Flex4
         
         super.play();        
     }
