@@ -53,7 +53,7 @@ public class BitmapUtil
      */
     public static function getSnapshot(target:IUIComponent):BitmapData
     {
-        var topLevel:Sprite = Sprite(IUIComponent(target).systemManager);   
+        var topLevel:Sprite = Sprite(IUIComponent(target).systemManager.getSandboxRoot());   
         var rectBounds:Rectangle = target.getBounds(topLevel);
         // Can't use target's concatenatedMatrix, as it is sometimes wrong
         var m:Matrix = MatrixUtil.getConcatenatedMatrix(target as DisplayObject);
