@@ -16,7 +16,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.components.baseClasses.GroupBase;
-import mx.layout.ILayoutItem;
+import mx.layout.ILayoutElement;
 import mx.layout.LayoutBase;
 
 /**
@@ -32,18 +32,18 @@ public class BasicLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------
 
-    private static function constraintsDetermineWidth(layoutItem:ILayoutItem):Boolean
+    private static function constraintsDetermineWidth(layoutElement:ILayoutElement):Boolean
     {
-        return !isNaN(layoutItem.percentWidth) ||
-               !isNaN(LayoutItemHelper.parseConstraintValue(layoutItem.left)) &&
-               !isNaN(LayoutItemHelper.parseConstraintValue(layoutItem.right));
+        return !isNaN(layoutElement.percentWidth) ||
+               !isNaN(LayoutElementHelper.parseConstraintValue(layoutElement.left)) &&
+               !isNaN(LayoutElementHelper.parseConstraintValue(layoutElement.right));
     }
 
-    private static function constraintsDetermineHeight(layoutItem:ILayoutItem):Boolean
+    private static function constraintsDetermineHeight(layoutElement:ILayoutElement):Boolean
     {
-        return !isNaN(layoutItem.percentHeight) ||
-               !isNaN(LayoutItemHelper.parseConstraintValue(layoutItem.top)) &&
-               !isNaN(LayoutItemHelper.parseConstraintValue(layoutItem.bottom));
+        return !isNaN(layoutElement.percentHeight) ||
+               !isNaN(LayoutElementHelper.parseConstraintValue(layoutElement.top)) &&
+               !isNaN(LayoutElementHelper.parseConstraintValue(layoutElement.bottom));
     }
 
     //--------------------------------------------------------------------------
@@ -77,25 +77,25 @@ public class BasicLayout extends LayoutBase
         var minWidth:Number = 0;
         var minHeight:Number = 0;
 
-        var count:int = layoutTarget.numLayoutItems;
+        var count:int = layoutTarget.numLayoutElements;
         for (var i:int = 0; i < count; i++)
         {
-            var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
-            if (!layoutItem || !layoutItem.includeInLayout)
+            var layoutElement:ILayoutElement = layoutTarget.getLayoutElementAt(i);
+            if (!layoutElement || !layoutElement.includeInLayout)
                 continue;
 
-            var left:Number      = LayoutItemHelper.parseConstraintValue(layoutItem.left);
-            var right:Number     = LayoutItemHelper.parseConstraintValue(layoutItem.right);
-            var top:Number       = LayoutItemHelper.parseConstraintValue(layoutItem.top);
-            var bottom:Number    = LayoutItemHelper.parseConstraintValue(layoutItem.bottom);
+            var left:Number      = LayoutElementHelper.parseConstraintValue(layoutElement.left);
+            var right:Number     = LayoutElementHelper.parseConstraintValue(layoutElement.right);
+            var top:Number       = LayoutElementHelper.parseConstraintValue(layoutElement.top);
+            var bottom:Number    = LayoutElementHelper.parseConstraintValue(layoutElement.bottom);
 
             var extX:Number = 0;
             var extY:Number = 0;
 
             if (isNaN(left) && isNaN(right) &&
-                isNaN(LayoutItemHelper.parseConstraintValue(layoutItem.horizontalCenter)))
+                isNaN(LayoutElementHelper.parseConstraintValue(layoutElement.horizontalCenter)))
             {
-                extX += layoutItem.actualPosition.x;
+                extX += layoutElement.getLayoutPositionX();
             }
             else
             {
@@ -104,9 +104,9 @@ public class BasicLayout extends LayoutBase
             }
 
             if (isNaN(top) && isNaN(bottom) &&
-                isNaN(LayoutItemHelper.parseConstraintValue(layoutItem.verticalCenter)))
+                isNaN(LayoutElementHelper.parseConstraintValue(layoutElement.verticalCenter)))
             {
-                extY += layoutItem.actualPosition.y;
+                extY += layoutElement.getLayoutPositionY();
             }
             else
             {
@@ -114,14 +114,14 @@ public class BasicLayout extends LayoutBase
                 extY += isNaN(bottom) ? 0 : bottom;
             }
 
-            width = Math.max(width, extX + layoutItem.preferredSize.x);
-            height = Math.max(height, extY + layoutItem.preferredSize.y);
+            width = Math.max(width, extX + layoutElement.getPreferredWidth());
+            height = Math.max(height, extY + layoutElement.getPreferredHeight());
 
-            var itemMinWidth:Number = constraintsDetermineWidth(layoutItem) ? layoutItem.minSize.x : layoutItem.preferredSize.x;
-            var itemMinHeight:Number = constraintsDetermineHeight(layoutItem) ? layoutItem.minSize.y : layoutItem.preferredSize.y;
+            var elementMinWidth:Number = constraintsDetermineWidth(layoutElement) ? layoutElement.getMinWidth() : layoutElement.getPreferredWidth();
+            var elementMinHeight:Number = constraintsDetermineHeight(layoutElement) ? layoutElement.getMinHeight() : layoutElement.getPreferredHeight();
 
-            minWidth = Math.max(minWidth, extX + itemMinWidth);
-            minHeight = Math.max(minHeight, extY + itemMinHeight);
+            minWidth = Math.max(minWidth, extX + elementMinWidth);
+            minHeight = Math.max(minHeight, extY + elementMinHeight);
         }
 
         layoutTarget.measuredWidth = Math.max(width, minWidth);
@@ -134,7 +134,7 @@ public class BasicLayout extends LayoutBase
     }
 
     /**
-     *  @return Returns the maximum value for an item's dimension so that the component doesn't
+     *  @return Returns the maximum value for an element's dimension so that the component doesn't
      *  spill out of the container size. Calculations are based on the layout rules.
      *  Pass in unscaledWidth, hCenter, left, right, childX to get a maxWidth value.
      *  Pass in unscaledHeight, vCenter, top, bottom, childY to get a maxHeight value.
@@ -188,28 +188,28 @@ public class BasicLayout extends LayoutBase
         if (!layoutTarget)
             return;
 
-        var count:int = layoutTarget.numLayoutItems;
+        var count:int = layoutTarget.numLayoutElements;
         var maxX:Number = 0;
         var maxY:Number = 0;
         for (var i:int = 0; i < count; i++)
         {
-            var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
-            if (!layoutItem || !layoutItem.includeInLayout)
+            var layoutElement:ILayoutElement = layoutTarget.getLayoutElementAt(i);
+            if (!layoutElement || !layoutElement.includeInLayout)
                 continue;
 
-            var hCenter:Number = LayoutItemHelper.parseConstraintValue(layoutItem.horizontalCenter);
-            var vCenter:Number = LayoutItemHelper.parseConstraintValue(layoutItem.verticalCenter);
-            var left:Number    = LayoutItemHelper.parseConstraintValue(layoutItem.left);
-            var right:Number   = LayoutItemHelper.parseConstraintValue(layoutItem.right);
-            var top:Number     = LayoutItemHelper.parseConstraintValue(layoutItem.top);
-            var bottom:Number  = LayoutItemHelper.parseConstraintValue(layoutItem.bottom);
-            var itemMinSize:Point = layoutItem.minSize;
-            var itemMaxSize:Point = layoutItem.maxSize.clone(); // Since we may update it below
+            var hCenter:Number = LayoutElementHelper.parseConstraintValue(layoutElement.horizontalCenter);
+            var vCenter:Number = LayoutElementHelper.parseConstraintValue(layoutElement.verticalCenter);
+            var left:Number    = LayoutElementHelper.parseConstraintValue(layoutElement.left);
+            var right:Number   = LayoutElementHelper.parseConstraintValue(layoutElement.right);
+            var top:Number     = LayoutElementHelper.parseConstraintValue(layoutElement.top);
+            var bottom:Number  = LayoutElementHelper.parseConstraintValue(layoutElement.bottom);
+            var elementMaxWidth:Number = layoutElement.getMaxWidth();
+            var elementMaxHeight:Number = layoutElement.getMaxHeight();
 
-            // Remember child position before setting actualSize, since changing the size may
+            // Remember child position before setting layoutSize, since changing the size may
             // change the position.
-            var childX:Number = layoutItem.actualPosition.x;
-            var childY:Number = layoutItem.actualPosition.y;
+            var childX:Number = layoutElement.getLayoutPositionX();
+            var childY:Number = layoutElement.getLayoutPositionY();
 
             // Calculate size
             var childWidth:Number = NaN;
@@ -219,10 +219,10 @@ public class BasicLayout extends LayoutBase
             {
                 childWidth = unscaledWidth - right - left;
             }
-            else if (!isNaN(layoutItem.percentWidth))
+            else if (!isNaN(layoutElement.percentWidth))
             {
-                childWidth = unscaledWidth * Math.min(layoutItem.percentWidth * 0.01, 1);
-                itemMaxSize.x = Math.min(itemMaxSize.x,
+                childWidth = unscaledWidth * Math.min(layoutElement.percentWidth * 0.01, 1);
+                elementMaxWidth = Math.min(elementMaxWidth,
                     maxSizeToFitIn(unscaledWidth, hCenter, left, right, childX));
             }
 
@@ -230,50 +230,52 @@ public class BasicLayout extends LayoutBase
             {
                 childHeight = unscaledHeight - bottom - top;
             }
-            else if (!isNaN(layoutItem.percentHeight))
+            else if (!isNaN(layoutElement.percentHeight))
             {
-                childHeight = unscaledHeight * Math.min(layoutItem.percentHeight * 0.01, 1);
-                itemMaxSize.y = Math.min(itemMaxSize.y,
+                childHeight = unscaledHeight * Math.min(layoutElement.percentHeight * 0.01, 1);
+                elementMaxHeight = Math.min(elementMaxHeight,
                     maxSizeToFitIn(unscaledHeight, vCenter, top, bottom, childY));
             }
 
             // Apply min and max constraints, make sure min is applied last. In the cases
-            // where childWidth and childHeight are NaN, setActualSize will use preferredSize
+            // where childWidth and childHeight are NaN, setLayoutSize will use preferredSize
             // which is already constrained between min and max.
             if (!isNaN(childWidth))
-                childWidth = Math.max(itemMinSize.x, Math.min(itemMaxSize.x, childWidth));
+                childWidth = Math.max(layoutElement.getMinWidth(), Math.min(elementMaxWidth, childWidth));
             if (!isNaN(childHeight))
-                childHeight = Math.max(itemMinSize.y, Math.min(itemMaxSize.y, childHeight));
+                childHeight = Math.max(layoutElement.getMinHeight(), Math.min(elementMaxHeight, childHeight));
 
             // Set the size.
-            var actualSize:Point = layoutItem.setActualSize(childWidth, childHeight);
+            layoutElement.setLayoutSize(childWidth, childHeight);
+            var elementWidth:Number = layoutElement.getLayoutWidth();
+            var elementHeight:Number = layoutElement.getLayoutHeight();
 
             // Horizontal position
             if (!isNaN(hCenter))
-                childX = Math.round((unscaledWidth - actualSize.x) / 2 + hCenter);
+                childX = Math.round((unscaledWidth - elementWidth) / 2 + hCenter);
             else if (!isNaN(left))
                 childX = left;
             else if (!isNaN(right))
-                childX = unscaledWidth - actualSize.x - right;
+                childX = unscaledWidth - elementWidth - right;
             else // since setting actual size might have moved the actual position, we need to reset here            
-            	childX = layoutItem.actualPosition.x;
+            	childX = layoutElement.getLayoutPositionX();
 
             // Vertical position
             if (!isNaN(vCenter))
-                childY = Math.round((unscaledHeight - actualSize.y) / 2 + vCenter);
+                childY = Math.round((unscaledHeight - elementHeight) / 2 + vCenter);
             else if (!isNaN(top))
                 childY = top;
             else if (!isNaN(bottom))
-                childY = unscaledHeight - actualSize.y - bottom;
+                childY = unscaledHeight - elementHeight - bottom;
            	else  // since setting actual size might have moved the actual position, we need to reset here
-           		childY = layoutItem.actualPosition.y;
+           		childY = layoutElement.getLayoutPositionY();
 
             // Set position
-            layoutItem.setActualPosition(childX, childY);
+            layoutElement.setLayoutPosition(childX, childY);
 
             // update content limits
-            maxX = Math.max(maxX, childX + actualSize.x);
-            maxY = Math.max(maxY, childY + actualSize.y);
+            maxX = Math.max(maxX, childX + elementWidth);
+            maxY = Math.max(maxY, childY + elementHeight);
         }
 
         layoutTarget.setContentSize(maxX, maxY);
