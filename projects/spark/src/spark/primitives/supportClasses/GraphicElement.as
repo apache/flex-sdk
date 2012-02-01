@@ -2816,6 +2816,8 @@ public class GraphicElement extends EventDispatcher
 
     private var _displayObjectSharingMode:String;
     
+    [Inspectable(category="General", enumeration="ownsUnsharedObject,ownsSharedObject,usesSharedObject")]
+    
     /**
      *  @private
      */
