@@ -22,6 +22,8 @@ import mx.graphics.graphicsClasses.GraphicElement;
 
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 import mx.graphics.IStroke;
 
 use namespace mx_internal;
