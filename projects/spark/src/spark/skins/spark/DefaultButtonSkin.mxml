@@ -84,7 +84,8 @@ an Alert. It is defined by the defaultButton property on a container.
                 colorTransform.alphaMultiplier = 1;
                 
                 fill.transform.colorTransform = colorTransform;
-                highlightStroke.transform.colorTransform = colorTransform;
+                if (highlightStroke)
+                    highlightStroke.transform.colorTransform = colorTransform;
                 
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
             }
