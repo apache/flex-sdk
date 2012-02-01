@@ -18,6 +18,7 @@ import flash.events.Event;
 import flash.events.EventDispatcher;	
 
 import mx.components.baseClasses.GroupBase;
+import mx.core.ILayoutElement;
 import mx.core.ScrollUnit;
 
 import mx.containers.utilityClasses.Flex;
@@ -1042,7 +1043,7 @@ public class HorizontalLayout extends LayoutBase
 
 [ExcludeClass]
 
-import mx.layout.ILayoutElement;
+import mx.core.ILayoutElement;
 import mx.containers.utilityClasses.FlexChildInfo;
 
 class HLayoutElementFlexChildInfo extends FlexChildInfo
