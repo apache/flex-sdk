@@ -105,6 +105,11 @@ use namespace flash_proxy;
  *   
  * &lt;/FxApplication&gt; 
  * </listing>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public dynamic class ShaderFilter extends Proxy
     implements IBitmapFilter, IEventDispatcher
@@ -118,6 +123,11 @@ public dynamic class ShaderFilter extends Proxy
     /**
      * Private storage for incoming properties, queued until
      * shader is initialized and available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private var propertyQueue:Object;  
           
@@ -131,6 +141,11 @@ public dynamic class ShaderFilter extends Proxy
      *  Constructor.
      *  @param shader Fully realized flash.display.Shader instance, or
      *  Class representing a Shader (such as from an Embed).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function ShaderFilter(shader:Object=null)  
     {  
@@ -164,6 +179,11 @@ public dynamic class ShaderFilter extends Proxy
     /**
      * An object representing the Shader to use with this filter, either a Class 
      * or Shader instance is allowed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set shader(value:*):void
     {
@@ -190,6 +210,11 @@ public dynamic class ShaderFilter extends Proxy
     
     /**
      * flash.display.Shader instance.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */  
     public function get shader():Shader
     {
@@ -204,6 +229,11 @@ public dynamic class ShaderFilter extends Proxy
 
     /**
      *  @copy flash.filters.ShaderFilter#bottomExtension
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get bottomExtension():int
     {
@@ -227,6 +257,11 @@ public dynamic class ShaderFilter extends Proxy
 
     /**
      *  @copy flash.filters.ShaderFilter#topExtension
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get topExtension():int
     {
@@ -250,6 +285,11 @@ public dynamic class ShaderFilter extends Proxy
 
     /**
      *  @copy flash.filters.ShaderFilter#leftExtension
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get leftExtension():int
     {
@@ -273,6 +313,11 @@ public dynamic class ShaderFilter extends Proxy
 
     /**
      *  @copy flash.filters.ShaderFilter#rightExtension
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get rightExtension():int
     {
@@ -303,6 +348,11 @@ public dynamic class ShaderFilter extends Proxy
      * by the constants in the ShaderPrecision class.
      * 
      *  @see flash.display.Shader
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get precisionHint():String
     {
