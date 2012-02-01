@@ -18,7 +18,9 @@
       @playerversion AIR 1.5
       @productversion Flex 4
 -->
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+    alpha.disabledStates="0.5" alpha.disconnectedStates="0.5" alpha.loadingStates="0.5" alpha.connectionErrorStates="0.5">
+
 
     <!-- host component -->
     <fx:Metadata>
@@ -69,7 +71,7 @@
         <s:State name="fullScreenStopped" stateGroups="stoppedStates, fullScreenStates"/>
     </s:states>
     
-    <!-- TODO: drop shadow -->
+    <!-- drop shadow -->
     <s:Rect left="0" top="0" right="0" bottom="0">
         <s:filters>
             <s:DropShadowFilter knockout="true" blurX="17" blurY="17" alpha="0.32" distance="4" angle="90" />
@@ -79,115 +81,115 @@
         </s:fill>
     </s:Rect>
     
-    <!-- background when the videoElement doesn't fill its whole spot -->
-    <s:Rect bottom="1" left="1" right="1" top="1">
-        <s:fill>
-            <s:SolidColor color="0x000000" />
-        </s:fill>
-    </s:Rect>
+    <!-- video and player controls are clipped if they exceed the size of the 
+         component, but the drop shadow above is not clipped and sizes to the component -->
+    <s:Group clipAndEnableScrolling="true" left="0" top="0" right="0" bottom="0">
     
-    <!--- The subcomponent that loads the video but does not define the appearance of the VideoPlayer component. -->
-    <s:VideoElement id="videoElement" bottom="24" left="1" right="1" top="1" />
-    
-    <!-- video player controls -->
-    <s:Group left="0" right="0" height="24" bottom="0" bottom.fullScreenStates="150">
-    
-        <!-- background for controls (in case there's extra room on the sides) only in non-fullscreen case -->
-        <s:Rect left="0" right="0" top="0" bottom="0" excludeFrom="fullScreenStates">
-            <s:fill>
-                <s:LinearGradient rotation="90">
-                    <s:GradientEntry color="0xFFFFFF"/>
-                    <s:GradientEntry color="0xDCDCDC"/>
-                </s:LinearGradient>
-            </s:fill>
-        </s:Rect>
-        
-        <!-- actual controls now with a minWidth and maxWidth -->
-        <s:Group bottom="0" horizontalCenter="0" left="0" right="0" minWidth="293" maxWidth="755" id="playerControls">
-        
-            <!--- Defines the label and appearance of the Play/Pause button. -->
-            <s:ToggleButton id="playPauseButton" left="0" bottom="0" 
-                    skinClass="spark.skins.default.VideoPlayerPlayPauseButtonSkin" 
-                    skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenPlayPauseButtonSkin" />
+        <!-- There's a minimum size for the video and controls.  If we go below that
+             we are clipped. -->
+        <s:Group minWidth="263" minHeight="184">
             
-            <!-- scrubbar + the playHeadTime/totalTime labels -->
-            <s:Group left="39" right="75" top="0" bottom="0">
+            <!-- background when the videoElement doesn't fill its whole spot -->
+            <s:Rect bottom="1" left="1" right="1" top="1">
+                <s:fill>
+                    <s:SolidColor color="0x000000" />
+                </s:fill>
+            </s:Rect>
             
-                <!-- background for scrubbar + the playHeadTime/totalTime -->
-                <s:Rect left="0" right="0" top="0" bottom="0">
-                    <s:fill>
-                        <s:LinearGradient rotation="90">
-                            <s:GradientEntry color="0xFFFFFF" color.fullScreenStates="0x585858" alpha.fullScreenStates="0.55"/>
-                            <s:GradientEntry color="0xDCDCDC" color.fullScreenStates="0x1E1E1E" alpha.fullScreenStates="0.55"/>
-                        </s:LinearGradient>
-                    </s:fill>
-                </s:Rect>
+            <!--- The subcomponent that loads the video but does not define the appearance of the VideoPlayer component. -->
+            <s:VideoElement id="videoElement" bottom="24" left="1" right="1" top="1" />
+            
+            <!-- video player controls -->
+            <s:Group left="0" right="0" height="24" bottom="0" bottom.fullScreenStates="150">
                 
-                <!-- top border for the scrubbar/time label controls -->
-                <s:Line left="-1" right="0" top="0">
-                    <s:stroke>
-                        <s:SolidColorStroke color="0x131313" />
-                    </s:stroke>
-                </s:Line>
+                <!-- actual controls with a maxWidth in non-fullScreen mode -->
+                <s:Group bottom="0" horizontalCenter="0" left="0" right="0" maxWidth.fullScreenStates="755" id="playerControls">
                 
-                <!-- scrub bar + playHeadTime/totalTime in a HorizontalLayout -->
-                <s:Group left="0" right="0" height="24" bottom="0">
-                    <s:layout>
-                        <s:HorizontalLayout verticalAlign="middle" gap="1" />
-                    </s:layout>
+                    <!--- Defines the label and appearance of the Play/Pause button. -->
+                    <s:ToggleButton id="playPauseButton" left="0" bottom="0" 
+                            skinClass="spark.skins.default.VideoPlayerPlayPauseButtonSkin" 
+                            skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenPlayPauseButtonSkin" />
                     
-                    <!-- spacer -->
-                    <s:Rect width="7" height="1">
-                        <s:stroke>
-                            <s:SolidColorStroke alpha="0"/>
-                        </s:stroke>
-                    </s:Rect>
+                    <!-- scrubbar + the playHeadTime/totalTime labels -->
+                    <s:Group left="39" right="75" top="0" bottom="0">
                     
-                    <s:VideoPlayerScrubBar id="scrubBar" width="100%" liveDragging="true"
-                        skinClass="spark.skins.default.VideoPlayerScrubBarSkin"
-                        skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenScrubBarSkin" />
+                        <!-- background for scrubbar + the playHeadTime/totalTime -->
+                        <s:Rect left="0" right="0" top="0" bottom="0">
+                            <s:fill>
+                                <s:LinearGradient rotation="90">
+                                    <s:GradientEntry color="0xFFFFFF" color.fullScreenStates="0x585858" alpha.fullScreenStates="0.55"/>
+                                    <s:GradientEntry color="0xDCDCDC" color.fullScreenStates="0x1E1E1E" alpha.fullScreenStates="0.55"/>
+                                </s:LinearGradient>
+                            </s:fill>
+                        </s:Rect>
+                        
+                        <!-- top border for the scrubbar/time label controls -->
+                        <s:Line left="-1" right="0" top="0">
+                            <s:stroke>
+                                <s:SolidColorStroke color="0x131313" />
+                            </s:stroke>
+                        </s:Line>
+                        
+                        <!-- scrub bar + playHeadTime/totalTime in a HorizontalLayout -->
+                        <s:Group left="0" right="0" height="24" bottom="0">
+                            <s:layout>
+                                <s:HorizontalLayout verticalAlign="middle" gap="1" />
+                            </s:layout>
+                            
+                            <!-- spacer -->
+                            <s:Rect width="7" height="1">
+                                <s:stroke>
+                                    <s:SolidColorStroke alpha="0"/>
+                                </s:stroke>
+                            </s:Rect>
+                            
+                            <s:VideoPlayerScrubBar id="scrubBar" width="100%" liveDragging="true"
+                                skinClass="spark.skins.default.VideoPlayerScrubBarSkin"
+                                skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenScrubBarSkin" />
+                            
+                            <!-- spacer -->
+                            <s:Rect width="8" height="1">
+                                <s:stroke>
+                                    <s:SolidColorStroke alpha="0"/>
+                                </s:stroke>
+                            </s:Rect>
+                            
+                            <s:SimpleText id="playheadTimeLabel" styleName="videoTextStyle" styleName.fullScreenStates="videoTextStyleFullScreen" />
+                            
+                            <s:SimpleText id="timeDivider" text="/" styleName="videoTextStyle" styleName.fullScreenStates="videoTextStyleFullScreen" />
+                            
+                            <s:SimpleText id="totalTimeLabel" styleName="videoTextStyle" styleName.fullScreenStates="videoTextStyleFullScreen" />
+                            
+                            <!-- spacer -->
+                            <s:Rect width="8" height="1">
+                                <s:stroke>
+                                    <s:SolidColorStroke alpha="0"/>
+                                </s:stroke>
+                            </s:Rect>
+                        </s:Group>
                     
-                    <!-- spacer -->
-                    <s:Rect width="8" height="1">
-                        <s:stroke>
-                            <s:SolidColorStroke alpha="0"/>
-                        </s:stroke>
-                    </s:Rect>
+                    </s:Group>
                     
-                    <s:SimpleText id="playheadTimeLabel" styleName="videoTextStyle" styleName.fullScreenStates="videoTextStyleFullScreen" />
+                    <!--- Defines the appearance of the volume bar. -->
+                    <s:VideoPlayerVolumeBar id="volumeBar" valueInterval=".01" liveDragging="true" right="37" bottom="0" 
+                            skinClass="spark.skins.default.VideoPlayerVolumeBarSkin"
+                            skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenVolumeBarSkin" />
                     
-                    <s:SimpleText id="timeDivider" text="/" styleName="videoTextStyle" styleName.fullScreenStates="videoTextStyleFullScreen" />
-                    
-                    <s:SimpleText id="totalTimeLabel" styleName="videoTextStyle" styleName.fullScreenStates="videoTextStyleFullScreen" />
-                    
-                    <!-- spacer -->
-                    <s:Rect width="8" height="1">
-                        <s:stroke>
-                            <s:SolidColorStroke alpha="0"/>
-                        </s:stroke>
-                    </s:Rect>
+                    <!--- Defines the label and appearance of the Fullscreen button. -->
+                    <s:Button id="fullScreenButton" right="0" bottom="0" label="Fullscreen" 
+                            skinClass="spark.skins.default.VideoPlayerFullScreenButtonSkin"
+                            skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenFullScreenButtonSkin" />
+                            
                 </s:Group>
-            
+                
             </s:Group>
             
-            <!--- Defines the appearance of the volume bar. -->
-            <s:VideoPlayerVolumeBar id="volumeBar" valueInterval=".01" liveDragging="true" right="37" bottom="0" 
-                    skinClass="spark.skins.default.VideoPlayerVolumeBarSkin"
-                    skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenVolumeBarSkin" />
-            
-            <!--- Defines the label and appearance of the Fullscreen button. -->
-            <s:Button id="fullScreenButton" right="0" bottom="0" label="Fullscreen" 
-                    skinClass="spark.skins.default.VideoPlayerFullScreenButtonSkin"
-                    skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenFullScreenButtonSkin" />
-                    
+            <!-- border -->
+            <s:Rect left="0" right="0" top="0" bottom="0">
+                <s:stroke>
+                    <s:SolidColorStroke color="0x131313" />
+                </s:stroke>
+            </s:Rect>
         </s:Group>
-        
     </s:Group>
-    
-    <!-- border -->
-    <s:Rect left="0" right="0" top="0" bottom="0">
-        <s:stroke>
-            <s:SolidColorStroke color="0x131313" />
-        </s:stroke>
-    </s:Rect>
 </s:SparkSkin>
