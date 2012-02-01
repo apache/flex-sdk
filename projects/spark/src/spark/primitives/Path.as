@@ -1049,7 +1049,7 @@ public class Path extends FilledElement
     {
         // FIXME (egeorgie): temporary check until DOsharing and graphics caching is cleaned up
         //after MAX.  See above.
-        if(drawX !=  _drawBounds.x || drawY !=  _drawBounds.y ||
+        if (drawX !=  _drawBounds.x || drawY !=  _drawBounds.y ||
             width !=  _drawBounds.width || height !=  _drawBounds.height)
         {
             graphicsPathChanged = true;
