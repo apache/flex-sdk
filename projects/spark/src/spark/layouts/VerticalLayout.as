@@ -21,8 +21,8 @@ import mx.core.FlexVersion;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
-import mx.core.mx_internal;
 import mx.core.UIComponentGlobals;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.managers.ILayoutManagerClient;
@@ -1284,11 +1284,25 @@ public class VerticalLayout extends LayoutBase
         }
         
         if (useVirtualLayout)
-            g.invalidateDisplayList();
-                
+		{
+			var firstElement:ILayoutElement = g.getElementAt(_firstIndexInView);
+			var lastElement:ILayoutElement = g.getElementAt(_lastIndexInView);
+			var scrollRect:Rectangle = getScrollRect();
+			
+			/* If the scrollRect is within the bounds of the elements, we do
+			   not need to call invalidateDisplayList(). This considerably speeds
+			   up small scrolls. */
+			if (!firstElement || !lastElement || 
+				scrollRect.top < firstElement.getLayoutBoundsY() || 
+				scrollRect.bottom > (lastElement.getLayoutBoundsY() + lastElement.getLayoutBoundsHeight()))
+			{
+				g.invalidateDisplayList();
+			}
+		}
+		
         setIndexInView(i0, i1);
     }
-    
+	
     /**
      *  @private
      * 
