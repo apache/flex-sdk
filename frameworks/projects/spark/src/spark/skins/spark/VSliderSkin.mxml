@@ -102,12 +102,14 @@ VSliderThumbSkin and VSliderTrackSkin classes, respectively.
            @copy spark.components.supportClasses.TrackBase#track 
            @see spark.skins.spark.VSliderTrackSkin -->
     <s:Button id="track" left="0" right="0" top="0" bottom="0" minHeight="33" height="100"
+              tabEnabled="false"
               skinClass="spark.skins.spark.VSliderTrackSkin" />
               
     <!--- The default skin class is VSliderThumbSkin. 
             @copy spark.components.supportClasses.TrackBase#thumb
             @see spark.skins.spark.VSliderThumbSkin -->
-    <s:Button id="thumb" left="0" right="0" width="11" height="11" 
+    <s:Button id="thumb" left="0" right="0" width="11" height="11"
+              tabEnabled="false"
               skinClass="spark.skins.spark.VSliderThumbSkin" />
 
 </s:SparkSkin>
