@@ -1111,6 +1111,7 @@ public class GraphicElement extends EventDispatcher
         dispatchPropertyChangeEvent("rotation", oldValue, value);
 
         rotationChanged = true;
+        notifyElementLayerChanged();
         invalidateProperties();
         invalidateParentSizeAndDisplayList();
     }
