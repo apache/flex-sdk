@@ -107,7 +107,7 @@ public class VerticalLayout implements ILayout
         var totalCount:uint = count; // How many items will be laid out
         for (var i:int = 0; i < count; i++)
         {
-            var layoutItem:ILayoutItem = LayoutItemFactory.getLayoutItemFor(layoutTarget.getLayoutItemAt(i));
+            var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
             if (!layoutItem || !layoutItem.includeInLayout)
             {
             	totalCount--;
@@ -149,7 +149,7 @@ public class VerticalLayout implements ILayout
         var totalCount:uint = count; // How many items will be laid out
         for (var i:int = 0; i < count; i++)
         {
-            var layoutItem:ILayoutItem = LayoutItemFactory.getLayoutItemFor(layoutTarget.getLayoutItemAt(i));
+            var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
             if (!layoutItem || !layoutItem.includeInLayout)
             {
             	totalCount--;
