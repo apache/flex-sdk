@@ -94,8 +94,8 @@
         <!-- Defines the appearance of the the List's drop indicator.
              To customize the drop indicator appearance, create a custom ListSkin class. -->
         <fx:Component id="dropIndicator">
-            <s:Group includeInLayout="false" minWidth="2" minHeight="2" maxWidth="4" maxHeight="4">
-                <s:Rect left="2" right="2" top="0" bottom="0" radiusX="1" radiusY="1">
+            <s:Group includeInLayout="false" minWidth="4" minHeight="4" maxWidth="4" maxHeight="4">
+                <s:Rect left="0" right="0" top="0" bottom="0" radiusX="1" radiusY="1">
                     <s:fill>
                         <!--- Defines the color of the background. The default color is 0x888888. -->
                         <s:SolidColor color="0x888888" />
