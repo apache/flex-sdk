@@ -385,7 +385,7 @@ public class VerticalLayout extends LayoutBase
 	        
 	    if ((index < 0) || (index >= g.numLayoutItems))
 	       return 0.0;
-	        
+	       
         var li:ILayoutItem = g.getLayoutItemAt(index);
         if ((li == null) || !li.includeInLayout)
             return 0.0;
@@ -407,7 +407,7 @@ public class VerticalLayout extends LayoutBase
         var iy0:Number = li.actualPosition.y;
         var iy1:Number = iy0 + li.actualSize.y;
         if (iy0 >= iy1)  // item has 0 or negative height
-            return 0.0;
+            return 1.0;
         if ((iy0 >= y0) && (iy1 <= y1))
             return 1.0;
         return (Math.min(y1, iy1) - Math.max(y0, iy0)) / (iy1 - iy0);
@@ -885,7 +885,8 @@ public class VerticalLayout extends LayoutBase
             var dy:Number = layoutItem.actualSize.y;
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);
-            if ((y < maxVisibleY) && ((y + dy) > minVisibleY))
+            if (((y < maxVisibleY) && ((y + dy) > minVisibleY)) || 
+                ((dy <= 0) && ((y == maxVisibleY) || (y == minVisibleY))))
             {
             	visibleRows += 1;
             	if (firstRowInView == -1)
