@@ -18,22 +18,7 @@
       @productversion Flex 4
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-            height="11" width="200" alpha.disabled="0.5">
-    
-    <s:states>
-        <s:State name="up" />
-        <s:State name="disabled" />
-    </s:states>
-    
-    <fx:Script>
-        <![CDATA[
-            override public function set enabled(value:Boolean):void
-            {
-                super.enabled = value;
-                currentState = value ? "up" : "disabled";
-            }
-        ]]>
-    </fx:Script>
+            height="11" width="200" disabledAlpha="0.5">
     
     <s:Rect left="0" right="0" top="2" height="4">
         <s:fill>
