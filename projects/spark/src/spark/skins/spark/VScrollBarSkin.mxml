@@ -17,11 +17,16 @@
     <Metadata>
     	[HostComponent("flex.component.VScrollBar")]
     </Metadata> 
+    
+    <states>
+    	<State name="normal" />
+    	<State name="disabled" />
+    </states>
 
-    <Button id="track" top="17" bottom="17" 
+    <Button id="track" top="17" bottom="17"
             skinZZ="flex.skin.VScrollBarTrackSkin" />
     <Button id="thumb" skinZZ="flex.skin.VScrollBarThumbSkin" />
-    <Button id="decrementButton" top="0"
+    <Button id="decrementButton" top="0" 
             skinZZ="flex.skin.ScrollBarUpButtonSkin" />
     <Button id="incrementButton" bottom="0"
             skinZZ="flex.skin.ScrollBarDownButtonSkin" />
