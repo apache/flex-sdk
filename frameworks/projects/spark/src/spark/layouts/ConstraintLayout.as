@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2008 Adobe Systems Incorporated
+//  Copyright 2010 Adobe Systems Incorporated
 //  All Rights Reserved.
 //
 //  NOTICE: Adobe permits you to use, modify, and distribute this file
@@ -11,11 +11,13 @@
 
 package spark.layouts
 {
+import flash.geom.Point;
 import flash.utils.Dictionary;
 
 import mx.containers.errors.ConstraintError;
 import mx.containers.utilityClasses.ConstraintColumn;
 import mx.containers.utilityClasses.ConstraintRow;
+import mx.containers.utilityClasses.Flex;
 import mx.core.ILayoutElement;
 import mx.core.mx_internal;
 import mx.resources.ResourceManager;
@@ -144,7 +146,7 @@ public class ConstraintLayout extends LayoutBase
      *  Pass in unscaledWidth, left, right, childX to get a maxWidth value.
      *  Pass in unscaledHeight, top, bottom, childY to get a maxHeight value.
      */
-    static private function maxSizeToFitIn(totalSize:Number,
+    private static function maxSizeToFitIn(totalSize:Number,
                                            lowConstraint:Number,
                                            highConstraint:Number,
                                            position:Number):Number
@@ -205,10 +207,23 @@ public class ConstraintLayout extends LayoutBase
      *  @private
      *  Vectors to store the baseline property of the rows, and
      *  the maximum ascent of the elements in each row.
+     *  
+     *  In rowBaselines, the value is stored as
+     *  [value, maxAscent] if the baseline is maxAscent:value, 
+     *  and [value, null] if the baseline is just a value.
      */
     private var rowBaselines:Vector.<Array> = null;
     private var rowMaxAscents:Vector.<Number> = null;
     
+    /**
+     *  @private
+     *  Hashtable that maps elements to their constraint
+     *  information. The mapping has type:
+     *  ILayoutElement -> ElementConstraintInfo
+     * 
+     *  This cache is always discarded after measure() or
+     *  updateDisplayList() because the constraints may have changed.
+     */
     private var constraintCache:Dictionary = null;
     
     //--------------------------------------------------------------------------
@@ -264,10 +279,6 @@ public class ConstraintLayout extends LayoutBase
             col = temp[i];
             col.container = this.target;
             obj[col.id] = i;
-            
-            // TODO (klin): Allow percentWidth columns.
-            if (!isNaN(col.percentWidth))
-                throw new Error(ResourceManager.getInstance().getString("layout", "percentWidthColumn"));
         }
         
         _constraintColumns = temp;
@@ -405,7 +416,7 @@ public class ConstraintLayout extends LayoutBase
         
         parseConstraints();
         
-        // TODO (klin): minimum will be different when percent size comes into play
+        // Find preferred column widths and row heights.
         var colWidths:Vector.<Number> = measureColumns();
         var rowHeights:Vector.<Number> = measureRows();
         var n:Number;
@@ -414,12 +425,20 @@ public class ConstraintLayout extends LayoutBase
         {
             width += n;
         }
-        minWidth = width;
+
         for each (n in rowHeights)
         {
             height += n;
         }
         minHeight = height;
+        
+        // Find minimum measured width by passing in 0 for the constrained width.
+        // This means that percentWidth columns will be set to their minWidth.
+        constrainPercentColumnWidths(colWidths, 0);
+        for each (n in colWidths)
+        {
+            minWidth += n;
+        }
         
         if (otherElements)
         {
@@ -437,11 +456,7 @@ public class ConstraintLayout extends LayoutBase
         layoutTarget.measuredMinHeight = Math.ceil(minHeight);
         
         // clear out cache
-        colSpanElements = null;
-        rowSpanElements = null;
-        otherElements = null;
-        rowMaxAscents = null;
-        constraintCache = null;
+        clearConstraintCache();
     }
     
     /**
@@ -462,7 +477,7 @@ public class ConstraintLayout extends LayoutBase
         
         // Need to measure in case of explicit width and height on target.
         // Also need to reparse constraints in case of something changing.
-        measureAndPositionColumnsAndRows();
+        measureAndPositionColumnsAndRows(unscaledWidth, unscaledHeight);
         
         layoutContent(unscaledWidth, unscaledHeight);
     }
@@ -516,26 +531,29 @@ public class ConstraintLayout extends LayoutBase
         layoutTarget.setContentSize(Math.ceil(maxX), Math.ceil(maxY));
         
         // clear out cache
-        colSpanElements = null;
-        rowSpanElements = null;
-        otherElements = null;
-        rowMaxAscents = null;
-        constraintCache = null;
+        clearConstraintCache();
     }
     
     /**
      *  Used by FormItemLayout to measure and set new column widths
-     *  before laying out the elements.
+     *  and row heights before laying out the elements.
+     *  
+     *  @param constrainedWidth The total width available for columns to stretch
+     *  or shrink their percent width columns. If NaN, percent width columns
+     *  are unconstrained and fit to their content.
+     *  @param constrainedHeight The total height available for rows to stretch
+     *  or shrink their percent height rows. If NaN, percent height rows
+     *  are unconstrained and fit to their content.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */
-    protected function measureAndPositionColumnsAndRows():void
+    protected function measureAndPositionColumnsAndRows(constrainedWidth:Number = NaN, constrainedHeight:Number = NaN):void
     {
         parseConstraints();
-        setColumnWidths(measureColumns());
+        setColumnWidths(measureColumns(constrainedWidth));
         setRowHeights(measureRows());
     }
     
@@ -786,45 +804,303 @@ public class ConstraintLayout extends LayoutBase
         layoutElement.setLayoutBoundsPosition(elementX, elementY);
     }
     
+    /**
+     *  @private
+     *  Updates the widths of content size and percent size columns that are spanned
+     *  by the specified element. This method updates the provided column widths 
+     *  vector in place. The algorithm is as follows:
+     * 
+     *  1) Determine the space needed by the element to satisfy its constraints
+     *     and be at its preferred size.
+     * 
+     *  2) Calculate the number of columns the element will span.
+     * 
+     *  3) If the element causes a column to expand, update the column width to match.
+     *     a) For the single spanning case, we only need to check if this element's 
+     *        required width is larger than the column's current width.
+     *     b) For the multiple spanning case, we distribute the remaining width after 
+     *        subtracting the fixed size columns across the content/percent size columns.
+     *        Then, we only update a column's width if the new divided width would cause
+     *        the column's width to expand.
+     * 
+     *  @param elementInfo The constraint information of the element.
+     *  @param colWidths The vector of column widths to update.
+     */
+    private function updateColumnWidthsForElement(colWidths:Vector.<Number>, elementInfo:ElementConstraintInfo):void
+    {
+        var layoutElement:ILayoutElement = elementInfo.layoutElement;
+        var numCols:int = _constraintColumns.length;
+        var col:ConstraintColumn;
+        
+        var leftIndex:int = -1;
+        var rightIndex:int = -1;
+        var span:int;
+        
+        var extX:Number = 0;
+        var preferredWidth:Number = layoutElement.getPreferredBoundsWidth();
+        var maxExtent:Number;
+        var remainingWidth:Number;
+        
+        var colWidth:Number = 0;
+        
+        // 1) Determine how much space the element needs to satisfy its
+        //    constraints and be at its preferred width.
+        if (!isNaN(elementInfo.left))
+        {
+            extX += elementInfo.left;
+            if (elementInfo.leftBoundary)
+                leftIndex = elementInfo.colSpanLeftIndex;
+            else
+                leftIndex = 0; // constrained to parent
+        }
+        
+        if (!isNaN(elementInfo.right))
+        {
+            extX += elementInfo.right;
+            if (elementInfo.rightBoundary)
+                rightIndex = elementInfo.colSpanRightIndex;
+            else
+                rightIndex = numCols - 1; // constrained to parent
+        }
+        
+        maxExtent = extX + preferredWidth;
+        remainingWidth = maxExtent;
+        
+        // 2) If either the left or the right constraint doesn't exist,
+        //    we must find the span of the element. We do this by
+        //    determining the index of the last column that the element
+        //    occupies in the unconstrained direction.
+        if (leftIndex < 0 || rightIndex < 0)
+        {
+            var isLeft:Boolean = leftIndex < 0;
+            var startIndex:int = isLeft ? rightIndex : leftIndex;
+            var endIndex:int = isLeft ? -1 : numCols;
+            var increment:int = isLeft ? -1 : 1;
+            
+            if (isLeft) // defaults to 0
+                leftIndex = 0;
+            else // defaults to numCols - 1
+                rightIndex = numCols - 1;
+            
+            for (j = startIndex; j != endIndex ; j += increment)
+            {
+                col = _constraintColumns[j];
+                
+                // subtract fixed columns
+                if (!isNaN(col.explicitWidth))
+                    remainingWidth -= col.explicitWidth;
+                
+                if ((col.contentSize || !isNaN(col.percentWidth)) || remainingWidth < 0)
+                {
+                    if (isLeft)
+                        leftIndex = j;
+                    else
+                        rightIndex = j;
+                    break;
+                }
+            }
+        }
+        // always 1 or positive.
+        span = rightIndex - leftIndex + 1;
+        
+        // 3) If the element causes a column to expand, update the column width to match.
+        if (span == 1)
+        {
+           // a) For the single spanning case, we only need to check if this element's 
+           //    required width is larger than the column's current width.
+            col = _constraintColumns[leftIndex];
+            
+            if (col.contentSize || !isNaN(col.percentWidth))
+            {   
+                colWidth = Math.max(colWidths[leftIndex], extX + preferredWidth);
+                
+                if (constraintsDetermineWidth(elementInfo))
+                    colWidth = Math.max(colWidth, extX + layoutElement.getMinBoundsWidth());
+                
+                // bound with max width of column
+                if (!isNaN(col.maxWidth))
+                    colWidth = Math.min(colWidth, col.maxWidth);
+                
+                colWidths[leftIndex] = Math.ceil(colWidth);
+            }
+        }
+        else
+        {
+            // b) multiple spanning case when span >= 2.
+            //    1) start from leftIndex and subtract fixed columns.
+            //    2) divide space evenly into content/percent size columns.
+            var contentCols:Vector.<ConstraintColumn> = new Vector.<ConstraintColumn>();
+            var contentColsIndices:Vector.<int> = new Vector.<int>();
+            var j:int;
+            
+            remainingWidth = maxExtent;
+            for (j = leftIndex; j <= rightIndex; j++)
+            {
+                col = _constraintColumns[j];
+                
+                if (!isNaN(col.explicitWidth))
+                {
+                    if (remainingWidth < col.width)
+                        break;
+                    
+                    remainingWidth -= col.width;
+                }
+                else if (col.contentSize || !isNaN(col.percentWidth))
+                {
+                    contentCols.push(col);
+                    contentColsIndices.push(j);
+                }
+            }
+            
+            var numContentCols:Number = contentCols.length;
+            if (numContentCols > 0)
+            {
+                var splitWidth:Number = remainingWidth / numContentCols;
+                
+                for (j = 0; j < numContentCols; j++)
+                {
+                    col = contentCols[j];
+                    
+                    colWidth = Math.max(colWidths[contentColsIndices[j]], splitWidth);
+                    if (!isNaN(col.maxWidth))
+                        colWidth = Math.min(colWidth, col.maxWidth);
+                    
+                    colWidths[contentColsIndices[j]] = Math.ceil(colWidth);
+                }
+            }
+        }
+    }
+    
+    /**
+     *  @private
+     *  Adjusts the widths of percent size columns to fill the constrainedWidth.
+     *  This method updates the provided column widths vector in place.
+     *  
+     *  The percent size column widths are first reset to their minimum width. 
+     *  If the given column widths from the content and fixed size columns already
+     *  fill the available width, then the percent size column widths stay at their
+     *  minimum width. Otherwise, the remaining width is distributed to the percent 
+     *  size columns based on the ratio of the percentWidth to the sum of all the 
+     *  percent widths.
+     */
+    private function constrainPercentColumnWidths(colWidths:Vector.<Number>, constrainedWidth:Number):void
+    {
+        var col:ConstraintColumn;
+        var numCols:int = _constraintColumns.length;
+        var childInfoArray:Array /* of ConstraintRegionFlexChildInfo */ = [];
+        var childInfo:ConstraintRegionFlexChildInfo;
+        var remainingWidth:Number = constrainedWidth;
+        var percentMinWidths:Number = 0;
+        var totalPercent:Number = 0;
+        
+        // Set percent width columns back to minWidth and
+        // find the remaining width.
+        for (var i:int = 0; i < numCols; i++)
+        {
+            col = _constraintColumns[i];
+            if (!isNaN(col.percentWidth))
+            {
+                colWidths[i] = (!isNaN(col.minWidth)) ? Math.ceil(Math.max(col.minWidth, 0)) : 0;
+                percentMinWidths += colWidths[i];
+                totalPercent += col.percentWidth;
+                
+                // Fill childInfoArray for distributing the width.
+                childInfo = new ConstraintRegionFlexChildInfo();
+                childInfo.index = i;
+                childInfo.percent = col.percentWidth;
+                childInfo.min = col.minWidth;
+                childInfo.max = col.maxWidth;
+                childInfoArray.push(childInfo);
+            }
+            else
+            {
+                remainingWidth -= colWidths[i];
+            }
+        }
+        
+        // If there's space remaining, distribute the width to the percent size
+        // columns based on their ratio of percentWidth to sum of all the percentWidths.
+        if (remainingWidth > percentMinWidths)
+        {            
+            Flex.flexChildrenProportionally(constrainedWidth, 
+                                            remainingWidth,
+                                            totalPercent,
+                                            childInfoArray);
+            
+            var roundOff:Number = 0;
+            for each (childInfo in childInfoArray)
+            {
+                // Make sure the calculated widths are rounded to pixel boundaries
+                var colWidth:Number = Math.round(childInfo.size + roundOff);
+                roundOff += childInfo.size - colWidth;
+                
+                colWidths[childInfo.index] = colWidth;
+                
+                // remainingWidth -= colWidth;
+            }
+            // FIXME (klin): What do we do if there's remainingWidth after all this?
+        }
+    }
+    
     /** 
      *  @private
      *  This function measures the ConstraintColumns partitioning
      *  the target and returns their new widths. The calculations
-     *  are based on the current constraintCache. To update the
-     *  constraintCache, one needs to call the parseConstraints()
-     *  method.
+     *  are based on the current constraintCache and other derived
+     *  data structures. To update the constraintCache, one needs to
+     *  call the parseConstraints() method.
+     *  
+     *  The widths are measured with the following requirements:
+     *  1. Fixed size columns honor their pixel values.
+     *  
+     *  2. Content size columns whose children only span that column
+     *     assumes the width of the widest child.
+     *  
+     *  3. Content size columns whose children span more than one column
+     *     assumes the widest width possible when the child's size is divided
+     *     among the spanned columns.
+     *     a. Each child divides its preferred width among the content size
+     *        columns that it spans. A child also always honors fixed size
+     *        columns that it spans.
+     *     b. The column takes the widest width given by its children.
+     *  
+     *  4. Percent size columns measure exactly like content size columns
+     *     at first, but after measurement, if availableWidth is provided,
+     *     the percent size columns are remeasured to allow the columns to
+     *     fit exactly in the remaining width in accordance with their given
+     *     percentage.
+     *     a. The percentages given are treated as ratios for how the width
+     *        should be divided among the percent size columns.
+     *     b. If no remaining space is available or the measured size of all
+     *        the content and fixed size columns are greater than the 
+     *        constrainedWidth, percent size columns are set to their minimum.
+     *  
+     *  5. Columns always honor their max and min widths.
+     *  
+     *  6. If constrainedWidth is not specified, sum the column widths to find
+     *     the total measured width of the target.
      * 
-     *  The algorithm works like this:
-     *  1. Fixed columns honor their pixel values.
-     * 
-     *  2. Content sized columns whose children span
-     *  only that column assume the width of the widest child. 
-     * 
-     *  3. (not implemented) Those Content sized columns that span multiple 
-     *  columns do the following:
-     *    a. Sort the children by order of how many columns they
-     *    are spanning.
-     *    b. For children spanning a single column, make each 
-     *    column as wide as the preferred size of the child.
-     *    c. For subsequent children, divide the remainder space
-     *    equally between shared columns. 
-     * 
-     *  4. (not implemented) Remaining space is shared between the percentage size
-     *  columns.
-     * 
-     *  5. x positions are set based on the column widths
-     * 
-     *  6. Sum the column widths to get the total measured width of the target.
-     * 
-     *  @return a vector of the new column widths.
+     *  @param constrainedWidth The constraining width to be used when measuring
+     *  percent size columns. The default is NaN.
+     *  
+     *  @return A vector of the new column widths.
      */
-    private function measureColumns():Vector.<Number>
+    mx_internal function measureColumns(constrainedWidth:Number = NaN):Vector.<Number>
     {
         // TODO (klin): Parameterize this to work for both columns and rows.
         // This may mean we need to add some mx_internal properties to 
         // the columns for "major size", etc... Question is, what about
         // 1-D properties like baseline? What parts can we parameterize and
         // what parts aren't possible.
+        
+        // Parse constraints if it hasn't been done yet, make sure to clear 
+        // the cache afterwards.
+        var clearCache:Boolean = false;
+        if (!constraintCache)
+        {
+            parseConstraints();
+            clearCache = true;
+        }
         
         if (_constraintColumns.length <= 0)
             return new Vector.<Number>();
@@ -834,16 +1110,19 @@ public class ConstraintLayout extends LayoutBase
         var numCols:Number = _constraintColumns.length;
         var col:ConstraintColumn;
         var hasContentSize:Boolean = false;
-        var colWidths:Vector.<Number> = new Vector.<Number>();
+        var hasPercentSize:Boolean = false;
+        var colWidths:Vector.<Number> = new Vector.<Number>(numCols);
         
         // Start column widths at the minWidth of each column or
         // its explicit width.
         for (i = 0; i < numCols; i++)
         {
             col = _constraintColumns[i];
-            if (col.contentSize)
+            
+            if (col.contentSize || !isNaN(col.percentWidth))
             {
-                hasContentSize = true;
+                hasContentSize ||= col.contentSize;
+                hasPercentSize ||= !isNaN(col.percentWidth);
                 
                 if (!isNaN(col.minWidth))
                     colWidths[i] = Math.ceil(Math.max(col.minWidth, 0));
@@ -852,7 +1131,7 @@ public class ConstraintLayout extends LayoutBase
             }
             else if (!isNaN(col.explicitWidth))
             {
-                var w:Number = col.width;
+                var w:Number = col.explicitWidth;
                 
                 if (!isNaN(col.minWidth))
                     w = Math.max(w, col.minWidth);
@@ -866,161 +1145,24 @@ public class ConstraintLayout extends LayoutBase
         
         // Assumption: elements in colSpanElements have one or more constraints touching a column.
         // This is enforced in parseElementConstraints().
-        if (colSpanElements && hasContentSize)
+        if (colSpanElements && (hasContentSize || hasPercentSize))
         {
-            var numColSpanElements:Number = colSpanElements.length;
-            
-            // Measure content size columns only single span for now.
-            // If multiple span, do nothing yet.
-            for (i = 0; i < numColSpanElements; i++)
+            // Measure content/percent size columns.
+            for each (var elementInfo:ElementConstraintInfo in colSpanElements)
             {
-                var elementInfo:ElementConstraintInfo = colSpanElements[i];
-                var layoutElement:ILayoutElement = elementInfo.layoutElement;
-                var leftIndex:int = -1;
-                var rightIndex:int = -1;
-                var span:int;
-                
-                var extX:Number = 0;
-                var preferredWidth:Number = layoutElement.getPreferredBoundsWidth();
-                var maxExtent:Number;
-                var availableWidth:Number;
-                
-                var j:int;
-                var colWidth:Number = 0;
-                
-                // Determine how much space the element needs to satisfy its
-                // constraints and be at its preferred width.
-                if (!isNaN(elementInfo.left))
-                {
-                    extX += elementInfo.left;
-                    if (elementInfo.leftBoundary)
-                        leftIndex = elementInfo.colSpanLeftIndex;
-                    else
-                        leftIndex = 0; // constrained to parent
-                }
-                
-                if (!isNaN(elementInfo.right))
-                {
-                    extX += elementInfo.right;
-                    if (elementInfo.rightBoundary)
-                        rightIndex = elementInfo.colSpanRightIndex;
-                    else
-                        rightIndex = numCols - 1; // constrained to parent
-                }
-                
-                maxExtent = extX + preferredWidth;
-                availableWidth = maxExtent;
-                
-                // If either the left or the right constraint doesn't exist,
-                // we must find the span of the element. We do this by
-                // determining the index of the last column that the element
-                // occupies in the unconstrained direction.
-                if (leftIndex < 0 || rightIndex < 0)
-                {
-                    var isLeft:Boolean = leftIndex < 0;
-                    var startIndex:int = isLeft ? rightIndex : leftIndex;
-                    var endIndex:int = isLeft ? -1 : numCols;
-                    var increment:int = isLeft ? -1 : 1;
-                    
-                    // defaults to 0
-                    if (isLeft)
-                        leftIndex = 0;
-                    else // defaults to numCols - 1
-                        rightIndex = numCols - 1;
-                    
-                    for (j = startIndex; j != endIndex ; j += increment)
-                    {
-                        col = _constraintColumns[j];
-                        
-                        // subtract fixed columns
-                        if (!isNaN(col.explicitWidth))
-                            availableWidth -= col.explicitWidth;
-                        
-                        if (col.contentSize || availableWidth < 0)
-                        {
-                            if (isLeft)
-                                leftIndex = j;
-                            else
-                                rightIndex = j;
-                            break;
-                        }
-                    }
-                }
-                
-                // always 1 or positive.
-                span = rightIndex - leftIndex + 1;
-                //trace(span);
-
-                if (span == 1)
-                {
-                    col = _constraintColumns[leftIndex];
-                    
-                    // only measure with when dealing with content size
-                    if (col.contentSize)
-                    {   
-                        colWidth = Math.max(colWidths[leftIndex], extX + preferredWidth);
-                        
-                        if (constraintsDetermineWidth(elementInfo))
-                            colWidth = Math.max(colWidth, extX + layoutElement.getMinBoundsWidth());
-                        
-                        // bound with max width of column
-                        if (!isNaN(col.maxWidth))
-                            colWidth = Math.min(colWidth, col.maxWidth);
-                        
-                        colWidths[leftIndex] = Math.ceil(colWidth);
-                    }
-                }
-                else
-                {
-                    // multiple spanning case. span >= 2.
-                    // 1) start from leftIndex and subtract fixed columns
-                    // 2) divide space evenly into content size columns.
-                    var contentCols:Vector.<ConstraintColumn> = new Vector.<ConstraintColumn>();
-                    var contentColsIndices:Vector.<int> = new Vector.<int>();
-                    
-                    availableWidth = maxExtent;
-                    
-                    for (j = leftIndex; j <= rightIndex; j++)
-                    {
-                        col = _constraintColumns[j];
-                        
-                        if (!isNaN(col.explicitWidth))
-                        {
-                            availableWidth -= col.width;
-                            
-                            if (availableWidth < 0)
-                            {
-                                availableWidth += col.width;
-                                break;
-                            }
-                        }
-                        else if (col.contentSize)
-                        {
-                            contentCols.push(col);
-                            contentColsIndices.push(j);
-                        }
-                    }
-                    
-                    var numContentCols:Number = contentCols.length;
-                    
-                    if (numContentCols > 0)
-                    {
-                        var splitWidth:Number = availableWidth / numContentCols;
-                        
-                        for (j = 0; j < numContentCols; j++)
-                        {
-                            col = contentCols[j];
-                            
-                            colWidth = Math.max(colWidths[contentColsIndices[j]], splitWidth);
-                            if (!isNaN(col.maxWidth))
-                                colWidth = Math.min(colWidth, col.maxWidth);
-                            
-                            colWidths[contentColsIndices[j]] = Math.ceil(colWidth);
-                        }
-                    }
-                }
+                updateColumnWidthsForElement(colWidths, elementInfo);
             }
         }
+        
+        // Adjust percent size columns to account for constraining width.
+        if (!isNaN(constrainedWidth) && hasPercentSize)
+        {
+            constrainPercentColumnWidths(colWidths, constrainedWidth);
+        }
+        
+        // Clear the cache only if we created it just for this method call.
+        if (clearCache)
+            clearConstraintCache();
         
         return colWidths;
     }
@@ -1442,7 +1584,7 @@ public class ConstraintLayout extends LayoutBase
         
         // Variables to track the boundaries from which
         // the offsets are calculated from. If null, the 
-        // boundary is the parent container edge. 
+        // boundary is the parent container edge.
         var leftBoundary:String;
         var rightBoundary:String;
         var topBoundary:String;
@@ -1610,16 +1752,29 @@ public class ConstraintLayout extends LayoutBase
             }
         }
     }
+    
+    /**
+     *  @private
+     */
+    private function clearConstraintCache():void
+    {
+        colSpanElements = null;
+        rowSpanElements = null;
+        otherElements = null;
+        rowBaselines = null;
+        rowMaxAscents = null;
+        constraintCache = null;
+    }
 }
 }
-
-import mx.core.ILayoutElement;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  Helper class: ElementConstraintInfo
 //
 ////////////////////////////////////////////////////////////////////////////////
+
+import mx.core.ILayoutElement;
 
 class ElementConstraintInfo
 {
@@ -1694,4 +1849,17 @@ class ElementConstraintInfo
     public var rowSpanTopIndex:int;
     public var rowSpanBottomIndex:int;
     public var baselineIndex:int;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Helper class: ConstraintRegionFlexChildInfo
+//
+////////////////////////////////////////////////////////////////////////////////
+
+import mx.containers.utilityClasses.FlexChildInfo;
+
+class ConstraintRegionFlexChildInfo extends FlexChildInfo
+{
+    public var index:int
 }
