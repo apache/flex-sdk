@@ -100,7 +100,7 @@ which positions the label above the content
             </s:constraintColumns>         
             <s:constraintRows>
                 <s:ConstraintRow id="row1" baseline="maxAscent:10"/>
-                <s:ConstraintRow id="row2"/>
+                <s:ConstraintRow id="row2" height="100%"/>
             </s:constraintRows>  
         </s:FormItemLayout>
     </s:layout>    
