@@ -35,17 +35,6 @@ Use this skin when your FormItems use the StackedFormItemSkin
         ]]>
     </fx:Metadata> 
     
-    <fx:Style>
-        @namespace s "library://ns.adobe.com/flex/spark";
-        @namespace mx "library://ns.adobe.com/flex/mx";
-        
-        .headingStyle
-        {
-            fontWeight : "bold";
-            fontSize : 15;
-        }
-    </fx:Style>
-    
     <fx:Script fb:purpose="styling">
         <![CDATA[         
             /**
@@ -79,7 +68,7 @@ Use this skin when your FormItems use the StackedFormItemSkin
     <s:layout>
         <s:FormItemLayout>
             <s:constraintColumns>
-                <s:ConstraintColumn id="numCol" />
+                <s:ConstraintColumn id="sequenceCol" />
                 <s:ConstraintColumn id="contentCol"/>
                 <s:ConstraintColumn id="helpCol"/>
             </s:constraintColumns>         
@@ -98,7 +87,7 @@ Use this skin when your FormItems use the StackedFormItemSkin
         </s:fill>
     </s:Rect>
     
-    <s:Label id="labelDisplay" styleName="headingStyle"
-             left="contentCol:0" right="helpCol:0" top="row1:0" bottom="row1:0" />
+    <s:Label id="labelDisplay"
+             left="contentCol:0" right="helpCol:4" top="row1:4" bottom="row1:4" />
     
 </s:Skin>
