@@ -25,7 +25,7 @@ import spark.components.supportClasses.Skin;
 import spark.primitives.Path;
 import spark.primitives.Rect;
 
-[HostComponent("Border")]
+[HostComponent("spark.components.Border")]
 
 /**
  *  The default skin class for a Spark Border container.
