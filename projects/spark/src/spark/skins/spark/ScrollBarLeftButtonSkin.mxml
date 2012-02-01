@@ -12,7 +12,11 @@
 -->
 
 <!--- The default skin class for left button of the Spark ScrollBar component.  
-        
+
+       @see spark.components.supportClasses.ScrollBarBase
+       @see spark.components.HScrollBar
+       @see spark.components.VScrollBar
+                
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
