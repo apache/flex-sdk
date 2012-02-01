@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.graphics
+package mx.graphics
 {
 import flash.display.Bitmap;
 import flash.display.BitmapData;
@@ -31,7 +31,7 @@ import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 import mx.graphics.BitmapFill;
 
-import flex.graphics.graphicsClasses.GraphicElement;
+import mx.graphics.graphicsClasses.GraphicElement;
 
 /**
  *  A BitmapGraphic element defines a rectangular region in its parent element's 
