@@ -806,6 +806,16 @@ public final class LinearLayoutVector
         return bounds;
     }
     
+    /**
+     *  Clear all cached state, reset length to zero.
+     */
+    public function clear():void
+    {
+        length = 0;
+        minorSize = 0;
+        minMinorSize = 0;
+    }
+    
     public function toString():String
     {
         return "LinearLayoutVector{" + 
