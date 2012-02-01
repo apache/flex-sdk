@@ -17,7 +17,8 @@ import spark.components.gridClasses.CellRegion;
 
 /**
  *  The GridSelectionEvent class represents events that are dispatched when 
- *  the selection changes in a Spark DataGrid as the result of user interaction.
+ *  the selection changes in a Spark DataGrid control as the 
+ *  result of user interaction.
  *
  *  @see spark.events.GridSelectionEventKind
  *  @see spark.components.DataGrid
@@ -25,7 +26,7 @@ import spark.components.gridClasses.CellRegion;
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 public class GridSelectionEvent extends Event
@@ -74,7 +75,7 @@ public class GridSelectionEvent extends Event
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const SELECTION_CHANGE:String = "selectionChange";
@@ -115,7 +116,7 @@ public class GridSelectionEvent extends Event
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const SELECTION_CHANGING:String = "selectionChanging";
@@ -182,11 +183,11 @@ public class GridSelectionEvent extends Event
      *  GridSelectionEventKind class, 
      *  or <code>null</code>, which indicates that the kind is unknown.
      * 
-     *  @see GridSelectionEventKind
+     *  @see spark.events.GridSelectionEventKind
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public var kind:String;
@@ -199,12 +200,14 @@ public class GridSelectionEvent extends Event
     /**
      *  The upcoming or just-completed selection changes triggered by some 
      *  user gesture.  If this change is adding to the current selection, it 
-     *  will not represent the complete selection.  Use the <code>DataGrid</code>
+     *  will not represent the complete selection.  Use the DataGrid
      *  selection methods to determine the selection.
+     *
+     *  @see spark.components.DataGrid
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public var selectionChange:CellRegion;
