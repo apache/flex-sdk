@@ -101,7 +101,8 @@
                 textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 1;
                 if (promptDisplay)
                 {
-                    promptDisplay.right = promptDisplay.bottom = 1;
+                    promptDisplay.setLayoutBoundsSize(unscaledWidth - 2, unscaledHeight - 2);
+                    promptDisplay.setLayoutBoundsPosition(1, 1);
                 }
             }
             else
@@ -111,7 +112,8 @@
                 background.left = background.top = background.right = background.bottom = 0;
                 if (promptDisplay)
                 {
-                    promptDisplay.right = promptDisplay.bottom = 0;
+                    promptDisplay.setLayoutBoundsSize(unscaledWidth - 1, unscaledHeight - 1);
+                    promptDisplay.setLayoutBoundsPosition(1, 1);
                 }
             }
             
@@ -273,9 +275,11 @@
                             heightInLines="10"
                             widthInChars="15" />
     </s:Scroller>
+    <!-- includeInLayout is false so prompt doesn't affect measurement -->
     <s:Label id="promptDisplay"
                 mouseEnabled="false" mouseChildren="false"
                 includeIn="normalWithPrompt,disabledWithPrompt" 
-                left="1" top="1" right="0" bottom="0" />            
+                includeInLayout="false"
+                />            
 
 </s:SparkSkin>
