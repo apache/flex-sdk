@@ -79,10 +79,8 @@
         </s:Group>
     </s:PopUpAnchor>
     
-    <!--- 
-        The default skin is DropDownListButtonSkin. 
-        @copy spark.components.supportClasses.DropDownListBase#openButton
-    -->
+    <!---  The default skin is DropDownListButtonSkin. 
+            @copy spark.components.supportClasses.DropDownListBase#openButton -->
     <s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
         skinClass="spark.skins.wireframe.DropDownListButtonSkin" />
     <!--- @copy spark.components.DropDownList#labelDisplay -->
