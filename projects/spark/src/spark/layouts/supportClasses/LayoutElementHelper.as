@@ -12,11 +12,6 @@
 package mx.layout
 {
 
-import mx.layout.ILayoutItem;
-
-import mx.core.IConstraintClient;
-import mx.core.IVisualItem;
-
 /**
  *  Documentation is not currently available.
  */
