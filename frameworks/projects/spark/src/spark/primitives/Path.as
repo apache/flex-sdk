@@ -361,19 +361,14 @@ public class Path extends FilledElement
 
             // Get bounds
             _bounds = s.getRect(s);
-            
-	        // We always draw at our natural size
-	        // and scale to acheive the actual size. 
-	        drawWidth = bounds.width;
-	        drawHeight = bounds.height;
         }
 
         var result:Rectangle = _bounds.clone();
-        if (!isNaN(_explicitWidth))
-            result.width = _explicitWidth;
+        if (!isNaN(explicitWidth))
+            result.width = explicitWidth;
         
-        if (!isNaN(_explicitHeight))
-            result.height = _explicitHeight; 
+        if (!isNaN(explicitHeight))
+            result.height = explicitHeight; 
 
         return result;
     }
@@ -386,7 +381,7 @@ public class Path extends FilledElement
     override public function set scaleX(value:Number):void
     {
         super.scaleX = value;
-        _userScaleX = value;    	
+        _userScaleX = value;
     }
     
     //----------------------------------
@@ -456,7 +451,7 @@ public class Path extends FilledElement
         // Clear our cached measurement and data values
         clearBounds();
         _data = null;
-        notifyElementChanged();
+        invalidateSize();
     }
    
     private function clearBounds():void
@@ -515,6 +510,8 @@ public class Path extends FilledElement
      * 
      *  @return Returns the TBounds of the new item size.
      */
+    private var oldScaleX:Number = 0;
+    private var oldScaleY:Number = 0;
     override public function setActualSize(width:Number = Number.NaN, height:Number = Number.NaN):Point
     {
         // Reset scale
@@ -531,6 +528,10 @@ public class Path extends FilledElement
         var h:Number = height;
         var bw:Number = _bounds.width;
         var bh:Number = _bounds.height;
+
+        // Actual size is always the bounds size
+        _width = bw;
+        _height = bh;
 
         var stroke:IStroke = getStroke();
         if (!stroke)
@@ -616,8 +617,18 @@ public class Path extends FilledElement
 	        }
         }
 
+        if (_scaleX != oldScaleX || _scaleY != oldScaleY)
+        {
+            oldScaleX = _scaleX;
+            oldScaleY = _scaleY;
+    
+            invalidateDisplayList();
+        }
+
+        // TODO EGeorgie: move to commit properties
         // Finally, apply the transforms to the object
         commitScaleAndRotation();
+
         return actualSize;
     }
 }
