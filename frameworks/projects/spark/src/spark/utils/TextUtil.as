@@ -64,6 +64,32 @@ public class TextUtil
     /**
      *  @private
      */
+    public static function getNumberOrPercentOf(value:Object,
+                                                n:Number):Number
+    {
+        // If 'value' is a Number like 10.5, return it.
+        if (value is Number)
+            return Number(value);
+
+        // If 'value' is a percentage String like "10.5%",
+        // return that percentage of 'n'.
+        if (value is String)
+        {
+            var len:int = String(value).length;
+            if (len >= 1 && value.charAt(len - 1) == "%")
+            {
+                var percent:Number = Number(value.substring(0, len - 1));
+                return percent / 100 * n;
+            }
+        }
+
+        // Otherwise, return NaN.
+        return NaN;
+    }
+
+    /**
+     *  @private
+     */
     public static function obscureTextFlow(textFlow:TextFlow,
                                            obscurationChar:String):void
     {
