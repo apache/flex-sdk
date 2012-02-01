@@ -71,7 +71,8 @@ public class Rect extends FilledElement
 		{
 			_radiusX = value;
 			dispatchPropertyChangeEvent("radiusX", oldValue, value);
-			notifyElementChanged();			
+			invalidateDisplayList();
+			// No need to invalidateSize() since we don't use radiusX to compute size 
 		}
 	}
 	
@@ -100,7 +101,8 @@ public class Rect extends FilledElement
 		{
 			_radiusY = value;
 			dispatchPropertyChangeEvent("radiusY", oldValue, value);
-			notifyElementChanged();			
+			invalidateDisplayList();
+			// No need to invalidateSize() since we don't use radiusY to compute size 
 		}
 	}
 		
@@ -112,7 +114,9 @@ public class Rect extends FilledElement
 	
 	override public function get bounds():Rectangle
 	{
-		return new Rectangle(0, 0, width, height);
+		return new Rectangle(0, 0,
+		                     isNaN(explicitWidth) ? 0 : explicitWidth,
+		                     isNaN(explicitHeight) ? 0 : explicitHeight);
 	}
 	
 	/**
@@ -121,9 +125,9 @@ public class Rect extends FilledElement
 	override protected function drawElement(g:Graphics):void
 	{
 		if (radiusX != 0 || radiusY != 0)
-			g.drawRoundRect(0, 0, drawWidth, drawHeight, radiusX * 2, radiusY * 2);
+			g.drawRoundRect(0, 0, width, height, radiusX * 2, radiusY * 2);
 		else
-			g.drawRect(0, 0, drawWidth, drawHeight);
+			g.drawRect(0, 0, width, height);
 	}
 
 }
