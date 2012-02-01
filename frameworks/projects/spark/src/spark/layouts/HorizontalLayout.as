@@ -288,7 +288,6 @@ public class HorizontalLayout implements ILayout
         }
     }
     
-    
 
     public function variableColumnWidthMeasure(layoutTarget:Group):void
     {
@@ -300,40 +299,41 @@ public class HorizontalLayout implements ILayout
         var visibleColumns:uint = 0;
         var explicitColumnCount:int = explicitColumnCount;        
         
-        
         var count:uint = layoutTarget.numLayoutItems;
         var totalCount:uint = count; // How many items will be laid out
         for (var i:int = 0; i < count; i++)
         {
-            var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
-            if (!layoutItem || !layoutItem.includeInLayout)
+            var li:ILayoutItem = layoutTarget.getLayoutItemAt(i);
+            if (!li || !li.includeInLayout)
             {
             	totalCount--;
                 continue;
             }            
 
-            preferredHeight = Math.max(preferredHeight, layoutItem.preferredSize.y);
-            preferredWidth += layoutItem.preferredSize.x; 
-
-            var itemMinWidth:Number = hasPercentWidth(layoutItem) ? layoutItem.minSize.x : layoutItem.preferredSize.x;
-            var itemMinHeight:Number = hasPercentHeight(layoutItem) ? layoutItem.minSize.y : layoutItem.preferredSize.y;
-            minHeight = Math.max(minHeight, itemMinHeight);
-            minWidth += itemMinWidth;
+            preferredHeight = Math.max(preferredHeight, li.preferredSize.y);
+            preferredWidth += li.preferredSize.x; 
             
-            if ((explicitColumnCount != -1) && (visibleColumns < explicitColumnCount)) 
+            var vcr:Boolean = (explicitColumnCount != -1) && (visibleColumns < explicitColumnCount);
+            if (vcr || (explicitColumnCount == -1))
+            {
+                var mw:Number =  hasPercentWidth(li) ? li.minSize.x : li.preferredSize.x;
+                var mh:Number = hasPercentHeight(li) ? li.minSize.y : li.preferredSize.y;                   
+                minWidth += mw;
+                minHeight = Math.max(minHeight, mh);
+            }
+            if (vcr) 
             {
             	visibleWidth = preferredWidth;
             	visibleColumns += 1;
             }
-            
         }
         
         if (totalCount > 1)
         { 
-            var gapSpace:Number = gap * (totalCount - 1);
-            minWidth += gapSpace;
-            preferredWidth += gapSpace;
-            visibleWidth += (visibleColumns < 2) ? 0 : ((visibleColumns - 1) * gap); 
+            preferredWidth += gap * (totalCount - 1);
+            var vgap:Number = (visibleColumns > 1) ? ((visibleColumns - 1) * gap) : 0;
+            visibleWidth +=  vgap;
+            minWidth += vgap;
         }
         
         layoutTarget.measuredWidth = (explicitColumnCount == -1) ? preferredWidth : visibleWidth;
@@ -383,7 +383,7 @@ public class HorizontalLayout implements ILayout
         layoutTarget.measuredWidth = visibleWidth;
         layoutTarget.measuredHeight = rowHeight;
         
-        layoutTarget.measuredMinWidth = columnWidth;
+        layoutTarget.measuredMinWidth = visibleWidth;
         layoutTarget.measuredMinHeight = minRowHeight;
         
         layoutTarget.setContentSize(contentWidth, rowHeight);
