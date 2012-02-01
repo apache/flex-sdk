@@ -11,11 +11,22 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009">
 
     <Metadata>
     	[HostComponent("mx.components.FxButton")]
     </Metadata> 
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For scroll bar buttons, the graphics are colorized but the arrow is not. */
+        static private const exclusions:Array = ["arrow"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the symbol fill items that should be colored by the "symbolColor" style. */
+        static private const symbols:Array = ["arrowShadow"];
+        override public function get symbolItems():Array {return symbols};
+    </Script>
     
     <states>
         <State name="up" />
@@ -63,7 +74,14 @@
     </Rect>
     
     <!-- arrow -->
-    <BitmapGraphic source="@Embed('assets/ScrollUpArrow.png')" 
-    			   horizontalCenter="0" verticalCenter="-1" />	
-    			   
-</Skin>
+    <Path horizontalCenter="0" verticalCenter="-1" id="arrow"
+          data="M 3.5 0.0 L 7.0 7.0 L 0.0 7.0 L 3.5 0.0">
+        <fill>
+            <SolidColor color="0" />
+        </fill>
+        <filters>
+            <DropShadowFilter id="arrowShadow" inner="true" knockout="true" angle="90" alpha="0.75" 
+                              color="0" distance="2" strength="1.8" blurX="7" blurY="7" />
+        </filters>
+    </Path>			   
+</SparkSkin>
