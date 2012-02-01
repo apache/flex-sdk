@@ -14,6 +14,10 @@ package spark.globalization
 
 import flash.globalization.LastOperationStatus;
 
+import mx.core.mx_internal;
+
+use namespace mx_internal;
+
 /**
  *  The LastOperationStatus class enumerates constant values that represent the
  *  status of the most recent globalization service operation.
@@ -354,5 +358,29 @@ public final class LastOperationStatus
      *  @productversion Flex 4.5
      */
     public static const LOCALE_UNDEFINED_ERROR:String = "localeUndefinedError";
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+    *  @private
+    *  Check if given lastOperationStatus is a fatal error.
+    *
+    *  A fatal error means errors other than no-error and warnings.
+    */
+    mx_internal static function isFatalError(lastOperationStatus:String):Boolean
+    {
+        switch (lastOperationStatus)
+        {
+            case NO_ERROR:
+            case USING_FALLBACK_WARNING:
+            case USING_DEFAULT_WARNING:
+                return false;
+        }
+        return true;
+    }
 }
 }
