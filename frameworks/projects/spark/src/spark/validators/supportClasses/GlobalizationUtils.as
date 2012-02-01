@@ -11,13 +11,16 @@
 
 package spark.validators.supportClasses
 {
+
+import flash.globalization.NationalDigitsType;
+
 /**
  *  A utility class containing Unicode related functionality not supported in
  *  Flex or ActionScript.
  * 
- *  <p>This class contains the utility routines needed for all Validators. Examples
- *  of typical routines are checking for unicode white space, trimming all 
- *  spaces in a string at the beginning and end.</p>
+ *  <p>This class contains the utility routines needed for all Validators. 
+ *  Examples of typical routines are checking for unicode white space, 
+ *  trimming all spaces in a string at the beginning and end.</p>
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10.1
@@ -36,6 +39,7 @@ public class GlobalizationUtils
     //--------------------------------------------------------------------------
 
     private static const ASCII_SPACE:uint = 0x20;
+    private static const ASCII_ZERO:uint = 0x30;
     private static const NO_BREAK_SPACE:uint = 0xA0;
     private static const UNICODE_OGHAM_SPACE_MARK:uint = 0x1680;
     private static const UNICODE_MONGOLIAN_VOWEL_SEPARATOR:uint = 0x180E;
@@ -45,6 +49,105 @@ public class GlobalizationUtils
     private static const UNICODE_MEDIUM_MATHEMATICAL_SPACE:uint = 0x205F;
     private static const UNICODE_IDEOGRAPHIC_SPACE:uint = 0x3000;
     private static const UNICODE_ZEROWIDTH_NOBREAK_SPACE:uint = 0xFEFF;
+    private static const UNICODE_HIGH_SURROGATE_FRONT:uint = 0xd800;
+    private static const UNICODE_HIGH_SURROGATE_BACK:uint = 0xdbff;
+    private static const UNICODE_LOW_SURROGATE_FRONT:uint = 0xdc00;
+    private static const UNICODE_LOW_SURROGATE_BACK:uint = 0xdfff;
+    private static const UNICODE_DIGITS:Array = new Array(
+                                 ASCII_ZERO, 
+                                 NationalDigitsType.ARABIC_INDIC ,
+                                 NationalDigitsType.BALINESE  , 
+                                 NationalDigitsType.BENGALI ,
+                                 NationalDigitsType.CHAM ,
+                                 NationalDigitsType.DEVANAGARI ,
+                                 NationalDigitsType.EUROPEAN ,
+                                 NationalDigitsType.EXTENDED_ARABIC_INDIC ,
+                                 NationalDigitsType.FULL_WIDTH ,
+                                 NationalDigitsType.GUJARATI ,
+                                 NationalDigitsType.GURMUKHI ,
+                                 NationalDigitsType.KANNADA ,
+                                 NationalDigitsType.KAYAH_LI ,
+                                 NationalDigitsType.KHMER ,
+                                 NationalDigitsType.LAO ,
+                                 NationalDigitsType.LEPCHA ,
+                                 NationalDigitsType.LIMBU ,
+                                 NationalDigitsType.MALAYALAM ,
+                                 NationalDigitsType.MONGOLIAN ,
+                                 NationalDigitsType.MYANMAR ,
+                                 NationalDigitsType.MYANMAR_SHAN ,
+                                 NationalDigitsType.NEW_TAI_LUE ,
+                                 NationalDigitsType.NKO ,
+                                 NationalDigitsType.OL_CHIKI ,
+                                 NationalDigitsType.ORIYA ,
+                                 NationalDigitsType.OSMANYA ,
+                                 NationalDigitsType.SAURASHTRA ,
+                                 NationalDigitsType.SUNDANESE ,
+                                 NationalDigitsType.TAMIL ,
+                                 NationalDigitsType.TELUGU ,
+                                 NationalDigitsType.THAI ,
+                                 NationalDigitsType.TIBETAN ,
+                                 NationalDigitsType.VAI
+                               );
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    /**
+     *  <p> Check if codepoint is a numeric digit.</p>
+     *
+     *  @param <code>int</code> input codepoint
+     *  @returns <code>Boolean</code> true or false.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static function isDigit(ccode:uint):Boolean
+    {
+        for (var i:int = 0; i < UNICODE_DIGITS.length; i++)
+        {
+            if ((ccode >= UNICODE_DIGITS[i]) && (ccode <= (UNICODE_DIGITS[i] + 9)))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     *  <p> Check if codepoint is a leading surrogate.</p>
+     *
+     *  @param <code>int</code> input codepoint
+     *  @returns <code>Boolean</code> true or false.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static function isLeadingSurrogate(ccode:uint):Boolean
+    {
+        return ((ccode >= UNICODE_HIGH_SURROGATE_FRONT) && 
+            (ccode <= UNICODE_HIGH_SURROGATE_BACK));
+    }
+
+    /**
+     *  <p> Check if codepoint is a trailing surrogate.</p>
+     *
+     *  @param <code>int</code> input codepoint
+     *  @returns <code>Boolean</code> true or false.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static function isTrailingSurrogate(ccode:uint):Boolean
+    {
+        return ((ccode >= UNICODE_LOW_SURROGATE_FRONT) && 
+            (ccode <= UNICODE_LOW_SURROGATE_BACK));
+    }
 
     /**
      *  <p> Check if codepoint is a white space.
@@ -59,7 +162,7 @@ public class GlobalizationUtils
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public static function isWhiteSpace(ccode:int):Boolean
+    public static function isWhiteSpace(ccode:uint):Boolean
     {
         if ((ccode == ASCII_SPACE) || (ccode == NO_BREAK_SPACE) ||
             (ccode == 0x9))
@@ -127,6 +230,38 @@ public class GlobalizationUtils
         //substring() gets characters up to one index before.
         return input.substring(i, j+1);
     }
+
+    /**
+     *  <p> Convert a surrogate pair to UTF32 </p>
+     *
+     *  @param <code>int</code>  High surrogate c0
+     *  @param <code>int</code>  Low surrogate c1
+     *  @return <code>uint</code> UTF32 equivalent
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static function surrogateToUTF32(c0:uint, c1:uint):uint
+    {
+        var out:uint = 0;
+    
+        var tmp:int = c0 & 0xffff;
+        if ((tmp < UNICODE_HIGH_SURROGATE_FRONT) || 
+            (tmp > UNICODE_LOW_SURROGATE_BACK ))
+        {
+            out = tmp;
+        }
+        else 
+        {
+            out = (tmp - 0xd7C0) << 10;
+            out += c1 & 0x03FF;
+        }
+        
+        return out;
+    }
+
 }
 
 }
