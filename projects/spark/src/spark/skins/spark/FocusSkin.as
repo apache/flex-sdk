@@ -125,13 +125,13 @@ public class FxFocusSkin extends UIComponent
         // Temporary solution for focus drawing on CheckBox and RadioButton components.
         // Hide the label before drawing the focus. 
         // TODO: Figure out a better solution.
-        var hidLabelField:Boolean = false;
+        var hidLabelElement:Boolean = false;
         if ((weakIsCheck(focusObject, "mx.components::FxCheckBox") ||
              weakIsCheck(focusObject, "mx.components::FxRadioButton"))
-             && focusObject.labelField)
+             && focusObject.labelElement)
         {
-            focusObject.labelField.displayObject.visible = false;
-            hidLabelField = true;
+            focusObject.labelElement.displayObject.visible = false;
+            hidLabelElement = true;
         }
             
         m.tx = FOCUS_THICKNESS;
@@ -143,8 +143,8 @@ public class FxFocusSkin extends UIComponent
             focusObject.mx_internal::focusObj.visible = true;
         
         // Show the label, if needed.
-        if (hidLabelField)
-            focusObject.labelField.displayObject.visible = true;
+        if (hidLabelElement)
+            focusObject.labelElement.displayObject.visible = true;
         
         // Special case for Scroller - fill the entire rect.
         // TODO: Figure out a better solution.
