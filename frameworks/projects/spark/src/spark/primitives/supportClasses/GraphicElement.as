@@ -2342,8 +2342,8 @@ public class GraphicElement extends EventDispatcher
      *  @return Returns the transformed size. Transformation is this element's
      *  transformation matrix.
      */
-    private function transformSizeForLayout(width:Number, height:Number,
-                                            actualMatrix:Boolean):Point
+    protected function transformSizeForLayout(width:Number, height:Number,
+                                              actualMatrix:Boolean):Point
     {
         var size:Point = new Point(width, height);
         var m:Matrix = computeMatrix(actualMatrix);
