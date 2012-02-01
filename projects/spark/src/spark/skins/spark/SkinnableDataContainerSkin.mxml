@@ -23,9 +23,9 @@
 
     <fx:Metadata>
     <![CDATA[ 
-    /** 
-     * @copy spark.skins.spark.ApplicationSkin#hostComponent
-     */
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.SkinnableDataContainer")]
     ]]>
     </fx:Metadata> 
@@ -65,6 +65,7 @@
       size will not be thwarted by this skin part's minimum size.   This is a compromise,
       more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
     -->
+    <!--- @copy spark.components.SkinnableDataContainer#dataGroup -->
     <s:DataGroup id="dataGroup" left="0" right="0" top="0" bottom="0" minWidth="0" minHeight="0">
         <s:layout>
             <s:VerticalLayout horizontalAlign="contentJustify" />
