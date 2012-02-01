@@ -87,16 +87,8 @@ public class VerticalLayout implements ILayout
     //  gap
     //----------------------------------
     
-    /**
-     *  @private
-     */
     private var _gap:int = 6;
     
-    /**
-     *  @private
-     */
-    private var gapChanged:Boolean = false;
-
     [Inspectable(category="General")]
 
     /**
@@ -120,7 +112,6 @@ public class VerticalLayout implements ILayout
  	   	var layoutTarget:Group = target;
     	if (layoutTarget != null) 
     	{
-			gapChanged = true;
         	layoutTarget.invalidateSize();
             layoutTarget.invalidateDisplayList();
     	}
@@ -140,22 +131,19 @@ public class VerticalLayout implements ILayout
     //  rowCount
     //----------------------------------
 
-    /**
-     *  @private
-     */
     private var _rowCount:int = -1;
     
-    /**
-     *  @private
-     */
-    private var rowCountChanged:Boolean = false;
-
     [Inspectable(category="General")]
 
     /**
-     *  Number of rows to be displayed.
-     *  If the height of the component has been explicitly set,
-     *  this property might not have any effect.
+     *  Specifies the number of items to display.
+     * 
+     *  If <code>rowCount</code> is -1, then all of them items are displayed.
+     * 
+     *  This value implies the layout's <code>measuredHeight</code>.
+     * 
+     *  If the height of the <code>target</code> has been explicitly set,
+     *  this property has no effect.
      * 
      *  @default -1
      */
@@ -177,7 +165,6 @@ public class VerticalLayout implements ILayout
  		   	var layoutTarget:Group = target;
         	if (layoutTarget != null) 
         	{
-        		rowCountChanged = true;
             	layoutTarget.invalidateSize();
 	            layoutTarget.invalidateDisplayList();
         	}
@@ -210,22 +197,15 @@ public class VerticalLayout implements ILayout
     //  rowHeight
     //----------------------------------
     
-    /**
-     *  @private
-     */
     private var _rowHeight:Number = 20;
-    
-    /**
-     *  @private
-     */
-    private var rowHeightChanged:Boolean = false;
 
     [Inspectable(category="General")]
 
     /**
-     *  The height of the rows in pixels.
-     *  Unless the <code>variableRowHeight</code> property is
-     *  <code>true</code>, all rows are the same height.  
+     *  Specifies the height of the rows if <code>variableRowHeight</code>
+     *  is false.
+     *  
+     *  @default 20
      */
     public function get rowHeight():Number
     {
@@ -245,7 +225,6 @@ public class VerticalLayout implements ILayout
  		   	var layoutTarget:Group = target;
         	if (layoutTarget != null) 
         	{
-        		rowHeightChanged = true;
             	layoutTarget.invalidateSize();
 	            layoutTarget.invalidateDisplayList();
         	}
@@ -277,6 +256,18 @@ public class VerticalLayout implements ILayout
     [Inspectable(category="General")]
 
     /**
+     *  If false, i.e. "fixed row height" is specified, the height of
+     *  each item is set to the value of <code>rowHeight</code>.
+     * 
+     *  If the <code>rowHeight</code> property wasn't explicitly set,
+     *  then it's initialized with the <code>measuredHeight</code> of
+     *  the first item.
+     * 
+     *  The items' <code>includeInLayout</code>, 
+     *  <code>measuredHeight</code>, <code>minHeight</code>,
+     *  and <code>percentHeight</code> properties are ignored when 
+     *  <code>variableRowHeight</code> is false.
+     * 
      *  @default true
      */
     public function get variableRowHeight():Boolean
