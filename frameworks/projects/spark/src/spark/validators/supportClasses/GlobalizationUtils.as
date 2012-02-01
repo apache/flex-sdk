@@ -157,8 +157,7 @@ public class GlobalizationUtils
 
     /**
      *  Return <code>true</code> if a codepoint is a white space character.
-     *  Uses all unicode white space characters. 
-     *  See the list of public static constants in this class.
+     *  Supports all unicode white space characters. 
      *
      *  @param uint The input codepoint.
      * 
