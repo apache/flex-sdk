@@ -114,9 +114,9 @@
     <s:Group horizontalCenter="0" verticalCenter="0" id="fullScreenSymbol">
         <!-- size of area so left, right, bottom, top work well -->
         <s:Rect left="0" top="0" width="19" height="14">
-            <s:stroke>
-                <s:SolidColorStroke alpha="0" />
-            </s:stroke>
+            <s:fill>
+                <s:SolidColor alpha="0" />
+            </s:fill>
         </s:Rect>
     
         <!-- background for big rectangle -->
