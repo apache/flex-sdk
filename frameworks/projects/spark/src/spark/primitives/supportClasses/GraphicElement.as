@@ -2675,6 +2675,18 @@ public class GraphicElement extends OnDemandEventDispatcher
 
         if (!skipMeasure())
             measure();
+            
+        if (!isNaN(explicitMinWidth) && measuredWidth < explicitMinWidth)
+            measuredWidth = explicitMinWidth;
+
+        if (!isNaN(explicitMaxWidth) && measuredWidth > explicitMaxWidth)
+            measuredWidth = explicitMaxWidth;
+
+        if (!isNaN(explicitMinHeight) && measuredHeight < explicitMinHeight)
+            measuredHeight = explicitMinHeight;
+
+        if (!isNaN(explicitMaxHeight) && measuredHeight > explicitMaxHeight)
+            measuredHeight = explicitMaxHeight;
 
         // Did measure() have effect on preferred size? 
         if (oldWidth != preferredWidthPreTransform() ||
