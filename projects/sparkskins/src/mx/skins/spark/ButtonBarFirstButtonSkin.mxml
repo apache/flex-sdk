@@ -90,6 +90,7 @@
     <s:Group left="-1" right="0" top="-1" bottom="-1">
         
         <!-- layer 1: shadow -->
+        <!--- @private -->
         <s:Rect id="shadow" left="0" right="0" top="0" bottom="0" width="69" height="20" topLeftRadiusX="2" bottomLeftRadiusX="2">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90">
@@ -106,6 +107,7 @@
         </s:Rect>
         
         <!-- layer 2: fill -->
+        <!--- @private -->
         <s:Rect id="fill" left="2" right="1" top="2" bottom="2" topLeftRadiusX="2" bottomLeftRadiusX="2">
             <s:fill>
                 <s:LinearGradient rotation="90">
@@ -127,6 +129,7 @@
         </s:Rect>
         
         <!-- layer 3: fill lowlight -->
+        <!--- @private -->
         <s:Rect id="lowlight" left="2" right="1" top="2" bottom="2" topLeftRadiusX="2" bottomLeftRadiusX="2">
             <s:fill>
                 <s:LinearGradient rotation="270">
@@ -138,6 +141,7 @@
         </s:Rect>
         
         <!-- layer 4: fill highlight -->
+        <!--- @private -->
         <s:Rect id="highlight" left="2" right="1" top="2" bottom="2" topLeftRadiusX="2" bottomLeftRadiusX="2">
             <s:fill>
                 <s:LinearGradient rotation="90">
@@ -161,6 +165,7 @@
         </s:Rect>
         
         <!-- layer 5: highlight stroke (all states except down) -->
+        <!--- @private -->
         <s:Rect id="highlightStroke" left="2" right="1" top="2" bottom="2" topLeftRadiusX="2" bottomLeftRadiusX="2">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
@@ -171,6 +176,7 @@
         </s:Rect>
         
         <!-- layer 6: highlight stroke (down state only) -->
+        <!--- @private -->
         <s:Rect id="hldownstroke1" left="2" right="1" top="2" bottom="2" topLeftRadiusX="2"  bottomLeftRadiusX="2"
                 includeIn="downStates, selectedUpStates, selectedOver">
             <s:stroke>
@@ -183,6 +189,7 @@
                 </s:LinearGradientStroke>
             </s:stroke>
         </s:Rect>
+        <!--- @private -->
         <s:Rect id="hldownstroke2" left="3" right="2" top="3" bottom="3" topLeftRadiusX="2"  bottomLeftRadiusX="2"
                 includeIn="downStates, selectedUpStates, selectedOver">
             <s:stroke>
@@ -194,6 +201,7 @@
         </s:Rect>
         
         <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+        <!--- @private -->
         <s:Rect id="border" left="1" right="0" top="1" bottom="1" topLeftRadiusX="2" bottomLeftRadiusX="2">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
