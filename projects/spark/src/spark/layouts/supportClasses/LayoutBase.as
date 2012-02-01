@@ -17,6 +17,7 @@ import flash.geom.Rectangle;
 
 import mx.components.baseClasses.GroupBase;
 import mx.core.ScrollUnit;
+import mx.core.ILayoutElement;
 import mx.utils.OnDemandEventDispatcher;
 
 
