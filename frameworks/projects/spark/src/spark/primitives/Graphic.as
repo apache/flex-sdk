@@ -53,11 +53,12 @@ import spark.layouts.supportClasses.LayoutBase;
  *  The Graphic control displays a set of graphic drawing commands.
  *
  *  <p>The Graphic class is the root tag for all graphic elements. 
- *  This tag is the root for any FXG document. It cannot appear anywhere else in an FXG 
+ *  This tag is also the root for any FXG document. It cannot appear anywhere else in an FXG 
  *  document.</p>
  *  
  *  <p>You add a series of 
- *  element tags such as &lt;Rect&gt;, &lt;Path&gt;, and &lt;Ellipse&gt; to the Graphic's
+ *  element tags such as <code>&lt;Rect&gt;</code>, <code>&lt;Path&gt;</code>, and 
+ *  <code>&lt;Ellipse&gt;</code> to the Graphic's
  *  elements Array to define the contents of the graphic.</p>
  *
  *  <p>Graphic controls do not have backgrounds or borders
@@ -67,9 +68,13 @@ import spark.layouts.supportClasses.LayoutBase;
  *  However, the graphics in the Graphic control are always sized and positioned relative
  *  to the upper-left corner of the Graphics control.</p>
  *  
- *  <p>The Graphic element can optionally contain a &lt;Group&gt; element.</p>
+ *  <p>The Graphic element can optionally contain a <code>&lt;Group&gt;</code> element.</p>
  *  
- *  @see mx.graphics.Group
+ *  @see spark.primitives.Ellipse
+ *  @see spark.primitives.Line
+ *  @see spark.primitives.Path
+ *  @see spark.primitives.Rect
+ *  @see spark.components.Group
  *
  *  @mxml
  *
