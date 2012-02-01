@@ -355,7 +355,7 @@ public class BitmapGraphic extends GraphicElement
     
     //--------------------------------------------------------------------------
     //
-    //  IGraphicElement Implementation
+    //  overriden methods from GraphicElement
     //
     //--------------------------------------------------------------------------
     
