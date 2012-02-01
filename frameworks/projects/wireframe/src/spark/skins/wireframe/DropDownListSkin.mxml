@@ -57,10 +57,10 @@
             <!-- border/fill -->
             <s:Rect left="0" right="0" top="0" bottom="0">
                 <s:stroke>
-                    <s:SolidColorStroke color="0x5380D0" />
+                    <s:SolidColorStroke color="#707070" />
                 </s:stroke>
                 <s:fill>
-                    <s:SolidColor color="0xFFFFFF" />
+                    <s:SolidColor color="#FFFFFF" />
                 </s:fill>
             </s:Rect>
             
@@ -74,7 +74,7 @@
             </s:Scroller>
         
             <s:filters>
-                <s:DropShadowFilter blurX="20" blurY="20" distance="7" angle="90" alpha="0.45" color="0x6087CC" />
+                <s:DropShadowFilter blurX="20" blurY="20" distance="7" angle="90" alpha="0.45" color="#707070" />
             </s:filters>
         </s:Group>
     </s:PopUpAnchor>
