@@ -28,11 +28,15 @@ in accordance with the terms of the license agreement accompanying it.
         override public function get symbolItems():Array {return symbols};        
     </fx:Script>
 
+    <!--- @private -->
     <s:Path id="arrow" data="M 5 4 L 4 4 L 4 3 L 3 3 L 3 2 L 2 2 L 2 1 L 1 1 L 1 0 L 0 0 L 0 9 L 1 9 L 1 8 L 2 8 L 2 7 L 3 7 L 3 6 L 4 6 L 4 5 L 5 5 L 5 4 Z">
         <s:fill>
             <s:RadialGradient rotation="135" focalPointRatio="-0.7" x="0" y="5" scaleX="7">
+                <!--- @private -->
                 <s:GradientEntry id="arrowFill1" color="0" alpha="0.45" ratio="0"/>
+                <!--- @private -->
                 <s:GradientEntry id="arrowFill2" color="0" alpha="0.55" ratio="0.9"/>
+                <!--- @private -->
                 <s:GradientEntry id="arrowFill3" color="0" alpha="0.75" ratio="1"/>
             </s:RadialGradient>
         </s:fill>
