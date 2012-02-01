@@ -10,6 +10,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineBreak 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="lineBreak", type="String", enumeration="toFit,explicit", inherit="yes")]
+
+/**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paddingBottom
  *  
  *  @langversion 3.0
