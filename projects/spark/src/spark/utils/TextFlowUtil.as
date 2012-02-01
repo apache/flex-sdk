@@ -112,7 +112,7 @@ public class TextFlowUtil
 		 *  TLF itself has English-only messages,
 		 *  but higher layers like Flex can provide localized versions.
 		 */
-		GlobalSettings.getResourceStringFunction = TextUtil.getResourceString;
+		GlobalSettings.resourceStringFunction = TextUtil.getResourceString;
         
         var format:TextLayoutFormat;
         var config:Configuration;
