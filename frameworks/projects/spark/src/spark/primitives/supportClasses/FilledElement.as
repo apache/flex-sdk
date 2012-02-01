@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics
+package spark.primitives.supportClasses
 {
 
 import flash.display.Graphics;
@@ -31,7 +31,7 @@ import mx.graphics.IFill;
  */
 public class FilledElement extends StrokedElement
 {
-    include "../core/Version.as";
+    include "../../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
