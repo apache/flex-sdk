@@ -12,10 +12,33 @@ package spark.effects.supportClasses
 {
 import spark.effects.SimpleMotionPath;
     
+/**
+ *  The MoveInstance class implements the instance class
+ *  for the Move effect.
+ *  Flex creates an instance of this class when it plays a Move
+ *  effect; you do not create one yourself.
+ *
+ *  @see spark.effects.Move
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */  
 public class MoveInstance extends AnimateInstance
 {
     include "../../core/Version.as";
 
+    /**
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function MoveInstance(target:Object)
     {
         super(target);
@@ -39,8 +62,7 @@ public class MoveInstance extends AnimateInstance
     //----------------------------------
 
     /** 
-     *  Number of pixels by which to modify the y of the component.
-     *  Values may be negative.
+     *  @copy spark.effects.Move#yBy
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -54,7 +76,7 @@ public class MoveInstance extends AnimateInstance
     //----------------------------------
 
     /** 
-     *  Initial y. If omitted, Flex uses the current size.
+     *  @copy spark.effects.Move#yFrom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -69,7 +91,7 @@ public class MoveInstance extends AnimateInstance
     
     
     /** 
-     *  Final y, in pixels.
+     *  @copy spark.effects.Move#yTo
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -83,8 +105,7 @@ public class MoveInstance extends AnimateInstance
     //----------------------------------
     
     /** 
-     *  Number of pixels by which to modify the width of the component.
-     *  Values may be negative.
+     *  @copy spark.effects.Move#xBy
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -98,7 +119,7 @@ public class MoveInstance extends AnimateInstance
     //----------------------------------
 
     /** 
-     *  Initial x. If omitted, Flex uses the current size.
+     *  @copy spark.effects.Move#xFrom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -112,7 +133,7 @@ public class MoveInstance extends AnimateInstance
     //----------------------------------
 
     /** 
-     *  Final x, in pixels.
+     *  @copy spark.effects.Move#xTo
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
