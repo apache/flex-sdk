@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The default skin class for the scrub bar track part of a Spark VideoPlayer component. -->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Metadata>
+        [HostComponent("spark.components.Button")]
+    </fx:Metadata> 
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="down" />
+        <s:State name="over" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <!-- inset 7 pixels because that's thumbSize/2 -->
+    <s:Group left="7" right="7" top="0" bottom="0">
+    
+        <!-- fill -->
+        <s:Rect left="0" right="0" top="0" bottom="0">
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0xE8E8E8"/>
+                    <s:GradientEntry color="0xA2A2A2"/>
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
+        
+        <!-- inset shadow -->
+        <s:Rect left="1" right="1" top="1" height="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.12" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect left="1" top="2" bottom="1" width="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.12" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect right="1" top="2" bottom="1" width="1">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.12" />
+            </s:fill>
+        </s:Rect>
+        
+        <!-- border -->
+        <s:Rect left="0" right="0" top="0" bottom="0">
+            <s:stroke>
+                <s:SolidColorStroke color="0x636363" weight="1" />
+            </s:stroke>
+        </s:Rect> 
+        
+        <!-- outside highlight -->
+        <s:Rect left="-1" right="-1" top="-1" bottom="-1">
+            <s:stroke>
+                <s:LinearGradientStroke rotation="90">
+                    <s:GradientEntry color="0xFFFFFF" alpha="0.12"/>
+                    <s:GradientEntry color="0xFFFFFF" alpha="0.8"/>
+                </s:LinearGradientStroke>
+            </s:stroke>
+        </s:Rect>
+        
+    </s:Group>
+</s:SparkSkin>
