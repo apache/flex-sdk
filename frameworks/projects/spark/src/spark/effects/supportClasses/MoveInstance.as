@@ -8,26 +8,26 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects.effectClasses
+package spark.effects.supportClasses
 {
 import flash.events.Event;
 
-import mx.components.FxApplication;
+import spark.components.Application;
 import mx.core.Container;
 import mx.core.IUIComponent;
-import mx.effects.Animation;
-import mx.effects.AnimationProperty;
-import mx.events.AnimationEvent;
+import spark.effects.AnimationProperty;
+import spark.effects.animation.Animation;
+import spark.events.AnimationEvent;
 import mx.events.EffectEvent;
 import mx.events.TweenEvent;
-import mx.graphics.IGraphicElement;
+import spark.core.IGraphicElement;
 import mx.styles.IStyleClient;
     
-public class FxMoveInstance extends FxAnimateInstance
+public class MoveInstance extends AnimateInstance
 {
     include "../../core/Version.as";
 
-    public function FxMoveInstance(target:Object)
+    public function MoveInstance(target:Object)
     {
         super(target);
         affectsConstraints = true;
