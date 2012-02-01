@@ -24,15 +24,12 @@
         <State name="disabled" />
     </states>
 
-    <content>
-        <Rect id="track" top="0" bottom="0" left="0" right="0" minWidth="12" minHeight="12">
-            <stroke>
-                <SolidColorStroke color="0x808080" color.disabled="0xBFBFBF" />
-            </stroke>
-            <fill>
-                <SolidColor color="0xB7B7B7" color.disabled="0xDEDEDE" />
-            </fill>
-        </Rect>
-    </content>
-
+    <Rect id="track" top="0" bottom="0" left="0" right="0" minWidth="14" minHeight="14">
+        <stroke>
+            <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
+        </stroke>
+        <fill>
+            <SolidColor color="0xDEECFF" color.disabled="0xEFF6FF" />
+        </fill>
+    </Rect>
 </Skin>
