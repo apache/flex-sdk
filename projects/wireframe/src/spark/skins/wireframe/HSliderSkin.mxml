@@ -62,13 +62,13 @@ wireframe HSliderThumbSkin and HSliderTrackSkin classes, respectively.
             <s:DataRenderer minHeight="24" minWidth="40" y="-34">  
                 <s:Rect top="0" left="0" right="0" bottom="0">
                     <s:fill>
-                        <s:SolidColor color="0xDEECFF" />
+                        <s:SolidColor color="#EEEEEE" />
                     </s:fill>
                     <s:stroke>
-                        <s:SolidColorStroke color="0x5380D0" />
+                        <s:SolidColorStroke color="#707070" />
                     </s:stroke>
                     <s:filters>
-                        <s:DropShadowFilter angle="90" color="0x999999" distance="3"/>
+                        <s:DropShadowFilter angle="90" color="#999999" distance="3"/>
                     </s:filters>
                 </s:Rect>
                 <s:Label id="labelDisplay" text="{data}"
