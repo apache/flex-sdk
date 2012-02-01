@@ -22,6 +22,9 @@
              alpha.disabledStates="0.5">
 
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.RadioButton")]
     </fx:Metadata> 
     
@@ -68,6 +71,7 @@
     </s:Group>
 
     <!-- Label -->
+    <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
     <s:Label id="labelDisplay"
              textAlign="start"
              verticalAlign="middle"
