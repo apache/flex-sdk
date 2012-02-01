@@ -26,7 +26,7 @@ package spark.skins.spark
     import mx.events.FlexEvent;
     
     import spark.components.supportClasses.SkinnableComponent;
-    import spark.skins.SparkSkin;
+    import spark.components.supportClasses.Skin;
     
     use namespace mx_internal;
     
@@ -164,17 +164,25 @@ package spark.skins.spark
             if (target.focusObj)
                 target.focusObj.visible = false;
             
-            
-            var skin:SparkSkin = target.skin as SparkSkin;
+            var needUpdate:Boolean;
+            var skin:Skin = target.skin as Skin;
             if (skin)
-                skin.beginHighlightBitmapCapture();
+            {
+                needUpdate = skin.beginHighlightBitmapCapture();
+                if (needUpdate)
+                    skin.validateNow();
+            }
             
             m.tx = borderWeight;
             m.ty = borderWeight;
             bitmapData.draw(target as IBitmapDrawable, m);
             
             if (skin)
-                skin.endHighlightBitmapCapture();
+            {
+                needUpdate = skin.endHighlightBitmapCapture();
+                if (needUpdate)
+                    skin.validateNow();
+            }
             
             
             // Show the focus skin, if needed.
