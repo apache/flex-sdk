@@ -27,7 +27,7 @@ import flash.geom.Rectangle;
 import flash.net.URLRequest;
 import flash.system.LoaderContext;
 
-import mx.graphics.BitmapResizeMode;
+import mx.graphics.BitmapFillMode;
 
 import spark.primitives.supportClasses.GraphicElement; 
 
@@ -113,50 +113,50 @@ public class BitmapImage extends GraphicElement
     private var previousUnscaledHeight:Number;
     
     //----------------------------------
-    //  resizeMode
+    //  fillMode
     //----------------------------------
 
     /**
      *  @private
      */
-    protected var _resizeMode:String = BitmapResizeMode.SCALE;
+    protected var _fillMode:String = BitmapFillMode.SCALE;
     
-    [Inspectable(category="General", enumeration="noScale,repeat,scale", defaultValue="scale")]
+    [Inspectable(category="General", enumeration="clip,repeat,scale", defaultValue="scale")]
     
     /**
-     *  The resizeMode determines how the bitmap fills in the dimensions. If you set the value
+     *  The fillMode determines how the bitmap fills in the dimensions. If you set the value
      *  of this property in a tag, use the string (such as "repeat"). If you set the value of 
-     *  this property in ActionScript, use the constant (such as <code>BitmapResizeMode.NOSCALE</code>).
+     *  this property in ActionScript, use the constant (such as <code>BitmapFillMode.CLIP</code>).
      * 
-     *  When set to <code>BitmapResizeMode.NOSCALE</code> ("noScale"), the bitmap
+     *  When set to <code>BitmapFillMode.clip</code> ("clip"), the bitmap
      *  ends at the edge of the region.
      * 
-     *  When set to <code>BitmapResizeMode.REPEAT</code> ("repeat"), the bitmap 
+     *  When set to <code>BitmapFillMode.REPEAT</code> ("repeat"), the bitmap 
      *  repeats to fill the region.
      *
-     *  When set to <code>BitmapResizeMode.SCALE</code> ("scale"), the bitmap
+     *  When set to <code>BitmapFillMode.SCALE</code> ("scale"), the bitmap
      *  stretches to fill the region.
      * 
-     *  @default <code>BitmapResizeMode.SCALE</code>
+     *  @default <code>BitmapFillMode.SCALE</code>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get resizeMode():String 
+    public function get fillMode():String 
     {
-        return _resizeMode; 
+        return _fillMode; 
     }
     
     /**
      *  @private
      */
-    public function set resizeMode(value:String):void
+    public function set fillMode(value:String):void
     {
-        if (value != _resizeMode)
+        if (value != _fillMode)
         {
-            _resizeMode = value;
+            _fillMode = value;
             invalidateDisplayList();
         }
     }
@@ -366,16 +366,16 @@ public class BitmapImage extends GraphicElement
         var fillWidth:Number = unscaledWidth;
         var fillHeight:Number = unscaledHeight;
     
-        switch(_resizeMode)
+        switch(_fillMode)
         {
-            case BitmapResizeMode.REPEAT: 
+            case BitmapFillMode.REPEAT: 
                 if (_bitmapData)
                 {
                     repeatBitmap = true;
                 }    
             break;
 
-            case BitmapResizeMode.SCALE:
+            case BitmapFillMode.SCALE:
                 if (_bitmapData)
                 {
                     fillScaleX = unscaledWidth / _bitmapData.width;
@@ -383,7 +383,7 @@ public class BitmapImage extends GraphicElement
                 }
             break;
             
-            case BitmapResizeMode.NOSCALE:
+            case BitmapFillMode.CLIP:
                 if (_bitmapData)
                 {
                     fillWidth = Math.min(unscaledWidth, _bitmapData.width);
@@ -392,8 +392,8 @@ public class BitmapImage extends GraphicElement
             break;
         }
 
-        // If no scaleGrid is defined or if resizeMode != SCALE, just draw the entire rect
-        if (_resizeMode != BitmapResizeMode.SCALE ||
+        // If no scaleGrid is defined or if fillMode != SCALE, just draw the entire rect
+        if (_fillMode != BitmapFillMode.SCALE ||
             isNaN(_scaleGridTop) ||
             isNaN(_scaleGridBottom) ||
             isNaN(_scaleGridLeft) ||
