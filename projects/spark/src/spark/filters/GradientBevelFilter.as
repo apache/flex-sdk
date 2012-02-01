@@ -49,7 +49,7 @@ use namespace mx_internal;
  * turned off if the resulting image exceeds the maximum dimensions.</p>
  * 
  *  @mxml 
- *  <p>The <code>&lt;GradientBevelFilter&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:GradientBevelFilter&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds no tag attributes:</p>
  *
  *  <pre>
