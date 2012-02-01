@@ -675,13 +675,21 @@ public class TileLayout extends LayoutBase
         _tileWidthCached = _tileHeightCached = NaN;
         invalidateTargetSizeAndDisplayList();
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Variables
     //
     //--------------------------------------------------------------------------
 
+    /**
+     * @private
+     */
+    override public function clearCachedVirtualLayoutState():void
+    {
+        _tileWidthCached = _tileHeightCached = NaN;
+    }
+    
     /**
      *  @private
      *  storage for old property values, in order to dispatch change events.
