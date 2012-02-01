@@ -12,7 +12,12 @@ in accordance with the terms of the license agreement accompanying it.
 
 <!--- The default skin class for a Spark Form container.  
 
+This skin defines a contentGroup for the Form container with a 
+FormLayout as its layout object. The FormLayout is a VerticalLayout
+that has additional logic to align the columns of FormItems.
+
 @see spark.components.Form
+@see spark.layouts.FormLayout
 
 @langversion 3.0
 @playerversion Flash 10
@@ -71,9 +76,9 @@ in accordance with the terms of the license agreement accompanying it.
             <s:SolidColor id="bgFill" color="#FFFFFF"/>
         </s:fill>
     </s:Rect>
-    <!--- @copy spark.components.Form#contentGroup -->
-        <!-- We set Form's showErrorTip and showErrorSkin to false, so we set them back 
-             to true for the Form's elements -->
+    <!--- @copy spark.components.SkinnableContainer#contentGroup -->
+    <!-- We set Form's showErrorTip and showErrorSkin to false, so we set them back 
+         to true for the Form's elements -->
     <s:Group id="contentGroup" showErrorSkin="true" showErrorTip="true" 
              left="10" right="10" top="10" bottom="10">
         <s:layout>
