@@ -62,6 +62,7 @@
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
+				<include name="mx/mx.swc"/>
 				<include name="spark.swc"/>
 				<include name="airspark.swc"/>
                 <include name="textLayout.swc"/>
@@ -101,6 +102,7 @@
 			</external-library-path>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
 				<include name="framework.swc" />
+				<include name="mx/mx.swc"/>
 				<include name="spark.swc" />
 			</external-library-path>
 			<jvmarg line="${asdoc.jvm.args}"/>
