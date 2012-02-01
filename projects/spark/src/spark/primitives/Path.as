@@ -48,6 +48,20 @@ public class Path extends FilledElement
     
     //--------------------------------------------------------------------------
     //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Vars holding the last scale set by setActualSize in order to
+     *  resize the path.  Used to detect when setActualSize should
+     *  call invalidateDisplayList(). 
+     */    
+    private var lastActualScaleX:Number = 0;
+    private var lastActualScaleY:Number = 0;
+    
+    //--------------------------------------------------------------------------
+    //
     //  Properties
     //
     //--------------------------------------------------------------------------
@@ -342,37 +356,55 @@ public class Path extends FilledElement
         return _winding; 
     }
 
+    //----------------------------------
+    //  bounds
+    //----------------------------------
+
+    private var _bounds:Rectangle;
+
+    private function getBounds():Rectangle
+    {
+        if (_bounds)
+            return _bounds;
+
+        var s:Shape = new Shape();
+        
+        // Draw element at (0,0):
+        drawElement(s.graphics);
+
+        // Get bounds
+        _bounds = s.getRect(s);
+
+        return _bounds;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-    
-    private var _bounds:Rectangle;
-    
-    override public function get bounds():Rectangle
+
+	/**
+	 *  @inheritDoc
+	 */
+    override protected function skipMeasure():Boolean
     {
-        if (_bounds == null)
-        {
-            var s:Shape = new Shape();
-            
-            // Draw element at (0,0):
-            drawElement(s.graphics);
-
-            // Get bounds
-            _bounds = s.getRect(s);
-        }
-
-        var result:Rectangle = _bounds.clone();
-        if (!isNaN(explicitWidth))
-            result.width = explicitWidth;
-        
-        if (!isNaN(explicitHeight))
-            result.height = explicitHeight; 
-
-        return result;
+        // Don't measure when bounds are up to date.
+        return _bounds != null;
     }
-    
+
+	/**
+	 *  @inheritDoc
+	 */
+    override protected function measure():void
+    {
+        var bounds:Rectangle = getBounds();
+        measuredWidth = bounds.width;
+        measuredHeight = bounds.height;
+        measuredX = bounds.left;
+        measuredY = bounds.top;
+    }
+ 
     //----------------------------------
     //  scaleX
     //----------------------------------
@@ -447,7 +479,8 @@ public class Path extends FilledElement
         boundsChanged();
     }
     
-    private function boundsChanged(): void {
+    private function boundsChanged(): void
+    {
         // Clear our cached measurement and data values
         clearBounds();
         _data = null;
@@ -510,8 +543,6 @@ public class Path extends FilledElement
      * 
      *  @return Returns the TBounds of the new item size.
      */
-    private var oldScaleX:Number = 0;
-    private var oldScaleY:Number = 0;
     override public function setActualSize(width:Number = Number.NaN, height:Number = Number.NaN):Point
     {
         // Reset scale
@@ -526,12 +557,19 @@ public class Path extends FilledElement
 
         var w:Number = width;
         var h:Number = height;
-        var bw:Number = _bounds.width;
-        var bh:Number = _bounds.height;
+        var bounds:Rectangle = getBounds();
+        var bw:Number = bounds.width;
+        var bh:Number = bounds.height;
 
         // Actual size is always the bounds size
         _width = bw;
         _height = bh;
+
+        // Make sure we don't divide by zero while calculating the scale
+        if (bw == 0)
+            bw = 1;
+        if (bh == 0)
+            bh = 1;
 
         var stroke:IStroke = getStroke();
         if (!stroke)
@@ -617,10 +655,10 @@ public class Path extends FilledElement
 	        }
         }
 
-        if (_scaleX != oldScaleX || _scaleY != oldScaleY)
+        if (_scaleX != lastActualScaleX || _scaleY != lastActualScaleY)
         {
-            oldScaleX = _scaleX;
-            oldScaleY = _scaleY;
+            lastActualScaleX = _scaleX;
+            lastActualScaleY = _scaleY;
     
             invalidateDisplayList();
         }
