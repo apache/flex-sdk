@@ -24,25 +24,22 @@
     
 	<fx:Declarations>
 		<fx:Component id="firstButton">
-			<s:ButtonBarButton skinClass="spark.skins.default.ButtonBarFirstButtonSkin" 
-							 width="100%" height="100%" />
+			<s:ButtonBarButton skinClass="spark.skins.default.ButtonBarFirstButtonSkin"	/>
 		</fx:Component>
 
 		<fx:Component id="middleButton" >
-			<s:ButtonBarButton skinClass="spark.skins.default.ButtonBarMiddleButtonSkin" 
-							 width="100%" height="100%" />
+			<s:ButtonBarButton skinClass="spark.skins.default.ButtonBarMiddleButtonSkin" />
 		</fx:Component>
 
 		<fx:Component id="lastButton" >
-			<s:ButtonBarButton skinClass="spark.skins.default.ButtonBarLastButtonSkin" 
-							 width="100%" height="100%"  />
+			<s:ButtonBarButton skinClass="spark.skins.default.ButtonBarLastButtonSkin" />
 		</fx:Component>
 
 	</fx:Declarations>
         
 	<s:DataGroup id="dataGroup" width="100%" height="100%">
 	    <s:layout>
-	    	<s:HorizontalLayout gap="-1" />
+	    	<s:ButtonBarHorizontalLayout gap="-1"/>
 	    </s:layout>
     </s:DataGroup>
 
