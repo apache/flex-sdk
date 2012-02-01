@@ -185,19 +185,13 @@
                             <s:Rect width="8" height="1" />
                             
                             <!--- @copy spark.components.VideoPlayer#currentTimeDisplay -->
-                            <!-- explicitly set color to undefined so that when coming back to the 
-                                 normal states we will inherit color from our parents -->
-                            <s:Label id="currentTimeDisplay" color.fullScreenStates="0xFFFFFF" color.normalStates="{undefined}" />
+                            <s:Label id="currentTimeDisplay" color.fullScreenStates="0xFFFFFF" />
                             
                             <!--- @private -->
-                            <!-- explicitly set color to undefined so that when coming back to the 
-                                 normal states we will inherit color from our parents -->
-                            <s:Label id="timeDivider" text="/" color.fullScreenStates="0xFFFFFF" color.normalStates="{undefined}" />
+                            <s:Label id="timeDivider" text="/" color.fullScreenStates="0xFFFFFF" />
                             
                             <!--- @copy spark.components.VideoPlayer#durationDisplay -->
-                            <!-- explicitly set color to undefined so that when coming back to the 
-                                 normal states we will inherit color from our parents -->
-                            <s:Label id="durationDisplay" color.fullScreenStates="0xFFFFFF"  color.normalStates="{undefined}" />
+                            <s:Label id="durationDisplay" color.fullScreenStates="0xFFFFFF" />
                             
                             <!-- spacer -->
                             <s:Rect width="8" height="1" />
