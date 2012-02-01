@@ -171,7 +171,8 @@ public class VerticalLayout extends LayoutBase
 
     [Inspectable(category="General")]
 
-    /** Horizontal alignment of children in the container.
+    /** 
+     *  Horizontal alignment of children in the container.
      *  Possible values are <code>"left"</code>, <code>"center"</code>,
      *  <code>"right"</code>, <code>"justify"</code>, 
      *  and <code>"contentJustify"</code>.
@@ -859,17 +860,17 @@ public class VerticalLayout extends LayoutBase
         if (!layoutTarget)
             return;
         
-        // TODO EGeorgie: use vector
         var layoutItem:ILayoutItem;
         var count:uint = layoutTarget.numLayoutItems;
         
-        // if horizontalAlign is "contentJustify", we need to figure out restrictedWidth.
-        // contentWidth gets sent in to distributeHeight(), but is only used if 
-        // horizontalAlign is "justify" (contentWidth is unscaledWidth) or 
-        // horizontalAlign is "contentJustify" (contentWidth is the maximum width
-        // of all its children and a minimum of unscaledWidth)
-        var contentWidth:Number = unscaledWidth;
+        // If horizontalAlign is left, we don't need to figure out the contentWidth
+        // Otherwise the contentWidth is used to position the item and even size 
+        // the item if it's "contentJustify" or "justify".
+        var contentWidth:Number = unscaledWidth;        
         
+        // TODO: in the center or right case, we end up calculating percentWidth 
+        // twice.  Once here for the contentWidth and once in distributeHeight
+        // to size that particular element.
         if (horizontalAlign != HorizontalAlign.LEFT)
         {
             for (var i:int = 0; i < count; i++)
@@ -888,7 +889,17 @@ public class VerticalLayout extends LayoutBase
             }
         }
 
-        distributeHeight(unscaledWidth, unscaledHeight, contentWidth);        
+        // If we're justifying the items, then all widths should be set to
+        // unscaledWidth.  If we're content justifying the items, then 
+        // all widths should be set to the contentWidth.
+        // Otherwise restrictedWidth is ignored in distributedHeight.
+        var restrictedWidth:Number;
+        if (horizontalAlign == HorizontalAlign.JUSTIFY)
+            restrictedWidth = unscaledWidth;
+        else if (horizontalAlign == HorizontalAlign.CONTENT_JUSTIFY)
+            restrictedWidth = contentWidth;
+
+        distributeHeight(unscaledWidth, unscaledHeight, restrictedWidth);
         
         // default to left (0)
         var hAlign:Number = 0;
