@@ -24,7 +24,7 @@
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
-        static private const symbols:Array = ["arrowShadow"];
+        static private const symbols:Array = ["arrowFill1", "arrowFill2"];
         override public function get symbolItems():Array {return symbols};
     </Script>
     
@@ -77,12 +77,11 @@
     <Path horizontalCenter="-1" verticalCenter="0" id="arrow"
           data="M 0.95 3.5 L 7.95 0.0 L 7.95 7.0 L 0.95 3.5">
         <fill>
-            <SolidColor color="0" />
+        	<RadialGradient rotation="90" focalPointRatio="1">	
+	            <GradientEntry id="arrowFill1" color="0" alpha="0.65" />
+	            <GradientEntry id="arrowFill2" color="0" alpha="0.8" />
+        	</RadialGradient>
         </fill>
-        <filters>
-            <DropShadowFilter id="arrowShadow" inner="true" knockout="true" angle="90" alpha="0.75" 
-                              color="0" distance="2" strength="1.8" blurX="7" blurY="7" />
-        </filters>
     </Path>            
  
 </SparkSkin>
