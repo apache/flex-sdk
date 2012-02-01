@@ -20,7 +20,7 @@ Spinner component are defined by the SpinnerDecrementButtonSkin and SpinnerIncre
       @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-    xmlns:fb="http://ns.adobe.com/fb/2009" alpha.disabled="0.5" minHeight="23" minWidth="12">
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabled="0.5" minHeight="23" minWidth="12">
 
     <fx:Metadata>
     <![CDATA[ 
@@ -31,7 +31,7 @@ Spinner component are defined by the SpinnerDecrementButtonSkin and SpinnerIncre
     ]]>
     </fx:Metadata> 
     
-    <fx:Script fb:stylingSupport="true">
+    <fx:Script fb:purpose="styling">
         /* Define the skin elements that should not be colorized. 
            For spinner, the skin itself is colorized but the individual parts are not. */
         static private const exclusions:Array = ["decrementButton", "incrementButton"];
