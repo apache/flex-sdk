@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--
+
+    Spark DMV Components
+
+-->
+<componentPackage>	
+
+	<!-- FTE text for MX components -->
+	<component id="FTEAdvancedDataGridItemRenderer" class="mx.controls.advancedDataGridClasses.FTEAdvancedDataGridItemRenderer"/>
+
+	<!-- MXItemRenderer -->
+      <component id="MXAdvancedDataGridItemRenderer" class="mx.controls.advancedDataGridClasses.MXAdvancedDataGridItemRenderer"/>
+
+</componentPackage>
