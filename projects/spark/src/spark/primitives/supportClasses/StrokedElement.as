@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.graphics
+package mx.graphics
 {
 import flash.display.Graphics;
 import flash.display.Shape;
@@ -18,7 +18,7 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.geom.Rectangle;
 
-import flex.graphics.graphicsClasses.GraphicElement;
+import mx.graphics.graphicsClasses.GraphicElement;
 
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
