@@ -19,6 +19,7 @@ import flash.events.EventDispatcher;
 import flash.ui.Keyboard;
 
 import mx.components.baseClasses.GroupBase;
+import mx.core.ScrollUnit;
 
 import mx.containers.utilityClasses.Flex;
 import mx.events.PropertyChangeEvent;
@@ -644,7 +645,7 @@ public class HorizontalLayout extends LayoutBase
      *  @see lastIndexInView
      *  @see horizontalScrollPosition
      */
-    override public function horizontalScrollPositionDelta(unit:uint):Number
+    override public function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
     {
         var g:GroupBase = target;
         if (!g)
@@ -661,18 +662,18 @@ public class HorizontalLayout extends LayoutBase
         var itemR:Rectangle = null;
         switch(unit)
         {
-            case Keyboard.LEFT:
-            case Keyboard.PAGE_UP:
+            case ScrollUnit.LEFT:
+            case ScrollUnit.PAGE_LEFT:
                 itemR = findLayoutItemBounds(g, firstIndexInView, -1, scrollR);
                 break;
 
-            case Keyboard.RIGHT:
-            case Keyboard.PAGE_DOWN:
+            case ScrollUnit.RIGHT:
+            case ScrollUnit.PAGE_RIGHT:
                 itemR = findLayoutItemBounds(g, lastIndexInView, +1, scrollR);
                 break;
 
             default:
-                return super.horizontalScrollPositionDelta(unit);
+                return super.getHorizontalScrollPositionDelta(unit);
         }
         
         if (!itemR)
@@ -681,22 +682,22 @@ public class HorizontalLayout extends LayoutBase
         var delta:Number = 0;     
         switch (unit)
         {
-            case Keyboard.LEFT:
+            case ScrollUnit.LEFT:
                 delta = Math.max(-scrollR.width, itemR.left - scrollR.left);
                 break;
                 
-            case Keyboard.RIGHT:
+            case ScrollUnit.RIGHT:
                 delta = Math.min(scrollR.width, itemR.right - scrollR.right);
                 break;
                 
-            case Keyboard.PAGE_UP:
+            case ScrollUnit.PAGE_LEFT:
                 if ((itemR.left < scrollR.left) && (itemR.right >= scrollR.right))
                     delta = Math.max(-scrollR.width, itemR.left - scrollR.left);
                 else
                     delta = itemR.right - scrollR.right;
                 break;
 
-            case Keyboard.PAGE_DOWN:
+            case ScrollUnit.PAGE_RIGHT:
                 if ((itemR.left < scrollR.left) && (itemR.right >= scrollR.right))
                     delta = Math.min(scrollR.width, itemR.right - scrollR.right);
                 else
@@ -902,7 +903,6 @@ public class HorizontalLayout extends LayoutBase
         setColumnCount(visibleColumns);  
         setIndexInView(firstColInView, lastColInView);
         layoutTarget.setContentSize(maxX, maxY);      	      
-        updateScrollRect(unscaledWidth, unscaledHeight);
     }
 
 
