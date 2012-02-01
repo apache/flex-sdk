@@ -103,6 +103,7 @@ an Alert. It is defined by the defaultButton property on a container.
     </s:states>
     
     <!-- layer 1: shadow -->
+    <!--- @private -->
     <s:Rect id="shadow" left="-1" right="-1" top="-1" bottom="-1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="90">
@@ -119,6 +120,7 @@ an Alert. It is defined by the defaultButton property on a container.
     </s:Rect>
     
     <!-- layer 2: fill -->
+    <!--- @private -->
     <s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="90">
@@ -135,6 +137,7 @@ an Alert. It is defined by the defaultButton property on a container.
     </s:Rect>
     
     <!-- layer 3: fill lowlight -->
+    <!--- @private -->
     <s:Rect id="lowlight" left="1" right="1" top="1" bottom="1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="270">
@@ -146,6 +149,7 @@ an Alert. It is defined by the defaultButton property on a container.
     </s:Rect>
     
     <!-- layer 4: fill highlight -->
+    <!--- @private -->
     <s:Rect id="highlight" left="1" right="1" top="1" bottom="1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="90">
@@ -167,6 +171,7 @@ an Alert. It is defined by the defaultButton property on a container.
     </s:Rect>
     
     <!-- layer 5: highlight stroke (all states except down) -->
+    <!--- @private -->
     <s:Rect id="highlightStroke" left="1" right="1" top="1" bottom="1" radiusX="2" excludeFrom="down">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
@@ -177,6 +182,7 @@ an Alert. It is defined by the defaultButton property on a container.
     </s:Rect>
     
     <!-- layer 6: highlight stroke (down state only) -->
+    <!--- @private -->
     <s:Rect id="hldownstroke1" left="1" right="1" top="1" bottom="1" radiusX="2" includeIn="down">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
@@ -188,6 +194,7 @@ an Alert. It is defined by the defaultButton property on a container.
             </s:LinearGradientStroke>
         </s:stroke>
     </s:Rect>
+    <!--- @private -->
     <s:Rect id="hldownstroke2" left="2" right="2" top="2" bottom="2" radiusX="2" includeIn="down">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
@@ -198,6 +205,7 @@ an Alert. It is defined by the defaultButton property on a container.
     </s:Rect>
     
     <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    <!--- @private -->
     <s:Rect id="border" left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
@@ -212,9 +220,7 @@ an Alert. It is defined by the defaultButton property on a container.
     </s:Rect>
     
     <!-- layer 8: text -->
-    <!--- 
-    @copy spark.components.supportClasses.ButtonBase#labelDisplay
-    -->
+    <!---  @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
     <s:Label id="labelDisplay"
              textAlign="center"
              verticalAlign="middle"
