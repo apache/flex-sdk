@@ -154,10 +154,15 @@
     
     <fx:Script>
         <![CDATA[
-        /**
-         * @inheritDoc
-         */
-        override public function get focusSkinExclusions():Array { return [ textDisplay ] };            
+            /** 
+             * @private 
+             */     
+            private static const focusExclusions:Array = ["textDisplay"];
+
+            /**
+             * @inheritDoc
+             */
+            override public function get focusSkinExclusions():Array { return focusExclusions;};
         ]]>
     </fx:Script>
     
