@@ -500,25 +500,14 @@ public class Path extends FilledElement
 
     override protected function computeMatrix(actualMatrix:Boolean):Matrix
     {
-    	var tmpScaleX:Number;
-    	var tmpScaleY:Number;
+        var tmpScaleX:Number = actualMatrix ? _scaleX : _userScaleX;
+        var tmpScaleY:Number = actualMatrix ? _scaleY : _userScaleY;
 
-        if (!actualMatrix)
-        {
-	        tmpScaleX = _scaleX;
-	        tmpScaleY = _scaleY;
-	    	_scaleX = _userScaleX;
-	    	_scaleY = _userScaleY;
-        }
+        if (tmpScaleX == 1 && tmpScaleY == 1 && rotation == 0)
+            return null;
 
-    	var m:Matrix = super.computeMatrix(actualMatrix);
-
-        if (!actualMatrix)
-        {
-	    	_scaleX = tmpScaleX;
-	    	_scaleY = tmpScaleY;
-        }
-    	return m;
+        return TransformUtil.composeMatrix(0, 0, tmpScaleX, tmpScaleY,
+                                           rotation, transformX, transformY);
     }
 
  	//----------------------------------
