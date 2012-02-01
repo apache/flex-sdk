@@ -38,11 +38,11 @@
     
     <!--- The default skin class is SpinnerIncrementButtonSkin. 
           @copy spark.components.Spinner#incrementButton -->
-    <s:Button id="incrementButton" left="0" right="0" top="0" height="50%"  
+    <s:Button id="incrementButton" left="0" right="0" top="0" height="50%" tabEnabled="false"  
             skinClass="spark.skins.wireframe.SpinnerIncrementButtonSkin" />
     <!--- The default skin class is SpinnerDecrementButtonSkin. 
           @copy spark.components.Spinner#decrementButton -->
-    <s:Button id="decrementButton" left="0" right="0" bottom="0" height="50%" 
+    <s:Button id="decrementButton" left="0" right="0" bottom="0" height="50%" tabEnabled="false" 
             skinClass="spark.skins.wireframe.SpinnerDecrementButtonSkin" />
 
 </s:Skin>
