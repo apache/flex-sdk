@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+        xmlns:mx="library://ns.adobe.com/flex/mx">
+    
+    <!--TODO Add states-->
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="required" />	
+        <s:State name="disabledAndRequired" />	
+        <s:State name="disabled" />	
+    </s:states>
+    
+    <fx:Style>
+        @namespace s "library://ns.adobe.com/flex/spark";
+        @namespace mx "library://ns.adobe.com/flex/mx";
+        
+        .labelStyle
+        {
+            fontWeight : "bold";
+        }
+        
+        .helpTextStyle
+        {
+            fontStyle : "italic";
+            color : #6c6c6c;
+        }
+    </fx:Style>
+    
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:fill>
+            <s:SolidColor color="0x449922" alpha="0" alpha.required=".3"/>
+        </s:fill>
+    </s:Rect>
+    
+    <s:Group left="5" top="2" bottom="2" right="5">
+        
+    
+    <mx:Canvas id="canvasLayout">
+                
+        <mx:constraintColumns>
+            <mx:ConstraintColumn id="numCol" />
+            <mx:ConstraintColumn id="labelCol" />
+            <mx:ConstraintColumn id="indicatorCol" width="16"/>
+            <mx:ConstraintColumn id="contentCol"/>
+            <mx:ConstraintColumn id="helpCol" width="160"/>
+        </mx:constraintColumns>
+        
+        <mx:constraintRows>
+            <mx:ConstraintRow id="row1" />
+        </mx:constraintRows>    
+            
+        <s:Label id="numberLabelElement" right="numCol:3" baseline="row1:24" />
+        <s:Label id="labelElement" left="labelCol:2" right="labelCol:2" baseline="row1:24" styleName="labelStyle"/>
+        <mx:Image id="indicatorElement" source="@Embed(source='Assets.swf',symbol='mx.containers.FormItem.Required')" 
+                  horizontalCenter="indicatorCol:0" baseline="row1:24" visible="false" visible.required="true"/>
+        <s:Group id="contentGroup" left="contentCol:3" right="contentCol:3" baseline="row1:20">
+            <s:layout>
+                <s:VerticalLayout/>
+            </s:layout>
+        </s:Group>
+            
+        <s:RichText id="helpTextElement" styleName="helpTextStyle" 
+                    left="helpCol:5" right="helpCol:3" height="100%" baseline="row1:24" maxDisplayedLines="-1"/>
+        
+    </mx:Canvas>
+    </s:Group>
+</s:Skin>
