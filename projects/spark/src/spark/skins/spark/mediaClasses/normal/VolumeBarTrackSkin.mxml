@@ -31,7 +31,7 @@
          */
         override protected function initializationComplete():void
         {
-            useBaseColor = true;
+            useChromeColor = true;
             super.initializationComplete();
         }
     </fx:Script>
