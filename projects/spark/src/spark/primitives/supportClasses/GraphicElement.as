@@ -2600,7 +2600,7 @@ public class GraphicElement extends OnDemandEventDispatcher
 
             if (blendModeChanged)
             {
-                blendModeChanged = true;
+                blendModeChanged = false;
                 displayObject.blendMode = _blendMode;
             }
 
