@@ -13,7 +13,7 @@
 
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
 	  minWidth="35" minHeight="15"
-	  alpha.disabled="0.5">
+	  alpha.disabled="0.5" alpha.inactive="0.5">
 
     <fx:Metadata>
     	[HostComponent("spark.components.HScrollBar")]
@@ -22,14 +22,15 @@
     <s:states>
     	<s:State name="normal" />
     	<s:State name="disabled" />
+		<s:State name="inactive" />
     </s:states>
     
-    <s:Button id="track" left="17" right="17" width="54"
+    <s:Button id="track" left="17" right="17" width="51" 
             skinClass="spark.skins.wireframe.HScrollBarTrackSkin" />
-    <s:Button id="decrementButton" left="0"
+    <s:Button id="decrementButton" left="0" enabled.inactive="false"
             skinClass="spark.skins.wireframe.ScrollBarLeftButtonSkin" />
-    <s:Button id="incrementButton" right="0"
+    <s:Button id="incrementButton" right="0" enabled.inactive="false"
             skinClass="spark.skins.wireframe.ScrollBarRightButtonSkin" />
-    <s:Button id="thumb" skinClass="spark.skins.wireframe.HScrollBarThumbSkin" />
+    <s:Button id="thumb" skinClass="spark.skins.wireframe.HScrollBarThumbSkin" visible.inactive="false" />
 
 </s:Skin>
