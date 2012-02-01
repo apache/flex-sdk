@@ -62,9 +62,6 @@ public class LayoutElementHelper
             return NaN;
         
         var result:Array = parseConstraintExp(str);
-        if (!result || result.length < 1)
-            return NaN;
-
         return result[0];
     }
 
@@ -72,19 +69,24 @@ public class LayoutElementHelper
      *  @private
      *  Parses a constraint expression, like left="col1:10" 
      *  so that an array is returned where the first value is
-     *  the boundary (ie: "col1") and the second value is 
-     *  the offset (ie: 10)
+     *  the offset (ie: 10) and the second value is 
+     *  the boundary (ie: "col1")
      */
-    private static function parseConstraintExp(val:String):Array
+    public static function parseConstraintExp(val:Object):Array
     {
+        if (val is Number)
+            return [Number(val), null];
+        
         if (!val)
-            return null;
+            return [NaN, null];
         // Replace colons with spaces
-        var temp:String = val.replace(/:/g, " ");
-
+        var temp:String = String(val).replace(/:/g, " ");
+        
         // Split the string into an array 
         var args:Array = temp.split(/\s+/);
-        return args;
+        
+        // Return [offset, boundary]
+        return [args[1], args[0]];
     }
 }
 
