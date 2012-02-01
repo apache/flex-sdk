@@ -11,7 +11,8 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<Skin xmlns="http://ns.adobe.com/mxml/2009"
+	  alpha.disabledStates="0.5">
 
     <Metadata>
     	[HostComponent("mx.components.FxRadioButton")]
@@ -22,36 +23,86 @@
         <State name="over" stateGroups="overStates" />
         <State name="down" stateGroups="downStates" />
         <State name="disabled" stateGroups="disabledStates" />
-        <State name="upAndSelected" />
-        <State name="overAndSelected" stateGroups="overStates" />
-        <State name="downAndSelected" stateGroups="downStates" />
-        <State name="disabledAndSelected" stateGroups="disabledStates" />
+        <State name="upAndSelected" stateGroups="selectedStates" />
+        <State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <State name="disabledAndSelected" stateGroups="disabledStates, selectedStates" />
     </states>
-
-    <Group top="1.5">
-        <!-- background -->
-        <Ellipse width="12" height="12">
-            <stroke>            
-                <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
-            </stroke>
-            <fill>
-                <SolidColor color="0xFFFFFF" color.overStates="0xEBF4FF" 
-                          color.downStates="0xDEEBFF" />
-            </fill>
-        </Ellipse>
-        <!-- center -->
-        <Ellipse left="3.5" top="3.5" width="5" height="5" 
-                    includeIn="upAndSelected, overAndSelected, downAndSelected, disabledAndSelected">
-            <fill>
-                <SolidColor color="0x3D5D92" color.disabledAndSelected="0x9DADC9" />
-            </fill>
-        </Ellipse>
+    
+    <Group verticalCenter="0" width="13" height="13" clipContent="false">
+	    <!-- drop shadow -->
+	    <Ellipse left="-1" top="-1" right="-1" bottom="-1">
+	    	<stroke>
+	    		<LinearGradientStroke rotation="90">
+                    <GradientEntry color="0x000000" 
+                                   color.downStates="0xFFFFFF"
+                                   alpha="0.011"
+                                   alpha.downStates="0" />
+                    <GradientEntry color="0x000000" 
+                                   color.downStates="0xFFFFFF" 
+                                   alpha="0.121"
+                                   alpha.downStates="0.57" />
+	    		</LinearGradientStroke>
+	    	</stroke>
+	    </Ellipse>
+	    
+	    <!-- border -->
+	    <Ellipse left="0" top="0" right="0" bottom="0">
+			<stroke>
+				<LinearGradientStroke rotation="90">
+					<GradientEntry color="0x000000" alpha="0.70" />
+					<GradientEntry color="0x000000" alpha="0.80" />
+				</LinearGradientStroke>
+			</stroke>
+		</Ellipse>
+	
+		<!-- fill -->
+		<Ellipse left="1" top="1" right="1" bottom="1">
+			<fill>
+				<LinearGradient rotation="90">
+					<GradientEntry color="0xFFFFFF" 
+								   color.overStates="0xBBBDBD" 
+								   color.downStates="0xAAAAAA" 
+								   alpha="0.85" />
+					<GradientEntry color="0xD8D8D8" 
+								   color.overStates="0x9FA0A1" 
+								   color.downStates="0x929496" 
+								   alpha="0.85" />
+				</LinearGradient>
+			</fill>
+		</Ellipse>
+		
+		<!-- fill highlight -->
+		<Path data="M 1 6 Q 2 2 6 1 Q 11 2 12 6 h -9">
+			<fill>
+				<SolidColor color="0xFFFFFF" alpha="0.33" />
+			</fill>
+		</Path>
+		
+		<!-- layer 6: highlight stroke (all states except down) -->
+		<Ellipse left="1" right="1" top="1" bottom="1">
+			<stroke>
+				<LinearGradientStroke rotation="90">
+					<GradientEntry color="0xFFFFFF" color.downStates="0x939393" alpha.overStates="0.22" />
+					<GradientEntry color="0xD8D8D8" color.downStates="0xB1B1B1" alpha.overStates="0.22" />
+				</LinearGradientStroke>
+			</stroke>
+		</Ellipse>
+		<Rect left="5" top="1" right="5" height="1">
+			<fill>
+				<SolidColor color="0xFFFFFF" 
+					        color.downStates="0x939393"
+					        alpha.overStates="0.22" />
+			</fill>
+		</Rect>
+		
+	    <!-- dot -->
+	    <BitmapGraphic source="@Embed('assets/RadioDot.png')" left="4" top="4"
+	                   includeIn="selectedStates" />
     </Group>
 
     <!-- Label -->
-    <TextBox id="labelField"
-             fontFamily="Arial" fontSize="12"
-             color="0x2B4381" color.disabled="0x95A1C0"
-             left="19" top="3" />
+    <TextBox text="{hostComponent.label}"
+             left="18" top="3" bottom="3" verticalCenter="2" />
 
 </Skin>
