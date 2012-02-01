@@ -447,6 +447,8 @@ public class BitmapImage extends GraphicElement
         var fillScaleY:Number = 1;
         var roundedDrawX:Number = Math.round(drawX);
         var roundedDrawY:Number = Math.round(drawY);
+        var fillWidth:Number = unscaledWidth;
+        var fillHeight:Number = unscaledHeight;
     
         switch(_resizeMode)
         {
@@ -464,6 +466,14 @@ public class BitmapImage extends GraphicElement
                     fillScaleY = unscaledHeight / _bitmapData.height;
                 }
             break;
+            
+            case _NORMAL_UINT:
+                if (_bitmapData)
+                {
+                    fillWidth = Math.min(unscaledWidth, _bitmapData.width);
+                    fillHeight = Math.min(unscaledHeight, _bitmapData.height);
+                }
+            break;
         }
 
         // If no scaleGrid is defined or if resizeMode != SCALE, just draw the entire rect
@@ -479,7 +489,7 @@ public class BitmapImage extends GraphicElement
             matrix.scale(fillScaleX, fillScaleY);
             matrix.translate(roundedDrawX, roundedDrawY);
             g.beginBitmapFill(_bitmapData, matrix, repeatBitmap, smooth);
-            g.drawRect(roundedDrawX, roundedDrawY, unscaledWidth, unscaledHeight);
+            g.drawRect(roundedDrawX, roundedDrawY, fillWidth, fillHeight);
             g.endFill();
         }
         else
