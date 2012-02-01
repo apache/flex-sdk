@@ -44,7 +44,7 @@
     -->
     <s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0"  >
         <s:fill>
-            <s:SolidColor color="{hostComponent.backgroundColor as uint}" />
+            <s:SolidColor color="{getStyle('backgroundColor')}" />
         </s:fill>
     </s:Rect>
         
