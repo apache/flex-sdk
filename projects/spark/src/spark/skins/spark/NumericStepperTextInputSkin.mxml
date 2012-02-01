@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2009 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
+	  alpha.disabled="0.5">
+
+    <Metadata>
+    	[HostComponent("mx.components.FxTextInput")]
+    </Metadata> 
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. */
+        static private const exclusions:Array = ["background", "textView"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
+        static private const contentFill:Array = ["bgFill"];
+        override public function get contentItems():Array {return contentFill};
+    </Script>
+    
+    <states>
+        <State name="normal"/>
+        <State name="disabled"/>
+    </states>
+    
+    <!-- border --> 
+	<Rect left="0" right="0" top="0" bottom="0">
+        <stroke>            
+            <LinearGradientStroke rotation="90" weight="1">
+            	<GradientEntry color="0x000000" alpha="0.5525" />
+            	<GradientEntry color="0x000000" alpha="0.6375" />
+            </LinearGradientStroke>
+        </stroke>
+    </Rect>
+
+    <!-- fill -->
+    <Rect id="background" left="1" right="1" top="1" bottom="1">
+        <fill>
+            <SolidColor id="bgFill" color="0xFFFFFF" />
+        </fill>
+    </Rect>
+    
+	<!-- shadow -->
+	<Rect left="1" top="1" right="1" height="1">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.12" />
+		</fill>
+	</Rect>
+	
+	<!-- text -->
+    <TextView id="textView"
+              left="1" right="1" top="1" bottom="1" 
+			  paddingLeft="3" paddingTop="5"
+              paddingRight="6" paddingBottom="3"/>
+
+</SparkSkin>
