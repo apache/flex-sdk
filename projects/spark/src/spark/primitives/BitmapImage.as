@@ -101,6 +101,7 @@ public class BitmapImage extends GraphicElement
     private var _scaleGridLeft:Number;
     private var _scaleGridRight:Number;
     private var _scaleGridTop:Number;
+    private var bitmapDataCreated:Boolean = false;
     
     private static var matrix:Matrix = new Matrix();  
     private var cachedSourceGrid:Array;
@@ -286,6 +287,11 @@ public class BitmapImage extends GraphicElement
      *  
      *  <p>The BitmapImage class is designed to work with embedded images or images that are 
      *  loaded at run time</p>
+     * 
+     *  <p>If the source is a Bitmap or BitmapData instance or is an external image file, it
+     *  is the responsibility of the caller to dispose of the source once it is no longer needed.
+     *  If BitmapImage created the BitmapData instance, then it will dispose of the BitmapData once the 
+     *  source has changed.</p>
      *  
      *  @see flash.display.Bitmap
      *  @see flash.display.BitmapData
@@ -316,11 +322,13 @@ public class BitmapImage extends GraphicElement
             _scaleGridRight = NaN;
             _scaleGridTop = NaN;
             _scaleGridBottom = NaN;
+            var currentBitmapCreated:Boolean = false;
             
             if (value is Class)
             {
                 var cls:Class = Class(value);
                 value = new cls();
+                currentBitmapCreated = true;
             }
             else if (value is String)
             {
@@ -353,6 +361,7 @@ public class BitmapImage extends GraphicElement
             {
                 bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height, true, 0);
                 bitmapData.draw(tmpSprite, new Matrix());
+                currentBitmapCreated = true;
                 
                 if (tmpSprite.scale9Grid)
                 {
@@ -365,7 +374,7 @@ public class BitmapImage extends GraphicElement
             
             _source = value;
             
-            setBitmapData(bitmapData);
+            setBitmapData(bitmapData, currentBitmapCreated);
         }
     }
     
@@ -571,14 +580,17 @@ public class BitmapImage extends GraphicElement
      *  @private
      *  Utility function that sets the underlying bitmapData property.
      */
-    private function setBitmapData(bitmapData:BitmapData):void
+    private function setBitmapData(bitmapData:BitmapData, internallyCreated:Boolean = false):void
     {         
         // Clear previous bitmapData
         if (_bitmapData)
         {
-            _bitmapData.dispose();
+            if (bitmapDataCreated) // Dispose the bitmap if we created it
+                _bitmapData.dispose();
             _bitmapData = null;
         }
+        
+        bitmapDataCreated = internallyCreated; 
 
         _bitmapData = bitmapData;
         
