@@ -98,13 +98,13 @@ Spinner component are defined by the SpinnerDecrementButtonSkin and SpinnerIncre
     <!--- The default skin class is SpinnerIncrementButtonSkin.
             @copy spark.components.Spinner#incrementButton
             @see spark.skins.spark.SpinnerIncrementButtonSkin -->
-    <s:Button id="incrementButton" left="0" right="0" top="0" height="50%" 
+    <s:Button id="incrementButton" left="0" right="0" top="0" height="50%" tabEnabled="false" 
             skinClass="spark.skins.spark.SpinnerIncrementButtonSkin" /> 
             
     <!--- The default skin class is SpinnerDecrementButtonSkin. 
             @copy spark.components.Spinner#decrementButton
             @see spark.skins.spark.SpinnerDecrementButtonSkin -->
-    <s:Button id="decrementButton" left="0" right="0" bottom="0" height="50%"  
+    <s:Button id="decrementButton" left="0" right="0" bottom="0" height="50%" tabEnabled="false"  
             skinClass="spark.skins.spark.SpinnerDecrementButtonSkin" />
 
 </s:SparkSkin>
