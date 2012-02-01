@@ -11,6 +11,8 @@
 
 package mx.layout
 {
+import flash.geom.Rectangle;
+
 import mx.components.baseClasses.GroupBase;
 import mx.core.ILayoutElement;
 import mx.events.PropertyChangeEvent;
@@ -607,7 +609,8 @@ public class TileLayout extends LayoutBase
         }
 
         // Last, if we have explicit overrides for both rowCount and columnCount, then
-        // make sure that the count along the minor axis is deduced from the element count
+        // make sure that we can fit all the elements. If we need to, we will increase 
+        // the count along the minor axis based on the element count
         // and the count along the major axis.
         // Note that we do this *after* justification is taken into account as we want to
         // justify based on the explicit user settings.
@@ -892,6 +895,42 @@ public class TileLayout extends LayoutBase
         element.setLayoutBoundsPosition(x, y);
     }
 
+    /**
+     *  @private 
+     *  @return Returns the x coordinate of the left edge for the specified column.  
+     */
+    final private function leftEdge(columnIndex:int):Number
+    {
+        return Math.max(0, columnIndex * (_columnWidth + _horizontalGap));
+    }
+    
+    /**
+     *  @private 
+     *  @return Returns the x coordinate of the right edge for the specified column.  
+     */
+    final private function rightEdge(columnIndex:int):Number
+    {
+        return Math.min(target.contentWidth, columnIndex * (_columnWidth + _horizontalGap) + _columnWidth);
+    }
+    
+    /**
+     *  @private 
+     *  @return Returns the y coordinate of the top edge for the specified row.  
+     */
+    final private function topEdge(rowIndex:int):Number
+    {
+        return Math.max(0, rowIndex * (_rowHeight + _verticalGap));
+    }
+
+    /**
+     *  @private 
+     *  @return Returns the y coordinate of the bottom edge for the specified row.  
+     */
+    final private function bottomEdge(rowIndex:int):Number
+    {
+        return Math.min(target.contentHeight, rowIndex * (_rowHeight + _verticalGap) + _rowHeight);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overriden methods from LayoutBase
@@ -1008,5 +1047,57 @@ public class TileLayout extends LayoutBase
         // If actual values have chnaged, notify listeners
         dispatchEventsForActualValueChanges();
     }
+
+    /**
+     *  @private 
+     */    
+    override protected function elementBoundsLeftOfScrollRect(scrollRect:Rectangle):Rectangle
+    {
+        var bounds:Rectangle = new Rectangle();
+        // Find the column that spans or is to the left of the scrollRect left edge.
+        var column:int = Math.floor((scrollRect.left - 1) / (_columnWidth + _horizontalGap));
+        bounds.left = leftEdge(column);
+        bounds.right = rightEdge(column);
+        return bounds;
+    } 
+
+    /**
+     *  @private 
+     */    
+    override protected function elementBoundsRightOfScrollRect(scrollRect:Rectangle):Rectangle
+    {
+        var bounds:Rectangle = new Rectangle();
+        // Find the column that spans or is to the right of the scrollRect right edge.
+        var column:int = Math.floor((scrollRect.right + 1 + _horizontalGap) / (_columnWidth + _horizontalGap));
+        bounds.left = leftEdge(column);
+        bounds.right = rightEdge(column);
+        return bounds;
+    } 
+
+    /**
+     *  @private 
+     */    
+    override protected function elementBoundsAboveScrollRect(scrollRect:Rectangle):Rectangle
+    {
+        var bounds:Rectangle = new Rectangle();
+        // Find the row that spans or is above the scrollRect top edge
+        var row:int = Math.floor((scrollRect.top - 1) / (_rowHeight + _verticalGap));
+        bounds.top = topEdge(row);
+        bounds.bottom = bottomEdge(row);
+        return bounds;
+    } 
+
+    /**
+     *  @private 
+     */    
+    override protected function elementBoundsBelowScrollRect(scrollRect:Rectangle):Rectangle
+    {
+        var bounds:Rectangle = new Rectangle();
+        // Find the row that spans or is below the scrollRect bottom edge
+        var row:int = Math.floor((scrollRect.bottom + 1 + _verticalGap) / (_rowHeight + _verticalGap));
+        bounds.top = topEdge(row);
+        bounds.bottom = bottomEdge(row);
+        return bounds;
+    } 
 }
 }
