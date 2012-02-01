@@ -1203,23 +1203,24 @@ public class HorizontalLayout extends LayoutBase
     /**
      *  @private 
      */  
-     override public function getNavigationDestinationIndex(currentIndex:int, navigationUnit:uint):int
-     {
+    override public function getNavigationDestinationIndex(currentIndex:int, navigationUnit:uint, arrowKeysWrapFocus:Boolean):int
+    {
         if (!target || target.numElements < 1)
             return -1; 
             
+        var maxIndex:int = target.numElements - 1;
+
         // Special case when nothing was previously selected
         if (currentIndex == -1)
         {
             if (navigationUnit == NavigationUnit.LEFT)
-                return -1;
+                return arrowKeysWrapFocus ? maxIndex : -1;
 
             if (navigationUnit == NavigationUnit.RIGHT)
                 return 0;    
         }    
 
         // Make sure currentIndex is within range
-        var maxIndex:int = target.numElements - 1;
         currentIndex = Math.max(0, Math.min(maxIndex, currentIndex));
 
         var newIndex:int; 
@@ -1230,13 +1231,19 @@ public class HorizontalLayout extends LayoutBase
         {
             case NavigationUnit.LEFT:
             {
-               newIndex = currentIndex - 1;  
+               if (arrowKeysWrapFocus && currentIndex == 0)
+                   newIndex = maxIndex;
+               else
+                   newIndex = currentIndex - 1;  
                break;
             } 
 
             case NavigationUnit.RIGHT: 
             {
-               newIndex = currentIndex + 1;  
+               if (arrowKeysWrapFocus && currentIndex == maxIndex)
+                   newIndex = 0;
+               else
+                   newIndex = currentIndex + 1;  
                break;
             }
              
@@ -1328,7 +1335,7 @@ public class HorizontalLayout extends LayoutBase
                 break;
             }
 
-            default: return super.getNavigationDestinationIndex(currentIndex, navigationUnit);
+            default: return super.getNavigationDestinationIndex(currentIndex, navigationUnit, arrowKeysWrapFocus);
         }
         return Math.max(0, Math.min(maxIndex, newIndex));  
     }
