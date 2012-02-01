@@ -1195,9 +1195,13 @@ public class VerticalLayout extends LayoutBase
      */  
      override public function getDestinationIndex(navigationUnit:uint, currentIndex:int):int
      {
-        if (!target)
+        if (!target || target.numElements < 1)
             return -1; 
+            
+        // Make sure currentIndex is within range
         var maxIndex:int = target.numElements - 1;
+        currentIndex = Math.max(0, Math.min(maxIndex, currentIndex));
+
         var newIndex:int; 
         var bounds:Rectangle;
         var y:Number;
@@ -1244,7 +1248,7 @@ public class VerticalLayout extends LayoutBase
 
                     // Find the element after the last element that spans above the y position
                     newIndex = currentIndex - 1;
-                    while (0 < newIndex)
+                    while (0 <= newIndex)
                     {
                         bounds = getElementBounds(newIndex);
                         if (bounds && bounds.top < y)
@@ -1287,7 +1291,7 @@ public class VerticalLayout extends LayoutBase
 
                     // Find the element before the first element that spans below the y position
                     newIndex = currentIndex + 1;
-                    while (newIndex < maxIndex)
+                    while (newIndex <= maxIndex)
                     {
                         bounds = getElementBounds(newIndex);
                         if (bounds && bounds.bottom > y)
