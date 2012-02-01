@@ -86,7 +86,7 @@
     <s:Button id="openButton" width="19" right="0" top="0" bottom="0" focusEnabled="false"
               skinClass="spark.skins.wireframe.ComboBoxButtonSkin" /> 
     <!--- @copy spark.components.ComboBox#textInput -->
-    <s:TextInput id="textInput" textAlign="left"
+    <s:TextInput id="textInput" 
                  left="0" right="18" top="0" bottom="0" />
 
 </s:Skin>
