@@ -104,7 +104,7 @@ public class ProgressIndeterminateSkin extends Border
 		// Hatches
 		for (var i:int = 0; i < w; i += hatchInterval)
 		{
-			g.beginFill(0xE2E6F6, 1);
+			g.beginFill(0xEEEEEE, 1);
 			g.moveTo(i, 1);
 			g.lineTo(Math.min(i + 7, w), 2);
 			g.lineTo(Math.min(i + 3, w), h - 2);
