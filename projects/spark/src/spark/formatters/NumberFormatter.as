@@ -336,22 +336,44 @@ public class NumberFormatter extends NumberBase implements IFormatter
 
         const number:Number = Number(value);
 
+        if (isNaN(number))
+        {
+            if (g11nWorkingInstance)
+            {
+                // Have g11nFormatter.lastOperationStatus property hold
+                // ILLEGAL_ARGUMENT_ERROR value.
+                (g11nWorkingInstance as
+                    flash.globalization.NumberFormatter).fractionalDigits = -1;
+            }
+            else
+            {
+                fallbackLastOperationStatus
+                = LastOperationStatus.ILLEGAL_ARGUMENT_ERROR;
+            }
+            return errorText;
+        }
+
         if (g11nWorkingInstance)
         {
-            return (g11nWorkingInstance
-                as flash.globalization.NumberFormatter).formatNumber(number);
+            const g11nFormatter:flash.globalization.NumberFormatter
+                = (g11nWorkingInstance as flash.globalization.NumberFormatter);
+
+            const retVal:String = g11nFormatter.formatNumber(number);
+
+            return errorText && LastOperationStatus.isFatalError(
+                        g11nFormatter.lastOperationStatus) ? errorText : retVal;
         }
 
         if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
-            return undefined;
+            return errorText;
         }
 
         fallbackLastOperationStatus = LastOperationStatus.NO_ERROR;
 
-        return fallbackFormat(number);
+        return number.toFixed(properties.fractionalDigits);
     }
 
     [Bindable("change")]
@@ -365,7 +387,7 @@ public class NumberFormatter extends NumberBase implements IFormatter
      *  starting index for the number within the string, and the index
      *  of the first character after the number in the string.</p>
      *
-     *  <p> If the string does not contain a number, the value property of
+     *  <p>If the string does not contain a number, the value property of
      *  the NumberParseResult is set to <code>NaN</code> and the
      *  <code>startIndex</code> and <code>endIndex</code> properties are
      *  set to the hexadecimal value <code>0x7fffffff</code>.
@@ -427,12 +449,12 @@ public class NumberFormatter extends NumberBase implements IFormatter
      *  parsing of the number.
      *  </p>
      *
-     *  <p> If numbers are preceded or followed in the string by a
+     *  <p>If numbers are preceded or followed in the string by a
      *  plus sign '+', the plus sign is treated as
      *  a character that is not part of the number.
      *  </p>
      *
-     *  <p> This function does not parse strings containing numbers
+     *  <p>This function does not parse strings containing numbers
      *  in scientific notation (e.g. 1.23e40).</p>
      *
      *
@@ -497,12 +519,12 @@ public class NumberFormatter extends NumberBase implements IFormatter
      *  character is a character that has a Space Separator (Zs) property
      *  in the Unicode Character Database (see http://www.unicode.org/ucd/).
      *
-     *  <p> If the numeric digit is preceded or followed by a
+     *  <p>If the numeric digit is preceded or followed by a
      *  plus sign '+' it is treated as a non-whitespace character.
      *  The return value is <code>NaN</code>.
      *  </p>
      *
-     *  <p> See the description of the parse function for more information
+     *  <p>See the description of the parse function for more information
      *  about number parsing and what constitutes a valid number.
      *  </p>
      *
@@ -537,7 +559,7 @@ public class NumberFormatter extends NumberBase implements IFormatter
     }
 
     /**
-     *  @copy spark.utils.Collator#getAvailableLocaleIDNames
+     *  @copy spark.globalization.supportClasses.CollatorBase#getAvailableLocaleIDNames
      *
      *  @playerversion Flash 10.1
      *  @langversion 3.0
@@ -558,19 +580,19 @@ public class NumberFormatter extends NumberBase implements IFormatter
     //
     //--------------------------------------------------------------------------
 
-    private function fallbackFormat(value:Number): String
-    {
-        return value.toString();
-    }
-
     private function fallbackParse(parseString:String):NumberParseResult
     {
-        return new NumberParseResult();
+        return parseToNumberParseResult(parseString);
     }
 
     private function fallbackParseNumber(value:String):Number
     {
-        return Number(value);
+        const res:NumberParseResult = parseToNumberParseResult(value);
+
+        if (!res.startIndex && (res.endIndex == value.length))
+            return res.value;
+
+        return NaN;
     }
 
     private function fallbackInstantiate():void
