@@ -33,7 +33,6 @@ import flash.system.ApplicationDomain;
 import flash.system.LoaderContext;
 import flash.utils.ByteArray;
 
-import mx.core.IInvalidating;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.graphics.BitmapFillMode;
@@ -754,9 +753,6 @@ public class BitmapImage extends GraphicElement
             // our previous content before we can consider the new source.
             clearLoadingContent();
             
-            // Remove any event listeners from previous source.
-            removeAddedToStageHandler(_source);
-            
             _source = value;
             sourceInvalid = true;
             loadFailed = false;
@@ -1267,7 +1263,7 @@ public class BitmapImage extends GraphicElement
         invalidateSize();
         invalidateDisplayList();
     }
-
+        
     /**
      *  @private
      *  Utility method which analyzes our source and either acquires the
@@ -1327,15 +1323,6 @@ public class BitmapImage extends GraphicElement
         else if (value is DisplayObject)
         {
             tmpSprite = value as DisplayObject;
-
-            if (tmpSprite.stage == null)
-            {
-                // If our source DisplayObject has yet to be assigned a stage,
-                // it is not ready to be captured, so we defer bitmap capture
-                // until it is added to the display list.
-                tmpSprite.addEventListener(Event.ADDED_TO_STAGE, source_addedToStageHandler);
-                return;
-            }
         }
         else if (value == null)
         {
@@ -1350,18 +1337,8 @@ public class BitmapImage extends GraphicElement
                 
         if (!bitmapData && tmpSprite)
         {
-            // We must ensure any IInvalidating sources
-            // are properly validated before capturing.
-            if (tmpSprite is IInvalidating)
-                IInvalidating(tmpSprite).validateNow();
-            
-            // Return immediately if our input source has 0 bounds else
-            // our BitmapData constructor will RTE.
-            if (tmpSprite.width == 0 || tmpSprite.height == 0)
-                return;
-            
             bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height, true, 0);
-            bitmapData.draw(tmpSprite, new Matrix(), tmpSprite.transform.colorTransform);
+            bitmapData.draw(tmpSprite, new Matrix());
             currentBitmapCreated = true;
             
             if (tmpSprite.scale9Grid)
@@ -1767,26 +1744,6 @@ public class BitmapImage extends GraphicElement
         // load-event  dispatcher.
         setBitmapData(null); 
         loadFailed = true;
-    }
-    
-    /**
-     *  @private
-     *  Used for deferral of bitmap capture when an assigned source 
-     *  has yet to be added to the stage. 
-     */
-    private function source_addedToStageHandler(event:Event):void
-    {
-        removeAddedToStageHandler(event.target);
-        applySource();
-    }
-    
-    /**
-     *  @private
-     */
-    private function removeAddedToStageHandler(target:Object):void
-    {
-        if (target && target is DisplayObject)
-            target.removeEventListener(Event.ADDED_TO_STAGE, source_addedToStageHandler);
     }
 }  
 }
