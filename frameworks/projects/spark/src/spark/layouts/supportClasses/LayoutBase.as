@@ -270,7 +270,185 @@ public class LayoutBase extends OnDemandEventDispatcher
     //--------------------------------------------------------------------------
     
     /**
-     *  @copy flex.intf.IViewport#horizontalScrollPositionDelta
+     *  Returns the bounds of the first layout element that either spans or
+     *  is to the left of the scrollRect's left edge.
+     * 
+     *  Used by the getHorizontalScrollPositionDelta() method.
+     * 
+     *  By default this method returns a Rectangle with width=1, height=0, 
+     *  whose left edge is one less than the scrollRect's left edge, 
+     *  and top=0.
+     * 
+     *  Subclasses should override this method to provide an accurate
+     *  bounding rectangle that has valid <code>left</code> and 
+     *  <code>right</code> properties.
+     * 
+     *  @param scrollRect The target's scrollRect.
+     *  @return Returns the bounds of the first element that spans or is to
+     *  the left of the scrollRect’s left edge.
+     *  
+     *  @see #elementBoundsRightOfScrollRect
+     *  @see #elementBoundsAboveScrollRect
+     *  @see #elementBoundsBelowScrollRect
+     *  @see #getHorizontalScrollPositionDelta
+     */
+    protected function elementBoundsLeftOfScrollRect(scrollRect:Rectangle):Rectangle
+    {
+        var bounds:Rectangle = new Rectangle();
+        bounds.left = scrollRect.left - 1;
+        bounds.right = scrollRect.left; 
+        return bounds;
+    } 
+
+    /**
+     *  Returns the bounds of the first layout element that either spans or
+     *  is to the right of the scrollRect's right edge.
+     * 
+     *  Used by the getHorizontalScrollPositionDelta() method.
+     * 
+     *  By default this method returns a Rectangle with width=1, height=0, 
+     *  whose right edge is one more than the scrollRect's right edge, 
+     *  and top=0.
+     * 
+     *  Subclasses should override this method to provide an accurate
+     *  bounding rectangle that has valid <code>left</code> and 
+     *  <code>right</code> properties.
+     * 
+     *  @param scrollRect The target's scrollRect.
+     *  @return Returns the bounds of the first element that spans or is to
+     *  the right of the scrollRect’s right edge.
+     *  
+     *  @see #elementBoundsLeftOfScrollRect
+     *  @see #elementBoundsAboveScrollRect
+     *  @see #elementBoundsBelowScrollRect
+     *  @see #getHorizontalScrollPositionDelta
+     */
+    protected function elementBoundsRightOfScrollRect(scrollRect:Rectangle):Rectangle
+    {
+        var bounds:Rectangle = new Rectangle();
+        bounds.left = scrollRect.right;
+        bounds.right = scrollRect.right + 1;
+        return bounds;
+    } 
+
+    /**
+     *  Returns the bounds of the first layout element that either spans or
+     *  is above the scrollRect's top edge.
+     * 
+     *  Used by the getVerticalScrollPositionDelta() method.
+     * 
+     *  By default this method returns a Rectangle with width=0, height=1, 
+     *  whose top edge is one less than the scrollRect's top edge, 
+     *  and left=0.
+     * 
+     *  Subclasses should override this method to provide an accurate
+     *  bounding rectangle that has valid <code>top</code> and 
+     *  <code>bottom</code> properties.
+     * 
+     *  @param scrollRect The target's scrollRect.
+     *  @return Returns the bounds of the first element that spans or is
+     *  above the scrollRect’s top edge.
+     *  
+     *  @see #elementBoundsLeftOfScrollRect
+     *  @see #elementBoundsRightScrollRect
+     *  @see #elementBoundsBelowScrollRect
+     *  @see #getVerticalScrollPositionDelta
+     */
+    protected function elementBoundsAboveScrollRect(scrollRect:Rectangle):Rectangle
+    {
+        var bounds:Rectangle = new Rectangle();
+        bounds.top = scrollRect.top - 1;
+        bounds.bottom = scrollRect.top;
+        return bounds;
+    } 
+
+    /**
+     *  Returns the bounds of the first layout element that either spans or
+     *  is below the scrollRect's bottom edge.
+     * 
+     *  Used by the getVerticalScrollPositionDelta() method.
+     * 
+     *  By default this method returns a Rectangle with width=0, height=1, 
+     *  whose bottom edge is one more than the scrollRect's bottom edge, 
+     *  and left=0.
+     * 
+     *  Subclasses should override this method to provide an accurate
+     *  bounding rectangle that has valid <code>top</code> and 
+     *  <code>bottom</code> properties.
+     * 
+     *  @param scrollRect The target's scrollRect.
+     *  @return Returns the bounds of the first element that spans or is
+     *  below the scrollRect’s bottom edge.
+     *  
+     *  @see #elementBoundsLeftOfScrollRect
+     *  @see #elementBoundsRightScrollRect
+     *  @see #elementBoundsAboveScrollRect
+     *  @see #getVerticalScrollPositionDelta
+     */
+    protected function elementBoundsBelowScrollRect(scrollRect:Rectangle):Rectangle
+    {
+        var bounds:Rectangle = new Rectangle();
+        bounds.top = scrollRect.bottom;
+        bounds.bottom = scrollRect.bottom + 1;
+        return bounds;
+    } 
+    
+    /**
+     *  Implements the default handling of
+     *  LEFT, RIGHT, PAGE_LEFT, PAGE_RIGHT, HOME and END. 
+     * 
+     *  <ul>
+     * 
+     *  <li> 
+     *  <code>LEFT</code>
+     *  Returns scroll delta that will left justify the scrollRect
+     *  with the first element that spans or is to the left of the
+     *  scrollRect's left edge.
+     *  </li>
+     * 
+     *  <li> 
+     *  <code>RIGHT</code>
+     *  Returns scroll delta that will right justify the scrollRect
+     *  with the first element that spans or is to the right of the
+     *  scrollRect's right edge.
+     *  </li>
+     * 
+     *  <code>PAGE_LEFT</code>
+     *  <li>
+     *  Returns scroll delta that will right justify the scrollRect
+     *  with the first element that spans or is to the left of the
+     *  scrollRect's left edge.
+     *  </li>
+     * 
+     *  <li> 
+     *  <code>PAGE_RIGHT</code>
+     *  Returns scroll delta that will left justify the scrollRect
+     *  with the first element that spans or is to the right of the
+     *  scrollRect's right edge.
+     *  </li>
+     *  
+     *  <li> 
+     *  <code>HOME</code>
+     *  Returns scroll delta that will left justify the scrollRect
+     *  to the content area.
+     *  </li>
+     * 
+     *  <li> 
+     *  <code>END</code>
+     *  Returns scroll delta that will right justify the scrollRect
+     *  to the content area.
+     *  </li>
+     *
+     *  </ul>
+     * 
+     *  The implementation calls <code>elementBoundsLeftOfScrollRect()</code> and
+     *  <code>elementBoundsRightOfScrollRect()</code> to determine the bounds of
+     *  the elements.  Layout classes usually override those methods instead of
+     *  getHorizontalScrollPositionDelta(). 
+     * 
+     *  @see #elementBoundsLeftOfScrollRect
+     *  @see #elementBoundsRightOfScrollRect
+     *  @see #getHorizontalScrollPositionDelta
      */
     public function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
     {
@@ -278,33 +456,31 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (!g)
             return 0;     
 
-        var maxIndex:int = g.numLayoutElements -1;
-        if (maxIndex < 0)
-            return 0;
-
-        var scrollR:Rectangle = g.scrollRect;
-        if (!scrollR)
+        var scrollRect:Rectangle = g.scrollRect;
+        if (!scrollRect)
             return 0;
             
         // maxDelta is the horizontalScrollPosition delta required 
         // to scroll to the END and minDelta scrolls to HOME. 
-        var maxDelta:Number = g.contentWidth - scrollR.width - scrollR.x;
-        var minDelta:Number = -scrollR.x; 
-            
-        switch (unit)
+        var maxDelta:Number = g.contentWidth - scrollRect.right;
+        var minDelta:Number = -scrollRect.left;
+        var elementBounds:Rectangle;
+        switch(unit)
         {
             case ScrollUnit.LEFT:
-                return Math.max(-1, minDelta);
-                
-            case ScrollUnit.RIGHT:
-                return Math.min(1, maxDelta);
-                
             case ScrollUnit.PAGE_LEFT:
-                return Math.max(minDelta, -scrollR.width);
-                
+                // Find the bounds of the first non-fully visible element
+                // to the left of the scrollRect.
+                elementBounds = elementBoundsLeftOfScrollRect(scrollRect);
+                break;
+
+            case ScrollUnit.RIGHT:
             case ScrollUnit.PAGE_RIGHT:
-                return Math.min(maxDelta, scrollR.width);
-                
+                // Find the bounds of the first non-fully visible element
+                // to the right of the scrollRect.
+                elementBounds = elementBoundsRightOfScrollRect(scrollRect);
+                break;
+
             case ScrollUnit.HOME: 
                 return minDelta;
                 
@@ -313,11 +489,113 @@ public class LayoutBase extends OnDemandEventDispatcher
                 
             default:
                 return 0;
-        }       
+        }
+        
+        if (!elementBounds)
+            return 0;
+
+        var delta:Number = 0;
+        switch (unit)
+        {
+            case ScrollUnit.LEFT:
+                // Snap the left edge of element to the left edge of the scrollRect.
+                // The element is the the first non-fully visible element left of the scrollRect.
+                delta = Math.max(elementBounds.left - scrollRect.left, -scrollRect.width);
+            break;    
+            case ScrollUnit.RIGHT:
+                // Snap the right edge of the element to the right edge of the scrollRect.
+                // The element is the the first non-fully visible element right of the scrollRect.
+                delta = Math.min(elementBounds.right - scrollRect.right, scrollRect.width);
+            break;    
+            case ScrollUnit.PAGE_LEFT:
+            {
+                // Snap the right edge of the element to the right edge of the scrollRect.
+                // The element is the the first non-fully visible element left of the scrollRect. 
+                delta = elementBounds.right - scrollRect.right;
+                
+                // Special case: when an element is wider than the scrollRect,
+                // we want to snap its left edge to the left edge of the scrollRect.
+                // The delta will be limited to the width of the scrollRect further below.
+                if (delta >= 0)
+                    delta = Math.max(elementBounds.left - scrollRect.left, -scrollRect.width);  
+            }
+            break;
+            case ScrollUnit.PAGE_RIGHT:
+            {
+                // Align the left edge of the element to the left edge of the scrollRect.
+                // The element is the the first non-fully visible element right of the scrollRect.
+                delta = elementBounds.left - scrollRect.left;
+                
+                // Special case: when an element is wider than the scrollRect,
+                // we want to snap its right edge to the right edge of the scrollRect.
+                // The delta will be limited to the width of the scrollRect further below.
+                if (delta <= 0)
+                    delta = Math.min(elementBounds.right - scrollRect.right, scrollRect.width);
+            }
+            break;
+        }
+
+        // Makse sure we don't get out of bounds. Also, don't scroll 
+        // by more than the scrollRect width at a time.
+        return Math.min(maxDelta, Math.max(minDelta, delta));
     }
     
     /**
-     *  @copy flex.intf.IViewport#verticalScrollPositionDelta
+     *  Implements the default handling of
+     *  UP, DOWN, PAGE_UP, PAGE_DOWN, HOME and END. 
+     * 
+     *  <ul>
+     * 
+     *  <li> 
+     *  <code>UP</code>
+     *  Returns scroll delta that will top justify the scrollRect
+     *  with the first element that spans or is above the scrollRect's
+     *  top edge.
+     *  </li>
+     * 
+     *  <li> 
+     *  <code>DOWN</code>
+     *  Returns scroll delta that will bottom justify the scrollRect
+     *  with the first element that spans or is below the scrollRect's
+     *  bottom edge.
+     *  </li>
+     * 
+     *  <code>PAGE_UP</code>
+     *  <li>
+     *  Returns scroll delta that will bottom justify the scrollRect
+     *  with the first element that spans or is above the scrollRect's
+     *  top edge.
+     *  </li>
+     * 
+     *  <li> 
+     *  <code>PAGE_DOWN</code>
+     *  Returns scroll delta that will top justify the scrollRect
+     *  with the first element that spans or is below the scrollRect's
+     *  bottom edge.
+     *  </li>
+     *  
+     *  <li> 
+     *  <code>HOME</code>
+     *  Returns scroll delta that will top justify the scrollRect
+     *  to the content area.
+     *  </li>
+     * 
+     *  <li> 
+     *  <code>END</code>
+     *  Returns scroll delta that will bottom justify the scrollRect
+     *  to the content area.
+     *  </li>
+     *
+     *  </ul>
+     * 
+     *  The implementation calls <code>elementBoundsAboveScrollRect()</code> and
+     *  <code>elementBoundsBelowScrollRect()</code> to determine the bounds of
+     *  the elements.  Layout classes usually override those methods instead of
+     *  getVerticalScrollPositionDelta(). 
+     * 
+     *  @see #elementBoundsAboveScrollRect
+     *  @see #elementBoundsBelowScrollRect
+     *  @see #getVerticalScrollPositionDelta
      */
     public function getVerticalScrollPositionDelta(unit:ScrollUnit):Number
     {
@@ -325,42 +603,86 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (!g)
             return 0;     
 
-        var maxIndex:int = g.numLayoutElements -1;
-        if (maxIndex < 0)
+        var scrollRect:Rectangle = g.scrollRect;
+        if (!scrollRect)
             return 0;
-
-        var scrollR:Rectangle = g.scrollRect;
-        if (!scrollR)
-            return 0;
-
-        // maxDelta is the verticalScrollPosition delta required 
-        // to scroll to the END and minDelta scrolls to HOME. 
-        var maxDelta:Number = g.contentHeight - scrollR.height - scrollR.y;
-        var minDelta:Number = -scrollR.y; 
             
-        switch (unit)
+        // maxDelta is the horizontalScrollPosition delta required 
+        // to scroll to the END and minDelta scrolls to HOME. 
+        var maxDelta:Number = g.contentHeight - scrollRect.bottom;
+        var minDelta:Number = -scrollRect.top;
+        var elementBounds:Rectangle;
+        switch(unit)
         {
-        	case ScrollUnit.UP:
-        	    return Math.max(-1, minDelta);
-        	    
-        	case ScrollUnit.DOWN:
-        	    return Math.min(1, maxDelta);
-        	    
+            case ScrollUnit.UP:
             case ScrollUnit.PAGE_UP:
-                return Math.max(minDelta, -scrollR.height);
-                
+                // Find the bounds of the first non-fully visible element
+                // that spans right of the scrollRect.
+                elementBounds = elementBoundsAboveScrollRect(scrollRect);
+                break;
+
+            case ScrollUnit.DOWN:
             case ScrollUnit.PAGE_DOWN:
-                return Math.min(maxDelta, scrollR.height);
-                
+                // Find the bounds of the first non-fully visible element
+                // that spans below the scrollRect.
+                elementBounds = elementBoundsBelowScrollRect(scrollRect);
+                break;
+
             case ScrollUnit.HOME: 
                 return minDelta;
-                
+
             case ScrollUnit.END: 
                 return maxDelta;
-                
+
             default:
                 return 0;
-        }    	
+        }
+        
+        if (!elementBounds)
+            return 0;
+
+        var delta:Number = 0;
+        switch (unit)
+        {
+            case ScrollUnit.UP:
+                // Snap the top edge of element to the top edge of the scrollRect.
+                // The element is the the first non-fully visible element above the scrollRect.
+                delta = Math.max(elementBounds.top - scrollRect.top, -scrollRect.height);
+            break;    
+            case ScrollUnit.DOWN:
+                // Snap the bottom edge of the element to the bottom edge of the scrollRect.
+                // The element is the the first non-fully visible element below the scrollRect.
+                delta = Math.min(elementBounds.bottom - scrollRect.bottom, scrollRect.height);
+            break;    
+            case ScrollUnit.PAGE_UP:
+            {
+                // Snap the bottom edge of the element to the bottom edge of the scrollRect.
+                // The element is the the first non-fully visible element below the scrollRect. 
+                delta = elementBounds.bottom - scrollRect.bottom;
+                
+                // Special case: when an element is taller than the scrollRect,
+                // we want to snap its top edge to the top edge of the scrollRect.
+                // The delta will be limited to the height of the scrollRect further below.
+                if (delta >= 0)
+                    delta = Math.max(elementBounds.top - scrollRect.top, -scrollRect.height);  
+            }
+            break;
+            case ScrollUnit.PAGE_DOWN:
+            {
+                // Align the top edge of the element to the top edge of the scrollRect.
+                // The element is the the first non-fully visible element below the scrollRect.
+                delta = elementBounds.top - scrollRect.top;
+                
+                // Special case: when an element is taller than the scrollRect,
+                // we want to snap its bottom edge to the bottom edge of the scrollRect.
+                // The delta will be limited to the height of the scrollRect further below.
+                if (delta <= 0)
+                    delta = Math.min(elementBounds.bottom - scrollRect.bottom, scrollRect.height);
+            }
+            break;
+        }
+
+        return Math.min(maxDelta, Math.max(minDelta, delta));
     }
     
     /**
