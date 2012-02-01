@@ -46,6 +46,7 @@ import mx.layout.ILayoutItem;
 import mx.managers.ILayoutManagerClient;
 import mx.utils.MatrixUtil;
 import mx.utils.OnDemandEventDispatcher;
+import flash.display.DisplayObjectContainer;
 
 use namespace mx_internal;
 
@@ -402,6 +403,48 @@ public class GraphicElement extends OnDemandEventDispatcher
         _bottom = value;
         invalidateParentSizeAndDisplayList();
     }
+    
+    //----------------------------------
+    //  owner
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _owner:DisplayObjectContainer;
+
+    /**
+     *  @inheritDoc
+     */
+    public function get owner():DisplayObjectContainer
+    {
+        return _owner ? _owner : parent;
+    }
+
+    public function set owner(value:DisplayObjectContainer):void
+    {
+        _owner = value;
+    }
+    
+    //----------------------------------
+    //  parent
+    //----------------------------------
+
+    /**
+     *  @inheritDoc
+     */
+    public function get parent():DisplayObjectContainer
+    {
+        return elementHost;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set parent(value:DisplayObjectContainer):void
+    {
+        elementHost = GroupBase(value);
+    }
 
     //----------------------------------
     //  elementHost
@@ -414,7 +457,8 @@ public class GraphicElement extends OnDemandEventDispatcher
     protected var _host:GroupBase;
 
     /**
-     *  The Group or Graphic tag that contains this element.
+     *  The is a temporary property, which will be removed when all references to 
+     *  elementHost have been removed.
      */
     public function get elementHost():GroupBase
     {
@@ -2073,7 +2117,9 @@ public class GraphicElement extends OnDemandEventDispatcher
         var result:Number = x;
         if(layoutFeatures != null && layoutFeatures.offsets != null)
             result +=  layoutFeatures.offsets.x;    
-        return sharedDisplayObject && sharedDisplayObject != elementHost ? result - sharedDisplayObject.x : result;
+        return (sharedDisplayObject && (sharedDisplayObject != parent)) ? 
+                    result - sharedDisplayObject.x : 
+                    result;
     }
     
     //----------------------------------
@@ -2092,7 +2138,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         var result:Number = y;
         if(layoutFeatures != null && layoutFeatures.offsets != null)
             result +=  layoutFeatures.offsets.y;    
-        return sharedDisplayObject && sharedDisplayObject != elementHost ? result - sharedDisplayObject.y : result;
+        return sharedDisplayObject && sharedDisplayObject != parent ? result - sharedDisplayObject.y : result;
     }
     
     //----------------------------------
@@ -2370,8 +2416,8 @@ public class GraphicElement extends OnDemandEventDispatcher
         // to preseve original behavior before layout API unification.
         invalidateDisplayList();
         
-        if (elementHost)
-            elementHost.elementLayerChanged(this);
+        if (parent)
+            GroupBase(parent).elementLayerChanged(this);
     }
 
     /**
@@ -2389,8 +2435,8 @@ public class GraphicElement extends OnDemandEventDispatcher
         invalidatePropertiesFlag = true;
 
         // TODO EGeorgie: hook up directly with the layout manager?
-        if (elementHost && elementHost is IInvalidating)
-            IInvalidating(elementHost).invalidateProperties();
+        if (parent && parent is IInvalidating)
+            IInvalidating(parent).invalidateProperties();
     }
 
     /**
@@ -2411,8 +2457,8 @@ public class GraphicElement extends OnDemandEventDispatcher
         invalidateSizeFlag = true;
 
         // TODO EGeorgie: hook up directly with the layout manager?
-        if (elementHost)
-            elementHost.elementSizeChanged(this);
+        if (parent)
+            GroupBase(parent).elementSizeChanged(this);
     }
 
     /**
@@ -2425,10 +2471,10 @@ public class GraphicElement extends OnDemandEventDispatcher
             return;
 
         // We want to invalidate both the parent size and parent display list.
-        if (elementHost && elementHost is IInvalidating)
+        if (parent && parent is IInvalidating)
         {
-            IInvalidating(elementHost).invalidateSize();
-            IInvalidating(elementHost).invalidateDisplayList();
+            IInvalidating(parent).invalidateSize();
+            IInvalidating(parent).invalidateDisplayList();
         }
     }
 
@@ -2450,8 +2496,8 @@ public class GraphicElement extends OnDemandEventDispatcher
         // will be invalidated as well.
 
         // TODO EGeorgie: hook up directly with the layout manager?
-        if (elementHost)
-            elementHost.elementChanged(this);
+        if (parent)
+            GroupBase(parent).elementChanged(this);
     }
 
     /**
@@ -2462,10 +2508,10 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function validateNow():void
     {
-        if (elementHost)
+        if (parent)
         {
             UIComponentGlobals.layoutManager.validateClient(
-                ILayoutManagerClient(elementHost));
+                ILayoutManagerClient(parent));
         }
     }
 
@@ -2546,11 +2592,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 	                	var maskComp:UIComponent = _mask as UIComponent;          	
 		                if (maskComp)
 		                {
-		                	if (elementHost)
+		                	if (parent)
 		                	{
 		                		// Add the mask to the UIComponent document tree. 
 		                		// This is required to properly render the mask.
-		                		UIComponent(elementHost).addingChild(maskComp);
+		                		UIComponent(parent).addingChild(maskComp);
 		                	}
 		                	
 		                	// Size the mask so that it actually renders
