@@ -1,4 +1,18 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2010 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
 
+// Warning: the implementation of this class is identical to DefaultGridItemRenderer.
+// Although most of the common code has been factored into the "TextFieldGridItemRendererInclude.as"
+// include file, the imports metadata and other code below have been copied.  All changes 
+// to this file should be mirrored by DefaultGridItemRenderer.as.
 
 package spark.skins.spark
 {
