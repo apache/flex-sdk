@@ -12,7 +12,7 @@
 
 	<property name="debug" value="false"/>
 
-	<property name="release" value="true"/>
+	<property name="release" value="false"/>
 
 	
 
@@ -58,8 +58,6 @@
 
 		<compc fork="true"
 
-			debug="${debug}"
-
 			output="${output.file}"
 
 			compute-digest="true"
@@ -102,9 +100,9 @@
 
 
 
-			<define name="CONFIG::debug" value="${debug}"/>
+			<define name="CONFIG::debug" value="true"/>
 
-			<define name="CONFIG::release" value="true"/>
+			<define name="CONFIG::release" value="false"/>
 
 		</compc>
 
