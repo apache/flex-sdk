@@ -235,6 +235,12 @@ public class FxRotateInstance extends FxAnimateInstance
             }
         }
         
+        originalOffsetX = originX * Math.cos(radVal) - originY * Math.sin(radVal);
+        originalOffsetY = originX * Math.sin(radVal) + originY * Math.cos(radVal);
+        
+        newX = Number((centerX - originalOffsetX).toFixed(1)); // use a precision of 1
+        newY = Number((centerY - originalOffsetY).toFixed(1)); // use a precision of 1
+
         propertyValuesList = 
             [new PropertyValuesHolder("rotation", [angleFrom, angleTo])];
 
