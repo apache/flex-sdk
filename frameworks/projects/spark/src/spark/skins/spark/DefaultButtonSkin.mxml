@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" 
+	  minWidth="21" minHeight="21"
+	  alpha.disabled="0.5">
+
+	<!-- host component -->
+	<Metadata>
+		[HostComponent("mx.components.FxButton")]
+	</Metadata>
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For button, the graphics are colorized but the label is not. */
+        static private const exclusions:Array = ["labelField"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+    </Script>
+	
+	<!-- states -->
+	<states>
+		<State name="up" />
+		<State name="over" />
+		<State name="down" />
+		<State name="disabled" />
+	</states>
+	
+	<!-- layer 1: shadow -->
+	<Rect left="-1" right="-1" top="-1" bottom="-1" radiusX="2" radiusY="2">
+		<fill>
+			<LinearGradient rotation="90">
+                    <GradientEntry color="0x000000" 
+                                   color.down="0xFFFFFF"
+                                   alpha="0.01"
+                                   alpha.down="0" />
+                    <GradientEntry color="0x000000" 
+                                   color.down="0xFFFFFF" 
+                                   alpha="0.07"
+                                   alpha.down="0.5" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 2: fill -->
+	<Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0xAFCFED" 
+							   color.over="0x98BAD6" 
+							   color.down="0x8BB1D0" 
+							   alpha="0.85" />
+				<GradientEntry color="0x88B3E3" 
+							   color.over="0x6792C2" 
+							   color.down="0x6792C2" 
+							   alpha="0.85" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 3: fill lowlight -->
+	<Rect left="1" right="1" bottom="1" height="9" radiusX="2" radiusY="2">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0x000000" alpha="0.0099" />
+				<GradientEntry color="0x000000" alpha="0.0627" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 4: fill highlight -->
+	<Rect left="1" right="1" top="1" height="9" radiusX="2" radiusY="2">
+		<fill>
+			<SolidColor color="0xFFFFFF" 
+					    alpha="0.33" 
+					    alpha.over="0.22" 
+					    alpha.down="0.12" />
+		</fill>
+	</Rect>
+	
+	<!-- layer 5: highlight stroke (all states except down) -->
+	<Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2" excludeFrom="down">
+		<stroke>
+			<LinearGradientStroke rotation="90" weight="1">
+				<GradientEntry color="0xD6E9F7" alpha.over="0.22" />
+				<GradientEntry color="0x90B6E3" alpha.over="0.22" />
+			</LinearGradientStroke>
+		</stroke>
+	</Rect>
+	
+	<!-- layer 6: highlight stroke (down state only) -->
+	<Rect left="1" top="1" bottom="1" width="1" includeIn="down">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.07" />
+		</fill>
+	</Rect>
+	<Rect right="1" top="1" bottom="1" width="1" includeIn="down">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.07" />
+		</fill>
+	</Rect>
+	<Rect left="2" top="1" right="2" height="1" includeIn="down">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.25" />
+		</fill>
+	</Rect>
+	<Rect left="1" top="2" right="1" height="1" includeIn="down">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.09" />
+		</fill>
+	</Rect>
+	
+    <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    <Rect left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2" radiusY="2">
+        <stroke>
+            <LinearGradientStroke rotation="90" weight="1">
+                <GradientEntry color="0x000000" 
+                               alpha="0.5625"
+                               alpha.down="0.6375" />
+                <GradientEntry color="0x000000" 
+                               alpha="0.75" 
+                               alpha.down="0.85" />
+            </LinearGradientStroke>
+        </stroke>
+    </Rect>
+
+	<!-- layer 8: text -->
+	<TextBox id="labelField"
+			 horizontalCenter="0" verticalCenter="1"
+			 left="10" right="10" top="2" bottom="2">
+	</TextBox>
+	
+</SparkSkin>
