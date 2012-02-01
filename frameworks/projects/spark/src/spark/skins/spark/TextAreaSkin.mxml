@@ -18,8 +18,14 @@
     </Metadata> 
     
     <states>
-        <State name="enabled"/>
-        <State name="disabled"/>
+        <State name="enabledNoScrollBars" stateGroups="enabled"/>
+        <State name="enabledHScrollBar" stateGroups="enabled,hScrollBar"/>
+        <State name="enabledVScrollBar" stateGroups="enabled,vScrollBar"/>
+        <State name="enabledBothScrollBars" stateGroups="enabled,hScrollBar,vScrollBar"/>
+        <State name="disabledNoScrollBars" stateGroups="disabled"/>
+        <State name="disabledHScrollBar" stateGroups="disabled,hScrollBar"/>
+        <State name="disabledVScrollBar" stateGroups="disabled,vScrollBar"/>
+        <State name="disabledBothScrollBars" stateGroups="disabled,hScrollBar,vScrollBar"/>
     </states>
         
 	<Rect left="0" right="0" top="0" bottom="0">
@@ -32,10 +38,25 @@
     </Rect>
 
     <TextView id="textView" text="{hostComponent.text}"
-              left="1" right="1" top="1" bottom="1"
+              left="1" right="1" right.vScrollBar="16"
+              top="1" bottom="1" bottom.hScrollBar="16"
               fontFamily="Arial" fontSize="11"
               color="0x2B4381" color.disabled="0x95A1C0"
               paddingLeft="4" paddingTop="4"
-              paddingRight="4" paddingBottom="4"/>
+              paddingRight="4" paddingBottom="4"
+              horizontalScrollPosition="{horizontalScrollBar.value}"
+              verticalScrollPosition="{verticalScrollBar.value}"/>
+
+    <VScrollBar id="verticalScrollBar" includeIn="vScrollBar"
+                right="1" top="1" bottom="1" bottom.hScrollBar="16"
+                maximum="{textView.contentHeight - textView.height}"
+                value="{textView.verticalScrollPosition}"
+                pageSize="{textView.height}"/>
+
+    <HScrollBar id="horizontalScrollBar" includeIn="hScrollBar"
+                left="1" bottom="1" right="1" right.vScrollBar="16"
+                maximum="{textView.contentWidth - textView.width}"
+                value="{textView.horizontalScrollPosition}"
+                pageSize="{textView.width}"/>
     
 </Skin>
