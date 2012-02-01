@@ -11,13 +11,20 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009"
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
 	  minWidth="15" minHeight="85"
 	  alpha.disabled="0.5">
 
     <Metadata>
     	[HostComponent("mx.components.FxVScrollBar")]
     </Metadata> 
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For scroll bar, the skin itself is colorized but the individual parts are not. */
+        static private const exclusions:Array = ["track", "thumb", "decrementButton", "incrementButton"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+    </Script>
      
     <states>
     	<State name="normal" />
@@ -32,4 +39,4 @@
     <FxButton id="incrementButton" bottom="0"
               skinClass="mx.skins.spark.FxScrollBarDownButtonSkin" />
 
-</Skin>
+</SparkSkin>
