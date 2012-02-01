@@ -119,7 +119,7 @@ which positions the label above the content
              bottom="row1:5" baseline="row1:0"/>
     <s:Label id="labelDisplay" 
              fontWeight="bold" color="0x333333"
-             left="contentCol:0" right="contentCol:4"
+             left="contentCol:0" right="contentCol:5"
              bottom="row1:5" baseline="row1:0"/>
     <s:Group id="contentGroup" 
              showErrorTip="false" showErrorSkin="true"
