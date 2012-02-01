@@ -290,8 +290,17 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
 		_fill.offsetY = 0;
 		_fill.repeat = repeat;
 		_fill.smooth = smooth;
-		_fill.begin(g, new Rectangle(drawWidth, drawHeight));
-		g.drawRect(0, 0, drawWidth, drawHeight);
+		var w:Number = drawWidth;
+		var h:Number = drawHeight;
+		
+		if (!repeat)
+		{
+			w = Math.min(w, source.width);
+			h = Math.min(h, source.height);	
+		}
+		
+		_fill.begin(g, new Rectangle(w, h));
+		g.drawRect(0, 0, w, h);
 		_fill.end(g);
 		
 		applyDisplayObjectProperties();
