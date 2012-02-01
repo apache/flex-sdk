@@ -25,7 +25,9 @@ The default skin class for a Spark DataGrid component.
     alpha.disabled="0.5" minWidth="89" minHeight="84">
     
     <fx:Metadata>
+    <![CDATA[
         [HostComponent("spark.components.DataGrid")]
+    ]]>
     </fx:Metadata>
     
     <s:states>
@@ -113,7 +115,15 @@ The default skin class for a Spark DataGrid component.
                     <s:SolidColor color="0xCCCCCC"/>
                 </s:fill>
             </s:Rect>
-        </fx:Component>            
+        </fx:Component>
+        
+        <fx:Component id="editorIndicator">
+            <s:Rect>
+                <s:fill>
+                    <s:SolidColor color="0xFFFFFF"/>
+                </s:fill>                
+            </s:Rect>
+        </fx:Component>   
     </fx:Declarations>
     
     <!-- fill -->
@@ -126,7 +136,9 @@ The default skin class for a Spark DataGrid component.
     </s:Rect>
     
     <s:VGroup horizontalAlign="justify" gap="0" left="0" right="0" top="0" bottom="0">
-        <s:GridColumnHeaderGroup id="columnHeaderGroup" paddingLeft="1" paddingTop="1" paddingRight="1" headerRenderer="spark.skins.wireframe.DefaultGridHeaderRenderer" />
+        <s:GridColumnHeaderGroup id="columnHeaderGroup" paddingLeft="1" paddingTop="1" paddingRight="1"
+            columnSeparator="{headerColumnSeparator}"
+            headerRenderer="spark.skins.wireframe.DefaultGridHeaderRenderer" />
         
         <s:VGroup horizontalAlign="justify" height="100%" gap="-1">
             <s:Line id="headerSeparator">
@@ -136,7 +148,13 @@ The default skin class for a Spark DataGrid component.
             </s:Line>   
             
             <s:Scroller id="scroller" minViewportInset="1" hasFocusableChildren="false" height="100%">
-                <s:Grid id="grid" itemRenderer="spark.skins.spark.DefaultGridItemRenderer" />
+                <s:Grid id="grid" itemRenderer="spark.skins.spark.DefaultGridItemRenderer">
+                    <s:GridLayer name="backgroundLayer"/>
+                    <s:GridLayer name="selectionLayer"/>
+                    <s:GridLayer name="editorIndicatorLayer"/>
+                    <s:GridLayer name="rendererLayer"/>
+                    <s:GridLayer name="overlayLayer"/>
+                </s:Grid>
             </s:Scroller>
         </s:VGroup>
     </s:VGroup>
