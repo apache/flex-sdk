@@ -12,13 +12,15 @@ package mx.effects.effectClasses
 {
 import flash.events.Event;
 
-import mx.effects.PropertyValuesHolder;
-
 import mx.components.FxApplication;
 import mx.core.Container;
 import mx.core.IUIComponent;
+import mx.effects.Animation;
+import mx.effects.PropertyValuesHolder;
+import mx.events.AnimationEvent;
 import mx.events.EffectEvent;
 import mx.events.TweenEvent;
+import mx.graphics.IGraphicElement;
 import mx.styles.IStyleClient;
     
 public class FxMoveInstance extends FxAnimateInstance
@@ -122,8 +124,6 @@ public class FxMoveInstance extends FxAnimateInstance
                 xFrom = xTo - xBy;
             else if (propertyChanges && propertyChanges.start["x"] !== undefined)
                 xFrom = propertyChanges.start["x"];
-            else
-                xFrom = getCurrentValue("x");
         }
 		if (isNaN(xTo))
 		{
@@ -135,7 +135,8 @@ public class FxMoveInstance extends FxAnimateInstance
 			}
 			else
 			{
-				xTo = (!isNaN(xBy)) ? xFrom + xBy : getCurrentValue("x");
+				if (!isNaN(xBy) && !isNaN(xFrom))
+				    xTo= xFrom + xBy;
 			}
 		}
 
@@ -146,8 +147,6 @@ public class FxMoveInstance extends FxAnimateInstance
                 yFrom = yTo - yBy;
             else if (propertyChanges && propertyChanges.start["y"] !== undefined)
                 yFrom = propertyChanges.start["y"];
-            else
-                yFrom = getCurrentValue("y");
         }
 		if (isNaN(yTo))
 		{
@@ -159,13 +158,14 @@ public class FxMoveInstance extends FxAnimateInstance
 			}
 			else
 			{
-				yTo = (!isNaN(yBy)) ? yFrom + yBy : getCurrentValue("y");
+				if (!isNaN(yBy) && !isNaN(yFrom))
+				    yTo = yFrom + yBy;
 			}
 		}
 
         propertyValuesList = 
-            [new PropertyValuesHolder("x", [xFrom, xTo]),
-             new PropertyValuesHolder("y", [yFrom, yTo])];
+            [new PropertyValuesHolder("x", [xFrom, xTo], xBy),
+             new PropertyValuesHolder("y", [yFrom, yTo], yBy)];
         
         // TODO (chaase): The Flex3 version of Move had logic for forcing clipping
         // off during the effect. We probably need something like this
@@ -175,6 +175,5 @@ public class FxMoveInstance extends FxAnimateInstance
         super.play();        
     }
 
-    
 }
 }
