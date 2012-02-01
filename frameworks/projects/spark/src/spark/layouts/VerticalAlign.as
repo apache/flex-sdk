@@ -13,8 +13,8 @@ package spark.layouts
 {
 
 /**
- *  Enumerated type for the HorizontalLayout's <code>verticalAlign</code>
- *  property.
+ *  The VerticalAlign class defines the possible values for the 
+ *  <code>verticalAlign</code> property of the HorizontalLayout class.
  * 
  * @see HorizontalLayout#verticalAlign
  *  
