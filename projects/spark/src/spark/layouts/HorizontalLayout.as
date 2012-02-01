@@ -1980,10 +1980,9 @@ public class HorizontalLayout extends LayoutBase
      *  @private
      */
     override protected function calculateDragScrollDelta(dropLocation:DropLocation,
-                                                         timeInterval:int,
-                                                         timeElapsed:int):Point
+                                                         elapsedTime:Number):Point
     {
-        var delta:Point = super.calculateDragScrollDelta(dropLocation, timeInterval, timeElapsed);
+        var delta:Point = super.calculateDragScrollDelta(dropLocation, elapsedTime);
         // Don't scroll in the vertical direction
         if (delta)
             delta.y = 0;
