@@ -2,28 +2,34 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The Spark skin class for the separator of a Halo DataGrid component. -->
+<!--- The Spark skin class for the separator of a Halo DataGrid component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
              width="2" height="10" mouseEnabled="false" mouseChildren="false">    
-	<!-- border -->
-	<s:Rect top="0" left="0" bottom="0" width="1">
-		<s:fill>
-			<s:SolidColor color="0x696969" />
-		</s:fill>
-	</s:Rect>
-	<!-- highlight -->
-	<s:Rect top="0" bottom="1" right="0" width="1">
-		<s:fill>
-			<s:SolidColor color="0xFFFFFF" alpha="0.35" />
-		</s:fill>
-	</s:Rect>
+    <!-- border -->
+    <s:Rect top="0" left="0" bottom="0" width="1">
+        <s:fill>
+            <s:SolidColor color="0x696969" />
+        </s:fill>
+    </s:Rect>
+    <!-- highlight -->
+    <s:Rect top="0" bottom="1" right="0" width="1">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" alpha="0.35" />
+        </s:fill>
+    </s:Rect>
 </s:SparkSkin>
