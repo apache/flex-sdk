@@ -21,7 +21,7 @@
 
     <!-- host component -->
     <fx:Metadata>
-        [HostComponent("spark.components.VideoPlayerVolumeBar")]
+        [HostComponent("spark.components.mediaClasses.VolumeBar")]
     </fx:Metadata>
     
     <fx:Script>
@@ -64,14 +64,14 @@
             </s:Rect>
             
             <s:Button id="track" horizontalCenter="0" top="6" bottom="7"
-                      skinClass="spark.skins.default.VideoPlayerVolumeBarTrackSkin" />
+                      skinClass="spark.skins.default.mediaClasses.normal.VolumeBarTrackSkin" />
             
             <s:Button id="thumb" horizontalCenter="0" width="11" height="11" 
-                      skinClass="spark.skins.default.VideoPlayerVolumeBarThumbSkin" />
+                      skinClass="spark.skins.default.mediaClasses.normal.VolumeBarThumbSkin" />
         </s:Group>
     </s:PopUpAnchor>
         
-    <s:VideoPlayerVolumeBarMuteButton id="muteButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
-              skinClass="spark.skins.default.VideoPlayerVolumeBarMuteButtonSkin" />
+    <s:MuteButton id="muteButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
+              skinClass="spark.skins.default.mediaClasses.normal.MuteButtonSkin" />
     
 </s:SparkSkin>
