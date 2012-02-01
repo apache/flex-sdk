@@ -59,8 +59,15 @@
 		<condition property="asdoc.jvm.args" value="-Xmx512m">
 			<os family="unix"/>
 		</condition>
+		
+		<delete failonerror="false">
+			<fileset dir="${FLEX_HOME}/tempDoc">
+				<include name="validation_errors.log"/>
+			</fileset>
+		</delete>
+		
 		<!-- builds ASDoc XML -->
-		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+		<asdoc output="${FLEX_HOME}/tempDoc" lenient="false" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
 			<doc-classes class="flashx.textLayout.CoreClasses"/>
 			<doc-classes class="flashx.textLayout.EditClasses"/>
 			<doc-classes class="flashx.textLayout.ConversionClasses"/>
@@ -73,6 +80,10 @@
 			<define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>
 		</asdoc>
+		
+		<available file="${FLEX_HOME}/tempDoc/validation_errors.log" property="asdoc.errors"/>
+		<fail if="asdoc.errors" message="ASDoc Errors"/>
+		
 		<!-- updates combined swc with ASDoc XML -->
 		<zip destfile="${output.file}" update="true">
 		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
