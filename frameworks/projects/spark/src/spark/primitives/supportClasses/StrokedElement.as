@@ -26,7 +26,7 @@ use namespace mx_internal;
 
 /**
  *  The StrokedElement class is the base class for all graphic elements that
- *  have a stroke.
+ *  have a stroke, including Line, Ellipse, Path, and Rect.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -155,6 +155,8 @@ public class StrokedElement extends GraphicElement
      *  taken during the drawing process. In this step, the stroke properties
      *  are applied.
      *  
+     *  @param g The graphic element to draw.
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -183,6 +185,8 @@ public class StrokedElement extends GraphicElement
      *  Your override should only contain calls to drawing methods such as 
      *  <code>moveTo()</code>, <code>curveTo()</code>, and <code>drawRect()</code>.
      *  
+     *  @param g The graphic element to draw.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
