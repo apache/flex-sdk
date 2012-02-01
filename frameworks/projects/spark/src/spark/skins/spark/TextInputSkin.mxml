@@ -9,14 +9,14 @@
 	in accordance with the terms of the license agreement accompanying it.
 
 -->
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
 	  alpha.disabled="0.5">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxTextInput")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.TextInput")]
+    </fx:Metadata> 
     
-    <Script>
+    <fx:Script>
         /* Define the skin elements that should not be colorized. */
         static private const exclusions:Array = ["background", "textView"];
         override public function get colorizeExclusions():Array {return exclusions;}
@@ -24,41 +24,41 @@
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
         static private const contentFill:Array = ["bgFill"];
         override public function get contentItems():Array {return contentFill};
-    </Script>
+    </fx:Script>
     
-    <states>
-        <State name="normal"/>
-        <State name="disabled"/>
-    </states>
+    <s:states>
+        <s:State name="normal"/>
+        <s:State name="disabled"/>
+    </s:states>
     
     <!-- border --> 
-	<Rect left="0" right="0" top="0" bottom="0">
-        <stroke>            
-            <LinearGradientStroke rotation="90" weight="1">
-            	<GradientEntry color="0x000000" alpha="0.5525" />
-            	<GradientEntry color="0x000000" alpha="0.6375" />
-            </LinearGradientStroke>
-        </stroke>
-    </Rect>
+	<s:Rect left="0" right="0" top="0" bottom="0">
+        <s:stroke>            
+            <s:LinearGradientStroke rotation="90" weight="1">
+            	<s:GradientEntry color="0x000000" alpha="0.5525" />
+            	<s:GradientEntry color="0x000000" alpha="0.6375" />
+            </s:LinearGradientStroke>
+        </s:stroke>
+    </s:Rect>
 
     <!-- fill -->
-    <Rect id="background" left="1" right="1" top="1" bottom="1">
-        <fill>
-            <SolidColor id="bgFill" color="0xFFFFFF" />
-        </fill>
-    </Rect>
+    <s:Rect id="background" left="1" right="1" top="1" bottom="1">
+        <s:fill>
+            <s:SolidColor id="bgFill" color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
     
 	<!-- shadow -->
-	<Rect left="1" top="1" right="1" height="1">
-		<fill>
-			<SolidColor color="0x000000" alpha="0.12" />
-		</fill>
-	</Rect>
+	<s:Rect left="1" top="1" right="1" height="1">
+		<s:fill>
+			<s:SolidColor color="0x000000" alpha="0.12" />
+		</s:fill>
+	</s:Rect>
 	
 	<!-- text -->
-    <TextView id="textView"
+    <s:RichEditableText id="textView"
               left="1" right="1" top="1" bottom="1" 
 			  paddingLeft="3" paddingTop="5"
               paddingRight="3" paddingBottom="3"/>
 
-</SparkSkin>
+</s:SparkSkin>
