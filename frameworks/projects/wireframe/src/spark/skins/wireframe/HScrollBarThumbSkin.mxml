@@ -40,35 +40,37 @@
     <!-- background -->
     <s:Rect left="0" top="0" right="0" bottom="0" minWidth="14" minHeight="14">
         <s:stroke>
-            <s:SolidColorStroke color="0x3D5D92" />
+            <s:SolidColorStroke color="#666666" />
         </s:stroke>
         <s:fill>
-            <s:SolidColor color="0xFFFFFF" />
+            <s:SolidColor color="#EEEEEE" />
         </s:fill>
     </s:Rect>
 
     <!-- Gripper -->
     <s:Group horizontalCenter="-1" verticalCenter="0">
-        <s:Rect width="7" height="6">
-            <s:fill>
-                <s:SolidColor color="0xFFFFFF"  />
-            </s:fill>
-        </s:Rect>
         <s:Line xFrom="1" xTo="1" yFrom="0" yTo="6">
             <s:stroke>
-                <s:SolidColorStroke color="0x3D5D92" pixelHinting="true" />
+                <s:SolidColorStroke color="#666666" pixelHinting="true" />
             </s:stroke>
         </s:Line>
         <s:Line xFrom="4" xTo="4" yFrom="0" yTo="6">
             <s:stroke>
-                <s:SolidColorStroke color="0x3D5D92" pixelHinting="true" />
+                <s:SolidColorStroke color="#666666" pixelHinting="true" />
             </s:stroke>
         </s:Line>
         <s:Line xFrom="7" xTo="7" yFrom="0" yTo="6">
             <s:stroke>
-                <s:SolidColorStroke color="0x3D5D92" pixelHinting="true" />
+                <s:SolidColorStroke color="#666666" pixelHinting="true" />
             </s:stroke>
         </s:Line>
     </s:Group>
+    
+    <!-- shadow line -->
+    <s:Line alpha="0.38" right="-1" top="1" bottom="1">
+        <s:stroke>
+            <s:SolidColorStroke color="#5C5C5C" weight="1" caps="square"/>
+        </s:stroke>
+    </s:Line>
 
 </s:Skin>
