@@ -11,7 +11,11 @@
 
 -->
 
-<!--- The default skin class for the Spark Application component. 
+<!--- The default wireframe skin class for the Spark Application component. 
+
+        Skin classes in the wireframe package are useful for using as a simple base for a custom skin.
+
+       @see spark.components.Application
         
       @langversion 3.0
       @playerversion Flash 10
@@ -54,6 +58,7 @@
         </s:layout>
 
         <!--- 
+            @private
             Application Control Bar
         -->
         <s:Group id="topGroup" minWidth="0" minHeight="0"
