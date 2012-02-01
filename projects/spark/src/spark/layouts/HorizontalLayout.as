@@ -489,8 +489,8 @@ public class HorizontalLayout extends LayoutBase
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get requestedMaxColumnCount():int
     {
@@ -535,8 +535,8 @@ public class HorizontalLayout extends LayoutBase
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get requestedMinColumnCount():int
     {
@@ -831,7 +831,7 @@ public class HorizontalLayout extends LayoutBase
      *  of the layout elements is set to the container's height.</p>
      *
      *  <p>If the value is <code>"baseline"</code> then the elements are positioned
-     *  such that thier text is aligned to the maximum of the elements' text ascent.</p>
+     *  such that their text is aligned to the maximum of the elements' text ascent.</p>
      * 
      *  @default "top"
      *  
@@ -1164,21 +1164,21 @@ public class HorizontalLayout extends LayoutBase
         }   
 
         if (useVirtualLayout)
-		{
-			var firstElement:ILayoutElement = g.getElementAt(_firstIndexInView);
-			var lastElement:ILayoutElement = g.getElementAt(_lastIndexInView);
-			var scrollRect:Rectangle = getScrollRect();
-			
-			/* If the scrollRect is within the bounds of the elements, we do
-			not need to call invalidateDisplayList(). This considerably speeds
-			up small scrolls. */
-			if (!firstElement || !lastElement || 
-				scrollRect.left < firstElement.getLayoutBoundsX() || 
-				scrollRect.right >= (lastElement.getLayoutBoundsX() + lastElement.getLayoutBoundsWidth()))
-			{
-				g.invalidateDisplayList();
-			}
-		}
+        {
+            var firstElement:ILayoutElement = g.getElementAt(_firstIndexInView);
+            var lastElement:ILayoutElement = g.getElementAt(_lastIndexInView);
+            var scrollRect:Rectangle = getScrollRect();
+            
+            /* If the scrollRect is within the bounds of the elements, we do
+            not need to call invalidateDisplayList(). This considerably speeds
+            up small scrolls. */
+            if (!firstElement || !lastElement || 
+                scrollRect.left < firstElement.getLayoutBoundsX() || 
+                scrollRect.right >= (lastElement.getLayoutBoundsX() + lastElement.getLayoutBoundsWidth()))
+            {
+                g.invalidateDisplayList();
+            }
+        }
                 
         setIndexInView(i0, i1);
     }
