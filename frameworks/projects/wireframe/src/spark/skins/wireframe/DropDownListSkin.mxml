@@ -9,8 +9,12 @@
     in accordance with the terms of the license agreement accompanying it.
  
 --> 
-<!--- The default skin class for the Spark DropDownList component. 
+<!--- The default wireframe skin class for the Spark DropDownList component. 
+        Skin classes in the wireframe package are useful for using as a simple base for a custom skin.
         
+      @see spark.components.DropDownList        
+      @see spark.skins.wireframe.DropDownListButtonSkin
+                
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
