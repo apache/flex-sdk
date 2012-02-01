@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2003-2006 Adobe Systems Incorporated
+//  Copyright 2008 Adobe Systems Incorporated
 //  All Rights Reserved.
 //
 //  NOTICE: Adobe permits you to use, modify, and distribute this file
@@ -146,7 +146,7 @@ public class GraphicElement extends EventDispatcher
     private var _colorTransform:ColorTransform;
 
     private var colorTransformChanged:Boolean;
-
+    
     /**
      *  @private The Sprite to draw into. 
      *  If null, then we just use displayObject or sharedDisplayObject
@@ -333,7 +333,7 @@ public class GraphicElement extends EventDispatcher
      *  @private
      */
     private var alphaChanged:Boolean = false;
-
+    
     [Inspectable(category="General")]
 
     /**
@@ -353,12 +353,18 @@ public class GraphicElement extends EventDispatcher
      *  @private
      */
     public function set alpha(value:Number):void
-    {
+    {    
         if (_alpha == value)
             return;
-
+        
         var previous:Boolean = needsDisplayObject;
         _alpha = value;
+        
+        // Clear the colorTransform flag since alpha was explicitly set
+        var mxTransform:mx.geom.Transform = _transform as mx.geom.Transform;
+        if (mxTransform)
+            mxTransform.applyColorTransformAlpha = false;        
+        
         if (previous != needsDisplayObject)
             invalidateDisplayObjectSharing();    
 
@@ -1773,7 +1779,8 @@ public class GraphicElement extends EventDispatcher
             }          
         }
         
-        setColorTransform(colorTransform);
+        var mxTransform:mx.geom.Transform = value as mx.geom.Transform;        
+        applyColorTransform(colorTransform, mxTransform && mxTransform.applyColorTransformAlpha);
 
         invalidateTransform(previous != needsDisplayObject);
     }
@@ -1796,14 +1803,31 @@ public class GraphicElement extends EventDispatcher
         _transform = value;
     }
     
+    /**
+     * @private
+     * 
+     * Sets the colorTransform property of the transform. Called by mx.geom.Transform
+     * when its colorTransform property has been changed.   
+     */
     public function setColorTransform(value:ColorTransform):void
+    {
+        applyColorTransform(value, true);
+    }
+    
+    /**
+     * @private
+     */
+    private function applyColorTransform(value:ColorTransform, updateAlpha:Boolean):void
     {
         if (_colorTransform != value)
         {
             var previous:Boolean = needsDisplayObject;
             // Make a copy of the colorTransform
             _colorTransform = new ColorTransform(value.redMultiplier, value.greenMultiplier, value.blueMultiplier, value.alphaMultiplier,
-                                                 value.redOffset, value.greenOffset, value.blueOffset, value.alphaOffset);
+                value.redOffset, value.greenOffset, value.blueOffset, value.alphaOffset);
+            
+            if (updateAlpha)
+                _alpha = value.alphaMultiplier;
             
             if (displayObject && displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
             {
@@ -1814,8 +1838,8 @@ public class GraphicElement extends EventDispatcher
                 colorTransformChanged = true;
                 invalidateProperties();
                 if (previous != needsDisplayObject)
-                    invalidateDisplayObjectSharing();
-            }               
+                    invalidateDisplayObjectSharing();       
+            }
         }
     }
     
@@ -2998,6 +3022,7 @@ public class GraphicElement extends EventDispatcher
     {
         //trace("GraphicElement.commitProperties displayObject",displayObject,"this",this);
         var updateTransform:Boolean = false;
+        var mxTransform:mx.geom.Transform;
         
         // If we are the first in the sequence, setup the displayObject properties
         if (displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT && displayObject)
@@ -3008,12 +3033,15 @@ public class GraphicElement extends EventDispatcher
                 if (_colorTransform)
                     displayObject.transform.colorTransform = _colorTransform;
             }
-
+            
             if (alphaChanged || displayObjectChanged)
             {
                 alphaChanged = false;
-                displayObject.alpha = _alpha;
-            }
+                
+                mxTransform = _transform as mx.geom.Transform;
+                if (!mxTransform || !mxTransform.applyColorTransformAlpha)
+                    displayObject.alpha = _alpha;
+            }  
 
             if (blendModeChanged || displayObjectChanged)
             {
