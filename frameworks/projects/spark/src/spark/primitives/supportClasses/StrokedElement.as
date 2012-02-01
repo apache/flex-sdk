@@ -106,7 +106,7 @@ public class StrokedElement extends GraphicElement
     
     //--------------------------------------------------------------------------
     //
-    //  IGraphicElement Implementation
+	//  overriden methods from GraphicElement
     //
     //--------------------------------------------------------------------------
     
