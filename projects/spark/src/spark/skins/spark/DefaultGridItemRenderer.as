@@ -103,8 +103,10 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  * 
  *  @see spark.components.DataGrid
  *  @see spark.components.gridClasses.GridItemRenderer
- *  @see UITextFieldGridItemRenderer
+ *  @see spark.skins.spark.UITextFieldGridItemRenderer
  *  
+ *  @includeExample examples/DefaultGridItemRendererExample.mxml
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
