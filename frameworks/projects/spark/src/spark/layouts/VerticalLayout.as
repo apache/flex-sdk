@@ -347,11 +347,10 @@ public class VerticalLayout implements ILayout
         layoutTarget.measuredWidth = preferredWidth;
         layoutTarget.measuredHeight = (explicitRowCount == -1) ? preferredHeight : visibleHeight;
 
-        layoutTarget.contentWidth = preferredWidth;
-        layoutTarget.contentHeight = preferredHeight;
-
         layoutTarget.measuredMinWidth = minWidth; 
         layoutTarget.measuredMinHeight = minHeight;
+
+        layoutTarget.setContentSize(preferredWidth, preferredHeight);
     }
    
    
@@ -392,12 +391,11 @@ public class VerticalLayout implements ILayout
         
         layoutTarget.measuredWidth = columnWidth;
         layoutTarget.measuredHeight = visibleHeight;
-        
-        layoutTarget.contentWidth = columnWidth; 
-        layoutTarget.contentHeight = contentHeight;
 
         layoutTarget.measuredMinWidth = minColumnWidth;
         layoutTarget.measuredMinHeight = rowHeight;
+        
+        layoutTarget.setContentSize(columnWidth, contentHeight);
     }
     
     
@@ -453,21 +451,25 @@ public class VerticalLayout implements ILayout
         
         // Finally, position the objects        
         var y:Number = 0;
+        var maxX:Number = 0;
+        var maxY:Number = 0;
         for each (var lo:ILayoutItem in layoutItemArray)
         {
             var x:Number = (unscaledWidth - lo.actualSize.x) * hAlign;
             lo.setActualPosition(x, y);
+            var dx:Number = lo.actualSize.x;
             if (!variableRowHeight)
-                lo.setActualSize(lo.actualSize.x, rowHeight);
+                lo.setActualSize(dx, rowHeight);
             var dy:Number = lo.actualSize.y;
+            maxX = Math.max(maxX, x + dx);
+            maxY = Math.max(maxY, y + dy);
             if ((explicitRowCount == -1) && (y < maxVisibleY) && ((y + dy) > minVisibleY)) 
             	visibleRows += 1;
             y += dy + gap;
         }
         if (explicitRowCount == -1) 
         	setRowCount(visibleRows);
-
-        BasicLayout.setScrollRect(layoutTarget, unscaledWidth, unscaledHeight);
+        layoutTarget.setContentSize(maxX, maxY);
     }
     
     
