@@ -1300,8 +1300,6 @@ public class HorizontalLayout extends LayoutBase
 }
 }
 
-[ExcludeClass]
-
 import mx.core.ILayoutElement;
 import mx.containers.utilityClasses.FlexChildInfo;
 
