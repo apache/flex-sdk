@@ -344,12 +344,12 @@ public class BasicLayout extends LayoutBase
 
             return totalSize - 2 * Math.abs(center);
         }
-        else if(!isNaN(lowConstraint))
+        else if (!isNaN(lowConstraint))
         {
             // childWidth + left <= totalSize
             return totalSize - lowConstraint;
         }
-        else if(!isNaN(highConstraint))
+        else if (!isNaN(highConstraint))
         {
             // childWidth + right <= totalSize
             return totalSize - highConstraint;
