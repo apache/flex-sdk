@@ -17,11 +17,13 @@
 	  alpha.disabled="0.5">
 
 	<!-- host component -->
-	<!--- 
-		@copy spark.skins.default.ApplicationSkin#hostComponent
-	-->
 	<fx:Metadata>
+	    <![CDATA[ 
+		/** 
+		 * @copy spark.skins.default.ApplicationSkin#hostComponent
+		 */
 		[HostComponent("spark.components.Button")]
+	    ]]>
 	</fx:Metadata>
     
     <fx:Script>
@@ -31,7 +33,7 @@
 		static private const exclusions:Array = ["labelElement"];
                 
 		/** 
-		 * @copy spark.skins.SparkSkin#getColorizeExclusions()
+		 * @copy spark.skins.SparkSkin#colorizeExclusions
 		 */		
 	        override public function get colorizeExclusions():Array {return exclusions;}
         ]]>        
