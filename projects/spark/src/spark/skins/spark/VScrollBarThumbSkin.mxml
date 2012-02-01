@@ -12,6 +12,8 @@
 -->
 
 <!--- The default skin class for the thumb of a Spark VScrollBar component.  
+
+       @see spark.components.VScrollBar
         
       @langversion 3.0
       @playerversion Flash 10
