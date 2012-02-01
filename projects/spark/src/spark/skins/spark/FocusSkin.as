@@ -77,6 +77,11 @@ public class FxFocusSkin extends UIComponent
      *  filter that shows the focus glow.
      */
     private var bitmap:Bitmap;
+
+    /**
+     *  Object to draw focus around.  If null, uses focusManager.getFocus();
+     */
+	public var focusObject:Object;
     
     //--------------------------------------------------------------------------
     //
@@ -91,7 +96,8 @@ public class FxFocusSkin extends UIComponent
             return;
             
         // Grab a bitmap of the focused object
-        var focusObject:Object = focusManager.getFocus();
+        if (!focusObject)
+			focusObject = focusManager.getFocus();
         var bitmapData:BitmapData = new BitmapData(
                     focusObject.width + (FOCUS_THICKNESS * 2), 
                     focusObject.height + (FOCUS_THICKNESS * 2), true, 0);
