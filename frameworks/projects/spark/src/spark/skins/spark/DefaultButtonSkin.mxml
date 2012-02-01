@@ -49,7 +49,7 @@ an Alert. It is defined by the defaultButton property on a container.
              */
             override protected function initializationComplete():void
             {
-                useBaseColor = true;
+                useChromeColor = true;
                 super.initializationComplete();
             }  
             
