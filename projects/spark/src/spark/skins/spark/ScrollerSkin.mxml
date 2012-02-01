@@ -35,7 +35,10 @@ viewport property to link them together.
     ]]>
     </fx:Metadata> 
         
+    <!--- Determines whether the vertical ScrollBar is visible in the ScrollerSkin. -->
     <s:VScrollBar id="verticalScrollBar" visible="false" />
+    
+    <!--- Determines whether the horizontal ScrollBar is visible in the ScrollerSkin. -->
     <s:HScrollBar id="horizontalScrollBar" visible="false" />
 
 </s:Skin>
