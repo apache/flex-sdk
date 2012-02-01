@@ -1,0 +1,246 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2003-2006 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+package flex.graphics
+{
+import flash.display.BlendMode;
+import flash.display.DisplayObject;
+import flash.display.Graphics;
+import flash.display.Shape;
+import flash.display.Sprite;
+import flash.events.Event;
+import flash.events.EventDispatcher;
+import flash.geom.ColorTransform;
+import flash.geom.Matrix;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+import flash.geom.Transform;
+
+import flex.intf.ILayoutItem;
+import flex.graphics.graphicsClasses.GraphicElement;
+
+import mx.core.mx_internal;
+import mx.core.UIComponent;
+import mx.events.PropertyChangeEvent;
+import mx.events.PropertyChangeEventKind;
+import mx.graphics.IStroke;
+import flex.filters.BaseFilter;
+import flex.filters.IBitmapFilter;
+import flex.geom.Transform;
+
+use namespace mx_internal;
+
+/**
+ *  The StrokedElement class is the base class for all graphic elements that
+ *  have a stroke.
+ */
+public class StrokedElement extends GraphicElement implements IAssignableDisplayObjectElement
+{
+	include "../core/Version.as";
+	//--------------------------------------------------------------------------
+	//
+	//  Constructor
+	//
+	//--------------------------------------------------------------------------
+
+	/**
+	 *  Constructor. 
+	 */
+	public function StrokedElement()
+	{
+		super();
+	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Properties
+	//
+	//--------------------------------------------------------------------------
+
+	//----------------------------------
+	//  alwaysNeedsDisplayObject
+	//----------------------------------
+	
+	private var _alwaysNeedsDisplayObject:Boolean = false;
+	
+	/*
+	 *  Set this to true to force the Graphic Element to create an underlying Shape
+	 */
+	mx_internal function set alwaysNeedsDisplayObject(value:Boolean):void
+	{
+		if (value != _alwaysNeedsDisplayObject)
+		{
+			_alwaysNeedsDisplayObject = value;
+			notifyElementTransformChanged();
+		}
+	}
+	
+	mx_internal function get alwaysNeedsDisplayObject():Boolean
+	{
+		return _alwaysNeedsDisplayObject;
+	}
+	
+	// TODO!!! Optimize this so we don't always create a sprite
+	protected var needsSprite:Boolean = false;
+
+	//----------------------------------
+	//  stroke
+	//----------------------------------
+
+	mx_internal var _stroke:IStroke;
+		
+	[Bindable("propertyChange")]
+	[Inspectable(category="General")]
+
+	/**
+	 *  The stroke used by this element.
+	 */
+	public function get stroke():IStroke
+	{
+		return _stroke;
+	}
+	
+	public function set stroke(value:IStroke):void
+	{
+		var strokeEventDispatcher:EventDispatcher;
+		var oldValue:IStroke = _stroke;
+		
+		strokeEventDispatcher = _stroke as EventDispatcher;
+		if (strokeEventDispatcher)
+			strokeEventDispatcher.removeEventListener(
+				PropertyChangeEvent.PROPERTY_CHANGE, 
+				stroke_propertyChangeHandler);
+			
+		_stroke = value;
+		
+		strokeEventDispatcher = _stroke as EventDispatcher;
+		if (strokeEventDispatcher)
+			strokeEventDispatcher.addEventListener(
+				PropertyChangeEvent.PROPERTY_CHANGE, 
+				stroke_propertyChangeHandler);
+			
+		dispatchPropertyChangeEvent("stroke", oldValue, _stroke);
+		notifyElementChanged();
+	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  IGraphicElement Implementation
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @inheritDoc
+	 */
+	override public function draw(g:Graphics):void 
+	{
+		beginDraw(g);
+		drawElement(g);
+		endDraw(g);
+		
+		applyDisplayObjectProperties();
+	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  IAssignableDisplayObjectElement Implementation
+	//
+	//--------------------------------------------------------------------------
+	public function createDisplayObject():DisplayObject
+	{
+		if (displayObject)
+			return displayObject;
+		if (needsSprite)
+			return new Sprite();
+		else 
+			return new Shape();
+	}
+	
+	public function needsDisplayObject():Boolean
+	{
+		return true;
+	}
+		
+	//--------------------------------------------------------------------------
+	//
+	//  Methods
+	//
+	//--------------------------------------------------------------------------
+	
+	protected function clearDisplayObject():void
+	{
+		if (displayObject)
+		{
+			if (displayObject.parent)
+				displayObject.parent.removeChild(displayObject);
+			displayObject = null;
+		}
+	}
+	
+	/**
+	 *  Set up the drawing for this element. This is the first of three steps
+	 *  taken during the drawing process. In this step, the stroke properties
+	 *  are applied.
+	 */
+	protected function beginDraw(g:Graphics):void
+	{
+		if (stroke)
+			stroke.draw(g,bounds);
+		else
+			g.lineStyle(0, 0, 0);
+			
+		// Even though this is a stroked element, we still need to beginFill/endFill
+		// otherwise subsequent fills could get messed up.
+		g.beginFill(0, 0);
+	}
+	
+	/**
+	 *  Draw the element. This is the second of three steps taken during the drawing
+	 *  process. Override this method to implement your drawing. The stroke
+	 *  (and fill, if applicable) have been set in beginDraw. Your override should
+	 *  only contain drawing commands like moveTo(), curveTo(), and drawRect().
+	 */
+	protected function drawElement(g:Graphics):void
+	{
+		// override to do your drawing
+	}
+	
+	/**
+	 *  Finalize drawing for this element. This is the final of the three steps taken
+	 *  during the drawing process. In this step, fills are closed.
+	 */
+	protected function endDraw(g:Graphics):void
+	{
+		g.endFill();
+	}
+	
+    override protected function getStroke():IStroke
+    {
+    	return stroke;
+    }
+    
+	//--------------------------------------------------------------------------
+	//
+	//  EventHandlers
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 */
+	protected function stroke_propertyChangeHandler(event:Event):void
+	{
+		notifyElementChanged();
+	}
+
+}
+
+}
