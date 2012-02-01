@@ -13,8 +13,11 @@ package spark.primitives
 {
 
 import mx.events.PropertyChangeEvent;
+
 import spark.components.Group;
 import spark.components.ResizeMode;
+import spark.layouts.BasicLayout;
+import spark.layouts.supportClasses.LayoutBase;
 
 //--------------------------------------
 //  Events
@@ -110,7 +113,8 @@ public class Graphic extends Group
     public function Graphic()
     {
         super();
-		
+        super.layout = new BasicLayout();
+
 		// The default resize mode for a Graphic is scale
 		resizeMode = ResizeMode.SCALE;
     }
@@ -141,6 +145,7 @@ public class Graphic extends Group
     //----------------------------------
     //  viewHeight
     //----------------------------------
+
     private var _viewHeight:Number;
     
     /**
@@ -178,6 +183,7 @@ public class Graphic extends Group
     //----------------------------------
     //  viewWidth
     //----------------------------------
+
     private var _viewWidth:Number;
     
     /**
@@ -211,6 +217,18 @@ public class Graphic extends Group
             invalidateSize();
         }
         
+    }
+    
+    //----------------------------------
+    //  layout
+    //----------------------------------    
+    
+    /**
+     *  @private
+     */
+    override public function set layout(value:LayoutBase):void
+    {
+        throw(new Error(resourceManager.getString("components", "layoutReadOnly")));
     }
     
     //--------------------------------------------------------------------------
