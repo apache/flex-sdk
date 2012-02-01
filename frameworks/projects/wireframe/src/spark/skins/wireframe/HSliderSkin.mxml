@@ -12,19 +12,34 @@
 -->
 
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-	  minHeight="11" minWidth="100"
-	  alpha.disabled="0.5">
+	  minHeight="11" alpha.disabled="0.5">
 
     <fx:Metadata>
     	[HostComponent("spark.components.HSlider")]
     </fx:Metadata> 
+
+    <fx:Script>
+        /**
+         *  @private
+         */  
+        override protected function measure() : void
+        {
+            // Temporarily move the thumb to the left of the Slider so measurement
+            // doesn't factor in its x position. This allows resizing the
+            // HSlider to less than 100px in width. 
+            var thumbPos:Number = thumb.getLayoutBoundsX();
+            thumb.setLayoutBoundsPosition(0, thumb.getLayoutBoundsY());
+            super.measure();
+            thumb.setLayoutBoundsPosition(thumbPos, thumb.getLayoutBoundsY());
+        }
+    </fx:Script>
     
     <s:states>
     	<s:State name="normal" />
     	<s:State name="disabled" />
     </s:states>
     
-    <s:Button id="track" left="0" right="0" top="0" bottom="0" 
+    <s:Button id="track" left="0" right="0" top="0" bottom="0" minWidth="33" width="100" 
             skinClass="spark.skins.wireframe.HSliderTrackSkin" />
     <s:Button id="thumb" top="0" bottom="0" width="11" height="11"
             skinClass="spark.skins.wireframe.HSliderThumbSkin" />
