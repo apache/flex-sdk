@@ -160,19 +160,21 @@
          */
         override public function styleChanged(styleProp:String):void
         {
+            var allStyles:Boolean = !styleProp || styleProp == "styleName";
+
             super.styleChanged(styleProp);
             
-            if (!styleProp || styleProp.indexOf("lineBreak") == 0)
+            if (allStyles || styleProp.indexOf("lineBreak") == 0)
             {
                 lineBreakChanged = true;
                 invalidateProperties();
             }
-            if (!styleProp || styleProp.indexOf("padding") == 0)
+            if (allStyles || styleProp.indexOf("padding") == 0)
             {
                 paddingChanged = true;
                 invalidateProperties();
             }
-            if (!styleProp || styleProp.indexOf("verticalAlign") == 0)
+            if (allStyles || styleProp.indexOf("verticalAlign") == 0)
             {
                 verticalAlignChanged = true;
                 invalidateProperties();
