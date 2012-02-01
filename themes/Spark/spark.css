@@ -5,6 +5,11 @@ Menu, Panel, TitleWindow
 	dropShadowVisible: true;
 }
 
+List.comboDropdown
+{
+	dropShadowVisible: true;
+}
+
 VideoDisplay
 {
 	contentBackgroundColor: #000000;
