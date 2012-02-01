@@ -2919,6 +2919,11 @@ public class GraphicElement extends EventDispatcher
     
     /**
      *  @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get layoutDirection():String
     {
@@ -2943,6 +2948,11 @@ public class GraphicElement extends EventDispatcher
     
     /**
      * @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function invalidateLayoutDirection():void
     {
@@ -4294,6 +4304,13 @@ public class GraphicElement extends EventDispatcher
     /**
      *  Used for the implementation of the ILayoutElement interface,
      *  returns the explicit of measured width pre-transform.
+     * 
+     * @return The explicit measured height, pre-transform.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function preferredWidthPreTransform():Number
     {
@@ -4302,7 +4319,14 @@ public class GraphicElement extends EventDispatcher
 
     /**
      *  Used for the implementation of the ILayoutElement interface,
-     *  returns the explicit of measured height pre-transform.
+     *  returns the explicit measured height pre-transform.
+     * 
+     * @return The explicit measured height, pre-transform.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function preferredHeightPreTransform():Number
     {
