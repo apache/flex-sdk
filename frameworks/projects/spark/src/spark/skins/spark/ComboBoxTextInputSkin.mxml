@@ -84,7 +84,7 @@
                 border.visible = true;
                 shadow.visible = true;
                 background.left = background.top = background.right = background.bottom = 1;
-                textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 1;
+                textDisplay.left = textDisplay.right = 1;
                 if (promptDisplay)
                 {
                     promptDisplay.setLayoutBoundsSize(unscaledWidth - 2, unscaledHeight - 2);
@@ -96,7 +96,7 @@
                 border.visible = false;
                 shadow.visible = false;
                 background.left = background.top = background.right = background.bottom = 0;
-                textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 0;
+                textDisplay.left = textDisplay.right = 0;
                 if (promptDisplay)
                 {
                     promptDisplay.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
@@ -235,9 +235,7 @@
     <!--- @copy spark.components.supportClasses.SkinnableTextBase#textDisplay -->
     <s:RichEditableText id="textDisplay"
               lineBreak="explicit"
-              verticalAlign="middle"
-              widthInChars="10"
-              left="1" right="1" top="1" bottom="1" />
+              widthInChars="10" verticalCenter="0"/>
     <!-- includeInLayout is false so prompt doesn't affect measurement -->
     <s:Label id="promptDisplay" maxDisplayedLines="1"
                 verticalAlign="middle"
