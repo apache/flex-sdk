@@ -12,7 +12,9 @@
 -->
 
 <!--- The default skin class for the scrub bar thumb part of a Spark VideoPlayer 
-      component while in the fullScreen state.  
+      component while in one of the <code>fullScreen</code> skin states.  
+
+      @see spark.components.VideoPlayer
         
       @langversion 3.0
       @playerversion Flash 10
