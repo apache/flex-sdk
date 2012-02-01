@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+        xmlns:mx="library://ns.adobe.com/flex/mx">
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="required" />	
+        <s:State name="disabledAndRequired" />	
+        <s:State name="disabled" />	
+    </s:states>
+    
+    <fx:Style>
+        @namespace s "library://ns.adobe.com/flex/spark";
+        @namespace mx "library://ns.adobe.com/flex/mx";
+        
+        .labelStyle
+        {
+            fontWeight : "bold";
+            fontSize : 16;
+        }
+    </fx:Style>
+    
+    <s:Group left="5" top="2" bottom="2" right="5">
+        
+        <mx:Canvas id="canvasLayout">
+            
+            <mx:constraintColumns>
+                <mx:ConstraintColumn id="numCol" />
+                <mx:ConstraintColumn id="labelCol" />
+                <mx:ConstraintColumn id="indicatorCol" width="16"/>
+                <mx:ConstraintColumn id="contentCol"/>
+                <mx:ConstraintColumn id="helpCol"/>
+                <mx:ConstraintColumn id="errorCol" width="160"/>
+            </mx:constraintColumns>
+            
+            <mx:constraintRows>
+                <mx:ConstraintRow id="row1" />
+            </mx:constraintRows>    
+            
+            <s:Label id="labelDisplay" left="labelCol:2" right="helpCol:2" baseline="row1:24" styleName="labelStyle"/>
+      
+        </mx:Canvas>
+    </s:Group>
+</s:Skin>
