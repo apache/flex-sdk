@@ -44,6 +44,15 @@ import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
+import mx.graphics.shaderClasses.ColorBurnShader;
+import mx.graphics.shaderClasses.ColorDodgeShader;
+import mx.graphics.shaderClasses.ColorShader;
+import mx.graphics.shaderClasses.ExclusionShader;
+import mx.graphics.shaderClasses.HueShader;
+import mx.graphics.shaderClasses.LuminosityMaskShader;
+import mx.graphics.shaderClasses.LuminosityShader;
+import mx.graphics.shaderClasses.SaturationShader;
+import mx.graphics.shaderClasses.SoftLightShader; 
 import mx.geom.Transform;
 import mx.geom.TransformOffsets;
 import mx.managers.ILayoutManagerClient;
@@ -54,15 +63,6 @@ import spark.components.supportClasses.InvalidatingSprite;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.MaskType;
-import spark.primitives.supportClasses.shaders.ColorBurnShader;
-import spark.primitives.supportClasses.shaders.ColorDodgeShader;
-import spark.primitives.supportClasses.shaders.ColorShader;
-import spark.primitives.supportClasses.shaders.ExclusionShader;
-import spark.primitives.supportClasses.shaders.HueShader;
-import spark.primitives.supportClasses.shaders.LuminosityMaskShader;
-import spark.primitives.supportClasses.shaders.LuminosityShader;
-import spark.primitives.supportClasses.shaders.SaturationShader;
-import spark.primitives.supportClasses.shaders.SoftLightShader; 
 
 use namespace mx_internal;
 
@@ -500,52 +500,33 @@ public class GraphicElement extends EventDispatcher
      */
     public function set blendMode(value:String):void
     {
-        if (blendModeExplicitlySet && value == _blendMode)
+        if (value == _blendMode)
             return;
-
-        //The default blendMode in FXG is 'auto'. There are only
-        //certain cases where this results in a rendering difference,
-        //one being when the alpha of the Group is > 0 and < 1. In that
-        //case we set the blendMode to layer to avoid the performance
-        //overhead that comes with a non-normal blendMode. 
         
-        if (alpha > 0 && alpha < 1 && !blendModeExplicitlySet && value == "auto")
+        var oldValue:String = _blendMode;
+        
+        _blendMode = value;
+        blendModeChanged = true; 
+        
+        // If one of the non-native Flash blendModes is set, 
+        // record the new value and set the appropriate 
+        // blendShader on the display object. 
+        if (isAIMBlendMode(value))
         {
-            if (value != BlendMode.LAYER)
-            {
-                _blendMode = BlendMode.LAYER;
-                blendModeChanged = true;
-                invalidateProperties();
-            }
+            blendShaderChanged = true;
         }
-        else if ((alpha == 1 || alpha == 0) && !blendModeExplicitlySet && value == "auto")
+        
+        // Only need to re-do display object assignment if blendmode was normal
+        // and is changing to something else, or the blend mode was something else 
+        // and is going back to normal.  This is because display object sharing
+        // only happens when blendMode is normal.
+        if ((oldValue == BlendMode.NORMAL || value == BlendMode.NORMAL) && 
+            !(oldValue == BlendMode.NORMAL && value == BlendMode.NORMAL))
         {
-            if (value != BlendMode.NORMAL)
-            {
-                _blendMode = BlendMode.NORMAL;
-                blendModeChanged = true;
-                invalidateProperties();
-            }
+            invalidateDisplayObjectSharing();
         }
-        else 
-        {
-            _blendMode = value;
-            
-            // If one of the non-native Flash blendModes is set, 
-            // record the new value and set the appropriate 
-            // blendShader on the display object. 
-            if (value == "colordodge" || 
-                value =="colorburn" || value =="exclusion" || 
-                value =="softlight" || value =="hue" || 
-                value =="saturation" || value =="color" 
-                || value =="luminosity")
-                blendShaderChanged = true;
-            else 
-                blendModeChanged = true;
-                
-            blendModeExplicitlySet = true;
-            invalidateProperties(); 
-        }
+        
+        invalidateProperties(); 
     }
 
     //----------------------------------
@@ -2155,6 +2136,20 @@ public class GraphicElement extends EventDispatcher
     }
     
     /**
+     * @private
+     */
+    private function isAIMBlendMode(value:String):Boolean
+    {
+        if (value == "colordodge" || 
+            value =="colorburn" || value =="exclusion" || 
+            value =="softlight" || value =="hue" || 
+            value =="saturation" || value =="color" ||
+            value =="luminosity")
+            return true; 
+        else return false; 
+    }
+    
+    /**
      * @copy mx.core.ILayoutElement#transformAround
      *  
      *  @langversion 3.0
@@ -3494,65 +3489,83 @@ public class GraphicElement extends EventDispatcher
                     displayObject.alpha = _effectiveAlpha;
             }  
 
-            if (blendModeChanged || displayObjectChanged && !blendShaderChanged)
+            if (blendModeChanged || displayObjectChanged)
             {
                 blendModeChanged = false;
-                if (_blendMode == "auto" && alpha < 1 && alpha > 0)
-                    displayObject.blendMode = BlendMode.LAYER;
-                else if (_blendMode == "auto" && alpha == 1 || alpha == 0)
-                    displayObject.blendMode = BlendMode.NORMAL;
-                else 
-                    displayObject.blendMode = _blendMode;                 
-            }
-            
-            if (blendShaderChanged || displayObjectChanged)
-            {
-                // The graphic element's blendMode was set to a non-Flash 
-                // blendMode. We mimic the look by instantiating the 
-                // appropriate shader class and setting the blendShader
-                // property on the displayObject. 
-                blendShaderChanged = false; 
-                switch(_blendMode)
+                
+                // Figure out the correct value to push down 
+                // to the displayObject's blendMode 
+                if (_blendMode == "auto")
                 {
-                    case "color": 
+                    if (alpha == 0 || alpha == 1) 
+                        displayObject.blendMode = BlendMode.NORMAL;
+                    else
+                        displayObject.blendMode = BlendMode.LAYER;
+                }
+                
+                else if (!isAIMBlendMode(_blendMode))
+                {
+                    displayObject.blendMode = _blendMode;
+                }
+                
+                // The blendMode is neither a native value, 
+                // or the 'auto' value so lets set blendMode 
+                // to normal.  
+                else
+                {
+                    displayObject.blendMode = "normal"; 
+                }
+                
+                if (blendShaderChanged) 
+                {
+                    // The graphic element's blendMode was set to a non-Flash 
+                    // blendMode. We mimic the look by instantiating the 
+                    // appropriate shader class and setting the blendShader
+                    // property on the displayObject. 
+                    blendShaderChanged = false; 
+                    
+                    switch(_blendMode)
                     {
-                        displayObject.blendShader = new ColorShader();
-                        break; 
-                    }
-                    case "colordodge":
-                    {
-                        displayObject.blendShader = new ColorDodgeShader();
-                        break; 
-                    }
-                    case "colorburn":
-                    {
-                        displayObject.blendShader = new ColorBurnShader();
-                        break; 
-                    }
-                    case "exclusion":
-                    {
-                        displayObject.blendShader = new ExclusionShader();
-                        break; 
-                    }
-                    case "hue":
-                    {
-                        displayObject.blendShader = new HueShader();
-                        break; 
-                    }
-                    case "luminosity":
-                    {
-                        displayObject.blendShader = new LuminosityShader();
-                        break; 
-                    }
-                    case "saturation": 
-                    {
-                        displayObject.blendShader = new SaturationShader();
-                        break; 
-                    }
-                    case "softlight":
-                    {
-                        displayObject.blendShader = new SoftLightShader();
-                        break; 
+                        case "color": 
+                        {
+                            displayObject.blendShader = new ColorShader();
+                            break; 
+                        }
+                        case "colordodge":
+                        {
+                            displayObject.blendShader = new ColorDodgeShader();
+                            break; 
+                        }
+                        case "colorburn":
+                        {
+                            displayObject.blendShader = new ColorBurnShader();
+                            break; 
+                        }
+                        case "exclusion":
+                        {
+                            displayObject.blendShader = new ExclusionShader();
+                            break; 
+                        }
+                        case "hue":
+                        {
+                            displayObject.blendShader = new HueShader();
+                            break; 
+                        }
+                        case "luminosity":
+                        {
+                            displayObject.blendShader = new LuminosityShader();
+                            break; 
+                        }
+                        case "saturation": 
+                        {
+                            displayObject.blendShader = new SaturationShader();
+                            break; 
+                        }
+                        case "softlight":
+                        {
+                            displayObject.blendShader = new SoftLightShader();
+                            break; 
+                        }
                     }
                 }
             }
