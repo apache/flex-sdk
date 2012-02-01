@@ -19,16 +19,11 @@ in accordance with the terms of the license agreement accompanying it.
 @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
-    <fx:Script>
-        /* Define the skin elements that should not be colorized. 
-        For button, the graphics are colorized but the arrow is not. */
-        static private const exclusions:Array = ["check"];
-        override public function get colorizeExclusions():Array {return exclusions;}
-        
+
+    <fx:Script>   
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["checkFill"];
         override public function get symbolItems():Array {return symbols};
-    
     </fx:Script>
     
     <s:Path id="check" data="M 0 2 L 3 4.4 L 7 0 L 7 3 L 3 7 L 0 4.6 L 0 2 Z">
