@@ -19,41 +19,31 @@
     
     <states>
         <State name="up" />
-        <State name="over"/>
+        <State name="over" />
         <State name="down" />
         <State name="disabled" />
     </states>
 
-    <content>
-        <Group>
-            <!-- border -->
-            <Rect width="12" height="12">
-                <stroke>
-                    <SolidColorStroke color="0x808080" color.disabled="0xC0C0C0" />
-                </stroke>
-            </Rect>
-            <!-- fill -->
-            <Rect left="1" top="1" width="10" height="10">
-                <stroke>
-                    <SolidColorStroke color="0xFFFFFF" color.over="0xFAFAFA" color.down="0xEFEFEF" />
-                </stroke>
-                <fill>
-                    <SolidColor color="0xFFFFFF" color.over="0xF2F2F2" color.down="0xD8D8D8" />
-                </fill>
-            </Rect>
-            <!-- arrow -->
-            <Path>
-                <fill>
-                    <SolidColor color="0x808080" color.disabled="0xC0C0C0" />
-                </fill>
-                <segments>
-                    <MoveSegment x="5" y="6.5" />
-                    <LineSegment x="8" y="9.5" />
-                    <LineSegment x="8" y="3.5" />
-                    <LineSegment x="5" y="6.5" />
-                </segments>
-            </Path>
-        </Group>
-    </content>
+    <!-- background -->
+    <Rect width="17" height="14">
+        <stroke>
+            <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
+        </stroke>
+        <fill>
+            <SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF" />
+        </fill>
+    </Rect>
+    <!-- arrow -->
+    <Path>
+        <fill>
+            <SolidColor color="0x4E6290" color.disabled="0xA6B0C7" />
+        </fill>
+        <segments>
+            <MoveSegment x="5" y="7.5" />
+            <LineSegment x="12" y="11" />
+            <LineSegment x="12" y="3.5" />
+            <LineSegment x="5" y="7.5" />
+        </segments>
+    </Path>
 
 </Skin>
