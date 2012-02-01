@@ -28,6 +28,8 @@
               skinClass="mx.skins.spark.FxSpinnerIncrButtonSkin" />
     <FxButton id="decrementButton" right="0" bottom="0"
               skinClass="mx.skins.spark.FxSpinnerDecrButtonSkin" />
-    <FxTextInput id="textInput" width="30" 
-    		     left="0" top="0" right="18" bottom="0" />
+              
+    <!--TODO: Once SDK-18275 is fixed, we can remove the creationComplete handler -->          
+    <FxTextInput id="textInput" left="0" top="0" right="18" bottom="0"
+    	creationComplete="textInput.textView.setStyle('paddingLeft', 3);textInput.textView.setStyle('paddingRight', 6);"/>
 </Skin>
