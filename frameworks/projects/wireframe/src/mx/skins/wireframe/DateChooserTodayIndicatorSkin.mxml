@@ -11,8 +11,10 @@
 
 -->
 
-<!--- The Spark skin class for the current day indicator in a Halo DateChooser component. 
+<!--- The wireframe skin class for the current day indicator in a MX DateChooser component. 
         
+      @see mx.controls.DateChooser
+
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
@@ -41,9 +43,11 @@
 
     <s:Rect left="0" right="0" top="0" bottom="0" >
         <s:fill>
+            <!--- @private -->
             <s:SolidColor id="fill" color="#C6D0DB" alpha="1" />
         </s:fill>
         <s:stroke>
+            <!--- @private -->
             <s:SolidColorStroke id="stroke" color="#9EAEC3" />
         </s:stroke>
     </s:Rect>
