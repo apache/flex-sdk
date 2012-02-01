@@ -80,6 +80,70 @@ public class GraphicElement extends EventDispatcher
 	//--------------------------------------------------------------------------
 
 	//----------------------------------
+	//  measuredWidth
+	//----------------------------------
+    
+    private var _measuredWidth:Number = 0;
+    
+    public function get measuredWidth():Number
+    {
+        return _measuredWidth;
+    }
+    
+    public function set measuredWidth(value:Number):void
+    {
+        _measuredWidth = value;
+    }
+
+	//----------------------------------
+	//  measuredHeight
+	//----------------------------------
+    
+    private var _measuredHeight:Number = 0;
+    
+    public function get measuredHeight():Number
+    {
+        return _measuredHeight;
+    }
+    
+    public function set measuredHeight(value:Number):void
+    {
+        _measuredHeight = value;
+    }
+
+	//----------------------------------
+	//  measuredX
+	//----------------------------------
+    
+    private var _measuredX:Number = 0;
+    
+    public function get measuredX():Number
+    {
+        return _measuredX;
+    }
+    
+    public function set measuredX(value:Number):void
+    {
+        _measuredX = value;
+    }
+
+	//----------------------------------
+	//  measuredY
+	//----------------------------------
+    
+    private var _measuredY:Number = 0;
+    
+    public function get measuredY():Number
+    {
+        return _measuredY;
+    }
+    
+    public function set measuredY(value:Number):void
+    {
+        _measuredY = value;
+    }
+
+	//----------------------------------
 	//  alpha
 	//----------------------------------
 	private var _alpha:Number = 1;
@@ -181,17 +245,6 @@ public class GraphicElement extends EventDispatcher
 		dispatchPropertyChangeEvent("bottom", oldValue, value);
 
 		invalidateParentSizeAndDisplayList();
-	}
-
-	//----------------------------------
-	//  bounds
-	//----------------------------------
-    /**
-     *  @inheritDoc
-     */
-	public function get bounds():Rectangle
-	{
-		return new Rectangle();
 	}
 
 	//----------------------------------
@@ -1338,33 +1391,33 @@ public class GraphicElement extends EventDispatcher
 
     /**
      *  @private
-     *  Whether this component needs to have its
+     *  Whether this element needs to have its
      *  commitProperties() method called.
      */
     mx_internal var invalidatePropertiesFlag:Boolean = false;
 
     /**
      *  @private
-     *  Whether this component needs to have its
+     *  Whether this element needs to have its
      *  measure() method called.
      */
     mx_internal var invalidateSizeFlag:Boolean = false;
 
     /**
      *  @private
-     *  Whether this component needs to be have its
+     *  Whether this element needs to be have its
      *  updateDisplayList() method called.
      */
     mx_internal var invalidateDisplayListFlag:Boolean = false;
 
 
 	/**
-	 *  Calling this method results in a call to the component's
+	 *  Calling this method results in a call to the elements's
 	 *  <code>validateProperties()</code> method
 	 *  before the display list is rendered.
 	 *
-	 *  <p>For components that extend UIComponent, this implies
-	 *  that <code>commitProperties()</code> is called.</p>
+	 *  <p>Subclasses should do their work in 
+	 *  <code>commitProperties()</code>.</p>
 	 */
 	public function invalidateProperties():void
 	{
@@ -1378,14 +1431,15 @@ public class GraphicElement extends EventDispatcher
 	}
 
 	/**
-	 *  Calling this method results in a call to the component's
+	 *  Calling this method results in a call to the elements's
 	 *  <code>validateSize()</code> method
 	 *  before the display list is rendered.
 	 *
-	 *  <p>For components that extend UIComponent, this implies
-	 *  that <code>measure()</code> is called, unless the component
-	 *  has both <code>explicitWidth</code> and <code>explicitHeight</code>
-	 *  set.</p>
+	 *  <p>Subclasses should override and do their measurement in
+	 *  <code>measure()</code>.
+	 *  By default when <code>explicitWidth</code> and <code>explicitHeight</code>
+	 *  are set, <code>measure()</code> will not be called. To override this
+	 *  default behavior subclasses should override <code>skipMeasure()</code>.</p>
 	 */
 	public function invalidateSize():void
 	{
@@ -1416,12 +1470,12 @@ public class GraphicElement extends EventDispatcher
 	}
 
 	/**
-	 *  Calling this method results in a call to the component's
+	 *  Calling this method results in a call to the elements's
 	 *  <code>validateDisplayList()</code> method
 	 *  before the display list is rendered.
 	 *
-	 *  <p>For components that extend UIComponent, this implies
-	 *  that <code>updateDisplayList()</code> is called.</p>
+	 *  <p>Subclasses should override and do their work in
+	 *  <code>updateDisplayList()</code>.</p>
 	 */
 	public function invalidateDisplayList():void
 	{
@@ -1442,23 +1496,6 @@ public class GraphicElement extends EventDispatcher
      *  by immediately calling <code>validateProperties()</code>,
 	 *  <code>validateSize()</code>, and <code>validateDisplayList()</code>,
 	 *  if necessary.
-     *
-     *  <p>When properties are changed, the new values do not usually have
-	 *  an immediate effect on the component.
-	 *  Usually, all of the application code that needs to be run
-	 *  at that time is executed. Then the LayoutManager starts
-	 *  calling the <code>validateProperties()</code>,
-	 *  <code>validateSize()</code>, and <code>validateDisplayList()</code>
-	 *  methods on components, based on their need to be validated and their
-	 *  depth in the hierarchy of display list objects.</p>
-	 *
-     *  <p>For example, setting the <code>width</code> property is delayed, because
-	 *  it may require recalculating the widths of the object's children
-	 *  or its parent.
-     *  Delaying the processing also prevents it from being repeated
-     *  multiple times if the application code sets the <code>width</code> property
-	 *  more than once.
-     *  This method lets you manually override this behavior.</p>
      */
     public function validateNow():void
     {
@@ -1481,22 +1518,20 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  Processes the properties set on the component.
+     *  Processes the properties set on the element.
      *  This is an advanced method that you might override
-     *  when creating a subclass of UIComponent.
+     *  when creating a subclass.
      *
      *  <p>You do not call this method directly.
      *  Flex calls the <code>commitProperties()</code> method when you
-     *  use the <code>addChild()</code> method to add a component to a container,
-     *  or when you call the <code>invalidateProperties()</code> method of the component.
+     *  use the <code>addItem()</code> method to add an element to the group,
+     *  or when you call the <code>invalidateProperties()</code> method of the element.
      *  Calls to the <code>commitProperties()</code> method occur before calls to the
      *  <code>measure()</code> method. This lets you set property values that might
      *  be used by the <code>measure()</code> method.</p>
      *
-     *  <p>Some components have properties that affect the number or kinds
-     *  of child objects that they need to create, or have properties that
-     *  interact with each other, such as the <code>horizontalScrollPolicy</code>
-     *  and <code>horizontalScrollPosition</code> properties.
+     *  <p>Some elements have properties that
+     *  interact with each other.
      *  It is often best at startup time to process all of these
      *  properties at one time to avoid duplicating work.</p>
      */
@@ -1520,65 +1555,76 @@ public class GraphicElement extends EventDispatcher
         // Our size has changed, parent has to resize and run layout code
         invalidateParentSizeAndDisplayList();
     }
+    
+    /**
+     *  @return Returns true when the measureSizes() code can skip the call to
+     *  measure(). For example this is usually true when both explicitWidth and
+     *  explicitHeight are set. For path, this is true when the bounds of the path
+     *  have not changed.
+     */    
+    protected function skipMeasure():Boolean
+    {
+        return !isNaN(explicitWidth) && !isNaN(explicitHeight);
+    }
 
     /**
      *  @private
      */
     private function measureSizes():Boolean
     {
-        var changed:Boolean = false;
+        var oldWidth:Number = preferredWidthPreTransform();
+        var oldHeight:Number = preferredHeightPreTransform();
+        var oldX:Number = measuredX;
+        var oldY:Number = measuredY;
 
-        // TODO EGeorgie: Optimize. We don't always need to
-        // call measure() when we have explicit sizes.
-        measure();
+        if (!skipMeasure())
+            measure();
 
-        // TODO EGeorgie: Optimize. Detect when the size has changed.
-        changed = true;
-        return changed;
+        // Did measure() have effect on preferred size? 
+        if (oldWidth != preferredWidthPreTransform() ||
+            oldHeight != preferredHeightPreTransform() ||
+            oldX != measuredX ||
+            oldY != measuredY)
+        {
+            // Preferred size has changed, layout will be affected.
+            return true;
+        }
+
+        return false;
     }
 
     /**
-     *  Calculates the default size, and optionally the default minimum size,
-     *  of the component. This is an advanced method that you might override when
-     *  creating a subclass of UIComponent.
+     *  Calculates the default size of the element. This is an advanced
+     *  method that you might override when creating a subclass of GraphicElement.
      *
      *  <p>You do not call this method directly. Flex calls the
-     *  <code>measure()</code> method when the component is added to a container
-     *  using the <code>addChild()</code> method, and when the component's
+     *  <code>measure()</code> method when the element is added to a group
+     *  using the <code>addItem()</code> method, and when the element's
      *  <code>invalidateSize()</code> method is called. </p>
      *
-     *  <p>When you set a specific height and width of a component,
+     *  <p>By default you set both explicit height and explicit width of an element,
      *  Flex does not call the <code>measure()</code> method,
      *  even if you explicitly call the <code>invalidateSize()</code> method.
-     *  That is, Flex only calls the <code>measure()</code> method if
-     *  the <code>explicitWidth</code> property or the <code>explicitHeight</code>
-     *  property of the component is NaN. </p>
+     *  To override this behavior, override <code>skipMeasure()</code> method.</p>
      *
      *  <p>In your override of this method, you must set the
      *  <code>measuredWidth</code> and <code>measuredHeight</code> properties
      *  to define the default size.
-     *  You may optionally set the <code>measuredMinWidth</code> and
-     *  <code>measuredMinHeight</code> properties to define the default
-     *  minimum size.</p>
+     *  You may optionally set the <code>measuredX</code> and
+     *  <code>measuredY</code> properties to define the default measured bounds
+     *  top-left corner relative to the origin of the element.</p>
      *
-     *  <p>Most components calculate these values based on the content they are
-     *  displaying, and from the properties that affect content display.
-     *  A few components simply have hard-coded default values. </p>
-     *
-     *  <p>The conceptual point of <code>measure()</code> is for the component to provide
-     *  its own natural or intrinsic size as a default. Therefore, the
+     *  <p>The conceptual point of <code>measure()</code> is for the element to
+     *  provide its own natural or intrinsic bounds as a default. Therefore, the
      *  <code>measuredWidth</code> and <code>measuredHeight</code> properties
      *  should be determined by factors such as:</p>
      *  <ul>
      *     <li>The amount of text the component needs to display.</li>
-     *     <li>The styles, such as <code>fontSize</code>, for that text.</li>
      *     <li>The size of a JPEG image that the component displays.</li>
-     *     <li>The measured or explicit sizes of the component's children.</li>
-     *     <li>Any borders, margins, and gaps.</li>
      *  </ul>
      *
      *  <p>In some cases, there is no intrinsic way to determine default values.
-     *  For example, a simple GreenCircle component might simply set
+     *  For example, a simple GreenCircle element might simply set
      *  measuredWidth = 100 and measuredHeight = 100 in its <code>measure()</code> method to
      *  provide a reasonable default size. In other cases, such as a TextArea,
      *  an appropriate computation (such as finding the right width and height
@@ -1587,16 +1633,15 @@ public class GraphicElement extends EventDispatcher
      *
      *  <p>The default implementation of <code>measure()</code>
      *  sets <code>measuredWidth</code>, <code>measuredHeight</code>,
-     *  <code>measuredMinWidth</code>, and <code>measuredMinHeight</code>
+     *  <code>measuredX</code>, <code>measuredY</code>
      *  to <code>0</code>.</p>
      */
     protected function measure():void
     {
-        // TODO EGeorgie:
-//        measuredMinWidth = 0;
-//        measuredMinHeight = 0;
-//        measuredWidth = 0;
-//        measuredHeight = 0;
+        measuredWidth = 0;
+        measuredHeight = 0;
+        measuredX = 0;
+        measuredY = 0;
     }
 
     /**
@@ -1612,32 +1657,18 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  Draws the object and/or sizes and positions its children.
+     *  Draws the element and/or sizes and positions its content.
      *  This is an advanced method that you might override
-     *  when creating a subclass of UIComponent.
+     *  when creating a subclass of GraphicElement.
      *
      *  <p>You do not call this method directly. Flex calls the
-     *  <code>updateDisplayList()</code> method when the component is added to a container
-     *  using the <code>addChild()</code> method, and when the component's
+     *  <code>updateDisplayList()</code> method when the component is added 
+     *  to a group using the <code>addItem()</code> method, and when the element's
      *  <code>invalidateDisplayList()</code> method is called. </p>
      *
-     *  <p>If the component has no children, this method
-     *  is where you would do programmatic drawing
-     *  using methods on the component's Graphics object
+     *  <p>This method is where you would do programmatic drawing
+     *  using methods on the elements's displayObject
      *  such as <code>graphics.drawRect()</code>.</p>
-     *
-     *  <p>If the component has children, this method is where
-     *  you would call the <code>move()</code> and <code>setActualSize()</code>
-     *  methods on its children.</p>
-     *
-     *  <p>Components may do programmatic drawing even if
-     *  they have children. In doing either, you should use the
-     *  component's <code>unscaledWidth</code> and <code>unscaledHeight</code>
-     *  as its bounds.</p>
-     *
-     *  <p>It is important to use <code>unscaledWidth</code> and
-     *  <code>unscaledHeight</code> instead of the <code>width</code>
-     *  and <code>height</code> properties.</p>
      *
      *  @param unscaledWidth Specifies the width of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
@@ -1696,6 +1727,16 @@ public class GraphicElement extends EventDispatcher
         size.y += strokeExtents.y;
         return size;
     }
+    
+    private function preferredWidthPreTransform():Number
+    {
+        return isNaN(explicitWidth) ? measuredWidth : explicitWidth;
+    }
+
+    private function preferredHeightPreTransform():Number
+    {
+        return isNaN(explicitHeight) ? measuredHeight: explicitHeight;
+    }
 
     /**
      *  Indicates whether to layout should ignore this item or not.
@@ -1712,7 +1753,9 @@ public class GraphicElement extends EventDispatcher
      */
     public function get preferredSize():Point
     {
-    	return transformSizeForLayout(bounds.width, bounds.height, false /*actualMatrix*/);
+    	return transformSizeForLayout(preferredWidthPreTransform(),
+    	                              preferredHeightPreTransform(),
+    	                              false /*actualMatrix*/);
     }
 
     /**
@@ -1755,8 +1798,8 @@ public class GraphicElement extends EventDispatcher
      */
     public function get actualPosition():Point
     {
-    	var xPos:Number = bounds.left + (_matrix ? _matrix.tx : _x);
-    	var yPos:Number = bounds.top + (_matrix ? _matrix.ty : _y);
+    	var xPos:Number = measuredX + (_matrix ? _matrix.tx : _x);
+    	var yPos:Number = measuredY + (_matrix ? _matrix.ty : _y);
         var vec:Point = new Point(xPos, yPos);
 
         // Account for transform
@@ -1788,8 +1831,8 @@ public class GraphicElement extends EventDispatcher
      */
     public function setActualPosition(x:Number, y:Number):void
     {
-        x -= bounds.left;
-        y -= bounds.top;
+        x -= measuredX;
+        y -= measuredY;
 
         // Handle arbitrary 2d transform
         var m:Matrix = computeMatrix(true /*actualMatrix*/);
@@ -1866,7 +1909,8 @@ public class GraphicElement extends EventDispatcher
                height -= strokeExtents.y;
 
             var newSize:Point = TransformUtil.fitBounds(width, height, m,
-                                                        bounds.width, bounds.height,
+                                                        preferredWidthPreTransform(),
+                                                        preferredHeightPreTransform(),
                                                         minWidth, minHeight,
                                                         maxWidth, maxHeight);
             if (newSize)
