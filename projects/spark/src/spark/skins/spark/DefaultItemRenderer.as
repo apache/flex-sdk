@@ -21,7 +21,7 @@
 	
 	<Rect left="0" right="0" top="0" bottom="0">
 		<fill>
-			<SolidColor color="{contentColor}" />
+			<SolidColor color="{contentBackgroundColor}" />
 		</fill>
 		<fill.hovered>
 		    <SolidColor color="{rollOverColor}" />
