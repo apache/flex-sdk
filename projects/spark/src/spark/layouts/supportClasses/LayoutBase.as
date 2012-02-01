@@ -536,9 +536,12 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  values that are based on the current index and key 
      *  stroke encountered. 
      * 
-     *  @param index The current index of the item with focus. 
-     *  @param key The key stroke that determines which item 
+     *  @param keyCode The key stroke that determines which item 
      *  to navigate to next.  
+     * 
+     *  @param currentIndex The current index of the item with focus.
+     * 
+     *  @param maxIndex The maximum value the index can jump to 
      * 
      *  @return The index of the next item to jump to.  
      * 
