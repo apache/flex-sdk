@@ -45,7 +45,12 @@ public class BitmapUtil
      *  @param target The object to capture in the resulting BitmapData  
      *
      *  @return A BitmapData object containing the image.
-     *  
+     *
+     *  @throws SecurityError The <code>target</code> object and  all of its child
+     *  objects do not come from the same domain as the caller,
+     *  or are not in a content that is accessible to the caller by having called the
+     *  <code>Security.allowDomain()</code> method.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
