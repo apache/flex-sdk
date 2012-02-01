@@ -1365,6 +1365,31 @@ public class LayoutBase extends OnDemandEventDispatcher
                                                                rightOffset:Number = NaN):Point
     {
         var elementR:Rectangle = getElementBounds(index);
+        return getScrollPositionDeltaToElementHelperHelper(
+                                                elementR, 
+                                                topOffset, bottomOffset, 
+                                                leftOffset, rightOffset);
+    }
+    
+    /**
+     *  @private 
+     *  This takes an element rather than an index so it can be used for
+     *  DataGrid which has rows and columns.
+     * 
+     *  For the offset properties, a value of NaN means don't offset from that edge. A value
+     *  of 0 means to put the element flush against that edge.
+     * 
+     *  @param topOffset Number of pixels to position the element below the top edge.
+     *  @param bottomOffset Number of pixels to position the element above the bottom edge.
+     *  @param leftOffset Number of pixels to position the element to the right of the left edge.
+     *  @param rightOffset Number of pixels to position the element to the left of the right edge.
+     */ 
+    protected function getScrollPositionDeltaToElementHelperHelper(
+                                    elementR:Rectangle, topOffset:Number = NaN, 
+                                    bottomOffset:Number = NaN, 
+                                    leftOffset:Number = NaN,
+                                    rightOffset:Number = NaN):Point
+    {
         if (!elementR)
             return null;
         
@@ -1409,6 +1434,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         
         return new Point(dx, dy);
     }
+    
     //--------------------------------------------------------------------------
     //
     //  Drop methods
