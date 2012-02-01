@@ -19,7 +19,6 @@ import flash.events.EventDispatcher;
 
 import mx.components.baseClasses.GroupBase;
 import mx.core.ILayoutElement;
-import mx.core.ScrollUnit;
 
 import mx.containers.utilityClasses.Flex;
 import mx.events.PropertyChangeEvent;
@@ -439,10 +438,10 @@ public class HorizontalLayout extends LayoutBase
         if (!g)
             return 0.0;
                 
-        if ((index < 0) || (index >= g.numLayoutElements))
+        if ((index < 0) || (index >= g.numElements))
             return 0.0;
                
-        if (!clipContent)
+        if (!clipAndEnableScrolling)
             return 1.0;
                
         var r0:int = firstIndexInView;  
@@ -459,14 +458,14 @@ public class HorizontalLayout extends LayoutBase
         // get the layout element's X and Width
         var eltX:Number;
         var eltWidth:Number;
-        if (virtualLayout)
+        if (useVirtualLayout)
         {
             eltX = llv.start(index);
             eltWidth = llv.getMajorSize(index);
         }
         else 
         {
-            var elt:ILayoutElement = g.getLayoutElementAt(index);
+            var elt:ILayoutElement = g.getElementAt(index);
             if (!elt || !elt.includeInLayout)
                 return 0.0;
             eltX = elt.getLayoutBoundsX();
@@ -504,7 +503,7 @@ public class HorizontalLayout extends LayoutBase
     private static function findIndexAt(x:Number, gap:int, g:GroupBase, i0:int, i1:int):int
     {
         var index:int = (i0 + i1) / 2;
-        var element:ILayoutElement = g.getLayoutElementAt(index);        
+        var element:ILayoutElement = g.getElementAt(index);        
         var elementX:Number = element.getLayoutBoundsX();
         // TBD: deal with null element, includeInLayout false.
         if ((x >= elementX) && (x < elementX + element.getLayoutBoundsWidth() + gap))
@@ -527,10 +526,10 @@ public class HorizontalLayout extends LayoutBase
     */
     private static function findLayoutElementIndex(g:GroupBase, i:int, dir:int):int
     {
-        var n:int = g.numLayoutElements;
+        var n:int = g.numElements;
         while((i >= 0) && (i < n))
         {
-           var element:ILayoutElement = g.getLayoutElementAt(i);
+           var element:ILayoutElement = g.getElementAt(i);
            if (element && element.includeInLayout)
            {
                return i;      
@@ -554,7 +553,7 @@ public class HorizontalLayout extends LayoutBase
         if (!g)
             return;     
 
-        var n:int = g.numLayoutElements - 1;
+        var n:int = g.numElements - 1;
         if (n < 0) 
         {
             setIndexInView(-1, -1);
@@ -585,7 +584,7 @@ public class HorizontalLayout extends LayoutBase
 
         var i0:int;
         var i1:int;
-        if (virtualLayout)
+        if (useVirtualLayout)
         {
             i0 = llv.indexOf(x0);
             i1 = llv.indexOf(x1);
@@ -602,7 +601,7 @@ public class HorizontalLayout extends LayoutBase
             var index0:int = findLayoutElementIndex(g, 0, +1);
             if (index0 != -1)
             {
-                var element0:ILayoutElement = g.getLayoutElementAt(index0); 
+                var element0:ILayoutElement = g.getElementAt(index0); 
                 var element0X:Number = element0.getLayoutBoundsX();
                 var element0Width:Number = element0.getLayoutBoundsWidth();                 
                 if ((element0X < x1) && ((element0X + element0Width) > x0))
@@ -616,7 +615,7 @@ public class HorizontalLayout extends LayoutBase
             var index1:int = findLayoutElementIndex(g, n, -1);
             if (index1 != -1)
             {
-                var element1:ILayoutElement = g.getLayoutElementAt(index1); 
+                var element1:ILayoutElement = g.getElementAt(index1); 
                 var element1X:Number = element1.getLayoutBoundsX();
                 var element1Width:Number = element1.getLayoutBoundsWidth();                 
                 if ((element1X < x1) && ((element1X + element1Width) > x0))
@@ -624,7 +623,7 @@ public class HorizontalLayout extends LayoutBase
             }
         }   
 
-        if (virtualLayout)
+        if (useVirtualLayout)
             g.invalidateDisplayList();
                 
         setIndexInView(i0, i1);
@@ -638,10 +637,10 @@ public class HorizontalLayout extends LayoutBase
      */
     private function layoutElementBounds(g:GroupBase, i:int):Rectangle
     {
-        if (virtualLayout)
+        if (useVirtualLayout)
             return llv.getBounds(i);  
         {        
-            var element:ILayoutElement = g.getLayoutElementAt(i);
+            var element:ILayoutElement = g.getElementAt(i);
             if (element && element.includeInLayout)
             {
                 return new Rectangle(element.getLayoutBoundsX(),
@@ -666,7 +665,7 @@ public class HorizontalLayout extends LayoutBase
      */
     private function findLayoutElementBounds(g:GroupBase, i:int, dir:int, r:Rectangle):Rectangle
     {
-        var n:int = g.numLayoutElements;
+        var n:int = g.numElements;
 
         if (inView(i) >= 1)
             i = Math.max(0, Math.min(n - 1, i + dir));
@@ -716,7 +715,7 @@ public class HorizontalLayout extends LayoutBase
      */
     private function measureReal(layoutTarget:GroupBase):void
     {
-        var layoutEltCount:int = layoutTarget.numLayoutElements;
+        var layoutEltCount:int = layoutTarget.numElements;
         var reqEltCount:int = requestedColumnCount; // -1 means "all elements"
         var eltCount:uint = Math.max(reqEltCount, layoutEltCount);
         var eltInLayoutCount:uint = 0; // elts that have been measured
@@ -735,9 +734,9 @@ public class HorizontalLayout extends LayoutBase
             if ((reqEltCount != -1) && (eltInLayoutCount >= reqEltCount))
                 break;
 
-            if (i < layoutEltCount) // target.numLayoutElements
-                var elt:ILayoutElement = layoutTarget.getLayoutElementAt(i);
-            else // target.numLayoutElements < requestedElementCount, so "pad"
+            if (i < layoutEltCount) // target.numElements
+                var elt:ILayoutElement = layoutTarget.getElementAt(i);
+            else // target.numElements < requestedElementCount, so "pad"
                 elt = typicalLayoutElement;
             if (!elt || !elt.includeInLayout)
                 continue;
@@ -770,7 +769,7 @@ public class HorizontalLayout extends LayoutBase
     /**
      *  @private
      *  Syncs the LinearLayoutVector llv with typicalLayoutElement and
-     *  the target's numLayoutElements.  Calling this function accounts
+     *  the target's numElements.  Calling this function accounts
      *  for the possibility that the typicalLayoutElement has changed, or
      *  something that its preferred size depends on has changed.
      */
@@ -785,7 +784,7 @@ public class HorizontalLayout extends LayoutBase
             llv.defaultMajorSize = typicalWidth;      
         }
         if (layoutTarget)
-            llv.length = layoutTarget.numLayoutElements;        
+            llv.length = layoutTarget.numElements;        
         llv.gap = gap;
      }
 
@@ -804,7 +803,7 @@ public class HorizontalLayout extends LayoutBase
      */
     private function measureVirtual(layoutTarget:GroupBase):void
     {
-        var eltCount:uint = layoutTarget.numLayoutElements;
+        var eltCount:uint = layoutTarget.numElements;
         var measuredEltCount:int = (requestedColumnCount != -1) ? requestedColumnCount : eltCount;
         
         updateLLV(layoutTarget);     
@@ -864,14 +863,14 @@ public class HorizontalLayout extends LayoutBase
         if (!layoutTarget)
             return;
             
-        if (layoutTarget.numLayoutElements == 0)
+        if (layoutTarget.numElements == 0)
         {
             layoutTarget.measuredWidth = 0;
             layoutTarget.measuredHeight = 0;
             layoutTarget.measuredMinWidth = 0;
             layoutTarget.measuredMinHeight = 0;
         }            
-        else if (virtualLayout)
+        else if (useVirtualLayout)
             measureVirtual(layoutTarget);
         else 
             measureReal(layoutTarget);
@@ -956,7 +955,7 @@ public class HorizontalLayout extends LayoutBase
     private function updateDisplayListVirtual():void
     {
         var layoutTarget:GroupBase = target; 
-        var eltCount:int = layoutTarget.numLayoutElements;
+        var eltCount:int = layoutTarget.numElements;
         var targetHeight:Number = layoutTarget.height;
         var minVisibleX:Number = layoutTarget.horizontalScrollPosition;
         var maxVisibleX:Number = minVisibleX + layoutTarget.width;
@@ -977,7 +976,7 @@ public class HorizontalLayout extends LayoutBase
         // current contentHeight; cache computed widths/heights in llv.
         for (; (x < maxVisibleX) && (index < eltCount); index++)
         {
-            var elt:ILayoutElement = layoutTarget.getLayoutElementAt(index);
+            var elt:ILayoutElement = layoutTarget.getElementAt(index);
             var w:Number = (isNaN(fixedColumnWidth)) ? elt.getPreferredBoundsWidth() : fixedColumnWidth;
             var h:Number = calculateElementHeight(elt, targetHeight, containerHeight);
             var y:Number = calculateElementY(elt, h, containerHeight);
@@ -998,7 +997,7 @@ public class HorizontalLayout extends LayoutBase
             {
                 for (index = startIndex; index <= endIndex; index++)
                 {
-                    elt = layoutTarget.getLayoutElementAt(index);
+                    elt = layoutTarget.getElementAt(index);
                     h = calculateElementHeight(elt, targetHeight, containerHeight);
                     y = calculateElementY(elt, h, containerHeight);
                     elt.setLayoutBoundsPosition(elt.getLayoutBoundsX(), y);
@@ -1019,7 +1018,7 @@ public class HorizontalLayout extends LayoutBase
         var targetHeight:Number = layoutTarget.height;
         
         var layoutElement:ILayoutElement;
-        var count:uint = layoutTarget.numLayoutElements;
+        var count:uint = layoutTarget.numElements;
         
         // If verticalAlign is top, we don't need to figure out the contentHeight.
         // Otherwise the contentHeight is used to position the element and even size 
@@ -1034,7 +1033,7 @@ public class HorizontalLayout extends LayoutBase
         {
             for (var i:int = 0; i < count; i++)
             {
-                layoutElement = layoutTarget.getLayoutElementAt(i);
+                layoutElement = layoutTarget.getElementAt(i);
                 if (!layoutElement || !layoutElement.includeInLayout)
                     continue;
                 
@@ -1084,7 +1083,7 @@ public class HorizontalLayout extends LayoutBase
                 
         for (var index:int = 0; index < count; index++)
         {
-            layoutElement = layoutTarget.getLayoutElementAt(index);
+            layoutElement = layoutTarget.getElementAt(index);
             if (!layoutElement || !layoutElement.includeInLayout)
                 continue;
                 
@@ -1097,7 +1096,7 @@ public class HorizontalLayout extends LayoutBase
             var dy:Number = layoutElement.getLayoutBoundsHeight();
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);            
-            if (!clipContent || 
+            if (!clipAndEnableScrolling || 
                 ((x < maxVisibleX) && ((x + dx) > minVisibleX)) || 
                 ((dx <= 0) && ((x == maxVisibleX) || (x == minVisibleX))))            
             {
@@ -1141,7 +1140,7 @@ public class HorizontalLayout extends LayoutBase
         
         // columnWidth can be expensive to compute
         var cw:Number = (variableColumnWidth) ? 0 : columnWidth;
-        var count:uint = target.numLayoutElements;
+        var count:uint = target.numElements;
         var totalCount:uint = count; // number of elements to use in gap calculation
         
         // If the child is flexible, store information about it in the
@@ -1149,7 +1148,7 @@ public class HorizontalLayout extends LayoutBase
         // width and height immediately.
         for (var index:int = 0; index < count; index++)
         {
-            layoutElement = target.getLayoutElementAt(index);
+            layoutElement = target.getElementAt(index);
             if (!layoutElement || !layoutElement.includeInLayout)
             {
                 totalCount--;
@@ -1206,13 +1205,13 @@ public class HorizontalLayout extends LayoutBase
         if (!layoutTarget)
             return;
 
-        if (layoutTarget.numLayoutElements == 0)
+        if (layoutTarget.numElements == 0)
         {
             setColumnCount(0);
             setIndexInView(-1, -1);
             layoutTarget.setContentSize(0, 0);            
         }
-        else if (virtualLayout) 
+        else if (useVirtualLayout) 
             updateDisplayListVirtual();
         else
             updateDisplayListReal();
