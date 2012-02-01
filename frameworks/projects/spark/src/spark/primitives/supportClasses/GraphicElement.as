@@ -2375,7 +2375,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     {
         return _includeInLayout;
     }
-    
+
     /**
      *  @private
      */
@@ -2384,9 +2384,12 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (_includeInLayout == value)
             return;
 
-        _includeInLayout = value;
-            
+        // Temporarily set includeInLayout to true so that
+        // invalidating the parent doesn't return early.
+        _includeInLayout = true;
         invalidateParentSizeAndDisplayList();
+
+        _includeInLayout = value;
     }
 
     //--------------------------------------------------------------------------
