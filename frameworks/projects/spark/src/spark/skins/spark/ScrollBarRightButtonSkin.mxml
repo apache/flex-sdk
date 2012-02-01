@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009">
+
+    <states>
+        <State name="up" />
+        <State name="over"/>
+        <State name="down" />
+        <State name="disabled" />
+    </states>
+
+    <content>
+        <Group>
+            <!-- border -->
+            <Rect width="12" height="12">
+                <stroke>
+                    <SolidColorStroke color="0x808080" color.disabled="0xC0C0C0" />
+                </stroke>
+            </Rect>
+            <!-- fill -->
+            <Rect left="1" top="1" width="10" height="10">
+                <stroke>
+                    <SolidColorStroke color="0xFFFFFF" color.over="0xFAFAFA" color.down="0xEFEFEF" />
+                </stroke>
+                <fill>
+                    <SolidColor color="0xFFFFFF" color.over="0xF2F2F2" color.down="0xD8D8D8" />
+                </fill>
+            </Rect>
+            <!-- arrow -->
+            <Path>
+                <fill>
+                    <SolidColor color="0x808080" color.disabled="0xC0C0C0" />
+                </fill>
+                <segments>
+                    <MoveSegment x="8" y="6.5" />
+                    <LineSegment x="5" y="9.5" />
+                    <LineSegment x="5" y="3.5" />
+                    <LineSegment x="8" y="6.5" />
+                </segments>
+            </Path>
+        </Group>
+    </content>
+
+</Skin>
