@@ -23,9 +23,13 @@
 
 	<property name="project.uri" value="library:adobe/flashx/textLayout"/>
 
-	<property name="debug" value="false"/>
+        <!-- We use abbreviated token names here as, the 'release' 
+             and 'debug' tokens conflict with those specified in 
+             build.properties -->
 
-	<property name="release" value="false"/>
+	<property name="dbg" value="false"/>
+
+	<property name="rel" value="true"/>
 
 	<target name="main" depends="clean,compile" description="Clean build of combined textLayout.swc"/>
 
@@ -56,8 +60,8 @@
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs" append="false">
 				<include name="player/${global.playerglobal.version}playerglobal.swc"/>
 			</external-library-path>
-			<define name="CONFIG::debug" value="false"/>
-			<define name="CONFIG::release" value="true"/>
+			<define name="CONFIG::debug" value="${dbg}"/>
+			<define name="CONFIG::release" value="${rel}"/>
 		</compc>
      </target>
 
@@ -87,8 +91,8 @@
 		    <namespace uri="${project.uri}" manifest="textLayout_core/manifest.xml"/>
 			<namespace uri="${project.uri}" manifest="textLayout_edit/manifest.xml"/>
 		    <jvmarg line="${asdoc.jvm.args}"/>
-			<define name="CONFIG::debug" value="false"/>
-			<define name="CONFIG::release" value="true"/>
+			<define name="CONFIG::debug" value="${dbg}"/>
+			<define name="CONFIG::release" value="${rel}"/>
 		</asdoc>
 		<!-- updates combined swc with ASDoc XML -->
 		<zip destfile="${output.file}" update="true">
