@@ -1512,7 +1512,7 @@ public class HorizontalLayout extends LayoutBase
         var containerHeight:Number = targetHeight;
         
         
-        // TODO: in the middle or bottom case, we end up calculating percentHeight 
+        // FIXME (egeorgie): in the middle or bottom case, we end up calculating percentHeight 
         // twice.  Once here for the contentHeight and once in distributeWidth
         // to size that particular element.
         if (verticalAlign == VerticalAlign.CONTENT_JUSTIFY ||
