@@ -47,7 +47,7 @@
             <s:SolidColorStroke color="#707070" />
         </s:stroke>
         <s:fill>
-            <s:SolidColor color="#FFFFFF" color.over="#EEEEEE" color.down="#EEEEEE" />
+            <s:SolidColor color="#BABABA" color.up="#EEEEEE" color.over="#DDDDDD" color.down="#DDDDDD" />
         </s:fill>
     </s:Rect>
 
