@@ -63,7 +63,7 @@ public class FormItemLayout extends ConstraintLayout
             return;
         
         // need to parse constraints and rows may resize.
-        measureAndPositionColumnsAndRows();
+        measureAndPositionColumnsAndRows(unscaledWidth, unscaledHeight);
         
         if (layoutColumnWidths)
             setColumnWidths(layoutColumnWidths);
@@ -77,16 +77,7 @@ public class FormItemLayout extends ConstraintLayout
      */
     public function getMeasuredColumnWidths():Vector.<Number>
     {
-        measureAndPositionColumnsAndRows();
-        
-        var constraintColumns:Vector.<ConstraintColumn> = this.constraintColumns;
-        var numCols:int = constraintColumns.length;
-        var columnWidths:Vector.<Number> = new Vector.<Number>(numCols, true);
-        
-        for (var i:int = 0; i < numCols; i++)
-            columnWidths[i] = constraintColumns[i].width;
-        
-        return columnWidths;
+        return measureColumns();
     }
         
     /**
