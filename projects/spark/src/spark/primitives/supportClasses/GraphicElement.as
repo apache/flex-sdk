@@ -2164,7 +2164,8 @@ public class GraphicElement extends EventDispatcher
                                     translation:Vector3D = null,
                                     postLayoutScale:Vector3D = null,
                                     postLayoutRotation:Vector3D = null,
-                                    postLayoutTranslation:Vector3D = null):void
+                                    postLayoutTranslation:Vector3D = null,
+                                    invalidateLayout:Boolean = true):void
     {
         // FIXME (egreenfi): optimize for simple translations
         allocateLayoutFeatures();
@@ -2173,7 +2174,7 @@ public class GraphicElement extends EventDispatcher
         var prevY:Number = layoutFeatures.layoutY;
         var prevZ:Number = layoutFeatures.layoutZ;
         layoutFeatures.transformAround(transformCenter,scale,rotation,translation,postLayoutScale,postLayoutRotation,postLayoutTranslation);
-        invalidateTransform(previous != needsDisplayObject);
+        invalidateTransform(previous != needsDisplayObject, invalidateLayout);
         if (prevX != layoutFeatures.layoutX)
             dispatchPropertyChangeEvent("x", prevX, layoutFeatures.layoutX);
         if (prevY != layoutFeatures.layoutY)
