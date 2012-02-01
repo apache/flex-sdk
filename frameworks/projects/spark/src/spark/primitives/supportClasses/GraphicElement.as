@@ -2239,14 +2239,14 @@ public class GraphicElement extends OnDemandEventDispatcher
     {
         // NOTE: This code will not work correctly when we share
         // display objects across multiple graphic elements.
-        var bitmapData:BitmapData = new BitmapData(getLayoutWidth(), getLayoutHeight(), transparent, fillColor);
+        var bitmapData:BitmapData = new BitmapData(getLayoutBoundsWidth(), getLayoutBoundsHeight(), transparent, fillColor);
 
         if (displayObject && nextSiblingNeedsDisplayObject)
         {
             var m:Matrix = displayObject.transform.matrix;
         
             if (m)
-                m.translate(-getLayoutPositionX(), -getLayoutPositionY());
+                m.translate(-getLayoutBoundsX(), -getLayoutBoundsY());
             bitmapData.draw(displayObject, m);
         }
         else
@@ -2743,7 +2743,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc
      */
-    public function getMaxWidth(postTransform:Boolean=true):Number
+    public function getMaxBoundsWidth(postTransform:Boolean = true):Number
     {
         return transformWidthForLayout(maxWidth, maxHeight, postTransform);
     }
@@ -2751,7 +2751,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc
      */
-    public function getMaxHeight(postTransform:Boolean=true):Number
+    public function getMaxBoundsHeight(postTransform:Boolean = true):Number
     {
         return transformHeightForLayout(maxWidth, maxHeight, postTransform);
     }
@@ -2759,7 +2759,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc
      */
-    public function getMinWidth(postTransform:Boolean=true):Number
+    public function getMinBoundsWidth(postTransform:Boolean = true):Number
     {
         return transformWidthForLayout(minWidth, minHeight, postTransform);
     }
@@ -2767,7 +2767,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc
      */
-    public function getMinHeight(postTransform:Boolean=true):Number
+    public function getMinBoundsHeight(postTransform:Boolean = true):Number
     {
         return transformHeightForLayout(minWidth, minHeight, postTransform);
     }
@@ -2775,7 +2775,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc
      */
-    public function getPreferredWidth(postTransform:Boolean=true):Number
+    public function getPreferredBoundsWidth(postTransform:Boolean = true):Number
     {
         return transformWidthForLayout(preferredWidthPreTransform(),
                                        preferredHeightPreTransform(),
@@ -2785,7 +2785,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc
      */
-    public function getPreferredHeight(postTransform:Boolean=true):Number
+    public function getPreferredBoundsHeight(postTransform:Boolean = true):Number
     {
         return transformHeightForLayout(preferredWidthPreTransform(),
                                        preferredHeightPreTransform(),
@@ -2795,7 +2795,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc 
      */
-    public function getLayoutPositionX(postTransform:Boolean=true):Number
+    public function getLayoutBoundsX(postTransform:Boolean = true):Number
     {
         var left:Number;
         // Account for transform
@@ -2828,7 +2828,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc 
      */
-    public function getLayoutPositionY(postTransform:Boolean=true):Number
+    public function getLayoutBoundsY(postTransform:Boolean = true):Number
     {
         var top:Number;
         // Account for transform
@@ -2861,7 +2861,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheirtDoc 
      */
-    public function getLayoutWidth(postTransform:Boolean=true):Number
+    public function getLayoutBoundsWidth(postTransform:Boolean = true):Number
     {
         return transformWidthForLayout(_width, _height, postTransform);
     }
@@ -2869,7 +2869,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc 
      */
-    public function getLayoutHeight(postTransform:Boolean=true):Number
+    public function getLayoutBoundsHeight(postTransform:Boolean = true):Number
     {
         return transformHeightForLayout(_width, _height, postTransform);
     }
@@ -2909,7 +2909,7 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     protected function transformWidthForLayout(width:Number,
                                                height:Number,
-                                               postTransform:Boolean=true):Number
+                                               postTransform:Boolean = true):Number
     {
         if (postTransform)
         {
@@ -2939,7 +2939,7 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     protected function transformHeightForLayout(width:Number,
                                                 height:Number,
-                                                postTransform:Boolean=true):Number
+                                                postTransform:Boolean = true):Number
     {
         if (postTransform)
         {
@@ -2998,7 +2998,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc
      */
-    public function setLayoutPosition(x:Number, y:Number, postTransform:Boolean=true):void
+    public function setLayoutBoundsPosition(x:Number, y:Number, postTransform:Boolean = true):void
     {
 
         var currentX:Number = this.x;
@@ -3055,9 +3055,9 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc
      */
-    public function setLayoutSize(width:Number = Number.NaN,
-                                  height:Number = Number.NaN,
-                                  postTransform:Boolean=true):void
+    public function setLayoutBoundsSize(width:Number = NaN,
+                                  height:Number = NaN,
+                                  postTransform:Boolean = true):void
     {
         var strokeExtents:Point = getStrokeExtents(postTransform);
         if (!isNaN(width))
@@ -3217,7 +3217,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     // TODO EGeorgie: return rectangle instead so that the function can
     // correctly indicate the left, right, top and bottom extents. Right
     // now we assume they are the same on both sides.
-    protected function getStrokeExtents(postTransform:Boolean=true):Point
+    protected function getStrokeExtents(postTransform:Boolean = true):Point
     {
         // TODO EGeorgie: currently we take only scale into account,
         // but depending on joint style, cap style, etc. we need to take
