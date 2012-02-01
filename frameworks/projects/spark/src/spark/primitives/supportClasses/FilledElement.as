@@ -13,11 +13,15 @@ package spark.primitives.supportClasses
 {
 
 import flash.display.Graphics;
-import flash.events.EventDispatcher;
 import flash.events.Event;
+import flash.events.EventDispatcher;
 import flash.geom.Rectangle;
+
+import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.graphics.IFill;
+
+use namespace mx_internal;
 
 /**
  *  The FilledElement class is the base class for graphics elements that contain a stroke
@@ -106,7 +110,7 @@ public class FilledElement extends StrokedElement
             fillEventDispatcher.addEventListener(
                 PropertyChangeEvent.PROPERTY_CHANGE, 
                 fill_propertyChangeHandler);
-        
+                
         dispatchPropertyChangeEvent("fill", oldValue, _fill);    
         invalidateDisplayList();
     }
@@ -132,7 +136,7 @@ public class FilledElement extends StrokedElement
         
         var bounds:Rectangle = new Rectangle(drawX, drawY, width, height);
         if (stroke)
-            stroke.draw(g, bounds);
+            stroke.apply(g, bounds);
         else
             g.lineStyle();
         
