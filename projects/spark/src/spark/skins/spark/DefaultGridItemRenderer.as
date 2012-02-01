@@ -7,6 +7,7 @@ import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.text.TextFieldAutoSize;
 
+import mx.core.IUITextField;
 import mx.core.LayoutElementUIComponentUtils;
 import mx.core.UIComponent;
 import mx.core.UITextField;
@@ -301,7 +302,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     //  labelDisplay
     //----------------------------------
     
-    private var _labelDisplay:UITextField = null;
+    private var _labelDisplay:IUITextField = null;
     
     [Bindable("labelDisplayChanged")]
     
@@ -311,7 +312,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
      * 
      *  @default null
      */    
-    public function get labelDisplay():UITextField
+    public function get labelDisplay():IUITextField
     {
         return _labelDisplay
     }
@@ -319,7 +320,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     /**
      *  @private
      */    
-    public function set labelDisplay(value:UITextField):void
+    public function set labelDisplay(value:IUITextField):void
     {
         if (_labelDisplay == value)
             return;
@@ -355,26 +356,40 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     //
     //--------------------------------------------------------------------------
     
+    private function createLabelDisplay():void
+    {
+        if (labelDisplay)
+            removeChild(DisplayObject(labelDisplay));
+        
+        labelDisplay = IUITextField(createInFontContext(UITextField));            
+        labelDisplay.multiline = true;
+        labelDisplay.wordWrap = true;
+        labelDisplay.autoSize = TextFieldAutoSize.LEFT;
+        
+        addChild(DisplayObject(labelDisplay));
+        if (_label != "")
+            labelDisplay.text = _label;
+    }
+    
     /**
      *  @private
      */
     override protected function createChildren():void
     {
         super.createChildren();
-        
-        if (!labelDisplay)
-        {
-            labelDisplay = new UITextField();
-
-            labelDisplay.multiline = true;
-            labelDisplay.wordWrap = true;
-            labelDisplay.autoSize = TextFieldAutoSize.LEFT;
-
-            addChild(DisplayObject(labelDisplay));
-            if (_label != "")
-                labelDisplay.text = _label;
-        }
+        createLabelDisplay();
     }
+    
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
+        if (hasFontContextChanged())
+            createLabelDisplay();
+    }
+    
     
     /**
      *  @private
@@ -429,6 +444,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         super.updateDisplayList(width, height);
 
         labelDisplay.setActualSize(width - 10, height - 5);  // setActualSize() side-effects labelDisplay.textHeight
+        //LayoutElementUIComponentUtils.setLayoutBoundsSize(labelDisplay, width - 10, height - 5, nonDeltaLayoutMatrix());      
         updateMeasuredSize();  // See @private comment above 
         
         // If the Grid's row heights are fixed and the labelDisplay will not fit, then clip.
@@ -446,6 +462,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         }
         
         labelDisplay.move(5, 5);
+        //LayoutElementUIComponentUtils.setLayoutBoundsSize(labelDisplay, 5, 5, nonDeltaLayoutMatrix());          
     }
  
         
