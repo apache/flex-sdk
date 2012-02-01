@@ -85,6 +85,11 @@ public class LayoutElementHelper
         // Split the string into an array 
         var args:Array = temp.split(/\s+/);
         
+        // If the val was a String object representing a single number (i.e. "100"),
+        // then we'll hit this case:
+        if (args.length == 1)
+            return args;
+        
         // Return [offset, boundary]
         return [args[1], args[0]];
     }
