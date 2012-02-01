@@ -27,8 +27,8 @@
     <fx:Metadata>
         <![CDATA[ 
         /** 
-        * @copy spark.skins.spark.ApplicationSkin#hostComponent
-        */
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.Button")]
         ]]>
     </fx:Metadata> 
@@ -39,7 +39,7 @@
         static private const exclusions:Array = ["xSymbol"];
         
         /** 
-         * @copy spark.skins.SparkSkin#colorizeExclusions
+         * @private
          */     
         override public function get colorizeExclusions():Array {return exclusions;}
         
@@ -47,7 +47,7 @@
         static private const symbols:Array = ["xFill1", "xFill2"];
         
         /**
-         * @inheritDoc
+         * @private
          */
         override public function get symbolItems():Array {return symbols};
     </fx:Script>
