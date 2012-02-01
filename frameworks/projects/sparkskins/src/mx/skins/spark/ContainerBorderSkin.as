@@ -26,6 +26,11 @@ public class ContainerBorderSkin extends BorderSkin
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
     {
+        var cr:Number = getStyle("cornerRadius");
+        
+        if (cornerRadius != cr)
+            cornerRadius = cr;
+        
         // Push backgroundColor and backgroundAlpha directly.
         // Handle undefined backgroundColor by hiding the background object.
         if (isNaN(getStyle("backgroundColor")))
@@ -41,5 +46,6 @@ public class ContainerBorderSkin extends BorderSkin
         
         super.updateDisplayList(unscaledWidth, unscaledHeight);
     }
+
 }
 }
