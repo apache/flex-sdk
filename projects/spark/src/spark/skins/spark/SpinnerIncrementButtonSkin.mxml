@@ -23,33 +23,51 @@
         <State name="down" />
         <State name="disabled" />
     </states>
-
-    <!-- border -->
-    <Rect width="12" height="12">
-        <stroke>
-            <SolidColorStroke color="0x808080" color.disabled="0xC0C0C0" />
-        </stroke>
+    
+    <!-- border/fill -->
+	<Path data="M 0 0 h 16 Q 17 0 18 2 v 8 h -18 c" 
+		  left="0" top="0" right="0" bottom="0">
+		<stroke>
+			<SolidColorStroke color="0x686868" />
+		</stroke>
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0xFFFFFF"
+							   color.over="0xC2C2C2"
+							   color.down="0xAEB0B1" />
+				<GradientEntry color="0xF0F0F0"
+							   color.over="0xADAEAF"
+							   color.down="0xA1A3A5" />
+			</LinearGradient>
+		</fill>
+	</Path>    
+	
+	<!-- highlight -->
+	<Path data="M 0 0 h 14 Q 16 0 16 2 v 6 h -16 c" 
+		  left="1" top="1" right="1" bottom="1" >
+		<stroke>
+			<LinearGradientStroke rotation="90">
+				<GradientEntry color="0xFFFFFF" 
+							   color.down="0x000000"
+							   alpha.over="0.55" 
+							   alpha.down="0.15" />
+				<GradientEntry color="0xFFFFFF" 
+							   color.down="0x000000"
+							   alpha="0.45"
+							   alpha.over="0.2475"
+							   alpha.down="0" />
+			</LinearGradientStroke>
+		</stroke>
+	</Path>
+    
+    <!-- shadow -->
+    <Rect left="1" top="2" right="1" height="1" includeIn="down">
+    	<fill>
+    		<SolidColor color="0x000000" alpha="0.07" />
+    	</fill>
     </Rect>
-    <!-- fill -->
-    <Rect left="1" top="1" width="10" height="10">
-        <stroke>
-            <SolidColorStroke color="0xFFFFFF" color.over="0xFAFAFA" color.down="0xEFEFEF" />
-        </stroke>
-        <fill>
-            <SolidColor color="0xFFFFFF" color.over="0xF2F2F2" color.down="0xD8D8D8" />
-        </fill>
-    </Rect>
+    
     <!-- arrow -->
-    <Path>
-        <fill>
-            <SolidColor color="0x808080" color.disabled="0xC0C0C0" />
-        </fill>
-        <segments>
-            <MoveSegment x="6.5" y="5" />
-            <LineSegment x="9.5" y="8" />
-            <LineSegment x="3.5" y="8" />
-            <LineSegment x="6.5" y="5" />
-        </segments>
-    </Path>
-
+    <BitmapGraphic source="@Embed('assets/SpinnerUpArrow.png')"
+    			   horizontalCenter="0" verticalCenter="0" />
 </Skin>
