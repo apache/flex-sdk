@@ -11,8 +11,10 @@
 
 -->
 
-<!--- The Spark skin class for the Halo RadioButton component. 
-        
+<!--- The Spark skin class for the MX RadioButton component. 
+
+      @see mx.controls.RadioButton
+      
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
