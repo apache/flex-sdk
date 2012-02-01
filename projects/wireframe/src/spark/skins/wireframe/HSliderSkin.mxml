@@ -12,7 +12,7 @@
 -->
 
 <Skin xmlns="http://ns.adobe.com/mxml/2009"
-	  minHeight="13" minWidth="100"
+	  minHeight="11" minWidth="100"
 	  alpha.disabled="0.5">
 
     <Metadata>
@@ -24,9 +24,9 @@
     	<State name="disabled" />
     </states>
     
-    <FxButton id="track" left="0" right="0" verticalCenter="0" 
+    <FxButton id="track" left="0" right="0" top="0" bottom="0" 
             skinClass="wireframe.FxHSliderTrackSkin" />
-    <FxButton id="thumb" top="1"
+    <FxButton id="thumb" top="0" bottom="0" width="11" height="11"
             skinClass="wireframe.FxHSliderThumbSkin" />
 
 </Skin>
