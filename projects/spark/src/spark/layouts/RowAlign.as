@@ -13,8 +13,8 @@ package spark.layouts
 {
 
 /**
- *  Enumerated type for the TileLayout's <code>rowAlign</code>
- *  property.
+ *  The RowAlign class defines the possible values for the 
+ *  <code>rowAlign</code> property of the TileLayout class.
  * 
  *  @see TileLayout#rowAlign
  *  
@@ -26,7 +26,7 @@ package spark.layouts
 public final class RowAlign
 {
     /**
-     *  Does not justify the rows.
+     *  Do not justify the rows.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -36,7 +36,7 @@ public final class RowAlign
     public static const TOP:String = "top";
 
     /**
-     *  Justifies the rows by increasing the vertical gap.
+     *  Justify the rows by increasing the vertical gap.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -46,7 +46,7 @@ public final class RowAlign
     public static const JUSTIFY_USING_GAP:String = "justifyUsingGap";
 
     /**
-     *  Justifies the rows by increasing the row height.
+     *  Justify the rows by increasing the row height.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
