@@ -11,18 +11,21 @@
 
 package flex.layout
 {
-import flash.geom.Rectangle;	
+import flash.geom.Rectangle;
+import flash.events.EventDispatcher;	
 
 import flex.core.Group;
 import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 
 import mx.containers.utilityClasses.Flex;
+import mx.events.PropertyChangeEvent;
+
 
 /**
  *  Documentation is not currently available.
  */
-public class HorizontalLayout implements ILayout
+public class HorizontalLayout extends EventDispatcher implements ILayout
 {
     include "../core/Version.as";
 
@@ -86,6 +89,16 @@ public class HorizontalLayout implements ILayout
     //  gap
     //----------------------------------
 
+    private function invalidateTargetSizeAndDisplayList():void
+    {
+        var layoutTarget:Group = target;
+        if (layoutTarget != null) 
+        {
+            layoutTarget.invalidateSize();
+            layoutTarget.invalidateDisplayList();
+        }
+    }    
+
     private var _gap:int = 6;
 
     [Inspectable(category="General")]
@@ -105,33 +118,20 @@ public class HorizontalLayout implements ILayout
      */
     public function set gap(value:int):void
     {
-        if (_gap == value) return;
+        if (_gap == value) 
+            return;
     
 		_gap = value;
- 	   	var layoutTarget:Group = target;
-    	if (layoutTarget != null) 
-    	{
-        	layoutTarget.invalidateSize();
-            layoutTarget.invalidateDisplayList();
-    	}
+ 	    invalidateTargetSizeAndDisplayList();
     }
     
-    //----------------------------------
-    //  expliciColumnCount
-    //----------------------------------
-
-    /**
-     *  The column count requested by explicitly setting
-     *  <code>columnCount</code>.
-     */
-    protected var explicitColumnCount:int = -1;
-
     //----------------------------------
     //  columnCount
     //----------------------------------
 
     private var _columnCount:int = -1;
     
+    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -152,34 +152,61 @@ public class HorizontalLayout implements ILayout
     }
 
     /**
-     *  @private
+     *  Sets the <code>columnCount</code> property without causing
+     *  invalidation.  
+     * 
+     *  This method is intended to be used by subclass updateDisplayList() 
+     *  methods to sync the columnCount property with the actual number
+     *  of visible columns.
+     *
+     *  @param value The number of visible columns.
      */
-    public function set columnCount(value:int):void
+    protected function setColumnCount(value:int):void
     {
-        explicitColumnCount = value;
+        if (_columnCount == value)
+            return;
+        var oldValue:int = _columnCount;
+        _columnCount = value;
+        dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "columnCount", oldValue, value));
+    }
+        
+    
+    //----------------------------------
+    //  requestedColumnCount
+    //----------------------------------
 
-        if (_columnCount == value) return;
+    private var _requestedColumnCount:int = -1;
+    
+    [Inspectable(category="General")]
 
-        setColumnCount(value);
- 	   	var layoutTarget:Group = target;
-    	if (layoutTarget != null) 
-    	{
-        	layoutTarget.invalidateSize();
-            layoutTarget.invalidateDisplayList();
-    	}
+    /**
+     *  Specifies the number of items to display.
+     * 
+     *  If <code>requestedColumnCount</code> is -1, then all of them items are displayed.
+     * 
+     *  This value implies the layout's <code>measuredWidth</code>.
+     * 
+     *  If the width of the <code>target</code> has been explicitly set,
+     *  this property has no effect.
+     * 
+     *  @default -1
+     */
+    public function get requestedColumnCount():int
+    {
+        return _requestedColumnCount;
     }
 
     /**
-     *  Sets the <code>columnCount</code> property without causing
-     *  invalidation or setting the <code>explicitColumnCount</code>
-     *  property, which permanently locks in the number of columns.
-     *
-     *  @param v The row count.
+     *  @private
      */
-    protected function setColumnCount(v:int):void
+    public function set requestedColumnCount(value:int):void
     {
-        _columnCount = v;
-    }
+        if (_requestedColumnCount == value)
+            return;
+                               
+        _requestedColumnCount = value;
+        invalidateTargetSizeAndDisplayList();
+    }    
     
     //----------------------------------
     //  explicitColumnWidth
@@ -297,7 +324,7 @@ public class HorizontalLayout implements ILayout
         var preferredHeight:Number = 0;
         var visibleWidth:Number = 0;
         var visibleColumns:uint = 0;
-        var explicitColumnCount:int = explicitColumnCount;        
+        var reqColumns:int = requestedColumnCount;        
         
         var count:uint = layoutTarget.numLayoutItems;
         var totalCount:uint = count; // How many items will be laid out
@@ -313,8 +340,8 @@ public class HorizontalLayout implements ILayout
             preferredHeight = Math.max(preferredHeight, li.preferredSize.y);
             preferredWidth += li.preferredSize.x; 
             
-            var vcr:Boolean = (explicitColumnCount != -1) && (visibleColumns < explicitColumnCount);
-            if (vcr || (explicitColumnCount == -1))
+            var vcr:Boolean = (reqColumns != -1) && (visibleColumns < reqColumns);
+            if (vcr || (reqColumns == -1))
             {
                 var mw:Number =  hasPercentWidth(li) ? li.minSize.x : li.preferredSize.x;
                 var mh:Number = hasPercentHeight(li) ? li.minSize.y : li.preferredSize.y;                   
@@ -336,7 +363,7 @@ public class HorizontalLayout implements ILayout
             minWidth += vgap;
         }
         
-        layoutTarget.measuredWidth = (explicitColumnCount == -1) ? preferredWidth : visibleWidth;
+        layoutTarget.measuredWidth = (reqColumns == -1) ? preferredWidth : visibleWidth;
         layoutTarget.measuredHeight = preferredHeight;
 
         layoutTarget.measuredMinWidth = minWidth; 
@@ -360,7 +387,8 @@ public class HorizontalLayout implements ILayout
         	setColumnWidth(columnWidth);
         }
 
-        var visibleCols:uint = (explicitColumnCount == -1) ? cols : explicitColumnCount;
+        var reqColumns:int = requestedColumnCount;        
+        var visibleCols:uint = (reqColumns == -1) ? cols : reqColumns;
         var contentWidth:Number = (cols * columnWidth) + ((cols > 1) ? (gap * (cols - 1)) : 0);
         var visibleWidth:Number = (visibleCols * columnWidth) + ((visibleCols > 1) ? (gap * (visibleCols - 1)) : 0);
         
@@ -454,12 +482,11 @@ public class HorizontalLayout implements ILayout
             var dx:Number = lo.actualSize.x;
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);            
-            if((explicitColumnCount == -1) && (x < maxVisibleX) && ((x + dx) > minVisibleX))
+            if((x < maxVisibleX) && ((x + dx) > minVisibleX))
             	visibleColumns += 1;
             x += dx + gap;
         }
-        if (explicitColumnCount == -1) 
-        	setColumnCount(visibleColumns);  
+        setColumnCount(visibleColumns);  
         layoutTarget.setContentSize(maxX, maxY);        	      
     }
 
