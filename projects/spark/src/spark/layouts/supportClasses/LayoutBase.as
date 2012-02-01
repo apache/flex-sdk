@@ -581,10 +581,13 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  values that are based on the current index and key 
      *  stroke encountered. 
      * 
+     *  @param currentIndex The current index of the item with focus.
+     * 
      *  @param navigationUnit The NavigationUnit constant that determines
      *  which item to navigate to next.  
      * 
-     *  @param currentIndex The current index of the item with focus.
+     *  @param arrowKeysWrapFocus If <code>true</code>, using arrow keys to 
+     *  navigate within the component wraps when it hits either end.
      * 
      *  @return The index of the next item to jump to. Returns -1
      *  when if the layout doens't recognize the navigationUnit.  
@@ -594,7 +597,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */  
-     public function getNavigationDestinationIndex(currentIndex:int, navigationUnit:uint):int
+    public function getNavigationDestinationIndex(currentIndex:int, navigationUnit:uint, arrowKeysWrapFocus:Boolean):int
      {
         if (!target || target.numElements < 1)
             return -1; 
