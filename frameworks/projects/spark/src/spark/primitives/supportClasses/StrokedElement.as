@@ -31,6 +31,11 @@ use namespace mx_internal;
 /**
  *  The StrokedElement class is the base class for all graphic elements that
  *  have a stroke.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class StrokedElement extends GraphicElement
 {
@@ -43,6 +48,11 @@ public class StrokedElement extends GraphicElement
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function StrokedElement()
     {
@@ -69,6 +79,11 @@ public class StrokedElement extends GraphicElement
 
     /**
      *  The stroke used by this element.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get stroke():IStroke
     {
@@ -112,6 +127,11 @@ public class StrokedElement extends GraphicElement
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
@@ -138,6 +158,11 @@ public class StrokedElement extends GraphicElement
      *  Set up the drawing for this element. This is the first of three steps
      *  taken during the drawing process. In this step, the stroke properties
      *  are applied.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function beginDraw(g:Graphics):void
     {
@@ -157,6 +182,11 @@ public class StrokedElement extends GraphicElement
      *  (and fill, if applicable) have been set in the <code>beginDraw()</code> method. 
      *  Your override should only contain calls to drawing methods such as 
      *  <code>moveTo()</code>, <code>curveTo()</code>, and <code>drawRect()</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function drawElement(g:Graphics):void
     {
@@ -168,6 +198,11 @@ public class StrokedElement extends GraphicElement
      *  during the drawing process. In this step, fills are closed.
      *  
      *  @param g The graphics element to finish drawing.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function endDraw(g:Graphics):void
     {
