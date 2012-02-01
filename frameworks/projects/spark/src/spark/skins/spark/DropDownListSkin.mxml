@@ -51,7 +51,7 @@
 	    </s:List>
 	</s:PopUp>
     
-	<s:Button id="button" width="100%" height="100%" skinClass="spark.skins.default.DropDownListButtonSkin"/>  
+	<s:Button id="button" width="100%" height="100%" skinClass="spark.skins.default.DropDownListButtonSkin" focusEnabled="false"/>  
 	<!-- TODO (jszeto) Move mouseChildren/mouseEnabled shutoff into GraphicElement createDisplayObject -->
 	<s:Group left="5" right="5" top="5" bottom="5" mouseChildren="false" mouseEnabled="false">
 		<s:SimpleText id="labelElement" /> 
