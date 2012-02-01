@@ -20,7 +20,9 @@ import flashx.textLayout.operations.FlowOperation;
  *  The TextOperationEvent class represents events that are dispatched
  *  when text content changes due to user operations
  *  such as inserting characters, backspacing, pasting,
- *  changing attributes, etc.
+ *  or changing text attributes.
+ *
+ *  @see spark.components.RichEditableText
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -119,7 +121,7 @@ public class TextOperationEvent extends Event
      *  associated with the event can be prevented.
      *
      *  @param operation The FlowOperation object representing
-	 *  the editing operation being performed on the text by the user.
+     *  the editing operation being performed on the text by the user.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -147,11 +149,11 @@ public class TextOperationEvent extends Event
 
     /**
      *  The FlowOperation object representing the editing operation
-	 *  being performed on the text by the user.
-	 *
-	 *  <p>This might be an InsertTextOperation, a DeleteTextOperation,
-	 *  a SplitParagraphOperation, a CutOperation, a PasteOperation,
-	 *  an UndoOperation, etc.</p>
+     *  being performed on the text by the user.
+     *
+     *  <p>This might be an InsertTextOperation, a DeleteTextOperation,
+     *  a SplitParagraphOperation, a CutOperation, a PasteOperation,
+     *  an UndoOperation, or other subclass of FlowOperation.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
