@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009"
+	  alpha.disabledStates="0.5">
+
+    <Metadata>
+    	[HostComponent("mx.components.FxCheckBox")]
+    </Metadata> 
+    
+    <states>
+        <State name="up" />
+        <State name="over" stateGroups="overStates" />
+        <State name="down" stateGroups="downStates" />
+        <State name="disabled" stateGroups="disabledStates" />
+        <State name="upAndSelected" />
+        <State name="overAndSelected" stateGroups="overStates" />
+        <State name="downAndSelected" stateGroups="downStates" />
+        <State name="disabledAndSelected" stateGroups="disabledStates" />
+    </states>
+        
+	<Group top="1">
+        <!-- background -->
+        <Rect left="0" right="0" minWidth="12" top="0" bottom="0" minHeight="12">
+            <stroke>            
+                <SolidColorStroke color="0x5380D0" />
+            </stroke>
+            <fill>
+                <SolidColor color="0xFFFFFF" color.overStates="0xEBF4FF" 
+                	      color.downStates="0xDEEBFF" />
+            </fill>
+        </Rect>
+
+		<!-- shadow (down states only) -->
+		<Rect left="1" top="1" right="1" bottom="1" includeIn="downStates">
+			<stroke>
+				<LinearGradientStroke rotation="90">
+					<GradientEntry color="0x5380D0" alpha="0.25" />
+					<GradientEntry color="0x5380D0" alpha="0" />
+				</LinearGradientStroke>
+			</stroke>
+		</Rect>
+		
+        <!-- checkmark -->
+        <Path data="M 3.5 6.5 l 2 2 l 6 -7"
+                 includeIn="upAndSelected, overAndSelected, downAndSelected, disabledAndSelected">
+            <stroke>
+                <SolidColorStroke weight="2" caps="square" color="0x3D5D92" />
+            </stroke>
+        </Path>
+    </Group>
+
+    <!-- Label -->
+    <TextBox id="labelField"
+             left="19" top="3" />
+
+</Skin>
