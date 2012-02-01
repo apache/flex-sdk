@@ -18,7 +18,9 @@ import mx.styles.StyleManager;
 import mx.utils.ColorUtil;
 
 /**
- *  The Spark skin for the indeterminate state of a Halo ProgressBar component.
+ *  The wireframe skin for the indeterminate state of the MX ProgressBar component.
+ *  
+ *  @see mx.controls.ProgressBar
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
