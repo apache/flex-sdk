@@ -130,12 +130,14 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      *  </li>
      *  </ul>
      *  <p>
-     *  If the locale style is not set by one of the above techniques,
-     *  the methods of this class that depend on the locale
-     *  will set lastOperationStatus to 
-     *  <code>LastOperationStatus.LOCALE_UNDEFINED_ERROR</code>
-     *  and depending on the return type the methods will return 
-     *  <code>null</code>, 0, or <code>undefined</code>.</p>
+     *  If the <code>locale</code> style is not set by one of the above 
+     *  techniques, the instance of this class will be added as a 
+     *  <code>StyleClient</code> to the <code>topLevelApplication</code> and 
+     *  will therefore inherit the <code>locale</code> style from the 
+     *  <code>topLevelApplication</code> object when the <code>locale</code> 
+     *  dependent property getter or <code>locale</code> dependent method is 
+     *  called.
+     *  </p>    
      * 
      *  <p>Most of the properties of 
      *  this class are automatically set based on the locale style. If the
@@ -172,12 +174,6 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
     
     /**
      *  @private
-     *  Basic properties of the actual underlying working instance.
-     */
-    mx_internal var properties:Object = null;
-
-    /**
-     *  @private
      */
     private var timeStyleOverride:String = DateTimeStyle.LONG;
 
@@ -194,10 +190,39 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
     /**
      *  @private
      */
-    private var g11nWorkingInstance:flash.globalization.DateTimeFormatter
-                                                                        = null;
     private var fallbackFormatter:FallbackDateTimeFormatter = null;
 
+    /**
+     *  @private
+     */
+    private var _g11nWorkingInstance:flash.globalization.DateTimeFormatter
+        = null;
+    
+    /**
+     *  @private
+     *  If the g11nWorkingInstance has not been defined. Call
+     *  ensureStyleSource to ensure that there is a styleParent. If there is
+     *  not a style parent, then this instance will be added as a style client
+     *  to the topLevelApplication. As a side effect of this, the styleChanged
+     *  method will be called and if there is a locale style defined for the
+     *  topLevelApplication, the createWorkingInstance method will be
+     *  executed creating a g11nWorkingInstance.
+     */
+    private function get g11nWorkingInstance ():
+        flash.globalization.DateTimeFormatter
+    {
+        if (!_g11nWorkingInstance)
+             ensureStyleSource();
+
+        return _g11nWorkingInstance;
+    }
+    
+    private function set g11nWorkingInstance 
+        (flashFormatter:flash.globalization.DateTimeFormatter): void 
+    {
+        _g11nWorkingInstance = flashFormatter;
+    }
+        
     //--------------------------------------------------------------------------
     //
     //  Overridden Properties
@@ -337,8 +362,10 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      */
     public function get dateStyle():String
     {
+        
         if (g11nWorkingInstance)
             return g11nWorkingInstance.getDateStyle();
+
 
         if ((localeStyle === undefined) || (localeStyle === null))
         {
@@ -436,7 +463,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
         if (dateTimePatternOverride && (dateTimePatternOverride == value))
             return;
         dateTimePatternOverride = value;
-
+        
         if (g11nWorkingInstance)
             g11nWorkingInstance.setDateTimePattern(value);
         else
@@ -563,7 +590,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      */
     public function get timeStyle():String
     {
-        if (g11nWorkingInstance)
+         if (g11nWorkingInstance)
             return g11nWorkingInstance.getTimeStyle();
 
         if ((localeStyle === undefined) || (localeStyle === null))
