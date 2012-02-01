@@ -31,6 +31,10 @@ declarations define DataGrid skin parts except <code>headerColumnSeparator</code
 <code>columnSeparator</code> and <code>headerRenderer</code> properties.</p>
 
 @see spark.components.DataGrid
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 2.5
+@productversion Flex 4.5
 -->
 
 <s:SparkSkin 
@@ -44,6 +48,10 @@ declarations define DataGrid skin parts except <code>headerColumnSeparator</code
     <![CDATA[
         /** 
         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+          @langversion 3.0
+          @playerversion Flash 10
+          @playerversion AIR 1.5
+          @productversion Flex 4
          */
         [HostComponent("spark.components.DataGrid")]
     ]]>
