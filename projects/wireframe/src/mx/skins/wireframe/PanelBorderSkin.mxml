@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the Halo Panel component's border. 
+<!--- The wireframe skin class for the MX Panel component's border. 
+
+      @see mx.containers.Panel
         
       @langversion 3.0
       @playerversion Flash 10
@@ -29,6 +31,10 @@
         import mx.core.IUIComponent;
         
         private var _metrics:EdgeMetrics = new EdgeMetrics(1, 32, 1, 1);
+
+        /**
+        *  @private
+        */
         public function get borderMetrics():EdgeMetrics
         {
             var hasPanelParent:Boolean = isPanel(parent);
@@ -92,16 +98,25 @@
             invalidateDisplayList();
         }
         
+        /**
+        *  @private
+        */
         public function get hasBackgroundImage():Boolean
         {
             return false;
         }
         
+        /**
+        *  @private
+        */
         public function layoutBackgroundImage():void
         {
         
         }
 
+        /**
+        *  @private
+        */
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {
             var hasPanelParent:Boolean = isPanel(parent);
@@ -200,73 +215,81 @@
         private var cornerRadius:Number;
         ]]>
     </fx:Script>
-	
-	<!-- drop shadow -->
-	<s:Rect left="0" top="0" right="0" bottom="0">
-		<!-- TODO (klin): Should this be changed to a RectangularDropShadow -->
-		<s:filters>
-			<s:DropShadowFilter blurX="15" blurY="15" alpha="0.18" distance="11" angle="90" knockout="true" />
-		</s:filters>
-		<s:fill>
-			<s:SolidColor color="0" />
-		</s:fill>
-	</s:Rect>
-	
-	<!-- layer 1: border -->
-	<s:Rect id="border" left="0" right="0" top="0" bottom="0">
-		<s:stroke>
-			<s:SolidColorStroke color="0x5581D1" weight="1" />
-		</s:stroke>
-	</s:Rect>
-	
-	<!-- layer 2: background fill -->
-	<s:Rect left="1" top="1" right="1" bottom="1">
-		<s:fill>
-			<s:SolidColor id="backgroundFill" color="0xFFFFFF" />
-		</s:fill>
-	</s:Rect>
-	
-	<!-- layer 3: contents -->
-	<s:Group left="1" right="1" top="1" bottom="1" >
-		<s:layout>
-			<s:VerticalLayout gap="0" horizontalAlign="justify" />
-		</s:layout>
-		
-		<s:Group id="topGroup" >
-			<!-- layer 0: title bar fill -->
-			<s:Rect id="tbbg" left="0" right="0" top="0" bottom="1">
-				<s:fill> 
-					<s:SolidColor color="0xE2EDF7" />
-				</s:fill>
-			</s:Rect>
-			
-			<!-- layer 1: title bar highlight -->
-			<s:Rect id="tbhi" left="0" right="0" top="0" bottom="0">
-				<s:stroke>
-					<s:LinearGradientStroke rotation="90" weight="1">
-						<s:GradientEntry color="0xEAF2F8" />
-						<s:GradientEntry color="0xE2EDF7" />
-					</s:LinearGradientStroke>
-				</s:stroke>
-			</s:Rect>
-			
-			<!-- layer 2: title bar divider -->
-			<s:Rect id="tbdiv" left="0" right="0" bottom="0" height="1">
-				<s:fill>
-					<s:SolidColor color="0xD1E0F2" />
-				</s:fill>
-			</s:Rect>
-			
-			<!-- layer 3: text -->
-			<s:Label id="titleDisplay" maxDisplayedLines="1"
-					 left="9" right="3" top="1" minHeight="30"
-					 verticalAlign="middle" fontWeight="bold">
-			</s:Label>
-			
-		</s:Group>
-		
-		<s:Group id="contentGroup" width="100%" height="100%" minWidth="0" minHeight="0">
-		</s:Group>
-	</s:Group>
-	
+    
+    <!-- drop shadow -->
+    <s:Rect left="0" top="0" right="0" bottom="0">
+        <!-- TODO (klin): Should this be changed to a RectangularDropShadow -->
+        <s:filters>
+            <s:DropShadowFilter blurX="15" blurY="15" alpha="0.18" distance="11" angle="90" knockout="true" />
+        </s:filters>
+        <s:fill>
+            <s:SolidColor color="0" />
+        </s:fill>
+    </s:Rect>
+    
+    <!-- layer 1: border -->
+    <!--- @private -->
+    <s:Rect id="border" left="0" right="0" top="0" bottom="0">
+        <s:stroke>
+            <s:SolidColorStroke color="0x5581D1" weight="1" />
+        </s:stroke>
+    </s:Rect>
+    
+    <!-- layer 2: background fill -->
+    <s:Rect left="1" top="1" right="1" bottom="1">
+        <s:fill>
+            <!--- @private -->
+            <s:SolidColor id="backgroundFill" color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
+    
+    <!-- layer 3: contents -->
+    <s:Group left="1" right="1" top="1" bottom="1" >
+        <s:layout>
+            <s:VerticalLayout gap="0" horizontalAlign="justify" />
+        </s:layout>
+        
+        <!--- @private -->
+        <s:Group id="topGroup" >
+            <!-- layer 0: title bar fill -->
+            <!--- @private -->
+            <s:Rect id="tbbg" left="0" right="0" top="0" bottom="1">
+                <s:fill> 
+                    <s:SolidColor color="0xE2EDF7" />
+                </s:fill>
+            </s:Rect>
+            
+            <!-- layer 1: title bar highlight -->
+            <!--- @private -->
+            <s:Rect id="tbhi" left="0" right="0" top="0" bottom="0">
+                <s:stroke>
+                    <s:LinearGradientStroke rotation="90" weight="1">
+                        <s:GradientEntry color="0xEAF2F8" />
+                        <s:GradientEntry color="0xE2EDF7" />
+                    </s:LinearGradientStroke>
+                </s:stroke>
+            </s:Rect>
+            
+            <!-- layer 2: title bar divider -->
+            <!--- @private -->
+            <s:Rect id="tbdiv" left="0" right="0" bottom="0" height="1">
+                <s:fill>
+                    <s:SolidColor color="0xD1E0F2" />
+                </s:fill>
+            </s:Rect>
+            
+            <!-- layer 3: text -->
+            <!--- @private -->
+            <s:Label id="titleDisplay" maxDisplayedLines="1"
+                     left="9" right="3" top="1" minHeight="30"
+                     verticalAlign="middle" fontWeight="bold">
+            </s:Label>
+            
+        </s:Group>
+        
+        <!--- @private -->
+        <s:Group id="contentGroup" width="100%" height="100%" minWidth="0" minHeight="0">
+        </s:Group>
+    </s:Group>
+    
 </s:Skin>
