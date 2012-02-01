@@ -131,7 +131,7 @@ public class FocusSkin extends HighlightBitmapCaptureSkin
         rect.width = bitmap.width;
         rect.height = bitmap.height;
         // If the focusObject has an errorString, use "errorColor" instead of "focusColor" 
-        if (target.errorString != null && target.errorString != "") 
+        if (target.errorString != null && target.errorString != "" && target.getStyle("showErrorSkin")) 
         {
             glowFilter.color = target.getStyle("errorColor");
         }
