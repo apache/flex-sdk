@@ -35,7 +35,7 @@ component is defined by the NumericStepperTextInputSkin class.
     <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For numeric stepper, the skin itself is colorized but the individual parts are not. */
-        static private const exclusions:Array = ["textInput", "decrementButton", "incrementButton"];
+        static private const exclusions:Array = ["textDisplay", "decrementButton", "incrementButton"];
 
     /** 
      * @copy spark.skins.SparkSkin#colorizeExclusions
@@ -48,15 +48,15 @@ component is defined by the NumericStepperTextInputSkin class.
         <s:State name="disabled" />
     </s:states>
 
-    <!--- Defines the appearance of the NumericStepper component's up button. The default class is SpinnerIncrButtonSkin. -->
+    <!--- Defines the appearance of the NumericStepper component's up button. The default class is SpinnerIncrementButtonSkin. -->
     <s:Button id="incrementButton" right="0" top="0" height="50%" 
-              skinClass="spark.skins.spark.SpinnerIncrButtonSkin" />
-    <!--- Defines the appearance of the NumericStepper component's down button. The default class is SpinnerDecrButtonSkin. -->
+              skinClass="spark.skins.spark.SpinnerIncrementButtonSkin" />
+    <!--- Defines the appearance of the NumericStepper component's down button. The default class is SpinnerDecrementButtonSkin. -->
     <s:Button id="decrementButton" right="0" bottom="0" height="50%" 
-              skinClass="spark.skins.spark.SpinnerDecrButtonSkin" />
+              skinClass="spark.skins.spark.SpinnerDecrementButtonSkin" />
                            
     <!--- Defines the appearance of the NumericStepper component's TextInput subcomponent. The default class is NumericStepperTextInputSkin. -->
-    <s:TextInput id="textInput" left="0" top="0" right="18" bottom="0"
+    <s:TextInput id="textDisplay" left="0" top="0" right="18" bottom="0"
         skinClass="spark.skins.spark.NumericStepperTextInputSkin" />
         
 </s:SparkSkin>
