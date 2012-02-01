@@ -25,38 +25,69 @@
     </states>
 
     <!-- background -->
-    <Rect left="0" top="0" right="0" bottom="0" minWidth="24" minHeight="14"
-    	  radiusX="2" radiusY="2">
+    <Rect left="1" top="0" right="2" bottom="0" minWidth="24" minHeight="14">
         <stroke>
-            <SolidColorStroke color="0x3D5D92" color.disabled="0x9DADC9" />
+            <SolidColorStroke color="0x5C5C5C" />
         </stroke>
         <fill>
             <SolidColor color="0xFFFFFF" />
         </fill>
     </Rect>
 
-    <!-- Gripper -->
-    <Group horizontalCenter="-1" verticalCenter="0">
-        <Rect width="7" height="6">
-            <fill>
-                <SolidColor color="0xFFFFFF"  />
-            </fill>
-        </Rect>
-        <Line xFrom="1" xTo="1" yFrom="0" yTo="6">
-            <stroke>
-                <SolidColorStroke color="0x3D5D92" color.disabled="0x9DADC9" pixelHinting="true" />
-            </stroke>
-        </Line>
-        <Line xFrom="4" xTo="4" yFrom="0" yTo="6">
-            <stroke>
-                <SolidColorStroke color="0x3D5D92" color.disabled="0x9DADC9" pixelHinting="true" />
-            </stroke>
-        </Line>
-        <Line xFrom="7" xTo="7" yFrom="0" yTo="6">
-            <stroke>
-                <SolidColorStroke color="0x3D5D92" color.disabled="0x9DADC9" pixelHinting="true" />
-            </stroke>
-        </Line>
-    </Group>
+	<!-- fill -->
+	<Rect left="2" top="1" right="3" bottom="1">
+		<fill>
+			<LinearGradient rotation="90">
+                <GradientEntry color="0xFAFAFA"
+                               color.over="0xC7C7C7"
+                               color.down="0xBBBBBB" />
+                <GradientEntry color="0xF0F0F0" 
+                               color.over="0xB2B2B2"
+                               color.down="0x8B8B8B" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- highlight -->
+	<Rect left="2" top="1" right="3" height="6">
+		<fill>
+            <SolidColor color="0xFFFFFF"
+                        alpha="0.75"
+                        alpha.over="0.33"
+                        alpha.down="0.33" />
+		</fill>
+	</Rect>
+	
+	<!-- inside stroke -->
+	<Rect left="2" top="1" right="3" bottom="1">
+		<stroke>
+			<LinearGradientStroke rotation="90">
+                <GradientEntry color="0xFFFFFF" 
+                               alpha="1"
+                               alpha.over="0.55"
+                               alpha.down="0.12" />
+                <GradientEntry color="0xFFFFFF" 
+                               alpha="0.22" 
+                               alpha.over="0.121" 
+                               alpha.down="0.0264" />
+			</LinearGradientStroke>
+		</stroke>
+	</Rect>
 
+	<!-- drop shadow -->
+	<Rect left="0" top="1" bottom="1" width="1">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.12" />
+		</fill>
+	</Rect>
+	<Rect right="0" top="1" bottom="1" width="2">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.12" />
+		</fill>
+	</Rect>
+	<Rect right="1" top="1" bottom="1" width="1">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.12" />
+		</fill>
+	</Rect>
 </Skin>
