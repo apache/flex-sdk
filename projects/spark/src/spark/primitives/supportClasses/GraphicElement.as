@@ -170,7 +170,9 @@ public class GraphicElement extends EventDispatcher
 
 
     /**
-     *  Documentation is not currently available.
+     *  Contain all of the implementation details of how the GraphicElement implements
+     *  transform and layering support. In most cases, you should not have to modify this 
+     *  property.
      */
     protected var layoutFeatures:AdvancedLayoutFeatures;
     //--------------------------------------------------------------------------
@@ -180,28 +182,32 @@ public class GraphicElement extends EventDispatcher
     //--------------------------------------------------------------------------
     
     [Bindable("propertyChange")]
-	/**
-	 * Documentation is not currently available
-	 */
- 	public function set offsets(value:TransformOffsets):void
-	{
-		var oldValue:TransformOffsets = layoutFeatures.offsets;
-		
-		if(layoutFeatures.offsets != null)
-			layoutFeatures.offsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
-		layoutFeatures.offsets = value;
-		if(layoutFeatures.offsets != null)
-			layoutFeatures.offsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+    /**
+     *  Defines a set of adjustments that can be applied to the component's transform in a way that is 
+     *  invisible to the component's parent's layout. For example, if you want a layout to adjust 
+     *  for a component that will be rotated 90 degrees, you set the component's <code>rotation</code> property. 
+     *  If you want the layout to <i>not</i> adjust for the component being rotated, you set its <code>offsets.rotationZ</code> 
+     *  property.
+     */
+    public function set offsets(value:TransformOffsets):void
+    {
+        var oldValue:TransformOffsets = layoutFeatures.offsets;
+        
+        if(layoutFeatures.offsets != null)
+            layoutFeatures.offsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+        layoutFeatures.offsets = value;
+        if(layoutFeatures.offsets != null)
+            layoutFeatures.offsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
         dispatchPropertyChangeEvent("offsets", oldValue, value);
-	}
-	
-	/**
-	 * @private
-	 */
-	public function get offsets():TransformOffsets
-	{
-		return layoutFeatures.offsets;
-	}
+    }
+    
+    /**
+     * @private
+     */
+    public function get offsets():TransformOffsets
+    {
+        return layoutFeatures.offsets;
+    }
 
     
     
@@ -282,7 +288,9 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  Documentation is not currently available.
+     *  The vertical distance in pixels from the top edge of the content area to the control's baseline position. 
+     *  If this property is set, the baseline of the GraphicElement is anchored to the top edge of its content area; 
+     *  when its container is resized, the two edges maintain their separation.
      */
     public function get baseline():Number
     {
@@ -366,7 +374,9 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  Documentation is not currently available.
+     *  The vertical distance in pixels from the lower edge of the GraphicElement to the lower edge of its content area. 
+     *  If this property is set, the lower edge of the component is anchored to the bottom edge of its content area; 
+     *  when its container is resized, the two edges maintain their separation. 
      */
     public function get bottom():Number
     {
@@ -642,7 +652,9 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  Documentation is not currently available.
+     *  The horizontal distance in pixels from the center of the GraphicElement's content area to the center of the component. 
+     *  If this property is set, the center of the component will be anchored to the center of its content area; 
+     *  when its container is resized, the two centers maintain their horizontal separation. 
      */
     public function get horizontalCenter():Number
     {
@@ -678,7 +690,9 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  Documentation is not currently available.
+     *  The horizontal distance in pixels from the left edge of the GraphicElement's content area to the left edge of the component. 
+     *  If this property is set, the left edge of the component is anchored to the left edge of its content area; 
+     *  when its container is resized, the two edges maintain their separation.
      */
     public function get left():Number
     {
@@ -1140,7 +1154,9 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  Documentation is not currently available.
+     *  The horizontal distance in pixels from the right edge of the GraphicElement to the right edge of its content area. 
+     *  If this property is set, the right edge of the component is anchored to the right edge of its content area; 
+     *  when its container is resized, the two edges maintain their separation. 
      */
     public function get right():Number
     {
@@ -1370,7 +1386,9 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  Documentation is not currently available.
+     *  The vertical distance in pixels from the top edge of the GraphicElement's content area to the top edge of the component. 
+     *  If this property is set, the top edge of the component is anchored to the top edge of its content area; 
+     *  when its container is resized, the two edges maintain their separation. 
      */
     public function get top():Number
     {
@@ -1460,8 +1478,10 @@ public class GraphicElement extends EventDispatcher
     }
     
     /**
-     *  The transform matrix that is used to calculate the component's layout relative to its siblings. 
-     *  This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.
+     *  The transform matrix that is used to calculate the component's layout relative to its siblings. This matrix
+     *  is defined by the component's 2D properties such as <code>x</code>, <code>y</code>, <code>rotation</code>, 
+     *  <code>scaleX</code>, <code>scaleY</code>, <code>transformX</code>, and <code>transformY</code>.
+     *  <p>This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.</p>
      */
     public function get layoutMatrix():Matrix
     {
@@ -1478,8 +1498,14 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  The transform matrix that is used to calculate a component's layout relative to its siblings. 
-     *  This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.
+     *  The transform matrix that is used to calculate a component's layout relative to its siblings. This matrix is defined by
+     *  the component's 3D properties (which include the 2D properties such as <code>x</code>, <code>y</code>, <code>rotation</code>, 
+     *  <code>scaleX</code>, <code>scaleY</code>, <code>transformX</code>, and <code>transformY</code>, as well as <code>rotationX</code>, 
+     *  <code>rotationY</code>, <code>scaleZ</code>, <code>z</code>, and <code>transformZ</code>.
+     *  
+     *  <p>Most components do not have any 3D transform properties set on them.</p>
+     *  
+     *  <p>This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.</p>
      */
     public function set layoutMatrix3D(value:Matrix3D):void
     {
@@ -1605,7 +1631,9 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  Documentation is not currently available.
+     *  The vertical distance in pixels from the center of the GraphicElement's content area to the center of the component. 
+     *  If this property is set, the center of the component is anchored to the center of its content area; 
+     *  when its container is resized, the two centers maintain their vertical separation. 
      */
     public function get verticalCenter():Number
     {
@@ -1848,7 +1876,8 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
 
     /**
-     *  Documentation is not currently available.
+     *  The DisplayObject where the GraphicElement will be drawn.
+     *  This property is automatically assigned by the parent Group of this element.
      */
     public function get displayObject():DisplayObject
     {
@@ -2073,7 +2102,8 @@ public class GraphicElement extends EventDispatcher
     //--------------------------------------------------------------------------
 
     /**
-     *  Documentation is not currently available.
+     *  Creates a new DisplayObject where the GraphicElement is drawn, 
+     *  if one does not already exist.
      */
     public function createDisplayObject():DisplayObject
     {
@@ -2084,6 +2114,10 @@ public class GraphicElement extends EventDispatcher
     }
     
     
+    /**
+     *  Destroys the DisplayObject where the GraphicElement is drawn, 
+     *  if it exists.
+     */
     public function destroyDisplayObject():void
     {
         // TODO!! Figure out what cleanup to do
@@ -2096,7 +2130,9 @@ public class GraphicElement extends EventDispatcher
     }
        
     /**
-     *  Documentation is not currently available.
+     *  <code>true</code> if the graphic element needs its own unique display object to render into.
+     *  In general, you will not set this property, although if you extend the GraphicElement class, you
+     *  might override the setter.
      */
     public function get needsDisplayObject():Boolean
     {
@@ -2110,14 +2146,14 @@ public class GraphicElement extends EventDispatcher
             _alpha != 1 ||
             _layer != 0);
 
-		if(layoutFeatures.offsets != null)
-		{
-			var o:TransformOffsets = layoutFeatures.offsets;
-    		result = result || (o.scaleX != 1 || o.scaleY != 1 || o.scaleZ != 1 ||
-    		o.rotationX != 0 || o.rotationY != 0 || o.rotationZ != 0 || o.z  != 0);  
-			
-		}
-		return result;
+        if(layoutFeatures.offsets != null)
+        {
+            var o:TransformOffsets = layoutFeatures.offsets;
+            result = result || (o.scaleX != 1 || o.scaleY != 1 || o.scaleZ != 1 ||
+            o.rotationX != 0 || o.rotationY != 0 || o.rotationZ != 0 || o.z  != 0);  
+            
+        }
+        return result;
     }
     
     public function get nextSiblingNeedsDisplayObject():Boolean
@@ -2176,7 +2212,7 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  Documentation is not currently available.
+     *  Applies the mask to the DisplayObject where the GraphicElement is drawn.
      */
     public function applyMask():void
     {
@@ -2194,7 +2230,7 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  Documentation is not currently available.
+     *  Enables clipping or alpha, depending on the type of mask being applied.
      */
     protected function applyMaskType():void
     {
@@ -2219,6 +2255,12 @@ public class GraphicElement extends EventDispatcher
 
     /**
      *  Dispatches a propertyChange event.
+     *  
+     *  @param prop The property that changed.
+     *  
+     *  @param oldValue The previous value of the property.
+     *  
+     *  @param value the new value of the property.
      */
     protected function dispatchPropertyChangeEvent(prop:String, oldValue:*,
                                                    value:*):void
@@ -2860,7 +2902,7 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  Applies the transform to the display object.
+     *  Applies the transform to the DisplayObject.
      */
     protected function applyComputedTransform():void
     {       
@@ -2965,7 +3007,9 @@ public class GraphicElement extends EventDispatcher
     //--------------------------------------------------------------------------
 
     /**
-     *  Documentation is not currently available.
+     *  Called when a bitmap filter associated with the element is modified.
+     *  
+     *  @param event The event that is dispatched when the filter was changed.
      */
     protected function filterChangedHandler(event:Event):void
     {
@@ -2973,7 +3017,9 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  Documentation is not currently available.
+     *  Called when one of the properties of the transform changes.
+     *  
+     *  @param event The event that is dispatched when the property changed.
      */
     protected function transformPropertyChangeHandler(
                                     event:PropertyChangeEvent):void
