@@ -384,7 +384,7 @@ public class Path extends FilledElement
     private function tangentIsValid(prevSegment:PathSegment, curSegment:PathSegment,
                                     sx:Number, sy:Number, m:Matrix):Boolean
     {
-        // FIXME (egeorgie): optimize, we don't need to compute the tangent,
+        // TODO (egeorgie): optimize, we don't need to compute the tangent,
         // but just make sure the segment is not collapsed into a single point?
 
         // Check the start tangent only. If it's valid,
@@ -837,12 +837,6 @@ public class Path extends FilledElement
             fill.begin(g, bounds, origin);
     }
  
-    // FIXME (egeorgie): these are a short term fix for MAX to work around the fact
-    //that graphic elements can't differentiate between owning a display object
-    //and sharing one.  The problem is, a previous graphic element might be
-    //moving our display object around, messing with our drawX/drawY.
-    //after MAX, we'll be cleaning up the sharing code, and putting graphics caching
-    //into the GraphicElement base class.
     private var _drawBounds:Rectangle = new Rectangle(); 
     
     /**
@@ -855,8 +849,6 @@ public class Path extends FilledElement
      */    
     override protected function draw(g:Graphics):void
     {
-        // FIXME (egeorgie): temporary check until DOsharing and graphics caching is cleaned up
-        //after MAX.  See above.
         if (drawX !=  _drawBounds.x || drawY !=  _drawBounds.y ||
             width !=  _drawBounds.width || height !=  _drawBounds.height)
         {
