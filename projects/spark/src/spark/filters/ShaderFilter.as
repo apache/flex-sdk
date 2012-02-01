@@ -132,7 +132,7 @@ public dynamic class ShaderFilter extends Proxy
      *  @param shader Fully realized flash.display.Shader instance, or
      *  Class representing a Shader (such as from an Embed).
      */ 
-    public function ShaderFilter(shader:*=null)  
+    public function ShaderFilter(shader:Object=null)  
     {  
         super();
         eventDispatcher = new EventDispatcher();
@@ -176,7 +176,7 @@ public dynamic class ShaderFilter extends Proxy
         }
         else if (value is Class && value != _shaderClass)
         {
-            var obj:* = new value();
+            var obj:Object = new value();
             _shader = obj as Shader; 
             _shaderClass = value;
         }
@@ -200,17 +200,17 @@ public dynamic class ShaderFilter extends Proxy
     //  bottomExtension
     //----------------------------------
 
-    private var _bottomExtension:Number = 0.0;
+    private var _bottomExtension:int = 0;
 
     /**
      *  @copy flash.filters.ShaderFilter#bottomExtension
      */
-    public function get bottomExtension():Number
+    public function get bottomExtension():int
     {
         return _bottomExtension;
     }
 
-    public function set bottomExtension(value:Number):void
+    public function set bottomExtension(value:int):void
     {
         if (value == _bottomExtension)
             return;
@@ -223,17 +223,17 @@ public dynamic class ShaderFilter extends Proxy
     //  topExtension
     //----------------------------------
 
-    private var _topExtension:Number = 0.0;
+    private var _topExtension:int = 0;
 
     /**
      *  @copy flash.filters.ShaderFilter#topExtension
      */
-    public function get topExtension():Number
+    public function get topExtension():int
     {
         return _topExtension;
     }
 
-    public function set topExtension(value:Number):void
+    public function set topExtension(value:int):void
     {
         if (value == _topExtension)
             return
@@ -246,17 +246,17 @@ public dynamic class ShaderFilter extends Proxy
     //  leftExtension
     //----------------------------------
 
-    private var _leftExtension:Number = 0.0;
+    private var _leftExtension:int = 0;
 
     /**
      *  @copy flash.filters.ShaderFilter#leftExtension
      */
-    public function get leftExtension():Number
+    public function get leftExtension():int
     {
         return _leftExtension;
     }
 
-    public function set leftExtension(value:Number):void
+    public function set leftExtension(value:int):void
     {
         if (value == _leftExtension)
             return;
@@ -269,17 +269,17 @@ public dynamic class ShaderFilter extends Proxy
     //  rightExtension
     //----------------------------------
 
-    private var _rightExtension:Number = 0.0;
+    private var _rightExtension:int = 0;
 
     /**
      *  @copy flash.filters.ShaderFilter#rightExtension
      */
-    public function get rightExtension():Number
+    public function get rightExtension():int
     {
         return _rightExtension;
     }
 
-    public function set rightExtension(value:Number):void
+    public function set rightExtension(value:int):void
     {
         if (value == _rightExtension)
             return;
