@@ -96,6 +96,9 @@ public class LayoutBase extends OnDemandEventDispatcher
      */
     public function set target(value:GroupBase):void
     {
+        if (_target == value)
+            return;
+        clearCachedVirtualLayoutState();
         _target = value;
     }
     
@@ -108,26 +111,41 @@ public class LayoutBase extends OnDemandEventDispatcher
     [Inspectable(defaultValue="false")]
 
     /**
-     *  If true, subclasses will be advised that it's
-     *  preferable to lazily create layout elements as they come into view,
-     *  and to discard or recycle layout elements that are no longer in view.
+     *  If true, subclasses must only layout elements that are in view based on the 
+     *  current scrollRect.
      * 
-     *  <p>You should implement virtualization support if the layout is going
-     *  to be used with data containers and you want to spend resources only
-     *  on the data items that are displayed on the screen.
-     *  To support virtualization, a layout must be implemented in such a way
-     *  that it does not iterate through all of the target's elements as anytime 
-     *  you access a data container element, the container allocates an
-     *  <code>ItemRenderer</code> for the corresponding data item.
-     *  Instead, you should calculate and only access the elements that will be in view.
-     *  A typical implementation of a virtual layout will examine the target's
-     *  scrollRect and the size of the typicalLayoutElement to determine which
-     *  elements will be in view. Additionally some layouts, like the
-     *  <code>VerticalLayout</code> and the <code>HorizontalLayout</code>, keep a
-     *  cache of the sizes of all elements that have already been accessed
-     *  for more precise calculations for casese of bigger variations
-     *  in sizes between the typicalLayoutElement and the actual elements.</p>
+     *  Layout subclasses that do not support virtualization must prevent changing
+     *  this property.
      * 
+     *  When useVirtualLayout=true, layouts that support virtualization must use 
+     *  target.getVirtualElementAt(), rather than getElementAt(), and must only get the 
+     *  elements they anticipate will be visible given the value of getScrollRect().
+     * 
+     *  To support useVirtualLayout=true, the layout class must be able to compute
+     *  the indices of the layout elements that overlap the scrollRect in its 
+     *  updateDisplayList() method based exclusively on cached information, not
+     *  by getting layout elements and examining their bounds.
+     * 
+     *  Typically virtual layouts update their cached information in updateDisplayList(),
+     *  based on the sizes and locations computed for the elements in view.
+     * 
+     *  Similarly, at measure() time, virtual layouts should update the target's 
+     *  measured size properties based on the typicalLayoutElement and other
+     *  cached layout information, not by measuring elements.
+     * 
+     *  Presently only "data containers", i.e. that containers that construct 
+     *  an ItemRenderer layout element for each dataProvider item, support virtualization.   
+     * 
+     *  DataGroup is a data container and SkinnableDataContainer (e.g. List
+     *  and DropDownList) has a DataGroup skin part.
+     * 
+     *  Data containers cooperate with useVirtualLayout=true layouts by 
+     *  "recycling" ItemRenderers that were previously constructed in response
+     *  to getVirtualLayoutElement() calls by are no longer in use.
+     * 
+     *  An item is considered to be no longer in use if its index is not
+     *  within the range of getVirtualElementAt() indices requested during
+     *  the container's most recent updateDisplayList() invocation.
      *  @default false
      * 
      *  @see #getScrollRect
@@ -151,11 +169,31 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (_useVirtualLayout == value)
             return;
 
-        dispatchEvent(new Event("useVirtualLayoutChanged"));            
+        dispatchEvent(new Event("useVirtualLayoutChanged"));
+        
+        if (_useVirtualLayout && !value)  // turning virtual layout off
+            clearCachedVirtualLayoutState();
+                     
         _useVirtualLayout = value;
         if (target)
             target.invalidateDisplayList();
     }     
+    
+    /**
+     *  When useVirtualLayout=true, this method can be used by the layout target
+     *  to clear cached layout information when target state that might invalidate
+     *  such information changes.   
+     * 
+     *  For example, when a DataGroup's dataProvider or itemRenderer changes, cached 
+     *  elements sizes will become invalid. 
+     * 
+     *  When useVirtualLayout changes to false, this method is called automatically.
+     * 
+     *  Subclasses that support useVirtualLayout=true must override this method. 
+     */ 
+    public function clearCachedVirtualLayoutState():void
+    {
+    }
     
     //----------------------------------
     //  horizontalScrollPosition
@@ -594,7 +632,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         return new Rectangle(hsp, vsp, g.width, g.height);
     }
     
-    /**
+   /**
      *  Returns the specified element's layout bounds as a Rectangle or null
      *  if the index is invalid, the corresponding element is null
      *  or <code>includeInLayout=false</code>, or if this layout's target is null.
