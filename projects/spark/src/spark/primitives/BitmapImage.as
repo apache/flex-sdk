@@ -36,7 +36,7 @@ import flex.graphics.graphicsClasses.GraphicElement;
 /**
  *  The BitmapGraphic class is a graphic element that draws a bitmap.
  */
-public class BitmapGraphic extends GraphicElement implements IAssignableDisplayObjectElement
+public class BitmapGraphic extends GraphicElement implements IDisplayObjectElement
 {
 	include "../core/Version.as";
 
@@ -115,6 +115,7 @@ public class BitmapGraphic extends GraphicElement implements IAssignableDisplayO
 		if (value != oldValue)
 		{
 			_repeat = value;
+			notifyElementChanged();
 			//dispatchPropertyChangeEvent("repeat", oldValue, value);
 		}
 	}
@@ -193,6 +194,34 @@ public class BitmapGraphic extends GraphicElement implements IAssignableDisplayO
 	}
 	
 	//----------------------------------
+	//  smooth
+	//----------------------------------
+
+	private var _smooth:Boolean = false;
+
+	[Inspectable(category="General")]	
+	
+	/**
+	 *  A flag indicating whether to smooth the bitmap data
+	 *  when filling with it.
+	 *
+	 *  @default false
+	 */
+	public function set smooth(value:Boolean):void
+	{
+		if (value != _smooth)
+		{
+			_smooth = value;
+			notifyElementChanged();
+		}
+	}
+	
+	public function get  smooth():Boolean
+	{
+		return _smooth;
+	}
+	
+	//----------------------------------
 	//  height
 	//----------------------------------
 	
@@ -260,6 +289,7 @@ public class BitmapGraphic extends GraphicElement implements IAssignableDisplayO
 		_fill.offsetX = 0;
 		_fill.offsetY = 0;
 		_fill.repeat = repeat;
+		_fill.smooth = smooth;
 		_fill.begin(g, new Rectangle(drawWidth, drawHeight));
 		g.drawRect(0, 0, drawWidth, drawHeight);
 		_fill.end(g);
@@ -272,16 +302,7 @@ public class BitmapGraphic extends GraphicElement implements IAssignableDisplayO
 	//  IAssignableDisplayObject Implementation
 	//
 	//--------------------------------------------------------------------------
-	
-	public function createDisplayObject():DisplayObject
-	{
-		return new Shape();
-	}
 
-	public function needsDisplayObject():Boolean
-	{
-		return true;
-	}
 }
 
 }
