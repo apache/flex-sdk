@@ -112,6 +112,7 @@
 			   compute-digest="true"
 			   include-classes="flashx.textLayout.CoreClasses flashx.textLayout.EditClasses flashx.textLayout.ConversionClasses">
 			<jvmarg line="${compc.jvm.args}"/>
+			<keep-as3-metadata>IMXMLObject</keep-as3-metadata>
 			<include-namespaces uri="${project.uri}"/>
 			<namespace uri="${project.uri}" manifest="manifest.xml"/>
 			<source-path path-element="src"/>
