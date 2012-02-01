@@ -19,29 +19,50 @@
       @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-      creationComplete="init()"
-      alpha.disabled="0.5">
+   xmlns:fb="http://ns.adobe.com/fb/2009" creationComplete="init()"
+   alpha.disabled="0.5">
 
     <!-- host component -->
     <fx:Metadata>
         [HostComponent("spark.components.mediaClasses.MuteButton")]
     </fx:Metadata>
     
-    <fx:Script>
+    <fx:Script fb:stylingSupport="true">
         <![CDATA[
-            import mx.events.FlexEvent;
-            import spark.components.mediaClasses.VolumeBar;
-        
             /* Define the skin elements that should not be colorized. */
             static private const exclusions:Array = ["volumeSymbol"];
+            
+            /**
+             * @private
+             */
             override public function get colorizeExclusions():Array {return exclusions;}
             
             /* Define the symbol fill items that should be colored by the "symbolColor" style. */
             static private const symbols:Array = ["trapezoid1", "trapezoid2", "bar1_1", "bar1_2", 
                                                   "bar1_3", "bar2_1", "bar2_2", "bar2_3", "bar3_1", 
                                                   "bar3_2", "bar3_3", "bar4_1", "bar4_2", "bar4_3"];
+            
+            /**
+             * @private
+             */
             override public function get symbolItems():Array {return symbols};
             
+            /**
+             * @private
+             */
+            override protected function initializationComplete():void
+            {
+                useBaseColor = true;
+                super.initializationComplete();
+            }
+        ]]>
+    </fx:Script>
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.events.FlexEvent;
+            import spark.components.mediaClasses.VolumeBar;
+           
             private function init():void
             {
                 // this is essentially just binding code.  Anytime the volume changes, 
@@ -99,6 +120,7 @@
             }
         ]]>
     </fx:Script>
+    
     
     <!-- states -->
     <s:states>
