@@ -28,8 +28,10 @@ in accordance with the terms of the license agreement accompanying it.
         override public function get symbolItems():Array {return symbols};
     </fx:Script>
     
+    <!--- @private -->
     <s:Path id="check" data="M 0 2 L 3 4.4 L 7 0 L 7 3 L 3 7 L 0 4.6 L 0 2 Z">
         <s:fill>
+            <!--- @private -->
             <s:SolidColor color="0" id="checkFill"/>
         </s:fill>
     </s:Path>   
