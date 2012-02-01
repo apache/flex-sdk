@@ -94,6 +94,10 @@ public class FocusSkin extends HighlightBitmapCaptureSkin
     
     override protected function get borderWeight() : Number
     {
+        if (target)
+            return target.getStyle("focusThickness");
+        
+        // No target, return default value
         return getStyle("focusThickness");
     }
     
