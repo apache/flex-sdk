@@ -2510,8 +2510,8 @@ public class GraphicElement extends EventDispatcher
             return displayObject.localToGlobal(point);
         
         var returnVal:Point = displayObject.parent.localToGlobal(point);
-        returnVal.x += x;
-        returnVal.y += y;
+        returnVal.x += drawX;
+        returnVal.y += drawY;
         return returnVal;
     }
     
