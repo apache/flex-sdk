@@ -102,6 +102,7 @@ use namespace mx_internal;
  *    requestedRowCount="-1"
  *    rowHeight="<i>calculated</i>"
  *    variableRowHeight="true"
+ *    verticalAlign="top"
  *  /&gt;
  *  </pre>
  *
@@ -345,6 +346,20 @@ public class VerticalLayout extends LayoutBase
     
     /** 
      *  The vertical alignment of the content relative to the container's height.
+     * 
+     *  <p>If the value is <code>"bottom"</code>, <code>"middle"</code>, 
+     *  or <code>"top"</code> then the layout elements are aligned relative 
+     *  to the container's <code>contentHeight</code> property.</p>
+     * 
+     *  <p>If the value is <code>"contentJustify"</code> then the actual
+     *  height of the layout element is set to 
+     *  the container's <code>contentHeight</code> property. 
+     *  The content height of the container is the height of the largest layout element. 
+     *  If all layout elements are smaller than the height of the container, 
+     *  then set the height of all the layout elements to the height of the container.</p>
+     * 
+     *  <p>If the value is <code>"justify"</code> then the actual height
+     *  of the layout elements is set to the container's height.</p>
      *
      *  <p>This property has no effect when <code>clipAndEnableScrolling</code> is true
      *  and the <code>contentHeight</code> is greater than the container's height.</p>
