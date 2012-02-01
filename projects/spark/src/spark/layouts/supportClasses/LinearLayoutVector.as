@@ -93,9 +93,6 @@ public final class LinearLayoutVector
     // What the length will be after any pending changes are flushed.
     private var pendingLength:int = -1;
 
-    // true if minorSize was set in cacheDimensions from the layoutBounds minor dimension
-    public var minorSizeBasedOnLayoutSize:Boolean;
-    
     public function LinearLayoutVector(majorAxis:uint = VERTICAL)
     {
         super();
@@ -268,7 +265,6 @@ public final class LinearLayoutVector
     public function set minorSize(value:Number):void
     {
         _minorSize = value;
-        minorSizeBasedOnLayoutSize = false;
     }
     
     //----------------------------------
@@ -1065,10 +1061,7 @@ public final class LinearLayoutVector
         if (majorAxis == VERTICAL)
         {
             setMajorSize(index, elt.getLayoutBoundsHeight());
-            var lw:Number = elt.getLayoutBoundsWidth();
-            var w:Number = Math.min(elt.getPreferredBoundsWidth(), lw);
-            if (lw == w)
-                minorSizeBasedOnLayoutSize = true;
+            var w:Number = Math.min(elt.getPreferredBoundsWidth(), elt.getLayoutBoundsWidth());
             
             // Use the _minorSize instead of the getter, since the getter returns maximum
             // of _minorSize and _defaultMinorSize.
@@ -1077,12 +1070,9 @@ public final class LinearLayoutVector
         }
         else
         {
-            setMajorSize(index, elt.getLayoutBoundsWidth());
-            var lh:Number = elt.getLayoutBoundsHeight();
-            var h:Number = Math.min(elt.getPreferredBoundsHeight(), lh);
-            if (lh == h)
-                minorSizeBasedOnLayoutSize = true;
-            
+            setMajorSize(index, elt.getLayoutBoundsWidth());            
+            var h:Number = Math.min(elt.getPreferredBoundsHeight(), elt.getLayoutBoundsHeight());
+
             // Use the _minorSize instead of the getter, since the getter returns maximum
             // of _minorSize and _defaultMinorSize.
             _minorSize = Math.max(_minorSize, h);
