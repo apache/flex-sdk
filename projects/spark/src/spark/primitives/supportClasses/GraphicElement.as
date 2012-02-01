@@ -2917,32 +2917,18 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function getLayoutBoundsX(postTransform:Boolean = true):Number
     {
-        var left:Number;
-        // Account for transform
-        var m:Matrix;
-        if (postTransform)
-            m = computeMatrix();
-        if (m)
-        {
-            var topLeft:Point = new Point(measuredX, measuredY);
-
-            // Calculate the vector from pre-transform top-left to
-            // post-transform top-left:
-            computeTopLeft(topLeft, _width, _height, m);
-            left = topLeft.x;
-        }
-        else
-        {
-            left = x + measuredX;
-        }
-
         // Take stroke into account:
         // TODO EGeorgie: We assume that the stroke extents are even on both sides.
         // and that's not necessarily true.
-        var strokeExtents:Point = getStrokeExtents(postTransform);
-        left -= strokeExtents.x * 0.5;
+        var stroke:Number = -getStrokeExtents(postTransform).x * 0.5;
 
-        return left;
+        var m:Matrix = postTransform ? computeMatrix() : null;
+        if (!m)
+            return stroke + this.measuredX + this.x;
+            
+        var topLeft:Point = new Point(measuredX, measuredY);
+        MatrixUtil.transformBounds(new Point(_width, _height), m, topLeft);
+        return stroke + topLeft.x;
     }
 
     /**
@@ -2950,32 +2936,18 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function getLayoutBoundsY(postTransform:Boolean = true):Number
     {
-        var top:Number;
-        // Account for transform
-        var m:Matrix;
-        if (postTransform)
-            m = computeMatrix();
-        if (m)
-        {
-            var topLeft:Point = new Point(measuredX, measuredY);
-
-            // Calculate the vector from pre-transform top-left to
-            // post-transform top-left:
-            computeTopLeft(topLeft, _width, _height, m);
-            top = topLeft.y;
-        }
-        else
-        {
-            top = y + measuredY;
-        }
-
         // Take stroke into account:
         // TODO EGeorgie: We assume that the stroke extents are even on both sides.
         // and that's not necessarily true.
-        var strokeExtents:Point = getStrokeExtents(postTransform);
-        top -= strokeExtents.y * 0.5;
+        var stroke:Number = -getStrokeExtents(postTransform).y * 0.5;
 
-        return top;
+        var m:Matrix = postTransform ? computeMatrix() : null;
+        if (!m)
+            return stroke + this.measuredY + this.y;
+
+        var topLeft:Point = new Point(measuredX, measuredY);
+        MatrixUtil.transformBounds(new Point(_width, _height), m, topLeft);
+        return stroke + topLeft.y;
     }
 
     /**
@@ -3078,28 +3050,6 @@ public class GraphicElement extends OnDemandEventDispatcher
     }
 
     /**
-     *  Override for graphic elements that need specific calculation of
-     *  coordinates of top-left corner of bounding box when resized to
-     *  <code>width</code> and <code>height</code>.
-     *  
-     *  @param topLeft The origin of the bounds rectangle to be transformed. 
-     *  
-     *  @param width The target width.
-     *  
-     *  @param height The target height.
-     *  
-     *  @param m The transformation matrix.
-     *  
-     *  @return The top left point of the rectangle after transformation.
-     *  
-     */
-    protected function computeTopLeft(topLeft:Point, width:Number, height:Number, m:Matrix):Point
-    {
-        MatrixUtil.transformBounds(new Point(_width, _height), m, topLeft);
-        return topLeft;
-    }
-
-    /**
      *  @private
      */
     private function preferredWidthPreTransform():Number
@@ -3118,45 +3068,23 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc
      */
-    public function setLayoutBoundsPosition(x:Number, y:Number, postTransform:Boolean = true):void
+    public function setLayoutBoundsPosition(newBoundsX:Number, newBoundsY:Number, postTransform:Boolean = true):void
     {
+        var currentBoundsX:Number = getLayoutBoundsX(postTransform);
+        var currentBoundsY:Number = getLayoutBoundsY(postTransform);
 
         var currentX:Number = this.x;
         var currentY:Number = this.y;
 
-        // Take stroke into account:
-        // TODO EGeorgie: We assume that the stroke extents are even on both sides.
-        // and that's not necessarily true.
-        var strokeExtents:Point = getStrokeExtents(postTransform);
-        x += strokeExtents.x * 0.5;
-        y += strokeExtents.y * 0.5;
+        var newX:Number = currentX + newBoundsX - currentBoundsX;
+        var newY:Number = currentY + newBoundsY - currentBoundsY;
 
-        // Handle arbitrary 2d transform
-        var m:Matrix;
-        if (postTransform)
-            m = computeMatrix();
-        if (m)
-        {
-            // Calculate the origin of the element after transformation before our changes are applied.
-            var topLeft:Point = computeTopLeft(new Point(measuredX, measuredY), _width, _height, m);
-
-            // now adjust our tx/ty values based on the difference between our current transformed position and 
-            // where we want to end up.
-            x = x - topLeft.x + currentX;
-            y = y - topLeft.y + currentY;
-        }
-        else
-        {
-            x -= measuredX;
-            y -= measuredY;
-        }
-
-        if(x != currentX || y != currentY)
+        if (newX != currentX || newY != currentY)
         {
             if(layoutFeatures != null)
             {
-                layoutFeatures.layoutX = x;
-                layoutFeatures.layoutY = y;           
+                layoutFeatures.layoutX = newX;
+                layoutFeatures.layoutY = newY;           
 
                 // note that we don't want to call invalidateTransform, because 
                 // this is in the middle of an update pass. Instead, we just note that the 
@@ -3165,8 +3093,8 @@ public class GraphicElement extends OnDemandEventDispatcher
             }
             else
             {
-                _x = x;
-                _y = y;
+                _x = newX;
+                _y = newY;
             }
             invalidateDisplayList();
         }
