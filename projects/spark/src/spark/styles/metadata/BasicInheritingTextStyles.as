@@ -297,7 +297,15 @@
 [Style(name="kerning", type="String", enumeration="auto,on,off", inherit="yes")]
 
 /**
+ *  Additional vertical space between lines of text.
+ *
+ *  <p><b>For the Spark theme, this is not supported.</b>  See <code>lineHeight</code>.</p>
+ *
+ *  <p><b>For the Mobile theme, see 
+ *  spark.components.supportClasses.StyleableTextField.leading.</b></p>
+ * 
  *  @see spark.components.supportClasses.StyleableTextField#style:leading
+ *  @see #style:lineHeight
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
@@ -307,8 +315,18 @@
 [Style(name="leading", type="Number", format="Length", inherit="yes", theme="mobile")]
 
 /**
+ *  The number of additional pixels to appear between each character.
+ * 
+ *  <p><b>For the Spark theme, this is not supported.</b>  See <code>trackingLeft</code>
+ *  and <code>trackingRight</code>.</p>
+ *
+ *  <p><b>For the Mobile theme, see 
+ *  spark.components.supportClasses.StyleableTextField.letterSpacing.</b></p>
+ * 
  *  @see spark.components.supportClasses.StyleableTextField#style:letterSpacing
- *  
+ *  @see #style:trackingLeft
+ *  @see #style:trackingRight
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.0
@@ -337,11 +355,12 @@
  *  Leading controls for the text. 
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.lineHeight</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.lineHeight.</b></p>
  *
- *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ *  <p><b>For the Mobile theme, this is not supported.</b>  See <code>leading</code>.</p>
  * 
  *  @see flashx.textLayout.formats.ITextLayoutFormat#lineHeight
+ *  @see #style:leading
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
