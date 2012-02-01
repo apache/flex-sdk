@@ -11,12 +11,23 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009"
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
 	  alpha.disabledStates="0.5">
 
     <Metadata>
     	[HostComponent("mx.components.FxRadioButton")]
     </Metadata> 
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For button, the graphics are colorized but the label is not. */
+        static private const exclusions:Array = ["labelField", "dot"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the symbol fill items that should be colored by the "symbolColor" style. */
+        static private const symbols:Array = ["dotFill"];
+        override public function get symbolItems():Array {return symbols};
+    </Script>
     
     <states>
         <State name="up" />
@@ -97,12 +108,26 @@
         </Ellipse>
 		
 	    <!-- dot -->
-	    <BitmapGraphic source="@Embed('assets/RadioDot.png')" left="4" top="4"
-	                   includeIn="selectedStates" />
+       <Path left="4" top="4" includeIn="selectedStates" id="dot" itemCreationPolicy="immediate"
+             data="M 2.5 0 Q 4.5 0.5 5 2.5 Q 4.5 4.5 2.5 5 Q 0.5 4.5 0 2.5 Q 0.5 0.5 2.5 0">
+           <fill>
+               <SolidColor id="dotFill" color="0" alpha="0.9" />
+           </fill>
+       </Path>
+       <Path left="4" top="7" includeIn="selectedStates" 
+             data="M 0 0 Q 0.5 2 2.5 2.0 Q 3.5 2.0 4 0">
+           <stroke>
+               <LinearGradientStroke>
+                   <GradientEntry color="0xFFFFFF" alpha="0.3" />
+                   <GradientEntry color="0xFFFFFF" alpha="0.7" />
+                   <GradientEntry color="0xFFFFFF" alpha="0.3" />
+               </LinearGradientStroke>
+           </stroke>
+       </Path>
     </Group>
 
     <!-- Label -->
     <TextBox id="labelField"
              left="18" right="0" top="3" bottom="3" verticalCenter="2" />
 
-</Skin>
+</SparkSkin>
