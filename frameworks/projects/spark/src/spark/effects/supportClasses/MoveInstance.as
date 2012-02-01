@@ -122,8 +122,6 @@ public class FxMoveInstance extends FxAnimateInstance
         {
             if (!isNaN(xTo) && !isNaN(xBy))
                 xFrom = xTo - xBy;
-            else if (propertyChanges && propertyChanges.start["x"] !== undefined)
-                xFrom = propertyChanges.start["x"];
         }
 		if (isNaN(xTo))
 		{
@@ -145,8 +143,6 @@ public class FxMoveInstance extends FxAnimateInstance
         {
             if (!isNaN(yTo) && !isNaN(yBy))
                 yFrom = yTo - yBy;
-            else if (propertyChanges && propertyChanges.start["y"] !== undefined)
-                yFrom = propertyChanges.start["y"];
         }
 		if (isNaN(yTo))
 		{
@@ -174,6 +170,5 @@ public class FxMoveInstance extends FxAnimateInstance
         
         super.play();        
     }
-
 }
 }
