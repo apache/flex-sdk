@@ -1005,6 +1005,7 @@ class PathSegmentsCollection
 		var controlY:Number;
 		var control2X:Number;
 		var control2Y:Number;
+        var lastMoveSegmentIndex:int = -1;
 
 		_dataLength = charCount;
 		_charPos = 0;
@@ -1058,13 +1059,28 @@ class PathSegmentsCollection
 					x = getNumber(useRelative, prevX, value);
 					y = getNumber(useRelative, prevY, value);
 					newSegments.push(new MoveSegment(x, y));
-					lastMoveX = x;
-					lastMoveY = y;
 					prevX = x;
 					prevY = y;
 					// If a moveto is followed by multiple pairs of coordinates, 
 					// the subsequent pairs are treated as implicit lineto commands.
 					prevIdentifier = (c == 0x6D) ? 0x6C : 0x4C; // c == 'm' ? 'l' : 'L'
+                    
+                    // Fix for bug SDK-24457:
+                    // If the Quadratic segment is isolated, the Player
+                    // won't draw fill correctly. We need to generate
+                    // a dummy line segment.
+                    var curSegmentIndex:int = newSegments.length - 1;
+                    if (lastMoveSegmentIndex + 2 == curSegmentIndex && 
+                        newSegments[lastMoveSegmentIndex + 1] is QuadraticBezierSegment)
+                    {
+                        // Insert a dummy LineSegment
+                        newSegments.splice(lastMoveSegmentIndex + 1, 0, new LineSegment(lastMoveX, lastMoveY));
+                        curSegmentIndex++;
+                    }
+                    
+                    lastMoveSegmentIndex = curSegmentIndex;
+                    lastMoveX = x;
+                    lastMoveY = y;
 					break;
 
 				case 0x6C:	// l
@@ -1099,7 +1115,7 @@ class PathSegmentsCollection
 
 				case 0x71:	// q
 				case 0x51:	// Q
-					controlX = getNumber(useRelative, prevX, value);
+                    controlX = getNumber(useRelative, prevX, value);
 					controlY = getNumber(useRelative, prevY, value);
 					x = getNumber(useRelative, prevX, value);
 					y = getNumber(useRelative, prevY, value);
@@ -1107,7 +1123,6 @@ class PathSegmentsCollection
 					prevX = x;
 					prevY = y;
 					prevIdentifier = 0x71;
-					
 					break;
 
 				case 0x74:	// t
@@ -1175,6 +1190,20 @@ class PathSegmentsCollection
 					return;
 			}
 		}
+        
+        // Fix for bug SDK-24457:
+        // If the Quadratic segment is isolated, the Player
+        // won't draw fill correctly. We need to generate
+        // a dummy line segment.
+        curSegmentIndex = newSegments.length;
+        if (lastMoveSegmentIndex + 2 == curSegmentIndex && 
+            newSegments[lastMoveSegmentIndex + 1] is QuadraticBezierSegment)
+        {
+            // Insert a dummy LineSegment
+            newSegments.splice(lastMoveSegmentIndex + 1, 0, new LineSegment(lastMoveX, lastMoveY));
+            curSegmentIndex++;
+        }
+        
 		_segments = newSegments;
 	}
 
