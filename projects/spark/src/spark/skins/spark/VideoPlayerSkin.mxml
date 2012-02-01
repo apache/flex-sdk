@@ -33,7 +33,7 @@
     <fx:Script fb:purpose="styling">
         <![CDATA[
             /* Define the skin elements that should not be colorized. */
-            static private const exclusions:Array = ["videoElement", "playPauseButton", "scrubBar", 
+            static private const exclusions:Array = ["videoDisplay", "playPauseButton", "scrubBar", 
                                                      "currentTimeDisplay", "timeDivider", "durationDisplay", 
                                                      "volumeBar", "fullScreenButton"];
             
@@ -89,7 +89,7 @@
              we are clipped. -->
         <s:Group minWidth="263" minHeight="184" left="0" right="0" top="0" bottom="0">
             
-            <!-- background when the videoElement doesn't fill its whole spot -->
+            <!-- background when the videoDisplay doesn't fill its whole spot -->
             <s:Rect bottom="1" left="1" right="1" top="1">
                 <s:fill>
                     <s:SolidColor color="0x000000" />
@@ -97,7 +97,7 @@
             </s:Rect>
             
             <!--- The subcomponent that loads the video but does not define the appearance of the VideoPlayer component. -->
-            <s:VideoDisplay id="videoElement" bottom="24" left="1" right="1" top="1" />
+            <s:VideoDisplay id="videoDisplay" bottom="24" left="1" right="1" top="1" />
             
             <!-- video player controls -->
             <s:Group left="0" right="0" height="24" bottom="0" bottom.fullScreenStates="150">
