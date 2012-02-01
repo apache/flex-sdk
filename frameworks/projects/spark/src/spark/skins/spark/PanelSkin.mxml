@@ -159,7 +159,7 @@ in accordance with the terms of the license agreement accompanying it.
         <s:Rect id="background" left="1" top="1" right="1" bottom="1">
             <s:fill>
                 <!-- Defines the  PanelSkin class's background fill. The default color is 0xFFFFFF. -->
-                <s:SolidColor id="backgroundFill" />
+                <s:SolidColor id="backgroundFill" color="#FFFFFF"/>
             </s:fill>
         </s:Rect>
         
