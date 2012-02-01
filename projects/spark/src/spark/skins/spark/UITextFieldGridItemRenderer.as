@@ -18,8 +18,8 @@ package spark.skins.spark
 {
 import flash.text.TextFieldAutoSize;
 
-import mx.core.mx_internal;
 import mx.core.UITextField;
+import mx.core.mx_internal;
 import mx.styles.IStyleClient;
 
 import spark.components.gridClasses.GridItemRenderer;
