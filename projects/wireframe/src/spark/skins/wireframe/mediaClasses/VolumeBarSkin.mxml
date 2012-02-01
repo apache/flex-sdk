@@ -45,11 +45,11 @@
             <!-- background for the popup -->
             <s:Rect left="0" right="0" top="0" bottom="0">
                 <s:fill>
-                    <!-- <s:SolidColor color="0xE2EDF7" />-->
-                    <s:SolidColor color="0xFFFFFF" />
+                    <!-- <s:SolidColor color="#EEEEEE" />-->
+                    <s:SolidColor color="#FFFFFF" />
                 </s:fill>
                 <s:stroke>
-                    <s:SolidColorStroke color="0x5481D1" />
+                    <s:SolidColorStroke color="#707070" />
                 </s:stroke>
             </s:Rect>
             
