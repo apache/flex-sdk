@@ -19,7 +19,7 @@ import mx.graphics.SolidColor;
 import flash.events.Event;
 
 /**
- *  Base class for spark skins.
+ *  Base class for Spark skins.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -37,7 +37,7 @@ public class SparkSkin extends Skin
     public var colorized:Boolean = false;
     
     /**
-     * Constructor
+     * Constructor.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -50,7 +50,7 @@ public class SparkSkin extends Skin
     }
     
     /**
-     * names of items that should not be colorized by the "baseColor" style.
+     * Names of items that should not be colorized by the <code>baseColor</code> style.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -63,7 +63,7 @@ public class SparkSkin extends Skin
     }
     
     /**
-     * names of items that should have their "color" property defined by the "symbolColor" style.
+     * Names of items that should have their <code>color</code> property defined by the <code>symbolColor</code> style.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -76,7 +76,7 @@ public class SparkSkin extends Skin
     }
     
     /*
-     * names of items that should have their "color" property defined by the "contentBackgroundColor" style.
+     * Names of items that should have their <code>color</code> property defined by the <code>contentBackgroundColor</code> style.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
