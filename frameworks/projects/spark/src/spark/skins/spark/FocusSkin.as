@@ -299,9 +299,9 @@ public class FocusSkin extends UIComponent
         {
             bitmap = new Bitmap();
             addChild(bitmap);
-            bitmap.x = bitmap.y = -focusThickness;
         }
         
+        bitmap.x = bitmap.y = -focusThickness;
         bitmap.bitmapData = bitmapData;
         
         blendMode = focusObject.getStyle("focusBlendMode");
