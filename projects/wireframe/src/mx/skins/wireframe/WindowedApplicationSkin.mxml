@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2009 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the Halo Panel component's border. 
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						xmlns:s="library://ns.adobe.com/flex/spark" 
+						
+						implements="mx.core.IRectangularBorder">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.EdgeMetrics;
+			
+			private var _metrics:EdgeMetrics = new EdgeMetrics(1, 0, 1, 0);
+			public function get borderMetrics():EdgeMetrics
+			{
+				return _metrics;
+			}
+			
+			//----------------------------------
+			//  backgroundImageBounds
+			//----------------------------------
+			
+			/**
+			 *  @private
+			 *  Storage for backgroundImageBounds property.
+			 */
+			private var _backgroundImageBounds:Rectangle;
+			
+			/**
+			 *  Rectangular area within which to draw the background image.
+			 *
+			 *  This can be larger than the dimensions of the border
+			 *  if the parent container has scrollable content.
+			 *  If this property is null, the border can use
+			 *  the parent's size and <code>viewMetrics</code> property to determine its value.
+			 *  
+			 *  @langversion 3.0
+			 *  @playerversion Flash 9
+			 *  @playerversion AIR 1.1
+			 *  @productversion Flex 3
+			 */
+			public function get backgroundImageBounds():Rectangle
+			{
+				return _backgroundImageBounds;
+			}
+			
+			/**
+			 *  @private
+			 */
+			public function set backgroundImageBounds(value:Rectangle):void
+			{
+				if (_backgroundImageBounds && value && _backgroundImageBounds.equals(value))
+					return;
+				
+				_backgroundImageBounds = value;
+				
+				invalidateDisplayList();
+			}
+			
+			public function get hasBackgroundImage():Boolean
+			{
+				return false;
+			}
+			
+			public function layoutBackgroundImage():void
+			{
+				
+			}
+			
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				
+				var em:EdgeMetrics = borderMetrics;
+				
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+			}
+		]]>
+	</fx:Script>
+	
+	<!-- drop shadow -->
+	<s:Rect left="0" top="0" right="0" bottom="0">
+		<!-- TODO (klin): Should this be changed to a RectangularDropShadow -->
+		<s:filters>
+			<s:DropShadowFilter blurX="15" blurY="15" alpha="0.18" distance="11" angle="90" knockout="true" />
+		</s:filters>
+		<s:fill>
+			<s:SolidColor color="0" />
+		</s:fill>
+	</s:Rect>
+	
+	<!-- layer 1: border -->
+	<s:Rect id="border" left="0" right="0" top="0" bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke color="0x5581D1" weight="1" />
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor id="backgroundFill" color="0xFFFFFF" />
+		</s:fill>
+	</s:Rect>
+	
+</s:Skin>
