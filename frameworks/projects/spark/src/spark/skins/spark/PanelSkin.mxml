@@ -71,14 +71,13 @@ in accordance with the terms of the license agreement accompanying it.
             dropShadow.visible = getStyle("dropShadowVisible");
             
             var cr:Number = getStyle("cornerRadius");
+            var withControls:Boolean = 
+                (currentState == "disabledWithControlBar" || 
+                 currentState == "normalWithControlBar");
             
             if (cornerRadius != cr)
             {
                 cornerRadius = cr;
-                
-                var withControls:Boolean = 
-                    (currentState == "disabledWithControlBar" || 
-                     currentState == "normalWithControlBar");
                 
                 dropShadow.tlRadius = cornerRadius;
                 dropShadow.trRadius = cornerRadius;
