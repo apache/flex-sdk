@@ -31,14 +31,23 @@
         /* Define the skin elements that should not be colorized. 
            For checkbox, the graphics are colorized but the check mark is not. */
         static private const exclusions:Array = ["check"];
+        /**
+         * @private
+         */
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["checkMarkFill"];
+        /**
+         * @private
+         */
         override public function get symbolItems():Array {return symbols};
         
         /* Define the border items.*/
         static private const borderItem:Array = ["borderEntry1", "borderEntry2"];
+        /**
+         * @private
+         */
         override protected function get borderItems():Array {return borderItem;}
         
         /**
@@ -138,9 +147,11 @@
         <s:Rect left="0" top="0" right="0" bottom="0">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
+                    <!--- @private -->
                     <s:GradientEntry id="borderEntry1" 
                                    alpha="0.5625"
                                    alpha.downStates="0.6375" />
+                    <!--- @private -->
                     <s:GradientEntry id="borderEntry2" 
                                    alpha="0.75"
                                    alpha.downStates="0.85" />
@@ -149,9 +160,11 @@
         </s:Rect>
     
         <!-- checkmark -->
+        <!--- @private -->
         <s:Path left="2" top="0" includeIn="selectedStates" id="check" itemCreationPolicy="immediate"
               data="M 9.2 0.1 L 4.05 6.55 L 3.15 5.0 L 0.05 5.0 L 4.6 9.7 L 12.05 0.1 L 9.2 0.1">
             <s:fill>
+                <!--- @private -->
                 <s:SolidColor id="checkMarkFill" color="0" alpha="0.8" />
             </s:fill>
         </s:Path>
