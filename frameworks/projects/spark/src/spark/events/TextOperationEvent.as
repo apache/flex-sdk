@@ -14,7 +14,7 @@ package flex.events
 
 import flash.events.Event;
 
-import text.operations.FlowOperation;
+import flashx.tcal.operations.FlowOperation;
 
 /**
  *  Represents events that are dispatched when text content
