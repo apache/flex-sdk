@@ -24,6 +24,9 @@
 
     <!-- host component -->
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.ToggleButton")]
     </fx:Metadata>
     
@@ -72,7 +75,7 @@
         </s:stroke>
     </s:Rect>
     
-    <!-- play symbol -->
+    <!--- play symbol -->
     <s:Group horizontalCenter="0" verticalCenter="0" excludeFrom="selectedStates" id="playSymbol">
         <!-- triangle -->
         <s:Path winding="evenOdd" data="M 1 0 L 1 13 L 8 7 L 1 0 Z">
@@ -96,7 +99,7 @@
         </s:Line>
     </s:Group>
     
-    <!-- pause symbol -->
+    <!--- pause symbol -->
     <s:Group horizontalCenter="0" verticalCenter="0" includeIn="selectedStates" id="pauseSymbol">
         
         <!-- big line on left -->
