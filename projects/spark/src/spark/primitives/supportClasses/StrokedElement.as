@@ -63,14 +63,6 @@ public class StrokedElement extends GraphicElement
     
     //--------------------------------------------------------------------------
     //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
-    
-    static private var _strokeExtents:Point = new Point();
-    
-    //--------------------------------------------------------------------------
-    //
     //  Properties
     //
     //--------------------------------------------------------------------------
@@ -225,16 +217,18 @@ public class StrokedElement extends GraphicElement
     /**
      *  @private
      */  
-    override protected function getStrokeExtents(postLayoutTransform:Boolean = true):Point
+    override protected function getStrokeExtents(postLayoutTransform:Boolean = true):Rectangle
     {
-        // FIXME (egeorgie): currently we take only scale into account,
+        // TODO (egeorgie): currently we take only scale into account,
         // but depending on joint style, cap style, etc. we need to take
         // the whole matrix into account as well as examine every line segment...
 
         if (!stroke)
         {
-            _strokeExtents.x = 0;
-            _strokeExtents.y = 0;
+            _strokeExtents.x      = 0;
+            _strokeExtents.y      = 0;
+			_strokeExtents.width  = 0;
+			_strokeExtents.height = 0;
             return _strokeExtents;
         }
 
@@ -243,23 +237,27 @@ public class StrokedElement extends GraphicElement
         var weight:Number = stroke.weight;
         if (weight == 0)
         {
-            _strokeExtents.x = 1;
-            _strokeExtents.y = 1;
+            _strokeExtents.width  = 1;
+            _strokeExtents.height = 1;
+			_strokeExtents.x      = -0.5;
+			_strokeExtents.y      = -0.5;
             return _strokeExtents;
         }
-        
+
         var scaleMode:String = stroke.scaleMode;
         if (!scaleMode || scaleMode == LineScaleMode.NONE || !postLayoutTransform)
         {
-            _strokeExtents.x = weight;
-            _strokeExtents.y = weight;
+            _strokeExtents.width  = weight;
+            _strokeExtents.height = weight;
+			_strokeExtents.x = -weight * 0.5;
+			_strokeExtents.y = -weight * 0.5;
             return _strokeExtents;
         }
 
         var sX:Number = scaleX;
         var sY:Number = scaleY;
 
-        // FIXME (egeorgie): stroke thickness depends on all matrix components,
+        // TODO (egeorgie): stroke thickness depends on all matrix components,
         // not only on scale.
         if (scaleMode == LineScaleMode.NORMAL)
         {
@@ -267,21 +265,27 @@ public class StrokedElement extends GraphicElement
                 weight *= sX;
             else
                 weight *= Math.sqrt(0.5 * (sX * sX + sY * sY));
-            
-            _strokeExtents.x = weight;
-            _strokeExtents.y = weight;
+
+            _strokeExtents.width  = weight;
+            _strokeExtents.height = weight;
+			_strokeExtents.x      = weight * -0.5;
+			_strokeExtents.y      = weight * -0.5;
             return _strokeExtents;
         }
         else if (scaleMode == LineScaleMode.HORIZONTAL)
         {
-            _strokeExtents.x = weight * sX;
-            _strokeExtents.y = weight;
+            _strokeExtents.width  = weight * sX;
+            _strokeExtents.height = weight;
+			_strokeExtents.x      = weight * sX * -0.5;
+			_strokeExtents.y      = weight * -0.5;
             return _strokeExtents;
         }
         else if (scaleMode == LineScaleMode.VERTICAL)
         {
-            _strokeExtents.x = weight;
-            _strokeExtents.y = weight * sY;
+            _strokeExtents.width  = weight;
+            _strokeExtents.height = weight * sY;
+			_strokeExtents.x      = weight * -0.5;
+			_strokeExtents.y      = weight * sY * -0.5;
             return _strokeExtents;
         }
 
