@@ -67,14 +67,14 @@
             {
                 // this is essentially just binding code.  Anytime the volume changes, 
                 // let us know.
-                volume = hostComponent.volume;
+                volume = hostComponent.muted ? 0 : hostComponent.volume;
                 hostComponent.addEventListener(FlexEvent.VALUE_COMMIT, valueCommitHandler);
                 hostComponent.addEventListener(FlexEvent.MUTED_CHANGE, valueCommitHandler);
             }
             
             private function valueCommitHandler(event:Event):void
             {
-                volume = hostComponent.volume;
+                volume = hostComponent.muted ? 0 : hostComponent.volume;
             }
             
             private var _volume:Number = 1;
