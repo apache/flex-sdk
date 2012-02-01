@@ -46,9 +46,9 @@ import spark.globalization.supportClasses.GlobalizationBase;
  *  @eventType mx.events.ValidationResultEvent.VALID
  *
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="valid", type="mx.events.ValidationResultEvent")]
 
@@ -58,9 +58,9 @@ import spark.globalization.supportClasses.GlobalizationBase;
  *  @eventType mx.events.ValidationResultEvent.INVALID
  *
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="invalid", type="mx.events.ValidationResultEvent")]
 
@@ -72,12 +72,13 @@ import spark.globalization.supportClasses.GlobalizationBase;
 [ResourceBundle("validators")]
 
 /**
- *  The GlobalizationValidatorBase class is the base class for all validators
- *  in the spark namespace. This class implements the ability for a validator
+ *  The GlobalizationValidatorBase class is the base class for all Spark validators.
+ *  This class implements the ability for a validator
  *  to make a field required, which means that the user must enter a value in
- *  the field or the validation fails. This also enables or diables the
- *  validator. Any class inheriting from this MUST override the
- *  createWorkingInstance() method.
+ *  the field or the validation fails. 
+ *  This class also enables or disables the validator. 
+ *  Any class inheriting from this class must override the
+ *  <code>createWorkingInstance()</code> method.
  *
  *  @mxml
  *
@@ -104,9 +105,9 @@ import spark.globalization.supportClasses.GlobalizationBase;
  *  @includeExample examples/SimpleValidatorExample.mxml
  *
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class GlobalizationValidatorBase extends GlobalizationBase
              implements IValidator
@@ -123,9 +124,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  Constructor.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function GlobalizationValidatorBase()
     {
@@ -156,9 +157,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  for the <code>triggerEvent</code>.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function get actualTrigger():IEventDispatcher
     {
@@ -181,9 +182,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  to notify about the validation result.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function get actualListeners():Array
     {
@@ -219,9 +220,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  @default true
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get enabled():Boolean
     {
@@ -260,9 +261,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
 
     /* This behavior has been removed.
@@ -275,9 +276,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  and displays an Alert box containing the validation error message.</p>
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get listener():Object
     {
@@ -316,9 +317,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  @default null
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get property():String
     {
@@ -346,9 +347,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  @default true
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var required:Boolean = true;
 
@@ -374,9 +375,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  @copy mx.core.UIComponent#resourceManager
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function get resourceManager():IResourceManager
     {
@@ -410,9 +411,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  @default null
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get source():Object
     {
@@ -460,15 +461,10 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  should contain a <code>cardNumber</code> and a <code>cardType</code>
      *  property.
      *
-     *  <p>Subclasses of the GlobalizationValidatorBase class that
-     *  validate multiple data fields (like CreditCardValidator and
-     *  DateValidator)
-     *  should assign this property in their constructor. </p>
-     *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected var subFields:Array = [];
 
@@ -493,9 +489,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  validation executes.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get trigger():IEventDispatcher
     {
@@ -535,9 +531,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  set <code>triggerEvent</code> to the empty string ("").
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get triggerEvent():String
     {
@@ -587,9 +583,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  @default "This field is required."
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get requiredFieldError():String
     {
@@ -644,9 +640,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  @see mx.validators.ValidationResult
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function validate(
                         value:Object = null,
@@ -689,9 +685,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  The Array is empty if all validators succeed.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public static function validateAll(validators:Array):Array
     {
@@ -729,9 +725,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  in response to having new resource values.</p>
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function resourcesChanged():void
     {
@@ -749,9 +745,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  internally.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function addListenerHandler():void
     {
@@ -780,13 +776,11 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  <code>removeListenerHandler()</code> method and then the
      *  <code>addListenerHandler</code> method if
      *  the value of one of their listeners or sources changes.
-     *  The CreditCardValidator and DateValidator classes use this function
-     *  internally.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function removeListenerHandler():void
     {
@@ -816,9 +810,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  @return <code>true</code> if <code>value</code> is not null.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function isRealValue(value:Object):Boolean
     {
@@ -826,17 +820,14 @@ public class GlobalizationValidatorBase extends GlobalizationBase
     }
 
     /**
-     *  Returns the Object to validate. Subclasses, such as the
-     *  CreditCardValidator and DateValidator classes,
-     *  override this method because they need
-     *  to access the values from multiple subfields.
+     *  Returns the Object to validate. 
      *
      *  @return The Object to validate.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function getValueFromSource():Object
     {
@@ -882,9 +873,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  @see mx.validators.ValidationResult
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function doValidation(value:Object):Array
     {
@@ -902,10 +893,6 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  Internally, this function takes the results from the
      *  <code>doValidation()</code> method and puts it into a
      *  ValidationResultEvent object.
-     *  Subclasses, such as the RegExpValidator class,
-     *  should override this function if they output a subclass
-     *  of ValidationResultEvent objects, such as the RegExpValidationResult
-     *  objects, and needs to populate the object with additional information.
      *  You never call this function directly, and you should rarely
      *  override it.
      *
@@ -915,9 +902,9 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  <code>validate()</code> method.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function handleResults(errorResults:Array):ValidationResultEvent
     {
