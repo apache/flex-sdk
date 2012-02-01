@@ -369,7 +369,6 @@ public class GraphicElement extends OnDemandEventDispatcher
     [Inspectable(category="General")]
 
     /**
-     *  @private
      *  The y-coordinate of the baseline
      *  of the first line of text of the component.
      */
