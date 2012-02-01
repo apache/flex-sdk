@@ -11,8 +11,11 @@
 
 -->
 
-<!--- The default skin class for the Spark VScrollBar component. 
+<!--- The default wireframe skin class for the Spark VScrollBar component. 
+        Skin classes in the wireframe package are useful for using as a simple base for a custom skin.
         
+       @see spark.components.VScrollBar
+
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
@@ -40,12 +43,12 @@
             skinClass="spark.skins.wireframe.VScrollBarTrackSkin" focusEnabled="false" />
     
     <!--- The default skin class is ScrollBarUpButtonSkin.
-          @copy spark.components.supportClasses.ScrollBar#decrementButton -->
+          @copy spark.components.supportClasses.ScrollBarBase#decrementButton -->
     <s:Button id="decrementButton" top="0" enabled.inactive="false"
             skinClass="spark.skins.wireframe.ScrollBarUpButtonSkin" focusEnabled="false" />
     
     <!--- The default skin class is ScrollBarDownButtonSkin.
-          @copy spark.components.supportClasses.ScrollBar#incrementButton  -->
+          @copy spark.components.supportClasses.ScrollBarBase#incrementButton  -->
     <s:Button id="incrementButton" bottom="0" enabled.inactive="false"
             skinClass="spark.skins.wireframe.ScrollBarDownButtonSkin" focusEnabled="false" />
     
