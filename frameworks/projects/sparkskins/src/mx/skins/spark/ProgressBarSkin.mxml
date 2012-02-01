@@ -11,37 +11,37 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
 	<!-- layer 1: fill -->
-	<Rect left="2" right="2" top="2" bottom="2" >
-		<fill>
-			<LinearGradient rotation="90">
-				<GradientEntry color="0xFFFFFF" 
+	<s:Rect left="2" right="2" top="2" bottom="2" >
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xFFFFFF" 
 							   alpha="1" />
-				<GradientEntry color="0xD8D8D8" 
+				<s:GradientEntry color="0xD8D8D8" 
 							   alpha="1" />
-			</LinearGradient>
-		</fill>
-	</Rect>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
 	
 	<!-- layer 2: border -->
-	<Rect left="2" right="2" top="2" bottom="2" >
-		<stroke>
-			<LinearGradientStroke rotation="90">
-				<GradientEntry color="0xFFFFFF" 
+	<s:Rect left="2" right="2" top="2" bottom="2" >
+		<s:stroke>
+			<s:LinearGradientStroke rotation="90">
+				<s:GradientEntry color="0xFFFFFF" 
 				               alpha=".9" />
-				<GradientEntry color="0xFFFFFF" 
+				<s:GradientEntry color="0xFFFFFF" 
 				               alpha="0.5" />
-			</LinearGradientStroke>
-		</stroke>
-	</Rect>
+			</s:LinearGradientStroke>
+		</s:stroke>
+	</s:Rect>
 	
 	<!-- layer 3: right edge -->
-	<Rect right="1" top="2" bottom="2" width="1" >
-		<fill>
-			<SolidColor color="0x000000" alpha="0.55" />
-		</fill>
-	</Rect>
+	<s:Rect right="1" top="2" bottom="2" width="1" >
+		<s:fill>
+			<s:SolidColor color="0x000000" alpha="0.55" />
+		</s:fill>
+	</s:Rect>
 	
-</SparkSkin>
+</s:SparkSkin>
