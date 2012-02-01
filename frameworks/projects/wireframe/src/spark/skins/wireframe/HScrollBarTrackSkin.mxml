@@ -11,26 +11,26 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxButton")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.Button")]
+    </fx:Metadata> 
     
-    <states>
-        <State name="up" />
-        <State name="down" />
-        <State name="over" />
-        <State name="disabled" />
-    </states>
+    <s:states>
+        <s:State name="up" />
+        <s:State name="down" />
+        <s:State name="over" />
+        <s:State name="disabled" />
+    </s:states>
 
-    <Rect top="0" bottom="0" left="0" right="0" minWidth="14" minHeight="14">
-        <stroke>
-            <SolidColorStroke color="0x5380D0" />
-        </stroke>
-        <fill>
-            <SolidColor color="0xDEECFF" />
-        </fill>
-    </Rect>
+    <s:Rect top="0" bottom="0" left="0" right="0" minWidth="14" minHeight="14">
+        <s:stroke>
+            <s:SolidColorStroke color="0x5380D0" />
+        </s:stroke>
+        <s:fill>
+            <s:SolidColor color="0xDEECFF" />
+        </s:fill>
+    </s:Rect>
 
-</Skin>
+</s:Skin>
