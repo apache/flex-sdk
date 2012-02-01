@@ -711,7 +711,7 @@ public class TileLayout extends LayoutBase
     /**
      * @private
      */
-    override public function clearCachedVirtualLayoutState():void
+    override public function clearVirtualLayoutCache():void
     {
         _tileWidthCached = _tileHeightCached = NaN;
     }
@@ -1452,7 +1452,7 @@ public class TileLayout extends LayoutBase
     /**
      *  @private 
      */  
-    override public function getDestinationIndex(navigationUnit:uint, currentIndex:int):int
+    override public function getNavigationDestinationIndex(currentIndex:int, navigationUnit:uint):int
     {
         if (!target || target.numElements < 1)
             return -1; 
@@ -1611,7 +1611,7 @@ public class TileLayout extends LayoutBase
                 }
                 break; 
             }
-            default: return super.getDestinationIndex(navigationUnit, currentIndex);
+            default: return super.getNavigationDestinationIndex(currentIndex, navigationUnit);
         }
 
         // Make sure rows and columns are within range
