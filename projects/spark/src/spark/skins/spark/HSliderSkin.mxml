@@ -12,7 +12,11 @@
 
 <!--- The default skin class for the Spark HSlider component. The thumb and track skins are defined by the
 HSliderThumbSkin and HSliderTrackSkin classes, respectively.  
-        
+
+       @see spark.components.HSlider
+       @see spark.skins.spark.HSliderThumbSkin
+       @see spark.skins.spark.HSliderTrackSkin
+                
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
@@ -72,8 +76,8 @@ HSliderThumbSkin and HSliderTrackSkin classes, respectively.
     </s:states>
     
     <fx:Declarations>
-        <!--- To customize the DataTip's appearance, create a custom HSliderSkin class.
-              @copy spark.components.supportClasses.Slider#dataTip -->
+        <!--- The tooltip used in the mx.controls.Slider control. 
+               To customize the DataTip's appearance, create a custom HSliderSkin class.-->
         <fx:Component id="dataTip">     
            <s:DataRenderer minHeight="24" minWidth="40" y="-34">  
               <s:Rect top="0" left="0" right="0" bottom="0">
@@ -94,12 +98,15 @@ HSliderThumbSkin and HSliderTrackSkin classes, respectively.
        </fx:Component>
     </fx:Declarations>
     
-    <!--- The default skin class is HSliderTrackSkin. 
-          @copy spark.components.supportClasses.TrackBase#track-->
+    <!--- @copy spark.components.supportClasses.TrackBase#track
+            The default skin class is HSliderTrackSkin. 
+            @see spark.skins.spark.HSliderTrackSkin -->
     <s:Button id="track" left="0" right="0" top="0" bottom="0" minWidth="33" width="100"
               skinClass="spark.skins.spark.HSliderTrackSkin" />
-    <!--- The default skin class is HSliderThumbSkin.
-          @copy spark.components.supportClasses.TrackBase#thumb -->
+              
+    <!--- @copy spark.components.supportClasses.TrackBase#thumb 
+            The default skin class is HSliderThumbSkin.
+            @see spark.skins.spark.HSliderThumbSkin -->
     <s:Button id="thumb" top="0" bottom="0" width="11" height="11" 
               skinClass="spark.skins.spark.HSliderThumbSkin" />
 </s:SparkSkin>
