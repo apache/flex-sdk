@@ -93,7 +93,7 @@
 	<!-- layer 5: highlight stroke (all states except down) -->
 	<Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2" excludeFrom="downStates">
 		<stroke>
-			<LinearGradientStroke rotation="90">
+			<LinearGradientStroke rotation="90" weight="1">
 				<GradientEntry color="0xFFFFFF" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
 				<GradientEntry color="0xD8D8D8" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
 			</LinearGradientStroke>
@@ -125,7 +125,7 @@
 	<!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
     <Rect left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2" radiusY="2">
         <stroke>
-            <LinearGradientStroke rotation="90">
+            <LinearGradientStroke rotation="90" weight="1">
                 <GradientEntry color="0x000000" 
                                alpha="0.5625"
                                alpha.down="0.6375"
