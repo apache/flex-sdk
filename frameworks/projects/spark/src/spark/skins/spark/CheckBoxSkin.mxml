@@ -12,6 +12,8 @@
 -->
 
 <!--- The default skin class for the Spark CheckBox component.  
+
+      @see spark.components.CheckBox
         
       @langversion 3.0
       @playerversion Flash 10
@@ -184,11 +186,11 @@
     </s:Group>
 
     <!-- Label -->
-    <!--- @copy spark.components.ButtonBase#labelDisplay -->
+    <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
     <s:Label id="labelDisplay"
              textAlign="start"
              verticalAlign="middle"
-			 maxDisplayedLines="1"
+             maxDisplayedLines="1"
              left="18" right="0" top="3" bottom="3" verticalCenter="2" />
 
 </s:SparkSkin>
