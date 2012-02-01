@@ -361,7 +361,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         if (labelDisplay)
             removeChild(DisplayObject(labelDisplay));
         
-        labelDisplay = IUITextField(createInFontContext(UITextField));            
+        labelDisplay = IUITextField(createInFontContext(UITextField)); 
         labelDisplay.multiline = true;
         labelDisplay.wordWrap = true;
         labelDisplay.autoSize = TextFieldAutoSize.LEFT;
