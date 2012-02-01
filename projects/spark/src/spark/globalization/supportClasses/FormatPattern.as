@@ -26,7 +26,7 @@ package spark.globalization.supportClasses
  *  @langversion 3.0
  *  @playerversion Flash 11
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 internal final class FormatPattern
 {
@@ -46,7 +46,7 @@ internal final class FormatPattern
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function FormatPattern(pattern:String, locales:Array)
     {
@@ -73,7 +73,7 @@ internal final class FormatPattern
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var pattern:String;
     
@@ -87,7 +87,7 @@ internal final class FormatPattern
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var locales:Object;
 }
