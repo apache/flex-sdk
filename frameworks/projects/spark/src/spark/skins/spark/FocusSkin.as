@@ -48,7 +48,7 @@ public class FocusSkin extends UIComponent
     //
     //--------------------------------------------------------------------------
     
-    // TODO: Make this a style property?
+    // FIXME (gruehle): Make this a style property?
     private const FOCUS_THICKNESS:int = 2;    
     
     //--------------------------------------------------------------------------
@@ -152,7 +152,7 @@ public class FocusSkin extends UIComponent
        
         // Temporary solution for focus drawing on CheckBox and RadioButton components.
         // Hide the label before drawing the focus. 
-        // TODO: Figure out a better solution.
+        // FIXME (gruehle): Figure out a better solution.
         var hidLabelElement:Boolean = false;
         if ((weakIsCheck(focusObject, "spark.components::CheckBox") ||
              weakIsCheck(focusObject, "spark.components::RadioButton"))
@@ -175,7 +175,7 @@ public class FocusSkin extends UIComponent
             Object(focusObject).labelDisplay.displayObject.visible = true;
         
         // Special case for Scroller - fill the entire rect.
-        // TODO: Figure out a better solution.
+        // FIXME (gruehle): Figure out a better solution.
         if (weakIsCheck(focusObject, "spark.components::Scroller"))
         {
             rect.x = rect.y = FOCUS_THICKNESS;
