@@ -27,7 +27,7 @@
     <!-- border/fill --> 
 	<Rect left="0" right="0" top="0" bottom="0">
         <stroke>            
-            <LinearGradientStroke rotation="90">
+            <LinearGradientStroke rotation="90" weight="1">
             	<GradientEntry color="0x000000" alpha="0.5525" />
             	<GradientEntry color="0x000000" alpha="0.6375" />
             </LinearGradientStroke>
