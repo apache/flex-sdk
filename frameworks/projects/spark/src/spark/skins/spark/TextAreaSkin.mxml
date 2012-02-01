@@ -31,7 +31,9 @@
     </fx:Metadata> 
     
     <fx:Script fb:purpose="styling">
+        private var lineBreakChanged:Boolean;
         private var paddingChanged:Boolean;
+        private var verticalAlignChanged:Boolean;
         
         /* Define the skin elements that should not be colorized. 
            For text area, the skin itself is colorized but the individual parts are not. */
@@ -57,10 +59,20 @@
         {
             super.commitProperties();
             
+            if (lineBreakChanged)
+            {
+                updateStringStyle("lineBreak");
+                lineBreakChanged = false;
+            }
             if (paddingChanged)
             {
                 updatePadding();
                 paddingChanged = false;
+            }
+            if (verticalAlignChanged)
+            {
+                updateStringStyle("verticalAlign");
+                verticalAlignChanged = false;
             }
         }
         
@@ -130,13 +142,39 @@
         /**
          *  @private
          */
+        private function updateStringStyle(styleName:String):void
+        {
+            if (!textDisplay)
+                return;
+            
+            // Push style into the textDisplay
+            var style:String;
+            
+            style = getStyle(styleName);
+            if (textDisplay.getStyle(styleName) != style)
+                textDisplay.setStyle(styleName, style);
+        }
+        
+        /**
+         *  @private
+         */
         override public function styleChanged(styleProp:String):void
         {
             super.styleChanged(styleProp);
             
+            if (!styleProp || styleProp.indexOf("lineBreak") == 0)
+            {
+                lineBreakChanged = true;
+                invalidateProperties();
+            }
             if (!styleProp || styleProp.indexOf("padding") == 0)
             {
                 paddingChanged = true;
+                invalidateProperties();
+            }
+            if (!styleProp || styleProp.indexOf("verticalAlign") == 0)
+            {
+                verticalAlignChanged = true;
                 invalidateProperties();
             }
         }
