@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2003-2006 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
 
 package mx.graphics.graphicsClasses
 {
@@ -1845,7 +1855,7 @@ public class GraphicElement extends EventDispatcher
         {
             // Calculate the vector from pre-transform top-left to
             // post-transform top-left:
-            MatrixUtil.transformBounds(new Point(_width, _height), m, topLeft);
+            computeTopLeft(topLeft, _width, _height, m);
         }
         else
         {
@@ -2613,7 +2623,18 @@ public class GraphicElement extends EventDispatcher
         size.y += strokeExtents.y;
         return size;
     }
-    
+
+    /**
+     *  Override for graphic elements that need specific calculation of
+     *  coordinates of top-left corner of bounding box when resized to
+     *  <code>width</code> and <code>height</code>.
+     */
+    protected function computeTopLeft(topLeft:Point, width:Number, height:Number, m:Matrix):Point
+    {
+        MatrixUtil.transformBounds(new Point(_width, _height), m, topLeft);
+        return topLeft;
+    }
+
     /**
      *  @private
      */
@@ -2650,13 +2671,12 @@ public class GraphicElement extends EventDispatcher
         if (m)
         {
             // Calculate the origin of the element after transformation before our changes are applied.
-            var origin:Point = new Point(measuredX,measuredY);
-            MatrixUtil.transformBounds(new Point(_width, _height), m, origin);
+            var topLeft:Point = computeTopLeft(new Point(measuredX, measuredY), _width, _height, m);
 
             // now adjust our tx/ty values based on the difference between our current transformed position and 
             // where we want to end up.
-            x = x - origin.x + layoutFeatures.layoutX;
-            y = y - origin.y + layoutFeatures.layoutY;
+            x = x - topLeft.x + layoutFeatures.layoutX;
+            y = y - topLeft.y + layoutFeatures.layoutY;
         }
         else
         {
@@ -2726,12 +2746,11 @@ public class GraphicElement extends EventDispatcher
             if (!isNaN(height))
                height -= strokeExtents.y;
 
-            var newSize:Point = MatrixUtil.fitBounds(
-                                    width, height, m,
-                                    preferredWidthPreTransform(),
-                                    preferredHeightPreTransform(),
-                                    minWidth, minHeight,
-                                    maxWidth, maxHeight);
+            var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                     preferredWidthPreTransform(),
+                                                     preferredHeightPreTransform(),
+                                                     minWidth, minHeight,
+                                                     maxWidth, maxHeight);
 
             if (newSize)
             {
