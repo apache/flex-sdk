@@ -30,12 +30,12 @@ public class LayoutBase extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-    protected static function hasPercentWidth(layoutItem:ILayoutItem):Boolean
+    internal static function hasPercentWidth(layoutItem:ILayoutItem):Boolean
     {
         return !isNaN( layoutItem.percentSize.x );
     }
     
-    protected static function hasPercentHeight(layoutItem:ILayoutItem):Boolean
+    internal static function hasPercentHeight(layoutItem:ILayoutItem):Boolean
     {
         return !isNaN( layoutItem.percentSize.y );
     }
