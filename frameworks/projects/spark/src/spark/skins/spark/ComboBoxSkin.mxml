@@ -9,21 +9,22 @@ NOTICE: Adobe permits you to use, modify, and distribute this file
 in accordance with the terms of the license agreement accompanying it.
 
 --> 
-<!--- The default skin class for the Spark DropDownList component. 
-The skin for the anchor button for a DropDownList component 
-is defined by the DropDownListButtonSkin class.  
+<!--- The default skin class for the Spark ComboBox component. 
+The skin for the anchor button for a ComboBox component 
+is defined by the ComboBoxButtonSkin class.  The skin for the text input
+is defined by the ComboBoxTextInputSkin class.
 
-@see spark.components.DropDownList        
-@see spark.skins.spark.DropDownListButtonSkin
+@see spark.components.ComboBox        
+@see spark.skins.spark.ComboBoxButtonSkin
 
 @langversion 3.0
 @playerversion Flash 10
 @playerversion AIR 1.5
 @productversion Flex 4
 -->
-<s:Skin xmlns:local="*" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" alpha.disabled=".5"> 
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+        xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabled=".5"> 
     
-        
     <!-- host component -->
     <fx:Metadata>
         <![CDATA[ 
@@ -34,8 +35,8 @@ is defined by the DropDownListButtonSkin class.
         ]]>
     </fx:Metadata> 
     
-    <fx:Script>
-        <![CDATA[
+    <fx:Script fb:purpose="styling">
+        <![CDATA[       
             private var paddingChanged:Boolean;
             private var cornerRadiusChanged:Boolean;
             private var cornerRadius:Number = 0;            
@@ -77,9 +78,9 @@ is defined by the DropDownListButtonSkin class.
                     /* var cr:Number = getStyle("cornerRadius");
                     
                     if (openButton)
-                        openButton.setStyle("cornerRadius", cr);
+                    openButton.setStyle("cornerRadius", cr);
                     if (textInput)
-                        textInput.setStyle("cornerRadius", cr); */
+                    textInput.setStyle("cornerRadius", cr); */
                 }
             }
             
@@ -100,6 +101,47 @@ is defined by the DropDownListButtonSkin class.
                     cornerRadiusChanged = true;
                     invalidateProperties();
                 }                
+            }
+            
+            /**
+             * @private
+             */
+            override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+            {
+                if (getStyle("borderVisible") == false)
+                {
+                    if (border)
+                        border.visible = false;
+                    if (background)
+                    {
+                        background.left = background.top = background.right = background.bottom = 0;
+                    }
+                    if (scroller)
+                        scroller.minViewportInset = 0;
+                }
+                else
+                {
+                    if (border)
+                        border.visible = true;
+                    if (background)
+                    {
+                        background.left = background.top = background.right = background.bottom = 1;
+                    }
+                    if (scroller)
+                        scroller.minViewportInset = 1;
+                }
+                
+                if (dropShadow)
+                    dropShadow.visible = getStyle("dropShadowVisible");
+                
+                //openButton.setStyle("cornerRadius", getStyle("cornerRadius"));
+                
+                if (borderStroke)
+                {
+                    borderStroke.color = getStyle("borderColor");
+                    borderStroke.alpha = getStyle("borderAlpha");
+                }
+                super.updateDisplayList(unscaledWidth, unscaledHeight);
             }
         ]]>
     </fx:Script>
@@ -124,13 +166,13 @@ is defined by the DropDownListButtonSkin class.
         <s:Group id="dropDown" maxHeight="134" minHeight="22" >
             
             <!-- drop shadow -->
-            <s:RectangularDropShadow blurX="20" blurY="20" alpha="1.0" distance="5" 
+            <s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.6" distance="5" 
                                      angle="90" color="#000000" left="0" top="0" right="0" bottom="0"/>
             
             <!-- border -->
-            <s:Rect left="0" right="0" top="0" bottom="0">
+            <s:Rect id="border" left="0" right="0" top="0" bottom="0">
                 <s:stroke>
-                    <s:SolidColorStroke color="0x686868" weight="1"/>
+                    <s:SolidColorStroke id="borderStroke" weight="1"/>
                 </s:stroke>
             </s:Rect>
             
@@ -148,7 +190,7 @@ is defined by the DropDownListButtonSkin class.
                 </s:fill>
             </s:Rect>
             
-            <s:Scroller left="0" top="0" right="0" bottom="0" focusEnabled="false" minViewportInset="1">
+            <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" focusEnabled="false" minViewportInset="1">
                 <!---  
                 The container for the data items in the drop-down list.
                 -->
@@ -156,17 +198,18 @@ is defined by the DropDownListButtonSkin class.
                     <s:layout>
                         <s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
                     </s:layout>
-                </s:DataGroup>
+                </s:DataGroup> 
             </s:Scroller>
         </s:Group>
     </s:PopUpAnchor>
     
-    <!--- The anchor button used by the DropDownList. The default skin is DropDownListButtonSkin. -->
-    <s:Button id="openButton" width="20" right="0" top="0" bottom="0" focusEnabled="false" 
+    <!--- The anchor button used by the ComboBox. The default skin is ComboBoxButtonSkin. -->
+    <s:Button id="openButton" width="20" right="0" top="0" bottom="0" focusEnabled="false"
               skinClass="spark.skins.spark.ComboBoxButtonSkin" />  
-    <!--- The prompt area of the DropDownList. -->
+    <!--- The text input area of the ComboBox. -->
     <s:TextInput id="textInput"
-                  left="0" right="19" top="0" bottom="0" 
-                  skinClass="spark.skins.spark.ComboBoxTextInputSkin"/> 
+                 left="0" right="19" top="0" bottom="0" 
+                 skinClass="spark.skins.spark.ComboBoxTextInputSkin"/> 
     
 </s:Skin>
+
