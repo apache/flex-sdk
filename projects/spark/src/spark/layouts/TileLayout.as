@@ -16,14 +16,10 @@ import flash.geom.Rectangle;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.events.PropertyChangeEvent;
+
 import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
-import spark.layouts.HorizontalAlign;
 import spark.layouts.supportClasses.LayoutBase;
-import spark.layouts.ColumnAlign;
-import spark.layouts.RowAlign;
-import spark.layouts.TileOrientation;
-import spark.layouts.VerticalAlign;
 
 /**
  *  TileLayout arranges the layout elements in columns and rows
@@ -1416,14 +1412,24 @@ public class TileLayout extends LayoutBase
         if (!target || target.numElements < 1)
             return -1; 
             
+        // Special case when nothing was previously selected
+        if (currentIndex == -1)
+        {
+            if (navigationUnit == NavigationUnit.UP || navigationUnit == NavigationUnit.LEFT)
+                return -1;
+
+            if (navigationUnit == NavigationUnit.DOWN || navigationUnit == NavigationUnit.RIGHT)
+                return 0;    
+        }    
+            
         // Make sure currentIndex is within range
+        var inRows:Boolean = orientation == TileOrientation.ROWS;
         var maxIndex:int = target.numElements - 1;
         currentIndex = Math.max(0, Math.min(maxIndex, currentIndex));
 
         // Find the current column and row
         var currentRow:int;
         var currentColumn:int;
-        var inRows:Boolean = orientation == TileOrientation.ROWS;
         if (inRows)
         {
             // Is the TileLayout initialized with valid values?
