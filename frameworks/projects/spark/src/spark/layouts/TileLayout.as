@@ -55,6 +55,11 @@ import mx.layout.VerticalAlign;
  *  The minimum measured size is calculated the same way as the measured size but
  *  it's guaranteed to encompass enough rows/columns along the minor axis to fit
  *  all elements.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class TileLayout extends LayoutBase
 {
@@ -68,6 +73,11 @@ public class TileLayout extends LayoutBase
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function TileLayout():void
     {
@@ -96,6 +106,11 @@ public class TileLayout extends LayoutBase
      *  @see #verticalGap
      *  @see #justifyColumns
      *  @default 6
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get horizontalGap():Number
     {
@@ -131,6 +146,11 @@ public class TileLayout extends LayoutBase
      *  @see #horizontalGap
      *  @see #justifyRows
      *  @default 6
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get verticalGap():Number
     {
@@ -174,6 +194,11 @@ public class TileLayout extends LayoutBase
      *  @see #rowCount
      *  @see #justifyColumns
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get columnCount():int
     {
@@ -223,6 +248,11 @@ public class TileLayout extends LayoutBase
      *  @see #columnCount
      *  @see #justifyRows
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get rowCount():int
     {
@@ -269,6 +299,11 @@ public class TileLayout extends LayoutBase
      *  @see #rowHeight
      *  @see #justifyColumns
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get columnWidth():Number
     {
@@ -313,6 +348,11 @@ public class TileLayout extends LayoutBase
      *  @see #columnWidth
      *  @see #justifyRows
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get rowHeight():Number
     {
@@ -353,6 +393,11 @@ public class TileLayout extends LayoutBase
      *  element will be set to the <code>columnWidth</code></p>.
      *
      *  @default <code>HorizontalAlign.JUSTIFY</code>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get elementHorizontalAlign():String
     {
@@ -392,6 +437,11 @@ public class TileLayout extends LayoutBase
      *  element will be set to <code>rowHeight</code></p>.
      *
      *  @default <code>VerticalAlign.JUSTIFY</code>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get elementVerticalAlign():String
     {
@@ -444,6 +494,11 @@ public class TileLayout extends LayoutBase
      *  @see #columnWidth
      *  @see #justifyRows
      *  @default "none"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get justifyColumns():String
     {
@@ -496,6 +551,11 @@ public class TileLayout extends LayoutBase
      *  @see #rowHeight
      *  @see #justifyColumns
      *  @default "none"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get justifyRows():String
     {
@@ -530,6 +590,11 @@ public class TileLayout extends LayoutBase
      *  Supported values are "rows", "columns".
      *
      *  @default "rows"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get orientation():String
     {
@@ -582,6 +647,11 @@ public class TileLayout extends LayoutBase
      *  Dispatches events if Actual values have changed since the last call.
      *  Checks columnWidth, rowHeight, columnCount, rowCount, horizontalGap, verticalGap.
      *  This method is called from within updateDisplayList()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function dispatchEventsForActualValueChanges():void
     {
@@ -617,6 +687,11 @@ public class TileLayout extends LayoutBase
      *  and during updateDisplayList() is the unscaledWidth.
      *  @param height - the height during measure() is the layout target explicitHeight or NaN
      *  and during updateDisplayList() is the unscaledHeight.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function updateActualValues(width:Number, height:Number):void
     {
@@ -902,6 +977,11 @@ public class TileLayout extends LayoutBase
      *  @param cellY - the y coordinate of the cell.
      *  @param cellWidth - the width of the cell.
      *  @param cellHeight - the height of the cell.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function sizeAndPositionElement(element:ILayoutElement,
                                               cellX:int,
