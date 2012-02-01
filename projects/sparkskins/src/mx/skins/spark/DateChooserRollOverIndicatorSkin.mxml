@@ -11,8 +11,8 @@
 
 -->
 
-<!--- The Spark skin class for the rollover indicator of a Halo DateChooser component. 
-        
+<!--- The Spark skin class for the rollover indicator of a Halo DateChooser component.
+
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
@@ -20,10 +20,33 @@
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
-    <s:Rect left="0" right="0" top="0" bottom="0" >
+    <fx:Script>
+    <![CDATA[
+        import mx.styles.StyleManager;
+        import mx.utils.ColorUtil;
+        
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        {
+            var rollOverColor:uint = getStyle("rollOverColor");       
+            if (rollOverColor != StyleManager.NOT_A_COLOR)
+            {
+                fill.color = rollOverColor;
+                stroke.color = ColorUtil.adjustBrightness(rollOverColor, -45);
+            }
+            
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        } 
+    ]]>
+    </fx:Script>
+
+    <s:Rect id="rect" left="0" right="0" top="0" bottom="0">
+        <s:fill>
+            <s:SolidColor id="fill" color="#FFFFFF" alpha="1" />
+        </s:fill>
         <s:stroke>
-            <s:SolidColorStroke color="#6D8BA7" alpha="1" />
+            <s:SolidColorStroke id="stroke" color="#6D8BA7" alpha="1" />
         </s:stroke>
     </s:Rect>
-    
+
 </s:Skin>
+
