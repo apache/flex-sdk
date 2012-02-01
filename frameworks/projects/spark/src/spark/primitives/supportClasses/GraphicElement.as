@@ -1048,7 +1048,6 @@ public class GraphicElement extends EventDispatcher
      */
     public function get percentHeight():Number
     {
-        // TODO!!! Examine this logic
         return _percentHeight;
     }
 
@@ -1088,7 +1087,6 @@ public class GraphicElement extends EventDispatcher
      */
     public function get percentWidth():Number
     {
-        // TODO!!! Examine this logic
         return _percentWidth;
     }
 
