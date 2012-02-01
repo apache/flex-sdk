@@ -22,7 +22,8 @@ package
  */
 internal class SparkSkinsClasses
 {
-	import mx.skins.spark.AccordionHeaderSkin; AccordionHeaderSkin;
+    import mx.skins.spark.AccordionHeaderSkin; AccordionHeaderSkin;
+    import mx.skins.spark.ApplicationBackground; ApplicationBackground;
 	import mx.skins.spark.BorderSkin; BorderSkin;
 	import mx.skins.spark.ButtonSkin; ButtonSkin;
 	import mx.skins.spark.DefaultButtonSkin; DefaultButtonSkin;
