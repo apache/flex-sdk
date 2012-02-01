@@ -15,7 +15,14 @@ package mx.layout
 import flash.geom.Rectangle;
 import mx.graphics.Rect;
 import mx.core.ILayoutElement;
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;    
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[ResourceBundle("layout")]
     
 /**
  *  A sparse array of "major dimension" sizes that represent 
@@ -58,6 +65,12 @@ public final class LinearLayoutVector
     internal static const BLOCK_MASK:uint = 0x7F;
     private var blockTable:Vector.<Block> = new Vector.<Block>(0, false);
     
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private var resourceManager:IResourceManager =
+                                    ResourceManager.getInstance();
 
     public function LinearLayoutVector(majorAxis:uint = VERTICAL)
     {
@@ -273,7 +286,7 @@ public final class LinearLayoutVector
     public function setMajorSize(index:uint, value:Number):void
     {
         if (index >= length)
-            throw new Error("invalid index");
+            throw new Error(resourceManager.getString("layout", "invalidIndex"));
             
         var blockIndex:uint = index >> BLOCK_SHIFT;
         var block:Block = blockTable[blockIndex];
@@ -324,7 +337,7 @@ public final class LinearLayoutVector
             return 0;
             
         if (index >= _length)
-            throw new Error("invalid index");            
+            throw new Error(resourceManager.getString("layout", "invalidIndex"));            
 
         var distance:Number = 0;
         var blockIndex:uint = index >> BLOCK_SHIFT;
