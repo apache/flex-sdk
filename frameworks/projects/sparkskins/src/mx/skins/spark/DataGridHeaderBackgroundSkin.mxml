@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" 
+	  minWidth="21" minHeight="19">
+		
+	<!-- layer 2: fill -->
+	<Rect left="0" right="0" top="0" bottom="0">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0xFFFFFF" 
+							   alpha="0.85" />
+				<GradientEntry color="0xD8D8D8" 
+							   alpha="0.85" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 3: fill lowlight -->
+	<Rect left="0" right="0" bottom="0" height="9">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0x000000" alpha="0.0099" />
+				<GradientEntry color="0x000000" alpha="0.0627" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 4: fill highlight -->
+	<Rect left="0" right="0" top="0" height="9">
+		<fill>
+			<SolidColor color="0xFFFFFF" 
+					    alpha="0.33" />
+		</fill>
+	</Rect>
+	
+    <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    <Rect left="0" right="0" bottom="0" height="1">
+        <fill>
+            <SolidColor color="#696969" />
+        </fill>
+    </Rect>
+	
+</SparkSkin>
