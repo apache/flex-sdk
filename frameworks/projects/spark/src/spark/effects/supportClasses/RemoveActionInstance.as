@@ -22,6 +22,8 @@ import mx.core.mx_internal;
 import mx.effects.effectClasses.ActionEffectInstance;
 import mx.core.IVisualElementContainer;
 
+use namespace mx_internal;
+
 /**
  *  The RemoveActionInstance class implements the instance class
  *  for the RemoveAction effect.
@@ -146,7 +148,7 @@ public class RemoveActionInstance extends ActionEffectInstance
                         getContainer(propertyChanges.end) == null)
         }
         
-        if (!mx_internal::playReversed)
+        if (!playReversed)
         {
             // Set the style property
             if (doRemove && target && getContainer(target) != null)
