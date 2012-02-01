@@ -119,7 +119,7 @@
     <!-- layer 2: One pixel stroke inside border -->
     <s:Rect left="1" right="1" top="1" bottom="1">
         <s:stroke>
-            <s:LinearGradientStroke weight="1">
+            <s:LinearGradientStroke weight="1" rotation="90">
                 <s:GradientEntry color="0xFFFFFF" alpha="0.12" />
                 <s:GradientEntry color="0xFFFFFF" alpha="0.09" />
             </s:LinearGradientStroke>
