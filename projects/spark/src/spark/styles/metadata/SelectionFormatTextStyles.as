@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- *  Documentation is not currently available.
+ *  The color of text when the component is enabled and has focus.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -20,7 +20,7 @@
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  Documentation is not currently available.
+ *  The color of text when the component is disabled.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -30,7 +30,7 @@
 [Style(name="inactiveSelectionColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  Documentation is not currently available.
+ *  The color of text when the component is enabled but does not have focus.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
