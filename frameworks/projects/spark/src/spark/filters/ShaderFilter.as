@@ -94,7 +94,9 @@ use namespace flash_proxy;
  * @example Simple ShaderFilter example:
  * <listing version="3.0">
  * &lt;?xml version="1.0"?&gt;
- * &lt;Application xmlns="http://ns.adobe.com/mxml/2009"&gt;
+ * &lt;s:Application 
+ *    xmlns:s="library://ns.adobe.com/flex/spark" 
+ *    xmlns:fx="http://ns.adobe.com/mxml/2009"&gt;
  *
  *     &lt;!-- The hypothetical 'spherize' shader applied below has two input parameters, 'center' and 'radius'
  *          with the following attributes:
@@ -114,14 +116,14 @@ use namespace flash_proxy;
  *              description: "radius"
  *     --&gt;
  *  
- *     &lt;Label text="ABCDEF"&gt;
- *         &lt;filters&gt;
- *             &lt;ShaderFilter shader="&#64;Embed(source='shaders/spherize.pbj')"
+ *     &lt;s:Label text="ABCDEF"&gt;
+ *         &lt;s:filters&gt;
+ *             &lt;s:ShaderFilter shader="&#64;Embed(source='shaders/spherize.pbj')"
  *                 radius="25" center_x="50" center_y="15" /&gt;
- *        &lt;/filters&gt;
- *     &lt;/Label&gt;
+ *        &lt;/s:filters&gt;
+ *     &lt;/s:Label&gt;
  *   
- * &lt;/Application&gt; 
+ * &lt;/s:Application&gt; 
  * </listing>
  *  
  *  @langversion 3.0
