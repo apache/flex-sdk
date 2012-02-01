@@ -9,15 +9,16 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.layout
+package spark.layout
 {
 
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import mx.components.baseClasses.GroupBase;
+import spark.components.supportClasses.GroupBase;
 import mx.core.ILayoutElement;
-import mx.layout.LayoutBase;
+import spark.layout.supportClasses.LayoutBase;
+import spark.layout.supportClasses.LayoutElementHelper;
 
 /**
  *  Documentation is not currently available.
