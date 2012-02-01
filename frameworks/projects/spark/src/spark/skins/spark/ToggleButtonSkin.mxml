@@ -11,7 +11,7 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009" 
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" 
 	  minWidth="21" minHeight="21"
 	  alpha.disabledStates="0.5">
 
@@ -19,6 +19,13 @@
 	<Metadata>
 		[HostComponent("mx.components.FxToggleButton")]
 	</Metadata>
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For toggle button, the graphics are colorized but the label is not. */
+        static private const exclusions:Array = ["labelField"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+    </Script>
 	
 	<!-- states -->
 	<states>
@@ -144,4 +151,4 @@
 			 left="10" right="10" top="2" bottom="2">
 	</TextBox>
 	
-</Skin>
+</SparkSkin>
