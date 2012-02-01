@@ -1660,11 +1660,6 @@ public class HorizontalLayout extends LayoutBase
         // Otherwise the contentHeight is used to position the element and even size 
         // the element if it's "contentJustify" or "justify".
         var containerHeight:Number = targetHeight;
-        
-        
-        // FIXME (egeorgie): in the middle or bottom case, we end up calculating percentHeight 
-        // twice.  Once here for the contentHeight and once in distributeWidth
-        // to size that particular element.
         if (verticalAlign == VerticalAlign.CONTENT_JUSTIFY ||
            (clipAndEnableScrolling && (verticalAlign == VerticalAlign.MIDDLE ||
                                        verticalAlign == VerticalAlign.BOTTOM))) 
