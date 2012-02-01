@@ -19,7 +19,6 @@ import flash.events.EventDispatcher;
 import flash.ui.Keyboard;
 
 import mx.components.baseClasses.GroupBase;
-import mx.graphics.IGraphicElement;
 
 import mx.containers.utilityClasses.Flex;
 import mx.events.PropertyChangeEvent;
@@ -40,7 +39,7 @@ public class HorizontalLayout extends LayoutBase
     
     private static function calculatePercentHeight( layoutItem:ILayoutItem, height:Number ):Number
     {
-    	var percentHeight:Number = LayoutItemHelper.pinBetween(layoutItem.percentSize.y * 0.01 * height,
+    	var percentHeight:Number = LayoutItemHelper.pinBetween(layoutItem.percentHeight * 0.01 * height,
     	                                                       layoutItem.minSize.y,
     	                                                       layoutItem.maxSize.y );
     	return percentHeight < height ? percentHeight : height;
@@ -936,11 +935,11 @@ public class HorizontalLayout extends LayoutBase
         {
             if (hasPercentWidth(layoutItem))
             {
-                totalPercentWidth += layoutItem.percentSize.x;
+                totalPercentWidth += layoutItem.percentWidth;
 
                 childInfo = new HLayoutItemFlexChildInfo();
                 childInfo.layoutItem = layoutItem;
-                childInfo.percent    = layoutItem.percentSize.x;
+                childInfo.percent    = layoutItem.percentWidth;
                 childInfo.min        = layoutItem.minSize.x;
                 childInfo.max        = layoutItem.maxSize.x;
                 
