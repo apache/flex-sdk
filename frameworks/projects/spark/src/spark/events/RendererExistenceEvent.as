@@ -1,0 +1,176 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2005-2006 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+package mx.events
+{
+
+import flash.events.Event;
+
+import mx.core.IVisualElement;
+
+/**
+ *  Represents events that are dispatched when a renderer of a DataGroup
+ *  is added or removed.
+ */
+public class RendererExistenceEvent extends Event
+{
+    include "../core/Version.as";
+
+	//--------------------------------------------------------------------------
+	//
+	//  Class constants
+	//
+	//--------------------------------------------------------------------------
+
+	/**
+	 *  The <code>RendererExistenceEvent.Renderer_ADD</code> constant 
+	 *  defines the value of the <code>type</code> property of the event 
+	 *  object for an <code>rendererAdd</code> event.
+	 *
+     *	<p>The properties of the event object have the following values:</p>
+	 *  <table class="innertable">
+	 *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>data</code></td><td>The data object that the renderer
+     *       is visualizing.</td></tr>
+     *     <tr><td><code>index</code></td><td>The dataProvider index for the 
+     *       renderer that was added.</td></tr>
+	 *     <tr><td><code>renderer</code></td><td>Contains a reference
+     *         to the renderer that was added</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *       it is not always the Object listening for the event. 
+     *       Use the <code>currentTarget</code> property to always access the 
+     *       Object listening for the event.</td></tr>
+	 *  </table>
+	 *
+     *  @eventType rendererAdd
+	 */
+	public static const RENDERER_ADD:String = "rendererAdd";
+
+	/**
+	 *  The <code>RendererExistenceEvent.RENDERER_REMOVE</code> constant 
+	 *  defines the value of the <code>type</code> property of the event 
+	 *  object for an <code>rendererRemove</code> event.
+	 *
+     *	<p>The properties of the event object have the following values:</p>
+	 *  <table class="innertable">
+	 *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>data</code></td><td>The data object that the renderer
+     *       was visualizing.</td></tr>
+     *     <tr><td><code>index</code></td><td>The dataProvider index for the 
+     *       renderer that is being removed.</td></tr>
+	 *     <tr><td><code>renderer</code></td><td>Contains a reference
+     *        to the renderer that is about to be removed.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *       it is not always the Object listening for the event. 
+     *       Use the <code>currentTarget</code> property to always access the 
+     *       Object listening for the event.</td></tr>
+	 *  </table>
+	 *
+     *  @eventType rendererRemove
+	 */
+	public static const RENDERER_REMOVE:String = "rendererRemove";
+
+	//--------------------------------------------------------------------------
+	//
+	//  Constructor
+	//
+	//--------------------------------------------------------------------------
+
+	/**
+	 *  Constructor.
+	 *
+	 *  @param type The event type; indicates the action that caused the event.
+	 *
+	 *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.
+	 *
+	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
+	 *
+	 *  @param renderer Reference to the renderer that was added or removed.
+	 * 
+	 *  @param index The index in the dataprovider where the renderer was added or removed
+     * 
+     *  @param data The data object that the renderer is visualizing
+	 */
+	public function RendererExistenceEvent(
+								type:String, bubbles:Boolean = false,
+								cancelable:Boolean = false,
+								renderer:IVisualElement = null, 
+								index:int = -1, data:Object = null)
+	{
+		super(type, bubbles, cancelable);
+
+		this.renderer = renderer;
+		this.index = index;
+		this.data = data;
+	}
+
+	//--------------------------------------------------------------------------
+	//
+	//  Properties
+	//
+	//--------------------------------------------------------------------------
+	
+	//----------------------------------
+    //  data
+    //----------------------------------
+
+    /**
+     *  The data object that the renderer is visualizing
+     */
+    public var data:Object;
+	
+    //----------------------------------
+    //  index
+    //----------------------------------
+
+    /**
+     *  The index where the renderer was added or removed
+     */
+    public var index:int;
+
+	//----------------------------------
+	//  renderer
+	//----------------------------------
+
+	/**
+	 *  Reference to the render that was added or removed.
+	 */
+	public var renderer:IVisualElement;
+
+	//--------------------------------------------------------------------------
+	//
+	//  Overridden methods: Event
+	//
+	//--------------------------------------------------------------------------
+
+	/**
+	 *  @private
+	 */
+    override public function clone():Event
+    {
+        return new RendererExistenceEvent(type, bubbles, cancelable,
+                                         renderer, index);
+    }
+}
+
+}
