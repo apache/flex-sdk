@@ -212,11 +212,11 @@ is defined by the ComboBoxTextInputSkin class.
     </s:PopUpAnchor>
     
     <!--- The anchor button used by the ComboBox. The default skin is ComboBoxButtonSkin. -->
-    <s:Button id="openButton" width="20" right="0" top="0" bottom="0" focusEnabled="false"
+    <s:Button id="openButton" width="19" right="0" top="0" bottom="0" focusEnabled="false"
               skinClass="spark.skins.spark.ComboBoxButtonSkin" />  
     <!--- The text input area of the ComboBox. -->
     <s:TextInput id="textInput"
-                 left="0" right="19" top="0" bottom="0" 
+                 left="0" right="18" top="0" bottom="0" 
                  skinClass="spark.skins.spark.ComboBoxTextInputSkin"/> 
     
 </s:SparkSkin>
