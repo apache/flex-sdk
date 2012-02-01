@@ -3208,15 +3208,11 @@ public class GraphicElement extends EventDispatcher
      */
     private function calculateLuminositySettings():int
     {
-        var mode:int = -1; 
-        if (luminosityClip && !luminosityInvert) 
-            mode = 0; 
-        if (luminosityClip && luminosityInvert) 
-            mode = 1; 
-        if (!luminosityClip && !luminosityInvert) 
-            mode = 2; 
-        if (!luminosityClip && luminosityInvert) 
-            mode = 3;
+        var mode:int = 0;
+        if (luminosityInvert)
+            mode += 1; 
+        if (luminosityClip) 
+            mode += 2;  
         return mode; 
     }
 
