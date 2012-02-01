@@ -24,6 +24,10 @@ package
  */
 internal class WireframeClasses
 {
+	import spark.skins.wireframe.ButtonBarFirstButtonSkin; ButtonBarFirstButtonSkin;
+	import spark.skins.wireframe.ButtonBarLastButtonSkin; ButtonBarLastButtonSkin;
+	import spark.skins.wireframe.ButtonBarMiddleButtonSkin; ButtonBarMiddleButtonSkin;
+	import spark.skins.wireframe.ButtonBarSkin; ButtonBarSkin;
 	import spark.skins.wireframe.ButtonSkin; ButtonSkin;
 	import spark.skins.wireframe.CheckBoxSkin; CheckBoxSkin;
 	import spark.skins.wireframe.DefaultComplexItemRenderer; DefaultComplexItemRenderer;
@@ -36,6 +40,7 @@ internal class WireframeClasses
 	import spark.skins.wireframe.HSliderTrackSkin; HSliderTrackSkin;
 	import spark.skins.wireframe.ListSkin; ListSkin;
 	import spark.skins.wireframe.NumericStepperSkin; NumericStepperSkin;
+	import spark.skins.wireframe.PanelSkin; PanelSkin;
 	import spark.skins.wireframe.RadioButtonSkin; RadioButtonSkin;
 	import spark.skins.wireframe.ScrollBarDownButtonSkin; ScrollBarDownButtonSkin;
 	import spark.skins.wireframe.ScrollBarLeftButtonSkin; ScrollBarLeftButtonSkin;
