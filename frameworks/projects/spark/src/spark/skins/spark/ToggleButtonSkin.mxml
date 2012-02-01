@@ -65,13 +65,14 @@
             </Rect>
         </Group>
 
-        <!-- Render content like label, icons, etc. -->
-        <Group horizontalCenter="0" verticalCenter="1" left="10" right="10"
-               content="{hostComponent.content}">
-            <layout>
-            	<HorizontalLayout/>
-            </layout>
-        </Group>
+	    <!-- label -->
+		<TextBox id="labelField"
+	             fontFamily="Arial" fontSize="12"
+	             color="0x2B4381" color.disabled="0x95A1C0"
+				 horizontalCenter="0" verticalCenter="1"
+				 left="10" right="10" top="2" bottom="2"
+				 textAlign="center" verticalAlign="middle">
+		</TextBox>
 
         <!-- When the component is disabled, dimm everything with a rectangle -->
         <Group left="0" top="0" right="0" bottom="0"
