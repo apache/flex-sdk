@@ -14,6 +14,9 @@ in accordance with the terms of the license agreement accompanying it.
 <!--- 
 The default skin class for Spark TabBar buttons.  
 
+@see spark.components.TabBar
+@see spark.skins.spark.TabBarSkin
+
 @langversion 3.0
 @playerversion Flash 10
 @playerversion AIR 1.5
@@ -138,7 +141,7 @@ The default skin class for Spark TabBar buttons.
     
     <s:Group left="-1" right="0" top="-1" bottom="-1">
 
-        <!-- layer 2: fill -->
+        <!--- layer 2: fill @private-->
         <s:Rect id="fill" left="2" right="1" top="2" bottom="2" topLeftRadiusX="4" topRightRadiusX="4" width="69" height="21">
             <s:fill>
                 <s:LinearGradient rotation="90">
@@ -159,7 +162,7 @@ The default skin class for Spark TabBar buttons.
             </s:fill>
         </s:Rect>
         
-        <!-- layer 3: fill lowlight -->
+        <!--- layer 3: fill lowlight @private-->
         <s:Rect id="lowlight" left="2" right="1" bottom="2" height="9" radiusX="4">
             <s:fill>
                 <s:LinearGradient rotation="90">
@@ -169,7 +172,7 @@ The default skin class for Spark TabBar buttons.
             </s:fill>
         </s:Rect>
         
-        <!-- layer 4: fill highlight -->
+        <!--- layer 4: fill highlight @private-->
         <s:Rect id="highlight" left="2" right="1" top="2" height="9" radiusX="4">
             <s:fill>
                 <s:SolidColor color="0xFFFFFF" 
@@ -180,7 +183,7 @@ The default skin class for Spark TabBar buttons.
             </s:fill>
         </s:Rect>
         
-        <!-- layer 5: highlight stroke (all states except down) -->
+        <!--- layer 5: highlight stroke (all states except down) @private -->
         <s:Rect id="highlightStroke" left="2" right="1" top="2" bottom="2" topLeftRadiusX="4" topRightRadiusX="4">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
@@ -190,7 +193,7 @@ The default skin class for Spark TabBar buttons.
             </s:stroke>
         </s:Rect>
         
-        <!-- layer 6: highlight stroke (down state only) -->
+        <!--- layer 6: highlight stroke (down state only) @private -->
         <s:Rect left="2" top="2" bottom="2" width="1" includeIn="downStates, selectedUpStates, overAndSelected">
             <s:fill>
                 <s:SolidColor color="0x000000" alpha="0.07" />
@@ -212,7 +215,7 @@ The default skin class for Spark TabBar buttons.
             </s:fill>
         </s:Rect>
         
-        <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+        <!--- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 @private -->
         <s:Line id="borderBottom" left="1" right="0" bottom="1">
             <s:stroke>
                 <s:SolidColorStroke weight="1" 
@@ -223,6 +226,7 @@ The default skin class for Spark TabBar buttons.
                                     alpha.selectedStates="0.5" />
             </s:stroke>
         </s:Line>
+        <!--- @private -->
         <s:Path id="borderTop" left="1" right="0" top="1" bottom="1" width="69" height="21">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
@@ -240,7 +244,7 @@ The default skin class for Spark TabBar buttons.
     </s:Group>
     
     <!-- layer 8: text -->
-    <!--- The defines the appearance of the label for the first button in the ButtonBar component. -->
+    <!--- Defines the appearance of the label for the tabs. -->
     <s:Label id="labelDisplay"
              textAlign="center"
              verticalAlign="middle"
