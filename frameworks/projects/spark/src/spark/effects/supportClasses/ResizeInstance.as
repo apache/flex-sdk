@@ -13,10 +13,8 @@ package spark.effects.supportClasses
 import flash.events.Event;
 
 import mx.core.IUIComponent;
-import mx.managers.LayoutManager;
 
 import spark.effects.AnimationProperty;
-import spark.effects.animation.Animation;
 import spark.events.AnimationEvent;
     
 public class ResizeInstance extends AnimateInstance
@@ -276,6 +274,26 @@ public class ResizeInstance extends AnimateInstance
             [new AnimationProperty("width", widthFrom, widthTo, duration, widthBy),
              new AnimationProperty("height", heightFrom, heightTo, duration, heightBy)];
                 
+        // Also animate any size-related constraints that change between
+        // transition states
+        if (propertyChanges && !disableConstraints)
+        {
+            var wStart:* = propertyChanges.start["width"];
+            var wEnd:* = propertyChanges.end["width"];
+            var hStart:* = propertyChanges.start["height"];
+            var hEnd:* = propertyChanges.end["height"];
+            if (wStart !== undefined && wEnd != undefined && (wStart != wEnd))
+            {
+                setupConstraintAnimation("left");
+                setupConstraintAnimation("right");
+            }
+            if (hStart !== undefined && hEnd != undefined && (hStart != hEnd))
+            {
+                setupConstraintAnimation("top");
+                setupConstraintAnimation("bottom");
+            }
+        }
+        
         super.play();
 
         if (childrenHiding)
