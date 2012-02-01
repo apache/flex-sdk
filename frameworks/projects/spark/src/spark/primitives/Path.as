@@ -235,7 +235,7 @@ public class Path extends FilledElement
     
     /**
      *  Fill rule for intersecting or overlapping path segments. 
-     *  Possible values are GraphicsPathWinding.EVEN_ODD or GraphicsPathWinding.NON_ZERO
+     *  Possible values are <code>GraphicsPathWinding.EVEN_ODD</code> or <code>GraphicsPathWinding.NON_ZERO</code>.
      *
      *  @default evenOdd
      *  
@@ -1231,8 +1231,8 @@ public function PathSegmentsCollection(value:String)
         // Is this a start of a number? 
         // The RegExp for a float is /[+-]?\d*\.?\d+([Ee][+-]?\d+)?/
         if ((c >= 0x30 && c < 0x3A) ||   // A digit
-            (c == 0x2B || c == 0x2D) ||	 // '+' & '-'
-            (c == 0x2E)) 				 // '.'
+            (c == 0x2B || c == 0x2D) ||  // '+' & '-'
+            (c == 0x2E))                 // '.'
         {
             c = prevIdentifier;
             _charPos--;
@@ -1244,8 +1244,8 @@ public function PathSegmentsCollection(value:String)
         
         switch(c)
         {
-            case 0x63:	// c
-            case 0x43:	// C
+            case 0x63:  // c
+            case 0x43:  // C
                 controlX = getNumber(useRelative, prevX, value);
                 controlY = getNumber(useRelative,  prevY, value);
                 control2X = getNumber(useRelative, prevX, value);
@@ -1261,8 +1261,8 @@ public function PathSegmentsCollection(value:String)
                 
                 break;
             
-            case 0x6D:	// m
-            case 0x4D:	// M
+            case 0x6D:  // m
+            case 0x4D:  // M
                 x = getNumber(useRelative, prevX, value);
                 y = getNumber(useRelative, prevY, value);
                 newSegments.push(new MoveSegment(x, y));
@@ -1290,8 +1290,8 @@ public function PathSegmentsCollection(value:String)
                 lastMoveY = y;
                 break;
             
-            case 0x6C:	// l
-            case 0x4C:	// L
+            case 0x6C:  // l
+            case 0x4C:  // L
                 x = getNumber(useRelative, prevX, value);
                 y = getNumber(useRelative, prevY, value);
                 newSegments.push(new LineSegment(x, y));
@@ -1300,8 +1300,8 @@ public function PathSegmentsCollection(value:String)
                 prevIdentifier = 0x6C;
                 break;
             
-            case 0x68:	// h
-            case 0x48:	// H
+            case 0x68:  // h
+            case 0x48:  // H
                 x = getNumber(useRelative, prevX, value);
                 y = prevY;
                 newSegments.push(new LineSegment(x, y));
@@ -1310,8 +1310,8 @@ public function PathSegmentsCollection(value:String)
                 prevIdentifier = 0x68;
                 break;
             
-            case 0x76:	// v
-            case 0x56:	// V
+            case 0x76:  // v
+            case 0x56:  // V
                 x = prevX;
                 y = getNumber(useRelative, prevY, value);
                 newSegments.push(new LineSegment(x, y));
@@ -1320,8 +1320,8 @@ public function PathSegmentsCollection(value:String)
                 prevIdentifier = 0x76;
                 break;
             
-            case 0x71:	// q
-            case 0x51:	// Q
+            case 0x71:  // q
+            case 0x51:  // Q
                 controlX = getNumber(useRelative, prevX, value);
                 controlY = getNumber(useRelative, prevY, value);
                 x = getNumber(useRelative, prevX, value);
@@ -1332,8 +1332,8 @@ public function PathSegmentsCollection(value:String)
                 prevIdentifier = 0x71;
                 break;
             
-            case 0x74:	// t
-            case 0x54:	// T
+            case 0x74:  // t
+            case 0x54:  // T
                 // control is a reflection of the previous control point
                 if (prevIdentifier == 0x74 || prevIdentifier == 0x71) // 't' or 'q'
                 {
@@ -1355,8 +1355,8 @@ public function PathSegmentsCollection(value:String)
                 
                 break;
             
-            case 0x73:	// s
-            case 0x53:	// S
+            case 0x73:  // s
+            case 0x53:  // S
                 if (prevIdentifier == 0x73 || prevIdentifier == 0x63) // s or c
                 {
                     controlX = prevX + (prevX - control2X);
@@ -1380,8 +1380,8 @@ public function PathSegmentsCollection(value:String)
                 
                 break;
             
-            case 0x7A:	// z
-            case 0x5A:	// Z
+            case 0x7A:  // z
+            case 0x5A:  // Z
                 x = lastMoveX;
                 y = lastMoveY;
                 newSegments.push(new LineSegment(x, y));
