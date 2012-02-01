@@ -14,6 +14,7 @@ package spark.primitives
 
 import mx.events.PropertyChangeEvent;
 import spark.components.Group;
+import spark.components.ResizeMode;
 
 //--------------------------------------
 //  Events
@@ -106,6 +107,9 @@ public class Graphic extends Group
     public function Graphic()
     {
         super();
+		
+		// The default resize mode for a Graphic is scale
+		resizeMode = ResizeMode.SCALE;
     }
 
     //--------------------------------------------------------------------------
