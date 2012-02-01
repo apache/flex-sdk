@@ -19,8 +19,10 @@
       @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-    alpha.disabledStates="0.5">
-
+    alpha.disabledStates="0.5" baseColor.normalStates="{undefined}" baseColor.fullScreenStates="0xCCCCCC">
+    <!-- base color of undefined in the normal states means we inherit the baseColor property, and 
+         a base color of 0xCCCCCC in the fullScreenStates means we ignore the baseColor property 
+         all together as 0xCCCCCC is essentially just a no-op color transform -->
 
     <!-- host component -->
     <fx:Metadata>
@@ -32,27 +34,12 @@
         static private const exclusions:Array = ["videoElement", "playPauseButton", "scrubBar", 
                                                  "playheadTimeLabel", "timeDivider", "totalTimeLabel", 
                                                  "volumeBar", "fullScreenButton"];
-        // TODO (rfrishbe): only want this in non-fullscreen state
-        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        override public function get colorizeExclusions():Array 
+        {
+            return exclusions;
+        }
     </fx:Script>
-    
-    <fx:Style>
-        @namespace "library://ns.adobe.com/flex/spark";
-        
-        .videoTextStyle
-        {
-            font-family: Arial;
-            font-size: 12px;
-            color: #000000;
-        }
-        
-        .videoTextStyleFullScreen
-        {
-            font-family: Arial;
-            font-size: 12px;
-            color: #FFFFFF;
-        }
-    </fx:Style>
     
     <!-- states -->
     <s:states>
@@ -107,7 +94,8 @@
                     <!--- Defines the label and appearance of the Play/Pause button. -->
                     <s:ToggleButton id="playPauseButton" left="0" bottom="0" 
                             skinClass="spark.skins.default.VideoPlayerPlayPauseButtonSkin" 
-                            skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenPlayPauseButtonSkin" />
+                            skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenPlayPauseButtonSkin"
+                            focusIn="event.target.layer=1" focusOut="event.target.layer=0" />
                     
                     <!-- scrubbar + the playHeadTime/totalTime labels -->
                     <s:Group left="39" right="75" top="0" bottom="0">
@@ -162,11 +150,11 @@
                             <!-- spacer -->
                             <s:Rect width="8" height="1" />
                             
-                            <s:SimpleText id="playheadTimeLabel" styleName="videoTextStyle" styleName.fullScreenStates="videoTextStyleFullScreen" />
+                            <s:SimpleText id="playheadTimeLabel" color.fullScreenStates="0xFFFFFF" />
                             
-                            <s:SimpleText id="timeDivider" text="/" styleName="videoTextStyle" styleName.fullScreenStates="videoTextStyleFullScreen" />
+                            <s:SimpleText id="timeDivider" text="/" color.fullScreenStates="0xFFFFFF" />
                             
-                            <s:SimpleText id="totalTimeLabel" styleName="videoTextStyle" styleName.fullScreenStates="videoTextStyleFullScreen" />
+                            <s:SimpleText id="totalTimeLabel" color.fullScreenStates="0xFFFFFF" />
                             
                             <!-- spacer -->
                             <s:Rect width="8" height="1" />
@@ -175,14 +163,17 @@
                     </s:Group>
                     
                     <!--- Defines the appearance of the volume bar. -->
-                    <s:VideoPlayerVolumeBar id="volumeBar" valueInterval=".01" liveDragging="true" right="37" bottom="0" 
+                    <s:VideoPlayerVolumeBar id="volumeBar" valueInterval=".01" stepSize=".01" liveDragging="true"
+                            right="37" bottom="0" 
                             skinClass="spark.skins.default.VideoPlayerVolumeBarSkin"
-                            skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenVolumeBarSkin" />
+                            skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenVolumeBarSkin"
+                            focusIn="event.target.layer=1" focusOut="event.target.layer=0" />
                     
                     <!--- Defines the label and appearance of the Fullscreen button. -->
                     <s:Button id="fullScreenButton" right="0" bottom="0" label="Fullscreen" 
                             skinClass="spark.skins.default.VideoPlayerFullScreenButtonSkin"
-                            skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenFullScreenButtonSkin" />
+                            skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenFullScreenButtonSkin"
+                            focusIn="event.target.layer=1" focusOut="event.target.layer=0" />
                             
                 </s:Group>
                 
@@ -194,6 +185,7 @@
                     <s:SolidColorStroke color="0x131313" />
                 </s:stroke>
             </s:Rect>
+    
         </s:Group>
     </s:Group>
 </s:SparkSkin>
