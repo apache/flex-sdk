@@ -47,11 +47,11 @@
         <!-- background -->
         <s:Ellipse left="0" top="0" width="12" height="12">
             <s:stroke>            
-                <s:SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
+                <s:SolidColorStroke color="#5C5C5C" />
             </s:stroke>
             <s:fill>
-                <s:SolidColor color="0xFFFFFF" color.overStates="0xEBF4FF" 
-                          color.downStates="0xDEEBFF" />
+                <s:SolidColor color="#EEEEEE" color.overStates="#FFFFFF" 
+                          color.downStates="#FFFFFF" />
             </s:fill>
         </s:Ellipse>
 
@@ -59,8 +59,8 @@
         <s:Ellipse left="1.0" top="0.5" right="1" bottom="0.5" includeIn="downStates">
             <s:stroke> 
                 <s:LinearGradientStroke rotation="90">
-                    <s:GradientEntry color="0x5380D0" alpha="0.25" />
-                    <s:GradientEntry color="0x5380D0" alpha="0" />
+                    <s:GradientEntry color="#5C5C5C" alpha="0.25" />
+                    <s:GradientEntry color="#5C5C5C" alpha="0" />
                 </s:LinearGradientStroke>
             </s:stroke>
         </s:Ellipse>
@@ -69,7 +69,7 @@
         <s:Ellipse left="4" top="3.5" width="5" height="5" 
                     includeIn="upAndSelected, overAndSelected, downAndSelected, disabledAndSelected">
             <s:fill>
-                <s:SolidColor color="0x3D5D92" color.disabledAndSelected="0x9DADC9" />
+                <s:SolidColor color="#464646" />
             </s:fill>
         </s:Ellipse>
     </s:Group>
