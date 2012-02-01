@@ -165,7 +165,7 @@ public class Rect extends FilledElement
     {
         if (postLayoutTransform && hasComplexLayoutMatrix)
             width = getRoundRectBoundingBox(width, height, radiusX, radiusY, 
-            								layoutFeatures.layoutMatrix).width;
+                                            layoutFeatures.layoutMatrix).width;
 
         // Take stroke into account
         return width + getStrokeExtents(postLayoutTransform).x;
@@ -180,7 +180,7 @@ public class Rect extends FilledElement
     {
         if (postLayoutTransform && hasComplexLayoutMatrix)
             height = getRoundRectBoundingBox(width, height, radiusX, radiusY, 
-            								 layoutFeatures.layoutMatrix).height;
+                                             layoutFeatures.layoutMatrix).height;
 
         // Take stroke into account
         return height + getStrokeExtents(postLayoutTransform).y;
@@ -190,9 +190,9 @@ public class Rect extends FilledElement
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -224,9 +224,9 @@ public class Rect extends FilledElement
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -262,7 +262,7 @@ public class Rect extends FilledElement
         var stroke:Number = -getStrokeExtents(postLayoutTransform).x * 0.5;
         if (postLayoutTransform && hasComplexLayoutMatrix)
             return stroke + getRoundRectBoundingBox(width, height, radiusX, radiusY, 
-            										layoutFeatures.layoutMatrix).x;  
+                                                    layoutFeatures.layoutMatrix).x;  
 
         return stroke + this.x;
     }
@@ -275,7 +275,7 @@ public class Rect extends FilledElement
         var stroke:Number = - getStrokeExtents(postLayoutTransform).y * 0.5;
         if (postLayoutTransform && hasComplexLayoutMatrix)
             return stroke + getRoundRectBoundingBox(width, height, radiusX, radiusY, 
-            										layoutFeatures.layoutMatrix).y;
+                                                    layoutFeatures.layoutMatrix).y;
 
         return stroke + this.y;
     }
