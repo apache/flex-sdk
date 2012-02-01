@@ -20,6 +20,7 @@ import flash.events.Event;
  *
  *  @see spark.events.GridSelectionEventKind
  *  @see spark.components.DataGrid
+ *  @see spark.components.Grid
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -113,45 +114,7 @@ public class GridSelectionEvent extends Event
      *  @productversion Flex 4.5
      */
     public static const SELECTION_CHANGING:String = "selectionChanging";
-    
-    /**
-     *  The <code>GridSelectionEvent.CARET_CHANGE</code> constant defines 
-     *  the value of the <code>type</code> property of the event object for a 
-     *  <code>caretChange</code> event, which indicates that the caret position 
-     *  has just been changed.  Get the grid's caretRowIndex and 
-     *  caretColumnIndex to determine the new caret position.
-     *
-     *  <p>The properties of the event object have the following values:</p>
-     *  <table class="innertable">
-     *     <tr><th>Property</th><th>Value</th></tr>
-     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
-     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-     *     <tr><td>columnIndex<code></code></td><td>The 0-based columnIndex of
-     *      caret position.</td></tr>
-     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
-     *       event listener that handles the event. For example, if you use 
-     *       <code>myButton.addEventListener()</code> to register an event listener, 
-     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td>rowIndex<code></code></td><td>The 0-based rowIndex of the
-     *      caret position.</td></tr>
-     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
-     *       it is not always the Object listening for the event. 
-     *       Use the <code>currentTarget</code> property to always access the 
-     *       Object listening for the event.</td></tr>
-     *     <tr><td><code>type</code></td><td>GridSelectionEvent.CARET_CHANGE</td></tr>
-     *  </table>
-     *   
-     *  @eventType selectionChange
-     *  
-     *  @see spark.components.Grid
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public static const CARET_CHANGE:String = "caretChange";
-    
+        
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -180,7 +143,7 @@ public class GridSelectionEvent extends Event
      *  the 0-based index from the <code>dataProvider</code> of the row, 
      *  and when kind is one of
      *  <code>GridSelectionEvent.SET_CELL</code>, 
-     *  <code>GridSelectionEvent.ADD_CELL</code>, 
+     *  <code>GridSelectionEvent.ADD_CELL</code>, or
      *  <code>GridSelectionEvent.REMOVE_CELL</code>, 
      *  the 0-based index from the <code>dataProvider</code> of origin of the
      *  cell region.
@@ -192,7 +155,7 @@ public class GridSelectionEvent extends Event
      *  the 0-based index from the <code>columns</code> of the row, 
      *  and when kind is one of
      *  <code>GridSelectionEvent.SET_CELL</code>, 
-     *  <code>GridSelectionEvent.ADD_CELL</code>, 
+     *  <code>GridSelectionEvent.ADD_CELL</code>, or
      *  <code>GridSelectionEvent.REMOVE_CELL</code>, 
      *  the 0-based index from the <code>columns</code> of origin of the
      *  cell region.
@@ -258,8 +221,6 @@ public class GridSelectionEvent extends Event
      *  GridSelectionEventKind class, 
      *  or <code>null</code>, which indicates that the kind is unknown.
      * 
-     *  @default null
-     * 
      *  @see GridSelectionEventKind
      *  
      *  @langversion 3.0
@@ -278,8 +239,6 @@ public class GridSelectionEvent extends Event
      *  The 0-based index of the row in the <code>dataProvider</code> for
      *  either a row or a cell position, or the origin of a cell region.
      * 
-     *  @default -1
-     * 
      *  @see spark.components.DataGrid#dataProvider
      * 
      *  @langversion 3.0
@@ -297,8 +256,6 @@ public class GridSelectionEvent extends Event
      *  The 0-based index of the column in the <code>columns</code> for
      *  either a cell position or the origin of a cell region.
      * 
-     *  @default -1
-     * 
      *  @see spark.components.DataGrid#columns
      * 
      *  @langversion 3.0
@@ -315,8 +272,6 @@ public class GridSelectionEvent extends Event
     /**
      *  If selecting a cell region, the number of rows in the cell region.
      * 
-     *  @default -1
-     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
@@ -331,8 +286,6 @@ public class GridSelectionEvent extends Event
     /**
      *  If selecting a cell region, the number of columns in the cell region.
      * 
-     *  @default -1
-     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
@@ -346,8 +299,6 @@ public class GridSelectionEvent extends Event
     
     /**
      *  If selecting multiple rows, a Vector of the row indices.
-     * 
-     *  @default null
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
