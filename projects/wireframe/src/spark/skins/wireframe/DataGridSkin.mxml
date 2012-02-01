@@ -94,7 +94,7 @@ The default skin class for a Spark DataGrid component.
         <fx:Component id="hoverIndicator">
             <s:Rect>
                 <s:fill>
-                    <s:SolidColor color="0xCCCCCC"/>
+                    <s:SolidColor color="0xEEEEEE"/>
                 </s:fill>                
             </s:Rect>
         </fx:Component>      
@@ -110,7 +110,7 @@ The default skin class for a Spark DataGrid component.
         <fx:Component id="selectionIndicator">
             <s:Rect>
                 <s:fill>
-                    <s:SolidColor color="0xEEEEEE"/>
+                    <s:SolidColor color="0xCCCCCC"/>
                 </s:fill>
             </s:Rect>
         </fx:Component>            
