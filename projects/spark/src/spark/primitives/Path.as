@@ -1310,8 +1310,6 @@ class PathSegmentsCollection
 	//
 	//--------------------------------------------------------------------------
 
-	static private var numberRegExp:RegExp = /[+-]?\d*\.?\d+([Ee][+-]?\d+)?/g;
-	
 	private var _charPos:int = 0;
 	private var _dataLength:int = 0;
 	
@@ -1331,24 +1329,114 @@ class PathSegmentsCollection
 			_charPos++;
 		}
 	}
-	
-	private function getNumber(useRelative:Boolean, offset:Number, value:String):Number
-	{
-		skipWhiteSpace(value); // updates _charPos
-		var subString:String = value.substr(_charPos);
-		var result:Number = parseFloat(subString);
-		if (isNaN(result))
-		{
-			// Go to the end of the data
-			_charPos = _dataLength;
-			return NaN;
-		}
-		
-		numberRegExp.lastIndex = 0;
-		numberRegExp.test(subString);
-		_charPos += numberRegExp.lastIndex;
-		return useRelative ? result + offset : result;
-	}
+    
+    private function getNumber(useRelative:Boolean, offset:Number, value:String):Number
+    {
+        // Parse the string and find the first occurrance of the following RexExp
+        // numberRegExp:RegExp = /[+-]?\d*\.?\d+([Ee][+-]?\d+)?/g;
+
+        skipWhiteSpace(value); // updates _charPos
+        if (_charPos >= _dataLength)
+            return NaN;
+        
+        // Remember the start of the number
+        var numberStart:int = _charPos;
+        var hasSignCharacter:Boolean = false;
+        var hasDigits:Boolean = false;
+
+        // The number could start with '+' or '-' (the "[+-]?" part of the RegExp)
+        var c:Number = value.charCodeAt(_charPos);
+        if (c == 0x2B || c == 0x2D) // '+' or '-'
+        {
+            hasSignCharacter = true;
+            _charPos++;
+        }
+
+        // The index of the '.' if any
+        var dotIndex:int = -1;
+
+        // First sequence of digits and optional dot in between (the "\d*\.?\d+" part of the RegExp)
+        while (_charPos < _dataLength)
+        {
+            c = value.charCodeAt(_charPos);
+
+            if (c >= 0x30 && c < 0x3A) // A digit
+            {
+                hasDigits = true;
+            }
+            else if (c == 0x2E && dotIndex == -1) // '.'
+            {
+                dotIndex = _charPos;
+            }
+            else
+                break;
+                
+            _charPos++;
+        }
+        
+        // Now check whether we had at least one digit.
+        if (!hasDigits)
+        {
+            // Go to the end of the data
+            _charPos = _dataLength;
+            return NaN;
+        }
+
+        // 1. Was the last character a '.'? If so, rewind one character back.
+        if (c == 0x2E)
+            _charPos--;
+        
+        // So far we have a valid number, remember its end character index
+        var numberEnd:int = _charPos;
+        
+        // Check to see if we have scientific notation (the "([Ee][+-]?\d+)?" part of the RegExp)
+        if (c == 0x45 || c == 0x65)
+        {
+            _charPos++;
+            
+            // Check for '+' or '-'
+            if (_charPos < _dataLength)
+            {            
+                c = value.charCodeAt(_charPos);
+                if (c == 0x2B || c == 0x2D)
+                    _charPos++;
+            }
+            
+            // Find all the digits
+            var digitStart:int = _charPos;
+            while (_charPos < _dataLength)
+            {
+                c = value.charCodeAt(_charPos);
+                
+                // Not a digit?
+                if (!(c >= 0x30 && c < 0x3A))
+                {
+                    break;
+                }
+                
+                _charPos++;
+            }
+            
+            // Do we have at least one digit?
+            if (digitStart < _charPos)
+                numberEnd = _charPos; // Scientific notation, update the end index of the number.
+            else
+                _charPos = numberEnd; // No scientific notation, rewind back to the end index of the number.
+        }
+
+        // Use parseFloat to get the actual number.
+        // TODO (egeorgie): we could build the number while matching the RegExp which will save the substr and parseFloat
+        var subString:String = value.substr(numberStart, numberEnd - numberStart);
+        var result:Number = parseFloat(subString);
+        if (isNaN(result))
+        {
+            // Go to the end of the data
+            _charPos = _dataLength;
+            return NaN;
+        }
+        _charPos = numberEnd;
+        return useRelative ? result + offset : result;
+    }
 }
 
 //--------------------------------------------------------------------------
