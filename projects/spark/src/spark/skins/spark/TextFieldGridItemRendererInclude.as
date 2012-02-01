@@ -507,15 +507,6 @@ are identical, save the superclass and constructor names.  This file contains th
         multilineSet = true;        
     }
     
-    /**
-     *  @private
-     *  See updatePreferredSize().
-     */
-    private function setMultiline(value:Boolean):void
-    {
-        super.multiline = value;
-    }
-
     //----------------------------------
     //  text
     //----------------------------------
@@ -538,6 +529,8 @@ are identical, save the superclass and constructor names.  This file contains th
     //  wordWrap
     //----------------------------------
 
+    private var wordWrapSet:Boolean = false;  // true if explicitly set
+
     /**
      *  @private
      *  If set, then set the wordWrapSet flag.  This is used to enable the updatePreferredSize()
@@ -549,8 +542,6 @@ are identical, save the superclass and constructor names.  This file contains th
         super.wordWrap = value;
         wordWrapSet = true;
     }
-
-    private var wordWrapSet:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -626,7 +617,7 @@ are identical, save the superclass and constructor names.  This file contains th
         // text actually contains a newline, since doing so is expensive.
 
         if (!multilineSet && (getStyle("lineBreak") == "explicit"))
-            setMultiline(_label.indexOf("\n") != -1);
+            super.multiline = _label.indexOf("\n") != -1;
         
         text = _label;
         super.validateNow();
@@ -703,8 +694,10 @@ are identical, save the superclass and constructor names.  This file contains th
      */
     public function discard(hasBeenRecycled:Boolean):void
     {
-        setMultiline(false);
-        multilineSet = false;
+        if (!multilineSet)
+            super.multiline = false;
+        if (!wordWrapSet)
+            super.wordWrap = false;
     }    
     
     //--------------------------------------------------------------------------
