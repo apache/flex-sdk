@@ -222,14 +222,8 @@ public class Line extends StrokedElement
      */
     override protected function drawElement(g:Graphics):void
     {
-        var drawToX:Number = xFrom <= xTo ? width : -width;  
-        var drawToY:Number = yFrom <= yTo ? height : -height;
-
-        drawToX += xFrom;
-        drawToY += yFrom;
-
-        g.moveTo(xFrom + drawX, yFrom + drawY);
-        g.lineTo(drawToX + drawX, drawToY + drawY);
+        g.moveTo(measuredX + drawX, measuredY + drawY);
+        g.lineTo(measuredX + drawX + width, measuredY + drawY + height);
     }
 }
 
