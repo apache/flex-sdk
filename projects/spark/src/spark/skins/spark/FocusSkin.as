@@ -66,6 +66,9 @@ public class FocusSkin extends UIComponent
     //
     //--------------------------------------------------------------------------
     
+    /**
+     * Constructor.
+     */
     public function FocusSkin()
     {
         super();
