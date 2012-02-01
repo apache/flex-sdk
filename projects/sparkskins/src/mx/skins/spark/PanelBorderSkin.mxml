@@ -58,18 +58,49 @@
                 _metrics.bottom = controlBar.getExplicitOrMeasuredHeight() + 1;
             else
                 _metrics.bottom = 1;
-                
+            
             return _metrics;
         }
         
+        //----------------------------------
+        //  backgroundImageBounds
+        //----------------------------------
+        
+        /**
+         *  @private
+         *  Storage for backgroundImageBounds property.
+         */
+        private var _backgroundImageBounds:Rectangle;
+        
+        /**
+         *  Rectangular area within which to draw the background image.
+         *
+         *  This can be larger than the dimensions of the border
+         *  if the parent container has scrollable content.
+         *  If this property is null, the border can use
+         *  the parent's size and <code>viewMetrics</code> property to determine its value.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
+         */
         public function get backgroundImageBounds():Rectangle
         {
-            return null;
+            return _backgroundImageBounds;
         }
         
+        /**
+         *  @private
+         */
         public function set backgroundImageBounds(value:Rectangle):void
         {
-        
+            if (_backgroundImageBounds && value && _backgroundImageBounds.equals(value))
+                return;
+            
+            _backgroundImageBounds = value;
+            
+            invalidateDisplayList();
         }
         
         public function get hasBackgroundImage():Boolean
