@@ -2,22 +2,28 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The Spark skin class for the middle buttons in a Halo ButtonBar component. -->
+<!--- The Spark skin class for the middle buttons in a Halo ButtonBar component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-	  minWidth="21" minHeight="21"
-	  alpha.disabledStates="0.5">
-	
-	<!-- states -->
-	<s:states>
+      minWidth="21" minHeight="21"
+      alpha.disabledStates="0.5">
+    
+    <!-- states -->
+    <s:states>
         <s:State name="up" />
         <s:State name="over" stateGroups="overStates" />
         <s:State name="down" stateGroups="downStates" />
@@ -26,9 +32,9 @@
         <s:State name="selectedOver" stateGroups="overStates, selectedStates" />
         <s:State name="selectedDown" stateGroups="downStates, selectedStates" />
         <s:State name="selectedDisabled" stateGroups="selectedUpStates, disabledStates, selectedStates" />
-	</s:states>
-	
-	<!-- layer 1: shadow -->
+    </s:states>
+    
+    <!-- layer 1: shadow -->
     <s:Rect left="0" right="0" bottom="-1" height="1">
         <s:fill>
             <s:SolidColor color="0x000000" 
@@ -37,82 +43,82 @@
                         alpha.downStates="0.5" />
         </s:fill>
     </s:Rect>
-	
-	<!-- layer 2: fill -->
-	<s:Rect left="1" right="1" top="1" bottom="1">
-		<s:fill>
-			<s:LinearGradient rotation="90">
-				<s:GradientEntry color="0xFFFFFF" 
-							   color.selectedUpStates="0xBBBDBD"
-							   color.overStates="0xBBBDBD" 
-							   color.downStates="0xAAAAAA" 
-							   alpha="0.85" 
-							   alpha.selectedOver="1" />
-				<s:GradientEntry color="0xD8D8D8" 
-							   color.selectedUpStates="0x9FA0A1"
-							   color.over="0x9FA0A1" 
-							   color.selectedOver="0x8E8F90"
-							   color.downStates="0x929496" 
-							   alpha="0.85"
-							   alpha.selectedOver="1" />
-			</s:LinearGradient>
-		</s:fill>
-	</s:Rect>
-	
-	<!-- layer 3: fill lowlight -->
-	<s:Rect left="1" right="1" bottom="1" height="9">
-		<s:fill>
-			<s:LinearGradient rotation="90">
-				<s:GradientEntry color="0x000000" alpha="0.0099" />
-				<s:GradientEntry color="0x000000" alpha="0.0627" />
-			</s:LinearGradient>
-		</s:fill>
-	</s:Rect>
-	
-	<!-- layer 4: fill highlight -->
-	<s:Rect left="1" right="1" top="1" height="9">
-		<s:fill>
-			<s:SolidColor color="0xFFFFFF" 
-					    alpha="0.33" 
-					    alpha.selectedUpStates="0.22"
-					    alpha.overStates="0.22" 
-					    alpha.downStates="0.12" />
-		</s:fill>
-	</s:Rect>
-	
-	<!-- layer 5: highlight stroke (all states except down) -->
-	<s:Rect left="1" right="1" top="1" bottom="1" excludeFrom="downStates">
-		<s:stroke>
-			<s:LinearGradientStroke rotation="90" weight="1">
-				<s:GradientEntry color="0xFFFFFF" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
-				<s:GradientEntry color="0xD8D8D8" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
-			</s:LinearGradientStroke>
-		</s:stroke>
-	</s:Rect>
-	
-	<!-- layer 6: highlight stroke (down state only) -->
-	<s:Rect left="1" top="1" bottom="1" width="1" includeIn="downStates, selectedUpStates, selectedOver">
-		<s:fill>
-			<s:SolidColor color="0x000000" alpha="0.07" />
-		</s:fill>
-	</s:Rect>
-	<s:Rect right="1" top="1" bottom="1" width="1" includeIn="downStates, selectedUpStates, selectedOver">
-		<s:fill>
-			<s:SolidColor color="0x000000" alpha="0.07" />
-		</s:fill>
-	</s:Rect>
-	<s:Rect left="1" top="1" right="1" height="1" includeIn="downStates, selectedUpStates, selectedOver">
-		<s:fill>
-			<s:SolidColor color="0x000000" alpha="0.25" />
-		</s:fill>
-	</s:Rect>
-	<s:Rect left="1" top="2" right="1" height="1" includeIn="downStates, selectedUpStates, selectedOver">
-		<s:fill>
-			<s:SolidColor color="0x000000" alpha="0.09" />
-		</s:fill>
-	</s:Rect>
-	
-	<!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    
+    <!-- layer 2: fill -->
+    <s:Rect left="1" right="1" top="1" bottom="1">
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="0xFFFFFF" 
+                               color.selectedUpStates="0xBBBDBD"
+                               color.overStates="0xBBBDBD" 
+                               color.downStates="0xAAAAAA" 
+                               alpha="0.85" 
+                               alpha.selectedOver="1" />
+                <s:GradientEntry color="0xD8D8D8" 
+                               color.selectedUpStates="0x9FA0A1"
+                               color.over="0x9FA0A1" 
+                               color.selectedOver="0x8E8F90"
+                               color.downStates="0x929496" 
+                               alpha="0.85"
+                               alpha.selectedOver="1" />
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+    
+    <!-- layer 3: fill lowlight -->
+    <s:Rect left="1" right="1" bottom="1" height="9">
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="0x000000" alpha="0.0099" />
+                <s:GradientEntry color="0x000000" alpha="0.0627" />
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+    
+    <!-- layer 4: fill highlight -->
+    <s:Rect left="1" right="1" top="1" height="9">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" 
+                        alpha="0.33" 
+                        alpha.selectedUpStates="0.22"
+                        alpha.overStates="0.22" 
+                        alpha.downStates="0.12" />
+        </s:fill>
+    </s:Rect>
+    
+    <!-- layer 5: highlight stroke (all states except down) -->
+    <s:Rect left="1" right="1" top="1" bottom="1" excludeFrom="downStates">
+        <s:stroke>
+            <s:LinearGradientStroke rotation="90" weight="1">
+                <s:GradientEntry color="0xFFFFFF" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
+                <s:GradientEntry color="0xD8D8D8" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
+            </s:LinearGradientStroke>
+        </s:stroke>
+    </s:Rect>
+    
+    <!-- layer 6: highlight stroke (down state only) -->
+    <s:Rect left="1" top="1" bottom="1" width="1" includeIn="downStates, selectedUpStates, selectedOver">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.07" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect right="1" top="1" bottom="1" width="1" includeIn="downStates, selectedUpStates, selectedOver">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.07" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect left="1" top="1" right="1" height="1" includeIn="downStates, selectedUpStates, selectedOver">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.25" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect left="1" top="2" right="1" height="1" includeIn="downStates, selectedUpStates, selectedOver">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.09" />
+        </s:fill>
+    </s:Rect>
+    
+    <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
     <s:Rect left="0" right="0" top="0" bottom="0" width="69" height="20">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
