@@ -28,7 +28,8 @@ public class MultiDPIBitmapSource
     include "../core/Version.as";
 
     /**
-     *  The source to use if the Application.runtimeDPI is DPIClassification.DPI_160.
+     *  The source to use if the <code>Application.runtimeDPI</code> 
+     *  is <code>DPIClassification.DPI_160</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.2
@@ -38,7 +39,8 @@ public class MultiDPIBitmapSource
     public var source160dpi:Object;
 
     /**
-     *  The source to use if the Application.runtimeDPI is DPIClassification.DPI_240.
+     *  The source to use if the <code>Application.runtimeDPI</code> 
+     *  is <code>DPIClassification.DPI_240</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.2
@@ -48,7 +50,8 @@ public class MultiDPIBitmapSource
     public var source240dpi:Object;
     
     /**
-     *  The source to use if the Application.runtimeDPI is DPIClassification.DPI_320.
+     *  The source to use if the <code>Application.runtimeDPI</code> 
+     *  is <code>DPIClassification.DPI_320</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.2
@@ -59,10 +62,15 @@ public class MultiDPIBitmapSource
     
     /**
      *  Select one of the sourceXXXdpi properties based on the given DPI.  This
-     *  function will handle the fallback to different sourceXXXdpi properties
-     *  if the given one is null.  The strategy is to try to choose the next highest
+     *  function handles the fallback to different sourceXXXdpi properties
+     *  if the given one is null.  
+     *  The strategy is to try to choose the next highest
      *  property if it is not null, then return a lower property if not null, then 
      *  just return null.
+     *
+     *  @param The desired DPI.
+     *
+     *  @return One of the sourceXXXdpi properties based on the desired DPI.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.2
