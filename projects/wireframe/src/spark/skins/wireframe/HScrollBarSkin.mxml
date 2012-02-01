@@ -46,6 +46,11 @@ wireframe HScrollBarThumbSkin and HScrollBarTrackSkin classes, respectively.
     <s:Button id="track" left="17" right="17" width="51" 
             skinClass="spark.skins.wireframe.HScrollBarTrackSkin" focusEnabled="false" />
     
+    <!--- The default skin class is HScrollBarThumbSkin. 
+    @copy spark.components.supportClasses.TrackBase#thumb -->
+    <s:Button id="thumb" skinClass="spark.skins.wireframe.HScrollBarThumbSkin" 
+              visible.inactive="false" focusEnabled="false" />
+    
     <!--- The default skin class is ScrollBarLeftButtonSkin.
           @copy spark.components.supportClasses.ScrollBarBase#decrementButton  -->
     <s:Button id="decrementButton" left="0" enabled.inactive="false"
@@ -56,9 +61,4 @@ wireframe HScrollBarThumbSkin and HScrollBarTrackSkin classes, respectively.
     <s:Button id="incrementButton" right="0" enabled.inactive="false"
             skinClass="spark.skins.wireframe.ScrollBarRightButtonSkin" focusEnabled="false" />
     
-    <!--- The default skin class is HScrollBarThumbSkin. 
-          @copy spark.components.supportClasses.TrackBase#thumb -->
-    <s:Button id="thumb" skinClass="spark.skins.wireframe.HScrollBarThumbSkin" 
-            visible.inactive="false" focusEnabled="false" />
-
 </s:Skin>
