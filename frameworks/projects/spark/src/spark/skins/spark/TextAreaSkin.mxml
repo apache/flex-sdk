@@ -33,7 +33,7 @@
             </fill>
         </Rect>
 
-        <TextView id="textView" text="{data.text}"
+        <TextView id="textView" text="{hostComponent.text}"
                   fontFamily="Arial" fontSize="11"
                   color="0x444444" color.disabled="0xCCCCCC"
 				  left="1" right="1" top="1" bottom="1"/>
