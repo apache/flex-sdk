@@ -144,6 +144,7 @@ The default skin class for a Spark DataGrid component.
                     </fx:Component>
                 </s:itemRenderer>
                 -->
+                
                 <s:caretIndicator>
                     <fx:Component>
                         <s:Rect>
@@ -163,7 +164,7 @@ The default skin class for a Spark DataGrid component.
                         </s:Rect>
                     </fx:Component>           
                 </s:selectionIndicator>
-                
+               
                 <s:columnSeparator>
                     <fx:Component>
                         <s:Line>
@@ -173,7 +174,6 @@ The default skin class for a Spark DataGrid component.
                         </s:Line>
                     </fx:Component>
                 </s:columnSeparator>
-                
                 <s:rowSeparator>
                     <fx:Component>
                         <s:Line>
@@ -193,7 +193,6 @@ The default skin class for a Spark DataGrid component.
                         </s:Rect>
                     </fx:Component>            
                 </s:hoverIndicator>
-
             </s:Grid>
         </s:Scroller>
     </s:VGroup>
