@@ -373,6 +373,9 @@ public class BitmapGraphic extends GraphicElement
         /* if (!displayObject || !(displayObject is Sprite))
             return; */
 
+        if (!source)
+            return;
+            
         if (displayObject is Sprite)
             Sprite(displayObject).graphics.clear();
         else if (displayObject is Shape)
@@ -389,7 +392,7 @@ public class BitmapGraphic extends GraphicElement
         _fill.scaleY = 1;
         var fillWidth:Number;
         var fillHeight:Number;
-
+    
         switch(_resizeMode)
         {
             case _NORMAL_UINT:
