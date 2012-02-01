@@ -241,6 +241,7 @@ public class GraphicElement extends EventDispatcher
      *  @private
      */
     private var blendModeChanged:Boolean;
+    private var blendModeExplicitlySet:Boolean = false;
 
     [Bindable("propertyChange")]
     [Inspectable(category="General", enumeration="add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay", defaultValue="normal")]
@@ -250,7 +251,9 @@ public class GraphicElement extends EventDispatcher
      */
     public function get blendMode():String
     {
-        return _blendMode;
+    	if (blendModeExplicitlySet)
+        	return _blendMode;
+        else return BlendMode.LAYER;
     }
 
     /**
@@ -258,12 +261,14 @@ public class GraphicElement extends EventDispatcher
      */
     public function set blendMode(value:String):void
     {
-        if (_blendMode == value)
+        if (blendModeExplicitlySet && _blendMode == value)
             return;
 
         var oldValue:String = _blendMode;
         _blendMode = value;
         dispatchPropertyChangeEvent("blendMode", oldValue, value);
+
+		blendModeExplicitlySet = true;
 
         blendModeChanged = true;
         notifyElementLayerChanged();
