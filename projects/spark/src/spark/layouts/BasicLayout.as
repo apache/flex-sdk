@@ -110,7 +110,7 @@ import spark.layouts.supportClasses.LayoutElementHelper;
  *  attributes of its superclass and adds no additional tag attributes:</p>
  *
  *  <pre>
- *  &lt;BasicLayout/&gt;
+ *  &lt;s:BasicLayout/&gt;
  *  </pre>
  *
  *  @langversion 3.0
