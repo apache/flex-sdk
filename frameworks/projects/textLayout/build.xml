@@ -40,7 +40,7 @@
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-namespaces uri="${project.uri}"/>
 			<namespace uri="${project.uri}" manifest="manifest.xml"/>
-			<source-path path-element="src"/>
+			<source-path path-element="textLayout/src"/>
 			<library-path/>
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs" append="false">
 				<include name="player/${global.playerglobal.version}playerglobal.swc"/>
@@ -66,7 +66,7 @@
 			<doc-classes class="flashx.textLayout.CoreClasses"/>
 			<doc-classes class="flashx.textLayout.EditClasses"/>
 			<doc-classes class="flashx.textLayout.ConversionClasses"/>
-		    <compiler.source-path path-element="src"/>
+		    <compiler.source-path path-element="textLayout/src"/>
 			<external-library-path dir="${output.file}"/>
 		    <doc-namespaces uri="${project.uri}"/>
 		    <namespace uri="${project.uri}" manifest="manifest.xml"/>
