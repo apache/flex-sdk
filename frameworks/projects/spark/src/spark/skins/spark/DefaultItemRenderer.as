@@ -43,9 +43,9 @@ use namespace mx_internal;
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -130,9 +130,9 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @see spark.components.supportClasses.ItemRenderer
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class DefaultItemRenderer extends UIComponent
     implements IDataRenderer, IItemRenderer
@@ -148,9 +148,9 @@ public class DefaultItemRenderer extends UIComponent
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function DefaultItemRenderer()
     {
@@ -224,9 +224,9 @@ public class DefaultItemRenderer extends UIComponent
      *  @see mx.core.IDataRenderer
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get data():Object
     {
