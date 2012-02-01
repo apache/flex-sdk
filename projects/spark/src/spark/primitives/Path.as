@@ -1062,7 +1062,9 @@ class PathSegmentsCollection
 					lastMoveY = y;
 					prevX = x;
 					prevY = y;
-                    prevIdentifier = 0x6D;
+					// If a moveto is followed by multiple pairs of coordinates, 
+					// the subsequent pairs are treated as implicit lineto commands.
+					prevIdentifier = (c == 0x6D) ? 0x6C : 0x4C; // c == 'm' ? 'l' : 'L'
 					break;
 
 				case 0x6C:	// l
