@@ -518,8 +518,7 @@ public class DefaultItemRenderer extends UIComponent
             }
         }
         
-        if (drawBackground)
-            graphics.beginFill(backgroundColor, 1);
+        graphics.beginFill(backgroundColor, drawBackground ? 1 : 0);
             
         if (showsCaret)
         {
@@ -532,8 +531,7 @@ public class DefaultItemRenderer extends UIComponent
             graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
         }
             
-        if (drawBackground)
-            graphics.endFill();
+        graphics.endFill();
         
         labelDisplay.move(3, 5);
         labelDisplay.setActualSize(unscaledWidth - 6, unscaledHeight - 10);
