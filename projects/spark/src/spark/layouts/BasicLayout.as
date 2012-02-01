@@ -221,7 +221,7 @@ public class BasicLayout extends LayoutBase
             }
             else if (!isNaN(layoutItem.percentSize.x))
             {
-                childWidth = unscaledWidth * Math.min(layoutItem.percentSize.x, 1);
+                childWidth = unscaledWidth * Math.min(layoutItem.percentSize.x * 0.01, 1);
                 itemMaxSize.x = Math.min(itemMaxSize.x,
                     maxSizeToFitIn(unscaledWidth, hCenter, left, right, childX));
             }
@@ -232,7 +232,7 @@ public class BasicLayout extends LayoutBase
             }
             else if (!isNaN(layoutItem.percentSize.y))
             {
-                childHeight = unscaledHeight * Math.min(layoutItem.percentSize.y, 1);
+                childHeight = unscaledHeight * Math.min(layoutItem.percentSize.y * 0.01, 1);
                 itemMaxSize.y = Math.min(itemMaxSize.y,
                     maxSizeToFitIn(unscaledHeight, vCenter, top, bottom, childY));
             }
