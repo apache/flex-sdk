@@ -37,6 +37,8 @@ import mx.filters.IBitmapFilter;
  * 
  *  @see flash.filters.ColorMatrixFilter
  * 
+ *  @includeExample examples/ColorMatrixFilterExample.mxml
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
