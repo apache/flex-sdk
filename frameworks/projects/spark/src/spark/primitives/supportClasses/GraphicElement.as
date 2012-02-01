@@ -136,16 +136,17 @@ public class GraphicElement extends EventDispatcher
      *  @private
      */
     private var _colorTransform:ColorTransform;
-    
-    /**
-     *  @private
-     */
-    private var isMaskInElementSpace:Boolean;
-    
+        
     /**
      *  @private
      */
     private var _layer:Number = 0;
+
+	/**
+     *  @private The Sprite to draw into. 
+     *  If null, then we just use displayObject or sharedDisplayObject
+     */
+	private var _drawnDisplayObject:Sprite;
 
     /**
      *  @private
@@ -424,8 +425,6 @@ public class GraphicElement extends EventDispatcher
         if (_host !== value)
         {
             _host = value;
-            /* if (_mask)
-                _host.addMaskElement(_mask); */
             if (_host && _host is IInvalidating)
             {
                 IInvalidating(_host).invalidateProperties();
@@ -728,11 +727,6 @@ public class GraphicElement extends EventDispatcher
      *  @private
      */
     private var maskChanged:Boolean;
-
-    /**
-     *  @private
-     */
-    private var previousMask:DisplayObject;
     
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
@@ -753,13 +747,37 @@ public class GraphicElement extends EventDispatcher
         if (_mask == value)
             return;
 
-        var oldValue:DisplayObject = _mask;
-        previousMask = _mask;
+        var oldMask:UIComponent = _mask as UIComponent;
         _mask = value;
-        dispatchPropertyChangeEvent("mask", oldValue, value);
+        
+        // If the old mask was attached by us, then we need to 
+        // undo the attachment logic        
+ 		if (oldMask && oldMask.$parent === displayObject)
+        {		
+        	if (oldMask.parent is UIComponent)
+            	UIComponent(oldMask.parent).childRemoved(oldMask);
+            oldMask.$parent.removeChild(oldMask);
+        }     
+        
+        // Cleanup the drawnDisplayObject mask and _drawnDisplayObject here
+        // because displayObject (the parent of _drawnDisplayObject)
+        // might be null in commitProperties
+        if (!_mask || _mask.parent)
+        {
+        	if (drawnDisplayObject)
+        		drawnDisplayObject.mask = null;	
+        	
+        	if (_drawnDisplayObject)
+    		{
+    			if (_drawnDisplayObject.parent)
+    				_drawnDisplayObject.parent.removeChild(_drawnDisplayObject);
+    			_drawnDisplayObject = null;
+    		}
+        }
+        
+        dispatchPropertyChangeEvent("mask", oldMask, value);
         maskChanged = true;
         maskTypeChanged = true;
-        isMaskInElementSpace = false;
         notifyElementLayerChanged();
         invalidateProperties();
     }
@@ -2186,7 +2204,9 @@ public class GraphicElement extends EventDispatcher
     
     protected function get drawnDisplayObject():DisplayObject
     {
-        return displayObject ? displayObject : sharedDisplayObject;
+    	// _drawnDisplayObject is non-null if we needed to create a mask
+        return _drawnDisplayObject ? _drawnDisplayObject : 
+        							 (displayObject ? displayObject : sharedDisplayObject);
     }
 
     /**
@@ -2235,22 +2255,6 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  Applies the mask to the DisplayObject where the GraphicElement is drawn.
-     */
-    public function applyMask():void
-    {
-        if (displayObject && _mask)
-        {
-            displayObject.mask = _mask;
-            if (!isMaskInElementSpace)
-            {
-                moveToLocalSpace(_mask);
-                isMaskInElementSpace = true;
-            }
-        }
-    }
-
-    /**
      *  Enables clipping or alpha, depending on the type of mask being applied.
      */
     protected function applyMaskType():void
@@ -2269,7 +2273,7 @@ public class GraphicElement extends EventDispatcher
             {
                 _mask.cacheAsBitmap = true;
                 //notifyElementLayerChanged(); // Trigger recreation of the layers
-                displayObject.cacheAsBitmap = true;
+                drawnDisplayObject.cacheAsBitmap = true;
             }
         }
     }
@@ -2466,18 +2470,42 @@ public class GraphicElement extends EventDispatcher
             if (maskChanged)
             {
                 maskChanged = false;
-                if (elementHost)
+                
+                if (_mask)
                 {
-                    if (previousMask)
-                    {
-                        moveToParentSpace(previousMask);                        
-                        
-                        elementHost.removeMaskElement(previousMask, this);
-                        if (displayObject)
-                            displayObject.mask = null;
-                    }
-                    if (_mask)
-                        elementHost.addMaskElement(_mask, this);
+                	// If the mask is not parented, then we need to parent it.
+                	// Since a mask can not be a child of the maskee, 
+                	// we make the mask and maskee siblings. We create a new maskee
+                	// called _drawnDisplayObject. Then we attach both the mask 
+                	// and maskee to displayObject. 
+	                if (!_mask.parent)
+	                {
+	                	Sprite(displayObject).addChild(_mask);   
+	                	var maskComp:UIComponent = _mask as UIComponent;          	
+		                if (maskComp)
+		                {
+		                	if (elementHost)
+		                	{
+		                		// Add the mask to the UIComponent document tree. 
+		                		// This is required to properly render the mask.
+		                		UIComponent(elementHost).addingChild(maskComp);
+		                	}
+		                	
+		                	// Size the mask so that it actually renders
+		                    maskComp.validateSize();
+		                    maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
+		                                           maskComp.getExplicitOrMeasuredHeight());
+		                }   
+		                
+		                if (!_drawnDisplayObject)
+						{
+							// Create a new target for the drawing commands
+							_drawnDisplayObject = new Sprite();
+							Sprite(displayObject).addChild(_drawnDisplayObject);
+						}    	
+	                }
+	                
+	                drawnDisplayObject.mask = _mask;
                 }
             }
 
@@ -2926,37 +2954,6 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  @private
-     */
-    private function moveToParentSpace(targ:DisplayObject):void
-    {
-        /* if (_mask && isMaskInElementSpace)
-        { */
-        var targetMatrix:Matrix = targ.transform.matrix;
-        var dispObjMatrix:Matrix = displayObject.transform.matrix.clone();
-
-        dispObjMatrix.invert();
-        targetMatrix.concat(dispObjMatrix);
-        targ.transform.matrix = targetMatrix;
-        //isMaskInElementSpace = false;
-        //}
-    }
-
-    /**
-     *  @private
-     */
-    private function moveToLocalSpace(targ:DisplayObject):void
-    {
-        //if (_mask && !isMaskInElementSpace)
-        //{
-        var targetMatrix:Matrix = targ.transform.matrix;
-        targetMatrix.concat(displayObject.transform.matrix);
-        targ.transform.matrix = targetMatrix;
-         //   isMaskInElementSpace = true;
-        //}
-    }
-
-    /**
      *  Applies the transform to the DisplayObject.
      */
     protected function applyComputedTransform():void
@@ -2965,12 +2962,7 @@ public class GraphicElement extends EventDispatcher
 
         if(displayObject == null)
             return;
-        
-        if (_mask && isMaskInElementSpace)
-        {
-            moveToParentSpace(_mask);
-            isMaskInElementSpace = false;
-        }
+			                    
                                 
         if(layoutFeatures.is3D)
         {
@@ -2984,12 +2976,6 @@ public class GraphicElement extends EventDispatcher
         if (_colorTransform)
         {
             displayObject.transform.colorTransform = _colorTransform;
-        }
-        
-        if (_mask && !isMaskInElementSpace)
-        {
-            moveToLocalSpace(_mask);
-            isMaskInElementSpace = true;
         }
     }
     
