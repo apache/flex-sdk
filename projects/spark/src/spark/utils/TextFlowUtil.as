@@ -253,8 +253,8 @@ public class TextFlowUtil
     [Bindable("unused")]
 
     /**
-     *  Creates a TextFlow by importing (i.e., parsing) XML
-     *  containing the markup language used by the Text Layout Framework.
+     *  Creates a TextFlow by importing (parsing) XML
+     *  that contains the markup language used by the Text Layout Framework.
      *  
      *  <p>An example of markup XML is
      *  <pre>
@@ -264,20 +264,22 @@ public class TextFlowUtil
      *  </pre>
      *  </p>
      *
-     *  <p>However, you can use terser markup such as
-     *  <pre>"Hello, <span fontWeight='bold'>World!</span>"</pre>.
-     *  It will get wrapped with a TextFlow tag in the proper namespace,
-     *  and span and paragraph tags will get automatically inserted
-     *  where needed to comply with the structure of a TextFlow.</p>
+     *  <p>You can also use terser markup such as the following:
+     *  <pre>
+     *  "Hello, &lt;span fontWeight='bold'&gt;World!&lt;/span&gt;"
+     *  </pre>
+     *  The parser wraps the markup with a <code>&lt;TextFlow&gt;</code> tag in the proper namespace.
+     *  The parser also inserts &lt;span&gt; and &lt;paragraph&lt; tags
+     *  where needed to comply with the structure of a TextFlow object.</p>
      *
      *  <p>If you specify the TextFlow tag yourself,
      *  it must be in the correct XML namespace
      *  for runtime Text Layout Framework markup, which is
      *  <code>"http://ns.adobe.com/textLayout/2008"</code>.</p>
      *
-     *  <p>Incorrect markup will cause this method to throw
+     *  <p>Incorrect markup causes this method to throw
      *  various exceptions.
-     *  The error message will contain information
+     *  The error message contains information
      *  about why it could not be parsed.</p>
      * 
      *  @param markup The markup XML to be imported.
