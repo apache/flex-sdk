@@ -148,7 +148,9 @@
 	
 	<!-- layer 8: text -->
 	<s:SimpleText id="labelElement"
+             textAlign="center"
              verticalAlign="middle"
+             lineBreak="explicit"
 			 horizontalCenter="0" verticalCenter="1"
 			 left="10" right="10" top="2" bottom="2">
 	</s:SimpleText>
