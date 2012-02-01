@@ -31,14 +31,23 @@
         /* Define the skin elements that should not be colorized. 
            For button, the graphics are colorized but the dot is not. */
         static private const exclusions:Array = ["dot"];
+        /**
+         * @private
+         */
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["dotFill"];
+        /**
+         * @private
+         */
         override public function get symbolItems():Array {return symbols};
         
         /* Define the border items.*/
         static private const borderItem:Array = ["borderEntry1", "borderEntry2"];
+        /**
+         * @private
+         */
         override protected function get borderItems():Array {return borderItem;}
         
         /**
@@ -123,16 +132,20 @@
         <s:Ellipse left="0" top="0" right="0" bottom="0">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
+                    <!--- @private -->
                     <s:GradientEntry id="borderEntry1" alpha="0.70" />
+                    <!--- @private -->
                     <s:GradientEntry id="borderEntry2" alpha="0.80" />
                 </s:LinearGradientStroke>
             </s:stroke>
         </s:Ellipse>
         
         <!-- dot -->
+        <!--- @private -->
        <s:Path left="4" top="4" includeIn="selectedStates" id="dot" itemCreationPolicy="immediate"
              data="M 2.5 0 Q 4.5 0.5 5 2.5 Q 4.5 4.5 2.5 5 Q 0.5 4.5 0 2.5 Q 0.5 0.5 2.5 0">
            <s:fill>
+                <!--- @private -->
                <s:SolidColor id="dotFill" color="0" alpha="0.9" />
            </s:fill>
        </s:Path>
