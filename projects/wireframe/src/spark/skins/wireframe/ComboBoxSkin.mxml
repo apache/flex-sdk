@@ -63,7 +63,7 @@
             </s:Scroller>
         
             <s:filters>
-                <s:DropShadowFilter blurX="20" blurY="20" distance="5" angle="90" alpha="0.6" color="0x6087CC" />
+                <s:DropShadowFilter blurX="20" blurY="20" distance="7" angle="90" alpha="0.45" color="0x6087CC" />
             </s:filters>
         </s:Group>
     </s:PopUpAnchor>
