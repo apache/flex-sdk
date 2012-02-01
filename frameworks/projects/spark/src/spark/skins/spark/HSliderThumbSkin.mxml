@@ -24,8 +24,8 @@
         <State name="disabled" />
     </states>
 
-    <Rect left="-6.5" right="8.5" top="1" bottom="1" minWidth="15" minHeight="15" 
-          radiusX="15" radiusY="15">
+    <Rect left="1" right="1" top="1" bottom="1" minWidth="15" minHeight="15" 
+          radiusX="4" radiusY="4">
         <stroke>
             <SolidColorStroke color="0x3D5D92" color.disabled="0x9DADC9" />
         </stroke>
