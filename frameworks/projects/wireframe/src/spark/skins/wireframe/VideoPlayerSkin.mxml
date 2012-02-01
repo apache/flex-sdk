@@ -28,18 +28,22 @@
     
     <!-- states -->
     <s:states>
-        <s:State name="connectionError" stateGroups="connectionErrorStates, normalStates" />
+        <s:State name="uninitialized" stateGroups="uninitializedStates, normalStates" />
+        <s:State name="loading" stateGroups="loadingStates, normalStates" />
+        <s:State name="ready" stateGroups="readyStates, normalStates" />
+        <s:State name="playing" stateGroups="playingStates, normalStates" />
+        <s:State name="paused" stateGroups="pausedStates, normalStates" />
+        <s:State name="buffering" stateGroups="bufferingStates, normalStates" />
+        <s:State name="playbackError" stateGroups="playbackErrorStates, normalStates" />
         <s:State name="disabled" stateGroups="disabledStates, normalStates"/>
-        <s:State name="disconnected" stateGroups="disconnectedStates, normalStates"/>
-        <s:State name="loading" stateGroups="loadingStates, normalStates"/>
-        <s:State name="playing" stateGroups="playingStates, normalStates"/>
-        <s:State name="stopped" stateGroups="stoppedStates, normalStates"/>
-        <s:State name="connectionErrorAndFullScreen" stateGroups="connectionErrorStates, fullScreenStates"/>
+        <s:State name="uninitializedAndFullScreen" stateGroups="uninitializedStates, fullScreenStates" />
+        <s:State name="loadingAndFullScreen" stateGroups="loadingStates, fullScreenStates" />
+        <s:State name="readyAndFullScreen" stateGroups="readyStates, fullScreenStates" />
+        <s:State name="playingAndFullScreen" stateGroups="playingStates, fullScreenStates" />
+        <s:State name="pausedAndFullScreen" stateGroups="pausedStates, fullScreenStates" />
+        <s:State name="bufferingAndFullScreen" stateGroups="bufferingStates, fullScreenStates" />
+        <s:State name="playbackErrorAndFullScreen" stateGroups="playbackErrorStates, fullScreenStates" />
         <s:State name="disabledAndFullScreen" stateGroups="disabledStates, fullScreenStates"/>
-        <s:State name="disconnectedAndFullScreen" stateGroups="disconnectedStates, fullScreenStates"/>
-        <s:State name="loadingAndFullScreen" stateGroups="loadingStates, fullScreenStates"/>
-        <s:State name="playingAndFullScreen" stateGroups="playingStates, fullScreenStates"/>
-        <s:State name="stoppedAndFullScreen" stateGroups="stoppedStates, fullScreenStates"/>
     </s:states>
     
     <!-- Video and player controls are clipped if they exceed the size of the 
@@ -54,7 +58,7 @@
              we are clipped. -->
         <s:Group minWidth="263" minHeight="184" left="0" right="0" top="0" bottom="0">
             
-            <!-- background when the videoElement doesn't fill its whole spot -->
+            <!-- background when the videoDisplay doesn't fill its whole spot -->
             <s:Rect bottom="1" left="1" right="1" top="1">
                 <s:fill>
                     <s:SolidColor color="0xFBFCFF" />
@@ -62,7 +66,7 @@
             </s:Rect>
             
             <!--- The subcomponent that loads the video but does not define the appearance of the VideoPlayer component. -->
-            <s:VideoElement id="videoElement" bottom="24" left="1" right="1" top="1" />
+            <s:VideoDisplay id="videoDisplay" bottom="24" left="1" right="1" top="1" />
             
             <!-- video player controls -->
             <s:Group left="0" right="0" height="24" bottom="0" bottom.fullScreenStates="150">
@@ -74,10 +78,10 @@
                     <s:ToggleButton id="playPauseButton" left="0" bottom="0" 
                             skinClass="spark.skins.wireframe.mediaClasses.PlayPauseButtonSkin" />
                     
-                    <!-- scrubbar + the playHeadTime/totalTime labels -->
+                    <!-- scrubbar + the currentTime/duration labels -->
                     <s:Group left="39" right="75" top="0" bottom="0">
                           
-                        <!-- background for scrubbar + the playHeadTime/totalTime -->
+                        <!-- background for scrubbar + the currentTime/duration -->
                         <s:Rect left="0" right="0" top="0" bottom="0">
                             <s:fill>
                                 <s:SolidColor color="0xFFFFFF" />
@@ -91,7 +95,7 @@
                             </s:stroke>
                         </s:Rect>
                         
-                        <!-- scrub bar + playHeadTime/totalTime in a HorizontalLayout -->
+                        <!-- scrub bar + currentTime/duration in a HorizontalLayout -->
                         <s:Group left="0" right="0" height="23" bottom="0">
                             <s:layout>
                                 <s:HorizontalLayout verticalAlign="middle" gap="1" />
@@ -106,11 +110,11 @@
                             <!-- spacer -->
                             <s:Rect width="8" height="1" />
                             
-                            <s:Label id="playheadTimeDisplay" styleName="videoTextStyle" />
+                            <s:Label id="currentTimeDisplay" styleName="videoTextStyle" />
                             
                             <s:Label id="timeDivider" text="/" styleName="videoTextStyle" />
                             
-                            <s:Label id="totalTimeDisplay" styleName="videoTextStyle" />
+                            <s:Label id="durationDisplay" styleName="videoTextStyle" />
                             
                             <!-- spacer -->
                             <s:Rect width="8" height="1" />
