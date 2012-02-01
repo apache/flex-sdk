@@ -42,7 +42,7 @@ use namespace mx_internal;
  *  The StrokedElement class is the base class for all graphic elements that
  *  have a stroke.
  */
-public class StrokedElement extends GraphicElement implements IAssignableDisplayObjectElement
+public class StrokedElement extends GraphicElement implements IDisplayObjectElement
 {
 	include "../core/Version.as";
 	//--------------------------------------------------------------------------
@@ -148,27 +148,7 @@ public class StrokedElement extends GraphicElement implements IAssignableDisplay
 		
 		applyDisplayObjectProperties();
 	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  IAssignableDisplayObjectElement Implementation
-	//
-	//--------------------------------------------------------------------------
-	public function createDisplayObject():DisplayObject
-	{
-		if (displayObject)
-			return displayObject;
-		if (needsSprite)
-			return new Sprite();
-		else 
-			return new Shape();
-	}
-	
-	public function needsDisplayObject():Boolean
-	{
-		return true;
-	}
-		
+			
 	//--------------------------------------------------------------------------
 	//
 	//  Methods
