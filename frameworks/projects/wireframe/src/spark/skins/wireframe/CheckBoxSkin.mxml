@@ -2,32 +2,32 @@
 
 <!--
 
-    ADOBE SYSTEMS INCORPORATED
-    Copyright 2008 Adobe Systems Incorporated
-    All Rights Reserved.
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008 Adobe Systems Incorporated
+All Rights Reserved.
 
-    NOTICE: Adobe permits you to use, modify, and distribute this file
-    in accordance with the terms of the license agreement accompanying it.
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
 
 -->
 
 <!--- The default wireframe skin class for the Spark CheckBox component.         
-        Skin classes in the wireframe package are useful for using as a simple base for a custom skin.
+Skin classes in the wireframe package are useful for using as a simple base for a custom skin.
 
-      @see spark.components.CheckBox
+@see spark.components.CheckBox
 
-      @langversion 3.0
-      @playerversion Flash 10
-      @playerversion AIR 1.5
-      @productversion Flex 4
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
              alpha.disabledStates="0.5">
-
+    
     <fx:Metadata>
         /** 
-         * @copy spark.skins.spark.ApplicationSkin#hostComponent
-         */
+        * @copy spark.skins.spark.ApplicationSkin#hostComponent
+        */
         [HostComponent("spark.components.CheckBox")]
     </fx:Metadata> 
     
@@ -41,44 +41,44 @@
         <s:State name="downAndSelected" stateGroups="downStates" />
         <s:State name="disabledAndSelected" stateGroups="disabledStates" />
     </s:states>
-        
+    
     <s:Group verticalCenter="0" layoutDirection="ltr">
         <!-- background -->
         <s:Rect left="0" right="0" minWidth="12" top="0" bottom="0" minHeight="12">
             <s:stroke>            
-                <s:SolidColorStroke color="0x5380D0" />
+                <s:SolidColorStroke color="#5C5C5C" />
             </s:stroke>
             <s:fill>
-                <s:SolidColor color="0xFFFFFF" color.overStates="0xEBF4FF" 
-                          color.downStates="0xDEEBFF" />
+                <s:SolidColor color="#EEEEEE" color.overStates="#FFFFFF" 
+                              color.downStates="#FFFFFF" />
             </s:fill>
         </s:Rect>
-
+        
         <!-- shadow (down states only) -->
         <s:Rect left="1" top="1" right="1" bottom="1" includeIn="downStates">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90">
-                    <s:GradientEntry color="0x5380D0" alpha="0.25" />
-                    <s:GradientEntry color="0x5380D0" alpha="0" />
+                    <s:GradientEntry color="#5C5C5C" alpha="0.25" />
+                    <s:GradientEntry color="#5C5C5C" alpha="0" />
                 </s:LinearGradientStroke>
             </s:stroke>
         </s:Rect>
         
         <!-- checkmark -->
         <s:Path data="M 3.5 6.5 l 2 2 l 6 -7"
-                 includeIn="upAndSelected, overAndSelected, downAndSelected, disabledAndSelected">
+                includeIn="upAndSelected, overAndSelected, downAndSelected, disabledAndSelected">
             <s:stroke>
-                <s:SolidColorStroke weight="2" caps="square" color="0x3D5D92" />
+                <s:SolidColorStroke weight="2" caps="square" color="#464646" />
             </s:stroke>
         </s:Path>
     </s:Group>
-
+    
     <!-- Label -->
     <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
     <s:Label id="labelDisplay"
              textAlign="start"
              verticalAlign="middle"
              maxDisplayedLines="1"
-             left="18" right="0" top="3" bottom="3" verticalCenter="2" />
-
+             left="18" right="0" top="2" bottom="0" verticalCenter="1" />
+    
 </s:SparkSkin>
