@@ -1632,33 +1632,38 @@ public class LayoutBase extends OnDemandEventDispatcher
 		for (i = 0; i < num; i++)
 		{
 			rect = getElementBounds(i);
-			
-			var elementPoint:Point = null;
-			switch (elementComparePoint)
-			{
-				case "topLeft":
-					elementPoint = rect.topLeft;
-					break;
-				case "bottomRight":
-					elementPoint = rect.bottomRight;
-					break;
-				case "bottomLeft":
-					elementPoint = new Point(rect.left, rect.bottom);
-					break;
-				case "topRight":
-					elementPoint = new Point(rect.right, rect.top);
-					break;
-				case "center":
-					elementPoint = new Point(rect.left + rect.width/2, rect.top + rect.height/2);
-					break;
-			}
-			
-			dist = Point.distance(position, elementPoint); 
-			if (dist < minDistance)
-			{
-				minDistance = dist;
-				minDistanceElement = i;
-			}
+            
+            // Allow for rect being null, as numElements may be 
+            // non-zero when the actual items haven't been added yet.
+            if (rect != null)
+            {
+                var elementPoint:Point = null;
+                switch (elementComparePoint)
+                {
+                    case "topLeft":
+                        elementPoint = rect.topLeft;
+                        break;
+                    case "bottomRight":
+                        elementPoint = rect.bottomRight;
+                        break;
+                    case "bottomLeft":
+                        elementPoint = new Point(rect.left, rect.bottom);
+                        break;
+                    case "topRight":
+                        elementPoint = new Point(rect.right, rect.top);
+                        break;
+                    case "center":
+                        elementPoint = new Point(rect.left + rect.width/2, rect.top + rect.height/2);
+                        break;
+                }
+                
+                dist = Point.distance(position, elementPoint); 
+                if (dist < minDistance)
+                {
+                    minDistance = dist;
+                    minDistanceElement = i;
+                }
+            }
 		}
 		return minDistanceElement;
 	}
