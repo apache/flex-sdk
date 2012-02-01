@@ -36,6 +36,10 @@
         
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
         static private const contentFill:Array = ["bgFill"];
+        
+        /**
+         * @inheritDoc
+         */
         override public function get contentItems():Array {return contentFill};
     </fx:Script>
     
@@ -52,8 +56,10 @@
     </s:Rect>
 
     <!-- fill -->
+    <!--- Defines the appearance of the TextArea component's background. -->
     <s:Rect id="background" left="1" right="1" top="1" bottom="1">
         <s:fill>
+	    <!--- Defines the background fill color. -->
             <s:SolidColor id="bgFill" color="0xFFFFFF" />
         </s:fill>
     </s:Rect>
