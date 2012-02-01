@@ -13,12 +13,12 @@ in accordance with the terms of the license agreement accompanying it.
 
 <!--- The default skin class for a Spark Panel container.  
 
-@see spark.components.Panel
+    @see spark.components.Panel
 
-@langversion 3.0
-@playerversion Flash 10
-@playerversion AIR 1.5
-@productversion Flex 4
+    @langversion 3.0
+    @playerversion Flash 10
+    @playerversion AIR 1.5
+    @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
     xmlns:fb="http://ns.adobe.com/flashbuilder/2009" blendMode="normal" mouseEnabled="false" 
