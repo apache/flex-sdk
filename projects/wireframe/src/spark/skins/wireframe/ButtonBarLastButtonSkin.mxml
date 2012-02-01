@@ -51,30 +51,30 @@
     <s:Path left="1" right="1" top="1" bottom="1" 
           data="M 0 0 l 0 18 l 65.2 0 C 66.2 18 67 17.2 67 16.2 L 67 1.8 C 66.2 0 67 0.8 65.2 0 L 0 0 z">
         <s:fill>
-            <s:SolidColor color="0xFFFFFF" color.over="0xEBF4FF" 
-                        color.down="0xDEEBFF" color.selectedStates="0xE2E6F6" />
+            <s:SolidColor color="#FFFFFF" color.over="#EEEEEE" 
+                        color.down="#EEEEEE" color.selectedStates="#EEEEEE" />
         </s:fill>
     </s:Path>
     
     <!-- layer 6: shadow (down state only) -->
     <s:Rect left="1" top="1" bottom="1" width="1" includeIn="downStates">
         <s:fill>
-            <s:SolidColor color="0x5380D0" alpha="0.07" />
+            <s:SolidColor color="#5C5C5C" alpha="0.07" />
         </s:fill>
     </s:Rect>
     <s:Rect right="1" top="1" bottom="1" width="1" includeIn="downStates">
         <s:fill>
-            <s:SolidColor color="0x5380D0" alpha="0.07" />
+            <s:SolidColor color="#5C5C5C" alpha="0.07" />
         </s:fill>
     </s:Rect>
     <s:Rect left="1" top="1" right="2" height="1" includeIn="downStates">
         <s:fill>
-            <s:SolidColor color="0x5380D0" alpha="0.25" />
+            <s:SolidColor color="#5C5C5C" alpha="0.25" />
         </s:fill>
     </s:Rect>
     <s:Rect left="1" top="2" right="1" height="1" includeIn="downStates">
         <s:fill>
-            <s:SolidColor color="0x5380D0" alpha="0.09" />
+            <s:SolidColor color="#5C5C5C" alpha="0.09" />
         </s:fill>
     </s:Rect>
     
@@ -82,7 +82,7 @@
     <s:Path left="0" right="0" top="0" bottom="0"
           data="M 0 0 l 0 20 l 67.2 0 C 68.2 20 69 19.2 69 18.2 L 69 1.8 C 68.2 0 69 0.8 67.2 0 L 0 0 z">
         <s:stroke>
-            <s:SolidColorStroke color="0x5380D0" />
+            <s:SolidColorStroke color="#707070" />
         </s:stroke>
     </s:Path>
     
