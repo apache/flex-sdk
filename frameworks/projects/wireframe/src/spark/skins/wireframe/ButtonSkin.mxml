@@ -61,7 +61,7 @@
     </Rect>
     
     <!-- label -->
-    <TextBox id="labelField"
+    <TextBox id="labelElement"
              horizontalCenter="0" verticalCenter="1"
              left="10" right="10" top="2" bottom="2"
              textAlign="center" verticalAlign="middle">
