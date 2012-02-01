@@ -175,8 +175,8 @@ public class IndexChangeEvent extends Event
      */
     public function IndexChangeEvent(type:String, bubbles:Boolean = false,
                                       cancelable:Boolean = false,
-                                      oldIndex:Number = -1,
-                                      newIndex:Number = -1)
+                                      oldIndex:int = -1,
+                                      newIndex:int = -1)
     {
         super(type, bubbles, cancelable);
 
@@ -203,7 +203,7 @@ public class IndexChangeEvent extends Event
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var newIndex:Number;
+    public var newIndex:int;
 
     //----------------------------------
     //  oldIndex
@@ -218,7 +218,7 @@ public class IndexChangeEvent extends Event
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var oldIndex:Number;
+    public var oldIndex:int;
 
     //--------------------------------------------------------------------------
     //
