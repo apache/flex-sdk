@@ -2,6 +2,8 @@ package flex.filters
 {
 import flash.filters.BitmapFilter;
 import flash.filters.ConvolutionFilter;
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 
 public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 {
