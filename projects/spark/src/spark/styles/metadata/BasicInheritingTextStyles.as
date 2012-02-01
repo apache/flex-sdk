@@ -230,46 +230,6 @@
 [Style(name="locale", type="String", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#paddingBottom
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
-
-/**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#paddingLeft
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="paddingLeft", type="Number", format="Length", inherit="no")]
-
-/**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#paddingRight
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="paddingRight", type="Number", format="Length", inherit="no")]
-
-/**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#paddingTop
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="paddingTop", type="Number", format="Length", inherit="no")]
-
-/**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#renderingMode
  *  
  *  @langversion 3.0
@@ -379,13 +339,3 @@
  *  @productversion Flex 4
  */
 [Style(name="typographicCase", type="String", enumeration="default,title,caps,smallCaps,uppercase,lowercase,capsAndSmallCaps", inherit="yes")]
-
-/**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#verticalAlign
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="verticalAlign", type="String", enumeration="top,middle,bottom,justify", inherit="no")]
