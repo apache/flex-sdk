@@ -674,7 +674,7 @@ public class Path extends FilledElement
         while (true)
         {
             // Find a segment with a valid tangent or stop at a MoveSegment
-            while (start < count && (!segments[start] is MoveSegment))
+            while (start < count && !(segments[start] is MoveSegment))
             {
                 var prevSegment:PathSegment = start > 0 ? segments[start - 1] : null;
                 if (tangentIsValid(prevSegment, segments[start], sx, sy, m))
