@@ -113,7 +113,16 @@ The default skin class for a Spark DataGrid component.
                     <s:SolidColor color="0xA8C6EE"/>
                 </s:fill>                
             </s:Rect>
+        </fx:Component>
+        
+        <fx:Component id="editorIndicator">
+            <s:Rect>
+                <s:fill>
+                    <s:SolidColor color="0xFFFFFF"/>
+                </s:fill>                
+            </s:Rect>
         </fx:Component>                    
+        
     </fx:Declarations>
     
     <fx:Script fb:purpose="styling">
@@ -201,8 +210,4 @@ The default skin class for a Spark DataGrid component.
         </s:stroke>
     </s:Rect>    
 
-    <!-- container for the item editor -->
-    <!--- @private -->
-    <s:Group id="itemEditorLayer" includeInLayout="false" visible="false"/>
-    
 </s:SparkSkin>
