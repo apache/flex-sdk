@@ -57,6 +57,8 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 //  Excluded APIs
 //--------------------------------------
 
+[Exclude(name="verticalAlign", kind="style")]
+
 // These must be inherited to work correctly.
 
 [Exclude(name="layoutDirection", kind="property")]
@@ -81,10 +83,12 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *
  *  <p>You can control the label text wrapping by using the <code>lineBreak</code> style.  
  *  For example, setting  <code>lineBreak="explicit"</code> and <code>variableRowHeight="false"</code> 
- *  creates fixed height cells whose labels do not wrap.</p>
+ *  creates fixed height cells whose labels do not wrap.
+ *  If you do not explicitly set the <code>wordWrap</code> property, <code>wordWrap</code> 
+ *  will be set to the value of the grid's <code>variableRowHeight</code> property.</p>
  *  
  *  <p>The DefaultGridItemRenderer class is not intended to be subclassed or copied.
- *  Create custom item renderers based on the  GridItemRenderer class.</p>
+ *  Create custom item renderers based on the GridItemRenderer class.</p>
  *
  *  <p>For the highest performance on Microsoft Windows based applications, 
  *  use the UITextFieldGridItemRenderer. 
