@@ -98,14 +98,14 @@ HSliderThumbSkin and HSliderTrackSkin classes, respectively.
        </fx:Component>
     </fx:Declarations>
     
-    <!--- @copy spark.components.supportClasses.TrackBase#track
-            The default skin class is HSliderTrackSkin. 
+    <!--- The default skin class is HSliderTrackSkin. 
+            @copy spark.components.supportClasses.TrackBase#track
             @see spark.skins.spark.HSliderTrackSkin -->
     <s:Button id="track" left="0" right="0" top="0" bottom="0" minWidth="33" width="100"
               skinClass="spark.skins.spark.HSliderTrackSkin" />
               
-    <!--- @copy spark.components.supportClasses.TrackBase#thumb 
-            The default skin class is HSliderThumbSkin.
+    <!--- The default skin class is HSliderThumbSkin.
+            @copy spark.components.supportClasses.TrackBase#thumb 
             @see spark.skins.spark.HSliderThumbSkin -->
     <s:Button id="thumb" top="0" bottom="0" width="11" height="11" 
               skinClass="spark.skins.spark.HSliderThumbSkin" />
