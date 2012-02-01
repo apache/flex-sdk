@@ -23,7 +23,7 @@ import spark.components.DataGrid;
  * 
  *  @see spark.components.DataGrid
  *  @see spark.components.gridClasses.GridColumn
- *  @see spark.components.gridClasses.GridColumnHeaderGroup
+ *  @see spark.components.GridColumnHeaderGroup
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -200,7 +200,7 @@ public class GridSortEvent extends Event
      *  <code>visibleSortIndicatorIndices</code>.
      *
      *  @see spark.components.DataGrid#columnHeaderGroup
-     *  @see spark.components.gridClasses.GridColumnHeaderGroup#visibleSortIndicatorIndices
+     *  @see spark.components.GridColumnHeaderGroup#visibleSortIndicatorIndices
      *  @see spark.components.gridClasses.GridColumn#columnIndex
      * 
      *  @langversion 3.0
