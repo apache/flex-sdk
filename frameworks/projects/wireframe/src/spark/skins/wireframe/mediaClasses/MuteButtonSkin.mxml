@@ -12,6 +12,8 @@
 -->
 
 <!--- The wireframe skin class for the mute button of a Spark VideoPlayer component.  
+
+      @see spark.components.VideoPlayer
         
       @langversion 3.0
       @playerversion Flash 10
@@ -51,6 +53,9 @@
             
             private var _volume:Number = 1;
             
+            /**
+             *  The volume of the component to represent.
+             */
             public function get volume():Number
             {
                 return _volume;
@@ -130,7 +135,7 @@
         </s:stroke>
     </s:Rect>
     
-    <!--- volume symbol -->
+    <!--- Defines the volume symbol. -->
     <s:Group horizontalCenter="0" verticalCenter="0" id="volumeSymbol">
     
         <!-- big trapezoid in center -->
