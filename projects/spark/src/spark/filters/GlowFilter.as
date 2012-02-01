@@ -33,6 +33,11 @@ public class GlowFilter extends BaseDimensionFilter implements IBitmapFilter
 	 *  For example, .25 sets a transparency value of 25%.
 	 * 
 	 *  @default 1
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get alpha():Number
 	{
@@ -58,6 +63,11 @@ public class GlowFilter extends BaseDimensionFilter implements IBitmapFilter
 	 *  The color of the glow. Valid values are in the hexadecimal format 
 	 * 	0xRRGGBB. 
 	 *  @default 0xFF0000
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get color():uint
 	{
@@ -82,6 +92,11 @@ public class GlowFilter extends BaseDimensionFilter implements IBitmapFilter
 	/**
 	 *  Specifies whether the glow is an inner glow. The value true indicates an inner glow. 
 	 *  The default is false, an outer glow (a glow around the outer edges of the object).
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get inner():Boolean
 	{
