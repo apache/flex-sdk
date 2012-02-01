@@ -109,9 +109,9 @@
     <!-- layer 1: fill -->
     <s:Rect left="1" right="1" top="1" bottom="1">
         <s:fill>
-            <s:SolidColor color="0xFFFFFF"
-                          color.over="0xDEEBFF" 
-                          color.down="0xDEEBFF" />
+            <s:SolidColor color="#FFFFFF"
+                          color.over="#EEEEEE" 
+                          color.down="#EEEEEE" />
         </s:fill>
     </s:Rect>
     
@@ -119,19 +119,19 @@
          and the top highlight is 2 pixels big and darker on top) only in downStates -->
     <s:Line left="1" right="1" top="1" includeIn="down">
         <s:stroke>
-            <s:SolidColorStroke color="0xBCD1F3" />
+            <s:SolidColorStroke color="#D0D0D0" />
         </s:stroke>
     </s:Line>
     <s:Rect left="1" right="1" top="2" bottom="0" includeIn="down">
         <s:stroke>
-            <s:SolidColorStroke color="0xD3E2FB" />
+            <s:SolidColorStroke color="#EEEEEE" />
         </s:stroke>
     </s:Rect>
         
     <!-- layer 3: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
     <s:Rect left="0" right="0" top="0" bottom="0" width="38" height="24">
         <s:stroke>
-            <s:SolidColorStroke color="0x5581D1" />
+            <s:SolidColorStroke color="#707070" />
         </s:stroke>
     </s:Rect>
     
@@ -141,14 +141,14 @@
         <!-- big trapezoid in center -->
         <s:Path winding="evenOdd" data="M 9 13 L 9 0 L 4 4 L 4 9 L 9 13 Z">
             <s:fill>
-                <s:SolidColor color="0x5581D1" />
+                <s:SolidColor color="#A9A9A9" />
             </s:fill>
         </s:Path>
         
         <!-- small trapezoid on left -->
         <s:Path winding="evenOdd" data="M 3 9 L 3 4 L 0 5 L 0 8 L 3 9 Z">
             <s:fill>
-                <s:SolidColor color="0x5581D1" />
+                <s:SolidColor color="#A9A9A9" />
             </s:fill>
         </s:Path>
         
@@ -158,7 +158,7 @@
         <s:Line yFrom="0" yTo="12" x="16">
             <s:stroke>
                 <!--- @private -->
-                <s:SolidColorStroke color="0x5581D1" id="bar4_1" />
+                <s:SolidColorStroke color="#707070" id="bar4_1" />
             </s:stroke>
         </s:Line>
         
@@ -166,7 +166,7 @@
         <s:Line yFrom="2" yTo="10" x="14">
             <s:stroke>
                 <!--- @private -->
-                <s:SolidColorStroke color="0x5581D1" id="bar3_1" />
+                <s:SolidColorStroke color="#707070" id="bar3_1" />
             </s:stroke>
         </s:Line>
         
@@ -174,7 +174,7 @@
         <s:Line yFrom="3" yTo="9" x="12">
             <s:stroke>
                 <!--- @private -->
-                <s:SolidColorStroke color="0x5581D1" id="bar2_1" />
+                <s:SolidColorStroke color="#707070" id="bar2_1" />
             </s:stroke>
         </s:Line>
         
@@ -182,7 +182,7 @@
         <s:Line yFrom="5" yTo="7" x="10">
             <s:stroke>
                 <!--- @private -->
-                <s:SolidColorStroke color="0x5581D1" id="bar1_1" />
+                <s:SolidColorStroke color="#707070" id="bar1_1" />
             </s:stroke>
         </s:Line>
     </s:Group>
