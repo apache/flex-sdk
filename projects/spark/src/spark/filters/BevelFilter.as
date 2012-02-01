@@ -7,8 +7,95 @@ import flash.filters.BitmapFilterType;
 import mx.filters.BaseDimensionFilter;
 import mx.filters.IBitmapFilter;
 
+/** 
+ * The BevelFilter class lets you add a bevel effect to display objects.
+ * A bevel effect gives objects such as buttons a three-dimensional look. You can customize
+ * the look of the bevel with different highlight and shadow colors, the amount
+ * of blur on the bevel, the angle of the bevel, the placement of the bevel, 
+ * and a knockout effect.
+ * You can apply the filter to any display object (that is, objects that inherit from the 
+ * DisplayObject class), such as MovieClip, SimpleButton, TextField, and Video objects, 
+ * as well as to BitmapData objects.
+ *
+ * <p>To create a new filter, use the constructor <code>new BevelFilter()</code>.
+ * The use of filters depends on the object to which you apply the filter:</p>
+ * <ul><li>To apply filters to movie clips, text fields, buttons, and video, use the
+ * <code>filters</code> property (inherited from DisplayObject). Setting the <code>filters</code> 
+ * property of an object does not modify the object, and you can remove the filter by clearing the
+ * <code>filters</code> property. </li>
+ * 
+ * <li>To apply filters to BitmapData objects, use the <code>BitmapData.applyFilter()</code> method.
+ * Calling <code>applyFilter()</code> on a BitmapData object takes the source BitmapData object 
+ * and the filter object and generates a filtered image as a result.</li>
+ * </ul>
+ * 
+ * <p>If you apply a filter to a display object, the value of the <code>cacheAsBitmap</code> property of the 
+ * object is set to <code>true</code>. If you remove all filters, the original value of 
+ * <code>cacheAsBitmap</code> is restored.</p>
+ *
+ * <p>This filter supports Stage scaling. However, it does not support general scaling, rotation, and 
+ * skewing. If the object itself is scaled (if the <code>scaleX</code> and <code>scaleY</code> properties are 
+ * not set to 100%), the filter is not scaled. It is scaled only when the user zooms in on the Stage.</p>
+ * 
+ * <p>A filter is not applied if the resulting image exceeds the maximum dimensions.
+ * In  AIR 1.5 and Flash Player 10, the maximum is 8,191 pixels in width or height, 
+ * and the total number of pixels cannot exceed 16,777,215 pixels. (So, if an image is 8,191 pixels 
+ * wide, it can only be 2,048 pixels high.) If, for example, you zoom in on a large movie clip
+ * with a filter applied, the filter is turned off if the resulting image exceeds the maximum dimensions.</p>
+ * 
+ * @tiptext Adds a bevel effect. 
+ * 
+ * @langversion 3.0
+ * @playerversion Flash 10
+ * @playerversion AIR 1.5
+ * @productversion Flex 4
+ * 
+ *
+ * @see flash.display.DisplayObject#filters
+ * @see flash.display.DisplayObject#cacheAsBitmap
+ * @see flash.display.BitmapData#applyFilter()
+ */
+
 public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
 {
+	/**
+	 * Constructor.
+	 *
+	 * @param distance The offset distance of the bevel, in pixels (floating point). 
+	 * @param angle The angle of the bevel, from 0 to 360 degrees. 
+	 * @param highlightColor The highlight color of the bevel, <i>0xRRGGBB</i>. 
+	 * @param highlightAlpha The alpha transparency value of the highlight color. Valid values are 0.0 to 
+	 * 1.0. For example,
+	 * .25 sets a transparency value of 25%. 
+	 * @param shadowColor The shadow color of the bevel, <i>0xRRGGBB</i>. 
+	 * @param shadowAlpha The alpha transparency value of the shadow color. Valid values are 0.0 to 1.0. For example,
+	 * .25 sets a transparency value of 25%. 
+	 * @param blurX The amount of horizontal blur in pixels. Valid values are 0 to 255.0 (floating point). 
+	 * @param blurY The amount of vertical blur in pixels. Valid values are 0 to 255.0 (floating point).
+	 * @param strength The strength of the imprint or spread. The higher the value, the more color is imprinted and the stronger the contrast between the bevel and the background. Valid values are 0 to 255.0. 
+	 * @param quality The quality of the bevel. Valid values are 0 to 15, but for most applications,
+	 * you can use <code>flash.filters.BitmapFilterQuality</code> constants:
+	 * <ul>
+	 * <li><code>BitmapFilterQuality.LOW</code></li>
+	 * <li><code>BitmapFilterQuality.MEDIUM</code></li>
+	 * <li><code>BitmapFilterQuality.HIGH</code></li>
+	 * </ul>
+	 * <p>Filters with lower values render faster. You can use
+	 * the other available numeric values to achieve different effects.</p>
+	 * @param type The type of bevel. Valid values are <code>flash.filters.BitmapFilterType</code> constants: 
+	 * <code>BitmapFilterType.INNER</code>, <code>BitmapFilterType.OUTER</code>, or 
+	 * <code>BitmapFilterType.FULL</code>. 
+	 * @param knockout Applies a knockout effect (<code>true</code>), which effectively 
+	 * makes the object's fill transparent and reveals the background color of the document.
+	 *
+	 * @see flash.filters.BitmapFilterQuality
+	 * @see flash.filters.BitmapFilterType
+	 *
+	 * @langversion 3.0
+	 * @playerversion Flash 10
+	 * @playerversion AIR 1.5
+ 	 * @productversion Flex 4
+	 */
 	public function BevelFilter(distance:Number = 4.0, angle:Number = 45, 
 								highlightColor:uint = 0xFFFFFF, highlightAlpha:Number = 1.0, 
 								shadowColor:uint = 0x000000, shadowAlpha:Number = 1.0, 
@@ -244,6 +331,17 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
 		}
 	}
 	
+	/**
+	 * Returns a copy of this filter object.
+	 *
+	 * @langversion 3.0
+	 * @playerversion Flash 10
+	 * @playerversion AIR 1.5
+	 * @productversion Flex 4
+	 *	
+	 * @return A new BevelFilter instance with all the same properties as 
+	 * the original BevelFilter instance.
+	 */
 	public function clone():BitmapFilter 
 	{
 		return new flash.filters.BevelFilter(distance, angle, highlightColor, highlightAlpha,
