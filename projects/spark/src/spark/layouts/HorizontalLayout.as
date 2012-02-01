@@ -14,7 +14,7 @@ package flex.layout
 import flash.geom.Rectangle;
 import flash.events.EventDispatcher;	
 
-import flex.core.Group;
+import flex.core.GroupBase;
 import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 
@@ -73,14 +73,14 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
     //
     //--------------------------------------------------------------------------
 
-    private var _target:Group;
+    private var _target:GroupBase;
     
-    public function get target():Group
+    public function get target():GroupBase
     {
         return _target;
     }
     
-    public function set target(value:Group):void
+    public function set target(value:GroupBase):void
     {
         _target = value;
     }
@@ -91,7 +91,7 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
 
     private function invalidateTargetSizeAndDisplayList():void
     {
-        var layoutTarget:Group = target;
+        var layoutTarget:GroupBase = target;
         if (layoutTarget != null) 
         {
             layoutTarget.invalidateSize();
@@ -121,7 +121,7 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
         if (_gap == value) 
             return;
     
-		_gap = value;
+	    _gap = value;
  	    invalidateTargetSizeAndDisplayList();
     }
     
@@ -247,7 +247,7 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
         if (_columnWidth != value)
         {
             setColumnWidth(value);
- 		   	var layoutTarget:Group = target;
+ 		   	var layoutTarget:GroupBase = target;
         	if (layoutTarget != null) 
         	{
             	layoutTarget.invalidateSize();
@@ -308,7 +308,7 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
         if (value == _variableColumnWidth) return;
         
         _variableColumnWidth = value;
- 		var layoutTarget:Group = target;
+ 		var layoutTarget:GroupBase = target;
         if (layoutTarget != null) {
     		layoutTarget.invalidateSize();
         	layoutTarget.invalidateDisplayList();
@@ -316,7 +316,7 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
     }
     
 
-    public function variableColumnWidthMeasure(layoutTarget:Group):void
+    public function variableColumnWidthMeasure(layoutTarget:GroupBase):void
     {
         var minWidth:Number = 0;
         var minHeight:Number = 0;
@@ -373,7 +373,7 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
     }
     
     
-    private function fixedColumnWidthMeasure(layoutTarget:Group):void
+    private function fixedColumnWidthMeasure(layoutTarget:GroupBase):void
     {
         var cols:uint = layoutTarget.numLayoutItems;
         
@@ -420,7 +420,7 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
 
     public function measure():void
     {
-    	var layoutTarget:Group = target;
+    	var layoutTarget:GroupBase = target;
         if (!layoutTarget)
             return;
             
@@ -433,7 +433,7 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
     
     public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-    	var layoutTarget:Group = target; 
+    	var layoutTarget:GroupBase = target; 
         if (!layoutTarget)
             return;
         
