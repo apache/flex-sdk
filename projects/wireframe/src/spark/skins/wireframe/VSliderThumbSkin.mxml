@@ -24,13 +24,13 @@
         <State name="disabled" />
     </states>
 
-    <Ellipse width="11" height="11">
+    <Rect left="0" right="0" top="0" bottom="0" radiusX="7" radiusY="7">
         <stroke>
             <SolidColorStroke color="0x3B5B92" />
         </stroke>
         <fill>
             <SolidColor color="0xFFFFFF" color.overAndDown="0xEEF3FF" />
         </fill>
-    </Ellipse>
+    </Rect>
 
 </Skin>
