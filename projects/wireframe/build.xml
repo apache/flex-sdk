@@ -88,7 +88,7 @@
 	<target name="doc" depends="clean-temp-docs" description="updates wireframe.swc with asdoc xml">
 		<!-- Call asdoc to generate dita xml files -->
 		<exec executable="${FLEX_HOME}/bin/${asdocexe}" failonerror="true">
-			<arg line="-doc-classes WireframeClasses -sp ${basedir}/src -external-library-path ${FLEX_HOME}/frameworks/libs/framework.swc -external-library-path ${FLEX_HOME}/frameworks/libs/flex4.swc -external-library-path ${FLEX_HOME}/frameworks/libs/player/${local.playerglobal.version}/playerglobal.swc -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
+			<arg line="-doc-classes WireframeClasses -lenient=true -sp ${basedir}/src -external-library-path ${FLEX_HOME}/frameworks/libs/framework.swc -external-library-path ${FLEX_HOME}/frameworks/libs/flex4.swc -external-library-path ${FLEX_HOME}/frameworks/libs/player/${local.playerglobal.version}/playerglobal.swc -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
 		</exec>
 
 		<!-- updates wireframe.swc with asdoc xml -->
