@@ -14,7 +14,6 @@ package flex.graphics
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
-import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -79,7 +78,7 @@ public class StrokedElement extends GraphicElement implements IDisplayObjectElem
 		if (value != _alwaysNeedsDisplayObject)
 		{
 			_alwaysNeedsDisplayObject = value;
-			notifyElementTransformChanged();
+			notifyElementLayerChanged();
 		}
 	}
 	
@@ -128,7 +127,10 @@ public class StrokedElement extends GraphicElement implements IDisplayObjectElem
 				stroke_propertyChangeHandler);
 			
 		dispatchPropertyChangeEvent("stroke", oldValue, _stroke);
-		notifyElementChanged();
+		
+		invalidateDisplayList();
+		// Parent layout takes stroke into account
+		invalidateParentSizeAndDisplayList();
 	}
 	
 	//--------------------------------------------------------------------------
@@ -140,8 +142,18 @@ public class StrokedElement extends GraphicElement implements IDisplayObjectElem
 	/**
 	 *  @inheritDoc
 	 */
-	override public function draw(g:Graphics):void 
+    override protected function updateDisplayList(unscaledWidth:Number, 
+                                                  unscaledHeight:Number):void
 	{
+	    if (!displayObject || !(displayObject is Sprite))
+	        return;
+	        
+	    var g:Graphics = (displayObject as Sprite).graphics;
+
+	    // TODO EGeorgie: clearing the graphics needs to be shared when
+	    // the display objects are shared.
+	    g.clear();
+
 		beginDraw(g);
 		drawElement(g);
 		endDraw(g);
@@ -218,7 +230,9 @@ public class StrokedElement extends GraphicElement implements IDisplayObjectElem
 	 */
 	protected function stroke_propertyChangeHandler(event:Event):void
 	{
-		notifyElementChanged();
+		invalidateDisplayList();
+	    // Parent layout takes stroke into account
+		invalidateParentSizeAndDisplayList();
 	}
 
 }
