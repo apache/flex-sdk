@@ -836,6 +836,8 @@ public class HorizontalLayout extends LayoutBase
 
     override public function measure():void
     {
+        super.measure();
+        
     	var layoutTarget:GroupBase = target;
         if (!layoutTarget)
             return;
@@ -849,6 +851,8 @@ public class HorizontalLayout extends LayoutBase
     
     override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        
     	var layoutTarget:GroupBase = target; 
         if (!layoutTarget)
             return;
