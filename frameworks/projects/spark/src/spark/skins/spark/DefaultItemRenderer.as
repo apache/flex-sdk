@@ -542,19 +542,37 @@ public class DefaultItemRenderer extends UIComponent
     
     /**
      *  @private
+     *  Keeps track of whether rollover/rollout events were added
+     * 
+     *  We need to be careful about calling add/remove event listener because 
+     *  of the reference counting going on in 
+     *  super.addEventListener/removeEventListener.
+     */
+    private var rolloverEventsAdded:Boolean = false;
+    
+    /**
+     *  @private
      *  Attach the mouse events.
      */
     private function addHandlers():void
     {
         if (getStyle("inputMode") == "mouse")
         {
-            addEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
-            addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
+            if (!rolloverEventsAdded)
+            {
+                rolloverEventsAdded = true;
+                addEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
+                addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
+            }
         }
         else
         {
-            removeEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
-            removeEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
+            if (rolloverEventsAdded)
+            {
+                rolloverEventsAdded = false;
+                removeEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
+                removeEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
+            }
         }
     }
     
