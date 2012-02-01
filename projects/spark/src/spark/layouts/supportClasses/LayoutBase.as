@@ -71,6 +71,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @default null;
      *  @see #updateDisplayList
      *  @see #measure
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get target():GroupBase
     {
@@ -99,6 +104,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  and to discard or recycle layout elements that are no longer in view.
      * 
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get useVirtualLayout():Boolean
     {
@@ -129,6 +139,11 @@ public class LayoutBase extends OnDemandEventDispatcher
     
     /**
      *  @copy flex.intf.IViewport#horizontalScrollPosition
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get horizontalScrollPosition():Number 
     {
@@ -158,6 +173,11 @@ public class LayoutBase extends OnDemandEventDispatcher
     
     /**
      *  @copy flex.intf.IViewport#verticalScrollPosition
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get verticalScrollPosition():Number 
     {
@@ -186,6 +206,11 @@ public class LayoutBase extends OnDemandEventDispatcher
     
     /**
      *  @copy flex.intf.IViewport#clipAndEnableScrolling
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get clipAndEnableScrolling():Boolean 
     {
@@ -227,6 +252,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @see DataGroup#typicalItem
      *  @see mx.layout.VerticalLayout#variableRowHeight
      *  @see mx.layout.HorizontalLayout#variableColumnWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get typicalLayoutElement():ILayoutElement
     {
@@ -270,6 +300,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      * 
      *  @return The bounds of the target's scrollRect in layout coordinates, null
      *      if target or clipAndEnableScrolling is false. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function getTargetScrollRect():Rectangle
     {
@@ -304,6 +339,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @see #elementBoundsAboveScrollRect
      *  @see #elementBoundsBelowScrollRect
      *  @see #getHorizontalScrollPositionDelta
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function elementBoundsLeftOfScrollRect(scrollRect:Rectangle):Rectangle
     {
@@ -335,6 +375,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @see #elementBoundsAboveScrollRect
      *  @see #elementBoundsBelowScrollRect
      *  @see #getHorizontalScrollPositionDelta
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function elementBoundsRightOfScrollRect(scrollRect:Rectangle):Rectangle
     {
@@ -366,6 +411,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @see #elementBoundsRightScrollRect
      *  @see #elementBoundsBelowScrollRect
      *  @see #getVerticalScrollPositionDelta
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function elementBoundsAboveScrollRect(scrollRect:Rectangle):Rectangle
     {
@@ -397,6 +447,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @see #elementBoundsRightScrollRect
      *  @see #elementBoundsAboveScrollRect
      *  @see #getVerticalScrollPositionDelta
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function elementBoundsBelowScrollRect(scrollRect:Rectangle):Rectangle
     {
@@ -462,6 +517,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @see #elementBoundsLeftOfScrollRect
      *  @see #elementBoundsRightOfScrollRect
      *  @see #getHorizontalScrollPositionDelta
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
     {
@@ -614,6 +674,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @see #elementBoundsAboveScrollRect
      *  @see #elementBoundsBelowScrollRect
      *  @see #getVerticalScrollPositionDelta
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
     {
@@ -741,6 +806,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @see verticalScrollPosition
      *  @see horizontalScrollPosition
      *  @see udpdateScrollRect
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
      public function getScrollPositionDelta(index:int):Point
      {
@@ -805,6 +875,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  based on the current scrollPosition or scrollRect.
      * 
      *  @see updateScrollRect
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */  
     protected function scrollPositionChanged():void
     {
@@ -828,6 +903,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @see target
      *  @see flash.display.DisplayObject#scrollRect
      *  @see updateDisplayList
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function updateScrollRect(w:Number, h:Number):void
     {
@@ -851,6 +931,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      * 
      *  @see mx.core.UIComponent#invalidateSize
      *  @see mx.core.UIComponent#invalidateDisplayList
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function invalidateTargetSizeAndDisplayList():void
     {
@@ -867,6 +952,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  target's displayList if the target is non-null.
      * 
      *  @see mx.core.UIComponent#invalidateDisplayList
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function invalidateTargetDisplayList():void
     {
@@ -879,6 +969,11 @@ public class LayoutBase extends OnDemandEventDispatcher
     
     /**
      *  @copy mx.core.UIComponent#measure
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function measure():void
     {
@@ -886,6 +981,11 @@ public class LayoutBase extends OnDemandEventDispatcher
     
     /**
      *  @copy mx.core.UIComponent#updateDisplayList
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
