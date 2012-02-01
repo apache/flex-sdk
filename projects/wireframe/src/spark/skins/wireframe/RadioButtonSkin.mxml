@@ -11,57 +11,57 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009"
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
 	  alpha.disabledStates="0.5">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxRadioButton")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.RadioButton")]
+    </fx:Metadata> 
     
-    <states>
-        <State name="up" />
-        <State name="over" stateGroups="overStates" />
-        <State name="down" stateGroups="downStates" />
-        <State name="disabled" stateGroups="disabledStates" />
-        <State name="upAndSelected" />
-        <State name="overAndSelected" stateGroups="overStates" />
-        <State name="downAndSelected" stateGroups="downStates" />
-        <State name="disabledAndSelected" stateGroups="disabledStates" />
-    </states>
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" stateGroups="overStates" />
+        <s:State name="down" stateGroups="downStates" />
+        <s:State name="disabled" stateGroups="disabledStates" />
+        <s:State name="upAndSelected" />
+        <s:State name="overAndSelected" stateGroups="overStates" />
+        <s:State name="downAndSelected" stateGroups="downStates" />
+        <s:State name="disabledAndSelected" stateGroups="disabledStates" />
+    </s:states>
 
-    <Group top="1.5">
+    <s:Group top="1.5">
         <!-- background -->
-        <Ellipse width="12" height="12">
-            <stroke>            
-                <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
-            </stroke>
-            <fill>
-                <SolidColor color="0xFFFFFF" color.overStates="0xEBF4FF" 
+        <s:Ellipse width="12" height="12">
+            <s:stroke>            
+                <s:SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
+            </s:stroke>
+            <s:fill>
+                <s:SolidColor color="0xFFFFFF" color.overStates="0xEBF4FF" 
                           color.downStates="0xDEEBFF" />
-            </fill>
-        </Ellipse>
+            </s:fill>
+        </s:Ellipse>
 
 		<!-- shadow (down states only) -->
-		<Ellipse left="0.5" top="0.5" right="1" bottom="0.5" includeIn="downStates">
-			<stroke> 
-				<LinearGradientStroke rotation="90">
-					<GradientEntry color="0x5380D0" alpha="0.25" />
-					<GradientEntry color="0x5380D0" alpha="0" />
-				</LinearGradientStroke>
-			</stroke>
-		</Ellipse>
+		<s:Ellipse left="0.5" top="0.5" right="1" bottom="0.5" includeIn="downStates">
+			<s:stroke> 
+				<s:LinearGradientStroke rotation="90">
+					<s:GradientEntry color="0x5380D0" alpha="0.25" />
+					<s:GradientEntry color="0x5380D0" alpha="0" />
+				</s:LinearGradientStroke>
+			</s:stroke>
+		</s:Ellipse>
 		
         <!-- center -->
-        <Ellipse left="3.5" top="3.5" width="5" height="5" 
+        <s:Ellipse left="3.5" top="3.5" width="5" height="5" 
                     includeIn="upAndSelected, overAndSelected, downAndSelected, disabledAndSelected">
-            <fill>
-                <SolidColor color="0x3D5D92" color.disabledAndSelected="0x9DADC9" />
-            </fill>
-        </Ellipse>
-    </Group>
+            <s:fill>
+                <s:SolidColor color="0x3D5D92" color.disabledAndSelected="0x9DADC9" />
+            </s:fill>
+        </s:Ellipse>
+    </s:Group>
 
     <!-- Label -->
-    <TextBox id="labelElement"
+    <s:SimpleText id="labelElement"
              left="19" top="3" />
 
-</Skin>
+</s:Skin>
