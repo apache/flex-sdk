@@ -25,6 +25,8 @@ import spark.core.MaskType;
 
 use namespace mx_internal;
 
+[ExcludeClass]
+
 /**
  *  This class provides mask-related utility functions 
  *  
