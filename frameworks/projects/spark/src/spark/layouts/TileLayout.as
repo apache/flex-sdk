@@ -1208,8 +1208,10 @@ public class TileLayout extends LayoutBase
         // visible range.  Hide any extra ones.  On the next layout pass, they'll
         // be added to DataGroup::freeRenderers
         
-        var layoutTarget:GroupBase = target; 
-        for(var i:int = oldVisibleStartIndex; i <= oldVisibleEndIndex; i++)
+        var layoutTarget:GroupBase = target;
+        var start:int = Math.min(visibleStartIndex, oldVisibleStartIndex);
+        var end:int = Math.max(visibleEndIndex, oldVisibleEndIndex);
+        for(var i:int = start; i <= end; i++)
         {
             if (i == visibleStartIndex)
             {
@@ -1389,19 +1391,30 @@ public class TileLayout extends LayoutBase
         var layoutTarget:GroupBase = target;
         if (!layoutTarget)
             return;
-
+            
         updateActualValues(layoutTarget.explicitWidth, layoutTarget.explicitHeight);
 
         // For measure, any explicit overrides for rowCount and columnCount take precedence
         var columnCount:int = _requestedColumnCount != -1 ? Math.max(1, _requestedColumnCount) : _columnCount;
         var rowCount:int = _requestedRowCount != -1 ? Math.max(1, _requestedRowCount) : _rowCount;
 
-        layoutTarget.measuredWidth = Math.round(columnCount * (_columnWidth + _horizontalGap) - _horizontalGap);
-        layoutTarget.measuredHeight = Math.round(rowCount * (_rowHeight + _verticalGap) - _verticalGap);
-
-        // measured min size is guaranteed to have enough rows/columns to fit all elements
-        layoutTarget.measuredMinWidth = Math.round(_columnCount * (_columnWidth + _horizontalGap) - _horizontalGap);
-        layoutTarget.measuredMinHeight = Math.round(_rowCount * (_rowHeight + _verticalGap) - _verticalGap);
+        if (columnCount == 0)
+            layoutTarget.measuredWidth = layoutTarget.measuredMinWidth = 0;
+        else
+        {
+            layoutTarget.measuredWidth = Math.round(columnCount * (_columnWidth + _horizontalGap) - _horizontalGap);
+            // measured min size is guaranteed to have enough columns to fit all elements
+            layoutTarget.measuredMinWidth = Math.round(_columnCount * (_columnWidth + _horizontalGap) - _horizontalGap);
+        }
+            
+        if (rowCount == 0)
+            layoutTarget.measuredHeight = layoutTarget.measuredMinHeight = 0;        
+        else
+        {
+            layoutTarget.measuredHeight = Math.round(rowCount * (_rowHeight + _verticalGap) - _verticalGap);
+            // measured min size is guaranteed to have enough rows to fit all elements
+            layoutTarget.measuredMinHeight = Math.round(_rowCount * (_rowHeight + _verticalGap) - _verticalGap);
+        }
     }
 
     /**
@@ -1659,7 +1672,16 @@ public class TileLayout extends LayoutBase
 
         for(var index:int = visibleStartIndex; index <= visibleEndIndex; index++)
         {
-            var el:ILayoutElement = (useVirtualLayout) ? layoutTarget.getVirtualElementAt(index) : layoutTarget.getElementAt(index);
+            var el:ILayoutElement = null; 
+            if (useVirtualLayout)
+            {
+                el = layoutTarget.getVirtualElementAt(index);
+                if (el is IVisualElement)  // see updateVirtualLayout
+                    IVisualElement(el).visible = true; 
+            }
+            else
+                el = layoutTarget.getElementAt(index);
+
             if (!el || !el.includeInLayout)
                 continue;
 
