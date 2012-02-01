@@ -20,52 +20,57 @@ import spark.layouts.supportClasses.LayoutBase;
 import spark.layouts.supportClasses.LayoutElementHelper;
 
 /**
- *  BasicLayout arranges the layout elements according to their settings,
+ *  The BasicLayout class arranges the layout elements according to their individual settings,
  *  independent of each-other.
  *
- *  Per-element supported constraints are left, right, top, bottom, horizontalCenter,
- *  verticalCenter, baseline, percentWidth, percentHeight.
+ *  Per-element supported constraints are <code>left</code>, <code>right</code>, 
+ *  <code>top</code>, <code>bottom</code>, <code>horizontalCenter</code>,
+ *  <code>verticalCenter</code>, <code>baseline</code>, <code>percentWidth</code>, and <code>percentHeight</code>.
  *  Element's minimum and maximum sizes will always be respected.
  *
  *  <p>The measured size of the container is calculated from the elements, their
  *  constraints and their preferred sizes. The measured size of the container
  *  is big enough to fit in all of the elements at their preferred sizes with
- *  their constraints satisified. Here are some examples of how measured size is
- *  calculated:
+ *  their constraints satisfied. </p>
+ *
+ *  <p>Here are some examples of how measured size is calculated:
  *  <ul>
- *    <li>If the container has a single element with left constraint specified,
+ *    <li>If the container has a single element with <code>left</code> constraint specified,
  *    then the container's measured width will be equal to the element's preferred
- *    width plus the value of the left constraint.</li>
+ *    width plus the value of the <code>left</code> constraint.</li>
  *
- *    <li>If the container has a single element with percentWidth specified, 
+ *    <li>If the container has a single element with <code>percentWidth</code> specified, 
  *    then the container's measured width will be equal to the element's preferred width.
- *    Even though the element's precentWidth is not direclty factored in the calculations,
- *    it will be respected during updateDisplayList().</li>
+ *    Even though the element's <code>percentWidth</code> is not directly factored in the calculations,
+ *    it will be respected during a call to the <code>updateDisplayList()</code> method.</li>
  * 
- *    <li>If the container has a single element with baseline constraint specified,
+ *    <li>If the container has a single element with <code>baseline</code> constraint specified,
  *    then the container's measured height will be equal to the element's preferred height
- *    plus the baseline and minus the value of the element's baselinePosition property.</li>
+ *    plus the <code>baseline</code> and minus the value of the element's <code>baselinePosition</code> property.</li>
  *
- *    <li>If the container has a single elment with verticalCenter constraint specified,
+ *    <li>If the container has a single element with <code>verticalCenter</code> constraint specified,
  *    then the container's measured height will be equal to the element's preferred height
- *    plus double the value of the verticalCenter constraint.</li>
+ *    plus double the value of the <code>verticalCenter</code> constraint.</li>
  *  </ul>
  * </p>
  *
- *  <p>During updateDisplayList() the element's size is determined according to
+ *  <p>During a call to the <code>updateDisplayList()</code> method, 
+ *  the element's size is determined according to
  *  the rules in the following order of precedence (the element's minimum and
  *  maximum sizes are always respected):</p>
  *  <ul>
- *    <li>If the element has percentWidth or percentHeight set, then its size
- *    is calculated as a percentage of the available size, where the available
- *    size is the container size minus any left, right,
- *    top, bottom constraints.</li>
+ *    <li>If the element has <code>percentWidth</code> or <code>percentHeight</code> set, 
+ *    then its size is calculated as a percentage of the available size, where the available
+ *    size is the container size minus any <code>left</code>, <code>right</code>,
+ *    <code>top</code>, or <code>bottom</code> constraints.</li>
  *
  *    <li>If the element has both left and right constraints, it's width is
- *    set to be the container's width minus the left and right constraints.</li>
+ *    set to be the container's width minus the <code>left</code> 
+ *    and <code>right</code> constraints.</li>
  * 
- *    <li>If the element has both top and bottom constraints, it's height is
- *    set to be the container's height minus the top and bottom constraints.</li>
+ *    <li>If the element has both <code>top</code> and <code>bottom</code> constraints, 
+ *    it's height is set to be the container's height minus the <code>top</code> 
+ *    and <code>bottom</code> constraints.</li>
  *
  *    <li>The element is set to its preferred width and/or height.</li>
  *  </ul>
@@ -73,29 +78,40 @@ import spark.layouts.supportClasses.LayoutElementHelper;
  *  <p>The element's position is determined according to the rules in the following
  *  order of precedence:</p>
  *  <ul>
- *    <li>The horizontalCenter/verticalCenter constraints specify the distance
- *    between the container's center and the element's center.
- *    Set horizontalCenter/verticalCenter to zero to cetner the element within
- *    the container in the horizontal/vertical direction.</li>
+ *    <li>The <code>horizontalCenter</code> or <code>verticalCenter</code> constraints 
+ *    specify the distance between the container's center and the element's center.
+ *    Set the <code>horizontalCenter</code> or <code>verticalCenter</code> constraints 
+ *    to zero to center the element within the container in 
+ *    the horizontal or vertical direction.</li>
  * 
  *    <li>If element's baseline is specified, then the element is positioned in
- *    the vertical direction such that its baselinePosition (usually the base line
- *    of its first line of text) is aligned with baseline constraint.</li>
+ *    the vertical direction such that its <code>baselinePosition</code> (usually the base line
+ *    of its first line of text) is aligned with <code>baseline</code> constraint.</li>
  *
- *    <li>If element's top/left constraints are specified, then the element is
+ *    <li>If element's <code>top</code> or <code>left</code> constraints 
+ *    are specified, then the element is
  *    positioned such that the top-left corner of the element's layout bounds is
  *    offset from the top-left corner of the container by the specified values.</li>
  *
- *    <li>If element's bottom/right constraints are specified, then the element is
- *    positioned such that the bottom-right corner of the element's layout bounds is
+ *    <li>If element's <code>bottom</code> or <code>right</code> constraints are specified, 
+ *    then the element is positioned such that the bottom-right corner 
+ *    of the element's layout bounds is
  *    offset from the bottom-right corner of the container by the specified values.</li>
  * 
- *    <li>When no constraints determine the position in the horizontal/vertical
- *    direction, the element is positioned according to its x/y coordinates.</li>
+ *    <li>When no constraints determine the position in the horizontal or vertical
+ *    direction, the element is positioned according to its x and y coordinates.</li>
  *  </ul>
  *
  *  <p>The content size of the container is calculated as the maximum of the
  *  coordinates of the bottom-right corner of all the layout elements.</p>
+ *
+ *  @mxml 
+ *  <p>The <code>&lt;BasicLayout&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds no additional tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;BasicLayout/&gt;
+ *  </pre>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -152,8 +168,13 @@ public class BasicLayout extends LayoutBase
     //--------------------------------------------------------------------------
     
     /**
-     *  BasicLayout doesn't support virtualization.   Setting this property
-     *  to true just generates a warning.
+     *  The BasicLayout class does not support virtualization.   
+     *  Setting this property to <code>true</code> generates a warning.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
    override public function set useVirtualLayout(value:Boolean):void
    {
