@@ -48,7 +48,7 @@ import mx.filters.IBitmapFilter;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;BevelFilter 
+ *  &lt;s:BevelFilter 
  *    <strong>Properties</strong>
  *    angle="45"
  *    distance="4"
