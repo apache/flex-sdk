@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.effects.effectClasses
+package spark.effects.supportClasses
 {
 
 import mx.core.mx_internal;
