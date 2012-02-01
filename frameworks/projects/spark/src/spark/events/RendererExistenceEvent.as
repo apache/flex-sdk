@@ -19,6 +19,11 @@ import mx.core.IVisualElement;
 /**
  *  Represents events that are dispatched when a renderer of a DataGroup
  *  is added or removed.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class RendererExistenceEvent extends Event
 {
@@ -57,6 +62,11 @@ public class RendererExistenceEvent extends Event
 	 *  </table>
 	 *
      *  @eventType rendererAdd
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public static const RENDERER_ADD:String = "rendererAdd";
 
@@ -87,6 +97,11 @@ public class RendererExistenceEvent extends Event
 	 *  </table>
 	 *
      *  @eventType rendererRemove
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public static const RENDERER_REMOVE:String = "rendererRemove";
 
@@ -110,6 +125,11 @@ public class RendererExistenceEvent extends Event
 	 *  @param index The index in the dataprovider where the renderer was added or removed
      * 
      *  @param data The data object that the renderer is visualizing
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function RendererExistenceEvent(
 								type:String, bubbles:Boolean = false,
@@ -136,6 +156,11 @@ public class RendererExistenceEvent extends Event
 
     /**
      *  The data object that the renderer is visualizing
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var data:Object;
 	
@@ -145,6 +170,11 @@ public class RendererExistenceEvent extends Event
 
     /**
      *  The index where the renderer was added or removed
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var index:int;
 
@@ -154,6 +184,11 @@ public class RendererExistenceEvent extends Event
 
 	/**
 	 *  Reference to the render that was added or removed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public var renderer:IVisualElement;
 
