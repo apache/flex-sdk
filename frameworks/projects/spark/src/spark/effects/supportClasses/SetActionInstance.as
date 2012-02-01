@@ -66,7 +66,7 @@ public class SetActionInstance extends ActionEffectInstance
     //----------------------------------
 
     /** 
-     *  The name of the property being changed. 
+     *  @copy spark.effects.SetAction#property
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -90,7 +90,7 @@ public class SetActionInstance extends ActionEffectInstance
     private var _value:*;
     
     /** 
-     *  The new value for the property.
+     *  @copy spark.effects.SetAction#value
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
