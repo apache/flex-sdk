@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.layout
+package spark.layouts
 {
 import flash.display.DisplayObject;
 import flash.events.Event;
@@ -22,9 +22,9 @@ import mx.core.ILayoutElement;
 import mx.events.PropertyChangeEvent;
 
 import spark.components.supportClasses.GroupBase;
-import spark.layout.supportClasses.LayoutBase;
-import spark.layout.supportClasses.LayoutElementHelper;
-import spark.layout.supportClasses.LinearLayoutVector;
+import spark.layouts.supportClasses.LayoutBase;
+import spark.layouts.supportClasses.LayoutElementHelper;
+import spark.layouts.supportClasses.LinearLayoutVector;
 
 /**
  *  The HorizontalLayout arranges the layout elements in a horizontal sequence,
