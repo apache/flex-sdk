@@ -109,7 +109,7 @@ public class BitmapUtil
         // getColorBoundsRect() will find the inner rect of opaque pixels,
         // consistent with the player's view of the object bounds
         var actualBounds:Rectangle = bitmap.getColorBoundsRect(
-            0x00FFFFFF, 0x00FFFFFF, false);
+            0xFF000000, 0x0, false);
         if (actualBounds.x > 0 && actualBounds.y > 0 &&
             actualBounds.right < bitmap.width &&
             actualBounds.bottom < bitmap.height)
