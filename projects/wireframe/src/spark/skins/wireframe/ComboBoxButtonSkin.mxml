@@ -11,6 +11,13 @@
 
 -->
 
+<!--- The default skin class for the Spark ComboBoxButton component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
       minWidth="21" minHeight="21"
       alpha.disabled="0.5">
