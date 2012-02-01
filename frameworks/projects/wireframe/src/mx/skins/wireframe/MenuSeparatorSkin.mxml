@@ -11,8 +11,10 @@
 
 -->
 
-<!--- The Spark skin class for the menu item separators in a Halo menu component. 
+<!--- The wireframe skin class for the menu item separators in the MX menu component. 
         
+      @see mx.controls.Menu
+
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
