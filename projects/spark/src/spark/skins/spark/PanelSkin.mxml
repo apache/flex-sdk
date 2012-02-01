@@ -53,15 +53,9 @@
         <s:State name="disabled" />
     </s:states>
     
-    <!-- dropshadow -->
-    <s:Rect left="0" top="0" right="0" bottom="0">
-        <s:filters>
-            <s:DropShadowFilter knockout="true" blurX="20" blurY="20" alpha="0.32" distance="11" angle="90" />   
-        </s:filters>    
-        <s:fill>    
-            <s:SolidColor color="0x000000" />   
-        </s:fill>   
-    </s:Rect>
+    <!-- drop shadow -->
+    <s:RectangularDropShadow id="shadow" blurX="20" blurY="20" alpha="0.32" distance="11" 
+        angle="90" color="#000000" left="0" top="0" right="0" bottom="0"/>
 
     <!-- layer 1: border -->
     <s:Rect left="0" right="0" top="0" bottom="0">
