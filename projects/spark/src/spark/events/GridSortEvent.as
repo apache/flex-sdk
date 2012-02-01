@@ -93,7 +93,7 @@ public class GridSortEvent extends Event
      *  the value of the <code>type</code> property of the event object for a 
      *  <code>sortChanging</code> event, which indicates that a sort filter is about to be
      *  applied to the grid's <code>dataProvider</code> collection.
-     *  Call preventDefault() on this event to prevent the sort from occuring
+     *  Call preventDefault() on this event to prevent the sort from occurring
      *  or you modify <code>columnIndices</code> and <code>newSortFields</code> if you want to 
      *  change the default behavior of the sort.
      *
