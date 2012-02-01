@@ -27,8 +27,11 @@
 			</fill>
 		</Rect>
 		<Group id="contentHolder" content="{data}"
-               left="0" right="0" top="0" bottom="0"
-               layout="flex.layout.HorizontalLayout" />
+               left="0" right="0" top="0" bottom="0">
+			<layout>
+				<HorizontalLayout/>
+			</layout>
+		</Group>
 	</content>
 
 </ItemRenderer>
