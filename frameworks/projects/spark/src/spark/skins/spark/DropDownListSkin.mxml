@@ -29,7 +29,7 @@ is defined in the DropDownListButtonSkin class. -->
 		<s:State name="disabled" />
 	</s:states>
     
-    <s:PopUpAnchor id="popup"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
+    <s:PopUpAnchor id="popUp"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
     	left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
     	popUpPosition="below" autoSizePopUpWidth="true">
     	
@@ -76,7 +76,7 @@ is defined in the DropDownListButtonSkin class. -->
 	<!--- The button used by the DropDownList. The default skin is DropDownListButtonSkin. -->
 	<s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
 		skinClass="spark.skins.default.DropDownListButtonSkin" />  
-	<s:SimpleText id="labelElement" verticalAlign="middle" 
+	<s:SimpleText id="labelElement" verticalAlign="middle" lineBreak="explicit"
 		left="7" right="30" top="2" bottom="2" verticalCenter="1" /> 
 
 </s:Skin>
