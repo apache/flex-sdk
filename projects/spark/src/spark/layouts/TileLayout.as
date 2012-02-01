@@ -452,7 +452,7 @@ public class TileLayout extends LayoutBase
     private var _horizontalAlign:String = HorizontalAlign.JUSTIFY;
 
     [Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="left,center,right,justify")]
 
     /**
      *  Specifies how to align the elements within the cells in the horizontal direction.
@@ -496,7 +496,7 @@ public class TileLayout extends LayoutBase
     private var _verticalAlign:String = VerticalAlign.JUSTIFY;
 
     [Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="top,middle,bottom,justify")]
 
     /**
      *  Specifies how to align the elements within the cells in the vertical direction.
