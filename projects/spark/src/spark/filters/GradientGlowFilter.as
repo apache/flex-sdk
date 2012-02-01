@@ -90,8 +90,8 @@ public class GradientGlowFilter extends GradientFilter implements IBitmapFilter
 	 * @param type The placement of the filter effect. Possible values are the 
 	 * flash.filters.BitmapFilterType constants:
 	 * <ul>
-	 * <li><code>BitmapFilterType.OUTER</code> &#x2014; Glow on the outer edge of the object</li>
-	 * <li><code>BitmapFilterType.INNER</code> &#x2014; Glow on the inner edge of the object; the default.</li>
+	 * <li><code>BitmapFilterType.OUTER</code> &#x2014; Glow on the outer edge of the object; the default.</li>
+	 * <li><code>BitmapFilterType.INNER</code> &#x2014; Glow on the inner edge of the object</li>
 	 * <li><code>BitmapFilterType.FULL</code> &#x2014; Glow on top of the object</li>
 	 * </ul>
 	 * 
@@ -110,7 +110,7 @@ public class GradientGlowFilter extends GradientFilter implements IBitmapFilter
 									   colors:Array = null, alphas:Array = null, 
 									   ratios:Array = null, blurX:Number = 4.0, 
 									   blurY:Number = 4.0, strength:Number = 1, 
-									   quality:int = 1, type:String = "inner", 
+									   quality:int = 1, type:String = "outer", 
 									   knockout:Boolean = false)
 	{
 		this.distance = distance;
