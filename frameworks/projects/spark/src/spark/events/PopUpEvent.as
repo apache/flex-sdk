@@ -15,17 +15,8 @@ package spark.events
 import flash.events.Event;
 
 /**
- *  Dispatched by <code>SkinnablePopUpContainer</code> to single opening or closing.
+ *  The PopUpEvent class represents an event dispatched by the SkinnablePopUpContainer.
  *  
- *  <p>When closing, this event provides a mechanism to pass commit information to
- *  a listener.  One typical usage scenario is building a multiple-choice dialog with a 
- *  cancel button.  When a valid option is selected, the developer closes the dialog
- *  with a call to the <code>SkinnablePopUpContainer.close()</code> method, passing
- *  <code>true</code> to the <code>commit</code> parameter and optionally passing in
- *  any relevant data.  When the <code>SkinnablePopUpContainer</code> has completed closing,
- *  it will dispatch this event.  Then, in the listener, the developer can check
- *  the <code>commit</code> parameter and perform the appropriate action.</p>
- *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
@@ -40,6 +31,29 @@ public class PopUpEvent extends Event
     //--------------------------------------------------------------------------
     
     /**
+     *  The PopUpEvent.OPEN constant defines the value of the 
+     *  <code>type</code> property of the PopUpEvent object for an
+     *  <code>open</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     * 
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>commit</code></td><td>Not used</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>Data</code></td><td>Not used</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *       it is not always the Object listening for the event. 
+     *       Use the <code>currentTarget</code> property to always access the 
+     *       Object listening for the event.</td></tr>
+     *     <tr><td><code>Type</code></td><td>PopUpEvent.OPEN</td></tr>
+     *  </table>
+     *
      *  @eventType open
      *  
      *  @langversion 3.0
@@ -50,6 +64,31 @@ public class PopUpEvent extends Event
     public static const OPEN:String = "open";
 
     /**
+     *  The PopUpEvent.CLOSE constant defines the value of the 
+     *  <code>type</code> property of the PopUpEvent object for an
+     *  <code>close</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     * 
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>commit</code></td><td>Specifies whether the listener 
+     *       should commit the data.</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>Data</code></td><td>Any data returned to the application 
+     *       from the SkinnablePopUpContainer.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *       it is not always the Object listening for the event. 
+     *       Use the <code>currentTarget</code> property to always access the 
+     *       Object listening for the event.</td></tr>
+     *     <tr><td><code>Type</code></td><td>PopUpEvent.OPEN</td></tr>
+     *  </table>
+     *
      *  @eventType close
      *  
      *  @langversion 3.0
@@ -74,10 +113,10 @@ public class PopUpEvent extends Event
      *
      *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
      * 
-     *  @param commit <p>Indicates whether the listener should commit the data from the PopUp.
-     *  Only used with <code>PopUpEvent.CLOSE</code>.</p>
+     *  @param commit Specifies whether the listener should commit the data from the SkinnablePopUpContainer.
+     *  Only used with the <code>PopUpEvent.CLOSE</code> event.
      * 
-     *  @param data <p>The PopUp data to commit. Only used with <code>PopUpEvent.CLOSE</code>.</p>
+     *  @param data The data to commit. Only used with the <code>PopUpEvent.CLOSE</code> event.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -103,8 +142,9 @@ public class PopUpEvent extends Event
     //----------------------------------
     
     /**
-     *  Whether the listener should commit the PopUp data.
-     *  Only used with <code>PopUpEvent.CLOSE</code>.
+     *  Specifies whether the event listener should commit the data
+     *  returned in the <code>data</code> property.
+     *  Only used with <code>PopUpEvent.CLOSE</code> event.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -118,8 +158,8 @@ public class PopUpEvent extends Event
     //----------------------------------
     
     /**
-     *  The PopUp data to commit.
-     *  Only used with <code>PopUpEvent.CLOSE</code>.
+     *  The data to commit.
+     *  Only used with <code>PopUpEvent.CLOSE</code> event.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
