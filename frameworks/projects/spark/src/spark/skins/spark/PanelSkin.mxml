@@ -25,8 +25,8 @@ in accordance with the terms of the license agreement accompanying it.
     <fx:Metadata>
         <![CDATA[ 
         /** 
-        * @copy spark.skins.spark.ApplicationSkin#hostComponent
-        */
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.Panel")]
         ]]>
     </fx:Metadata> 
@@ -121,6 +121,7 @@ in accordance with the terms of the license agreement accompanying it.
     </s:states>
     
     <!-- drop shadow can't be hittable so it stays sibling of other graphics -->
+    <!--- @private -->
     <s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.32" distance="11" 
                              angle="90" color="#000000" left="0" top="0" right="0" bottom="0"/>
     
@@ -128,6 +129,7 @@ in accordance with the terms of the license agreement accompanying it.
     <s:Group left="0" right="0" top="0" bottom="0">
         
         <!-- top group mask -->
+        <!--- @private -->
         <s:Group left="1" top="1" right="1" bottom="1" id="topGroupMask" >
             <s:Rect id="topMaskRect" left="0" top="0" right="0" bottom="0">
                 <s:fill>
@@ -137,8 +139,10 @@ in accordance with the terms of the license agreement accompanying it.
         </s:Group>
         
         <!-- bottom group mask -->
+        <!--- @private -->
         <s:Group left="1" top="1" right="1" bottom="1" id="bottomGroupMask" 
                  includeIn="normalWithControlBar, disabledWithControlBar">
+            <!--- @private -->
             <s:Rect id="bottomMaskRect" left="0" top="0" right="0" bottom="0">
                 <s:fill>
                     <s:SolidColor alpha="0"/>
@@ -147,8 +151,10 @@ in accordance with the terms of the license agreement accompanying it.
         </s:Group>
         
         <!-- layer 1: border -->
+        <!--- @private -->
         <s:Rect id="border" left="0" right="0" top="0" bottom="0" >
             <s:stroke>
+                <!--- @private -->
                 <s:SolidColorStroke id="borderStroke" weight="1" />
             </s:stroke>
         </s:Rect>
@@ -157,7 +163,8 @@ in accordance with the terms of the license agreement accompanying it.
         <!--- Defines the appearance of the PanelSkin class's background. -->
         <s:Rect id="background" left="1" top="1" right="1" bottom="1">
             <s:fill>
-                <!-- Defines the  PanelSkin class's background fill. The default color is 0xFFFFFF. -->
+                <!--- @private
+                      Defines the  PanelSkin class's background fill. The default color is 0xFFFFFF. -->
                 <s:SolidColor id="backgroundFill" color="#FFFFFF"/>
             </s:fill>
         </s:Rect>
@@ -169,9 +176,11 @@ in accordance with the terms of the license agreement accompanying it.
                 <s:VerticalLayout gap="0" horizontalAlign="justify" />
             </s:layout>
             
+            <!--- @private -->
             <s:Group id="topGroup" mask="{topGroupMask}">
                 
                 <!-- layer 0: title bar fill -->
+                <!--- @private -->
                 <s:Rect id="tbFill" left="0" right="0" top="0" bottom="1">
                     <s:fill>
                         <s:LinearGradient rotation="90">
@@ -182,6 +191,7 @@ in accordance with the terms of the license agreement accompanying it.
                 </s:Rect>
                 
                 <!-- layer 1: title bar highlight -->
+                <!--- @private -->
                 <s:Rect id="tbHilite" left="0" right="0" top="0" bottom="0">
                     <s:stroke>
                         <s:LinearGradientStroke rotation="90" weight="1">
@@ -192,6 +202,7 @@ in accordance with the terms of the license agreement accompanying it.
                 </s:Rect>
                 
                 <!-- layer 2: title bar divider -->
+                <!--- @private -->
                 <s:Rect id="tbDiv" left="0" right="0" height="1" bottom="0">
                     <s:fill>
                         <s:SolidColor color="0xC0C0C0" />
@@ -199,7 +210,7 @@ in accordance with the terms of the license agreement accompanying it.
                 </s:Rect>
                 
                 <!-- layer 3: text -->
-                <!--- Defines the appearance of the PanelSkin class's title bar. -->
+                <!--- @copy spark.components.Panel#titleDisplay -->
                 <s:Label id="titleDisplay" maxDisplayedLines="1"
                          left="9" right="3" top="1" bottom="0" minHeight="30"
                          verticalAlign="middle" fontWeight="bold">
@@ -207,13 +218,15 @@ in accordance with the terms of the license agreement accompanying it.
             </s:Group>
             
             <!--
-            Note: setting the minimum size to 0 here so that changes to the host component's
-            size will not be thwarted by this skin part's minimum size.   This is a compromise,
-            more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
+                Note: setting the minimum size to 0 here so that changes to the host component's
+                size will not be thwarted by this skin part's minimum size.   This is a compromise,
+                more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
             -->
+            <!--- @copy spark.components.SkinnableContainer#contentGroup -->
             <s:Group id="contentGroup" width="100%" height="100%" minWidth="0" minHeight="0">
             </s:Group>
             
+            <!--- @private -->
             <s:Group id="bottomGroup" minWidth="0" minHeight="0"
                      includeIn="normalWithControlBar, disabledWithControlBar" >
                 
@@ -247,6 +260,7 @@ in accordance with the terms of the license agreement accompanying it.
                     </s:Rect>
                 </s:Group>
                 <!-- layer 3: control bar -->
+                <!--- @copy spark.components.Panel#controlBarGroup -->
                 <s:Group id="controlBarGroup" left="0" right="0" top="1" bottom="1" minWidth="0" minHeight="0">
                     <s:layout>
                         <s:HorizontalLayout paddingLeft="10" paddingRight="10" paddingTop="7" paddingBottom="7" gap="10" />
