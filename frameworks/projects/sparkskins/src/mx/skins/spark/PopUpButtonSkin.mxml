@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the Halo PopUpButton component. 
+<!--- The Spark skin class for the MX PopUpButton component. 
+
+      @see mx.controls.PopUpButton
         
       @langversion 3.0
       @playerversion Flash 10
