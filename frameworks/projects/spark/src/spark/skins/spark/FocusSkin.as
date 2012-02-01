@@ -86,6 +86,10 @@ public class FxFocusSkin extends UIComponent
     
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        // Early exit if we don't have a focus manager
+        if (!focusManager)
+            return;
+            
         // Grab a bitmap of the focused object
         var focusObject:Object = focusManager.getFocus();
         var bitmapData:BitmapData = new BitmapData(
