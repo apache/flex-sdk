@@ -76,7 +76,7 @@
 		<bundle locale="${locale}"/>
 	</target>
 	
-	<target name="other.locales" depends="bundles-clean,bundles" description="Build other locale SWCs"/>
+	<target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
 	
 	<!-- This is a private target for building automation_rb.swc for various locales. -->
 	<!-- The targets below set the 'locale' parameter  -->
@@ -86,7 +86,7 @@
 		
 	</target>
 	
-	<target name="clean" description="Deletes the combined swc">
+	<target name="clean" depends="bundles-clean" description="Deletes the combined swc">
 		<delete failonerror="false">
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
 				<include name="textLayout.swc"/>
