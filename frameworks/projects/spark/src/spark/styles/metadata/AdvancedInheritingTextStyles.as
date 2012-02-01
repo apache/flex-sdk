@@ -13,7 +13,7 @@
  *  Specifies a vertical or horizontal progression of line placement.
  * 
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.blockProgression</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.blockProgression.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -31,7 +31,7 @@
  *  lines. 
  * 
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.breakOpportunity</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.breakOpportunity.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -48,7 +48,7 @@
  *  Controls how text wraps around a float.
  * 
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.clearFloats</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.clearFloats.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -65,7 +65,7 @@
  *  Specifies the baseline position of the first line in the container.
  * 
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.firstBaselineOffset</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.firstBaselineOffset.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -83,7 +83,7 @@
  *  direction.
  * 
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.leadingModel</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.leadingModel.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -101,7 +101,7 @@
  *  the list on that side is <code>auto</code>.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.listAutoPadding</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.listAutoPadding.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -118,7 +118,7 @@
  *  This controls the placement of a list item marker relative to the list item.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.listStylePosition</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.listStylePosition.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -135,7 +135,7 @@
  *  This controls the appearance of items in a list.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.listStyleType</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.listStyleType.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -152,7 +152,7 @@
  *  The amount to indent the paragraph's end edge.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.paragraphEndIndent</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.paragraphEndIndent.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -169,7 +169,7 @@
  *  The amount of space to leave after the paragraph.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.paragraphSpaceAfter</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.paragraphSpaceAfter.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -186,7 +186,7 @@
  *  The amount of space to leave before the paragraph.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.paragraphSpaceBefore</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.paragraphSpaceBefore.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -203,7 +203,7 @@
  *  The amount to indent the paragraph's start edge.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.paragraphStartIndent</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.paragraphStartIndent.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -220,7 +220,7 @@
  *  Specifies the tab stops associated with the paragraph.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.tabStops</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.tabStops.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -237,10 +237,10 @@
  *  Offset of first line of text from the left side of the container.
  * .
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.textIndent</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.textIndent.</b></p>
  *
  *  <p><b>For the Mobile theme, see
- *  spark.components.supportClasses.StyleableTextField Style textIndent</b></p>
+ *  spark.components.supportClasses.StyleableTextField Style textIndent.</b></p>
  *
  *  @see flashx.textLayout.formats.ITextLayoutFormat#textIndent
  *  @see spark.components.supportClasses.StyleableTextField#style:textIndent
@@ -256,7 +256,7 @@
  *  Determines the number of degrees to rotate this text.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.textRotation</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.textRotation.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -273,7 +273,7 @@
  *  Collapses or preserves whitespace when importing text into a TextFlow.
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.whiteSpaceCollapse</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.whiteSpaceCollapse.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -290,7 +290,7 @@
  *  Specifies the spacing between words to use during justification. 
  *  
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.wordSpacing</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.wordSpacing.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
