@@ -1062,9 +1062,9 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General", enumeration="clip,alpha", defaultValue="clip")]
     
     /**
-     *  <p>The maskType defines how the mask is applied to the GraphicElement. 
+     *  <p>The maskType defines how the mask is applied to the GraphicElement.</p> 
      * 
-     *  <p>The possible values are MaskType.CLIP and MaskType.ALPHA.  
+     *  <p>The possible values are MaskType.CLIP and MaskType.ALPHA.</p>  
      * 
      *  <p>Clip Masking</p>
      * 
