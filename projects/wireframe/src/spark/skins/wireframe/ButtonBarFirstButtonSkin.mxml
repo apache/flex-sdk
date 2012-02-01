@@ -24,6 +24,9 @@
 
     <!-- host component -->
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.ButtonBarButton")]
     </fx:Metadata>
     
@@ -79,6 +82,7 @@
     </s:Path>
     
     <!-- text -->
+    <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
     <s:Label id="labelDisplay"  
              textAlign="center"
              verticalAlign="middle"
