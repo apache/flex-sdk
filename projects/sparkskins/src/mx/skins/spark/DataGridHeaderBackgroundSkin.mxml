@@ -2,54 +2,60 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The Spark skin class for the header background of a Halo DataGrid component. -->
+<!--- The Spark skin class for the header background of a Halo DataGrid component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-	  minWidth="21" minHeight="19">
-		
-	<!-- layer 2: fill -->
-	<s:Rect left="0" right="0" top="0" bottom="0">
-		<s:fill>
-			<s:LinearGradient rotation="90">
-				<s:GradientEntry color="0xFFFFFF" 
-							   alpha="0.85" />
-				<s:GradientEntry color="0xD8D8D8" 
-							   alpha="0.85" />
-			</s:LinearGradient>
-		</s:fill>
-	</s:Rect>
-	
-	<!-- layer 3: fill lowlight -->
-	<s:Rect left="0" right="0" bottom="0" height="9">
-		<s:fill>
-			<s:LinearGradient rotation="90">
-				<s:GradientEntry color="0x000000" alpha="0.0099" />
-				<s:GradientEntry color="0x000000" alpha="0.0627" />
-			</s:LinearGradient>
-		</s:fill>
-	</s:Rect>
-	
-	<!-- layer 4: fill highlight -->
-	<s:Rect left="0" right="0" top="0" height="9">
-		<s:fill>
-			<s:SolidColor color="0xFFFFFF" 
-					    alpha="0.33" />
-		</s:fill>
-	</s:Rect>
-	
+      minWidth="21" minHeight="19">
+        
+    <!-- layer 2: fill -->
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="0xFFFFFF" 
+                               alpha="0.85" />
+                <s:GradientEntry color="0xD8D8D8" 
+                               alpha="0.85" />
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+    
+    <!-- layer 3: fill lowlight -->
+    <s:Rect left="0" right="0" bottom="0" height="9">
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="0x000000" alpha="0.0099" />
+                <s:GradientEntry color="0x000000" alpha="0.0627" />
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+    
+    <!-- layer 4: fill highlight -->
+    <s:Rect left="0" right="0" top="0" height="9">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" 
+                        alpha="0.33" />
+        </s:fill>
+    </s:Rect>
+    
     <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
     <s:Rect left="0" right="0" bottom="0" height="1">
         <s:fill>
             <s:SolidColor color="#696969" />
         </s:fill>
     </s:Rect>
-	
+    
 </s:SparkSkin>
