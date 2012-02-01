@@ -103,23 +103,23 @@ public class CollatorBase extends GlobalizationBase
      *  <ul>
      *      <li>Inheriting the style from a <code>UIComponent</code> by calling
      *          the UIComponent's <code>addStyleClient</code> method with
-     *          an instance of this object as the parameter.</li>
+	 * 			an instance of this object as the parameter.</li>
      *      <li>By using the class in an MXML declaration and inheriting the
      *          <code>locale</code> style from the document that contains the
      *          declaration.
-     *  <listing version="3.0">
+     *  <pre>
      *  &lt;fx:Declarations&gt;
      *         &lt;s:SortingCollator id="collator" /&gt;
      *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  </pre>
      *  </li>
      *      <li>By using an MXML declaration and specifying the
      *          <code>locale</code> value in the list of assignments.
-     *  <listing version="3.0">
+     *  <pre>
      *  &lt;fx:Declarations&gt;
      *      &lt;s:SortingCollator id="collator_german" locale="de-DE" /&gt;
      *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  </pre>
      *  </li>
      *      <li>Calling the setStyle method, e.g.
      *              <code>collator.setStyle("locale", "de-DE")</code></li>
@@ -131,8 +131,9 @@ public class CollatorBase extends GlobalizationBase
      *  lastOperationStatus property to 
      *  <code>spark.globalization.LastOperationStatus.LOCALE_UNDEFINED_ERROR</code>.</p>
      *
-     *  @param initialMode Sets the initial collation options for two use cases: sorting and matching.
-     * 
+     *  @param initialMode Sets the initial collation options for two use
+     *  cases: sorting and matching.
+     *
      *  @see flash.globalization.Collator
      *  @see spark.globalization.LastOperationStatus
      *  @langversion 3.0
@@ -154,16 +155,32 @@ public class CollatorBase extends GlobalizationBase
     //--------------------------------------------------------------------------
 
     // Actual instance of the working flash.globalization.Collator instance.
-    private var g11nWorkingInstance:flash.globalization.Collator;
+    private var _g11nWorkingInstance:flash.globalization.Collator;
 
     /**
      *  @private
-     *  Basic properies of the actual underlying working instance.
-     *
-     *  This object can be a flash.globalization.Collator instance OR
-     *  an object that contains the fallback's propery set.
+     *  If the g11nWorkingInstance has not been defined. Call
+     *  ensureStyleSource to ensure that there is a styleParent. If there is
+     *  not a style parent, then this instance will be added as a style client
+     *  to the topLevelApplication. As a side effect of this, the styleChanged
+     *  method will be called and if there is a locale style defined for the
+     *  topLevelApplication, the createWorkingInstance method will be
+     *  executed creating a g11nWorkingInstance.
      */
-    mx_internal var properties:Object = null;
+    private function get g11nWorkingInstance ():
+        flash.globalization.Collator
+    {
+        if (!_g11nWorkingInstance)
+            ensureStyleSource();
+        
+        return _g11nWorkingInstance;
+    }
+    
+    private function set g11nWorkingInstance 
+        (flashCollator:flash.globalization.Collator): void 
+    {
+        _g11nWorkingInstance = flashCollator;
+    }
 
     // Cache for the given initialMode through the constructor.
     private var initialMode:String = null;
