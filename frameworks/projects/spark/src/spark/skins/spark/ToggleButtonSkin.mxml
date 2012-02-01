@@ -12,6 +12,8 @@
 -->
 
 <!--- The default skin class for a Spark ToggleButton component.  
+
+     @see spark.components.ToggleButton
         
       @langversion 3.0
       @playerversion Flash 10
