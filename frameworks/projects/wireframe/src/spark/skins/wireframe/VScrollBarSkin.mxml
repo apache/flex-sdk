@@ -22,6 +22,9 @@
     minWidth="15" minHeight="35" alpha.disabled="0.5" alpha.inactive="0.5">
 
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.VScrollBar")]
     </fx:Metadata> 
     
@@ -31,12 +34,23 @@
         <s:State name="inactive" />
     </s:states>
 
+    <!--- The default skin class is VScrollBarTrackSkin. 
+          @copy spark.components.supportClasses.TrackBase#track-->
     <s:Button id="track" top="17" bottom="17" height="51" 
             skinClass="spark.skins.wireframe.VScrollBarTrackSkin" focusEnabled="false" />
+    
+    <!--- The default skin class is ScrollBarUpButtonSkin.
+          @copy spark.components.supportClasses.ScrollBar#decrementButton -->
     <s:Button id="decrementButton" top="0" enabled.inactive="false"
             skinClass="spark.skins.wireframe.ScrollBarUpButtonSkin" focusEnabled="false" />
+    
+    <!--- The default skin class is ScrollBarDownButtonSkin.
+          @copy spark.components.supportClasses.ScrollBar#incrementButton  -->
     <s:Button id="incrementButton" bottom="0" enabled.inactive="false"
             skinClass="spark.skins.wireframe.ScrollBarDownButtonSkin" focusEnabled="false" />
+    
+    <!--- The default skin class is VScrollBarThumbSkin.
+          @copy spark.components.supportClasses.TrackBase#thumb -->
     <s:Button id="thumb" skinClass="spark.skins.wireframe.VScrollBarThumbSkin" 
             visible.inactive="false" focusEnabled="false" />
 
