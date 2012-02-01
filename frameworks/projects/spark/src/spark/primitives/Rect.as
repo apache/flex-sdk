@@ -13,10 +13,12 @@ package mx.graphics
 {
 import flash.events.EventDispatcher;
 import flash.display.Graphics;
+import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.mx_internal;
+import mx.utils.MatrixUtil;
 
 /**
  *  The Rect class is a filled graphic element that draws a rectangle.
@@ -74,8 +76,10 @@ public class Rect extends FilledElement
         if (value != _radiusX)
         {
             _radiusX = value;
+
+            invalidateSize();
             invalidateDisplayList();
-            // No need to invalidateSize() since we don't use radiusX to compute size 
+            invalidateParentSizeAndDisplayList();
         }
     }
     
@@ -100,8 +104,10 @@ public class Rect extends FilledElement
         if (value != _radiusY)
         {
             _radiusY = value;
+
+            invalidateSize();
             invalidateDisplayList();
-            // No need to invalidateSize() since we don't use radiusY to compute size 
+            invalidateParentSizeAndDisplayList();
         }
     }
         
@@ -116,12 +122,110 @@ public class Rect extends FilledElement
      */
     override protected function drawElement(g:Graphics):void
     {
-        if (radiusX != 0 || radiusY != 0)
+        if (radiusX != 0 && radiusY != 0)
             g.drawRoundRect(drawX, drawY, width, height, radiusX * 2, radiusY * 2);
         else
             g.drawRect(drawX, drawY, width, height);
     }
+    
+    /**
+     *  @private
+     */
+    override protected function transformWidthForLayout(width:Number,
+                                                        height:Number,
+                                                        postTransform:Boolean = true):Number
+    {
+        if (postTransform)
+        {
+            var m:Matrix = computeMatrix();
+            if (m)
+                width = getRoundRectBoundingBox(width, height, radiusX, radiusY, m).width;
+        }
 
+        // Take stroke into account
+        return width + getStrokeExtents(postTransform).x;
+    }
+
+    /**
+     *  @private
+     */
+    override protected function transformHeightForLayout(width:Number,
+                                                         height:Number,
+                                                         postTransform:Boolean = true):Number
+    {
+        if (postTransform)
+        {
+            var m:Matrix = computeMatrix();
+            if (m)
+                height = getRoundRectBoundingBox(width, height, radiusX, radiusY, m).height;
+        }
+
+        // Take stroke into account
+        return height + getStrokeExtents(postTransform).y;
+    }
+
+    /**
+     *  @private
+     */
+    override public function getLayoutBoundsX(postTransform:Boolean = true):Number
+    {
+        var stroke:Number = -getStrokeExtents(postTransform).x * 0.5;
+        if (postTransform)
+        {
+            var m:Matrix = computeMatrix();
+            if (m)
+                return stroke + getRoundRectBoundingBox(width, height, radiusX, radiusY, m).x;  
+        }
+
+        return stroke + this.x;
+    }
+
+    /**
+     *  @private
+     */
+    override public function getLayoutBoundsY(postTransform:Boolean = true):Number
+    {
+        var stroke:Number = - getStrokeExtents(postTransform).y * 0.5;
+        if (postTransform)
+        {
+            var m:Matrix = computeMatrix();
+            if (m)
+                return stroke + getRoundRectBoundingBox(width, height, radiusX, radiusY, m).y;
+        }
+
+        return stroke + this.y;
+    }
+
+    /**
+     *  @private
+     */
+    static private function getRoundRectBoundingBox(width:Number,
+                                                    height:Number,
+                                                    radiusX:Number,
+                                                    radiusY:Number,
+                                                    m:Matrix):Rectangle
+    {
+        // We can find the round rect bounds by finding the 
+        // bounds of the four ellipses at the four corners
+        
+        // Make sure that radiusX & radiusY don't exceed the width & height:
+        radiusX = Math.min(radiusX, width / 2);
+        radiusY = Math.min(radiusY, height / 2);
+        
+        // TODO EGeorgie: optimize to not allocate a new Rectangle?
+        var boundingBox:Rectangle;
+
+        // top-left corner ellipse
+        boundingBox = MatrixUtil.getEllipseBoundingBox(radiusX, radiusY, radiusX, radiusY, m, boundingBox);
+        // top-right corner ellipse
+        boundingBox = MatrixUtil.getEllipseBoundingBox(width - radiusX, radiusY, radiusX, radiusY, m, boundingBox);
+        // bottom-right corner ellipse
+        boundingBox = MatrixUtil.getEllipseBoundingBox(width - radiusX, height - radiusY, radiusX, radiusY, m, boundingBox);
+        // bottom-left corner ellipse
+        boundingBox = MatrixUtil.getEllipseBoundingBox(radiusX, height - radiusY, radiusX, radiusY, m, boundingBox);
+        
+        return boundingBox;
+    }
 }
 
 }
