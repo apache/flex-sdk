@@ -34,10 +34,10 @@
     <!-- background -->
     <s:Rect left="0" right="0" minWidth="14" top="0" bottom="0" minHeight="17">
         <s:stroke>
-            <s:SolidColorStroke color="0x5380D0" />
+            <s:SolidColorStroke color="#707070" />
         </s:stroke>
         <s:fill>
-            <s:SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF" />
+            <s:SolidColor color="#FFFFFF" color.over="#EEEEEE" color.down="#EEEEEE" />
         </s:fill>
     </s:Rect>
     
@@ -45,8 +45,8 @@
     <s:Rect left="1" top="1" right="1" bottom="1" includeIn="down">
         <s:stroke>
             <s:LinearGradientStroke rotation="90">
-                <s:GradientEntry color="0x5380D0" alpha="0.25" />
-                <s:GradientEntry color="0x5380D0" alpha="0" />
+                <s:GradientEntry color="#5C5C5C" alpha="0.25" />
+                <s:GradientEntry color="#5C5C5C" alpha="0" />
             </s:LinearGradientStroke>
         </s:stroke>
     </s:Rect>
@@ -54,7 +54,7 @@
     <!-- arrow -->
     <s:Path data="M 7.5 5 L 11 12 L 3.5 12 L 7.5 5">
         <s:fill>
-            <s:SolidColor color="0x4E6290" />
+            <s:SolidColor color="#666666" />
         </s:fill>
     </s:Path>              
 </s:Skin>
