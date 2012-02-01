@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.layout
+package mx.layout
 {
 
 import flash.events.Event;
@@ -17,8 +17,8 @@ import flash.geom.Rectangle;
 import flash.geom.Point;
 import flash.ui.Keyboard;
 
-import flex.core.GroupBase;
-import flex.intf.ILayoutItem;
+import mx.components.baseClasses.GroupBase;
+import mx.layout.ILayoutItem;
 import flash.events.EventDispatcher;
 
     
@@ -301,8 +301,8 @@ public class LayoutBase extends EventDispatcher
      *  @see target
      *  @see flash.display.DisplayObject#scrollRect
      *  @see updateDisplayList
-     *  @see flex.core.GroupBase#contentWidth
-     *  @see flex.core.GroupBase#contentHeight
+     *  @see mx.components.GroupBase#contentWidth
+     *  @see mx.components.GroupBase#contentHeight
      */ 
     protected function updateScrollRect(w:Number, h:Number):void
     {
