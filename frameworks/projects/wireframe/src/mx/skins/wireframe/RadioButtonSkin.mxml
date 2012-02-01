@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2009 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the Halo RadioButton component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+      
+	  alpha.disabledStates="0.5">
+      <!-- have to use disabledAlpha style rather than alpha.disabled as in most of our skins 
+           because the enabled property gets pushed down in here from the Halo button, and since 
+           the skin is a Group, it handles setting of alpha when disabled via the disabledAlpha style -->
+    
+	<s:states>
+		<s:State name="up" />
+		<s:State name="over" stateGroups="overStates" />
+		<s:State name="down" stateGroups="downStates" />
+		<s:State name="disabled" stateGroups="disabledStates" />
+		<s:State name="selectedUp" stateGroups="selectedStates" />
+		<s:State name="selectedOver" stateGroups="overStates, selectedStates" />
+		<s:State name="selectedDown" stateGroups="downStates, selectedStates" />
+		<s:State name="selectedDisabled" stateGroups="disabledStates, selectedStates" />
+	</s:states>
+	
+	<s:Group width="13" height="13">
+		<!-- background -->
+		<s:Ellipse left="0" top="0" right="0" bottom="0">
+			<s:stroke>            
+				<s:SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
+			</s:stroke>
+			<s:fill>
+				<s:SolidColor color="0xFFFFFF" color.overStates="0xEBF4FF" 
+							  color.downStates="0xDEEBFF" />
+			</s:fill>
+		</s:Ellipse>
+		
+		<!-- shadow (down states only) -->
+		<s:Ellipse left="1.0" top="0.5" right="1" bottom="0.5" includeIn="downStates">
+			<s:stroke> 
+				<s:LinearGradientStroke rotation="90">
+					<s:GradientEntry color="0x5380D0" alpha="0.25" />
+					<s:GradientEntry color="0x5380D0" alpha="0" />
+				</s:LinearGradientStroke>
+			</s:stroke>
+		</s:Ellipse>
+		
+		<!-- dot -->
+		<s:Ellipse verticalCenter="0" horizontalCenter="0" width="5" height="5"
+				   includeIn="selectedStates" id="dot" itemCreationPolicy="immediate">
+			<s:fill>
+				<s:SolidColor id="dotFill" color="0x3D5D92" />
+			</s:fill>
+		</s:Ellipse>
+	</s:Group>
+</s:Skin>
