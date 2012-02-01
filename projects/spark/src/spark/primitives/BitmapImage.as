@@ -213,7 +213,7 @@ public class BitmapImage extends GraphicElement
     private var previousUnscaledHeight:Number;
     private var sourceInvalid:Boolean;
     private var loadFailed:Boolean;
-    
+	
     //----------------------------------
     //  bitmapData
     //----------------------------------
@@ -926,7 +926,7 @@ public class BitmapImage extends GraphicElement
     {   
         var dpiScale:Number = 1;
         var app:Object = FlexGlobals.topLevelApplication;
-        if ("applicationDPI" in app && "runtimeDPI" in app)
+        if ("applicationDPI" in app && "runtimeDPI" in app && source is MultiDPIBitmapSource)
             dpiScale = app.runtimeDPI / app.applicationDPI;
 
         if (loadedContent)
