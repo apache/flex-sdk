@@ -676,6 +676,32 @@ public class TileLayout extends LayoutBase
         invalidateTargetSizeAndDisplayList();
     }
     
+    //----------------------------------
+    //  useVirtualLayout
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set useVirtualLayout(value:Boolean):void
+    {
+        if (useVirtualLayout == value)
+            return;
+            
+        super.useVirtualLayout = value;
+        
+        // Reset the state that virtual depends on.  If the layout has already
+        // run with useVirtualLayout=false, the visibleStartEndIndex variables
+        // will have been set to 0, dataProvider.length.
+        if (value)
+        {
+            visibleStartIndex = -1;  
+            visibleEndIndex = -1;    
+            visibleStartX = 0;
+            visibleStartY = 0;
+        }
+    }     
+    
     //--------------------------------------------------------------------------
     //
     //  Variables
@@ -718,7 +744,7 @@ public class TileLayout extends LayoutBase
     private var visibleEndIndex:int = -1;     // ...
     private var visibleStartX:Number = 0;     // first tile/cell origin
     private var visibleStartY:Number = 0;     // ...
-
+   
     //--------------------------------------------------------------------------
     //
     //  Class methods
