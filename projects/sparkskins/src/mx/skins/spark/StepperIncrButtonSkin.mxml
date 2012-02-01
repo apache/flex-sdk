@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009">
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For spinner buttons, the graphics are colorized but the arrow is not. */
+        static private const exclusions:Array = ["arrow"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the symbol fill items that should be colored by the "symbolColor" style. */
+        static private const symbols:Array = ["arrowFill"];
+        override public function get symbolItems():Array {return symbols};
+    </Script>
+    
+    <states>
+        <State name="up" />
+        <State name="over"/>
+        <State name="down" />
+        <State name="disabled" />
+    </states>
+    
+    <!-- border/fill -->
+	<Path data="M 0 0 h 15 Q 16 0 17 2 v 8 h -17 Z" 
+		  left="-1" top="0" right="0" bottom="0">
+		<stroke>
+			<SolidColorStroke color="0x686868" weight="1"/>
+		</stroke>
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0xFFFFFF"
+							   color.over="0xC2C2C2"
+							   color.down="0xAEB0B1" />
+				<GradientEntry color="0xF0F0F0"
+							   color.over="0xADAEAF"
+							   color.down="0xA1A3A5" />
+			</LinearGradient>
+		</fill>
+	</Path>    
+	
+	<!-- highlight -->
+	<Path data="M 0 0 h 13 Q 15 0 15 2 v 6 h -15 Z" 
+		  left="0" top="1" right="1" bottom="1" >
+		<stroke>
+			<LinearGradientStroke rotation="90" weight="1">
+				<GradientEntry color="0xFFFFFF" 
+							   color.down="0x000000"
+							   alpha.over="0.55" 
+							   alpha.down="0.15" />
+				<GradientEntry color="0xFFFFFF" 
+							   color.down="0x000000"
+							   alpha="0.45"
+							   alpha.over="0.2475"
+							   alpha.down="0" />
+			</LinearGradientStroke>
+		</stroke>
+	</Path>
+    
+    <!-- shadow -->
+    <Rect left="0" top="2" right="1" height="1" includeIn="down">
+    	<fill>
+    		<SolidColor color="0x000000" alpha="0.07" />
+    	</fill>
+    </Rect>
+    
+    <!-- arrow -->
+    <Path horizontalCenter="0" verticalCenter="0" id="arrow"
+          data="M 3.0 0.0 L 3.0 1.0 L 4.0 1.0 L 4.0 2.0 L 5.0 2.0 L 5.0 3.0 L 0.0 3.0 L 0.0 2.0 L 1.0 2.0 L 1.0 1.0 L 2.0 1.0 L 2.0 0.0 L 3.0 0.0">
+        <fill>
+        	<SolidColor id="arrowFill" color="0" alpha="0.8" />
+        </fill>
+    </Path>            
+    
+</SparkSkin>
