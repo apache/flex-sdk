@@ -15,7 +15,9 @@ import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.MouseEvent;
 
+import spark.components.Grid;
 import spark.components.gridClasses.GridColumn;
+import spark.components.gridClasses.IDataGridElement;
 import spark.components.gridClasses.IGridItemRenderer;
 
 /**
@@ -360,6 +362,33 @@ public class GridEvent extends MouseEvent
     public var column:GridColumn;
 
     
+    //----------------------------------
+    //  grid
+    //----------------------------------
+    
+    /**
+     *  Returns the Grid associated with this event.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
+     */
+    public function get grid():Grid
+    {
+        if (column)
+            return column.grid;
+        
+        if (target is Grid)
+            return Grid(target);
+
+        const elt:IDataGridElement = target as IDataGridElement;
+        if (elt && elt.dataGrid)
+            return elt.dataGrid.grid;
+        
+        return null;
+    }
+
     //----------------------------------
     //  item
     //----------------------------------
