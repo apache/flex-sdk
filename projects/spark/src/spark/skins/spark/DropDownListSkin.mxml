@@ -14,7 +14,7 @@
       is defined by the DropDownListButtonSkin class.  
         
       @see spark.components.DropDownList        
-      @see spark.skins.default.DropDownListButtonSkin
+      @see spark.skins.spark.DropDownListButtonSkin
         
       @langversion 3.0
       @playerversion Flash 10
@@ -27,7 +27,7 @@
     <fx:Metadata>
     <![CDATA[ 
     /** 
-     * @copy spark.skins.default.ApplicationSkin#hostComponent
+     * @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
         [HostComponent("spark.components.DropDownList")]
     ]]>
@@ -81,7 +81,7 @@
                 <!---  
                     The container for the data items in the drop-down list.
                 -->
-                <s:DataGroup id="dataGroup" itemRenderer="spark.skins.default.DefaultItemRenderer">
+                <s:DataGroup id="dataGroup" itemRenderer="spark.skins.spark.DefaultItemRenderer">
                     <s:layout>
                         <s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
                     </s:layout>
@@ -92,7 +92,7 @@
     
     <!--- The anchor button used by the DropDownList. The default skin is DropDownListButtonSkin. -->
     <s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
-        skinClass="spark.skins.default.DropDownListButtonSkin" />  
+        skinClass="spark.skins.spark.DropDownListButtonSkin" />  
     <!--- The prompt area of the DropDownList. -->
     <s:SimpleText id="labelElement" verticalAlign="middle" lineBreak="explicit"
         left="7" right="30" top="2" bottom="2" verticalCenter="1" /> 
