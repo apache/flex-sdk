@@ -12,7 +12,7 @@
 -->
 
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-	  alpha.disabled="0.5" blendMode.disabled="layer" minHeight="23" minWidth="12">
+	  alpha.disabled="0.5" minHeight="23" minWidth="12">
 
     <fx:Metadata>
     	[HostComponent("spark.components.Spinner")]
