@@ -29,7 +29,7 @@ in accordance with the terms of the license agreement accompanying it.
     <!-- shadow -->
     <s:Rect left="1" right="1" top="1" bottom="1" radiusX="3" radiusY="3">
         <s:fill>
-            <s:SolidColor color="0x333333" alpha=".15"/>
+            <s:SolidColor color="#333333" alpha=".15"/>
         </s:fill>
     </s:Rect>
     
@@ -37,11 +37,11 @@ in accordance with the terms of the license agreement accompanying it.
     <s:Rect id="border" left="0" right="2" top="0" bottom="2" radiusX="2" radiusY="2">
         <s:stroke>            
             <!--- @private -->
-            <s:SolidColorStroke id="borderStroke" color="0x5380D0" />
+            <s:SolidColorStroke id="borderStroke" color="#707070" />
         </s:stroke>
         <s:fill>
             <!--- @private -->
-            <s:SolidColor id="bgFill" color="0xFFFFFF"/>
+            <s:SolidColor id="bgFill" color="#FFFFFF"/>
         </s:fill>
     </s:Rect>
     
