@@ -35,6 +35,10 @@
         
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["arrowFill1", "arrowFill2"];
+
+        /** 
+         * @inheritDoc
+         */
         override public function get symbolItems():Array {return symbols};
     </fx:Script>
     
@@ -84,11 +88,14 @@
     </s:Rect>
     
     <!-- arrow -->
+    <!--- Defines the appearance of the up arrow in the ScrollBar component. -->
     <s:Path horizontalCenter="0" verticalCenter="-1" id="arrow"
           data="M 3.5 0.0 L 7.0 7.0 L 0.0 7.0 L 3.5 0.0">
         <s:fill>
         	<s:RadialGradient rotation="90" focalPointRatio="1">	
+		    <!--- Defines the first fill color in the ScrollBar component's up arrow. -->
 	            <s:GradientEntry id="arrowFill1" color="0" alpha="0.65" />
+		    <!--- Defines the second fill color in the ScrollBar component's up arrow. -->
 	            <s:GradientEntry id="arrowFill2" color="0" alpha="0.8" />
         	</s:RadialGradient>
         </s:fill>
