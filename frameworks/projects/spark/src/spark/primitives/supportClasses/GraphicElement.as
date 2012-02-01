@@ -2455,7 +2455,8 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     private var _alwaysCreateDisplayObject:Boolean;
     
-    // TODO (jszeto) Remove once we have a better solution for a design tool to getBitmapData for hit testing
+    // TODO (jszeto) Remove once we have a better solution for a design tool 
+    // to getBitmapData for hit testing.
     mx_internal function set alwaysCreateDisplayObject(value:Boolean):void
     {
     	if (value != _alwaysCreateDisplayObject)
@@ -2524,7 +2525,7 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function closeSequence():Boolean
     {
-        return false;
+        return _alwaysCreateDisplayObject;
     }
 
     private var _shareIndex:int;
