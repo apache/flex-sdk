@@ -11,10 +11,12 @@
 
 package spark.events
 {
+import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.MouseEvent;
 
 import mx.core.IVisualElement;
+
 import spark.components.supportClasses.GridColumn;
 
 /**
@@ -169,9 +171,9 @@ public class GridEvent extends MouseEvent
      *
      *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
      * 
-     *  @param gridX The event's x coordinate relative to grid; used to initialize the localX property.
+     *  @param localX The event's x coordinate relative to grid.
      * 
-     *  @param gridY The event's y coordinate relative to grid; used to initialize the localY property.
+     *  @param localY The event's y coordinate relative to grid.
      * 
      *  @param rowIndex The index of the row where the event occurred, or -1.
      * 
@@ -179,7 +181,9 @@ public class GridEvent extends MouseEvent
      * 
      *  @param column The column where the event occurred or null.
      * 
-     *  @param item The dataProvider item at rowIndex
+     *  @param item The dataProvider item at rowIndex.
+     * 
+     *  @param relatedObject The relatedObject property of the MouseEvent that triggered this GridEvent.
      * 
      *  @param itemRenderer The visible item renderer where the event occurred or null.
      * 
@@ -202,21 +206,22 @@ public class GridEvent extends MouseEvent
         type:String,
         bubbles:Boolean = false,
         cancelable:Boolean = false,
-        gridX:Number = NaN,
-        gridY:Number = NaN,
+        localX:Number = NaN,
+        localY:Number = NaN,
         rowIndex:int = -1,
         columnIndex:int = -1,
         column:GridColumn = null,
         item:Object = null,
         itemRenderer:IVisualElement = null,
+        relatedObject:InteractiveObject = null,
         ctrlKey:Boolean = false,
         altKey:Boolean = false,
         shiftKey:Boolean = false,
         buttonDown:Boolean = false,
         delta:int = 0)
     {
-        super(type, bubbles, cancelable, gridX, gridY, relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta);
-        
+        super(type, bubbles, cancelable, localX, localY, relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta);
+   
         this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;
         this.column = column;
@@ -321,7 +326,7 @@ public class GridEvent extends MouseEvent
     {
         var cloneEvent:GridEvent = new GridEvent(type, bubbles, cancelable, 
             localX, localY, rowIndex, columnIndex, column, item, itemRenderer, 
-            ctrlKey, altKey, shiftKey, buttonDown, delta);
+            relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta);
         
         cloneEvent.relatedObject = this.relatedObject;
         
