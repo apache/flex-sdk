@@ -20,25 +20,29 @@ import mx.core.ScrollUnit;
 import mx.core.ILayoutElement;
 import mx.utils.OnDemandEventDispatcher;
 
-
+/**
+*  The base class for all layouts.
+ * 
+ *  To create a custom layout that works with the Spark containers,
+ *  you must extend <code>LayoutBase</code> or one of its subclasses.
+ *
+ *  <p>At minimum, subclasses must implement the <code>updateDisplayList()</code>
+ *  method, which positions and sizes the target GroupBase's elements, and 
+ *  the <code>measure()</code> method, which calculates the target's default
+ *  size.
+ *
+ *  Subclasses may override methods like <code>elementBoundsAboveScrollRect()</code>
+ *  and <code>elementBoundsBelowScrollRect()</code> to customize the way 
+ *  the target behaves when it's connected to scrollbars.
+ * 
+ *  <p>Subclasses that support virtualization must respect the 
+ *  <code>useVirtualLayout</code> property and should only retrieve
+ *  layout elements within the scrollRect (the value of
+ *  <code>getTargetScrollRect()</code>) using <code>getVirtualElementAt()</code>
+ *  from within <code>updateDisplayList()</code>.
+ */
 public class LayoutBase extends OnDemandEventDispatcher
 {
-    //--------------------------------------------------------------------------
-    //
-    //  Class methods
-    //
-    //--------------------------------------------------------------------------
-
-    internal static function hasPercentWidth(layoutElement:ILayoutElement):Boolean
-    {
-        return !isNaN(layoutElement.percentWidth);
-    }
-    
-    internal static function hasPercentHeight(layoutElement:ILayoutElement):Boolean
-    {
-        return !isNaN(layoutElement.percentHeight);
-    }
-
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -63,11 +67,13 @@ public class LayoutBase extends OnDemandEventDispatcher
     private var _target:GroupBase;
     
     /**
-     *  The GroupBase whose layout we're responsible for.  
-     *  
-     *  The target is responsible for delegating the updateDisplayList()
-     *  and measure() methods to its layout.
+     *  The GroupBase whose elements are measured, sized and positioned
+     *  by this layout.
      * 
+     *  <p>Subclasses may override the setter to perform target specific
+     *  actions. For example a 3D layout may set the target's
+     *  <code>maintainProjectionCenter</code> property here.</p> 
+     *
      *  @default null;
      *  @see #updateDisplayList
      *  @see #measure
@@ -99,12 +105,31 @@ public class LayoutBase extends OnDemandEventDispatcher
     [Inspectable(defaultValue="false")]
 
     /**
-     *  If true, subclasses will be advised that when scrolling it's
+     *  If true, subclasses will be advised that it's
      *  preferable to lazily create layout elements as they come into view,
      *  and to discard or recycle layout elements that are no longer in view.
      * 
+     *  <p>You should implement virtualization support if the layout is going
+     *  to be used with data containers and you want to spend resources only
+     *  on the data items that are displayed on the screen.
+     *  To support virtualization, a layout must be implemented in such a way
+     *  that it does not iterate through all of the target's elements as anytime 
+     *  you access a data container element, the container allocates an
+     *  <code>ItemRenderer</code> for the corresponding data item.
+     *  Instead, you should calculate and only access the elements that will be in view.
+     *  A typical implementation of a virtual layout will examine the target's
+     *  scrollRect and the size of the typicalLayoutElement to determine which
+     *  elements will be in view. Additionally some layouts, like the
+     *  <code>VerticalLayout</code> and the <code>HorizontalLayout</code>, keep a
+     *  cache of the sizes of all elements that have already been accessed
+     *  for more precise calculations for casese of bigger variations
+     *  in sizes between the typicalLayoutElement and the actual elements.</p>
+     * 
      *  @default false
-     *  
+     * 
+     *  @see #getTargetScrollRect
+     *  @see #typicalLayoutElement
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -294,6 +319,224 @@ public class LayoutBase extends OnDemandEventDispatcher
     //--------------------------------------------------------------------------
     
     /**
+     *  Measures the target's default size based on its content, and optionally
+     *  measures the target's default minimum size.
+     *
+     *  <p>This is one of the methods that you must override when creating a
+     *  subclass of LayoutBase. The other method is <code>updateDisplayList()</code>.
+     *  You do not call these methods directly. Flex calls this method as part
+     *  of a layout pass. A layout pass consists of three phases.
+     *
+     *  First, if the target's properties are invalid, the LayoutManager calls
+     *  the target's <code>commitProperties</code> method.
+     *
+     *  Second, if the target's size is invalid, LayoutManager calls the target's
+     *  <code>validateSize()</code> method. The target's <code>validateSize()</code>
+     *  will in turn call the layout's <code>measure()</code> to calculate the
+     *  target's default size unless it was explicitly specified by both target's
+     *  <code>explicitWidth</code> and <code>explicitHeight</codd> properties.
+     *  If the default size changes, Flex will invalidate the target's display list.
+     *
+     *  Last, if the target's display list is invalid, LayoutManager calls the target's
+     *  <code>validateDisplayList</code>. The target's <code>validateDisplayList</code>
+     *  will in turn call the layout's <code>updateDisplayList</code> method to
+     *  size and position the target's elements.</p>
+     *
+     *  <p>When implementing this method, you must set the target's
+     *  <code>measuredWidth</code> and <code>measuredHeight</code> properties
+     *  to define the target's default size. You may optionally set the
+     *  <code>measuredMinWidth</code> and <code>measuredMinHeight</code>
+     *  properties to define the default minimum size.
+     *  A typical implementation iterates through the target's elements
+     *  and uses the methods defined by the <code>ILayoutElement</code> to
+     *  accumulate the preferred and/or minimum sizes of the elements and then sets
+     *  the target's <code>measuredWidth</code>, <code>measuredHeight</code>,
+     *  <code>measuredMinWidth</code> and <code>measuredMinHeight</code>.</p>
+     *
+     *  @see #updateDisplayList
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function measure():void
+    {
+    }
+    
+    /**
+     *  Sizes and positions the target's elements.
+     *
+     *  <p>This is one of the methods that you must override when creating a
+     *  subclass of LayoutBase. The other method is <code>measure()</code>.
+     *  You do not call these methods directly. Flex calls this method as part
+     *  of a layout pass. A layout pass consists of three phases.
+     *
+     *  First, if the target's properties are invalid, the LayoutManager calls
+     *  the target's <code>commitProperties</code> method.
+     *
+     *  Second, if the target's size is invalid, LayoutManager calls the target's
+     *  <code>validateSize()</code> method. The target's <code>validateSize()</code>
+     *  will in turn call the layout's <code>measure()</code> to calculate the
+     *  target's default size unless it was explicitly specified by both target's
+     *  <code>explicitWidth</code> and <code>explicitHeight</codd> properties.
+     *  If the default size changes, Flex will invalidate the target's display list.
+     *
+     *  Last, if the target's display list is invalid, LayoutManager calls the target's
+     *  <code>validateDisplayList</code>. The target's <code>validateDisplayList</code>
+     *  will in turn call the layout's <code>updateDisplayList</code> method to
+     *  size and position the target's elements.</p>
+     *
+     *  <p>A typical implementation iterates through the target's elements
+     *  and uses the methods defined by the <code>ILayoutElement</code> to
+     *  position and resize the elements. Then the layout must also calculate and set
+     *  the target's <code>contentWidth</code> and <code>contentHeight</code>
+     *  properties to define the target's scrolling region.</p>
+     *
+     *  @param unscaledWidth Specifies the width of the target, in pixels,
+     *  in the targets's coordinates.
+     *
+     *  @param unscaledHeight Specifies the height of the component, in pixels,
+     *  in the target's coordinates.
+     *
+     *  @see #measure
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function updateDisplayList(width:Number, height:Number):void
+    {
+    }          
+
+    /**
+     *  Convenience function for subclasses that invalidates the
+     *  target's size and displayList so that both layout's <code>measure()</code>
+     *  and <code>updateDisplayList</code> methods get called.
+     * 
+     *  <p>Typically a layout invalidates the target's size and display list so that
+     *  it gets a chance to recalculate the target's default size and also size and
+     *  position the target's elements. For example changing the <code>gap</code>
+     *  property on a <code>VerticalLayout</code> will internally call this method
+     *  to ensure that the elements are re-arranged with the new setting and the
+     *  target's default size is recomputed.</p> 
+     * 
+     *  @see #invalidateTargetDisplayList
+     *  @see mx.core.UIComponent#invalidateSize
+     *  @see mx.core.UIComponent#invalidateDisplayList
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function invalidateTargetSizeAndDisplayList():void
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return;
+
+        g.invalidateSize();
+        g.invalidateDisplayList();
+    }
+    
+    /**
+     *  Convenience function for subclasses that invalidates the
+     *  target's displayList so that the layout's <code>updateDisplayList()</code>
+     *  gets called.
+     * 
+     *  <p>Typically a layout invalidates the target's display list so that
+     *  it gets a chance to size and position the target's elements, but doesn't need to
+     *  recompute the target's default size. For example changing the <code>horizontalAlign</code>
+     *  property on a <code>VerticalLayout</code> will internally call this method
+     *  to ensure that the elements are re-arranged with the new setting.
+     *  The <code>horizontalAlign</code> does not affect the target's default size.</p>
+     *
+     *  @see #invalidateTargetSizeAndDisplayList
+     *  @see mx.core.UIComponent#invalidateDisplayList
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function invalidateTargetDisplayList():void
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return;
+
+        g.invalidateDisplayList();
+    }
+
+    /**
+     *  Called when the verticalScrollPosition or horizontalScrollPosition 
+     *  properties change.
+     *
+     *  The default implementation updates the target's scrollRect property by
+     *  calling <code>updateScrollRect()</code>.
+     *
+     *  Subclasses can override this method to compute other values that are
+     *  based on the current scrollPosition or scrollRect.
+     *
+     *  @see updateScrollRect
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */  
+    protected function scrollPositionChanged():void
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return;
+
+        updateScrollRect(g.width, g.height);
+    }
+
+    /**
+     *  Called by the target at the end of its <code>updateDisplayList</code>
+     *  to have the layout update its scrollRect.
+     * 
+     *  If clipAndEnableScrolling is true, the default implementation
+     *  sets the origin of the scrollRect to verticalScrollPosition,
+     *  horizontalScrollPosition and its size to the width, height
+     *  parameters (the target's unscaled width,height).
+     * 
+     *  If clipAndEnableScrolling is false, the default implementation
+     *  sets the scrollRect to null.
+     *  
+     *  @param width The target's width.
+     *  @param height The target's height.
+     * 
+     *  @see target
+     *  @see flash.display.DisplayObject#scrollRect
+     *  @see updateDisplayList
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    public function updateScrollRect(w:Number, h:Number):void
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return;
+            
+        if (clipAndEnableScrolling)
+        {
+            var hsp:Number = horizontalScrollPosition;
+            var vsp:Number = verticalScrollPosition;
+            g.scrollRect = new Rectangle(hsp, vsp, w, h);
+        }
+        else
+            g.scrollRect = null;
+    }
+
+    /**
      *  Returns the bounds of the target's scrollRect in layout coordinates.
      * 
      *  Layout methods should not get the target's scrollRect directly.
@@ -316,20 +559,20 @@ public class LayoutBase extends OnDemandEventDispatcher
         return new Rectangle(hsp, vsp, g.width, g.height);
     }
 
-
     /**
      *  Returns the bounds of the first layout element that either spans or
      *  is to the left of the scrollRect's left edge.
      * 
-     *  Used by the getHorizontalScrollPositionDelta() method.
+     *  <p>This is a convenience method that is used by the default
+     *  implementation of the <code>getHorizontalScrollPositionDelta()</code> method.
+     *  Subclasses that rely on the default implementation of
+     *  <code>getHorizontalScrollPositionDelta()</code> should override this method to
+     *  provide an accurate bounding rectangle that has valid <code>left</code> and 
+     *  <code>right</code> properties.</p>
      * 
      *  By default this method returns a Rectangle with width=1, height=0, 
      *  whose left edge is one less than the scrollRect's left edge, 
      *  and top=0.
-     * 
-     *  Subclasses should override this method to provide an accurate
-     *  bounding rectangle that has valid <code>left</code> and 
-     *  <code>right</code> properties.
      * 
      *  @param scrollRect The target's scrollRect.
      *  @return Returns the bounds of the first element that spans or is to
@@ -357,15 +600,16 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  Returns the bounds of the first layout element that either spans or
      *  is to the right of the scrollRect's right edge.
      * 
-     *  Used by the getHorizontalScrollPositionDelta() method.
+     *  <p>This is a convenience method that is used by the default
+     *  implementation of the <code>getHorizontalScrollPositionDelta()</code> method.
+     *  Subclasses that rely on the default implementation of
+     *  <code>getHorizontalScrollPositionDelta()</code> should override this method to
+     *  provide an accurate bounding rectangle that has valid <code>left</code> and 
+     *  <code>right</code> properties.</p>
      * 
      *  By default this method returns a Rectangle with width=1, height=0, 
      *  whose right edge is one more than the scrollRect's right edge, 
      *  and top=0.
-     * 
-     *  Subclasses should override this method to provide an accurate
-     *  bounding rectangle that has valid <code>left</code> and 
-     *  <code>right</code> properties.
      * 
      *  @param scrollRect The target's scrollRect.
      *  @return Returns the bounds of the first element that spans or is to
@@ -393,7 +637,12 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  Returns the bounds of the first layout element that either spans or
      *  is above the scrollRect's top edge.
      * 
-     *  Used by the getVerticalScrollPositionDelta() method.
+     *  <p>This is a convenience method that is used by the default
+     *  implementation of the <code>getVerticalScrollPositionDelta()</code> method.
+     *  Subclasses that rely on the default implementation of
+     *  <code>getVerticalScrollPositionDelta()</code> should override this method to
+     *  provide an accurate bounding rectangle that has valid <code>top</code> and 
+     *  <code>bottom</code> properties.</p>
      * 
      *  By default this method returns a Rectangle with width=0, height=1, 
      *  whose top edge is one less than the scrollRect's top edge, 
@@ -428,26 +677,27 @@ public class LayoutBase extends OnDemandEventDispatcher
     /**
      *  Returns the bounds of the first layout element that either spans or
      *  is below the scrollRect's bottom edge.
-     * 
-     *  Used by the getVerticalScrollPositionDelta() method.
-     * 
+     *
+     *  <p>This is a convenience method that is used by the default
+     *  implementation of the <code>getVerticalScrollPositionDelta()</code> method.
+     *  Subclasses that rely on the default implementation of
+     *  <code>getVerticalScrollPositionDelta()</code> should override this method to
+     *  provide an accurate bounding rectangle that has valid <code>top</code> and 
+     *  <code>bottom</code> properties.</p>
+     *
      *  By default this method returns a Rectangle with width=0, height=1, 
      *  whose bottom edge is one more than the scrollRect's bottom edge, 
      *  and left=0.
-     * 
-     *  Subclasses should override this method to provide an accurate
-     *  bounding rectangle that has valid <code>top</code> and 
-     *  <code>bottom</code> properties.
-     * 
+     *
      *  @param scrollRect The target's scrollRect.
      *  @return Returns the bounds of the first element that spans or is
      *  below the scrollRect’s bottom edge.
-     *  
+     *
      *  @see #elementBoundsLeftOfScrollRect
      *  @see #elementBoundsRightScrollRect
      *  @see #elementBoundsAboveScrollRect
      *  @see #getVerticalScrollPositionDelta
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -459,8 +709,8 @@ public class LayoutBase extends OnDemandEventDispatcher
         bounds.top = scrollRect.bottom;
         bounds.bottom = scrollRect.bottom + 1;
         return bounds;
-    } 
-    
+    }
+
     /**
      *  Implements the default handling of
      *  LEFT, RIGHT, PAGE_LEFT, PAGE_RIGHT, HOME and END. 
@@ -863,133 +1113,5 @@ public class LayoutBase extends OnDemandEventDispatcher
             
          return new Point(dx, dy);
      }
-     
-    /**
-     *  Called when the verticalScrollPosition or horizontalScrollPosition 
-     *  properties change.
-     * 
-     *  Resets the target's scrollRect property by calling
-     *  <code>updateScrollRect()</code>.
-     * 
-     *  Subclasses can override this method to compute other values that are
-     *  based on the current scrollPosition or scrollRect.
-     * 
-     *  @see updateScrollRect
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */  
-    protected function scrollPositionChanged():void
-    {
-        var g:GroupBase = target;
-        if (!g)
-            return;
-
-        updateScrollRect(g.width, g.height);
-    }
-    
-    /**
-     *  If clipAndEnableScrolling is true, sets the origin of the scrollRect to 
-     *  verticalScrollPosition,horizontalScrollPosition and its width
-     *  width,height to w,h (the target's unscaled width,height).
-     * 
-     *  If clipAndEnableScrolling is false, sets the scrollRect to null.
-     *  
-     *  @param w The target's unscaled width.
-     *  @param h The target's unscaled height.
-     * 
-     *  @see target
-     *  @see flash.display.DisplayObject#scrollRect
-     *  @see updateDisplayList
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    public function updateScrollRect(w:Number, h:Number):void
-    {
-        var g:GroupBase = target;
-        if (!g)
-            return;
-            
-        if (clipAndEnableScrolling)
-        {
-            var hsp:Number = horizontalScrollPosition;
-            var vsp:Number = verticalScrollPosition;
-            g.scrollRect = new Rectangle(hsp, vsp, w, h);
-        }
-        else
-            g.scrollRect = null;
-    } 
-    
-    /**
-     *  Convenience function for subclasses that invalidates the
-     *  target's size and displayList if the target is non-null.
-     * 
-     *  @see mx.core.UIComponent#invalidateSize
-     *  @see mx.core.UIComponent#invalidateDisplayList
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function invalidateTargetSizeAndDisplayList():void
-    {
-        var g:GroupBase = target;
-        if (!g)
-            return;
-
-        g.invalidateSize();
-        g.invalidateDisplayList();
-    }
-    
-    /**
-     *  Convenience function for subclasses that invalidates the
-     *  target's displayList if the target is non-null.
-     * 
-     *  @see mx.core.UIComponent#invalidateDisplayList
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function invalidateTargetDisplayList():void
-    {
-        var g:GroupBase = target;
-        if (!g)
-            return;
-
-        g.invalidateDisplayList();
-    }
-    
-    /**
-     *  @copy mx.core.UIComponent#measure
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function measure():void
-    {
-    }
-    
-    /**
-     *  @copy mx.core.UIComponent#updateDisplayList
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-    {
-    }          
 }
-
 }
