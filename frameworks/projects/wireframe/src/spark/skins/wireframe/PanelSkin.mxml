@@ -12,7 +12,7 @@
 -->
 
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-    alpha.disabled="0.5" blendMode.disabled="layer" minWidth="131" minHeight="127">
+    alpha.disabled="0.5" blendMode.disabled="layer">
 
     <fx:Metadata>
     	[HostComponent("spark.components.Panel")]
@@ -21,8 +21,8 @@
     <s:states>
     	<s:State name="normal" />
     	<s:State name="disabled" />
-        <s:State name="normalWithControlBar" />
-        <s:State name="disabledWithControlBar" />
+        <s:State name="normalWithControls" />
+        <s:State name="disabledWithControls" />
     </s:states>
     
     <!-- drop shadow -->
@@ -81,7 +81,7 @@
             </s:Rect>
 	        
 	        <!-- layer 3: text -->
-	        <s:SimpleText id="titleDisplay" maxDisplayedLines="1"
+	        <s:SimpleText id="titleDisplay" lineBreak="explicit"
 			         left="9" right="3" top="1" minHeight="30"
 			         verticalAlign="middle" fontWeight="bold">
 	        </s:SimpleText>
@@ -92,7 +92,7 @@
         </s:Group>
 
         <s:Group id="bottomGroup" minWidth="0" minHeight="0"
-                    includeIn="normalWithControlBar, disabledWithControlBar" >
+                    includeIn="normalWithControls, disabledWithControls" >
             <!-- layer 0: control bar background -->
             <s:Rect left="0" right="0" bottom="0" top="1" >
                 <s:fill>
@@ -108,9 +108,9 @@
             </s:Rect>
 
             <!-- layer 2: control bar -->
-            <s:Group id="controlBarGroup" left="0" right="0" top="1" bottom="1" minWidth="0" minHeight="0">
+            <s:Group id="controlGroup" left="0" right="0" top="1" bottom="0" minWidth="0" minHeight="0">
                 <s:layout>
-                    <s:HorizontalLayout paddingLeft="10" paddingRight="10" paddingTop="7" paddingBottom="7" gap="10" />
+                    <s:HorizontalLayout paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10" />
                 </s:layout>
             </s:Group>
         </s:Group>
