@@ -41,17 +41,39 @@
     	</s:Transition>
     </s:transitions>
     
-    <s:PopUp id="popup" includeIn="open" open.normal="false" open.open="true" 
+    <s:PopUp id="popup"  open.normal="false" open.open="true" 
     	left="0" right="0" top="0" bottom="0" visible.open = "true" visible.normal="false"
     	placement="below">
-		<s:List id="dropDown" maxHeight="140" minHeight="22">
+    	<s:Group maxHeight="140" minHeight="22" visible.open = "true" visible.normal="false">
+	    	 <!-- border -->
+		    <s:Rect left="0" right="0" top="0" bottom="0">
+		    	<s:stroke>
+		    		<s:SolidColorStroke color="0x686868" weight="1"/>
+		    	</s:stroke>
+		    </s:Rect>
+		    
+		    <!-- fill -->
+		    <s:Rect id="background" left="1" right="1" top="1" bottom="1" >
+		    	<s:fill>
+		    		<s:SolidColor id="bgFill" color="0xFFFFFF" />
+		    	</s:fill>
+		    </s:Rect>
+		    
+		    <s:Scroller left="1" top="1" right="1" bottom="1" id="scroller">
+			    <s:DataGroup id="dataGroup" itemRenderer="spark.skins.default.DefaultItemRenderer">
+			    	<s:layout>
+			    	    <s:VerticalLayout gap="0" horizontalAlign="contentJustify" />
+			    	</s:layout>
+			    </s:DataGroup>
+		    </s:Scroller>
+    	
 	        <s:filters>
 	            <s:DropShadowFilter blurX="20" blurY="20" distance="5" angle="90" alpha="0.6" />
 	        </s:filters>
-	    </s:List>
+	    </s:Group>
 	</s:PopUp>
     
-	<s:Button id="button" width="100%" height="100%" skinClass="spark.skins.default.DropDownListButtonSkin" focusEnabled="false"/>  
+	<s:Button id="button" left="0" right="0" top="0" bottom="0" skinClass="spark.skins.default.DropDownListButtonSkin" focusEnabled="false"/>  
 	<!-- TODO (jszeto) Move mouseChildren/mouseEnabled shutoff into GraphicElement createDisplayObject -->
 	<s:Group left="5" right="5" top="5" bottom="5" mouseChildren="false" mouseEnabled="false">
 		<s:SimpleText id="labelElement" /> 
