@@ -11,16 +11,24 @@
 
 package spark.layouts
 {
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
+import mx.core.FlexVersion;
+import mx.core.IFlexModuleFactory;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
+import mx.core.mx_internal;
+import mx.core.UIComponentGlobals;
 import mx.events.PropertyChangeEvent;
+import mx.managers.ILayoutManagerClient;
 
 import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
 import spark.layouts.supportClasses.DropLocation;
 import spark.layouts.supportClasses.LayoutBase;
+
+use namespace mx_internal;
 
 /**
  *  The TileLayout class arranges layout elements in columns and rows
@@ -1060,6 +1068,9 @@ public class TileLayout extends LayoutBase
     {
         if (!elt || !elt.includeInLayout)
             return;
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+            if (elt is ILayoutManagerClient)
+                UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(elt), true);
         var w:Number = elt.getPreferredBoundsWidth();
         var h:Number = elt.getPreferredBoundsHeight();
         _tileWidthCached = isNaN(_tileWidthCached) ? w : Math.max(w, _tileWidthCached);
@@ -1088,7 +1099,7 @@ public class TileLayout extends LayoutBase
         if ((visibleStartIndex != -1) && (visibleEndIndex != -1))
         {
             for (var index:int = visibleStartIndex; index <= visibleEndIndex; index++)
-                updateVirtualTileSize(target.getVirtualElementAt(index));
+                updateVirtualTileSize(target.getVirtualElementAt(index, NaN, NaN, true));
         }
         
         // Make sure that we always have non-NaN values in the cache, even
@@ -1272,9 +1283,12 @@ public class TileLayout extends LayoutBase
                 i = visibleEndIndex;
                 continue;
             } 
-            var el:ILayoutElement = layoutTarget.getVirtualElementAt(i);
+            var el:ILayoutElement = layoutTarget.getVirtualElementAt(i, NaN, NaN, true);
             if (!el)
                 continue;
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+                if (el is ILayoutManagerClient)
+                    UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(el), true);
             el.setLayoutBoundsSize(0, 0);
             if (el is IVisualElement)
                 IVisualElement(el).visible = false; 
@@ -1411,6 +1425,7 @@ public class TileLayout extends LayoutBase
         if (!g)
             return;
 
+        g.invalidateEstimatedSizesOfChildren();
         g.invalidateSize();
         g.invalidateDisplayList();
     }
@@ -1420,6 +1435,75 @@ public class TileLayout extends LayoutBase
     //  Overridden methods from LayoutBase
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  customize handling of a few cases
+     */
+    override protected function estimateSizeOfElement(layoutElement:ILayoutElement, 
+                                                               percentWidth:Number,
+                                                               percentHeight:Number,
+                                                               parentEstimatedWidth:Number,
+                                                               parentEstimatedHeight:Number,
+                                                               estimatedSize:Point):void
+    {
+        super.estimateSizeOfElement(layoutElement,
+                                                percentWidth,
+                                                percentHeight,
+                                                parentEstimatedWidth,
+                                                parentEstimatedHeight,
+                                                estimatedSize);
+        
+        var c:Number;
+        if (isNaN(estimatedSize.y) || !isNaN(explicitRowHeight))
+        {
+            c = explicitRowHeight;
+            if (isNaN(c))
+            {
+                if (requestedRowCount > 0)
+                {
+                    c = target.estimatedHeight;
+                    if (isNaN(c) && !isNaN(target.explicitHeight))
+                        c = target.explicitHeight;
+                    c = (c - (requestedRowCount - 1) * verticalGap) / requestedRowCount;
+                }
+            }
+            if (!isNaN(c))
+            {
+                // if verticalAlign is "justify" or "contentJustify", 
+                // restrict the height to constrainedHeight.  Otherwise, 
+                // size it normally
+                if (verticalAlign == VerticalAlign.JUSTIFY)
+				// ||
+                //    verticalAlign == VerticalAlign.CONTENT_JUSTIFY)
+                    estimatedSize.y = c;
+            }
+        }
+        if (isNaN(estimatedSize.x) || !isNaN(explicitColumnWidth))
+        {
+            c = explicitColumnWidth;
+            if (isNaN(c))
+            {
+                if (requestedColumnCount > 0)
+                {
+                    c = target.estimatedWidth;
+                    if (isNaN(c) && !isNaN(target.explicitWidth))
+                        c = target.explicitWidth;
+                    c = (c - (requestedColumnCount - 1) * horizontalGap) / requestedColumnCount;                    
+                }
+            }
+            if (!isNaN(c))
+            {
+                // if horizontalAlign is "justify" or "contentJustify", 
+                // restrict the width to restrictedWidth.  Otherwise, 
+                // size it normally
+                if (horizontalAlign == HorizontalAlign.JUSTIFY)
+				// ||
+                //    horizontalAlign == HorizontalAlign.CONTENT_JUSTIFY)
+                    estimatedSize.x = c;
+            }
+        }
+    }
 
     /**
      *  @private
@@ -1436,7 +1520,17 @@ public class TileLayout extends LayoutBase
             layoutTarget.invalidateDisplayList();
     }
 
-
+    /**
+     *  @private
+     */
+	override public function setEstimatedSize(estimatedWidth:Number = NaN, 
+												estimatedHeight:Number = NaN,
+												invalidateSize:Boolean = true):void
+    {
+		if (invalidateSize)
+        	target.invalidateSize();    
+    }
+    
     /**
      *  @private
      */
@@ -1446,7 +1540,11 @@ public class TileLayout extends LayoutBase
         if (!layoutTarget)
             return;
             
-        updateActualValues(layoutTarget.explicitWidth, layoutTarget.explicitHeight);
+        var cw:Number = !isNaN(layoutTarget.explicitWidth) ? layoutTarget.explicitWidth : 
+                                                                layoutTarget.estimatedWidth;
+        var ch:Number = !isNaN(layoutTarget.explicitHeight) ? layoutTarget.explicitHeight : 
+            layoutTarget.estimatedHeight;
+        updateActualValues(cw, ch);
 
         // For measure, any explicit overrides for rowCount and columnCount take precedence
         var columnCount:int = _requestedColumnCount != -1 ? Math.max(1, _requestedColumnCount) : _columnCount;
@@ -1754,7 +1852,7 @@ public class TileLayout extends LayoutBase
             var el:ILayoutElement = null; 
             if (useVirtualLayout)
             {
-                el = layoutTarget.getVirtualElementAt(index);
+                el = layoutTarget.getVirtualElementAt(index, NaN, NaN, true);
                 if (el is IVisualElement)  // see updateVirtualLayout
                     IVisualElement(el).visible = true; 
             }
@@ -1771,6 +1869,9 @@ public class TileLayout extends LayoutBase
             var cellWidth:int = Math.round(xPos + _columnWidth) - cellX;
             var cellHeight:int = Math.round(yPos + _rowHeight) - cellY;
 
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+                if (el is ILayoutManagerClient)
+                    UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(el), true);
             sizeAndPositionElement(el, cellX, cellY, cellWidth, cellHeight);
 
             // Move along the major axis
@@ -1810,6 +1911,7 @@ public class TileLayout extends LayoutBase
 
         // If actual values have chnaged, notify listeners
         dispatchEventsForActualValueChanges();
+
     }
 
     /**
