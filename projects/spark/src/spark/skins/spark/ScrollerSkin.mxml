@@ -20,17 +20,23 @@ constraints or dimensions set on skin parts will not be honored.  To
 gain more control over the layout of a viewport and its scrollbars,
 instead of using Scroller, add them to a Group and use the ScrollBar component's
 viewport property to link them together.
-
+ 
 -->
 
-<!--- The default skin class for the Spark Scroller component. -->
+<!--- The default skin class for the Spark Scroller component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
     <fx:Metadata>
     <![CDATA[ 
-	/** 
-	 * @copy spark.skins.default.ApplicationSkin#hostComponent
-	 */
+    /** 
+     * @copy spark.skins.default.ApplicationSkin#hostComponent
+     */
         [HostComponent("spark.components.Scroller")]
     ]]>
     </fx:Metadata> 
