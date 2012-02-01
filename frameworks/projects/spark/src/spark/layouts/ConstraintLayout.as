@@ -572,6 +572,14 @@ public class ConstraintLayout extends LayoutBase
     
     /**
      *  @private
+     */
+    override mx_internal function get virtualLayoutSupported():Boolean
+    {
+        return false
+    }
+    
+    /**
+     *  @private
      *  Used to set new column widths before laying out the elements.
      *  Used by FormItemLayout to set column widths provided by the
      *  Form.
@@ -1401,9 +1409,10 @@ public class ConstraintLayout extends LayoutBase
         var row:ConstraintRow;
         var hasContentSize:Boolean = false;
         var hasPercentSize:Boolean = false;
-        var rowHeights:Vector.<Number> = new Vector.<Number>();
+        var rowHeights:Vector.<Number> = new Vector.<Number>(numRows);
         
-        // Reset content size rows to 0.
+        // Start row heights at the minHeight of each row or
+        // its explicit height.
         for (i = 0; i < numRows; i++)
         {
             row = _constraintRows[i];
@@ -1420,7 +1429,7 @@ public class ConstraintLayout extends LayoutBase
             }
             else if (!isNaN(row.explicitHeight))
             {
-                var h:Number = row.height;
+                var h:Number = row.explicitHeight;
                 
                 if (!isNaN(row.minHeight))
                     h = Math.max(h, row.minHeight);
