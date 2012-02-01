@@ -18,6 +18,7 @@ import flash.geom.Rectangle;
 import mx.containers.utilityClasses.Flex;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
+import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 
 import spark.components.supportClasses.GroupBase;
@@ -26,6 +27,8 @@ import spark.layouts.supportClasses.DropLocation;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.layouts.supportClasses.LayoutElementHelper;
 import spark.layouts.supportClasses.LinearLayoutVector;
+
+use namespace mx_internal;
 
 /**
  *  The HorizontalLayout class arranges the layout elements in a horizontal sequence,
@@ -177,6 +180,9 @@ public class HorizontalLayout extends LayoutBase
     public function HorizontalLayout():void
     {
         super();
+
+		// Don't drag-scroll in the vertical direction
+		dragScrollRegionSizeVertical = 0;
     }
     
     //--------------------------------------------------------------------------
