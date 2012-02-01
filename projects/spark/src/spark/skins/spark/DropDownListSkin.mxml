@@ -22,26 +22,37 @@
 		<State name="disabled" />
 	</states>
 	
-   <!-- <transitions>    	
+	<!-- TODO (jszeto) Remove this eventually since the spec has no effect -->
+    <transitions>
+    	<!--<Transition fromState="normal" toState="open" autoReverse="false">
+    		<Sequence targets="{[popup]}">
+    			<SetAction property="open"/>
+	    		<Parallel duration="500">
+	    			<FxFade />
+	    			<FxMove animationUpdate="popup.updateContentTransform();"/>
+	    		</Parallel>
+    		</Sequence>
+    	</Transition>-->
     	<Transition fromState="open" toState="normal">
-    		<Sequence targets="{[p]}">
+    		<Sequence targets="{[popup]}">
 	    		<FxFade duration="150"/>
 	    		<SetAction property="open"/>	
     		</Sequence>
     	</Transition>
-    </transitions>-->
+    </transitions>
     
-    <PopUp id="p" includeIn="open" open.normal="false" open.open="true" 
-    	left="0" right="0" top="0" bottom="0"
+    <PopUp id="popup" includeIn="open" open.normal="false" open.open="true" 
+    	left="0" right="0" top="0" bottom="0" visible.open = "true" visible.normal="false"
     	placement="below">
-		<FxList id="dropDown" maxHeight="140">
+		<FxList id="dropDown" maxHeight="140" minHeight="22">
 	        <filters>
 	            <DropShadowFilter blurX="20" blurY="20" distance="5" angle="90" alpha="0.6" />
 	        </filters>
 	    </FxList>
-	</PopUp>    
+	</PopUp>
     
 	<FxButton id="button" width="100%" height="100%" skinClass="mx.skins.spark.DropDownListButtonSkin"/>  
+	<!-- TODO (jszeto) Move mouseChildren/mouseEnabled shutoff into GraphicElement createDisplayObject -->
 	<Group left="5" right="5" top="5" bottom="5" mouseChildren="false" mouseEnabled="false">
 		<TextBox id="labelElement" /> 
 	</Group>
