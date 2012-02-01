@@ -1115,10 +1115,8 @@ public class GraphicElement extends EventDispatcher
         dispatchPropertyChangeEvent("rotation", oldValue, value);
 
         rotationChanged = true;
+        invalidateProperties();
         invalidateParentSizeAndDisplayList();
-        // TODO EGeorgie: currently we apply rotation during setActualSize,
-        // however we should do this on commitProperties.
-        // invalidateProperties();
     }
 
     //----------------------------------
@@ -1162,13 +1160,9 @@ public class GraphicElement extends EventDispatcher
 
         scaleXChanged = true;
         notifyElementLayerChanged();
-
+        invalidateProperties();
         // Parent layout takes transform into account
         invalidateParentSizeAndDisplayList();
-
-        // TODO EGeorgie: apply the transform properties in commitProperties
-        // instead of in setActualSize, setActualPosition.
-        // invalidateProperties();
     }
 
     //----------------------------------
@@ -1212,13 +1206,9 @@ public class GraphicElement extends EventDispatcher
 
         scaleYChanged = true;
         notifyElementLayerChanged();
-
+        invalidateProperties();
         // Parent layout takes transform into account
         invalidateParentSizeAndDisplayList();
-
-        // TODO EGeorgie: apply the transform properties in commitProperties
-        // instead of in setActualSize, setActualPosition.
-        // invalidateProperties();
     }
 
     //----------------------------------
@@ -1303,13 +1293,9 @@ public class GraphicElement extends EventDispatcher
 
         _transform = value;
         notifyElementLayerChanged();
-
+        invalidateProperties();
         // Parent layout takes transform into account
         invalidateParentSizeAndDisplayList();
-
-        // TODO EGeorgie: apply the transform properties in commitProperties
-        // instead of in setActualSize, setActualPosition.
-        // invalidateProperties();
     }
 
     //----------------------------------
@@ -1352,13 +1338,9 @@ public class GraphicElement extends EventDispatcher
 
         transformXChanged = true;
         notifyElementLayerChanged();
-
+        invalidateProperties();
         // Parent layout takes transform into account
         invalidateParentSizeAndDisplayList();
-
-        // TODO EGeorgie: apply the transform properties in commitProperties
-        // instead of in setActualSize, setActualPosition.
-        // invalidateProperties();
     }
 
     //----------------------------------
@@ -1400,13 +1382,9 @@ public class GraphicElement extends EventDispatcher
 
         transformYChanged = true;
         notifyElementLayerChanged();
-
+        invalidateProperties();
         // Parent layout takes transform into account
         invalidateParentSizeAndDisplayList();
-
-        // TODO EGeorgie: apply the transform properties in commitProperties
-        // instead of in setActualSize, setActualPosition.
-        // invalidateProperties();
     }
 
     //----------------------------------
@@ -1530,13 +1508,9 @@ public class GraphicElement extends EventDispatcher
         dispatchPropertyChangeEvent("x", oldValue, value);
 
         xChanged = true;
-
+        invalidateProperties();
         // Parent layout takes transform into account
         invalidateParentSizeAndDisplayList();
-
-        // TODO EGeorgie: apply the transform properties in commitProperties
-        // instead of in setActualSize, setActualPosition.
-        // invalidateProperties();
     }
 
     //----------------------------------
@@ -1580,13 +1554,9 @@ public class GraphicElement extends EventDispatcher
         dispatchPropertyChangeEvent("y", oldValue, value);
 
         yChanged = true;
-
+        invalidateProperties();
         // Parent layout takes transform into account
         invalidateParentSizeAndDisplayList();
-
-        // TODO EGeorgie: apply the transform properties in commitProperties
-        // instead of in setActualSize, setActualPosition.
-        // invalidateProperties();
     }
 
     //----------------------------------
@@ -1672,12 +1642,13 @@ public class GraphicElement extends EventDispatcher
         _displayObject = value;
         dispatchPropertyChangeEvent("displayObject", oldValue, value);
 
+        // We need to apply the display object related properties.
+        // TODO EGeorgie: add an option 'display object changed'
+        xChanged = yChanged = rotationChanged = true;
+        invalidateProperties();
+
         // New display object, we need to redraw
         invalidateDisplayList();
-
-        // TODO EGeorgie: apply the transform properties in commitProperties
-        // instead of in setActualSize, setActualPosition.
-        // invalidateProperties();
     }
 
     //--------------------------------------------------------------------------
@@ -1770,8 +1741,6 @@ public class GraphicElement extends EventDispatcher
         dispatchPropertyChangeEvent("includeInLayout", oldValue, value);
             
         invalidateParentSizeAndDisplayList();
-        // TODO EGeorgie: if the displayObject is shared, we need to
-        // invalidateDisplayList();
     }
 
     //----------------------------------
@@ -2136,6 +2105,15 @@ public class GraphicElement extends EventDispatcher
                 visibleChanged = false;
                 displayObject.visible = _visible;
             }
+            
+            if (_matrix || scaleXChanged || scaleYChanged ||
+                rotationChanged || transformXChanged || transformYChanged)
+            {
+                commitScaleAndRotation();
+            }
+
+            if (xChanged || yChanged)
+                commitXY();
         }
     }
 
@@ -2323,19 +2301,11 @@ public class GraphicElement extends EventDispatcher
      */
     protected function computeMatrix(actualMatrix:Boolean):Matrix
     {
-        if (_matrix)
-            return TransformUtil.isDeltaIdentity(_matrix) ? null : _matrix;
-
-        if (_scaleX == 1 && _scaleY == 1 && _rotation == 0)
+        if (!displayObject)
             return null;
 
-        // TODO EGeorgie: share the duplicated code with the TransformUtil.applyTransforms?
-        var m:Matrix = new Matrix();
-        m.translate(-_transformX, -_transformY);
-        m.scale(_scaleX, _scaleY);
-        m.rotate(TransformUtil.rotationInRadians(_rotation));
-        m.translate(_transformX, _transformY);
-        return m;
+        var m:Matrix = displayObject.transform.matrix;
+        return TransformUtil.isDeltaIdentity(m) ? null : m;
     }
 
     /**
@@ -2492,9 +2462,6 @@ public class GraphicElement extends EventDispatcher
             invalidateDisplayList();
         }
 
-        // TODO EGeorgie: move to commit properties
-        // Finally, apply the transforms to the object
-        commitScaleAndRotation();
         return actualSize;
     }
 
@@ -2546,6 +2513,9 @@ public class GraphicElement extends EventDispatcher
         yChanged = false;
 
         endCommitTransformProps();
+        
+        // TODO EGeorgie: if the drawing depends on x & y, we need to
+        // invalidateDisplayList();
     }
 
     /**
@@ -2684,15 +2654,12 @@ public class GraphicElement extends EventDispatcher
                 if (_transform)
                 {
                     _matrix = _transform.matrix.clone();
+
                     clearTransformProperties();
                     notifyElementLayerChanged();
-
+                    invalidateProperties();
                     // Parent layout takes transform into account
                     invalidateParentSizeAndDisplayList();
-
-                    // TODO EGeorgie: apply the transform properties in commitProperties
-                    // instead of in setActualSize, setActualPosition.
-                    // invalidateProperties();
                 }
             }
             else if (event.property == "colorTransform")
