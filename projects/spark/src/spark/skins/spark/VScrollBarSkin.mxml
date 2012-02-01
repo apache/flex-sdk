@@ -18,11 +18,8 @@
     	[HostComponent("flex.component.VScrollBar")]
     </Metadata> 
     
-    <content>
-        <Button id="track" top="11" bottom="11" width="12" skinZZ="flex.skin.VScrollBarTrackSkin" />
-        <Button top="0" id="upButton" width="12" height="12" skinZZ="flex.skin.ScrollBarUpButtonSkin" />
-        <Button id="thumb" width="12" height="12" minHeight="10" skinZZ="flex.skin.VScrollBarThumbSkin" />
-        <Button bottom="0" id="downButton" width="12" height="12" skinZZ="flex.skin.ScrollBarDownButtonSkin" />
-    </content>
-
+    <Button id="track" top="17" bottom="17" skinZZ="flex.skin.VScrollBarTrackSkin" />
+    <Button top="0" id="upButton" skinZZ="flex.skin.ScrollBarUpButtonSkin" />
+    <Button id="thumb" skinZZ="flex.skin.VScrollBarThumbSkin" />
+    <Button bottom="0" id="downButton" skinZZ="flex.skin.ScrollBarDownButtonSkin" />
 </Skin>
