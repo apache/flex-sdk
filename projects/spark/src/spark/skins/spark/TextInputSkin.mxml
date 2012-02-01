@@ -11,7 +11,9 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<Skin xmlns="http://ns.adobe.com/mxml/2009"
+	  alpha.disabled="0.5">
+
 
     <Metadata>
     	[HostComponent("mx.components.FxTextInput")]
@@ -21,21 +23,31 @@
         <State name="normal"/>
         <State name="disabled"/>
     </states>
-        
+    
+    <!-- border/fill --> 
 	<Rect left="0" right="0" top="0" bottom="0">
         <stroke>            
-            <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8"/>
+            <LinearGradientStroke rotation="90">
+            	<GradientEntry color="0x000000" alpha="0.5525" />
+            	<GradientEntry color="0x000000" alpha="0.6375" />
+            </LinearGradientStroke>
         </stroke>
         <fill>
             <SolidColor color="0xFFFFFF"/>
         </fill>
     </Rect>
 
+	<!-- shadow -->
+	<Rect left="1" top="1" right="1" height="1">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.12" />
+		</fill>
+	</Rect>
+	
+	<!-- text -->
     <TextView id="textView"
-              left="1" right="1" top="1" bottom="1"
-              fontFamily="Arial" fontSize="12"
-              color="0x2B4381" color.disabled="0x95A1C0"
-			  paddingLeft="4" paddingTop="4"
-              paddingRight="4" paddingBottom="4"/>
+              left="1" right="1" top="1" bottom="1" 
+			  paddingLeft="3" paddingTop="5"
+              paddingRight="3" paddingBottom="3"/>
 
 </Skin>
