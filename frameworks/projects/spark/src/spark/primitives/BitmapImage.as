@@ -56,6 +56,9 @@ public class BitmapImage extends GraphicElement
     public function BitmapImage()
     {
         super();
+        
+        // Typically, this should not be mirrored.
+        layoutDirection = "ltr";
     }
     
     //--------------------------------------------------------------------------
