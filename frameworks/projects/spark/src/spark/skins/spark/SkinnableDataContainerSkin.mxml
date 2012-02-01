@@ -11,6 +11,7 @@
 
 -->
 
+<!--- The default skin class for the Spark SkinnableDataContainer container. -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
     <fx:Metadata>
