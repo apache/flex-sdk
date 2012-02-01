@@ -11,54 +11,54 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
     <!-- host component -->
-    <Metadata>
-        [HostComponent("mx.components.FxVideoDisplay")]
-    </Metadata>
+    <fx:Metadata>
+        [HostComponent("spark.components.VideoDisplay")]
+    </fx:Metadata>
     
-    <Script>
+    <fx:Script>
         /* Define the skin elements that should not be colorized. 
            TODO: For video display, we need to think about this... */
         static private const exclusions:Array = [];
         override public function get colorizeExclusions():Array {return exclusions;}
-    </Script>
+    </fx:Script>
     
     <!-- states -->
-    <states>
-        <State name="buffering" />
-        <State name="connectionError" />
-        <State name="disabled" />
-        <State name="disconnected" />
-        <State name="loading" />
-        <State name="paused" />
-        <State name="playing" />
-        <State name="seeking" />
-        <State name="stopped" />
-    </states>
+    <s:states>
+        <s:State name="buffering" />
+        <s:State name="connectionError" />
+        <s:State name="disabled" />
+        <s:State name="disconnected" />
+        <s:State name="loading" />
+        <s:State name="paused" />
+        <s:State name="playing" />
+        <s:State name="seeking" />
+        <s:State name="stopped" />
+    </s:states>
     
-    <layout> 
-        <VerticalLayout horizontalAlign="center"/> 
-    </layout>
+    <s:layout> 
+        <s:VerticalLayout horizontalAlign="center"/> 
+    </s:layout>
     
-    <VideoElement id="videoElement" />
+    <s:VideoElement id="videoElement" />
     
-    <FxHSlider id="scrubBar" />
+    <s:HSlider id="scrubBar" />
     
-    <Group>
-        <layout>
-            <HorizontalLayout />
-        </layout>
+    <s:Group>
+        <s:layout>
+            <s:HorizontalLayout />
+        </s:layout>
         
-        <FxButton id="stopButton" label="Stop" />
+        <s:Button id="stopButton" label="Stop" />
         
-        <FxToggleButton id="playPauseButton" skinClass="mx.skins.spark.FxVideoDisplayPlayPauseButtonSkin" label="Play" />
+        <s:ToggleButton id="playPauseButton" skinClass="spark.skins.default.VideoDisplayPlayPauseButtonSkin" label="Play" />
         
-        <FxToggleButton id="muteButton" skinClass="mx.skins.spark.FxVideoDisplayMuteButtonSkin" label="Mute" />
+        <s:ToggleButton id="muteButton" skinClass="spark.skins.default.VideoDisplayMuteButtonSkin" label="Mute" />
         
-        <FxVSlider id="volumeBar" liveDragging="true" height="21" valueInterval=".1" />
+        <s:VSlider id="volumeBar" liveDragging="true" height="21" valueInterval=".1" />
         
-        <FxButton id="fullScreenButton" label="Fullscreen" />
-    </Group>
-</SparkSkin>
+        <s:Button id="fullScreenButton" label="Fullscreen" />
+    </s:Group>
+</s:SparkSkin>
