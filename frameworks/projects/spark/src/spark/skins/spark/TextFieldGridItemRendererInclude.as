@@ -22,7 +22,6 @@ are identical, save the superclass and constructor names.  This file contains th
     import flash.geom.Point;
     import flash.geom.Rectangle;
     import flash.geom.Vector3D;
-    import flash.text.TextFieldAutoSize;
     import flash.utils.getDefinitionByName;
     import flash.utils.getQualifiedClassName;
     import flash.utils.getQualifiedSuperclassName;
@@ -30,8 +29,6 @@ are identical, save the superclass and constructor names.  This file contains th
     import mx.core.DesignLayer;
     import mx.core.IFlexDisplayObject;
     import mx.core.IToolTip;
-    import mx.core.UIFTETextField;
-    import mx.core.UITextField;
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
     import mx.events.ToolTipEvent;
@@ -41,8 +38,7 @@ are identical, save the superclass and constructor names.  This file contains th
     import mx.styles.IStyleClient;
     import mx.styles.StyleProtoChain;
     
-    import spark.components.IGridItemRenderer;
-    import spark.components.supportClasses.GridColumn;
+    import spark.components.gridClasses.GridColumn;
     
     use namespace mx_internal;
     
