@@ -19,7 +19,10 @@ package spark.skins.spark
 import flash.text.TextFieldAutoSize;
 
 import mx.core.UIFTETextField;
+import mx.styles.CSSMergedStyleDeclaration;
 import mx.styles.IStyleClient;
+import mx.styles.IStyleManager2;
+import mx.styles.StyleManager;
 
 import spark.components.gridClasses.IGridItemRenderer;
 
@@ -104,69 +107,51 @@ public class DefaultGridItemRenderer extends UIFTETextField implements IGridItem
         
         addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);
     }
+
+    //--------------------------------------------------------------------------
+    //
+    //  IStyleClient Methods and Properties
+    //  (source code from mx.controls.dataGridClassses.DataGridItemRenderer.as)
+    //
+    //-------------------------------------------------------------------------- 
     
-    //--------------------------------------------------------------------------
-    //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
+    //----------------------------------
+    //  styleDeclaration
+    //----------------------------------
+    
+    private var _styleDeclaration:CSSStyleDeclaration;
     
     /**
      *  @private
-     *  Hold the property to style conversions that getStyle() should use.
-     *  Since setStyle() in UIFTETextField is a no-op, getStyle() will look here
-     *  for a "pseudo style" before looking for the real styles.  See notes 
-     *  on direction and locale properties.
      */
-    private var pseudoStyles:Object;
-
-    //----------------------------------
-    //  direction
-    //----------------------------------
-    
-    /**
-     * @private 
-     * This is a property in FTETextField so if set in mxml the property
-     * rather than the style is set.  UIFTETextField will overwrite the
-     * property with the value of the "direction" style so convert the property
-     * to a style.
-     */
-    override public function set direction(value:String):void
+    public function get styleDeclaration():CSSStyleDeclaration
     {
-        if (!pseudoStyles)
-            pseudoStyles = {};
-        pseudoStyles["direction"] = value;
+        return _styleDeclaration;
     }
     
-    //----------------------------------
-    //  locale
-    //----------------------------------
-    
     /**
-     * @private 
-     * This is a property in FTETextField so if set in mxml the property
-     * rather than the style is set.  UIFTETextField will overwrite the
-     * property with the value of the "locale" style so convert the property
-     * to a style.
+     *  @private
      */
-    override public function set locale(value:String):void
+    public function set styleDeclaration(value:CSSStyleDeclaration):void
     {
-        if (!pseudoStyles)
-            pseudoStyles = {};
-        pseudoStyles["locale"] = value;
-    }
-
-    /**
-     * @private
-     */ 
-    override public function getStyle(styleProp:String):*
-    {
-        if (pseudoStyles && pseudoStyles[styleProp] !== undefined)
-            return pseudoStyles[styleProp];
+        // The "direction" and "locale" are treated as properites instead of
+        // styles by the compiler when the DefaultGridItemRenderer is used. 
+        // This means styleDeclaration will not include these inline styles. 
+        // This code adds "direction" and "locale" back into styleDeclaration
+        // so the style system sees the styles.
+        var uiFTETextField:UIFTETextField = UIFTETextField(this);
+        var styleManager:IStyleManager2 = StyleManager.getStyleManager(moduleFactory);
+        var style:CSSStyleDeclaration = new CSSStyleDeclaration(value.selector, styleManager);
         
-        return super.getStyle(styleProp);
+        style.defaultFactory = function():void
+        {
+            this.direction = uiFTETextField.direction;
+            this.locale = uiFTETextField.locale;
+        }
+        
+        _styleDeclaration = new CSSMergedStyleDeclaration(style, value, value.selector, 
+            styleManager);
     }
-    
     
 include "TextFieldGridItemRendererInclude.as"
 
