@@ -10,6 +10,8 @@
 
 -->
 <!--- The default skin class for Spark TextInput component.  
+
+     @see spark.components.TextInput
         
       @langversion 3.0
       @playerversion Flash 10
@@ -164,6 +166,7 @@
     <!--- @private -->
     <s:Rect left="0" right="0" top="0" bottom="0" id="border">
         <s:stroke>     
+            <!--- @private -->
             <s:SolidColorStroke id="borderStroke" weight="1" />
         </s:stroke>
     </s:Rect>
