@@ -35,6 +35,8 @@ import spark.primitives.Rect;
 /**
  *  The default skin class for a Spark BorderContainer component.
  * 
+ *  @see spark.components.BorderContainer
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -50,7 +52,7 @@ public class BorderContainerSkin extends Skin
     //--------------------------------------------------------------------------
     
     /**
-     *  Constructor 
+     *  Constructor. 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
