@@ -290,7 +290,6 @@ public class VerticalLayout implements ILayout
         }
     }
 
-
     private function variableRowHeightMeasure(layoutTarget:Group):void
     {
         var minWidth:Number = 0;
@@ -305,34 +304,39 @@ public class VerticalLayout implements ILayout
         var totalCount:uint = count; // How many items will be laid out
         for (var i:int = 0; i < count; i++)
         {
-            var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
-            if (!layoutItem || !layoutItem.includeInLayout)
+            var li:ILayoutItem = layoutTarget.getLayoutItemAt(i);
+            if (!li || !li.includeInLayout)
             {
             	totalCount--;
                 continue;
             }            
 
-            preferredWidth = Math.max(preferredWidth, layoutItem.preferredSize.x);
-            preferredHeight += layoutItem.preferredSize.y; 
-
-            var itemMinWidth:Number = hasPercentWidth(layoutItem) ? layoutItem.minSize.x : layoutItem.preferredSize.x;
-            var itemMinHeight:Number = hasPercentHeight(layoutItem) ? layoutItem.minSize.y : layoutItem.preferredSize.y;
-            minWidth = Math.max(minWidth, itemMinWidth);
-            minHeight += itemMinHeight;
+            preferredWidth = Math.max(preferredWidth, li.preferredSize.x);
+            preferredHeight += li.preferredSize.y; 
             
-            if ((explicitRowCount != -1) && (visibleRows < explicitRowCount)) 
+            var vrr:Boolean = (explicitRowCount != -1) && (visibleRows < explicitRowCount);
+
+            if (vrr || (explicitRowCount == -1))
             {
-            	visibleHeight = preferredHeight;
-            	visibleRows += 1;
+                var mw:Number =  hasPercentWidth(li) ? li.minSize.x : li.preferredSize.x;
+                var mh:Number = hasPercentHeight(li) ? li.minSize.y : li.preferredSize.y;                   
+                minWidth = Math.max(mw, minWidth);
+                minHeight += mh;
             }
+
+            if (vrr) 
+            {
+                visibleHeight = preferredHeight;
+                visibleRows += 1;
+            }            
         }
         
         if (totalCount > 1)
         { 
-            var gapSpace:Number = gap * (totalCount - 1);
-            minHeight += gapSpace;
-            preferredHeight += gapSpace; 
-            visibleHeight += (visibleRows > 1) ? (gap * (visibleRows - 1)) : 0;
+            preferredHeight += gap * (totalCount - 1);
+            var vgap:Number = (visibleRows > 1) ? (gap * (visibleRows - 1)) : 0;
+            visibleHeight += vgap;
+            minHeight += vgap;
         }
         
         layoutTarget.measuredWidth = preferredWidth;
@@ -384,7 +388,7 @@ public class VerticalLayout implements ILayout
         layoutTarget.measuredHeight = visibleHeight;
 
         layoutTarget.measuredMinWidth = minColumnWidth;
-        layoutTarget.measuredMinHeight = rowHeight;
+        layoutTarget.measuredMinHeight = visibleHeight;
         
         layoutTarget.setContentSize(columnWidth, contentHeight);
     }
