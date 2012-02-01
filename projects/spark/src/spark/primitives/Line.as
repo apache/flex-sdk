@@ -223,7 +223,7 @@ public class Line extends StrokedElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override protected function skipMeasure():Boolean
+    override protected function canSkipMeasurement():Boolean
     {
         // Since our measure() is quick, we prefer to call it always instead of
         // trying to detect cases where measuredX and measuredY would change.
@@ -253,9 +253,9 @@ public class Line extends StrokedElement
     {
         var graphicsStroke:GraphicsStroke; 
         if (stroke)
-            graphicsStroke = stroke.generateGraphicsStroke(new 
-            Rectangle(drawX + measuredX, drawY + measuredY, 
-            Math.max(width, stroke.weight), Math.max(height, stroke.weight))); 
+            graphicsStroke = GraphicsStroke(stroke.createGraphicsStroke(new 
+            					Rectangle(drawX + measuredX, drawY + measuredY, 
+            					Math.max(width, stroke.weight), Math.max(height, stroke.weight)))); 
         
         // If the stroke returns a valid graphicsStroke object which is the 
         // Drawing API-2 drawing commands to render this stroke, use that 
@@ -274,7 +274,7 @@ public class Line extends StrokedElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override protected function drawElement(g:Graphics):void
+    override protected function draw(g:Graphics):void
     {
         // Our bounding box is (x1, y1, x2, y2)
         var x1:Number = measuredX + drawX;
