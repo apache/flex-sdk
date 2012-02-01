@@ -625,7 +625,7 @@ public class HorizontalLayout extends LayoutBase
         }   
 
         if (virtualLayout)
-            updateDisplayListVirtual(i0);
+            g.invalidateDisplayList();
                 
         setIndexInView(i0, i1);
     }
@@ -953,7 +953,7 @@ public class HorizontalLayout extends LayoutBase
      *  for the initial layout and then, if it has changed, we loop through 
      *  the layout items again and fix up the y/height values.
      */
-    private function updateDisplayListVirtual(startIndex:int = -1):void
+    private function updateDisplayListVirtual():void
     {
         var layoutTarget:GroupBase = target; 
         var eltCount:int = layoutTarget.numLayoutElements;
@@ -962,14 +962,12 @@ public class HorizontalLayout extends LayoutBase
         var maxVisibleX:Number = minVisibleX + layoutTarget.width;
        
         updateLLV(layoutTarget);
-        if (startIndex < 0)            
-            startIndex = llv.indexOf(minVisibleX); 
+        var startIndex:int = llv.indexOf(minVisibleX); 
             
         var fixedColumnWidth:Number = NaN;
         if (!variableColumnWidth)
             fixedColumnWidth = columnWidth;  // may query typicalLayoutElement, elt at index=0
          
-        layoutTarget.beginVirtualLayout(startIndex);
         var contentHeight:Number = llv.minorSize;
         var containerHeight:Number = Math.max(contentHeight, targetHeight);
         var x:Number = llv.start(startIndex);
@@ -1012,7 +1010,6 @@ public class HorizontalLayout extends LayoutBase
         setColumnCount(index - startIndex);
         setIndexInView(startIndex, endIndex);
         layoutTarget.setContentSize(llv.end(llv.length - 1), contentHeight);
-        layoutTarget.endVirtualLayout(startIndex, endIndex);
     }
     
     private function updateDisplayListReal():void
