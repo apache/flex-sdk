@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- 
+The default skin class for a Spark DataGrid component.  
+
+@see spark.components.DataGrid
+-->
+
+<s:SparkSkin 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009">
+    
+    <fx:Metadata>
+        [HostComponent("spark.components.DataGrid")]
+    </fx:Metadata>
+    
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <fx:Script fb:purpose="styling">
+        static private const exclusions:Array = ["scroller", "background"];
+        static private const contentFill:Array = ["bgFill"];
+        
+        /**
+         * @private
+         */
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /**
+         * @private
+         */
+        override public function get contentItems():Array {return contentFill};
+        
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useChromeColor = true;
+            super.initializationComplete();
+        }
+        
+        /**
+         * @private
+         */
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        {
+            if (getStyle("borderVisible") == true)
+            {
+                border.visible = true;
+                background.left = background.top = background.right = background.bottom = 1;
+                scroller.minViewportInset = 1;
+            }
+            else
+            {
+                border.visible = false;
+                background.left = background.top = background.right = background.bottom = 0;
+                scroller.minViewportInset = 0;
+            }
+            
+            borderStroke.color = getStyle("borderColor");
+            borderStroke.alpha = getStyle("borderAlpha");
+            
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
+    </fx:Script>    
+
+    <fx:Declarations>
+        <fx:Component id="defaultItemRenderer">
+            <s:GridItemRenderer>
+                <s:Label id="labelDisplay" paddingLeft="3" paddingRight="3" paddingBottom="5" paddingTop="10"/> 
+            </s:GridItemRenderer>
+        </fx:Component>
+        
+        <fx:Component id="defaultCaretIndicator">
+            <s:Rect>
+                <s:stroke>
+                    <s:SolidColorStroke color="0xFFBC7A" weight="2"/>
+                </s:stroke>
+            </s:Rect>
+        </fx:Component>
+        
+        <fx:Component id="defaultSelectionIndicator">
+            <s:Rect>
+                <s:fill>
+                    <mx:SolidColor color="0xC082FF"/>
+                </s:fill>                
+            </s:Rect>
+        </fx:Component>           
+        
+        <fx:Component id="defaultColumnSeparator">
+            <s:Line>
+                <s:stroke>
+                    <s:SolidColorStroke color="0x000000" weight="1"/>
+                </s:stroke>
+            </s:Line>
+        </fx:Component>
+        
+        <fx:Component id="defaultRowSeparator">
+            <s:Line>
+                <s:stroke>
+                    <s:SolidColorStroke color="0x000000" weight="1"/>
+                </s:stroke>
+            </s:Line>
+        </fx:Component>
+        
+        <fx:Component id="defaultHoverIndicator">
+            <s:Rect>
+                <s:fill>
+                    <mx:SolidColor color="0xFFBC7A"/>
+                </s:fill>
+            </s:Rect>
+        </fx:Component>
+        
+        <fx:Component id="defaultRowBackground">
+            <s:Rect>
+                <fx:Script>
+                    <![CDATA[
+                        
+                        // TBD: should get a grid argument as well
+                        public function initializeGridElement(rowIndex:int, columnIndex:int):void
+                        {
+                            rowBackgroundFillColor.color = ((rowIndex & 1) == 0) ? 0xFFFFFF : 0xE9D2FF;
+                        }
+                        
+                    ]]>
+                </fx:Script>                
+                <s:fill>
+                    <mx:SolidColor id="rowBackgroundFillColor"/>
+                </s:fill>
+            </s:Rect>
+        </fx:Component>
+    </fx:Declarations>
+
+    <!-- border -->
+    <!--- @private -->
+    <s:Rect left="0" right="0" top="0" bottom="0" id="border">
+        <s:stroke>
+            <!--- @private -->
+            <s:SolidColorStroke id="borderStroke" weight="1"/>
+        </s:stroke>
+    </s:Rect>
+    
+    <!-- fill -->
+    <!--- Defines the background appearance of the list-based component. -->
+    <s:Rect id="background" left="1" right="1" top="1" bottom="1" >
+        <s:fill>
+            <!--- Defines the color of the background. The default color is 0xFFFFFF. -->
+            <s:SolidColor id="bgFill" color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
+    
+    <!--- The Scroller component to add scroll bars to the list. -->
+    <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" minViewportInset="1" hasFocusableChildren="false">
+        <s:Grid id="grid"
+            defaultItemRenderer="{defaultItemRenderer}"
+            caretIndicator="{defaultCaretIndicator}"
+            hoverIndicator="{defaultHoverIndicator}"
+            selectionIndicator="{defaultSelectionIndicator}"
+            rowBackground="{defaultRowBackground}"
+            rowSeparator="{defaultRowSeparator}"
+            columnSeparator="{defaultColumnSeparator}">
+        </s:Grid>
+    </s:Scroller>
+</s:SparkSkin>
