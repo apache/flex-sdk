@@ -16,7 +16,6 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.events.Event;
 import flash.events.EventDispatcher;	
-import flash.ui.Keyboard;
 
 import mx.components.baseClasses.GroupBase;
 import mx.core.ScrollUnit;
@@ -106,14 +105,7 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Specifies the number of items to display.
-     * 
-     *  If <code>columnCount</code> is -1, then all of them items are displayed.
-     * 
-     *  This value implies the layout's <code>measuredWidth</code>.
-     * 
-     *  If the width of the <code>target</code> has been explicitly set,
-     *  then this property has no effect.
+     *  Returns the current number of visible items.
      * 
      *  @default -1
      */
@@ -123,8 +115,8 @@ public class HorizontalLayout extends LayoutBase
     }
 
     /**
-     *  Sets the <code>columnCount</code> property without causing
-     *  invalidation.  
+     *  Sets the <code>columnCount</code> property and dispatches
+     *  a PropertyChangeEvent.
      * 
      *  This method is intended to be used by subclass updateDisplayList() 
      *  methods to sync the columnCount property with the actual number
@@ -155,10 +147,10 @@ public class HorizontalLayout extends LayoutBase
      * 
      *  If <code>requestedColumnCount</code> is -1, then all of them items are displayed.
      * 
-     *  This value implies the layout's <code>measuredWidth</code>.
+     *  This property implies the layout's <code>measuredWidth</code>.
      * 
      *  If the width of the <code>target</code> has been explicitly set,
-     *  this property has no effect.
+     *  then this property has no effect.
      * 
      *  @default -1
      */
@@ -397,6 +389,9 @@ public class HorizontalLayout extends LayoutBase
         if ((li == null) || !li.includeInLayout)
             return 0.0;
             
+        if (!clipContent)
+            return 1.0;
+            
         var c0:int = firstIndexInView; 
         var c1:int = lastIndexInView;
         
@@ -431,15 +426,6 @@ public class HorizontalLayout extends LayoutBase
      * 
      *  Returns the index of the item that contains x, or -1.
      * 
-     *  Implementation note: currently the inclusion test is slightly
-     *  incorrect, since we're comparing y with the _closed_ interval
-     *  from p.x to p.x + s.x + gap.  This is to accomodate checking the
-     *  "right" of the scrollRect, see the computation of i1 in
-     *  scrollPositionChanged.  One alternative that would restore
-     *  the more correct open ended interval, would be to check
-     *  the right of the scrollRect less some infintesimally small
-     *  amount.
-     * 
      * @private 
      */
     private static function findIndexAt(x:Number, gap:int, g:GroupBase, i0:int, i1:int):int
@@ -449,7 +435,7 @@ public class HorizontalLayout extends LayoutBase
         var p:Point = item.actualPosition;
         var s:Point = item.actualSize;
         // TBD: deal with null item, includeInLayout false.
-        if ((x >= p.x) && (x <= p.x + s.x + gap))
+        if ((x >= p.x) && (x < p.x + s.x + gap))
             return index;
         else if (i0 == i1)
             return -1;
@@ -510,8 +496,15 @@ public class HorizontalLayout extends LayoutBase
             return;    
         }
         
+        // We're going to use findIndexAt to find the index of 
+        // the items that overlap the left and right edges of the scrollRect.
+        // Values that are exactly equal to scrollRect.right aren't actually
+        // rendered, since the left,right interval is only half open.
+        // To account for that we back away from the right edge by a
+        // hopefully infinitesimal amount.
+     
         var x0:Number = scrollR.left;
-        var x1:Number = scrollR.right;
+        var x1:Number = scrollR.right - .0001;
         if (x1 <= x0)
         {
             setIndexInView(-1, -1);
@@ -522,7 +515,6 @@ public class HorizontalLayout extends LayoutBase
 
         var i0:int = findIndexAt(x0 + gap, gap, g, 0, n);
         var i1:int = findIndexAt(x1, gap, g, 0, n);
-
         // Special case: no item overlaps x0, is index 0 visible?
         if (i0 == -1)
         {   
@@ -698,7 +690,7 @@ public class HorizontalLayout extends LayoutBase
                 break;
 
             case ScrollUnit.PAGE_RIGHT:
-                if ((itemR.left < scrollR.left) && (itemR.right >= scrollR.right))
+                if ((itemR.left <= scrollR.left) && (itemR.right > scrollR.right))
                     delta = Math.min(scrollR.width, itemR.right - scrollR.right);
                 else
                     delta = itemR.left - scrollR.left;
@@ -888,7 +880,8 @@ public class HorizontalLayout extends LayoutBase
             var dx:Number = layoutItem.actualSize.x;
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);            
-            if (((x < maxVisibleX) && ((x + dx) > minVisibleX)) || 
+            if (!clipContent || 
+                ((x < maxVisibleX) && ((x + dx) > minVisibleX)) || 
                 ((dx <= 0) && ((x == maxVisibleX) || (x == minVisibleX))))            
             {
                 visibleColumns += 1;
