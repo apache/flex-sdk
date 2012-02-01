@@ -15,6 +15,7 @@ package mx.layout
 import mx.layout.ILayoutItem;
 
 import mx.core.IConstraintClient;
+import mx.core.IVisualItem;
 
 /**
  *  Documentation is not currently available.
@@ -43,20 +44,20 @@ public class LayoutItemHelper
     // TODO EGeorgie: this currently works only for constraints specified to
     // the parent. Add constraintRow and constraintColumn support.
     /**
-     *  @param item The item whose constraint is returned.
-     *  @param name The name of the constraint, i.e. "left", "right", "top",
-     *  "bottom", "baseline", "horizontalCenter", "verticalCenter"
-     *  @return returns the number for the specified constraint.
+     *  @return returns the number for the passed in constraint value. Constraint value
+     *  can be a Number, or a string in the format "col1:10".
      */
-    public static function getConstraint(item:ILayoutItem, name:String):Number
+    public static function parseConstraintValue(value:Object):Number
     {
-        var constraintClient:IConstraintClient = item.target as IConstraintClient;
-        if (!constraintClient)
+        if (value is Number)
+            return Number(value);
+        
+        var str:String = value as String;
+        if (!str)
             return NaN;
-
-        var value:String = constraintClient.getConstraintValue(name);
-        var result:Array = parseConstraintExp(value);
-        if (!result || result.length != 1)
+        
+        var result:Array = parseConstraintExp(str);
+        if (!result || result.length < 1)
             return NaN;
 
         return result[0];
