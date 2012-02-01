@@ -391,8 +391,8 @@ public class HorizontalLayout extends LayoutBase
             return 0.0;
             
         if ((index < 0) || (index >= g.numLayoutItems))
-           return 0.0;            
-
+           return 0.0;   
+           
         var li:ILayoutItem = g.getLayoutItemAt(index);
         if ((li == null) || !li.includeInLayout)
             return 0.0;
@@ -413,8 +413,8 @@ public class HorizontalLayout extends LayoutBase
         var x1:Number = x0 + g.width;
         var ix0:Number = li.actualPosition.x;
         var ix1:Number = ix0 + li.actualSize.x;
-        if (ix0 >= ix1)  // item has 0 or negative height
-            return 0.0;
+        if (ix0 >= ix1)  // item has 0 or negative width
+            return 1.0;
         if ((ix0 >= x0) && (ix1 <= x1))
             return 1.0;
         return (Math.max(x0, ix0) - Math.min(x1, ix1)) / (ix1 - ix0);
@@ -888,7 +888,8 @@ public class HorizontalLayout extends LayoutBase
             var dx:Number = layoutItem.actualSize.x;
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);            
-            if((x < maxVisibleX) && ((x + dx) > minVisibleX))
+            if (((x < maxVisibleX) && ((x + dx) > minVisibleX)) || 
+                ((dx <= 0) && ((x == maxVisibleX) || (x == minVisibleX))))            
             {
                 visibleColumns += 1;
                 if (firstColInView == -1)
