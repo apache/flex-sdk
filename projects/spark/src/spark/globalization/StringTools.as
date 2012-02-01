@@ -69,31 +69,36 @@ public class StringTools extends GlobalizationBase
      *  <li>By using the class in an MXML declaration and inheriting the
      *  locale from the document that contains the declaration.
      *  Example:
-     *  <listing version="3.0">
+     *  <pre>
      *  &lt;fx:Declarations&gt;
      *         &lt;s:StringTools id="st" /&gt;
      *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  </pre>
      *  </li>
      *
      *  <li>By using an MXML declaration and specifying the locale value in
      *  the list of assignments.
      *  Example:
-     *  <listing version="3.0">
+     *  <pre>
      *  &lt;fx:Declarations&gt;
      *      &lt;s:StringTools id="st_turkish" locale="tr-TR" /&gt;
      *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  </pre>
      *  </li>
      *
      *  <li>Calling the setStyle method, e.g.
      *  <code>st.setStyle("locale", "tr-TR")</code></li>
      *  </ul>
      *
-     *  <p>If the locale style is not set by one of the above techniques, the
-     *  methods of this class that depend on the locale will set a 
-     *  <code>lastOperationStatus</code> to <code>LOCALE_UNDEFINED_ERROR</code>.
-     *  </p>
+     *  <p>
+     *  If the <code>locale</code> style is not set by one of the above 
+     *  techniques, the instance of this class will be added as a 
+     *  <code>StyleClient</code> to the <code>topLevelApplication</code> and 
+     *  will therefore inherit the <code>locale</code> style from the 
+     *  <code>topLevelApplication</code> object when the <code>locale</code> 
+     *  dependent property getter or <code>locale</code> dependent method is 
+     *  called.
+     *  </p>   
      *
      *  @see flash.globalization.StringTools
      *  
@@ -119,8 +124,32 @@ public class StringTools extends GlobalizationBase
       *  Actual instance of the working flash.globalization.StringTools
       *  instance.
       */
-    private var g11nWorkingInstance:flash.globalization.StringTools;
+    private var _g11nWorkingInstance:flash.globalization.StringTools;
 
+    /**
+     *  @private
+     *  If the g11nWorkingInstance has not been defined. Call
+     *  ensureStyleSource to ensure that there is a styleParent. If there is
+     *  not a style parent, then this instance will be added as a style client
+     *  to the topLevelApplication. As a side effect of this, the styleChanged
+     *  method will be called and if there is a locale style defined for the
+     *  topLevelApplication, the createWorkingInstance method will be
+     *  executed creating a g11nWorkingInstance.
+     */
+    private function get g11nWorkingInstance ():
+        flash.globalization.StringTools
+    {
+        if (!_g11nWorkingInstance)
+            ensureStyleSource();
+        
+        return _g11nWorkingInstance;
+    }
+    
+    private function set g11nWorkingInstance 
+        (flashStringTools:flash.globalization.StringTools): void 
+    {
+        _g11nWorkingInstance = flashStringTools;
+    }
     //--------------------------------------------------------------------------
     //
     //  Overridden Properties
@@ -147,7 +176,7 @@ public class StringTools extends GlobalizationBase
     override public function get actualLocaleIDName():String
     {
         if (g11nWorkingInstance)
-            return this.g11nWorkingInstance.actualLocaleIDName;
+            return g11nWorkingInstance.actualLocaleIDName;
 
         if ((localeStyle === undefined) || (localeStyle === null))
         {
@@ -261,6 +290,7 @@ public class StringTools extends GlobalizationBase
      */
     public function toLowerCase(s:String):String
     {
+        
         if (g11nWorkingInstance)
             return g11nWorkingInstance.toLowerCase(s);
 
@@ -312,10 +342,7 @@ public class StringTools extends GlobalizationBase
     }
 
     /**
-     *  Lists all of the locale ID names supported by this class.
-     *
-     *  @return A vector of strings containing all of the locale ID names
-     *         supported by this class and operating system.
+     *  @copy spark.globalization.SupportedClasses.CollatorBase#getAvailableLocaleIDNames
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
