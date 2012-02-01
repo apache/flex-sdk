@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#alignmentBaseline
  *  
@@ -22,7 +22,7 @@
 [Style(name="alignmentBaseline", type="String", enumeration="useDominantBaseline,roman,ascent,descent,ideographicTop,ideographicCenter,ideographicBottom", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#baselineShift
  *  
@@ -34,7 +34,7 @@
 [Style(name="baselineShift", type="Object", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#cffHinting
  *  
@@ -46,6 +46,15 @@
 [Style(name="cffHinting", type="String", enumeration="horizontalStem,none", inherit="yes")]
 
 /**
+ *  Color of the text.
+ *  The default value for the Spark theme is <code>0x000000</code>.
+ *  The default value for the Mobile theme is <code>0xFFFFFF</code>.
+ *  
+ *  <p><i>For the Mobile theme, this is the color of text in the component, including 
+ *  the component label.</i></p>
+ *
+ *  <p><i>For the Spark theme:</i></p>
+ *
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#color
  *  
  *  @langversion 3.0
@@ -56,7 +65,7 @@
 [Style(name="color", type="uint", format="Color", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#digitCase
  *  
@@ -68,7 +77,7 @@
 [Style(name="digitCase", type="String", enumeration="default,lining,oldStyle", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#digitWidth
  *  
@@ -80,7 +89,7 @@
 [Style(name="digitWidth", type="String", enumeration="default,proportional,tabular", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#direction
  *  
@@ -92,7 +101,7 @@
 [Style(name="direction", type="String", enumeration="ltr,rtl", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#dominantBaseline
  *  
@@ -114,7 +123,7 @@
 [Style(name="fontFamily", type="String", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontLookup
  *  
@@ -126,6 +135,14 @@
 [Style(name="fontLookup", type="String", enumeration="auto,device,embeddedCFF", inherit="yes")]
 
 /**
+ *  Height of the text, in pixels.
+ *  In the Spark theme, the default value is
+ *  12 for all controls except the ColorPicker control. For the Spark 
+ *  themed ColorPicker control, the default value is 11.
+ *  The default value for the Mobile theme is 24.
+ *  
+ *  <p><i>For the Spark theme:</i></p>
+ * 
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontSize
  *  
  *  @langversion 3.0
@@ -136,6 +153,13 @@
 [Style(name="fontSize", type="Number", format="Length", inherit="yes", minValue="1.0", maxValue="720.0")]
 
 /**
+ *  Determines whether the text is italic font.
+ * 
+ *  <p><i>For the Mobile theme</i> recognized values are <code>"normal"</code> and 
+ *  <code>"italic"</code>.</p>
+ * 
+ *  <p><i>For the Spark theme:</i></p>
+ * 
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontStyle
  *  
  *  @langversion 3.0
@@ -146,6 +170,16 @@
 [Style(name="fontStyle", type="String", enumeration="normal,italic", inherit="yes")]
 
 /**
+ *  Determines whether the text is boldface.
+ * 
+ *  <p><i>For the Mobile theme:</i></p>
+ * 
+ *  <p>Recognized values are <code>normal</code> and <code>bold</code>.
+ *  The default value for Button controls is <code>bold</code>. 
+ *  The default value for all other controls is <code>normal</code>.</p>
+ *  
+ *  <p><i>For the Spark theme:</i></p>
+ * 
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontWeight
  *  
  *  @langversion 3.0
@@ -156,7 +190,7 @@
 [Style(name="fontWeight", type="String", enumeration="normal,bold", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#justificationRule
  *  
@@ -168,7 +202,7 @@
 [Style(name="justificationRule", type="String", enumeration="auto,space,eastAsian", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#justificationStyle
  *  
@@ -180,11 +214,11 @@
 [Style(name="justificationStyle", type="String", enumeration="auto,prioritizeLeastAdjustment,pushInKinsoku,pushOutOnly", inherit="yes")]
 
 /**
+ *  <i>This style is not supported in the mobile theme.</i>
+ *  
  *  <p>Kerning is enabled by default for Spark components, but is disabled by default for MX components.
  *  Spark components interpret <code>default</code> as <code>auto</code>, 
  *  while MX components interpret <code>default</code> as <code>false</code>.</p>
- *  
- *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#kerning
  *  
@@ -196,8 +230,32 @@
 [Style(name="kerning", type="String", enumeration="auto,on,off", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  Additional vertical space between lines of text.
+ *
+ *  <p>The default value is 0.</p>
  *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Style(name="leading", type="Number", format="Length", inherit="yes", theme="mobile")]
+
+/**
+ *  The number of additional pixels to appear between each character.
+ *  A positive value increases the character spacing beyond the normal spacing,
+ *  while a negative value decreases it.
+ * 
+ *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Style(name="letterSpacing", type="Number", inherit="yes", theme="mobile")]
+
+/**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#ligatureLevel
  *  
  *  @langversion 3.0
@@ -208,7 +266,7 @@
 [Style(name="ligatureLevel", type="String", enumeration="common,minimum,uncommon,exotic", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineHeight
  *  
@@ -219,8 +277,8 @@
  */
 [Style(name="lineHeight", type="Object", inherit="yes")]
 
-/**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+/** 
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineThrough
  *  
@@ -248,7 +306,7 @@
 [Style(name="locale", type="String", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  * 
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#renderingMode
  *  
@@ -260,8 +318,28 @@
 [Style(name="renderingMode", type="String", enumeration="cff,normal", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlign
+ *  Alignment of text within a container.
+ * 
+ *  <p><i>For the Mobile theme:</i></p>
+ * 
+ *  <p>Possible values are <code>"left"</code>, <code>"right"</code>,
+ *  or <code>"center"</code>.</p>
+ * 
+ *  <p>The default value for most components is <code>"left"</code>.
+ *  For the FormItem component,
+ *  the default value is <code>"right"</code>.
+ *  For the Button, LinkButton, and AccordionHeader components,
+ *  the default value is <code>"center"</code>, and
+ *  this property is only recognized when the
+ *  <code>labelPlacement</code> property is set to <code>"left"</code> or
+ *  <code>"right"</code>.
+ *  If <code>labelPlacement</code> is set to <code>"top"</code> or
+ *  <code>"bottom"</code>, the text and any icon are centered.</p>
  *  
+ *  <p><i>For the Spark theme:</i></p>
+ * 
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlign
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -270,7 +348,7 @@
 [Style(name="textAlign", type="String", enumeration="start,end,left,right,center,justify", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlignLast
  *  
@@ -282,7 +360,7 @@
 [Style(name="textAlignLast", type="String", enumeration="start,end,left,right,center,justify", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlpha
  *  
@@ -294,6 +372,13 @@
 [Style(name="textAlpha", type="Number", inherit="yes", minValue="0.0", maxValue="1.0")]
 
 /**
+ *  Determines whether the text is underlined.
+ *
+ *  <p><i>For the Mobile theme</i> possible values are <code>"none"</code> and 
+ *  <code>"underline"</code>.  The default is <code>"none"</code>.</p>
+ * 
+ *  <p><i>For the Spark theme:</i></p>
+ * 
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textDecoration
  *  
  *  @langversion 3.0
@@ -304,7 +389,7 @@
 [Style(name="textDecoration", type="String", enumeration="none,underline", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textJustify
  *  
@@ -316,7 +401,7 @@
 [Style(name="textJustify", type="String", enumeration="interWord,distribute", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#trackingLeft
  *  
@@ -328,7 +413,7 @@
 [Style(name="trackingLeft", type="Object", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#trackingRight
  *  
@@ -340,7 +425,7 @@
 [Style(name="trackingRight", type="Object", inherit="yes")]
 
 /**
- *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  <i>This style is not supported in the mobile theme.</i>
  *  
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#typographicCase
  *  
@@ -350,30 +435,3 @@
  *  @productversion Flex 4
  */
 [Style(name="typographicCase", type="String", enumeration="default,capsToSmallCaps,uppercase,lowercase,lowercaseToSmallCaps", inherit="yes")]
-
-
-/**
- *  Additional vertical space between lines of text.
- *
- *  <p>The default value is 2.</p>
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
- *  @productversion Flex 4.5
- */
-[Style(name="leading", type="Number", format="Length", inherit="yes", theme="mobile")]
-
-/**
- *  The number of additional pixels to appear between each character.
- *  A positive value increases the character spacing beyond the normal spacing,
- *  while a negative value decreases it.
- * 
- *  @default 0
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.0
- *  @productversion Flex 4.5
- */
-[Style(name="letterSpacing", type="Number", inherit="yes", theme="mobile")]
