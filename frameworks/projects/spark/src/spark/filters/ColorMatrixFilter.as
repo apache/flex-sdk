@@ -29,7 +29,7 @@ import mx.filters.IBitmapFilter;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;ColorMatrixFilter
+ *  &lt;s:ColorMatrixFilter
  *    <strong>Properties</strong>
  *    matrix="[1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0]"
  *  /&gt;
