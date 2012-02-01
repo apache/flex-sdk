@@ -150,10 +150,15 @@ public class Rect extends FilledElement
      */
     override protected function draw(g:Graphics):void
     {
-        if (radiusX != 0 && radiusY != 0)
-            g.drawRoundRect(drawX, drawY, width, height, radiusX * 2, radiusY * 2);
+        if (radiusX != 0)
+        {
+            var rY:Number =  radiusY == 0 ? radiusX : radiusY;
+            g.drawRoundRect(drawX, drawY, width, height, radiusX * 2, rY * 2);
+        }
         else
+        {
             g.drawRect(drawX, drawY, width, height);
+        }
     }
     
     /**
