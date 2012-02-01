@@ -12,7 +12,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#blockProgression
  */
-[Style(name="blockProgression", type="String", enumeration="rl,tb", inherit="yes")]
+[Style(name="blockProgression", type="String", enumeration="tb,rl", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#columnCount
@@ -35,34 +35,14 @@
 [Style(name="firstBaselineOffset", type="Object", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#firstBaselineOffsetBasis
- */
-[Style(name="firstBaselineOffsetBasis", type="String", enumeration="roman,ascent,descent,ideographicTop,ideographicCenter,ideographicBottom", inherit="yes")]
-
-/**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#leadingModel
  */
 [Style(name="leadingModel", type="String", enumeration="auto,romanUp,ideographicCenterDown,ideographicCenterUp,ideographicTopDown,ideographicTopUp", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#marginBottom
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#tabStops
  */
-[Style(name="marginBottom", type="Number", format="Length", inherit="yes")]
-
-/**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#marginLeft
- */
-[Style(name="marginLeft", type="Number", format="Length", inherit="yes")]
-
-/**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#marginRight
- */
-[Style(name="marginRight", type="Number", format="Length", inherit="yes")]
-
-/**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#marginTop
- */
-[Style(name="marginTop", type="Number", format="Length", inherit="yes")]
+[Style(name="tabStops", type="String", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textIndent
@@ -72,4 +52,4 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#whiteSpaceCollapse
  */
-[Style(name="whiteSpaceCollapse", type="String", enumeration="preserve,collapse", inherit="yes")]
+[Style(name="whiteSpaceCollapse", type="String", enumeration="collapse,preserve", inherit="yes")]
