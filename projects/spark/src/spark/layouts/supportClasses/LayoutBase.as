@@ -21,6 +21,7 @@ import spark.components.supportClasses.GroupBase;
 import spark.core.ScrollUnit;
 import mx.core.ILayoutElement;
 import mx.utils.OnDemandEventDispatcher;
+import spark.core.NavigationUnit;
 
 /**
  *  The base class for all layouts.
@@ -528,43 +529,43 @@ public class LayoutBase extends OnDemandEventDispatcher
     /**
      *  Delegation method that determines which item  
      *  to navigate to based on the current item in focus 
-     *  and key stroke that was encountered. This method
+     *  and user input in terms of NavigationUnit. This method
      *  is used by derivatives of ListBase to handle 
-     *  keyboard navigation.  
+     *  keyboard navigation. ListBase maps user input to
+     *  NavigationUnit constants.
      * 
      *  Subclasses can override this method to compute other 
      *  values that are based on the current index and key 
      *  stroke encountered. 
      * 
-     *  @param keyCode The key stroke that determines which item 
-     *  to navigate to next.  
+     *  @param navigationUnit The NavigationUnit constant that determines
+     *  which item to navigate to next.  
      * 
      *  @param currentIndex The current index of the item with focus.
      * 
-     *  @param maxIndex The maximum value the index can jump to 
-     * 
-     *  @return The index of the next item to jump to.  
-     * 
+     *  @return The index of the next item to jump to. Returns -1
+     *  when if the layout doens't recognize the navigationUnit.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */  
-     public function nextItemIndex(keyCode:uint, currentIndex:int, maxIndex:int):int
+     public function getDestinationIndex(navigationUnit:uint, currentIndex:int):int
      {
          //Sub-classes implement according to their own layout 
          //logic. Common cases handled here. 
-         var retVal:int = -1; 
-         switch (keyCode)
+         switch (navigationUnit)
          {
-             case Keyboard.END:
-             {
-                 retVal = maxIndex; 
-                 break; 
-             }
-             case Keyboard.HOME:
-             {
-                 retVal = 0; 
-                 break; 
-             }
+             case NavigationUnit.HOME:
+                 return 0; 
+
+             case NavigationUnit.END:
+                 return target.numElements - 1; 
+
+             default:
+                return -1;
          }
-         return retVal; 
      }
 
     /**
