@@ -44,21 +44,7 @@
 		</fill>
 	</Rect>
 	
-	<!-- layer 2: border -->
-	<Rect left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2" radiusY="2">
-		<stroke>
-			<LinearGradientStroke rotation="90">
-				<GradientEntry color="0x000000" 
-				               alpha="0.5625"
-				               alpha.down="0.6375" />
-				<GradientEntry color="0x000000" 
-				               alpha="0.75" 
-				               alpha.down="0.85" />
-			</LinearGradientStroke>
-		</stroke>
-	</Rect>
-	
-	<!-- layer 3: fill -->
+	<!-- layer 2: fill -->
 	<Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2">
 		<fill>
 			<LinearGradient rotation="90">
@@ -74,7 +60,7 @@
 		</fill>
 	</Rect>
 	
-	<!-- layer 4: fill lowlight -->
+	<!-- layer 3: fill lowlight -->
 	<Rect left="1" right="1" bottom="1" height="9" radiusX="2" radiusY="2">
 		<fill>
 			<LinearGradient rotation="90">
@@ -84,7 +70,7 @@
 		</fill>
 	</Rect>
 	
-	<!-- layer 5: fill highlight -->
+	<!-- layer 4: fill highlight -->
 	<Rect left="1" right="1" top="1" height="9" radiusX="2" radiusY="2">
 		<fill>
 			<SolidColor color="0xFFFFFF" 
@@ -94,7 +80,7 @@
 		</fill>
 	</Rect>
 	
-	<!-- layer 6: highlight stroke (all states except down) -->
+	<!-- layer 5: highlight stroke (all states except down) -->
 	<Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2" excludeFrom="down">
 		<stroke>
 			<LinearGradientStroke rotation="90">
@@ -126,7 +112,21 @@
 		</fill>
 	</Rect>
 	
-	<!-- layer 7: text -->
+    <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    <Rect left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2" radiusY="2">
+        <stroke>
+            <LinearGradientStroke rotation="90">
+                <GradientEntry color="0x000000" 
+                               alpha="0.5625"
+                               alpha.down="0.6375" />
+                <GradientEntry color="0x000000" 
+                               alpha="0.75" 
+                               alpha.down="0.85" />
+            </LinearGradientStroke>
+        </stroke>
+    </Rect>
+
+	<!-- layer 8: text -->
 	<TextBox id="labelField"
 			 horizontalCenter="0" verticalCenter="1"
 			 left="10" right="10" top="2" bottom="2"
