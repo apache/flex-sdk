@@ -52,8 +52,10 @@
         <s:VerticalLayout horizontalAlign="center"/> 
     </s:layout>
     
+    <!--- The subcomponent that loads the video but does not define the appearance of the VideoPlayer component. -->
     <s:VideoElement id="videoElement" />
     
+    <!--- The subcomponent that represents the VideoPlayer component's scrub bar. -->
     <s:HSlider id="scrubBar" />
     
     <s:Group>
@@ -61,14 +63,19 @@
             <s:HorizontalLayout />
         </s:layout>
         
+	<!--- Defines the label and appearance of the Stop button. -->
         <s:Button id="stopButton" label="Stop" />
         
+	<!--- Defines the label and appearance of the Play/Pause button. The default skin is VideoPlayerPlayPauseButtonSkin. -->
         <s:ToggleButton id="playPauseButton" skinClass="spark.skins.default.VideoPlayerPlayPauseButtonSkin" label="Play" />
         
+	<!--- Defines the label and appearance of the Mute button. The default skin is VideoPlayerMuteButtonSkin. -->
         <s:ToggleButton id="muteButton" skinClass="spark.skins.default.VideoPlayerMuteButtonSkin" label="Mute" />
         
+	<!--- Defines the appearance of the volume bar. -->
         <s:VSlider id="volumeBar" liveDragging="true" height="21" valueInterval=".1" />
         
+	<!--- Defines the label and appearance of the Fullscreen button. -->
         <s:Button id="fullScreenButton" label="Fullscreen" />
     </s:Group>
 </s:SparkSkin>
