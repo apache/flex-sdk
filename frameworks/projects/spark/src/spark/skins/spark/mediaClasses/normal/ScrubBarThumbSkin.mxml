@@ -30,13 +30,6 @@
         <s:State name="down" />
         <s:State name="disabled" />
     </s:states>
-        
-    <!-- black line/pointer on top of symbol -->    
-    <s:Line x="6" width="1" yFrom="0" yTo="5">
-        <s:stroke>
-            <s:SolidColorStroke color="0x000000"/>
-        </s:stroke>
-    </s:Line>
     
     <!-- TODO: this part is a little fuzzy...what can we do to make it better? -->
     
