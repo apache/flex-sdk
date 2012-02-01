@@ -76,6 +76,7 @@ public class Line extends StrokedElement
         {
             _xFrom = value;
             invalidateSize();
+            invalidateDisplayList();
         }
     }
     
@@ -107,6 +108,7 @@ public class Line extends StrokedElement
         {
             _xTo = value;
             invalidateSize();
+            invalidateDisplayList();
         }
     }
     
@@ -138,6 +140,7 @@ public class Line extends StrokedElement
         {
             _yFrom = value;
             invalidateSize();
+            invalidateDisplayList();
         }
     }
     
@@ -169,6 +172,7 @@ public class Line extends StrokedElement
         {
             _yTo = value;
             invalidateSize();
+            invalidateDisplayList();
         }
     }
 
