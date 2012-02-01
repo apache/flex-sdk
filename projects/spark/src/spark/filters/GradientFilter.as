@@ -85,6 +85,11 @@ public class GradientFilter extends BaseDimensionFilter
 	 *  falling on the object and determines the placement of the effect 
 	 *  relative to the object. If distance is set to 0, the effect is not 
 	 *  offset from the object, and therefore the angle property has no effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get angle():Number
 	{
@@ -108,6 +113,11 @@ public class GradientFilter extends BaseDimensionFilter
 	
 	/**
 	 *  The offset distance of the glow. The default value is 4.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get distance():Number
 	{
@@ -141,6 +151,11 @@ public class GradientFilter extends BaseDimensionFilter
 	 *  defining the fill patterns for the gradient fill.
 	 *
 	 *  @default []
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get entries():Array
 	{
@@ -172,6 +187,11 @@ public class GradientFilter extends BaseDimensionFilter
  	 *  BitmapFilterType.OUTER — Glow on the outer edge of the object
 	 *  BitmapFilterType.INNER — Glow on the inner edge of the object; the default.
 	 *  BitmapFilterType.FULL — Glow on top of the object
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get type():String
 	{
