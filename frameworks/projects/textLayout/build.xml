@@ -42,6 +42,7 @@
 			<namespace uri="${project.uri}" manifest="manifest.xml"/>
 			<source-path path-element="src"/>
 			<library-path/>
+            <include-file name="manifest.xml" path="${basedir}/manifest.xml"/>
 			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>
