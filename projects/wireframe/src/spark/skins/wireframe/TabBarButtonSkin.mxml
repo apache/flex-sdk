@@ -27,6 +27,9 @@ The wireframe skin class for TabBar component.
     
     <!-- host component -->
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.ButtonBarButton")]
     </fx:Metadata>
     
@@ -79,6 +82,7 @@ The wireframe skin class for TabBar component.
     </s:Rect>
     
     <!-- text -->
+    <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
     <s:Label id="labelDisplay"  
              textAlign="center"
              verticalAlign="middle"
