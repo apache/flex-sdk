@@ -92,6 +92,8 @@ public class DropShadowFilter extends BaseDimensionFilter implements IBitmapFilt
 									 knockout:Boolean = false, 
 									 hideObject:Boolean = false)
 	 {
+	 	super();
+	 	
 	 	this.distance = distance;
 	 	this.angle = angle;
 	 	this.color = color;
