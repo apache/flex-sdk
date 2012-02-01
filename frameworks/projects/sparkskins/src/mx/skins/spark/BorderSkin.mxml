@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" implements="mx.core.IRectangularBorder">
+    
+    <Script>
+		import mx.core.EdgeMetrics;
+		
+        /* Define the skin elements that should not be colorized. */
+        static private const exclusions:Array = ["background"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
+        static private const contentFill:Array = ["bgFill"];
+        override public function get contentItems():Array {return contentFill};
+
+		static private const metrics:EdgeMetrics = new EdgeMetrics(1, 1, 1, 1);
+		
+		public function get borderMetrics():EdgeMetrics
+		{
+			return metrics;
+		}
+		
+		public function get backgroundImageBounds():Rectangle
+		{
+			return null;
+		}
+		
+		public function set backgroundImageBounds(value:Rectangle):void
+		{
+		
+		}
+		
+		public function get hasBackgroundImage():Boolean
+		{
+			return false;
+		}
+		
+		public function layoutBackgroundImage():void
+		{
+		
+		}
+    </Script>
+    
+    <!-- border --> 
+	<Rect left="0" right="0" top="0" bottom="0">
+        <stroke>            
+            <SolidColorStroke color="0x696969" />
+        </stroke>
+    </Rect>
+
+    <!-- fill -->
+    <Rect id="background" left="1" right="1" top="1" bottom="1">
+        <fill>
+            <SolidColor id="bgFill" color="0xFF0000" />
+        </fill>
+    </Rect>
+ </SparkSkin>
