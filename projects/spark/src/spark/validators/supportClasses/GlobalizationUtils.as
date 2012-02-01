@@ -15,8 +15,8 @@ package spark.validators.supportClasses
 import flash.globalization.NationalDigitsType;
 
 /**
- *  A utility class containing Unicode related functionality not supported in
- *  Flex or ActionScript.
+ *  GlobalizationUtils is a utility class containing Unicode related functionality not 
+ *  supported directly in Flex or ActionScript.
  * 
  *  <p>This class contains the utility routines needed for all Validators. 
  *  Examples of typical routines are checking for unicode white space, 
@@ -95,10 +95,12 @@ public class GlobalizationUtils
     //
     //--------------------------------------------------------------------------
     /**
-     *  <p> Check if codepoint is a numeric digit.</p>
+     *  Return <code>true</code> if a codepoint is a numeric digit.
      *
-     *  @param <code>int</code> input codepoint
-     *  @returns <code>Boolean</code> true or false.
+     *  @param uint The input codepoint.
+     * 
+     *  @return <code>true</code> if a codepoint is a numeric digit, 
+     *  and <code>false</code> if not.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -116,10 +118,12 @@ public class GlobalizationUtils
     }
 
     /**
-     *  <p> Check if codepoint is a leading surrogate.</p>
+     *  Return <code>true</code> if a codepoint is a leading surrogate.
      *
-     *  @param <code>int</code> input codepoint
-     *  @returns <code>Boolean</code> true or false.
+     *  @param uint The input codepoint.
+     * 
+     *  @return <code>true</code> if a codepoint is a leading surrogate, 
+     *  and <code>false</code> if not.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -133,10 +137,12 @@ public class GlobalizationUtils
     }
 
     /**
-     *  <p> Check if codepoint is a trailing surrogate.</p>
+     *  Return <code>true</code> if a codepoint is a trailing surrogate.
      *
-     *  @param <code>int</code> input codepoint
-     *  @returns <code>Boolean</code> true or false.
+     *  @param uint The input codepoint.
+     * 
+     *  @return <code>true</code> if a codepoint is a trailing surrogate, 
+     *  and <code>false</code> if not.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -150,12 +156,14 @@ public class GlobalizationUtils
     }
 
     /**
-     *  <p> Check if codepoint is a white space.
-     *  Uses all unicode white space characters. See the list of public static
-     *  constants in this class.</p>
+     *  Return <code>true</code> if a codepoint is a white space character.
+     *  Uses all unicode white space characters. 
+     *  See the list of public static constants in this class.
      *
-     *  @param <code>int</code> input codepoint
-     *  @returns <code>Boolean</code> true or false.
+     *  @param uint The input codepoint.
+     * 
+     *  @return <code>true</code> if a codepoint is a white space character, 
+     *  and <code>false</code> if not.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -193,11 +201,12 @@ public class GlobalizationUtils
     }
 
     /**
-     *  <p> Remove leading and trailing white space </p>
+     *  Removes leading and trailing white space characters.
      *
-     *  @param <code>String</code>  Input string to be processed
-     *  @return <code>String</code> Output string after removing leading and
-     *                              trailing space
+     *  @param input Input string to process.
+     * 
+     *  @return String after removing leading and trailing 
+     *  white space characters.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -232,11 +241,13 @@ public class GlobalizationUtils
     }
 
     /**
-     *  <p> Convert a surrogate pair to UTF32 </p>
+     *  Convert a surrogate pair to UTF32.
      *
-     *  @param <code>int</code>  High surrogate c0
-     *  @param <code>int</code>  Low surrogate c1
-     *  @return <code>uint</code> UTF32 equivalent
+     *  @param c0 High surrogate.
+     * 
+     *  @param c1 Low surrogate.
+     * 
+     *  @return The UTF32 equivalent.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
