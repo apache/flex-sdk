@@ -32,10 +32,6 @@
            For panel, border and title backround are skinned, but the content area and title text are not. */
         static private const exclusions:Array = ["background"];
         override public function get colorizeExclusions():Array {return exclusions;}
-        
-        /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
-        static private const contentFill:Array = ["bgFill"];
-        override public function get contentItems():Array {return contentFill};
             
         /* Define the border items.*/
         static private const borderItem:Array = ["borderStroke"];
@@ -81,6 +77,7 @@
         {
             var em:EdgeMetrics = borderMetrics;
             
+            // Control bar visibility is determined by a borderMetric.bottom greater than 1
             if (em.bottom > 1)
             {
                 cbbg.height = em.bottom - 1;
@@ -175,7 +172,8 @@
         <s:Rect id="background" left="0" top="0" right="0" bottom="0"
                 topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
             <s:fill>
-                <s:SolidColor color="0xFFFFFF" id="bgFill" />
+                <s:SolidColor color="{getStyle('backgroundColor')}" 
+                              alpha="{getStyle('backgroundAlpha')}" />
             </s:fill>
         </s:Rect>
         
