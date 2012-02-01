@@ -39,29 +39,29 @@ public class BasicLayout implements ILayout
      * width,height to unscaledWidth,unscaledHeight.  We avoid setting
      * the scrollRect (and therefore clipping) when scrolling isn't indicated:
      * if the scrollRect is currently null and the scrollPosition properties
-     * are 0, and the Group's contentWidth,Height is <= to unscaledWidth,Height,
-     * then the scrollRect is *not* set.
+     * are 0, and the Group's contentWidth,Height is &lt;= to unscaledWidth,Height,
+     * then the scrollRect is not set.
      */ 
-	static function setScrollRect(g:Group, unscaledWidth:Number, unscaledHeight:Number):void
-	{
-	    var r:Rectangle = g.scrollRect;
-	    if (r != null) 
-	    {
-			r.width = unscaledWidth;
-			r.height = unscaledHeight;
-			g.scrollRect = r;
-	    }
-	    else // scrollRect wasn't set
-	    {
-			var hsp:Number = g.horizontalScrollPosition;
-			var vsp:Number = g.verticalScrollPosition;
-			var cw:Number = g.contentWidth;
-			var ch:Number = g.contentHeight;
-			// don't set the scrollRect needlessly
-			if ((hsp != 0) || (vsp != 0) || (cw > unscaledWidth) || (ch > unscaledHeight))
-			    g.scrollRect = new Rectangle(hsp, vsp, unscaledWidth, unscaledHeight);
-	    }
-	}
+    static function setScrollRect(g:Group, unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        var r:Rectangle = g.scrollRect;
+        if (r != null) 
+        {
+            r.width = unscaledWidth;
+            r.height = unscaledHeight;
+            g.scrollRect = r;
+        }
+        else // scrollRect wasn't set
+        {
+            var hsp:Number = g.horizontalScrollPosition;
+            var vsp:Number = g.verticalScrollPosition;
+            var cw:Number = g.contentWidth;
+            var ch:Number = g.contentHeight;
+            // don't set the scrollRect needlessly
+            if ((hsp != 0) || (vsp != 0) || (cw > unscaledWidth) || (ch > unscaledHeight))
+                g.scrollRect = new Rectangle(hsp, vsp, unscaledWidth, unscaledHeight);
+        }
+    }
     
 
     //--------------------------------------------------------------------------
@@ -71,11 +71,11 @@ public class BasicLayout implements ILayout
     //--------------------------------------------------------------------------
 
     /**
-	 *  Constructor.
-	 */
-	public function BasicLayout():void
+     *  Constructor.
+     */
+    public function BasicLayout():void
     {
-		super();
+        super();
     }
 
     //--------------------------------------------------------------------------
@@ -199,8 +199,8 @@ public class BasicLayout implements ILayout
             var right:Number   = LayoutItemHelper.getConstraint(layoutItem, "right");
             var top:Number     = LayoutItemHelper.getConstraint(layoutItem, "top");
             var bottom:Number  = LayoutItemHelper.getConstraint(layoutItem, "bottom");
-			var itemMinSize:Point = layoutItem.minSize;
-			var itemMaxSize:Point = layoutItem.maxSize;
+            var itemMinSize:Point = layoutItem.minSize;
+            var itemMaxSize:Point = layoutItem.maxSize;
 
             // Calculate size
             var childWidth:Number = NaN;
@@ -215,7 +215,7 @@ public class BasicLayout implements ILayout
                 childHeight = unscaledHeight - bottom - top;
             else
                 childHeight = Math.max(itemMinSize.y, Math.min(itemMaxSize.y, childHeight));
-			
+            
             // Set size, no need to clip to min/max
             // TODO!!! incorporate min/maxSize
             var actualSize:Point = layoutItem.setActualSize(childWidth, childHeight);
