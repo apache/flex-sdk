@@ -9,6 +9,7 @@ import flash.text.TextFieldAutoSize;
 
 import mx.core.IUITextField;
 import mx.core.LayoutElementUIComponentUtils;
+import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.events.FlexEvent;
@@ -16,6 +17,8 @@ import mx.events.FlexEvent;
 import spark.components.Grid;
 import spark.components.IGridItemRenderer;
 import spark.components.supportClasses.GridColumn;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Events
@@ -44,11 +47,17 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     }
     
     /**
-     *  Padding added to the labelDisplay's textWidth and textHeight properties to compute 
-     *  the renderer's measured width and height.
+     *  Padding for the entire renderer.  Not to be confused with the UITextField 
+     *  TEXT_WIDTH,HEIGHT_PADDING values which must be added to its textWidth,Height
+     *  to prevent clipping/wrapping.
      */
-    private static const TEXT_WIDTH_PADDING:Number = 15;
-    private static const TEXT_HEIGHT_PADDING:Number = 10;
+    private static const WIDTH_PADDING:Number = 15;
+    private static const HEIGHT_PADDING:Number = 10;
+    
+    /** 
+     *  Used to flag a lineBreak style change for commitProperties().   See styleChanged().
+     */
+    private var lineBreakStyleChanged:Boolean = false;    
     
     //--------------------------------------------------------------------------
     //
@@ -219,7 +228,6 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         if (_showsCaret == value)
             return;
         
-        // TBD(hmuller): state change
         _showsCaret = value;
         dispatchChangeEvent("labelDisplayChanged");           
     }
@@ -253,10 +261,41 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         if (_selected == value)
             return;
         
-        // TBD(hmuller): state change       
         _selected = value;
         dispatchChangeEvent("selectedChanged");        
     }
+    
+    //----------------------------------
+    //  singleLine (private)
+    //----------------------------------
+
+    private var _singleLine:Boolean = false;
+    
+    /**
+     *  @private
+     *  If true, then the labelDisplay is confgured to not wrap and to display 
+     *  only one line of text.  That's the most efficient rendering mode.  This 
+     *  property is false by default, which means that multiline and wordWrap are 
+     *  enabled (true) and autoSize is LEFT.
+     */    
+    public function get singleLine():Boolean
+    {
+        return _singleLine
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set singleLine(value:Boolean):void
+    {
+        if (_singleLine == value)
+            return;
+        
+        _singleLine = value;
+        
+        labelDisplay.multiline = !singleLine;  // can be reset, see updateMeasuredSize()
+        labelDisplay.wordWrap = !singleLine;
+    }    
     
     //----------------------------------
     //  dragging
@@ -284,7 +323,6 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         if (_dragging == value)
             return;
         
-        // TBD(hmuller): state change             
         _dragging = value;
         dispatchChangeEvent("draggingChanged");        
     }
@@ -319,8 +357,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
             return;
         
         _label = value;
-        if (labelDisplay)
-            labelDisplay.text = _label;
+        // Defer setting the labelDisplay's text property to avoid extra computation, see updateMeasuredSize()
         
         dispatchChangeEvent("labelChanged");
     }
@@ -388,23 +425,19 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         if (labelDisplay)
             removeChild(DisplayObject(labelDisplay));
         
-        labelDisplay = IUITextField(createInFontContext(UITextField)); 
-        labelDisplay.multiline = true;
+        labelDisplay = IUITextField(createInFontContext(UITextField));
+        labelDisplay.multiline = true;  // consistent with singleLine=false (the default)
         labelDisplay.wordWrap = true;
-        labelDisplay.autoSize = TextFieldAutoSize.LEFT;
+        labelDisplay.autoSize = TextFieldAutoSize.NONE;
+        
+        // The default width of a TextField is 100.  If autoWrap is true, and
+        // multiline is true, the measured text will wrap if it is wider than
+        // the TextField's width. This is not what we want when measuring the 
+        // width of typicalItem columns that lack an explicit GridColumn width.
+        
+        labelDisplay.setActualSize(4096, NaN);  // 4096 is just an arbitrarily large value
         
         addChild(DisplayObject(labelDisplay));
-        if (_label != "")
-            labelDisplay.text = _label;
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function createChildren():void
-    {
-        super.createChildren();
-        createLabelDisplay();
     }
     
     /**
@@ -413,8 +446,29 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     override protected function commitProperties():void
     {
         super.commitProperties();
-        if (hasFontContextChanged())
+        
+        if (!labelDisplay || hasFontContextChanged())
             createLabelDisplay();
+        
+        if (lineBreakStyleChanged)
+        {
+            singleLine = getStyle("lineBreak") == "explicit";
+            lineBreakStyleChanged = false;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleName:String):void
+    {
+        super.styleChanged(styleName);
+        
+        if (!styleName || (styleName == "styleName") || (styleName = "lineBreak"))
+        {
+            lineBreakStyleChanged = true;
+            invalidateProperties();
+        }
     }
     
     
@@ -428,17 +482,25 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
      */
     private function updateMeasuredSize():void
     {
+        if (getStyle("lineBreak") == "explicit")
+            labelDisplay.multiline = _label.indexOf("\n") != -1;
+        
+        labelDisplay.text = _label;  // forces a labelDisplay.validateNow(), if text has changed
+
+        const widthPadding:int = WIDTH_PADDING + UITextField.TEXT_WIDTH_PADDING;
+        const heightPadding:int = HEIGHT_PADDING + UITextField.TEXT_HEIGHT_PADDING
+        
         if (!labelDisplay.stage || labelDisplay.embedFonts)
         {
-            measuredWidth = labelDisplay.textWidth + TEXT_WIDTH_PADDING;
-            measuredHeight = labelDisplay.textHeight + TEXT_HEIGHT_PADDING;
+            measuredWidth = labelDisplay.textWidth + widthPadding;
+            measuredHeight = labelDisplay.textHeight + heightPadding;
         }
         else 
         {
             const m:Matrix = labelDisplay.transform.concatenatedMatrix;      
-            measuredWidth = Math.abs((labelDisplay.textWidth * m.a / m.d)) + TEXT_WIDTH_PADDING;
-            measuredHeight = Math.abs((labelDisplay.textHeight * m.a / m.d)) + TEXT_HEIGHT_PADDING;
-        }        
+            measuredWidth = Math.abs((labelDisplay.textWidth * m.a / m.d)) + widthPadding;
+            measuredHeight  = Math.abs((labelDisplay.textHeight * m.a / m.d)) + heightPadding;
+        }
     }
     
     /**
@@ -459,35 +521,29 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     /**
      *  @private
      *  Watch Out: this code relies on the fact that UITextField/setActualSize() can cause
-     *  labelDisplay.textHeight to change, if the text wraps.  The text field's measuredHeight
+     *  labelDisplay.textHeight to change, if the text wraps.  The textfield's measuredHeight
      *  is just a padded version of textHeight.  This is the only place where labelDisplay.setActualSize() 
      *  is called, so we update the measuredHeight of this render here.  Very unconventional.
-     *  Doing so is essential because after this code runs, i.e. after GridLayout/layoutGridElement()
+     *  Doing so is essential because after this code runs, i.e. after GridLayout/layoutItemRenderer()
      *  invokes validateNow() on this renderer, it uses the renderer's preferredBoundsHeight()
      *  (that's the measuredHeight in our case) to update the overall row height.
      */
-    override protected function updateDisplayList(width:Number, height:Number):void
+    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(width, height);
 
-        labelDisplay.setActualSize(width - 10, height - 5);  // setActualSize() side-effects labelDisplay.textHeight
+        if ((unscaledWidth == 0) || (unscaledHeight == 0))
+            return;
+        
+        const labelDisplayX:int = 5;
+        const labelDisplayY:int = 5;
+        const labelDisplayWidth:int = unscaledWidth - (WIDTH_PADDING - labelDisplayX); 
+        const labelDisplayHeight:int = unscaledHeight - (HEIGHT_PADDING - labelDisplayY);
+        
+        labelDisplay.setActualSize(labelDisplayWidth, labelDisplayHeight);  // setActualSize() side-effects labelDisplay.textHeight
         updateMeasuredSize();  // See @private comment above 
         
-        // If the Grid's row heights are fixed and the labelDisplay will not fit, then clip.
-        
-        const grid:Grid = column.grid; 
-        if (grid && !grid.variableRowHeight && (measuredHeight > grid.rowHeight))
-        {
-            clippingEnabled = true;
-            labelDisplay.scrollRect = new Rectangle(0, 0, width - 10, height - 5);
-        }
-        else if (clippingEnabled)
-        {
-            clippingEnabled = false;
-            labelDisplay.scrollRect = null;
-        }
-        
-        labelDisplay.move(5, 5);
+        labelDisplay.move(labelDisplayX, labelDisplayY);
     }
  
         
