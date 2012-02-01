@@ -237,7 +237,7 @@ public class BasicLayout extends LayoutBase
             }
             else if (!isNaN(baseline))
             {
-                extY = baseline - layoutElement.baselinePosition;
+                extY = Math.round(baseline - layoutElement.baselinePosition);
             }
             else if (!isNaN(top) || !isNaN(bottom))
             {
@@ -268,11 +268,12 @@ public class BasicLayout extends LayoutBase
             minHeight = Math.max(minHeight, extY + elementMinHeight);
         }
 
-        layoutTarget.measuredWidth = Math.max(width, minWidth);
-        layoutTarget.measuredHeight = Math.max(height, minHeight);
-
-        layoutTarget.measuredMinWidth = minWidth;
-        layoutTarget.measuredMinHeight = minHeight;
+        // Use Math.ceil() to make sure that if the content partially occupies
+        // the last pixel, we'll count it as if the whole pixel is occupied.
+        layoutTarget.measuredWidth = Math.ceil(Math.max(width, minWidth));
+        layoutTarget.measuredHeight = Math.ceil(Math.max(height, minHeight));
+        layoutTarget.measuredMinWidth = Math.ceil(minWidth);
+        layoutTarget.measuredMinHeight = Math.ceil(minHeight);
     }
 
     /**
@@ -374,7 +375,7 @@ public class BasicLayout extends LayoutBase
                 if (!isNaN(right))
                      availableWidth -= right;
 
-                childWidth = availableWidth * Math.min(percentWidth * 0.01, 1);
+                childWidth = Math.round(availableWidth * Math.min(percentWidth * 0.01, 1));
                 elementMaxWidth = Math.min(elementMaxWidth,
                     maxSizeToFitIn(unscaledWidth, hCenter, left, right, layoutElement.getLayoutBoundsX()));
             }
@@ -391,7 +392,7 @@ public class BasicLayout extends LayoutBase
                 if (!isNaN(bottom))
                     availableHeight -= bottom;    
                     
-                childHeight = availableHeight * Math.min(percentHeight * 0.01, 1);
+                childHeight = Math.round(availableHeight * Math.min(percentHeight * 0.01, 1));
                 elementMaxHeight = Math.min(elementMaxHeight,
                     maxSizeToFitIn(unscaledHeight, vCenter, top, bottom, layoutElement.getLayoutBoundsY()));
             }
@@ -430,7 +431,7 @@ public class BasicLayout extends LayoutBase
             if (!isNaN(vCenter))
                 childY = Math.round((unscaledHeight - elementHeight) / 2 + vCenter);
             else if (!isNaN(baseline))
-                childY = baseline - IVisualElement(layoutElement).baselinePosition;
+                childY = Math.round(baseline - IVisualElement(layoutElement).baselinePosition);
             else if (!isNaN(top))
                 childY = top;
             else if (!isNaN(bottom))
@@ -446,7 +447,9 @@ public class BasicLayout extends LayoutBase
             maxY = Math.max(maxY, childY + elementHeight);
         }
 
-        layoutTarget.setContentSize(maxX, maxY);
+        // Make sure that if the content spans partially over a pixel to the right/bottom,
+        // the content size includes the whole pixel.
+        layoutTarget.setContentSize(Math.ceil(maxX), Math.ceil(maxY));
     }
 }
 
