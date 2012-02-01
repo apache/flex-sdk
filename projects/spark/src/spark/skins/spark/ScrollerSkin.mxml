@@ -11,6 +11,18 @@
 
 -->
 
+<!--
+
+FxScroller unconditionally sets its skin's layout to private layout
+implementation that handles the scroll policies.  FxScroller skins can
+only provide replacement scrollbars.  The skin's layout and
+constraints or dimensions set on skin parts will not be honored.  To
+gain more control over the layout of a viewport and its scrollbars,
+instead of using FxScroller, add them to a Group and use the scrollbar
+viewport property to link them together.
+
+-->
+
 <Skin xmlns="http://ns.adobe.com/mxml/2009">
 
     <Metadata>
