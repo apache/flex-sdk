@@ -119,6 +119,8 @@
             dropShadow.blurX = 20;
             dropShadow.blurY = 20;
 
+            // Clear out any pending line style
+            graphics.lineStyle();
             dropShadow.drawShadow(graphics, 0, 0, width, height);
         }
         
