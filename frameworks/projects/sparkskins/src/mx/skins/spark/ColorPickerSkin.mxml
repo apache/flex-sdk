@@ -30,6 +30,15 @@
         static private const symbols:Array = ["arrowFill1", "arrowFill2"];
         override public function get symbolItems():Array {return symbols};
         
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+          useBaseColor = true;
+          super.initializationComplete();
+        }
+        
     </fx:Script>
 
     <!-- states -->
