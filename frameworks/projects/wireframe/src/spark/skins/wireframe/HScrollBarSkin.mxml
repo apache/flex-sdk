@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009"
+	  minWidth="85" minHeight="15"
+	  alpha.disabled="0.5">
+
+    <Metadata>
+    	[HostComponent("mx.components.FxHScrollBar")]
+    </Metadata> 
+    
+    <states>
+    	<State name="normal" />
+    	<State name="disabled" />
+    </states>
+    
+    <FxButton id="track" left="17" right="17"
+            skinClass="wireframe.FxHScrollBarTrackSkin" />
+    <FxButton id="decrementButton" left="0"
+            skinClass="wireframe.FxScrollBarLeftButtonSkin" />
+    <FxButton id="incrementButton" right="0"
+            skinClass="wireframe.FxScrollBarRightButtonSkin" />
+    <FxButton id="thumb" skinClass="wireframe.FxHScrollBarThumbSkin" />
+
+</Skin>
