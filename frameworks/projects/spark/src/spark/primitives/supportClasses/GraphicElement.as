@@ -262,13 +262,13 @@ public class GraphicElement extends EventDispatcher
      */
     public function set postLayoutTransformOffsets(value:TransformOffsets):void
     {
-        if(value != null)
+        if (value != null)
             allocateLayoutFeatures();
         
-        if(layoutFeatures.postLayoutTransformOffsets != null)
+        if (layoutFeatures.postLayoutTransformOffsets != null)
             layoutFeatures.postLayoutTransformOffsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
         layoutFeatures.postLayoutTransformOffsets = value;
-        if(layoutFeatures.postLayoutTransformOffsets != null)
+        if (layoutFeatures.postLayoutTransformOffsets != null)
             layoutFeatures.postLayoutTransformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
     }
 
@@ -277,7 +277,7 @@ public class GraphicElement extends EventDispatcher
      */
     mx_internal function allocateLayoutFeatures():void
     {
-        if(layoutFeatures != null)
+        if (layoutFeatures != null)
             return;
         layoutFeatures = new AdvancedLayoutFeatures();
         layoutFeatures.layoutX = _x;
@@ -2025,7 +2025,7 @@ public class GraphicElement extends EventDispatcher
         {
             allocateLayoutFeatures();
 
-            if(matrix != null)
+            if (matrix != null)
             {
                 layoutFeatures.layoutMatrix = matrix;
             }
@@ -2144,7 +2144,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function transformPointToParent(transformCenter:Vector3D,position:Vector3D,postLayoutPosition:Vector3D):void
     {
-        if(layoutFeatures != null)
+        if (layoutFeatures != null)
         {
             layoutFeatures.transformPointToParent(true,transformCenter,position,postLayoutPosition);
         }
@@ -2156,7 +2156,7 @@ public class GraphicElement extends EventDispatcher
                 xformPt.x = transformCenter.x;
                 xformPt.y = transformCenter.y;
             }
-            if(position != null)
+            if (position != null)
             {            
                 position.x = xformPt.x + _x;
                 position.y = xformPt.y + _y;
@@ -2358,13 +2358,9 @@ public class GraphicElement extends EventDispatcher
     //----------------------------------
     //  depth
     //----------------------------------  
+
     /**
-     * Determines the order in which items inside of groups are rendered. Groups order their items based on their depth property, with the lowest depth
-     * in the back, and the higher in the front.  items with the same depth value will appear in the order they are added to the Groups item list.
-     * 
-     * defaults to 0
-     * 
-     * @default 0
+     *  @inheritDoc 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2373,7 +2369,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get depth():Number
     {
-        return (layoutFeatures == null)? 0:layoutFeatures.depth;
+        return (layoutFeatures == null) ? 0 : layoutFeatures.depth;
     }
 
     /**
@@ -2381,19 +2377,20 @@ public class GraphicElement extends EventDispatcher
      */
     public function set depth(value:Number):void
     {
-        if(value == depth)
+        if (value == depth)
             return;
 
         allocateLayoutFeatures();
         layoutFeatures.depth = value;  
-        if(_parent != null && _parent is UIComponent)
-            (_parent as UIComponent).invalidateLayering();
+        if (_parent is UIComponent)
+            UIComponent(_parent).invalidateLayering();
         invalidateProperties();
     }
 
     //----------------------------------
     //  x
     //----------------------------------  
+
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
@@ -2419,7 +2416,7 @@ public class GraphicElement extends EventDispatcher
         if (oldValue == value)
             return;
 
-        if(layoutFeatures != null)
+        if (layoutFeatures != null)
             layoutFeatures.layoutX = value;
         else
             _x = value;
@@ -2457,7 +2454,7 @@ public class GraphicElement extends EventDispatcher
         if (oldValue == value)
             return;
 
-        if(layoutFeatures != null)
+        if (layoutFeatures != null)
             layoutFeatures.layoutY = value;
         else
             _y = value;
@@ -2892,7 +2889,7 @@ public class GraphicElement extends EventDispatcher
             _colorTransform != null ||
             _effectiveAlpha != 1);
     
-        if(layoutFeatures != null && layoutFeatures.postLayoutTransformOffsets != null)
+        if (layoutFeatures != null && layoutFeatures.postLayoutTransformOffsets != null)
         {
             var o:TransformOffsets = layoutFeatures.postLayoutTransformOffsets;
             result = result || (o.scaleX != 1 || o.scaleY != 1 || o.scaleZ != 1 ||
@@ -4063,7 +4060,7 @@ public class GraphicElement extends EventDispatcher
 
         if (newX != currentX || newY != currentY)
         {
-            if(layoutFeatures != null)
+            if (layoutFeatures != null)
             {
                 layoutFeatures.layoutX = newX;
                 layoutFeatures.layoutY = newY;           
@@ -4171,7 +4168,7 @@ public class GraphicElement extends EventDispatcher
         // since this is an internal class, we don't need to worry about developers
         // accidentally messing with this matrix, _unless_ we hand it out. Instead,
         // we hand out a clone.
-        if(layoutFeatures != null)
+        if (layoutFeatures != null)
             return layoutFeatures.layoutMatrix.clone();
         var m:Matrix = new Matrix();
         m.translate(_x,_y);
@@ -4202,13 +4199,39 @@ public class GraphicElement extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
+    public function get hasLayoutMatrix3D():Boolean
+    {
+        return layoutFeatures ? layoutFeatures.layoutIs3D : false;
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get is3D():Boolean
+    {
+        return layoutFeatures ? layoutFeatures.is3D: false;
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function getLayoutMatrix3D():Matrix3D
     {
         // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
         // since this is an internal class, we don't need to worry about developers
         // accidentally messing with this matrix, _unless_ we hand it out. Instead,
         // we hand out a clone.
-        if(layoutFeatures != null)
+        if (layoutFeatures != null)
             return layoutFeatures.layoutMatrix3D.clone();
         var m:Matrix3D = new Matrix3D();
         m.appendTranslation(_x,_y,0);
