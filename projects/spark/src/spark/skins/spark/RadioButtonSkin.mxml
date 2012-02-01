@@ -23,9 +23,9 @@
 
     <fx:Metadata>
     <![CDATA[ 
-    /** 
-     * @copy spark.skins.spark.ApplicationSkin#hostComponent
-     */
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.RadioButton")]
     ]]>
     </fx:Metadata> 
@@ -66,7 +66,7 @@
         private static const focusExclusions:Array = ["labelDisplay"];
 
         /**
-         * @inheritDoc
+         *  @private
          */
         override public function get focusSkinExclusions():Array { return focusExclusions;};
         ]]>
@@ -151,28 +151,29 @@
         </s:Ellipse>
         
         <!-- dot -->
-    <!--- Defines the appearance of the RadioButton's dot. To customize the appearance of the dot, create a custom RadioButtonSkin class. -->
-       <s:Path left="4" top="4" includeIn="selectedStates" id="dot" itemCreationPolicy="immediate"
-             data="M 2.5 0 Q 4.5 0.5 5 2.5 Q 4.5 4.5 2.5 5 Q 0.5 4.5 0 2.5 Q 0.5 0.5 2.5 0">
-           <s:fill>
-        <!--- Defines the appearance of the dot's fill. The default color is 0x000000. The default alpha is .9. -->
-               <s:SolidColor id="dotFill" color="0" alpha="0.9" />
-           </s:fill>
-       </s:Path>
-       <s:Path left="4" top="7" includeIn="selectedStates" 
-             data="M 0 0 Q 0.5 2 2.5 2.0 Q 3.5 2.0 4 0">
-           <s:stroke>
-               <s:LinearGradientStroke>
-                   <s:GradientEntry color="0xFFFFFF" alpha="0.3" />
-                   <s:GradientEntry color="0xFFFFFF" alpha="0.7" />
-                   <s:GradientEntry color="0xFFFFFF" alpha="0.3" />
-               </s:LinearGradientStroke>
-           </s:stroke>
-       </s:Path>
+        <!--- Defines the appearance of the RadioButton's dot. To customize the appearance of the dot, create a custom RadioButtonSkin class. -->
+        <s:Path left="4" top="4" includeIn="selectedStates" id="dot" itemCreationPolicy="immediate"
+                data="M 2.5 0 Q 4.5 0.5 5 2.5 Q 4.5 4.5 2.5 5 Q 0.5 4.5 0 2.5 Q 0.5 0.5 2.5 0">
+            <s:fill>
+                <!--- @private
+                      Defines the appearance of the dot's fill. The default color is 0x000000. The default alpha is .9. -->
+                <s:SolidColor id="dotFill" color="0" alpha="0.9" />
+            </s:fill>
+        </s:Path>
+        <s:Path left="4" top="7" includeIn="selectedStates" 
+                data="M 0 0 Q 0.5 2 2.5 2.0 Q 3.5 2.0 4 0">
+            <s:stroke>
+                <s:LinearGradientStroke>
+                    <s:GradientEntry color="0xFFFFFF" alpha="0.3" />
+                    <s:GradientEntry color="0xFFFFFF" alpha="0.7" />
+                    <s:GradientEntry color="0xFFFFFF" alpha="0.3" />
+                </s:LinearGradientStroke>
+            </s:stroke>
+        </s:Path>
     </s:Group>
 
     <!-- Label -->
-    <!--- Defines the text next to the dot in a RadioButton component.-->
+    <!---  @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
     <s:Label id="labelDisplay"
              textAlign="start"
              verticalAlign="middle"
