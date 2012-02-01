@@ -11,6 +11,8 @@
 
 -->
 
+<!--- The default skin class for the Spark Spinner component. The skins for the down and up buttons on the
+Spinner component are defined by the SpinnerDecrButtonSkin and SpinnerIncrButtonSkin classes, respectively. -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
       alpha.disabled="0.5" minHeight="24" minWidth="12">
 
