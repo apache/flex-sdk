@@ -34,16 +34,16 @@ public class BasicLayout extends LayoutBase
 
     private static function constraintsDetermineWidth(layoutItem:ILayoutItem):Boolean
     {
-        return !isNaN(layoutItem.percentSize.x) ||
-               !isNaN(LayoutItemHelper.getConstraint(layoutItem, "left")) &&
-               !isNaN(LayoutItemHelper.getConstraint(layoutItem, "right"));
+        return !isNaN(layoutItem.percentWidth) ||
+               !isNaN(LayoutItemHelper.parseConstraintValue(layoutItem.left)) &&
+               !isNaN(LayoutItemHelper.parseConstraintValue(layoutItem.right));
     }
 
     private static function constraintsDetermineHeight(layoutItem:ILayoutItem):Boolean
     {
-        return !isNaN(layoutItem.percentSize.y) ||
-               !isNaN(LayoutItemHelper.getConstraint(layoutItem, "top")) &&
-               !isNaN(LayoutItemHelper.getConstraint(layoutItem, "bottom"));
+        return !isNaN(layoutItem.percentHeight) ||
+               !isNaN(LayoutItemHelper.parseConstraintValue(layoutItem.top)) &&
+               !isNaN(LayoutItemHelper.parseConstraintValue(layoutItem.bottom));
     }
 
     //--------------------------------------------------------------------------
@@ -84,16 +84,16 @@ public class BasicLayout extends LayoutBase
             if (!layoutItem || !layoutItem.includeInLayout)
                 continue;
 
-            var left:Number      = LayoutItemHelper.getConstraint(layoutItem, "left");
-            var right:Number     = LayoutItemHelper.getConstraint(layoutItem, "right");
-            var top:Number       = LayoutItemHelper.getConstraint(layoutItem, "top");
-            var bottom:Number    = LayoutItemHelper.getConstraint(layoutItem, "bottom");
+            var left:Number      = LayoutItemHelper.parseConstraintValue(layoutItem.left);
+            var right:Number     = LayoutItemHelper.parseConstraintValue(layoutItem.right);
+            var top:Number       = LayoutItemHelper.parseConstraintValue(layoutItem.top);
+            var bottom:Number    = LayoutItemHelper.parseConstraintValue(layoutItem.bottom);
 
             var extX:Number = 0;
             var extY:Number = 0;
 
             if (isNaN(left) && isNaN(right) &&
-                isNaN(LayoutItemHelper.getConstraint(layoutItem, "horizontalCenter")))
+                isNaN(LayoutItemHelper.parseConstraintValue(layoutItem.horizontalCenter)))
             {
                 extX += layoutItem.actualPosition.x;
             }
@@ -104,7 +104,7 @@ public class BasicLayout extends LayoutBase
             }
 
             if (isNaN(top) && isNaN(bottom) &&
-                isNaN(LayoutItemHelper.getConstraint(layoutItem, "verticalCenter")))
+                isNaN(LayoutItemHelper.parseConstraintValue(layoutItem.verticalCenter)))
             {
                 extY += layoutItem.actualPosition.y;
             }
@@ -197,12 +197,12 @@ public class BasicLayout extends LayoutBase
             if (!layoutItem || !layoutItem.includeInLayout)
                 continue;
 
-            var hCenter:Number = LayoutItemHelper.getConstraint(layoutItem, "horizontalCenter");
-            var vCenter:Number = LayoutItemHelper.getConstraint(layoutItem, "verticalCenter");
-            var left:Number    = LayoutItemHelper.getConstraint(layoutItem, "left");
-            var right:Number   = LayoutItemHelper.getConstraint(layoutItem, "right");
-            var top:Number     = LayoutItemHelper.getConstraint(layoutItem, "top");
-            var bottom:Number  = LayoutItemHelper.getConstraint(layoutItem, "bottom");
+            var hCenter:Number = LayoutItemHelper.parseConstraintValue(layoutItem.horizontalCenter);
+            var vCenter:Number = LayoutItemHelper.parseConstraintValue(layoutItem.verticalCenter);
+            var left:Number    = LayoutItemHelper.parseConstraintValue(layoutItem.left);
+            var right:Number   = LayoutItemHelper.parseConstraintValue(layoutItem.right);
+            var top:Number     = LayoutItemHelper.parseConstraintValue(layoutItem.top);
+            var bottom:Number  = LayoutItemHelper.parseConstraintValue(layoutItem.bottom);
             var itemMinSize:Point = layoutItem.minSize;
             var itemMaxSize:Point = layoutItem.maxSize.clone(); // Since we may update it below
 
@@ -219,9 +219,9 @@ public class BasicLayout extends LayoutBase
             {
                 childWidth = unscaledWidth - right - left;
             }
-            else if (!isNaN(layoutItem.percentSize.x))
+            else if (!isNaN(layoutItem.percentWidth))
             {
-                childWidth = unscaledWidth * Math.min(layoutItem.percentSize.x * 0.01, 1);
+                childWidth = unscaledWidth * Math.min(layoutItem.percentWidth * 0.01, 1);
                 itemMaxSize.x = Math.min(itemMaxSize.x,
                     maxSizeToFitIn(unscaledWidth, hCenter, left, right, childX));
             }
@@ -230,9 +230,9 @@ public class BasicLayout extends LayoutBase
             {
                 childHeight = unscaledHeight - bottom - top;
             }
-            else if (!isNaN(layoutItem.percentSize.y))
+            else if (!isNaN(layoutItem.percentHeight))
             {
-                childHeight = unscaledHeight * Math.min(layoutItem.percentSize.y * 0.01, 1);
+                childHeight = unscaledHeight * Math.min(layoutItem.percentHeight * 0.01, 1);
                 itemMaxSize.y = Math.min(itemMaxSize.y,
                     maxSizeToFitIn(unscaledHeight, vCenter, top, bottom, childY));
             }
