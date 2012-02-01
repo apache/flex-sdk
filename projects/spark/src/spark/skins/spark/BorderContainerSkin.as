@@ -55,7 +55,9 @@ public class BorderSkin extends Skin
 	public function BorderSkin()
 	{
 	    super();
-	    
+       
+        minWidth = minHeight = 112;
+        
 	    states = [
             new State({name:"normal"}), 
             new State({name:"disabled", 
@@ -130,7 +132,7 @@ public class BorderSkin extends Skin
     {
         graphics.clear();
         
-        var borderWeight:int = getStyle("borderWeight");
+        var borderWeight:int = getStyle("borderWeight"); 
         var borderStyle:String = getStyle("borderStyle");
         var borderVisible:Boolean = getStyle("borderVisible");
         var cornerRadius:Number = getStyle("cornerRadius");
@@ -202,17 +204,17 @@ public class BorderSkin extends Skin
                 if (!isNaN(bkgdColor))
                     bgRect.fill = new SolidColor(bkgdColor, bkgdAlpha);
                 else
-                    bgRect.fill = null;
+                    bgRect.fill = new SolidColor(0, 0);
             }
         }
         
         // Draw the shadow for the inset style
-        if (borderStyle == "inset" && hostComponent.borderStroke == null)
+        if (borderStyle == "inset" && hostComponent.borderStroke == null && borderVisible)
         {            
             var negCR:Number = -cornerRadius;
             var path:String = ""; 
             
-            if (cornerRadius > 0)
+            if (cornerRadius > 0 && borderWeight < 10)
             {
                 // Draw each corner with two quadratics, using the following ratios:
                 var a:Number = cornerRadius * 0.292893218813453;
