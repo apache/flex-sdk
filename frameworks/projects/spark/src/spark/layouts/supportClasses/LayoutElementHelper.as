@@ -13,6 +13,7 @@ package spark.layouts.supportClasses
 {
 
 /**
+ *  @private
  *  Documentation is not currently available.
  *  
  *  @langversion 3.0
