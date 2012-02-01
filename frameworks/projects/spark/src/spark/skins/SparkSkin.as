@@ -11,12 +11,11 @@
 
 package spark.skins
 {
-import spark.components.supportClasses.Skin;
-import flash.geom.ColorTransform;
 import flash.display.DisplayObject;
-import spark.primitives.supportClasses.StrokedElement;
-import mx.graphics.SolidColor;
-import flash.events.Event;
+import flash.geom.ColorTransform;
+
+import spark.components.supportClasses.Skin;
+import spark.primitives.supportClasses.GraphicElement;
 
 /**
  *  Base class for Spark skins.
@@ -50,7 +49,9 @@ public class SparkSkin extends Skin
     }
     
     /**
-     * Names of items that should not be colorized by the <code>baseColor</code> style.
+     *  Names of items that should not be colorized by the <code>baseColor</code> style.
+     *  Only items of type DisplayObject or GraphicElement should be excluded. Items
+     *  of other types will be ignored.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -149,7 +150,9 @@ public class SparkSkin extends Skin
                 {
                     var exclusionObject:Object = this[exclusions[i]];
                     
-                    if (exclusionObject)
+                    if (exclusionObject &&
+                        (exclusionObject is DisplayObject ||
+                         exclusionObject is GraphicElement))
                     {
                         colorTransform.alphaMultiplier = exclusionObject.alpha;
                         exclusionObject.transform.colorTransform = colorTransform;
