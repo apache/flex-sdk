@@ -23,7 +23,7 @@ import mx.events.EffectEvent;
 import mx.events.TweenEvent;
 import mx.styles.IStyleClient;
     
-public class MoveInstance extends AnimatePropertiesInstance
+public class MoveInstance extends AnimateInstance
 {
     include "../../core/Version.as";
 
