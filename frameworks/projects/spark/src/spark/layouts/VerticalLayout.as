@@ -859,6 +859,17 @@ public class VerticalLayout extends LayoutBase
      */
      private function updateLLV(layoutTarget:GroupBase):void
      {
+        var contentChangeDeltas:Vector.<int> = layoutTarget.mx_internal::contentChangeDeltas;
+        if (contentChangeDeltas)
+            for(var i:int = 0; i < contentChangeDeltas.length; i++)
+            {
+                var delta:int = contentChangeDeltas[i];
+                if (delta < 0)
+                    llv.remove(-(delta + 1));
+                else
+                    llv.insert(delta - 1);
+            }
+            
         var typicalElt:ILayoutElement = typicalLayoutElement;
         if (typicalElt)
         {
@@ -868,7 +879,7 @@ public class VerticalLayout extends LayoutBase
             llv.defaultMajorSize = typicalHeight;        
         }
         if (layoutTarget)
-            llv.length = layoutTarget.numElements;        
+            llv.length = layoutTarget.numElements;       
      }
 
     /**
@@ -1050,7 +1061,7 @@ public class VerticalLayout extends LayoutBase
         var maxVisibleY:Number = minVisibleY + layoutTarget.height;
        
         updateLLV(layoutTarget);
-        var startIndex:int = llv.indexOf(minVisibleY);     
+        var startIndex:int = llv.indexOf(minVisibleY); 
             
         var fixedRowHeight:Number = NaN;
         if (!variableRowHeight)
