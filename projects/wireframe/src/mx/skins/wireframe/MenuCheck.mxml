@@ -27,7 +27,7 @@ in accordance with the terms of the license agreement accompanying it.
     <!--- @private -->
     <s:Path id="check" data="M 0 2 L 3 4.4 L 7 0 L 7 3 L 3 7 L 0 4.6 L 0 2 Z">
         <s:fill>
-            <s:SolidColor color="0x5380D0"/>
+            <s:SolidColor color="#707070"/>
         </s:fill>
     </s:Path>   
 </s:Skin>
