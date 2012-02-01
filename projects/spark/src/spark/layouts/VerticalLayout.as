@@ -20,7 +20,6 @@ import flash.ui.Keyboard;
 
 import flex.core.GroupBase;
 import flex.graphics.IGraphicElement;
-import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 
 import mx.containers.utilityClasses.Flex;
@@ -563,44 +562,51 @@ public class VerticalLayout extends LayoutBase
         var itemR:Rectangle;
         var firstIndex:int;
         var lastIndex:int;
-    
-        switch (unit)
+        
+        switch(unit)
         {
+            // Compute the bounds of the first item that's not
+            // completely visible, is non-null, and is includeInLayout.
+            // If the item whose index is firstIndexInView satisfies
+            // all of the requirements, we'll use that, otherwise we'll
+            // scan "upwards" until we find one. 
             case Keyboard.UP:
-            {
-                firstIndex = firstIndexInView;
-                if (inView(firstIndex) >= 1)
-                   firstIndex = Math.max(0, firstIndex -1);
-                itemR = itemScan(g, firstIndex, -1);
-                return (itemR) ? Math.max(minDelta, itemR.top - scrollR.top) : 0;
-            }
-                
-            case Keyboard.DOWN:
-            {
-            	lastIndex = lastIndexInView;
-            	if (inView(lastIndex) >= 1)
-            	   lastIndex = Math.min(maxIndex, lastIndex + 1);
-            	itemR = itemScan(g, lastIndex, +1);
-            	return (itemR) ? Math.min(maxDelta, itemR.bottom - scrollR.bottom) : 0;
-            }
-                
             case Keyboard.PAGE_UP:
             {
                 firstIndex = firstIndexInView;
                 if (inView(firstIndex) >= 1)
                    firstIndex = Math.max(0, firstIndex -1);
                 itemR = itemScan(g, firstIndex, -1);
-                return (itemR) ? Math.max(minDelta, itemR.bottom - scrollR.bottom) : 0;
-            }          	
-                
+            }
+             
+            // Compute the bounds of the last item that's not
+            // completely visible, is non-null, and is includeInLayout.
+            // If the item whose index is lastIndexInView satisfies
+            // all of the requirements, we'll use that, otherwise we'll
+            // scan "downwards" until we find one. 
+            case Keyboard.DOWN:
             case Keyboard.PAGE_DOWN:
             {
                 lastIndex = lastIndexInView;
                 if (inView(lastIndex) >= 1)
                    lastIndex = Math.min(maxIndex, lastIndex + 1);
                 itemR = itemScan(g, lastIndex, +1);
-                return (itemR) ? Math.min(maxDelta, itemR.top - scrollR.y) : 0;
             }
+        }
+    
+        switch (unit)
+        {
+            case Keyboard.UP:
+                return (itemR) ? Math.max(minDelta, itemR.top - scrollR.top) : 0;
+                
+            case Keyboard.DOWN:
+            	return (itemR) ? Math.min(maxDelta, itemR.bottom - scrollR.bottom) : 0;
+                
+            case Keyboard.PAGE_UP:
+                return (itemR) ? Math.max(minDelta, itemR.bottom - scrollR.bottom) : 0;
+                
+            case Keyboard.PAGE_DOWN:
+                return (itemR) ? Math.min(maxDelta, itemR.top - scrollR.y) : 0;
                                 
             default:
                 return super.verticalScrollPositionDelta(unit);
