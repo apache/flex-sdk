@@ -808,7 +808,61 @@ public class Path extends FilledElement
         }
         return getBoundingBoxWithStroke(_width, _height, m).y + (m ? 0 : this.y);
     }
- 
+
+    /**
+     *  @private
+     */
+    override public function setLayoutBoundsSize(width:Number, height:Number, postLayoutTransform:Boolean=true):void
+    {
+        // We have special handling for only miter-limit stroked non-transfomred paths,
+        // Otherwise we default to the generic GraphicElement sizing algorithm.
+        if ((isNaN(width) && isNaN(height)) ||      // resetting to original size?
+            !stroke ||                              // no stroke?
+            stroke.joints != "miter" ||             // no miter? 
+            getComplexMatrix(postLayoutTransform))  // transformed?
+        {
+            super.setLayoutBoundsSize(width, height, postLayoutTransform);
+            return;
+        }
+        
+        // Miter limit requires special handling since the stroke extents depend on
+        // the path size as the size changes the angles of the joints.
+        
+        // Start off from the natural bounds
+        var naturalBounds:Rectangle = getBounds();
+        var newWidth:Number = naturalBounds.width;
+        var newHeight:Number = naturalBounds.height;
+        
+        var i:int = 0;
+        while (i++ < 10) // The size usually converges very quickly with only 3-4 iterations; we allow maximum of 10 iterations
+        {
+            var boundsWithStroke:Rectangle = getBoundingBoxWithStroke(newWidth, newHeight, null);
+            
+            var widthProximity:Number = 0;
+            var heightProximity:Number = 0;
+            if (!isNaN(width))
+                widthProximity = Math.abs(width - boundsWithStroke.width);
+            if (!isNaN(height))
+                heightProximity = Math.abs(height - boundsWithStroke.height);
+            
+            // Are we close enought? We want sub-pixel difference
+            if (widthProximity < 1e-5 && heightProximity < 1e-5)
+                break;
+            
+            var boundsWithoutStroke:Rectangle = segments.getBoundingBox(newWidth, newHeight, null);
+            var strokeWidth:Number = boundsWithStroke.width - boundsWithoutStroke.width;
+            var strokeHeight:Number = boundsWithStroke.height - boundsWithoutStroke.height;
+            
+            if (!isNaN(width))
+                newWidth = width - strokeWidth;
+            
+            if (!isNaN(height))
+                newHeight = height - strokeHeight;
+        }
+        
+        setActualSize(newWidth, newHeight);
+    }
+
     /**
      *  @private
      *  Use measuredX and measuredY instead of drawX and drawY
