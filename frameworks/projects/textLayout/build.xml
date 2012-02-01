@@ -63,16 +63,29 @@
 			</zip>
 		</sequential>
 	</macrodef>	
-	
-	<macrodef name="bundler">
+	<macrodef name="bundle-clean">
 		<attribute name="locale"/>
 		<sequential>
-			<bundle locale="@{locale}"/>
-			<fat-swc locale="@{locale}"/>
+			<delete failonerror="false">
+				<fileset dir="${FLEX_HOME}/frameworks/locale">
+					<include name="@{locale}/textLayout_rb.swc"/>
+					<include name="@{locale}/textLayout_rb.swc.incr"/>
+				</fileset>
+			</delete>
 		</sequential>
 	</macrodef>
+	<macrodef name="bundler">
+		<attribute name="locale"/>
+		<element name="run.fat.swc" optional="yes"/>
+		<sequential>
+			<bundle-clean locale="@{locale}"/>
+			<bundle locale="@{locale}"/>
+			<run.fat.swc/>
+		</sequential>
+	</macrodef>
+		
 				
-	<target name="main" depends="clean,compile" description="Clean build of automation_dmv.swc and en_US">
+	<target name="main" depends="clean" description="Clean build of automation_dmv.swc and en_US">
 		<bundle locale="${locale}"/>
 	</target>
 	
@@ -81,9 +94,47 @@
 	<!-- This is a private target for building automation_rb.swc for various locales. -->
 	<!-- The targets below set the 'locale' parameter  -->
 	<target name="bundles">
-		
-		<bundler locale="en_US"/><!-- American English resources  -->
-		
+		<!-- these languages do not have localized docs-->
+		<bundler locale="da_DK"/><!-- Danish resources -->
+		<bundler locale="de_DE"><!-- German resources -->
+			<run.fat.swc>
+				<fat-swc locale="de_DE"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="en_US"><!-- American English resources -->
+			<run.fat.swc>
+				<fat-swc locale="en_US"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="es_ES"/><!-- Spanish resources -->
+		<bundler locale="fi_FI"/><!--  Finnish resources-->
+		<bundler locale="fr_FR"><!-- French resources -->
+			<run.fat.swc>
+				<fat-swc locale="fr_FR"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="it_IT"/><!-- Italian resources -->
+		<bundler locale="ja_JP"><!-- Japanese resources -->
+			<run.fat.swc>
+				<fat-swc locale="ja_JP"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="ko_KR"/><!-- Korean resources -->
+		<bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
+		<bundler locale="nl_NL"/><!-- Dutch resources -->
+		<bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
+		<bundler locale="ru_RU"><!-- Swedish resources -->
+			<run.fat.swc>
+				<fat-swc locale="ru_RU"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="sv_SE"/><!-- Swedish resources -->
+		<bundler locale="zh_CN"><!-- Simplified Chinese resources -->
+			<run.fat.swc>
+				<fat-swc locale="zh_CN"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
 	</target>
 	
 	<target name="clean" depends="bundles-clean" description="Deletes the combined swc">
