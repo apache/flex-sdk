@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.skins.spark
+package spark.skins.default
 {
 
 import flash.display.Bitmap;
@@ -21,7 +21,7 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import mx.components.baseClasses.FxComponent;
+import spark.components.supportClasses.SkinnableComponent;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import flash.utils.Dictionary;
@@ -34,7 +34,7 @@ import flash.utils.Dictionary;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxFocusSkin extends UIComponent
+public class FocusSkin extends UIComponent
 {
     include "../../core/Version.as";
     
@@ -66,7 +66,7 @@ public class FxFocusSkin extends UIComponent
     //
     //--------------------------------------------------------------------------
     
-    public function FxFocusSkin()
+    public function FocusSkin()
     {
         super();
     }
@@ -119,15 +119,15 @@ public class FxFocusSkin extends UIComponent
         var m:Matrix = new Matrix();
         
         // If the focus object already has a focus skin, make sure it is hidden.
-        if (focusObject is FxComponent && focusObject.mx_internal::focusObj)
+        if (focusObject is SkinnableComponent && focusObject.mx_internal::focusObj)
             focusObject.mx_internal::focusObj.visible = false;
        
         // Temporary solution for focus drawing on CheckBox and RadioButton components.
         // Hide the label before drawing the focus. 
         // TODO: Figure out a better solution.
         var hidLabelElement:Boolean = false;
-        if ((weakIsCheck(focusObject, "mx.components::FxCheckBox") ||
-             weakIsCheck(focusObject, "mx.components::FxRadioButton"))
+        if ((weakIsCheck(focusObject, "mx.components::CheckBox") ||
+             weakIsCheck(focusObject, "mx.components::RadioButton"))
              && focusObject.labelElement)
         {
             focusObject.labelElement.displayObject.visible = false;
@@ -139,7 +139,7 @@ public class FxFocusSkin extends UIComponent
         bitmapData.draw(focusObject as IBitmapDrawable, m);
         
         // Show the focus skin, if needed.
-        if (focusObject is FxComponent && focusObject.mx_internal::focusObj)
+        if (focusObject is SkinnableComponent && focusObject.mx_internal::focusObj)
             focusObject.mx_internal::focusObj.visible = true;
         
         // Show the label, if needed.
@@ -148,7 +148,7 @@ public class FxFocusSkin extends UIComponent
         
         // Special case for Scroller - fill the entire rect.
         // TODO: Figure out a better solution.
-        if (weakIsCheck(focusObject, "mx.components::FxScroller"))
+        if (weakIsCheck(focusObject, "mx.components::Scroller"))
         {
             rect.x = rect.y = FOCUS_THICKNESS;
             rect.width = focusObject.width;
