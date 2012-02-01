@@ -1,16 +1,38 @@
-@namespace "library://ns.adobe.com/flex/mx";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace s "library://ns.adobe.com/flex/spark";
 
-Menu, Panel, TitleWindow 
+mx|Menu, mx|Panel, mx|TitleWindow 
 {
 	dropShadowVisible: true;
 }
 
-List.comboDropdown
+mx|List.comboDropdown
 {
 	dropShadowVisible: true;
 }
 
-VideoDisplay
+mx|VideoDisplay
 {
 	contentBackgroundColor: #000000;
+}
+
+s|ComboBox, s|DropDownList, s|VideoPlayer
+{
+    dropShadowVisible: true;
+}
+
+s|Panel
+{
+    borderAlpha: 0.5;
+    borderColor: 0;
+    cornerRadius: 0;
+    dropShadowVisible: true;
+}
+
+s|TitleWindow
+{
+    borderAlpha: 0.8;
+    borderColor: 0;
+    cornerRadius: 0;
+    dropShadowVisible: true;
 }
