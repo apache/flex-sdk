@@ -11,7 +11,7 @@
 
 package spark.utils
 {
-	
+    
 import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.conversion.ITextExporter;
 import flashx.textLayout.conversion.ITextImporter;
@@ -37,119 +37,119 @@ public class TextFlowUtil
 {
     include "../core/Version.as";
     
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-		
-	/**
-	 *  @private
-	 */
-	private static const TEXT_LAYOUT_NAMESPACE:String =
-		"http://ns.adobe.com/textLayout/2008";
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Class variables
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private static var initialized:Boolean = false;
-	
-	/**
-	 *  @private
-	 */
-	private static var collapsingTextLayoutImporter:ITextImporter;
-	
-	/**
-	 *  @private
-	 */
-	private static var preservingTextLayoutImporter:ITextImporter;
-	
-	/**
-	 *  @private
-	 */
-	private static var textLayoutExporter:ITextExporter;
-	
-	/**
-	 *  @private
-	 */
-	private static var configInheritingFormats:Vector.<String>;
-	
-		//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+        
+    /**
+     *  @private
+     */
+    private static const TEXT_LAYOUT_NAMESPACE:String =
+        "http://ns.adobe.com/textLayout/2008";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private static var initialized:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private static var collapsingTextLayoutImporter:ITextImporter;
+    
+    /**
+     *  @private
+     */
+    private static var preservingTextLayoutImporter:ITextImporter;
+    
+    /**
+     *  @private
+     */
+    private static var textLayoutExporter:ITextExporter;
+    
+    /**
+     *  @private
+     */
+    private static var configInheritingFormats:Vector.<String>;
+    
+        //--------------------------------------------------------------------------
     //
     //  Class methods
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  @private
-	 *  This method initializes the static vars of this class.
-	 *  Rather than calling it at static initialization time,
-	 *  we call it from every public method.
-	 *  (It does an immediate return if it has already run.)
-	 *  By doing so, we avoid any static initialization issues
-	 *  related to whether this class or the TLF classes
-	 *  that it uses are initialized first.
-	 */
-	private static function initClass():void
-	{
-		if (initialized)
-			return;
-		
-		var format:TextLayoutFormat;
-		var config:Configuration;
-				
-		// Create an importer for TEXT_LAYOUT_FORMAT
-		// that collapses whitespace.
-		format = new TextLayoutFormat();
-		format.whiteSpaceCollapse = "collapse";
-		config = new Configuration();
-		config.textFlowInitialFormat = format;
-		collapsingTextLayoutImporter = TextFilter.getImporter(
-			TextFilter.TEXT_LAYOUT_FORMAT, config);
-		collapsingTextLayoutImporter.throwOnError = true;
-		
-		// Create an importer for TEXT_LAYOUT_FORMAT
-		// that preserves whitespace.
-		format = new TextLayoutFormat();
-		format.whiteSpaceCollapse = "preserve";
-		config = new Configuration();
-		config.textFlowInitialFormat = format;
-		preservingTextLayoutImporter = TextFilter.getImporter(
-			TextFilter.TEXT_LAYOUT_FORMAT, config);
-		preservingTextLayoutImporter.throwOnError = true;
-			
-		// Create an exporter for TEXT_LAYOUT_FORMAT.
-		textLayoutExporter = TextFilter.getExporter(
-			TextFilter.TEXT_LAYOUT_FORMAT);
-			
-		// Build a list of the formats which are marked "inherit"
-		// a Configuration's textFlowInitialFormat.
-		config = new Configuration();	
-		configInheritingFormats = new Vector.<String>();
-		var initialFormat:ITextLayoutFormat = config.textFlowInitialFormat;
-		for (var p:String in TextLayoutFormat.description)
-		{
-			if (initialFormat[p] == FormatValue.INHERIT)
-				configInheritingFormats.push(p);
-		}
-		
-		initialized = true;
-	}
-	
+    /**
+     *  @private
+     *  This method initializes the static vars of this class.
+     *  Rather than calling it at static initialization time,
+     *  we call it from every public method.
+     *  (It does an immediate return if it has already run.)
+     *  By doing so, we avoid any static initialization issues
+     *  related to whether this class or the TLF classes
+     *  that it uses are initialized first.
+     */
+    private static function initClass():void
+    {
+        if (initialized)
+            return;
+        
+        var format:TextLayoutFormat;
+        var config:Configuration;
+                
+        // Create an importer for TEXT_LAYOUT_FORMAT
+        // that collapses whitespace.
+        format = new TextLayoutFormat();
+        format.whiteSpaceCollapse = "collapse";
+        config = new Configuration();
+        config.textFlowInitialFormat = format;
+        collapsingTextLayoutImporter = TextFilter.getImporter(
+            TextFilter.TEXT_LAYOUT_FORMAT, config);
+        collapsingTextLayoutImporter.throwOnError = true;
+        
+        // Create an importer for TEXT_LAYOUT_FORMAT
+        // that preserves whitespace.
+        format = new TextLayoutFormat();
+        format.whiteSpaceCollapse = "preserve";
+        config = new Configuration();
+        config.textFlowInitialFormat = format;
+        preservingTextLayoutImporter = TextFilter.getImporter(
+            TextFilter.TEXT_LAYOUT_FORMAT, config);
+        preservingTextLayoutImporter.throwOnError = true;
+            
+        // Create an exporter for TEXT_LAYOUT_FORMAT.
+        textLayoutExporter = TextFilter.getExporter(
+            TextFilter.TEXT_LAYOUT_FORMAT);
+            
+        // Build a list of the formats which are marked "inherit"
+        // a Configuration's textFlowInitialFormat.
+        config = new Configuration();   
+        configInheritingFormats = new Vector.<String>();
+        var initialFormat:ITextLayoutFormat = config.textFlowInitialFormat;
+        for (var p:String in TextLayoutFormat.description)
+        {
+            if (initialFormat[p] == FormatValue.INHERIT)
+                configInheritingFormats.push(p);
+        }
+        
+        initialized = true;
+    }
+    
     /**
      *  Creates a TextFlow by importing (i.e., parsing) a String
      *  containing the markup language used by the Text Layout Framework.
      *  
      *  <p>An example of a markup string is
      *  <pre>
-     *  "<TextFlow xmlns='http://ns.adobe.com/textLayout/2008'>
-     *  <p><span>Hello, </span><span fontWeight='bold'>World!</span></p></TextFlow>"
+     *  "&lt;TextFlow xmlns='http://ns.adobe.com/textLayout/2008'&gt;
+     *  <p><span>Hello, </span><span fontWeight='bold'>World!</span></p>&lt;/TextFlow&gt;"
      *  </pre>
      *  </p>
      *
@@ -158,9 +158,10 @@ public class TextFlowUtil
      *  It will get wrapped with a TextFlow tag in the proper namespace,
      *  and span and paragraph tags will get automatically inserted
      *  where needed to comply with the structure of a TextFlow.</p>
-     *  If you specify the TextFlow tag yourself,
+     *
+     *  <p>If you specify the TextFlow tag yourself,
      *  it must be in the correct XML namespace
-	 *  for runtime Text Layout Framework markup, which is
+     *  for runtime Text Layout Framework markup, which is
      *  <code>"http://ns.adobe.com/textLayout/2008"</code>.</p>
      *
      *  <p>Incorrect markup will cause this method to throw
@@ -181,12 +182,12 @@ public class TextFlowUtil
      *  @return A new TextFlow instance created from the markup.
      */
     public static function importFromString(
-    	markup:String, whiteSpaceCollapse:String = "collapse"):TextFlow
+        markup:String, whiteSpaceCollapse:String = "collapse"):TextFlow
     {
-    	initClass();
-    	
-    	var markupToImport:Object = markup;
-    	
+        initClass();
+        
+        var markupToImport:Object = markup;
+        
         // If the markup string doesn't contain "TextFlow",
         // it needs to be wrapped in a <TextFlow> tag
         // in order for the TEXT_LAYOUT_FORMAT importer
@@ -203,8 +204,8 @@ public class TextFlowUtil
                 var xml:XML = XML(markup);
                 if (xml.localName() == "TextFlow")
                 {
-					markupToImport = xml;
-					wrap = false;
+                    markupToImport = xml;
+                    wrap = false;
                 } 
             }
             catch(e:Error)
@@ -215,64 +216,65 @@ public class TextFlowUtil
         if (wrap)
         {
             markupToImport =  "<TextFlow xmlns=\"" + TEXT_LAYOUT_NAMESPACE + "\">" +
-                      		  markupToImport +
-                      		  "</TextFlow>";
+                              markupToImport +
+                              "</TextFlow>";
         }
                 
-		var importer:ITextImporter = whiteSpaceCollapse == "collapse" ?
-				   					 collapsingTextLayoutImporter :
-				   					 preservingTextLayoutImporter;
-		
-		return importer.importToFlow(markupToImport);
+        var importer:ITextImporter = whiteSpaceCollapse == "collapse" ?
+                                     collapsingTextLayoutImporter :
+                                     preservingTextLayoutImporter;
+        
+        return importer.importToFlow(markupToImport);
     }
 
-	/**
-	 *  Creates a TextFlow by importing (i.e., parsing) XML
-	 *  containing the markup language used by the Text Layout Framework.
-	 *  
-	 *  <p>An example of markup XML is
-	 *  <pre>
-	 *  <TextFlow xmlns='http://ns.adobe.com/textLayout/2008'>
-	 *    <p><span>Hello, </span><span fontWeight='bold'>World!</span></p>
-	 *  </TextFlow>
-	 *  </pre>
-	 *  </p>
-	 *
+    /**
+     *  Creates a TextFlow by importing (i.e., parsing) XML
+     *  containing the markup language used by the Text Layout Framework.
+     *  
+     *  <p>An example of markup XML is
+     *  <pre>
+     *  &lt;TextFlow xmlns='http://ns.adobe.com/textLayout/2008'&gt;
+     *    <p><span>Hello, </span><span fontWeight='bold'>World!</span></p>
+     *  &lt;/TextFlow&gt;
+     *  </pre>
+     *  </p>
+     *
      *  <p>However, you can use terser markup such as
      *  <pre>"Hello, <span fontWeight='bold'>World!</span>"</pre>.
      *  It will get wrapped with a TextFlow tag in the proper namespace,
      *  and span and paragraph tags will get automatically inserted
      *  where needed to comply with the structure of a TextFlow.</p>
-     *  If you specify the TextFlow tag yourself,
+     *
+     *  <p>If you specify the TextFlow tag yourself,
      *  it must be in the correct XML namespace
-	 *  for runtime Text Layout Framework markup, which is
+     *  for runtime Text Layout Framework markup, which is
      *  <code>"http://ns.adobe.com/textLayout/2008"</code>.</p>
      *
      *  <p>Incorrect markup will cause this method to throw
      *  various exceptions.
      *  The error message will contain information
      *  about why it could not be parsed.</p>
-	 * 
-	 *  @param markup The markup XML to be imported.
-	 * 
-	 *  @param whiteSpaceCollapse A String indicating whether
-	 *  the whitespace in the markup should be collapsed or preserved.
-	 *  The possible values are
-	 *  <code>WhiteSpaceCollapse.COLLAPSE</code> and
-	 *  <code>WhiteSpaceCollapse.PRESERVE</code> in the
-	 *  flashx.textLayout.formats.WhiteSpaceCollapse class.
-	 *  The default value is <code>WhiteSpaceCollapse.COLLAPSE</code>.
-	 *
-	 *  @return A new TextFlow instance created from the markup.
-	 */
-	    public static function importFromXML(
-    	markup:XML, whiteSpaceCollapse:String = "collapse"):TextFlow
+     * 
+     *  @param markup The markup XML to be imported.
+     * 
+     *  @param whiteSpaceCollapse A String indicating whether
+     *  the whitespace in the markup should be collapsed or preserved.
+     *  The possible values are
+     *  <code>WhiteSpaceCollapse.COLLAPSE</code> and
+     *  <code>WhiteSpaceCollapse.PRESERVE</code> in the
+     *  flashx.textLayout.formats.WhiteSpaceCollapse class.
+     *  The default value is <code>WhiteSpaceCollapse.COLLAPSE</code>.
+     *
+     *  @return A new TextFlow instance created from the markup.
+     */
+        public static function importFromXML(
+        markup:XML, whiteSpaceCollapse:String = "collapse"):TextFlow
     {
-    	initClass();
-    	
-		// If the root tag of the markup isn't a TextFlow tag,
-		// wrap the markup with one, in the proper namespace.
-		if (markup.localName() != "TextFlow")
+        initClass();
+        
+        // If the root tag of the markup isn't a TextFlow tag,
+        // wrap the markup with one, in the proper namespace.
+        if (markup.localName() != "TextFlow")
         {
             // Create a root <TextFlow> element.
             var root:XML = <TextFlow/>;
@@ -297,11 +299,11 @@ public class TextFlowUtil
         
         trace(markup);
 
-		var importer:ITextImporter = whiteSpaceCollapse == "collapse" ?
-			collapsingTextLayoutImporter :
-			preservingTextLayoutImporter;
-		
-		return importer.importToFlow(markup);
+        var importer:ITextImporter = whiteSpaceCollapse == "collapse" ?
+            collapsingTextLayoutImporter :
+            preservingTextLayoutImporter;
+        
+        return importer.importToFlow(markup);
     }
     
     /**
@@ -310,7 +312,7 @@ public class TextFlowUtil
      *
      *  <p>The root tag of the exported XML will be
      *  <pre>
-     *  <TextFlow xmlns="http://ns.adobe.com/textLayout/2008" ...>
+     *  &lt;TextFlow xmlns="http://ns.adobe.com/textLayout/2008" ...&gt;
      *  </pre>
      *  </p>
      * 
@@ -322,40 +324,40 @@ public class TextFlowUtil
      */
     public static function export(textFlow:TextFlow):XML
     {
-		initClass();
-		
-		// Call the exporter for TEXT_LAYOUT_FORMAT to produce
+        initClass();
+        
+        // Call the exporter for TEXT_LAYOUT_FORMAT to produce
         // XML markup which is more or less an exact match
         // for TLF's text object model.
         var xml:XML = textLayoutExporter.export(
-        	textFlow, ConversionType.XML_TYPE) as XML;
-        	
- 		var p:String;
-		
-		// The default configuration deliberately specifies "inherit"
-		// for the value of non-inheriting formats,
-		// which causes the importers to set the corresponding
-		// formats on the new TextFlow to "inherit"
-		// if they weren't specified in the markup.
-		// Without this, the TextFlow would use default values
-		// for these non-inheriting formats rather than getting
-		// them from the hostFormat determined by the CSS styles
-		// of the Flex component.
-		// But the result at export time is unexpected attributes
-		// such as verticalAlign="inherit" on the TextFlow tag
-		// which don't come from the original markup.
-		// Therefore, we remove them here.
+            textFlow, ConversionType.XML_TYPE) as XML;
+            
+        var p:String;
+        
+        // The default configuration deliberately specifies "inherit"
+        // for the value of non-inheriting formats,
+        // which causes the importers to set the corresponding
+        // formats on the new TextFlow to "inherit"
+        // if they weren't specified in the markup.
+        // Without this, the TextFlow would use default values
+        // for these non-inheriting formats rather than getting
+        // them from the hostFormat determined by the CSS styles
+        // of the Flex component.
+        // But the result at export time is unexpected attributes
+        // such as verticalAlign="inherit" on the TextFlow tag
+        // which don't come from the original markup.
+        // Therefore, we remove them here.
 
         // If the TextFlow tag has attributes for non-inheriting formats
         // with the value "inherit", remove them.
         var n:int = configInheritingFormats.length;
         for (var i:int = 0; i < n; i++)
         {
-        	p = configInheritingFormats[i];
-        	if (xml.@[p] == FormatValue.INHERIT)
-        		delete xml.@[p];
+            p = configInheritingFormats[i];
+            if (xml.@[p] == FormatValue.INHERIT)
+                delete xml.@[p];
         }
-        	
+            
         // Also remove the annoying whiteSpaceCollapse attribute
         // which is irrelevant after the flow has been imported.
         //delete xml.@["whiteSpaceCollapse"];
