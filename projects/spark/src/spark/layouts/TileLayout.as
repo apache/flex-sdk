@@ -12,6 +12,7 @@
 package spark.layouts
 {
 import flash.geom.Rectangle;
+import flash.ui.Keyboard; 
 
 import spark.components.supportClasses.GroupBase;
 import mx.core.ILayoutElement;
@@ -1401,6 +1402,40 @@ public class TileLayout extends LayoutBase
         layoutTarget.measuredMinWidth = Math.round(_columnCount * (_columnWidth + _horizontalGap) - _horizontalGap);
         layoutTarget.measuredMinHeight = Math.round(_rowCount * (_rowHeight + _verticalGap) - _verticalGap);
     }
+
+    /**
+     *  @private 
+     *  For a TileLayout, returns the index of the next item to 
+     *  navigate to given the current index and keyCode passed in. 
+     */  
+     override public function nextItemIndex(keyCode:uint, currentIndex:int, maxIndex:int):int
+     {
+         var retVal:int = super.nextItemIndex(keyCode, currentIndex, maxIndex); 
+         switch (keyCode)
+         {
+             case Keyboard.RIGHT:
+             {
+                retVal = Math.min(currentIndex + 1, maxIndex);   
+                break;
+             } 
+             case Keyboard.LEFT: 
+             {
+                retVal = Math.max(currentIndex - 1, 0);  
+                break;
+             }
+             case Keyboard.DOWN:
+             {
+                 retVal = Math.min(currentIndex + columnCount, maxIndex)
+                 break; 
+             }
+             case Keyboard.UP:
+             {
+                 retVal = Math.max(currentIndex - columnCount, 0);
+                 break; 
+             }
+         }
+         return retVal;  
+     }
 
     /**
      *  @private
