@@ -158,7 +158,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     //  useVirtualLayout
     //----------------------------------
 
-    private var _useVirtualLayout:Boolean = false;
+    mx_internal var _useVirtualLayout:Boolean = false;
 
     [Inspectable(defaultValue="false")]
 
