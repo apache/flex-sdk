@@ -514,6 +514,52 @@ public class HorizontalLayout extends LayoutBase
         _paddingBottom = value;
         invalidateTargetSizeAndDisplayList();
     }    
+
+    //----------------------------------
+    //  requestedMaxColumnCount
+    //----------------------------------
+    
+    private var _requestedMaxColumnCount:int = -1;
+    
+    [Inspectable(category="General", minValue="-1")]
+    
+    /**
+     *  The measured width of this layout is large enough to display 
+     *  at most <code>requestedMaxColumnCount</code> layout elements. 
+     * 
+     *  <p>If <code>requestedColumnCount</code> is set, then
+     *  this property has no effect.</p>
+     *
+     *  <p>If the actual size of the container using this layout has been explicitly set,
+     *  then this property has no effect.</p>
+     * 
+     *  @default -1
+     *  @see #requestedColumnCount
+     *  @see #requestedMinColumnCount
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get requestedMaxColumnCount():int
+    {
+        return _requestedMaxColumnCount;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set requestedMaxColumnCount(value:int):void
+    {
+        if (_requestedMaxColumnCount == value)
+            return;
+        
+        _requestedMaxColumnCount = value;
+        
+        if (target)
+            target.invalidateSize();
+    }   
     
     //----------------------------------
     //  requestedMinColumnCount
@@ -534,6 +580,8 @@ public class HorizontalLayout extends LayoutBase
      *  then this property has no effect.</p>
      * 
      *  @default -1
+     *  @see #requestedColumnCount
+     *  @see #requestedMaxColumnCount
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -577,6 +625,8 @@ public class HorizontalLayout extends LayoutBase
      *  then this property has no effect.</p>
      * 
      *  @default -1
+     *  @see #requestedMinColumnCount
+     *  @see #requestedMaxColumnCount
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1354,6 +1404,26 @@ public class HorizontalLayout extends LayoutBase
 
     /**
      *  @private
+     *  @return columns to measure based on elements in layout and any requested/min/max rowCount settings. 
+     */
+    private function getColumsToMeasure(numElementsInLayout:int):int
+    {
+        var columnsToMeasure:int;
+        if (requestedColumnCount != -1)
+            columnsToMeasure = requestedColumnCount;
+        else
+        {
+            columnsToMeasure = numElementsInLayout;
+            if (requestedMaxColumnCount != -1)
+                columnsToMeasure = Math.min(requestedMaxColumnCount, columnsToMeasure);
+            if (requestedMinColumnCount != -1)
+                columnsToMeasure = Math.max(requestedMinColumnCount, columnsToMeasure);
+        }
+        return columnsToMeasure;
+    }
+    
+    /**
+     *  @private
      * 
      *  Compute exact values for measuredWidth,Height and  measuredMinWidth,Height.
      *  
@@ -1414,8 +1484,8 @@ public class HorizontalLayout extends LayoutBase
         }
         
         // Calculate the total number of columns to measure
-        var columnsToMeasure:int = (requestedColumnCount != -1) ? requestedColumnCount : 
-                                                                  Math.max(requestedMinColumnCount, numElementsInLayout);
+        var columnsToMeasure:int = getColumsToMeasure(numElementsInLayout);
+
         // Do we need to measure more columns?
         if (columnsMeasured < columnsToMeasure)
         {
@@ -1536,8 +1606,7 @@ public class HorizontalLayout extends LayoutBase
     private function measureVirtual(layoutTarget:GroupBase):void
     {
         var eltCount:int = layoutTarget.numElements;
-        var measuredEltCount:int = (requestedColumnCount != -1) ? requestedColumnCount : 
-                                                                  Math.max(requestedMinColumnCount, eltCount);
+        var measuredEltCount:int = getColumsToMeasure(eltCount);
         
         var hPadding:Number = paddingLeft + paddingRight;
         var vPadding:Number = paddingTop + paddingBottom;
