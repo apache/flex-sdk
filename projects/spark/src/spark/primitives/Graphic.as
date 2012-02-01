@@ -79,6 +79,11 @@ import mx.components.Group;
  *  /&gt;
  *  </pre>
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class Graphic extends Group 
 {
@@ -92,6 +97,11 @@ public class Graphic extends Group
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function Graphic()
     {
@@ -107,6 +117,11 @@ public class Graphic extends Group
      *    Specifies the FXG version this Graphic tag is targeting.  
      *
      *    @default 1.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var version:Number = 1.0;
     
@@ -130,6 +145,11 @@ public class Graphic extends Group
      *  up more space than its visual size. <br/><br/>
      *  2) Specify a <code>viewHeight</code> that is smaller than the natural size of the content. You might do this if your graphic has extra
      *  chrome or a border that extends past the edges of the graphic. In this scenario, be sure to disable clipping in your layout.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get viewHeight():Number
     {
@@ -162,6 +182,11 @@ public class Graphic extends Group
      *  up more space than its visual size. <br/><br/>
      *  2) Specify a <code>viewWidth</code> that is smaller than the natural size of the content. You might do this if your graphic has extra
      *  chrome or a border that extends past the edges of the graphic. In this scenario, be sure to disable clipping in your layout.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get viewWidth():Number
     {
@@ -189,6 +214,11 @@ public class Graphic extends Group
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function measure():void
     {
