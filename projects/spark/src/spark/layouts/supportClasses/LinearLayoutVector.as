@@ -23,8 +23,11 @@ import mx.resources.ResourceManager;
 //--------------------------------------
 
 [ResourceBundle("layout")]
+
+[ExcludeClass]
     
 /**
+ *  @private
  *  A sparse array of "major dimension" sizes that represent 
  *  VerticalLayout item heights or HorizontalLayout item widths, 
  *  and the current "minor dimension" maximum size.
