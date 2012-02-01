@@ -131,6 +131,33 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     }
     
     //----------------------------------
+    //  hovered
+    //----------------------------------
+    /**
+     *  @private
+     *  storage for the selected property 
+     */    
+    private var _hovered:Boolean = false;
+    
+    /**
+     *  Set to <code>true</code> when the mouse is hovered over the item renderer.
+     *
+     *  @default false
+     */    
+    public function get hovered():Boolean
+    {
+        return _hovered;
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set hovered(value:Boolean):void
+    {
+        _hovered = value;
+    }
+    
+    //----------------------------------
     //  rowIndex
     //----------------------------------
     
