@@ -2396,6 +2396,51 @@ public class GraphicElement extends OnDemandEventDispatcher
     //--------------------------------------------------------------------------
 
     /**
+     * Converts the point object from the object's (local) coordinates 
+     * to the Stage (global) coordinates.
+     * 
+     * <p>This method allows you to convert any given x and y coordinates from 
+     * values that are relative to the origin (0,0) of a specific object 
+     * (local coordinates) to values that are relative to the origin 
+     * of the Stage (global coordinates).</p>
+     * 
+     * <p>To use this method, first create an instance of the Point class. 
+     * The x and y values that you assign represent local coordinates 
+     * because they relate to the origin of the object.</p>
+     * 
+     * <p>You then pass the Point instance that you created as the parameter 
+     * to the localToGlobal() method. The method returns a new Point object 
+     * with x and y values that relate to the origin of the Stage instead of 
+     * the origin of the object.</p>
+     * 
+     * @param point The name or identifier of a point created with the Point 
+     * class, specifying the x and y coordinates as properties.
+     * 
+     * @return A Point object with coordinates relative to the Stage.
+     * 
+     * @see flash.display.DisplayObject#localToGlobal
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function localToGlobal(point:Point):Point
+    {
+        // Probably won't hit this case
+        if (!displayObject)
+            return new Point(x, y);
+            
+        if (needsDisplayObject)
+            return displayObject.localToGlobal(point);
+        
+        var returnVal:Point = displayObject.parent.localToGlobal(point);
+        returnVal.x += x;
+        returnVal.y += y;
+        return returnVal;
+    }
+    
+    /**
      *  @inheritDoc
      *  
      *  @langversion 3.0
