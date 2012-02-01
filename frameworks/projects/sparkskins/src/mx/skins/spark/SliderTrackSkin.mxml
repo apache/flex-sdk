@@ -11,7 +11,7 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" height="11">
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" height="11" width="200">
     
     <states>
         <State name="up" />
