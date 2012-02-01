@@ -95,7 +95,7 @@ which positions the label above the content
         <s:FormItemLayout>
             <s:constraintColumns>
                 <s:ConstraintColumn id="sequenceCol" />
-                <s:ConstraintColumn id="contentCol"/>
+                <s:ConstraintColumn id="contentCol" width="100%"/>
                 <s:ConstraintColumn id="helpCol" maxWidth="200"/>
             </s:constraintColumns>         
             <s:constraintRows>
@@ -113,10 +113,12 @@ which positions the label above the content
         </s:fill>
     </s:Rect>
     
-    <s:Label id="sequenceLabelDisplay" 
+    <s:Label id="sequenceLabelDisplay"
+             fontWeight="bold"
              left="sequenceCol:10" right="sequenceCol:5"
              bottom="row1:5" baseline="row1:0"/>
-    <s:Label id="labelDisplay" 
+    <s:Label id="labelDisplay"
+             fontWeight="bold"
              left="contentCol:0" right="contentCol:5"
              bottom="row1:5" baseline="row1:0"/>
     <s:Group id="contentGroup" 
@@ -127,8 +129,8 @@ which positions the label above the content
             <s:VerticalLayout/>
         </s:layout>
     </s:Group>
-    <s:Group top="row2:0" x="{contentGroup.x + contentGroup.contentWidth + 4}"
-             height="{Math.max(indicatorDisplay.height, contentGroup.contentHeight)}">
+    <s:Group x="{contentGroup.x + contentGroup.contentWidth + 4}" y="{contentGroup.y}"
+             height="{Math.max(indicatorDisplay.height, contentGroup.contentHeight)}" includeInLayout="false">
         <s:Image id="indicatorDisplay" verticalCenter="0"
                   toolTip="Required" toolTip.errorStates="{hostComponent.errorString}"
                   includeIn="requiredStates,errorStates"/>
