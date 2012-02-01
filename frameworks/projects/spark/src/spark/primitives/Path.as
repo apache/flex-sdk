@@ -465,6 +465,13 @@ public class Path extends FilledElement
 		super.endDraw(g);
 	} 
     
+    // TODO!!! For now we create a DO. Once we figure out how to apply transforms
+    // to each of the path segments, we can remove this. 
+    override public function get needsDisplayObject():Boolean
+    {
+    	return true;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
