@@ -12,7 +12,9 @@
 -->
 
 <!--- The default skin class for the play/pause button of a Spark VideoPlayer 
-      component while in the fullScreen state.  
+      component while in one of the <code>fullScreen</code> skin states.  
+
+      @see spark.components.VideoPlayer
         
       @langversion 3.0
       @playerversion Flash 10
@@ -75,7 +77,7 @@
         </s:stroke>
     </s:Rect>
     
-    <!--- play symbol -->
+    <!--- Defines the play symbol. -->
     <s:Group horizontalCenter="0" verticalCenter="0" excludeFrom="selectedStates" id="playSymbol">
         <!-- triangle -->
         <s:Path winding="evenOdd" data="M 1 0 L 1 13 L 8 7 L 1 0 Z">
@@ -99,7 +101,7 @@
         </s:Line>
     </s:Group>
     
-    <!--- pause symbol -->
+    <!--- Defines the pause symbol. -->
     <s:Group horizontalCenter="0" verticalCenter="0" includeIn="selectedStates" id="pauseSymbol">
         
         <!-- big line on left -->
