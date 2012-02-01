@@ -13,17 +13,20 @@ package spark.skins.wireframe
 {
 
 import flash.display.DisplayObject;
+import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.controls.listClasses.*;
 import mx.core.IDataRenderer;
+import mx.core.InteractionMode;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
 import spark.components.IItemRenderer;
 import spark.components.Label;
+import spark.components.supportClasses.ItemRendererInteractionStateDetector;
 import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal;
@@ -72,6 +75,20 @@ include "../../../../../spark/src/spark/styles/metadata/SelectionFormatTextStyle
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
+ *  Color of the background of an item renderer when it is pressed down.
+ * 
+ *  <p>This style is only applicable in touch <code>interactionMode</code>.</p>
+ *   
+ *  @default #CCCCCC
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="downColor", type="uint", format="Color", inherit="yes", theme="mobile")]
+
+/**
  *  Color of focus ring when the component is in focus
  *   
  *  @default #A9A9A9
@@ -86,7 +103,7 @@ include "../../../../../spark/src/spark/styles/metadata/SelectionFormatTextStyle
 /**
  *  Color of the highlights when the mouse is over the component
  *   
- *  @default #DDDDDD
+ *  @default #EEEEEE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -155,7 +172,9 @@ public class DefaultItemRenderer extends UIComponent
     public function DefaultItemRenderer()
     {
         super();
-        addHandlers();
+       
+        itemRendererInteractionStateDetector = new ItemRendererInteractionStateDetector(this);
+        itemRendererInteractionStateDetector.addEventListener(Event.CHANGE, itemRendererInteractionStateDetector_changeHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -172,9 +191,9 @@ public class DefaultItemRenderer extends UIComponent
     
     /**
      *  @private
-     *  Flag that is set when the mouse is hovered over the item renderer.
+     *  Helper class to help determine when we are in the hovered or down state
      */
-    private var hovered:Boolean = false;
+    private var itemRendererInteractionStateDetector:ItemRendererInteractionStateDetector;
     
     //--------------------------------------------------------------------------
     //
@@ -470,9 +489,11 @@ public class DefaultItemRenderer extends UIComponent
         
         var backgroundColor:uint;
         var drawBackground:Boolean = true;
-        if (selected)
+        if (itemRendererInteractionStateDetector.down)
+            backgroundColor = getStyle("downColor");
+        else if (selected)
             backgroundColor = getStyle("selectionColor");
-        else if (hovered)
+        else if (itemRendererInteractionStateDetector.hovered)
             backgroundColor = getStyle("rollOverColor");
         else
         {
@@ -520,21 +541,6 @@ public class DefaultItemRenderer extends UIComponent
         labelDisplay.setLayoutBoundsPosition(3, 7);
     }
     
-    /**
-     *  @private
-     */
-    override public function styleChanged(styleName:String):void
-    {
-        var allStyles:Boolean = !styleName || styleName == "styleName";
-        
-        super.styleChanged(styleName);
-        
-        if (allStyles || styleName == "inputMode")
-        {
-            addHandlers();
-        }
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Event handling
@@ -543,69 +549,9 @@ public class DefaultItemRenderer extends UIComponent
     
     /**
      *  @private
-     *  Keeps track of whether rollover/rollout events were added
-     * 
-     *  We need to be careful about calling add/remove event listener because 
-     *  of the reference counting going on in 
-     *  super.addEventListener/removeEventListener.
      */
-    private var rolloverEventsAdded:Boolean = false;
-    
-    /**
-     *  @private
-     *  Attach the mouse events.
-     */
-    private function addHandlers():void
+    private function itemRendererInteractionStateDetector_changeHandler(event:Event):void
     {
-        if (getStyle("interactionMode") == "mouse")
-        {
-            if (!rolloverEventsAdded)
-            {
-                rolloverEventsAdded = true;
-                addEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
-                addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
-            }
-        }
-        else
-        {
-            if (rolloverEventsAdded)
-            {
-                rolloverEventsAdded = false;
-                removeEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
-                removeEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
-            }
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    private function anyButtonDown(event:MouseEvent):Boolean
-    {
-        var type:String = event.type;
-        return event.buttonDown || (type == "middleMouseDown") || (type == "rightMouseDown"); 
-    }
-    
-    /**
-     *  @private
-     *  Mouse rollOver event handler.
-     */
-    protected function itemRenderer_rollOverHandler(event:MouseEvent):void
-    {
-        if (!anyButtonDown(event))
-        {
-            hovered = true;
-            invalidateDisplayList();
-        }
-    }
-    
-    /**
-     *  @private
-     *  Mouse rollOut event handler.
-     */
-    protected function itemRenderer_rollOutHandler(event:MouseEvent):void
-    {
-        hovered = false;
         invalidateDisplayList();
     }
     
