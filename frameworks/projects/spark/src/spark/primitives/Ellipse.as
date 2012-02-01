@@ -20,46 +20,55 @@ import flash.geom.Matrix;
 
 /**
  *  The Ellipse class is a filled graphic element that draws an ellipse.
+ *  To draw the ellipse, this class calls the <code>Graphics.drawEllipse()</code> 
+ *  method.
+ *  
+ *  @see flash.display.Graphics
+ *  
+ *  @includeExample examples/EllipseExample.mxml
  */
 public class Ellipse extends FilledElement
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor. 
-	 */
-	public function Ellipse()
-	{
-		super();
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @inheritDoc
-	 */
-	override protected function drawElement(g:Graphics):void
-	{
-		g.drawEllipse(drawX, drawY, width, height);
-	}
-	
+    /**
+     *  Constructor. 
+     */
+    public function Ellipse()
+    {
+        super();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @inheritDoc
+     */
+    override protected function drawElement(g:Graphics):void
+    {
+        g.drawEllipse(drawX, drawY, width, height);
+    }
+    
     // Find the minimum and maximum x & y for the specified ellipse transformed by the matrix m
+    /**
+     *  @private
+     */
     static private function getBBox(rx:Number, ry:Number, m:Matrix):Rectangle
     {
         var a:Number = m.a;
@@ -120,6 +129,14 @@ public class Ellipse extends FilledElement
     
     
     /**
+     *  method description
+     *  
+     *  @param width
+     *  
+     *  @param height
+     *  
+     *  @param actualMatrix 
+     *  
      *  @return Returns the transformed size. Transformation is this element's
      *  transformation matrix.
      */
@@ -142,6 +159,9 @@ public class Ellipse extends FilledElement
         return size;
     }
     
+    /**
+     *  @inheritDoc
+     */
     override protected function computeTopLeft(topLeft:Point, width:Number, height:Number, m:Matrix):Point
     {
         var bbox:Rectangle = getBBox(width / 2, height / 2, m);
