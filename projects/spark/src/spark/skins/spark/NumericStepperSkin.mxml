@@ -12,16 +12,22 @@
 -->
 
 <!--- The default skin class for a Spark NumericStepper component. The skin for the text input field on a NumericStepper
-component is defined by the NumericStepperTextInputSkin class. -->
+component is defined by the NumericStepperTextInputSkin class.  
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-	  minHeight="24" 
-	  alpha.disabled="0.5">
+      minHeight="24" 
+      alpha.disabled="0.5">
 
     <fx:Metadata>
     <![CDATA[ 
-	/** 
-	 * @copy spark.skins.default.ApplicationSkin#hostComponent
-	 */
+    /** 
+     * @copy spark.skins.default.ApplicationSkin#hostComponent
+     */
         [HostComponent("spark.components.NumericStepper")]
     ]]>
     </fx:Metadata> 
@@ -31,15 +37,15 @@ component is defined by the NumericStepperTextInputSkin class. -->
            For numeric stepper, the skin itself is colorized but the individual parts are not. */
         static private const exclusions:Array = ["textInput", "decrementButton", "incrementButton"];
 
-	/** 
-	 * @copy spark.skins.SparkSkin#colorizeExclusions
-	 */		
+    /** 
+     * @copy spark.skins.SparkSkin#colorizeExclusions
+     */     
         override public function get colorizeExclusions():Array {return exclusions;}
     </fx:Script>
     
     <s:states>
-    	<s:State name="normal" />
-    	<s:State name="disabled" />
+        <s:State name="normal" />
+        <s:State name="disabled" />
     </s:states>
 
     <!--- Defines the appearance of the NumericStepper component's up button. The default class is SpinnerIncrButtonSkin. -->
@@ -52,6 +58,6 @@ component is defined by the NumericStepperTextInputSkin class. -->
     <!--TODO: Once SDK-18275 is fixed, we can remove the creationComplete handler -->          
     <!--- Defines the appearance of the NumericStepper component's TextInput subcomponent. The default class is NumericStepperTextInputSkin. -->
     <s:TextInput id="textInput" left="0" top="0" right="18" bottom="0"
-    	skinClass="spark.skins.default.NumericStepperTextInputSkin" />
-    	
+        skinClass="spark.skins.default.NumericStepperTextInputSkin" />
+        
 </s:SparkSkin>
