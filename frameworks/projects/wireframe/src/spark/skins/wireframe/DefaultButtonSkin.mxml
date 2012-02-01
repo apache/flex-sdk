@@ -61,7 +61,7 @@
     </s:Rect>
     
     <!-- label -->
-    <s:SimpleText id="labelElement"
+    <s:SimpleText id="labelDisplay"
              horizontalCenter="0" verticalCenter="1"
              left="10" right="10" top="2" bottom="2"
              textAlign="center"
