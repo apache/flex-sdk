@@ -25,7 +25,7 @@ import mx.filters.IBitmapFilter;
  *  BitmapData objects.
  * 
  *  @mxml 
- *  <p>The <code>&lt;ColorMatrixFilter&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:ColorMatrixFilter&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
