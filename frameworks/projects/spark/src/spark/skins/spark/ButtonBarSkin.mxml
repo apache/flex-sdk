@@ -13,6 +13,10 @@
 
 <!--- The default skin class for the Spark ButtonBar component. The buttons on the ButtonBar component
     use the ButtonBarLastButtonSkin, ButtonBarFirstButtonSkin and ButtonBarMiddleButtonSkin classes.  
+    
+      @see spark.components.ButtonBar
+      @see spark.components.ButtonBarButton
+    
         
       @langversion 3.0
       @playerversion Flash 10
