@@ -17,15 +17,24 @@
 	  alpha.disabled="0.5">
 
 	<!-- host component -->
+	<!--- 
+		@copy spark.skins.default.ApplicationSkin#hostComponent
+	-->
 	<fx:Metadata>
 		[HostComponent("spark.components.Button")]
 	</fx:Metadata>
     
     <fx:Script>
-        /* Define the skin elements that should not be colorized. 
-           For button, the graphics are colorized but the label is not. */
-        static private const exclusions:Array = ["labelElement"];
-        override public function get colorizeExclusions():Array {return exclusions;}
+	<![CDATA[         
+		/* Define the skin elements that should not be colorized. 
+		   For button, the graphics are colorized but the label is not. */
+		static private const exclusions:Array = ["labelElement"];
+                
+		/** 
+		 * @copy spark.skins.SparkSkin#getColorizeExclusions()
+		 */		
+	        override public function get colorizeExclusions():Array {return exclusions;}
+        ]]>        
     </fx:Script>
 	
 	<!-- states -->
@@ -135,6 +144,9 @@
     </s:Rect>
 
 	<!-- layer 8: text -->
+	<!--- 
+		@copy spark.components.supportClasses.ButtonBase#labelElement
+	-->
 	<s:SimpleText id="labelElement"
              verticalAlign="middle"
 			 horizontalCenter="0" verticalCenter="1"
