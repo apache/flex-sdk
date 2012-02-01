@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the up button of the Halo NumericStepper component. 
+<!--- The Spark skin class for the up button of the MX NumericStepper component. 
+
+      @see mx.controls.NumericStepper
         
       @langversion 3.0
       @playerversion Flash 10
