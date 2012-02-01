@@ -40,28 +40,8 @@ Change mx:Image to s:Image once it is ready
         ]]>
     </fx:Metadata>
     
-    <fx:Style>        
-        .labelStyle
-        {
-            fontWeight : "bold";
-            color : #333333;
-        }
-        
-        .helpTextStyle
-        {
-            fontStyle : "italic";
-            color : #666666;
-        }
-        
-        .errorTextStyle
-        {
-            fontStyle : "italic";
-            color : #FE0000;
-        }
-    </fx:Style>
-    
     <fx:Script fb:purpose="styling">
-        <![CDATA[         
+        <![CDATA[                
             /**
              *  @private
              */
@@ -80,7 +60,24 @@ Change mx:Image to s:Image once it is ready
                     bgFill.alpha = getStyle("backgroundAlpha");
                 }
                 
+                var indicatorSource:Class;
+                if (currentState == "error" || currentState == "requiredAndError")
+                    indicatorSource = getStyle("errorIndicatorSource");
+                else if (currentState == "required" || "requiredAndDisabled")
+                    indicatorSource = getStyle("requiredIndicatorSource");
+                
+                if (indicatorSource && indicatorDisplay)
+                {
+                    indicatorDisplay.source = indicatorSource;
+                }
+                
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
+            }
+            
+            override public function setCurrentState(stateName:String, playTransition:Boolean=true):void
+            {
+                super.setCurrentState(stateName, playTransition);
+                invalidateDisplayList();
             }
         ]]>        
     </fx:Script>
@@ -103,7 +100,7 @@ Change mx:Image to s:Image once it is ready
                 <s:ConstraintColumn id="helpCol" maxWidth="200"/>
             </s:constraintColumns>         
             <s:constraintRows>
-                <s:ConstraintRow id="row1" baseline="maxAscent:4"/>
+                <s:ConstraintRow id="row1" baseline="maxAscent:10"/>
             </s:constraintRows>  
         </s:FormItemLayout>
     </s:layout>
@@ -116,33 +113,36 @@ Change mx:Image to s:Image once it is ready
         </s:fill>
     </s:Rect>
     
-    <s:Label id="sequenceLabelDisplay" styleName="labelStyle" 
-             left="sequenceCol:4" right="sequenceCol:4"
-             bottom="row1:4"
-             baseline="row1:0"/>
-    <s:Label id="labelDisplay" styleName="labelStyle"
+    <s:Label id="sequenceLabelDisplay" 
+             fontWeight="bold" color="0x333333" 
+             left="sequenceCol:10" right="sequenceCol:4"
+             bottom="row1:10" baseline="row1:0"/>
+    <s:Label id="labelDisplay"
+             fontWeight="bold" color="0x333333" 
              left="labelCol:0" right="labelCol:5" 
-             bottom="row1:4"
-             baseline="row1:0"/>  
+             bottom="row1:10" baseline="row1:0"/>  
     <!-- Don't show the error tip on the content elements -->
     <s:Group id="contentGroup" showErrorTip="false" showErrorSkin="true"
              left="contentCol:0" right="contentCol:1" 
-             baseline="row1:0" bottom="row1:4">
+             baseline="row1:0" bottom="row1:10">
         <s:layout>
             <s:VerticalLayout/>
         </s:layout>
     </s:Group>
-    <mx:Image source="@Embed(source='assets/RequiredIndicator.png')"
-              source.errorStates="@Embed(source='assets/ErrorIndicator.png')"
-              toolTip="Required" toolTip.errorStates=""
-              includeIn="requiredStates,errorStates" scaleContent="false"
-              baseline="row1:0"
-              x="{contentGroup.x + contentGroup.contentWidth + 3}"/>
-    <s:Group id="helpContentGroup" styleName="helpTextStyle" excludeFrom="errorStates"
-             left="helpCol:27" right="helpCol:4"
-             top="row1:4" bottom="row1:4"/>
-    <s:RichText id="errorTextDisplay" styleName="errorTextStyle" includeIn="errorStates"
-                left="helpCol:27" right="helpCol:4"
-                bottom="row1:4" 
-                baseline="row1:0" maxDisplayedLines="-1"/>    
+    <s:Group top="row1:10" x="{contentGroup.x + contentGroup.contentWidth + 4}"
+             height="{Math.max(indicatorDisplay.height, contentGroup.contentHeight)}">
+        <mx:Image id="indicatorDisplay" verticalCenter="0"
+                       toolTip="Required" toolTip.errorStates=""
+                       includeIn="requiredStates,errorStates"/>
+    </s:Group>
+        
+    <s:Group id="helpContentGroup" excludeFrom="errorStates"
+             fontStyle="italic" color="0x666666"
+             left="helpCol:27" right="helpCol:10"
+             bottom="row1:10" baseline="row1:0"/>
+    <s:RichText id="errorTextDisplay" includeIn="errorStates"
+                fontStyle="italic" color="0xFE0000"
+                left="helpCol:27" right="helpCol:10"
+                bottom="row1:10" baseline="row1:0" 
+                maxDisplayedLines="-1"/>    
  </s:Skin>
