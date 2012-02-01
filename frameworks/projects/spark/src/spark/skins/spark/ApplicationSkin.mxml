@@ -41,6 +41,7 @@
                 unscaledHeight:Number) : void
             {
                 bgRectFill.color = getStyle('backgroundColor');
+                bgRectFill.alpha = getStyle('backgroundAlpha');
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
             }
         ]]>
