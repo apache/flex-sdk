@@ -2,81 +2,95 @@
 
 <!--
 
-    ADOBE SYSTEMS INCORPORATED
-    Copyright 2008 Adobe Systems Incorporated
-    All Rights Reserved.
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008 Adobe Systems Incorporated
+All Rights Reserved.
 
-    NOTICE: Adobe permits you to use, modify, and distribute this file
-    in accordance with the terms of the license agreement accompanying it.
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
 
 -->
 
 <!--- The default skin class for a Spark DefaultButton component. The DefaultButton component is used in panels such as 
 an Alert. It is defined by the defaultButton property on a container.  
-        
-      @langversion 3.0
-      @playerversion Flash 10
-      @playerversion AIR 1.5
-      @productversion Flex 4
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-      xmlns:fb="http://ns.adobe.com/flashbuilder/2009" minWidth="21" minHeight="21"
-      alpha.disabled="0.5">
-
+             xmlns:fb="http://ns.adobe.com/flashbuilder/2009" minWidth="21" minHeight="21" 
+             alpha.disabled="0.5">
+    
     <!-- host component -->
     <fx:Metadata>
         <![CDATA[ 
         /** 
-         * @copy spark.skins.spark.ApplicationSkin#hostComponent
-         */
+        * @copy spark.skins.spark.ApplicationSkin#hostComponent
+        */
         [HostComponent("spark.components.Button")]
         ]]>
     </fx:Metadata>
     
     <fx:Script fb:purpose="styling">
-        /* Define the skin elements that should not be colorized. 
-           For button, the graphics are colorized but the label is not. */
-        static private const exclusions:Array = ["labelDisplay"];
-
-       /** 
-        * @private
-        */     
-        override public function get colorizeExclusions():Array {return exclusions;}
-        
-        /**
-         * @private
-         */
-        override protected function initializationComplete():void
-        {
-            useBaseColor = true;
-            super.initializationComplete();
-        }
-        
-        /**
-         * @private
-         */
-        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
-        {
-            var cr:Number = getStyle("cornerRadius");
+        <![CDATA[         
+            /* Define the skin elements that should not be colorized. 
+            For button, the graphics are colorized but the label is not. */
+            static private const exclusions:Array = ["labelDisplay"];
             
-            if (cornerRadius != cr)
+            /** 
+             * @private
+             */     
+            override public function get colorizeExclusions():Array {return exclusions;}
+            
+            /**
+             * @private
+             */
+            override protected function initializationComplete():void
             {
-                cornerRadius = cr;
-                shadow.radiusX = cornerRadius;
-                fill.radiusX = cornerRadius;
-                lowlight.radiusX = cornerRadius;
-                highlight.radiusX = cornerRadius;
-                border.radiusX = cornerRadius;
+                useBaseColor = true;
+                super.initializationComplete();
+            }  
+            
+            /**
+             *  @private
+             */
+            override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
+            {
+                var cr:Number = getStyle("cornerRadius");
+                
+                if (cornerRadius != cr)
+                {
+                    cornerRadius = cr;
+                    shadow.radiusX = cornerRadius;
+                    fill.radiusX = cornerRadius;
+                    lowlight.radiusX = cornerRadius;
+                    highlight.radiusX = cornerRadius;
+                    border.radiusX = cornerRadius;
+                }
+                
+                if (highlightStroke) highlightStroke.radiusX = cornerRadius;
+                if (hldownstroke1) hldownstroke1.radiusX = cornerRadius;
+                if (hldownstroke2) hldownstroke2.radiusX = cornerRadius;
+                
+                // Use the accentColor style, at 24%, as the offset for the fill and
+                // highlightStroke color transform.
+                var accentColor:uint = getStyle("accentColor");
+                var colorTransform:ColorTransform = new ColorTransform();
+                colorTransform.redOffset = (((accentColor & (0xFF << 16)) >> 16)) * 0.24;
+                colorTransform.greenOffset = (((accentColor & (0xFF << 8)) >> 8)) * 0.24;
+                colorTransform.blueOffset = ((accentColor & 0xFF)) * 0.24;
+                colorTransform.alphaMultiplier = 1;
+                
+                fill.transform.colorTransform = colorTransform;
+                highlightStroke.transform.colorTransform = colorTransform;
+                
+                super.updateDisplayList(unscaledWidth, unscaledHeight);
             }
             
-            if (highlightStroke) highlightStroke.radiusX = cornerRadius;
-            if (hldownstroke1) hldownstroke1.radiusX = cornerRadius;
-            if (hldownstroke2) hldownstroke2.radiusX = cornerRadius;
-            
-            super.updateDisplayList(unscaledWidth, unscaledHeight);
-        }
-        
-        private var cornerRadius:Number = 2;
+            private var cornerRadius:Number = 2;
+        ]]>        
     </fx:Script>
     
     <!-- states -->
@@ -91,14 +105,14 @@ an Alert. It is defined by the defaultButton property on a container.
     <s:Rect id="shadow" left="-1" right="-1" top="-1" bottom="-1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="90">
-                    <s:GradientEntry color="0x000000" 
-                                   color.down="0xFFFFFF"
-                                   alpha="0.01"
-                                   alpha.down="0" />
-                    <s:GradientEntry color="0x000000" 
-                                   color.down="0xFFFFFF" 
-                                   alpha="0.07"
-                                   alpha.down="0.5" />
+                <s:GradientEntry color="0x000000" 
+                                 color.down="0xFFFFFF"
+                                 alpha="0.01"
+                                 alpha.down="0" />
+                <s:GradientEntry color="0x000000" 
+                                 color.down="0xFFFFFF" 
+                                 alpha="0.07"
+                                 alpha.down="0.5" />
             </s:LinearGradient>
         </s:fill>
     </s:Rect>
@@ -107,14 +121,14 @@ an Alert. It is defined by the defaultButton property on a container.
     <s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="90">
-                <s:GradientEntry color="0xAFCFED" 
-                               color.over="0x98BAD6" 
-                               color.down="0x8BB1D0" 
-                               alpha="0.85" />
-                <s:GradientEntry color="0x88B3E3" 
-                               color.over="0x6792C2" 
-                               color.down="0x6792C2" 
-                               alpha="0.85" />
+                <s:GradientEntry color="0xAFABB0" 
+                                 color.over="0x989699" 
+                                 color.down="0x8B8D93" 
+                                 alpha="0.85" />
+                <s:GradientEntry color="0x888FA6" 
+                                 color.over="0x676E9E" 
+                                 color.down="0x676E9E" 
+                                 alpha="0.85" />
             </s:LinearGradient>
         </s:fill>
     </s:Rect>
@@ -152,11 +166,11 @@ an Alert. It is defined by the defaultButton property on a container.
     </s:Rect>
     
     <!-- layer 5: highlight stroke (all states except down) -->
-    <s:Rect id="highlightStroke" left="1" right="1" top="1" bottom="1" excludeFrom="down" radiusX="2">
+    <s:Rect id="highlightStroke" left="1" right="1" top="1" bottom="1" radiusX="2" excludeFrom="down">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
-                <s:GradientEntry color="0xD6E9F7" alpha.over="0.22" />
-                <s:GradientEntry color="0x90B6E3" alpha.over="0.22" />
+                <s:GradientEntry color="0xD6C5BA" alpha.over="0.22" />
+                <s:GradientEntry color="0x9092A6" alpha.over="0.22" />
             </s:LinearGradientStroke>
         </s:stroke>
     </s:Rect>
@@ -187,16 +201,19 @@ an Alert. It is defined by the defaultButton property on a container.
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry color="0x000000" 
-                               alpha="0.5625"
-                               alpha.down="0.6375" />
+                                 alpha="0.5625"
+                                 alpha.down="0.6375" />
                 <s:GradientEntry color="0x000000" 
-                               alpha="0.75" 
-                               alpha.down="0.85" />
+                                 alpha="0.75" 
+                                 alpha.down="0.85" />
             </s:LinearGradientStroke>
         </s:stroke>
     </s:Rect>
-
+    
     <!-- layer 8: text -->
+    <!--- 
+    @copy spark.components.supportClasses.ButtonBase#labelDisplay
+    -->
     <s:Label id="labelDisplay"
              textAlign="center"
              verticalAlign="middle"
