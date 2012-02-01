@@ -27,6 +27,11 @@ import mx.layout.LinearLayoutVector;
 
 /**
  *  Documentation is not currently available.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class HorizontalLayout extends LayoutBase
 {
@@ -81,6 +86,11 @@ public class HorizontalLayout extends LayoutBase
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function HorizontalLayout():void
     {
@@ -108,6 +118,11 @@ public class HorizontalLayout extends LayoutBase
      *  just one element, the gap has no effect on the layout.
      * 
      *  @default 6
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function get gap():int
     {
@@ -139,6 +154,11 @@ public class HorizontalLayout extends LayoutBase
      *  Returns the current number of visible elements.
      * 
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get columnCount():int
     {
@@ -154,6 +174,11 @@ public class HorizontalLayout extends LayoutBase
      *  of visible columns.
      *
      *  @param value The number of visible columns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function setColumnCount(value:int):void
     {
@@ -186,6 +211,11 @@ public class HorizontalLayout extends LayoutBase
      *  then this property has no effect.
      * 
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get requestedColumnCount():int
     {
@@ -221,6 +251,11 @@ public class HorizontalLayout extends LayoutBase
      * 
      *  The default value of this property is the preferred width
      *  of the typicalLayoutElement.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get columnWidth():Number
     {
@@ -269,6 +304,11 @@ public class HorizontalLayout extends LayoutBase
      *  layout elements' percentWidth.
      * 
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get variableColumnWidth():Boolean
     {
@@ -310,6 +350,11 @@ public class HorizontalLayout extends LayoutBase
      * 
      *  @see lastIndexInView
      *  @see inView
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get firstIndexInView():int
     {
@@ -337,6 +382,11 @@ public class HorizontalLayout extends LayoutBase
      * 
      *  @see firstIndexInView
      *  @see inView
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get lastIndexInView():int
     {
@@ -369,6 +419,11 @@ public class HorizontalLayout extends LayoutBase
      *  This property does not affect the layout's measured size.
      *  
      *  @default "top"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get verticalAlign():String
     {
@@ -401,6 +456,11 @@ public class HorizontalLayout extends LayoutBase
      * 
      *  @see firstIndexInView
      *  @see lastIndexInview
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function setIndexInView(firstIndex:int, lastIndex:int):void
     {
@@ -431,6 +491,11 @@ public class HorizontalLayout extends LayoutBase
      *  @return the percentage of the specified element that's in view.
      *  @see firstIndexInView
      *  @see lastIndexInView
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function inView(index:int):Number 
     {
@@ -544,6 +609,11 @@ public class HorizontalLayout extends LayoutBase
     *  scroll position.
     *  
     *  @see setIndexInView
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     override protected function scrollPositionChanged():void
     {
@@ -856,6 +926,11 @@ public class HorizontalLayout extends LayoutBase
      *  As before the difference is due to the fact that flexible items are only
      *  guaranteed their minHeight.
      * 
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     override public function measure():void
     {
@@ -1126,6 +1201,11 @@ public class HorizontalLayout extends LayoutBase
      *  
      *  The return value is any extra space that's left over
      *  after growing all children to their maxWidth.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function distributeWidth(width:Number,
                                     height:Number,
