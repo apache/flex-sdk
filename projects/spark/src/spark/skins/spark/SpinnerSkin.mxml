@@ -11,12 +11,19 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009"
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
       alpha.disabled="0.5">
 
     <Metadata>
     	[HostComponent("mx.components.FxSpinner")]
     </Metadata> 
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For spinner, the skin itself is colorized but the individual parts are not. */
+        static private const exclusions:Array = ["decrementButton", "incrementButton"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+    </Script>
     
     <states>
     	<State name="normal" />
@@ -28,4 +35,4 @@
     <FxButton id="decrementButton" top="12" width="12" height="12"
             skinClass="mx.skins.spark.FxSpinnerDecrButtonSkin" />
 
-</Skin>
+</SparkSkin>
