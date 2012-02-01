@@ -18,11 +18,12 @@ implementation that handles the scroll policies.  Scroller skins can
 only provide replacement scrollbars.  The skin's layout and
 constraints or dimensions set on skin parts will not be honored.  To
 gain more control over the layout of a viewport and its scrollbars,
-instead of using Scroller, add them to a Group and use the scrollbar
+instead of using Scroller, add them to a Group and use the ScrollBar component's
 viewport property to link them together.
 
 -->
 
+<!--- The default skin class for the Spark Scroller component. -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
     <fx:Metadata>
