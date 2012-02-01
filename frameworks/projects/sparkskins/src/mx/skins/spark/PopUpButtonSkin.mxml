@@ -11,7 +11,13 @@
 
 -->
 
-<!--- The Spark skin class for the Halo PopUpButton component. -->
+<!--- The Spark skin class for the Halo PopUpButton component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <local:SparkSkinForHalo xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
       xmlns:local="mx.skins.spark.*"
       minWidth="21" minHeight="21"
@@ -38,8 +44,8 @@
         <s:State name="over" stateGroups="overStates" />
         <s:State name="down" stateGroups="downStates" />
         <s:State name="disabled" />
-		<s:State name="popUpOver" stateGroups="overStates" />
-		<s:State name="popUpDown" stateGroups="downStates" />
+        <s:State name="popUpOver" stateGroups="overStates" />
+        <s:State name="popUpDown" stateGroups="downStates" />
     </local:states>
     
     <!-- layer 1: shadow -->
@@ -156,10 +162,10 @@
     <s:Path right="6" verticalCenter="0" id="arrow"
           data="M 4.0 4.0 L 4.0 3.0 L 5.0 3.0 L 5.0 2.0 L 6.0 2.0 L 6.0 1.0 L 7.0 1.0 L 7.0 0.0 L 0.0 0.0 L 0.0 1.0 L 1.0 1.0 L 1.0 2.0 L 2.0 2.0 L 2.0 3.0 L 3.0 3.0 L 3.0 4.0 L 4.0 4.0">
         <s:fill>
-        	<s:RadialGradient rotation="90" focalPointRatio="1">	
-	            <s:GradientEntry id="arrowFill1" color="0" alpha="0.6" />
-	            <s:GradientEntry id="arrowFill2" color="0" alpha="0.8" />
-        	</s:RadialGradient>
+            <s:RadialGradient rotation="90" focalPointRatio="1">    
+                <s:GradientEntry id="arrowFill1" color="0" alpha="0.6" />
+                <s:GradientEntry id="arrowFill2" color="0" alpha="0.8" />
+            </s:RadialGradient>
         </s:fill>
     </s:Path>
 </local:SparkSkinForHalo>
