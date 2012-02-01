@@ -120,12 +120,14 @@ public class NumberFormatter extends NumberFormatterBase implements IFormatter
      *  </li>
      *  </ul>
      *  <p>
-     *  If the locale style is not set by one of the above techniques,
-     *  the methods of this class that depend on the locale
-     *  will set lastOperationStatus to 
-     *  <code>LastOperationStatus.LOCALE_UNDEFINED_ERROR</code>.
-     *  </p>        
-     *
+     *  If the <code>locale</code> style is not set by one of the above 
+     *  techniques, the instance of this class will be added as a 
+     *  <code>StyleClient</code> to the <code>topLevelApplication</code> and 
+     *  will therefore inherit the <code>locale</code> style from the 
+     *  <code>topLevelApplication</code> object when the <code>locale</code> 
+     *  dependent property getter or <code>locale</code> dependent method is 
+     *  called.
+     *  </p>   
      *  <p>Most of the properties of 
      *  this class are automatically set based on the locale style. If the
      *  locale style is changed, any properties that have not been explicitly
