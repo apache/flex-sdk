@@ -114,7 +114,7 @@ public class Path extends FilledElement
      *  coordinate parameters for those commands, and then
      *  drawn to screen. 
      */ 
-	mx_internal var graphicsPath:GraphicsPath = new GraphicsPath(new Vector.<int>(), new Vector.<Number>());
+    mx_internal var graphicsPath:GraphicsPath = new GraphicsPath(new Vector.<int>(), new Vector.<Number>());
     
     //--------------------------------------------------------------------------
     //
@@ -212,10 +212,10 @@ public class Path extends FilledElement
         //If there's no processing that needs to 
         //occur, exit early. 
         if (value == "")
-    	{
-    		_data = value;
-    		return;
-    	}
+        {
+            _data = value;
+            return;
+        }
         
         // Split letter followed by number (ie "M3" becomes "M 3")
         var temp:String = value.replace(/([A-Za-z])([0-9\-\.])/g, "$1 $2");
@@ -462,12 +462,12 @@ public class Path extends FilledElement
      */
     public function set winding(value:String):void
     {
-    	if (_winding != value)
-    	{
-        	_winding = value;
-        	graphicsPathChanged = true;
-        	invalidateDisplayList();
-     	} 
+        if (_winding != value)
+        {
+            _winding = value;
+            graphicsPathChanged = true;
+            invalidateDisplayList();
+        } 
     }
     
     /** 
@@ -612,9 +612,9 @@ public class Path extends FilledElement
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -655,9 +655,9 @@ public class Path extends FilledElement
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -730,11 +730,11 @@ public class Path extends FilledElement
         return stroke + getBoundingBox(_width, _height, m).y;
     }
  
- 	/**
- 	 *  @private
- 	 *  Use measuredX and measuredY instead of drawX and drawY
- 	 */
- 	override protected function beginDraw(g:Graphics):void
+    /**
+     *  @private
+     *  Use measuredX and measuredY instead of drawX and drawY
+     */
+    override protected function beginDraw(g:Graphics):void
     {
         // Don't call super.beginDraw() since it will also set up an 
         // invisible fill.
@@ -746,9 +746,9 @@ public class Path extends FilledElement
 
 
         var bounds:Rectangle = new Rectangle(drawX + measuredX * sx,
-        									 drawY + measuredY * sy,
-        									 width, 
-        									 height);
+                                             drawY + measuredY * sy,
+                                             width, 
+                                             height);
         if (stroke)
             stroke.apply(g, bounds);
         else
@@ -787,17 +787,17 @@ public class Path extends FilledElement
             _drawBounds.height = height;            
         }
         
-    	if (graphicsPathChanged)
-    	{
-    	    var rcBounds:Rectangle = getBounds();
-    	    var sx:Number = rcBounds.width == 0 ? 1 : width/rcBounds.width;
-    	    var sy:Number = rcBounds.height == 0 ? 1 : height/rcBounds.height;
-    	        	    
-	        generateGraphicsPath(drawX,drawY,sx,sy);
-	        graphicsPathChanged = false;
-     	}
-     	 
-     	g.drawPath(graphicsPath.commands, graphicsPath.data, winding);
+        if (graphicsPathChanged)
+        {
+            var rcBounds:Rectangle = getBounds();
+            var sx:Number = rcBounds.width == 0 ? 1 : width/rcBounds.width;
+            var sy:Number = rcBounds.height == 0 ? 1 : height/rcBounds.height;
+                        
+            generateGraphicsPath(drawX,drawY,sx,sy);
+            graphicsPathChanged = false;
+        }
+         
+        g.drawPath(graphicsPath.commands, graphicsPath.data, winding);
     }
 
     /**
@@ -890,7 +890,7 @@ public class Path extends FilledElement
      */
     public function segmentChanged(e:PathSegment):void 
     {
-    	graphicsPathChanged = true;
+        graphicsPathChanged = true;
         boundsChanged();
     }
 
