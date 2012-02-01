@@ -16,10 +16,33 @@ import mx.core.IUIComponent;
 
 import spark.effects.SimpleMotionPath;
     
+/**
+ *  The ResizeInstance class implements the instance class
+ *  for the Resize effect.
+ *  Flex creates an instance of this class when it plays a Resize
+ *  effect; you do not create one yourself.
+ *
+ *  @see spark.effects.Resize
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */  
 public class ResizeInstance extends AnimateInstance
 {
     include "../../core/Version.as";
 
+    /**
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function ResizeInstance(target:Object)
     {
         super(target);
@@ -95,7 +118,7 @@ public class ResizeInstance extends AnimateInstance
     //----------------------------------
 
     /** 
-     *  Initial height. If omitted, Flex uses the current size.
+     *  @copy spark.effects.Resize#heightFrom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -115,7 +138,7 @@ public class ResizeInstance extends AnimateInstance
     private var _heightTo:Number;
     
     /** 
-     *  Final height, in pixels.
+     *  @copy spark.effects.Resize#heightTo
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -147,8 +170,7 @@ public class ResizeInstance extends AnimateInstance
     private var _widthBy:Number;
 
     /** 
-     *  Number of pixels by which to modify the width of the component.
-     *  Values may be negative.
+     *  @copy spark.effects.Resize#widthBy
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -174,7 +196,7 @@ public class ResizeInstance extends AnimateInstance
     //----------------------------------
 
     /** 
-     *  Initial width. If omitted, Flex uses the current size.
+     *  @copy spark.effects.Resize#widthFrom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -194,7 +216,7 @@ public class ResizeInstance extends AnimateInstance
     private var _widthTo:Number;
     
     /** 
-     *  Final width, in pixels.
+     *  @copy spark.effects.Resize#widthTo
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
