@@ -37,7 +37,7 @@
     <FxScroller left="1" top="1" right="1" bottom="1">
 	    <DataGroup id="dataGroup" width="110" height="110">
 	    	<layout>
-	    	    <VerticalLayout gap="0" />
+	    	    <VerticalLayout gap="0" horizontalAlign="contentJustify" />
 	    	</layout>
 	    </DataGroup>
     </FxScroller>
