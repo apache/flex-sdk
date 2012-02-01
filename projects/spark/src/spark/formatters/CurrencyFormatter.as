@@ -53,7 +53,6 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:CurrencyFormatter 
  *    <strong>Properties</strong>
- *    actualLocaleIDName="<i>locale and OS dependent</i>"
  *    currencyISOCode="<i>locale and OS dependent</i>"
  *    currencySymbol="<i>locale and OS dependent</i>"
  *    negativeCurrencyFormat="<i>locale and OS dependent</i>"
