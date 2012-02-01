@@ -367,7 +367,7 @@ public dynamic class ShaderFilter extends Proxy
      * Retrieve a single property value, provides special case conventions for 
      * retrieving specific components of multi-dimensional shader properties.
      */
-    private function retrieveShaderProperty(name:*)
+    private function retrieveShaderProperty(name:*):*
     {
         name = (name is QName) ? name.localName : name;
         var suffixPattern:RegExp = /_.$/;
