@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics
+package spark.primitives
 {
 import flash.display.Bitmap;
 import flash.display.BitmapData;
@@ -21,20 +21,20 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.getDefinitionByName;
 
-import mx.graphics.baseClasses.GraphicElement;
+import spark.primitives.supportClasses.GraphicElement;
 
 /**
- *  A BitmapGraphic element defines a rectangular region in its parent element's 
+ *  A BitmapImage element defines a rectangular region in its parent element's 
  *  coordinate space, filled with bitmap data drawn from a source file.
  *  
- *  @includeExample examples/BitmapGraphicExample.mxml
+ *  @includeExample examples/BitmapImageExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class BitmapGraphic extends GraphicElement
+public class BitmapImage extends GraphicElement
 {
     include "../core/Version.as";
 
@@ -52,7 +52,7 @@ public class BitmapGraphic extends GraphicElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function BitmapGraphic()
+    public function BitmapImage()
     {
         super();
     }
@@ -125,8 +125,8 @@ public class BitmapGraphic extends GraphicElement
     {
         switch(value)
         {
-            case BitmapResizeMode.REPEAT: return _REPEAT_UINT;
-            case BitmapResizeMode.SCALE: return _SCALE_UINT;
+            case BitmapImageResizeMode.REPEAT: return _REPEAT_UINT;
+            case BitmapImageResizeMode.SCALE: return _SCALE_UINT;
             default: return _NORMAL_UINT;
         }
     }
@@ -148,9 +148,9 @@ public class BitmapGraphic extends GraphicElement
     {
         switch(value)
         {
-            case _REPEAT_UINT: return BitmapResizeMode.REPEAT;
-            case _SCALE_UINT: return BitmapResizeMode.SCALE;
-            default: return BitmapResizeMode.NORMAL;
+            case _REPEAT_UINT: return BitmapImageResizeMode.REPEAT;
+            case _SCALE_UINT: return BitmapImageResizeMode.SCALE;
+            default: return BitmapImageResizeMode.NORMAL;
         }
     }
 
@@ -164,18 +164,18 @@ public class BitmapGraphic extends GraphicElement
     /**
      *  The resizeMode determines how the bitmap fills in the dimensions. If you set the value
      *  of this property in a tag, use the string (such as "Repeat"). If you set the value of 
-     *  this property in ActionScript, use the constant (such as <code>BitmapResizeMode.NORMAL</code>).
+     *  this property in ActionScript, use the constant (such as <code>BitmapImageResizeMode.NORMAL</code>).
      * 
-     *  When set to <code>BitmapResizeMode.NORMAL</code> ("Normal"), the bitmap
+     *  When set to <code>BitmapImageResizeMode.NORMAL</code> ("Normal"), the bitmap
      *  ends at the edge of the region.
      * 
-     *  When set to <code>BitmapResizeMode.REPEAT</code> ("Repeat"), the bitmap 
+     *  When set to <code>BitmapImageResizeMode.REPEAT</code> ("Repeat"), the bitmap 
      *  repeats to fill the region.
      *
-     *  When set to <code>BitmapResizeMode.SCALE</code> ("Scale"), the bitmap
+     *  When set to <code>BitmapImageResizeMode.SCALE</code> ("Scale"), the bitmap
      *  stretches to fill the region.
      * 
-     *  @default <code>BitmapResizeMode.NORMAL</code>
+     *  @default <code>BitmapImageResizeMode.NORMAL</code>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -230,7 +230,7 @@ public class BitmapGraphic extends GraphicElement
     {        
         if (value != repeat)
         {
-            resizeMode = value ? BitmapResizeMode.REPEAT : BitmapResizeMode.NORMAL;  
+            resizeMode = value ? BitmapImageResizeMode.REPEAT : BitmapImageResizeMode.NORMAL;  
             invalidateDisplayList();
         }
     }
@@ -266,9 +266,9 @@ public class BitmapGraphic extends GraphicElement
      *  <p>The image location can be a URL or file reference. If it is a file reference, its location is relative to
      *  the location of the file that is being compiled.</p>
      *  
-     *  <p>The BitmapGraphic class is designed to work with embedded images, not with images that are 
+     *  <p>The BitmapImage class is designed to work with embedded images, not with images that are 
      *  loaded at run time. You can use the Image control to load the image at run time,
-     *  and then assign the Image control to the value of the BitmapGraphic's <code>source</code> property.</p>
+     *  and then assign the Image control to the value of the BitmapImage's <code>source</code> property.</p>
      *  
      *  @see flash.display.Bitmap
      *  @see flash.display.BitmapData
