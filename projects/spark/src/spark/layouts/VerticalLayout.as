@@ -11,10 +11,7 @@
 
 package spark.layouts
 {
-import flash.display.DisplayObject;
 import flash.events.Event;
-import flash.events.EventDispatcher;
-import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.containers.utilityClasses.Flex;
@@ -1197,6 +1194,15 @@ public class VerticalLayout extends LayoutBase
      {
         if (!target || target.numElements < 1)
             return -1; 
+
+        // Special case when nothing was previously selected
+        if (currentIndex == -1)
+        {
+            if (navigationUnit == NavigationUnit.UP)
+                return -1;
+            if (navigationUnit == NavigationUnit.DOWN)
+                return 0;    
+        }    
             
         // Make sure currentIndex is within range
         var maxIndex:int = target.numElements - 1;
