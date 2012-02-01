@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009"
+	  minWidth="112" minHeight="112"
+	  alpha.disabled="0.5"> 
+	
+    <Metadata>
+    	[HostComponent("mx.components.FxList")]
+    </Metadata> 
+    
+    <states>
+    	<State name="normal" />
+    	<State name="disabled" />
+    </states>
+    
+    <!-- border/fill -->
+    <Rect left="0" right="0" top="0" bottom="0">
+    	<stroke>
+    		<SolidColorStroke color="0x5380D0" />
+    	</stroke>
+    	<fill>
+    		<SolidColor color="0xFFFFFF" />
+    	</fill>
+    </Rect>
+    
+    <FxScroller left="1" top="1" right="1" bottom="1">
+	    <DataGroup id="dataGroup" width="110" height="110">
+	    	<layout>
+	    	    <VerticalLayout gap="0" />
+	    	</layout>
+	    </DataGroup>
+    </FxScroller>
+</Skin>
