@@ -41,6 +41,7 @@ internal class SparkSkinsClasses
 	import mx.skins.spark.DateChooserRollOverIndicatorSkin; DateChooserRollOverIndicatorSkin;
 	import mx.skins.spark.DateChooserSelectionIndicatorSkin; DateChooserSelectionIndicatorSkin;
 	import mx.skins.spark.DateChooserTodayIndicatorSkin; DateChooserTodayIndicatorSkin;
+	import mx.skins.spark.EditableComboBoxSkin; EditableComboBoxSkin;
 	import mx.skins.spark.LinkButtonSkin; LinkButtonSkin;
 	import mx.skins.spark.MenuItemSkin; MenuItemSkin;
 	import mx.skins.spark.MenuSeparatorSkin; MenuSeparatorSkin;
