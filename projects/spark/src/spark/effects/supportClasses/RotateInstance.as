@@ -72,7 +72,6 @@ public class RotateInstance extends AnimateInstance
     public function RotateInstance(target:Object)
     {
         super(target);
-        affectsConstraints = true;
     }
   
     //--------------------------------------------------------------------------
