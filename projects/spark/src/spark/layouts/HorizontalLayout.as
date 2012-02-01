@@ -1911,6 +1911,9 @@ public class HorizontalLayout extends LayoutBase
         var minVisibleX:Number = layoutTarget.horizontalScrollPosition;
         var maxVisibleX:Number = minVisibleX + layoutTarget.width;
        
+        var contentWidth:Number;
+        var paddedContentWidth:Number;
+
         updateLLV(layoutTarget);
 
         // Find the index of the first visible item. Since the item's bounds includes the gap
@@ -1920,7 +1923,13 @@ public class HorizontalLayout extends LayoutBase
         // simply start from minVisibleX - SDK-22497.
         var startIndex:int = llv.indexOf(Math.max(0, minVisibleX + gap));
         if (startIndex == -1)
-            return; 
+        {
+            // No items are visible.  Just set the content size.
+            contentWidth = llv.end(llv.length - 1) - paddingLeft;
+            paddedContentWidth = Math.ceil(contentWidth + paddingLeft + paddingRight);
+            layoutTarget.setContentSize(paddedContentWidth, layoutTarget.contentHeight);
+            return;
+        }
             
         var fixedColumnWidth:Number = NaN;
         if (!variableColumnWidth)
@@ -1974,7 +1983,7 @@ public class HorizontalLayout extends LayoutBase
         }
 
         // Third pass: if neccessary, fix up x based on updated contentWidth
-        var contentWidth:Number = llv.end(llv.length - 1) - paddingLeft;
+        contentWidth = llv.end(llv.length - 1) - paddingLeft;
         var targetWidth:Number = Math.max(0, layoutTarget.width - paddingLeft - paddingRight);
         if (contentWidth < targetWidth)
         {
@@ -2005,7 +2014,7 @@ public class HorizontalLayout extends LayoutBase
 
         // Make sure that if the content spans partially over a pixel to the right/bottom,
         // the content size includes the whole pixel.
-        var paddedContentWidth:Number = Math.ceil(contentWidth + paddingLeft + paddingRight);
+        paddedContentWidth = Math.ceil(contentWidth + paddingLeft + paddingRight);
         var paddedContentHeight:Number = Math.ceil(contentHeight + paddingTop + paddingBottom);
         layoutTarget.setContentSize(paddedContentWidth, paddedContentHeight);
     }
