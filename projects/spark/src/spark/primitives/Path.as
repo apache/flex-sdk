@@ -554,12 +554,37 @@ public class Path extends FilledElement
     /**
      *  @private
      */
-    override protected function computeTopLeft(topLeft:Point, width:Number, height:Number, m:Matrix):Point
+    override public function getLayoutBoundsX(postTransform:Boolean = true):Number
     {
-        var bbox:Rectangle = getBoundingBox(width, height, m);
-        topLeft.x = bbox.x;
-        topLeft.y = bbox.y;
-        return topLeft; 
+        var stroke:Number = -getStrokeExtents(postTransform).x * 0.5;
+        var m:Matrix = postTransform ? computeMatrix() : null;
+        if (!m)
+        {
+            if (measuredX == 0)
+                return stroke + this.x;
+            var naturalBounds:Rectangle = getBounds();
+            var sx:Number = naturalBounds.width == 0 ? 1 : _width / naturalBounds.width;
+            return stroke + this.x + measuredX * sx;
+        }
+        return stroke + getBoundingBox(_width, _height, m).x;
+    }
+
+    /**
+     *  @private
+     */
+    override public function getLayoutBoundsY(postTransform:Boolean = true):Number
+    {
+        var stroke:Number = - getStrokeExtents(postTransform).y * 0.5;
+        var m:Matrix = postTransform ? computeMatrix() : null;
+        if (!m)
+        {
+            if (measuredY == 0)
+                return stroke + this.y;
+            var naturalBounds:Rectangle = getBounds();
+            var sy:Number = naturalBounds.height == 0 ? 1 : _height / naturalBounds.height;
+            return stroke + this.y + measuredY * sy;
+        }
+        return stroke + getBoundingBox(_width, _height, m).y;
     }
  
  	/**
@@ -573,9 +598,12 @@ public class Path extends FilledElement
         
         // Adjust the position by the internal scale factor
         var naturalBounds:Rectangle = getBounds();
+        var sx:Number = naturalBounds.width == 0 ? 1 : width / naturalBounds.width;
+        var sy:Number = naturalBounds.height == 0 ? 1 : height / naturalBounds.height; 
 
-        var bounds:Rectangle = new Rectangle(drawX + (measuredX * width / naturalBounds.width),
-        									 drawY + (measuredY * height / naturalBounds.height),
+
+        var bounds:Rectangle = new Rectangle(drawX + measuredX * sx,
+        									 drawY + measuredY * sy,
         									 width, 
         									 height);
         if (stroke)
