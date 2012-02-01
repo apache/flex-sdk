@@ -79,9 +79,10 @@
     
     <!-- text -->
     <s:RichEditableText id="textView"
-              lineBreak="explicit" 
+              lineBreak="explicit"
+              verticalAlign="middle"
               left="1" right="1" top="1" bottom="1" 
-              paddingLeft="3" paddingTop="5"
+              paddingLeft="3" paddingTop="6"
               paddingRight="6" paddingBottom="3"/>
 
 </s:SparkSkin>
