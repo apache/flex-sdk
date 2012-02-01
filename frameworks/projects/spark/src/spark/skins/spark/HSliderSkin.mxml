@@ -72,12 +72,12 @@ HSliderThumbSkin and HSliderTrackSkin classes, respectively.
                         <s:DropShadowFilter angle="90" color="0x999999" distance="3"/>
                     </s:filters>
                 </s:Rect>
-                <s:SimpleText id="labelDisplay" text="{data}"
+                <s:Label id="labelDisplay" text="{data}"
                          horizontalCenter="0" verticalCenter="1"
                          left="5" right="5" top="5" bottom="5"
                          textAlign="center" verticalAlign="middle"
                          fontWeight="normal" color="white" fontSize="11">
-                </s:SimpleText>
+                </s:Label>
             </s:DataRenderer>
        </fx:Component>
     </fx:Declarations>
