@@ -450,7 +450,10 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General", enumeration="add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay", defaultValue="normal")]
 
     /**
-     *  @inheritDoc
+     *  A value from the BlendMode class that specifies which blend mode to use. 
+     * 
+     *  @see flash.display.DisplayObject#blendMode
+     *  @see flash.display.BlendMode
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -595,7 +598,10 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
 
     /**
-     *  @inheritDoc
+     *  Number that specifies the explicit height of the component,
+     *  in pixels, in the component's coordinates.
+     * 
+     *  @see mx.core.UIComponent#explicitHeight
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -630,7 +636,11 @@ public class GraphicElement extends EventDispatcher
     //----------------------------------
 
     /**
-     *  @inheritDoc
+     *  The maximum recommended height of the component to be considered
+     *  by the parent during layout. This value is in the
+     *  component's coordinates, in pixels.
+     * 
+     *  @see mx.core.UIComponent#explicitMaxHeight
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -645,7 +655,11 @@ public class GraphicElement extends EventDispatcher
     //----------------------------------
 
     /**
-     *  @inheritDoc
+     *  The maximum recommended width of the component to be considered
+     *  by the parent during layout. This value is in the
+     *  component's coordinates, in pixels.
+     * 
+     *  @see mx.core.UIComponent#explicitMaxWidth
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -660,7 +674,11 @@ public class GraphicElement extends EventDispatcher
     //----------------------------------
 
     /**
-     *  @inheritDoc
+     *  The minimum recommended height of the component to be considered
+     *  by the parent during layout. This value is in the
+     *  component's coordinates, in pixels. 
+     * 
+     *  @see mx.core.UIComponent#explicitMinHeight
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -674,8 +692,12 @@ public class GraphicElement extends EventDispatcher
     //  explicitMinWidth
     //----------------------------------
 
-    /**
-     *  @inheritDoc
+    /** 
+     *  The minimum recommended width of the component to be considered
+     *  by the parent during layout. This value is in the
+     *  component's coordinates, in pixels. 
+     * 
+     *  @see mx.core.UIComponent#explicitMinWidth
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -698,7 +720,10 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
 
     /**
-     *  @inheritDoc
+     *  Number that specifies the explicit width of the component,
+     *  in pixels, in the component's coordinates.
+     * 
+     *  @see mx.core.UIComponent#explicitWidth
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -953,8 +978,15 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
 
     /**
-     *  @inheritDoc
+     *  The calling display object is masked by the specified mask object. 
+     *  If, the mask display object is not on the display list, it will be added to the display list
+     *  as a child of the displayObject. The mask object itself is not drawn. 
+     *  Set mask to null to remove the mask.
+     * 
+     *  To use another GraphicElement as a mask, wrap the GraphicElement in a Group or other container. 
      *  
+     *  @see flash.display.DisplayObject#mask
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1030,7 +1062,46 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General", enumeration="clip,alpha", defaultValue="clip")]
     
     /**
-     *  @inheritDoc
+     *  <p>The maskType defines how the mask is applied to the GraphicElement. 
+     * 
+     *  <p>The possible values are MaskType.CLIP and MaskType.ALPHA.  
+     * 
+     *  <p>Clip Masking</p>
+     * 
+     *  <p>When masking in clip mode, a clipping masks is reduced to 1-bit.  This means that a mask will 
+     *  not affect the opacity of a pixel in the source content; it either leaves the value unmodified, 
+     *  if the corresponding pixel in the mask is has a non-zero alpha value, or makes it fully 
+     *  transparent, if the mask pixel value has an alpha value of zero.</p>
+     * 
+     *  <p>When clip masking is used, only the actual path and shape vectors and fills defined by the
+     *  mask are used to determine the effect on the source content.  strokes and bitmap filters 
+     *  defined on the mask are ignored.  Any filled region in the mask is considered filled, and renders 
+     *  the source content.  The type and parameters of the fill is irrelevant;  a solid color fill, 
+     *  gradient fill, or bitmap fill in a mask will all render the underlying source content, regardless 
+     *  of the alpha values of the mask fill.</p>
+     *  
+     *  <p>BitmapGraphics are treated as bitmap filled rectangles when used in a clipping mask.  As a 
+     *  result, the alpha channel of the source bitmap is irrelevant when part of a mask -- the bitmap 
+     *  affects the mask in the same manner as solid filled rectangle of equivalent dimensions.</p>
+     * 
+     *  <p>Alpha Masking</p>
+     * 
+     *  <p>In alpha mode, the opacity of each pixel in the source content is multiplied by the opacity 
+     *  of the corresponding region of the mask.  i.e., a pixel in the source content with an opacity of 
+     * 1 that is masked by a region of opacity of .5 will have a resulting opacity of .5.  A source pixel 
+     * with an opacity of .8 masked by a region with opacity of .5 will have a resulting opacity of .4.</p>
+     * 
+     *  <p>Conceptually, Alpha masking is equivalent to rendering the transformed mask and source content 
+     *  into separate RGBA surfaces, and multiplying the alpha channel of the mask content into the alpha 
+     *  channel of the source content.  All of the mask content is rendered into its surface before 
+     *  compositing into the source content's surface. As a result, all FXG features, such as strokes, 
+     *  bitmap filters, and fill opacity will affect the final composited content.</p>
+     * 
+     *  <p>When in alpha mode, the alpha channel of any bitmap data is composited normally into the mask 
+     *  alpha channel, and will affect the final rendered content. This holds true for both BitmapGraphics 
+     *  and bitmap filled shapes and paths.</p>
+     * 
+     *  @default MaskType.CLIP
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1878,7 +1949,15 @@ public class GraphicElement extends EventDispatcher
         layoutFeatures.transformAround(transformCenter,scale,rotation,translation,postLayoutScale,postLayoutRotation,postLayoutTranslation);
         invalidateTransform(previous != needsDisplayObject);
     }
-           
+    
+    /**
+     *  FIXME (chaase) : FLEXDOCS-1031
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function transformPointToParent(transformCenter:Vector3D,position:Vector3D,postLayoutPosition:Vector3D):void
     {
         if(layoutFeatures != null)
@@ -2656,6 +2735,16 @@ public class GraphicElement extends EventDispatcher
         return element is GraphicElement && !_alwaysCreateDisplayObject && !needsDisplayObject;
     }
 
+    /**
+     *  The actual DisplayObject that is drawn into by the GraphicElement. Typically this is 
+     *  equivalent to the <code>displayObject</code> property. Subclasses should perform drawing commands on
+     *  this property instead of on <code>displayObject</code>. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
     protected function get drawnDisplayObject():DisplayObject
     {
         // _drawnDisplayObject is non-null if we needed to create a mask
@@ -3941,6 +4030,15 @@ public class GraphicElement extends EventDispatcher
     // FIXME (egeorgie): return rectangle instead so that the function can
     // correctly indicate the left, right, top and bottom extents. Right
     // now we assume they are the same on both sides.
+    /**
+     *  TODO 
+     *   
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    // FIXME (egeorgie) : Needs ASDoc FLEXDOCS-1032
     protected function getStrokeExtents(postLayoutTransform:Boolean = true):Point
     {
         return _strokeExtents;
