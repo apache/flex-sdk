@@ -281,7 +281,7 @@ public class HorizontalLayout extends LayoutBase
 
     private var _paddingLeft:Number = 0;
     
-    [Inspectable(category="General", minValue="0.0")]
+    [Inspectable(category="General")]
 
     /**
      *  Number of pixels between the container's left edge
@@ -317,7 +317,7 @@ public class HorizontalLayout extends LayoutBase
 
     private var _paddingRight:Number = 0;
     
-    [Inspectable(category="General", minValue="0.0")]
+    [Inspectable(category="General")]
 
     /**
      *  Number of pixels between the container's right edge
@@ -353,7 +353,7 @@ public class HorizontalLayout extends LayoutBase
 
     private var _paddingTop:Number = 0;
     
-    [Inspectable(category="General", minValue="0.0")]
+    [Inspectable(category="General")]
 
     /**
      *  The minimum number of pixels between the container's top edge and
@@ -389,7 +389,7 @@ public class HorizontalLayout extends LayoutBase
 
     private var _paddingBottom:Number = 0;
     
-    [Inspectable(category="General", minValue="0.0")]
+    [Inspectable(category="General")]
 
     /**
      *  The minimum number of pixels between the container's bottom edge and
