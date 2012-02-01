@@ -110,7 +110,8 @@ public class FocusSkin extends HighlightBitmapCaptureSkin
     {   
         super.updateDisplayList(unscaledWidth, unscaledHeight);
          
-        blendMode = target.getStyle("focusBlendMode");
+        if (target)
+            blendMode = target.getStyle("focusBlendMode");
     }
     
     /**
