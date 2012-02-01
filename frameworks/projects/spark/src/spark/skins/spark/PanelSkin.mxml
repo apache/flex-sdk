@@ -18,8 +18,9 @@ in accordance with the terms of the license agreement accompanying it.
 @playerversion AIR 1.5
 @productversion Flex 4
 -->
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" alpha.disabled="0.5"
-             blendMode="normal" mouseEnabled="false" minWidth="131" minHeight="127">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:fb="http://ns.adobe.com/fb/2009" blendMode="normal" mouseEnabled="false" 
+    minWidth="131" minHeight="127" alpha.disabled="0.5">
     
     <fx:Metadata>
         <![CDATA[ 
@@ -30,16 +31,28 @@ in accordance with the terms of the license agreement accompanying it.
         ]]>
     </fx:Metadata> 
     
-    <fx:Script>
+    <fx:Script fb:stylingSupport="true">
         /* Define the skin elements that should not be colorized. 
         For panel, border and title backround are skinned, but the content area and title text are not. */
         static private const exclusions:Array = ["background", "titleDisplay", "contentGroup"];
         
-        /** 
-         * @copy spark.skins.SparkSkin#colorizeExclusions
-         */     
+        /**
+         * @private
+         */  
         override public function get colorizeExclusions():Array {return exclusions;}
         
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useBaseColor = true;
+            super.initializationComplete();
+        }
+        
+        /**
+         * @private
+         */
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {
             if (getStyle("borderVisible") == true)
@@ -60,13 +73,45 @@ in accordance with the terms of the license agreement accompanying it.
             var cr:Number = getStyle("cornerRadius");
             
             if (cornerRadius != cr)
+            {
                 cornerRadius = cr;
+                
+                var withControls:Boolean = 
+                    (currentState == "disabledWithControlBar" || 
+                     currentState == "normalWithControlBar");
+                
+                dropShadow.tlRadius = cornerRadius;
+                dropShadow.trRadius = cornerRadius;
+                dropShadow.blRadius = withControls ? cornerRadius : 0;
+                dropShadow.brRadius = withControls ? cornerRadius : 0;
+                
+                setPartCornerRadii(topMaskRect, withControls); 
+                setPartCornerRadii(border, withControls); 
+                setPartCornerRadii(background, withControls);                
+            }
+            
+            if (bottomMaskRect) setPartCornerRadii(bottomMaskRect, withControls); 
+            
+            borderStroke.color = getStyle("borderColor");
+            borderStroke.alpha = getStyle("borderAlpha");
+            backgroundFill.color = getStyle("backgroundColor");
+            backgroundFill.alpha = getStyle("backgroundAlpha");
             
             super.updateDisplayList(unscaledWidth, unscaledHeight);
         }
         
-        [Bindable]
-        public var cornerRadius:Number;
+        /**
+         * @private
+         */  
+        private function setPartCornerRadii(target:Rect, includeBottom:Boolean):void
+        {            
+            target.topLeftRadiusX = cornerRadius;
+            target.topRightRadiusX = cornerRadius;
+            target.bottomLeftRadiusX = includeBottom ? cornerRadius : 0;
+            target.bottomRightRadiusX = includeBottom ? cornerRadius : 0;
+        }
+        
+        private var cornerRadius:Number;
     </fx:Script>
     
     <s:states>
@@ -78,20 +123,14 @@ in accordance with the terms of the license agreement accompanying it.
     
     <!-- drop shadow can't be hittable so it stays sibling of other graphics -->
     <s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.32" distance="11" 
-                             angle="90" color="#000000" left="0" top="0" right="0" bottom="0" 
-                             tlRadius="{cornerRadius}" trRadius="{cornerRadius}"
-                             blRadius="0" blRadius.withControls="{cornerRadius}"
-                             brRadius="0" brRadius.withControls="{cornerRadius}" />
+                             angle="90" color="#000000" left="0" top="0" right="0" bottom="0"/>
     
     <!-- drop shadow can't be hittable so all other graphics go in this group -->
     <s:Group left="0" right="0" top="0" bottom="0">
         
         <!-- top group mask -->
         <s:Group left="1" top="1" right="1" bottom="1" id="topGroupMask" >
-            <s:Rect left="0" top="0" right="0" bottom="0"
-                    topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}"
-                    bottomLeftRadiusX.withControls="{cornerRadius}"
-                    bottomRightRadiusX.withControls="{cornerRadius}">
+            <s:Rect id="topMaskRect" left="0" top="0" right="0" bottom="0">
                 <s:fill>
                     <s:SolidColor alpha="0"/>
                 </s:fill>
@@ -101,10 +140,7 @@ in accordance with the terms of the license agreement accompanying it.
         <!-- bottom group mask -->
         <s:Group left="1" top="1" right="1" bottom="1" id="bottomGroupMask" 
                  includeIn="normalWithControlBar, disabledWithControlBar">
-            <s:Rect left="0" top="0" right="0" bottom="0"
-                    topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}"
-                    bottomLeftRadiusX.withControls="{cornerRadius}"
-                    bottomRightRadiusX.withControls="{cornerRadius}">
+            <s:Rect id="bottomMaskRect" left="0" top="0" right="0" bottom="0">
                 <s:fill>
                     <s:SolidColor alpha="0"/>
                 </s:fill>
@@ -112,25 +148,18 @@ in accordance with the terms of the license agreement accompanying it.
         </s:Group>
         
         <!-- layer 1: border -->
-        <s:Rect id="border" left="0" right="0" top="0" bottom="0"
-                topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}"
-                bottomLeftRadiusX.withControls="{cornerRadius}"
-                bottomRightRadiusX.withControls="{cornerRadius}" >
+        <s:Rect id="border" left="0" right="0" top="0" bottom="0" >
             <s:stroke>
-                <s:SolidColorStroke color="{getStyle('borderColor')}" alpha="{getStyle('borderAlpha')}" weight="1" />
+                <s:SolidColorStroke id="borderStroke" weight="1" />
             </s:stroke>
         </s:Rect>
         
         <!-- layer 2: background fill -->
         <!--- Defines the appearance of the PanelSkin class's background. -->
-        <s:Rect id="background" left="1" top="1" right="1" bottom="1"
-                topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}"
-                bottomLeftRadiusX.withControls="{cornerRadius}"
-                bottomRightRadiusX.withControls="{cornerRadius}">
+        <s:Rect id="background" left="1" top="1" right="1" bottom="1">
             <s:fill>
                 <!-- Defines the  PanelSkin class's background fill. The default color is 0xFFFFFF. -->
-                <s:SolidColor color="{getStyle('backgroundColor')}"
-                              alpha="{getStyle('backgroundAlpha')}" />
+                <s:SolidColor id="backgroundFill" />
             </s:fill>
         </s:Rect>
         
