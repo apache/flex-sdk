@@ -18,7 +18,8 @@
       @playerversion AIR 1.5
       @productversion Flex 4
 -->
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" alpha.disabled="0.5" blendMode="normal">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+    alpha.disabled="0.5" blendMode="normal">
     
     <fx:Script>
         /* Define the skin elements that should not be colorized. 
@@ -29,6 +30,15 @@
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["arrowFill1", "arrowFill2"];
         override public function get symbolItems():Array {return symbols};
+        
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useBaseColor = true;
+            super.initializationComplete();
+        }
     </fx:Script>
     
     <s:states>
