@@ -220,9 +220,8 @@
                 <!-- layer 3: text -->
                 <!--- Defines the appearance of the TitleWindowSkin class's title bar. -->
                 <s:Label id="titleDisplay" maxDisplayedLines="1"
-                         left="9" right="24" top="1" bottom="0" minHeight="30"
-                         verticalAlign="middle" fontWeight="bold" >
-                </s:Label>
+                         left="9" right="36" top="1" bottom="0" minHeight="30"
+                         verticalAlign="middle" fontWeight="bold" />
                 
                 <!-- layer 4: moveArea -->
                 <!--- Defines the area where the user can drag the TitleWindow. -->
@@ -230,7 +229,7 @@
                 
                 <!--- Defines the appearance of the close button. -->
                 <s:Button id="closeButton" skinClass="spark.skins.spark.TitleWindowCloseButtonSkin"
-                          width="15" height="15" right="2" top="7" />
+                          width="15" height="15" right="7" top="7" />
             </s:Group>
             
             <!--
