@@ -44,7 +44,7 @@ import spark.core.NavigationUnit;
  *  from within <code>updateDisplayList()</code>.</p>
  *
  *  @mxml 
- *  <p>The <code>&lt;LayoutBase&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:LayoutBase&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
