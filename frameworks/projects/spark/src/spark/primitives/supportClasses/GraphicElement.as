@@ -37,10 +37,18 @@ import mx.managers.ILayoutManagerClient;
 use namespace mx_internal;
 
 public class GraphicElement extends EventDispatcher
-							implements IGraphicElement, ILayoutItem, IConstraintClient, IDisplayObjectElement, IInvalidating
+    implements IGraphicElement, ILayoutItem, IConstraintClient,
+    IDisplayObjectElement, IInvalidating
 {
+    include "../../core/Version.as";
 
-	 /**
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+
+	/**
      *  The default value for the <code>maxWidth</code> property.
      *
      *  @default 10000
@@ -68,130 +76,98 @@ public class GraphicElement extends EventDispatcher
      */
     public static const DEFAULT_MIN_HEIGHT:Number = 0;
 
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	public function GraphicElement()
+	/**
+     *  @private
+     */
+    public function GraphicElement()
 	{
+        super();
 	}
 
 	//--------------------------------------------------------------------------
 	//
-	//  IGraphicElement properties
+	//  Variables
+	//
+	//--------------------------------------------------------------------------
+
+  	/**
+     *  @private
+     *  Storage for the transform property.
+     */
+    private var _matrix:Matrix;
+	
+	/**
+     *  @private
+     */
+    private var _colorTransform:ColorTransform;
+	
+	/**
+     *  @private
+     */
+    private var isMaskInElementSpace:Boolean;
+	
+    /**
+     *  @private
+     *  Whether this element needs to have its
+     *  commitProperties() method called.
+     */
+    mx_internal var invalidatePropertiesFlag:Boolean = false;
+
+    /**
+     *  @private
+     *  Whether this element needs to have its
+     *  measure() method called.
+     */
+    mx_internal var invalidateSizeFlag:Boolean = false;
+
+    /**
+     *  @private
+     *  Whether this element needs to be have its
+     *  updateDisplayList() method called.
+     */
+    mx_internal var invalidateDisplayListFlag:Boolean = false;
+
+	//--------------------------------------------------------------------------
+	//
+	//  Properties: IGraphicElement
 	//
 	//--------------------------------------------------------------------------
 
 	//----------------------------------
-	//  includeInLayout
-	//----------------------------------
-
-    /**
-     *  @private
-     */
-    private var _includeInLayout:Boolean = true;
-
-	[Bindable("propertyChange")]
-	[Inspectable(category="General", defaultValue="true")]
-
-    /**
-     *  Specifies whether this element is included in the layout of the group.
-     *  @default true
-     */
-    public function get includeInLayout():Boolean
-    {
-        return _includeInLayout;
-    }
-    
-    public function set includeInLayout(value:Boolean):void
-    {
-        if (_includeInLayout == value)
-            return;
-
-		var oldValue:Boolean = _includeInLayout;
-        _includeInLayout = value;
-		dispatchPropertyChangeEvent("includeInLayout", oldValue, value);
-            
-        invalidateParentSizeAndDisplayList();
-        // TODO EGeorgie: if the displayObject is shared, we need to
-        // invalidateDisplayList();
-    }
-
-	//----------------------------------
-	//  measuredWidth
-	//----------------------------------
-    
-    private var _measuredWidth:Number = 0;
-    
-    public function get measuredWidth():Number
-    {
-        return _measuredWidth;
-    }
-    
-    public function set measuredWidth(value:Number):void
-    {
-        _measuredWidth = value;
-    }
-
-	//----------------------------------
-	//  measuredHeight
-	//----------------------------------
-    
-    private var _measuredHeight:Number = 0;
-    
-    public function get measuredHeight():Number
-    {
-        return _measuredHeight;
-    }
-    
-    public function set measuredHeight(value:Number):void
-    {
-        _measuredHeight = value;
-    }
-
-	//----------------------------------
-	//  measuredX
-	//----------------------------------
-    
-    private var _measuredX:Number = 0;
-    
-    public function get measuredX():Number
-    {
-        return _measuredX;
-    }
-    
-    public function set measuredX(value:Number):void
-    {
-        _measuredX = value;
-    }
-
-	//----------------------------------
-	//  measuredY
-	//----------------------------------
-    
-    private var _measuredY:Number = 0;
-    
-    public function get measuredY():Number
-    {
-        return _measuredY;
-    }
-    
-    public function set measuredY(value:Number):void
-    {
-        _measuredY = value;
-    }
-
-	//----------------------------------
 	//  alpha
 	//----------------------------------
-	private var _alpha:Number = 1;
-	private var alphaChanged:Boolean = false;
+	
+	/**
+     *  @private
+     *  Storage for the alpha property.
+     */
+    private var _alpha:Number = 1.0;
+	
+	/**
+     *  @private
+     */
+    private var alphaChanged:Boolean = false;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 
+ 	/**
+     *  Documentation is not currently available.
+     */
 	public function get alpha():Number
 	{
 		return _alpha;
 	}
 
+	/**
+     *  @private
+     */
 	public function set alpha(value:Number):void
 	{
 		if (_alpha == value)
@@ -207,19 +183,70 @@ public class GraphicElement extends EventDispatcher
 	}
 
 	//----------------------------------
+	//  baseline
+	//----------------------------------
+	
+	/**
+     *  @private
+     *  Storage for the baseline property.
+     */
+    private var _baseline:Number;
+
+	[Bindable("propertyChange")]
+	[Inspectable(category="General")]
+	
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get baseline():Number
+	{
+		return _baseline;
+	}
+
+	/**
+     *  @private
+     */
+	public function set baseline(value:Number):void
+	{
+		if (_baseline == value)
+		    return;
+
+		var oldValue:Number = _baseline;
+		_baseline = value;
+		dispatchPropertyChangeEvent("baseline", oldValue, value);
+
+		invalidateParentSizeAndDisplayList();
+	}
+
+	//----------------------------------
 	//  blendMode
 	//----------------------------------
-	private var _blendMode:String = BlendMode.NORMAL;
-	private var blendModeChanged:Boolean;
+	
+	/**
+     *  @private
+     *  Storage for the blendMode property.
+     */
+    private var _blendMode:String = BlendMode.NORMAL;
+	
+	/**
+     *  @private
+     */
+    private var blendModeChanged:Boolean;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 
+ 	/**
+     *  Documentation is not currently available.
+     */
 	public function get blendMode():String
 	{
 		return _blendMode;
 	}
 
+	/**
+     *  @private
+     */
 	public function set blendMode(value:String):void
 	{
 		if (_blendMode == value)
@@ -235,41 +262,29 @@ public class GraphicElement extends EventDispatcher
 	}
 
 	//----------------------------------
-	//  baseline
-	//----------------------------------
-	private var _baseline:Number;
-
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	public function get baseline():Number
-	{
-		return _baseline;
-	}
-
-	public function set baseline(value:Number):void
-	{
-		if (_baseline == value)
-		    return;
-
-		var oldValue:Number = _baseline;
-		_baseline = value;
-		dispatchPropertyChangeEvent("baseline", oldValue, value);
-
-		invalidateParentSizeAndDisplayList();
-	}
-
-	//----------------------------------
 	//  bottom
 	//----------------------------------
-	private var _bottom:Number;
+	
+	/**
+     *  @private
+     *  Storage for the blendMode property.
+     */
+    private var _bottom:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	public function get bottom():Number
+	
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get bottom():Number
 	{
 		return _bottom;
 	}
 
+	/**
+     *  @private
+     */
 	public function set bottom(value:Number):void
 	{
 		if (_bottom == value)
@@ -285,13 +300,25 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  elementHost
 	//----------------------------------
-	protected var _host:IGraphicElementHost;
+	
+	/**
+     *  @private
+     *  Storage for the elementHost property.
+     */
+    protected var _host:IGraphicElementHost;
 
 	/**
-	 *  @private
-	 *  The host of this element. This is the Group or Graphic tag that contains
-	 *  this element.
+	 *  The host of this element.
+     *  This is the Group or Graphic tag that contains this element.
 	 */
+	public function get elementHost():IGraphicElementHost
+	{
+		return _host;
+	}
+
+	/**
+     *  @private
+     */
 	public function set elementHost(value:IGraphicElementHost):void
 	{
 		if (_host !== value)
@@ -302,82 +329,30 @@ public class GraphicElement extends EventDispatcher
 		}
 	}
 
-	public function get elementHost():IGraphicElementHost
-	{
-		return _host;
-	}
-
-	//----------------------------------
-	//  filters
-	//----------------------------------
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-
-	private var _filters:Array = [];
-	private var _clonedFilters:Array;
-	private var filtersChanged:Boolean;
-
-	/**
-	 *  @private
-	 */
-	public function set filters(value:Array):void
-	{
-		var i:int = 0;
-		var oldFilters:Array = _filters ? _filters.slice() : null;
-		var len:int = oldFilters ? oldFilters.length : 0;
-		var edFilter:EventDispatcher;
-
-		for (i = 0; i < len; i++)
-		{
-			if (oldFilters[i] is IBitmapFilter)
-			{
-				edFilter = value[i] as EventDispatcher;
-				if (edFilter)
-					edFilter.removeEventListener(BaseFilter.FILTER_CHANGED_TYPE, filterChangedHandler);
-			}
-		}
-
-		_clonedFilters = new Array();
-		_filters = value;
-		len = value.length;
-
-		for (i = 0; i < len; i++)
-		{
-			if (value[i] is IBitmapFilter)
-			{
-				edFilter = value[i] as EventDispatcher;
-				if (edFilter)
-					edFilter.addEventListener(BaseFilter.FILTER_CHANGED_TYPE, filterChangedHandler);
-				_clonedFilters.push(IBitmapFilter(value[i]).clone());
-			}
-			else
-				_clonedFilters.push(value[i]);
-		}
-
-		dispatchPropertyChangeEvent("filters", oldFilters, _filters);
-
-		filtersChanged = true;
-		notifyElementLayerChanged();
-	}
-
-	public function get filters():Array
-	{
-		return _filters;
-	}
-
 	//----------------------------------
 	//  explicitHeight
 	//----------------------------------
-	private var _explicitHeight:Number;
+	
+	/**
+     *  @private
+     *  Storage for the explicitHeight property.
+     */
+    private var _explicitHeight:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 
+ 	/**
+     *  Documentation is not currently available.
+     */
 	public function get explicitHeight():Number
 	{
         return _explicitHeight;
 	}
 
+	/**
+     *  @private
+     */
 	public function set explicitHeight(value:Number):void
 	{
 	    if (_explicitHeight == value)
@@ -398,16 +373,27 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  explicitWidth
 	//----------------------------------
-	private var _explicitWidth:Number;
+	
+	/**
+     *  @private
+     *  Storage for the explicitHeight property.
+     */
+    private var _explicitWidth:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 
+ 	/**
+     *  Documentation is not currently available.
+     */
 	public function get explicitWidth():Number
 	{
         return _explicitWidth;
 	}
 
+	/**
+     *  @private
+     */
 	public function set explicitWidth(value:Number):void
 	{
 	    if (_explicitWidth == value)
@@ -426,15 +412,102 @@ public class GraphicElement extends EventDispatcher
 	}
 
 	//----------------------------------
+	//  filters
+	//----------------------------------
+	
+	/**
+     *  @private
+     *  Storage for the filters property.
+     */
+	private var _filters:Array = [];
+	
+	/**
+     *  @private
+     */
+    private var filtersChanged:Boolean;
+
+	/**
+     *  @private
+     */
+    private var _clonedFilters:Array;
+	
+    [Bindable("propertyChange")]
+	[Inspectable(category="General")]
+
+ 	/**
+     *  Documentation is not currently available.
+     */
+	public function get filters():Array
+	{
+		return _filters;
+	}
+
+	/**
+	 *  @private
+	 */
+	public function set filters(value:Array):void
+	{
+		var i:int = 0;
+		var oldFilters:Array = _filters ? _filters.slice() : null;
+		var len:int = oldFilters ? oldFilters.length : 0;
+		var edFilter:EventDispatcher;
+
+		for (i = 0; i < len; i++)
+		{
+			if (oldFilters[i] is IBitmapFilter)
+			{
+				edFilter = value[i] as EventDispatcher;
+				if (edFilter)
+                {
+					edFilter.removeEventListener(BaseFilter.FILTER_CHANGED_TYPE,
+                                                 filterChangedHandler);
+                }
+			}
+		}
+
+		_clonedFilters = [];
+		_filters = value;
+		len = value.length;
+
+		for (i = 0; i < len; i++)
+		{
+			if (value[i] is IBitmapFilter)
+			{
+				edFilter = value[i] as EventDispatcher;
+				if (edFilter)
+                {
+					edFilter.addEventListener(BaseFilter.FILTER_CHANGED_TYPE,
+                                              filterChangedHandler);
+                }
+				_clonedFilters.push(IBitmapFilter(value[i]).clone());
+			}
+			else
+            {
+				_clonedFilters.push(value[i]);
+            }
+		}
+
+		dispatchPropertyChangeEvent("filters", oldFilters, _filters);
+
+		filtersChanged = true;
+		notifyElementLayerChanged();
+	}
+
+	//----------------------------------
 	//  height
 	//----------------------------------
-	mx_internal var _height:Number = 0;
+	
+	/**
+     *  @private
+     *  Storage for the height property.
+     */
+    mx_internal var _height:Number = 0;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 
 	/**
-	 *  The height of the rect.
+	 *  The height of the graphic element.
 	 *
 	 *  @default 0
 	 */
@@ -443,6 +516,9 @@ public class GraphicElement extends EventDispatcher
 		return _height;
 	}
 
+	/**
+     *  @private
+     */
 	public function set height(value:Number):void
 	{
 		explicitHeight = value;
@@ -464,15 +540,27 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  horizontalCenter
 	//----------------------------------
-	private var _horizontalCenter:Number;
+	
+	/**
+     *  @private
+     *  Storage for the horizontalCenter property.
+     */
+    private var _horizontalCenter:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	public function get horizontalCenter():Number
+	
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get horizontalCenter():Number
 	{
 		return _horizontalCenter;
 	}
 
+	/**
+     *  @private
+     */
 	public function set horizontalCenter(value:Number):void
 	{
 		if (_horizontalCenter == value)
@@ -488,15 +576,27 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  left
 	//----------------------------------
-	private var _left:Number;
+	
+	/**
+     *  @private
+     *  Storage for the left property.
+     */
+    private var _left:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	public function get left():Number
+	
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get left():Number
 	{
 		return _left;
 	}
 
+	/**
+     *  @private
+     */
 	public function set left(value:Number):void
 	{
 		if (_left == value)
@@ -513,14 +613,36 @@ public class GraphicElement extends EventDispatcher
 	//  mask
 	//----------------------------------
 
+	/**
+     *  @private
+     *  Storage for the mask property.
+     */
 	private var _mask:DisplayObject;
-	private var previousMask:DisplayObject;
-	private var isMaskInElementSpace:Boolean;
-	private var maskChanged:Boolean;
+	
+	/**
+     *  @private
+     */
+    private var maskChanged:Boolean;
 
+	/**
+     *  @private
+     */
+    private var previousMask:DisplayObject;
+	
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 
+ 	/**
+     *  Documentation is not currently available.
+     */
+	public function get mask():DisplayObject
+	{
+		return _mask;
+	}
+
+	/**
+     *  @private
+     */
 	public function set mask(value:DisplayObject):void
 	{
 		if (_mask == value)
@@ -541,24 +663,35 @@ public class GraphicElement extends EventDispatcher
 		invalidateDisplayList();
 	}
 
-	public function get mask():DisplayObject
-	{
-		return _mask;
-	}
-
 	//----------------------------------
 	//  maskType
 	//----------------------------------
-	private var _maskType:String = MaskType.CLIP;
-	private var maskTypeChanged:Boolean;
+	
+	/**
+     *  @private
+     *  Storage for the maskType property.
+     */
+    private var _maskType:String = MaskType.CLIP;
+	
+	/**
+     *  @private
+     */
+    private var maskTypeChanged:Boolean;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General",enumeration="clip,alpha", defaultValue="clip")]
-	public function get maskType():String
+	
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get maskType():String
 	{
 		return _maskType;
 	}
 
+	/**
+     *  @private
+     */
 	public function set maskType(value:String):void
 	{
 		if (_maskType == value)
@@ -575,16 +708,28 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  maxHeight
 	//----------------------------------
-	private var _maxHeight:Number;
+	
+	/**
+     *  @private
+     *  Storage for the maxHeight property.
+     */
+    private var _maxHeight:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	public function get maxHeight():Number
+	
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get maxHeight():Number
 	{
 		// TODO!!! Examine this logic, Make this arbitrarily large (use UIComponent max)
 		return !isNaN(_maxHeight) ? _maxHeight : DEFAULT_MAX_HEIGHT;
 	}
 
+	/**
+     *  @private
+     */
 	public function set maxHeight(value:Number):void
 	{
 		if (_maxHeight == value)
@@ -601,16 +746,28 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  maxWidth
 	//----------------------------------
-	private var _maxWidth:Number;
+	
+	/**
+     *  @private
+     *  Storage for the maxHeight property.
+     */
+    private var _maxWidth:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	public function get maxWidth():Number
+	
+  	/**
+     *  Documentation is not currently available.
+     */
+    public function get maxWidth():Number
 	{
 		// TODO!!! Examine this logic, Make this arbitrarily large (use UIComponent max)
 		return !isNaN(_maxWidth) ? _maxWidth : DEFAULT_MAX_WIDTH;
 	}
 
+	/**
+     *  @private
+     */
 	public function set maxWidth(value:Number):void
 	{
 		if (_maxWidth == value)
@@ -625,18 +782,134 @@ public class GraphicElement extends EventDispatcher
 	}
 
 	//----------------------------------
+	//  measuredHeight
+	//----------------------------------
+    
+	/**
+     *  @private
+     *  Storage for the measuredHeight property.
+     */
+    private var _measuredHeight:Number = 0;
+    
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get measuredHeight():Number
+    {
+        return _measuredHeight;
+    }
+    
+	/**
+     *  @private
+     */
+    public function set measuredHeight(value:Number):void
+    {
+        _measuredHeight = value;
+    }
+
+	//----------------------------------
+	//  measuredWidth
+	//----------------------------------
+    
+	/**
+     *  @private
+     *  Storage for the measuredWidth property.
+     */
+    private var _measuredWidth:Number = 0;
+    
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get measuredWidth():Number
+    {
+        return _measuredWidth;
+    }
+    
+	/**
+     *  @private
+     */
+    public function set measuredWidth(value:Number):void
+    {
+        _measuredWidth = value;
+    }
+
+	//----------------------------------
+	//  measuredX
+	//----------------------------------
+    
+	/**
+     *  @private
+     *  Storage for the measuredX property.
+     */
+    private var _measuredX:Number = 0;
+    
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get measuredX():Number
+    {
+        return _measuredX;
+    }
+    
+	/**
+     *  @private
+     */
+    public function set measuredX(value:Number):void
+    {
+        _measuredX = value;
+    }
+
+	//----------------------------------
+	//  measuredY
+	//----------------------------------
+    
+	/**
+     *  @private
+     *  Storage for the measuredY property.
+     */
+    private var _measuredY:Number = 0;
+    
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get measuredY():Number
+    {
+        return _measuredY;
+    }
+    
+	/**
+     *  @private
+     */
+    public function set measuredY(value:Number):void
+    {
+        _measuredY = value;
+    }
+
+	//----------------------------------
 	//  minHeight
 	//----------------------------------
-	private var _minHeight:Number;
+	
+ 	/**
+     *  @private
+     *  Storage for the minHeight property.
+     */
+    private var _minHeight:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	public function get minHeight():Number
+	
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get minHeight():Number
 	{
 		// TODO!!! Examine this logic
 		return !isNaN(_minHeight) ? _minHeight : DEFAULT_MIN_HEIGHT;
 	}
 
+	/**
+     *  @private
+     */
 	public function set minHeight(value:Number):void
 	{
 		if (_minHeight == value)
@@ -653,16 +926,28 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  minWidth
 	//----------------------------------
-	private var _minWidth:Number;
+	
+ 	/**
+     *  @private
+     *  Storage for the minWidth property.
+     */
+    private var _minWidth:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	public function get minWidth():Number
+	
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get minWidth():Number
 	{
 		// TODO!!! Examine this logic
 		return !isNaN(_minWidth) ? _minWidth : DEFAULT_MIN_WIDTH;
 	}
 
+	/**
+     *  @private
+     */
 	public function set minWidth(value:Number):void
 	{
 		if (_minWidth == value)
@@ -679,16 +964,28 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  percentHeight
 	//----------------------------------
-	private var _percentHeight:Number;
+	
+ 	/**
+     *  @private
+     *  Storage for the percentHeight property.
+     */
+    private var _percentHeight:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	public function get percentHeight():Number
+	
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get percentHeight():Number
 	{
 		// TODO!!! Examine this logic
 		return _percentHeight;
 	}
 
+	/**
+     *  @private
+     */
 	public function set percentHeight(value:Number):void
 	{
 		if (_percentHeight == value)
@@ -707,16 +1004,28 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  percentWidth
 	//----------------------------------
-	private var _percentWidth:Number;
+	
+ 	/**
+     *  @private
+     *  Storage for the percentWidth property.
+     */
+    private var _percentWidth:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	public function get percentWidth():Number
+	
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get percentWidth():Number
 	{
 		// TODO!!! Examine this logic
 		return _percentWidth;
 	}
 
+	/**
+     *  @private
+     */
 	public function set percentWidth(value:Number):void
 	{
 		if (_percentWidth == value)
@@ -735,15 +1044,27 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  right
 	//----------------------------------
-	private var _right:Number;
+	
+ 	/**
+     *  @private
+     *  Storage for the right property.
+     */
+    private var _right:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	public function get right():Number
+	
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get right():Number
 	{
 		return _right;
 	}
 
+	/**
+     *  @private
+     */
 	public function set right(value:Number):void
 	{
 		if (_right == value)
@@ -760,19 +1081,32 @@ public class GraphicElement extends EventDispatcher
 	//  rotation
 	//----------------------------------
 
+ 	/**
+     *  @private
+     *  Storage for the rotation property.
+     */
 	private var _rotation:Number = 0;
-	private var rotationChanged:Boolean;
+	
+	/**
+     *  @private
+     */
+    private var rotationChanged:Boolean;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	/**
-	 *  Indicates the rotation of the element, in degrees, from the transform point.
+	
+    /**
+	 *  Indicates the rotation of the element, in degrees,
+     *  from the transform point.
 	 */
 	public function get rotation():Number
 	{
 		return _rotation;
 	}
 
+	/**
+     *  @private
+     */
 	public function set rotation(value:Number):void
 	{
 		if (_rotation == value)
@@ -793,20 +1127,32 @@ public class GraphicElement extends EventDispatcher
 	//  scaleX
 	//----------------------------------
 
-	mx_internal var _scaleX:Number = 1;
-	private var scaleXChanged:Boolean;
+ 	/**
+     *  @private
+     *  Storage for the scaleX property.
+     */
+	mx_internal var _scaleX:Number = 1.0;
+	
+	/**
+     *  @private
+     */
+    private var scaleXChanged:Boolean;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 
 	/**
-	 *  Indicates the horizontal scale (percentage) of the element as applied from the transform point.
+	 *  The horizontal scale (percentage) of the element
+     *  as applied from the transform point.
 	 */
 	public function get scaleX():Number
 	{
 		return _scaleX;
 	}
 
+	/**
+     *  @private
+     */
 	public function set scaleX(value:Number):void
 	{
 		if (_scaleX == value)
@@ -830,20 +1176,33 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  scaleY
 	//----------------------------------
-	mx_internal var _scaleY:Number = 1;
-	private var scaleYChanged:Boolean;
+	
+  	/**
+     *  @private
+     *  Storage for the scaleY property.
+     */
+    mx_internal var _scaleY:Number = 1.0;
+	
+	/**
+     *  @private
+     */
+    private var scaleYChanged:Boolean;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 
 	/**
-	 *  Indicates the vertical scale (percentage) of the element as applied from the transform point.
+	 *  Indicates the vertical scale (percentage) of the element
+     *  as applied from the transform point.
 	 */
 	public function get scaleY():Number
 	{
 		return _scaleY;
 	}
 
+	/**
+     *  @private
+     */
 	public function set scaleY(value:Number):void
 	{
 		if (_scaleY == value)
@@ -867,15 +1226,27 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  top
 	//----------------------------------
-	private var _top:Number;
+	
+  	/**
+     *  @private
+     *  Storage for the top property.
+     */
+    private var _top:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	public function get top():Number
+	
+ 	/**
+     *  Documentation is not currently available.
+     */
+    public function get top():Number
 	{
 		return _top;
 	}
 
+	/**
+     *  @private
+     */
 	public function set top(value:Number):void
 	{
 		if (_top == value)
@@ -891,32 +1262,42 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  transform
 	//----------------------------------
-	private var _matrix:Matrix;
-	private var _colorTransform:ColorTransform;
-	private var _transform:flash.geom.Transform;
+	
+	/**
+     *  @private
+     *  Storage for the transform property.
+     */
+    private var _transform:flash.geom.Transform;
 
 	/**
-	 *  The x position transform point of the element.
+	 *  Documentation is not currently available.
 	 */
 	public function get transform():flash.geom.Transform
 	{
 		return _transform;
 	}
 
+	/**
+     *  @private
+     */
 	public function set transform(value:flash.geom.Transform):void
 	{
 		// Clean up the old event listeners
-		var oldTransform:flex.geom.Transform = _transform as flex.geom.Transform;
+		var oldTransform:flex.geom.Transform =
+            _transform as flex.geom.Transform;
 		if (oldTransform)
 		{
-			oldTransform.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
+			oldTransform.removeEventListener(
+                PropertyChangeEvent.PROPERTY_CHANGE,
+                transformPropertyChangeHandler);
 		}
 
 		var newTransform:flex.geom.Transform = value as flex.geom.Transform;
 
 		if (newTransform)
 		{
-			newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
+			newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE,
+                                          transformPropertyChangeHandler);
 			_matrix = value.matrix.clone(); // Make sure it is a copy
 			clearTransformProperties();
 			_colorTransform = value.colorTransform;
@@ -936,8 +1317,17 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  transformX
 	//----------------------------------
-	private var _transformX:Number = 0;
-	private var transformXChanged:Boolean;
+	
+  	/**
+     *  @private
+     *  Storage for the transformX property.
+     */
+    private var _transformX:Number = 0;
+	
+  	/**
+     *  @private
+     */
+    private var transformXChanged:Boolean;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
@@ -950,6 +1340,9 @@ public class GraphicElement extends EventDispatcher
 		return _transformX;
 	}
 
+  	/**
+     *  @private
+     */
 	public function set transformX(value:Number):void
 	{
 		if (_transformX == value)
@@ -973,8 +1366,17 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  transformY
 	//----------------------------------
-	private var _transformY:Number = 0;
-	private var transformYChanged:Boolean;
+	
+  	/**
+     *  @private
+     *  Storage for the transformY property.
+     */
+    private var _transformY:Number = 0;
+	
+  	/**
+     *  @private
+     */
+    private var transformYChanged:Boolean;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
@@ -987,6 +1389,9 @@ public class GraphicElement extends EventDispatcher
 		return _transformY;
 	}
 
+  	/**
+     *  @private
+     */
 	public function set transformY(value:Number):void
 	{
 		if (_transformY == value)
@@ -1006,19 +1411,30 @@ public class GraphicElement extends EventDispatcher
 		// invalidateProperties();
 	}
 
-
 	//----------------------------------
 	//  verticalCenter
 	//----------------------------------
-	private var _verticalCenter:Number;
+	
+  	/**
+     *  @private
+     *  Storage for the verticalCenter property.
+     */
+    private var _verticalCenter:Number;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	public function get verticalCenter():Number
+	
+	/**
+	 *  Documentation is not currently available.
+	 */
+    public function get verticalCenter():Number
 	{
 		return _verticalCenter;
 	}
 
+  	/**
+     *  @private
+     */
 	public function set verticalCenter(value:Number):void
 	{
 		if (_verticalCenter == value)
@@ -1035,13 +1451,17 @@ public class GraphicElement extends EventDispatcher
 	//  width
 	//----------------------------------
 
+  	/**
+     *  @private
+     *  Storage for the width property.
+     */
 	mx_internal var _width:Number = 0;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 
 	/**
-	 *  The width of the Graphic Element.
+	 *  The width of the graphic element.
 	 *
 	 *  @default 0
 	 */
@@ -1050,6 +1470,9 @@ public class GraphicElement extends EventDispatcher
 		return _width;
 	}
 
+  	/**
+     *  @private
+     */
 	public function set width(value:Number):void
 	{
 	    explicitWidth = value;
@@ -1071,20 +1494,34 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  x
 	//----------------------------------
-	// TODO!!! Change to NaN and integrate Rect/Ellipse bounds/draw functions
-	private var _x:Number = 0;
-	private var xChanged:Boolean;
+	
+    // TODO!!! Change to NaN and integrate Rect/Ellipse bounds/draw functions
+	
+  	/**
+     *  @private
+     *  Storage for the x property.
+     */
+    private var _x:Number = 0;
+	
+  	/**
+     *  @private
+     */
+    private var xChanged:Boolean;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	/**
-	 *  The x position of the element
+	
+    /**
+	 *  The x position of the graphic element.
 	 */
 	public function get x():Number
 	{
 		return _x;
 	}
 
+  	/**
+     *  @private
+     */
 	public function set x(value:Number):void
 	{
 		if (_x == value)
@@ -1107,20 +1544,34 @@ public class GraphicElement extends EventDispatcher
 	//----------------------------------
 	//  y
 	//----------------------------------
-	// TODO!!! Change to NaN and integrate Rect/Ellipse bounds/draw functions
-	private var _y:Number = 0;
+	
+    // TODO!!! Change to NaN and integrate Rect/Ellipse bounds/draw functions
+	
+  	/**
+     *  @private
+     *  Storage for the y property.
+     */
+    private var _y:Number = 0;
+
+  	/**
+     *  @private
+     */
 	private var yChanged:Boolean;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	/**
-	 *  The y position of the element
+	
+    /**
+	 *  The y position of the graphic element.
 	 */
 	public function get y():Number
 	{
 		return _y;
 	}
 
+  	/**
+     *  @private
+     */
 	public function set y(value:Number):void
 	{
 		if (_y == value)
@@ -1144,8 +1595,16 @@ public class GraphicElement extends EventDispatcher
 	//  visible
 	//----------------------------------
 
+  	/**
+     *  @private
+     *  Storage for the visible property.
+     */
 	private var _visible:Boolean = true;
-	private var visibleChanged:Boolean;
+	
+  	/**
+     *  @private
+     */
+    private var visibleChanged:Boolean;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
@@ -1158,6 +1617,9 @@ public class GraphicElement extends EventDispatcher
 		return _visible;
 	}
 
+  	/**
+     *  @private
+     */
 	public function set visible(value:Boolean):void
 	{
 		if (_visible == value)
@@ -1175,24 +1637,34 @@ public class GraphicElement extends EventDispatcher
 
 	//--------------------------------------------------------------------------
 	//
-	//  IDisplayObjectElement properties
+	//  Properties: IDisplayObjectElement
 	//
 	//--------------------------------------------------------------------------
 
 	//----------------------------------
 	//  displayObject
 	//----------------------------------
-	private var _displayObject:DisplayObject;
+	
+  	/**
+     *  @private
+     *  Storage for the displayObject property.
+     */
+    private var _displayObject:DisplayObject;
 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 
+  	/**
+     *  Documentation is not currently available.
+     */
 	public function get displayObject():DisplayObject
 	{
 		return _displayObject;
 	}
 
-	// TODO!!! Figure out what happens when DO is set.
+  	/**
+     *  @private
+     */
 	public function set displayObject(value:DisplayObject):void
 	{
 		if (_displayObject == value)
@@ -1200,9 +1672,6 @@ public class GraphicElement extends EventDispatcher
 
 		var oldValue:DisplayObject = _displayObject;
 		_displayObject = value;
-		//applyTransforms();
-		/* TransformUtil.applyTransforms(value, _matrix, _x, _y, _scaleX, _scaleY,
-			_rotation, _transformX, _transformY); */
 		dispatchPropertyChangeEvent("displayObject", oldValue, value);
 
         // New display object, we need to redraw
@@ -1213,7 +1682,166 @@ public class GraphicElement extends EventDispatcher
 		// invalidateProperties();
 	}
 
-	public function createDisplayObject():DisplayObject
+	//--------------------------------------------------------------------------
+	//
+	//  Properties
+	//
+	//--------------------------------------------------------------------------
+
+ 	//----------------------------------
+	//  actualPosition
+	//----------------------------------
+
+    /**
+     *  The item TBounds top left corner coordinates.
+     */
+    public function get actualPosition():Point
+    {
+    	var xPos:Number = measuredX + (_matrix ? _matrix.tx : _x);
+    	var yPos:Number = measuredY + (_matrix ? _matrix.ty : _y);
+        var vec:Point = new Point(xPos, yPos);
+
+        // Account for transform
+    	var m:Matrix = computeMatrix(true /*actualMatrix*/);
+    	if (m)
+    	{
+	        // Calculate the vector from pre-transform top-left to
+	        // post-transform top-left:
+	    	TransformUtil.transformBounds(new Point(_width, _height), m, vec);
+
+	    	// Subtract it from (xPos, yPos):
+	    	vec.x = xPos - vec.x;
+	    	vec.y = yPos - vec.y;
+    	}
+
+        // Take stroke into account:
+        // TODO EGeorgie: We assume that the stroke extents are even on both sides.
+        // and that's not necessarily true.
+        var strokeExtents:Point = getStrokeExtents();
+        vec.x -= strokeExtents.x * 0.5;
+        vec.y -= strokeExtents.y * 0.5;
+
+    	return vec;
+    }
+
+ 	//----------------------------------
+	//  actualSize
+	//----------------------------------
+
+    /**
+     *  The item TBounds size.
+     */
+    public function get actualSize():Point
+    {
+    	return transformSizeForLayout(_width, _height, true /*actualMatrix*/);
+    }
+
+	//----------------------------------
+	//  includeInLayout
+	//----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the includeInLayout property.
+     */
+    private var _includeInLayout:Boolean = true;
+
+	[Bindable("propertyChange")]
+	[Inspectable(category="General", defaultValue="true")]
+
+    /**
+     *  Specifies whether this element is included in the layout of the group.
+     *
+     *  @default true
+     */
+    public function get includeInLayout():Boolean
+    {
+        return _includeInLayout;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set includeInLayout(value:Boolean):void
+    {
+        if (_includeInLayout == value)
+            return;
+
+		var oldValue:Boolean = _includeInLayout;
+        _includeInLayout = value;
+		dispatchPropertyChangeEvent("includeInLayout", oldValue, value);
+            
+        invalidateParentSizeAndDisplayList();
+        // TODO EGeorgie: if the displayObject is shared, we need to
+        // invalidateDisplayList();
+    }
+
+	//----------------------------------
+	//  maxSize
+	//----------------------------------
+
+    /**
+     *  The TBounds of the maximum item size.
+     *  <code>preferredSize</code> <= <code>maxSize</code> must be true.
+     */
+    public function get maxSize():Point
+    {
+        return transformSizeForLayout(maxWidth, maxHeight,
+                                      false /*actualMatrix*/);
+    }
+
+	//----------------------------------
+	//  minSize
+	//----------------------------------
+
+    /**
+     *  The TBounds of the minimum item size.
+     *  <code>minSize</code> <= <code>preferredSize</code> must be true.
+     */
+    public function get minSize():Point
+    {
+    	return transformSizeForLayout(minWidth, minHeight, false /*actualMatrix*/);
+    }
+
+ 	//----------------------------------
+	//  percentSize
+	//----------------------------------
+
+    /**
+     *  The desired item TBounds size
+     *  as a percentage of parent UBounds. Could be NaN.
+     */
+    public function get percentSize():Point
+    {
+        return new Point(percentWidth, percentHeight);
+    }
+
+	//----------------------------------
+	//  preferredSize
+	//----------------------------------
+
+    /**
+     *  The TBounds of the preferred item size.
+     *  The preferred size is usually based on the default
+     *  item size and any explicit size overrides.
+     */
+    public function get preferredSize():Point
+    {
+    	return transformSizeForLayout(preferredWidthPreTransform(),
+    	                              preferredHeightPreTransform(),
+    	                              false /*actualMatrix*/);
+    }
+
+	//--------------------------------------------------------------------------
+	//
+	//  Methods
+	//
+	//--------------------------------------------------------------------------
+
+  	/**
+     *  Documentation is not currently available.
+     */
+    public function createDisplayObject():DisplayObject
 	{
 		if (displayObject)
 			return displayObject;
@@ -1221,20 +1849,23 @@ public class GraphicElement extends EventDispatcher
 			return new Sprite();
 	}
 
+  	/**
+     *  Documentation is not currently available.
+     */
 	public function needsDisplayObject():Boolean
 	{
 		return true;
 	}
 
     /**
-     *  Returns a bitmap snapshot of the GraphicElement. The bitmap
-     *  contains all transformations and is reduced to fit the visual
-     *  bounds of the object.
+     *  Returns a bitmap snapshot of the GraphicElement.
+     *  The bitmap contains all transformations and is reduced
+     *  to fit the visual bounds of the object.
      */
     public function getBitmapData():BitmapData
     {
-    	// NOTE: This code will not work correctly when we share display objects
-    	// across multiple graphic elements.
+    	// NOTE: This code will not work correctly when we share
+        // display objects across multiple graphic elements.
     	var bitmapData:BitmapData = new BitmapData(actualSize.x, actualSize.y);
     	var oldPos:Point = actualPosition;
     	
@@ -1245,6 +1876,9 @@ public class GraphicElement extends EventDispatcher
     	return bitmapData;
     }
 
+  	/**
+     *  Documentation is not currently available.
+     */
 	public function applyMask():void
 	{
 		if (displayObject && _mask)
@@ -1260,12 +1894,9 @@ public class GraphicElement extends EventDispatcher
 		}
 	}
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
-
+  	/**
+     *  Documentation is not currently available.
+     */
 	protected function applyDisplayObjectProperties():void
 	{
 		if (displayObject)
@@ -1319,6 +1950,9 @@ public class GraphicElement extends EventDispatcher
 		}
 	}
 
+  	/**
+     *  Documentation is not currently available.
+     */
 	protected function applyMaskType():void
 	{
 		if (_mask)
@@ -1340,6 +1974,9 @@ public class GraphicElement extends EventDispatcher
 		}
 	}
 
+  	/**
+     *  Documentation is not currently available.
+     */
 	protected function clearTransformProperties():void
 	{
 		scaleXChanged = false;
@@ -1350,17 +1987,20 @@ public class GraphicElement extends EventDispatcher
 	}
 
 	/**
-	 *  Dispatch a propertyChange event.
+	 *  Dispatches a propertyChange event.
 	 */
-	protected function dispatchPropertyChangeEvent(prop:String, oldValue:*, value:*):void
+	protected function dispatchPropertyChangeEvent(prop:String, oldValue:*,
+                                                   value:*):void
 	{
-		dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop, oldValue, value));
+		dispatchEvent(PropertyChangeEvent.createUpdateEvent(
+                           this, prop, oldValue, value));
 
 	}
 
 	// TODO EGeorgie: can we use the standart IInvalidating methods instead of
 	// notifyElementLayerChanged()?
-	/**
+	
+    /**
 	 *  Utility method that notifies our host that we have changed and need
 	 *  our layer to be updated.
 	 */
@@ -1369,82 +2009,10 @@ public class GraphicElement extends EventDispatcher
 	    // TODO EGeorgie: figure this out. For now, invalidateDisplayList
 	    // to preseve original behavior before layout API unification.
 	    invalidateDisplayList();
-		if (elementHost)
+		
+        if (elementHost)
 			elementHost.elementLayerChanged(this);
 	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  EventHandlers
-	//
-	//--------------------------------------------------------------------------
-
-	protected function filterChangedHandler(event:Event):void
-	{
-		filters = _filters;
-	}
-
-	protected function transformPropertyChangeHandler(event:PropertyChangeEvent):void
-	{
-		if (event.kind == PropertyChangeEventKind.UPDATE)
-		{
-			if (event.property == "matrix")
-			{
-				// Apply matrix
-				if (_transform)
-				{
-					_matrix = _transform.matrix.clone();
-					clearTransformProperties();
-					notifyElementLayerChanged();
-
-                    // Parent layout takes transform into account
-					invalidateParentSizeAndDisplayList();
-
-					// TODO EGeorgie: apply the transform properties in commitProperties
-                	// instead of in setActualSize, setActualPosition.
-                	// invalidateProperties();
-				}
-			}
-			else if (event.property == "colorTransform")
-			{
-				// Apply colorTranform
-				if (_transform)
-				{
-					_colorTransform = _transform.colorTransform;
-					invalidateDisplayList();
-					notifyElementLayerChanged();
-				}
-			}
-		}
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  IInvalidating
-	//
-	//--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Whether this element needs to have its
-     *  commitProperties() method called.
-     */
-    mx_internal var invalidatePropertiesFlag:Boolean = false;
-
-    /**
-     *  @private
-     *  Whether this element needs to have its
-     *  measure() method called.
-     */
-    mx_internal var invalidateSizeFlag:Boolean = false;
-
-    /**
-     *  @private
-     *  Whether this element needs to be have its
-     *  updateDisplayList() method called.
-     */
-    mx_internal var invalidateDisplayListFlag:Boolean = false;
-
 
 	/**
 	 *  Calling this method results in a call to the elements's
@@ -1535,7 +2103,10 @@ public class GraphicElement extends EventDispatcher
     public function validateNow():void
     {
         if (elementHost)
-            UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(elementHost));
+        {
+            UIComponentGlobals.layoutManager.validateClient(
+                ILayoutManagerClient(elementHost));
+        }
     }
 
     /**
@@ -1720,7 +2291,7 @@ public class GraphicElement extends EventDispatcher
 
 	//--------------------------------------------------------------------------
     //
-    //  ILayoutItem
+    //  Methods: ILayoutItem
     //
     //--------------------------------------------------------------------------
 
@@ -1749,7 +2320,8 @@ public class GraphicElement extends EventDispatcher
      *  @return Returns the transformed size. Transformation is this element's
      *  transformation matrix.
      */
-    private function transformSizeForLayout(width:Number, height:Number, actualMatrix:Boolean):Point
+    private function transformSizeForLayout(width:Number, height:Number,
+                                            actualMatrix:Boolean):Point
     {
         var size:Point = new Point(width, height);
         var m:Matrix = computeMatrix(actualMatrix);
@@ -1763,98 +2335,26 @@ public class GraphicElement extends EventDispatcher
         return size;
     }
     
+  	/**
+     *  @private
+     */
     private function preferredWidthPreTransform():Number
     {
         return isNaN(explicitWidth) ? measuredWidth : explicitWidth;
     }
 
+  	/**
+     *  @private
+     */
     private function preferredHeightPreTransform():Number
     {
         return isNaN(explicitHeight) ? measuredHeight: explicitHeight;
     }
 
     /**
-     *  @return Returns TBounds of the preferred
-     *  item size. The preferred size is usually based on the default
-     *  item size and any explicit size overrides.
-     */
-    public function get preferredSize():Point
-    {
-    	return transformSizeForLayout(preferredWidthPreTransform(),
-    	                              preferredHeightPreTransform(),
-    	                              false /*actualMatrix*/);
-    }
-
-    /**
-     *  @return Returns TBounds of the minimum item size.
-     *  <code>minSize</code> <= <code>preferredSize</code> must be true.
-     */
-    public function get minSize():Point
-    {
-    	return transformSizeForLayout(minWidth, minHeight, false /*actualMatrix*/);
-    }
-
-    /**
-     *  @return Returns TBounds of the maximum item size.
-     *  <code>preferredSize</code> <= <code>maxSize</code> must be true.
-     */
-    public function get maxSize():Point
-    {
-        return transformSizeForLayout(maxWidth, maxHeight, false /*actualMatrix*/);
-    }
-
-    /**
-     *  @return Returns the desired item TBounds size
-     *  as a percentage of parent UBounds. Could be NaN.
-     */
-    public function get percentSize():Point
-    {
-        return new Point(percentWidth, percentHeight);
-    }
-
-    /**
-     *  @return Returns the item TBounds size.
-     */
-    public function get actualSize():Point
-    {
-    	return transformSizeForLayout(_width, _height, true /*actualMatrix*/);
-    }
-
-    /**
-     *  @return Returns the item TBounds top left corner coordinates.
-     */
-    public function get actualPosition():Point
-    {
-    	var xPos:Number = measuredX + (_matrix ? _matrix.tx : _x);
-    	var yPos:Number = measuredY + (_matrix ? _matrix.ty : _y);
-        var vec:Point = new Point(xPos, yPos);
-
-        // Account for transform
-    	var m:Matrix = computeMatrix(true /*actualMatrix*/);
-    	if (m)
-    	{
-	        // Calculate the vector from pre-transform top-left to
-	        // post-transform top-left:
-	    	TransformUtil.transformBounds(new Point(_width, _height), m, vec);
-
-	    	// Subtract it from (xPos, yPos):
-	    	vec.x = xPos - vec.x;
-	    	vec.y = yPos - vec.y;
-    	}
-
-        // Take stroke into account:
-        // TODO EGeorgie: We assume that the stroke extents are even on both sides.
-        // and that's not necessarily true.
-        var strokeExtents:Point = getStrokeExtents();
-        vec.x -= strokeExtents.x * 0.5;
-        vec.y -= strokeExtents.y * 0.5;
-
-    	return vec;
-    }
-
-    /**
-     *  <code>setActualPosition</code> moves the item such that the item TBounds
-     *  top left corner has the specified coordinates.
+     *  <code>setActualPosition</code> moves the item
+     *  such that the left-top corner of the item's TBounds
+     *  has the specified coordinates.
      */
     public function setActualPosition(x:Number, y:Number):void
     {
@@ -1889,8 +2389,9 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  <code>setActualSize</code> modifies the item size/transform so that
-     *  its TBounds have the specified <code>width</code> and <code>height</code>.
+     *  <code>setActualSize</code> modifies the item size/transform
+     *  so that its TBounds have the specified <code>width</code>
+     *  and <code>height</code>.
      *
      *  If one of the desired TBounds dimensions is left unspecified, it's size
      *  will be picked such that item can be optimally sized to fit the other
@@ -1910,7 +2411,8 @@ public class GraphicElement extends EventDispatcher
      *
      *  @return Returns the TBounds of the new item size.
      */
-    public function setActualSize(width:Number = Number.NaN, height:Number = Number.NaN):Point
+    public function setActualSize(width:Number = Number.NaN,
+                                  height:Number = Number.NaN):Point
     {
         var strokeExtents:Point = getStrokeExtents();
 
@@ -1935,11 +2437,13 @@ public class GraphicElement extends EventDispatcher
             if (!isNaN(height))
                height -= strokeExtents.y;
 
-            var newSize:Point = TransformUtil.fitBounds(width, height, m,
-                                                        preferredWidthPreTransform(),
-                                                        preferredHeightPreTransform(),
-                                                        minWidth, minHeight,
-                                                        maxWidth, maxHeight);
+            var newSize:Point = TransformUtil.fitBounds(
+                                    width, height, m,
+                                    preferredWidthPreTransform(),
+                                    preferredHeightPreTransform(),
+                                    minWidth, minHeight,
+                                    maxWidth, maxHeight);
+
             if (newSize)
             {
                 width = newSize.x;
@@ -1954,8 +2458,15 @@ public class GraphicElement extends EventDispatcher
 
         if (_width != width || _height != height)
         {
+	        var oldWidth:Number = _width;
+	        var oldHeight:Number = _height;
+		    
             _width = width;
             _height = height;
+		    
+            dispatchPropertyChangeEvent("width", oldWidth, width);
+            dispatchPropertyChangeEvent("height", oldHeight, height);
+
             invalidateDisplayList();
         }
 
@@ -1965,6 +2476,9 @@ public class GraphicElement extends EventDispatcher
         return actualSize;
     }
 
+  	/**
+     *  @private
+     */
     private function beginCommitTransformProps():void
 	{
         if (_mask && isMaskInElementSpace)
@@ -1979,6 +2493,9 @@ public class GraphicElement extends EventDispatcher
         }
 	}
 
+  	/**
+     *  @private
+     */
 	private function endCommitTransformProps():void
 	{
         if (_mask && !isMaskInElementSpace)
@@ -2020,10 +2537,13 @@ public class GraphicElement extends EventDispatcher
         beginCommitTransformProps();
 
         var rot:Number = rotationChanged ? _rotation : NaN;
+        
         TransformUtil.applyTransforms(displayObject, _matrix, NaN, NaN,
-                                      _scaleX, _scaleY, rot, _transformX, _transformY);
+                                      _scaleX, _scaleY, rot,
+                                      _transformX, _transformY);
 
         _matrix = null;
+        
         _scaleX = displayObject.scaleX;
         _scaleY = displayObject.scaleY;
         _rotation = displayObject.rotation;
@@ -2040,6 +2560,9 @@ public class GraphicElement extends EventDispatcher
         endCommitTransformProps();
     }
 
+   	/**
+     *  @private
+     */
     protected function getStroke():IStroke
     {
         return null;
@@ -2074,7 +2597,8 @@ public class GraphicElement extends EventDispatcher
 	            weight *= _scaleX;
 	        else
 	            weight *= Math.sqrt(0.5 * (_scaleX * _scaleX + _scaleY * _scaleY));
-	        return new Point(weight, weight);
+	        
+            return new Point(weight, weight);
         }
         else if (scaleMode == LineScaleMode.HORIZONTAL)
         {
@@ -2084,24 +2608,83 @@ public class GraphicElement extends EventDispatcher
         {
         	return new Point(weight, weight * _scaleY);
         }
+
         return null;
     }
 
     //--------------------------------------------------------------------------
     //
-    //  IConstraintClient
+    //  Methods: IConstraintClient
     //
     //--------------------------------------------------------------------------
 
+  	/**
+     *  @private
+     */
     public function getConstraintValue(constraintName:String):*
     {
     	return this[constraintName];
     }
 
+  	/**
+     *  @private
+     */
     public function setConstraintValue(constraintName:String, value:*):void
     {
     	this[constraintName] = value;
     }
+	
+    //--------------------------------------------------------------------------
+	//
+	//  Event handlers
+	//
+	//--------------------------------------------------------------------------
 
+  	/**
+     *  Documentation is not currently available.
+     */
+	protected function filterChangedHandler(event:Event):void
+	{
+		filters = _filters;
+	}
+
+  	/**
+     *  Documentation is not currently available.
+     */
+	protected function transformPropertyChangeHandler(
+                                    event:PropertyChangeEvent):void
+	{
+		if (event.kind == PropertyChangeEventKind.UPDATE)
+		{
+			if (event.property == "matrix")
+			{
+				// Apply matrix
+				if (_transform)
+				{
+					_matrix = _transform.matrix.clone();
+					clearTransformProperties();
+					notifyElementLayerChanged();
+
+                    // Parent layout takes transform into account
+					invalidateParentSizeAndDisplayList();
+
+					// TODO EGeorgie: apply the transform properties in commitProperties
+                	// instead of in setActualSize, setActualPosition.
+                	// invalidateProperties();
+				}
+			}
+			else if (event.property == "colorTransform")
+			{
+				// Apply colorTranform
+				if (_transform)
+				{
+					_colorTransform = _transform.colorTransform;
+					invalidateDisplayList();
+					notifyElementLayerChanged();
+				}
+			}
+		}
+	}
 }
+
 }
