@@ -32,7 +32,7 @@
         </s:fill>
     </s:Rect>
 
-    <s:RichEditableText id="textView"
+    <s:RichEditableText id="textDisplay"
               lineBreak="explicit" 
               verticalAlign="middle"
               left="1" right="1" top="1" bottom="1"
