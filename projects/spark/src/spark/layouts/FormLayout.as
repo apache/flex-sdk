@@ -33,6 +33,9 @@ use namespace mx_internal;
  *  For example, if the first child's second column has a percent width, then the 
  *  second child's second column should also be a percent width.
  *
+ *  <p><b>Note</b>: Only use the FormLayout class with the Spark Form container. 
+ *  Do not use it to lay out the contents of any other container.</p>
+ *
  *  @see spark.components.Form
  *  @see spark.components.FormHeading
  *  @see spark.components.FormItem
