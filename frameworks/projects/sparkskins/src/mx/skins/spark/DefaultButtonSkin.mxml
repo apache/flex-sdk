@@ -11,7 +11,10 @@
 
 -->
 
-<!--- The Spark skin class for the Halo default button. 
+<!--- The Spark skin class for the MX default button. The default button is 
+        used in panels such as an Alert.
+
+      @see mx.controls.Alert
         
       @langversion 3.0
       @playerversion Flash 10
