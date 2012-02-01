@@ -18,9 +18,12 @@
     	[HostComponent("flex.component.HScrollBar")]
     </Metadata> 
     
-    <Button id="track" left="17" right="17" skinZZ="flex.skin.HScrollBarTrackSkin" />
-    <Button left="0" id="upButton" skinZZ="flex.skin.ScrollBarLeftButtonSkin" />
+    <Button id="track" left="17" right="17"
+            skinZZ="flex.skin.HScrollBarTrackSkin" />
     <Button id="thumb" skinZZ="flex.skin.HScrollBarThumbSkin" />
-    <Button right="0" id="downButton" skinZZ="flex.skin.ScrollBarRightButtonSkin" />
+    <Button id="decrementButton" left="0"
+            skinZZ="flex.skin.ScrollBarLeftButtonSkin" />
+    <Button id="incrementButton" right="0"
+            skinZZ="flex.skin.ScrollBarRightButtonSkin" />
 
 </Skin>
