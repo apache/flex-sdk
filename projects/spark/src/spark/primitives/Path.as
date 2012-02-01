@@ -56,13 +56,13 @@ use namespace mx_internal;
 public class Path extends FilledElement
 {
     include "../core/Version.as";
-
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  Constructor. 
      *  
@@ -101,8 +101,8 @@ public class Path extends FilledElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-	private var segments:PathSegmentsCollection;
-
+    private var segments:PathSegmentsCollection;
+    
     /**
      *  A GraphicsPath object that contains the drawing 
      *  commands to draw this Path.  
@@ -119,15 +119,15 @@ public class Path extends FilledElement
     //  Properties
     //
     //--------------------------------------------------------------------------
-
-	//----------------------------------
+    
+    //----------------------------------
     //  data
     //----------------------------------
     
     private var _data:String;
     
     [Inspectable(category="General")]
-
+    
     /**
      *  A string containing a compact represention of the path segments. This is an alternate
      *  way of setting the segments property. Setting this property overrides any values
@@ -206,19 +206,19 @@ public class Path extends FilledElement
     {
         if (_data == value)
             return;
-
-		segments = new PathSegmentsCollection(value);
-
-		graphicsPathChanged = true;
-
-		// Clear our cached measurement and data values
-		clearCachedBoundingBoxWithStroke();
-		invalidateSize();
-		invalidateDisplayList();
-
+        
+        segments = new PathSegmentsCollection(value);
+        
+        graphicsPathChanged = true;
+        
+        // Clear our cached measurement and data values
+        clearCachedBoundingBoxWithStroke();
+        invalidateSize();
+        invalidateDisplayList();
+        
         _data = value;
     }
-
+    
     /** 
      *  @private
      */
@@ -230,7 +230,7 @@ public class Path extends FilledElement
     //----------------------------------
     //  winding
     //----------------------------------
-
+    
     private var _winding:String = "evenOdd";
     
     /**
@@ -263,22 +263,22 @@ public class Path extends FilledElement
     {
         return _winding; 
     }
-
+    
     //----------------------------------
     //  bounds
     //----------------------------------
-
+    
     private function getBounds():Rectangle
     {
-		return segments ? segments.getBounds() : new Rectangle();
+        return segments ? segments.getBounds() : new Rectangle();
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  @inheritDoc
      *  
@@ -295,7 +295,7 @@ public class Path extends FilledElement
         measuredX = bounds.left;
         measuredY = bounds.top;
     }
-
+    
     /**
      *  @private
      *  Storage for the cached bounding box for particular transformation and size.
@@ -308,7 +308,7 @@ public class Path extends FilledElement
     private var _boundingBoxHeightParamCached:Number;
     private var _boundingBoxX:Number;
     private var _boundingBoxY:Number;
-
+    
     /**
      *  @private
      *  Returns the bounding box for the path including stroke, if the path is resized
@@ -334,10 +334,10 @@ public class Path extends FilledElement
                 return _boundingBoxCached;
             }
             else if (m && _boundingBoxMatrixCached &&
-                     m.a == _boundingBoxMatrixCached.a &&
-                     m.b == _boundingBoxMatrixCached.b &&
-                     m.c == _boundingBoxMatrixCached.c &&
-                     m.d == _boundingBoxMatrixCached.d)
+                m.a == _boundingBoxMatrixCached.a &&
+                m.b == _boundingBoxMatrixCached.b &&
+                m.c == _boundingBoxMatrixCached.c &&
+                m.d == _boundingBoxMatrixCached.d)
             {
                 _boundingBoxCached.x = _boundingBoxX + m.tx;
                 _boundingBoxCached.y = _boundingBoxY + m.ty;
@@ -358,15 +358,15 @@ public class Path extends FilledElement
         // Remember width and height
         _boundingBoxWidthParamCached = width;
         _boundingBoxHeightParamCached = height;
-
+        
         _boundingBoxCached = computeBoundsWithStroke(_boundingBoxWidthParamCached,
-                                                     _boundingBoxHeightParamCached,
-                                                     m);
-
+            _boundingBoxHeightParamCached,
+            m);
+        
         // Remember the original x & y:
         _boundingBoxX = _boundingBoxCached.x - (m ? m.tx : 0);
         _boundingBoxY = _boundingBoxCached.y - (m ? m.ty : 0);
-
+        
         return _boundingBoxCached; // No need to return clone, as this is for internal use only
     }
     
@@ -386,20 +386,20 @@ public class Path extends FilledElement
     {
         // TODO (egeorgie): optimize, we don't need to compute the tangent,
         // but just make sure the segment is not collapsed into a single point?
-
+        
         // Check the start tangent only. If it's valid,
         // then there is a valid end tangent as well.
         curSegment.getTangent(prevSegment, true, sx, sy, m, tangent);
         return (tangent.x != 0 || tangent.y != 0);
     }
-
+    
     /**
      *  @private
      *  @return Returns the axis aligned bounding box of the path when
      *  resized to (width, height) and then transformed by matrix m.
      */
     mx_internal function computeBoundsWithStroke(width:Number,
-												 height:Number,
+                                                 height:Number,
                                                  m:Matrix):Rectangle
     {
         var naturalBounds:Rectangle = getBounds();
@@ -407,16 +407,16 @@ public class Path extends FilledElement
         var sy:Number = naturalBounds.height == 0 ? 1 : height / naturalBounds.height; 
         
         // First, figure out the bounding box without stroke
-		var pathBBox:Rectangle;
+        var pathBBox:Rectangle;
         // Special case, if there's no transformation or only offset,
         // then the non-stroked path bounds for the give size can be
         // scaled from the pre-transform natural bounds:
         if (!m || MatrixUtil.isDeltaIdentity(m) || !this.segments)
         {
             pathBBox = new Rectangle(naturalBounds.x * sx,
-                                     naturalBounds.y * sy,
-                                     naturalBounds.width * sx,
-                                     naturalBounds.height * sy);
+                naturalBounds.y * sy,
+                naturalBounds.width * sx,
+                naturalBounds.height * sy);
             if (m)
                 pathBBox.offset(m.tx, m.ty);
         }
@@ -424,20 +424,20 @@ public class Path extends FilledElement
         {
             pathBBox = this.segments.getBoundingBox(width, height, m);
         }
-
+        
         // Do we have stroke? 
         var strokeSettings:IStroke = this.stroke;
         if (!strokeSettings || !this.segments)
             return pathBBox;
-
+        
         // Always add half the stroke weight, even for miter limit paths,
         // as a point on a curve and not necessarily a joint tip could be
         // an extreme that pushes the bounds.
         var strokeExtents:Rectangle = getStrokeExtents();
         pathBBox.inflate(strokeExtents.right, strokeExtents.bottom);
-		
-		var seg:Vector.<PathSegment> = segments.data;
-
+        
+        var seg:Vector.<PathSegment> = segments.data;
+        
         if (strokeSettings.joints != "miter" || seg.length < 2)
         {
             // TODO (egeorgie): Will overshoot for "bevel"
@@ -447,7 +447,7 @@ public class Path extends FilledElement
         
         // Use strokeExtents to get the transformed stroke weight.
         var halfWeight:Number = strokeExtents.width / 2;
-
+        
         // Miter limit is always at least 1
         var miterLimit:Number = Math.max(1, strokeSettings.miterLimit);
         var count:int = seg.length;
@@ -467,10 +467,10 @@ public class Path extends FilledElement
                     break;
                 start++;
             }
-
+            
             if (start >= count)
                 break; // No more segments with valid tangents
-
+            
             var startSegment:PathSegment = seg[start];
             if (startSegment is MoveSegment)
             {
@@ -478,12 +478,12 @@ public class Path extends FilledElement
                 lastOpenSegment = start + 1;
                 lastMoveX = startSegment.x;
                 lastMoveY = startSegment.y;
-
+                
                 // move onto next segment:
                 start++;
                 continue;
             }
-
+            
             // Does the current segment close to a previous segment and form a joint with it?
             // Note, even if the segment was originally a close segment, it may not form a joint
             // with the segment it closes to, unless it's followed by a MoveSegment or it's the last
@@ -496,7 +496,7 @@ public class Path extends FilledElement
             }
             else
                 end = start + 1;
-
+            
             // Find a segment with a valid tangent or stop at a MoveSegment 
             while (end < count && !(seg[end] is MoveSegment))
             {
@@ -504,25 +504,25 @@ public class Path extends FilledElement
                     break;
                 end++;
             }
-
+            
             if (end >= count)
                 break; // No more segments with valid tangents
-
+            
             var endSegment:PathSegment = seg[end];
-
+            
             if (!(endSegment is MoveSegment))
             {
                 addMiterLimitStrokeToBounds(start > 0 ? seg[start - 1] : null, 
-                                            startSegment,
-                                            endSegment, 
-                                            miterLimit,
-                                            halfWeight,
-                                            sx,
-                                            sy,
-                                            m,
-                                            pathBBox);
+                    startSegment,
+                    endSegment, 
+                    miterLimit,
+                    halfWeight,
+                    sx,
+                    sy,
+                    m,
+                    pathBBox);
             }
-
+            
             // Move on to the next segment, but never go back. End could be less
             // than start, because of implicit/explicit CloseSegments.
             start = start > end ? start + 1 : end;
@@ -538,19 +538,19 @@ public class Path extends FilledElement
     {
         return getBoundingBoxWithStroke(width, height, null);
     }
-
-	/**
-	 *  @private 
-	 */
-	override protected function get needsDisplayObject():Boolean
-	{
-		// Rendering with miter limit into the same DisplayObject will cause the
-		// slow code-path Player execution for all graphics in that DisplayObject.
-		// Make sure that we don't share the DisplayObject with other elements when 
-		// we have stroke with miter joints.
-		return super.needsDisplayObject || (stroke && stroke.joints == "miter");
-	}
-
+    
+    /**
+     *  @private 
+     */
+    override protected function get needsDisplayObject():Boolean
+    {
+        // Rendering with miter limit into the same DisplayObject will cause the
+        // slow code-path Player execution for all graphics in that DisplayObject.
+        // Make sure that we don't share the DisplayObject with other elements when 
+        // we have stroke with miter joints.
+        return super.needsDisplayObject || (stroke && stroke.joints == "miter");
+    }
+    
     /**
      *  @private
      *  Calculates the miter stroke contribution to the "result" bounding box.
@@ -598,7 +598,7 @@ public class Path extends FilledElement
         // Valid tangents?
         if (t0.length == 0 || t1.length == 0)
             return;
-       
+        
         // The tip of the stroke lies on the bisector of the angle and lies at a distance
         // of weight / sin(A/2), where A is the angle between the tangents.
         
@@ -607,7 +607,7 @@ public class Path extends FilledElement
         t0.x = -t0.x;
         t0.y = -t0.y;
         t1.normalize(1);
-
+        
         // Find the vector from t0 to the midPoint from t0 to t1
         var halfT0T1:Point = new Point( (t1.x - t0.x) * 0.5, (t1.y - t0.y) * 0.5);
         
@@ -619,7 +619,7 @@ public class Path extends FilledElement
             // we avoid cases like this one L 0 0  0 50  100 0  30 0 50 0 Z
             return; 
         }
-
+        
         // Find the vector of the bisect
         var bisect:Point = new Point( -0.5 * (t0.x + t1.x), -0.5 * (t0.y + t1.y) );
         if (bisect.length == 0)
@@ -640,15 +640,15 @@ public class Path extends FilledElement
             
             var bisectLength:Number = bisect.length;
             bisect.normalize(1);
-
+            
             halfT0T1.normalize((weight - miterLimit * weight * sinHalfAlpha) / bisectLength);
-
+            
             var pt0:Point = new Point(jointX + miterLimit * weight * bisect.x + halfT0T1.x,
-                                      jointY + miterLimit * weight * bisect.y + halfT0T1.y);
-
+                jointY + miterLimit * weight * bisect.y + halfT0T1.y);
+            
             var pt1:Point = new Point(jointX + miterLimit * weight * bisect.x - halfT0T1.x,
-                                      jointY + miterLimit * weight * bisect.y - halfT0T1.y);
-
+                jointY + miterLimit * weight * bisect.y - halfT0T1.y);
+            
             // Add it to the rectangle:
             MatrixUtil.rectUnion(pt0.x, pt0.y, pt0.x, pt0.y, result);
             MatrixUtil.rectUnion(pt1.x, pt1.y, pt1.x, pt1.y, result);
@@ -658,13 +658,13 @@ public class Path extends FilledElement
             // miter limit is not reached, add the tip of the stroke
             bisect.normalize(1);
             var strokeTip:Point = new Point(jointX + bisect.x * weight / sinHalfAlpha,
-                                            jointY + bisect.y * weight / sinHalfAlpha);
+                jointY + bisect.y * weight / sinHalfAlpha);
             
             // Add it to the rectangle:
             MatrixUtil.rectUnion(strokeTip.x, strokeTip.y, strokeTip.x, strokeTip.y, result);
         }
     }
-
+    
     /**
      *  @private
      */
@@ -678,7 +678,7 @@ public class Path extends FilledElement
             return width;
         return getBoundingBoxWithStroke(width, height, m).width;
     }
-
+    
     /**
      *  @private
      */
@@ -715,10 +715,10 @@ public class Path extends FilledElement
                 strokeExtents = getStrokeExtents(true /*postLayoutTransform*/);
             height -= strokeExtents.height;
         }
-
+        
         var newWidth:Number = preferredWidthPreTransform();
         var newHeight:Number = preferredHeightPreTransform();
-
+        
         // Calculate the width and height pre-transform:
         if (m)
         {
@@ -743,10 +743,10 @@ public class Path extends FilledElement
                 newHeight = minHeight;
             }
         }
-
+        
         return getBoundingBoxWithStroke(newWidth, newHeight, m);
     }
-
+    
     /**
      *  @inheritDoc
      *  
@@ -760,7 +760,7 @@ public class Path extends FilledElement
         var m:Matrix = getComplexMatrix(postLayoutTransform);
         return getBoundsAtSize(width, height, m).x + (m ? 0 : this.x);
     }
-
+    
     /**
      *  @inheritDoc
      *  
@@ -774,7 +774,7 @@ public class Path extends FilledElement
         var m:Matrix = getComplexMatrix(postLayoutTransform);
         return getBoundsAtSize(width, height, m).y + (m ? 0 : this.y);
     }
-
+    
     /**
      *  @private
      */
@@ -792,7 +792,7 @@ public class Path extends FilledElement
         }
         return getBoundingBoxWithStroke(_width, _height, m).x + (m ? 0 : this.x);
     }
-
+    
     /**
      *  @private
      */
@@ -810,38 +810,174 @@ public class Path extends FilledElement
         }
         return getBoundingBoxWithStroke(_width, _height, m).y + (m ? 0 : this.y);
     }
+    
+    /**
+     *  @private
+     */    
+    private function setLayoutBoundsTransformed(width:Number, height:Number, m:Matrix):void
+    {
+        var size:Point = fitLayoutBoundsIterative(width, height, m);
+        
+        // We couldn't find a solution, try to relax the constraints
+        if (!size && !isNaN(width) && !isNaN(height))
+        {
+            // Try without width constraint
+            var size1:Point = fitLayoutBoundsIterative(NaN, height, m);
+            
+            // Try without height constraint
+            var size2:Point = fitLayoutBoundsIterative(width, NaN, m);
+            
+            // Ignore solutions that will exceeed the requested size
+            if (size1 && getBoundingBoxWithStroke(size1.x, size1.y, m).width > width)
+                size1 = null;
+            if (size2 && getBoundingBoxWithStroke(size2.x, size2.y, m).height > height)
+                size2 = null;
+            
+            // Which size was better?
+            if (size1 && size2)
+            {
+                // Pick the one closest to the natural bounds ratio:
+                //   ?  abs(n.x / n.y - size1.x / size1.y) < abs(n.x / n.y - size2.x / size2.y)
+                // <=>  abs((n.x * size1.y - n.y * size1.x) / (n.y * size1.y)) < abs((n.x * size2.y - n.y * size2.x) / (n.y * size2.y))
+                // <=>  abs((n.x * size1.y - n.y * size1.x)) / (n.y * size1.y) < abs((n.x * size2.y - n.y * size2.x)) / (n.y * size2.y) 
+                // <=>  abs(n.x * size1.y - n.y * size1.x) / size1.y < abs(n.x * size2.y - n.y * size2.x) / size2.y
+                // <=>  abs(n.x * size1.y - n.y * size1.x) * size2.y < abs(n.x * size2.y - n.y * size2.x) * size1.y
+
+                var n:Point = getBounds().size;
+                var pickSize1:Boolean = Math.abs( n.x * size1.y - n.y * size1.x ) * size2.y < 
+                                        Math.abs( n.x * size2.y - n.y * size2.x ) * size1.y;
+
+                if (pickSize1)
+                    size = size1;
+                else
+                    size = size2;
+            }
+            else if (size1)
+            {
+                size = size1;
+            }
+            else
+            {
+                size = size2;
+            }
+        }
+        
+        if (size)
+            setActualSize(size.x, size.y);
+        else
+            setActualSize(minWidth, minHeight);
+    }
+    
+    /**
+     *  Iteratively approach a solution. Returns 0 if no exact solution exists.
+     *  NaN values for width/height mean "not constrained" in that dimesion. 
+     * 
+     *  @private
+     */
+    private function fitLayoutBoundsIterative(width:Number, height:Number, m:Matrix):Point
+    {
+        // Start from the natural bounds
+        //var naturalBounds:Rectangle = getBounds();
+        var newWidth:Number = this.preferredWidthPreTransform();
+        var newHeight:Number = this.preferredHeightPreTransform();
+        var fitWidth:Number = MatrixUtil.transformBounds(newWidth, newHeight, m).x;
+        var fitHeight:Number = MatrixUtil.transformBounds(newWidth, newHeight, m).y;
+        
+        if (isNaN(width))
+            fitWidth = NaN;
+        if (isNaN(height))
+            fitHeight = NaN;
+        
+        var i:int = 0;
+        while (i++ < 150)
+        {
+            // Get current post-transform bounds
+            var transformedBounds:Rectangle = getBoundingBoxWithStroke(newWidth, newHeight, m);
+            
+            var widthDistance:Number = isNaN(width) ? 0 : width - transformedBounds.width;
+            var heightDistance:Number = isNaN(height) ? 0 : height - transformedBounds.height;
+            if (Math.abs(widthDistance) < 0.1 && Math.abs(heightDistance) < 0.1)
+            {
+                return new Point(newWidth, newHeight);
+            }
+            
+            // Try to fit bounds plus difference between
+            fitWidth += widthDistance * 0.5;
+            fitHeight += heightDistance * 0.5;
+            
+            var newSize:Point = MatrixUtil.fitBounds(fitWidth, 
+                                                     fitHeight, 
+                                                     m,
+                                                     explicitWidth, 
+                                                     explicitHeight,
+                                                     preferredWidthPreTransform(),
+                                                     preferredHeightPreTransform(),
+                                                     minWidth, minHeight,
+                                                     maxWidth, maxHeight);
+            if (!newSize)
+                break;
+
+            newWidth = newSize.x;
+            newHeight = newSize.y;
+        }
+        return null;
+    }
 
     /**
      *  @private
      */
     override public function setLayoutBoundsSize(width:Number, height:Number, postLayoutTransform:Boolean=true):void
     {
-        // We have special handling for only miter-limit stroked non-transfomred paths,
+        // We have special handling for miter-limit stroked non-transformed paths,
         // Otherwise we default to the generic GraphicElement sizing algorithm.
-        if ((isNaN(width) && isNaN(height)) ||      // resetting to original size?
-            !stroke ||                              // no stroke?
-            stroke.joints != "miter" ||             // no miter? 
-            getComplexMatrix(postLayoutTransform))  // transformed?
+        if (isNaN(width) && isNaN(height))     // resetting to original size?
         {
             super.setLayoutBoundsSize(width, height, postLayoutTransform);
             return;
         }
 
-        if (isNaN(width))
-            width = this.getPreferredBoundsWidth(false);
-        if (isNaN(height))
-            height = this.getPreferredBoundsHeight(false);
+        // Resize transformed path with the iterative solution
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
+        if (m)
+        {
+            setLayoutBoundsTransformed(width, height, m);
+            return;
+        }
+
+        if (!stroke || stroke.joints != "miter") // no stroke or no miter joints?
+        {
+            super.setLayoutBoundsSize(width, height, postLayoutTransform);
+            return;
+        }
 
         // Miter limit requires special handling since the stroke extents depend on
         // the path size as the size changes the angles of the joints.
+        var newWidth:Number = preferredWidthPreTransform();
+        var newHeight:Number = preferredHeightPreTransform();
+        var bestWidth:Number;
+        var bestHeight:Number;
+        var bestScore:Number;
         
-        // Start off from the natural bounds
-        var naturalBounds:Rectangle = getBounds();
-        var newWidth:Number = naturalBounds.width;
-        var newHeight:Number = naturalBounds.height;
-        
+        // Special case if we are constrained in both dimensions
+        if (!isNaN(width) && !isNaN(height))
+        {
+            var size:Point = fitLayoutBoundsIterative(width, height, new Matrix());
+            if (size)
+            {
+                setActualSize(size.x, size.y);
+                return;
+            }
+
+            // If we didn't find a solution, start from the natural bounds
+            newWidth = getBounds().width;
+            newHeight = getBounds().height;
+            bestWidth = this.minWidth;
+            bestHeight = this.minHeight;
+            bestScore = (width - bestWidth) * (width - bestWidth) + (height - bestHeight) * (height - bestHeight);
+        }
+
         var i:int = 0;
-        while (i++ < 10) // The size usually converges very quickly with only 3-4 iterations; we allow maximum of 10 iterations
+        while (i++ < 150)
         {
             var boundsWithStroke:Rectangle = getBoundingBoxWithStroke(newWidth, newHeight, null);
             
@@ -852,24 +988,40 @@ public class Path extends FilledElement
             if (!isNaN(height))
                 heightProximity = Math.abs(height - boundsWithStroke.height);
             
-            // Are we close enought? We want sub-pixel difference
+            if (!isNaN(width) && !isNaN(height))
+            {
+                var score:Number = (width - boundsWithStroke.width) * (width - boundsWithStroke.width) + 
+                                   (height - boundsWithStroke.height) * (height - boundsWithStroke.height);
+                
+                if (!isNaN(score) && score < bestScore && boundsWithStroke.width <= width && boundsWithStroke.height <= height)
+                {
+                    bestScore = score;
+                    bestWidth = newWidth;
+                    bestHeight = newHeight;
+                }
+            }
+            
+            // Are we close enough? We want sub-pixel difference
             if (widthProximity < 1e-5 && heightProximity < 1e-5)
-                break;
+            {
+                setActualSize(newWidth, newHeight);
+                return;
+            }
             
             var boundsWithoutStroke:Rectangle = segments.getBoundingBox(newWidth, newHeight, null);
             var strokeWidth:Number = boundsWithStroke.width - boundsWithoutStroke.width;
             var strokeHeight:Number = boundsWithStroke.height - boundsWithoutStroke.height;
-            
+
             if (!isNaN(width))
                 newWidth = width - strokeWidth;
             
             if (!isNaN(height))
                 newHeight = height - strokeHeight;
         }
-        
-        setActualSize(newWidth, newHeight);
-    }
 
+        setActualSize(bestWidth, bestHeight);
+    }
+    
     /**
      *  @private
      *  Use measuredX and measuredY instead of drawX and drawY
@@ -883,12 +1035,12 @@ public class Path extends FilledElement
         var naturalBounds:Rectangle = getBounds();
         var sx:Number = naturalBounds.width == 0 ? 1 : width / naturalBounds.width;
         var sy:Number = naturalBounds.height == 0 ? 1 : height / naturalBounds.height; 
-
+        
         var origin:Point = new Point(drawX, drawY);
         var bounds:Rectangle = new Rectangle(drawX + measuredX * sx,
-                                             drawY + measuredY * sy,
-                                             width, 
-                                             height);
+            drawY + measuredY * sy,
+            width, 
+            height);
         if (stroke)
             stroke.apply(g, getStrokeBounds(), origin);
         else
@@ -897,7 +1049,7 @@ public class Path extends FilledElement
         if (fill)
             fill.begin(g, bounds, origin);
     }
- 
+    
     private var _drawBounds:Rectangle = new Rectangle(); 
     
     /**
@@ -925,14 +1077,14 @@ public class Path extends FilledElement
             var rcBounds:Rectangle = getBounds();
             var sx:Number = rcBounds.width == 0 ? 1 : width / rcBounds.width;
             var sy:Number = rcBounds.height == 0 ? 1 : height / rcBounds.height;
-			if (segments)
-            	segments.generateGraphicsPath(graphicsPath, drawX, drawY, sx, sy);
+            if (segments)
+                segments.generateGraphicsPath(graphicsPath, drawX, drawY, sx, sy);
             graphicsPathChanged = false;
         }
-         
+        
         g.drawPath(graphicsPath.commands, graphicsPath.data, winding);
     }
-
+    
     /**
      * @inheritDoc
      *  
@@ -950,13 +1102,13 @@ public class Path extends FilledElement
         super.endDraw(g);
     } 
     
-
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
-  
+    
     /**
      *  @inheritDoc
      */
@@ -991,7 +1143,7 @@ public class Path extends FilledElement
                 clearCachedBoundingBoxWithStroke();
                 // Parent layout takes stroke weight into account
                 invalidateParentSizeAndDisplayList();
-            break;
+                break;
         }
     }
     
@@ -1021,506 +1173,506 @@ public class Path extends FilledElement
  */
 class PathSegmentsCollection
 {
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+//--------------------------------------------------------------------------
+//
+//  Constructor
+//
+//--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 * 
-	 *  @param value 
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function PathSegmentsCollection(value:String)
-	{
-		if (!value)
-		{
-			_segments = new Vector.<PathSegment>();
-			return;
-		}
-
-		var newSegments:Vector.<PathSegment> = new Vector.<PathSegment>();
-		var charCount:int = value.length;
-		var c:Number; // current char code, String.charCodeAt() returns Number.
-		var useRelative:Boolean;
-		var prevIdentifier:Number = 0;
-		var prevX:Number = 0;
-		var prevY:Number = 0;
-		var lastMoveX:Number = 0;
-		var lastMoveY:Number = 0;
-		var x:Number;
-		var y:Number;
-		var controlX:Number;
-		var controlY:Number;
-		var control2X:Number;
-		var control2Y:Number;
-        var lastMoveSegmentIndex:int = -1;
-
-		_dataLength = charCount;
-		_charPos = 0;
-		while (true)
-		{
-			// Skip any whitespace or commas first
-			skipWhiteSpace(value);
-
-			// Are we done parsing?
-			if (_charPos >= charCount)
-				break;
-
-			// Get the next character
-			c = value.charCodeAt(_charPos++);
-
-			// Is this a start of a number? 
-			// The RegExp for a float is /[+-]?\d*\.?\d+([Ee][+-]?\d+)?/
-			if ((c >= 0x30 && c < 0x3A) ||   // A digit
-				(c == 0x2B || c == 0x2D) ||	 // '+' & '-'
-				(c == 0x2E)) 				 // '.'
-			{
-				c = prevIdentifier;
-				_charPos--;
-			}
-			else if (c >= 0x41 && c <= 0x56) // Between 'C' and 'V' 
-				useRelative = false;
-			else if (c >= 0x61 && c <= 0x7A) // Between 'c' and 'v'
-				useRelative = true;
-
-			switch(c)
-			{
-				case 0x63:	// c
-				case 0x43:	// C
-					controlX = getNumber(useRelative, prevX, value);
-					controlY = getNumber(useRelative,  prevY, value);
-					control2X = getNumber(useRelative, prevX, value);
-					control2Y = getNumber(useRelative, prevY, value);
-					x = getNumber(useRelative, prevX, value);
-					y = getNumber(useRelative, prevY, value);
-					newSegments.push(new CubicBezierSegment(controlX, controlY, 
-															control2X, control2Y,
-															x, y));
-					prevX = x;
-					prevY = y;
-					prevIdentifier = 0x63;
-					
-					break;
-
-				case 0x6D:	// m
-				case 0x4D:	// M
-					x = getNumber(useRelative, prevX, value);
-					y = getNumber(useRelative, prevY, value);
-					newSegments.push(new MoveSegment(x, y));
-					prevX = x;
-					prevY = y;
-					// If a moveto is followed by multiple pairs of coordinates, 
-					// the subsequent pairs are treated as implicit lineto commands.
-					prevIdentifier = (c == 0x6D) ? 0x6C : 0x4C; // c == 'm' ? 'l' : 'L'
-                    
-                    // Fix for bug SDK-24457:
-                    // If the Quadratic segment is isolated, the Player
-                    // won't draw fill correctly. We need to generate
-                    // a dummy line segment.
-                    var curSegmentIndex:int = newSegments.length - 1;
-                    if (lastMoveSegmentIndex + 2 == curSegmentIndex && 
-                        newSegments[lastMoveSegmentIndex + 1] is QuadraticBezierSegment)
-                    {
-                        // Insert a dummy LineSegment
-                        newSegments.splice(lastMoveSegmentIndex + 1, 0, new LineSegment(lastMoveX, lastMoveY));
-                        curSegmentIndex++;
-                    }
-                    
-                    lastMoveSegmentIndex = curSegmentIndex;
-                    lastMoveX = x;
-                    lastMoveY = y;
-					break;
-
-				case 0x6C:	// l
-				case 0x4C:	// L
-					x = getNumber(useRelative, prevX, value);
-					y = getNumber(useRelative, prevY, value);
-					newSegments.push(new LineSegment(x, y));
-					prevX = x;
-					prevY = y;
-					prevIdentifier = 0x6C;
-					break;
-
-				case 0x68:	// h
-				case 0x48:	// H
-					x = getNumber(useRelative, prevX, value);
-					y = prevY;
-					newSegments.push(new LineSegment(x, y));
-					prevX = x;
-					prevY = y;
-					prevIdentifier = 0x68;
-					break;
-
-				case 0x76:	// v
-				case 0x56:	// V
-					x = prevX;
-					y = getNumber(useRelative, prevY, value);
-					newSegments.push(new LineSegment(x, y));
-					prevX = x;
-					prevY = y;
-					prevIdentifier = 0x76;
-					break;
-
-				case 0x71:	// q
-				case 0x51:	// Q
-                    controlX = getNumber(useRelative, prevX, value);
-					controlY = getNumber(useRelative, prevY, value);
-					x = getNumber(useRelative, prevX, value);
-					y = getNumber(useRelative, prevY, value);
-					newSegments.push(new QuadraticBezierSegment(controlX, controlY, x, y));
-					prevX = x;
-					prevY = y;
-					prevIdentifier = 0x71;
-					break;
-
-				case 0x74:	// t
-				case 0x54:	// T
-					// control is a reflection of the previous control point
-					if (prevIdentifier == 0x74 || prevIdentifier == 0x71) // 't' or 'q'
-					{
-						controlX = prevX + (prevX - controlX);
-						controlY = prevY + (prevY - controlY);
-					}
-					else
-					{
-						controlX = prevX;
-						controlY = prevY;
-					}
-					
-					x = getNumber(useRelative, prevX, value);
-					y = getNumber(useRelative, prevY, value);
-					newSegments.push(new QuadraticBezierSegment(controlX, controlY, x, y));
-					prevX = x;
-					prevY = y;
-					prevIdentifier = 0x74;
-					
-					break;
-
-				case 0x73:	// s
-				case 0x53:	// S
-					if (prevIdentifier == 0x73 || prevIdentifier == 0x63) // s or c
-					{
-						controlX = prevX + (prevX - control2X);
-						controlY = prevY + (prevY - control2Y);
-					}
-					else
-					{
-						controlX = prevX;
-						controlY = prevY;
-					}
-					
-					control2X = getNumber(useRelative, prevX, value);
-					control2Y = getNumber(useRelative, prevY, value);
-					x = getNumber(useRelative, prevX, value);
-					y = getNumber(useRelative, prevY, value);
-					newSegments.push(new CubicBezierSegment(controlX, controlY,
-						control2X, control2Y, x, y));
-					prevX = x;
-					prevY = y;
-					prevIdentifier = 0x73;
-					
-					break;
-
-				case 0x7A:	// z
-				case 0x5A:	// Z
-					x = lastMoveX;
-					y = lastMoveY;
-					newSegments.push(new LineSegment(x, y));
-					prevX = x;
-					prevY = y;
-					prevIdentifier = 0x7A;
-					
-					break;
-
-				default:
-					// unknown identifier, throw error?
-					_segments = new Vector.<PathSegment>();
-					return;
-			}
-		}
-        
-        // Fix for bug SDK-24457:
-        // If the Quadratic segment is isolated, the Player
-        // won't draw fill correctly. We need to generate
-        // a dummy line segment.
-        curSegmentIndex = newSegments.length;
-        if (lastMoveSegmentIndex + 2 == curSegmentIndex && 
-            newSegments[lastMoveSegmentIndex + 1] is QuadraticBezierSegment)
-        {
-            // Insert a dummy LineSegment
-            newSegments.splice(lastMoveSegmentIndex + 1, 0, new LineSegment(lastMoveX, lastMoveY));
-            curSegmentIndex++;
-        }
-        
-		_segments = newSegments;
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-	
-	//----------------------------------
-	//  data
-	//----------------------------------
-
-	private var _segments:Vector.<PathSegment>;
-
-	/**
-	 *  A Vector of the actual path segments. May be empty, but always non-null. 
-	 */
-	public function get data():Vector.<PathSegment>
-	{
-		return _segments;
-	}
-	
-	//----------------------------------
-	//  bounds
-	//----------------------------------
-
-	private var _bounds:Rectangle;
-
-	/**
-	 *  The bounds of the segments in local coordinates.  
-	 */
-	public function getBounds():Rectangle
-	{
-		if (_bounds)
-			return _bounds;
-		
-		// First, allocate temporary bounds, as getBoundingBox() requires
-		// natual bounds to calculate a scaling factor
-		_bounds = new Rectangle(0, 0, 1, 1);
-		
-		// Pass in the same size to getBoundingBox
-		// so that the scaling factor is (1, 1).
-		_bounds = getBoundingBox(1, 1, null /*Matrix*/);
-		return _bounds;
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @return Returns the axis aligned bounding box of the segments stretched to 
-	 *  width, height and then transformed with transformation matrix m.
-	 */
-	public function getBoundingBox(width:Number, height:Number, m:Matrix):Rectangle
-	{
-		var naturalBounds:Rectangle = getBounds();
-		var sx:Number = naturalBounds.width == 0 ? 1 : width / naturalBounds.width;
-		var sy:Number = naturalBounds.height == 0 ? 1 : height / naturalBounds.height; 
-		
-		var prevSegment:PathSegment;
-		var pathBBox:Rectangle;
-		var count:int = _segments.length;
-
-		for (var i:int = 0; i < count; i++)
-		{
-			var segment:PathSegment = _segments[i];
-			pathBBox = segment.getBoundingBox(prevSegment, sx, sy, m, pathBBox);
-			prevSegment = segment;
-		}
-		
-		// If path is empty, it's untransformed bounding box is (0,0), so we return transformed point (0,0)
-		if (!pathBBox)
-		{
-			var x:Number = m ? m.tx : 0;
-			var y:Number = m ? m.ty : 0;
-			pathBBox = new Rectangle(x, y);
-		}
-		return pathBBox;
-	}
-
-	/**
-     *  Workhorse method that iterates through the <code>segments</code>
-     *  array and draws each path egment based on its control points. 
-     *  
-     *  Segments are drawn from the x and y position of the path. 
-     *  Additionally, segments are drawn by taking into account the scale  
-     *  applied to the path. 
-     * 
-     *  @param tx A Number representing the x position of where this 
-     *  path segment should be drawn
-     *  
-     *  @param ty A Number representing the y position of where this  
-     *  path segment should be drawn
-     * 
-     *  @param sx A Number representing the scaleX at which to draw 
-     *  this path segment 
-     * 
-     *  @param sy A Number representing the scaleY at which to draw this
-     *  path segment
-	 */
-	public function generateGraphicsPath(graphicsPath:GraphicsPath,
-										 tx:Number, 
-										 ty:Number, 
-										 sx:Number, 
-										 sy:Number):void
-	{
-		graphicsPath.commands = null;
-		graphicsPath.data = null;
-		
-		// Always start by moving to drawX, drawY. Otherwise
-		// the path will begin at the previous pen location
-		// if it does not start with a MoveSegment.
-		graphicsPath.moveTo(tx, ty);
-		
-		var curSegment:PathSegment;
-		var prevSegment:PathSegment;
-		var count:int = _segments.length;
-		for (var i:int = 0; i < count; i++)
-		{
-			prevSegment = curSegment;
-			curSegment = _segments[i];
-			curSegment.draw(graphicsPath, tx, ty, sx, sy, prevSegment);
-		}
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Private methods
-	//
-	//--------------------------------------------------------------------------
-
-	private var _charPos:int = 0;
-	private var _dataLength:int = 0;
-	
-	private function skipWhiteSpace(data:String):void
-	{
-		while (_charPos < _dataLength)
-		{
-			var c:Number = data.charCodeAt(_charPos);
-			if (c != 0x20 && // Space
-				c != 0x2C && // Comma
-				c != 0xD  && // Carriage return
-				c != 0x9  && // Tab
-				c != 0xA)    // New line
-			{
-				break;
-			}
-			_charPos++;
-		}
-	}
-    
-    private function getNumber(useRelative:Boolean, offset:Number, value:String):Number
+/**
+ *  Constructor.
+ * 
+ *  @param value 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+public function PathSegmentsCollection(value:String)
+{
+    if (!value)
     {
-        // Parse the string and find the first occurrance of the following RexExp
-        // numberRegExp:RegExp = /[+-]?\d*\.?\d+([Ee][+-]?\d+)?/g;
-
-        skipWhiteSpace(value); // updates _charPos
-        if (_charPos >= _dataLength)
-            return NaN;
+        _segments = new Vector.<PathSegment>();
+        return;
+    }
+    
+    var newSegments:Vector.<PathSegment> = new Vector.<PathSegment>();
+    var charCount:int = value.length;
+    var c:Number; // current char code, String.charCodeAt() returns Number.
+    var useRelative:Boolean;
+    var prevIdentifier:Number = 0;
+    var prevX:Number = 0;
+    var prevY:Number = 0;
+    var lastMoveX:Number = 0;
+    var lastMoveY:Number = 0;
+    var x:Number;
+    var y:Number;
+    var controlX:Number;
+    var controlY:Number;
+    var control2X:Number;
+    var control2Y:Number;
+    var lastMoveSegmentIndex:int = -1;
+    
+    _dataLength = charCount;
+    _charPos = 0;
+    while (true)
+    {
+        // Skip any whitespace or commas first
+        skipWhiteSpace(value);
         
-        // Remember the start of the number
-        var numberStart:int = _charPos;
-        var hasSignCharacter:Boolean = false;
-        var hasDigits:Boolean = false;
-
-        // The number could start with '+' or '-' (the "[+-]?" part of the RegExp)
-        var c:Number = value.charCodeAt(_charPos);
-        if (c == 0x2B || c == 0x2D) // '+' or '-'
+        // Are we done parsing?
+        if (_charPos >= charCount)
+            break;
+        
+        // Get the next character
+        c = value.charCodeAt(_charPos++);
+        
+        // Is this a start of a number? 
+        // The RegExp for a float is /[+-]?\d*\.?\d+([Ee][+-]?\d+)?/
+        if ((c >= 0x30 && c < 0x3A) ||   // A digit
+            (c == 0x2B || c == 0x2D) ||	 // '+' & '-'
+            (c == 0x2E)) 				 // '.'
         {
-            hasSignCharacter = true;
-            _charPos++;
+            c = prevIdentifier;
+            _charPos--;
         }
+        else if (c >= 0x41 && c <= 0x56) // Between 'C' and 'V' 
+            useRelative = false;
+        else if (c >= 0x61 && c <= 0x7A) // Between 'c' and 'v'
+            useRelative = true;
+        
+        switch(c)
+        {
+            case 0x63:	// c
+            case 0x43:	// C
+                controlX = getNumber(useRelative, prevX, value);
+                controlY = getNumber(useRelative,  prevY, value);
+                control2X = getNumber(useRelative, prevX, value);
+                control2Y = getNumber(useRelative, prevY, value);
+                x = getNumber(useRelative, prevX, value);
+                y = getNumber(useRelative, prevY, value);
+                newSegments.push(new CubicBezierSegment(controlX, controlY, 
+                    control2X, control2Y,
+                    x, y));
+                prevX = x;
+                prevY = y;
+                prevIdentifier = 0x63;
+                
+                break;
+            
+            case 0x6D:	// m
+            case 0x4D:	// M
+                x = getNumber(useRelative, prevX, value);
+                y = getNumber(useRelative, prevY, value);
+                newSegments.push(new MoveSegment(x, y));
+                prevX = x;
+                prevY = y;
+                // If a moveto is followed by multiple pairs of coordinates, 
+                // the subsequent pairs are treated as implicit lineto commands.
+                prevIdentifier = (c == 0x6D) ? 0x6C : 0x4C; // c == 'm' ? 'l' : 'L'
+                
+                // Fix for bug SDK-24457:
+                // If the Quadratic segment is isolated, the Player
+                // won't draw fill correctly. We need to generate
+                // a dummy line segment.
+                var curSegmentIndex:int = newSegments.length - 1;
+                if (lastMoveSegmentIndex + 2 == curSegmentIndex && 
+                    newSegments[lastMoveSegmentIndex + 1] is QuadraticBezierSegment)
+                {
+                    // Insert a dummy LineSegment
+                    newSegments.splice(lastMoveSegmentIndex + 1, 0, new LineSegment(lastMoveX, lastMoveY));
+                    curSegmentIndex++;
+                }
+                
+                lastMoveSegmentIndex = curSegmentIndex;
+                lastMoveX = x;
+                lastMoveY = y;
+                break;
+            
+            case 0x6C:	// l
+            case 0x4C:	// L
+                x = getNumber(useRelative, prevX, value);
+                y = getNumber(useRelative, prevY, value);
+                newSegments.push(new LineSegment(x, y));
+                prevX = x;
+                prevY = y;
+                prevIdentifier = 0x6C;
+                break;
+            
+            case 0x68:	// h
+            case 0x48:	// H
+                x = getNumber(useRelative, prevX, value);
+                y = prevY;
+                newSegments.push(new LineSegment(x, y));
+                prevX = x;
+                prevY = y;
+                prevIdentifier = 0x68;
+                break;
+            
+            case 0x76:	// v
+            case 0x56:	// V
+                x = prevX;
+                y = getNumber(useRelative, prevY, value);
+                newSegments.push(new LineSegment(x, y));
+                prevX = x;
+                prevY = y;
+                prevIdentifier = 0x76;
+                break;
+            
+            case 0x71:	// q
+            case 0x51:	// Q
+                controlX = getNumber(useRelative, prevX, value);
+                controlY = getNumber(useRelative, prevY, value);
+                x = getNumber(useRelative, prevX, value);
+                y = getNumber(useRelative, prevY, value);
+                newSegments.push(new QuadraticBezierSegment(controlX, controlY, x, y));
+                prevX = x;
+                prevY = y;
+                prevIdentifier = 0x71;
+                break;
+            
+            case 0x74:	// t
+            case 0x54:	// T
+                // control is a reflection of the previous control point
+                if (prevIdentifier == 0x74 || prevIdentifier == 0x71) // 't' or 'q'
+                {
+                    controlX = prevX + (prevX - controlX);
+                    controlY = prevY + (prevY - controlY);
+                }
+                else
+                {
+                    controlX = prevX;
+                    controlY = prevY;
+                }
+                
+                x = getNumber(useRelative, prevX, value);
+                y = getNumber(useRelative, prevY, value);
+                newSegments.push(new QuadraticBezierSegment(controlX, controlY, x, y));
+                prevX = x;
+                prevY = y;
+                prevIdentifier = 0x74;
+                
+                break;
+            
+            case 0x73:	// s
+            case 0x53:	// S
+                if (prevIdentifier == 0x73 || prevIdentifier == 0x63) // s or c
+                {
+                    controlX = prevX + (prevX - control2X);
+                    controlY = prevY + (prevY - control2Y);
+                }
+                else
+                {
+                    controlX = prevX;
+                    controlY = prevY;
+                }
+                
+                control2X = getNumber(useRelative, prevX, value);
+                control2Y = getNumber(useRelative, prevY, value);
+                x = getNumber(useRelative, prevX, value);
+                y = getNumber(useRelative, prevY, value);
+                newSegments.push(new CubicBezierSegment(controlX, controlY,
+                    control2X, control2Y, x, y));
+                prevX = x;
+                prevY = y;
+                prevIdentifier = 0x73;
+                
+                break;
+            
+            case 0x7A:	// z
+            case 0x5A:	// Z
+                x = lastMoveX;
+                y = lastMoveY;
+                newSegments.push(new LineSegment(x, y));
+                prevX = x;
+                prevY = y;
+                prevIdentifier = 0x7A;
+                
+                break;
+            
+            default:
+                // unknown identifier, throw error?
+                _segments = new Vector.<PathSegment>();
+                return;
+        }
+    }
+    
+    // Fix for bug SDK-24457:
+    // If the Quadratic segment is isolated, the Player
+    // won't draw fill correctly. We need to generate
+    // a dummy line segment.
+    curSegmentIndex = newSegments.length;
+    if (lastMoveSegmentIndex + 2 == curSegmentIndex && 
+        newSegments[lastMoveSegmentIndex + 1] is QuadraticBezierSegment)
+    {
+        // Insert a dummy LineSegment
+        newSegments.splice(lastMoveSegmentIndex + 1, 0, new LineSegment(lastMoveX, lastMoveY));
+        curSegmentIndex++;
+    }
+    
+    _segments = newSegments;
+}
 
-        // The index of the '.' if any
-        var dotIndex:int = -1;
+//--------------------------------------------------------------------------
+//
+//  Properties
+//
+//--------------------------------------------------------------------------
 
-        // First sequence of digits and optional dot in between (the "\d*\.?\d+" part of the RegExp)
+//----------------------------------
+//  data
+//----------------------------------
+
+private var _segments:Vector.<PathSegment>;
+
+/**
+ *  A Vector of the actual path segments. May be empty, but always non-null. 
+ */
+public function get data():Vector.<PathSegment>
+{
+    return _segments;
+}
+
+//----------------------------------
+//  bounds
+//----------------------------------
+
+private var _bounds:Rectangle;
+
+/**
+ *  The bounds of the segments in local coordinates.  
+ */
+public function getBounds():Rectangle
+{
+    if (_bounds)
+        return _bounds;
+    
+    // First, allocate temporary bounds, as getBoundingBox() requires
+    // natual bounds to calculate a scaling factor
+    _bounds = new Rectangle(0, 0, 1, 1);
+    
+    // Pass in the same size to getBoundingBox
+    // so that the scaling factor is (1, 1).
+    _bounds = getBoundingBox(1, 1, null /*Matrix*/);
+    return _bounds;
+}
+
+//--------------------------------------------------------------------------
+//
+//  Methods
+//
+//--------------------------------------------------------------------------
+
+/**
+ *  @return Returns the axis aligned bounding box of the segments stretched to 
+ *  width, height and then transformed with transformation matrix m.
+ */
+public function getBoundingBox(width:Number, height:Number, m:Matrix):Rectangle
+{
+    var naturalBounds:Rectangle = getBounds();
+    var sx:Number = naturalBounds.width == 0 ? 1 : width / naturalBounds.width;
+    var sy:Number = naturalBounds.height == 0 ? 1 : height / naturalBounds.height; 
+    
+    var prevSegment:PathSegment;
+    var pathBBox:Rectangle;
+    var count:int = _segments.length;
+    
+    for (var i:int = 0; i < count; i++)
+    {
+        var segment:PathSegment = _segments[i];
+        pathBBox = segment.getBoundingBox(prevSegment, sx, sy, m, pathBBox);
+        prevSegment = segment;
+    }
+    
+    // If path is empty, it's untransformed bounding box is (0,0), so we return transformed point (0,0)
+    if (!pathBBox)
+    {
+        var x:Number = m ? m.tx : 0;
+        var y:Number = m ? m.ty : 0;
+        pathBBox = new Rectangle(x, y);
+    }
+    return pathBBox;
+}
+
+/**
+ *  Workhorse method that iterates through the <code>segments</code>
+ *  array and draws each path egment based on its control points. 
+ *  
+ *  Segments are drawn from the x and y position of the path. 
+ *  Additionally, segments are drawn by taking into account the scale  
+ *  applied to the path. 
+ * 
+ *  @param tx A Number representing the x position of where this 
+ *  path segment should be drawn
+ *  
+ *  @param ty A Number representing the y position of where this  
+ *  path segment should be drawn
+ * 
+ *  @param sx A Number representing the scaleX at which to draw 
+ *  this path segment 
+ * 
+ *  @param sy A Number representing the scaleY at which to draw this
+ *  path segment
+ */
+public function generateGraphicsPath(graphicsPath:GraphicsPath,
+                                     tx:Number, 
+                                     ty:Number, 
+                                     sx:Number, 
+                                     sy:Number):void
+{
+    graphicsPath.commands = null;
+    graphicsPath.data = null;
+    
+    // Always start by moving to drawX, drawY. Otherwise
+    // the path will begin at the previous pen location
+    // if it does not start with a MoveSegment.
+    graphicsPath.moveTo(tx, ty);
+    
+    var curSegment:PathSegment;
+    var prevSegment:PathSegment;
+    var count:int = _segments.length;
+    for (var i:int = 0; i < count; i++)
+    {
+        prevSegment = curSegment;
+        curSegment = _segments[i];
+        curSegment.draw(graphicsPath, tx, ty, sx, sy, prevSegment);
+    }
+}
+
+//--------------------------------------------------------------------------
+//
+//  Private methods
+//
+//--------------------------------------------------------------------------
+
+private var _charPos:int = 0;
+private var _dataLength:int = 0;
+
+private function skipWhiteSpace(data:String):void
+{
+    while (_charPos < _dataLength)
+    {
+        var c:Number = data.charCodeAt(_charPos);
+        if (c != 0x20 && // Space
+            c != 0x2C && // Comma
+            c != 0xD  && // Carriage return
+            c != 0x9  && // Tab
+            c != 0xA)    // New line
+        {
+            break;
+        }
+        _charPos++;
+    }
+}
+
+private function getNumber(useRelative:Boolean, offset:Number, value:String):Number
+{
+    // Parse the string and find the first occurrance of the following RexExp
+    // numberRegExp:RegExp = /[+-]?\d*\.?\d+([Ee][+-]?\d+)?/g;
+    
+    skipWhiteSpace(value); // updates _charPos
+    if (_charPos >= _dataLength)
+        return NaN;
+    
+    // Remember the start of the number
+    var numberStart:int = _charPos;
+    var hasSignCharacter:Boolean = false;
+    var hasDigits:Boolean = false;
+    
+    // The number could start with '+' or '-' (the "[+-]?" part of the RegExp)
+    var c:Number = value.charCodeAt(_charPos);
+    if (c == 0x2B || c == 0x2D) // '+' or '-'
+    {
+        hasSignCharacter = true;
+        _charPos++;
+    }
+    
+    // The index of the '.' if any
+    var dotIndex:int = -1;
+    
+    // First sequence of digits and optional dot in between (the "\d*\.?\d+" part of the RegExp)
+    while (_charPos < _dataLength)
+    {
+        c = value.charCodeAt(_charPos);
+        
+        if (c >= 0x30 && c < 0x3A) // A digit
+        {
+            hasDigits = true;
+        }
+        else if (c == 0x2E && dotIndex == -1) // '.'
+        {
+            dotIndex = _charPos;
+        }
+        else
+            break;
+        
+        _charPos++;
+    }
+    
+    // Now check whether we had at least one digit.
+    if (!hasDigits)
+    {
+        // Go to the end of the data
+        _charPos = _dataLength;
+        return NaN;
+    }
+    
+    // 1. Was the last character a '.'? If so, rewind one character back.
+    if (c == 0x2E)
+        _charPos--;
+    
+    // So far we have a valid number, remember its end character index
+    var numberEnd:int = _charPos;
+    
+    // Check to see if we have scientific notation (the "([Ee][+-]?\d+)?" part of the RegExp)
+    if (c == 0x45 || c == 0x65)
+    {
+        _charPos++;
+        
+        // Check for '+' or '-'
+        if (_charPos < _dataLength)
+        {            
+            c = value.charCodeAt(_charPos);
+            if (c == 0x2B || c == 0x2D)
+                _charPos++;
+        }
+        
+        // Find all the digits
+        var digitStart:int = _charPos;
         while (_charPos < _dataLength)
         {
             c = value.charCodeAt(_charPos);
-
-            if (c >= 0x30 && c < 0x3A) // A digit
+            
+            // Not a digit?
+            if (!(c >= 0x30 && c < 0x3A))
             {
-                hasDigits = true;
-            }
-            else if (c == 0x2E && dotIndex == -1) // '.'
-            {
-                dotIndex = _charPos;
-            }
-            else
                 break;
-                
+            }
+            
             _charPos++;
         }
         
-        // Now check whether we had at least one digit.
-        if (!hasDigits)
-        {
-            // Go to the end of the data
-            _charPos = _dataLength;
-            return NaN;
-        }
-
-        // 1. Was the last character a '.'? If so, rewind one character back.
-        if (c == 0x2E)
-            _charPos--;
-        
-        // So far we have a valid number, remember its end character index
-        var numberEnd:int = _charPos;
-        
-        // Check to see if we have scientific notation (the "([Ee][+-]?\d+)?" part of the RegExp)
-        if (c == 0x45 || c == 0x65)
-        {
-            _charPos++;
-            
-            // Check for '+' or '-'
-            if (_charPos < _dataLength)
-            {            
-                c = value.charCodeAt(_charPos);
-                if (c == 0x2B || c == 0x2D)
-                    _charPos++;
-            }
-            
-            // Find all the digits
-            var digitStart:int = _charPos;
-            while (_charPos < _dataLength)
-            {
-                c = value.charCodeAt(_charPos);
-                
-                // Not a digit?
-                if (!(c >= 0x30 && c < 0x3A))
-                {
-                    break;
-                }
-                
-                _charPos++;
-            }
-            
-            // Do we have at least one digit?
-            if (digitStart < _charPos)
-                numberEnd = _charPos; // Scientific notation, update the end index of the number.
-            else
-                _charPos = numberEnd; // No scientific notation, rewind back to the end index of the number.
-        }
-
-        // Use parseFloat to get the actual number.
-        // TODO (egeorgie): we could build the number while matching the RegExp which will save the substr and parseFloat
-        var subString:String = value.substr(numberStart, numberEnd - numberStart);
-        var result:Number = parseFloat(subString);
-        if (isNaN(result))
-        {
-            // Go to the end of the data
-            _charPos = _dataLength;
-            return NaN;
-        }
-        _charPos = numberEnd;
-        return useRelative ? result + offset : result;
+        // Do we have at least one digit?
+        if (digitStart < _charPos)
+            numberEnd = _charPos; // Scientific notation, update the end index of the number.
+        else
+            _charPos = numberEnd; // No scientific notation, rewind back to the end index of the number.
     }
+    
+    // Use parseFloat to get the actual number.
+    // TODO (egeorgie): we could build the number while matching the RegExp which will save the substr and parseFloat
+    var subString:String = value.substr(numberStart, numberEnd - numberStart);
+    var result:Number = parseFloat(subString);
+    if (isNaN(result))
+    {
+        // Go to the end of the data
+        _charPos = _dataLength;
+        return NaN;
+    }
+    _charPos = numberEnd;
+    return useRelative ? result + offset : result;
+}
 }
 
 //--------------------------------------------------------------------------
@@ -1547,126 +1699,126 @@ import mx.events.PropertyChangeEvent;
 class PathSegment extends Object
 {
 
-    //--------------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //--------------------------------------------------------------------------
+//--------------------------------------------------------------------------
+//
+//  Constructor
+//
+//--------------------------------------------------------------------------
 
-    /**
-     *  Constructor.
-     * 
-     *  @param _x The x position of the pen in the current coordinate system.
-     *  
-     *  @param _y The y position of the pen in the current coordinate system.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function PathSegment(_x:Number = 0, _y:Number = 0)
-    {
-        super();
-        x = _x;  
-        y = _y; 
-    }   
+/**
+ *  Constructor.
+ * 
+ *  @param _x The x position of the pen in the current coordinate system.
+ *  
+ *  @param _y The y position of the pen in the current coordinate system.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+public function PathSegment(_x:Number = 0, _y:Number = 0)
+{
+    super();
+    x = _x;  
+    y = _y; 
+}   
 
-    //--------------------------------------------------------------------------
-    //
-    //  Properties
-    //
-    //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  x
-    //----------------------------------
-    
-	/**
-     *  The ending x position for this segment.
-     *
-     *  @default 0
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var x:Number = 0;
-    
-    //----------------------------------
-    //  y
-    //----------------------------------
-    
-	/**
-     *  The ending y position for this segment.
-     *
-     *  @default 0
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var y:Number = 0;
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  Draws this path segment. You can determine the current pen position by 
-     *  reading the x and y values of the previous segment. 
-     *
-     *  @param g The graphics context to draw into.
-     *  @param prev The previous segment drawn, or null if this is the first segment.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
-    {
-        // Override to draw your segment
-    }
+//--------------------------------------------------------------------------
+//
+//  Properties
+//
+//--------------------------------------------------------------------------
 
-    /**
-     *  @param prev The previous segment drawn, or null if this is the first segment.
-     *  @param sx Pre-transform scale factor for x coordinates.
-     *  @param sy Pre-transform scale factor for y coordinates.
-     *  @param m Transformation matrix.
-     *  @param rect If non-null, rect is expanded to include the bounding box of the segment.
-     *  @return Returns the union of rect and the axis aligned bounding box of the post-transformed
-     *  path segment.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */    
-    public function getBoundingBox(prev:PathSegment, sx:Number, sy:Number, m:Matrix, rect:Rectangle):Rectangle
-    {
-        // Override to calculate your segment's bounding box.
-        return rect;
-    }
+//----------------------------------
+//  x
+//----------------------------------
 
-    /**
-     *  Returns the tangent for the segment. 
-     *  @param prev The previous segment drawn, or null if this is the first segment.
-     *  @param start If true, returns the tangent to the start point, otherwise the tangend to the end point.
-     *  @param sx Pre-transform scale factor for x coordinates.
-     *  @param sy Pre-transform scale factor for y coordinates.
-     *  @param m Transformation matrix.
-     *  @param result The tangent is returned as vector (x, y) in result.
-     */
-    public function getTangent(prev:PathSegment, start:Boolean, sx:Number, sy:Number, m:Matrix, result:Point):void
-    {
-        result.x = 0;
-        result.y = 0;
-    }
+/**
+ *  The ending x position for this segment.
+ *
+ *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+public var x:Number = 0;
+
+//----------------------------------
+//  y
+//----------------------------------
+
+/**
+ *  The ending y position for this segment.
+ *
+ *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+public var y:Number = 0;
+
+//--------------------------------------------------------------------------
+//
+//  Methods
+//
+//--------------------------------------------------------------------------
+
+/**
+ *  Draws this path segment. You can determine the current pen position by 
+ *  reading the x and y values of the previous segment. 
+ *
+ *  @param g The graphics context to draw into.
+ *  @param prev The previous segment drawn, or null if this is the first segment.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
+{
+    // Override to draw your segment
+}
+
+/**
+ *  @param prev The previous segment drawn, or null if this is the first segment.
+ *  @param sx Pre-transform scale factor for x coordinates.
+ *  @param sy Pre-transform scale factor for y coordinates.
+ *  @param m Transformation matrix.
+ *  @param rect If non-null, rect is expanded to include the bounding box of the segment.
+ *  @return Returns the union of rect and the axis aligned bounding box of the post-transformed
+ *  path segment.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */    
+public function getBoundingBox(prev:PathSegment, sx:Number, sy:Number, m:Matrix, rect:Rectangle):Rectangle
+{
+    // Override to calculate your segment's bounding box.
+    return rect;
+}
+
+/**
+ *  Returns the tangent for the segment. 
+ *  @param prev The previous segment drawn, or null if this is the first segment.
+ *  @param start If true, returns the tangent to the start point, otherwise the tangend to the end point.
+ *  @param sx Pre-transform scale factor for x coordinates.
+ *  @param sy Pre-transform scale factor for y coordinates.
+ *  @param m Transformation matrix.
+ *  @param result The tangent is returned as vector (x, y) in result.
+ */
+public function getTangent(prev:PathSegment, start:Boolean, sx:Number, sy:Number, m:Matrix, result:Point):void
+{
+    result.x = 0;
+    result.y = 0;
+}
 }
 
 
@@ -1695,94 +1847,94 @@ import mx.utils.MatrixUtil;
 class LineSegment extends PathSegment
 {
 
-    //--------------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //--------------------------------------------------------------------------
+//--------------------------------------------------------------------------
+//
+//  Constructor
+//
+//--------------------------------------------------------------------------
 
-    /**
-     *  Constructor.
-     *  
-     *  @param x The current location of the pen along the x axis. The <code>draw()</code> method uses 
-     *  this value to determine where to draw to.
-     * 
-     *  @param y The current location of the pen along the y axis. The <code>draw()</code> method uses 
-     *  this value to determine where to draw to.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function LineSegment(x:Number = 0, y:Number = 0)
-    {
-        super(x, y);
-    }   
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
-    {
-        graphicsPath.lineTo(dx + x*sx, dy + y*sy);
-    }
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function getBoundingBox(prev:PathSegment, sx:Number, sy:Number, m:Matrix, rect:Rectangle):Rectangle
-    {
-		pt = MatrixUtil.transformPoint(x * sx, y * sy, m);
-		var x1:Number = pt.x;
-		var y1:Number = pt.y;
-		
-		// If the previous segment actually draws, then only add the end point to the rectangle,
-		// as the start point would have been added by the previous segment:
-		if (prev != null && !(prev is MoveSegment))
-			return MatrixUtil.rectUnion(x1, y1, x1, y1, rect); 
-		
-		var pt:Point = MatrixUtil.transformPoint(prev ? prev.x * sx : 0, prev ? prev.y * sy : 0, m);
-		var x2:Number = pt.x;
-		var y2:Number = pt.y;
+/**
+ *  Constructor.
+ *  
+ *  @param x The current location of the pen along the x axis. The <code>draw()</code> method uses 
+ *  this value to determine where to draw to.
+ * 
+ *  @param y The current location of the pen along the y axis. The <code>draw()</code> method uses 
+ *  this value to determine where to draw to.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+public function LineSegment(x:Number = 0, y:Number = 0)
+{
+    super(x, y);
+}   
 
-		return MatrixUtil.rectUnion(Math.min(x1, x2), Math.min(y1, y2),
-									Math.max(x1, x2), Math.max(y1, y2), rect); 
-    }
-    
-    /**
-     *  Returns the tangent for the segment. 
-     *  @param prev The previous segment drawn, or null if this is the first segment.
-     *  @param start If true, returns the tangent to the start point, otherwise the tangend to the end point.
-     *  @param sx Pre-transform scale factor for x coordinates.
-     *  @param sy Pre-transform scale factor for y coordinates.
-     *  @param m Transformation matrix.
-     *  @param result The tangent is returned as vector (x, y) in result.
-     */
-    override public function getTangent(prev:PathSegment, start:Boolean, sx:Number, sy:Number, m:Matrix, result:Point):void
-    {
-        var pt0:Point = MatrixUtil.transformPoint(prev ? prev.x * sx : 0, prev ? prev.y * sy : 0, m).clone();
-        var pt1:Point = MatrixUtil.transformPoint(x * sx, y * sy, m);
+//--------------------------------------------------------------------------
+//
+//  Methods
+//
+//--------------------------------------------------------------------------
 
-        result.x = pt1.x - pt0.x;
-        result.y = pt1.y - pt0.y;
-    }
+/**
+ *  @inheritDoc
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+override public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
+{
+    graphicsPath.lineTo(dx + x*sx, dy + y*sy);
+}
+
+/**
+ *  @inheritDoc
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+override public function getBoundingBox(prev:PathSegment, sx:Number, sy:Number, m:Matrix, rect:Rectangle):Rectangle
+{
+    pt = MatrixUtil.transformPoint(x * sx, y * sy, m);
+    var x1:Number = pt.x;
+    var y1:Number = pt.y;
+    
+    // If the previous segment actually draws, then only add the end point to the rectangle,
+    // as the start point would have been added by the previous segment:
+    if (prev != null && !(prev is MoveSegment))
+        return MatrixUtil.rectUnion(x1, y1, x1, y1, rect); 
+    
+    var pt:Point = MatrixUtil.transformPoint(prev ? prev.x * sx : 0, prev ? prev.y * sy : 0, m);
+    var x2:Number = pt.x;
+    var y2:Number = pt.y;
+    
+    return MatrixUtil.rectUnion(Math.min(x1, x2), Math.min(y1, y2),
+        Math.max(x1, x2), Math.max(y1, y2), rect); 
+}
+
+/**
+ *  Returns the tangent for the segment. 
+ *  @param prev The previous segment drawn, or null if this is the first segment.
+ *  @param start If true, returns the tangent to the start point, otherwise the tangend to the end point.
+ *  @param sx Pre-transform scale factor for x coordinates.
+ *  @param sy Pre-transform scale factor for y coordinates.
+ *  @param m Transformation matrix.
+ *  @param result The tangent is returned as vector (x, y) in result.
+ */
+override public function getTangent(prev:PathSegment, start:Boolean, sx:Number, sy:Number, m:Matrix, result:Point):void
+{
+    var pt0:Point = MatrixUtil.transformPoint(prev ? prev.x * sx : 0, prev ? prev.y * sy : 0, m).clone();
+    var pt1:Point = MatrixUtil.transformPoint(x * sx, y * sy, m);
+    
+    result.x = pt1.x - pt0.x;
+    result.y = pt1.y - pt0.y;
+}
 }
 
 //--------------------------------------------------------------------------
@@ -1807,50 +1959,50 @@ import flash.display.GraphicsPath;
 class MoveSegment extends PathSegment
 {
 
-    //--------------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //--------------------------------------------------------------------------
+//--------------------------------------------------------------------------
+//
+//  Constructor
+//
+//--------------------------------------------------------------------------
 
-    /**
-     *  Constructor.
-     *  
-     *  @param x The target x-axis location in 2-d coordinate space.
-     *  
-     *  @param y The target y-axis location in 2-d coordinate space.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function MoveSegment(x:Number = 0, y:Number = 0)
-    {
-        super(x, y);
-    }   
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @inheritDoc
-     * 
-     *  The MoveSegment class moves the pen to the position specified by the
-     *  x and y properties.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
-    {
-        graphicsPath.moveTo(dx+x*sx, dy+y*sy);
-    }
+/**
+ *  Constructor.
+ *  
+ *  @param x The target x-axis location in 2-d coordinate space.
+ *  
+ *  @param y The target y-axis location in 2-d coordinate space.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+public function MoveSegment(x:Number = 0, y:Number = 0)
+{
+    super(x, y);
+}   
+
+//--------------------------------------------------------------------------
+//
+//  Methods
+//
+//--------------------------------------------------------------------------
+
+/**
+ *  @inheritDoc
+ * 
+ *  The MoveSegment class moves the pen to the position specified by the
+ *  x and y properties.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+override public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
+{
+    graphicsPath.moveTo(dx+x*sx, dy+y*sy);
+}
 }
 
 //--------------------------------------------------------------------------
@@ -1886,13 +2038,13 @@ import mx.utils.MatrixUtil;
  */
 class CubicBezierSegment extends PathSegment
 {
-   
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  Constructor.
      *  
@@ -1920,9 +2072,9 @@ class CubicBezierSegment extends PathSegment
      *  @productversion Flex 4
      */
     public function CubicBezierSegment(
-                _control1X:Number = 0, _control1Y:Number = 0,
-                _control2X:Number = 0, _control2Y:Number = 0,
-                x:Number = 0, y:Number = 0)
+        _control1X:Number = 0, _control1Y:Number = 0,
+        _control2X:Number = 0, _control2Y:Number = 0,
+        x:Number = 0, y:Number = 0)
     {
         super(x, y);
         
@@ -1931,8 +2083,8 @@ class CubicBezierSegment extends PathSegment
         control2X = _control2X;
         control2Y = _control2Y;
     }   
-
-
+    
+    
     //--------------------------------------------------------------------------
     //
     //  Variables
@@ -1951,7 +2103,7 @@ class CubicBezierSegment extends PathSegment
     //  control1X
     //----------------------------------
     
-	/**
+    /**
      *  The first control point x position.
      *  
      *  @langversion 3.0
@@ -1965,7 +2117,7 @@ class CubicBezierSegment extends PathSegment
     //  control1Y
     //----------------------------------
     
-	/**
+    /**
      *  The first control point y position.
      *  
      *  @langversion 3.0
@@ -1979,7 +2131,7 @@ class CubicBezierSegment extends PathSegment
     //  control2X
     //----------------------------------
     
-	/**
+    /**
      *  The second control point x position.
      *  
      *  @langversion 3.0
@@ -1993,7 +2145,7 @@ class CubicBezierSegment extends PathSegment
     //  control2Y
     //----------------------------------
     
-	/**
+    /**
      *  The second control point y position.
      *  
      *  @langversion 3.0
@@ -2024,7 +2176,7 @@ class CubicBezierSegment extends PathSegment
     override public function draw(graphicsPath:GraphicsPath, dx:Number, dy:Number, sx:Number, sy:Number, prev:PathSegment):void
     {
         var qPts:QuadraticPoints = getQuadraticPoints(prev);
-                    
+        
         graphicsPath.curveTo(dx + qPts.control1.x*sx, dy+qPts.control1.y*sy, dx+qPts.anchor1.x*sx, dy+qPts.anchor1.y*sy);
         graphicsPath.curveTo(dx + qPts.control2.x*sx, dy+qPts.control2.y*sy, dx+qPts.anchor2.x*sx, dy+qPts.anchor2.y*sy);
         graphicsPath.curveTo(dx + qPts.control3.x*sx, dy+qPts.control3.y*sy, dx+qPts.anchor3.x*sx, dy+qPts.anchor3.y*sy);
@@ -2045,24 +2197,24 @@ class CubicBezierSegment extends PathSegment
         var qPts:QuadraticPoints = getQuadraticPoints(prev);
         
         rect = MatrixUtil.getQBezierSegmentBBox(prev ? prev.x : 0, prev ? prev.y : 0,
-                                                qPts.control1.x, qPts.control1.y,
-                                                qPts.anchor1.x, qPts.anchor1.y,
-                                                sx, sy, m, rect); 
-
+            qPts.control1.x, qPts.control1.y,
+            qPts.anchor1.x, qPts.anchor1.y,
+            sx, sy, m, rect); 
+        
         rect = MatrixUtil.getQBezierSegmentBBox(qPts.anchor1.x, qPts.anchor1.y,
-                                                qPts.control2.x, qPts.control2.y,
-                                                qPts.anchor2.x, qPts.anchor2.y,
-                                                sx, sy, m, rect); 
-
+            qPts.control2.x, qPts.control2.y,
+            qPts.anchor2.x, qPts.anchor2.y,
+            sx, sy, m, rect); 
+        
         rect = MatrixUtil.getQBezierSegmentBBox(qPts.anchor2.x, qPts.anchor2.y,
-                                                qPts.control3.x, qPts.control3.y,
-                                                qPts.anchor3.x, qPts.anchor3.y,
-                                                sx, sy, m, rect); 
-
+            qPts.control3.x, qPts.control3.y,
+            qPts.anchor3.x, qPts.anchor3.y,
+            sx, sy, m, rect); 
+        
         rect = MatrixUtil.getQBezierSegmentBBox(qPts.anchor3.x, qPts.anchor3.y,
-                                                qPts.control4.x, qPts.control4.y,
-                                                qPts.anchor4.x, qPts.anchor4.y,
-                                                sx, sy, m, rect); 
+            qPts.control4.x, qPts.control4.y,
+            qPts.anchor4.x, qPts.anchor4.y,
+            sx, sy, m, rect); 
         return rect;
     }
     
@@ -2079,7 +2231,7 @@ class CubicBezierSegment extends PathSegment
     {
         // Get the approximation (we want the tangents to be the same as the ones we use to draw
         var qPts:QuadraticPoints = getQuadraticPoints(prev);
-
+        
         var pt0:Point = MatrixUtil.transformPoint(prev ? prev.x * sx : 0, prev ? prev.y * sy : 0, m).clone();
         var pt1:Point = MatrixUtil.transformPoint(qPts.control1.x * sx, qPts.control1.y * sy, m).clone();
         var pt2:Point = MatrixUtil.transformPoint(qPts.anchor1.x * sx, qPts.anchor1.y * sy, m).clone();
@@ -2104,7 +2256,7 @@ class CubicBezierSegment extends PathSegment
                 {
                     // Try 5 & 6
                     QuadraticBezierSegment.getQTangent(pt0.x, pt0.y, pt5.x, pt5.y, pt6.x, pt6.y, start, result);
-
+                    
                     // If there is no tangent
                     if (result.x == 0 && result.y == 0)
                         // Try 7 & 8
@@ -2145,43 +2297,43 @@ class CubicBezierSegment extends PathSegment
     {
         if (_qPts)
             return _qPts;
-
+        
         var p1:Point = new Point(prev ? prev.x : 0, prev ? prev.y : 0);
         var p2:Point = new Point(x, y);
         var c1:Point = new Point(control1X, control1Y);     
         var c2:Point = new Point(control2X, control2Y);
-            
+        
         // calculates the useful base points
         var PA:Point = Point.interpolate(c1, p1, 3/4);
         var PB:Point = Point.interpolate(c2, p2, 3/4);
-    
+        
         // get 1/16 of the [p2, p1] segment
         var dx:Number = (p2.x - p1.x) / 16;
         var dy:Number = (p2.y - p1.y) / 16;
-
+        
         _qPts = new QuadraticPoints;
         
         // calculates control point 1
         _qPts.control1 = Point.interpolate(c1, p1, 3/8);
-    
+        
         // calculates control point 2
         _qPts.control2 = Point.interpolate(PB, PA, 3/8);
         _qPts.control2.x -= dx;
         _qPts.control2.y -= dy;
-    
+        
         // calculates control point 3
         _qPts.control3 = Point.interpolate(PA, PB, 3/8);
         _qPts.control3.x += dx;
         _qPts.control3.y += dy;
-    
+        
         // calculates control point 4
         _qPts.control4 = Point.interpolate(c2, p2, 3/8);
-    
+        
         // calculates the 3 anchor points
         _qPts.anchor1 = Point.interpolate(_qPts.control1, _qPts.control2, 0.5); 
         _qPts.anchor2 = Point.interpolate(PA, PB, 0.5); 
         _qPts.anchor3 = Point.interpolate(_qPts.control3, _qPts.control4, 0.5); 
-    
+        
         // the 4th anchor point is p2
         _qPts.anchor4 = p2;
         
@@ -2195,7 +2347,7 @@ class CubicBezierSegment extends PathSegment
 //
 //--------------------------------------------------------------------------
 import flash.geom.Point;
-    
+
 /**
  *  Utility class to store the computed quadratic points.
  *  
@@ -2261,7 +2413,7 @@ class QuadraticBezierSegment extends PathSegment
     //  Constructor
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  Constructor.
      *  
@@ -2285,15 +2437,15 @@ class QuadraticBezierSegment extends PathSegment
      *  @productversion Flex 4
      */
     public function QuadraticBezierSegment(
-                _control1X:Number = 0, _control1Y:Number = 0, 
-                x:Number = 0, y:Number = 0)
+        _control1X:Number = 0, _control1Y:Number = 0, 
+        x:Number = 0, y:Number = 0)
     {
         super(x, y);
         
         control1X = _control1X;
         control1Y = _control1Y;
     }   
-
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -2303,8 +2455,8 @@ class QuadraticBezierSegment extends PathSegment
     //----------------------------------
     //  control1X
     //----------------------------------
-	
-	/**
+    
+    /**
      *  The control point's x position.
      *  
      *  @langversion 3.0
@@ -2317,8 +2469,8 @@ class QuadraticBezierSegment extends PathSegment
     //----------------------------------
     //  control1Y
     //----------------------------------
-	
-	/**
+    
+    /**
      *  The control point's y position.
      *  
      *  @langversion 3.0
@@ -2387,7 +2539,7 @@ class QuadraticBezierSegment extends PathSegment
             }
         }
     }
-
+    
     /**
      *  Returns the tangent for the segment. 
      *  @param prev The previous segment drawn, or null if this is the first segment.
@@ -2405,7 +2557,7 @@ class QuadraticBezierSegment extends PathSegment
         
         getQTangent(pt0.x, pt0.y, pt1.x, pt1.y, pt2.x, pt2.y, start, result);
     }
-
+    
     /**
      *  @inheritDoc
      *  
@@ -2418,6 +2570,6 @@ class QuadraticBezierSegment extends PathSegment
                                             m:Matrix, rect:Rectangle):Rectangle
     {
         return MatrixUtil.getQBezierSegmentBBox(prev ? prev.x : 0, prev ? prev.y : 0,
-                                                control1X, control1Y, x, y, sx, sy, m, rect);
+            control1X, control1Y, x, y, sx, sy, m, rect);
     }
 }
