@@ -883,6 +883,13 @@ public class VerticalLayout extends LayoutBase
     override public function clearVirtualLayoutCache():void
     {
         llv = null;
+
+        var g:GroupBase = GroupBase(target);
+        if (!g)
+            return;
+        
+        target.invalidateSize();
+        target.invalidateDisplayList();
     }     
 
     /**
