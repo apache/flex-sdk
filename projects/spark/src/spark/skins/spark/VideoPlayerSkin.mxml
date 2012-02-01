@@ -16,13 +16,22 @@
 
     <!-- host component -->
     <fx:Metadata>
+    <![CDATA[ 
+	/** 
+	 * @copy spark.skins.default.ApplicationSkin#hostComponent
+	 */
         [HostComponent("spark.components.VideoPlayer")]
+    ]]>
     </fx:Metadata>
     
     <fx:Script>
         /* Define the skin elements that should not be colorized. 
            TODO: For video display, we need to think about this... */
         static private const exclusions:Array = [];
+
+	/** 
+	 * @copy spark.skins.SparkSkin#colorizeExclusions
+	 */		
         override public function get colorizeExclusions():Array {return exclusions;}
     </fx:Script>
     
