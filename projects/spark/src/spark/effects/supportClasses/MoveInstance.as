@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.effects.supportClasses
 {
-import spark.effects.AnimationProperty;
+import spark.effects.SimpleMotionPath;
     
 public class MoveInstance extends AnimateInstance
 {
@@ -132,9 +132,9 @@ public class MoveInstance extends AnimateInstance
      */
     override public function play():void
     {
-        animationProperties = 
-            [new AnimationProperty("x", xFrom, xTo, duration, xBy),
-             new AnimationProperty("y", yFrom, yTo, duration, yBy)];
+        motionPaths = 
+            [new SimpleMotionPath("x", xFrom, xTo, duration, xBy),
+             new SimpleMotionPath("y", yFrom, yTo, duration, yBy)];
         
         // Also animate any position-related constraints that change between
         // transition states
