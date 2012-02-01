@@ -945,6 +945,9 @@ package spark.primitives
                 measuredHeight = !isNaN(_preliminaryHeight) && (previousHeight == 0) ? 
                     _preliminaryHeight : previousHeight;
                 
+                if (parent)
+                    parent.dispatchEvent(new FlexEvent(FlexEvent.MEASURED_SIZE_PRELIMINARY, true, true)); 
+                
                 return;
             }
             
@@ -1549,7 +1552,7 @@ package spark.primitives
                     _trustedSource = false; 
                     
                     // Dispatch ready event
-                    dispatchEvent(new FlexEvent(FlexEvent.READY));
+                    dispatchEvent(new FlexEvent(FlexEvent.READY));          
                 }
             }
             else
@@ -1709,6 +1712,9 @@ package spark.primitives
             } 
             
             dispatchEvent(event);
+            
+            if (parent)
+                parent.dispatchEvent(new FlexEvent(FlexEvent.MEASURED_SIZE_FINAL, true, true));
             
             // Remove any event listeners from load-event dispatcher.
             clearLoadingContent();
