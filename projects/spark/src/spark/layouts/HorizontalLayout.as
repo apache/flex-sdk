@@ -181,8 +181,8 @@ public class HorizontalLayout extends LayoutBase
     {
         super();
 
-		// Don't drag-scroll in the vertical direction
-		dragScrollRegionSizeVertical = 0;
+        // Don't drag-scroll in the vertical direction
+        dragScrollRegionSizeVertical = 0;
 
         // Virtualization defaults for cases
         // where there are no items and no typical item.
@@ -206,7 +206,7 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  The horizontal space between layout elements.
+     *  The horizontal space between layout elements, in pixels.
      * 
      *  Note that the gap is only applied between layout elements, so if there's
      *  just one element, the gap has no effect on the layout.
@@ -515,7 +515,7 @@ public class HorizontalLayout extends LayoutBase
 
     /**
      *  If the <code>variableColumnWidth</code> property is <code>false</code>, 
-     *  then this property specifies the actual width of each layout element.
+     *  then this property specifies the actual width of each layout element, in pixels.
      * 
      *  <p>If the <code>variableColumnWidth</code> property is <code>true</code>, 
      *  the default, then this property has no effect.</p>
@@ -1574,11 +1574,11 @@ public class HorizontalLayout extends LayoutBase
        
         updateLLV(layoutTarget);
 
-		// Find the index of the first visible item. Since the item's bounds includes the gap
-		// that follows it, we want to avoid looking at an item that has only a portion of
-		// its gap intersecting with the visible region.
-		// We have to also be careful, as gap could be negative and in that case, we should
-		// simply start from minVisibleX - SDK-22497.
+        // Find the index of the first visible item. Since the item's bounds includes the gap
+        // that follows it, we want to avoid looking at an item that has only a portion of
+        // its gap intersecting with the visible region.
+        // We have to also be careful, as gap could be negative and in that case, we should
+        // simply start from minVisibleX - SDK-22497.
         var startIndex:int = llv.indexOf(Math.max(0, minVisibleX + gap));
         if (startIndex == -1)
             return; 
@@ -1973,26 +1973,26 @@ public class HorizontalLayout extends LayoutBase
         }
         
         var x:Number = emptySpaceLeft + Math.round((emptySpace - width)/2);
-		// Allow 1 pixel overlap with container border
+        // Allow 1 pixel overlap with container border
         x = Math.max(-Math.ceil(width / 2), Math.min(target.contentWidth - Math.ceil(width/2), x));
 
-		var y:Number = paddingTop;
+        var y:Number = paddingTop;
         return new Rectangle(x, y, width, height);
     }
 
-	/**
-	 *  @private
-	 */
-	override protected function calculateDragScrollDelta(dropLocation:DropLocation,
-														 timeInterval:int,
-														 timeElapsed:int):Point
-	{
-		var delta:Point = super.calculateDragScrollDelta(dropLocation, timeInterval, timeElapsed);
-		// Don't scroll in the vertical direction
-		if (delta)
-			delta.y = 0;
-		return delta;
-	}
+    /**
+     *  @private
+     */
+    override protected function calculateDragScrollDelta(dropLocation:DropLocation,
+                                                         timeInterval:int,
+                                                         timeElapsed:int):Point
+    {
+        var delta:Point = super.calculateDragScrollDelta(dropLocation, timeInterval, timeElapsed);
+        // Don't scroll in the vertical direction
+        if (delta)
+            delta.y = 0;
+        return delta;
+    }
 }
 }
 
