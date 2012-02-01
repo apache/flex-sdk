@@ -8,25 +8,25 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package flex.effects.effectClasses
+package mx.effects.effectClasses
 {
 import flash.events.Event;
 
-import flex.effects.PropertyValuesHolder;
-import flex.graphics.IGraphicElement;
+import mx.effects.PropertyValuesHolder;
+import mx.graphics.IGraphicElement;
 
-import mx.core.Application;
+import mx.components.FxApplication;
 import mx.core.Container;
 import mx.core.IUIComponent;
 import mx.events.EffectEvent;
 import mx.events.TweenEvent;
 import mx.styles.IStyleClient;
     
-public class MoveInstance extends AnimateInstance
+public class FxMoveInstance extends FxAnimateInstance
 {
     include "../../core/Version.as";
 
-    public function MoveInstance(target:Object)
+    public function FxMoveInstance(target:Object)
     {
         super(target);
         roundValues = true;
