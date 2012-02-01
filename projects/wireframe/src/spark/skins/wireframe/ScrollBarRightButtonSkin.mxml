@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009">
+
+    <Metadata>
+    	[HostComponent("mx.components.FxButton")]
+    </Metadata> 
+    
+    <states>
+        <State name="up" />
+        <State name="over" />
+        <State name="down" />
+        <State name="disabled" />
+    </states>
+
+    <Rect left="0" right="0" minWidth="17" top="0" bottom="0" minHeight="14">
+        <stroke>
+            <SolidColorStroke color="0x5380D0" />
+        </stroke>
+        <fill>
+            <SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF" />
+        </fill>
+    </Rect>
+
+	<!-- shadow (down state only) -->
+	<Rect left="1" top="1" right="1" bottom="1" includeIn="down">
+		<stroke>
+			<LinearGradientStroke rotation="90">
+				<GradientEntry color="0x5380D0" alpha="0.25" />
+				<GradientEntry color="0x5380D0" alpha="0" />
+			</LinearGradientStroke>
+		</stroke>
+	</Rect>
+
+    <!-- arrow -->
+    <Path>
+        <fill>
+            <SolidColor color="0x4E6290" />
+        </fill>
+        <segments>
+            <MoveSegment x="13" y="7.5" />
+            <LineSegment x="6" y="11" />
+            <LineSegment x="6" y="3.5" />
+            <LineSegment x="13" y="7.5" />
+        </segments>
+    </Path>
+
+</Skin>
