@@ -29,28 +29,40 @@ use namespace mx_internal;
 [ResourceBundle("core")]
 
 /**
- *  The <code>NumberFormatter</code> class provides locale-sensitive formatting
+ *  The NumberFormatter class provides locale-sensitive formatting
  *  and parsing of numeric values. It can format <code>int</code>,
  *  <code>uint</code>, and <code>Number</code> objects.
  *
  *  <p>This class is a wrapper class around the 
- *  <code>flash.globalization.NumberFormatter</code>. 
+ *  flash.globalization.NumberFormatter class. 
  *  Therefore, the locale-specific formatting
- *  is provided by the <code>flash.globalization.NumberFormatter</code>.
- *  However, this NumberFormatter class can be used in MXML declartions,
+ *  is provided by the flash.globalization.NumberFormatter.
+ *  However, this NumberFormatter class can be used in MXML declarations,
  *  uses the locale style for the requested Locale ID name, and has
  *  methods and properties that are bindable.  
- *  </p><p>
- *  The <code>flash.globalization.NumberFormatter</code> class use the
+ *  </p>
+ *
+ *  <p>The flash.globalization.NumberFormatter class use the
  *  underlying operating system for the formatting functionality and
  *  to supply the locale-specific data. On some operating systems, the
  *  flash.globalization classes are unsupported, on these systems this wrapper
  *  class provides fallback functionality.</p>
  *
+ *  @mxml <p>The <code>&lt;s:NumberFormatter&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:NumberFormatter 
+ *    <strong>Properties</strong>
+ *    negativeNumberFormat="<i>locale and OS dependent</i>"
+ *  /&gt;
+ *  </pre>
+ *
  *  @includeExample examples/NumberFormatterExample1.mxml
  *  @includeExample examples/NumberFormatterExample2.mxml
  *
  *  @see flash.globalization.NumberFormatter
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
@@ -85,26 +97,22 @@ public class NumberFormatter extends NumberFormatterBase implements IFormatter
      *  <li>
      *  By using the class in an MXML declaration and inheriting the
      *  locale from the document that contains the declaration.
-     *  <listing version="3.0" >
-     *  Example: <br>
+     *  Example: <pre>
      *  &lt;fx:Declarations&gt; <br>
      *         &lt;s:NumberFormatter id="nf" /&gt;<br>
-     *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  &lt;/fx:Declarations&gt;</pre>
      *  </li>
      *  <li>
      *  By using an MXML declaration and specifying the locale value in
      *  the list of assignments.
-     *  <listing version="3.0" >
-     *  Example:<br>
+     *  Example:<pre>
      *  &lt;fx:Declarations&gt;<br>
      *      &lt;s:NumberFormatter id="nf_French_France" locale="fr_FR" /&gt;<br>
-     *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  &lt;/fx:Declarations&gt;</pre>
      *  </li>
      *  <li>
-     *  Calling the setStyle method, e.g.
-     *  <code>nf.setStyle("locale", "fr-FR")</code>
+     *  Calling the setStyle method. For example:<pre>
+     *  <code>nf.setStyle("locale", "fr-FR")</code></pre>
      *  </li>
      *  <li> 
      *  Inheriting the style from a <code>UIComponent</code> by calling 
@@ -247,7 +255,7 @@ public class NumberFormatter extends NumberFormatterBase implements IFormatter
      *    </table>
      *
      *
-     *  The default value is dependent on the locale and operating system.
+     *  <p>The default value is dependent on the locale and operating system.</p>
      *
      *  @throws ArgumentError if the assigned value is not a number
      *  between 0 and 4.
@@ -342,10 +350,10 @@ public class NumberFormatter extends NumberFormatterBase implements IFormatter
      *
      * <p>This function formats the number based on the property values
      *  of the formatter.
-     *  If the properties are not modified after the locale style is set, the
-     *  numbers are formatted according to the locale-specific conventions
+     *  If the properties are not modified after the <code>locale</code> style is set,  
+     *  the numbers are formatted according to the locale-specific conventions
      *  provided by the operating system for the locale identified
-     *  by <code>actualLocaleIDName</code>.
+     *  by the <code>actualLocaleIDName</code> property.
      *  To customize the format, the properties
      *  can be altered to control specific aspects of formatting a number.</p>
      *
@@ -356,14 +364,15 @@ public class NumberFormatter extends NumberFormatterBase implements IFormatter
      *  supported.</p>
      * 
      *  <p>If there is an error when formatting, due to an illegal input value 
-     *  or other error, by default the <code>format()</code> method will 
-     *  return <code>null</code>. However if the <code>errorText</code> property
-     *  is non-null, then the value of the <code>errorText</code> property will
-     *  be returned. The <code>lastOperationStatus</code> property will be
+     *  or other error, by default the <code>format()</code> method  
+     *  returns <code>null</code>. 
+     *  However if the <code>errorText</code> property
+     *  is non-null, then the value of the <code>errorText</code> property  
+     *  is returned. The <code>lastOperationStatus</code> property will be
      *  set to indicate the error that occurred.</p>
      *
      *  @param value An object containing a number value to format. If the 
-     *  object is not a <code>Number</code> then it will be converted
+     *  object is not a <code>Number</code> then it is converted
      *  to a number using the <code>Number()</code> conversion function.
      *     
      *  @return A formatted number string.
@@ -487,7 +496,9 @@ public class NumberFormatter extends NumberFormatterBase implements IFormatter
      *  <p>A single white space is allowed between the number and the
      *  minus sign or parenthesis. A white space
      *  character is a character that has a Space Separator (Zs) property
-     *  in the Unicode Character Database (see http://www.unicode.org/ucd/).</p>
+     *  in the Unicode Character Database.
+     *  For more information, 
+     *  see <a href="http://www.unicode.org/ucd/">http://www.unicode.org/ucd/</a>).</p>
      *
      *  <p>Other properties are ignored when determining a valid number.
      *  Specifically the value of the
@@ -579,6 +590,10 @@ public class NumberFormatter extends NumberFormatterBase implements IFormatter
      *  </p>
      *
      *  @throws TypeError if the <code>parseString</code> is <code>null</code>
+     *
+     *  @param inputString The input string to parse.
+     *
+     *  @return A <code>Number</code> object containing the numeric value.
      *
      *  @see #parse()
      *  @see flash.globalization.NationalDigitsType
