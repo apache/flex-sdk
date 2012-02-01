@@ -11,13 +11,20 @@
 width="300" height="16"
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009"
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
 	  minWidth="11" minHeight="100"
 	  alpha.disabled="0.5">
 
     <Metadata>
     	[HostComponent("mx.components.FxVSlider")]
     </Metadata> 
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For slider, the skin itself is colorized but the individual parts are not. */
+        static private const exclusions:Array = ["track", "thumb"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+    </Script>
     
     <states>
     	<State name="normal" />
@@ -51,4 +58,4 @@ width="300" height="16"
     <FxButton id="thumb" left="0" right="0" width="11" height="11" 
               skinClass="mx.skins.spark.FxVSliderThumbSkin" />
 
-</Skin>
+</SparkSkin>
