@@ -19,13 +19,22 @@ an Alert. It is defined by the defaultButton property on a container. -->
 
 	<!-- host component -->
 	<fx:Metadata>
+	    <![CDATA[ 
+		/** 
+		 * @copy spark.skins.default.ApplicationSkin#hostComponent
+		 */
 		[HostComponent("spark.components.Button")]
+	    ]]>
 	</fx:Metadata>
     
     <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For button, the graphics are colorized but the label is not. */
         static private const exclusions:Array = ["labelElement"];
+
+	/** 
+	 * @copy spark.skins.SparkSkin#colorizeExclusions
+	 */		
         override public function get colorizeExclusions():Array {return exclusions;}
     </fx:Script>
 	
