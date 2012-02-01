@@ -12,13 +12,16 @@
 package spark.primitives
 {
 
-import flash.events.EventDispatcher;
 import flash.display.Graphics;
-import flash.geom.Rectangle;
-import flash.geom.Point;
 import flash.geom.Matrix;
+import flash.geom.Point;
+
+import mx.core.mx_internal;
 import mx.utils.MatrixUtil;
+
 import spark.primitives.supportClasses.FilledElement;
+
+use namespace mx_internal;
 
 /**
  *  The Ellipse class is a filled graphic element that draws an ellipse.
@@ -77,7 +80,7 @@ public class Ellipse extends FilledElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override protected function drawElement(g:Graphics):void
+    override protected function draw(g:Graphics):void
     {
         g.drawEllipse(drawX, drawY, width, height);
     }
@@ -89,12 +92,9 @@ public class Ellipse extends FilledElement
                                                         height:Number,
                                                         postLayoutTransform:Boolean = true):Number
     {
-        if (postLayoutTransform)
-        {
-            var m:Matrix = computeMatrix();
-            if (m)
-                width = MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, m).width;
-        }
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+        	width = MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, 
+        											 layoutFeatures.layoutMatrix).width;	
 
         // Take stroke into account
         return width + getStrokeExtents().x;
@@ -107,12 +107,9 @@ public class Ellipse extends FilledElement
                                                          height:Number,
                                                          postLayoutTransform:Boolean = true):Number
     {
-        if (postLayoutTransform)
-        {
-            var m:Matrix = computeMatrix();
-            if (m)
-                height = MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, m).height;
-        }
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+			height = MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, 
+													  layoutFeatures.layoutMatrix).height;
 
         // Take stroke into account
         return height + getStrokeExtents().y;
@@ -129,7 +126,7 @@ public class Ellipse extends FilledElement
     override public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
         var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
             return strokeExtents.x * -0.5 + this.x;
 
@@ -162,7 +159,7 @@ public class Ellipse extends FilledElement
     override public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
         var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
             return strokeExtents.y * -0.5 + this.y;
 
@@ -191,12 +188,9 @@ public class Ellipse extends FilledElement
     {
         var stroke:Number = -getStrokeExtents(postLayoutTransform).x * 0.5;
         
-        if (postLayoutTransform)
-        {
-            var m:Matrix = computeMatrix();
-            if (m)
-                return stroke + MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, m).x;
-        }
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+            return stroke + MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, 
+            												 layoutFeatures.layoutMatrix).x;
         
         return stroke + this.x;
     }
@@ -208,12 +202,9 @@ public class Ellipse extends FilledElement
     {
         var stroke:Number = - getStrokeExtents(postLayoutTransform).y * 0.5;
 
-        if (postLayoutTransform)
-        {
-            var m:Matrix = computeMatrix();
-            if (m)
-                return stroke + MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, m).y;
-        }
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+                return stroke + MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, 
+                												 layoutFeatures.layoutMatrix).y;
 
         return stroke + this.y;
     }
