@@ -11,22 +11,22 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009"
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
 	  minHeight="11" minWidth="100"
 	  alpha.disabled="0.5">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxHSlider")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.HSlider")]
+    </fx:Metadata> 
     
-    <states>
-    	<State name="normal" />
-    	<State name="disabled" />
-    </states>
+    <s:states>
+    	<s:State name="normal" />
+    	<s:State name="disabled" />
+    </s:states>
     
-    <FxButton id="track" left="0" right="0" top="0" bottom="0" 
-            skinClass="wireframe.FxHSliderTrackSkin" />
-    <FxButton id="thumb" top="0" bottom="0" width="11" height="11"
-            skinClass="wireframe.FxHSliderThumbSkin" />
+    <s:Button id="track" left="0" right="0" top="0" bottom="0" 
+            skinClass="spark.skins.wireframe.HSliderTrackSkin" />
+    <s:Button id="thumb" top="0" bottom="0" width="11" height="11"
+            skinClass="spark.skins.wireframe.HSliderThumbSkin" />
 
-</Skin>
+</s:Skin>
