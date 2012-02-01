@@ -56,7 +56,7 @@ public class SparkSkin extends Skin
     }
     
     /*
-     * names of items that should have their "color" property defined by the "contentColor" style.
+     * names of items that should have their "color" property defined by the "contentBackgroundColor" style.
      */
     public function get contentItems():Array
     {
@@ -90,12 +90,12 @@ public class SparkSkin extends Skin
         
         if (content && content.length > 0)
         {
-            var contentColor:uint = getStyle("contentColor");
+            var contentBackgroundColor:uint = getStyle("contentBackgroundColor");
             
             for (i = 0; i < content.length; i++)
             {
                 if (this[content[i]])
-                    this[content[i]].color = contentColor;
+                    this[content[i]].color = contentBackgroundColor;
             }
         }
         
