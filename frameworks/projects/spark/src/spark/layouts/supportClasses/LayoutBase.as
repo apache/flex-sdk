@@ -15,6 +15,7 @@ package flex.layout
 import flash.events.Event;
 import flash.geom.Rectangle;
 import flash.geom.Point;
+import flash.ui.Keyboard;
 
 import flex.core.GroupBase;
 import flex.intf.ILayout;
@@ -162,6 +163,110 @@ public class LayoutBase extends EventDispatcher implements ILayout
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Returns the amount one would have to add to the viewport's current 
+     *  verticalScrollPosition to scroll by the requested "scrolling" unit.
+     * 
+     *  The value of unit must be one of the following flash.ui.Keyboard
+     *  constants: UP, DOWN, PAGE_UP, PAGE_DOWN, HOME, END.
+     * 
+     *  To scroll by a single row use UP or DOWN and to scroll to the
+     *  first or last row, use HOME or END.
+     */
+    public function verticalScrollPositionDelta(unit:uint):Number
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return 0;     
+
+        var maxIndex:int = g.numLayoutItems -1;
+        if (maxIndex < 0)
+            return 0;
+
+        var scrollR:Rectangle = g.scrollRect;
+        if (!scrollR)
+            return 0;
+            
+        var maxDelta:Number = g.contentHeight - scrollR.height - scrollR.y;
+        var minDelta:Number = -scrollR.y; 
+            
+        switch (unit)
+        {
+        	case Keyboard.UP:
+        	    return (scrollR.y <= 0) ? 0 : -1;
+        	    
+        	case Keyboard.DOWN:
+        	    return (scrollR.y >= maxDelta) ? 0 : 1;
+        	    
+            case Keyboard.PAGE_UP:
+                return Math.max(minDelta, -scrollR.height);
+                
+            case Keyboard.PAGE_DOWN:
+                return Math.min(maxDelta, scrollR.height);
+                
+            case Keyboard.HOME: 
+                return minDelta;
+                
+            case Keyboard.END: 
+                return maxDelta;
+                
+            default:
+                return 0;
+        }    	
+    } 
+    
+    /**
+     *  Returns the amount one would have to add to the viewport's current 
+     *  verticalScrollPosition to scroll by the requested "scrolling" unit.
+     * 
+     *  The value of unit must be one of the following flash.ui.Keyboard
+     *  constants: UP, DOWN, PAGE_UP, PAGE_DOWN, HOME, END.
+     * 
+     *  To scroll by a single row use UP or DOWN and to scroll to the
+     *  first or last row, use HOME or END.
+     */
+    public function horizontalScrollPositionDelta(unit:uint):Number
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return 0;     
+
+        var maxIndex:int = g.numLayoutItems -1;
+        if (maxIndex < 0)
+            return 0;
+
+        var scrollR:Rectangle = g.scrollRect;
+        if (!scrollR)
+            return 0;
+            
+        var maxDelta:Number = g.contentWidth - scrollR.width - scrollR.x;
+        var minDelta:Number = -scrollR.x; 
+            
+        switch (unit)
+        {
+            case Keyboard.UP:
+                return (scrollR.x <= 0) ? 0 : -1;
+                
+            case Keyboard.DOWN:
+                return (scrollR.x >= maxDelta) ? 0 : 1;
+                
+            case Keyboard.PAGE_UP:
+                return Math.max(minDelta, -scrollR.width);
+                
+            case Keyboard.PAGE_DOWN:
+                return Math.min(maxDelta, scrollR.width);
+                
+            case Keyboard.HOME: 
+                return minDelta;
+                
+            case Keyboard.END: 
+                return maxDelta;
+                
+            default:
+                return 0;
+        }       
+    }
+     
     /**
      *  Called when the verticalScrollPosition or horizontalScrollPosition 
      *  properties change.
