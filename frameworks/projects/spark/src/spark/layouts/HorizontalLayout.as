@@ -11,10 +11,7 @@
 
 package spark.layouts
 {
-import flash.display.DisplayObject;
-import flash.events.Event; 
-import flash.events.EventDispatcher;
-import flash.geom.Point;
+import flash.events.Event;
 import flash.geom.Rectangle;
 
 import mx.containers.utilityClasses.Flex;
@@ -22,7 +19,6 @@ import mx.core.ILayoutElement;
 import mx.events.PropertyChangeEvent;
 
 import spark.components.supportClasses.GroupBase;
-import spark.core.NavigationUnit;
 import spark.core.NavigationUnit;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.layouts.supportClasses.LayoutElementHelper;
@@ -1083,7 +1079,7 @@ public class HorizontalLayout extends LayoutBase
             var typicalWidth:Number = typicalElt.getPreferredBoundsWidth();
             var typicalHeight:Number = typicalElt.getPreferredBoundsHeight();
             llv.minorSize = Math.max(llv.minorSize, typicalHeight);
-            llv.defaultMajorSize = typicalWidth;      
+            llv.defaultMajorSize = typicalWidth;
         }
         if (layoutTarget)
             llv.length = layoutTarget.numElements;        
@@ -1473,7 +1469,10 @@ public class HorizontalLayout extends LayoutBase
         if (!variableColumnWidth)
             fixedColumnWidth = columnWidth;  // may query typicalLayoutElement, elt at index=0
          
-        var contentHeight:Number = llv.minorSize;
+        var justifyHeights:Boolean = verticalAlign == VerticalAlign.JUSTIFY;
+        var eltWidth:Number = NaN;
+        var eltHeight:Number = (justifyHeights) ? Math.max(llv.minMinorSize, targetHeight) : llv.minorSize;  
+        var contentHeight:Number = (justifyHeights) ? Math.max(llv.minMinorSize, targetHeight) : llv.minorSize;
         var containerHeight:Number = Math.max(contentHeight, targetHeight);
         var x:Number = llv.start(startIndex);
         var index:int = startIndex;
@@ -1498,7 +1497,7 @@ public class HorizontalLayout extends LayoutBase
 
         // Second pass: if neccessary, fix up y and height values based
         // on the updated contentHeight
-        if (llv.minorSize != contentHeight)
+        if (!justifyHeights && (llv.minorSize != contentHeight))
         {
             contentHeight = llv.minorSize;
             containerHeight = Math.max(contentHeight, targetHeight);            
@@ -1521,8 +1520,9 @@ public class HorizontalLayout extends LayoutBase
 
         // Make sure that if the content spans partially over a pixel to the right/bottom,
         // the content size includes the whole pixel.
-        layoutTarget.setContentSize(Math.ceil(llv.end(llv.length - 1) + paddingRight),
-                                    Math.ceil(contentHeight + paddingTop + paddingBottom));
+        var paddedContentWidth:Number = Math.ceil(llv.end(llv.length - 1) + paddingRight);
+        var paddedContentHeight:Number = Math.ceil(contentHeight + paddingTop + paddingBottom);
+        layoutTarget.setContentSize(paddedContentWidth, paddedContentHeight);
     }
     
     /**
