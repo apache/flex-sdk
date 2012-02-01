@@ -419,9 +419,9 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      *  <p>This pattern can be set in one of two ways:</p>
      *
      *  <ol>
-     *     <li>By the <code>dateSytle()</code> and <code>timeStyle</code>
-     *     properties </li>
-     *     <li>By the <code>dateTimePattern()</code> property.</li>
+     *     <li>By setting the <code>dateSytle</code> and <code>timeStyle</code>
+     *     properties. </li>
+     *     <li>By setting the <code>dateTimePattern</code> property.</li>
      *  </ol>
      *
      *  <p>If this property is assigned a value directly, as a side effect,
