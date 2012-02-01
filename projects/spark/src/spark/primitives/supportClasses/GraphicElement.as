@@ -26,9 +26,9 @@ import flash.geom.Point;
 import flash.geom.Transform;
 
 import mx.components.Group;
-import mx.components.baseClasses.GroupBase;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.IInvalidating;
+import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.InvalidatingSprite;
 import mx.core.UIComponent;
@@ -44,7 +44,6 @@ import mx.geom.TransformOffsets;
 import mx.graphics.IGraphicElement;
 import mx.graphics.IStroke;
 import mx.graphics.MaskType;
-import mx.core.ILayoutElement;
 import mx.managers.ILayoutManagerClient;
 import mx.utils.MatrixUtil;
 import mx.utils.OnDemandEventDispatcher;
@@ -2100,15 +2099,18 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc
      */
-    public function destroyDisplayObject():void
+    public function destroyDisplayObject():DisplayObject
     {
         // TODO!! Figure out what cleanup to do
+        var oldDisplayObject:DisplayObject;
+        
         if (displayObject)
         {
-            if (displayObject.parent)
-                displayObject.parent.removeChild(displayObject);
+            oldDisplayObject = displayObject;
             displayObject = null;
         }
+        
+        return oldDisplayObject;
     }
     
     private var _alwaysCreateDisplayObject:Boolean;
