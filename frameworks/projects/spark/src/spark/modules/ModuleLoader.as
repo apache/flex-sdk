@@ -133,7 +133,9 @@ import spark.components.Group;
  *  
  *  @see mx.controls.SWFLoader
  *  @includeExample examples/ModuleLoaderExample.mxml
- *  
+ *  @includeExample examples/ModuleVerticalLayout.mxml
+ *  @includeExample examples/ModuleHorizontalLayout.mxml
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10.2
  *  @playerversion AIR 2.5
