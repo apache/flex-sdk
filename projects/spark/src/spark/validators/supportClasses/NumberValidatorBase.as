@@ -28,9 +28,9 @@ import spark.validators.supportClasses.GlobalizationValidatorBase;
 
 use namespace mx_internal;
 /**
- *  The NumberValidatorBase class contains all the common functionality that is
- *  required by the Spark NumberValidator and 
- *  CurrencyValidator classes.
+ *  The <code>NumberValidatorBase</code> class contains all the common functionality that is
+ *  required by the <code>NumberValidator</code> and 
+ *  <code>CurrencyValidator</code> classes.
  *
  *  @mxml
  *
@@ -62,7 +62,7 @@ use namespace mx_internal;
  *    parseError="The input string could not be parsed."
  *  /&gt;
  *  </pre>
- * 
+ *
  *  @see spark.formatters.supportClasses.NumberFormatterBase
  *
  *  @langversion 3.0
@@ -146,17 +146,31 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  Because it can be either type and they don't have common base except
      *  Object, it is defined as Object.
      */
-    protected var g11nWorkingInstance:Object = null;
+    private var _g11nWorkingInstance:Object = null;
 
     /**
-    *  @private
-    *  Basic properies of the actual underlying working instance.
-    *
-    *  It can be flash.globalization.NumberFormatter/CurrencyFormatter OR
-    *  the fallback's propery set.
-    */
-    protected var properties:Object = null;
-
+     *  @private
+     *  If the g11nWorkingInstance has not been defined. Call
+     *  ensureStyleSource to ensure that there is a styleParent. If there is
+     *  not a style parent, then this instance will be added as a style client
+     *  to the topLevelApplication. As a side effect of this, the styleChanged
+     *  method will be called and if there is a locale style defined for the
+     *  topLevelApplication, the createWorkingInstance method will be
+     *  executed creating a g11nWorkingInstance.
+     */
+    mx_internal function get g11nWorkingInstance ():Object
+    {
+        if (!_g11nWorkingInstance)
+            ensureStyleSource();
+        
+        return _g11nWorkingInstance;
+    }
+    
+    mx_internal function set g11nWorkingInstance (sparkFormatter:Object): void 
+    {
+        _g11nWorkingInstance = sparkFormatter;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden Properties
@@ -258,11 +272,11 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  The decimal separator character used for validating numbers that have
      *  a decimal part.
      *
-     *  <p>This property is initially set based on the locale that
-     *  is selected when the validator object
-     *  is constructed.</p>
+     *  <p>This property is initially set based on the locale style of the 
+     *  validator object.</p>
      *
-     *  <p>The default value is dependent on the locale and operating system.</p>
+     *  <p>The default value is dependent on the locale and operating
+     *  system.</p>
      *
      *  @throws TypeError if this property is assigned a null value.
      *
@@ -303,7 +317,8 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  The valid values for this property are defined in the
      *  <code>NationalDigitsType</code> class.</p>
      *
-     *  The default value is dependent on the locale and operating system.
+     *  <p>The default value is dependent on the locale and operating
+     *  system.</p>
      *
      *  @see flash.globalization.NationalDigitsType
      *
@@ -351,6 +366,8 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  <code>NumberValidatorDomainType.INT</code>.</p>
      *
      *  @default "real"
+     * 
+     *  @see #NumberValidatorDomainType
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -398,7 +415,8 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  The maximum number of digits that can appear after the decimal
      *  separator.
      *
-     *  <p>The default value is dependent on the locale and operating system.</p>
+     *  <p>The default value is dependent on the locale and operating
+     *  system.</p>
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -429,9 +447,10 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  property is initially set based on the locale that is selected
      *  when the validator object is constructed.</p>
      *
-     *  <p>The default value is dependent on the locale and operating system.</p>
-     *
      *  @throws TypeError if this property is assigned a null value.
+     *
+     *  <p>The default value is dependent on the locale and operating
+     *  system.</p>
      *
      *  @see #validate()
      *  @see #groupingPattern
@@ -549,9 +568,9 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *
      *  <p>This symbol is used when validating a negative number.
      *  This is read-only property as not all operating systems allow
-     *  customizing of this property. </p>
+     *  customizing of this property.</p>
      *
-     *  <p> This property is set to a default value specified by the locale.</p>
+     *  <p>This property is set to a default value specified by the locale.</p>
      *
      *  @see #negativeNumberFormat
      *  @see #validate()
@@ -733,7 +752,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     /**
      *  Error message when the value contains invalid characters.
      *
-     *  @default The input contains invalid characters."
+     *  @default "The input contains invalid characters."
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -1089,7 +1108,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  This method has the common code that is needed by both currency and
      *  number validator object's createWorkingInstance().
      *
-     *  <p> Create locale specific formatter object using localeStyle property.
+     *  <p>Create locale specific formatter object using localeStyle property.
      *  If localeStyle is null, this method sets fallbackLastOperationStatus to
      *  LOCALE_UNDEFINED_ERROR and returns.
      *  If localeStyle is specified and fallback is enforced, then fallback
@@ -1136,9 +1155,9 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  @private
      *  Return the actual locale id name.
      *
-     *  <p> This method gets the actual locale id name from the internal
+     *  <p>This method gets the actual locale id name from the internal
      *  formatter object. If the formatter object is not available, returns
-     *  "en-US" as the ultimate fallback locale id name. </p>
+     *  "en-US" as the ultimate fallback locale id name.</p>
      *
      *  @param validatorType  int having the validator type: currency or number
      *  @returns <code>String</code> Actual locale id name
@@ -1154,8 +1173,8 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
                 : (g11nWorkingInstance
                     as spark.formatters.CurrencyFormatter).actualLocaleIDName;
         }
-            // Flex binding allows a situation of getting actual locale id name even
-            // before createWorkingInstance() is called.
+            // Flex binding allows a situation of getting actual locale id name
+            // even before createWorkingInstance() is called.
         else
         {
             fallbackLastOperationStatus = 
@@ -1427,7 +1446,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  @private
      *  Validate the number string portion after the decimal point.
      *
-     *  <p> Checks that there are no errors in the number string after the
+     *  <p>Checks that there are no errors in the number string after the
      *  decimal. Example errors could be having a grouping separator or using an
      *  invalid character like non-numeral after the decimal. If
      *  there are any such errors, this method reports "invalidCharError" and
@@ -1505,7 +1524,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  @private
      *  Check if a number has correct number of fraction digits.
      *
-     *  <p> This method validates if a decimal number has correct number of
+     *  <p>This method validates if a decimal number has correct number of
      *  fraction digits as specified by the <code>fractionalDigits</code>
      *  property. It also checks if a number is supposed to be integer, based
      *  on the <code>domain</code> property. For fraction digits error, it
@@ -1513,7 +1532,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  validator resources bundle. For integer error it reports the
      *  "integerError" message. If there is an error,
      *  this method returns <code>false</code>. Otherwise returns
-     *  <code>true</code>. </p>
+     *  <code>true</code>.</p>
      *
      *  @param      input        Input Number string to be checked.
      *  @param      baseField    The field name of the Object being validated.
@@ -1612,12 +1631,12 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  @private
      *  Check if a number string contains invalid characters.
      *
-     *  <p> This method validates if a number string has any characters other
+     *  <p>This method validates if a number string has any characters other
      *  than the caller specified valid characters. Valid characters for numbers
      *  and currency comprise of digits, decimal separator, grouping separator,
      *  negative format characters, currency ISO code, currency symbol and white
      *  space. If any other character is found, then this method returns
-     *  <code>false</code>. Otherwise returns <code>true</code>. </p>
+     *  <code>false</code>. Otherwise returns <code>true</code>.</p>
      *
      *  @param      input     String representation of number to be validated.
      *  @param      len       int specifying the length of input
@@ -1633,6 +1652,8 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     
     // detect if invalid characters are present in input. Caller supplies the
     // valid characters.
+    // TODO: The code to check for valid surrogates is repeated in many methods.
+    // See if this can be optimized.
     mx_internal function validateInputCharacters(input:String,
                                                  len:int,
                                                  validChars:String):Boolean
@@ -1665,10 +1686,10 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  @private
      *  Check if input number string has any format or negative symbol errors.
      *
-     *  <p> This method validates if an input number string has right format
+     *  <p>This method validates if an input number string has right format
      *  and does not have multiple negative symbols.
      *  If there is an error, this method returns <code>false</code>. Otherwise
-     *  returns <code>true</code>. </p>
+     *  returns <code>true</code>.</p>
      *
      *  @param      input        Input Number string to be checked.
      *  @param      baseField    The field name of the Object being validated.
@@ -1742,10 +1763,10 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  Check if input number can be negative depending on allowNegative
      *  property.
      *
-     *  <p> Checks if input number can be negative based on the
+     *  <p>Checks if input number can be negative based on the
      *  <code>allowNegative</code> property. If <code>allowNegative</code> is
      *  false and number is negative, this method reports "negativeError" and
-     *  returns <code>false</code>. Otherwise, returns <code>true</code>. </p>
+     *  returns <code>false</code>. Otherwise, returns <code>true</code>.</p>
      *
      *  @param      inputNum     Input Number string to be checked.
      *  @param      baseField    The field name of the Object being validated.
@@ -1779,7 +1800,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  @private
      *  Check if a number is in a range specified by the user.
      *
-     *  <p> This method validates if a number is in the range specified by the
+     *  <p>This method validates if a number is in the range specified by the
      *  user. The minValue and maxValue properties define the range. If the
      *  number is not in the range, then this method reports either
      *  "lowerThanMinError" or "exceedsMaxError". If there is a range error,
