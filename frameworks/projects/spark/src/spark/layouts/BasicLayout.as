@@ -150,6 +150,16 @@ public class BasicLayout extends LayoutBase
     //  Methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  BasicLayout doesn't support virtualization.   Setting this property
+     *  to true just generates a warning.
+     */
+   override public function set useVirtualLayout(value:Boolean):void
+   {
+       if (value)
+           trace("Warning: BasicLayout doesn't support virtualization");
+   }    
 
     /**
      *  @private 
