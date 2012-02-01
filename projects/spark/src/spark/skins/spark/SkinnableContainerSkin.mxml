@@ -14,7 +14,7 @@
 <Skin xmlns="http://ns.adobe.com/mxml/2009">
 
     <Metadata>
-    	[HostComponent("mx.components.FxItemsComponent")]
+    	[HostComponent("mx.components.FxContainer")]
     </Metadata> 
     
     <states>
