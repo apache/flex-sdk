@@ -11,10 +11,13 @@
 
 package flex.layout
 {
+import flash.display.DisplayObject;	
 import flash.geom.Rectangle;
+import flash.events.Event;
 import flash.events.EventDispatcher;	
 
 import flex.core.GroupBase;
+import flex.graphics.IGraphicElement;
 import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 
@@ -315,6 +318,140 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
         }
     }
     
+    //----------------------------------
+    //  firstIndexInView
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _firstIndexInView:int = -1;
+
+    [Inspectable(category="General")]
+    [Bindable("indexInViewChanged")]    
+
+    /**
+     *  The index of the first column that's part of the layout and within
+     *  the layout target's scrollRect, or -1 if nothing has been displayed yet.
+     * 
+     *  Note that the column may only be partially in view.
+     * 
+     *  @see lastIndexInView
+     *  @see inView
+     */
+    public function get firstIndexInView():int
+    {
+        return _firstIndexInView;
+    }
+    
+    
+    //----------------------------------
+    //  lastIndexInView
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _lastIndexInView:int = -1;
+    
+    [Inspectable(category="General")]
+    [Bindable("indexInViewChanged")]    
+
+    /**
+     *  The index of the last column that's part of the layout and within
+     *  the layout target's scrollRect, or -1 if nothing has been displayed yet.
+     * 
+     *  Note that the column may only be partially in view.
+     * 
+     *  @see firstIndexInView
+     *  @see inView
+     */
+    public function get lastIndexInView():int
+    {
+        return _lastIndexInView;
+    }
+
+    /**
+     *  Sets the <code>firstIndexInView</code> and <code>lastIndexInView</code>
+     *  properties and dispatches a <code>"indexInViewChanged"</code>
+     *  event.  
+     * 
+     *  This method is intended to be used by subclasses that 
+     *  override updateDisplayList() to sync the first and 
+     *  last indexInView properties with the current display.
+     *
+     *  @param firstIndex The new value for firstIndexInView.
+     *  @param lastIndex The new value for lastIndexInView.
+     * 
+     *  @see firstIndexInView
+     *  @see lastIndexInview
+     */
+    protected function setIndexInView(firstIndex:int, lastIndex:int):void
+    {
+        if ((_firstIndexInView == firstIndex) && (_lastIndexInView == lastIndex))
+            return;
+            
+        _firstIndexInView = firstIndex;
+        _lastIndexInView = lastIndex;
+        dispatchEvent(new Event("indexInViewChanged"));
+    }
+    
+    /**
+     *  An index is "in view" if the corresponding non-null layout item is 
+     *  within the horizontal limits of the layout target's scrollRect
+     *  and included in the layout.
+     *  
+     *  Returns 1.0 if the specified index is completely in view, 0.0 if
+     *  it's not, and a value in between if the index is partially 
+     *  within the view.
+     * 
+     *  If the specified index is partially within the view, the 
+     *  returned value is the percentage of the corresponding
+     *  layout item that's visible.
+     * 
+     *  Returns 0.0 if the specified index is invalid or if it corresponds to
+     *  null item, or a ILayoutItem for which includeInLayout is false.
+     * 
+     *  @return the percentage of the specified item that's in view.
+     *  @see firstIndexInView
+     *  @see lastIndexInView
+     */
+   public function inView(index:int):Number 
+    {
+        var vp:GroupBase = GroupBase(target);
+        if (!vp)
+            return 0.0;
+
+        var li:ILayoutItem = vp.getLayoutItemAt(index);
+        if ((li == null) || !li.includeInLayout)
+            return 0.0;
+            
+        var c0:int = firstIndexInView; 
+        var c1:int = lastIndexInView;
+        
+        // outside the visible index range
+        if ((c0 == -1) || (c1 == -1) || (index < c0) || (index > c1))
+            return 0.0;
+            
+        // within the visible index range, but not first or last            
+        if ((index > c0) && (index < c1))
+            return 1.0;
+
+        // index is first (c0) or last (c1) visible column
+        var x0:Number = vp.horizontalScrollPosition;
+        var x1:Number = x0 + vp.width;
+        var ix0:Number = li.actualPosition.x;
+        var ix1:Number = ix0 + li.actualSize.x;
+        if (ix0 >= ix1)  // item has 0 or negative height
+            return 0.0;
+        if ((ix0 >= x0) && (ix1 <= x1))
+            return 1.0;
+        if (index == c0)
+            return (ix1 - x0) / (ix1 - ix0);
+        else 
+            return (x1 - ix0) / (ix1 - ix0);
+    } 
+
 
     public function variableColumnWidthMeasure(layoutTarget:GroupBase):void
     {
@@ -461,32 +598,51 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
         // TODO EGeorgie: verticalAlign
         var vAlign:Number = 0;
         
-        
         // If columnCount wasn't set, then as the LayoutItems are positioned
         // we'll count how many columns fall within the layoutTarget's scrollRect
         var visibleColumns:uint = 0;
         var minVisibleX:Number = layoutTarget.horizontalScrollPosition;
         var maxVisibleX:Number = minVisibleX + unscaledWidth
             
-        // Finally, position the objects        
+        // Finally, position the LayoutItems and find the first/last
+        // visible indices, the content size, and the number of 
+        // visible items. 
         var x:Number = 0;
         var maxX:Number = 0;
-        var maxY:Number = 0;        
-        for each (var lo:ILayoutItem in layoutItemArray)
+        var maxY:Number = 0;     
+        var firstColInView:int = -1;
+        var lastColInView:int = -1;
+        
+        for (var index:int = 0; index < count; index++)
         {
+            var lo:ILayoutItem = layoutTarget.getLayoutItemAt(index);
+            if (!layoutItem || !layoutItem.includeInLayout)
+                continue;        
+        
+            // Set the layout item's acutual size and position
             var y:Number = (unscaledHeight - lo.actualSize.y) * vAlign;
             lo.setActualPosition(x, y);
             var dy:Number = lo.actualSize.y;
             if (!variableColumnWidth)
-            	lo.setActualSize(columnWidth, dy);
+                lo.setActualSize(columnWidth, dy);
+
+            // Update maxX,Y, first,lastVisibleIndex, and x
             var dx:Number = lo.actualSize.x;
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);            
             if((x < maxVisibleX) && ((x + dx) > minVisibleX))
-            	visibleColumns += 1;
+            {
+                visibleColumns += 1;
+                if (firstColInView == -1)
+                   firstColInView = lastColInView = index;
+                else
+                   lastColInView = index;
+            }                
             x += dx + gap;
         }
+
         setColumnCount(visibleColumns);  
+        setIndexInView(firstColInView, lastColInView);
         layoutTarget.setContentSize(maxX, maxY);        	      
     }
 
