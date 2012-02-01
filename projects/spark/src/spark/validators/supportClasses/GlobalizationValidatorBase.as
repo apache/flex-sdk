@@ -263,7 +263,6 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  displays an error message for a failure,
      *  or hides any existing error message for a successful validation.</p>
      *
-     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
@@ -780,6 +779,8 @@ public class GlobalizationValidatorBase extends GlobalizationBase
      *  <code>removeListenerHandler()</code> method and then the
      *  <code>addListenerHandler</code> method if
      *  the value of one of their listeners or sources changes.
+     *  The CreditCardValidator and DateValidator classes use this function
+     *  internally.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -824,7 +825,7 @@ public class GlobalizationValidatorBase extends GlobalizationBase
     }
 
     /**
-     *  Returns the Object to validate. 
+     *  Returns the Object to validate.
      *
      *  @return The Object to validate.
      *
