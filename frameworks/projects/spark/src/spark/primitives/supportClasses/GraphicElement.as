@@ -2828,7 +2828,18 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  Documentation is not currently available.
+     *  True if the element requires an exclusive DisplayObject.
+     *
+     *  Developers don't usually call this method directly, but override it in
+     *  their subclasses to indicate that an exclusive DisplayObject is needed.
+     *
+     *  Usually a subclass needs a DisplayObject when it has to set its properties.  
+     *
+     *  Some examples of such DisplayObject properties are <code>filters</code>,
+     *  <code>blendMode</code>, <code>mask</code>,
+     *  <code>rotation</code>, <code>alpha</code>.
+     * 
+     *  @return Returns true when the element requires an exclusive DisplayObject.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
