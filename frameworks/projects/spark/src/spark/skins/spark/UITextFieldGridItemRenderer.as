@@ -102,8 +102,7 @@ public class UITextFieldGridItemRenderer extends UITextField implements IGridIte
         
         autoSize = TextFieldAutoSize.NONE;
         
-        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, 
-						 GridItemRenderer.toolTipShowHandler);        
+        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, GridItemRenderer.toolTipShowHandler);        
     }
         
 include "TextFieldGridItemRendererInclude.as"
