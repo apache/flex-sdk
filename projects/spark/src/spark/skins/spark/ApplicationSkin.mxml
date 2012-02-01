@@ -17,6 +17,11 @@
     	[HostComponent("flex.core.Application")]
     </Metadata> 
     
+    <states>
+    	<State name="normal" />
+    	<State name="disabled" />
+    </states>
+    
 	<!-- fill -->
     <Rect id="backgroundRect" left="0" right="0" top="0" bottom="0">
         <fill>
