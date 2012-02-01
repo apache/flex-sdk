@@ -221,6 +221,7 @@ public class BitmapImage extends GraphicElement
     {        
         if (value != _source)
         {
+            _source = value;
             var bitmapData:BitmapData;
             var tmpSprite:DisplayObject;
             
@@ -240,7 +241,6 @@ public class BitmapImage extends GraphicElement
             else if (value is String)
             {
                 loadExternal(value as String);
-                _source = value;
             }
             
             if (value is BitmapData)
@@ -278,9 +278,7 @@ public class BitmapImage extends GraphicElement
                     _scaleGridBottom = tmpSprite.scale9Grid.bottom;
                 }
             }       
-            
-            _source = value;
-            
+                        
             setBitmapData(bitmapData, currentBitmapCreated);
         }
     }
