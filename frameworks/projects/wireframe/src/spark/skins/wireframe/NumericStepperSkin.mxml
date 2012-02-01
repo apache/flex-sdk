@@ -23,6 +23,9 @@
       alpha.disabled="0.5">
 
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.NumericStepper")]
     </fx:Metadata> 
     
@@ -31,10 +34,17 @@
         <s:State name="disabled" />
     </s:states>
 
+    <!--- The default class is SpinnerIncrementButtonSkin.
+          @copy spark.components.Spinner#incrementButton -->
     <s:Button id="incrementButton" right="0" top="0" height="50%" 
               skinClass="spark.skins.wireframe.SpinnerIncrementButtonSkin" />
+    <!--- The default class is SpinnerDecrementButtonSkin.
+          @copy spark.components.Spinner#decrementButton -->
     <s:Button id="decrementButton" right="0" bottom="0" height="50%" 
               skinClass="spark.skins.wireframe.SpinnerDecrementButtonSkin" />
+    
+    <!--- The default class is NumericStepperTextInputSkin.
+          @copy spark.components.NumericStepper#textDisplay -->
     <s:TextInput id="textDisplay" width="30" 
                  left="0" top="0" right="18" bottom="0" skinClass="spark.skins.wireframe.NumericStepperTextInputSkin"/>
 
