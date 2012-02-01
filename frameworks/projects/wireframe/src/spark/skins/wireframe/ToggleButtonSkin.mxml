@@ -21,7 +21,7 @@
       @playerversion AIR 1.5
       @productversion Flex 4
 -->
-<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+<s:SparkButtonSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
       minWidth="21" minHeight="21" alpha.disabledStates="0.5">
 
     <fx:Metadata>
@@ -89,4 +89,4 @@
              maxDisplayedLines="1">
     </s:Label>
 
-</s:Skin>
+</s:SparkButtonSkin>
