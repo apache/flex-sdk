@@ -16,13 +16,18 @@
     <Metadata>
         [HostComponent("flex.component.NumericStepper")]
     </Metadata> 
+    
+    <states>
+    	<State name="normal" />
+    	<State name="disabled" />
+    </states>
 
     <Button id="incrementButton" left="{textInput.width}" 
             width="12" height="12" skinZZ="flex.skin.SpinnerIncrButtonSkin" />
     <Button id="decrementButton" left="{textInput.width}" 
             top="{incrementButton.height}" width="12" height="12" 
             skinZZ="flex.skin.SpinnerDecrButtonSkin" />
-    <TextInput id="textInput" height="25" text="{hostComponent.value}"
+    <TextInput id="textInput" height="25"
                skinZZ="flex.skin.TextInputSkin" />
 
 </Skin>
