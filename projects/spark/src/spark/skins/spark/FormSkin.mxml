@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
 
 ADOBE SYSTEMS INCORPORATED
-Copyright 2008 Adobe Systems Incorporated
+Copyright 2010 Adobe Systems Incorporated
 All Rights Reserved.
 
 NOTICE: Adobe permits you to use, modify, and distribute this file
@@ -18,10 +17,12 @@ in accordance with the terms of the license agreement accompanying it.
 @langversion 3.0
 @playerversion Flash 10
 @playerversion AIR 1.5
-@productversion Flex 4
+@productversion Flex 4.5
 -->
-<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-        xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabled="0.5">
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+        xmlns:fb="http://ns.adobe.com/flashbuilder/2009" 
+        alpha.disabled="0.5">
     
     <fx:Metadata>
         <![CDATA[ 
@@ -77,11 +78,16 @@ in accordance with the terms of the license agreement accompanying it.
     more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
     -->
     <!--- @copy spark.components.Form#contentGroup -->
-    <s:Label id="errorStringText" text="{hostComponent.errorString}" left="0" right="0" top="0" color="red"/>
-    <s:Group id="contentGroup" left="0" right="0" top="30" bottom="0" minWidth="0" minHeight="0" showErrorSkin="true">
-        <s:layout>
-            <s:FormLayout/>
-        </s:layout>
-    </s:Group>
+    <s:VGroup>
+        <s:Label id="errorStringText"  text="{hostComponent.errorString}" color="red" includeInLayout="false" includeInLayout.error="true"/>
+        <!-- We set Form's showErrorTip and showErrorSkin to false, so we set them back 
+             to true for the Form's elements -->
+        <s:Group id="contentGroup" showErrorSkin="true" showErrorTip="true">
+            <s:layout>
+                <s:FormLayout gap="4"/>
+            </s:layout>
+        </s:Group>
+    </s:VGroup>
+    
     
 </s:Skin>
