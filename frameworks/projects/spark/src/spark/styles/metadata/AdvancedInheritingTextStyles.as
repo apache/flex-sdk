@@ -12,6 +12,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#blockProgression
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -21,6 +23,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#breakOpportunity
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -32,6 +36,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#clearFloats
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -41,6 +47,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#firstBaselineOffset
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -52,6 +60,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#leadingModel
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -61,6 +71,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#listAutoPadding
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -72,6 +84,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#listStylePosition
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
@@ -81,6 +95,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#listStyleType
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -92,6 +108,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphEndIndent
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -101,6 +119,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphSpaceAfter
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -112,6 +132,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphSpaceBefore
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -122,6 +144,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphStartIndent
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -131,6 +155,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#tabStops
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -152,6 +178,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textRotation
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -161,6 +189,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#whiteSpaceCollapse
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -172,6 +202,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#wordSpacing
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.5
