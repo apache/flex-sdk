@@ -25,11 +25,12 @@
     </s:states>
     
     <s:Button id="track" left="17" right="17" width="51" 
-            skinClass="spark.skins.wireframe.HScrollBarTrackSkin" />
+            skinClass="spark.skins.wireframe.HScrollBarTrackSkin" focusEnabled="false" />
     <s:Button id="decrementButton" left="0" enabled.inactive="false"
-            skinClass="spark.skins.wireframe.ScrollBarLeftButtonSkin" />
+            skinClass="spark.skins.wireframe.ScrollBarLeftButtonSkin" focusEnabled="false" />
     <s:Button id="incrementButton" right="0" enabled.inactive="false"
-            skinClass="spark.skins.wireframe.ScrollBarRightButtonSkin" />
-    <s:Button id="thumb" skinClass="spark.skins.wireframe.HScrollBarThumbSkin" visible.inactive="false" />
+            skinClass="spark.skins.wireframe.ScrollBarRightButtonSkin" focusEnabled="false" />
+    <s:Button id="thumb" skinClass="spark.skins.wireframe.HScrollBarThumbSkin" 
+            visible.inactive="false" focusEnabled="false" />
 
 </s:Skin>
