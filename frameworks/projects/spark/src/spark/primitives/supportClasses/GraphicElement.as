@@ -42,7 +42,7 @@ import mx.geom.TransformOffsets;
 import mx.graphics.IGraphicElement;
 import mx.graphics.IStroke;
 import mx.graphics.MaskType;
-import mx.layout.ILayoutItem;
+import mx.layout.ILayoutElement;
 import mx.managers.ILayoutManagerClient;
 import mx.utils.MatrixUtil;
 import mx.utils.OnDemandEventDispatcher;
@@ -66,7 +66,7 @@ use namespace mx_internal;
  *  of an object in its own coordinate space.</p>
  */
 public class GraphicElement extends OnDemandEventDispatcher
-    implements IGraphicElement, IInvalidating, ILayoutItem, IVisualElement
+    implements IGraphicElement, IInvalidating, ILayoutElement, IVisualElement
 {
     include "../../core/Version.as";
 
@@ -2055,53 +2055,6 @@ public class GraphicElement extends OnDemandEventDispatcher
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  actualPosition
-    //----------------------------------
-
-    /**
-     *  The item TBounds top left corner coordinates. 
-     */
-    public function get actualPosition():Point
-    {
-        var topLeft:Point = new Point(measuredX, measuredY);
-
-        // Account for transform
-        var m:Matrix = computeMatrix(true /*actualMatrix*/);
-        if (m)
-        {
-            // Calculate the vector from pre-transform top-left to
-            // post-transform top-left:
-            computeTopLeft(topLeft, _width, _height, m);
-        }
-        else
-        {
-            topLeft.x += x;
-            topLeft.y += y;
-        }
-
-        // Take stroke into account:
-        // TODO EGeorgie: We assume that the stroke extents are even on both sides.
-        // and that's not necessarily true.
-        var strokeExtents:Point = getStrokeExtents();
-        topLeft.x -= strokeExtents.x * 0.5;
-        topLeft.y -= strokeExtents.y * 0.5;
-
-        return topLeft;
-    }
-
-    //----------------------------------
-    //  actualSize
-    //----------------------------------
-
-    /**
-     *  The item TBounds size. 
-     */
-    public function get actualSize():Point
-    {
-        return transformSizeForLayout(_width, _height, true /*actualMatrix*/);
-    }
-
-    //----------------------------------
     //  drawX
     //----------------------------------
 
@@ -2177,49 +2130,6 @@ public class GraphicElement extends OnDemandEventDispatcher
         dispatchPropertyChangeEvent("includeInLayout", oldValue, value);
             
         invalidateParentSizeAndDisplayList();
-    }
-
-    //----------------------------------
-    //  maxSize
-    //----------------------------------
-
-    /**
-     *  The TBounds of the maximum item size.
-     *  <code>preferredSize</code> &lt;= <code>maxSize</code> must be true.
-     */
-    public function get maxSize():Point
-    {
-        return transformSizeForLayout(maxWidth, maxHeight,
-                                      false /*actualMatrix*/);
-    }
-
-    //----------------------------------
-    //  minSize
-    //----------------------------------
-
-    /**
-     *  The TBounds of the minimum item size.
-     *  <code>minSize</code> %lt;= <code>preferredSize</code> must be true.
-     */
-    public function get minSize():Point
-    {
-        return transformSizeForLayout(minWidth, minHeight, false /*actualMatrix*/);
-    }
-
-    //----------------------------------
-    //  preferredSize
-    //----------------------------------
-
-    /**
-     *  The TBounds of the preferred item size.
-     *  The preferred size is usually based on the default
-     *  item size and any explicit size overrides.
-     */
-    public function get preferredSize():Point
-    {
-        return transformSizeForLayout(preferredWidthPreTransform(),
-                                      preferredHeightPreTransform(),
-                                      false /*actualMatrix*/);
     }
 
     //--------------------------------------------------------------------------
@@ -2372,14 +2282,14 @@ public class GraphicElement extends OnDemandEventDispatcher
     {
         // NOTE: This code will not work correctly when we share
         // display objects across multiple graphic elements.
-        var bitmapData:BitmapData = new BitmapData(actualSize.x, actualSize.y, transparent, fillColor);
+        var bitmapData:BitmapData = new BitmapData(getLayoutWidth(), getLayoutHeight(), transparent, fillColor);
 
         if (displayObject && nextSiblingNeedsDisplayObject)
         {
             var m:Matrix = displayObject.transform.matrix;
         
             if (m)
-                m.translate(-actualPosition.x, -actualPosition.y);
+                m.translate(-getLayoutPositionX(), -getLayoutPositionY());
             bitmapData.draw(displayObject, m);
         }
         else
@@ -2866,9 +2776,143 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     //--------------------------------------------------------------------------
     //
-    //  Methods: ILayoutItem
+    //  Methods: ILayoutElement
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @inheritDoc
+     */
+    public function getMaxWidth(postTransform:Boolean=true):Number
+    {
+        return transformWidthForLayout(maxWidth, maxHeight, postTransform);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getMaxHeight(postTransform:Boolean=true):Number
+    {
+        return transformHeightForLayout(maxWidth, maxHeight, postTransform);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getMinWidth(postTransform:Boolean=true):Number
+    {
+        return transformWidthForLayout(minWidth, minHeight, postTransform);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getMinHeight(postTransform:Boolean=true):Number
+    {
+        return transformHeightForLayout(minWidth, minHeight, postTransform);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getPreferredWidth(postTransform:Boolean=true):Number
+    {
+        return transformWidthForLayout(preferredWidthPreTransform(),
+                                       preferredHeightPreTransform(),
+                                       postTransform);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getPreferredHeight(postTransform:Boolean=true):Number
+    {
+        return transformHeightForLayout(preferredWidthPreTransform(),
+                                       preferredHeightPreTransform(),
+                                       postTransform);
+    }
+
+    /**
+     *  @inheritDoc 
+     */
+    public function getLayoutPositionX(postTransform:Boolean=true):Number
+    {
+        var left:Number;
+        // Account for transform
+        var m:Matrix;
+        if (postTransform)
+            m = computeMatrix();
+        if (m)
+        {
+            var topLeft:Point = new Point(measuredX, measuredY);
+
+            // Calculate the vector from pre-transform top-left to
+            // post-transform top-left:
+            computeTopLeft(topLeft, _width, _height, m);
+            left = topLeft.x;
+        }
+        else
+        {
+            left = x + measuredX;
+        }
+
+        // Take stroke into account:
+        // TODO EGeorgie: We assume that the stroke extents are even on both sides.
+        // and that's not necessarily true.
+        var strokeExtents:Point = getStrokeExtents(postTransform);
+        left -= strokeExtents.x * 0.5;
+
+        return left;
+    }
+
+    /**
+     *  @inheritDoc 
+     */
+    public function getLayoutPositionY(postTransform:Boolean=true):Number
+    {
+        var top:Number;
+        // Account for transform
+        var m:Matrix;
+        if (postTransform)
+            m = computeMatrix();
+        if (m)
+        {
+            var topLeft:Point = new Point(measuredX, measuredY);
+
+            // Calculate the vector from pre-transform top-left to
+            // post-transform top-left:
+            computeTopLeft(topLeft, _width, _height, m);
+            top = topLeft.y;
+        }
+        else
+        {
+            top = y + measuredY;
+        }
+
+        // Take stroke into account:
+        // TODO EGeorgie: We assume that the stroke extents are even on both sides.
+        // and that's not necessarily true.
+        var strokeExtents:Point = getStrokeExtents(postTransform);
+        top -= strokeExtents.y * 0.5;
+
+        return top;
+    }
+
+    /**
+     *  @inheirtDoc 
+     */
+    public function getLayoutWidth(postTransform:Boolean=true):Number
+    {
+        return transformWidthForLayout(_width, _height, postTransform);
+    }
+
+    /**
+     *  @inheritDoc 
+     */
+    public function getLayoutHeight(postTransform:Boolean=true):Number
+    {
+        return transformHeightForLayout(_width, _height, postTransform);
+    }
 
     /**
      *  A reference to the object in the layout tree represented by this interface.
@@ -2881,12 +2925,10 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  Gets the transformation matrix.
      *  
-     *  @param actualMatrix
-     *  
      *  @return Returns the transformation matrix for this element, or null
      *  if it is delta identity.
      */
-    protected function computeMatrix(actualMatrix:Boolean):Matrix
+    protected function computeMatrix():Matrix
     {
         if (!displayObject)
             return null;
@@ -2901,28 +2943,61 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  Transform the element's size.
      *  
-     *  @param width The target width.
+     *  @param width The target pre-transform width.
      *  
-     *  @param height The target height.
+     *  @param height The target pre-transform height.
      *  
-     *  @param actualMatrix 
-     *  
-     *  @return Returns the transformed size. Transformation is this element's
-     *  transformation matrix.
+     *  @return Returns the transformed width. Transformation is this element's
+     *  layout transformation matrix.
      */
-    protected function transformSizeForLayout(width:Number, height:Number,
-                                              actualMatrix:Boolean):Point
+    protected function transformWidthForLayout(width:Number,
+                                               height:Number,
+                                               postTransform:Boolean=true):Number
     {
-        var size:Point = new Point(width, height);
-        var m:Matrix = computeMatrix(actualMatrix);
-        if (m)
-            size = MatrixUtil.transformSize(size, m);
+        if (postTransform)
+        {
+            var m:Matrix = computeMatrix();
+            if (m)
+            {
+                var size:Point = new Point(width, height);
+                width = MatrixUtil.transformSize(size, m).x;
+            }
+        }
 
         // Take stroke into account
-        var strokeExtents:Point = getStrokeExtents();
-        size.x += strokeExtents.x;
-        size.y += strokeExtents.y;
-        return size;
+        var strokeExtents:Point = getStrokeExtents(postTransform);
+        width += strokeExtents.x;
+        return width;
+    }
+
+    /**
+     *  Transform the element's size.
+     *  
+     *  @param width The target pre-transform width.
+     *  
+     *  @param height The target pre-transform height.
+     *  
+     *  @return Returns the transformed height. Transformation is this element's
+     *  layout transformation matrix.
+     */
+    protected function transformHeightForLayout(width:Number,
+                                                height:Number,
+                                                postTransform:Boolean=true):Number
+    {
+        if (postTransform)
+        {
+            var m:Matrix = computeMatrix();
+            if (m)
+            {
+                var size:Point = new Point(width, height);
+                height = MatrixUtil.transformSize(size, m).y;
+            }
+        }
+
+        // Take stroke into account
+        var strokeExtents:Point = getStrokeExtents(postTransform);
+        height += strokeExtents.y;
+        return height;
     }
 
     /**
@@ -2964,15 +3039,9 @@ public class GraphicElement extends OnDemandEventDispatcher
     }
 
     /**
-     *  Moves the item
-     *  such that the left-top corner of the item's TBounds
-     *  has the specified coordinates.
-     *  
-     *  @param x The new x position of the GraphicElement.
-     *  
-     *  @param y The new y position of the GraphicElement.
+     *  @inheritDoc
      */
-    public function setActualPosition(x:Number, y:Number):void
+    public function setLayoutPosition(x:Number, y:Number, postTransform:Boolean=true):void
     {
 
         var currentX:Number = this.x;
@@ -2981,12 +3050,14 @@ public class GraphicElement extends OnDemandEventDispatcher
         // Take stroke into account:
         // TODO EGeorgie: We assume that the stroke extents are even on both sides.
         // and that's not necessarily true.
-        var strokeExtents:Point = getStrokeExtents();
+        var strokeExtents:Point = getStrokeExtents(postTransform);
         x += strokeExtents.x * 0.5;
         y += strokeExtents.y * 0.5;
 
         // Handle arbitrary 2d transform
-        var m:Matrix = computeMatrix(true /*actualMatrix*/);
+        var m:Matrix;
+        if (postTransform)
+            m = computeMatrix();
         if (m)
         {
             // Calculate the origin of the element after transformation before our changes are applied.
@@ -3002,7 +3073,6 @@ public class GraphicElement extends OnDemandEventDispatcher
             x -= measuredX;
             y -= measuredY;
         }
-
 
         if(x != currentX || y != currentY)
         {
@@ -3026,57 +3096,33 @@ public class GraphicElement extends OnDemandEventDispatcher
     }
 
     /**
-     *  Modifies the item size/transform
-     *  so that its TBounds have the specified <code>width</code>
-     *  and <code>height</code>.
-     *
-     *  <p>If one of the desired TBounds dimensions is left unspecified, its size
-     *  is set such that item can be optimally sized to fit the other
-     *  TBounds dimension. This is useful when the layout does not
-     *  overconstrain the item in cases where the item TBounds width and height
-     *  are dependent (such as with text or with components that have complex transforms).</p>
-     *
-     *  <p>If both TBounds dimensions are left unspecified, the item's preferred size is set.</p>
-     *
-     *  <p>The <code>setActualSize()</code> method does not clip against the <code>minSize</code> and
-     *  <code>maxSize</code> properties.</p>
-     *
-     *  <p>The <code>setActualSize</code> method must preserve the item's TBounds position,
-     *  which means that in some cases it will move the item in addition to
-     *  changing its size.</p>
-     *
-     *  @param width The target width.
-     *  
-     *  @param height The target height.
-     *  
-     *  @return The TBounds of the new item size.
+     *  @inheritDoc
      */
-    public function setActualSize(width:Number = Number.NaN,
-                                  height:Number = Number.NaN):Point
+    public function setLayoutSize(width:Number = Number.NaN,
+                                  height:Number = Number.NaN,
+                                  postTransform:Boolean=true):void
     {
-        var strokeExtents:Point = getStrokeExtents();
+        var strokeExtents:Point = getStrokeExtents(postTransform);
+        if (!isNaN(width))
+           width -= strokeExtents.x;
+
+        if (!isNaN(height))
+           height -= strokeExtents.y;
+
 
         // Calculate the width and height pre-transform:
-        var m:Matrix = computeMatrix(true /*actualMatrix*/);
+        var m:Matrix;
+        if (postTransform)
+            m = computeMatrix();
         if (!m)
         {
             if (isNaN(width))
-                width = preferredSize.x;
+                width = preferredWidthPreTransform();
             if (isNaN(height))
-                height = preferredSize.y;
-
-            // Account for stroke
-            width -= strokeExtents.x;
-            height -= strokeExtents.y;
+                height = preferredHeightPreTransform();
         }
         else
         {
-            if (!isNaN(width))
-               width -= strokeExtents.x;
-
-            if (!isNaN(height))
-               height -= strokeExtents.y;
-
             var newSize:Point = MatrixUtil.fitBounds(width, height, m,
                                                      preferredWidthPreTransform(),
                                                      preferredHeightPreTransform(),
@@ -3108,8 +3154,44 @@ public class GraphicElement extends OnDemandEventDispatcher
 
             invalidateDisplayList();
         }
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    public function getLayoutMatrix():Matrix
+    {
+        return layoutMatrix;
+    }
 
-        return actualSize;
+    /**
+     *  @inheritDoc
+     */
+    public function setLayoutMatrix(value:Matrix):void
+    {
+        allocateLayoutFeatures();
+        layoutFeatures.layoutMatrix = value;
+        invalidateTransform(false /*changeInvalidatesLayering*/,
+                            false /*triggerLayout*/);
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function getLayoutMatrix3D():Matrix3D
+    {
+        return layoutMatrix3D;
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function setLayoutMatrix3D(value:Matrix3D):void
+    {
+        allocateLayoutFeatures();
+        layoutFeatures.layoutMatrix3D = value;
+        invalidateTransform(false /*changeInvalidatesLayering*/,
+                            false /*triggerLayout*/);
     }
 
     /**
@@ -3155,26 +3237,41 @@ public class GraphicElement extends OnDemandEventDispatcher
         return null;
     }
 
+    static private var _strokeExtents:Point = new Point();
+
     // TODO EGeorgie: return rectangle instead so that the function can
     // correctly indicate the left, right, top and bottom extents. Right
     // now we assume they are the same on both sides.
-    protected function getStrokeExtents():Point
+    protected function getStrokeExtents(postTransform:Boolean=true):Point
     {
         // TODO EGeorgie: currently we take only scale into account,
         // but depending on joint style, cap style, etc. we need to take
         // the whole matrix into account as well as examine every line segment...
         var stroke:IStroke = getStroke();
         if (!stroke)
-           return new Point();
+        {
+            _strokeExtents.x = 0;
+            _strokeExtents.y = 0;
+            return _strokeExtents;
+        }
 
         // Stroke with weight 0 or scaleMode "none" is always drawn
         // at "hairline" thickness, which is exactly one pixel.
         var weight:Number = stroke.weight;
         if (weight == 0)
-            return new Point(1, 1);
+        {
+            _strokeExtents.x = 1;
+            _strokeExtents.y = 1;
+            return _strokeExtents;
+        }
+        
         var scaleMode:String = stroke.scaleMode;
-        if (!scaleMode || scaleMode == LineScaleMode.NONE)
-            return new Point(weight, weight);
+        if (!scaleMode || scaleMode == LineScaleMode.NONE || !postTransform)
+        {
+            _strokeExtents.x = weight;
+            _strokeExtents.y = weight;
+            return _strokeExtents;
+        }
 
         var sX:Number = scaleX;
         var sY:Number = scaleY;
@@ -3188,15 +3285,21 @@ public class GraphicElement extends OnDemandEventDispatcher
             else
                 weight *= Math.sqrt(0.5 * (sX * sX + sY * sY));
             
-            return new Point(weight, weight);
+            _strokeExtents.x = weight;
+            _strokeExtents.y = weight;
+            return _strokeExtents;
         }
         else if (scaleMode == LineScaleMode.HORIZONTAL)
         {
-            return new Point(weight * sX, weight);
+            _strokeExtents.x = weight * sX;
+            _strokeExtents.y = weight;
+            return _strokeExtents;
         }
         else if (scaleMode == LineScaleMode.VERTICAL)
         {
-            return new Point(weight, weight * sY);
+            _strokeExtents.x = weight;
+            _strokeExtents.y = weight * sY;
+            return _strokeExtents;
         }
 
         return null;
