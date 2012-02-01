@@ -58,24 +58,38 @@
         -->
         <s:Group id="topGroup" minWidth="0" minHeight="0"
                     includeIn="normalWithControlBar, disabledWithControlBar" >
-            <!-- layer 0: control bar background -->
-            <s:Rect left="0" right="0" bottom="0" top="1" >
-                <s:fill>
-                    <s:SolidColor color="0xE8E8E8" />
-                </s:fill>
+
+            <!-- layer 0: control bar highlight -->
+            <s:Rect left="0" right="0" top="0" bottom="1" >
+               <s:stroke>
+                    <s:LinearGradientStroke rotation="90" weight="1">
+                        <s:GradientEntry color="0xFFFFFF" />
+                        <s:GradientEntry color="0xD8D8D8" />
+                    </s:LinearGradientStroke>
+               </s:stroke>
             </s:Rect>
-    
-            <!-- layer 1: control bar divider line -->
-            <s:Rect left="0" right="0" top="0" height="1" >
+
+            <!-- layer 1: control bar fill -->
+            <s:Rect left="1" right="1" top="1" bottom="2" >
+               <s:fill>
+                    <s:LinearGradient rotation="90">
+                        <s:GradientEntry color="0xEDEDED" />
+                        <s:GradientEntry color="0xCDCDCD" />
+                    </s:LinearGradient>
+               </s:fill>
+            </s:Rect>
+
+            <!-- layer 2: control bar divider line -->
+            <s:Rect left="0" right="0" bottom="0" height="1" alpha="0.55">
                 <s:fill>
-                    <s:SolidColor color="0xCDCDCD" />
+                    <s:SolidColor color="0x000000" />
                 </s:fill>
             </s:Rect>
 
-            <!-- layer 2: control bar -->
-            <s:Group id="controlBarGroup" left="0" right="0" top="1" bottom="0" minWidth="0" minHeight="0">
+            <!-- layer 3: control bar -->
+            <s:Group id="controlBarGroup" left="0" right="0" top="1" bottom="1" minWidth="0" minHeight="0">
                 <s:layout>
-                    <s:HorizontalLayout paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10" />
+                    <s:HorizontalLayout paddingLeft="10" paddingRight="10" paddingTop="7" paddingBottom="7" gap="10" />
                 </s:layout>
             </s:Group>
         </s:Group>
