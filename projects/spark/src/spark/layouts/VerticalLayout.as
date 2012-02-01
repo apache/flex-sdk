@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.layout
+package mx.layout
 {
 import flash.display.DisplayObject;
 import flash.geom.Point;
@@ -18,13 +18,12 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.ui.Keyboard;
 
-import flex.core.GroupBase;
-import flex.graphics.IGraphicElement;
-import flex.intf.ILayoutItem;
+import mx.components.baseClasses.GroupBase;
+import mx.graphics.IGraphicElement;
 
 import mx.containers.utilityClasses.Flex;
 import mx.events.PropertyChangeEvent;
-import flex.core.Group;
+import mx.components.Group;
 
 
 /**
@@ -979,7 +978,7 @@ public class VerticalLayout extends LayoutBase
 
 [ExcludeClass]
 
-import flex.intf.ILayoutItem;
+import mx.layout.ILayoutItem;
 import mx.containers.utilityClasses.FlexChildInfo;
 
 class LayoutItemFlexChildInfo extends FlexChildInfo
