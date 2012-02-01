@@ -45,12 +45,20 @@ import mx.components.Group;
 /**
  *  The Graphic control displays a set of graphic drawing commands.
  *
- *  <p>The Graphic class is the root tag for all graphic elements. You add a series of 
- *  element tags such as &lt;mx:Rect&gt;, &lt;mx:Path&gt;, and &lt;mx:Ellipse&gt; to the Graphic's
+ *  <p>The Graphic class is the root tag for all graphic elements. 
+ *  This tag is the root for any FXG document. It cannot appear anywhere else in an FXG 
+ *  document.</p>
+ *  
+ *  <p>You add a series of 
+ *  element tags such as &lt;Rect&gt;, &lt;Path&gt;, and &lt;Ellipse&gt; to the Graphic's
  *  elements Array to define the contents of the graphic.</p>
  *
  *  <p>Graphic controls do not have backgrounds or borders
  *  and cannot take focus.</p>
+ *  
+ *  <p>The Graphic element can optionally contain a &lt;Group&gt; element.</p>
+ *  
+ *  @see mx.graphics.Group
  *
  *  @mxml
  *
@@ -104,44 +112,56 @@ public class Graphic extends Group
     //
     //--------------------------------------------------------------------------
 
- 	//----------------------------------
-	//  viewHeight
-	//----------------------------------
-	private var _viewHeight:Number;
-	
-	public function get viewHeight():Number
-	{
-		return _viewHeight;
-	}
-	
-	public function set viewHeight(value:Number):void
-	{
-		if (value != _viewHeight)
-		{
-			_viewHeight = value;
-			invalidateSize();
-		}
-	}
-	
-	//----------------------------------
-	//  viewWidth
-	//----------------------------------
-	private var _viewWidth:Number;
-	
-	public function get viewWidth():Number
-	{
-		return _viewWidth;
-	}
-	
-	public function set viewWidth(value:Number):void
-	{
-		if (value != _viewWidth)
-		{
-			_viewWidth = value;
-			invalidateSize();
-		}
-		
-	}
+    //----------------------------------
+    //  viewHeight
+    //----------------------------------
+    private var _viewHeight:Number;
+    
+    /**
+     *  
+     */
+    public function get viewHeight():Number
+    {
+        return _viewHeight;
+    }
+    
+    /**
+     *  @private 
+     */
+    public function set viewHeight(value:Number):void
+    {
+        if (value != _viewHeight)
+        {
+            _viewHeight = value;
+            invalidateSize();
+        }
+    }
+    
+    //----------------------------------
+    //  viewWidth
+    //----------------------------------
+    private var _viewWidth:Number;
+    
+    /**
+     *  
+     */
+    public function get viewWidth():Number
+    {
+        return _viewWidth;
+    }
+    
+    /**
+     *  @private 
+     */
+    public function set viewWidth(value:Number):void
+    {
+        if (value != _viewWidth)
+        {
+            _viewWidth = value;
+            invalidateSize();
+        }
+        
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -149,17 +169,17 @@ public class Graphic extends Group
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @inheritDoc
-	 */
-	override protected function measure():void
-	{
-		super.measure();
-		
-		if (!isNaN(viewWidth))
-			measuredMinWidth = measuredWidth = viewWidth;
-		if (!isNaN(viewHeight))
-			measuredMinHeight = measuredHeight = viewHeight;	
-	}
+    /**
+     *  @inheritDoc
+     */
+    override protected function measure():void
+    {
+        super.measure();
+        
+        if (!isNaN(viewWidth))
+            measuredMinWidth = measuredWidth = viewWidth;
+        if (!isNaN(viewHeight))
+            measuredMinHeight = measuredHeight = viewHeight;    
+    }
 }
 }
