@@ -19,19 +19,7 @@
       @productversion Flex 4
 -->
 <s:ItemRenderer focusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
-    
-    <fx:Script>
-        <![CDATA[
-            
-            override public function set label(value:String):void
-            {
-                super.label = value;
-                labelDisplay.text = label; 
-            }
-        ]]>
-    </fx:Script>
-    
-    
+   
     <s:states>
         <s:State name="normal" />            
         <s:State name="hovered" />
