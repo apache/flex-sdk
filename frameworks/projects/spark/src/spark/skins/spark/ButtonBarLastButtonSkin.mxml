@@ -151,6 +151,7 @@
 	
 	<!-- layer 8: text -->
 	<TextBox id="labelElement"
+             verticalAlign="middle"
 			 horizontalCenter="0" verticalCenter="1"
 			 left="10" right="10" top="2" bottom="2">
 	</TextBox>
