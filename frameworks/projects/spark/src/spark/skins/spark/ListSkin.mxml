@@ -21,7 +21,7 @@
       @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-      xmlns:fb="http://ns.adobe.com/fb/2009" minWidth="112" minHeight="112"
+      xmlns:fb="http://ns.adobe.com/flashbuilder/2009" minWidth="112" minHeight="112"
       alpha.disabled="0.5" blendMode="normal"> 
     
     <fx:Metadata>
@@ -33,7 +33,7 @@
     ]]>
     </fx:Metadata> 
     
-    <fx:Script fb:stylingSupport="true">
+    <fx:Script fb:purpose="styling">
         /* Define the skin elements that should not be colorized. 
            For list, the skin itself is colorized but the individual parts are not. */
         static private const exclusions:Array = ["scroller", "background"];
