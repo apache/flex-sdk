@@ -69,6 +69,11 @@ use namespace mx_internal;
  *  <p>The TBounds are the boundaries of an
  *  object in the object's parent coordinate space. The UBounds are the boundaries
  *  of an object in its own coordinate space.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class GraphicElement extends OnDemandEventDispatcher
     implements IGraphicElement, IInvalidating, ILayoutElement, IVisualElement, IID
@@ -85,6 +90,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  The default value for the <code>maxWidth</code> property.
      *
      *  @default 10000
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const DEFAULT_MAX_WIDTH:Number = 10000;
 
@@ -92,6 +102,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  The default value for the <code>maxHeight</code> property.
      *
      *  @default 10000
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const DEFAULT_MAX_HEIGHT:Number = 10000;
 
@@ -99,6 +114,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  The default value for the <code>minWidth</code> property.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const DEFAULT_MIN_WIDTH:Number = 0;
 
@@ -106,6 +126,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  The default value for the <code>minHeight</code> property.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const DEFAULT_MIN_HEIGHT:Number = 0;
 
@@ -171,6 +196,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  Contain all of the implementation details of how the GraphicElement implements
      *  transform and layering support. In most cases, you should not have to modify this 
      *  property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected var layoutFeatures:AdvancedLayoutFeatures;
 
@@ -205,6 +235,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  The identity of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function get id():String
     {
@@ -231,6 +266,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  for a component that will be rotated 90 degrees, you set the component's <code>rotation</code> property. 
      *  If you want the layout to <i>not</i> adjust for the component being rotated, you set its <code>offsets.rotationZ</code> 
      *  property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set offsets(value:TransformOffsets):void
     {
@@ -309,6 +349,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get alpha():Number
     {
@@ -346,6 +391,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get baseline():Object
     {
@@ -373,6 +423,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  The y-coordinate of the baseline
      *  of the first line of text of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get baselinePosition():Number
     {    
@@ -401,6 +456,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get blendMode():String
     {
@@ -441,6 +501,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get bottom():Object
     {
@@ -470,6 +535,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get owner():DisplayObjectContainer
     {
@@ -493,6 +563,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get parent():DisplayObjectContainer
     {
@@ -501,6 +576,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function parentChanged(value:Group):void
     {
@@ -521,6 +601,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get explicitHeight():Number
     {
@@ -551,6 +636,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get explicitMaxHeight():Number { return maxHeight; }
     public function set explicitMaxHeight(value:Number):void { maxHeight = value; }
@@ -561,6 +651,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get explicitMaxWidth():Number { return maxWidth; }
     public function set explicitMaxWidth(value:Number):void { maxWidth = value; }
@@ -571,6 +666,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get explicitMinHeight():Number { return minHeight; }
     public function set explicitMinHeight(value:Number):void { minHeight = value; }
@@ -581,6 +681,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get explicitMinWidth():Number { return minWidth; }
     public function set explicitMinWidth(value:Number):void { minWidth = value; }
@@ -599,6 +704,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get explicitWidth():Number
     {
@@ -648,6 +758,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  An indexed array that contains each filter object currently associated with the graphic element. 
      *  The mx.filters.* package contains several classes that define specific filters you can use.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get filters():Array
     {
@@ -719,6 +834,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  The height of the graphic element.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get height():Number
     {
@@ -761,6 +881,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get horizontalCenter():Object
     {
@@ -793,6 +918,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get left():Object
     {
@@ -830,6 +960,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get mask():DisplayObject
     {
@@ -901,6 +1036,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get maskType():String
     {
@@ -935,6 +1075,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  @copy mx.core.UIComponent#maxHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get maxHeight():Number
     {
@@ -970,6 +1115,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  @copy mx.core.UIComponent#maxWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get maxWidth():Number
     {
@@ -1003,6 +1153,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  @copy mx.core.UIComponent#measuredHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get measuredHeight():Number
     {
@@ -1029,6 +1184,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  @copy mx.core.UIComponent#measuredWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get measuredWidth():Number
     {
@@ -1055,6 +1215,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  The default measured bounds top-left corner relative to the origin of the element.     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get measuredX():Number
     {
@@ -1081,6 +1246,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  The default measured bounds top-left corner relative to the origin of the element.     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get measuredY():Number
     {
@@ -1109,6 +1279,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  @copy mx.core.UIComponent#minHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get minHeight():Number
     {
@@ -1144,6 +1319,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  @copy mx.core.UIComponent#minWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get minWidth():Number
     {
@@ -1179,6 +1359,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get percentHeight():Number
     {
@@ -1215,6 +1400,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  @copy mx.core.UIComponent#percentWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get percentWidth():Number
     {
@@ -1251,6 +1441,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get right():Object
     {
@@ -1282,6 +1477,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 	 * 360 to obtain a value within the range.
 	 * 
 	 * This property is ignored during calculation by any of Flex's 2D layouts. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
     public function get rotationX():Number
     {
@@ -1311,6 +1511,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 	 * 360 to obtain a value within the range.
 	 * 
 	 * This property is ignored during calculation by any of Flex's 2D layouts. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
     public function get rotationY():Number
     {
@@ -1335,6 +1540,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  Indicates the rotation of the element, in degrees,
      *  from the transform point.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get rotationZ():Number
     {
@@ -1361,6 +1571,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  Indicates the rotation of the element, in degrees,
      *  from the transform point.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get rotation():Number
     {
@@ -1384,6 +1599,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  The horizontal scale (percentage) of the element
      *  as applied from the transform point.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get scaleX():Number
     {
@@ -1413,6 +1633,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  The vertical scale (percentage) of the element
      *  as applied from the transform point.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get scaleY():Number
     {
@@ -1442,6 +1667,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  The z scale (percentage) of the element
      *  as applied from the transform point.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get scaleZ():Number
     {
@@ -1476,6 +1706,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get top():Object
     {
@@ -1506,6 +1741,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @copy mx.core.UIComponent#transform
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get transform():flash.geom.Transform
     {
@@ -1572,6 +1812,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 	 * @param rx,ry,rz the new values for the rotation of the transform
 	 * @param sx,sy,sz the new values for the scale of the transform
 	 * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
     public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
     {
@@ -1589,6 +1834,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  The x position transform point of the element.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get transformX():Number
     {
@@ -1616,6 +1866,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  The y position transform point of the element.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get transformY():Number
     {
@@ -1643,6 +1898,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  The z position transform point of the element.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get transformZ():Number
     {
@@ -1677,6 +1937,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get verticalCenter():Object
     {
@@ -1713,6 +1978,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  The width of the graphic element.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get width():Number
     {
@@ -1750,6 +2020,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 	 * defaults to 0
 	 * 
 	 * @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
     public function get layer():Number
     {
@@ -1779,6 +2054,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  The x position of the graphic element.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get x():Number
     {
@@ -1812,6 +2092,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  The y position of the graphic element.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get y():Number
     {
@@ -1844,6 +2129,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  The z position of the graphic element.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get z():Number
     {
@@ -1883,6 +2173,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get visible():Boolean
     {
@@ -1923,6 +2218,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get displayObject():DisplayObject
     {
@@ -1967,6 +2267,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  The x position where the element should be drawn.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function get drawX():Number
     {
@@ -1989,6 +2294,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  The y position where the element should be drawn.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function get drawY():Number
     {
@@ -2021,6 +2331,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  Specifies whether this element is included in the layout of the group.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get includeInLayout():Boolean
     {
@@ -2048,6 +2363,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function createDisplayObject():DisplayObject
     {
@@ -2075,6 +2395,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function get needsDisplayObject():Boolean
     {
@@ -2099,6 +2424,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function canDrawToShared(sharedDisplayObject:DisplayObject):Boolean
     {
@@ -2107,6 +2437,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function closeSequence():Boolean
     {
@@ -2117,6 +2452,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set shareIndex(value:int):void
     {
@@ -2155,6 +2495,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      * 
      *  @return A bitmap snapshot of the GraphicElement. 
      *  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getBitmapData(transparent:Boolean = true, fillColor:uint = 0xFFFFFFFF, useLocalSpace:Boolean = true):BitmapData
     {
@@ -2270,6 +2615,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  Enables clipping or alpha, depending on the type of mask being applied.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function applyMaskType():void
     {
@@ -2300,6 +2650,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @param oldValue The previous value of the property.
      *  
      *  @param value The new value of the property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function dispatchPropertyChangeEvent(prop:String, oldValue:*,
                                                    value:*):void
@@ -2312,6 +2667,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  Utility method that notifies the host that this element has changed and needs
      *  its layer to be updated.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function notifyElementLayerChanged():void
     {
@@ -2326,6 +2686,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *
      *  <p>Subclasses should do their work in 
      *  <code>commitProperties()</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function invalidateProperties():void
     {
@@ -2347,6 +2712,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  By default when <code>explicitWidth</code> and <code>explicitHeight</code>
      *  are set, <code>measure()</code> will not be called. To override this
      *  default behavior subclasses should override <code>skipMeasure()</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function invalidateSize():void
     {
@@ -2361,6 +2731,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  Helper method to invalidate parent size and display list if
      *  this object affects its layout (includeInLayout is true).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function invalidateParentSizeAndDisplayList():void
     {
@@ -2382,6 +2757,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *
      *  <p>Subclasses should override and do their work in
      *  <code>updateDisplayList()</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function invalidateDisplayList():void
     {
@@ -2400,6 +2780,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  by immediately calling <code>validateProperties()</code>,
      *  <code>validateSize()</code>, and <code>validateDisplayList()</code>,
      *  if necessary.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function validateNow():void
     {
@@ -2415,6 +2800,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  by calling the <code>commitProperties()</code> method.
      *  In general, subclasses should
      *  override the <code>commitProperties()</code> method and not this method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function validateProperties():void
     {
@@ -2445,6 +2835,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  interact with each other.
      *  It is often best at startup time to process all of these
      *  properties at one time to avoid duplicating work.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function commitProperties():void
     {
@@ -2561,6 +2956,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function validateSize(recursive:Boolean = false):void
     {
@@ -2589,6 +2989,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  the <code>measure()</code> method. For example this is usually <code>true</code> when both <code>explicitWidth</code> and
      *  <code>explicitHeight</code> are set. For paths, this is <code>true</code> when the bounds of the path
      *  have not changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     protected function skipMeasure():Boolean
     {
@@ -2675,6 +3080,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  sets the values of the <code>measuredWidth</code>, <code>measuredHeight</code>,
      *  <code>measuredX</code>, and <code>measuredY</code> properties
      *  to <code>0</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function measure():void
     {
@@ -2686,6 +3096,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function validateDisplayList():void
     {
@@ -2739,6 +3154,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function updateDisplayList(unscaledWidth:Number,
                                          unscaledHeight:Number):void
@@ -2762,6 +3182,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getMaxBoundsWidth(postTransform:Boolean = true):Number
     {
@@ -2770,6 +3195,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getMaxBoundsHeight(postTransform:Boolean = true):Number
     {
@@ -2778,6 +3208,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getMinBoundsWidth(postTransform:Boolean = true):Number
     {
@@ -2786,6 +3221,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getMinBoundsHeight(postTransform:Boolean = true):Number
     {
@@ -2794,6 +3234,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getPreferredBoundsWidth(postTransform:Boolean = true):Number
     {
@@ -2804,6 +3249,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getPreferredBoundsHeight(postTransform:Boolean = true):Number
     {
@@ -2814,6 +3264,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutBoundsX(postTransform:Boolean = true):Number
     {
@@ -2833,6 +3288,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutBoundsY(postTransform:Boolean = true):Number
     {
@@ -2852,6 +3312,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheirtDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutBoundsWidth(postTransform:Boolean = true):Number
     {
@@ -2860,6 +3325,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutBoundsHeight(postTransform:Boolean = true):Number
     {
@@ -2868,6 +3338,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  A reference to the object in the layout tree represented by this interface.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get target():Object
     {
@@ -2879,6 +3354,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  
      *  @return Returns the transformation matrix for this element, or null
      *  if it is delta identity.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function computeMatrix():Matrix
     {
@@ -2898,6 +3378,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  
      *  @return Returns the transformed width. Transformation is this element's
      *  layout transformation matrix.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function transformWidthForLayout(width:Number,
                                                height:Number,
@@ -2928,6 +3413,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  
      *  @return Returns the transformed height. Transformation is this element's
      *  layout transformation matrix.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function transformHeightForLayout(width:Number,
                                                 height:Number,
@@ -2967,6 +3457,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setLayoutBoundsPosition(newBoundsX:Number, newBoundsY:Number, postTransform:Boolean = true):void
     {
@@ -3002,6 +3497,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setLayoutBoundsSize(width:Number = NaN,
                                   height:Number = NaN,
@@ -3063,6 +3563,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutMatrix():Matrix
     {
@@ -3079,6 +3584,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setLayoutMatrix(value:Matrix, triggerLayout:Boolean):void
     {
@@ -3090,6 +3600,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getLayoutMatrix3D():Matrix3D
     {
@@ -3106,6 +3621,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setLayoutMatrix3D(value:Matrix3D, triggerLayout:Boolean):void
     {
@@ -3117,6 +3637,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     /**
      *  Applies the transform to the DisplayObject.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function applyComputedTransform():void
     {   
@@ -3252,6 +3777,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  Called when a bitmap filter associated with the element is modified.
      *  
      *  @param event The event that is dispatched when the filter was changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function filterChangedHandler(event:Event):void
     {
@@ -3262,6 +3792,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  Called when one of the properties of the transform changes.
      *  
      *  @param event The event that is dispatched when the property changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function transformPropertyChangeHandler(
                                     event:PropertyChangeEvent):void
