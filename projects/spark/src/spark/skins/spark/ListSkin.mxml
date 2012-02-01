@@ -47,6 +47,24 @@
         static private const contentFill:Array = ["bgFill"];
         <!--- @inheritDoc -->
         override public function get contentItems():Array {return contentFill};
+        
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        {
+            if (getStyle("borderVisible") == true)
+            {
+                border.visible = true;
+                background.left = background.top = background.right = background.bottom = 1;
+                scroller.minViewportInset = 1;
+            }
+            else
+            {
+                border.visible = false;
+                background.left = background.top = background.right = background.bottom = 0;
+                scroller.minViewportInset = 0;
+            }
+            
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
     </fx:Script>
     
     <s:states>
@@ -55,9 +73,11 @@
     </s:states>
     
     <!-- border -->
-    <s:Rect left="0" right="0" top="0" bottom="0">
+    <s:Rect left="0" right="0" top="0" bottom="0" id="border">
         <s:stroke>
-            <s:SolidColorStroke color="0x686868" weight="1"/>
+            <s:SolidColorStroke color="{getStyle('borderColor')}" 
+                                alpha="{getStyle('borderAlpha')}" 
+                                weight="1"/>
         </s:stroke>
     </s:Rect>
     
