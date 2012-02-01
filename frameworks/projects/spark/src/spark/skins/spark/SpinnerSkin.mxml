@@ -74,9 +74,11 @@ Spinner component are defined by the SpinnerDecrementButtonSkin and SpinnerIncre
          */
         override public function styleChanged(styleProp:String):void
         {
+            var allStyles:Boolean = !styleProp || styleProp == "styleName";
+
             super.styleChanged(styleProp);
             
-            if (!styleProp || styleProp == "cornerRadius")
+            if (allStyles || styleProp == "cornerRadius")
             {
                 cornerRadiusChanged = true;
                 invalidateProperties();
