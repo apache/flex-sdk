@@ -13,7 +13,6 @@ package spark.skins.spark
 {
     
 import mx.graphics.BitmapFill;
-import mx.graphics.BitmapResizeMode;
 import mx.graphics.RectangularDropShadow;
 import mx.graphics.SolidColor;
 import mx.graphics.SolidColorStroke;
@@ -23,7 +22,6 @@ import mx.states.State;
 import spark.components.Border;
 import spark.components.Group;
 import spark.components.supportClasses.Skin;
-import spark.primitives.Line;
 import spark.primitives.Path;
 import spark.primitives.Rect;
 
@@ -104,9 +102,7 @@ public class BorderSkin extends Skin
      *  @private 
      */ 
 	override protected function measure():void
-	{
-	    //super.measure();
-	    
+	{	    
 	    measuredWidth = contentGroup.measuredWidth;
 	    measuredHeight = contentGroup.measuredHeight;
 	    measuredMinWidth = contentGroup.measuredMinWidth;
@@ -192,10 +188,6 @@ public class BorderSkin extends Skin
  
                 bitmapFill.source = bgImage;
                 bitmapFill.resizeMode = getStyle("backgroundImageResizeMode");
-                    
-                // Adjust the bitmap fill to account for the stroke thickness
-                //bitmapFill.x = contentGroup.x;
-                //bitmapFill.y = contentGroup.y;
                 
                 bgRect.fill = bitmapFill;
             }
@@ -216,29 +208,37 @@ public class BorderSkin extends Skin
         
         // Draw the shadow for the inset style
         if (borderStyle == "inset" && hostComponent.borderStroke == null)
-        {
-           /* insetLine.xFrom = borderWeight;
-            insetLine.xTo = unscaledWidth - borderWeight;
-            insetLine.y = borderWeight;
-            insetLine.stroke = new SolidColorStroke(0x000000, 1, .12);*/
-            
-            // FIXME (jszeto) add special case for no corner radius
-            
-            var bwcr:Number = borderWeight + cornerRadius;
-            var w_bt:Number = unscaledWidth - borderWeight;
+        {            
             var negCR:Number = -cornerRadius;
-            var path:String = "M " + borderWeight + " " + bwcr;
-            path += " q 0 " + negCR + " " + cornerRadius + " " + negCR;
-            path += " l " + (unscaledWidth - ((borderWeight + cornerRadius) * 2)) + " 0";
-            path += " q " + cornerRadius + " 0 " + cornerRadius + " " + cornerRadius;
-            insetPath.x = 0;
-            insetPath.y = 0;
+            var path:String = ""; 
+            
+            if (cornerRadius > 0)
+            {
+                // Draw each corner with two quadratics, using the following ratios:
+                var a:Number = cornerRadius * 0.292893218813453;
+                var s:Number = cornerRadius * 0.585786437626905;
+                var right:Number = unscaledWidth - borderWeight;
+                
+                path += "M 0 " + cornerRadius; // M 0 CR
+                path += " Q 0 " + s + " " + a + " " + a; // Q 0 s a a 
+                path += " Q " + s + " 0 " + cornerRadius + " 0"; // Q s 0 CR 0
+                path += " L " + (right - cornerRadius) + " 0"; // L (right-CR) 0
+                path += " Q " + (right - s) + " 0 " + (right - a) + " " + a; // Q (right-s) 0 (right-a) a
+                path += " Q " + right + " " + s + " " + right + " " + cornerRadius; // Q right s right CR   
+                insetPath.height = cornerRadius;
+            }
+            else
+            {
+                path += "M 0 0";
+                path += " L " + (unscaledWidth - borderWeight) + " 0";
+                insetPath.height = 1; 
+            }
+            
+            insetPath.x = borderWeight;
+            insetPath.y = borderWeight;
             insetPath.width = unscaledWidth - (borderWeight * 2);
-            insetPath.height = cornerRadius;
             insetPath.data = path;
             insetPath.stroke = new SolidColorStroke(0x000000, 1, .12);
-            
-            //trace('path value',path);           
         }
         else
         {
