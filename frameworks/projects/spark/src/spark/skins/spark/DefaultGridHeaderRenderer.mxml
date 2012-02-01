@@ -32,9 +32,9 @@ The default header renderer for s:DataGrid columns.
         <![CDATA[
             import mx.core.IVisualElement;
             
-            import spark.components.ColumnHeaderBar;
+            import spark.components.GridColumnHeaderGroup;
             import spark.components.DataGrid;
-            import spark.components.supportClasses.GridColumn;
+            import spark.components.gridClasses.GridColumn;
             
             //----------------------------------
             //  sortIndicator
@@ -91,12 +91,12 @@ The default header renderer for s:DataGrid columns.
                 super.prepare(willBeRecycled);
                 
                 const column:GridColumn = this.column;
-                if (sortIndicator && column && column.grid && column.grid.dataGrid && column.grid.dataGrid.columnHeaderBar)
+                if (sortIndicator && column && column.grid && column.grid.dataGrid && column.grid.dataGrid.columnHeaderGroup)
                 {
                     const dataGrid:DataGrid = column.grid.dataGrid;
-                    const columnHeaderBar:ColumnHeaderBar = dataGrid.columnHeaderBar;
+                    const columnHeaderGroup:GridColumnHeaderGroup = dataGrid.columnHeaderGroup;
                     
-                    if (columnHeaderBar.isSortIndicatorVisible(column.columnIndex))
+                    if (columnHeaderGroup.isSortIndicatorVisible(column.columnIndex))
                     {
                         if (!sortIndicatorInstance)
                         {
