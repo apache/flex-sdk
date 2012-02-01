@@ -280,7 +280,7 @@ package spark.skins
         //  paddingTop
         //----------------------------------
         
-        private var _iconGroupPaddingTop:Number = 4;
+        private var _iconGroupPaddingTop:Number = 2;
                 
         /**
          *  Number of pixels between the buttons's top edge
@@ -312,7 +312,7 @@ package spark.skins
         //  paddingBottom
         //----------------------------------
         
-        private var _iconGroupPaddingBottom:Number = 4;
+        private var _iconGroupPaddingBottom:Number = 2;
         
         /**
          *  Number of pixels between the buttons's bottom edge
