@@ -3,6 +3,7 @@ package flex.filters
 	import flash.filters.BitmapFilter;
 	import flash.filters.GradientGlowFilter;
 	import mx.core.mx_internal;
+	import mx.filters.IBitmapFilter;
 	
 	use namespace mx_internal;
 	
