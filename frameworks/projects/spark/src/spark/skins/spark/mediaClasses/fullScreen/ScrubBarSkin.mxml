@@ -52,10 +52,10 @@
        </fx:Component>
     </fx:Declarations>
     
-    <s:Button id="track" left="0" right="0" top="0" height="14"
+    <s:Button id="track" left="0" right="0" top="0" height="11"
               skinClass="spark.skins.default.VideoPlayerFullScreenScrubBarTrackSkin" />
               
-    <s:Group id="bufferedArea" left="0" top="0" height="14">
+    <s:Group id="bufferedArea" left="0" top="0" height="11">
     
         <!-- inset 7 pixels because that's thumbSize/2 -->
         <s:Group left="7" right="7" top="0" bottom="0" minWidth="0">
@@ -82,7 +82,7 @@
         </s:Group>    
     </s:Group>
     
-    <s:Group id="playedArea" left="0" top="0" height="14">
+    <s:Group id="playedArea" left="0" top="0" height="11">
     
         <!-- inset 7 pixels because that's thumbSize/2 -->
         <s:Group left="7" right="7" top="0" bottom="0" minWidth="0">
