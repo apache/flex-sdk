@@ -21,7 +21,7 @@
      @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-    xmlns:fb="http://ns.adobe.com/flashbuilder/2009">
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabled="0.5">
     
     <!-- host component -->
     <fx:Metadata>
@@ -68,8 +68,9 @@
     <s:Rect left="0" top="0" right="0" bottom="0">
         <s:stroke>
             <s:SolidColorStroke color="0x000000"
-                                alpha="0.7"
-                                alpha.up="0.0"
+                                alpha="0.0"
+                                alpha.over="0.7"
+                                alpha.down="0.7"
                                 weight="1"/>
         </s:stroke>
         <s:fill>
