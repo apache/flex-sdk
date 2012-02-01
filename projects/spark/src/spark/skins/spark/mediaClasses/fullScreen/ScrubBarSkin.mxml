@@ -57,8 +57,8 @@
               
     <s:Group id="bufferedArea" left="0" top="0" height="11">
     
-        <!-- inset 7 pixels because that's thumbSize/2 -->
-        <s:Group left="7" right="7" top="0" bottom="0" minWidth="0">
+        <!-- inset 7 and 6 pixels because that's thumbSize/2 -->
+        <s:Group left="7" right="6" top="0" bottom="0" minWidth="0">
         
             <!-- fill -->
             <s:Rect left="0" right="0" top="0" bottom="0">
@@ -84,24 +84,24 @@
     
     <s:Group id="playedArea" left="0" top="0" height="11">
     
-        <!-- inset 7 pixels because that's thumbSize/2 -->
-        <s:Group left="7" right="7" top="0" bottom="0" minWidth="0">
+        <!-- inset 7 and 6 pixels because that's thumbSize/2 -->
+        <s:Group left="7" right="6" top="0" bottom="0" minWidth="0">
+        
+            <!-- border -->
+            <s:Rect left="0" right="0" top="0" bottom="0" minWidth="0">
+                <s:fill>
+                    <s:SolidColor color="0x000000" alpha="0.85" />
+                </s:fill>
+            </s:Rect>
         
             <!-- fill -->
-            <s:Rect left="0" right="0" top="0" bottom="0">
+            <s:Rect left="1" right="1" top="1" bottom="1">
                 <s:fill>
                     <s:LinearGradient rotation="90">
                         <s:GradientEntry color="0xEBECF2"/>
                         <s:GradientEntry color="0xD2D3D8"/>
                     </s:LinearGradient>
                 </s:fill>
-            </s:Rect>
-            
-            <!-- border -->
-            <s:Rect left="0" right="0" top="0" bottom="0" minWidth="0">
-                <s:stroke>
-                    <s:SolidColorStroke color="0x000000" alpha="0.85" />
-                </s:stroke>
             </s:Rect>
             
         </s:Group>  
