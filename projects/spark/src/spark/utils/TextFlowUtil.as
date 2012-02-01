@@ -17,6 +17,7 @@ import flashx.textLayout.conversion.ITextExporter;
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextConverter;
 import flashx.textLayout.elements.Configuration;
+import flashx.textLayout.elements.GlobalSettings;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.formats.FormatValue;
 import flashx.textLayout.formats.ITextLayoutFormat;
@@ -105,6 +106,13 @@ public class TextFlowUtil
     {
         if (initialized)
             return;
+
+		/**
+		 *  Set the TLF hook used for localizing runtime error messages.
+		 *  TLF itself has English-only messages,
+		 *  but higher layers like Flex can provide localized versions.
+		 */
+		GlobalSettings.getResourceStringFunction = TextUtil.getResourceString;
         
         var format:TextLayoutFormat;
         var config:Configuration;
