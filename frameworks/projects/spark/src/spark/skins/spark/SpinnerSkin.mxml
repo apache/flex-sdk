@@ -24,9 +24,9 @@ Spinner component are defined by the SpinnerDecrementButtonSkin and SpinnerIncre
 
     <fx:Metadata>
     <![CDATA[ 
-    /** 
-     * @copy spark.skins.spark.ApplicationSkin#hostComponent
-     */
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.Spinner")]
     ]]>
     </fx:Metadata> 
@@ -91,10 +91,12 @@ Spinner component are defined by the SpinnerDecrementButtonSkin and SpinnerIncre
         <s:State name="disabled" />
     </s:states>
     
-    <!--- Defines the appearance of the up button. The default skin class is SpinnerIncrementButtonSkin. -->
+    <!--- The default skin class is SpinnerIncrementButtonSkin.
+          @copy spark.components.Spinner#incrementButton -->
     <s:Button id="incrementButton" left="0" right="0" top="0" height="50%" 
             skinClass="spark.skins.spark.SpinnerIncrementButtonSkin" /> 
-    <!--- Defines the appearance of the down button. The default skin class is SpinnerDecrementButtonSkin. -->
+    <!--- The default skin class is SpinnerDecrementButtonSkin. 
+          @copy spark.components.Spinner#decrementButton-->
     <s:Button id="decrementButton" left="0" right="0" bottom="0" height="50%"  
             skinClass="spark.skins.spark.SpinnerDecrementButtonSkin" />
 
