@@ -1027,7 +1027,8 @@ are identical, save the superclass and constructor names.  This file contains th
     //
     //  IStyleClient Methods and Properties
     //  (source code from mx.controls.dataGridClassses.DataGridItemRenderer.as)
-    //
+    //  The original code in initProtoChain() has been modified at calls to 
+    //  addStyleDeclarationToProtoChain().
     //-------------------------------------------------------------------------- 
     
     /**
@@ -1139,11 +1140,11 @@ are identical, save the superclass and constructor names.  This file contains th
         // Finally, we'll add the in-line styles
         // to the head of the proto chain.
         inheritingStyles = styleDeclaration ?
-            styleDeclaration.addStyleToProtoChain(inheritChain, this) :
+            addStyleDeclarationToProtoChain(inheritChain, this) :     // modified original code here
             inheritChain;
         
         nonInheritingStyles = styleDeclaration ?
-            styleDeclaration.addStyleToProtoChain(nonInheritChain, this) :
+            addStyleDeclarationToProtoChain(nonInheritChain, this) :  // modified original code here
             nonInheritChain;
     }
     
@@ -1177,6 +1178,28 @@ are identical, save the superclass and constructor names.  This file contains th
     {
     }    
     
+    //----------------------------------
+    //  styleDeclaration
+    //----------------------------------
+    
+    private var _styleDeclaration:CSSStyleDeclaration;
+    
+    /**
+     *  @private
+     */
+    public function get styleDeclaration():CSSStyleDeclaration
+    {
+        return _styleDeclaration;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set styleDeclaration(value:CSSStyleDeclaration):void
+    {
+        _styleDeclaration = value;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Event Handlers
