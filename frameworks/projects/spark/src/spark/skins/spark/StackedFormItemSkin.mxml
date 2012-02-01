@@ -27,42 +27,40 @@
         }
     </fx:Style>
     
+    <s:layout>
+        <s:FormItemLayout>
+            <s:constraintColumns>
+                <s:ConstraintColumn id="numCol" />
+                <s:ConstraintColumn id="contentCol"/>
+                <s:ConstraintColumn id="helpCol"/>
+            </s:constraintColumns>         
+            <s:constraintRows>
+                <s:ConstraintRow id="row1" height="25"/>
+                <s:ConstraintRow id="row2"/>
+            </s:constraintRows>  
+        </s:FormItemLayout>
+    </s:layout>
+    
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:fill>
             <s:SolidColor color="0x449922" alpha="0" alpha.required=".3"/>
         </s:fill>
     </s:Rect>
     
-    <s:Group left="5" top="2" bottom="2" right="5">
     
-        <mx:Canvas id="canvasLayout">
-            
-            <mx:constraintColumns>
-                <mx:ConstraintColumn id="numCol" />
-                <mx:ConstraintColumn id="contentCol" />
-                <mx:ConstraintColumn id="helpCol" width="160"/>
-            </mx:constraintColumns>
-            
-            <mx:constraintRows>
-                <mx:ConstraintRow id="row1" height="25"/>
-                <mx:ConstraintRow id="row2" />
-            </mx:constraintRows>    
-            
-            <s:Label id="numberLabelElement" right="numCol:3" baseline="row1:16" />
-            <s:Label id="labelDisplay" left="contentCol:2" baseline="row1:16" styleName="labelStyle"/>
-            <s:Label right="contentCol:2" baseline="row1:16" text="(required)" styleName="helpTextStyle" visible.required="true" visible="false"/>
-            <!--<mx:Image source="@Embed(source='Assets.swf',symbol='mx.containers.FormItem.Required')" 
-                      horizontalCenter="indicatorCol:0" baseline="row1:24"/>-->
-            <s:Group id="contentGroup" left="contentCol:2" right="contentCol:2" top="row2:2" bottom="row2:3">
-                <s:layout>
-                    <s:VerticalLayout/>
-                </s:layout>
-            </s:Group>
-            
-            <s:Group id="helpContentGroup" styleName="helpTextStyle" 
-                     left="helpCol:5" right="helpCol:3" height="100%" top="row2:0" bottom="row2:0"/>
-            
-        </mx:Canvas>
-        
+                
+    <s:Label id="numberLabelElement" right="numCol:3" baseline="row1:16" />
+    <s:Label id="labelDisplay" left="contentCol:2" baseline="row1:16" styleName="labelStyle"/>
+    <s:Label right="contentCol:2" baseline="row1:16" text="(required)" styleName="helpTextStyle" visible.required="true" visible="false"/>
+    <!--<mx:Image source="@Embed(source='Assets.swf',symbol='mx.containers.FormItem.Required')" 
+              horizontalCenter="indicatorCol:0" baseline="row1:24"/>-->
+    <s:Group id="contentGroup" left="contentCol:2" right="contentCol:2" top="row2:2" bottom="row2:3">
+        <s:layout>
+            <s:VerticalLayout/>
+        </s:layout>
     </s:Group>
+    
+    <s:Group id="helpContentGroup" styleName="helpTextStyle" 
+             left="helpCol:5" right="helpCol:3" height="100%" top="row2:0" bottom="row2:0"/>
+
 </s:Skin>
