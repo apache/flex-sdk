@@ -61,7 +61,7 @@ import spark.layouts.supportClasses.LayoutBase;
  *  all elements.</p>
  *
  *  @mxml 
- *  <p>The <code>&lt;TileLayout&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:TileLayout&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
