@@ -11,7 +11,11 @@
 
 -->
 
-<!--- The default skin class for the scrub bar thumb part of a Spark VideoPlayer component.  
+<!--- The default skin class for the scrub bar thumb part of a Spark VideoPlayer component
+      in the normal skin state. The normal skin state means the component is not in 
+      one of the <code>fullScreen</code> skin states.  
+
+      @see spark.components.VideoPlayer
         
       @langversion 3.0
       @playerversion Flash 10
