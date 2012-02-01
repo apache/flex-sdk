@@ -34,6 +34,41 @@
     ]]>
     </fx:Metadata> 
 
+    <fx:Script>
+        <![CDATA[
+            override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+            {
+                if (getStyle("borderVisible") == false)
+                {
+                    if (border)
+                        border.visible = false;
+                    if (background)
+                    {
+                        background.left = background.top = background.right = background.bottom = 0;
+                    }
+                    if (scroller)
+                        scroller.minViewportInset = 0;
+                }
+                else
+                {
+                    if (border)
+                        border.visible = true;
+                    if (background)
+                    {
+                        background.left = background.top = background.right = background.bottom = 1;
+                    }
+                    if (scroller)
+                        scroller.minViewportInset = 1;
+                }
+                
+                if (dropShadow)
+                    dropShadow.visible = getStyle("dropShadowVisible");
+                
+                super.updateDisplayList(unscaledWidth, unscaledHeight);
+            }
+        ]]>
+    </fx:Script>
+    
     <s:states>
         <s:State name="normal" />
         <s:State name="open" />
@@ -54,13 +89,15 @@
         <s:Group id="dropDown" maxHeight="134" minHeight="22" >
         
             <!-- drop shadow -->
-            <s:RectangularDropShadow blurX="20" blurY="20" alpha="1.0" distance="5" 
+            <s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="1.0" distance="5" 
                  angle="90" color="#000000" left="0" top="0" right="0" bottom="0"/>
         
             <!-- border -->
-            <s:Rect left="0" right="0" top="0" bottom="0">
+            <s:Rect id="border" left="0" right="0" top="0" bottom="0">
                 <s:stroke>
-                    <s:SolidColorStroke color="0x686868" weight="1"/>
+                    <s:SolidColorStroke color="{getStyle('borderColor')}"
+                                        alpha="{getStyle('borderAlpha')}"
+                                        weight="1"/>
                 </s:stroke>
             </s:Rect>
             
@@ -78,7 +115,7 @@
                 </s:fill>
             </s:Rect>
             
-            <s:Scroller left="0" top="0" right="0" bottom="0" focusEnabled="false" minViewportInset="1">
+            <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" focusEnabled="false" minViewportInset="1">
                 <!---  
                     The container for the data items in the drop-down list.
                 -->
@@ -93,7 +130,7 @@
     
     <!--- The anchor button used by the DropDownList. The default skin is DropDownListButtonSkin. -->
     <s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
-        skinClass="spark.skins.spark.DropDownListButtonSkin" />  
+        skinClass="spark.skins.spark.DropDownListButtonSkin" cornerRadius="{getStyle('cornerRadius')}" />  
     <!--- The prompt area of the DropDownList. -->
     <s:Label id="labelDisplay" verticalAlign="middle" maxDisplayedLines="1"
         left="7" right="30" top="2" bottom="2" verticalCenter="1" /> 
