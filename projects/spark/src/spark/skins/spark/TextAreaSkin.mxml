@@ -16,13 +16,22 @@
 	  alpha.disabled="0.5">
 
     <fx:Metadata>
+    <![CDATA[ 
+	/** 
+	 * @copy spark.skins.default.ApplicationSkin#hostComponent
+	 */
     	[HostComponent("spark.components.TextArea")]
+    ]]>
     </fx:Metadata> 
     
     <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For text area, the skin itself is colorized but the individual parts are not. */
         static private const exclusions:Array = ["background", "scroller"];
+
+	/** 
+	 * @copy spark.skins.SparkSkin#colorizeExclusions
+	 */		
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
