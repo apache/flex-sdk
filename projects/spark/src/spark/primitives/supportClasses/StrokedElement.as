@@ -24,16 +24,16 @@ import flash.geom.Rectangle;
 import flash.geom.Transform;
 
 import flex.intf.ILayoutItem;
+import flex.geom.Transform;
 import flex.graphics.graphicsClasses.GraphicElement;
 
 import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 import mx.graphics.IStroke;
-import flex.filters.BaseFilter;
-import flex.filters.IBitmapFilter;
-import flex.geom.Transform;
 
 use namespace mx_internal;
 
