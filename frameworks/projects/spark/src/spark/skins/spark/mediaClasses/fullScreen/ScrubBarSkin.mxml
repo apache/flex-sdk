@@ -23,7 +23,7 @@
       alpha.disabled="0.5">
 
     <fx:Metadata>
-        [HostComponent("spark.components.VideoPlayerScrubBar")]
+        [HostComponent("spark.components.mediaClasses.ScrubBar")]
     </fx:Metadata>
     
     <s:states>
@@ -31,7 +31,7 @@
         <s:State name="disabled" />
     </s:states>
     
-    <fx:Declarations>
+    <!--<fx:Declarations>
         <fx:Component id="dataTip">     
             <s:MXMLComponent minHeight="24" minWidth="40" y="-34">
                 <s:RectangularDropShadow id="shadow" distance="3" 
@@ -51,10 +51,10 @@
                 </s:SimpleText>
             </s:MXMLComponent>
         </fx:Component>
-    </fx:Declarations>
+    </fx:Declarations>-->
     
     <s:Button id="track" left="0" right="0" top="0" height="11"
-              skinClass="spark.skins.default.VideoPlayerFullScreenScrubBarTrackSkin" />
+              skinClass="spark.skins.default.mediaClasses.fullScreen.ScrubBarTrackSkin" />
               
     <s:Group id="bufferedArea" x="0" y="0" height="11" includeInLayout="false">
     
@@ -109,6 +109,6 @@
     </s:Group>
     
     <s:Button id="thumb" x="0" y="0" width="14" height="19" includeInLayout="false"
-              skinClass="spark.skins.default.VideoPlayerFullScreenScrubBarThumbSkin" />
+              skinClass="spark.skins.default.mediaClasses.fullScreen.ScrubBarThumbSkin" />
 
 </s:Skin>
