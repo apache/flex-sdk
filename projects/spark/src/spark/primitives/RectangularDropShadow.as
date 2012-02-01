@@ -10,8 +10,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.primitives
 {
-	import mx.core.UIComponent;
-	import mx.graphics.RectangularDropShadow;
+    import mx.core.UIComponent;
+    import mx.graphics.RectangularDropShadow;
     
     /**
      *  <p>This class optimizes drop shadows for the common case.
@@ -33,10 +33,10 @@ package spark.primitives
      *  @see flash.filters.DropShadowFilter
      *  @see flash.display.DisplayObject
      */
-	public class RectangularDropShadow extends UIComponent
-	{
-	    include "../core/Version.as";
-	        
+    public class RectangularDropShadow extends UIComponent
+    {
+        include "../core/Version.as";
+            
         //--------------------------------------------------------------------------
         //
         //  Constructor
@@ -51,18 +51,19 @@ package spark.primitives
          *  @playerversion AIR 1.1
          *  @productversion Flex 4
          */   
-		public function RectangularDropShadow()
-		{
-		    super();
-		}
-		
+        public function RectangularDropShadow()
+        {
+            mouseEnabled = false;
+            super();
+        }
+        
         //--------------------------------------------------------------------------
         //
         //  Variables
         //
         //--------------------------------------------------------------------------
     
-		/**
+        /**
          *  @private
          */
         private var dropShadow:mx.graphics.RectangularDropShadow;
@@ -83,7 +84,7 @@ package spark.primitives
          */
         private var _alpha:Number = 0.4;
     
-    	[Inspectable]
+        [Inspectable]
     
         /**
          *  @copy flash.filters.DropShadowFilter#alpha
@@ -103,11 +104,11 @@ package spark.primitives
          */
         override public function set alpha(value:Number):void
         {
-        	if (_alpha != value)
-        	{
-    			_alpha = value;
-    			invalidateDisplayList();
-    		}
+            if (_alpha != value)
+            {
+                _alpha = value;
+                invalidateDisplayList();
+            }
         }
     
         //----------------------------------
@@ -120,7 +121,7 @@ package spark.primitives
          */
         private var _angle:Number = 45.0;
     
-    	[Inspectable]
+        [Inspectable]
     
         /**
          *  @copy flash.filters.DropShadowFilter#angle
@@ -140,11 +141,11 @@ package spark.primitives
          */
         public function set angle(value:Number):void
         {
-        	if (_angle != value)
-        	{
-    			_angle = value;
-    			invalidateDisplayList();
-    		}
+            if (_angle != value)
+            {
+                _angle = value;
+                invalidateDisplayList();
+            }
         }
     
         //----------------------------------
@@ -157,7 +158,7 @@ package spark.primitives
          */
         private var _color:int = 0;
     
-    	[Inspectable]
+        [Inspectable]
     
         /**
          *  @copy flash.filters.DropShadowFilter#color
@@ -177,11 +178,11 @@ package spark.primitives
          */
         public function set color(value:int):void
         {
-        	if (_color != value)
-        	{
-    			_color = value;
-    			invalidateDisplayList();
-    		}
+            if (_color != value)
+            {
+                _color = value;
+                invalidateDisplayList();
+            }
         }
     
         //----------------------------------
@@ -194,7 +195,7 @@ package spark.primitives
          */
         private var _distance:Number = 4.0;
     
-    	[Inspectable]
+        [Inspectable]
     
         /**
          *  @copy flash.filters.DropShadowFilter#distance
@@ -214,11 +215,11 @@ package spark.primitives
          */
         public function set distance(value:Number):void
         {
-        	if (_distance != value)
-        	{
-    			_distance = value;
-    			invalidateDisplayList();
-    		}
+            if (_distance != value)
+            {
+                _distance = value;
+                invalidateDisplayList();
+            }
         }
     
         //----------------------------------
@@ -231,12 +232,12 @@ package spark.primitives
          */
         private var _tlRadius:Number = 0;
     
-    	[Inspectable]
+        [Inspectable]
     
         /**
          *  The corner radius of the top left corner
-    	 *  of the rounded rectangle that is casting the shadow.
-    	 *  May be zero for non-rounded rectangles.
+         *  of the rounded rectangle that is casting the shadow.
+         *  May be zero for non-rounded rectangles.
          *  
          *  @langversion 4.0
          *  @playerversion Flash 9
@@ -253,11 +254,11 @@ package spark.primitives
          */
         public function set tlRadius(value:Number):void
         {
-        	if (_tlRadius != value)
-        	{
-    			_tlRadius = value;
-    			invalidateDisplayList();
-    		}
+            if (_tlRadius != value)
+            {
+                _tlRadius = value;
+                invalidateDisplayList();
+            }
         }
     
         //----------------------------------
@@ -270,12 +271,12 @@ package spark.primitives
          */
         private var _trRadius:Number = 0;
     
-    	[Inspectable]
+        [Inspectable]
     
         /**
          *  The corner radius of the top right corner
-    	 *  of the rounded rectangle that is casting the shadow.
-    	 *  May be zero for non-rounded rectangles.
+         *  of the rounded rectangle that is casting the shadow.
+         *  May be zero for non-rounded rectangles.
          *  
          *  @langversion 4.0
          *  @playerversion Flash 9
@@ -292,11 +293,11 @@ package spark.primitives
          */
         public function set trRadius(value:Number):void
         {
-        	if (_trRadius != value)
-        	{
-    			_trRadius = value;
-    			invalidateDisplayList();
-    		}
+            if (_trRadius != value)
+            {
+                _trRadius = value;
+                invalidateDisplayList();
+            }
         }
     
         //----------------------------------
@@ -309,12 +310,12 @@ package spark.primitives
          */
         private var _blRadius:Number = 0;
     
-    	[Inspectable]
+        [Inspectable]
     
         /**
          *  The corner radius of the bottom left corner
-    	 *  of the rounded rectangle that is casting the shadow.
-    	 *  May be zero for non-rounded
+         *  of the rounded rectangle that is casting the shadow.
+         *  May be zero for non-rounded
          *  rectangles.
          *  
          *  @langversion 4.0
@@ -332,11 +333,11 @@ package spark.primitives
          */
         public function set blRadius(value:Number):void
         {
-        	if (_blRadius != value)
-        	{
-    			_blRadius = value;
-    			invalidateDisplayList();
-    		}
+            if (_blRadius != value)
+            {
+                _blRadius = value;
+                invalidateDisplayList();
+            }
         }
     
         //----------------------------------
@@ -349,12 +350,12 @@ package spark.primitives
          */
         private var _brRadius:Number = 0;
     
-    	[Inspectable]
+        [Inspectable]
     
         /**
          *  The corner radius of the bottom right corner
-    	 *  of the rounded rectangle that is casting the shadow.
-    	 *  May be zero for non-rounded rectangles.
+         *  of the rounded rectangle that is casting the shadow.
+         *  May be zero for non-rounded rectangles.
          *  
          *  @langversion 4.0
          *  @playerversion Flash 9
@@ -371,11 +372,11 @@ package spark.primitives
          */
         public function set brRadius(value:Number):void
         {
-        	if (_brRadius != value)
-        	{
-    			_brRadius = value;
-    			invalidateDisplayList();
-    		}
+            if (_brRadius != value)
+            {
+                _brRadius = value;
+                invalidateDisplayList();
+            }
         }
     
         //----------------------------------
@@ -388,7 +389,7 @@ package spark.primitives
          */
         private var _blurX:Number = 4;
     
-    	[Inspectable]
+        [Inspectable]
     
         /**
          *  The amount of horizontal blur.
@@ -409,11 +410,11 @@ package spark.primitives
          */
         public function set blurX(value:Number):void
         {
-        	if (_blurX != value)
-        	{
-    			_blurX = value;
-    			invalidateDisplayList();
-    		}
+            if (_blurX != value)
+            {
+                _blurX = value;
+                invalidateDisplayList();
+            }
         }
     
         //----------------------------------
@@ -426,7 +427,7 @@ package spark.primitives
          */
         private var _blurY:Number = 4;
     
-    	[Inspectable]
+        [Inspectable]
     
         /**
          *  The amount of vertical blur.
@@ -447,11 +448,11 @@ package spark.primitives
          */
         public function set blurY(value:Number):void
         {
-        	if (_blurY != value)
-        	{
-    			_blurY = value;
-    			invalidateDisplayList();
-    		}
+            if (_blurY != value)
+            {
+                _blurY = value;
+                invalidateDisplayList();
+            }
         }
     
         /**
@@ -482,5 +483,5 @@ package spark.primitives
             dropShadow.drawShadow(graphics, 0, 0, unscaledWidth, unscaledHeight);
         }
     
-	}
+    }
 }
