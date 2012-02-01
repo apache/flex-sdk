@@ -11,18 +11,8 @@
 
 package mx.filters
 {
-
-import flash.events.Event;	
-import flash.events.EventDispatcher;
 import flash.filters.BitmapFilter;
 import flash.filters.ColorMatrixFilter;
-import mx.filters.IFlexBitmapFilter;
-
-/**
- *  @review 
- *  Dispatched when a property value has changed. 
- */ 
-[Event(name="change", type="flash.events.Event")]
 
 /**
  *  @review 
@@ -37,43 +27,24 @@ import mx.filters.IFlexBitmapFilter;
  * 
  *  @see flash.filters.ColorMatrixFilter
  */
-public class ColorMatrixFilter extends EventDispatcher implements IFlexBitmapFilter
+public class ColorMatrixFilter extends BaseFilter implements IBitmapFilter
 {
-	include "../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //--------------------------------------------------------------------------
-    	
-	/**
-	 * @copy flash.filters.ColorMatrixFilter
-	 */ 
-	public function ColorMatrixFilter(matrix:Object = null)
+	public function ColorMatrixFilter(matrix:Array = null)
 	{
-		super();
-		
 		if (matrix != null)
 		{
 			this.matrix = matrix;
 		} 
 	}
 	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------	
-	
 	//----------------------------------
     //  matrix
     //----------------------------------
 	
-	private var _matrix:Array =  [1,0,0,0,0,
-								  0,1,0,0,0,
-								  0,0,1,0,0,
-								  0,0,0,1,0];
+	private var _matrix:Array =  [1,0,0,0,0,0,
+								  1,0,0,0,0,0,
+								  1,0,0,0,0,0,
+								  1,0];
 	
 	/**
 	 *  @review
@@ -106,38 +77,11 @@ public class ColorMatrixFilter extends EventDispatcher implements IFlexBitmapFil
 			notifyFilterChanged();
 		}
 	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
-    
-    /**
-     * @private
-     * Notify of a change to our filter, so that filter stack is ultimately 
-     * re-applied by the framework.
-     */ 	
-	private function notifyFilterChanged():void
-	{
-		dispatchEvent(new Event(Event.CHANGE));
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  IFlexBitmapFilter 
-	//
-	//--------------------------------------------------------------------------	
-
-	/**
-	 *  Creates a flash.filters.ColorMatrixFilter instance using the current 
-	 *  property values. 
-	 * 
-	 *  @return flash.filters.ColorMatrixFilter instance
-	 */	
-	public function createBitmapFilter():BitmapFilter 
+	
+	public function clone():BitmapFilter
 	{
 		return new flash.filters.ColorMatrixFilter(_matrix);
 	}
+	
 }
 }
