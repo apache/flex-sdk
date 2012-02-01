@@ -899,14 +899,14 @@ public class HorizontalLayout extends LayoutBase
     }
 
     //  - virtual layout only - 
-    private function calculateElementY(elt:ILayoutElement, eltHeight:Number, contentHeight:Number):Number
+    private function calculateElementY(elt:ILayoutElement, eltHeight:Number, containerHeight:Number):Number
     {
        switch(verticalAlign)
        {
            case VerticalAlign.MIDDLE: 
-               return (contentHeight - eltHeight) * 0.5;
+               return (containerHeight - eltHeight) * 0.5;
            case VerticalAlign.BOTTOM: 
-               return contentHeight - eltHeight;
+               return containerHeight - eltHeight;
        }
        return 0;  // VerticalAlign.TOP
     }
@@ -938,12 +938,12 @@ public class HorizontalLayout extends LayoutBase
      *  following is true:
      * 
      *  - If verticalAlign is "middle" then y is set so that the element's preferred
-     *  height is centered within the contentHeight:
-     *      y = (contentHeight - layoutElementHeight) * 0.5
+     *  height is centered within the larget of the contentHeight and the target's height:
+     *      y = (Math.max(contentHeight, target.height) - layoutElementHeight) * 0.5
      * 
      *  - If verticalAlign is "bottom" the y is set so that the element's bottom
      *  edge is aligned with the the bottom edge of the content:
-     *      y = (contentHeight - layoutElementHeight)
+     *      y = (Math.max(contentHeight, target.height) - layoutElementHeight)
      * 
      *  Implementation note: unless verticalAlign is either "justify" or 
      *  "top", the layout elements' y or height depends on the contentHeight.
@@ -971,6 +971,7 @@ public class HorizontalLayout extends LayoutBase
          
         layoutTarget.beginVirtualLayout(startIndex);
         var contentHeight:Number = llv.minorSize;
+        var containerHeight:Number = Math.max(contentHeight, targetHeight);
         var x:Number = llv.start(startIndex);
         var index:int = startIndex;
         
@@ -981,7 +982,7 @@ public class HorizontalLayout extends LayoutBase
             var elt:ILayoutElement = layoutTarget.getLayoutElementAt(index);
             var w:Number = (isNaN(fixedColumnWidth)) ? elt.getPreferredBoundsWidth() : fixedColumnWidth;
             var h:Number = calculateElementHeight(elt, targetHeight, contentHeight);
-            var y:Number = calculateElementY(elt, h, contentHeight);
+            var y:Number = calculateElementY(elt, h, containerHeight);
             elt.setLayoutBoundsPosition(x, y);
             elt.setLayoutBoundsSize(w, h);            
             llv.cacheDimensions(index, elt);
@@ -994,13 +995,14 @@ public class HorizontalLayout extends LayoutBase
         if (llv.minorSize != contentHeight)
         {
             contentHeight = llv.minorSize;
+            containerHeight = Math.max(contentHeight, targetHeight);            
             if ((verticalAlign != VerticalAlign.TOP) && (verticalAlign != VerticalAlign.JUSTIFY))
             {
                 for (index = startIndex; index <= endIndex; index++)
                 {
                     elt = layoutTarget.getLayoutElementAt(index);
                     h = calculateElementHeight(elt, targetHeight, contentHeight);
-                    y = calculateElementY(elt, h, contentHeight);
+                    y = calculateElementY(elt, h, containerHeight);
                     elt.setLayoutBoundsPosition(elt.getLayoutBoundsX(), y);
                     elt.setLayoutBoundsSize(elt.getLayoutBoundsWidth(), h);
                 }
@@ -1025,7 +1027,7 @@ public class HorizontalLayout extends LayoutBase
         // If verticalAlign is top, we don't need to figure out the contentHeight.
         // Otherwise the contentHeight is used to position the element and even size 
         // the element if it's "contentJustify" or "justify".
-        var contentHeight:Number = targetHeight;
+        var containerHeight:Number = targetHeight;
         
         
         // TODO: in the middle or bottom case, we end up calculating percentHeight 
@@ -1045,7 +1047,7 @@ public class HorizontalLayout extends LayoutBase
                 else
                     layoutElementHeight = layoutElement.getPreferredBoundsHeight();
                     
-                contentHeight = Math.max(contentHeight, layoutElementHeight);
+                containerHeight = Math.max(containerHeight, layoutElementHeight);
             }
         }
 
@@ -1057,7 +1059,7 @@ public class HorizontalLayout extends LayoutBase
         if (verticalAlign == VerticalAlign.JUSTIFY)
             restrictedHeight = targetHeight;
         else if (verticalAlign == VerticalAlign.CONTENT_JUSTIFY)
-            restrictedHeight = contentHeight;
+            restrictedHeight = containerHeight;
 
         distributeWidth(targetWidth, targetHeight, restrictedHeight);    
         
@@ -1090,7 +1092,7 @@ public class HorizontalLayout extends LayoutBase
                 continue;
                 
             // Set the layout element's position
-            var y:Number = (contentHeight - layoutElement.getLayoutBoundsHeight()) * vAlign;
+            var y:Number = (containerHeight - layoutElement.getLayoutBoundsHeight()) * vAlign;
             layoutElement.setLayoutBoundsPosition(x, y);
             
             // Update maxX,Y, first,lastVisibleIndex, and x
