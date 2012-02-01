@@ -17,7 +17,7 @@
       @productversion Flex 4
 -->
 <local:SparkSkinForHalo xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-    xmlns:local="mx.skins.spark.*" implements="mx.core.IRectangularBorder">
+    xmlns:local="mx.skins.spark.*" implements="mx.core.IRectangularBorder" mouseEnabled="false" mouseChildren="false">
     
     <fx:Script>
         <![CDATA[
