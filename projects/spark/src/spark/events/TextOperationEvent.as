@@ -146,7 +146,7 @@ public class TextOperationEvent extends Event
     //----------------------------------
 
     /**
-     *  The FlowOperation being performed by the user.
+     *  The FlowOperation object describing the editing operation being performed by the user.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
