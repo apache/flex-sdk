@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009">
+
+    <Metadata>
+    	[HostComponent("mx.components.FxPanel")]
+    </Metadata> 
+    
+    <states>
+    	<State name="normal" />
+    	<State name="disabled" />
+    </states>
+    
+	<!-- layer 1: border -->
+	<Rect left="0" right="0" top="0" height="2" radiusX="2" radiusY="2">
+		<fill>
+			<SolidColor color="0xCCCCCC" />
+		</fill>
+	</Rect>
+	<Rect left="0" width="2" top="2" bottom="0">
+		<fill>
+			<SolidColor color="0xCCCCCC" />
+		</fill>
+	</Rect>
+	<Rect right="0" width="2" top="2" bottom="0">
+		<fill>
+			<SolidColor color="0xCCCCCC" />
+		</fill>
+	</Rect>
+	<Rect left="0" right="0" height="2" bottom="0">
+		<fill>
+			<SolidColor color="0xCCCCCC" />
+		</fill>
+	</Rect>
+
+	<!-- layer 2: fill title bar -->
+	<Rect left="2" right="2" top="2" height="20" radiusX="2" radiusY="2">
+		<fill>
+			<SolidColor color="0x0000FF" />
+		</fill>
+	</Rect>
+	
+	<!-- layer 3: text -->
+	<TextBox id="titleField"
+			 left="4" right="4" top="2" height="20"
+			 textAlign="left" verticalAlign="middle"
+			 fontWeight="bold" color="0xFFFFFF">
+	</TextBox>
+
+    <Group id="contentGroup" left="2" right="2" top="20" bottom="2">
+    	<layout>
+    		<VerticalLayout/>
+    	</layout>
+    </Group>
+
+</Skin>
