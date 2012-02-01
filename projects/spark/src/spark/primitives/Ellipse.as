@@ -51,7 +51,9 @@ public class Ellipse extends FilledElement
 	
     override public function get bounds():Rectangle
 	{		
-		return new Rectangle(0, 0, width, height);
+		return new Rectangle(0, 0,
+		                     isNaN(explicitWidth) ? 0 : explicitWidth,
+		                     isNaN(explicitHeight) ? 0 : explicitHeight);
 	}
 	
 	/**
@@ -59,7 +61,7 @@ public class Ellipse extends FilledElement
 	 */
 	override protected function drawElement(g:Graphics):void
 	{
-		g.drawEllipse(0, 0, drawWidth, drawHeight);
+		g.drawEllipse(0, 0, width, height);
 	}
 }
 
