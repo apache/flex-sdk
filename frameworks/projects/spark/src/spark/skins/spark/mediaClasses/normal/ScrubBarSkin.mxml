@@ -38,7 +38,7 @@
     
     <fx:Declarations>
         <fx:Component id="dataTip">     
-            <s:MXMLComponent minHeight="24" minWidth="40" y="-34">
+            <s:DataRenderer minHeight="24" minWidth="40" y="-34">
                 <s:RectangularDropShadow id="shadow" distance="3" 
                     angle="90" color="#999999" left="0" top="0" right="0" bottom="0"/>
                     
@@ -54,7 +54,7 @@
                          textAlign="center" verticalAlign="middle"
                          fontWeight="normal" color="white" fontSize="11">
                 </s:SimpleText>
-            </s:MXMLComponent>
+            </s:DataRenderer>
         </fx:Component>
     </fx:Declarations>
     
