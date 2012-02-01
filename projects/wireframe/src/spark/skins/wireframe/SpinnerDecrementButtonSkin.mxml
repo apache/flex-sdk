@@ -46,7 +46,7 @@
     </Rect>
 
     <!-- arrow -->
-    <Path>
+    <Path horizontalCenter="0" verticalCenter="0">
         <fill>
             <SolidColor color="0x4E6290" />
         </fill>
