@@ -30,7 +30,7 @@ in accordance with the terms of the license agreement accompanying it.
     <s:Rect id="border" left="2" right="2" top="2" bottom="2">
         <s:fill>
             <!--- @private -->
-            <s:SolidColor id="bgFill" color="0xE2E6F6"/>
+            <s:SolidColor id="bgFill" color="#EEEEEE"/>
         </s:fill>
     </s:Rect>
 </s:Skin>
