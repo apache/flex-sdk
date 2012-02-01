@@ -68,14 +68,12 @@ are identical, save the superclass and constructor names.  This file contains th
      */
     private var enableValidateNow:Boolean = true;
 
-
     /**
      *  @private
      *  Used to prevent changes to width,height caused by calling setLayoutBoundsSize()
      *  from updating explicitWidth,Height.
      */
     private var inSetLayoutBoundsSize:Boolean = false;
-
 
     //--------------------------------------------------------------------------
     //
@@ -157,6 +155,39 @@ are identical, save the superclass and constructor names.  This file contains th
             dispatchEvent(new FlexEvent(eventType));        
     }
     
+    //----------------------------------
+    //  down
+    //----------------------------------
+    
+    private var _down:Boolean = false;
+    
+    [Bindable("downChanged")]    
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>The Grid's <code>updateDisplayList()</code> method sets this property 
+     *  before calling <code>prepare()</code></p>.   
+     * 
+     *  @default false
+     */    
+    public function get down():Boolean
+    {
+        return _down;
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set down(value:Boolean):void
+    {
+        if (_down == value)
+            return;
+        
+        _down = value;
+        dispatchChangeEvent("downChanged");        
+    }
+
     //----------------------------------
     //  hovered
     //----------------------------------
@@ -265,7 +296,7 @@ are identical, save the superclass and constructor names.  This file contains th
      *  @inheritDoc
      * 
      *  <p>The Grid's <code>updateDisplayList()</code> method sets this property 
-     *  before calling <code>preprare()</code></p>.   
+     *  before calling <code>prepare()</code></p>.   
      * 
      *  @default false
      */    
@@ -800,7 +831,6 @@ are identical, save the superclass and constructor names.  This file contains th
         inSetLayoutBoundsSize = false;        
     }
     
-    
     /**
      *  @private
      */
@@ -852,7 +882,6 @@ are identical, save the superclass and constructor names.  This file contains th
                                     invalidateLayout:Boolean = true):void
     {
     }
-    
     
     //--------------------------------------------------------------------------
     //
@@ -1009,7 +1038,6 @@ are identical, save the superclass and constructor names.  This file contains th
             nonInheritChain;
     }
     
-    
     /**
      *  @private
      */
@@ -1061,7 +1089,6 @@ are identical, save the superclass and constructor names.  This file contains th
     {
         _styleDeclaration = value;
     }
-    
     
     //--------------------------------------------------------------------------
     //
