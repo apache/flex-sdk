@@ -1,5 +1,6 @@
 package flex.graphics.graphicsClasses
 {
+import flash.display.BitmapData;
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
@@ -1137,10 +1138,24 @@ public class GraphicElement extends EventDispatcher
 		return true;
 	}
 
-
-	public function draw(g:Graphics):void
-	{
-	}
+    /**
+     *  Returns a bitmap snapshot of the GraphicElement. The bitmap
+     *  contains all transformations and is reduced to fit the visual
+     *  bounds of the object.
+     */
+    public function getBitmapData():BitmapData
+    {
+    	// NOTE: This code will not work correctly when we share display objects
+    	// across multiple graphic elements.
+    	var bitmapData:BitmapData = new BitmapData(actualSize.x, actualSize.y);
+    	var oldPos:Point = actualPosition;
+    	
+    	setActualPosition(0, 0);
+    	bitmapData.draw(displayObject, displayObject.transform.matrix);
+    	setActualPosition(oldPos.x, oldPos.y);
+    
+    	return bitmapData;
+    }
 
 	public function applyMask():void
 	{
