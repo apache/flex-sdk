@@ -946,9 +946,6 @@ public class BitmapImage extends GraphicElement
             measuredHeight = !isNaN(_preliminaryHeight) && (previousHeight == 0) ? 
                 _preliminaryHeight : previousHeight;
             
-            if (parent)
-                parent.dispatchEvent(new FlexEvent(FlexEvent.MEASURED_SIZE_PRELIMINARY, true, true)); 
-            
             return;
         }
         
@@ -1720,9 +1717,6 @@ public class BitmapImage extends GraphicElement
         } 
         
         dispatchEvent(event);
-        
-        if (parent)
-            parent.dispatchEvent(new FlexEvent(FlexEvent.MEASURED_SIZE_FINAL, true, true));
         
         // Remove any event listeners from load-event dispatcher.
         clearLoadingContent();
