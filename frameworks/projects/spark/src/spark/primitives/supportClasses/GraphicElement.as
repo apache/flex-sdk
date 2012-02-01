@@ -3,9 +3,7 @@ package flex.graphics.graphicsClasses
 import flash.display.BitmapData;
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
-import flash.display.Graphics;
 import flash.display.LineScaleMode;
-import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -13,7 +11,6 @@ import flash.events.IEventDispatcher;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Point;
-import flash.geom.Rectangle;
 import flash.geom.Transform;
 
 import flex.geom.Transform;
@@ -26,8 +23,8 @@ import flex.intf.ILayoutItem;
 
 import mx.core.IConstraintClient;
 import mx.core.IInvalidating;
-import mx.core.mx_internal;
 import mx.core.UIComponentGlobals;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
@@ -35,6 +32,7 @@ import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 import mx.graphics.IStroke;
 import mx.managers.ILayoutManagerClient;
+import flash.display.Shape;
 
 use namespace mx_internal;
 
@@ -1467,10 +1465,7 @@ public class GraphicElement extends EventDispatcher
 
     //----------------------------------
     //  x
-    //----------------------------------
-    
-    // TODO!!! Change to NaN and integrate Rect/Ellipse bounds/draw functions
-    
+    //----------------------------------  
     /**
      *  @private
      *  Storage for the x property.
@@ -1513,10 +1508,7 @@ public class GraphicElement extends EventDispatcher
 
     //----------------------------------
     //  y
-    //----------------------------------
-    
-    // TODO!!! Change to NaN and integrate Rect/Ellipse bounds/draw functions
-    
+    //----------------------------------   
     /**
      *  @private
      *  Storage for the y property.
@@ -1704,6 +1696,34 @@ public class GraphicElement extends EventDispatcher
     }
 
     //----------------------------------
+    //  drawX
+    //----------------------------------
+
+    /**
+     *  The x-position where the element should be drawn 
+     */
+    protected function get drawX():Number
+    {
+    	// Draw position depends upon which coordinate space we are located in.
+    	// TODO!!! We need to apply all of the transforms of our ancestors
+        return displayObject ? 0 : sharedDisplayObject && sharedDisplayObject != elementHost ? x - sharedDisplayObject.x : x;
+    }
+    
+    //----------------------------------
+    //  drawY
+    //----------------------------------
+
+    /**
+     *  The y-position where the element should be drawn 
+     */
+    protected function get drawY():Number
+    {
+    	// Draw position depends upon which coordinate space we are located in.
+    	// TODO!!! We need to apply all of the transforms of our ancestors
+        return displayObject ? 0 : sharedDisplayObject && sharedDisplayObject != elementHost ? y - sharedDisplayObject.y : y;
+    }
+    
+    //----------------------------------
     //  includeInLayout
     //----------------------------------
 
@@ -1813,13 +1833,56 @@ public class GraphicElement extends EventDispatcher
         else
             return new Sprite();
     }
-
+    
+    
+    public function destroyDisplayObject():void
+    {
+    	// TODO!! Figure out what cleanup to do
+    	if (displayObject)
+    	{
+	    	if (displayObject.parent)
+				displayObject.parent.removeChild(displayObject);
+			displayObject = null;
+    	}
+    }
+       
     /**
      *  Documentation is not currently available.
      */
-    public function needsDisplayObject():Boolean
+    public function get needsDisplayObject():Boolean
     {
-        return true;
+    	if ((_filters && _filters.length > 0) || 
+    		_blendMode != BlendMode.NORMAL || _mask ||
+    		_scaleX != 1 || _scaleY != 1 ||
+    		_rotation != 0 || _alpha != 1 || _transform ||
+    		_transformX != 0 || _transformY != 0)
+    	{
+			return true;
+    	}
+    	else
+    		return false;
+    }
+    
+    public function get nextSiblingNeedsDisplayObject():Boolean
+    {
+    	return needsDisplayObject;
+    }
+    
+    private var _sharedDisplayObject:DisplayObject;
+    
+    public function set sharedDisplayObject(value:DisplayObject):void
+    {
+    	_sharedDisplayObject = value;
+    }
+    
+    public function get sharedDisplayObject():DisplayObject
+    {
+    	return _sharedDisplayObject;
+    }
+    
+    protected function get drawnDisplayObject():DisplayObject
+    {
+    	return displayObject ? displayObject : sharedDisplayObject;
     }
 
     /**
@@ -1835,7 +1898,21 @@ public class GraphicElement extends EventDispatcher
         var oldPos:Point = actualPosition;
         
         setActualPosition(0, 0);
-        bitmapData.draw(displayObject, displayObject.transform.matrix);
+        if (displayObject && nextSiblingNeedsDisplayObject)
+        	bitmapData.draw(displayObject, displayObject.transform.matrix);
+		else
+		{
+			var oldDisplayObject:DisplayObject = displayObject;
+			displayObject = new Sprite();
+			invalidateDisplayList();
+			validateDisplayList();
+			
+			bitmapData.draw(displayObject);
+			
+			displayObject = oldDisplayObject;
+				
+		}
+			       
         setActualPosition(oldPos.x, oldPos.y);
     
         return bitmapData;
@@ -2056,6 +2133,7 @@ public class GraphicElement extends EventDispatcher
      */
     protected function commitProperties():void
     {
+    	//trace("GraphicElement.commitProperties displayObject",displayObject,"this",this);
         if (displayObject)
         {
             if (alphaChanged)
@@ -2231,8 +2309,11 @@ public class GraphicElement extends EventDispatcher
      */
     public function validateDisplayList():void
     {
-        if (!invalidateDisplayListFlag)
-            return;
+    	// TODO!!! Turn this off for now because we need to clear all of the DisplayObject
+    	// graphics and thus need to redraw each graphic element
+    	// Put this back in once we implement drawingAPI2 
+        /* if (!invalidateDisplayListFlag)
+            return; */
         invalidateDisplayListFlag = false;
 
         updateDisplayList(_width, _height);
@@ -2259,7 +2340,7 @@ public class GraphicElement extends EventDispatcher
      *  @param unscaledWidth Specifies the width of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleX</code> property of the component.
-     *
+     
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.
@@ -2348,6 +2429,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function setActualPosition(x:Number, y:Number):void
     {
+    	//trace("GraphicElement.setActualPosition x",x,"y",y,"this",this);
         x -= measuredX;
         y -= measuredY;
 
@@ -2373,9 +2455,26 @@ public class GraphicElement extends EventDispatcher
         y += strokeExtents.y * 0.5;
 
         // Finally commit x & y property changes:
-        _x = x;
-        _y = y;
-        commitXY();
+        var doCommit:Boolean = false;
+        if (_x != x)
+        {
+        	_x = x;
+        	doCommit = true;
+        }
+        
+        if (_y != y)
+        {
+        	_y = y;
+        	doCommit = true;
+        }
+        
+        if (doCommit)
+        {
+        	if (displayObject)
+        		commitXY();
+        	else
+        		invalidateDisplayList();
+        }
     }
 
     /**
