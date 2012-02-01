@@ -2402,12 +2402,58 @@ public class HorizontalLayout extends LayoutBase
             delta.y = 0;
         return delta;
     }
+
+    /**
+     *  @private
+     *  Identifies the element which has its "compare point" located closest 
+     *  to the specified position.
+     */
+    override mx_internal function getElementNearestScrollPosition(
+        position:Point,
+        elementComparePoint:String = "center"):int
+    {
+        if (!useVirtualLayout)
+            return super.getElementNearestScrollPosition(position, elementComparePoint);
+        
+        var g:GroupBase = GroupBase(target);
+        if (!g || !llv)
+            return -1;
+        
+        // Find the element which overlaps with the position
+        var index:int = llv.indexOf(position.x);
+
+        // Invalid index indicates that the position is past either end of the 
+        // laid-out elements.   In this case, choose either the first or last one.
+        if (index == -1)
+            index = position.x < 0 ? 0 : g.numElements - 1; 
+        
+        var bounds:Rectangle = llv.getBounds(index);
+        var adjacentBounds:Rectangle;
+        
+        // If we're comparing with a right-edge point, check both the current element and the element
+        // at index-1 to see which is closest.
+        if ((elementComparePoint == "topRight" || elementComparePoint == "bottomRight") && index > 0)
+        {
+            adjacentBounds = llv.getBounds(index - 1);
+            if (Point.distance(position, adjacentBounds.bottomRight) < Point.distance(position, bounds.bottomRight))
+                index--;
+        }
+        
+        // If we're comparing with a left-edge point, check both the current element and the element
+        // at index+1 to see which is closest.
+        if ((elementComparePoint == "topLeft" || elementComparePoint == "bottomLeft") && index < g.numElements-1) 
+        {
+            adjacentBounds = llv.getBounds(index + 1);             
+            if (Point.distance(position, adjacentBounds.topLeft) < Point.distance(position, bounds.topLeft))
+                index++;
+        }
+        return index;
+    }
 }
 }
 
 import mx.containers.utilityClasses.FlexChildInfo;
 import mx.core.ILayoutElement;
-
 class HLayoutElementFlexChildInfo extends FlexChildInfo
 {
     public var layoutElement:ILayoutElement;    
