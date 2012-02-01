@@ -28,6 +28,8 @@ import mx.events.FlexEvent;
 
 import spark.components.supportClasses.SkinnableComponent;
 
+use namespace mx_internal;
+
 /**
  *  Focus skins for Spark components.
  *  
@@ -145,8 +147,8 @@ public class FocusSkin extends UIComponent
         var m:Matrix = new Matrix();
         
         // If the focus object already has a focus skin, make sure it is hidden.
-        if (focusObject.mx_internal::focusObj)
-            focusObject.mx_internal::focusObj.visible = false;
+        if (focusObject.focusObj)
+            focusObject.focusObj.visible = false;
        
         // Temporary solution for focus drawing on CheckBox and RadioButton components.
         // Hide the label before drawing the focus. 
@@ -165,8 +167,8 @@ public class FocusSkin extends UIComponent
         bitmapData.draw(focusObject as IBitmapDrawable, m);
         
         // Show the focus skin, if needed.
-        if (focusObject.mx_internal::focusObj)
-            focusObject.mx_internal::focusObj.visible = true;
+        if (focusObject.focusObj)
+            focusObject.focusObj.visible = true;
         
         // Show the label, if needed.
         if (hidLabelElement)
