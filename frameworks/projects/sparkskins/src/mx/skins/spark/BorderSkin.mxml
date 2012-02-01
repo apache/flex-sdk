@@ -29,25 +29,46 @@
         
         /* Define the skin elements that should not be colorized. */
         static private const exclusions:Array = ["background"];
+        /**
+         * @private
+         */
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
         static private const contentFill:Array = ["bgFill"];
+        /**
+         * @private
+         */
         override public function get contentItems():Array {return contentFill};
 
         /* Define the border item. */
         static private const borderItem:Array = ["borderStroke"];
+        /**
+         * @private
+         */
         override protected function get borderItems():Array {return borderItem;}
+        /**
+         * @private
+         */
         override protected function get defaultBorderItemColor():uint {return getStyle("borderColor");}
+        /**
+         * @private
+         */
         override protected function get defaultBorderAlpha():Number {return getStyle("borderAlpha");}
         
         static private const metrics:EdgeMetrics = new EdgeMetrics(1, 1, 1, 1);
           
         [Bindable]
+        /**
+         * @private
+         */
         public var cornerRadius:Number = 0;
             
         private var dropShadow:RectangularDropShadow;
         
+        /**
+         * @private
+         */
         public function get borderMetrics():EdgeMetrics
         {
             if (getStyle("borderVisible") == false ||
@@ -57,21 +78,33 @@
             return metrics;
         }
         
+        /**
+         * @private
+         */
         public function get backgroundImageBounds():Rectangle
         {
             return null;
         }
         
+        /**
+         * @private
+         */
         public function set backgroundImageBounds(value:Rectangle):void
         {
         
         }
         
+        /**
+         * @private
+         */
         public function get hasBackgroundImage():Boolean
         {
             return false;
         }
         
+        /**
+         * @private
+         */
         public function layoutBackgroundImage():void
         {
         
@@ -86,6 +119,9 @@
             super.initializationComplete();
         }
                 
+        /**
+         * @private
+         */
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {
             // Force a redraw to clear any existing shadow, and to force a redraw of the 
@@ -154,15 +190,19 @@
     </fx:Script>
     
     <!-- border --> 
+    <!--- @private --> 
     <s:Rect left="0" right="0" top="0" bottom="0" radiusX="0" id="border">
         <s:stroke>            
+            <!--- @private --> 
             <s:SolidColorStroke id="borderStroke" />
         </s:stroke>
     </s:Rect>
 
     <!-- fill -->
+    <!--- @private --> 
     <s:Rect id="background" left="1" right="1" top="1" bottom="1" radiusX="0">
         <s:fill>
+            <!--- @private --> 
             <s:SolidColor id="bgFill" color="0xFFFFFF" />
         </s:fill>
     </s:Rect>
