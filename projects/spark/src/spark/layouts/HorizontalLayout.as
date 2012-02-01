@@ -345,7 +345,8 @@ public class HorizontalLayout extends LayoutBase
 
     [Inspectable(category="General")]
 
-    /** Horizontal alignment of children in the container.
+    /** 
+     *  Vertical alignment of children in the container.
      *  Possible values are <code>"top"</code>, <code>"middle"</code>,
      *  <code>"bottom"</code>, <code>"justify"</code>, 
      *  and <code>"contentJustify"</code>.
@@ -852,17 +853,18 @@ public class HorizontalLayout extends LayoutBase
         if (!layoutTarget)
             return;
         
-        // TODO EGeorgie: use vector
         var layoutItem:ILayoutItem;
         var count:uint = layoutTarget.numLayoutItems;
         
-        // if verticalAlign is "contentJustify", we need to figure out contentHeight.
-        // contentHeight gets sent in to distributeWidth(), but is only used if 
-        // verticalAlign is "justify" (contentHeight is unscaledHeight) or 
-        // verticalAlign is "contentJustify" (contentHeight is the maximum height
-        // of all its children and a minimum of unscaledHeight)
+        // If verticalAlign is top, we don't need to figure out the contentHeight.
+        // Otherwise the contentHeight is used to position the item and even size 
+        // the item if it's "contentJustify" or "justify".
         var contentHeight:Number = unscaledHeight;
         
+        
+        // TODO: in the middle or bottom case, we end up calculating percentHeight 
+        // twice.  Once here for the contentHeight and once in distributeWidth
+        // to size that particular element.
         if (verticalAlign != VerticalAlign.TOP)
         {
             for (var i:int = 0; i < count; i++)
@@ -881,7 +883,17 @@ public class HorizontalLayout extends LayoutBase
             }
         }
 
-        distributeWidth(unscaledWidth, unscaledHeight, contentHeight); 
+        // If we're justifying the items, then all heights should be set to
+        // unscaledHeight.  If we're content justifying the items, then 
+        // all heights should be set to the contentHeight.
+        // Otherwise restrictedHeight is ignored in distributedWidth.
+        var restrictedHeight:Number;
+        if (verticalAlign == VerticalAlign.JUSTIFY)
+            restrictedHeight = unscaledHeight;
+        else if (verticalAlign == VerticalAlign.CONTENT_JUSTIFY)
+            restrictedHeight = contentHeight;
+
+        distributeWidth(unscaledWidth, unscaledHeight, restrictedHeight);    
         
         // default to top (0)
         var vAlign:Number = 0;
