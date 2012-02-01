@@ -35,7 +35,10 @@ CheckBox
 	skinClass: ClassReference("spark.skins.wireframe.CheckBoxSkin");
 }
 
-/* TODO: DropDownList */
+DropDownList
+{
+	skinClass: ClassReference("spark.skins.wireframe.DropDownListSkin");
+}
 
 HScrollBar
 {
