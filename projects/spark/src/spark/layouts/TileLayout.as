@@ -11,6 +11,7 @@
 
 package spark.layouts
 {
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.ILayoutElement;
@@ -2150,7 +2151,6 @@ public class TileLayout extends LayoutBase
         if (row < 0)
             row = 0;
         
-        var index:int;
         if (rowOrientation)
         {
             if (row >= _rowCount)
@@ -2300,5 +2300,147 @@ public class TileLayout extends LayoutBase
         
         return new Rectangle(x, y, width, height);
     }
+    
+    /**
+     *  @private
+     *  Helper function to return the row and column of the cell 
+     *  containing the x/y point.  The associated index may be out 
+     *  of range if there's no element for the cell.
+     */
+    private function calculateCellIndex(x:Number, y:Number):Array
+    {
+        var xStart:Number = x - paddingLeft;
+        var yStart:Number = y - paddingTop;
+        var column:int = Math.floor(xStart / (_columnWidth + _horizontalGap));
+        var row:int = Math.floor(yStart / (_rowHeight + _verticalGap));
+        
+        // Make sure column and row numbers are valid
+        if (column < 0)
+            column = 0;
+        if (column >= _columnCount)
+            column = _columnCount - 1;
+        if (row < 0)
+            row = 0;
+        if (row >= _rowCount)
+            row = _rowCount - 1;
+        
+        return [row, column];
+    }
+    
+
+    /**
+     *  @private
+     *  Identifies the element which has its "compare point" located closest 
+     *  to the specified position.
+     */
+    override mx_internal function getElementNearestScrollPosition(
+        position:Point,
+        elementComparePoint:String = "center"):int
+    {
+        // Determine which cell contains the point        
+        var result:Array = calculateCellIndex(position.x, position.y);
+        var row:int = result[0]; 
+        var column:int = result[1]; 
+        
+        var maxRow:int = _rowCount-1; 
+        var maxColumn:int = _columnCount-1;
+        
+        // create a rectangle of the element bounds
+        var bounds:Rectangle = 
+            new Rectangle(leftEdge(column), topEdge(row), _columnWidth + _horizontalGap, _rowHeight + _verticalGap);
+
+        const TOP_LEFT:int = 0;
+        const TOP_RIGHT:int = 1;
+        const BOTTOM_LEFT:int = 2;
+        const BOTTOM_RIGHT:int = 3;
+        
+        // Determine the quadrant of the element/cell which contains the position point.
+        var quadrant:int = TOP_LEFT;
+        if (position.x > bounds.left + bounds.width/2)
+            quadrant += TOP_RIGHT;
+        if (position.y > bounds.top + bounds.height/2)
+            quadrant += BOTTOM_LEFT;
+        
+        var index:int;
+        if (orientation == TileOrientation.ROWS)
+            index = row * _columnCount + column;
+        else
+            index = column * _rowCount + row;
+        
+        var g:GroupBase = GroupBase(target);
+        if (index >= g.numElements)
+        {
+            // TODO (eday): two-dimensional item snapping will require more sophisticated cell detection
+            // if the position is beyond the content.  For now (while we only support one-dimensional
+            // snapping), using the last element will work fine.
+            return g.numElements - 1;
+        }
+        
+        // Depending on which point of the element is to be compared with, and on which 
+        // quadrant of the element contains the position, we may adjust row/column to
+        // points to an adjacent cell.
+        switch (elementComparePoint)
+        {
+            case "topLeft":
+                if (quadrant == TOP_RIGHT && column < maxColumn)
+                    column++;
+                else if (quadrant == BOTTOM_LEFT && row < maxRow)
+                    row++;
+                else if (quadrant == BOTTOM_RIGHT && row < maxRow && column < maxColumn)
+                {
+                    row++;
+                    column++;
+                }
+                break;
+            case "topRight":
+                if (quadrant == TOP_LEFT && column > 0)
+                    column--;
+                else if (quadrant == BOTTOM_LEFT && column > 0 && row < maxRow)
+                {
+                    column--;
+                    row++;
+                }
+                else if (quadrant == BOTTOM_RIGHT && row < maxRow)
+                    row++;
+                break;
+            case "bottomLeft":
+                if (quadrant == TOP_LEFT && row > 0)
+                    row--;
+                else if (quadrant == TOP_RIGHT && row > 0 && column < maxColumn)
+                {
+                    row--;
+                    column++;
+                }
+                else if (quadrant == BOTTOM_RIGHT && column < maxColumn)
+                    column++;
+                break;
+            case "bottomRight":
+                if (quadrant == TOP_LEFT && column > 0 && row > 0)
+                {
+                    column--;
+                    row--;
+                }
+                else if (quadrant == TOP_RIGHT && row > 0)
+                    row--;
+                else if (quadrant == BOTTOM_LEFT && column > 0)
+                    column--
+                break;
+            case "center":
+                // for center snapping, "index" is already always the cell with 
+                // its center closest to the specified position
+                break;
+        }
+
+        var newIndex:int;
+        if (orientation == TileOrientation.ROWS)
+            newIndex = row * _columnCount + column;
+        else
+            newIndex = column * _rowCount + row;
+        if (newIndex < g.numElements)
+            index = newIndex;
+        
+        return index;
+    }
+
 }
 }
