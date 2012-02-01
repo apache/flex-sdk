@@ -15,6 +15,7 @@ package spark.primitives.supportClasses
 import flash.display.Graphics;
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.mx_internal;
@@ -135,13 +136,14 @@ public class FilledElement extends StrokedElement
         // invisible fill.
         
         var bounds:Rectangle = new Rectangle(drawX, drawY, width, height);
+        var origin:Point = new Point(drawX, drawY);
         if (stroke)
-            stroke.apply(g, bounds);
+            stroke.apply(g, bounds, origin);
         else
             g.lineStyle();
         
         if (fill)
-            fill.begin(g, bounds);
+            fill.begin(g, bounds, origin);
     }
     
     /**
