@@ -15,7 +15,7 @@
 	  alpha.disabled="0.5" blendMode.disabled="layer"> 
 	
     <Metadata>
-    	[HostComponent("flex.component.List")]
+    	[HostComponent("mx.components.FxList")]
     </Metadata> 
     
     <states>
