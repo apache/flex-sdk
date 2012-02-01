@@ -617,6 +617,12 @@ public final class LinearLayoutVector
      */
     public function indexOf(distance:Number):int
     {
+        var index:int = indexOfInternal(distance);
+        return (index >= _length) ? -1 : index;
+    }
+
+    private function indexOfInternal(distance:Number):int
+    {
         if ((_length == 0) || (distance < 0))
             return -1;
             
