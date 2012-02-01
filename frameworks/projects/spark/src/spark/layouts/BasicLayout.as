@@ -9,15 +9,15 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.layout
+package spark.layouts
 {
 
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 
 import spark.components.supportClasses.GroupBase;
-import spark.layout.supportClasses.LayoutBase;
-import spark.layout.supportClasses.LayoutElementHelper;
+import spark.layouts.supportClasses.LayoutBase;
+import spark.layouts.supportClasses.LayoutElementHelper;
 
 /**
  *  BasicLayout arranges the layout elements according to their settings,
