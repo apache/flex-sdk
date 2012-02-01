@@ -32,7 +32,6 @@ import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 import mx.graphics.IStroke;
 import mx.managers.ILayoutManagerClient;
-import flash.display.Shape;
 
 use namespace mx_internal;
 
@@ -101,6 +100,16 @@ public class GraphicElement extends EventDispatcher
      *  Storage for the transform property.
      */
     private var _matrix:Matrix;
+    
+    /**
+     *  @private
+     */
+    private var matrixChanged:Boolean;
+    
+    /**
+     *  @private
+     */
+    private var displayObjectChanged:Boolean;
     
     /**
      *  @private
@@ -1284,6 +1293,31 @@ public class GraphicElement extends EventDispatcher
             newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE,
                                           transformPropertyChangeHandler);
             _matrix = value.matrix.clone(); // Make sure it is a copy
+            
+            // If the matrix is a delta identity matrix (ie translation only),
+            // grab the translation values out of it, but don't hold on to 
+            // the matrix itself.
+            if (TransformUtil.isDeltaIdentity(_matrix))
+            {
+            	if (_matrix.tx != _x)
+            	{
+	            	_x = _matrix.tx;
+	            	xChanged = true;
+            	}
+            	
+            	if (_matrix.ty != _y)
+            	{
+            		_y = _matrix.ty;
+            		yChanged = true;
+            	}
+            	
+            	_matrix = null;
+            }
+            else
+            {
+            	matrixChanged = true;
+            }
+            
             clearTransformProperties();
             _colorTransform = value.colorTransform;
         }
@@ -1634,8 +1668,7 @@ public class GraphicElement extends EventDispatcher
         dispatchPropertyChangeEvent("displayObject", oldValue, value);
 
         // We need to apply the display object related properties.
-        // TODO EGeorgie: add an option 'display object changed'
-        xChanged = yChanged = rotationChanged = true;
+        displayObjectChanged = true;
         invalidateProperties();
 
         // New display object, we need to redraw
@@ -2183,14 +2216,17 @@ public class GraphicElement extends EventDispatcher
                 displayObject.visible = _visible;
             }
             
-            if (_matrix || scaleXChanged || scaleYChanged ||
-                rotationChanged || transformXChanged || transformYChanged)
+            if (matrixChanged || scaleXChanged || scaleYChanged ||
+                rotationChanged || transformXChanged || transformYChanged ||
+                displayObjectChanged)
             {
                 commitScaleAndRotation();
             }
 
-            if (xChanged || yChanged)
+            if (xChanged || yChanged || displayObjectChanged)
                 commitXY();
+            
+            displayObjectChanged = false;
         }
     }
 
@@ -2604,9 +2640,14 @@ public class GraphicElement extends EventDispatcher
 
         beginCommitTransformProps();
 
+		/*
         TransformUtil.applyTransforms(displayObject, null, _x, _y);
         _x = displayObject.x;
         _y = displayObject.y;
+        */
+        displayObject.x = _x;
+        displayObject.y = _y;
+        
         xChanged = false;
         yChanged = false;
 
@@ -2631,18 +2672,19 @@ public class GraphicElement extends EventDispatcher
         TransformUtil.applyTransforms(displayObject, _matrix, NaN, NaN,
                                       _scaleX, _scaleY, rot,
                                       _transformX, _transformY);
-
-        _matrix = null;
         
         _scaleX = displayObject.scaleX;
         _scaleY = displayObject.scaleY;
         _rotation = displayObject.rotation;
 
-        if (!xChanged)
+		// Pull the x and y backing vars only if we have a matrix.
+        if (_matrix)
+        {
             _x = displayObject.x;
-        if (!yChanged)
             _y = displayObject.y;
-
+        }
+		
+		matrixChanged = false;
         scaleXChanged = false;
         scaleYChanged = false;
         rotationChanged = false;
@@ -2752,6 +2794,7 @@ public class GraphicElement extends EventDispatcher
                 if (_transform)
                 {
                     _matrix = _transform.matrix.clone();
+                    matrixChanged = true;
 
                     clearTransformProperties();
                     notifyElementLayerChanged();
