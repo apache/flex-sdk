@@ -131,9 +131,7 @@ public class GradientFilter extends BaseDimensionFilter
     //  angle
     //----------------------------------
     
-    private var _angle:Number = 45;
-    
-    [Inspectable(minValue="0.0", maxValue="360.0")]    
+    private var _angle:Number = 45; 
     
     /**
      *  The angle, in degrees. Valid values are 0 to 360. 
