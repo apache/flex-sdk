@@ -50,7 +50,7 @@
     </Rect>
     
     <FxScroller left="1" top="1" right="1" bottom="1" id="scroller">
-	    <DataGroup id="dataGroup">
+	    <DataGroup id="dataGroup" itemRenderer="mx.skins.spark.FxDefaultItemRenderer">
 	    	<layout>
 	    	    <VerticalLayout gap="0" horizontalAlign="contentJustify" />
 	    	</layout>
