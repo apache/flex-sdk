@@ -33,6 +33,7 @@ import flash.geom.Vector3D;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.DesignLayer;
 import mx.core.IInvalidating;
+import mx.core.ILayoutDirection;
 import mx.core.ILayoutElement;
 import mx.core.IMXMLObject;
 import mx.core.IUIComponent;
@@ -93,7 +94,7 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 public class GraphicElement extends EventDispatcher
-    implements IGraphicElement, IInvalidating, ILayoutElement, IVisualElement, IMXMLObject
+    implements IGraphicElement, IInvalidating, ILayoutElement, ILayoutDirection, IVisualElement, IMXMLObject
 {
     include "../../core/Version.as";
 
@@ -256,6 +257,7 @@ public class GraphicElement extends EventDispatcher
         layoutFeatures = new AdvancedLayoutFeatures();
         layoutFeatures.layoutX = _x;
         layoutFeatures.layoutY = _y;
+		layoutFeatures.layoutWidth = _width;  // for the mirror transform		
     }
     
     /**
@@ -638,6 +640,7 @@ public class GraphicElement extends EventDispatcher
     public function parentChanged(value:Group):void
     {
         _parent = value;
+        invalidateLayoutDirection();
     }
 
     //----------------------------------
@@ -2415,8 +2418,15 @@ public class GraphicElement extends EventDispatcher
 
         var oldValue:Number = _width;
         _width = value;
-        
-        dispatchPropertyChangeEvent("width", oldValue, value);
+
+		// The width is needed for the mirroring transform.
+		if (layoutFeatures)
+		{
+			layoutFeatures.layoutWidth = value;
+			invalidateTransform();
+		}        
+
+		dispatchPropertyChangeEvent("width", oldValue, value);
 
         // Invalidate the display list, since we're changing the actual width
         // and we're not going to correctly detect whether the layout sets
@@ -2839,6 +2849,53 @@ public class GraphicElement extends EventDispatcher
     {
         return _displayObjectSharingMode;    
     }
+	
+	//----------------------------------
+	//  layoutDirection
+	//----------------------------------
+	
+	private var _layoutDirection:String = "inherit";
+	
+	public function get layoutDirection():String
+	{
+		return _layoutDirection;
+	}
+	
+	/**
+	 *  @copy mx.core.IVisualElement#layoutDirection
+	 */
+	public function set layoutDirection(value:String):void
+	{
+		if (_layoutDirection == value)
+			return;
+		
+		_layoutDirection = value;
+        invalidateLayoutDirection();
+    }
+    
+    /**
+     * @copy mx.core.ILayoutDirection#invalidateLayoutDirection()
+     */
+    public function invalidateLayoutDirection():void
+    {
+        const parentElt:ILayoutDirection = parent as ILayoutDirection;
+        if (!parentElt)
+            return;
+        
+        // If this element's layoutDirection doesn't match its parent's, then
+        // set the layoutFeatures.mirror flag.  Similarly, if mirroring isn't 
+        // required, then clear the layoutFeatures.mirror flag.
+        
+        const mirror:Boolean = (_layoutDirection != "inherit") && (_layoutDirection != parentElt.layoutDirection);
+        if ((layoutFeatures) ? (mirror != layoutFeatures.mirror) : mirror)
+        {
+            if (layoutFeatures == null)
+                allocateLayoutFeatures();
+            var previous:Boolean = needsDisplayObject;
+            layoutFeatures.mirror = mirror;
+            invalidateTransform(previous != needsDisplayObject);         
+        }
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -2973,7 +3030,7 @@ public class GraphicElement extends EventDispatcher
             (_blendMode != BlendMode.NORMAL && _blendMode != "auto") || _mask ||
             (layoutFeatures != null && (layoutFeatures.layoutScaleX != 1 || layoutFeatures.layoutScaleY != 1 || layoutFeatures.layoutScaleZ != 1 ||
             layoutFeatures.layoutRotationX != 0 || layoutFeatures.layoutRotationY != 0 || layoutFeatures.layoutRotationZ != 0 ||
-            layoutFeatures.layoutZ  != 0)) ||  
+            layoutFeatures.layoutZ  != 0 || layoutFeatures.mirror)) ||  
             _colorTransform != null ||
             _effectiveAlpha != 1);
     
@@ -4279,6 +4336,12 @@ public class GraphicElement extends EventDispatcher
             
             _width = width;
             _height = height;
+			
+			if (layoutFeatures)  // mirroring transform depends on width
+            {
+				layoutFeatures.layoutWidth = width;
+                invalidateTransform();
+            }
             
             if (width != oldWidth)
                 dispatchPropertyChangeEvent("width", oldWidth, width);
