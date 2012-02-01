@@ -188,7 +188,6 @@
     <!-- text -->
     <!--- @copy spark.components.supportClasses.SkinnableTextBase#textDisplay -->
     <s:RichEditableText id="textDisplay"
-              lineBreak="explicit"
               verticalAlign="middle"
               widthInChars="10"
               left="1" right="1" top="1" bottom="1" />
