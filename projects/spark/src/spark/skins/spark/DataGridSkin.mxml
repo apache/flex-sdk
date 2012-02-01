@@ -116,7 +116,7 @@ The default skin class for a Spark DataGrid component.
     <s:Rect left="0" right="0" top="0" bottom="0" id="border">
         <s:stroke>
             <!--- @private -->
-            <s:SolidColorStroke id="borderStroke" color="0x686868" weight="1"/>
+            <s:SolidColorStroke id="borderStroke" weight="1"/>
         </s:stroke>
     </s:Rect>
     
@@ -125,7 +125,7 @@ The default skin class for a Spark DataGrid component.
     <s:Rect id="background" left="1" right="1" top="1" bottom="1" >
         <s:fill>
             <!--- Defines the color of the background. The default color is 0xFFFFFF. -->
-            <s:SolidColor id="bgFill" color="0xF9F9F9" />
+            <s:SolidColor id="bgFill" color="0xFFFFFF" />
         </s:fill>
     </s:Rect>
     
@@ -148,7 +148,7 @@ The default skin class for a Spark DataGrid component.
                     <fx:Component>
                         <s:Rect>
                             <s:stroke>
-                                <s:SolidColorStroke color="0xA8C6EE" weight="1"/>
+                                <s:SolidColorStroke color="0x0167FF" weight="1"/>
                             </s:stroke>
                         </s:Rect>
                     </fx:Component>
@@ -193,17 +193,7 @@ The default skin class for a Spark DataGrid component.
                         </s:Rect>
                     </fx:Component>            
                 </s:hoverIndicator>
-                
-                <s:rowBackground>
-                    <fx:Component>
-                        <s:Rect>
-                            <s:fill>
-                                <s:SolidColor id="rowBackgroundFillColor" color="0xF9F9F9"/>
-                            </s:fill>
-                        </s:Rect>
-                    </fx:Component>
-                </s:rowBackground>                
-                
+
             </s:Grid>
         </s:Scroller>
     </s:VGroup>
