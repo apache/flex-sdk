@@ -152,9 +152,7 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
     //  angle
     //----------------------------------
     
-    private var _angle:Number = 45;
-    
-    [Inspectable(minValue="0.0", maxValue="360.0")]        
+    private var _angle:Number = 45;     
     
     /**
      *   The angle of the bevel, in degrees. Valid values are from 0 to 360. 
