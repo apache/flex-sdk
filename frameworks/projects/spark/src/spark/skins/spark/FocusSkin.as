@@ -22,11 +22,9 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.components.baseClasses.FxComponent;
-import mx.components.FxCheckBox;
-import mx.components.FxRadioButton;
-import mx.components.FxScroller;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import flash.utils.Dictionary;
 
 /**
  *  Focus skins for Fx components.
@@ -42,7 +40,7 @@ public class FxFocusSkin extends UIComponent
     //--------------------------------------------------------------------------
     
     // TODO: Make this a style property?
-    private const FOCUS_THICKNESS:int = 2;
+    private const FOCUS_THICKNESS:int = 2;    
     
     //--------------------------------------------------------------------------
     //
@@ -103,7 +101,8 @@ public class FxFocusSkin extends UIComponent
         // Hide the label before drawing the focus. 
         // TODO: Figure out a better solution.
         var hidLabelField:Boolean = false;
-        if ((focusObject is FxCheckBox || focusObject is FxRadioButton)
+        if ((weakIsCheck(focusObject, "mx.components::FxCheckBox") ||
+             weakIsCheck(focusObject, "mx.components::FxRadioButton"))
              && focusObject.labelField)
         {
             focusObject.labelField.displayObject.visible = false;
@@ -124,7 +123,7 @@ public class FxFocusSkin extends UIComponent
         
         // Special case for Scroller - fill the entire rect.
         // TODO: Figure out a better solution.
-        if (focusObject is FxScroller)
+        if (weakIsCheck(focusObject, "mx.components::FxScroller"))
         {
             rect.x = rect.y = FOCUS_THICKNESS;
             rect.width = focusObject.width;
@@ -153,6 +152,26 @@ public class FxFocusSkin extends UIComponent
         }
         
         bitmap.bitmapData = bitmapData;
+    }
+    
+    private static var classDefCache:Object = {};
+    
+    /**
+     *  @private
+     */
+    private function weakIsCheck(obj:Object, className:String):Boolean
+    {
+        if (!(className in classDefCache))
+        {            
+            var classObj:Class = Class(systemManager.getDefinitionByName(className));
+            
+            classDefCache[className] = classObj;
+        }
+        
+        if (!classDefCache[className])
+            return false;
+            
+        return obj is classDefCache[className];
     }
 }
 }        
