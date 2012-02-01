@@ -9,9 +9,9 @@ import flash.text.TextFieldAutoSize;
 
 import mx.core.IUITextField;
 import mx.core.LayoutElementUIComponentUtils;
-import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.core.UITextField;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
 import spark.components.Grid;
@@ -536,13 +536,16 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         if ((unscaledWidth == 0) || (unscaledHeight == 0))
             return;
         
+        // We shrink the available space by one pixel to avoid rendering on top of the 
+        // default row and column separators.
+        
         const labelDisplayX:int = 5;
         const labelDisplayY:int = 4;
-        const labelDisplayWidth:int = unscaledWidth - (WIDTH_PADDING - labelDisplayX); 
-        const labelDisplayHeight:int = unscaledHeight - (HEIGHT_PADDING - labelDisplayY);
+        const labelDisplayWidth:int = Math.floor(unscaledWidth - 1) - (WIDTH_PADDING - labelDisplayX); 
+        const labelDisplayHeight:int = Math.floor(unscaledHeight - 1) - (HEIGHT_PADDING - labelDisplayY);
         
         labelDisplay.setActualSize(labelDisplayWidth, labelDisplayHeight);  // setActualSize() side-effects labelDisplay.textHeight
-        updateMeasuredSize();  // See @private comment above 
+        updateMeasuredSize();  // See @private comment above
         
         labelDisplay.move(labelDisplayX, labelDisplayY);
     }
