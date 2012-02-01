@@ -855,17 +855,13 @@ public class TileLayout extends LayoutBase
         }
 
         // Last, if we have explicit overrides for both rowCount and columnCount, then
-        // make sure that we can fit all the elements. If we need to, we will increase
-        // the count along the minor axis based on the element count
-        // and the count along the major axis.
-        // Note that we do this *after* justification is taken into account as we want to
-        // justify based on the explicit user settings.
+        // make sure that column/row count along the minor axis reflects the actual count.
         if (-1 != _requestedColumnCount && -1 != _requestedRowCount)
         {
             if (orientation == TileOrientation.ROWS)
-                _rowCount = Math.max(_rowCount, Math.ceil(elementCount / Math.max(1, _requestedColumnCount)));
+                _rowCount = Math.max(1, Math.ceil(elementCount / Math.max(1, _requestedColumnCount)));
             else
-                _columnCount = Math.max(_columnCount, Math.ceil(elementCount / Math.max(1, _requestedRowCount)));
+                _columnCount = Math.max(1, Math.ceil(elementCount / Math.max(1, _requestedRowCount)));
         }
     }
     
