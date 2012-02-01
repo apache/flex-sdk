@@ -2,6 +2,8 @@ package flex.filters
 {
 import flash.filters.BitmapFilter;
 import flash.filters.DropShadowFilter;
+import mx.filters.BaseDimensionFilter;
+import mx.filters.IBitmapFilter;
 
 public class DropShadowFilter extends BaseDimensionFilter implements IBitmapFilter
 {
