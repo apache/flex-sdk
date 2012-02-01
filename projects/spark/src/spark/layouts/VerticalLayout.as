@@ -17,10 +17,11 @@ import flash.events.EventDispatcher;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import spark.components.supportClasses.GroupBase;
 import mx.containers.utilityClasses.Flex;
 import mx.core.ILayoutElement;
 import mx.events.PropertyChangeEvent;
+
+import spark.components.supportClasses.GroupBase;
 import spark.layout.supportClasses.LayoutBase;
 import spark.layout.supportClasses.LayoutElementHelper;
 import spark.layout.supportClasses.LinearLayoutVector;
@@ -169,21 +170,12 @@ public class VerticalLayout extends LayoutBase
     }
     
     /**
+     *  @private
+     * 
      *  Sets the <code>rowCount</code> property and dispatches a
      *  PropertyChangeEvent.
-     * 
-     *  This method is intended to be used by subclass updateDisplayList() 
-     *  methods to sync the rowCount property with the actual number
-     *  of visible rows.
-     *
-     *  @param value The number of visible rows.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    protected function setRowCount(value:int):void
+    private function setRowCount(value:int):void
     {
         if (_rowCount == value)
             return;
@@ -242,6 +234,150 @@ public class VerticalLayout extends LayoutBase
     }
     
     //----------------------------------
+    //  paddingLeft
+    //----------------------------------
+
+    private var _paddingLeft:Number = 0;
+    
+    [Inspectable(category="General")]
+
+    /**
+     *  All layout elements will have at least that much space
+     *  on the left.
+     * 
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get paddingLeft():Number
+    {
+        return _paddingLeft;
+    }
+
+    /**
+     *  @private
+     */
+    public function set paddingLeft(value:Number):void
+    {
+        if (_paddingLeft == value)
+            return;
+                               
+        _paddingLeft = value;
+        invalidateTargetSizeAndDisplayList();
+    }    
+    
+    //----------------------------------
+    //  paddingRight
+    //----------------------------------
+
+    private var _paddingRight:Number = 0;
+    
+    [Inspectable(category="General")]
+
+    /**
+     *  All layout elements will have at least that much space
+     *  on the right.
+     * 
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get paddingRight():Number
+    {
+        return _paddingRight;
+    }
+
+    /**
+     *  @private
+     */
+    public function set paddingRight(value:Number):void
+    {
+        if (_paddingRight == value)
+            return;
+                               
+        _paddingRight = value;
+        invalidateTargetSizeAndDisplayList();
+    }    
+    
+    //----------------------------------
+    //  paddingTop
+    //----------------------------------
+
+    private var _paddingTop:Number = 0;
+    
+    [Inspectable(category="General")]
+
+    /**
+     *  Number of pixels between the container's top border
+     *  and the top edge of the first layout element.
+     * 
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get paddingTop():Number
+    {
+        return _paddingTop;
+    }
+
+    /**
+     *  @private
+     */
+    public function set paddingTop(value:Number):void
+    {
+        if (_paddingTop == value)
+            return;
+                               
+        _paddingTop = value;
+        invalidateTargetSizeAndDisplayList();
+    }    
+    
+    //----------------------------------
+    //  paddingBottom
+    //----------------------------------
+
+    private var _paddingBottom:Number = 0;
+    
+    [Inspectable(category="General")]
+
+    /**
+     *  Number of pixels between the container's bottom border
+     *  and the bottom edge of the last layout element.
+     * 
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get paddingBottom():Number
+    {
+        return _paddingBottom;
+    }
+
+    /**
+     *  @private
+     */
+    public function set paddingBottom(value:Number):void
+    {
+        if (_paddingBottom == value)
+            return;
+                               
+        _paddingBottom = value;
+        invalidateTargetSizeAndDisplayList();
+    }    
+    
+    //----------------------------------
     //  requestedRowCount
     //----------------------------------
 
@@ -253,7 +389,7 @@ public class VerticalLayout extends LayoutBase
      *  The measured size of this layout will be big enough to display 
      *  the first <code>requestedRowCount</code> layout elements. 
      * 
-     *  If <code>requesteRowCount</code> is -1, then the measured
+     *  If <code>requestedRowCount</code> is -1, then the measured
      *  size will be big enough for all of the layout elements.
      * 
      *  This property implies the layout target's <code>measuredHeight</code>.
@@ -453,22 +589,15 @@ public class VerticalLayout extends LayoutBase
      *  properties and dispatches a <code>"indexInViewChanged"</code>
      *  event.  
      * 
-     *  This method is intended to be used by subclasses that 
-     *  override updateDisplayList() to sync the first and 
-     *  last indexInView properties with the current display.
-     *
      *  @param firstIndex The new value for firstIndexInView.
      *  @param lastIndex The new value for lastIndexInView.
      * 
      *  @see firstIndexInView
      *  @see lastIndexInview
      *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
-    protected function setIndexInView(firstIndex:int, lastIndex:int):void
+    private function setIndexInView(firstIndex:int, lastIndex:int):void
     {
         if ((_firstIndexInView == firstIndex) && (_lastIndexInView == lastIndex))
             return;
@@ -567,6 +696,8 @@ public class VerticalLayout extends LayoutBase
 	}
 	
 	/**
+     *  @private
+     * 
 	 *  Binary search for the first layout element that contains y.  
 	 * 
 	 *  This function considers both the element's actual bounds and 
@@ -576,8 +707,6 @@ public class VerticalLayout extends LayoutBase
 	 *  This function is intended for variable height elements.
 	 * 
 	 *  Returns the index of the element that contains y, or -1.
-	 *   
-	 * @private 
 	 */
 	private static function findIndexAt(y:Number, gap:int, g:GroupBase, i0:int, i1:int):int
 	{
@@ -596,14 +725,14 @@ public class VerticalLayout extends LayoutBase
             return findIndexAt(y, gap, g, Math.min(index+1, i1), i1);
 	} 
 	
-   /**
-    *  Returns the index of the first non-null includeInLayout element, 
-    *  beginning with the element at index i.  
-    * 
-    *  Returns -1 if no such element can be found.
-    *  
-    *  @private
-    */
+    /**
+     *  @private
+     * 
+     *  Returns the index of the first non-null includeInLayout element, 
+     *  beginning with the element at index i.  
+     * 
+     *  Returns -1 if no such element can be found.
+     */
     private static function findLayoutElementIndex(g:GroupBase, i:int, dir:int):int
     {
         var n:int = g.numElements;
@@ -619,17 +748,14 @@ public class VerticalLayout extends LayoutBase
         return -1;
     }
 
-   /**
-    *  Updates the first,lastIndexInView properties per the new
-    *  scroll position.
-    *  
-    *  @see setIndexInView
-    *  
-    *  @langversion 3.0
-    *  @playerversion Flash 10
-    *  @playerversion AIR 1.5
-    *  @productversion Flex 4
-    */
+    /**
+     *  @private
+     * 
+     *  Updates the first,lastIndexInView properties per the new
+     *  scroll position.
+     *  
+     *  @see setIndexInView
+     */
     override protected function scrollPositionChanged():void
     {
         super.scrollPositionChanged();
@@ -715,10 +841,10 @@ public class VerticalLayout extends LayoutBase
     }
 
     /**
+     *  @private
+     * 
      *  If the element at index i is non-null and includeInLayout,
      *  then return it's actual bounds, otherwise return null.
-     * 
-     *  @private
      */
     private function layoutElementBounds(g:GroupBase, i:int):Rectangle
     {
@@ -739,6 +865,8 @@ public class VerticalLayout extends LayoutBase
     }
     
     /**
+     *  @private
+     * 
      *  Returns the actual position/size Rectangle of the first partially 
      *  visible or not-visible, non-null includeInLayout element, beginning
      *  with the element at index i, searching in direction dir (dir must
@@ -746,15 +874,22 @@ public class VerticalLayout extends LayoutBase
      *  guaranteed to be non-null.
      * 
      *  Returns null if no such element can be found.
-     *  
-     *  @private
      */
     private function findLayoutElementBounds(g:GroupBase, i:int, dir:int, r:Rectangle):Rectangle
     {
         var n:int = g.numElements;
 
         if (inView(i) >= 1)
-            i = Math.max(0, Math.min(n - 1, i + dir));
+        {
+            // Special case: if we hit the first/last element, 
+            // then return the area of the padding so that we
+            // can scroll all the way to the start/end.
+            i += dir;
+            if (i < 0)
+                return new Rectangle(0, 0, 0, paddingTop);
+            if (i >= n)
+                return new Rectangle(0, layoutElementBounds(g, n-1).bottom, 0, paddingBottom);
+        }
 
         while((i >= 0) && (i < n))
         {
@@ -793,6 +928,7 @@ public class VerticalLayout extends LayoutBase
 
     /**
      *  @private
+     * 
      *  Compute exact values for measuredWidth,Height and  measuredMinWidth,Height.
      * 
      *  If requestedRowCount is not -1, measure as many layout elements,
@@ -844,16 +980,20 @@ public class VerticalLayout extends LayoutBase
             minHeight += vgap;
         }
         
-        layoutTarget.measuredHeight = preferredHeight;
-        layoutTarget.measuredWidth = preferredWidth;
-        layoutTarget.measuredMinHeight = minHeight;
-        layoutTarget.measuredMinWidth  = minWidth;
+        var hPadding:Number = paddingLeft + paddingRight;
+        var vPadding:Number = paddingTop + paddingBottom;
+        
+        layoutTarget.measuredHeight = preferredHeight + vPadding;
+        layoutTarget.measuredWidth = preferredWidth + hPadding;
+        layoutTarget.measuredMinHeight = minHeight + vPadding;
+        layoutTarget.measuredMinWidth  = minWidth + hPadding;
     }
     
     private var llv:LinearLayoutVector = new LinearLayoutVector();
     
     /**
      *  @private
+     *
      *  Syncs the LinearLayoutVector llv with typicalLayoutElement and
      *  the target's numElements.  Calling this function accounts
      *  for the possibility that the typicalLayoutElement has changed, or
@@ -870,7 +1010,9 @@ public class VerticalLayout extends LayoutBase
             llv.defaultMajorSize = typicalHeight;        
         }
         if (layoutTarget)
-            llv.length = layoutTarget.numElements;       
+            llv.length = layoutTarget.numElements;
+        llv.gap = gap;
+        llv.majorAxisOffset = paddingTop;
      }
      
     /**
@@ -887,12 +1029,13 @@ public class VerticalLayout extends LayoutBase
      */
      override public function elementRemoved(index:int):void
      {
-         if ((index >= 0) && useVirtualLayout)
+        if ((index >= 0) && useVirtualLayout)
             llv.remove(index);  // remove index parameter is uint
      }     
 
     /**
-     *  @private 
+     *  @private
+     * 
      *  Compute potentially approximate values for measuredWidth,Height and 
      *  measuredMinWidth,Height.
      * 
@@ -909,10 +1052,13 @@ public class VerticalLayout extends LayoutBase
         var eltCount:uint = layoutTarget.numElements;
         var measuredEltCount:int = (requestedRowCount != -1) ? requestedRowCount : eltCount;
         
+        var hPadding:Number = paddingLeft + paddingRight;
+        var vPadding:Number = paddingTop + paddingBottom;
+        
         if (measuredEltCount <= 0)
         {
-            layoutTarget.measuredWidth = layoutTarget.measuredHeight = 0;
-            layoutTarget.measuredMinWidth = layoutTarget.measuredMinHeight = 0;
+            layoutTarget.measuredWidth = layoutTarget.measuredMinWidth = hPadding;
+            layoutTarget.measuredHeight = layoutTarget.measuredMinHeight = vPadding;
             return;
         }        
         
@@ -927,22 +1073,25 @@ public class VerticalLayout extends LayoutBase
                 oldLength = llv.length;
                 llv.length = measuredEltCount;
             }   
-            layoutTarget.measuredHeight = llv.end(measuredEltCount - 1);
+            // paddingTop is already taken into account as the majorAxisOffset of the llv   
+            layoutTarget.measuredHeight = llv.end(measuredEltCount - 1) + paddingBottom;
             if (oldLength != -1)
                 llv.length = oldLength;            
         }
         else
         {
             var vgap:Number = (measuredEltCount > 1) ? (measuredEltCount - 1) * gap : 0;
-            layoutTarget.measuredHeight = (measuredEltCount * rowHeight) + vgap;
+            layoutTarget.measuredHeight = (measuredEltCount * rowHeight) + vgap + vPadding;
         }
-        layoutTarget.measuredWidth = llv.minorSize;
+        layoutTarget.measuredWidth = llv.minorSize + hPadding;
                 
         layoutTarget.measuredMinWidth = layoutTarget.measuredWidth;
         layoutTarget.measuredMinHeight = layoutTarget.measuredHeight;
     }
 
     /**
+     *  @private
+     * 
      *  If requestedRowCount is specified then as many layout elements
      *  or "rows" are measured, starting with element 0, otherwise all of the 
      *  layout elements are measured.
@@ -977,25 +1126,20 @@ public class VerticalLayout extends LayoutBase
      * 
      *  As before the difference is due to the fact that flexible items are only
      *  guaranteed their minWidth.
-     * 
-    *  
-    *  @langversion 3.0
-    *  @playerversion Flash 10
-    *  @playerversion AIR 1.5
-    *  @productversion Flex 4
-    */
+     */
     override public function measure():void
     {
         var layoutTarget:GroupBase = target;
         if (!layoutTarget)
             return;
             
+        var hPadding:Number = paddingLeft + paddingRight;
+        var vPadding:Number = paddingTop + paddingBottom;
+
         if (layoutTarget.numElements == 0)
         {
-            layoutTarget.measuredWidth = 0;
-            layoutTarget.measuredHeight = 0;
-            layoutTarget.measuredMinWidth = 0;
-            layoutTarget.measuredMinHeight = 0;
+            layoutTarget.measuredWidth = layoutTarget.measuredMinWidth = hPadding;
+            layoutTarget.measuredHeight = layoutTarget.measuredMinHeight = vPadding;
         }            
         else if (useVirtualLayout)
             measureVirtual(layoutTarget);
@@ -1003,7 +1147,11 @@ public class VerticalLayout extends LayoutBase
             measureReal(layoutTarget);
     }
     
-    //  - virtual layout only - 
+    /**
+     *  @private
+     * 
+     *  Used only for virtual layout.
+     */
     private function calculateElementWidth(elt:ILayoutElement, targetWidth:Number, containerWidth:Number):Number
     {
        // If percentWidth is specified then the element's width is the percentage
@@ -1024,7 +1172,11 @@ public class VerticalLayout extends LayoutBase
        return NaN;  // not constrained
     }
     
-    //  - virtual layout only - 
+    /**
+     *  @private
+     * 
+     *  Used only for virtual layout.
+     */
     private function calculateElementX(elt:ILayoutElement, eltWidth:Number, containerWidth:Number):Number
     {
        switch(horizontalAlign)
@@ -1040,6 +1192,7 @@ public class VerticalLayout extends LayoutBase
 
     /**
      *  @private
+     * 
      *  Update the layout of the virtualized elements that overlap
      *  the scrollRect's vertical extent.
      *
@@ -1084,7 +1237,7 @@ public class VerticalLayout extends LayoutBase
     {
         var layoutTarget:GroupBase = target; 
         var eltCount:int = layoutTarget.numElements;
-        var targetWidth:Number = layoutTarget.width;
+        var targetWidth:Number = Math.max(0, layoutTarget.width - paddingLeft - paddingRight);
         var minVisibleY:Number = layoutTarget.verticalScrollPosition;
         var maxVisibleY:Number = minVisibleY + layoutTarget.height;
        
@@ -1101,6 +1254,7 @@ public class VerticalLayout extends LayoutBase
         var containerWidth:Number = Math.max(contentWidth, targetWidth);        
         var y:Number = llv.start(startIndex);
         var index:int = startIndex;
+        var x0:Number = paddingLeft;
         
         // First pass: compute element x,y,width,height based on 
         // current contentWidth; cache computed widths/heights in llv.
@@ -1112,7 +1266,7 @@ public class VerticalLayout extends LayoutBase
             elt.setLayoutBoundsSize(w, h);
             w = elt.getLayoutBoundsWidth();        
             h = elt.getLayoutBoundsHeight();            
-            var x:Number = calculateElementX(elt, w, containerWidth);
+            var x:Number = x0 + calculateElementX(elt, w, containerWidth);
             elt.setLayoutBoundsPosition(x, y);
             llv.cacheDimensions(index, elt);
             y += h + gap;
@@ -1133,7 +1287,7 @@ public class VerticalLayout extends LayoutBase
                     w = calculateElementWidth(elt, targetWidth, containerWidth);  // can be NaN
                     elt.setLayoutBoundsSize(w, elt.getLayoutBoundsHeight());
                     w = elt.getLayoutBoundsWidth();
-                    x = calculateElementX(elt, w, containerWidth);
+                    x = x0 + calculateElementX(elt, w, containerWidth);
                     elt.setLayoutBoundsPosition(x, elt.getLayoutBoundsY());
                 }
             }
@@ -1141,15 +1295,18 @@ public class VerticalLayout extends LayoutBase
 
         setRowCount(index - startIndex);
         setIndexInView(startIndex, endIndex);
-        layoutTarget.setContentSize(contentWidth, llv.end(llv.length - 1));
+        layoutTarget.setContentSize(contentWidth + paddingLeft + paddingRight, llv.end(llv.length - 1) + paddingBottom);
     }
     
 
+    /**
+     *  @private
+     */
     private function updateDisplayListReal():void
     {
         var layoutTarget:GroupBase = target;
-        var targetWidth:Number = layoutTarget.width;
-        var targetHeight:Number = layoutTarget.height;
+        var targetWidth:Number = Math.max(0, layoutTarget.width - paddingLeft - paddingRight);
+        var targetHeight:Number = Math.max(0, layoutTarget.height - paddingTop - paddingBottom);
         
         var layoutElement:ILayoutElement;
         var count:uint = layoutTarget.numElements;
@@ -1208,9 +1365,10 @@ public class VerticalLayout extends LayoutBase
         // Finally, position the layoutElements and find the first/last
         // visible indices, the content size, and the number of 
         // visible elements.    
-        var y:Number = 0;
-        var maxX:Number = 0;
-        var maxY:Number = 0;
+        var x0:Number = paddingLeft;
+        var y:Number = paddingTop;
+        var maxX:Number = paddingLeft;
+        var maxY:Number = paddingTop;
         var firstRowInView:int = -1;
         var lastRowInView:int = -1;
         
@@ -1221,7 +1379,7 @@ public class VerticalLayout extends LayoutBase
                 continue;
                 
             // Set the layout element's position
-            var x:Number = (containerWidth - layoutElement.getLayoutBoundsWidth()) * hAlign;
+            var x:Number = x0 + (containerWidth - layoutElement.getLayoutBoundsWidth()) * hAlign;
             // In case we have HorizontalAlign.CENTER we have to round
             if (hAlign == 0.5)
                 x = Math.round(x);
@@ -1248,10 +1406,12 @@ public class VerticalLayout extends LayoutBase
         
         setRowCount(visibleRows);
         setIndexInView(firstRowInView, lastRowInView);
-        layoutTarget.setContentSize(maxX, maxY);
+        layoutTarget.setContentSize(maxX + paddingRight, maxY + paddingBottom);
     }
     
     /**
+     *  @private
+     * 
      *  This function sets the height of each child
      *  so that the heights add up to <code>height</code>. 
      *  Each child is set to its preferred height
@@ -1262,13 +1422,8 @@ public class VerticalLayout extends LayoutBase
      *  
      *  The return value is any extra space that's left over
      *  after growing all children to their maxHeight.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    public function distributeHeight(width:Number, 
+    private function distributeHeight(width:Number, 
                                      height:Number, 
                                      restrictedWidth:Number):Number
     {
@@ -1342,6 +1497,9 @@ public class VerticalLayout extends LayoutBase
         return spaceToDistribute;
     }
     
+    /**
+     *  @private
+     */
     override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
@@ -1355,7 +1513,7 @@ public class VerticalLayout extends LayoutBase
             setRowCount(0);
             setIndexInView(-1, -1);
             if (layoutTarget.numElements == 0)
-                layoutTarget.setContentSize(0, 0);
+                layoutTarget.setContentSize(paddingLeft + paddingRight, paddingTop + paddingBottom);
             return;         
         }
         
