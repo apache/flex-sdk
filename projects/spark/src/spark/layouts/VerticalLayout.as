@@ -18,10 +18,10 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 
 import mx.components.baseClasses.GroupBase;
-import mx.core.ScrollUnit;
-
 import mx.containers.utilityClasses.Flex;
+import mx.core.ScrollUnit;
 import mx.events.PropertyChangeEvent;
+import mx.layout.LinearLayoutVector;
 
 
 /**
@@ -119,6 +119,7 @@ public class VerticalLayout extends LayoutBase
             return;
 
         _gap = value;
+        llv.gap = value;
         invalidateTargetSizeAndDisplayList();
     }
 
@@ -255,6 +256,8 @@ public class VerticalLayout extends LayoutBase
             return _rowHeight;
         else if (!target || (target.numLayoutElements <= 0))
             return 0;
+        else if (typicalLayoutElement)
+            return typicalLayoutElement.getPreferredHeight();
         else
             return target.getLayoutElementAt(0).getPreferredHeight();
     }
@@ -399,6 +402,8 @@ public class VerticalLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------
     
+    private var llv:LinearLayoutVector = new LinearLayoutVector();
+    
 	/**
 	 *  An index is "in view" if the corresponding non-null layout element is 
 	 *  within the vertical limits of the layout target's scrollRect
@@ -428,29 +433,43 @@ public class VerticalLayout extends LayoutBase
 	    if ((index < 0) || (index >= g.numLayoutElements))
 	       return 0.0;
 	       
-        var li:ILayoutElement = g.getLayoutElementAt(index);
-        if ((li == null) || !li.includeInLayout)
-            return 0.0;
-            
         if (!clipContent)
             return 1.0;
 
+	       
         var r0:int = firstIndexInView;	
         var r1:int = lastIndexInView;
         
         // outside the visible index range
         if ((r0 == -1) || (r1 == -1) || (index < r0) || (index > r1))
             return 0.0;
-            
+
         // within the visible index range, but not first or last            
         if ((index > r0) && (index < r1))
             return 1.0;
 
+        // get the layout element's Y and Height
+	    var eltY:Number;
+	    var eltHeight:Number;
+	    if (virtualLayout)
+	    {
+	        eltY = llv.start(index);
+	        eltHeight = llv.getMajorSize(index);
+	    }
+	    else 
+	    {
+            var elt:ILayoutElement = g.getLayoutElementAt(index);
+            if (!elt || !elt.includeInLayout)
+                return 0.0;
+            eltY = elt.getLayoutPositionY();
+            eltHeight = elt.getLayoutHeight();
+	    }
+            
         // index is first (r0) or last (r1) visible row
         var y0:Number = g.verticalScrollPosition;
         var y1:Number = y0 + g.height;
-        var iy0:Number = li.getLayoutPositionY();
-        var iy1:Number = iy0 + li.getLayoutHeight();
+        var iy0:Number = eltY;
+        var iy1:Number = iy0 + eltHeight;
         if (iy0 >= iy1)  // element has 0 or negative height
             return 1.0;
         if ((iy0 >= y0) && (iy1 <= y1))
@@ -555,10 +574,20 @@ public class VerticalLayout extends LayoutBase
         }
 
         // TBD: special case for variableRowHeight false
-
-        var i0:int = findIndexAt(y0 + gap, gap, g, 0, n);
-        var i1:int = findIndexAt(y1, gap, g, 0, n);
-
+        
+        var i0:int;
+        var i1:int;
+        if (virtualLayout)
+        {
+            i0 = llv.indexOf(y0);
+            i1 = llv.indexOf(y1);
+        }
+        else
+        {
+            i0 = findIndexAt(y0 + gap, gap, g, 0, n);
+            i1 = findIndexAt(y1, gap, g, 0, n);
+        }
+        
         // Special case: no element overlaps y0, is index 0 visible?
         if (i0 == -1)
         {   
@@ -586,7 +615,9 @@ public class VerticalLayout extends LayoutBase
                     i1 = index1;
             }
         }   
-
+        if (virtualLayout)
+            updateDisplayListInView(i0);  // TBD returns i1
+                
         setIndexInView(i0, i1);
     }
 
@@ -596,15 +627,20 @@ public class VerticalLayout extends LayoutBase
      * 
      *  @private
      */
-    private static function layoutElementBounds(g:GroupBase, i:int):Rectangle
+    private function layoutElementBounds(g:GroupBase, i:int):Rectangle
     {
-        var element:ILayoutElement = g.getLayoutElementAt(i);
-        if (element && element.includeInLayout)
+        if (virtualLayout)
+            return llv.getBounds(i);        
+        else 
         {
-            return new Rectangle(element.getLayoutPositionX(),
-                                 element.getLayoutPositionY(),
-                                 element.getLayoutWidth(),
-                                 element.getLayoutHeight());        
+            var element:ILayoutElement = g.getLayoutElementAt(i);
+            if (element && element.includeInLayout)
+            {
+                return new Rectangle(element.getLayoutPositionX(),
+                                     element.getLayoutPositionY(),
+                                     element.getLayoutWidth(),
+                                     element.getLayoutHeight());        
+            }
         }
         return null;    
     }
@@ -745,7 +781,7 @@ public class VerticalLayout extends LayoutBase
         var maxDelta:Number = g.contentHeight - scrollR.height - scrollR.y;
         var minDelta:Number = -scrollR.y;
         return Math.min(maxDelta, Math.max(minDelta, delta));
-    }     
+    }
         
     private function variableRowHeightMeasure(layoutTarget:GroupBase):void
     {
@@ -842,6 +878,36 @@ public class VerticalLayout extends LayoutBase
     }
     
     
+    /**
+     *  @private 
+     *  Compute potentially approximate values for measuredWidth,Height and 
+     *  measuredMinWidth,Height.
+     * 
+     *  If requestedRows is specified, then measure and cache the dimensions of 
+     *  the first requestedRows.  
+     * 
+     *  Otherwise all dimensions are based exclusively on the values already 
+     *  cached in llv.
+     * 
+     *  Note that the llv's defaultMajorSize, minorSize, and minMinorSize are 
+     *  based on typicalLayoutElement.
+     */
+    private function virtualRowHeightMeasure(layoutTarget:GroupBase):void
+    {
+        var rowCount:uint = layoutTarget.numLayoutElements;
+        llv.length = rowCount;
+        llv.defaultMajorSize = typicalLayoutElement.getPreferredHeight();
+        llv.minorSize = typicalLayoutElement.getPreferredWidth();
+        
+        var measuredRowCount:int = (requestedRowCount != -1) ? requestedRowCount : rowCount;
+        layoutTarget.measuredWidth = llv.minorSize;
+        layoutTarget.measuredHeight =  llv.end(measuredRowCount - 1);
+        
+        layoutTarget.measuredMinWidth = layoutTarget.measuredWidth;
+        layoutTarget.measuredMinHeight = layoutTarget.measuredHeight;
+    }
+    
+    
     override public function measure():void
     {
         super.measure();
@@ -849,14 +915,152 @@ public class VerticalLayout extends LayoutBase
     	var layoutTarget:GroupBase = target;
         if (!layoutTarget)
             return;
-        if (variableRowHeight) 
+        if (virtualLayout)
+            virtualRowHeightMeasure(layoutTarget);
+        else if (variableRowHeight) 
             variableRowHeightMeasure(layoutTarget);
         else 
             fixedRowHeightMeasure(layoutTarget);
 
     }
     
+    //  - virtual layout only - 
+    private function calculateElementX(elt:ILayoutElement, eltWidth:Number, contentWidth:Number):Number
+    {
+       switch(horizontalAlign)
+       {
+           case HorizontalAlign.CENTER: 
+               return (contentWidth - eltWidth) * 0.5;
+           case HorizontalAlign.RIGHT: 
+               return contentWidth - eltWidth;
+       }
+       return 0;
+    }
+
+    //  - virtual layout only - 
+    private function calculateElementWidth(elt:ILayoutElement, targetWidth:Number, contentWidth:Number):Number
+    {
+       // If percentWidth is specified then the element's width is the percentage
+       // of targetWidth clipped to min/maxWidth and to (upper limit) targetWidth.
+       var percentWidth:Number = elt.percentWidth;
+       if (!isNaN(percentWidth))
+       {
+          var width:Number = percentWidth * 0.01 * targetWidth;
+          return Math.min(targetWidth, Math.min(elt.getMaxWidth(), Math.max(elt.getMinWidth(), width)));
+       }
+       switch(horizontalAlign)
+       {
+           case HorizontalAlign.JUSTIFY: 
+               return targetWidth;
+           case HorizontalAlign.CONTENT_JUSTIFY: 
+               return contentWidth;
+       }
+       return elt.getPreferredWidth();
+    }
     
+    /**
+     *  @private
+     *  Update the layout of the virtualized elements that are within 
+     *  the scrollRect's vertical extent.
+     *
+     *  The height of each layout element will be its preferred height, and its
+     *  y will be the bottom of the previous item, plus the gap.
+     * 
+     *  No support for percentHeight, includeInLayout=false, or null layoutElements,
+     * 
+     *  The width of each layout element will be set to its preferred width, unless
+     *  one of the following is true:
+     * 
+     *  - If percentWidth is specified for this element, then its width will be the
+     *  specified percentage of the target's actual (unscaled) width, clipped 
+     *  the layout element's minimum and maximum width.
+     * 
+     *  - If horizontalAlign is "justify", then the element's width will
+     *  be set to the target's actual (unscaled) width.
+     * 
+     *  - If horizontalAlign is "contentJustify", then the element's width
+     *  will be set to the target's content width.
+     * 
+     *  The X coordinate of each layout element will be set to 0 unless one of the
+     *  following is true:
+     * 
+     *  - If horizontalAlign is "center" then x is set so that the element's preferred
+     *  width is centered within the contentWidth:
+     *      x = (contentWidth - layoutElementWidth) * 0.5
+     * 
+     *  - If horizontalAlign is "right" the x is set so that the element's right
+     *  edge is aligned with the the right edge of the content:
+     *      x = (contentWidth - layoutElementWidth)
+     * 
+     *  Implementation note: unless horizontalAlign is either "justify" or 
+     *  "left", the layout elements' x or width depends on the contentWidth.
+     *  The contentWidth is a maximum and although it may be updated to 
+     *  different value after all (viewable) elements have been laid out, it
+     *  often does not change.  For that reason we use the current contentWidth
+     *  for the initial layout and then, if it has changed, we loop through 
+     *  the layout items again and fix up the x/width values.
+     */
+    private function updateDisplayListInView(startIndex:int = -1):void
+    {
+        var layoutTarget:GroupBase = target; 
+        var eltCount:int = layoutTarget.numLayoutElements;
+        var targetWidth:Number = layoutTarget.width;
+        var minVisibleY:Number = layoutTarget.verticalScrollPosition;
+        var maxVisibleY:Number = minVisibleY + layoutTarget.height;
+        
+        // TBD: don't assume typicalLayoutElement is set, use 1st row...
+        var typicalWidth:Number = typicalLayoutElement.getPreferredWidth();
+        var typicalHeight:Number = typicalLayoutElement.getPreferredHeight();
+        llv.length = layoutTarget.numLayoutElements;        
+        llv.minorSize = Math.max(llv.minorSize, typicalWidth);
+        llv.defaultMajorSize = typicalHeight;
+        if (startIndex < 0)            
+            startIndex = llv.indexOf(minVisibleY);           
+         
+        layoutTarget.beginVirtualLayout(startIndex);
+        var contentWidth:Number = llv.minorSize;
+        var y:Number = llv.start(startIndex);
+        var index:int = startIndex;
+        
+        // First pass: compute element x,y,width,height based on 
+        // current contentWidth; cache computed widths/heights in llv.
+        for (; (y < maxVisibleY) && (index < eltCount); index++)
+        {
+            var elt:ILayoutElement = layoutTarget.getLayoutElementAt(index);
+            var h:Number = elt.getPreferredHeight();
+            var w:Number = calculateElementWidth(elt, targetWidth, contentWidth);
+            var x:Number = calculateElementX(elt, w, contentWidth);
+            elt.setLayoutPosition(x, y);
+            elt.setLayoutSize(w, elt.getPreferredHeight());            
+            llv.cacheDimensions(index, elt);
+            y += h + gap;
+        }
+
+        // Second pass: if neccessary, fix up x and width values based
+        // on the updated contentWidth
+        var endIndex:int = index - 1;
+        var finalContentWidth:Number = llv.minorSize;
+        if ((finalContentWidth != contentWidth) &&
+            (horizontalAlign != HorizontalAlign.LEFT) &&
+            (horizontalAlign != HorizontalAlign.JUSTIFY))
+        {
+            contentWidth = finalContentWidth;
+            for (index = startIndex; index < eltCount; index++)
+            {
+                elt = layoutTarget.getLayoutElementAt(index);
+                w = calculateElementWidth(elt, targetWidth, contentWidth);
+                x = calculateElementX(elt, w, contentWidth);
+                elt.setLayoutPosition(x, elt.getLayoutPositionY());
+                elt.setLayoutSize(w, elt.getLayoutHeight());         
+            }
+        }
+        setRowCount(index - startIndex);
+        setIndexInView(startIndex, endIndex);
+        layoutTarget.setContentSize(contentWidth, llv.end(llv.length - 1));
+        layoutTarget.endVirtualLayout(startIndex, endIndex);
+    }
+    
+
     override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
@@ -864,7 +1068,13 @@ public class VerticalLayout extends LayoutBase
     	var layoutTarget:GroupBase = target; 
         if (!layoutTarget)
             return;
-        
+            
+        if (virtualLayout) 
+        {
+            updateDisplayListInView();
+            return;
+        }
+            
         var layoutElement:ILayoutElement;
         var count:uint = layoutTarget.numLayoutElements;
         
@@ -903,7 +1113,7 @@ public class VerticalLayout extends LayoutBase
             restrictedWidth = unscaledWidth;
         else if (horizontalAlign == HorizontalAlign.CONTENT_JUSTIFY)
             restrictedWidth = contentWidth;
-
+    
         distributeHeight(unscaledWidth, unscaledHeight, restrictedWidth);
         
         // default to left (0)
@@ -937,10 +1147,11 @@ public class VerticalLayout extends LayoutBase
             // Set the layout element's position
             var x:Number = (contentWidth - layoutElement.getLayoutWidth()) * hAlign;
             layoutElement.setLayoutPosition(x, y);
-                
+                            
             // Update maxX,Y, first,lastVisibleIndex, and y
             var dx:Number = layoutElement.getLayoutWidth();
             var dy:Number = layoutElement.getLayoutHeight();
+            
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);
             if (!clipContent ||
