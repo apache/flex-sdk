@@ -10,6 +10,8 @@
 	in accordance with the terms of the license agreement accompanying it.
 -->
 
+<!--- The default skin class for the Spark HSlider component. The thumb and track skins are defined by the
+HSliderThumbSkin and HSliderTrackSkin classes, respectively. -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
 	  minHeight="11" minWidth="100"
 	  alpha.disabled="0.5">
