@@ -9,15 +9,15 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.layout
+package mx.layout
 {
 
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import flex.core.GroupBase;
-import flex.intf.ILayoutItem;
-
+import mx.components.baseClasses.GroupBase;
+import mx.layout.ILayoutItem;
+import mx.layout.LayoutBase;
 
 /**
  *  Documentation is not currently available.
