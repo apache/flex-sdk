@@ -14,11 +14,13 @@ package mx.events
 
 import flash.events.Event;
 
+import mx.core.IVisualElement;
+
 /**
- *  Represents events that are dispatched when an item of a Group
+ *  Represents events that are dispatched when an element of a Group
  *  is created or destroyed. 
  */
-public class ItemExistenceChangedEvent extends Event
+public class ElementExistenceEvent extends Event
 {
     include "../core/Version.as";
 
@@ -29,9 +31,9 @@ public class ItemExistenceChangedEvent extends Event
 	//--------------------------------------------------------------------------
 
 	/**
-	 *  The <code>ItemExistenceChangedEvent.ITEM_ADD</code> constant 
+	 *  The <code>ElementExistenceEvent.ELEMENT_ADD</code> constant 
 	 *  defines the value of the <code>type</code> property of the event 
-	 *  object for an <code>itemAdd</code> event.
+	 *  object for an <code>elementAdd</code> event.
 	 *
      *	<p>The properties of the event object have the following values:</p>
 	 *  <table class="innertable">
@@ -42,22 +44,24 @@ public class ItemExistenceChangedEvent extends Event
      *       event listener that handles the event. For example, if you use 
      *       <code>myButton.addEventListener()</code> to register an event listener, 
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-	 *     <tr><td><code>relatedObject</code></td><td>Contains a reference
-     *         to the item that was created.</td></tr>
+	 *     <tr><td><code>element</code></td><td>Contains a reference
+     *         to the visual element that was added.</td></tr>
+     *     <tr><td><code>index</code></td><td>The index where the 
+     *       visual element that was added.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
      *       it is not always the Object listening for the event. 
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
 	 *  </table>
 	 *
-     *  @eventType itemAdd
+     *  @eventType elementAdd
 	 */
-	public static const ITEM_ADD:String = "itemAdd";
+	public static const ELEMENT_ADD:String = "elementAdd";
 
 	/**
-	 *  The <code>ItemExistenceChangedEvent.ITEM_REMOVE</code> constant 
+	 *  The <code>ElementExistenceEvent.ELEMENT_REMOVE</code> constant 
 	 *  defines the value of the <code>type</code> property of the event 
-	 *  object for an <code>itemRemove</code> event.
+	 *  object for an <code>elementRemove</code> event.
 	 *
      *	<p>The properties of the event object have the following values:</p>
 	 *  <table class="innertable">
@@ -68,17 +72,19 @@ public class ItemExistenceChangedEvent extends Event
      *       event listener that handles the event. For example, if you use 
      *       <code>myButton.addEventListener()</code> to register an event listener, 
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-	 *     <tr><td><code>relatedObject</code></td><td>Contains a reference
-     *        to the item that is about to be removed.</td></tr>
+	 *     <tr><td><code>element</code></td><td>Contains a reference
+     *        to the visual element that is about to be removed.</td></tr>
+     *     <tr><td><code>index</code></td><td>The index where the 
+     *       visual element that is being removed.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
      *       it is not always the Object listening for the event. 
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
 	 *  </table>
 	 *
-     *  @eventType itemRemove
+     *  @eventType elementRemove
 	 */
-	public static const ITEM_REMOVE:String = "itemRemove";
+	public static const ELEMENT_REMOVE:String = "elementRemove";
 
 	//--------------------------------------------------------------------------
 	//
@@ -95,23 +101,20 @@ public class ItemExistenceChangedEvent extends Event
 	 *
 	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
 	 *
-	 *  @param relatedObject Reference to the item that was created or destroyed.
+	 *  @param element Reference to the element that was added or removed.
 	 * 
-	 *  @param index The index where the item was created or destroyed.
-	 * 
-	 *  @param renderer The renderer that was used for the item (if applicable)
+	 *  @param index The index where the element was added or removed.
 	 */
-	public function ItemExistenceChangedEvent(
+	public function ElementExistenceEvent(
 								type:String, bubbles:Boolean = false,
 								cancelable:Boolean = false,
-								relatedObject:Object = null, 
-								index:int = -1, renderer:Object = null)
+								element:IVisualElement = null, 
+								index:int = -1)
 	{
 		super(type, bubbles, cancelable);
 
-		this.relatedObject = relatedObject;
+		this.element = element;
 		this.index = index;
-		this.renderer = renderer;
 	}
 
 	//--------------------------------------------------------------------------
@@ -125,27 +128,18 @@ public class ItemExistenceChangedEvent extends Event
     //----------------------------------
 
     /**
-     *  The index where the item was created or destroyed.
+     *  The index where the element was added or removed
      */
     public var index:int;
 
 	//----------------------------------
-	//  relatedObject
+	//  element
 	//----------------------------------
 
 	/**
-	 *  Reference to the item that was created or destroyed.
+	 *  Reference to the visual element that was added or removed.
 	 */
-	public var relatedObject:Object;
-    
-    //----------------------------------
-    //  renderer
-    //----------------------------------
-
-    /**
-     *  The item renderer that was created or destroyed (if applicable).
-     */
-    public var renderer:Object;
+	public var element:IVisualElement;
 
 	//--------------------------------------------------------------------------
 	//
@@ -158,8 +152,8 @@ public class ItemExistenceChangedEvent extends Event
 	 */
     override public function clone():Event
     {
-        return new ItemExistenceChangedEvent(type, bubbles, cancelable,
-                                             relatedObject, index, renderer);
+        return new ElementExistenceEvent(type, bubbles, cancelable,
+                                         element, index);
     }
 }
 
