@@ -909,11 +909,27 @@ public class VerticalLayout extends LayoutBase
         var eltCount:uint = layoutTarget.numElements;
         var measuredEltCount:int = (requestedRowCount != -1) ? requestedRowCount : eltCount;
         
+        if (measuredEltCount <= 0)
+        {
+            layoutTarget.measuredWidth = layoutTarget.measuredHeight = 0;
+            layoutTarget.measuredMinWidth = layoutTarget.measuredMinHeight = 0;
+            return;
+        }        
+        
         updateLLV(layoutTarget);     
         if (variableRowHeight)
         {
-            var endIndex:int = Math.max(0, Math.min(measuredEltCount, eltCount) - 1);
-            layoutTarget.measuredHeight = llv.end(endIndex);
+            // Special case: fewer elements than requestedRowCount, so temporarily
+            // make llv.length == requestedRowCount.
+            var oldLength:int = -1;
+            if (measuredEltCount > llv.length)
+            {
+                oldLength = llv.length;
+                llv.length = measuredEltCount;
+            }   
+            layoutTarget.measuredHeight = llv.end(measuredEltCount - 1);
+            if (oldLength != -1)
+                llv.length = oldLength;            
         }
         else
         {
