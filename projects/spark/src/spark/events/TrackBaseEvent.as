@@ -26,13 +26,13 @@ public class TrackBaseEvent extends Event
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
 
-	/**
+    /**
      *  The <code>TrackBaseEvent.THUMB_DRAG</code> constant defines the value of the 
      *  <code>type</code> property of the event object for a <code>thumbDrag</code> event. 
      *
@@ -54,9 +54,9 @@ public class TrackBaseEvent extends Event
      *  @eventType thumbDrag
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const THUMB_DRAG:String = "thumbDrag";
 
@@ -82,9 +82,9 @@ public class TrackBaseEvent extends Event
      *  @eventType thumbPress
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const THUMB_PRESS:String = "thumbPress";
 
@@ -110,48 +110,48 @@ public class TrackBaseEvent extends Event
      *  @eventType thumbRelease
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const THUMB_RELEASE:String = "thumbRelease";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  @param type The event type; indicates the action that caused the event.
-	 *
-	 *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.
-	 *
-	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function TrackBaseEvent(
-								type:String, bubbles:Boolean = false,
-								cancelable:Boolean = false)
-	{
-		super(type, bubbles, cancelable);
-	}
+    /**
+     *  Constructor.
+     *
+     *  @param type The event type; indicates the action that caused the event.
+     *
+     *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.
+     *
+     *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function TrackBaseEvent(
+                                type:String, bubbles:Boolean = false,
+                                cancelable:Boolean = false)
+    {
+        super(type, bubbles, cancelable);
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: Event
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: Event
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     override public function clone():Event
     {
         return new TrackBaseEvent(type, bubbles, cancelable);
