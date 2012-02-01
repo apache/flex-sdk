@@ -27,12 +27,11 @@ import flash.geom.Transform;
 
 import mx.geom.Transform;
 import mx.graphics.IGraphicElement;
-import mx.graphics.IGraphicElementHost;
 import mx.graphics.MaskType;
 import mx.utils.MatrixUtil;
 import mx.layout.ILayoutItem;
+import mx.components.baseClasses.GroupBase;
 import mx.core.AdvancedLayoutFeatures;
-import mx.core.IConstraintClient;
 import mx.core.IInvalidating;
 import mx.geom.TransformOffsets;
 import mx.core.UIComponentGlobals;
@@ -46,8 +45,6 @@ import mx.filters.IBitmapFilter;
 import mx.graphics.IStroke;
 import mx.managers.ILayoutManagerClient;
 import mx.core.IVisualItem;
-import flash.utils.Dictionary;
-
 
 use namespace mx_internal;
 
@@ -66,9 +63,8 @@ use namespace mx_internal;
  *  object in the object's parent coordinate space. The UBounds are the boundaries
  *  of an object in its own coordinate space.</p>
  */
-public class GraphicElement extends EventDispatcher
-    implements IGraphicElement, ILayoutItem, IConstraintClient,
-    IInvalidating, IVisualItem
+public class GraphicElement extends EventDispatcher 
+    implements IGraphicElement, IInvalidating, ILayoutItem, IVisualItem
 {
     include "../../core/Version.as";
 
@@ -176,9 +172,10 @@ public class GraphicElement extends EventDispatcher
      *  property.
      */
     protected var layoutFeatures:AdvancedLayoutFeatures;
+
     //--------------------------------------------------------------------------
     //
-    //  Properties: IGraphicElement
+    //  Properties
     //
     //--------------------------------------------------------------------------
     
@@ -209,8 +206,6 @@ public class GraphicElement extends EventDispatcher
     {
         return layoutFeatures.offsets;
     }
-
-    
     
     protected function invalidateTransform(changeInvalidatesLayering:Boolean = true,triggerLayout:Boolean = true):void
     {
@@ -283,17 +278,14 @@ public class GraphicElement extends EventDispatcher
      *  @private
      *  Storage for the baseline property.
      */
-    private var _baseline:Number;
+    private var _baseline:Object;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
-    
+
     /**
-     *  The vertical distance in pixels from the top edge of the content area to the control's baseline position. 
-     *  If this property is set, the baseline of the GraphicElement is anchored to the top edge of its content area; 
-     *  when its container is resized, the two edges maintain their separation.
+     *  @inheritDoc
      */
-    public function get baseline():Number
+    public function get baseline():Object
     {
         return _baseline;
     }
@@ -301,15 +293,12 @@ public class GraphicElement extends EventDispatcher
     /**
      *  @private
      */
-    public function set baseline(value:Number):void
+    public function set baseline(value:Object):void
     {
         if (_baseline == value)
             return;
 
-        var oldValue:Number = _baseline;
         _baseline = value;
-        dispatchPropertyChangeEvent("baseline", oldValue, value);
-
         invalidateParentSizeAndDisplayList();
     }
 
@@ -369,17 +358,14 @@ public class GraphicElement extends EventDispatcher
      *  @private
      *  Storage for the blendMode property.
      */
-    private var _bottom:Number;
+    private var _bottom:Object;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
-    
+
     /**
-     *  The vertical distance in pixels from the lower edge of the GraphicElement to the lower edge of its content area. 
-     *  If this property is set, the lower edge of the component is anchored to the bottom edge of its content area; 
-     *  when its container is resized, the two edges maintain their separation. 
+     *  @inheritDoc
      */
-    public function get bottom():Number
+    public function get bottom():Object
     {
         return _bottom;
     }
@@ -387,15 +373,12 @@ public class GraphicElement extends EventDispatcher
     /**
      *  @private
      */
-    public function set bottom(value:Number):void
+    public function set bottom(value:Object):void
     {
         if (_bottom == value)
             return;
 
-        var oldValue:Number = _bottom;
         _bottom = value;
-        dispatchPropertyChangeEvent("bottom", oldValue, value);
-
         invalidateParentSizeAndDisplayList();
     }
 
@@ -407,12 +390,12 @@ public class GraphicElement extends EventDispatcher
      *  @private
      *  Storage for the elementHost property.
      */
-    protected var _host:IGraphicElementHost;
+    protected var _host:GroupBase;
 
     /**
      *  The Group or Graphic tag that contains this element.
      */
-    public function get elementHost():IGraphicElementHost
+    public function get elementHost():GroupBase
     {
         return _host;
     }
@@ -420,7 +403,7 @@ public class GraphicElement extends EventDispatcher
     /**
      *  @private
      */
-    public function set elementHost(value:IGraphicElementHost):void
+    public function set elementHost(value:GroupBase):void
     {
         if (_host !== value)
         {
@@ -448,7 +431,7 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
 
     /**
-     *  @copy mx.core.UIComponent#explicitHeight
+     *  @inheritDoc
      */
     public function get explicitHeight():Number
     {
@@ -476,6 +459,46 @@ public class GraphicElement extends EventDispatcher
     }
 
     //----------------------------------
+    //  explicitMaxHeight
+    //----------------------------------
+
+    /**
+     *  @inheritDoc
+     */
+    public function get explicitMaxHeight():Number { return maxHeight; }
+    public function set explicitMaxHeight(value:Number):void { maxHeight = value; }
+
+    //----------------------------------
+    //  explicitMaxWidth
+    //----------------------------------
+
+    /**
+     *  @inheritDoc
+     */
+    public function get explicitMaxWidth():Number { return maxWidth; }
+    public function set explicitMaxWidth(value:Number):void { maxWidth = value; }
+
+    //----------------------------------
+    //  explicitMinHeight
+    //----------------------------------
+
+    /**
+     *  @inheritDoc
+     */
+    public function get explicitMinHeight():Number { return minHeight; }
+    public function set explicitMinHeight(value:Number):void { minHeight = value; }
+
+    //----------------------------------
+    //  explicitMinWidth
+    //----------------------------------
+
+    /**
+     *  @inheritDoc
+     */
+    public function get explicitMinWidth():Number { return minWidth; }
+    public function set explicitMinWidth(value:Number):void { minWidth = value; }
+
+    //----------------------------------
     //  explicitWidth
     //----------------------------------
     
@@ -489,7 +512,7 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
 
     /**
-     *  @copy mx.core.UIComponent#explicitHeight
+     *  @inheritDoc
      */
     public function get explicitWidth():Number
     {
@@ -645,17 +668,14 @@ public class GraphicElement extends EventDispatcher
      *  @private
      *  Storage for the horizontalCenter property.
      */
-    private var _horizontalCenter:Number;
+    private var _horizontalCenter:Object;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
-    
+
     /**
-     *  The horizontal distance in pixels from the center of the GraphicElement's content area to the center of the component. 
-     *  If this property is set, the center of the component will be anchored to the center of its content area; 
-     *  when its container is resized, the two centers maintain their horizontal separation. 
+     *  @inheritDoc
      */
-    public function get horizontalCenter():Number
+    public function get horizontalCenter():Object
     {
         return _horizontalCenter;
     }
@@ -663,15 +683,12 @@ public class GraphicElement extends EventDispatcher
     /**
      *  @private
      */
-    public function set horizontalCenter(value:Number):void
+    public function set horizontalCenter(value:Object):void
     {
         if (_horizontalCenter == value)
             return;
 
-        var oldValue:Number = _horizontalCenter;
         _horizontalCenter = value;
-        dispatchPropertyChangeEvent("horizontalCenter", oldValue, value);
-
         invalidateParentSizeAndDisplayList();
     }
 
@@ -683,17 +700,14 @@ public class GraphicElement extends EventDispatcher
      *  @private
      *  Storage for the left property.
      */
-    private var _left:Number;
+    private var _left:Object;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
-    
+
     /**
-     *  The horizontal distance in pixels from the left edge of the GraphicElement's content area to the left edge of the component. 
-     *  If this property is set, the left edge of the component is anchored to the left edge of its content area; 
-     *  when its container is resized, the two edges maintain their separation.
+     *  @inheritDoc
      */
-    public function get left():Number
+    public function get left():Object
     {
         return _left;
     }
@@ -701,15 +715,12 @@ public class GraphicElement extends EventDispatcher
     /**
      *  @private
      */
-    public function set left(value:Number):void
+    public function set left(value:Object):void
     {
         if (_left == value)
             return;
 
-        var oldValue:Number = _left;
         _left = value;
-        dispatchPropertyChangeEvent("left", oldValue, value);
-
         invalidateParentSizeAndDisplayList();
     }
 
@@ -1079,7 +1090,7 @@ public class GraphicElement extends EventDispatcher
         invalidateSize();
         invalidateParentSizeAndDisplayList();
     }
-
+    
     //----------------------------------
     //  percentHeight
     //----------------------------------
@@ -1094,7 +1105,7 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  @copy mx.core.UIComponent#percentHeight
+     *  @inheritDoc
      */
     public function get percentHeight():Number
     {
@@ -1166,17 +1177,14 @@ public class GraphicElement extends EventDispatcher
      *  @private
      *  Storage for the right property.
      */
-    private var _right:Number;
+    private var _right:Object;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
-    
+
     /**
-     *  The horizontal distance in pixels from the right edge of the GraphicElement to the right edge of its content area. 
-     *  If this property is set, the right edge of the component is anchored to the right edge of its content area; 
-     *  when its container is resized, the two edges maintain their separation. 
+     *  @inheritDoc
      */
-    public function get right():Number
+    public function get right():Object
     {
         return _right;
     }
@@ -1184,15 +1192,12 @@ public class GraphicElement extends EventDispatcher
     /**
      *  @private
      */
-    public function set right(value:Number):void
+    public function set right(value:Object):void
     {
         if (_right == value)
             return;
 
-        var oldValue:Number = _right;
         _right = value;
-        dispatchPropertyChangeEvent("right", oldValue, value);
-
         invalidateParentSizeAndDisplayList();
     }
 
@@ -1398,17 +1403,14 @@ public class GraphicElement extends EventDispatcher
      *  @private
      *  Storage for the top property.
      */
-    private var _top:Number;
+    private var _top:Object;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
-    
+
     /**
-     *  The vertical distance in pixels from the top edge of the GraphicElement's content area to the top edge of the component. 
-     *  If this property is set, the top edge of the component is anchored to the top edge of its content area; 
-     *  when its container is resized, the two edges maintain their separation. 
+     *  @inheritDoc
      */
-    public function get top():Number
+    public function get top():Object
     {
         return _top;
     }
@@ -1416,15 +1418,12 @@ public class GraphicElement extends EventDispatcher
     /**
      *  @private
      */
-    public function set top(value:Number):void
+    public function set top(value:Object):void
     {
         if (_top == value)
             return;
 
-        var oldValue:Number = _top;
         _top = value;
-        dispatchPropertyChangeEvent("top", oldValue, value);
-
         invalidateParentSizeAndDisplayList();
     }
 
@@ -1643,17 +1642,14 @@ public class GraphicElement extends EventDispatcher
      *  @private
      *  Storage for the verticalCenter property.
      */
-    private var _verticalCenter:Number;
+    private var _verticalCenter:Object;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
-    
+
     /**
-     *  The vertical distance in pixels from the center of the GraphicElement's content area to the center of the component. 
-     *  If this property is set, the center of the component is anchored to the center of its content area; 
-     *  when its container is resized, the two centers maintain their vertical separation. 
+     *  @inheritDoc
      */
-    public function get verticalCenter():Number
+    public function get verticalCenter():Object
     {
         return _verticalCenter;
     }
@@ -1661,15 +1657,12 @@ public class GraphicElement extends EventDispatcher
     /**
      *  @private
      */
-    public function set verticalCenter(value:Number):void
+    public function set verticalCenter(value:Object):void
     {
         if (_verticalCenter == value)
             return;
 
-        var oldValue:Number = _verticalCenter;
         _verticalCenter = value;
-        dispatchPropertyChangeEvent("verticalCenter", oldValue, value);
-
         invalidateParentSizeAndDisplayList();
     }
 
@@ -2082,19 +2075,6 @@ public class GraphicElement extends EventDispatcher
     public function get minSize():Point
     {
         return transformSizeForLayout(minWidth, minHeight, false /*actualMatrix*/);
-    }
-
-    //----------------------------------
-    //  percentSize
-    //----------------------------------
-
-    /**
-     *  The desired item TBounds size
-     *  as a percentage of parent UBounds. Could be NaN.
-     */
-    public function get percentSize():Point
-    {
-        return new Point(percentWidth, percentHeight);
     }
 
     //----------------------------------
@@ -3031,28 +3011,6 @@ public class GraphicElement extends EventDispatcher
         return null;
     }
 
-    //--------------------------------------------------------------------------
-    //
-    //  Methods: IConstraintClient
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    public function getConstraintValue(constraintName:String):*
-    {
-        return this[constraintName];
-    }
-
-    /**
-     *  @private
-     */
-    public function setConstraintValue(constraintName:String, value:*):void
-    {
-        this[constraintName] = value;
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
