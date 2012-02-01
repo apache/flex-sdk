@@ -129,7 +129,7 @@ public dynamic class ShaderFilter extends Proxy
     private var _bottomExtension:Number = 0.0;
 
     /**
-     *  @copy flash.filters.ShaderFilter#bottomExtension()
+     *  @copy flash.filters.ShaderFilter#bottomExtension
      */
     public function get bottomExtension():Number
     {
@@ -152,7 +152,7 @@ public dynamic class ShaderFilter extends Proxy
     private var _topExtension:Number = 0.0;
 
     /**
-     *  @copy flash.filters.ShaderFilter#topExtension()
+     *  @copy flash.filters.ShaderFilter#topExtension
      */
     public function get topExtension():Number
     {
@@ -175,7 +175,7 @@ public dynamic class ShaderFilter extends Proxy
     private var _leftExtension:Number = 0.0;
 
     /**
-     *  @copy flash.filters.ShaderFilter#leftExtension()
+     *  @copy flash.filters.ShaderFilter#leftExtension
      */
     public function get leftExtension():Number
     {
@@ -198,7 +198,7 @@ public dynamic class ShaderFilter extends Proxy
     private var _rightExtension:Number = 0.0;
 
     /**
-     *  @copy flash.filters.ShaderFilter#rightExtension()
+     *  @copy flash.filters.ShaderFilter#rightExtension
      */
     public function get rightExtension():Number
     {
@@ -455,7 +455,7 @@ public dynamic class ShaderFilter extends Proxy
         if (_shader)
         {
             _shader.precisionHint = _precisionHint ? 
-            	_precisionHint : _shader.precisionHint;
+                _precisionHint : _shader.precisionHint;
             instance = new flash.filters.ShaderFilter(_shader);
             instance.bottomExtension = _bottomExtension;
             instance.topExtension = _topExtension;
