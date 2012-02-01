@@ -72,12 +72,17 @@ in accordance with the terms of the license agreement accompanying it.
     <s:layout>
         <s:FormItemLayout>
             <s:constraintColumns>
+                <!--- The column containing the sequence label. -->
                 <s:ConstraintColumn id="sequenceCol" />
+                <!--- The column containing the form item's label. -->
                 <s:ConstraintColumn id="labelCol" />
+                <!--- The column containing the form item's content. -->
                 <s:ConstraintColumn id="contentCol" width="100%"/>
+                <!--- The column containing the form item's help content. -->
                 <s:ConstraintColumn id="helpCol"/>
             </s:constraintColumns>         
             <s:constraintRows>
+                <!--- @private -->
                 <s:ConstraintRow id="row1" height="100%"/>
             </s:constraintRows>  
         </s:FormItemLayout>
@@ -90,7 +95,8 @@ in accordance with the terms of the license agreement accompanying it.
             <s:SolidColor id="bgFill" color="#FFFFFF"/>
         </s:fill>
     </s:Rect>
-            
+    
+    <!--- @copy spark.components.FormHeading#labelDisplay -->
     <s:Label id="labelDisplay"
              left="labelCol:0" right="helpCol:10" top="row1:10" bottom="row1:10" />
 
