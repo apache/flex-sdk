@@ -39,17 +39,17 @@
     <!-- border/fill --> 
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:stroke>
-            <s:SolidColorStroke color="0x5380D0" weight="1"/>            
+            <s:SolidColorStroke color="#5C5C5C" weight="1"/>            
         </s:stroke>
         <s:fill>
-            <s:SolidColor color="0xFFFFFF"/>
+            <s:SolidColor color="#FFFFFF"/>
         </s:fill>
     </s:Rect>
 
     <!-- shadow -->
     <s:Rect left="1" top="1" right="1" height="1">
         <s:fill>
-            <s:SolidColor color="0x000000" alpha="0.12" />
+            <s:SolidColor color="#000000" alpha="0.12" />
         </s:fill>
     </s:Rect>
 
