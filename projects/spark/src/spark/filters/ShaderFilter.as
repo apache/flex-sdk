@@ -72,8 +72,24 @@ use namespace flash_proxy;
  * <p>As properties on the ShaderFilter change (such as during animation), the
  * ShaderFilter automatically reapplies itself to the filters array of the visual
  * component it is applied to.</p>
+ * 
+ *  @mxml 
+ *  <p>The <code>&lt;ShaderFilter&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
  *
- * @see mx.effects.AnimateFilter 
+ *  <pre>
+ *  &lt;ShaderFilter
+ *    <strong>Properties</strong>
+ *    bottomExtension="0"
+ *    leftExtension="0"
+ *    precisionHint="full"
+ *    rightExtension="0"
+ *    shader="[]"
+ *    topExtension="0"
+ *  /&gt;
+ *  </pre>
+ *
+ * @see spark.effects.AnimateFilter 
  *
  * @example Simple ShaderFilter example:
  * <listing version="3.0">
@@ -212,6 +228,8 @@ public dynamic class ShaderFilter extends Proxy
     
     /**
      * A flash.display.Shader instance.
+     *
+     *  @see flash.display.Shader 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -231,6 +249,8 @@ public dynamic class ShaderFilter extends Proxy
 
     /**
      *  @copy flash.filters.ShaderFilter#bottomExtension
+     *
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -259,6 +279,8 @@ public dynamic class ShaderFilter extends Proxy
 
     /**
      *  @copy flash.filters.ShaderFilter#topExtension
+     *
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -287,6 +309,8 @@ public dynamic class ShaderFilter extends Proxy
 
     /**
      *  @copy flash.filters.ShaderFilter#leftExtension
+     *
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -315,6 +339,8 @@ public dynamic class ShaderFilter extends Proxy
 
     /**
      *  @copy flash.filters.ShaderFilter#rightExtension
+     *
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -345,9 +371,11 @@ public dynamic class ShaderFilter extends Proxy
     private var _precisionHint:String = ShaderPrecision.FULL;
 
     /**
-     * The precision of math operations performed by the underlying shader.
-     * The set of possible values for the precisionHint property is defined 
-     * by the constants in the ShaderPrecision class.
+     *  The precision of math operations performed by the underlying shader.
+     *  The set of possible values for the precisionHint property is defined 
+     *  by the constants in the ShaderPrecision class.
+     *
+     *  @default ShaderPrecision.FULL
      * 
      *  @see flash.display.Shader
      *  @see flash.display.ShaderPrecision
