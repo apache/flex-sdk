@@ -4398,7 +4398,7 @@ public class GraphicElement extends EventDispatcher
             if (layoutFeatures)  // mirroring transform depends on width
             {
                 layoutFeatures.layoutWidth = width;
-                invalidateTransform();
+                invalidateTransform(false /*changeInvalidatesLayering*/, false /*invalidateLayout*/);
             }
             
             if (width != oldWidth)
