@@ -66,29 +66,6 @@ public class BitmapGraphic extends GraphicElement
     //  Properties
     //
     //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  alwaysNeedsDisplayObject
-    //----------------------------------
-    
-    private var _alwaysNeedsDisplayObject:Boolean = false;
-    
-    /*
-     *  Set this to true to force the Graphic Element to create an underlying Shape
-     */
-    mx_internal function set alwaysNeedsDisplayObject(value:Boolean):void
-    {
-        if (value != _alwaysNeedsDisplayObject)
-        {
-            _alwaysNeedsDisplayObject = value;
-            notifyElementLayerChanged();
-        }
-    }
-    
-    mx_internal function get alwaysNeedsDisplayObject():Boolean
-    {
-        return _alwaysNeedsDisplayObject;
-    }
     
     //----------------------------------
     //  resizeMode
@@ -149,7 +126,6 @@ public class BitmapGraphic extends GraphicElement
      */
     protected var _resizeMode:uint = _REPEAT_UINT;
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -179,25 +155,17 @@ public class BitmapGraphic extends GraphicElement
     public function set resizeMode(mode:String):void
     {
         var value:uint = resizeModeToUINT(mode);
-        var oldValue:uint = _resizeMode;
-        var oldRepeat:Boolean = repeat;
-        if (value != oldValue)
+        if (value != _resizeMode)
         {
             _resizeMode = value;
             invalidateDisplayList();
-            dispatchPropertyChangeEvent("resizeMode", oldValue, value);
         }
-        if (repeat != oldRepeat)
-        {
-            dispatchPropertyChangeEvent("repeat", oldValue, repeat);
-        } 
     }
 
     //----------------------------------
     //  repeat
     //----------------------------------
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -216,14 +184,11 @@ public class BitmapGraphic extends GraphicElement
      *  @private
      */
     public function set repeat(value:Boolean):void
-    {
-        var oldValue:Boolean = repeat;
-        
-        if (value != oldValue)
+    {        
+        if (value != repeat)
         {
             resizeMode = value ? BitmapResizeMode.REPEAT : BitmapResizeMode.NORMAL;  
             invalidateDisplayList();
-            dispatchPropertyChangeEvent("repeat", oldValue, value);
         }
     }
 
@@ -231,7 +196,6 @@ public class BitmapGraphic extends GraphicElement
     //  source
     //----------------------------------
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -274,10 +238,8 @@ public class BitmapGraphic extends GraphicElement
      *  @private
      */
     public function set source(value:Object):void
-    {
-        var oldValue:Object = _fill.source;
-        
-        if (value != oldValue)
+    {        
+        if (value != _fill.source)
         {
             var bitmapData:BitmapData;
             var tmpSprite:DisplayObject;
@@ -317,7 +279,6 @@ public class BitmapGraphic extends GraphicElement
             }       
             
             _fill.source = bitmapData;
-            dispatchPropertyChangeEvent("source", oldValue, value);
             invalidateSize();
             invalidateDisplayList();
         }
