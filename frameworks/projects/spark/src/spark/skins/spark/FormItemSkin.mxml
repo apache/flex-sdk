@@ -4,10 +4,11 @@
         xmlns:mx="library://ns.adobe.com/flex/mx">
     <s:states>
         <s:State name="normal" />
-        <s:State name="error" />	
-        <s:State name="required" />	
-        <s:State name="disabledAndRequired" />	
-        <s:State name="disabled" />	
+        <s:State name="disabled" stateGroups="disabledStates"/>	
+        <s:State name="error" stateGroups="errorStates"/>	
+        <s:State name="required" stateGroups="requiredStates"/>	
+        <s:State name="requiredAndDisabled" stateGroups="requiredStates, disabledStates"/>
+        <s:State name="requiredAndError" stateGroups="requiredStates, errorStates"/>	
     </s:states>
     
     <fx:Style>
@@ -34,7 +35,7 @@
     
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:fill>
-            <s:SolidColor color="0x449922" color.error="0xFFDDDD" alpha="0" alpha.required=".3" alpha.error=".2"/>
+            <s:SolidColor color="0x449922" color.errorStates="0xFFDDDD" alpha="0" alpha.requiredStates=".3" alpha.error=".2"/>
         </s:fill>
     </s:Rect>
     
@@ -58,14 +59,14 @@
         <s:Label id="sequenceLabelDisplay" right="numCol:3" baseline="row1:24" />
         <s:Label id="labelDisplay" left="labelCol:2" right="labelCol:2" baseline="row1:24" styleName="labelStyle"/>
         <mx:Image source="@Embed(source='Assets.swf',symbol='mx.containers.FormItem.Required')" 
-                  horizontalCenter="indicatorCol:0" baseline="row1:24" visible="false" visible.required="true"/>
-        <s:Group id="contentGroup" left="contentCol:3" right="contentCol:3" baseline="row1:20">
+                  horizontalCenter="indicatorCol:0" baseline="row1:24" visible="false" visible.requiredStates="true"/>
+        <s:Group id="contentGroup" left="contentCol:3" right="contentCol:3" baseline="row1:20" showErrorTip="false" showErrorSkin="true">
             <s:layout>
                 <s:VerticalLayout/>
             </s:layout>
         </s:Group>
         <s:Group id="helpContentGroup" left="helpCol:5" right="helpCol:3" top="row1:0" bottom="row1:0"/>
-        <s:RichText id="errorTextDisplay" styleName="errorTextStyle" visible="false" visible.error="true"
+        <s:RichText id="errorTextDisplay" styleName="errorTextStyle" visible="false" visible.errorStates="true"
                     left="errorCol:5" right="errorCol:3" height="100%" baseline="row1:24" maxDisplayedLines="-1"/>    
         <!--<s:RichText id="helpTextElement" styleName="helpTextStyle" 
                     left="helpCol:5" right="helpCol:3" height="100%" baseline="row1:24" maxDisplayedLines="-1"/> -->       
