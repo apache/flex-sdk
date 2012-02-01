@@ -38,7 +38,7 @@
 	    <s:DataGroup id="dataGroup" width="110" height="110"
 		itemRenderer="spark.skins.default.DefaultItemRenderer">
 	    	<s:layout>
-	    	    <s:VerticalLayout gap="0" />
+	    	    <s:VerticalLayout gap="0" horizontalAlign="contentJustify" />
 	    	</s:layout>
 	    </s:DataGroup>
     </s:Scroller>
