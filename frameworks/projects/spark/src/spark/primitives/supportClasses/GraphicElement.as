@@ -28,7 +28,7 @@ import flash.geom.Transform;
 import mx.components.baseClasses.GroupBase;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.IInvalidating;
-import mx.core.IVisualItem;
+import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -66,7 +66,7 @@ use namespace mx_internal;
  *  of an object in its own coordinate space.</p>
  */
 public class GraphicElement extends OnDemandEventDispatcher
-    implements IGraphicElement, IInvalidating, ILayoutItem, IVisualItem
+    implements IGraphicElement, IInvalidating, ILayoutItem, IVisualElement
 {
     include "../../core/Version.as";
 
