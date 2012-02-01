@@ -2,22 +2,40 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
 <ItemRenderer xmlns="http://ns.adobe.com/mxml/2009">
-	
+    
     <states>
-		<State name="normal"/>			
-		<State name="hovered"/>
-		<State name="selected"/>
-	</states>
+        <State name="normal"/>            
+        <State name="hovered"/>
+        <State name="selected"/>
+    </states>
+    
+    <Script>
+	    <![CDATA[
+	        [Bindable("dataChanged")]
+	        override public function set data(value:Object):void
+	        {
+	            super.data = value;
+	            
+	            // using mxmlContent for whole-sale changes is a little more 
+	            // performant than continuously calling removeElement() and 
+	            // addElement()
+	            if (data == null || data is Array)
+	               contentGroup.mxmlContent = data as Array;
+	            else
+	               contentGroup.mxmlContent = [data];
+	        }
+	    ]]>
+	</Script>
 	
 	<Rect left="0" right="0" top="0" bottom="0">
 		<fill>
@@ -25,6 +43,6 @@
                         alpha="0" alpha.hovered="0.2" alpha.selected="0.8" />
 		</fill>
 	</Rect>
-	<Group mxmlContent="{data ? [data] : null}" verticalCenter="0" left="2" right="2" top="2" bottom="2" />
+	<Group id="contentGroup" verticalCenter="0" left="2" right="2" top="2" bottom="2" />
 
 </ItemRenderer>
