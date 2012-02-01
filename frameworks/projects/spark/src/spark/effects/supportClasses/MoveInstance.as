@@ -53,6 +53,11 @@ public class FxMoveInstance extends FxAnimateInstance
     /** 
      *  Number of pixels by which to modify the y of the component.
      *  Values may be negative.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var yBy:Number;
     
@@ -62,6 +67,11 @@ public class FxMoveInstance extends FxAnimateInstance
 
     /** 
      *  Initial y. If omitted, Flex uses the current size.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var yFrom:Number;
 
@@ -72,6 +82,11 @@ public class FxMoveInstance extends FxAnimateInstance
     
     /** 
      *  Final y, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var yTo:Number;
     
@@ -82,6 +97,11 @@ public class FxMoveInstance extends FxAnimateInstance
     /** 
      *  Number of pixels by which to modify the width of the component.
      *  Values may be negative.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public var xBy:Number;
 
@@ -91,6 +111,11 @@ public class FxMoveInstance extends FxAnimateInstance
 
     /** 
      *  Initial x. If omitted, Flex uses the current size.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var xFrom:Number;
 
@@ -100,6 +125,11 @@ public class FxMoveInstance extends FxAnimateInstance
 
     /** 
      *  Final x, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var xTo:Number;
     
