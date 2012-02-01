@@ -1756,10 +1756,19 @@ public class GraphicElement extends EventDispatcher
     public function set transform(value:flash.geom.Transform):void
     {
         // TODO (jszeto): Add perspectiveProjection support
-        
         var matrix:Matrix = value && value.matrix ? value.matrix.clone() : null;
         var matrix3D:Matrix3D = value && value.matrix3D ? value.matrix3D.clone() : null;
         var colorTransform:ColorTransform = value ? value.colorTransform : null;
+        
+        var mxTransform:mx.geom.Transform = value as mx.geom.Transform; 
+        if (mxTransform)
+        {
+            if (!mxTransform.applyMatrix)
+                matrix = null;
+            
+            if (!mxTransform.applyMatrix3D)
+                matrix3D = null;
+        }
         
         setTransform(value);
 
@@ -1779,7 +1788,7 @@ public class GraphicElement extends EventDispatcher
             }          
         }
         
-        var mxTransform:mx.geom.Transform = value as mx.geom.Transform;        
+             
         applyColorTransform(colorTransform, mxTransform && mxTransform.applyColorTransformAlpha);
 
         invalidateTransform(previous != needsDisplayObject);
