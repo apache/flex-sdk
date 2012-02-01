@@ -66,6 +66,6 @@
         skinClass="spark.skins.wireframe.DropDownListButtonSkin" />  
     <s:Label id="labelDisplay" verticalAlign="middle" lineBreak="explicit"
         mouseEnabled="false" mouseChildren="false"
-        left="7" right="30" top="2" bottom="2" verticalCenter="1" /> 
+        left="7" right="30" top="2" bottom="2" width="75" verticalCenter="1" /> 
 
 </s:Skin>
