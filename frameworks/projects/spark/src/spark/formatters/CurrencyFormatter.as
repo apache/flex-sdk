@@ -36,7 +36,7 @@ use namespace mx_internal;
  *  <code>flash.globalization.CurrencyFormatter</code>. Therefore,
  *  the locale-specific formatting
  *  is provided by the <code>flash.globalization.CurrencyFormatter</code>.
- *  However, this CurrencyFormatter class can be used in MXML declartions,
+ *  However, this CurrencyFormatter class can be used in MXML declarations,
  *  uses the locale style for the requested Locale ID name, and has
  *  methods and properties that are bindable.
  *  </p><p>
@@ -46,6 +46,21 @@ use namespace mx_internal;
  *  the flash.globalization classes are unsupported, on these systems this
  *  wrapper class provides fallback functionality.
  *  </p>
+ *
+ *  @mxml <p>The <code>&lt;s:CurrencyFormatter&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:CurrencyFormatter 
+ *    <strong>Properties</strong>
+ *    actualLocaleIDName="<i>locale and OS dependent</i>"
+ *    currencyISOCode="<i>locale and OS dependent</i>"
+ *    currencySymbol="<i>locale and OS dependent</i>"
+ *    negativeCurrencyFormat="<i>locale and OS dependent</i>"
+ *    positiveCurrencyFormat="<i>locale and OS dependent</i>"
+ *    useCurrencySymbol="false"
+ *  /&gt;
+ *  </pre>
  *
  *  @includeExample examples/CurrencyFormatterExample1.mxml
  *  @includeExample examples/CurrencyFormatterExample2.mxml
@@ -89,8 +104,8 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  representing currency amounts according to
      *  the conventions of a given locale.
      *  <p>
-     *  The locale for this class is supplied by the locale style. The
-     *  locale style can be set in several ways:
+     *  The locale for this class is supplied by the <code>locale</code> style. The
+     *  <code>locale</code> style can be set in several ways:
      *  </p>
      *  <ul>
      *  <li>
@@ -98,23 +113,23 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  locale from the document that contains the declaration.
      *  </li>
      *  Example:
-     *  <listing version="3.0" >
+     *  <pre>
      *  &lt;fx:Declarations&gt; <br>
      *         &lt;s:CurrencyFormatter id="cf" /&gt; <br>
      *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  </pre>
      *  <li>
      *  By using an MXML declaration and specifying the locale value
      *  in the list of assignments.
      *  </li>
      *  Example:
-     *  <listing version="3.0" >
+     *  <pre>
      *  &lt;fx:Declarations&gt; <br>
      *      &lt;s:CurrencyFormatter id="cf_Japanese" locale="ja-JP" /&gt; <br>
      *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  </pre>
      *  <li>
-     *  Calling the setStyle method,
+     *  Calling the <code>setStyle()</code> method,
      *  e.g. <code>cf.setStyle("locale", "ja-JP")</code>
      *  </li>
      *  <li> 
@@ -123,18 +138,18 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  </li>
      *  </ul>
      *  <p>
-     *  If the locale style is not set by one of the above techniques,
+     *  If the <code>locale</code> style is not set by one of the above techniques,
      *  the methods of this class that depend on the locale
-     *  will set lastOperationStatus to 
+     *  sets <code>lastOperationStatus</code> to 
      *  <code>LastOperationStatus.LOCALE_UNDEFINED_ERROR</code>
      *  and depending on the return type the methods will return 
      *  <code>null</code>, 0, or <code>undefined</code>.</p>
      * 
      *  <p>Most of the properties of 
-     *  this class are automatically set based on the locale style. If the
-     *  locale style is changed, any properties that have not been explicitly
+     *  this class are automatically set based on the <code>locale</code> style. If the
+     *  <code>locale</code> style is changed, any properties that have not been explicitly
      *  set will also be updated based on the new locale. Note that the 
-     *  actual locale that is used is specified by the actualLocaleIDName
+     *  actual locale that is used is specified by the <code>actualLocaleIDName</code>
      *  property.</p>
      *
      *  <p><strong>NOTE: When a fallback locale is used, the currency
@@ -196,7 +211,7 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
     /**
      *  @inheritDoc
      *
-     *  @see flash.globalization.CurrencyFormatter.actualLocaleIDName
+     *  @see flash.globalization.CurrencyFormatter#actualLocaleIDName
      *  @see #CurrencyFormatter()
      *
      *  @langversion 3.0
@@ -247,11 +262,11 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  based on the actual locale that is used. When a fallback
      *  locale is used, this property reflects the preferred/default
      *  currency code for the fallback locale.</p>
-     *
-     *  @throws TypeError if this property is assigned a null value. 
      * 
      *  <p>The default value is dependent on the actual locale and operating 
      *  system.</p>
+     *
+     *  @throws TypeError if this property is assigned a null value. 
      *
      *  @see #actualLocaleIDName
      *  @see #format()
@@ -327,11 +342,11 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  locale is used, this property reflects the preferred/default
      *  currency symbol for the fallback locale which may be different
      *  then the locale style.</p>
-     *
-     *  @throws TypeError if this property is assigned a null value. 
      * 
      *  <p>The default value is dependent on the actual locale and operating 
      *  system.</p>
+     *
+     *  @throws TypeError if this property is assigned a null value. 
      *
      *  @see #actualLocaleIDName
      *  @see #format()
@@ -493,11 +508,11 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *            <td>(n &#164;)</td>
      *        </tr>
      *    </table>
-     *
-     *  @throws ArgumentError if the assigned value is not between 0 and 15.
      * 
      *  <p>The default value is dependent on the actual locale and operating 
      *  system.</p>
+     *
+     *  @throws ArgumentError if the assigned value is not between 0 and 15.
      * 
      *  @see #format()
      *  @see #currencySymbol
@@ -582,10 +597,10 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *        </tr>
      *    </table>
      *
-     *  @throws ArgumentError if the assigned value is not between 0 and 3.
-     *
      *  <p>The default value is dependent on the actual locale and operating 
      *  system.</p>
+     *
+     *  @throws ArgumentError if the assigned value is not between 0 and 3.
      *
      *  @see #currencySymbol
      *  @see #format()
@@ -746,14 +761,15 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
     /**
      *  Creates a string representing a currency amount formatted
      *  according to the current properties of this CurrencyFormatter object,
-     *  including the locale, useCurrencySymbol, the currencySymbol or 
-     *  the currencyISOCode.
+     *  including the <code>locale</code>, <code>useCurrencySymbol</code>, 
+     *  the <code>currencySymbol</code>, or 
+     *  the <code>currencyISOCode</code> properties.
      *
      *  <p>The <code>useCurrencySymbol</code> property determines whether the
-     *  format method will use the <code>currencySymbol</code> or the 
-     *  <code>currencyISOCod</code>e in the
+     *  format method uses the <code>currencySymbol</code> or the 
+     *  <code>currencyISOCode</code> in the
      *  formatted currency amount. The default value for 
-     *  <code>useCurrencySymobl</code> is false
+     *  <code>useCurrencySymobl</code> is <code>false</code>
      *  and thus by default currency amounts will be formatted with the 
      *  <code>currencyISOCode</code></p>
      *
@@ -767,7 +783,7 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  You can use the <code>formattingWithCurrencySymbolIsSafe()</code>
      *  method to test whether or the ISO code of the
      *  currency to be formatted matches the  default currency ISO code
-     *  for the actual locael used by the formatter.
+     *  for the actual local used by the formatter.
      *  </p>
      *
      *  <p>This method can format numbers of very large and very small
@@ -776,19 +792,18 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  </p>
      * 
      *  <p>If there is an error when formatting, due to an illegal input value 
-     *  or other error, by default the <code>format()</code> method will 
-     *  return <code>null</code>. However if the <code>errorText</code> property
-     *  is non-null, then the value of the <code>errorText</code> property will
-     *  be returned. The <code>lastOperationStatus</code> property will be
+     *  or other error, by default the <code>format()</code> method  
+     *  returns <code>null</code>. However if the <code>errorText</code> property
+     *  is non-null, then the value of the <code>errorText</code> property is
+     *  returned. The <code>lastOperationStatus</code> property is
      *  set to indicate the error that occurred.</p>
-     *  
      *
      *  @param value An object that contains the numeric value to be formatted
      *  into a currency string. If the 
      *  object is not a <code>Number</code> then it will be converted
      *  to a number using the <code>Number()</code> conversion function.
      *
-     *  @example  In this example the locale style is set to
+     *  @example  In this example the <code>locale</code> style is set to
      *  fr-CA [French (Canada)]. The example assumes that this locale
      *  is supported in the user's operating system and therefore
      *  no fallback locale is used.
@@ -796,7 +811,7 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  ISO code of CAD. Therefore when formatting a currency
      *  with the default values, CAD is used as the currency symbol. However
      *  when the <code>useCurrencySymbol</code> property is set to
-     *  true, the <code>currencySymbol</code>
+     *  <code>true</code>, the <code>currencySymbol</code>
      *  property is used to format the currency amount.
      *
      *  <listing version="3.0" >
@@ -819,10 +834,10 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  amount in Canadian dollars using the default user's locale.
      *  The <code>formattingWithCurrencySymbolIsSafe()</code> method
      *  is used to set the value of <code>useCurrencySymbol</code> 
-     *  property. If the user's default locale is Canada (e.g.
+     *  property. If the user's default locale is Canada (for example 
      *  fr-CA or en-CA), then the default currency symbol for Canada
-     *  will be used. If there is some locale is the default, then the
-     *  currencyISOCode of CAD will be used in the formatted currency
+     *  is used. If there is some locale is the default, then the
+     *  <code>currencyISOCode</code> of CAD will be used in the formatted currency
      *  amount.</p>
      *
      *  <listing version="3.0" >
@@ -928,7 +943,7 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  different from the user's default).</p>
      *
      *  <p>This method compares the <code>requestedISOCode</code>
-     *  parameter against the acutal locale's default 
+     *  parameter against the actual locale's default 
      *  <code>currencyISOCode</code>,
      *  returning <code>true</code> if the strings are
      *  equal and <code>false</code> if they are not.
@@ -937,9 +952,10 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  <code>useCurrencySymbol</code> property set to <code>true</code>
      *  results in a formatted currency value string
      *  with a currency symbol that is used in the current locale.
-     *  If this method returns false, then using the <code>format()</code>
+     *  If this method returns <code>false</code>, 
+     *  then using the <code>format()</code>
      *  method with the <code>useCurrencySymbol</code>
-     *  property set to true could result in the use of an ambiguous
+     *  property set to <code>true</code> could result in the use of an ambiguous
      *  or incorrect currency symbol.
      *  </p>
      *
