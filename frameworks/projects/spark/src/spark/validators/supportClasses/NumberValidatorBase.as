@@ -54,18 +54,23 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
 
     private static const ALLOW_NEGATIVE:String = "allowNegative";
     private static const DECIMAL_SEPARATOR:String = "decimalSeparator";
+    private static const DIGITS_TYPE:String = "digitsType";
     private static const FRACTIONAL_DIGITS:String = "fractionalDigits";
-    private static const GROUPING_PATTERN:String = "groupingPattern";
     private static const GROUPING_SEPARATOR:String = "groupingSeparator";
     private static const NEGATIVE_SYMBOL:String = "negativeSymbol";
 
     // Used by inheritors.
     mx_internal static const NUMBER_VALIDATOR_TYPE:int = 1;
     mx_internal static const CURRENCY_VALIDATOR_TYPE:int = 2;
+    private static const NEGATIVE_SYMBOLS:String = "-" + 
+        String.fromCharCode(0x2212, 0xFE63, 0xFF0D);
+    mx_internal static  const VALID_CHARS:String = DECIMAL_DIGITS + "(" 
+         + ")" + NEGATIVE_SYMBOLS;
 
     // Follows flash.globalization limit.
     private static const PATTERN_LENGTH_LIMIT:int = 10;
     private static const DECIMAL_SEP_STD:String = ".";
+    
 
     /**
      *  @private
@@ -96,6 +101,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
         // is a boolean. Hence load it explicitly.
         _allowNegative = allowNegativeOverride = resourceManager.getBoolean(
             "validators", "allowNegative");
+        _domain = NumberValidatorDomainType.REAL;
     }
 
     //--------------------------------------------------------------------------
@@ -249,7 +255,45 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
         setBasicProperty(properties, DECIMAL_SEPARATOR, value);
     }
 
+    //----------------------------------
+    //  digitsType
+    //----------------------------------
     
+    [Bindable("change")]
+    
+    /**
+     *  Defines the set of digit characters to be used when
+     *  validating numbers.
+     *
+     *  <p>Different languages and regions use different sets of
+     *  characters to represent the
+     *  digits 0 through 9.  This property defines the set of digits
+     *  to be used.</p>
+     *
+     *  <p>The value of this property represents the Unicode value for
+     *  the zero digit of a decimal digit set.
+     *  The valid values for this property are defined in the
+     *  <code>NationalDigitsType</code> class.</p>
+     *
+     *  The default value is dependent on the locale and operating system.
+     *
+     *  @see flash.globalization.NationalDigitsType
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get digitsType():uint
+    {
+        return getBasicProperty(properties, DIGITS_TYPE);
+    }
+    
+    public function set digitsType(value:uint):void
+    {
+        setBasicProperty(properties, DIGITS_TYPE, value);
+    }
+
     //----------------------------------
     //  domain
     //----------------------------------
@@ -341,96 +385,6 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     public function set fractionalDigits(value:int):void
     {
         setBasicProperty(properties, FRACTIONAL_DIGITS, value);
-    }
-
-    //----------------------------------
-    //  groupingPattern
-    //----------------------------------
-
-    [Bindable("change")]
-
-    /**
-     *  Describes the placement of grouping separators within the
-     *  validated number string.
-     *
-     *  <p>The grouping pattern is defined as a string containing
-     *  numbers separated by semicolons and optionally may end
-     *  with an asterisk. For example: <code>"3;2;&#42;"</code>.
-     *  Each number in the string represents the number of digits
-     *  in a group. The grouping separator is placed before each
-     *  group of digits. An asterisk at the end of the string
-     *  indicates that groups with that number of digits should be
-     *  repeated for the rest of the formatted string.
-     *  If there is no asterisk then there are no additional groups
-     *  or separators for the rest of the formatted string. </p>
-     *
-     *  <p>The first number in the string corresponds to the first
-     *  group of digits to the left of the decimal separator.
-     *  Subsequent numbers define the number of digits in subsequent
-     *  groups to the left. Thus the string "3;2;&#42;"
-     *  indicates that a grouping separator is placed after the first
-     *  group of 3 digits, followed by groups of 2 digits.
-     *  For example: <code>98,76,54,321</code></p>
-     *
-     *  <p>The following table shows examples of formatting the
-     *  number 123456789.12 with various grouping patterns.
-     *  The grouping separator is a comma and the decimal separator
-     *  is a period.
-     *  </p>
-     *    <table class="innertable" border="0">
-     *          <tr>
-     *                <td>Grouping Pattern</td>
-     *                <td>Sample Format</td>
-     *          </tr>
-     *          <tr>
-     *                <td><code>3;&#42;</code></td>
-     *                <td>123,456,789.12</td>
-     *          </tr>
-     *          <tr>
-     *                <td><code>3;2;&#42;</code></td>
-     *                <td>12,34,56,789.12</td>
-     *          </tr>
-     *          <tr>
-     *                <td><code>3</code></td>
-     *                <td>123456,789.12</td>
-     *          </tr>
-     *    </table>
-     *
-     *  <p>Only a limited number of grouping sizes can be defined.
-     *  On some operating systems, grouping patterns can only contain
-     *  two numbers plus an asterisk. Other operating systems can
-     *  support up to four numbers and an asterisk.
-     *  For patterns without an asterisk, some operating systems
-     *  only support one number while others support up to three numbers.
-     *  If the maximum number of grouping pattern elements is exceeded,
-     *  then additional elements
-     *  are ignored and the <code>lastOperationStatus</code> property
-     *  is set to indicate that a fall back value is
-     *  being used.
-     *  </p>
-     *
-     *  @throws TypeError if this property is assigned a null value.
-     *
-     *  @default dependent on the locale and operating system.
-     *
-     *  @see #groupingSeparator
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get groupingPattern():String
-    {
-        return getBasicProperty(properties, GROUPING_PATTERN);
-    }
-
-    public function set groupingPattern(value:String):void
-    {
-        setBasicProperty(properties, GROUPING_PATTERN, value);
-        // donot override the default if grouping pattern is incorrect.
-        if (!parseGroupingPattern(value))
-            return;
     }
 
     //----------------------------------
@@ -606,7 +560,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     protected var decimalPointCountErrorOverride:String;
 
     [Inspectable(category="Errors", defaultValue="null")]
-
+    [Bindable("change")]
     /**
      *  Error message when the decimal separator character occurs more than
      *  once.
@@ -625,10 +579,15 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
 
     public function set decimalPointCountError(value:String):void
     {
+        if (decimalPointCountErrorOverride && 
+            (decimalPointCountErrorOverride == value))
+            return;
+        
         decimalPointCountErrorOverride = value;
 
         _decimalPointCountError = value ? value :
               resourceManager.getString("validators", "decimalPointCountError");
+        update();
     }
 
     //----------------------------------
@@ -647,7 +606,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     protected var fractionalDigitsErrorOverride:String;
     
     [Inspectable(category="Errors", defaultValue="null")]
-    
+    [Bindable("change")]
     /**
      *  Error message when fraction digits exceeds the value specified
      *  by the fractionalDigits property.
@@ -667,10 +626,15 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     
     public function set fractionalDigitsError(value:String):void
     {
+        if (fractionalDigitsErrorOverride && 
+            (fractionalDigitsErrorOverride == value))
+            return;
+        
         fractionalDigitsErrorOverride = value;
         
         _fractionalDigitsError = value ? value :
             resourceManager.getString("validators", "fractionalDigitsError");
+        update();
     }
 
     //----------------------------------
@@ -689,7 +653,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     protected var greaterThanMaxErrorOverride:String;
 
     [Inspectable(category="Errors", defaultValue="null")]
-
+    [Bindable("change")]
     /**
      *  Error message when the value exceeds the <code>maxValue</code> property.
      *
@@ -710,51 +674,15 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      */
     public function set greaterThanMaxError(value:String):void
     {
+        if (greaterThanMaxErrorOverride &&
+            (greaterThanMaxErrorOverride == value))
+            return;
+        
         greaterThanMaxErrorOverride = value;
 
         _greaterThanMaxError = value ? value :
                    resourceManager.getString("validators", "exceedsMaxErrorNV");
-    }
-
-    //----------------------------------
-    //  groupingSeparationError
-    //----------------------------------
-    
-    /**
-     *  @private
-     *  Storage for the groupingSeparationError property.
-     */
-    private var _groupingSeparationError:String;
-    
-    /**
-     *  @private
-     */
-    protected var groupingSeparationErrorOverride:String;
-    
-    [Inspectable(category="Errors", defaultValue="null")]
-    
-    /**
-     *  Error message when the grouping separator is in incorrect location.
-     *
-     *  @default "The number digits grouping is not following the grouping
-     *  pattern."
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get groupingSeparationError():String
-    {
-        return _groupingSeparationError;
-    }
-    
-    public function set groupingSeparationError(value:String):void
-    {
-        groupingSeparationErrorOverride = value;
-        
-        _groupingSeparationError = value ? value :
-            resourceManager.getString("validators", "groupingSeparationError");
+        update();
     }
 
     //----------------------------------
@@ -773,7 +701,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     protected var invalidCharErrorOverride:String;
     
     [Inspectable(category="Errors", defaultValue="null")]
-    
+    [Bindable("change")]
     /**
      *  Error message when the value contains invalid characters.
      *
@@ -794,10 +722,15 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      */
     public function set invalidCharError(value:String):void
     {
+        if (invalidCharErrorOverride &&
+            (invalidCharErrorOverride == value))
+            return;
+        
         invalidCharErrorOverride = value;
         
         _invalidCharError = value ? value :
             resourceManager.getString("validators", "invalidCharError");
+        update();
     }
     
     //----------------------------------
@@ -816,7 +749,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     protected var invalidFormatCharsErrorOverride:String;
     
     [Inspectable(category="Errors", defaultValue="null")]
-    
+    [Bindable("change")]
     /**
      *  Error message when the value contains invalid format characters, which
      *  means that it contains a digit or minus sign (-) as a separator
@@ -836,10 +769,15 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     
     public function set invalidFormatCharsError(value:String):void
     {
+        if (invalidFormatCharsErrorOverride &&
+            (invalidFormatCharsErrorOverride == value))
+            return;
+        
         invalidFormatCharsErrorOverride = value;
         
         _invalidFormatCharsError = value ? value :
             resourceManager.getString("validators", "invalidFormatCharsError");
+        update();
     }
     
     //----------------------------------
@@ -858,7 +796,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     protected var lessThanMinErrorOverride:String;
     
     [Inspectable(category="Errors", defaultValue="null")]
-    
+    [Bindable("change")]
     /**
      *  Error message when the value is less than the <code>minValue</code>.
      *
@@ -876,10 +814,15 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     
     public function set lessThanMinError(value:String):void
     {
+        if (lessThanMinErrorOverride &&
+            (lessThanMinErrorOverride == value))
+            return;
+        
         lessThanMinErrorOverride = value;
         
         _lessThanMinError = value ? value :
             resourceManager.getString("validators", "lowerThanMinError");
+        update();
     }
 
     //----------------------------------
@@ -893,6 +836,8 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     protected var localeUndefinedErrorOverride:String;
     
     [Inspectable(category="Errors", defaultValue="null")]
+    [Bindable("change")]
+    
     /**
      *  Error message when the locale is undefined or is not available.
      *
@@ -910,10 +855,15 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     
     public function set localeUndefinedError(value:String):void
     {
+        if (localeUndefinedErrorOverride &&
+            (localeUndefinedErrorOverride == value))
+            return;
+        
         localeUndefinedErrorOverride = value;
         
         _localeUndefinedError = value ? value :
             resourceManager.getString("validators", "localeUndefinedError");
+        update();
     }
 
     //----------------------------------
@@ -932,6 +882,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     protected var negativeErrorOverride:String;
 
     [Inspectable(category="Errors", defaultValue="null")]
+    [Bindable("change")]
 
     /**
      *  Error message when the value is negative and the
@@ -951,10 +902,15 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
 
     public function set negativeError(value:String):void
     {
+        if (negativeErrorOverride &&
+            (negativeErrorOverride == value))
+            return;
+        
         negativeErrorOverride = value;
 
         _negativeError = value ? value :
                        resourceManager.getString("validators", "negativeError");
+        update();
     }
 
     //----------------------------------
@@ -973,6 +929,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     protected var negativeSymbolErrorOverride:String;
 
     [Inspectable(category="Errors", defaultValue="null")]
+    [Bindable("change")]
 
     /**
      *  Error message when the negative symbol is repeated or is in wrong place.
@@ -991,10 +948,15 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
 
     public function set negativeSymbolError(value:String):void
     {
+        if (negativeSymbolErrorOverride &&
+            (negativeSymbolErrorOverride == value))
+            return;
+        
         negativeSymbolErrorOverride = value;
 
         _negativeSymbolError = value ? value :
             resourceManager.getString("validators", "negativeSymbolError");
+        update();
     }
 
     //----------------------------------
@@ -1013,7 +975,8 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     protected var notAnIntegerErrorOverride:String;
     
     [Inspectable(category="Errors", defaultValue="null")]
-    
+    [Bindable("change")]
+
     /**
      *  Error message when the number must be an integer, as defined
      *  by the <code>domain</code> property.
@@ -1032,10 +995,14 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     
     public function set notAnIntegerError(value:String):void
     {
+        if (notAnIntegerErrorOverride &&
+            (notAnIntegerErrorOverride == value))
+            return;
         notAnIntegerErrorOverride = value;
         
         _notAnIntegerError = value ? value :
             resourceManager.getString("validators", "integerError");
+        update();
     }
 
     //----------------------------------
@@ -1049,6 +1016,8 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     protected var parseErrorOverride:String;
 
     [Inspectable(category="Errors", defaultValue="null")]
+    [Bindable("change")]
+
     /**
      *  Error message when number could not be parsed.
      *
@@ -1069,13 +1038,16 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      */
     public function set parseError(value:String):void
     {
+        if (parseErrorOverride &&
+            (parseErrorOverride == value))
+            return;
+        
         parseErrorOverride = value;
 
         _parseError = value ? value :
             resourceManager.getString("validators", "parseError");
+        update();
     }
-
-
 
     //--------------------------------------------------------------------------
     //
@@ -1107,10 +1079,6 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      */
     mx_internal function createWorkingInstanceCore(validatorType:int):void
     {
-        // release this array as it contains symbols based on previous locale
-        // grouping pattern.
-        groupingPatternSymbols = null;
-        
         if (validatorType == NUMBER_VALIDATOR_TYPE)
             g11nWorkingInstance
             = new spark.formatters.NumberFormatter();
@@ -1169,15 +1137,193 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
     }
 
     /**
+    *  @private
+    *  get the index of first digit.
+    */
+    mx_internal function indexOfFirstDigit(input:String, len:int, 
+                                           start:int=0):int
+    {
+        if (!input || !len)
+            return -1;
+        for (var i:int = start; i < len; i++)
+        {
+            var c0:int = input.charCodeAt(i);
+            var c32:int = processSurrogates(input, c0, i, len);
+            if (c32 == -1)
+                return -1;
+            if (isDigit(c32))
+                return i;
+            if (c0 != c32)
+                i++;  // surrogate found. index increment for lower surrogate.
+        }
+        return -1;
+    }
+
+    /**
+     *  @private
+     *  get the index of last digit.
+     */
+    mx_internal function indexOfLastDigit(input:String, len:int, 
+                                          end:int):int
+    {
+        if (!input || !len)
+            return -1;
+        for (var i:int = end; i >= 0; i--)
+        {
+            
+            var c0:int = input.charCodeAt(i);
+            var c32:int = processSurrogates(input, c0, i, len);
+            if (c32 == -1)
+                return -1;
+            if (c0 != c32)
+                i--;  // surrogate found. index decrement for lower surrogate.
+            if (isDigit(c32))
+                return i;
+        }
+        return -1;
+    }
+
+    /**
+     *  @private
+     */
+    mx_internal function inputHasMultipleNegativeSymbols(input:String):Boolean
+    {
+        if (!input)
+            return false;
+        
+        var nflag:Boolean = false;
+        var gflag:Boolean = false;
+        var i:int = 0;
+        var c:String;
+        
+        if (negativeSymbol == decimalSeparator)
+        {
+            nflag = true;
+        }
+        else
+        {
+            for (i = 0; i < NEGATIVE_SYMBOLS.length; i++)
+            {
+                c = NEGATIVE_SYMBOLS.charAt(i);
+                if (decimalSeparator == c)
+                {
+                    nflag = true;
+                    break;
+                }
+            }
+        }
+        
+        if (negativeSymbol == groupingSeparator)
+        {
+            gflag = true
+        }
+        else
+        {
+            for (i = 0; i < NEGATIVE_SYMBOLS.length; i++)
+            {
+                c = NEGATIVE_SYMBOLS.charAt(i);
+                if (groupingSeparator == c)
+                {
+                    gflag = true;
+                    break;
+                }
+            }
+        }
+        
+        
+        if (!nflag && !gflag && (input.indexOf(negativeSymbol) != 
+                                input.lastIndexOf(negativeSymbol)))
+        {
+            return true;
+        }
+            
+        var nsymbols:String = NEGATIVE_SYMBOLS + negativeSymbol;
+        var ncount:int = 0;
+        for (i = 0; i < input.length; i++)
+        {
+            c = input.charAt(i);
+            if (nsymbols.indexOf(c) != -1)
+                ncount++;
+        }
+        
+        if (!gflag)
+        {
+            
+            if (!nflag)
+            {
+                if (ncount > 1)
+                    return true;
+            }
+            else
+            {
+                if (ncount > 2)
+                    return true;
+            }
+        }
+            
+        return false;
+    }
+
+    /**
+     *  @private
+     */
+    mx_internal function inputHasNegativeSymbol(input:String):Boolean
+    {
+        if (!input)
+            return false;
+        
+        if (input.indexOf(negativeSymbol) != -1)
+            return true;
+            
+        for (var i:int = 0; i < input.length; i++)
+        {
+            var c:String = input.charAt(i);
+            if (NEGATIVE_SYMBOLS.indexOf(c) != -1)
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     *  @private
+     *  Check if it is a digit..
+     */
+    private function isDigit(codepoint:int):Boolean
+    {
+        if (GlobalizationUtils.isDigit(codepoint))
+            return true;
+        // Adding 9 may not be right always. But there is no way for user to
+        // communicate the highest digit.
+        if ((codepoint >= digitsType) && (codepoint <= digitsType + 9 ))
+            return true;
+        return false;
+    }
+
+    /**
+     *  @private
+     */
+    mx_internal function isNegativeSymbol(input:String):Boolean
+    {
+        if (!input)
+            return false;
+        
+        if (input == negativeSymbol)
+            return true;
+        for (var i:int = 0; i < NEGATIVE_SYMBOLS.length; i++)
+        {
+            var c:String = NEGATIVE_SYMBOLS.charAt(i);
+            if (input == c)
+                return true;
+        }
+        return false;
+    }
+
+    /**
      *  @private
      *  Load the error strings overrides.
      */
     mx_internal function loadChangedResources():void
     {
-        allowNegative = allowNegativeOverride;
-        domain = domainOverride;
-        maxValue = maxValueOverride;
-        minValue = minValueOverride;
         decimalPointCountError = decimalPointCountErrorOverride;
         greaterThanMaxError = greaterThanMaxErrorOverride;
         notAnIntegerError = notAnIntegerErrorOverride;
@@ -1187,84 +1333,67 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
         negativeError = negativeErrorOverride;
         negativeSymbolError = negativeSymbolErrorOverride;
         fractionalDigitsError = fractionalDigitsErrorOverride;
-        groupingSeparationError = groupingSeparationErrorOverride;
         parseError = parseErrorOverride;
         localeUndefinedError = localeUndefinedError;
     }
 
-    /**
-     *  @private
-     */
-    mx_internal var groupingPatternSymbols:Array;
-
-    /**
-     *  @private
-     *  Parse the grouping pattern and store the grouping information.
-     *
-     *  <p> Parse the grouping pattern and store the grouping information. The
-     *  stored grouping information is used by the validateGrouping() method.
-     *  </p>
-     *
-     *  @param  value  String specifying grouping pattern.
-     *  @returns <code>Boolean</code> true or false.
-     *
-     */
-    mx_internal function parseGroupingPattern(value:String):Boolean
+    private function inputHasNoDigits(input:String):Boolean
     {
-        var last_is_digit:int = 0;
-        var p:String;
-
-        if (!value)
+        if (!input)
             return false;
-
-        var length:int = value.length;
-
-        if ((length >= PATTERN_LENGTH_LIMIT) ||
-           (value.charAt(length - 1) == ";"))
+        
+        for (var i:int; i < input.length; i++)
         {
-            return false;
-        }
-        groupingPatternSymbols = new Array();
-        var i:int = 0;
-        while(length)
-        {
-            p = value.charAt(i);
-            var pnum:Number = Number(p);
-
-            if ((!last_is_digit) && ((pnum >= 1) && (pnum <= 9)))
-            {
-                ++i;
-                length--;
-                last_is_digit = 1;
-                groupingPatternSymbols.push(p);
-            }
-            else if ((last_is_digit) && (p == ";"))
-            {
-                ++i;
-                length--;
-                last_is_digit = 0;
-            }
-            else if ((!last_is_digit) && ( p == "*" ))
-            {
-                ++i;
-                length--;
-                groupingPatternSymbols.push(p);
-                if (length == 0)
-                    return true;
-                else
-                {
-                    groupingPatternSymbols.length = 0;
-                    return false;
-                }
-            }
-            else
-            {
-                groupingPatternSymbols.length = 0;
+            var c0:int = input.charCodeAt(i);
+            var c1:int = processSurrogates(input, c0, i, input.length);
+            if (c1 == -1)
+                continue;
+            if (c0 != c1)
+                i++;
+            if (isDigit(c1))
                 return false;
-            }
         }
         return true;
     }
+    /**
+     *  @private
+     */
+     mx_internal function processSurrogates(input:String, c0:int, index:int, 
+                                            len:int):int
+     {
+         var j:int = 0;
+         var c1:int;
+         if (GlobalizationUtils.isLeadingSurrogate(c0))
+         {
+            j = index + 1;
+             if (j < len)
+             {
+                 c1 = input.charCodeAt(j);
+                 if (GlobalizationUtils.isTrailingSurrogate(c1))
+                     c0 = GlobalizationUtils.surrogateToUTF32(c0, c1);
+                 else
+                     return -1;
+             }
+             else
+                 return -1;
+         }
+         else if (GlobalizationUtils.isTrailingSurrogate(c0))
+         {
+             j = index - 1;
+             if (j >= 0)
+             {
+                 c1 = input.charCodeAt(j);
+                 if (GlobalizationUtils.isLeadingSurrogate(c1))
+                     c0 = GlobalizationUtils.surrogateToUTF32(c1, c0);
+                 else
+                     return -1;
+             }
+             else
+                 return -1;
+         }
+         
+         return c0;
+     }
 
     /**
      *  @private
@@ -1290,32 +1419,47 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      */
     mx_internal function validateDecimalString(input:String,
                                                baseField:String,
-                                               results:Array):Boolean
+                                               results:Array, 
+                                               negPosLeft:Boolean):Boolean
     {
         if (!input)
             return true;
         
-        const dindex:int = input.indexOf(decimalSeparator);
+        var dindex:int;
+        if (negPosLeft)
+            dindex = input.lastIndexOf(decimalSeparator);
+        else
+            dindex = input.indexOf(decimalSeparator);
         var c:String;
-        
+        var i:int;
+        var c0:int;
+        var c1:int;
         if (dindex == -1)
             return true;
         
-        for (var i:int = input.length - 1; i > dindex; i--)
+        for (i = input.length; i > dindex; i--)
         {
-            c = input.charAt(i);
-            if (DECIMAL_DIGITS.indexOf(c) != -1)
+            c0 = input.charCodeAt(i);
+            c1 = processSurrogates(input, c0, i, eindex);
+            if (c1 == -1)
+                return false; //illegal surrogate
+            if (isDigit(c1))
                 break;
+            if (c0 != c1)
+                    i--; // digit was surrogate. increment string index.
         }
-        
         var eindex:int = i;
         i = dindex + decimalSeparator.length;
         
         for (; i < eindex; i++)
         {
-            c = input.charAt(i);
-            if (DECIMAL_DIGITS.indexOf(c) != -1)
+            c0 = input.charCodeAt(i);
+            c1 = processSurrogates(input, c0, i, eindex);
+                
+            if ((c1 != -1) && isDigit(c1))
             {
+                if (c0 != c1)
+                    i++; // digit was surrogate. increment string index.
                 continue;
             }
             else
@@ -1386,7 +1530,16 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
             
             // There may not be any digits after the decimal
             // if domain is int.
-            if ((i < len) && (DECIMAL_DIGITS.indexOf(input.charAt(i)) != -1))
+            var c0:int = input.charCodeAt(i);
+            var c32:int = processSurrogates(input, c0, i, len);
+            if (c32 == -1)
+            {
+                results.push(new ValidationResult(
+                    true, baseField, "invalidChar", invalidCharError));
+                return false;
+            }
+
+            if ((i < len) && isDigit(c32))
             {
                 if (domain == NumberValidatorDomainType.INT)
                 {
@@ -1398,9 +1551,19 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
             
             for (;i < len; i++)
             {
+                c0 = input.charCodeAt(i);
+                c32 = processSurrogates(input, c0, i, len);
+                if (c32 == -1)
+                {
+                    results.push(new ValidationResult(
+                        true, baseField, "invalidChar", invalidCharError));
+                    return false;
+                }
+                if (c0 != c32)
+                    i++; // surrogate found. increment index of lower surrogate.
                 ++numDigitsAfterDecimal;
                 // break at ) or - or currency string when validatng fractions.
-                if (DECIMAL_DIGITS.indexOf(input.charAt(i)) == -1)
+                if (!isDigit(c32))
                     break;
                 
                 // Make sure fractionalDigits is not exceeded.
@@ -1413,86 +1576,6 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
                     return false;
                 }
             }
-        }
-        return true;
-    }
-    /**
-     *  @private
-     *  Validate the grouping of digits in the number string.
-     *
-     *  <p>This method is called by both currency and number validator.
-     *  The algorithm is to
-     *  1. Start from the decimal end of the input string.
-     *  2. Find the index 'grSepIndex' of all grouping separators in the input
-     *     string.
-     *  3. Compute the supposed grouping symbol index 'sepIndex' per grouping
-     *     pattern.
-     *  4. Make sure that these two are same. </p>
-     *
-     *  @param input String representing number being validated
-     *  @param end   Index of last character in the input string.
-     *  @returns <code>Boolean</code> true or false depending on grouping check.
-     */
-    mx_internal function validateGrouping(input:String, end:int):Boolean
-    {
-        if (!input)
-            return true;
-
-        // Be lenient on grouping separator. If grouping separator is not used,
-        // treat it as correct. mx:Validators have same behaviour.
-        if (input.indexOf(groupingSeparator) == -1)
-            return true;
-        if (groupingPatternSymbols == null)
-            parseGroupingPattern(groupingPattern);
-        const len:int = groupingPatternSymbols.length;
-
-        var j:int = 0;
-        var grPatNum:int = 0;
-        var sepIndex:int = end;
-        var i:int = 0;
-
-        while (sepIndex > 0)
-        {
-            var grPat:String;
-            // lastIndexOf() method searches upto including second parameter.
-            // Hence decrement sepIndex for next iteration if a separator
-            // symbol is found.
-            var grSepIndex:int = input.lastIndexOf(groupingSeparator, sepIndex);
-
-            if (j < len)
-            {
-                grPat = groupingPatternSymbols[j];
-            }
-            else if (grPat != "*")
-            {
-                grPat = "0";
-                sepIndex = -1; // no more checking of grouping symbol
-            }
-
-            if (grPat != "*")
-                grPatNum = Number(grPat);
-
-            // grouping separator could be before the actual index. i.e. in case
-            // of 3;3;* 123,3,45,678.56 grouping separator happens before the
-            // exact position.
-            var sepIndexCurrent:int = sepIndex - grPatNum -
-                                      (groupingSeparator.length - 1);
-            // special case: 1234^^^456^^^789, grouping pattern 3;*
-            if ((sepIndexCurrent < 0) && (grSepIndex < 0) &&
-                                               (sepIndex < grPatNum))
-                return true;
-            //enough digits, but no separator.
-            if ((grSepIndex < 0) && (sepIndex >= grPatNum))
-                return false;
-            sepIndex = sepIndexCurrent;
-            // case of 12,,345.56. grSepIndex is 2 and sepIndex = -1
-            if (sepIndex != grSepIndex)
-                return false;
-
-            // increase j to get the next grouping pattern symbol in the array
-            // decrement sepIndex to skip grouping separator already found.
-            j++;
-            sepIndex--;
         }
         return true;
     }
@@ -1534,7 +1617,15 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
             const c:String = input.charAt(i);
             if (validChars.indexOf(c) == -1)
             {
-                if (GlobalizationUtils.isWhiteSpace(c.charCodeAt(0)))
+                var c0:int = c.charCodeAt(0);
+                var c32:int = processSurrogates(input, c0, i, len);
+                if (c32 == -1)
+                    return true;
+                else if (c0 != c32) // surrogate. increment string index.
+                    i++;
+                if (isDigit(c0))
+                    continue;
+                if (GlobalizationUtils.isWhiteSpace(c0))
                     continue;
                 return true;
             }
@@ -1597,32 +1688,20 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
             }
         }
 
-        if ((decimalSeparator == groupingSeparator) ||
-            (negativeSymbol == groupingSeparator) ||
-            (decimalSeparator == negativeSymbol))
+        if (decimalSeparator == groupingSeparator)
         {
             results.push(new ValidationResult(
                true, baseField, "invalidFormatChars", invalidFormatCharsError));
             return false;
         }
-        // handle "-." special case
-        else if (input == (negativeSymbol + decimalSeparator))
+        else if (inputHasNoDigits(input))
         {
             results.push(new ValidationResult(
-                true, baseField, "invalidChar", invalidCharError));
+                true, baseField, "parseError", parseError));
             return false;
         }
-        // handle "(.)" special case
-        else if (input == ("(" + decimalSeparator + ")"))
+        else if (inputHasMultipleNegativeSymbols(input))
         {
-            results.push(new ValidationResult(
-                true, baseField, "invalidChar", invalidCharError));
-            return false;
-        }
-        else if (input.indexOf(negativeSymbol) !=
-                 input.lastIndexOf(negativeSymbol))
-        {
-
             results.push(new ValidationResult(
                     true, baseField, "negativeSymbol", negativeSymbolError));
             return false;
