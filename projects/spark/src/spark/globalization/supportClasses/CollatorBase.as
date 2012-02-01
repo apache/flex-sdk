@@ -45,6 +45,11 @@ use namespace mx_internal;
  * functionality for string comparison.</p>
  *
  * @see flash.globalization.Collator
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class CollatorBase extends GlobalizationBase
 {
@@ -103,7 +108,7 @@ public class CollatorBase extends GlobalizationBase
      *  <ul>
      *      <li>Inheriting the style from a <code>UIComponent</code> by calling
      *          the UIComponent's <code>addStyleClient</code> method with
-	 * 			an instance of this object as the parameter.</li>
+     *          an instance of this object as the parameter.</li>
      *      <li>By using the class in an MXML declaration and inheriting the
      *          <code>locale</code> style from the document that contains the
      *          declaration.
