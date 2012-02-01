@@ -143,7 +143,7 @@ public class StrokedElement extends GraphicElement implements IDisplayObjectElem
 		if (stroke)
 			stroke.draw(g,new Rectangle(measuredX, measuredY, width, height));
 		else
-			g.lineStyle(0, 0, 0);
+			g.lineStyle();
 			
 		// Even though this is a stroked element, we still need to beginFill/endFill
 		// otherwise subsequent fills could get messed up.
