@@ -251,8 +251,8 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
 	    //g.clear();
 	    
 		g.lineStyle(0,0,0);
-		_fill.offsetX = 0;
-		_fill.offsetY = 0;
+		_fill.offsetX = drawX;
+		_fill.offsetY = drawY;
 		_fill.repeat = repeat;
 		_fill.smooth = smooth;
 		var w:Number = unscaledWidth;
