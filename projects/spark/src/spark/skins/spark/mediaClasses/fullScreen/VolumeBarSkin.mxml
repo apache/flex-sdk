@@ -22,7 +22,7 @@
 
     <!-- host component -->
     <fx:Metadata>
-        [HostComponent("spark.components.VideoPlayerVolumeBar")]
+        [HostComponent("spark.components.mediaClasses.VolumeBar")]
     </fx:Metadata> 
 
     <s:states>
@@ -37,8 +37,14 @@
         <s:Group id="dropDown" width="38" height="84" horizontalCenter="0">
         
             <!-- dropshadow for the dropdown -->
-            <s:RectangularDropShadow id="shadow" blurX="20" blurY="20" alpha="0.32" distance="11" 
-                angle="90" color="#000000" left="0" top="0" right="0" bottom="0"/>
+            <s:Rect left="0" top="0" right="0" bottom="0">
+                <s:filters>
+                    <s:DropShadowFilter knockout="true" blurX="20" blurY="20" alpha="0.32" distance="11" angle="90" />   
+                </s:filters>    
+                <s:fill>    
+                    <s:SolidColor color="0x000000" />   
+                </s:fill>   
+            </s:Rect>
         
             <!-- background for the popup -->
             <s:Rect left="0" right="0" top="0" bottom="0">
@@ -51,14 +57,14 @@
             </s:Rect>
             
             <s:Button id="track" horizontalCenter="0" top="6" bottom="7"
-                      skinClass="spark.skins.default.VideoPlayerFullScreenVolumeBarTrackSkin" />
+                      skinClass="spark.skins.default.mediaClasses.fullScreen.VolumeBarTrackSkin" />
             
             <s:Button id="thumb" horizontalCenter="0" width="11" height="11" 
-                      skinClass="spark.skins.default.VideoPlayerFullScreenVolumeBarThumbSkin" />
+                      skinClass="spark.skins.default.mediaClasses.fullScreen.VolumeBarThumbSkin" />
         </s:Group>
     </s:PopUpAnchor>
         
-    <s:VideoPlayerVolumeBarMuteButton id="muteButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
-              skinClass="spark.skins.default.VideoPlayerFullScreenVolumeBarMuteButtonSkin" />
+    <s:MuteButton id="muteButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
+              skinClass="spark.skins.default.mediaClasses.fullScreen.MuteButtonSkin" />
     
 </s:Skin>
