@@ -1713,7 +1713,7 @@ public class VerticalLayout extends LayoutBase
             var vAlign:String = verticalAlign;
             if (vAlign == VerticalAlign.MIDDLE)
             {
-                dy = Math.floor(excessHeight / 2);   
+                dy = Math.round(excessHeight / 2);   
             }
             else if (vAlign == VerticalAlign.BOTTOM)
             {
@@ -1808,7 +1808,7 @@ public class VerticalLayout extends LayoutBase
             var vAlign:String = verticalAlign;
             if (vAlign == VerticalAlign.MIDDLE)
             {
-                y = paddingTop + Math.floor(excessHeight / 2);   
+                y = paddingTop + Math.round(excessHeight / 2);   
             }
             else if (vAlign == VerticalAlign.BOTTOM)
             {
