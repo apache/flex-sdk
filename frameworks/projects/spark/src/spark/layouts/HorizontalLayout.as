@@ -659,6 +659,52 @@ public class HorizontalLayout extends LayoutBase
     }
     
     //----------------------------------
+    //  horizontalAlign
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _horizontalAlign:String = HorizontalAlign.LEFT;
+    
+    [Inspectable(category="General", enumeration="left,right,center", defaultValue="left")]
+    
+    /** 
+     *  The horizontal alignment of the content relative to the container's width.
+     *
+     *  <p>This property has no effect when <code>clipAndEnableScrolling</code> is true
+     *  and the <code>contentWidth</code> is greater than the container's width.</p>
+     *
+     *  <p>This property does not affect the layout's measured size.</p>
+     *  
+     *  @default "left"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get horizontalAlign():String
+    {
+        return _horizontalAlign;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set horizontalAlign(value:String):void
+    {
+        if (value == _horizontalAlign) 
+            return;
+        
+        _horizontalAlign = value;
+        
+        var layoutTarget:GroupBase = target;
+        if (layoutTarget)
+            layoutTarget.invalidateDisplayList();
+    }
+    
+    //----------------------------------
     //  verticalAlign
     //----------------------------------
 
@@ -743,7 +789,22 @@ public class HorizontalLayout extends LayoutBase
     //  Methods
     //
     //--------------------------------------------------------------------------
-    
+
+    /**
+     *  @private
+     */
+    override public function set clipAndEnableScrolling(value:Boolean):void
+    {
+        super.clipAndEnableScrolling = value;
+        var hAlign:String = horizontalAlign;
+        if (hAlign == HorizontalAlign.CENTER || hAlign == HorizontalAlign.RIGHT)
+        {
+            var g:GroupBase = target;
+            if (g)
+                g.invalidateDisplayList();
+        }
+    }
+
     /**
      * @private
      */
@@ -751,7 +812,7 @@ public class HorizontalLayout extends LayoutBase
     {
         llv.clear();
     }     
-    
+
     /**
      *  @private
      */
@@ -1634,12 +1695,39 @@ public class HorizontalLayout extends LayoutBase
              }
         }
 
+        // Third pass: if neccessary, fix up x based on updated contentWidth
+        var contentWidth:Number = llv.end(llv.length - 1) - paddingLeft;
+        var targetWidth:Number = Math.max(0, layoutTarget.width - paddingLeft - paddingRight);
+        if (contentWidth < targetWidth)
+        {
+            var excessWidth:Number = targetWidth - contentWidth;
+            var dx:Number = 0;
+            var hAlign:String = horizontalAlign;
+            if (hAlign == HorizontalAlign.CENTER)
+            {
+                dx = Math.floor(excessWidth / 2);   
+            }
+            else if (hAlign == HorizontalAlign.RIGHT)
+            {
+                dx = excessWidth;
+            }
+            if (dx > 0)
+            {
+                for (index = startIndex; index <= endIndex; index++)
+                {
+                    elt = layoutTarget.getVirtualElementAt(index, NaN, NaN);
+                    elt.setLayoutBoundsPosition(dx + elt.getLayoutBoundsX(), elt.getLayoutBoundsY());
+                }
+                contentWidth += dx;
+            }
+        }
+        
         setColumnCount(index - startIndex);
         setIndexInView(startIndex, endIndex);
 
         // Make sure that if the content spans partially over a pixel to the right/bottom,
         // the content size includes the whole pixel.
-        var paddedContentWidth:Number = Math.ceil(llv.end(llv.length - 1) + paddingRight);
+        var paddedContentWidth:Number = Math.ceil(contentWidth + paddingLeft + paddingRight);
         var paddedContentHeight:Number = Math.ceil(contentHeight + paddingTop + paddingBottom);
         layoutTarget.setContentSize(paddedContentWidth, paddedContentHeight);
     }
@@ -1680,7 +1768,7 @@ public class HorizontalLayout extends LayoutBase
             }
         }
 
-        distributeWidth(targetWidth, targetHeight, containerHeight);    
+        var excessWidth:Number = distributeWidth(targetWidth, targetHeight, containerHeight);
         
         // default to top (0)
         var vAlign:Number = 0;
@@ -1704,6 +1792,20 @@ public class HorizontalLayout extends LayoutBase
         var maxY:Number = paddingTop;     
         var firstColInView:int = -1;
         var lastColInView:int = -1;
+
+        // Take horizontalAlign into account
+        if (excessWidth > 0 || !clipAndEnableScrolling)
+        {
+            var hAlign:String = horizontalAlign;
+            if (hAlign == HorizontalAlign.CENTER)
+            {
+                x = paddingLeft + Math.floor(excessWidth / 2);   
+            }
+            else if (hAlign == HorizontalAlign.RIGHT)
+            {
+                x = paddingLeft + excessWidth;   
+            }
+        }
 
         for (var index:int = 0; index < count; index++)
         {
@@ -1816,10 +1918,10 @@ public class HorizontalLayout extends LayoutBase
         // Distribute the extra space among the flexible children
         if (totalPercentWidth)
         {
-            spaceToDistribute = Flex.flexChildrenProportionally(width,
-                                                                spaceToDistribute,
-                                                                totalPercentWidth,
-                                                                childInfoArray);
+            Flex.flexChildrenProportionally(width,
+                                            spaceToDistribute,
+                                            totalPercentWidth,
+                                            childInfoArray);
             var roundOff:Number = 0;
             for each (childInfo in childInfoArray)
             {
@@ -1829,7 +1931,8 @@ public class HorizontalLayout extends LayoutBase
 
                 sizeLayoutElement(childInfo.layoutElement, height, verticalAlign, 
                                   restrictedHeight, childSize, 
-                                  variableColumnWidth, cw); 
+                                  variableColumnWidth, cw);
+                spaceToDistribute -= childSize;
             }
         }
         return spaceToDistribute;
