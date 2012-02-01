@@ -23,10 +23,10 @@
     <fx:Script>
         <![CDATA[
             
-            override public function set labelText(value:String):void
+            override public function set label(value:String):void
             {
-                super.labelText = value;
-                labelDisplay.text = labelText; 
+                super.label = value;
+                labelDisplay.text = label; 
             }
         ]]>
     </fx:Script>
@@ -36,35 +36,35 @@
         <s:State name="normal" />            
         <s:State name="hovered" />
         <s:State name="selected" />
-        <s:State name="normalAndCaret"/>
-        <s:State name="hoveredAndCaret"/>
-        <s:State name="selectedAndCaret"/>
+        <s:State name="normalAndShowsCaret"/>
+        <s:State name="hoveredAndShowsCaret"/>
+        <s:State name="selectedAndShowsCaret"/>
     </s:states>
     
     <s:Rect left="0" right="0" top="0" bottom="0">
-        <s:stroke.normalAndCaret>
+        <s:stroke.normalAndShowsCaret>
             <s:SolidColorStroke 
                 color="{selectionColor}" 
                 weight="1"/>
-        </s:stroke.normalAndCaret>
-        <s:stroke.hoveredAndCaret>
+        </s:stroke.normalAndShowsCaret>
+        <s:stroke.hoveredAndShowsCaret>
             <s:SolidColorStroke 
                 color="{selectionColor}" 
                 weight="1"/>
-        </s:stroke.hoveredAndCaret>
-        <s:stroke.selectedAndCaret>
+        </s:stroke.hoveredAndShowsCaret>
+        <s:stroke.selectedAndShowsCaret>
             <s:SolidColorStroke 
                 color="{selectionColor}" 
                 weight="1"/>
-        </s:stroke.selectedAndCaret>
+        </s:stroke.selectedAndShowsCaret>
         <s:fill>
             <s:SolidColor 
             	color.normal="{contentBackgroundColor}"
-                color.normalAndCaret="{contentBackgroundColor}"
+                color.normalAndShowsCaret="{contentBackgroundColor}"
                 color.hovered="{rollOverColor}"	
-                color.hoveredAndCaret="{rollOverColor}"
+                color.hoveredAndShowsCaret="{rollOverColor}"
             	color.selected="{selectionColor}"
-                color.selectedAndCaret="{selectionColor}"
+                color.selectedAndShowsCaret="{selectionColor}"
             	/>
         </s:fill>
     </s:Rect>
