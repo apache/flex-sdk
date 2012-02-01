@@ -156,9 +156,9 @@ public class FocusSkin extends UIComponent
         var hidLabelElement:Boolean = false;
         if ((weakIsCheck(focusObject, "spark.components::CheckBox") ||
              weakIsCheck(focusObject, "spark.components::RadioButton"))
-             && Object(focusObject).labelElement)
+             && Object(focusObject).labelDisplay)
         {
-            Object(focusObject).labelElement.displayObject.visible = false;
+            Object(focusObject).labelDisplay.displayObject.visible = false;
             hidLabelElement = true;
         }
             
@@ -172,7 +172,7 @@ public class FocusSkin extends UIComponent
         
         // Show the label, if needed.
         if (hidLabelElement)
-            Object(focusObject).labelElement.displayObject.visible = true;
+            Object(focusObject).labelDisplay.displayObject.visible = true;
         
         // Special case for Scroller - fill the entire rect.
         // TODO: Figure out a better solution.
