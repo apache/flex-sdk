@@ -84,24 +84,24 @@
             var viewport:IViewport = hostComponent.viewport;
             if (viewport)
             {
-	            var viewportLI:ILayoutElement = LayoutElementFor(viewport);
-	            measuredW = viewportLI.getPreferredBoundsWidth();
-	            measuredH = viewportLI.getPreferredBoundsHeight();
+	            var viewportElt:ILayoutElement = LayoutElementFor(viewport);
+	            measuredW = viewportElt.getPreferredBoundsWidth();
+	            measuredH = viewportElt.getPreferredBoundsHeight();
             }
             
             if (showHSB)
             {
-                var hsbLI:ILayoutElement = LayoutElementFor(hsb);
-                measuredH += hsbLI.getPreferredBoundsHeight();
-                minW += hsbLI.getMinBoundsWidth();              
-                minH += hsbLI.getMinBoundsHeight();  
+                var hsbElt:ILayoutElement = LayoutElementFor(hsb);
+                measuredH += hsbElt.getPreferredBoundsHeight();
+                minW += hsbElt.getMinBoundsWidth();              
+                minH += hsbElt.getMinBoundsHeight();  
             }
             if (showVSB)
             {
-                var vsbLI:ILayoutElement = LayoutElementFor(vsb);
-                measuredW += vsbLI.getPreferredBoundsWidth();
-                minW += vsbLI.getMinBoundsWidth();
-                minH += vsbLI.getMinBoundsHeight();
+                var vsbElt:ILayoutElement = LayoutElementFor(vsb);
+                measuredW += vsbElt.getPreferredBoundsWidth();
+                minW += vsbElt.getMinBoundsWidth();
+                minH += vsbElt.getMinBoundsHeight();
             }
             measuredWidth = measuredW;
             measuredHeight = measuredH;
@@ -142,85 +142,94 @@
             var viewport:IViewport = hostComponent.viewport;
             var hsb:FxScrollBar = horizontalScrollBar;
             var vsb:FxScrollBar = verticalScrollBar;
-            var hsbLI:ILayoutElement = LayoutElementFor(hsb);
-            var vsbLI:ILayoutElement = LayoutElementFor(vsb);
+            var hsbElt:ILayoutElement = LayoutElementFor(hsb);
+            var vsbElt:ILayoutElement = LayoutElementFor(vsb);
                
             // Decide which scrollbars will be visible
             var showHSB:Boolean = false;
+            var hAuto:Boolean = false; 
             switch(hostComponent.horizontalScrollPolicy) {
                 case ScrollPolicy.ON: 
                     if (hsb) showHSB = true; 
                     break;
                 case ScrollPolicy.AUTO: 
-                    if (hsb && viewport) showHSB = viewport.contentWidth > w; 
+                    if (hsb && viewport)
+                    {
+                        showHSB = viewport.contentWidth > w;
+                        hAuto = true;
+                    } 
                     break;
             } 
             var showVSB:Boolean = false;
+            var vAuto:Boolean = false;
             switch(hostComponent.verticalScrollPolicy) {
                case ScrollPolicy.ON: 
                     if (vsb) showVSB = true; 
                     break;
                 case ScrollPolicy.AUTO: 
-                    if (vsb && viewport) showVSB = viewport.contentHeight > h;
+                    if (vsb && viewport)
+                    { 
+                        showVSB = viewport.contentHeight > h;
+                        vAuto = true;
+                    }                        
                     break;
             }
             
-
             // Shrink the viewport's width,height for the visible scrollbars
             var viewportH:Number = h;
             var hsbH:Number = 0;
             if (showHSB) 
             {
-                hsbH = hsbLI.getPreferredBoundsHeight();
+                hsbH = hsbElt.getPreferredBoundsHeight();
                 viewportH -= hsbH;
             }
             var viewportW:Number = w;
             var vsbW:Number = 0;
             if (showVSB) 
             {
-                vsbW = vsbLI.getPreferredBoundsWidth();
+                vsbW = vsbElt.getPreferredBoundsWidth();
                 viewportW -= vsbW;
             }
-                        
+            
+            // If the scrollBarPolicy is auto, and we're only showing one scrollbar, 
+            // the viewport may have shrunk enough to require showing the other one.
+            
+            if (showVSB && !showHSB && hAuto && (viewport.contentWidth > viewportW))
+            {
+                showHSB = true;
+                hsbH = hsbElt.getPreferredBoundsHeight();                
+                viewportH -= hsbH;
+            }
+            else if (!showVSB && showHSB && vAuto && (viewport.contentHeight > viewportH))
+            {
+                showVSB = true;
+                vsbW = vsbElt.getPreferredBoundsWidth();                
+                viewportW -= vsbW;
+            }
+
             // layout the viewport
             if (viewport)
             {
-	            var viewportLI:ILayoutElement = LayoutElementFor(viewport);
-	            viewportLI.setLayoutBoundsPosition(0,0);
-	            viewportLI.setLayoutBoundsSize(viewportW, viewportH);
+	            var viewportElt:ILayoutElement = LayoutElementFor(viewport);
+	            viewportElt.setLayoutBoundsSize(viewportW, viewportH);
+	            viewportElt.setLayoutBoundsPosition(0,0);
             }
-            setContentSize(w, h);
-
-            // layout the horizontal scrollbar
-            var oldShowHSB:Boolean = false;
-            if (hsb)
-            {
-                oldShowHSB = hsb.visible;
-                hsb.visible = showHSB;
-            }
+            
+            // layout the scrollbars
+            if (hsb) hsb.visible = showHSB;
             if (showHSB)
             {
-	            hsbLI.setLayoutBoundsPosition(0, h - hsbH);
-	            hsbLI.setLayoutBoundsSize(Math.max(hsbLI.getMinBoundsWidth(), viewportW), hsbH);
+	            hsbElt.setLayoutBoundsSize(Math.max(hsbElt.getMinBoundsWidth(), viewportW), hsbH);
+	            hsbElt.setLayoutBoundsPosition(0, h - hsbH);
             }
-            if (oldShowHSB != showHSB)
-                invalidateSize();
-
-            // layout the vertical scrollbar
-            var oldShowVSB:Boolean = false;
-            if (vsb)
-            {
-                oldShowVSB = vsb.visible;
-	            vsb.visible = showVSB;
-            }
+            if (vsb) vsb.visible = showVSB;
             if (showVSB)
             {
-	            vsbLI.setLayoutBoundsPosition(w - vsbW, 0);
-	            vsbLI.setLayoutBoundsSize(vsbW, Math.max(vsbLI.getMinBoundsHeight(), viewportH));
+	            vsbElt.setLayoutBoundsSize(vsbW, Math.max(vsbElt.getMinBoundsHeight(), viewportH));
+	            vsbElt.setLayoutBoundsPosition(w - vsbW, 0);
             }
-            if (oldShowVSB != showVSB)
-               invalidateSize();
             
+            setContentSize(w, h);
         }
         	              
       ]]>
