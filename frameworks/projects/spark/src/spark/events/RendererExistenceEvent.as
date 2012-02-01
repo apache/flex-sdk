@@ -17,8 +17,10 @@ import flash.events.Event;
 import mx.core.IVisualElement;
 
 /**
- *  Represents events that are dispatched when a renderer of a DataGroup
- *  is added or removed.
+ *  The RendererExistenceEvent class represents events that are 
+ *  dispatched when a renderer of a Spark DataGroup is added or removed.
+ *
+ *  @see spark.components.DataGroup
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -29,20 +31,20 @@ public class RendererExistenceEvent extends Event
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  The <code>RendererExistenceEvent.Renderer_ADD</code> constant 
-	 *  defines the value of the <code>type</code> property of the event 
-	 *  object for an <code>rendererAdd</code> event.
-	 *
-     *	<p>The properties of the event object have the following values:</p>
-	 *  <table class="innertable">
-	 *     <tr><th>Property</th><th>Value</th></tr>
+    /**
+     *  The <code>RendererExistenceEvent.RENDERER_ADD</code> constant 
+     *  defines the value of the <code>type</code> property of the event 
+     *  object for an <code>rendererAdd</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
@@ -53,31 +55,31 @@ public class RendererExistenceEvent extends Event
      *       is visualizing.</td></tr>
      *     <tr><td><code>index</code></td><td>The dataProvider index for the 
      *       renderer that was added.</td></tr>
-	 *     <tr><td><code>renderer</code></td><td>Contains a reference
+     *     <tr><td><code>renderer</code></td><td>Contains a reference
      *         to the renderer that was added</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
      *       it is not always the Object listening for the event. 
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
-	 *  </table>
-	 *
+     *  </table>
+     *
      *  @eventType rendererAdd
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public static const RENDERER_ADD:String = "rendererAdd";
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static const RENDERER_ADD:String = "rendererAdd";
 
-	/**
-	 *  The <code>RendererExistenceEvent.RENDERER_REMOVE</code> constant 
-	 *  defines the value of the <code>type</code> property of the event 
-	 *  object for an <code>rendererRemove</code> event.
-	 *
-     *	<p>The properties of the event object have the following values:</p>
-	 *  <table class="innertable">
-	 *     <tr><th>Property</th><th>Value</th></tr>
+    /**
+     *  The <code>RendererExistenceEvent.RENDERER_REMOVE</code> constant 
+     *  defines the value of the <code>type</code> property of the event 
+     *  object for an <code>rendererRemove</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
@@ -88,74 +90,74 @@ public class RendererExistenceEvent extends Event
      *       was visualizing.</td></tr>
      *     <tr><td><code>index</code></td><td>The dataProvider index for the 
      *       renderer that is being removed.</td></tr>
-	 *     <tr><td><code>renderer</code></td><td>Contains a reference
+     *     <tr><td><code>renderer</code></td><td>Contains a reference
      *        to the renderer that is about to be removed.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
      *       it is not always the Object listening for the event. 
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
-	 *  </table>
-	 *
+     *  </table>
+     *
      *  @eventType rendererRemove
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public static const RENDERER_REMOVE:String = "rendererRemove";
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static const RENDERER_REMOVE:String = "rendererRemove";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  @param type The event type; indicates the action that caused the event.
-	 *
-	 *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.
-	 *
-	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
-	 *
-	 *  @param renderer Reference to the renderer that was added or removed.
-	 * 
-	 *  @param index The index in the dataprovider where the renderer was added or removed
+    /**
+     *  Constructor.
+     *
+     *  @param type The event type; indicates the action that caused the event.
+     *
+     *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.
+     *
+     *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
+     *
+     *  @param renderer Reference to the renderer that was added or removed.
      * 
-     *  @param data The data object that the renderer is visualizing
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function RendererExistenceEvent(
-								type:String, bubbles:Boolean = false,
-								cancelable:Boolean = false,
-								renderer:IVisualElement = null, 
-								index:int = -1, data:Object = null)
-	{
-		super(type, bubbles, cancelable);
+     *  @param index The index in the data provider where the renderer was added or removed.
+     * 
+     *  @param data The data object that the renderer is visualizing.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function RendererExistenceEvent(
+                                type:String, bubbles:Boolean = false,
+                                cancelable:Boolean = false,
+                                renderer:IVisualElement = null, 
+                                index:int = -1, data:Object = null)
+    {
+        super(type, bubbles, cancelable);
 
-		this.renderer = renderer;
-		this.index = index;
-		this.data = data;
-	}
+        this.renderer = renderer;
+        this.index = index;
+        this.data = data;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-	
-	//----------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
     //  data
     //----------------------------------
 
     /**
-     *  The data object that the renderer is visualizing
+     *  The data item of the renderer.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -163,13 +165,13 @@ public class RendererExistenceEvent extends Event
      *  @productversion Flex 4
      */
     public var data:Object;
-	
+    
     //----------------------------------
     //  index
     //----------------------------------
 
     /**
-     *  The index where the renderer was added or removed
+     *  The index where the item renderer was added or removed
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -178,29 +180,29 @@ public class RendererExistenceEvent extends Event
      */
     public var index:int;
 
-	//----------------------------------
-	//  renderer
-	//----------------------------------
+    //----------------------------------
+    //  renderer
+    //----------------------------------
 
-	/**
-	 *  Reference to the render that was added or removed.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public var renderer:IVisualElement;
+    /**
+     *  Reference to the item render that was added or removed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var renderer:IVisualElement;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: Event
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: Event
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     override public function clone():Event
     {
         return new RendererExistenceEvent(type, bubbles, cancelable,
