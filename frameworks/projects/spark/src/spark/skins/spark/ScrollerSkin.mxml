@@ -85,23 +85,23 @@
             if (viewport)
             {
 	            var viewportLI:ILayoutElement = LayoutElementFor(viewport);
-	            measuredW = viewportLI.getPreferredWidth();
-	            measuredH = viewportLI.getPreferredHeight();
+	            measuredW = viewportLI.getPreferredBoundsWidth();
+	            measuredH = viewportLI.getPreferredBoundsHeight();
             }
             
             if (showHSB)
             {
                 var hsbLI:ILayoutElement = LayoutElementFor(hsb);
-                measuredH += hsbLI.getPreferredHeight();
-                minW += hsbLI.getMinWidth();              
-                minH += hsbLI.getMinHeight();  
+                measuredH += hsbLI.getPreferredBoundsHeight();
+                minW += hsbLI.getMinBoundsWidth();              
+                minH += hsbLI.getMinBoundsHeight();  
             }
             if (showVSB)
             {
                 var vsbLI:ILayoutElement = LayoutElementFor(vsb);
-                measuredW += vsbLI.getPreferredWidth();
-                minW += vsbLI.getMinWidth();
-                minH += vsbLI.getMinHeight();
+                measuredW += vsbLI.getPreferredBoundsWidth();
+                minW += vsbLI.getMinBoundsWidth();
+                minH += vsbLI.getMinBoundsHeight();
             }
             measuredWidth = measuredW;
             measuredHeight = measuredH;
@@ -171,14 +171,14 @@
             var hsbH:Number = 0;
             if (showHSB) 
             {
-                hsbH = hsbLI.getPreferredHeight();
+                hsbH = hsbLI.getPreferredBoundsHeight();
                 viewportH -= hsbH;
             }
             var viewportW:Number = w;
             var vsbW:Number = 0;
             if (showVSB) 
             {
-                vsbW = vsbLI.getPreferredWidth();
+                vsbW = vsbLI.getPreferredBoundsWidth();
                 viewportW -= vsbW;
             }
                         
@@ -186,8 +186,8 @@
             if (viewport)
             {
 	            var viewportLI:ILayoutElement = LayoutElementFor(viewport);
-	            viewportLI.setLayoutPosition(0,0);
-	            viewportLI.setLayoutSize(viewportW, viewportH);
+	            viewportLI.setLayoutBoundsPosition(0,0);
+	            viewportLI.setLayoutBoundsSize(viewportW, viewportH);
             }
             setContentSize(w, h);
 
@@ -200,8 +200,8 @@
             }
             if (showHSB)
             {
-	            hsbLI.setLayoutPosition(0, h - hsbH);
-	            hsbLI.setLayoutSize(Math.max(hsbLI.getMinWidth(), viewportW), hsbH);
+	            hsbLI.setLayoutBoundsPosition(0, h - hsbH);
+	            hsbLI.setLayoutBoundsSize(Math.max(hsbLI.getMinBoundsWidth(), viewportW), hsbH);
             }
             if (oldShowHSB != showHSB)
                 invalidateSize();
@@ -215,8 +215,8 @@
             }
             if (showVSB)
             {
-	            vsbLI.setLayoutPosition(w - vsbW, 0);
-	            vsbLI.setLayoutSize(vsbW, Math.max(vsbLI.getMinHeight(), viewportH));
+	            vsbLI.setLayoutBoundsPosition(w - vsbW, 0);
+	            vsbLI.setLayoutBoundsSize(vsbW, Math.max(vsbLI.getMinBoundsHeight(), viewportH));
             }
             if (oldShowVSB != showVSB)
                invalidateSize();
