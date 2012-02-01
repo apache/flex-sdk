@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--- The default skin class for the button on a Spark DropDownList component.  
+<!--- The default skin class for the anchor button on a Spark DropDownList component.  
+
+      @see spark.components.DropDownList        
+      @see spark.skins.default.DropDownListSkin
         
       @langversion 3.0
       @playerversion Flash 10
@@ -156,14 +159,16 @@
     </s:Rect>
 
     <!-- layer 8: arrow -->
-    <!--- The arrow that users click to drop down the list. -->
+    <!--- The arrow graphic displayed in the anchor button. -->
     <s:Path right="6" verticalCenter="0" id="arrow"
           data="M 4.0 4.0 L 4.0 3.0 L 5.0 3.0 L 5.0 2.0 L 6.0 2.0 L 6.0 1.0 L 7.0 1.0 L 7.0 0.0 L 0.0 0.0 L 0.0 1.0 L 1.0 1.0 L 1.0 2.0 L 2.0 2.0 L 2.0 3.0 L 3.0 3.0 L 3.0 4.0 L 4.0 4.0">
         <s:fill>
              <s:RadialGradient rotation="90" focalPointRatio="1">   
-            <!--- The first part of the arrow's gradient fill. The default alpha is .6. The default color if 0x000000. -->
+                <!--- The first part of the arrow's gradient fill. 
+                      The default alpha is .6. The default color if 0x000000. -->
                 <s:GradientEntry id="arrowFill1" color="0" alpha="0.6" />
-            <!--- The second part of the arrow's gradient fill. The default alpha is .6. The default color if 0x000000. -->
+                <!--- The second part of the arrow's gradient fill. 
+                      The default alpha is .6. The default color if 0x000000. -->
                 <s:GradientEntry id="arrowFill2" color="0" alpha="0.8" />
             </s:RadialGradient>
         </s:fill>
