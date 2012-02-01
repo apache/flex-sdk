@@ -60,7 +60,7 @@
     <!-- states -->
     <s:states>
         <s:State name="uninitialized" stateGroups="uninitializedStates, normalStates" />
-        <s:State name="initializing" stateGroups="initializingStates, normalStates" />
+        <s:State name="loading" stateGroups="loadingStates, normalStates" />
         <s:State name="ready" stateGroups="readyStates, normalStates" />
         <s:State name="playing" stateGroups="playingStates, normalStates" />
         <s:State name="paused" stateGroups="pausedStates, normalStates" />
@@ -68,7 +68,7 @@
         <s:State name="playbackError" stateGroups="playbackErrorStates, normalStates" />
         <s:State name="disabled" stateGroups="disabledStates, normalStates"/>
         <s:State name="uninitializedAndFullScreen" stateGroups="uninitializedStates, fullScreenStates" />
-        <s:State name="initializingAndFullScreen" stateGroups="initializingStates, fullScreenStates" />
+        <s:State name="loadingAndFullScreen" stateGroups="loadingStates, fullScreenStates" />
         <s:State name="readyAndFullScreen" stateGroups="readyStates, fullScreenStates" />
         <s:State name="playingAndFullScreen" stateGroups="playingStates, fullScreenStates" />
         <s:State name="pausedAndFullScreen" stateGroups="pausedStates, fullScreenStates" />
