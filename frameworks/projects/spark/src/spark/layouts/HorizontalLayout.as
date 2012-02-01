@@ -863,15 +863,6 @@ public class HorizontalLayout extends LayoutBase
      *  The horizontal alignment of the content relative to the container's width.
      *  If the value is <code>"left"</code>, <code>"right"</code>, or <code>"center"</code> then the 
      *  layout element is aligned relative to the container's <code>contentWidth</code> property.
-     * 
-     *  <p>If the value is <code>"contentJustify"</code>, then the layout element's actual
-     *  width is set to the <code>contentWidth</code> of the container.
-     *  The <code>contentWidth</code> of the container is the width of the largest layout element. 
-     *  If all layout elements are smaller than the width of the container, 
-     *  then set the width of all layout elements to the width of the container.</p>
-     * 
-     *  <p>If the value is <code>"justify"</code> then the layout element's actual width
-     *  is set to the container's width.</p>
      *
      *  <p>This property has no effect when <code>clipAndEnableScrolling</code> is true
      *  and the <code>contentWidth</code> is greater than the container's width.</p>
