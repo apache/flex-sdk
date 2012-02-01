@@ -18,7 +18,7 @@
     </Metadata> 
     
     <states>
-        <State name="enabled"/>
+        <State name="normal"/>
         <State name="disabled"/>
     </states>
         
@@ -31,7 +31,7 @@
         </fill>
     </Rect>
 
-    <TextView id="textView" text="{hostComponent.text}"
+    <TextView id="textView"
               left="1" right="1" top="1" bottom="1"
               fontFamily="Arial" fontSize="12"
               color="0x2B4381" color.disabled="0x95A1C0"
