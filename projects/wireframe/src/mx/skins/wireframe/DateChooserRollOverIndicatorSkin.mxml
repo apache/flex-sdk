@@ -49,7 +49,7 @@
         </s:fill>
         <s:stroke>
             <!--- @private -->
-            <s:SolidColorStroke id="stroke" color="#6D8BA7" alpha="1" />
+            <s:SolidColorStroke id="stroke" color="#9C9C9C" alpha="1" />
         </s:stroke>
     </s:Rect>
 
