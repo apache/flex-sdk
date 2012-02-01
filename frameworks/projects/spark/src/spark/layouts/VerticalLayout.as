@@ -1378,8 +1378,8 @@ public class VerticalLayout extends LayoutBase
             llv.defaultMajorSize = typicalHeight; 
         }
 
-        if (!isNaN(rowHeight))
-            llv.defaultMajorSize = rowHeight;
+        if (!isNaN(_rowHeight))
+            llv.defaultMajorSize = _rowHeight;
         
         if (layoutTarget)
             llv.length = layoutTarget.numElements;
