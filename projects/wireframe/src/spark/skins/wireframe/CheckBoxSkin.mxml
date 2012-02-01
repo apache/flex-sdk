@@ -61,7 +61,7 @@
     </Group>
 
     <!-- Label -->
-    <TextBox id="labelField"
+    <TextBox id="labelElement"
              left="19" top="3" />
 
 </Skin>
