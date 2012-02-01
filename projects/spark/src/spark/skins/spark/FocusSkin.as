@@ -15,16 +15,17 @@ package spark.skins.default
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.IBitmapDrawable;
+import flash.events.Event;
 import flash.filters.GlowFilter;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import spark.components.supportClasses.SkinnableComponent;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import flash.utils.Dictionary;
+
+import spark.components.supportClasses.SkinnableComponent;
 
 /**
  *  Focus skins for Spark components.
@@ -92,6 +93,11 @@ public class FocusSkin extends UIComponent
     private var bitmap:Bitmap;
 
     /**
+     *  @private
+     */
+    private var _focusObject:SkinnableComponent;
+    
+    /**
      *  Object to draw focus around.  If null, uses focusManager.getFocus();
      *  
      *  @langversion 3.0
@@ -99,7 +105,21 @@ public class FocusSkin extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	public var focusObject:Object;
+	public function get focusObject():SkinnableComponent
+	{
+	    return _focusObject;
+	}
+	
+	public function set focusObject(value:SkinnableComponent):void
+	{
+	    _focusObject = value;
+        
+        // Add an "updateComplete" listener to the skin so we can redraw
+        // whenever the skin is drawn.
+        if (_focusObject.skin)
+            _focusObject.skin.addEventListener("updateComplete", 
+                    skin_updateCompleteHandler, false, 0, true);
+	}
     
     //--------------------------------------------------------------------------
     //
@@ -115,14 +135,15 @@ public class FocusSkin extends UIComponent
             
         // Grab a bitmap of the focused object
         if (!focusObject)
-			focusObject = focusManager.getFocus();
+			focusObject = focusManager.getFocus() as SkinnableComponent;
+			
         var bitmapData:BitmapData = new BitmapData(
                     focusObject.width + (FOCUS_THICKNESS * 2), 
                     focusObject.height + (FOCUS_THICKNESS * 2), true, 0);
         var m:Matrix = new Matrix();
         
         // If the focus object already has a focus skin, make sure it is hidden.
-        if (focusObject is SkinnableComponent && focusObject.mx_internal::focusObj)
+        if (focusObject.mx_internal::focusObj)
             focusObject.mx_internal::focusObj.visible = false;
        
         // Temporary solution for focus drawing on CheckBox and RadioButton components.
@@ -131,9 +152,9 @@ public class FocusSkin extends UIComponent
         var hidLabelElement:Boolean = false;
         if ((weakIsCheck(focusObject, "spark.components::CheckBox") ||
              weakIsCheck(focusObject, "spark.components::RadioButton"))
-             && focusObject.labelElement)
+             && Object(focusObject).labelElement)
         {
-            focusObject.labelElement.displayObject.visible = false;
+            Object(focusObject).labelElement.displayObject.visible = false;
             hidLabelElement = true;
         }
             
@@ -142,12 +163,12 @@ public class FocusSkin extends UIComponent
         bitmapData.draw(focusObject as IBitmapDrawable, m);
         
         // Show the focus skin, if needed.
-        if (focusObject is SkinnableComponent && focusObject.mx_internal::focusObj)
+        if (focusObject.mx_internal::focusObj)
             focusObject.mx_internal::focusObj.visible = true;
         
         // Show the label, if needed.
         if (hidLabelElement)
-            focusObject.labelElement.displayObject.visible = true;
+            Object(focusObject).labelElement.displayObject.visible = true;
         
         // Special case for Scroller - fill the entire rect.
         // TODO: Figure out a better solution.
@@ -170,7 +191,15 @@ public class FocusSkin extends UIComponent
         rect.x = rect.y = 0;
         rect.width = bitmapData.width;
         rect.height = bitmapData.height;
-        glowFilter.color = focusObject.getStyle("focusColor");
+        // If the focusObject has an errorString, use "errorColor" instead of "focusColor" 
+        if (focusObject.errorString != null && focusObject.errorString != "") 
+        {
+            glowFilter.color = focusObject.getStyle("errorColor");
+        }
+        else
+        {
+            glowFilter.color = focusObject.getStyle("focusColor");
+        }
         bitmapData.applyFilter(bitmapData, rect, filterPt, glowFilter); 
                
         if (!bitmap)
@@ -201,6 +230,12 @@ public class FocusSkin extends UIComponent
             return false;
             
         return obj is classDefCache[className];
+    }
+    
+    private function skin_updateCompleteHandler(event:Event):void
+    {
+        // We need to redraw whenever the focus object skin redraws.
+        invalidateDisplayList();
     }
 }
 }        
