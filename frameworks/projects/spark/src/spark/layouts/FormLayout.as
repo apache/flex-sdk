@@ -270,7 +270,7 @@ public class FormLayout extends VerticalLayout
                 fiLayout.setLayoutColumnWidths(columnMaxWidths);
             }
             
-            // Recalculate contentWidth
+            // Recalculate contentWidth; contentHeight already includes padding.
             var contentWidth:Number = calculateColumnWidthsSum(columnMaxWidths);
             layoutTarget.setContentSize(contentWidth + paddingLeft + paddingRight, layoutTarget.contentHeight);
         }
@@ -409,7 +409,7 @@ public class FormLayout extends VerticalLayout
                 
                 remainingWidth -= colWidth;
             }
-            // FIXME (klin): What do we do if there's remainingWidth after all this?
+            // TODO (klin): What do we do if there's remainingWidth after all this?
         }
     }
 }
