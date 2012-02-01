@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the Halo Button component. 
+<!--- The Spark skin class for the MX Button component. 
+
+      @see mx.controls.Button
         
       @langversion 3.0
       @playerversion Flash 10
