@@ -11,7 +11,8 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<Skin xmlns="http://ns.adobe.com/mxml/2009"
+	  alpha.disabled="0.5">
 
     <Metadata>
     	[HostComponent("mx.components.FxTextArea")]
@@ -27,36 +28,42 @@
         <State name="disabledVScrollBar" stateGroups="disabled,vScrollBar"/>
         <State name="disabledBothScrollBars" stateGroups="disabled,hScrollBar,vScrollBar"/>
     </states>
-        
+    
+    <!-- border/fill --> 
 	<Rect left="0" right="0" top="0" bottom="0">
-        <stroke>            
-            <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8"/>
+        <stroke>
+            <SolidColorStroke color="0x686868" />            
         </stroke>
         <fill>
-            <SolidColor color="0xF1F7FF"/>
+            <SolidColor color="0xFFFFFF"/>
         </fill>
     </Rect>
 
-    <TextView id="textView"
+	<!-- shadow -->
+	<Rect left="1" top="1" right="1" height="1">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.12" />
+		</fill>
+	</Rect>
+
+    <TextView id="textView" 
               left="1" right="1" right.vScrollBar="16"
               top="1" bottom="1" bottom.hScrollBar="16"
-              fontFamily="Arial" fontSize="11"
-              color="0x2B4381" color.disabled="0x95A1C0"
               paddingLeft="4" paddingTop="4"
               paddingRight="4" paddingBottom="4"
               horizontalScrollPosition="{horizontalScrollBar.value}"
               verticalScrollPosition="{verticalScrollBar.value}"/>
 
     <FxVScrollBar id="verticalScrollBar" includeIn="vScrollBar"
-                right="1" top="1" bottom="1" bottom.hScrollBar="16"
+                right="0" top="0" bottom="0" bottom.hScrollBar="15"
                 maximum="{textView.contentHeight - textView.height}"
                 value="{textView.verticalScrollPosition}"
-                pageSize="{textView.height}"/>
+                pageSize="{textView.height}" />   
 
     <FxHScrollBar id="horizontalScrollBar" includeIn="hScrollBar"
-                left="1" bottom="1" right="1" right.vScrollBar="16"
+                left="0" bottom="0" right="0" right.vScrollBar="15"
                 maximum="{textView.contentWidth - textView.width}"
                 value="{textView.horizontalScrollPosition}"
-                pageSize="{textView.width}"/>
+                pageSize="{textView.width}" />	 
     
 </Skin>
