@@ -46,6 +46,45 @@ public class FormLayout extends VerticalLayout
     
     //--------------------------------------------------------------------------
     //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set target(value:GroupBase):void
+    {
+        if (target == value)
+            return;
+        
+        // reset FormItemLayout columns when value is null.
+        // target is set to null in GroupBase when swapping layouts.
+        if (value == null)
+        {
+            var layout:LayoutBase;
+            const nElts:int = target.numElements;
+            var elt:ILayoutElement
+            
+            for (var i:int = 0; i < nElts; i++)
+            { 
+                elt = target.getElementAt(i);
+                if (!elt.includeInLayout)
+                    continue;
+                
+                layout = getElementLayout(elt);
+                
+                // Reset the column widths of each FormItemLayout
+                if (layout is FormItemLayout)
+                    (layout as FormItemLayout).setLayoutColumnWidths(null);
+            }
+        }
+        
+        super.target = value;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  IFormLayout Implementation
     //
     //--------------------------------------------------------------------------
@@ -161,6 +200,7 @@ public class FormLayout extends VerticalLayout
             }
         }
     }
+    
     
     //--------------------------------------------------------------------------
     //
