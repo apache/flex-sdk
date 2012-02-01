@@ -12,17 +12,15 @@
 -->
 
 <Skin xmlns="http://ns.adobe.com/mxml/2009"
-	  width="120" height="16">
+	  width="120" height="15">
 
     <Metadata>
     	[HostComponent("flex.component.HScrollBar")]
     </Metadata> 
     
-    <content>    
-        <Button id="track" left="11" right="11" height="12" skinZZ="flex.skin.HScrollBarTrackSkin" />
-        <Button left="0" id="upButton" width="12" height="12" skinZZ="flex.skin.ScrollBarLeftButtonSkin" />
-        <Button id="thumb" width="12" height="12" minWidth="10" skinZZ="flex.skin.HScrollBarThumbSkin" />
-        <Button right="0" id="downButton" width="12" height="12" skinZZ="flex.skin.ScrollBarRightButtonSkin" />
-    </content>
+    <Button id="track" left="17" right="17" skinZZ="flex.skin.HScrollBarTrackSkin" />
+    <Button left="0" id="upButton" skinZZ="flex.skin.ScrollBarLeftButtonSkin" />
+    <Button id="thumb" skinZZ="flex.skin.HScrollBarThumbSkin" />
+    <Button right="0" id="downButton" skinZZ="flex.skin.ScrollBarRightButtonSkin" />
 
 </Skin>
