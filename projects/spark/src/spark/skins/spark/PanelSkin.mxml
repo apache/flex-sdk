@@ -35,6 +35,10 @@
         
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
         static private const contentFill:Array = ["bgFill"];
+        
+        /**
+         * @inheritDoc
+         */
         override public function get contentItems():Array {return contentFill};
     </fx:Script>
     
@@ -61,8 +65,10 @@
 	</s:Rect>
 
     <!-- layer 2: background fill -->
+    <!--- Defines the appearance of the PanelSkin class's background. -->
     <s:Rect id="background" left="1" top="1" right="1" bottom="1">
         <s:fill>
+	    <!--- Defines the  PanelSkin class's background fill. The default color is 0xFFFFFF. -->
             <s:SolidColor color="0xFFFFFF" id="bgFill" />
         </s:fill>
     </s:Rect>
@@ -93,6 +99,7 @@
     </s:Rect>
 	
 	<!-- layer 5: text -->
+	<!--- Defines the appearance of the PanelSkin class's title bar. -->
 	<s:SimpleText id="titleField" lineBreak="explicit"
 			 left="10" right="4" top="2" height="30"
 			 verticalAlign="middle" fontWeight="bold">
