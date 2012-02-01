@@ -43,9 +43,9 @@ viewport property to link them together.
         
     <fx:Script>
     <![CDATA[    
-        override public function beginHighlightBitmapCapture() : void
+        override public function beginHighlightBitmapCapture() : Boolean
         {
-            super.beginHighlightBitmapCapture();
+            var needUpdate:Boolean = super.beginHighlightBitmapCapture();
             
             // Draw an opaque rect that fill our entire skin. Our background
             // is transparent, but we don't want focus/error skins to
@@ -54,14 +54,18 @@ viewport property to link them together.
             graphics.beginFill(0);
             graphics.drawRect(0, 0, width, height);
             graphics.endFill();
+
+            return needUpdate;
         }
         
-        override public function endHighlightBitmapCapture() : void
+        override public function endHighlightBitmapCapture() : Boolean
         {
-            super.endHighlightBitmapCapture();
+            var needUpdate:Boolean = super.endHighlightBitmapCapture();
             
             // Clear the rect we drew in beginBitmapCapture();
             graphics.clear();
+
+            return needUpdate;
         }
     ]]>
     </fx:Script>
