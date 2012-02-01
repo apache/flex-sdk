@@ -23,12 +23,14 @@ import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Matrix3D;
 import flash.geom.Point;
+import flash.geom.Rectangle;
 import flash.geom.Transform;
 
 import mx.components.Group;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
+import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.InvalidatingSprite;
 import mx.core.UIComponent;
@@ -2214,36 +2216,123 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @param fillColor A 32-bit ARGB color value that you use to fill the bitmap image area. 
      *  The default value is 0xFFFFFFFF (solid white).
      *  
+     *  @param useLocalSpace Whether or not the bitmap shows the GraphicElement in the local or global 
+     *  coordinate space. If true, then the snapshot is in the local space. The default value is true. 
+     * 
      *  @return A bitmap snapshot of the GraphicElement. 
      *  
      */
-    public function getBitmapData(transparent:Boolean = true, fillColor:uint = 0xFFFFFFFF):BitmapData
+    public function getBitmapData(transparent:Boolean = true, fillColor:uint = 0xFFFFFFFF, useLocalSpace:Boolean = true):BitmapData
     {
-        // NOTE: This code will not work correctly when we share
-        // display objects across multiple graphic elements.
-        var bitmapData:BitmapData = new BitmapData(getLayoutBoundsWidth(), getLayoutBoundsHeight(), transparent, fillColor);
-
-        if (displayObject && nextSiblingNeedsDisplayObject)
-        {
-            var m:Matrix = displayObject.transform.matrix;
-        
+        if (!layoutFeatures || !layoutFeatures.is3D)
+        {        		
+			var restoreDisplayObject:Boolean = false;
+			var oldDisplayObject:DisplayObject;
+			
+	        if (!displayObject || !nextSiblingNeedsDisplayObject)
+	        {
+	        	restoreDisplayObject = true;
+	        	oldDisplayObject = displayObject;
+	        	displayObject = new InvalidatingSprite();
+	        	UIComponent(parent).$addChild(displayObject);
+	            invalidateDisplayList();
+	            validateDisplayList();
+	        }
+	        
+	        var topLevel:Sprite = Sprite(IUIComponent(parent).systemManager);  	
+	    	var rectBounds:Rectangle = displayObject.getBounds(useLocalSpace ? displayObject.parent : topLevel); 
+	        var bitmapData:BitmapData = new BitmapData(rectBounds.width, rectBounds.height, transparent, fillColor);
+	        	
+	        var m:Matrix = useLocalSpace ? displayObject.transform.matrix : displayObject.transform.concatenatedMatrix;
+	        
             if (m)
-                m.translate(-getLayoutBoundsX(), -getLayoutBoundsY());
-            bitmapData.draw(displayObject, m);
+                m.translate(-rectBounds.x, -rectBounds.y);
+	        
+	        bitmapData.draw(displayObject, m);
+           
+			if (restoreDisplayObject)
+			{
+				UIComponent(parent).$removeChild(displayObject);
+            	displayObject = oldDisplayObject;
+			}
+        	return bitmapData;
+        
         }
         else
         {
-            var oldDisplayObject:DisplayObject = displayObject;
-            displayObject = new InvalidatingSprite();
-            invalidateDisplayList();
-            validateDisplayList();
-            
-            bitmapData.draw(displayObject);
-            
-            displayObject = oldDisplayObject;
-                
+        	return get3DSnapshot(transparent, fillColor, useLocalSpace);
         }
-        return bitmapData;
+        
+    }
+    
+   /**
+     *  @private 
+     *  Returns a bitmap snapshot of a 3D transformed displayObject. Since BitmapData.draw ignores
+     *  the transform matrix of its target when it draws, we need to parent the target in a temporary
+     *  sprite and call BitmapData.draw on that temp sprite. We can't take a bitmap snapshot of the 
+     *  real parent because it might have other children. 
+     */
+    private function get3DSnapshot(transparent:Boolean = true, fillColor:uint = 0xFFFFFFFF, useLocalSpace:Boolean = true):BitmapData
+    {
+    	var topLevel:Sprite = Sprite(IUIComponent(parent).systemManager); 
+    	var dispObjParent:DisplayObjectContainer = displayObject.parent;
+    	var drawSprite:Sprite = new Sprite();
+    	
+    	// Get the visual bounds of the target in both local and global coordinates
+        var topLevelRect:Rectangle = displayObject.getBounds(topLevel);
+        var displayObjectRect:Rectangle = displayObject.getBounds(dispObjParent);  
+        
+        // Keep a reference to the original 3D matrix. We will restore this later.
+        var oldMat3D:Matrix3D = displayObject.transform.matrix3D.clone();
+        
+        // Get the concatenated 3D matrix which we will use to position the target when we reparent it
+        var globalMat3D:Matrix3D = displayObject.transform.getRelativeMatrix3D(topLevel);
+        var newMat3D:Matrix3D = oldMat3D.clone();      
+        
+        
+        // Remove the target from its current parent, making sure to store the child index
+    	var childIndex:int = dispObjParent.getChildIndex(displayObject);
+    	if (dispObjParent is Group)
+    		Group(dispObjParent).$removeChild(displayObject);
+    	else
+    		dispObjParent.removeChild(displayObject);
+        
+        // Parent the target to the drawSprite and then attach the drawSprite to the stage
+        topLevel.addChild(drawSprite);
+        drawSprite.addChild(displayObject);
+
+		// Assign the globally translated matrix to the target
+		if (useLocalSpace)
+		{
+	        newMat3D.position = globalMat3D.position;
+	        displayObject.transform.matrix3D = newMat3D;
+  		}
+  		else
+  		{
+  			displayObject.transform.matrix3D = globalMat3D;
+  		}
+        // Translate the bitmap so that the left-top bounds ends up at (0,0)
+		var m:Matrix = new Matrix();
+		m.translate(-topLevelRect.left, - topLevelRect.top);
+		       
+        // Draw to the bitmapData
+        var snapshot:BitmapData = new BitmapData( topLevelRect.width, topLevelRect.height, transparent, fillColor);
+        snapshot.draw(drawSprite, m, null, null, null, true);
+
+       	// Remove target from temporary sprite and remove temp sprite from stage
+        drawSprite.removeChild(displayObject);
+        topLevel.removeChild(drawSprite);
+    	
+    	// Reattach the target to its original parent at its original child position
+    	if (dispObjParent is Group)
+    		Group(dispObjParent).$addChildAt(displayObject, childIndex);
+    	else
+    		dispObjParent.addChildAt(displayObject, childIndex);
+    		
+        // Restore the original 3D matrix
+        displayObject.transform.matrix3D = oldMat3D;
+
+    	return snapshot; 
     }
 
     /**
