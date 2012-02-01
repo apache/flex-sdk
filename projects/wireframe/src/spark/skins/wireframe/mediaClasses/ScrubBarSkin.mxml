@@ -49,7 +49,7 @@
             <!-- fill -->
             <s:Rect left="1" right="1" top="1" bottom="1">
                 <s:fill>
-                    <s:SolidColor color="0xA8C6EE" />
+                    <s:SolidColor color="#C6C6C6" />
                 </s:fill>
             </s:Rect>
             
@@ -65,7 +65,7 @@
             <!-- fill -->
             <s:Rect left="1" right="1" top="1" bottom="1">
                 <s:fill>
-                    <s:SolidColor color="0xE2EDF7" />
+                    <s:SolidColor color="#EEEEEE" />
                 </s:fill>
             </s:Rect>
             
