@@ -1668,15 +1668,18 @@ public class TileLayout extends LayoutBase
             // Make sure we don't return an index for an empty space in the last row.
             // newRow is guaranteed to be greater than zero:
             
-            // Step 1: We can end up at the empty space in the last row if we moved right from
-            // the last item.
-            if (currentIndex == maxIndex && newColumn > currentColumn)
-                newColumn = currentColumn;
-                
-            // Step 2: We can end up at the empty space in the last row if we moved down from
-            // the previous row.    
-            if (newRow == rowCount - 1 && newColumn > maxIndex - columnCount * (rowCount - 1))
-                newRow--;
+            if (newRow == rowCount - 1)
+            {
+                // Step 1: We can end up at the empty space in the last row if we moved right from
+                // the last item.
+                if (currentIndex == maxIndex && newColumn > currentColumn)
+                    newColumn = currentColumn;
+                    
+                // Step 2: We can end up at the empty space in the last row if we moved down from
+                // the previous row.    
+                if (newColumn > maxIndex - columnCount * (rowCount - 1))
+                    newRow--;
+            }
 
             return newRow * columnCount + newColumn;
         }
