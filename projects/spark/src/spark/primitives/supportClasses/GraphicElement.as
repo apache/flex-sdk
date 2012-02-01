@@ -1560,7 +1560,6 @@ public class GraphicElement extends EventDispatcher
         invalidateTransform(previous != needsDisplayObject);
     }
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
