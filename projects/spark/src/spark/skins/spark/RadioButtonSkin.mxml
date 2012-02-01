@@ -19,7 +19,7 @@
       @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-      alpha.disabledStates="0.5">
+    xmlns:fb="http://ns.adobe.com/fb/2009" alpha.disabledStates="0.5">
 
     <fx:Metadata>
     <![CDATA[ 
@@ -30,24 +30,41 @@
     ]]>
     </fx:Metadata> 
     
-    <fx:Script>
+    <fx:Script fb:stylingSupport="true">
         /* Define the skin elements that should not be colorized. 
            For button, the graphics are colorized but the label is not. */
         static private const exclusions:Array = ["labelDisplay", "dot"];
 
-    /** 
-     * @copy spark.skins.SparkSkin#colorizeExclusions
-     */     
+        /**
+         * @private
+         */
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["dotFill"];
         
         /**
-         * @inheritDoc
+         * @private
          */
         override public function get symbolItems():Array {return symbols};
-		override public function get focusSkinExclusions():Array {return [labelDisplay]};
+        
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useBaseColor = true;
+            super.initializationComplete();
+        }
+    </fx:Script>
+    
+    <fx:Script>
+        <![CDATA[
+        /**
+         * @inheritDoc
+         */
+        override public function get focusSkinExclusions():Array {return [labelDisplay]};            
+        ]]>
     </fx:Script>
     
     <s:states>
