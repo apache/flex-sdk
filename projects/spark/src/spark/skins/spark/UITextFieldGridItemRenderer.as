@@ -18,10 +18,14 @@ package spark.skins.spark
 {
 import flash.text.TextFieldAutoSize;
 
+import mx.core.mx_internal;
 import mx.core.UITextField;
 import mx.styles.IStyleClient;
 
+import spark.components.gridClasses.GridItemRenderer;
 import spark.components.gridClasses.IGridItemRenderer;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Styles
@@ -98,7 +102,8 @@ public class UITextFieldGridItemRenderer extends UITextField implements IGridIte
         
         autoSize = TextFieldAutoSize.NONE;
         
-        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);        
+        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, 
+						 GridItemRenderer.toolTipShowHandler);        
     }
         
 include "TextFieldGridItemRendererInclude.as"
