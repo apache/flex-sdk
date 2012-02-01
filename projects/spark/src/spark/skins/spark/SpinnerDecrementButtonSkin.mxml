@@ -11,13 +11,13 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxButton")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.Button")]
+    </fx:Metadata> 
     
-    <Script>
+    <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For spinner buttons, the graphics are colorized but the arrow is not. */
         static private const exclusions:Array = ["arrow"];
@@ -26,65 +26,65 @@
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["arrowFill"];
         override public function get symbolItems():Array {return symbols};
-    </Script>
+    </fx:Script>
     
-    <states>
-        <State name="up" />
-        <State name="over"/>
-        <State name="down" />
-        <State name="disabled" />
-    </states>
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over"/>
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
     
     <!-- border/fill -->
-	<Path data="M 0 0 h 18 v 8 Q 18 9 16 10 h -16 Z" 
+	<s:Path data="M 0 0 h 18 v 8 Q 18 9 16 10 h -16 Z" 
 		  left="0" top="0" right="0" bottom="0">
-		<stroke>
-			<SolidColorStroke color="0x686868" weight="1"/>
-		</stroke>
-		<fill>
-			<LinearGradient rotation="90">
-				<GradientEntry color="0xE8E8E8"
+		<s:stroke>
+			<s:SolidColorStroke color="0x686868" weight="1"/>
+		</s:stroke>
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xE8E8E8"
 							   color.over="0xC2C2C2"
 							   color.down="0xAEB0B1" />
-				<GradientEntry color="0xDFDFDF"
+				<s:GradientEntry color="0xDFDFDF"
 							   color.over="0xADAEAF"
 							   color.down="0xA1A3A5" />
-			</LinearGradient>
-		</fill>
-	</Path>    
+			</s:LinearGradient>
+		</s:fill>
+	</s:Path>    
 	
 	<!-- highlight -->
-	<Path data="M 0 0 h 16 v 6 Q 16 8 14 8 h -14 Z" 
+	<s:Path data="M 0 0 h 16 v 6 Q 16 8 14 8 h -14 Z" 
 		  left="1" top="1" right="1" bottom="1" >
-		<stroke>
-			<LinearGradientStroke rotation="90" weight="1">
-				<GradientEntry color="0xFFFFFF" 
+		<s:stroke>
+			<s:LinearGradientStroke rotation="90" weight="1">
+				<s:GradientEntry color="0xFFFFFF" 
 							   color.down="0x000000" 
 							   alpha="0.55"
 							   alpha.over="0.55" 
 							   alpha.down="0.15" />
-				<GradientEntry color="0xFFFFFF" 
+				<s:GradientEntry color="0xFFFFFF" 
 							   color.down="0x000000"
 							   alpha="0.2475"
 							   alpha.over="0.2475"
 							   alpha.down="0" />
-			</LinearGradientStroke>
-		</stroke>
-	</Path>
+			</s:LinearGradientStroke>
+		</s:stroke>
+	</s:Path>
     
     <!-- shadow -->
-    <Rect left="1" top="2" right="1" height="1" includeIn="down">
-    	<fill>
-    		<SolidColor color="0x000000" alpha="0.07" />
-    	</fill>
-    </Rect>
+    <s:Rect left="1" top="2" right="1" height="1" includeIn="down">
+    	<s:fill>
+    		<s:SolidColor color="0x000000" alpha="0.07" />
+    	</s:fill>
+    </s:Rect>
     
     <!-- arrow -->
-    <Path horizontalCenter="0" verticalCenter="0" id="arrow"
+    <s:Path horizontalCenter="0" verticalCenter="0" id="arrow"
           data="M 3.0 3.0 L 3.0 2.0 L 4.0 2.0 L 4.0 1.0 L 5.0 1.0 L 5.0 0.0 L 0.0 0.0 L 0.0 1.0 L 1.0 1.0 L 1.0 2.0 L 2.0 2.0 L 2.0 3.0 L 3.0 3.0">
-        <fill>
-        	<SolidColor id="arrowFill" color="0" alpha="0.8" />
-        </fill>
-    </Path>            
+        <s:fill>
+        	<s:SolidColor id="arrowFill" color="0" alpha="0.8" />
+        </s:fill>
+    </s:Path>            
 
-</SparkSkin>
+</s:SparkSkin>
