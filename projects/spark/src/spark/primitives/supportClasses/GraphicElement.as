@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics.baseClasses
+package spark.primitives.supportClasses
 {
 
 import flash.display.BitmapData;
@@ -29,14 +29,14 @@ import flash.geom.Rectangle;
 import flash.geom.Transform;
 import flash.geom.Vector3D;
 
-import mx.components.Group;
+import spark.components.Group;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.IID;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IUIComponent;
 import mx.core.IVisualElement;
-import mx.core.InvalidatingSprite;
+import spark.components.supportClasses.InvalidatingSprite;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -47,14 +47,14 @@ import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 import mx.geom.Transform;
 import mx.geom.TransformOffsets;
-import mx.graphics.IGraphicElement;
+import spark.core.IGraphicElement;
 import mx.graphics.IStroke;
-import mx.graphics.MaskType;
+import spark.core.MaskType;
 import mx.managers.ILayoutManagerClient;
 import mx.managers.LayoutManager;
 import mx.utils.MatrixUtil;
 import mx.utils.OnDemandEventDispatcher;
-
+import spark.primitives.supportClasses.ISharedGraphicsDisplayObject;
 use namespace mx_internal;
 
 /**
