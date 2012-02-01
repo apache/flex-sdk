@@ -38,7 +38,7 @@ public class IndexChangeEvent extends Event
     //--------------------------------------------------------------------------
 
     /**
-     *  The IndexChangeEvent.CHANGE constant defines the value of the 
+     *  The <code>IndexChangeEvent.CHANGE</code> constant defines the value of the 
      *  <code>type</code> property of the event object for a <code>change</code> event,
      *  which indicates that an index has changed, such as when a List-based control 
      *  changes its selection. 
@@ -75,7 +75,7 @@ public class IndexChangeEvent extends Event
     public static const CHANGE:String = "change";
     
     /**
-     *  The IndexChangeEvent.CHANGING constant defines the value of the 
+     *  The <code>IndexChangeEvent.CHANGING</code> constant defines the value of the 
      *  <code>type</code> property of the event object for a <code>changing</code> event,
      *  which indicates that the current selection is about to change. 
      *
@@ -111,7 +111,7 @@ public class IndexChangeEvent extends Event
     public static const CHANGING:String = "changing";
     
     /**
-     *  The IndexChangeEvent.CARET_CHANGE constant defines the value of the 
+     *  The <code>IndexChangeEvent.CARET_CHANGE</code> constant defines the value of the 
      *  <code>type</code> property of the event object for a <code>caretChange</code> event,
      *  which indicates that the current item in focus is about to change. 
      *
@@ -154,7 +154,6 @@ public class IndexChangeEvent extends Event
 
     /**
      *  Constructor.
-     *  Normally called by a Flex control and not used in application code.
      *
      *  @param type The event type; indicates the action that caused the event.
      *
