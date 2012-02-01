@@ -64,7 +64,7 @@
     <s:SimpleText id="labelElement"
              textAlign="start"
              verticalAlign="middle"
-             lineBreak="explicit"
+             truncation="1"
              left="19" top="3" />
 
 </s:Skin>
