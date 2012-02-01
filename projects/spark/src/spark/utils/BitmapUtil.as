@@ -61,6 +61,8 @@ public class BitmapUtil
         // bounds as those used internally by the player
         var m:Matrix = MatrixUtil.getConcatenatedMatrix(target as DisplayObject);
         var bounds:Rectangle = getRealBounds(DisplayObject(target), m);
+        if (bounds.width == 0 || bounds.height == 0)
+            return null;
         if (m)
             m.translate(-(Math.floor(bounds.x)), -(Math.floor(bounds.y)));
         var bmData:BitmapData = new BitmapData(bounds.width, bounds.height, true, 0);
@@ -110,9 +112,10 @@ public class BitmapUtil
         // consistent with the player's view of the object bounds
         var actualBounds:Rectangle = bitmap.getColorBoundsRect(
             0xFF000000, 0x0, false);
-        if (actualBounds.x > 0 && actualBounds.y > 0 &&
-            actualBounds.right < bitmap.width &&
-            actualBounds.bottom < bitmap.height)
+        if ((actualBounds.width == 0 || actualBounds.height == 0) ||
+            (actualBounds.x > 0 && actualBounds.y > 0 &&
+             actualBounds.right < bitmap.width &&
+             actualBounds.bottom < bitmap.height))
         {
             actualBounds.x = actualBounds.x + tx - padding;
             actualBounds.y = actualBounds.y + ty - padding;
