@@ -14,8 +14,7 @@ import flash.events.Event;
 
 import mx.core.IUIComponent;
 
-import spark.effects.AnimationProperty;
-import spark.events.AnimationEvent;
+import spark.effects.SimpleMotionPath;
     
 public class ResizeInstance extends AnimateInstance
 {
@@ -24,8 +23,6 @@ public class ResizeInstance extends AnimateInstance
     public function ResizeInstance(target:Object)
     {
         super(target);
-        
-        roundValues = true;
     }
 
     //--------------------------------------------------------------------------
@@ -33,21 +30,6 @@ public class ResizeInstance extends AnimateInstance
     //  Variables
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private var restoreVisibleArray:Array;
-    
-    /**
-     *  @private
-     */
-    private var restoreAutoLayoutArray:Array;
-    
-    /**
-     *  @private
-     */
-    private var numHideEffectsPlaying:Number = 0;
 
     /**
      *  @private
@@ -233,21 +215,6 @@ public class ResizeInstance extends AnimateInstance
         widthSet = !isNaN(value);
     }
 
-    //----------------------------------
-    //  hideChildrenTargets
-    //----------------------------------
-
-    /**
-     *  An Array of Panels.
-     *  The children of these Panels are hidden while the Resize effect plays.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var hideChildrenTargets:Array /* of Panel */;
-
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -260,19 +227,10 @@ public class ResizeInstance extends AnimateInstance
     override public function play():void
     {
         calculateDimensionChanges();
-        
-        // If the target is a Panel, then find all Panel objects that will
-        // be affected by the animation.  Deliver a "resizeStart" event to 
-        // each affected Panel, and then wait until the Panel finishes
-        // hiding its children.
-        // TODO: We should axe this from Resize and enable the
-        // functionality in a different manner, such as setting hiding
-        // effects manually on the children themselves
-        var childrenHiding:Boolean = false; // hidePanelChildren();
 
-        animationProperties = 
-            [new AnimationProperty("width", widthFrom, widthTo, duration, widthBy),
-             new AnimationProperty("height", heightFrom, heightTo, duration, heightBy)];
+        motionPaths = 
+            [new SimpleMotionPath("width", widthFrom, widthTo, duration, widthBy),
+             new SimpleMotionPath("height", heightFrom, heightTo, duration, heightBy)];
                 
         // Also animate any size-related constraints that change between
         // transition states
@@ -294,27 +252,7 @@ public class ResizeInstance extends AnimateInstance
             }
         }
         
-        super.play();
-
-        if (childrenHiding)
-            animation.pause();
-        
-    }
-
-    /**
-     * Handles the end event from the tween. The value here is an Array of
-     * values, one for each 'property' in our animationProperties.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function endHandler(event:AnimationEvent):void
-    {
-        super.endHandler(event);
-
-        restorePanelChildren();
+        super.play();        
     }
 
     //--------------------------------------------------------------------------
@@ -394,172 +332,5 @@ public class ResizeInstance extends AnimateInstance
         }
     }
 
-    /**
-     *  @private
-     *  Hides children of Panels while the effect is playing.
-     */
-    /*
-    private function hidePanelChildren():Boolean
-    {
-        if (!hideChildrenTargets)
-            return false;
-            
-        // Initialize a couple arrays that will be needed later
-        restoreVisibleArray = [];
-        restoreAutoLayoutArray = [];
-        
-        // Send each panel a "resizeStart" event, which will trigger
-        // the resizeStartEffect (if any)
-        var n:int = hideChildrenTargets.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            var p:Object = hideChildrenTargets[i];
-            
-            if (p is Panel)
-            {
-                var prevNumHideEffectsPlaying:Number = numHideEffectsPlaying;
-
-                p.addEventListener(EffectEvent.EFFECT_START, panelChildrenEventHandler);             
-                p.dispatchEvent(new Event("resizeStart"));
-                p.removeEventListener(EffectEvent.EFFECT_START, panelChildrenEventHandler);
-
-                // If no effect started playing, then make children invisible
-                // immediately instead of waiting for the end of the effect
-                if (numHideEffectsPlaying == prevNumHideEffectsPlaying)
-                    makePanelChildrenInvisible(Panel(p), i);
-            }
-        }
-
-        return numHideEffectsPlaying > 0;
-    }
-    */
-    
-    /**
-     *  @private
-     */
-    /*
-    private function makePanelChildrenInvisible(panel:Panel,
-                                                panelIndex:Number):void
-    {
-        var childArray:Array = [];
-        
-        var child:IUIComponent;
-        
-        // Hide the Panel's children while the Resize is occurring.
-        var n:int = panel.numItems;
-        for (var i:int = 0; i < n; i++)
-        {
-            child = IUIComponent(panel.getItemAt(i));
-            if (child.visible)
-            {
-                childArray.push(child);
-                child.setVisible(false, true);
-            }
-        }
-        
-        // Hide the Panel's scrollbars while the Resize is occurring.
-        //child = panel.horizontalScrollBar;
-        if (child && child.visible)
-        {
-            childArray.push(child);
-            child.setVisible(false, true);
-        }
-        //child = panel.verticalScrollBar;
-        if (child && child.visible)
-        {
-            childArray.push(child);
-            child.setVisible(false, true);
-        }
-        
-        restoreVisibleArray[panelIndex] = childArray;
-
-        // Set autoLayout = false, which prevents the Panel's updateDisplayList()
-        // method from executing while the Panel is resizing.  
-        //if (panel.autoLayout)
-        //{
-        //    panel.autoLayout = false;
-        //    restoreAutoLayoutArray[panelIndex] = true;
-        //}
-    }    
-    */
-    
-    /**
-     *  @private
-     */
-    private function restorePanelChildren():void
-    {
-        if (hideChildrenTargets)
-        {       
-            var n:int = hideChildrenTargets.length;
-            for (var i:int = 0; i < n; i++)
-            {
-                var p:IUIComponent = hideChildrenTargets[i];
-                                
-                var childArray:Array = restoreVisibleArray[i];
-                if (childArray)
-                {
-                    var m:int = childArray.length;
-                    for (var j:int = 0; j < m; j++)
-                    {
-                        childArray[j].setVisible(true, true);
-                    }
-                }
-                
-                //if (restoreAutoLayoutArray[i])
-                    //Panel(p).autoLayout = true;
-                    
-                // Trigger the resizeEndEffect (if any) 
-                p.dispatchEvent(new Event("resizeEnd")); 
-            }
-        }
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden event handlers
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  This function is called when one of the Panels finishes
-     *  its "hide children" animation. 
-     */
-    /*
-    private function panelChildrenEventHandler(event:Event):void
-    {
-        var panel:Panel = event.target as Panel;
-
-        if (event.type == EffectEvent.EFFECT_START)
-        {
-            // Call my eventHandler() method when the effect finishes playing.
-            panel.addEventListener(EffectEvent.EFFECT_END, panelChildrenEventHandler);
-
-            // Remember how many effects we're waiting for
-            numHideEffectsPlaying++;                
-        }
-
-        else if (event.type == EffectEvent.EFFECT_END)
-        {       
-            // Remove the event listener that triggered this callback.
-            panel.removeEventListener(EffectEvent.EFFECT_END, panelChildrenEventHandler);
-            
-            // Get the array index of the panel
-            var n:int = hideChildrenTargets.length;
-            for (var i:int = 0; i < n; i++)
-            {
-                if (hideChildrenTargets[i] == panel)
-                    break;
-            }
-            
-            makePanelChildrenInvisible(panel, i);
-
-            // If all panels have finished their "hide children" effect,
-            // then it's time to start our Resize effect.
-            if (--numHideEffectsPlaying == 0)
-                animation.resume();     
-        } 
-    }
-    */
 }
 }
