@@ -9,8 +9,84 @@ import flash.geom.Point;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 
+/**
+* The DisplacementMapFilter class uses the pixel values from the specified BitmapData object 
+* (called the <i>displacement map image</i>) to perform a displacement of an object.
+* You can use this filter to apply a warped 
+* or mottled effect to any object that inherits from the DisplayObject class, 
+* such as MovieClip, SimpleButton, TextField, and Video objects, as well as to BitmapData objects.
+* 
+* <p>The use of filters depends on the object to which you apply the filter:</p>
+* <ul><li>To apply filters to a display object, use the
+* <code>filters</code> property of the display object. Setting the <code>filters</code> 
+* property of an object does not modify the object, and you can remove the filter by clearing the
+* <code>filters</code> property. </li>
+* 
+* <li>To apply filters to BitmapData objects, use the <code>BitmapData.applyFilter()</code> method.
+* Calling <code>applyFilter()</code> on a BitmapData object takes the source BitmapData object 
+* and the filter object and generates a filtered image.</li>
+* </ul>
+* 
+* <p>If you apply a filter to a display object, the value of the <code>cacheAsBitmap</code> property of the 
+* display object is set to <code>true</code>. If you clear all filters, the original value of 
+* <code>cacheAsBitmap</code> is restored.</p>
+*
+* <p>The filter uses the following formula:</p>
+* 
+* <listing>
+* dstPixel[x, y] = srcPixel[x + ((componentX(x, y) - 128) ~~ scaleX) / 256, y + ((componentY(x, y) - 128) ~~scaleY) / 256)
+* </listing>
+* 
+* <p>where <code>componentX(x, y)</code> gets the <code>componentX</code> property color value 
+* from the <code>mapBitmap</code> property at <code>(x - mapPoint.x ,y - mapPoint.y)</code>.</p>
+*
+* <p>The map image used by the filter is scaled to match the Stage scaling.
+* It is not scaled when the object itself is scaled.</p>
+* 
+* <p>This filter supports Stage scaling. However, general scaling, rotation, and 
+* skewing are not supported. If the object itself is scaled (if the <code>scaleX</code>
+* and <code>scaleY</code> properties are set to a value other than 1.0),
+* the filter effect is not scaled. It is scaled only when the user zooms in on the Stage.</p>
+* 
+* @see flash.display.BitmapData#applyFilter()
+* @see flash.display.DisplayObject#filters
+* @see flash.display.DisplayObject#cacheAsBitmap
+* 
+* @langversion 3.0
+* @playerversion Flash 10
+* @playerversion AIR 1.5
+* @productversion Flex 4
+*/
 public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param mapBitmap A BitmapData object containing the displacement map data.
+	 * @param mapPoint A value that contains the offset of the upper-left corner of the
+	 * target display object from the upper-left corner of the map image.
+	 * @param componentX Describes which color channel to use in the map image to displace the <i>x</i> result. 
+	 * Possible values are the BitmapDataChannel constants. 
+	 * @param componentY Describes which color channel to use in the map image to displace the <i>y</i> result. 
+	 * Possible values are the BitmapDataChannel constants. 
+	 * @param scaleX The multiplier to use to scale the <i>x</i> displacement result from the map calculation.
+	 * @param scaleY The multiplier to use to scale the <i>y</i> displacement result from the map calculation.
+	 * @param mode The mode of the filter. Possible values are the DisplacementMapFilterMode
+	 * constants.
+	 * @param color Specifies the color to use for out-of-bounds displacements. The valid range of 
+	 * displacements is 0.0 to 1.0. Use this parameter if <code>mode</code> is set to <code>DisplacementMapFilterMode.COLOR</code>.
+	 * @param alpha Specifies what alpha value to use for out-of-bounds displacements.
+	 * It is specified as a normalized value from 0.0 to 1.0. For example,
+	 * .25 sets a transparency value of 25%. 
+	 * Use this parameter if <code>mode</code> is set to <code>DisplacementMapFilterMode.COLOR</code>.
+	 * 
+	 * @see flash.display.BitmapDataChannel
+	 * @see flash.filters.DisplacementMapFilterMode
+	 * @langversion 3.0
+	 * @playerversion Flash 10
+	 * @playerversion AIR 1.5
+	 * @productversion Flex 4
+	 */
 	public function DisplacementMapFilter(mapBitmap:BitmapData = null, 
 										  mapPoint:Point = null, componentX:uint = 0, 
 										  componentY:uint = 0, scaleX:Number = 0.0, 
@@ -314,6 +390,16 @@ public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
 		}
 	}
 	
+	/**
+	 * Returns a copy of this filter object.
+	 * @return A new DisplacementMapFilter instance with all the same properties as the
+	 * original one.
+	 * 
+	 * @langversion 3.0
+	 * @playerversion Flash 10
+	 * @playerversion AIR 1.5
+	 * @productversion Flex 4
+	 */
 	public function clone():BitmapFilter
 	{
 		return null;
