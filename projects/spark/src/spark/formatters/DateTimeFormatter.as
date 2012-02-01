@@ -988,8 +988,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
     }
 
     /**
-     *  Lists all of the locale ID names supported by this class. This is a list of locales supported by 
-     *  the operating system, not a list of locales that the ResourceManager has resources for.
+     *  Lists all of the locale ID names supported by this class.
      *
      *  @return A vector of strings containing all of the locale ID names
      *         supported by this class and operating system.
