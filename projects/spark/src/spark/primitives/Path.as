@@ -1037,15 +1037,24 @@ public class Path extends FilledElement
         var sy:Number = naturalBounds.height == 0 ? 1 : height / naturalBounds.height; 
         
         var origin:Point = new Point(drawX, drawY);
-        var bounds:Rectangle = new Rectangle(drawX + measuredX * sx,
-            drawY + measuredY * sy,
-            width, 
-            height);
+        var bounds:Rectangle = new Rectangle(
+                                    drawX + measuredX * sx,
+                                    drawY + measuredY * sy,
+                                    width, 
+                                    height);
         if (stroke)
-            stroke.apply(g, getStrokeBounds(), origin);
+		{
+			var strokeBounds:Rectangle = getStrokeBounds();
+            // Objects drawn in shared display objects are drawn at x,y rather
+            // than 0,0 so need to move the strokeBounds if sharing.
+			strokeBounds.offsetPoint(origin);
+            stroke.apply(g, strokeBounds, origin);
+		}
         else
+		{
             g.lineStyle();
-        
+		}
+		
         if (fill)
             fill.begin(g, bounds, origin);
     }
