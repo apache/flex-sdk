@@ -116,12 +116,12 @@
                             <s:Rect width="8" height="1" />
                             
                             <!--- @copy spark.components.VideoPlayer#currentTimeDisplay -->
-                            <s:Label id="currentTimeDisplay" styleName="videoTextStyle" />
+                            <s:Label id="currentTimeDisplay" />
                             
-                            <s:Label text="/" styleName="videoTextStyle" />
+                            <s:Label text="/" />
                             
                             <!--- @copy spark.components.VideoPlayer#durationDisplay -->
-                            <s:Label id="durationDisplay" styleName="videoTextStyle" />
+                            <s:Label id="durationDisplay" />
                             
                             <!-- spacer -->
                             <s:Rect width="8" height="1" />
