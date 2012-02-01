@@ -135,17 +135,23 @@ public class FilledElement extends StrokedElement
         // Don't call super.beginDraw() since it will also set up an 
         // invisible fill.
         
-        var bounds:Rectangle = new Rectangle(drawX, drawY, width, height);
         var origin:Point = new Point(drawX, drawY);
         if (stroke)
-            stroke.apply(g, bounds, origin);
+        {
+            var strokeBounds:Rectangle = getStrokeBounds();
+            strokeBounds.offset(drawX, drawY);
+            stroke.apply(g, strokeBounds, origin);
+        }
         else
             g.lineStyle();
-        
+
         if (fill)
-            fill.begin(g, bounds, origin);
+        {
+            var fillBounds:Rectangle = new Rectangle(drawX, drawY, width, height);
+            fill.begin(g, fillBounds, origin);
+        }
     }
-    
+
     /**
      *  @inheritDoc
      *  
