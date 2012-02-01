@@ -22,7 +22,6 @@ import mx.core.ScrollUnit;
 
 import mx.containers.utilityClasses.Flex;
 import mx.events.PropertyChangeEvent;
-import mx.components.Group;
 
 
 /**
@@ -44,6 +43,33 @@ public class VerticalLayout extends LayoutBase
     	                                                       layoutItem.minSize.x,
     	                                                       layoutItem.maxSize.x );
     	return percentWidth < width ? percentWidth : width;
+    }
+    
+    private static function sizeLayoutItem(layoutItem:ILayoutItem, width:Number, 
+                                           horizontalAlign:String, restrictedWidth:Number, 
+                                           height:Number, variableRowHeight:Boolean, 
+                                           rowHeight:Number):void
+    {
+        var newWidth:Number = NaN;
+        
+        // if horizontalAlign is "justify" or "contentJustify", 
+        // restrict the width to restrictedWidth.  Otherwise, 
+        // size it normally
+        if (horizontalAlign == HorizontalAlign.JUSTIFY ||
+            horizontalAlign == HorizontalAlign.CONTENT_JUSTIFY)
+        {
+            newWidth = restrictedWidth;
+        }
+        else
+        {
+            if (hasPercentWidth(layoutItem))
+               newWidth = calculatePercentWidth(layoutItem, width);
+        }
+        
+        if (variableRowHeight)
+            layoutItem.setActualSize(newWidth, height);
+        else
+            layoutItem.setActualSize(newWidth, rowHeight);
     }
         
     //--------------------------------------------------------------------------
@@ -132,6 +158,42 @@ public class VerticalLayout extends LayoutBase
         var oldValue:int = _rowCount;
         _rowCount = value;
         dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "rowCount", oldValue, value));
+    }
+    
+    //----------------------------------
+    //  horizontalAlign
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _horizontalAlign:String = HorizontalAlign.LEFT;
+
+    [Inspectable(category="General")]
+
+    /** Horizontal alignment of children in the container.
+     *  Possible values are <code>"left"</code>, <code>"center"</code>,
+     *  <code>"right"</code>, <code>"justify"</code>, 
+     *  and <code>"contentJustify"</code>.
+     *  The default value is <code>"left"</code>, but some containers,
+     *  such as List, use a different default value.  There are constants 
+     *  for these values in <code>mx.layout.HorizontalAlign</code>.
+     */
+    public function get horizontalAlign():String
+    {
+        return _horizontalAlign;
+    }
+
+    /**
+     *  @private
+     */
+    public function set horizontalAlign(value:String):void
+    {
+        if (value == _horizontalAlign) 
+            return;
+        
+        _horizontalAlign = value;
+        invalidateTargetDisplayList();
     }
     
     //----------------------------------
@@ -798,29 +860,42 @@ public class VerticalLayout extends LayoutBase
             return;
         
         // TODO EGeorgie: use vector
-        var layoutItemArray:Array = new Array();
         var layoutItem:ILayoutItem;
         var count:uint = layoutTarget.numLayoutItems;
-        var totalCount:uint = count; // How many items will be laid out
-        for (var i:int = 0; i < count; i++)
+        
+        // if horizontalAlign is "contentJustify", we need to figure out restrictedWidth.
+        // contentWidth gets sent in to distributeHeight(), but is only used if 
+        // horizontalAlign is "justify" (contentWidth is unscaledWidth) or 
+        // horizontalAlign is "contentJustify" (contentWidth is the maximum width
+        // of all its children and a minimum of unscaledWidth)
+        var contentWidth:Number = unscaledWidth;
+        
+        if (horizontalAlign != HorizontalAlign.LEFT)
         {
-            layoutItem = layoutTarget.getLayoutItemAt(i);
-            if (!layoutItem || !layoutItem.includeInLayout)
+            for (var i:int = 0; i < count; i++)
             {
-            	totalCount--;
-                continue;
-            } 
-            layoutItemArray.push(layoutItem);
+                layoutItem = layoutTarget.getLayoutItemAt(i);
+                if (!layoutItem || !layoutItem.includeInLayout)
+                    continue;
+
+                var layoutItemWidth:Number;
+                if (hasPercentWidth(layoutItem))
+                    layoutItemWidth = calculatePercentWidth(layoutItem, unscaledWidth);
+                else
+                    layoutItemWidth = layoutItem.preferredSize.x;
+                
+                contentWidth = Math.max(contentWidth, layoutItemWidth);
+            }
         }
 
-        var totalHeightToDistribute:Number = unscaledHeight;
-        if (totalCount > 1)
-            totalHeightToDistribute -= (totalCount - 1) * gap;
-
-        distributeHeight(layoutItemArray, unscaledWidth, totalHeightToDistribute); 
-                            
-        // TODO EGeorgie: horizontalAlign
+        distributeHeight(unscaledWidth, unscaledHeight, contentWidth);        
+        
+        // default to left (0)
         var hAlign:Number = 0;
+        if (horizontalAlign == HorizontalAlign.CENTER)
+            hAlign = .5;
+        else if (horizontalAlign == HorizontalAlign.RIGHT)
+            hAlign = 1;
         
         // As the LayoutItems are positioned, we'll count how many rows 
         // fall within the layoutTarget's scrollRect
@@ -836,24 +911,19 @@ public class VerticalLayout extends LayoutBase
         var maxY:Number = 0;
         var firstRowInView:int = -1;
         var lastRowInView:int = -1;
-
-        // rowHeight can be expensive to compute
-        var rh:Number = (variableRowHeight) ? 0 : rowHeight;
         
         for (var index:int = 0; index < count; index++)
         {
             layoutItem = layoutTarget.getLayoutItemAt(index);
             if (!layoutItem || !layoutItem.includeInLayout)
                 continue;
-
-        	// Set the layout item's acutual size and position
-            var x:Number = (unscaledWidth - layoutItem.actualSize.x) * hAlign;
+                
+            // Set the layout item's position
+            var x:Number = (contentWidth - layoutItem.actualSize.x) * hAlign;
             layoutItem.setActualPosition(x, y);
-            var dx:Number = layoutItem.actualSize.x;
-            if (!variableRowHeight)
-                layoutItem.setActualSize(dx, rh);
                 
             // Update maxX,Y, first,lastVisibleIndex, and y
+            var dx:Number = layoutItem.actualSize.x;
             var dy:Number = layoutItem.actualSize.y;
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);
@@ -887,22 +957,35 @@ public class VerticalLayout extends LayoutBase
      *  The return value is any extra space that's left over
      *  after growing all children to their maxHeight.
      */
-    public function distributeHeight(layoutItemArray:Array,
-                                     width:Number,
-                                     height:Number):Number
+    public function distributeHeight(width:Number, 
+                                     height:Number, 
+                                     restrictedWidth:Number):Number
     {
         var spaceToDistribute:Number = height;
         var totalPercentHeight:Number = 0;
         var childInfoArray:Array = [];
         var childInfo:LayoutItemFlexChildInfo;
         var newWidth:Number;
+        var layoutItem:ILayoutItem;
+        
+        // rowHeight can be expensive to compute
+        var rh:Number = (variableRowHeight) ? 0 : rowHeight;
+        var count:uint = target.numLayoutItems;
+        var totalCount:uint = count; // number of items to use in gap calculation
         
         // If the child is flexible, store information about it in the
         // childInfoArray. For non-flexible children, just set the child's
         // width and height immediately.
-        for each (var layoutItem:ILayoutItem in layoutItemArray)
+        for (var index:int = 0; index < count; index++)
         {
-            if (hasPercentHeight(layoutItem))
+            layoutItem = target.getLayoutItemAt(index);
+            if (!layoutItem || !layoutItem.includeInLayout)
+            {
+                totalCount--;
+                continue;
+            }
+            
+            if (hasPercentHeight(layoutItem) && variableRowHeight)
             {
                 totalPercentHeight += layoutItem.percentHeight;
 
@@ -916,14 +999,15 @@ public class VerticalLayout extends LayoutBase
             }
             else
             {
-                newWidth = NaN;
-                if (hasPercentWidth(layoutItem))
-                   newWidth = calculatePercentWidth(layoutItem, width);
+                sizeLayoutItem(layoutItem, width, horizontalAlign, 
+                               restrictedWidth, NaN, variableRowHeight, rh);
                 
-                layoutItem.setActualSize(newWidth, NaN);
                 spaceToDistribute -= layoutItem.actualSize.y;
             } 
         }
+        
+        if (totalCount > 1)
+            spaceToDistribute -= (totalCount-1) * gap;
 
         // Distribute the extra space among the flexible children
         if (totalPercentHeight)
@@ -932,13 +1016,12 @@ public class VerticalLayout extends LayoutBase
                                                                 spaceToDistribute,
                                                                 totalPercentHeight,
                                                                 childInfoArray);
+            
             for each (childInfo in childInfoArray)
             {
-            	newWidth = NaN;
-            	if (hasPercentWidth(childInfo.layoutItem))
-            	   newWidth = calculatePercentWidth(childInfo.layoutItem, width);
-
-                childInfo.layoutItem.setActualSize(newWidth, childInfo.size);
+                sizeLayoutItem(childInfo.layoutItem, width, horizontalAlign, 
+                               restrictedWidth, childInfo.size, 
+                               variableRowHeight, rh);
             }
         }
         return spaceToDistribute;
