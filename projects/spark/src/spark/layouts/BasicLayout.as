@@ -161,6 +161,8 @@ public class BasicLayout implements ILayout
             return;
 
         var count:int = layoutTarget.numLayoutItems;
+        var maxX:Number = 0;
+        var maxY:Number = 0;
         for (var i:int = 0; i < count; i++)
         {
             var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
@@ -179,8 +181,6 @@ public class BasicLayout implements ILayout
             // Calculate size
             var childWidth:Number = NaN;
             var childHeight:Number = NaN;
-            var maxX:Number = 0;
-            var maxY:Number = 0;
             
             if (!isNaN(left) && !isNaN(right))
                 childWidth = unscaledWidth - right - left;
@@ -224,10 +224,10 @@ public class BasicLayout implements ILayout
             layoutItem.setActualPosition(childX, childY);
             
             // update content limits
-            maxX = Math.max(maxX, childX + childWidth);
-            maxY = Math.max(maxY, childY + childHeight);
+            maxX = Math.max(maxX, childX + actualSize.x);
+            maxY = Math.max(maxY, childY + actualSize.y);
         }
-        
+
         layoutTarget.setContentSize(maxX, maxY);
     }
 }
