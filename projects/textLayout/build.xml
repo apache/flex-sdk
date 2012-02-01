@@ -20,9 +20,72 @@
              build.properties -->
 	<property name="dbg" value="false"/>
 	<property name="rel" value="true"/>
-
-	<target name="main" depends="clean,compile" description="Clean build of combined textLayout.swc"/>
-
+	<property name="locale" value="en_US"/>
+	
+	<macrodef name="bundle">
+		<attribute name="locale"/>
+		<sequential>
+			<echo message="Compiling frameworks/locale/@{locale}/textLayout_rb.swc"/>
+			<!-- Load the <compc> task. We can't do this at the <project> level -->
+			<!-- because targets that run before flexTasks.jar gets built would fail. -->
+			<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+			<compc fork="true"
+				   output="${FLEX_HOME}/frameworks/locale/@{locale}/textLayout_rb.swc"
+				   locale="@{locale}">
+				<jvmarg line="${compc.jvm.args}"/>
+				<target-player>10</target-player>
+				<include-resource-bundles bundle="textLayout"/>
+				<include-namespaces/>
+				<include-classes/>
+				<source-path path-element="${basedir}/bundles/@{locale}"/>
+				<source-path path-element="${FLEX_HOME}/frameworks/projects/textLayout/src"/>
+				<include-libraries/>
+				<library-path/>
+				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+					<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+				</external-library-path>
+			</compc>
+		</sequential>
+	</macrodef>	
+	
+	<macrodef name="fat-swc">
+		<attribute name="locale"/>
+		<sequential>
+			<echo message="creating 'fat-swc' in textLayout_rb.swc for @{locale}"/>
+			<mkdir dir="${basedir}/bundles/@{locale}/docs" />
+			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/textLayout_rb.swc" update="true">
+				<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
+					<include name="*.*"/>
+				</zipfileset>
+			</zip>
+		</sequential>
+	</macrodef>	
+	
+	<macrodef name="bundler">
+		<attribute name="locale"/>
+		<sequential>
+			<bundle locale="@{locale}"/>
+			<fat-swc locale="@{locale}"/>
+		</sequential>
+	</macrodef>
+				
+	<target name="main" depends="clean,compile" description="Clean build of automation_dmv.swc and en_US">
+		<bundle locale="${locale}"/>
+	</target>
+	
+	<target name="other.locales" depends="bundles-clean,bundles" description="Build other locale SWCs"/>
+	
+	<!-- This is a private target for building automation_rb.swc for various locales. -->
+	<!-- The targets below set the 'locale' parameter  -->
+	<target name="bundles">
+		<bundler locale="de_DE"/><!-- German resources -->
+		<bundler locale="en_US"/><!-- American English resources  -->
+		<bundler locale="fr_FR"/><!-- French resources -->
+		<bundler locale="ja_JP"/><!-- Japanese resources -->
+		<bundler locale="ru_RU"/><!-- Swedish resources -->
+		<bundler locale="zh_CN"/><!-- Simplified Chinese resources -->
+	</target>
+	
 	<target name="clean" description="Deletes the combined swc">
 		<delete failonerror="false">
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
@@ -32,6 +95,15 @@
 		</delete>
 	</target>
 
+	<target name="bundles-clean">
+		<delete failonerror="false">
+			<fileset dir="${FLEX_HOME}/frameworks/locale">
+				<include name="*/textLayout_rb.swc"/>
+				<include name="*/textLayout_rb.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+	
 	<target name="compile" description="Compiles textLayout.swc">
 		<taskdef resource="flexTasks.tasks" classpath="${flexTasks.location}"/>
 		<compc fork="true"
