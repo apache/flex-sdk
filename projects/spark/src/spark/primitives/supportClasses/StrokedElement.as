@@ -224,7 +224,7 @@ public class StrokedElement extends GraphicElement
     
     override protected function getStrokeExtents(postLayoutTransform:Boolean = true):Point
     {
-        // TODO EGeorgie: currently we take only scale into account,
+        // FIXME (egeorgie): currently we take only scale into account,
         // but depending on joint style, cap style, etc. we need to take
         // the whole matrix into account as well as examine every line segment...
 
@@ -256,7 +256,7 @@ public class StrokedElement extends GraphicElement
         var sX:Number = scaleX;
         var sY:Number = scaleY;
 
-        // TODO EGeorgie: stroke thickness depends on all matrix components,
+        // FIXME (egeorgie): stroke thickness depends on all matrix components,
         // not only on scale.
         if (scaleMode == LineScaleMode.NORMAL)
         {
