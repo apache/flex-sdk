@@ -11,24 +11,24 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<Skin xmlns="http://ns.adobe.com/mxml/2009" minWidth="23" minHeight="23">
 
     <Metadata>
     	[HostComponent("flex.component.Button")]
-    </Metadata> 
-    
+    </Metadata>
+
     <states>
         <State name="up" />
         <State name="over" />
         <State name="down" />
         <State name="disabled" />
     </states>
-    
+
     <!-- background -->
-    <Rect left="0" right="0" top="0" bottom="0" 
-    	  minWidth="70" minHeight="21"
+    <Rect left="0" right="0" top="0" bottom="0"
+    	  width="70" height="23"
     	  radiusX="2" radiusY="2">
-        <stroke>            
+        <stroke>
             <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
         </stroke>
         <fill>
