@@ -28,6 +28,7 @@ import flash.geom.Transform;
 
 import mx.components.Group;
 import mx.core.AdvancedLayoutFeatures;
+import mx.core.IID;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IUIComponent;
@@ -68,7 +69,7 @@ use namespace mx_internal;
  *  of an object in its own coordinate space.</p>
  */
 public class GraphicElement extends OnDemandEventDispatcher
-    implements IGraphicElement, IInvalidating, ILayoutElement, IVisualElement
+    implements IGraphicElement, IInvalidating, ILayoutElement, IVisualElement, IID
 {
     include "../../core/Version.as";
 
@@ -183,6 +184,38 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  storage for the y property. This property is used when a GraphicElement has a simple transform.
      */
      private var _y:Number = 0;
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties - IID
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  id
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the id property.
+     */
+    private var _id:String;
+
+    /**
+     *  The identity of the component.
+     */ 
+    public function get id():String
+    {
+        return _id;
+    }
+
+    /**
+     *  @private
+     */ 
+    public function set id(value:String):void
+    {
+        _id = value;
+    }
 
     //--------------------------------------------------------------------------
     //
