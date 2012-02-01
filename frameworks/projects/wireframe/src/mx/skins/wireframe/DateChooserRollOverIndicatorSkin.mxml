@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the rollover indicator of a Halo DateChooser component.
+<!--- The wireframe skin class for the rollover indicator of a MX DateChooser component.
+
+      @see mx.controls.DateChooser
 
       @langversion 3.0
       @playerversion Flash 10
@@ -39,11 +41,14 @@
     ]]>
     </fx:Script>
 
+    <!--- @private -->
     <s:Rect id="rect" left="0" right="0" top="0" bottom="0">
         <s:fill>
+            <!--- @private -->
             <s:SolidColor id="fill" color="#FFFFFF" alpha="1" />
         </s:fill>
         <s:stroke>
+            <!--- @private -->
             <s:SolidColorStroke id="stroke" color="#6D8BA7" alpha="1" />
         </s:stroke>
     </s:Rect>
