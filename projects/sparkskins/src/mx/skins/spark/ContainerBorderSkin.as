@@ -12,6 +12,9 @@ package mx.skins.spark {
  */     
 public class ContainerBorderSkin extends BorderSkin
 {
+    /**
+     *  Constructor.
+     */
     public function ContainerBorderSkin()
     {
         super();
