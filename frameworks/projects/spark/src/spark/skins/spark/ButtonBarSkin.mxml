@@ -28,9 +28,9 @@
 
     <fx:Metadata>
     <![CDATA[ 
-    /** 
-     * @copy spark.skins.spark.ApplicationSkin#hostComponent
-     */
+       /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.ButtonBar")]
     ]]>
     </fx:Metadata> 
@@ -42,7 +42,7 @@
     
     <fx:Declarations>
         <!--- 
-            Specifies the skin class for the first button on the ButtonBar.
+            @copy spark.components.ButtonBar#firstButton
             @default spark.skins.spark.ButtonBarFirstButtonSkin
         -->
         <fx:Component id="firstButton">
@@ -50,7 +50,7 @@
         </fx:Component>
 
         <!--- 
-            Specifies the skin class for the middle button(s) on the ButtonBar.
+            @copy spark.components.ButtonBar#middleButton
             @default spark.skins.spark.ButtonBarMiddleButtonSkin
         -->
         <fx:Component id="middleButton" >
@@ -58,7 +58,7 @@
         </fx:Component>
 
         <!--- 
-            Specifies the skin class for the last button on the ButtonBar.
+            @copy spark.components.ButtonBar#lastButton
             @default spark.skins.spark.ButtonBarLastButtonSkin
         -->
         <fx:Component id="lastButton" >
@@ -67,9 +67,7 @@
 
     </fx:Declarations>
 
-    <!--- 
-        @copy spark.components.SkinnableDataContainer#dataGroup
-    -->
+    <!--- @copy spark.components.SkinnableDataContainer#dataGroup -->
     <s:DataGroup id="dataGroup" width="100%" height="100%">
         <s:layout>
             <s:ButtonBarHorizontalLayout gap="-1"/>
