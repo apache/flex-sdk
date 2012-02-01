@@ -79,10 +79,10 @@ public class BasicLayout extends LayoutBase
         var minWidth:Number = 0;
         var minHeight:Number = 0;
 
-        var count:int = layoutTarget.numLayoutElements;
+        var count:int = layoutTarget.numElements;
         for (var i:int = 0; i < count; i++)
         {
-            var layoutElement:ILayoutElement = layoutTarget.getLayoutElementAt(i);
+            var layoutElement:ILayoutElement = layoutTarget.getElementAt(i);
             if (!layoutElement || !layoutElement.includeInLayout)
                 continue;
 
@@ -192,12 +192,12 @@ public class BasicLayout extends LayoutBase
         if (!layoutTarget)
             return;
 
-        var count:int = layoutTarget.numLayoutElements;
+        var count:int = layoutTarget.numElements;
         var maxX:Number = 0;
         var maxY:Number = 0;
         for (var i:int = 0; i < count; i++)
         {
-            var layoutElement:ILayoutElement = layoutTarget.getLayoutElementAt(i);
+            var layoutElement:ILayoutElement = layoutTarget.getElementAt(i);
             if (!layoutElement || !layoutElement.includeInLayout)
                 continue;
 
