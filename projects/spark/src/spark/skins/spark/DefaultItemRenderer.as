@@ -1,61 +1,591 @@
-<?xml version="1.0" encoding="utf-8"?>
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2004-2007 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
 
-<!--
-
-    ADOBE SYSTEMS INCORPORATED
-    Copyright 2008 Adobe Systems Incorporated
-    All Rights Reserved.
-
-    NOTICE: Adobe permits you to use, modify, and distribute this file
-    in accordance with the terms of the license agreement accompanying it.
-
--->
-
-<!--- The default skin class for a Spark DefaultItemRenderer class.  
-        
-      @langversion 3.0
-      @playerversion Flash 10
-      @playerversion AIR 1.5
-      @productversion Flex 4
--->
-<s:ItemRenderer focusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
-   
-    <s:states>
-        <s:State name="normal" />            
-        <s:State name="hovered" />
-        <s:State name="selected" />
-        <s:State name="normalAndShowsCaret"/>
-        <s:State name="hoveredAndShowsCaret"/>
-        <s:State name="selectedAndShowsCaret"/>
-    </s:states>
+package spark.skins.spark
+{
     
-    <s:Rect left="0" right="0" top="0" bottom="0">
-        <s:stroke.normalAndShowsCaret>
-            <s:SolidColorStroke 
-                color="{getStyle('selectionColor')}" 
-                weight="1"/>
-        </s:stroke.normalAndShowsCaret>
-        <s:stroke.hoveredAndShowsCaret>
-            <s:SolidColorStroke 
-                color="{getStyle('selectionColor')}" 
-                weight="1"/>
-        </s:stroke.hoveredAndShowsCaret>
-        <s:stroke.selectedAndShowsCaret>
-            <s:SolidColorStroke 
-                color="{getStyle('selectionColor')}" 
-                weight="1"/>
-        </s:stroke.selectedAndShowsCaret>
-        <s:fill>
-            <s:SolidColor 
-            	color.normal="{contentBackgroundColor}"
-                color.normalAndShowsCaret="{contentBackgroundColor}"
-                color.hovered="{getStyle('rollOverColor')}"	
-                color.hoveredAndShowsCaret="{getStyle('rollOverColor')}"
-            	color.selected="{getStyle('selectionColor')}"
-                color.selectedAndShowsCaret="{getStyle('selectionColor')}"
-            	/>
-        </s:fill>
-    </s:Rect>
-    <s:Label id="labelDisplay" verticalCenter="0" left="3" right="3" top="6" bottom="4"/>
+import flash.display.DisplayObject;
+import flash.events.MouseEvent;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 
-</s:ItemRenderer>
+import mx.controls.listClasses.*;
+import mx.core.IDataRenderer;
+import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
+import mx.core.IFontContextComponent;
+import mx.core.IToolTip;
+import mx.core.IUITextField;
+import mx.core.UIComponent;
+import mx.core.UITextField;
+import mx.core.mx_internal;
+import mx.events.FlexEvent;
+import mx.events.InterManagerRequest;
+import mx.events.ToolTipEvent;
+import mx.managers.ISystemManager;
+
+import spark.components.IItemRenderer;
+import spark.components.Label;
+import spark.components.supportClasses.TextBase;
+
+use namespace mx_internal;
+
+//--------------------------------------
+//  Events
+//--------------------------------------
+
+/**
+ *  Dispatched when the <code>data</code> property changes.
+ *
+ *  <p>When you use a component as an item renderer,
+ *  the <code>data</code> property contains the data to display.
+ *  You can listen for this event and update the component
+ *  when the <code>data</code> property changes.</p>
+ * 
+ *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Event(name="dataChange", type="mx.events.FlexEvent")]
+
+//--------------------------------------
+//  Styles
+//--------------------------------------
+
+include "../../styles/metadata/BasicInheritingTextStyles.as"
+include "../../styles/metadata/AdvancedInheritingTextStyles.as"
+include "../../styles/metadata/SelectionFormatTextStyles.as"
+
+/**
+ *  The colors to use for the backgrounds of the items in the list. 
+ *  The value is an array of two or more colors. 
+ *  The backgrounds of the list items alternate among the colors in the array. 
+ * 
+ *  @default undefined
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
+ *  The alpha of the content background for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark")]
+
+/**
+ *  Color of the fill of an item renderer
+ *   
+ *  @default 0xFFFFFF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
+ *  Color of focus ring when the component is in focus
+ *   
+ *  @default 0x70B2EE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
+ *  Color of the highlights when the mouse is over the component
+ *   
+ *  @default 0xCEDBEF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="rollOverColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
+ *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
+ *  the arrow of a scroll button
+ *   
+ *  @default 0x000000
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="focusThickness", kind="style")]
+
+/**
+ *  The DefaultItemRenderer class defines the default item renderer
+ *  for a List control. 
+ *  The default item renderer just draws the text associated
+ *  with each item in the list.
+ *
+ *  <p>You can override the default item renderer
+ *  by creating a custom item renderer.</p>
+ *
+ *  @see spark.components.List
+ *  @see mx.core.IDataRenderer
+ *  @see spark.components.IItemRenderer
+ *  @see spark.components.supportClasses.ItemRenderer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+public class DefaultItemRenderer extends UIComponent
+    implements IDataRenderer, IItemRenderer
+{
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function DefaultItemRenderer()
+    {
+        super();
+        
+        addHandlers();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Private Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Flag that is set when the mouse is hovered over the item renderer.
+     */
+    private var hovered:Boolean = false;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Public Properties 
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  itemIndex
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  storage for the itemIndex property 
+     */    
+    private var _itemIndex:int;
+    
+    /**
+     *  @inheritDoc 
+     *
+     *  @default false
+     */    
+    public function get itemIndex():int
+    {
+        return _itemIndex;
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set itemIndex(value:int):void
+    {
+        if (value == _itemIndex)
+            return;
+        
+        _itemIndex = value;
+        invalidateDisplayList();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function get baselinePosition():Number
+    {
+        if (!validateBaselinePosition() || !labelDisplay)
+            return super.baselinePosition;
+        
+        var labelPosition:Point = globalToLocal(labelDisplay.parent.localToGlobal(
+            new Point(labelDisplay.x, labelDisplay.y)));
+        
+        return labelPosition.y + labelDisplay.baselinePosition;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  data
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the data property.
+     */
+    private var _data:Object;
+    
+    [Bindable("dataChange")]
+    
+    /**
+     *  The implementation of the <code>data</code> property
+     *  as defined by the IDataRenderer interface.
+     *  When set, it stores the value and invalidates the component 
+     *  to trigger a relayout of the component.
+     *
+     *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get data():Object
+    {
+        return _data;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set data(value:Object):void
+    {
+        _data = value;
+        
+        dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+    }
+    
+    //----------------------------------
+    //  label
+    //----------------------------------
+    
+    /**
+     *  @private 
+     *  Storage var for label
+     */ 
+    private var _label:String = "";
+    
+    /**
+     *  @inheritDoc 
+     *
+     *  @default ""    
+     */
+    public function get label():String
+    {
+        return _label;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set label(value:String):void
+    {
+        if (value != _label)
+            _label = value;
+        
+        //Push the label down into the labelDisplay,
+        //if it exists
+        if (labelDisplay)
+            labelDisplay.text = _label;
+    }
+    
+    //----------------------------------
+    //  labelDisplay
+    //----------------------------------
+    
+    /**
+     *  Optional item renderer label component. 
+     *  This component is used to determine the value of the 
+     *  <code>baselinePosition</code> property in the host component of 
+     *  the item renderer. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var labelDisplay:TextBase;
+    
+    //----------------------------------
+    //  showsCaret
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the showsCaret property 
+     */
+    private var _showsCaret:Boolean = false;
+    
+    /**
+     *  @inheritDoc 
+     *
+     *  @default false  
+     */    
+    public function get showsCaret():Boolean
+    {
+        return _showsCaret;
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set showsCaret(value:Boolean):void
+    {
+        if (value == _showsCaret)
+            return;
+        
+        _showsCaret = value;
+        invalidateDisplayList();
+    }
+    
+    //----------------------------------
+    //  selected
+    //----------------------------------
+    /**
+     *  @private
+     *  storage for the selected property 
+     */    
+    private var _selected:Boolean = false;
+    
+    /**
+     *  @inheritDoc 
+     *
+     *  @default false
+     */    
+    public function get selected():Boolean
+    {
+        return _selected;
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set selected(value:Boolean):void
+    {
+        if (value != _selected)
+        {
+            _selected = value; 
+            invalidateDisplayList();
+        }
+    }
+    
+    //----------------------------------
+    //  dragging
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the dragging property. 
+     */
+    private var _dragging:Boolean = false;
+    
+    /**
+     *  @inheritDoc  
+     */
+    public function get dragging():Boolean
+    {
+        return _dragging;
+    }
+    
+    /**
+     *  @private  
+     */
+    public function set dragging(value:Boolean):void
+    {
+        if (value == _dragging)
+            return;
+        
+        _dragging = value;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override protected function createChildren():void
+    {
+        super.createChildren();
+        
+        if (!labelDisplay)
+        {
+            labelDisplay = new Label();
+            addChild(DisplayObject(labelDisplay));
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function measure():void
+    {
+        super.measure();
+        
+        // label had padding of 3 on left and right and padding of 5 on top and bottom.
+        measuredWidth = labelDisplay.getExplicitOrMeasuredWidth() + 6;
+        measuredHeight = labelDisplay.getExplicitOrMeasuredHeight() + 10;
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number,
+                                                  unscaledHeight:Number):void
+    {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        
+        graphics.clear();
+        
+        var backgroundColor:uint;
+        if (selected)
+            backgroundColor = getStyle("selectionColor");
+        else if (hovered)
+            backgroundColor = getStyle("rollOverColor");
+        else
+        {
+            var alternatingColors:Array = getStyle("alternatingItemColors");
+            
+            if (alternatingColors && alternatingColors.length > 0)
+            {
+                // translate these colors into uints
+                styleManager.getColorNames(alternatingColors);
+                
+                backgroundColor = alternatingColors[itemIndex % alternatingColors.length];
+            }
+            else
+            {
+                backgroundColor = getStyle("contentBackgroundColor");
+            }
+        }
+        graphics.beginFill(backgroundColor, 1);
+        
+        if (showsCaret)
+        {
+            graphics.lineStyle(1, getStyle("selectionColor"));
+            graphics.drawRect(0.5, 0.5, unscaledWidth-1, unscaledHeight-1);
+        }
+        else
+        {
+            graphics.lineStyle();
+            graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+        }
+        
+        graphics.endFill();
+        
+        labelDisplay.move(3, 5);
+        labelDisplay.setActualSize(unscaledWidth - 6, unscaledHeight - 10);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event handling
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Attach the mouse events.
+     */
+    private function addHandlers():void
+    {
+        addEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
+        addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
+    }
+    
+    private function anyButtonDown(event:MouseEvent):Boolean
+    {
+        var type:String = event.type;
+        return event.buttonDown || (type == "middleMouseDown") || (type == "rightMouseDown"); 
+    }
+    
+    /**
+     *  @private
+     *  Mouse rollOver event handler.
+     */
+    protected function itemRenderer_rollOverHandler(event:MouseEvent):void
+    {
+        if (!anyButtonDown(event))
+        {
+            hovered = true;
+            invalidateDisplayList();
+        }
+    }
+    
+    /**
+     *  @private
+     *  Mouse rollOut event handler.
+     */
+    protected function itemRenderer_rollOutHandler(event:MouseEvent):void
+    {
+        hovered = false;
+        invalidateDisplayList();
+    }
+    
+}
+    
+}
