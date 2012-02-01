@@ -50,7 +50,7 @@ import mx.layout.VerticalAlign;
  *
  *  In other cases the measured size may not be big enough to fit all elements -
  *  for example when both columnCount and rowCount are explicitly set to values
- *  such that columnCount * rowCount < element count.
+ *  such that columnCount * rowCount &lt; element count.
  *
  *  The minimum measured size is calculated the same way as the measured size but
  *  it's guaranteed to encompass enough rows/columns along the minor axis to fit
