@@ -61,22 +61,34 @@
     </s:Rect>
     
     <!-- layer 4: fill lowlight -->
-    <s:Rect left="1" right="1" bottom="1" height="9">
+    <s:Rect left="1" right="1" top="1" bottom="1">
         <s:fill>
-            <s:LinearGradient rotation="90">
-                <s:GradientEntry color="0x000000" alpha="0.0099" />
-                <s:GradientEntry color="0x000000" alpha="0.0627" />
+            <s:LinearGradient rotation="270">
+                <s:GradientEntry color="0x000000" ratio="0.0" alpha="0.0627" />
+                <s:GradientEntry color="0x000000" ratio="0.48" alpha="0.0099" />
+                <s:GradientEntry color="0x000000" ratio="0.48001" alpha="0" />
             </s:LinearGradient>
         </s:fill>
     </s:Rect>
     
     <!-- layer 5: fill highlight -->
-    <s:Rect left="1" right="1" top="1" height="9">
+    <s:Rect left="1" right="1" top="1" bottom="1">
         <s:fill>
-            <s:SolidColor color="0xFFFFFF" 
-                        alpha="0.33" 
-                        alpha.over="0.22" 
-                        alpha.down="0.12" />
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="0xFFFFFF"
+                                 ratio="0.0"
+                                 alpha="0.33" 
+                                 alpha.over="0.22" 
+                                 alpha.down="0.12"/>
+                <s:GradientEntry color="0xFFFFFF"
+                                 ratio="0.48"
+                                 alpha="0.33"
+                                 alpha.over="0.22"
+                                 alpha.down="0.12" />
+                <s:GradientEntry color="0xFFFFFF"
+                                 ratio="0.48001"
+                                 alpha="0" />
+            </s:LinearGradient>
         </s:fill>
     </s:Rect>
     
