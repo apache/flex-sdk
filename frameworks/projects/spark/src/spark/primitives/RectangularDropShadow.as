@@ -53,7 +53,7 @@ package spark.primitives
         /**
          *  Constructor.
          *  
-         *  @langversion 4.0
+         *  @langversion 3.0
          *  @playerversion Flash 10
          *  @playerversion AIR 1.1
          *  @productversion Flex 4
