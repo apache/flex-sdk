@@ -25,6 +25,6 @@
                         alpha="0" alpha.hovered="0.2" alpha.selected="0.8" />
 		</fill>
 	</Rect>
-	<Group mxmlContent="{data}" verticalCenter="0" left="2" right="2" top="2" bottom="2" />
+	<Group mxmlContent="{data ? [data] : null}" verticalCenter="0" left="2" right="2" top="2" bottom="2" />
 
 </ItemRenderer>
