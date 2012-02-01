@@ -13,8 +13,8 @@ package spark.layouts
 {
 
 /**
- *  Enumerated type for the TileLayout's <code>orientation</code>
- *  property.
+ *  The TileOrientation class defines the possible values for the 
+ *  <code>orientation</code> property of the TileLayout class.
  * 
  *  @see TileLayout#orientation
  *  
