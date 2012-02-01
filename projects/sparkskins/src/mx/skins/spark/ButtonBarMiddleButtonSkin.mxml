@@ -122,6 +122,7 @@
     </s:Rect>
     
     <!-- layer 6: highlight stroke (down state only) -->
+    <!--- @private -->
     <s:Rect id="hldownstroke1" left="1" right="1" top="1" bottom="1"
             includeIn="downStates, selectedUpStates, selectedOver">
         <s:stroke>
@@ -134,6 +135,7 @@
             </s:LinearGradientStroke>
         </s:stroke>
     </s:Rect>
+    <!--- @private -->
     <s:Rect id="hldownstroke2" left="2" right="2" top="2" bottom="2"
             includeIn="downStates, selectedUpStates, selectedOver">
         <s:stroke>
