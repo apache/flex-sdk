@@ -347,8 +347,8 @@ public class BitmapGraphic extends GraphicElement
 			g.clear();
         
         g.lineStyle();
-        _fill.offsetX = drawX;
-        _fill.offsetY = drawY;
+        _fill.x = drawX;
+        _fill.y = drawY;
         _fill.smooth = smooth;
         _fill.repeat = false;
         _fill.scaleX = 1;
@@ -383,7 +383,7 @@ public class BitmapGraphic extends GraphicElement
             break;
         }
 
-        _fill.begin(g, new Rectangle(fillWidth, fillHeight));
+        _fill.begin(g, new Rectangle(0, 0, fillWidth, fillHeight));
         g.drawRect(drawX, drawY, unscaledWidth, unscaledHeight);
         _fill.end(g);
     }
