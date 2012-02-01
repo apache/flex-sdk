@@ -16,7 +16,7 @@ import flash.geom.Rectangle;
 import mx.graphics.Rect;
 import mx.core.ILayoutElement;
 import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;    
+import mx.resources.ResourceManager;
 
 //--------------------------------------
 //  Other metadata
@@ -85,13 +85,6 @@ public final class LinearLayoutVector
     internal static const BLOCK_MASK:uint = 0x7F;
     private var blockTable:Vector.<Block> = new Vector.<Block>(0, false);
     
-    /**
-     *  @private
-     *  Used for accessing localized Error messages.
-     */
-    private var resourceManager:IResourceManager =
-                                    ResourceManager.getInstance();
-
     public function LinearLayoutVector(majorAxis:uint = VERTICAL)
     {
         super();
@@ -104,6 +97,20 @@ public final class LinearLayoutVector
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  resourceManager
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private function get resourceManager():IResourceManager
+    {
+        return ResourceManager.getInstance();
+    }
+    
     
     //----------------------------------
     //  length
@@ -371,7 +378,149 @@ public final class LinearLayoutVector
             block.sizesSum += value - oldValue;
         block.sizes[sizesIndex] = value;
     }
+    
+    /**
+     *  @private
+     *  Shift block.sizes[startIndex ... BLOCK_SIZE-2] to the right one position, replace
+     *  block.sizes[startIndex] with value, and return the original value of 
+     *  block.sizes[BLOCK_SIZE-1].
+     * 
+     *  We're shifting the sizes to the right to make room for the new value at
+     *  startIndex, and we're returning the value that gets shifted off the end.
+     * 
+     *  This function returns the (old) last value so that a series of blocks
+     *  can be shifted bucket brigade style, by making the last elt of
+     *  one block the first element - after shifting - of the next block.
+     *
+     *  @param block The Block.
+     *  @param startIndex The block relative index.
+     *  @param value The value that block.sizes[startIndex] should have
+     *  @return The value of block.sizes[BLOCK_SIZE-1] before the shift.
+     */
+    private function shiftBlockRight(block:Block, startIndex:uint, value:Number):Number
+    {
+        var sizes:Vector.<Number> = block.sizes;
+        var lastSize:Number = sizes[BLOCK_SIZE - 1];
+        if (!isNaN(lastSize))
+        {
+            block.sizesSum -= lastSize;
+            block.defaultCount += 1;
+        }
+        if (!isNaN(value))
+        {
+            block.sizesSum += value;
+            block.defaultCount -= 1;
+        }
+        for(var i:int = BLOCK_SIZE - 2; i >= startIndex; i--)
+            sizes[i + 1] = sizes[i];
+        sizes[startIndex] = value;
+        return lastSize;
+    }
+    
+    /**
+     *  Make room for a new item at index by shifting all of the sizes 
+     *  one position to the right, beginning with startIndex.  
+     * 
+     *  The value at index will be NaN. 
+     * 
+     *  This is similar to array.splice(index, 0, NaN).
+     * 
+     *  @param index The position of the new NaN size item.
+     */
+    public function insert(index:uint):void
+    {
+        length = Math.max(length, index) + 1;
+        var lastSize:Number = NaN;
+        var blockIndex:uint = index >> BLOCK_SHIFT;
+        var sizesIndex:uint = index & BLOCK_MASK;        
+        do
+        {
+            var block:Block = blockTable[blockIndex];
+            if (!block)
+            {
+                if (!isNaN(lastSize))
+                {
+                    block = blockTable[blockIndex] = new Block();
+                    block.sizes[sizesIndex] = lastSize;
+                    block.sizesSum = lastSize;
+                    block.defaultCount -= 1;
+                }
+                break;
+            }
+            else
+                lastSize = shiftBlockRight(block, sizesIndex, lastSize);
+                
+            sizesIndex = 0;
+            blockIndex += 1;
+        }
+        while(blockIndex < blockTable.length)        
+    }
 
+    /**
+     *  @private
+     *  Shift block.sizes[removeIndex ... BLOCK_SIZE-1] to the left one position, 
+     *  effectively removing removeIndex, and replace block.sizes[BLOCK_SIZE-1]
+     *  with lastValue.
+     * 
+     *  @param block The Block.
+     *  @param startIndex The block relative index.
+     *  @param value The value that block.sizes[startIndex] should have
+     *  @return The value of block.sizes[0] before the shift.
+     */
+    private function shiftBlockLeft(block:Block, removeIndex:uint, lastValue:Number):void
+    {
+        var sizes:Vector.<Number> = block.sizes;
+        var removedSize:Number = sizes[removeIndex];
+        if (!isNaN(removedSize))
+        {
+            block.sizesSum -= removedSize;
+            block.defaultCount += 1;
+        }
+        if (!isNaN(lastValue))
+        {
+            block.sizesSum += lastValue;
+            block.defaultCount -= 1;
+        }
+        for(var i:int = removeIndex; i < BLOCK_SIZE - 1; i++)
+            sizes[i] = sizes[i + 1];
+        sizes[BLOCK_SIZE - 1] = lastValue;
+    }
+    
+
+    /**
+     *  Remove index by shifting all of the sizes one position to the left, 
+     *  begining with index+1.  
+     * 
+     *  This is similar to array.splice(index, 1).
+     * 
+     *  @param index The position to be removed.
+     */
+    public function remove(index:uint):void
+    {
+        if (index >= length)
+            throw new Error(resourceManager.getString("layout", "invalidIndex"));
+            
+        var blockIndex:uint = index >> BLOCK_SHIFT;
+        var sizesIndex:uint = index & BLOCK_MASK;        
+        do
+        {
+            var block:Block = blockTable[blockIndex];
+            if (!block)
+                break;
+            else
+            {
+                var nextBlock:Block = ((blockIndex + 1) < blockTable.length) ? blockTable[blockIndex + 1] : null;
+                var firstSize:Number = (nextBlock) ? nextBlock.sizes[0] : NaN;
+                shiftBlockLeft(block, sizesIndex, firstSize);
+            }
+                
+            sizesIndex = 0;
+            blockIndex += 1;
+        }
+        while(blockIndex < blockTable.length)
+        length -= 1;
+    }
+    
     /**
      *  The cumulative distance to the start of the item at index, including
      *  the gaps between items. 
