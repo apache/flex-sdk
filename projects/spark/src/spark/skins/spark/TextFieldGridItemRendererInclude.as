@@ -602,6 +602,68 @@ are identical, save the superclass and constructor names.  This file contains th
     //
     //-------------------------------------------------------------------------- 
     
+    //----------------------------------
+    //  estimatedHeight
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the estimatedHeight property.
+     */
+    private var _estimatedHeight:Number;
+    
+    /**
+     *  The height a component is likely to be given at layout time.  It is
+     *  determined by examining the parent's estimatedHeight, and the
+     *  component's percentHeight, explicitHeight, top and bottom constraints.
+     *  It is NaN if there isn't enough information to compute the height.
+     *  The component can use this information in calculating its
+     *  measuredWidth if the measuredWidth is dependent on the layout
+     *  height.
+     *
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get estimatedHeight():Number
+    {
+        return _estimatedHeight;        
+    }
+    
+    //----------------------------------
+    //  estimatedWidth
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the estimatedWidth property.
+     */
+    private var _estimatedWidth:Number;
+    
+    /**
+     *  The width a component is likely to be given at layout time.  It is
+     *  determined by examining the parent's estimatedWidth, and the
+     *  component's percentWidth, explicitWidth, left and right constraints.
+     *  It is NaN if there isn't enough information to compute the width.
+     *  The component can use this information in calculating its
+     *  measuredHeight if the measuredHeight is dependent on the layout
+     *  width.
+     *
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get estimatedWidth():Number
+    {
+        return _estimatedWidth;
+    }
+    
     /**
      *  @private
      */
@@ -881,6 +943,22 @@ are identical, save the superclass and constructor names.  This file contains th
                                     postLayoutTranslation:Vector3D = null,
                                     invalidateLayout:Boolean = true):void
     {
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+	public function setEstimatedSize(estimatedWidth:Number = NaN, 
+                                     estimatedHeight:Number = NaN,
+									 invalidateSize:Boolean = true):void
+    {
+        _estimatedWidth = estimatedWidth;
+        _estimatedHeight = estimatedHeight;
     }
     
     //--------------------------------------------------------------------------
