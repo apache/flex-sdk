@@ -132,6 +132,9 @@ import spark.components.Group;
  *  ModuleManager singleton.</p>
  *  
  *  @see mx.controls.SWFLoader
+ *  @includeExample examples/ModuleLoaderExample.mxml
+ *  @includeExample examples/ModuleVerticalLayout.mxml
+ *  @includeExample examples/ModuleHorizontalLayout.mxml
  *
  *  @langversion 3.0
  *  @playerversion Flash 10.2
@@ -152,10 +155,6 @@ public class ModuleLoader extends Group
     /**
      *  Constructor.
      *  
-	 *  @includeExample examples/ModuleLoaderExample.mxml
- 	 *  @includeExample examples/ModuleVerticalLayout.mxml
- 	 *  @includeExample examples/ModuleHorizontalLayout.mxml
-	 *
      *  @langversion 3.0
 	 *  @playerversion Flash 10.2
 	 *  @playerversion AIR 2.5
