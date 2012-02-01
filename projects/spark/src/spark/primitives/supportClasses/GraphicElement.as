@@ -29,6 +29,7 @@ import mx.core.IConstraintClient;
 import mx.core.IInvalidating;
 import mx.core.mx_internal;
 import mx.core.UIComponentGlobals;
+import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
 import mx.graphics.IStroke;
@@ -179,7 +180,7 @@ public class GraphicElement extends EventDispatcher
 
 		alphaChanged = true;
 		notifyElementLayerChanged();
-		invalidateDisplayList();
+		invalidateProperties();
 	}
 
 	//----------------------------------
@@ -258,7 +259,7 @@ public class GraphicElement extends EventDispatcher
 
 		blendModeChanged = true;
 		notifyElementLayerChanged();
-        invalidateDisplayList();
+        invalidateProperties();
 	}
 
 	//----------------------------------
@@ -491,6 +492,7 @@ public class GraphicElement extends EventDispatcher
 
 		filtersChanged = true;
 		notifyElementLayerChanged();
+		invalidateProperties();
 	}
 
 	//----------------------------------
@@ -656,11 +658,7 @@ public class GraphicElement extends EventDispatcher
 		maskTypeChanged = true;
 		isMaskInElementSpace = false;
 		notifyElementLayerChanged();
-
-        // TODO EGeorgie: currently need to invalidate the display list,
-        // because the mask gets applied on updateDisplayList. Should it get
-        // applied on commit properties?
-		invalidateDisplayList();
+		invalidateProperties();
 	}
 
 	//----------------------------------
@@ -702,7 +700,7 @@ public class GraphicElement extends EventDispatcher
 		dispatchPropertyChangeEvent("maskType", oldValue, value);
 
 		maskTypeChanged = true;
-		invalidateDisplayList();
+		invalidateProperties();
 	}
 
 	//----------------------------------
@@ -1632,7 +1630,7 @@ public class GraphicElement extends EventDispatcher
 		visibleChanged = true;
 
         // TODO EGeorgie: should we redraw for visibility changes?
-		invalidateDisplayList();
+		invalidateProperties();
 	}
 
 	//--------------------------------------------------------------------------
@@ -1897,62 +1895,6 @@ public class GraphicElement extends EventDispatcher
   	/**
      *  Documentation is not currently available.
      */
-	protected function applyDisplayObjectProperties():void
-	{
-		if (displayObject)
-		{
-			if (alphaChanged)
-			{
-				alphaChanged = false;
-				displayObject.alpha = _alpha;
-			}
-
-
-			if (blendModeChanged)
-			{
-				blendModeChanged = true;
-				displayObject.blendMode = _blendMode;
-			}
-
-			if (filtersChanged)
-			{
-				filtersChanged = false;
-				displayObject.filters = _clonedFilters;
-			}
-
-			if (maskChanged)
-			{
-				maskChanged = false;
-				if (elementHost)
-				{
-					if (previousMask)
-					{
-						elementHost.removeMaskElement(previousMask, this);
-						if (displayObject)
-							displayObject.mask = null;
-					}
-					if (_mask)
-						elementHost.addMaskElement(_mask, this);
-				}
-			}
-
-			if (maskTypeChanged)
-			{
-				maskTypeChanged = false;
-				applyMaskType();
-			}
-
-			if (visibleChanged)
-			{
-				visibleChanged = false;
-				displayObject.visible = _visible;
-			}
-		}
-	}
-
-  	/**
-     *  Documentation is not currently available.
-     */
 	protected function applyMaskType():void
 	{
 		if (_mask)
@@ -2121,6 +2063,10 @@ public class GraphicElement extends EventDispatcher
             return;
         commitProperties();
         invalidatePropertiesFlag = false;
+        
+        // If we aren't doing any more invalidation, send out an UpdateComplete event
+        if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag)
+        	dispatchUpdateComplete();        
     }
 
     /**
@@ -2143,6 +2089,54 @@ public class GraphicElement extends EventDispatcher
      */
     protected function commitProperties():void
     {
+    	if (displayObject)
+		{
+			if (alphaChanged)
+			{
+				alphaChanged = false;
+				displayObject.alpha = _alpha;
+			}
+
+			if (blendModeChanged)
+			{
+				blendModeChanged = true;
+				displayObject.blendMode = _blendMode;
+			}
+
+			if (filtersChanged)
+			{
+				filtersChanged = false;
+				displayObject.filters = _clonedFilters;
+			}
+
+			if (maskChanged)
+			{
+				maskChanged = false;
+				if (elementHost)
+				{
+					if (previousMask)
+					{
+						elementHost.removeMaskElement(previousMask, this);
+						if (displayObject)
+							displayObject.mask = null;
+					}
+					if (_mask)
+						elementHost.addMaskElement(_mask, this);
+				}
+			}
+
+			if (maskTypeChanged)
+			{
+				maskTypeChanged = false;
+				applyMaskType();
+			}
+
+			if (visibleChanged)
+			{
+				visibleChanged = false;
+				displayObject.visible = _visible;
+			}
+		}
     }
 
     /**
@@ -2155,8 +2149,14 @@ public class GraphicElement extends EventDispatcher
         invalidateSizeFlag = false;
 
         var sizeChanging:Boolean = measureSizes();
+                
         if (!sizeChanging || !includeInLayout)
+        {
+        	// If we aren't doing any more invalidation, send out an UpdateComplete event
+        	if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag)
+        		dispatchUpdateComplete();
             return;
+        }
 
         // Our size has changed, parent has to resize and run layout code
         invalidateParentSizeAndDisplayList();
@@ -2260,6 +2260,10 @@ public class GraphicElement extends EventDispatcher
         invalidateDisplayListFlag = false;
 
         updateDisplayList(_width, _height);
+		
+        // If we aren't doing any more invalidation, send out an UpdateComplete event
+        if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag)
+        	dispatchUpdateComplete();
     }
 
     /**
@@ -2288,6 +2292,15 @@ public class GraphicElement extends EventDispatcher
                                          unscaledHeight:Number):void
     {
     }
+    
+    /**
+     *  @private
+     *  Helper function to dispatch the UpdateComplete event 
+     */
+    private function dispatchUpdateComplete():void
+	{
+		dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
+	}
 
 	//--------------------------------------------------------------------------
     //
