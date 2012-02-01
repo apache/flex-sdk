@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+-->
+
+<!--- The wireframe skin class for the scrub bar of a Spark VideoPlayer component.  
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+      minHeight="14" minWidth="60"
+      alpha.disabled="0.5">
+
+    <fx:Metadata>
+        [HostComponent("spark.components.VideoPlayerScrubBar")]
+    </fx:Metadata> 
+    
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <s:Button id="track" left="0" right="0" top="0" height="11"
+              skinClass="spark.skins.wireframe.VideoPlayerScrubBarTrackSkin" />
+
+    <s:Group id="bufferedArea" left="0" top="0" height="11">
+    
+        <!-- inset 7 and 6 pixels because that's thumbSize/2 -->
+        <s:Group left="7" right="6" top="0" bottom="0" minWidth="0">
+        
+            <!-- fill -->
+            <s:Rect left="1" right="1" top="1" bottom="1">
+                <s:fill>
+                    <s:SolidColor color="0xA8C6EE" />
+                </s:fill>
+            </s:Rect>
+            
+        </s:Group>    
+    </s:Group>
+    
+    <s:Group id="playedArea" left="0" top="0" height="11">
+    
+        <!-- inset 7 and 6 pixels because that's thumbSize/2 -->
+        <s:Group left="7" right="6" top="0" bottom="0" minWidth="0">
+            
+            <!-- fill -->
+            <s:Rect left="1" right="1" top="1" bottom="1">
+                <s:fill>
+                    <s:SolidColor color="0xE2EDF7" />
+                </s:fill>
+            </s:Rect>
+            
+        </s:Group>  
+    </s:Group>
+
+    <s:Button id="thumb" top="0" bottom="0" width="14" includeInLayout="false"
+              skinClass="spark.skins.wireframe.VideoPlayerScrubBarThumbSkin" />
+
+</s:Skin>
