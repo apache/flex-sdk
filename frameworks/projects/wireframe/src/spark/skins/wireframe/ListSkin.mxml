@@ -11,35 +11,35 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009"
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
 	  minWidth="112" minHeight="112"
 	  alpha.disabled="0.5"> 
 	
-    <Metadata>
-    	[HostComponent("mx.components.FxList")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.List")]
+    </fx:Metadata> 
     
-    <states>
-    	<State name="normal" />
-    	<State name="disabled" />
-    </states>
+    <s:states>
+    	<s:State name="normal" />
+    	<s:State name="disabled" />
+    </s:states>
     
     <!-- border/fill -->
-    <Rect left="0" right="0" top="0" bottom="0">
-    	<stroke>
-    		<SolidColorStroke color="0x5380D0" />
-    	</stroke>
-    	<fill>
-    		<SolidColor color="0xFFFFFF" />
-    	</fill>
-    </Rect>
+    <s:Rect left="0" right="0" top="0" bottom="0">
+    	<s:stroke>
+    		<s:SolidColorStroke color="0x5380D0" />
+    	</s:stroke>
+    	<s:fill>
+    		<s:SolidColor color="0xFFFFFF" />
+    	</s:fill>
+    </s:Rect>
     
-    <FxScroller left="1" top="1" right="1" bottom="1">
-	    <DataGroup id="dataGroup" width="110" height="110"
-		itemRenderer="mx.skins.spark.FxDefaultItemRenderer">
-	    	<layout>
-	    	    <VerticalLayout gap="0" />
-	    	</layout>
-	    </DataGroup>
-    </FxScroller>
-</Skin>
+    <s:Scroller left="1" top="1" right="1" bottom="1">
+	    <s:DataGroup id="dataGroup" width="110" height="110"
+		itemRenderer="spark.skins.default.DefaultItemRenderer">
+	    	<s:layout>
+	    	    <s:VerticalLayout gap="0" />
+	    	</s:layout>
+	    </s:DataGroup>
+    </s:Scroller>
+</s:Skin>
