@@ -1,6 +1,5 @@
 package spark.layouts
 {
-import flash.geom.Point;
 import flash.utils.Dictionary;
 
 import mx.containers.errors.ConstraintError;
@@ -8,7 +7,6 @@ import mx.containers.utilityClasses.ConstraintColumn;
 import mx.containers.utilityClasses.ConstraintRow;
 import mx.core.ILayoutElement;
 import mx.core.mx_internal;
-import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.GroupBase;
@@ -17,6 +15,89 @@ import spark.layouts.supportClasses.LayoutElementHelper;
 
 use namespace mx_internal;
 
+[ResourceBundle("layout")]
+
+/**
+ *  The ConstraintLayout class arranges the layout elements based on their individual
+ *  settings and a set of constraint regions defined by constraint columns and
+ *  constraint rows. Although you can use all of the properties and constraints from
+ *  BasicLayout to position and size elements, ConstraintLayout gives you the ability
+ *  to create sibling-relative layouts by constraining elements to the specified
+ *  columns and rows. 
+ *
+ *  <p><b>Note: </b>The Spark list-based controls (the Spark List control and its subclasses
+ *  such as ButtonBar, ComboBox, DropDownList, and TabBar) do not support the ConstraintLayout class. 
+ *  Do not use ConstraintLayout with the Spark list-based controls.</p>
+ *
+ *  <p>Per-element supported constraints are <code>left</code>, <code>right</code>, 
+ *  <code>top</code>, <code>bottom</code>, <code>baseline</code>,
+ *  <code>percentWidth</code>, and <code>percentHeight</code>.
+ *  Element's minimum and maximum sizes will always be respected.</p>
+ * 
+ *  <p>Columns and rows may have an explicit size or content size (no explicit size). 
+ *  Explicit size regions will be fixed at their specified size, while content size
+ *  regions will stretch to fit only the elements constrained to them. If multiple
+ *  content size regions are spanned by an element, the space will be divided
+ *  equally among the content size regions.</p>
+ *
+ *  <p>The measured size of the container is calculated from the elements, their
+ *  constraints, their preferred sizes, and the sizes of the rows and columns.
+ *  The size of each row and column is just big enough to hold all of the elements
+ *  constrained to it at their preferred sizes with constraints satisfied. The measured
+ *  size of the container is big enough to hold all of the columns and rows as well as
+ *  any other elements left at their preferred sizes with constraints satisfied. </p>
+ *
+ *  <p>During a call to the <code>updateDisplayList()</code> method, 
+ *  the element's size is determined according to
+ *  the rules in the following order of precedence (the element's minimum and
+ *  maximum sizes are always respected):</p>
+ *  <ul>
+ *    <li>If the element has <code>percentWidth</code> or <code>percentHeight</code> set, 
+ *    then its size is calculated as a percentage of the available size, where the available
+ *    size is the region or container size minus any <code>left</code>, <code>right</code>,
+ *    <code>top</code>, or <code>bottom</code> constraints.</li>
+ *
+ *    <li>If the element has both left and right constraints, it's width is
+ *    set to be the region's or container's width minus the <code>left</code> 
+ *    and <code>right</code> constraints.</li>
+ * 
+ *    <li>If the element has both <code>top</code> and <code>bottom</code> constraints, 
+ *    it's height is set to be the container's height minus the <code>top</code> 
+ *    and <code>bottom</code> constraints.</li>
+ *
+ *    <li>The element is set to its preferred width and/or height.</li>
+ *  </ul>
+ * 
+ *  <p>The element's position is determined according to the rules in the following
+ *  order of precedence:</p>
+ *  <ul>
+ *    <li>If element's baseline is specified, then the element is positioned in
+ *    the vertical direction such that its <code>baselinePosition</code> (usually the base line
+ *    of its first line of text) is aligned with <code>baseline</code> constraint.</li>
+ *
+ *    <li>If element's <code>top</code> or <code>left</code> constraints 
+ *    are specified, then the element is
+ *    positioned such that the top-left corner of the element's layout bounds is
+ *    offset from the top-left corner of the container by the specified values.</li>
+ *
+ *    <li>If element's <code>bottom</code> or <code>right</code> constraints are specified, 
+ *    then the element is positioned such that the bottom-right corner 
+ *    of the element's layout bounds is
+ *    offset from the bottom-right corner of the container by the specified values.</li>
+ * 
+ *    <li>When no constraints determine the position in the horizontal or vertical
+ *    direction, the element is positioned according to its x and y coordinates.</li>
+ *  </ul>
+ *
+ *  <p>The content size of the container is calculated as the maximum of the
+ *  coordinates of the bottom-right corner of all the layout elements and 
+ *  constraint regions.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4.5
+ */
 public class ConstraintLayout extends LayoutBase
 {
     //--------------------------------------------------------------------------
@@ -46,15 +127,11 @@ public class ConstraintLayout extends LayoutBase
     }
     
     /**
+     *  @private
      *  @return Returns the maximum value for an element's dimension so that the component doesn't
      *  spill out of the container size. Calculations are based on the layout rules.
-     *  Pass in unscaledWidth, hCenter, left, right, childX to get a maxWidth value.
-     *  Pass in unscaledHeight, vCenter, top, bottom, childY to get a maxHeight value.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  Pass in unscaledWidth, left, right, childX to get a maxWidth value.
+     *  Pass in unscaledHeight, top, bottom, childY to get a maxHeight value.
      */
     static private function maxSizeToFitIn(totalSize:Number,
                                            lowConstraint:Number,
@@ -90,7 +167,7 @@ public class ConstraintLayout extends LayoutBase
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @productversion Flex 4.5
      */
     public function ConstraintLayout()
     {
@@ -103,13 +180,12 @@ public class ConstraintLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------
     
-    // for throwing errors
-    private var resourceManager:IResourceManager =
-        ResourceManager.getInstance();
-    
-    // Arrays that keep track of children spanning
-    // content size columns or rows or whether the 
-    // elements don't use columns or rows at all.
+    /**
+     *  @private
+     *  Vectors that keep track of children spanning
+     *  content size columns or rows or whether the 
+     *  elements don't use columns or rows at all.
+     */
     private var colSpanElements:Vector.<ElementConstraintInfo> = null;
     private var rowSpanElements:Vector.<ElementConstraintInfo> = null;
     private var otherElements:Vector.<ElementConstraintInfo> = null;
@@ -127,16 +203,23 @@ public class ConstraintLayout extends LayoutBase
     //----------------------------------
     
     private var _constraintColumns:Vector.<ConstraintColumn> = new Vector.<ConstraintColumn>(0, true);
+    // An associative array of column id --> column index
+    private var columnsObject:Object = new Object();
     
     /**
      *  A Vector of ConstraintColumn instances that partition the target container.
      *  The ConstraintColumn instance at index 0 is the left-most column;
      *  indices increase from left to right. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
      */
     public function get constraintColumns():Vector.<ConstraintColumn>
     {
         // make defensive copy
-        return Vector.<ConstraintColumn>(_constraintColumns);
+        return _constraintColumns.slice();
     }
     
     /**
@@ -148,18 +231,28 @@ public class ConstraintLayout extends LayoutBase
         if (value == null)
         {
             _constraintColumns = new Vector.<ConstraintColumn>(0, true);
+            columnsObject = new Object();
             return;
         }
         
         var n:int = value.length;
-        var temp:Vector.<ConstraintColumn> = new Vector.<ConstraintColumn>(n, true);
+        var col:ConstraintColumn;
+        var temp:Vector.<ConstraintColumn> = value.slice();
+        var obj:Object = new Object();
+        
         for (var i:int = 0; i < n; i++)
         {
-            value[i].container = this.target;
-            temp[i] = value[i];
+            col = temp[i];
+            col.container = this.target;
+            obj[col.id] = i;
+            
+            // TODO (klin): Allow percentWidth columns.
+            if (!isNaN(col.percentWidth))
+                throw new Error(ResourceManager.getInstance().getString("layout", "percentWidthColumn"));
         }
         
         _constraintColumns = temp;
+        columnsObject = obj;
         
         if (target)
         {
@@ -173,15 +266,22 @@ public class ConstraintLayout extends LayoutBase
     //----------------------------------
     
     private var _constraintRows:Vector.<ConstraintRow> = new Vector.<ConstraintRow>(0, true);
+    // An associative array of row id --> row index
+    private var rowsObject:Object = new Object();
     
     /**
      *  A Vector of ConstraintRow instances that partition the target container.
      *  The ConstraintRow instance at index 0 is the top-most column;
      *  indices increase from top to bottom. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
      */
     public function get constraintRows():Vector.<ConstraintRow> 
     {
-        return Vector.<ConstraintRow>(_constraintRows);
+        return _constraintRows.slice();
     }
     
     /**
@@ -193,18 +293,27 @@ public class ConstraintLayout extends LayoutBase
         if (value == null)
         {
             _constraintRows = new Vector.<ConstraintRow>(0, true);
+            rowsObject = new Object();
             return;
         }
         
         var n:int = value.length;
-        var temp:Vector.<ConstraintRow> = new Vector.<ConstraintRow>(n, true);
+        var row:ConstraintRow;
+        var temp:Vector.<ConstraintRow> = value.slice();
+        var obj:Object = new Object();
+        
         for (var i:int = 0; i < n; i++)
         {
-            value[i].container = this.target;
-            temp[i] = value[i];
+            row = temp[i];
+            row.container = this.target;
+            obj[row.id] = i;
+            
+            if (!isNaN(row.percentHeight))
+                throw new Error(ResourceManager.getInstance().getString("layout", "percentHeightRow"));
         }
         
         _constraintRows = temp;
+        rowsObject = obj;
         
         if (target)
         {
@@ -228,25 +337,21 @@ public class ConstraintLayout extends LayoutBase
 
         for (i = 0; i < n; i++)
         {
-            _constraintColumns[i].container = this.target;
+            _constraintColumns[i].container = value;
         }
         
         n = _constraintRows.length;
         for (i = 0; i < n; i++)
         {
-            _constraintRows[i].container = this.target
+            _constraintRows[i].container = value;
         }
     }
 
-    /**
-     *  @private
-     *  Used by FormItemLayout to implement its updateDisplayList.
-     */
-    mx_internal function checkUseVirtualLayout():void
-    {
-        if (useVirtualLayout)
-            throw new Error(ResourceManager.getInstance().getString("layout", "constraintLayoutNotVirtualized"));
-    }
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Methods: LayoutBase
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  @private
@@ -266,25 +371,32 @@ public class ConstraintLayout extends LayoutBase
         var layoutTarget:GroupBase = target;
         if (!layoutTarget)
             return;
+
+        var width:Number = 0;
+        var height:Number = 0;
+        var minWidth:Number = 0;
+        var minHeight:Number = 0;
         
         parseConstraints();
         
-        var width:Number = measureAndPositionColumns();
-        var height:Number = measureAndPositionRows();
+        // TODO (klin): minimum will be different when percent size comes into play
+        width = minWidth = measureAndPositionColumns();
+        height = minHeight = measureAndPositionRows();
         
         if (otherElements)
         {
-            var p:Point = measureOtherContent();
+            var vec:Vector.<Number> = measureOtherContent();
             
-            width = Math.max(width, p.x);
-            height = Math.max(height, p.y);
+            width = Math.max(width, vec[0]);
+            height = Math.max(height, vec[1]);
+            minWidth = Math.max(minWidth, vec[2]);
+            minHeight = Math.max(minHeight, vec[3]);
         }
 
         layoutTarget.measuredWidth = Math.ceil(width);
         layoutTarget.measuredHeight = Math.ceil(height);
-        
-        // FIXME (klin): measuredMinWidth/Height? I think we only have to do this for other content,
-        // since the columns and rows are fixed at this point.
+        layoutTarget.measuredMinWidth = Math.ceil(minWidth);
+        layoutTarget.measuredMinHeight = Math.ceil(minHeight);
         
         // clear out cache
         colSpanElements = null;
@@ -316,10 +428,21 @@ public class ConstraintLayout extends LayoutBase
         layoutContent(unscaledWidth, unscaledHeight);
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: Used by FormItemLayout
+    //
+    //--------------------------------------------------------------------------
+    
     /**
      *  Lays out the elements of the layoutTarget using the current
      *  widths and heights of the columns and rows. Used by FormItemLayout
-     *  to set new column widths and then lay elements using those new widths.
+     *  after setting new column widths to lay elements using those new widths.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
      */ 
     protected function layoutContent(unscaledWidth:Number, unscaledHeight:Number):void
     {
@@ -363,6 +486,11 @@ public class ConstraintLayout extends LayoutBase
     /**
      *  Used by FormItemLayout to measure and set new column widths
      *  before laying out the elements.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
      */
     protected function measureAndPositionColumnsAndRows():void
     {
@@ -370,735 +498,24 @@ public class ConstraintLayout extends LayoutBase
         measureAndPositionColumns();
         measureAndPositionRows();
     }
-    
-    /**
-     *  @private
-     *  Iterates over elements and calls parseElementConstraints on each.
-     */
-    private function parseConstraints():void
-    {
-        var layoutTarget:GroupBase = target;
-        if (!layoutTarget)
-            return;
-
-        var count:Number = layoutTarget.numElements;
-        var layoutElement:ILayoutElement;
-        
-        constraintCache = new Dictionary(true);
-        
-        for (var i:int = 0; i < count; i++)
-        {
-            layoutElement = layoutTarget.getElementAt(i);
-            if (!layoutElement || !layoutElement.includeInLayout)
-                continue;
-            
-            parseElementConstraints(layoutElement);
-        }
-    }
 
     /**
      *  @private
-     *  This function parses the constraints of a single element, creates an
-     *  ElementConstraintInfo object for the element, and throws errors if the
-     *  columns or rows are not found for each constraint.
+     *  This function is mx_internal so that FormItemLayout can use it
+     *  in its updateDisplayList.
      */
-    private function parseElementConstraints(layoutElement:ILayoutElement):void
+    mx_internal function checkUseVirtualLayout():void
     {
-        // Variables to track the offsets
-        var left:Number;
-        var right:Number;
-        var top:Number;
-        var bottom:Number;
-        var baseline:Number;
-        
-        // Variables to track the boundaries from which
-        // the offsets are calculated from. If null, the 
-        // boundary is the parent container edge. 
-        var leftBoundary:String;
-        var rightBoundary:String;
-        var topBoundary:String;
-        var bottomBoundary:String;
-        var baselineBoundary:String;
-        
-        var message:String;
-        
-        var temp:Array;
-        temp = LayoutElementHelper.parseConstraintExp(layoutElement.left);
-        if (!temp)
-            left = NaN;
-        else if (temp.length == 1)
-            left = Number(temp[0]);
-        else
-        {
-            leftBoundary = temp[0];
-            left = temp[1];
-        }
-        
-        temp = LayoutElementHelper.parseConstraintExp(layoutElement.right);
-        if (!temp)
-            right = NaN;
-        else if (temp.length == 1)
-            right = Number(temp[0]);
-        else
-        {
-            rightBoundary = temp[0];
-            right = temp[1];
-        }
-        
-        temp = LayoutElementHelper.parseConstraintExp(layoutElement.top);
-        if (!temp)
-            top = NaN;
-        else if (temp.length == 1)
-            top = Number(temp[0]);
-        else
-        {
-            topBoundary = temp[0];
-            top = temp[1];
-        }
-        
-        temp = LayoutElementHelper.parseConstraintExp(layoutElement.bottom);
-        if (!temp)
-            bottom = NaN;
-        else if (temp.length == 1)
-            bottom = Number(temp[0]);
-        else
-        {
-            bottomBoundary = temp[0];
-            bottom = temp[1];
-        }
-        
-        temp = LayoutElementHelper.parseConstraintExp(layoutElement.baseline);
-        if (!temp)
-            baseline = NaN;
-        else if (temp.length == 1)
-            baseline = Number(temp[0]);
-        else
-        {
-            baselineBoundary = temp[0];
-            baseline = temp[1];
-        }
-        
-        // save values into a Dictionary based on element name.
-        var elementInfo:ElementConstraintInfo = new ElementConstraintInfo(layoutElement,
-            left, right, top, bottom, baseline,
-            leftBoundary, rightBoundary,
-            topBoundary, bottomBoundary, baselineBoundary);
-        constraintCache[layoutElement] = elementInfo;
-        
-        // If some pair of boundaries don't exist, we will need to measure
-        // the container size based on the element's other properties like
-        // x, y, width, height.
-        var i:Number;
-        if (!(leftBoundary || rightBoundary) ||
-            !(topBoundary || bottomBoundary) ||
-            !baselineBoundary)
-        {
-            if (!otherElements)
-                otherElements = new Vector.<ElementConstraintInfo>();
-            
-            otherElements.push(elementInfo);
-        }
-        
-        // match columns
-        if (leftBoundary || rightBoundary)
-        {
-            var numColumns:Number = _constraintColumns.length;
-            var colid:String;
-            
-            if (!colSpanElements)
-                colSpanElements = new Vector.<ElementConstraintInfo>();
-            
-            colSpanElements.push(elementInfo);
-            
-            if (leftBoundary)
-            {
-                for (i = 0; i < numColumns; i++)
-                {
-                    colid = _constraintColumns[i].id;
-                    
-                    if (leftBoundary == colid)
-                    {
-                        elementInfo.colSpanLeftIndex = i;
-                        break;
-                    }
-                }
-                
-                // throw error if no match.
-                if (elementInfo.colSpanLeftIndex < 0)
-                {
-                    message = resourceManager.getString(
-                        "containers", "columnNotFound", [ leftBoundary ]);
-                    throw new ConstraintError(message);
-                }
-            }
-            
-            // can we assume rightIndex >= leftIndex?
-            if (rightBoundary)
-            {
-                for (i = 0; i < numColumns; i++)
-                {
-                    colid = _constraintColumns[i].id;
-                    
-                    if (rightBoundary == colid)
-                    {
-                        elementInfo.colSpanRightIndex = i;
-                        break;
-                    }
-                }
-                
-                // throw error if no match.
-                if (elementInfo.colSpanRightIndex < 0)
-                {
-                    message = resourceManager.getString(
-                        "containers", "columnNotFound", [ rightBoundary ]);
-                    throw new ConstraintError(message);
-                }
-            }
-        }
-        
-        // match rows.
-        var numRows:Number = _constraintRows.length;
-        if (topBoundary || bottomBoundary || baselineBoundary)
-        {
-            var rowid:String;
-            
-            if (!rowSpanElements)
-                rowSpanElements = new Vector.<ElementConstraintInfo>();
-            
-            rowSpanElements.push(elementInfo);
-            
-            if (topBoundary)
-            {
-                for (i = 0; i < numRows; i++)
-                {
-                    rowid = _constraintRows[i].id;
-                    
-                    if (topBoundary == rowid)
-                    {
-                        elementInfo.rowSpanTopIndex = i;
-                        break;
-                    }
-                }
-                
-                // throw error if no match.
-                if (elementInfo.rowSpanTopIndex < 0)
-                {
-                    message = resourceManager.getString(
-                        "containers", "columnNotFound", [ topBoundary ]);
-                    throw new ConstraintError(message);
-                }
-            }
-            
-            if (bottomBoundary)
-            {
-                for (i = 0; i < numRows; i++)
-                {
-                    rowid = _constraintRows[i].id;
-                    
-                    if (bottomBoundary == rowid)
-                    {
-                        elementInfo.rowSpanBottomIndex = i;
-                        break;
-                    }
-                }
-                
-                // throw error if no match.
-                if (elementInfo.rowSpanBottomIndex < 0)
-                {
-                    message = resourceManager.getString(
-                        "containers", "columnNotFound", [ bottomBoundary ]);
-                    throw new ConstraintError(message);
-                }
-            }
-            
-            if (baselineBoundary)
-            {            
-                for (i = 0; i < numRows; i++)
-                {
-                    rowid = _constraintRows[i].id;
-                    
-                    if (baselineBoundary == rowid)
-                    {
-                        elementInfo.baselineIndex = i;
-                        break;
-                    }
-                }
-                
-                // throw error if no match.
-                if (elementInfo.baselineIndex < 0)
-                {
-                    message = resourceManager.getString(
-                        "containers", "columnNotFound", [ baselineBoundary ]);
-                    throw new ConstraintError(message);
-                }
-            }
-        }
+        if (useVirtualLayout)
+            throw new Error(ResourceManager.getInstance().getString("layout", "constraintLayoutNotVirtualized"));
     }
     
-    /** 
-     *  @private
-     *  This function measures the ConstraintColumns partitioning
-     *  the target and sets their x positions.
-     * 
-     *  The algorithm works like this:
-     *  1. Fixed columns honor their pixel values.
-     * 
-     *  2. Content sized columns whose children span
-     *  only that column assume the width of the widest child. 
-     * 
-     *  3. (not implemented) Those Content sized columns that span multiple 
-     *  columns do the following:
-     *    a. Sort the children by order of how many columns they
-     *    are spanning.
-     *    b. For children spanning a single column, make each 
-     *    column as wide as the preferred size of the child.
-     *    c. For subsequent children, divide the remainder space
-     *    equally between shared columns. 
-     * 
-     *  4. (not implemented) Remaining space is shared between the percentage size
-     *  columns.
-     * 
-     *  5. x positions are set based on the column widths
-     * 
-     *  6. Sum the column widths to get the total measured width of the target.
-     * 
-     *  @return measuredWidth of the columns.
-     */
-    private function measureAndPositionColumns():Number
-    {
-        if (_constraintColumns.length <= 0)
-            return 0;
-        
-        var measuredWidth:Number = 0;
-        var i:Number;
-        var numCols:Number = _constraintColumns.length;
-        var col:ConstraintColumn;
-        var hasContentSize:Boolean = false;
-        
-        // Reset content size columns to 0.
-        for (i = 0; i < numCols; i++)
-        {
-            col = _constraintColumns[i];
-            if (col.contentSize)
-            {
-                hasContentSize = true;
-                
-                if (!isNaN(col.minWidth))
-                    col.setActualWidth(Math.ceil(Math.max(col.minWidth, 0)));
-                else
-                    col.setActualWidth(0);
-            }
-        }
-        
-        // Assumption: elements in colSpanElements have one or more constraints touching a column.
-        // This is enforced in parseElementConstraints().
-        if (colSpanElements && hasContentSize)
-        {
-            var numColSpanElements:Number = colSpanElements.length;
-            
-            // Measure content size columns only single span for now.
-            // If multiple span, do nothing yet.
-            for (i = 0; i < numColSpanElements; i++)
-            {
-                var elementInfo:ElementConstraintInfo = colSpanElements[i];
-                var layoutElement:ILayoutElement = elementInfo.layoutElement;
-                var leftIndex:int = -1;
-                var rightIndex:int = -1;
-                var span:int;
-                
-                var extX:Number = 0;
-                var preferredWidth:Number = layoutElement.getPreferredBoundsWidth();
-                var maxExtent:Number;
-                
-                var j:int;
-                var colWidth:Number = 0;
-                
-                // Determine how much space the element needs to satisfy its
-                // constraints and be at its preferred width.
-                if (!isNaN(elementInfo.left))
-                {
-                    extX += elementInfo.left;
-                    if (elementInfo.leftBoundary)
-                        leftIndex = elementInfo.colSpanLeftIndex;
-                    else
-                        leftIndex = 0; // constrained to parent
-                }
-                
-                if (!isNaN(elementInfo.right))
-                {
-                    extX += elementInfo.right;
-                    if (elementInfo.rightBoundary)
-                        rightIndex = elementInfo.colSpanRightIndex;
-                    else
-                        rightIndex = numCols - 1; // constrained to parent
-                }
-                
-                maxExtent = extX + preferredWidth;
-                
-                // if there is no left or no right constraint, there must be 
-                // a corresponding column constraint on the other side. We
-                // calculate the last column that this element touches to 
-                // find the other column that the element spans to.
-                if (leftIndex < 0)
-                {   
-                    leftIndex = 0; // defaults to first column
-                    
-                    // subtract fixed rows
-                    for (j = rightIndex; j >= 0; j--)
-                    {
-                        col = _constraintColumns[j];
-                        
-                        if (!isNaN(col.explicitWidth))
-                            maxExtent -= col.width;
-                        
-                        if (col.contentSize || maxExtent < 0)
-                        {
-                            leftIndex = j;
-                            break;
-                        }
-                    }
-                }
-                else if (rightIndex < 0)
-                {
-                    rightIndex = numCols - 1; // defaults to last column
-                    
-                    // subtract fixed rows
-                    for (j = leftIndex; j < numCols; j++)
-                    {
-                        col = _constraintColumns[j];
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
-                        if (!isNaN(col.explicitWidth))
-                            maxExtent -= col.width;
-                        
-                        if (col.contentSize || maxExtent < 0)
-                        {
-                            rightIndex = j;
-                            break;
-                        }
-                    }
-                }
-                
-                // always 0 or positive.
-                span = rightIndex - leftIndex;
-                //trace(span);
-                
-                // span of 0 means the element spans one column
-                if (span == 0)
-                {
-                    col = _constraintColumns[leftIndex];
-                    
-                    // only measure with when dealing with content size
-                    if (col.contentSize)
-                    {   
-                        colWidth = Math.max(col.width, extX + preferredWidth);
-                        
-                        if (constraintsDetermineWidth(elementInfo))
-                            colWidth = Math.max(colWidth, extX + layoutElement.getMinBoundsWidth());
-                        
-                        col.setActualWidth(Math.ceil(colWidth));
-                    }
-                }
-                else
-                {
-                    // multiple spanning stuff.
-                }
-            }
-        }
-
-        // Position columns and add up widths.
-        for (i = 0; i < numCols; i++)
-        {
-            col = _constraintColumns[i];
-            col.x = measuredWidth;
-            measuredWidth += col.width;
-        }
-        
-        return measuredWidth;
-    }
-    
-    /**
-     *  @private
-     *  Synonymous to measureAndPositionColumns(), but with added baseline constraint.
-     *  Baseline is only included in the measurement if at least one of the element's
-     *  top or bottom constraint doesn't exist.
-     */
-    private function measureAndPositionRows():Number
-    {
-        if (_constraintRows.length <= 0)
-            return 0;
-        
-        var measuredHeight:Number = 0;
-        var i:Number;
-        var numRows:Number = _constraintRows.length;
-        var row:ConstraintRow;
-        var hasContentSize:Boolean = false;
-        
-        // Reset content size rows to 0.
-        for (i = 0; i < numRows; i++)
-        {
-            row = _constraintRows[i];
-            if (row.contentSize)
-            {
-                hasContentSize = true;
-                
-                if (!isNaN(row.minHeight))
-                    row.setActualHeight(Math.ceil(Math.max(row.minHeight, 0)));
-                else
-                    row.setActualHeight(0);
-            }
-        }
-        
-        // Assumption: elements in rowSpanElements have one or more constraints touching a row.
-        // This is enforced in parseElementConstraints().
-        if (rowSpanElements && hasContentSize)
-        {
-            var numRowSpanElements:Number = rowSpanElements.length;
-            
-            // Measure content size rows only single span for now.
-            // If multiple span, do nothing yet.
-            for (i = 0; i < numRowSpanElements; i++)
-            {
-                var elementInfo:ElementConstraintInfo = rowSpanElements[i];
-                var layoutElement:ILayoutElement = elementInfo.layoutElement;
-                var topIndex:int = -1;
-                var bottomIndex:int = -1;
-                var span:int;
-                
-                var extY:Number = 0;
-                var preferredHeight:Number = layoutElement.getPreferredBoundsHeight();
-                var maxExtent:Number;
-                
-                var j:int;
-                var rowHeight:Number = 0;
-                
-                // Determine how much space the element needs to satisfy its
-                // constraints and be at its preferred height.
-                if (!isNaN(elementInfo.top))
-                {
-                    extY += elementInfo.top;
-                    if (elementInfo.topBoundary)
-                        topIndex = elementInfo.rowSpanTopIndex;
-                    else
-                        topIndex = 0; // constrained to parent
-                }
-                
-                if (!isNaN(elementInfo.bottom))
-                {
-                    extY += elementInfo.bottom;
-                    if (elementInfo.bottomBoundary)
-                        bottomIndex = elementInfo.rowSpanBottomIndex;
-                    else
-                        bottomIndex = numRows - 1; // constrained to parent
-                }
-                
-                // Only include baseline if at least one of top or bottom don't
-                // exist.
-                if (!isNaN(elementInfo.baseline) && (topIndex < 0 || bottomIndex < 0))
-                {
-                    extY += elementInfo.baseline - layoutElement.baselinePosition;
-                    
-                    if (!isNaN(elementInfo.top))
-                        extY -= elementInfo.top;
-                    
-                    if (elementInfo.baselineBoundary)
-                        topIndex = elementInfo.baselineIndex;
-                    else
-                        topIndex = 0;
-                }
-                
-                maxExtent = extY + preferredHeight;
-                
-                // if there is no top or no bottom constraint, there must be 
-                // a corresponding row constraint on the other side. We
-                // calculate the last row that this element touches to 
-                // find the real span of the element.
-                if (topIndex < 0)
-                {   
-                    topIndex = 0; // defaults to first row
-                    
-                    // subtract fixed rows
-                    for (j = bottomIndex; j >= 0; j--)
-                    {
-                        row = _constraintRows[j];
-
-                        if (!isNaN(row.explicitHeight))
-                            maxExtent -= row.height;
-                        
-                        if (row.contentSize || maxExtent < 0)
-                        {
-                            topIndex = j;
-                            break;
-                        }
-                    }
-                }
-                else if (bottomIndex < 0)
-                {
-                    bottomIndex = numRows - 1; // defaults to last row
-                    
-                    // subtract fixed rows
-                    for (j = topIndex; j < numRows; j++)
-                    {
-                        row = _constraintRows[j];
-
-                        if (!isNaN(row.explicitHeight))
-                            maxExtent -= row.height;
-                        
-                        if (row.contentSize || maxExtent < 0)
-                        {
-                            bottomIndex = j;
-                            break;
-                        }
-                    }
-                }
-                
-                // always 0 or positive.
-                span = bottomIndex - topIndex;
-                //trace(span);
-                
-                // span of 0 means the element spans one row
-                if (span == 0)
-                {
-                    row = _constraintRows[topIndex];
-                    
-                    // only measure with when dealing with content size
-                    if (row.contentSize)
-                    {   
-                        rowHeight = Math.max(row.height, extY + preferredHeight);
-                        
-                        if (constraintsDetermineHeight(elementInfo))
-                            rowHeight = Math.max(rowHeight, extY + layoutElement.getMinBoundsHeight());
-                        
-                        row.setActualHeight(Math.ceil(rowHeight));
-                    }
-                }
-                else
-                {
-                    // multiple spanning stuff.
-                }
-            }
-        }
-        
-        // Position rows and add up heights.
-        for (i = 0; i < numRows; i++)
-        {
-            row = _constraintRows[i];
-            row.y = measuredHeight;
-            measuredHeight += row.height;
-        }
-        
-        return measuredHeight;
-    }
-    
-    /**
-     *  @private
-     *  Measures the size of target based on content not included in the columns and rows.
-     *  Basically, applies BasicLayout to other content to determine measured size.
-     */
-    private function measureOtherContent():Point
-    {
-        var width:Number = 0;
-        var height:Number = 0;
-        var minWidth:Number = 0;
-        var minHeight:Number = 0;
-        var count:int = otherElements.length;
-
-        for (var i:int = 0; i < count; i++)
-        {
-            var elementInfo:ElementConstraintInfo = otherElements[i];
-            var layoutElement:ILayoutElement = elementInfo.layoutElement;
-            
-            // Only measure width if not constrained to columns.
-            if (!(elementInfo.leftBoundary || elementInfo.rightBoundary))
-            {
-                var left:Number = elementInfo.left;
-                var right:Number = elementInfo.right;
-                var extX:Number;
-                
-                if (!isNaN(left) && !isNaN(right))
-                {
-                    // If both left & right are set, then the extents is always
-                    // left + right so that the element is resized to its preferred
-                    // size (if it's the one that pushes out the default size of the container).
-                    extX = left + right;                
-                }
-                else if (!isNaN(left) || !isNaN(right))
-                {
-                    extX = isNaN(left) ? 0 : left;
-                    extX += isNaN(right) ? 0 : right;
-                }
-                else
-                {
-                    extX = layoutElement.getBoundsXAtSize(NaN, NaN);
-                }
-                
-                var preferredWidth:Number = layoutElement.getPreferredBoundsWidth();
-                width = Math.max(width, extX + preferredWidth);
-                
-                // Find the minimum default extents, we take the minimum height only
-                // when the element size is determined by the parent size
-                var elementMinWidth:Number =
-                    constraintsDetermineWidth(elementInfo) ? layoutElement.getMinBoundsWidth() :
-                    preferredWidth;
-                minWidth = Math.max(minWidth, extX + elementMinWidth);
-            }
-            
-            // only measure height if not constrained to rows.
-            var hasTopOrBottom:Boolean = !(elementInfo.topBoundary || elementInfo.bottomBoundary);
-            var hasBaseline:Boolean = !elementInfo.baselineBoundary;
-            
-            if (hasTopOrBottom || hasBaseline)
-            {
-                var top:Number;
-                var bottom:Number;
-                var baseline:Number;
-                var extY:Number;
-                
-                if (hasTopOrBottom)
-                {
-                    top = elementInfo.top;
-                    bottom = elementInfo.bottom;
-                }
-                
-                if (hasBaseline)
-                    baseline = elementInfo.baseline;
-                
-                if (!isNaN(top) && !isNaN(bottom))
-                {
-                    // If both top & bottom are set, then the extents is always
-                    // top + bottom so that the element is resized to its preferred
-                    // size (if it's the one that pushes out the default size of the container).
-                    extY = top + bottom;                
-                }
-                else if (!isNaN(baseline))
-                {
-                    extY = Math.round(baseline - layoutElement.baselinePosition);
-                }
-                else if (!isNaN(top) || !isNaN(bottom))
-                {
-                    extY = isNaN(top) ? 0 : top;
-                    extY += isNaN(bottom) ? 0 : bottom;
-                }
-                else
-                {
-                    extY = layoutElement.getBoundsYAtSize(NaN, NaN);
-                }
-                
-                var preferredHeight:Number = layoutElement.getPreferredBoundsHeight();
-                height = Math.max(height, extY + preferredHeight);
-                
-                // Find the minimum default extents, we take the minimum height only
-                // when the element size is determined by the parent size
-                var elementMinHeight:Number =
-                    constraintsDetermineHeight(elementInfo) ? layoutElement.getMinBoundsHeight() : 
-                    preferredHeight;
-                
-                minHeight = Math.max(minHeight, extY + elementMinHeight);
-            }
-        }
-        
-        return new Point(Math.max(width, minWidth), Math.max(height, minHeight));
-    }
-    
     /**
      *  @private
      *  Sizes and positions the element based on the given size of the container
@@ -1154,7 +571,7 @@ public class ConstraintLayout extends LayoutBase
         
         var col:ConstraintColumn;
         var row:ConstraintRow;
-      
+        
         if (leftBoundary)
         {
             col = _constraintColumns[elementInfo.colSpanLeftIndex];
@@ -1178,7 +595,7 @@ public class ConstraintLayout extends LayoutBase
             row = _constraintRows[elementInfo.rowSpanBottomIndex];
             bottomHolder = row.y + row.height;
         }
-
+        
         if (baselineBoundary)
         {
             row = _constraintRows[elementInfo.baselineIndex];
@@ -1276,6 +693,754 @@ public class ConstraintLayout extends LayoutBase
         
         layoutElement.setLayoutBoundsPosition(elementX, elementY);
     }
+    
+    /** 
+     *  @private
+     *  This function measures the ConstraintColumns partitioning
+     *  the target and sets their x positions. The calculations
+     *  are based on the current constraintCache. To update the
+     *  constraintCache, one needs to call the parseConstraints()
+     *  method.
+     * 
+     *  The algorithm works like this:
+     *  1. Fixed columns honor their pixel values.
+     * 
+     *  2. Content sized columns whose children span
+     *  only that column assume the width of the widest child. 
+     * 
+     *  3. (not implemented) Those Content sized columns that span multiple 
+     *  columns do the following:
+     *    a. Sort the children by order of how many columns they
+     *    are spanning.
+     *    b. For children spanning a single column, make each 
+     *    column as wide as the preferred size of the child.
+     *    c. For subsequent children, divide the remainder space
+     *    equally between shared columns. 
+     * 
+     *  4. (not implemented) Remaining space is shared between the percentage size
+     *  columns.
+     * 
+     *  5. x positions are set based on the column widths
+     * 
+     *  6. Sum the column widths to get the total measured width of the target.
+     * 
+     *  @return measuredWidth of the columns.
+     */
+    private function measureAndPositionColumns():Number
+    {
+        // TODO (klin): Parameterize this to work for both columns and rows.
+        // This may mean we need to add some mx_internal properties to 
+        // the columns for "major size", etc... Question is, what about
+        // 1-D properties like baseline? What parts can we parameterize and
+        // what parts aren't possible.
+        
+        if (_constraintColumns.length <= 0)
+            return 0;
+        
+        var measuredWidth:Number = 0;
+        var i:Number;
+        var numCols:Number = _constraintColumns.length;
+        var col:ConstraintColumn;
+        var hasContentSize:Boolean = false;
+        
+        // Reset content size columns to 0.
+        for (i = 0; i < numCols; i++)
+        {
+            col = _constraintColumns[i];
+            if (col.contentSize)
+            {
+                hasContentSize = true;
+                
+                if (!isNaN(col.minWidth))
+                    col.setActualWidth(Math.ceil(Math.max(col.minWidth, 0)));
+                else
+                    col.setActualWidth(0);
+            }
+        }
+        
+        // Assumption: elements in colSpanElements have one or more constraints touching a column.
+        // This is enforced in parseElementConstraints().
+        if (colSpanElements && hasContentSize)
+        {
+            var numColSpanElements:Number = colSpanElements.length;
+            
+            // Measure content size columns only single span for now.
+            // If multiple span, do nothing yet.
+            for (i = 0; i < numColSpanElements; i++)
+            {
+                var elementInfo:ElementConstraintInfo = colSpanElements[i];
+                var layoutElement:ILayoutElement = elementInfo.layoutElement;
+                var leftIndex:int = -1;
+                var rightIndex:int = -1;
+                var span:int;
+                
+                var extX:Number = 0;
+                var preferredWidth:Number = layoutElement.getPreferredBoundsWidth();
+                var maxExtent:Number;
+                var availableWidth:Number;
+                
+                var j:int;
+                var colWidth:Number = 0;
+                
+                // Determine how much space the element needs to satisfy its
+                // constraints and be at its preferred width.
+                if (!isNaN(elementInfo.left))
+                {
+                    extX += elementInfo.left;
+                    if (elementInfo.leftBoundary)
+                        leftIndex = elementInfo.colSpanLeftIndex;
+                    else
+                        leftIndex = 0; // constrained to parent
+                }
+                
+                if (!isNaN(elementInfo.right))
+                {
+                    extX += elementInfo.right;
+                    if (elementInfo.rightBoundary)
+                        rightIndex = elementInfo.colSpanRightIndex;
+                    else
+                        rightIndex = numCols - 1; // constrained to parent
+                }
+                
+                maxExtent = extX + preferredWidth;
+                availableWidth = maxExtent;
+                
+                // If either the left or the right constraint doesn't exist,
+                // we must find the span of the element. We do this by
+                // determining the index of the last column that the element
+                // occupies in the unconstrained direction.
+                if (leftIndex < 0 || rightIndex < 0)
+                {
+                    var isLeft:Boolean = leftIndex < 0;
+                    var startIndex:int = isLeft ? rightIndex : leftIndex;
+                    var endIndex:int = isLeft ? -1 : numCols;
+                    var increment:int = isLeft ? -1 : 1;
+                    
+                    // defaults to 0
+                    if (isLeft)
+                        leftIndex = 0;
+                    else // defaults to numCols - 1
+                        rightIndex = numCols - 1;
+                    
+                    for (j = startIndex; j != endIndex ; j += increment)
+                    {
+                        col = _constraintColumns[j];
+                        
+                        // subtract fixed columns
+                        if (!isNaN(col.explicitWidth))
+                            availableWidth -= col.explicitWidth;
+                        
+                        if (col.contentSize || availableWidth < 0)
+                        {
+                            if (isLeft)
+                                leftIndex = j;
+                            else
+                                rightIndex = j;
+                            break;
+                        }
+                    }
+                }
+                
+                // always 1 or positive.
+                span = rightIndex - leftIndex + 1;
+                //trace(span);
+
+                if (span == 1)
+                {
+                    col = _constraintColumns[leftIndex];
+                    
+                    // only measure with when dealing with content size
+                    if (col.contentSize)
+                    {   
+                        colWidth = Math.max(col.width, extX + preferredWidth);
+                        
+                        if (constraintsDetermineWidth(elementInfo))
+                            colWidth = Math.max(colWidth, extX + layoutElement.getMinBoundsWidth());
+                        
+                        col.setActualWidth(Math.ceil(colWidth));
+                    }
+                }
+                else
+                {
+                    // multiple spanning case. span >= 2.
+                    // 1) start from leftIndex and subtract fixed columns
+                    // 2) divide space evenly into content size columns.
+                    var contentCols:Vector.<ConstraintColumn> = new Vector.<ConstraintColumn>();
+                    
+                    availableWidth = maxExtent;
+                    
+                    for (j = leftIndex; j <= rightIndex; j++)
+                    {
+                        col = _constraintColumns[j];
+                        
+                        if (!isNaN(col.explicitWidth))
+                        {
+                            availableWidth -= col.width;
+                            
+                            if (availableWidth < 0)
+                            {
+                                availableWidth += col.width;
+                                break;
+                            }
+                        }
+                        else if (col.contentSize)
+                        {
+                            contentCols.push(col);
+                        }
+                    }
+                    
+                    var numContentCols:Number = contentCols.length;
+                    
+                    if (numContentCols > 0)
+                    {
+                        colWidth = availableWidth / numContentCols;
+                        
+                        for (j = 0; j < numContentCols; j++)
+                        {
+                            col = contentCols[j];
+                            col.setActualWidth(Math.ceil(Math.max(col.width, colWidth)));
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Position columns and add up widths.
+        for (i = 0; i < numCols; i++)
+        {
+            col = _constraintColumns[i];
+            col.x = measuredWidth;
+            measuredWidth += col.width;
+        }
+        
+        return measuredWidth;
+    }
+    
+    /**
+     *  @private
+     *  Synonymous to measureAndPositionColumns(), but with added baseline constraint.
+     *  Baseline is only included in the measurement if at least one of the element's
+     *  top or bottom constraint doesn't exist. The calculations are based on the
+     *  current constraintCache. To update the constraintCache, one needs to call
+     *  the parseConstraints() method.
+     */
+    private function measureAndPositionRows():Number
+    {
+        if (_constraintRows.length <= 0)
+            return 0;
+        
+        var measuredHeight:Number = 0;
+        var i:Number;
+        var numRows:Number = _constraintRows.length;
+        var row:ConstraintRow;
+        var hasContentSize:Boolean = false;
+        
+        // Reset content size rows to 0.
+        for (i = 0; i < numRows; i++)
+        {
+            row = _constraintRows[i];
+            if (row.contentSize)
+            {
+                hasContentSize = true;
+                
+                if (!isNaN(row.minHeight))
+                    row.setActualHeight(Math.ceil(Math.max(row.minHeight, 0)));
+                else
+                    row.setActualHeight(0);
+            }
+        }
+        
+        // Assumption: elements in rowSpanElements have one or more constraints touching a row.
+        // This is enforced in parseElementConstraints().
+        if (rowSpanElements && hasContentSize)
+        {
+            var numRowSpanElements:Number = rowSpanElements.length;
+            
+            // Measure content size rows only single span for now.
+            // If multiple span, do nothing yet.
+            for (i = 0; i < numRowSpanElements; i++)
+            {
+                var elementInfo:ElementConstraintInfo = rowSpanElements[i];
+                var layoutElement:ILayoutElement = elementInfo.layoutElement;
+                var topIndex:int = -1;
+                var bottomIndex:int = -1;
+                var span:int;
+                
+                var extY:Number = 0;
+                var preferredHeight:Number = layoutElement.getPreferredBoundsHeight();
+                var maxExtent:Number;
+                var availableHeight:Number;
+                
+                var j:int;
+                var rowHeight:Number = 0;
+                
+                // Determine how much space the element needs to satisfy its
+                // constraints and be at its preferred height.
+                if (!isNaN(elementInfo.top))
+                {
+                    extY += elementInfo.top;
+                    if (elementInfo.topBoundary)
+                        topIndex = elementInfo.rowSpanTopIndex;
+                    else
+                        topIndex = 0; // constrained to parent
+                }
+                
+                if (!isNaN(elementInfo.bottom))
+                {
+                    extY += elementInfo.bottom;
+                    if (elementInfo.bottomBoundary)
+                        bottomIndex = elementInfo.rowSpanBottomIndex;
+                    else
+                        bottomIndex = numRows - 1; // constrained to parent
+                }
+                
+                // Only include baseline if at least one of top or bottom don't
+                // exist.
+                if (!isNaN(elementInfo.baseline) && (topIndex < 0 || bottomIndex < 0))
+                {
+                    extY += elementInfo.baseline - layoutElement.baselinePosition;
+                    
+                    if (!isNaN(elementInfo.top))
+                        extY -= elementInfo.top;
+                    
+                    if (elementInfo.baselineBoundary)
+                        topIndex = elementInfo.baselineIndex;
+                    else
+                        topIndex = 0;
+                }
+                
+                maxExtent = extY + preferredHeight;
+                availableHeight = maxExtent
+                
+                // If either the top or the bottom constraint doesn't exist,
+                // we must find the span of the element. We do this by
+                // determining the index of the last column that the element
+                // occupies in the unconstrained direction.
+                if (topIndex < 0 || bottomIndex < 0)
+                {
+                    var isTop:Boolean = topIndex < 0;
+                    var startIndex:int = isTop ? bottomIndex : topIndex;
+                    var endIndex:int = isTop ? -1 : numRows;
+                    var increment:int = isTop ? -1 : 1;
+                    
+                    // defaults to 0
+                    if (isTop)
+                        topIndex = 0;
+                    else // defaults to numRows - 1
+                        bottomIndex = numRows - 1;
+                    
+                    for (j = startIndex; j != endIndex ; j += increment)
+                    {
+                        row = _constraintRows[j];
+                        
+                        // subtract fixed rows
+                        if (!isNaN(row.explicitHeight))
+                            availableHeight -= row.explicitHeight;
+                        
+                        if (row.contentSize || availableHeight < 0)
+                        {
+                            if (isTop)
+                                topIndex = j;
+                            else
+                                bottomIndex = j;
+                            break;
+                        }
+                    }
+                }
+                
+                // always 1 or positive.
+                span = bottomIndex - topIndex + 1;
+                //trace(span);
+                
+                if (span == 1)
+                {
+                    row = _constraintRows[topIndex];
+                    
+                    // only measure with when dealing with content size
+                    if (row.contentSize)
+                    {   
+                        rowHeight = Math.max(row.height, extY + preferredHeight);
+                        
+                        if (constraintsDetermineHeight(elementInfo))
+                            rowHeight = Math.max(rowHeight, extY + layoutElement.getMinBoundsHeight());
+                        
+                        row.setActualHeight(Math.ceil(rowHeight));
+                    }
+                }
+                else
+                {
+                    // multiple spanning case. span >= 2.
+                    // 1) start from topIndex and subtract fixed rows
+                    // 2) divide space evenly into content size rows.
+                    var contentRows:Vector.<ConstraintRow> = new Vector.<ConstraintRow>();
+                    
+                    availableHeight = maxExtent;
+                    
+                    for (j = topIndex; j <= bottomIndex; j++)
+                    {
+                        row = _constraintRows[j];
+                        
+                        if (!isNaN(row.explicitHeight))
+                        {
+                            availableHeight -= row.height;
+                            
+                            if (availableHeight < 0)
+                            {
+                                availableHeight += row.height;
+                                break;
+                            }
+                        }
+                        else if (row.contentSize)
+                        {
+                            contentRows.push(row);
+                        }
+                    }
+                    
+                    var numContentRows:Number = contentRows.length;
+                    
+                    if (numContentRows > 0)
+                    {
+                        rowHeight = availableHeight / numContentRows;
+                        
+                        for (j = 0; j < numContentRows; j++)
+                        {
+                            row = contentRows[j];
+                            row.setActualHeight(Math.ceil(Math.max(row.height, rowHeight)));
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Position rows and add up heights.
+        for (i = 0; i < numRows; i++)
+        {
+            row = _constraintRows[i];
+            row.y = measuredHeight;
+            measuredHeight += row.height;
+        }
+        
+        return measuredHeight;
+    }
+    
+    /**
+     *  @private
+     *  Measures the size of target based on content not included in the columns and rows.
+     *  Basically, applies BasicLayout to other content to determine measured size.
+     *  Returns a vector with the measured [width, height, minWidth, minHeight].
+     */
+    private function measureOtherContent():Vector.<Number>
+    {
+        var width:Number = 0;
+        var height:Number = 0;
+        var minWidth:Number = 0;
+        var minHeight:Number = 0;
+        var count:int = otherElements.length;
+        
+        for (var i:int = 0; i < count; i++)
+        {
+            var elementInfo:ElementConstraintInfo = otherElements[i];
+            var layoutElement:ILayoutElement = elementInfo.layoutElement;
+            
+            // Only measure width if not constrained to columns.
+            if (!elementInfo.leftBoundary && !elementInfo.rightBoundary)
+            {
+                var left:Number = elementInfo.left;
+                var right:Number = elementInfo.right;
+                var extX:Number;
+                
+                if (!isNaN(left) && !isNaN(right))
+                {
+                    // If both left & right are set, then the extents is always
+                    // left + right so that the element is resized to its preferred
+                    // size (if it's the one that pushes out the default size of the container).
+                    extX = left + right;                
+                }
+                else if (!isNaN(left) || !isNaN(right))
+                {
+                    extX = isNaN(left) ? 0 : left;
+                    extX += isNaN(right) ? 0 : right;
+                }
+                else
+                {
+                    extX = layoutElement.getBoundsXAtSize(NaN, NaN);
+                }
+                
+                var preferredWidth:Number = layoutElement.getPreferredBoundsWidth();
+                width = Math.max(width, extX + preferredWidth);
+                
+                // Find the minimum default extents, we take the minimum height only
+                // when the element size is determined by the parent size
+                var elementMinWidth:Number =
+                    constraintsDetermineWidth(elementInfo) ? layoutElement.getMinBoundsWidth() :
+                    preferredWidth;
+                
+                minWidth = Math.max(minWidth, extX + elementMinWidth);
+            }
+            
+            // only measure height if not constrained to rows.
+            var noVerticalBoundaries:Boolean = !elementInfo.topBoundary && !elementInfo.bottomBoundary;
+            var noBaselineBoundary:Boolean = !elementInfo.baselineBoundary;
+            
+            if (noVerticalBoundaries || noBaselineBoundary)
+            {
+                var top:Number;
+                var bottom:Number;
+                var baseline:Number;
+                var extY:Number;
+                
+                if (noVerticalBoundaries)
+                {
+                    top = elementInfo.top;
+                    bottom = elementInfo.bottom;
+                }
+                
+                if (noBaselineBoundary)
+                    baseline = elementInfo.baseline;
+                
+                if (!isNaN(top) && !isNaN(bottom))
+                {
+                    // If both top & bottom are set, then the extents is always
+                    // top + bottom so that the element is resized to its preferred
+                    // size (if it's the one that pushes out the default size of the container).
+                    extY = top + bottom;                
+                }
+                else if (!isNaN(baseline))
+                {
+                    extY = Math.round(baseline - layoutElement.baselinePosition);
+                }
+                else if (!isNaN(top) || !isNaN(bottom))
+                {
+                    extY = isNaN(top) ? 0 : top;
+                    extY += isNaN(bottom) ? 0 : bottom;
+                }
+                else
+                {
+                    extY = layoutElement.getBoundsYAtSize(NaN, NaN);
+                }
+                
+                var preferredHeight:Number = layoutElement.getPreferredBoundsHeight();
+                height = Math.max(height, extY + preferredHeight);
+                
+                // Find the minimum default extents, we take the minimum height only
+                // when the element size is determined by the parent size
+                var elementMinHeight:Number =
+                    constraintsDetermineHeight(elementInfo) ? layoutElement.getMinBoundsHeight() : 
+                    preferredHeight;
+                
+                minHeight = Math.max(minHeight, extY + elementMinHeight);
+            }
+        }
+        
+        var vec:Vector.<Number> = new Vector.<Number>(4, true);
+        vec[0] = Math.max(width, minWidth);
+        vec[1] = Math.max(height, minHeight);
+        vec[2] = minWidth;
+        vec[3] = minHeight;
+        
+        return vec;
+    }
+    
+    /**
+     *  @private
+     *  Iterates over elements and calls parseElementConstraints on each.
+     */
+    private function parseConstraints():void
+    {
+        var layoutTarget:GroupBase = target;
+        if (!layoutTarget)
+            return;
+        
+        var count:Number = layoutTarget.numElements;
+        var layoutElement:ILayoutElement;
+        
+        var cache:Dictionary = new Dictionary(true);
+        
+        for (var i:int = 0; i < count; i++)
+        {
+            layoutElement = layoutTarget.getElementAt(i);
+            if (!layoutElement || !layoutElement.includeInLayout)
+                continue;
+            
+            parseElementConstraints(layoutElement, cache);
+        }
+        
+        this.constraintCache = cache;
+    }
+    
+    /**
+     *  @private
+     *  This function parses the constraints of a single element, creates an
+     *  ElementConstraintInfo object for the element, and throws errors if the
+     *  columns or rows are not found for each constraint.
+     */
+    private function parseElementConstraints(layoutElement:ILayoutElement, constraintCache:Dictionary):void
+    {
+        // Variables to track the offsets
+        var left:Number;
+        var right:Number;
+        var top:Number;
+        var bottom:Number;
+        var baseline:Number;
+        
+        // Variables to track the boundaries from which
+        // the offsets are calculated from. If null, the 
+        // boundary is the parent container edge. 
+        var leftBoundary:String;
+        var rightBoundary:String;
+        var topBoundary:String;
+        var bottomBoundary:String;
+        var baselineBoundary:String;
+        
+        var message:String;
+        
+        var temp:Array;
+        temp = LayoutElementHelper.parseConstraintExp(layoutElement.left);
+        left = temp[0];
+        leftBoundary = temp[1];
+        
+        temp = LayoutElementHelper.parseConstraintExp(layoutElement.right);
+        right = temp[0];
+        rightBoundary = temp[1];
+        
+        temp = LayoutElementHelper.parseConstraintExp(layoutElement.top);
+        top = temp[0];
+        topBoundary = temp[1];
+        
+        temp = LayoutElementHelper.parseConstraintExp(layoutElement.bottom);
+        bottom = temp[0];
+        bottomBoundary = temp[1];
+        
+        temp = LayoutElementHelper.parseConstraintExp(layoutElement.baseline);
+        baseline = temp[0];
+        baselineBoundary = temp[1];
+        
+        // save values into a Dictionary based on element name.
+        var elementInfo:ElementConstraintInfo = new ElementConstraintInfo(layoutElement,
+            left, right, top, bottom, baseline,
+            leftBoundary, rightBoundary,
+            topBoundary, bottomBoundary, baselineBoundary);
+        constraintCache[layoutElement] = elementInfo;
+        
+        // If some pair of boundaries don't exist, we will need to measure
+        // the container size based on the element's other properties like
+        // x, y, width, height.
+        var i:Number;
+        if ((!leftBoundary && !rightBoundary) ||
+            (!topBoundary && !bottomBoundary) ||
+            !baselineBoundary)
+        {
+            if (!otherElements)
+                otherElements = new Vector.<ElementConstraintInfo>();
+            
+            otherElements.push(elementInfo);
+        }
+        
+        // match columns
+        if (leftBoundary || rightBoundary)
+        {
+            var numColumns:Number = _constraintColumns.length;
+            var colIndex:Object;
+
+            if (!colSpanElements)
+                colSpanElements = new Vector.<ElementConstraintInfo>();
+            
+            colSpanElements.push(elementInfo);
+            
+            if (leftBoundary)
+            {
+                colIndex = columnsObject[leftBoundary];
+                
+                if (colIndex != null)
+                    elementInfo.colSpanLeftIndex = int(colIndex);
+                
+                // throw error if no match.
+                if (elementInfo.colSpanLeftIndex < 0)
+                {
+                    message = ResourceManager.getInstance().getString(
+                        "layout", "columnNotFound", [ leftBoundary ]);
+                    throw new ConstraintError(message);
+                }
+            }
+            
+            // can we assume rightIndex >= leftIndex?
+            if (rightBoundary)
+            {
+                colIndex = columnsObject[rightBoundary];
+                
+                if (colIndex != null)
+                    elementInfo.colSpanRightIndex = int(colIndex);
+                
+                // throw error if no match.
+                if (elementInfo.colSpanRightIndex < 0)
+                {
+                    message = ResourceManager.getInstance().getString(
+                        "layout", "columnNotFound", [ rightBoundary ]);
+                    throw new ConstraintError(message);
+                }
+            }
+        }
+        
+        // match rows.
+        var numRows:Number = _constraintRows.length;
+        if (topBoundary || bottomBoundary || baselineBoundary)
+        {
+            var rowIndex:Object;
+            
+            if (!rowSpanElements)
+                rowSpanElements = new Vector.<ElementConstraintInfo>();
+            
+            rowSpanElements.push(elementInfo);
+            
+            if (topBoundary)
+            {
+                rowIndex = rowsObject[topBoundary];
+                
+                if (rowIndex != null)
+                    elementInfo.rowSpanTopIndex = int(rowIndex);
+                
+                // throw error if no match.
+                if (elementInfo.rowSpanTopIndex < 0)
+                {
+                    message = ResourceManager.getInstance().getString(
+                        "layout", "rowNotFound", [ topBoundary ]);
+                    throw new ConstraintError(message);
+                }
+            }
+            
+            if (bottomBoundary)
+            {
+                rowIndex = rowsObject[bottomBoundary];
+                
+                if (rowIndex != null)
+                    elementInfo.rowSpanBottomIndex = int(rowIndex);
+                
+                // throw error if no match.
+                if (elementInfo.rowSpanBottomIndex < 0)
+                {
+                    message = ResourceManager.getInstance().getString(
+                        "layout", "rowNotFound", [ bottomBoundary ]);
+                    throw new ConstraintError(message);
+                }
+            }
+            
+            if (baselineBoundary)
+            {            
+                rowIndex = rowsObject[baselineBoundary];
+                
+                if (rowIndex != null)
+                    elementInfo.baselineIndex = int(rowIndex);
+                
+                // throw error if no match.
+                if (elementInfo.baselineIndex < 0)
+                {
+                    message = ResourceManager.getInstance().getString(
+                        "layout", "rowNotFound", [ baselineBoundary ]);
+                    throw new ConstraintError(message);
+                }
+            }
+        }
+    }
 }
 }
 
@@ -1300,12 +1465,12 @@ class ElementConstraintInfo
      */
     public function ElementConstraintInfo(
         layoutElement:ILayoutElement,
-        left:Number, right:Number, //hc:Number,
-        top:Number, bottom:Number, //vc:Number,
+        left:Number, right:Number,
+        top:Number, bottom:Number,
         baseline:Number, leftBoundary:String = null,
-        rightBoundary:String = null, //hcBoundary:String = null,
+        rightBoundary:String = null,
         topBoundary:String = null, bottomBoundary:String = null,
-        /*vcBoundary:String = null, */baselineBoundary:String = null,
+        baselineBoundary:String = null,
         colSpanLeftIndex:int = -1, colSpanRightIndex:int = -1,
         rowSpanTopIndex:int = -1, rowSpanBottomIndex:int = -1,
         baselineIndex:int = -1):void
@@ -1318,19 +1483,15 @@ class ElementConstraintInfo
         // offsets
         this.left = left;
         this.right = right;
-/*        this.hc = hc;*/
         this.top = top;
         this.bottom = bottom;
-/*        this.vc = vc;*/
         this.baseline = baseline;
         
         // boundaries (ie: parent, column or row edge)
         this.leftBoundary = leftBoundary;
         this.rightBoundary = rightBoundary;
-/*        this.hcBoundary = hcBoundary;*/
         this.topBoundary = topBoundary;
         this.bottomBoundary = bottomBoundary;
-/*        this.vcBoundary = vcBoundary;*/
         this.baselineBoundary = baselineBoundary;
         
         this.colSpanLeftIndex = colSpanLeftIndex;
@@ -1350,17 +1511,13 @@ class ElementConstraintInfo
     
     public var left:Number;
     public var right:Number;
-/*    public var hc:Number;*/
     public var top:Number;
     public var bottom:Number;
-/*    public var vc:Number;*/
     public var baseline:Number;
     public var leftBoundary:String;
     public var rightBoundary:String;
-/*    public var hcBoundary:String;*/
     public var topBoundary:String;
     public var bottomBoundary:String;
-/*    public var vcBoundary:String;*/
     public var baselineBoundary:String;
     
     public var colSpanLeftIndex:int;
