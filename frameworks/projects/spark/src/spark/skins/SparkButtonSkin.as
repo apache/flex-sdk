@@ -12,14 +12,15 @@
 package spark.skins
 {
     import mx.core.IVisualElement;
-    import spark.components.Button;
+    import mx.styles.IStyleClient;
+    
     import spark.components.Group;
     import spark.components.IconPlacement;
     import spark.components.supportClasses.ButtonBase;
+    import spark.components.supportClasses.LabelAndIconLayout;
     import spark.core.IDisplayText;
     import spark.layouts.*;
     import spark.primitives.BitmapImage;
-    import spark.skins.SparkSkin;
     
     /**
      *  Base class for Spark button skins. Primarily used for
@@ -72,6 +73,12 @@ package spark.skins
          * Our transient icon and label Group.
          */ 
         private var iconGroup:Group;
+        
+        /**
+         * @private
+         * Saves our label's previous textAlign value.
+         */ 
+        private var prevTextAlign:String;
         
         //--------------------------------------------------------------------------
         //
@@ -351,46 +358,29 @@ package spark.skins
                 return;
             
             // If we have an icon to render we ensure the necessary
-            // parts are created and we configure a linear layout
-            // instance to manage our icon and label parts.
+            // parts are created and we configure a helper layout
+            // (LabelAndIconLayout) to manage our display parts.
             if (_hostComponent.icon && labelDisplay)
             {
                 if (iconChanged)
                     constructIconParts(true);
                 
-                if (groupPaddingChanged)
+                var layout:LabelAndIconLayout = iconGroup.layout as LabelAndIconLayout;
+                
+                if (groupPaddingChanged || iconChanged)
                 {
-                    iconGroup.left = _iconGroupPaddingLeft;
-                    iconGroup.right = _iconGroupPaddingRight;
-                    iconGroup.top = _iconGroupPaddingTop;
-                    iconGroup.bottom = _iconGroupPaddingBottom;
-                    groupPaddingChanged = false;
+                    layout.gap = _gap;
+                    layout.paddingLeft = _iconGroupPaddingLeft;
+                    layout.paddingRight = _iconGroupPaddingRight;
+                    layout.paddingTop = _iconGroupPaddingTop;
+                    layout.paddingBottom = _iconGroupPaddingBottom;
                 }
                 
-                var iconPlacement:String = getStyle("iconPlacement");
-                
-                var horizontal:Boolean = 
-                    iconPlacement == IconPlacement.LEFT ||
-                    iconPlacement == IconPlacement.RIGHT;
-                
-                iconGroup.layout =  horizontal ? 
-                    new HorizontalLayout() : new VerticalLayout();
-                
-                // Initialize our layout alignment and position the icon in 
-                // the correct child slot per our iconPlacement.
-                Object(iconGroup.layout).horizontalAlign = HorizontalAlign.CENTER;
-                Object(iconGroup.layout).verticalAlign = VerticalAlign.MIDDLE;
-                Object(iconGroup.layout).gap = _gap;
-                
-                var firstElement:IVisualElement = 
-                    (iconPlacement == IconPlacement.LEFT || 
-                        iconPlacement == IconPlacement.TOP) ? 
-                    iconDisplay : IVisualElement(labelDisplay);
-                
-                iconGroup.setElementIndex(firstElement, 0);
-                
-                // Ensure we account for empty layout so that we don't apply layout gap.
-                IVisualElement(labelDisplay).includeInLayout = labelDisplay.text && labelDisplay.text.length;
+                if (iconPlacementChanged || iconChanged)
+                {
+                    layout.iconPlacement = getStyle("iconPlacement");
+                    alignLabelForPlacement();
+                }
             }
             else
             {
@@ -401,6 +391,7 @@ package spark.skins
             
             iconChanged = false;
             iconPlacementChanged = false;
+            groupPaddingChanged = false;
         }
         
         /**
@@ -439,18 +430,27 @@ package spark.skins
             if (construct)
             {
                 if (!iconDisplay)
-                {
                     iconDisplay = new BitmapImage();
-                    iconDisplay.verticalCenter = 0;
-                    iconDisplay.horizontalCenter = 0;
-                }
                 
                 if (!iconGroup)
+                {
                     iconGroup = new Group();
-                                            
+                    iconGroup.left = iconGroup.right = 0;
+                    iconGroup.top = iconGroup.bottom = 0;
+                    iconGroup.layout = new LabelAndIconLayout();
+                }
+                
                 iconGroup.addElement(iconDisplay);
-                iconGroup.addElement(IVisualElement(labelDisplay));
+                
+                iconGroup.clipAndEnableScrolling = true;
                 addElement(iconGroup);
+                
+                if (labelDisplay && IVisualElement(labelDisplay).parent != iconGroup)
+                {
+                    iconGroup.addElement(IVisualElement(labelDisplay));
+                    if (labelDisplay is IStyleClient)
+                        prevTextAlign = IStyleClient(labelDisplay).getStyle("textAlign");
+                }
             }
             else
             {
@@ -461,7 +461,27 @@ package spark.skins
                 {
                     removeElement(iconGroup);
                     addElement(IVisualElement(labelDisplay));
+                    
+                    if (labelDisplay is IStyleClient)
+                        IStyleClient(labelDisplay).setStyle("textAlign", prevTextAlign);
                 }
+            }
+        }
+        
+        /**
+         *  @private
+         */
+        private function alignLabelForPlacement():void
+        {
+            if (labelDisplay is IStyleClient)
+            {
+                var iconPlacement:String = getStyle("iconPlacement");
+                
+                var alignment:String = 
+                    iconPlacement == IconPlacement.LEFT ||
+                    iconPlacement == IconPlacement.RIGHT ? "left" : "center"
+                
+                IStyleClient(labelDisplay).setStyle("textAlign", alignment);
             }
         }
         
