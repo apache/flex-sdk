@@ -156,11 +156,11 @@
     </s:Rect>
     
     <!-- layer 8: text -->
-    <!--- The defines the appearance of the label(s) for the middle button(s) in the ButtonBar component. -->
+    <!--- Defines the appearance of the label(s) for the middle button(s) in the ButtonBar component. -->
     <s:SimpleText id="labelDisplay"
              textAlign="center"
              verticalAlign="middle"
-			 maxDisplayedLines="1"
+             maxDisplayedLines="1"
              horizontalCenter="0" verticalCenter="1"
              left="10" right="10" top="2" bottom="2">
     </s:SimpleText>
