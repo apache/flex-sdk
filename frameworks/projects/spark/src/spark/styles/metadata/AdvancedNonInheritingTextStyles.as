@@ -10,9 +10,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#columnCount
- *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  Number of text columns (adopts default value if undefined during cascade).
+ * 
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.columnCount.</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#columnCount
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -22,9 +27,15 @@
 [Style(name="columnCount", type="Object", inherit="no")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#columnGap
- *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  Amount of gutter space, in pixels, to leave between the columns 
+ *  (adopts default value if undefined during cascade).
+ * 
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.columnGap.</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#columnGap
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -34,9 +45,14 @@
 [Style(name="columnGap", type="Number", format="Length", inherit="no")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#columnWidth
- *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  Column width in pixels (adopts default value if undefined during cascade). 
+ * 
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.columnWidth.</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#columnWidth
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
