@@ -20,25 +20,23 @@
         }
     </fx:Style>
     
-    <s:Group left="5" top="2" bottom="2" right="5">
-        
-        <mx:Canvas id="canvasLayout">
+    <s:layout>
+        <s:FormItemLayout>
+            <s:constraintColumns>
+                <s:ConstraintColumn id="numCol" />
+                <s:ConstraintColumn id="labelCol" />
+                <s:ConstraintColumn id="indicatorCol" width="16"/>
+                <s:ConstraintColumn id="contentCol"/>
+                <s:ConstraintColumn id="helpCol"/>
+                <s:ConstraintColumn id="errorCol" width="160"/>
+            </s:constraintColumns>         
+            <s:constraintRows>
+                <s:ConstraintRow id="row1" />
+            </s:constraintRows>  
+        </s:FormItemLayout>
+    </s:layout>
+
             
-            <mx:constraintColumns>
-                <mx:ConstraintColumn id="numCol" />
-                <mx:ConstraintColumn id="labelCol" />
-                <mx:ConstraintColumn id="indicatorCol" width="16"/>
-                <mx:ConstraintColumn id="contentCol"/>
-                <mx:ConstraintColumn id="helpCol"/>
-                <mx:ConstraintColumn id="errorCol" width="160"/>
-            </mx:constraintColumns>
-            
-            <mx:constraintRows>
-                <mx:ConstraintRow id="row1" />
-            </mx:constraintRows>    
-            
-            <s:Label id="labelDisplay" left="labelCol:2" right="helpCol:2" baseline="row1:24" styleName="labelStyle"/>
-      
-        </mx:Canvas>
-    </s:Group>
+    <s:Label id="labelDisplay" left="labelCol:2" right="helpCol:2" top="row1:0" bottom="row1:0" styleName="labelStyle"/>
+
 </s:Skin>
