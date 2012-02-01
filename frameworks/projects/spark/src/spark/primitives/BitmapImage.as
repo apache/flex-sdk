@@ -259,7 +259,7 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
 		var w:Number = unscaledWidth;
 		var h:Number = unscaledHeight;
 		
-		if (!repeat)
+		if (!repeat && source)
 		{
 			w = Math.min(w, source.width);
 			h = Math.min(h, source.height);	
