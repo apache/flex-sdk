@@ -26,7 +26,8 @@ import mx.events.FlexEvent;
 
 import spark.components.IItemRenderer;
 import spark.components.Label;
-import spark.components.supportClasses.ItemRendererInteractionStateDetector;
+import spark.components.supportClasses.InteractionState;
+import spark.components.supportClasses.InteractionStateDetector;
 import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal;
@@ -75,11 +76,16 @@ include "../../../../../spark/src/spark/styles/metadata/SelectionFormatTextStyle
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  Color of the background of an item renderer when it is pressed down.
- * 
- *  <p>This style is only applicable in touch <code>interactionMode</code>.</p>
+ *  Color of the background of an item renderer when it is being pressed down.
  *   
- *  @default #CCCCCC
+ *  <p>If <code>downColor</code> is set to <code>undefined</code>, 
+ *  <code>downColor</code> is not used.</p>
+ * 
+ *  <p>The default value in the 
+ *  spark theme is <code>undefined</code>.  The default value in the 
+ *  mobile theme is <code>0xB2B2B2</code>.</p>
+ * 
+ *  @default undefined
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
@@ -173,8 +179,8 @@ public class DefaultItemRenderer extends UIComponent
     {
         super();
        
-        itemRendererInteractionStateDetector = new ItemRendererInteractionStateDetector(this);
-        itemRendererInteractionStateDetector.addEventListener(Event.CHANGE, itemRendererInteractionStateDetector_changeHandler);
+        interactionStateDetector = new InteractionStateDetector(this);
+        interactionStateDetector.addEventListener(Event.CHANGE, interactionStateDetector_changeHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -193,7 +199,7 @@ public class DefaultItemRenderer extends UIComponent
      *  @private
      *  Helper class to help determine when we are in the hovered or down state
      */
-    private var itemRendererInteractionStateDetector:ItemRendererInteractionStateDetector;
+    private var interactionStateDetector:InteractionStateDetector;
     
     //--------------------------------------------------------------------------
     //
@@ -489,11 +495,13 @@ public class DefaultItemRenderer extends UIComponent
         
         var backgroundColor:uint;
         var drawBackground:Boolean = true;
-        if (itemRendererInteractionStateDetector.down)
-            backgroundColor = getStyle("downColor");
+        var downColor:* = getStyle("downColor");
+        
+        if (interactionStateDetector.state == InteractionState.DOWN && downColor !== undefined)
+            backgroundColor = downColor;
         else if (selected)
             backgroundColor = getStyle("selectionColor");
-        else if (itemRendererInteractionStateDetector.hovered)
+        else if (interactionStateDetector.state == InteractionState.OVER)
             backgroundColor = getStyle("rollOverColor");
         else
         {
@@ -550,7 +558,7 @@ public class DefaultItemRenderer extends UIComponent
     /**
      *  @private
      */
-    private function itemRendererInteractionStateDetector_changeHandler(event:Event):void
+    private function interactionStateDetector_changeHandler(event:Event):void
     {
         invalidateDisplayList();
     }
