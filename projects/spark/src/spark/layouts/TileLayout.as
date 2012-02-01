@@ -1187,7 +1187,41 @@ public class TileLayout extends LayoutBase
                 visibleStartX = visibleCol0 * cwg;                
             }
         }
-    }    
+    }
+    
+    /**
+     *  @private
+     *  This method is called by updateDisplayList() after initial values for 
+     *  visibleStartIndex, visibleEndIndex have been calculated.  We 
+     *  re-calculateDisplayParameters() to account for the possibility that
+     *  larger cells may have been exposed.  Since tileWdth,Height can only
+     *  increase, the new visibleStart,EndIndex values will be greater than or
+     *  equal to the old ones. 
+     */
+     private function updateVirtualLayout(unscaledWidth:int, unscaledHeight:int):void
+     {
+        var oldVisibleStartIndex:int = visibleStartIndex;
+        var oldVisibleEndIndex:int = visibleEndIndex;
+        calculateDisplayParameters(unscaledWidth, unscaledHeight);
+        
+        // We're responsible for the laying *all* of the elements requested
+        // with getVirtualElementAt(), even if they don't fall within the final
+        // visible range.  Hide any extra ones.
+        
+        var layoutTarget:GroupBase = target;         
+        for(var i:int = oldVisibleStartIndex; i <= oldVisibleEndIndex; i++)
+        {
+            if (i == visibleStartIndex)
+            {
+                i = visibleEndIndex;
+                continue;
+            } 
+            var el:ILayoutElement = layoutTarget.getVirtualElementAt(i);
+            if (!el)
+                continue;
+            el.setLayoutBoundsSize(0, 0);
+        }
+     }    
 
     /**
      *  Sets the size and the position of the specified layout element and cell bounds.
@@ -1378,6 +1412,8 @@ public class TileLayout extends LayoutBase
             return;
 
         calculateDisplayParameters(unscaledWidth, unscaledHeight);
+        if (useVirtualLayout)
+            updateVirtualLayout(unscaledWidth, unscaledHeight);  // re-calculateDisplayParameters()
         
         // Upper right hand corner of first (visibleStartIndex) tile/cell
         var xPos:Number = visibleStartX;  // 0 if useVirtualLayout=false
@@ -1415,7 +1451,7 @@ public class TileLayout extends LayoutBase
 
         for(var index:int = visibleStartIndex; index <= visibleEndIndex; index++)
         {
-            var el:ILayoutElement = layoutTarget.getVirtualElementAt(index);
+            var el:ILayoutElement = (useVirtualLayout) ? layoutTarget.getVirtualElementAt(index) : layoutTarget.getElementAt(index);
             if (!el || !el.includeInLayout)
                 continue;
 
