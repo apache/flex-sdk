@@ -3046,8 +3046,8 @@ public class GraphicElement extends EventDispatcher
 		                	{
 		                		// Add the mask to the UIComponent document tree. 
 		                		// This is required to properly render the mask.
-		                		UIComponent(parent).mx_internal::addingChild(maskComp);
-		                		UIComponent(parent).mx_internal::childAdded(maskComp);
+		                		UIComponent(parent).addingChild(maskComp);
+		                		UIComponent(parent).childAdded(maskComp);
 		                	}
 		                	
 		                	// Size the mask so that it actually renders
