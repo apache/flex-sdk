@@ -93,6 +93,8 @@ public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
 										  scaleY:Number = 0.0, mode:String = "wrap", 
 										  color:uint = 0, alpha:Number = 0.0)
 	{
+		super();
+		
 		this.mapBitmap = mapBitmap;
 		this.mapPoint = mapPoint;
 		this.componentX = componentX;
