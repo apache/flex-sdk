@@ -30,7 +30,7 @@
         
 	<Group top="1">
         <!-- background -->
-        <Rect width="12" height="12">
+        <Rect left="0" right="0" minWidth="12" top="0" bottom="0" minHeight="12">
             <stroke>            
                 <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
             </stroke>
