@@ -136,7 +136,7 @@
         </s:Group>  
     </s:Group>
 
-    <s:Button id="thumb" top="0" bottom="0" width="14" height="19" 
+    <s:Button id="thumb" x="0" y="0" width="14" height="19" includeInLayout="false"
               skinClass="spark.skins.default.VideoPlayerScrubBarThumbSkin" />
 
 </s:SparkSkin>
