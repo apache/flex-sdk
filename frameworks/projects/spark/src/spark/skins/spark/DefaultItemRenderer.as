@@ -30,6 +30,6 @@
 		    <SolidColor color="{selectionColor}" />
 		</fill.selected>
 	</Rect>
-	<TextBox id="labelElement" text="{data}" verticalCenter="0" left="3" right="3" top="6" bottom="4" />
+	<TextBox id="labelElement" verticalCenter="0" left="3" right="3" top="6" bottom="4"/>
 
 </ItemRenderer>
