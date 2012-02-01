@@ -242,6 +242,8 @@ public class ModuleLoader extends Group
      *  Storage for the url property.
      */
     private var _url:String = null;
+    
+    [Inspectable(category="General")]
 
     /**
      *  The location of the module, expressed as a URL.
