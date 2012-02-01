@@ -196,58 +196,6 @@ public class HorizontalLayout extends LayoutBase
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  actualAlignmentBaseline
-    //----------------------------------
-    
-    /**
-     *  @private
-     *  Storage for the actualAlignmentBaseline property.
-     */
-    private var _actualAlignmentBaseline:Number = 0;
-    [Bindable("propertyChange")]
-    [Inspectable(category="General")]
-    
-    /**
-     *  The computed base line, in pixels, relative to the <code>paddingTop</code>
-     *  of the container.
-     *
-     *  The base line is the virtual horizontal line to which layout elements' text is aligned.
-     *
-     *  The <code>actualAlignmentBaseline</code> is computed in the layout's <code>updateDisplayList()</code>
-     *  and is based on the <code>alignmentBaseline</code> property as well as the <code>baselinePosition</code>
-     *  and <code>baseline</code> properties of the layout elements.
-     *
-     *  Note that <code>actualAlignmentBaseline</code> is computed only when <code>verticalAlign</code>
-     *  is set to "baseline".
-     *
-     *  @see #alignmentBaseline
-     *  @see #verticalAlign
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get actualAlignmentBaseline():Number
-    {
-        return _actualAlignmentBaseline;
-    }
-    
-    /**
-     *  @private
-     */
-    private function setActualAlignmentBaseline(value:Number):void
-    {
-        if (_actualAlignmentBaseline == value) 
-            return;
-        
-        var oldValue:Number = _actualAlignmentBaseline;
-        _actualAlignmentBaseline = value;
-        
-        dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "actualAlignmentBaseline", oldValue, value));
-    }
-
-    //----------------------------------
     //  alignmentBaseline
     //----------------------------------
     
@@ -256,15 +204,16 @@ public class HorizontalLayout extends LayoutBase
      *  Storage for the alignmentBaseline property.
      */
     private var _alignmentBaseline:Object = "maxAscent:0";
-    [Inspectable(category="General")]
 
     /**
+     *  @private
+     *
      *  The base line of the layout, in pixels. 
      *
      *  The base line is the virtual horizontal line to which layout elements' text is aligned,
      *  it is relative to the top edge of the container plus any <code>paddingTop</code>.
      *
-     *  The base line can be specified as either an explicit number, or as a numberical offset to
+     *  The base line can be specified as either an explicit number, or as a numberical offset from
      *  the computed maximum of the elements' text ascent by using the "maxAscent:offset" syntax.
      *
      *  Note that <code>alignmentBaseline</code> has an effect only when <code>verticalAlign</code>
@@ -278,7 +227,7 @@ public class HorizontalLayout extends LayoutBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get alignmentBaseline():Object
+    mx_internal function get alignmentBaseline():Object
     {
         return _alignmentBaseline;
     }
@@ -286,7 +235,7 @@ public class HorizontalLayout extends LayoutBase
     /**
      *  @private
      */
-    public function set alignmentBaseline(value:Object):void
+    mx_internal function set alignmentBaseline(value:Object):void
     {
         if (_alignmentBaseline == value) 
             return;
@@ -882,12 +831,9 @@ public class HorizontalLayout extends LayoutBase
      *  of the layout elements is set to the container's height.</p>
      *
      *  <p>If the value is <code>"baseline"</code> then the elements are positioned
-     *  such that thier text is aligned to the <code>alignmentBaseline</code> of the layout.</p>
-     *
-     *  <p>This property does not affect the layout's measured size.</p>
-     *  
+     *  such that thier text is aligned to the maximum of the elements' text ascent.</p>
+     * 
      *  @default "top"
-     *  @see #alignmentBaseline
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2195,9 +2141,6 @@ public class HorizontalLayout extends LayoutBase
             x += dx + gap;
         }
         
-        if (alignToBaseline)
-            setActualAlignmentBaseline(actualBaseline);
-
         setColumnCount(visibleColumns);  
         setIndexInView(firstColInView, lastColInView);
 
