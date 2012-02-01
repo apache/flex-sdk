@@ -2047,18 +2047,19 @@ public class TileLayout extends LayoutBase
             if (_horizontalGap < 0 && (column == _columnCount || count == dropLocation.dropIndex))
                 emptySpaceLeft -= _horizontalGap;
 
+			width = emptySpace;
+			height = _rowHeight;
+			// Special case - if we have negative gap and we're not the last
+			// row, adjust the height
+			if (_verticalGap < 0 && row < _rowCount - 1)
+				height += _verticalGap + 1;
+			
             if (dropIndicator is IVisualElement)
             {
                 dropIndicatorElement = IVisualElement(dropIndicator);
-                width = Math.max(Math.min(emptySpace,
+                width = Math.max(Math.min(width,
                                           dropIndicatorElement.getMaxBoundsWidth(false)),
                                           dropIndicatorElement.getMinBoundsWidth(false));
-                height = _rowHeight;
-                
-                // Special case - if we have negative gap and we're not the last
-                // row, adjust the height
-                if (_verticalGap < 0 && row < _rowCount - 1)
-                    height += _verticalGap + 1;
             }
             
             x = emptySpaceLeft + Math.round((emptySpace - width) / 2);
@@ -2076,21 +2077,22 @@ public class TileLayout extends LayoutBase
             // adjust the emptySpaceLeft
             if (_verticalGap < 0 && (row == _rowCount || count == dropLocation.dropIndex))
                 emptySpaceTop -= _verticalGap;
-            
+
+			width = _columnWidth;
+			height = emptySpace;
+			// Special case - if we have negative gap and we're not the last
+			// column, adjust the width
+			if (_horizontalGap < 0 && column < _columnCount - 1)
+				width += _horizontalGap + 1;
+
             if (dropIndicator is IVisualElement)
             {
                 dropIndicatorElement = IVisualElement(dropIndicator);
-                width = _columnWidth;
                 height = Math.max(Math.min(emptySpace,
                                            dropIndicatorElement.getMaxBoundsWidth(false)),
                                            dropIndicatorElement.getMinBoundsWidth(false));
-
-                // Special case - if we have negative gap and we're not the last
-                // column, adjust the width
-                if (_horizontalGap < 0 && column < _columnCount - 1)
-                    width += _horizontalGap + 1;
             }
-            
+
             x = column * (_columnWidth + _horizontalGap);
          
 			y = emptySpaceTop + Math.round((emptySpace - height) / 2);
