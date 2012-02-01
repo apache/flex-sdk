@@ -28,7 +28,7 @@ import flash.events.Event;
  */
 public class VideoEvent extends Event 
 {
-    include "../../mx/core/Version.as";
+    include "../core/Version.as";
     
     //--------------------------------------------------------------------------
     //
