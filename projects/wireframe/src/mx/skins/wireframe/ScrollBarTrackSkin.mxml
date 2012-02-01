@@ -33,10 +33,10 @@
 
     <s:Rect top="0" bottom="0" left="0" right="0" minWidth="14" minHeight="14">
         <s:stroke>
-            <s:SolidColorStroke color="0x5380D0" />
+            <s:SolidColorStroke color="#707070" />
         </s:stroke>
         <s:fill>
-            <s:SolidColor color="0xDEECFF" />
+            <s:SolidColor color="#EEEEEE" />
         </s:fill>
     </s:Rect>
 </s:Skin>
