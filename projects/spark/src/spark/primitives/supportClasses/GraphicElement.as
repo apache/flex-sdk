@@ -17,6 +17,7 @@ import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.LineScaleMode;
+import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.IEventDispatcher;
@@ -2564,6 +2565,13 @@ public class GraphicElement extends OnDemandEventDispatcher
 		                
 		                if (!_drawnDisplayObject)
 						{
+							// Clear the original displayObject because it might have previously 
+							// drawn the shape. 
+							if (displayObject is Sprite)
+								Sprite(displayObject).graphics.clear();
+							else if (displayObject is Shape)
+								Shape(displayObject).graphics.clear();
+							
 							// Create a new target for the drawing commands
 							_drawnDisplayObject = new InvalidatingSprite();
 							Sprite(displayObject).addChild(_drawnDisplayObject);
