@@ -2,26 +2,33 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
+<!--- The default skin class for the Spark HScrollBar component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
     minWidth="35" minHeight="15" alpha.disabled="0.5" alpha.inactive="0.5">
 
     <fx:Metadata>
-    	[HostComponent("spark.components.HScrollBar")]
+        [HostComponent("spark.components.HScrollBar")]
     </fx:Metadata> 
     
     <s:states>
-    	<s:State name="normal" />
-    	<s:State name="disabled" />
-		<s:State name="inactive" />
+        <s:State name="normal" />
+        <s:State name="disabled" />
+        <s:State name="inactive" />
     </s:states>
     
     <s:Button id="track" left="17" right="17" width="51" 
