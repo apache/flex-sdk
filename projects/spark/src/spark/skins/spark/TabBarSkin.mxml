@@ -36,8 +36,8 @@ created by the TabBarSkin use the TabBarButtonSkin class.
     <fx:Metadata>
         <![CDATA[ 
         /** 
-        * @copy spark.skins.spark.ApplicationSkin#hostComponent
-        */
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.TabBar")]
         ]]>
     </fx:Metadata> 
@@ -73,9 +73,7 @@ created by the TabBarSkin use the TabBarButtonSkin class.
         <s:State name="disabled" />
     </s:states>
     
-    <!--- 
-    @copy spark.components.SkinnableDataContainer#dataGroup
-    -->
+    <!--- @copy spark.components.SkinnableDataContainer#dataGroup -->
     <s:DataGroup id="dataGroup" width="100%" height="100%">
         <s:layout>
             <s:ButtonBarHorizontalLayout gap="-1"/>
