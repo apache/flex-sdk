@@ -69,7 +69,7 @@
                     bottom.fullScreenStates="0" left.fullScreenStates="0" 
                     right.fullScreenStates="0" top.fullScreenStates="0">
                 <s:fill>
-                    <s:SolidColor color="0xFBFCFF" />
+                    <s:SolidColor color="#FFFFFF" />
                 </s:fill>
             </s:Rect>
             
@@ -95,14 +95,14 @@
                         <!-- background for scrubbar + the currentTime/duration -->
                         <s:Rect left="0" right="0" top="0" bottom="0">
                             <s:fill>
-                                <s:SolidColor color="0xFFFFFF" />
+                                <s:SolidColor color="#FFFFFF" />
                             </s:fill>
                         </s:Rect>
                         
                         <!-- border for the scrubbar/time label controls -->
                         <s:Rect left="-1" right="0" top="0" bottom="0">
                             <s:stroke>
-                                <s:SolidColorStroke color="0x5481D1" />
+                                <s:SolidColorStroke color="#707070" />
                             </s:stroke>
                         </s:Rect>
                         
@@ -153,7 +153,7 @@
             <!-- border -->
             <s:Rect left="0" right="0" top="0" bottom="0" excludeFrom="fullScreenStates">
                 <s:stroke>
-                    <s:SolidColorStroke color="0x131313" />
+                    <s:SolidColorStroke color="#707070" />
                 </s:stroke>
             </s:Rect>
         </s:Group>
