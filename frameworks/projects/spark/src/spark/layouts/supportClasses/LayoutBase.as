@@ -63,11 +63,24 @@ public class LayoutBase extends OnDemandEventDispatcher
 
     private var _target:GroupBase;
     
+    /**
+     *  The GroupBase whose layout we're responsible for.  
+     *  
+     *  The target is responsible for delegating the updateDisplayList()
+     *  and measure() methods to its layout.
+     * 
+     *  @default null;
+     *  @see #updateDisplayList
+     *  @see #measure
+     */
     public function get target():GroupBase
     {
         return _target;
     }
     
+    /**
+     * @private
+     */
     public function set target(value:GroupBase):void
     {
         _target = value;
