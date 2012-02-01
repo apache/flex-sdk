@@ -63,7 +63,7 @@ include "../../../../../spark/src/spark/styles/metadata/SelectionFormatTextStyle
 
 /**
  *  The colors to use for the backgrounds of the items in the list. 
- *  The value is an array of two or more colors. 
+ *  The value is an array of one or more colors. 
  *  The backgrounds of the list items alternate among the colors in the array. 
  * 
  *  @default undefined
