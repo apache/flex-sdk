@@ -11,7 +11,13 @@
 
 -->
 
-<!--- The default skin class for a Spark DefaultItemRenderer class. -->
+<!--- The default skin class for a Spark DefaultItemRenderer class.  
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:ItemRenderer focusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
     
     <fx:Script>
