@@ -896,11 +896,27 @@ public class HorizontalLayout extends LayoutBase
         var eltCount:uint = layoutTarget.numElements;
         var measuredEltCount:int = (requestedColumnCount != -1) ? requestedColumnCount : eltCount;
         
+        if (measuredEltCount <= 0)
+        {
+            layoutTarget.measuredWidth = layoutTarget.measuredHeight = 0;
+            layoutTarget.measuredMinWidth = layoutTarget.measuredMinHeight = 0;
+            return;
+        }        
+        
         updateLLV(layoutTarget);     
         if (variableColumnWidth)
         {
-            var endIndex:int = Math.max(0, Math.min(measuredEltCount, eltCount) - 1);
-            layoutTarget.measuredWidth =  llv.end(measuredEltCount - 1);
+            // Special case: fewer elements than requestedColumnCount, so temporarily
+            // make llv.length == requestedColumnCount.
+            var oldLength:int = -1;
+            if (measuredEltCount > llv.length)
+            {
+                oldLength = llv.length;
+                llv.length = measuredEltCount;
+            }   
+            layoutTarget.measuredWidth = llv.end(measuredEltCount - 1);
+            if (oldLength != -1)
+                llv.length = oldLength; 
         }
         else
         {
