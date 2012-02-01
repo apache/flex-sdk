@@ -725,6 +725,8 @@ public class Path extends FilledElement
             var newSize:Point = MatrixUtil.fitBounds(width,
                 height,
                 m,
+                explicitWidth,
+                explicitHeight,
                 newWidth,
                 newHeight,
                 minWidth, minHeight,
