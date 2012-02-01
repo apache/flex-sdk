@@ -19,7 +19,6 @@ import flash.events.EventDispatcher;
 import flash.ui.Keyboard;
 
 import mx.components.baseClasses.GroupBase;
-import mx.graphics.IGraphicElement;
 
 import mx.containers.utilityClasses.Flex;
 import mx.events.PropertyChangeEvent;
@@ -41,7 +40,7 @@ public class VerticalLayout extends LayoutBase
 
     private static function calculatePercentWidth( layoutItem:ILayoutItem, width:Number ):Number
     {
-    	var percentWidth:Number = LayoutItemHelper.pinBetween( layoutItem.percentSize.x * 0.01 * width,
+    	var percentWidth:Number = LayoutItemHelper.pinBetween( layoutItem.percentWidth * 0.01 * width,
     	                                                       layoutItem.minSize.x,
     	                                                       layoutItem.maxSize.x );
     	return percentWidth < width ? percentWidth : width;
@@ -932,11 +931,11 @@ public class VerticalLayout extends LayoutBase
         {
             if (hasPercentHeight(layoutItem))
             {
-                totalPercentHeight += layoutItem.percentSize.y;
+                totalPercentHeight += layoutItem.percentHeight;
 
                 childInfo = new LayoutItemFlexChildInfo();
                 childInfo.layoutItem = layoutItem;
-                childInfo.percent    = layoutItem.percentSize.y;
+                childInfo.percent    = layoutItem.percentHeight;
                 childInfo.min        = layoutItem.minSize.y;
                 childInfo.max        = layoutItem.maxSize.y;
                 
