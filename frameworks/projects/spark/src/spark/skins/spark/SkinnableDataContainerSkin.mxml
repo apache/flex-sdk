@@ -37,8 +37,9 @@
              */
             override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
             {
-                bgFill.color = getStyle("backgroundColor");
-                bgFill.alpha = getStyle("backgroundAlpha");
+// FIXME (gruehle) figure out which style (if any) to support here
+//                bgFill.color = getStyle("backgroundColor");
+//                bgFill.alpha = getStyle("backgroundAlpha");
                 
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
             }
@@ -50,11 +51,14 @@
         <s:State name="disabled" />
     </s:states>
     
+    <!-- FIXME (gruehle) figure out which style (if any) to support here: 
+         backgroundColor or contentBackgroundColor.
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:fill>
             <s:SolidColor id="bgFill"/>
         </s:fill>
     </s:Rect>
+    -->
     
     <!--
       Note: setting the minimum size to 0 here so that changes to the host component's
