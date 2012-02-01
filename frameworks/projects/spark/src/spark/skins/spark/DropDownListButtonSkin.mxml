@@ -14,9 +14,9 @@
     
     <fx:Metadata>
     <![CDATA[ 
-    /** 
-     * @copy spark.skins.spark.ApplicationSkin#hostComponent
-     */
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.Button")]
     ]]>
     </fx:Metadata> 
@@ -84,6 +84,7 @@
     </s:states>
     
     <!-- layer 1: shadow -->
+    <!--- @private -->
     <s:Rect id="shadow" left="-1" right="-1" top="-1" bottom="-1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="90">
@@ -100,6 +101,7 @@
     </s:Rect>
     
     <!-- layer 2: fill -->
+    <!--- @private -->
     <s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="90">
@@ -116,6 +118,7 @@
     </s:Rect>
     
     <!-- layer 3: fill lowlight -->
+    <!--- @private -->
     <s:Rect id="lowlight" left="1" right="1" top="1" bottom="1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="270">
@@ -127,6 +130,7 @@
     </s:Rect>
     
     <!-- layer 4: fill highlight -->
+    <!--- @private -->
     <s:Rect id="highlight" left="1" right="1" top="1" bottom="1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="90">
@@ -148,6 +152,7 @@
     </s:Rect>
     
     <!-- layer 5: highlight stroke (all states except down) -->
+    <!--- @private -->
     <s:Rect id="highlightStroke" left="1" right="1" top="1" bottom="1" excludeFrom="down" radiusX="2">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
@@ -158,6 +163,7 @@
     </s:Rect>
     
     <!-- layer 6: highlight stroke (down state only) -->
+    <!--- @private -->
     <s:Rect id="hldownstroke1" left="1" right="1" top="1" bottom="1" radiusX="2" includeIn="down">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
@@ -169,6 +175,7 @@
             </s:LinearGradientStroke>
         </s:stroke>
     </s:Rect>
+    <!--- @private -->
     <s:Rect id="hldownstroke2" left="2" right="2" top="2" bottom="2" radiusX="2" includeIn="down">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
@@ -179,6 +186,7 @@
     </s:Rect>
     
     <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    <!--- @private -->
     <s:Rect id="border" left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
@@ -210,10 +218,12 @@
           data="M 4.0 4.0 L 4.0 3.0 L 5.0 3.0 L 5.0 2.0 L 6.0 2.0 L 6.0 1.0 L 7.0 1.0 L 7.0 0.0 L 0.0 0.0 L 0.0 1.0 L 1.0 1.0 L 1.0 2.0 L 2.0 2.0 L 2.0 3.0 L 3.0 3.0 L 3.0 4.0 L 4.0 4.0">
         <s:fill>
              <s:RadialGradient rotation="90" focalPointRatio="1">   
-                <!--- The first part of the arrow's gradient fill. 
+                <!--- @private
+                      The first part of the arrow's gradient fill. 
                       The default alpha is .6. The default color if 0x000000. -->
                 <s:GradientEntry id="arrowFill1" color="0" alpha="0.6" />
-                <!--- The second part of the arrow's gradient fill. 
+                <!--- @private
+                      The second part of the arrow's gradient fill. 
                       The default alpha is .6. The default color if 0x000000. -->
                 <s:GradientEntry id="arrowFill2" color="0" alpha="0.8" />
             </s:RadialGradient>
