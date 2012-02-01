@@ -15,7 +15,6 @@ import flash.geom.Point;
 import flash.geom.Transform;
 
 import mx.geom.Transform;
-import flex.graphics.IDisplayObjectElement;
 import flex.graphics.IGraphicElement;
 import flex.graphics.IGraphicElementHost;
 import flex.graphics.MaskType;
@@ -44,7 +43,7 @@ use namespace mx_internal;
 
 public class GraphicElement extends EventDispatcher
     implements IGraphicElement, ILayoutItem, IConstraintClient,
-    IDisplayObjectElement, IInvalidating, IVisualItem
+    IInvalidating, IVisualItem
 {
     include "../../core/Version.as";
 
