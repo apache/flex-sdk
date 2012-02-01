@@ -3,7 +3,7 @@
 <!--
 
 ADOBE SYSTEMS INCORPORATED
-Copyright 2008 Adobe Systems Incorporated
+Copyright 2010 Adobe Systems Incorporated
 All Rights Reserved.
 
 NOTICE: Adobe permits you to use, modify, and distribute this file
@@ -19,8 +19,8 @@ The default header renderer for s:DataGrid columns.
 
 @langversion 3.0
 @playerversion Flash 10
-@playerversion AIR 1.5
-@productversion Flex 4
+@playerversion AIR 2.0
+@productversion Flex 4.5
 -->
 
 <s:GridItemRenderer minWidth="21" minHeight="21"
@@ -28,6 +28,97 @@ The default header renderer for s:DataGrid columns.
     xmlns:s="library://ns.adobe.com/flex/spark" 
     xmlns:mx="library://ns.adobe.com/flex/mx">
 
+    <fx:Script>
+        <![CDATA[
+            import mx.core.IVisualElement;
+            
+            import spark.components.ColumnHeaderBar;
+            import spark.components.DataGrid;
+            import spark.components.supportClasses.GridColumn;
+            
+            //----------------------------------
+            //  sortIndicator
+            //----------------------------------
+            
+            [Bindable("sortIndicatorChanged")]
+            
+            private var _sortIndicator:IFactory = null;
+            
+            /**
+             *  A visual element that's displayed when the column is sorted.
+             * 
+             *  @default null
+             * 
+             *  @langversion 3.0
+             *  @playerversion Flash 10
+             *  @playerversion AIR 1.5
+             *  @productversion Flex 4.5
+             */
+            public function get sortIndicator():IFactory
+            {
+                return _sortIndicator;
+            }
+            
+            /**
+             *  @private
+             */
+            public function set sortIndicator(value:IFactory):void
+            {
+                if (_sortIndicator == value)
+                    return;
+                
+                _sortIndicator = value;
+                if (sortIndicatorInstance)
+                {
+                    sortIndicatorGroup.removeElement(sortIndicatorInstance);
+                    sortIndicatorInstance = null;
+                }
+                
+                invalidateDisplayList();
+                if (hasEventListener("sortIndicatorChanged"))
+                    dispatchEvent(new Event("sortIndicatorChanged"));
+            }
+            
+            private var sortIndicatorInstance:IVisualElement;
+            
+            /**
+             *  @private
+             *  Use prepare method to create and put the sortIndicator into the
+             *  sortIndicatorGroup.
+             */
+            override public function prepare(willBeRecycled:Boolean):void
+            {
+                super.prepare(willBeRecycled);
+                
+                const column:GridColumn = this.column;
+                if (sortIndicator && column && column.grid && column.grid.dataGrid && column.grid.dataGrid.columnHeaderBar)
+                {
+                    const dataGrid:DataGrid = column.grid.dataGrid;
+                    const columnHeaderBar:ColumnHeaderBar = dataGrid.columnHeaderBar;
+                    
+                    if (columnHeaderBar.isSortIndicatorVisible(column.columnIndex))
+                    {
+                        if (!sortIndicatorInstance)
+                        {
+                            sortIndicatorInstance = sortIndicator.newInstance();
+                            sortIndicatorGroup.addElement(sortIndicatorInstance);
+                        }
+                        sortIndicatorInstance.visible = true;
+                        sortIndicatorGroup.scaleY = (column.sortDescending) ? 1 : -1;
+                    }
+                    else
+                    {
+                        if (sortIndicatorInstance)
+                        {
+                            sortIndicatorGroup.removeElement(sortIndicatorInstance);
+                            sortIndicatorInstance = null;
+                        }
+                    }
+                }
+            }
+        ]]>
+    </fx:Script>
+    
     <s:states>
         <s:State name="up" />
         <s:State name="over" />
@@ -147,5 +238,8 @@ The default header renderer for s:DataGrid columns.
              verticalCenter="1"
              left="7" right="7" top="5" bottom="5">
     </s:Label>
+
+    <!-- layer 8: sortIndicator -->
+    <s:Group id="sortIndicatorGroup" right="5" verticalCenter="0" />
     
 </s:GridItemRenderer>
