@@ -64,6 +64,7 @@
 				<include name="framework.swc"/>
 				<include name="spark.swc"/>
                 <include name="textLayout.swc"/>
+                <include name="osmf.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
 			<locale/>
