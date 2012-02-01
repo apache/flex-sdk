@@ -1882,16 +1882,22 @@ public class GraphicElement extends OnDemandEventDispatcher
         }
         else
         {
+            var xformPt:Point = new Point();
+            if (transformCenter)
+            {
+                xformPt.x = transformCenter.x;
+                xformPt.y = transformCenter.y;
+            }
             if(position != null)
             {            
-                position.x = transformCenter.x + _x;
-                position.y = transformCenter.y + _y;
+                position.x = xformPt.x + _x;
+                position.y = xformPt.y + _y;
                 position.z = 0;
             }
             if (postLayoutPosition != null)
             {
-                postLayoutPosition.x = transformCenter.x + _x;
-                postLayoutPosition.y = transformCenter.y + _y;
+                postLayoutPosition.x = xformPt.x + _x;
+                postLayoutPosition.y = xformPt.y + _y;
                 postLayoutPosition.z = 0;
             }
         }
