@@ -16,7 +16,6 @@ import flash.geom.Point;
 import mx.core.IVisualElement;
 import mx.events.DragEvent;
 
-// FIXME (egeorgie): add ASDoc reference to layoutbase calculateDragScrollDelta when implemented
 /**
  *  The DropLocation class contains information describing the drop location
  *  for the dragged data in a drag-and-drop operation. 
