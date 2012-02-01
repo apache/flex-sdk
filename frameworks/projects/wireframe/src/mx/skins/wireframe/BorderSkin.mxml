@@ -9,8 +9,10 @@
     in accordance with the terms of the license agreement accompanying it.
 
 -->
-<!--- The Spark skin class for the Halo Border base class. 
+<!--- The wireframe skin class for the MX Border base class. 
         
+      @see mx.skins.Border
+
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
@@ -27,8 +29,10 @@
     </s:Rect>
 
     <!-- fill -->
+    <!--- @private -->
     <s:Rect id="background" left="1" right="1" top="1" bottom="1" radiusX="0">
         <s:fill>
+            <!--- @private -->
             <s:SolidColor id="bgFill" color="0xFFFFFF" />
         </s:fill>
     </s:Rect>
