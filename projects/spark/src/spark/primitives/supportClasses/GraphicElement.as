@@ -29,14 +29,12 @@ import flash.geom.Rectangle;
 import flash.geom.Transform;
 import flash.geom.Vector3D;
 
-import spark.components.Group;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.IID;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IUIComponent;
 import mx.core.IVisualElement;
-import spark.components.supportClasses.InvalidatingSprite;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -47,13 +45,16 @@ import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 import mx.geom.Transform;
 import mx.geom.TransformOffsets;
-import spark.core.IGraphicElement;
 import mx.graphics.IStroke;
-import spark.core.MaskType;
 import mx.managers.ILayoutManagerClient;
 import mx.managers.LayoutManager;
 import mx.utils.MatrixUtil;
 import mx.utils.OnDemandEventDispatcher;
+
+import spark.components.Group;
+import spark.components.supportClasses.InvalidatingSprite;
+import spark.core.IGraphicElement;
+import spark.core.MaskType;
 use namespace mx_internal;
 
 /**
@@ -3180,7 +3181,13 @@ public class GraphicElement extends OnDemandEventDispatcher
         // TODO EGeorgie: don't clear the graphics if the GraphicElement is invisible and explicitly owns the DO?
         // If we are the first in the sequence, clear the graphics:
         if (sharedIndex <= 0)
-            Sprite(drawnDisplayObject).graphics.clear();
+        {
+            if (drawnDisplayObject is Sprite)
+                Sprite(drawnDisplayObject).graphics.clear();
+            // TODO (rfrishbe): We don't really support shapes, but we should 
+            //else if (drawnDisplayObject is Shape)
+                //Shape(drawnDisplayObject).graphics.clear();
+        }
 
         if (visible || sharedIndex == -1)
             updateDisplayList(_width, _height);
