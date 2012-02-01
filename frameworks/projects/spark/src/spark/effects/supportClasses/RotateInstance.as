@@ -274,7 +274,7 @@ public class RotateInstance extends AnimateInstance
         newY = Number((centerY - originalOffsetY).toFixed(1)); // use a precision of 1
  
         animationProperties = 
-            [new AnimationProperty("rotation", angleFrom, angleTo, angleBy)];
+            [new AnimationProperty("rotation", angleFrom, angleTo, duration, angleBy)];
 
         super.play();
     }
