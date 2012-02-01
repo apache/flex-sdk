@@ -16,7 +16,6 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.events.Event;
 import flash.events.EventDispatcher;
-import flash.ui.Keyboard;
 
 import mx.components.baseClasses.GroupBase;
 import mx.core.ScrollUnit;
@@ -107,7 +106,7 @@ public class VerticalLayout extends LayoutBase
     [Inspectable(category="General")]
     
     /**
-     *  Specifies the number of visible items..
+     *  Returns the current number of visible items.
      * 
      *  @default -1
      */
@@ -117,8 +116,8 @@ public class VerticalLayout extends LayoutBase
     }
     
     /**
-     *  Sets the <code>rowCount</code> property without causing
-     *  invalidation.  
+     *  Sets the <code>rowCount</code> property and dispatches a
+     *  PropertyChangeEvent.
      * 
      *  This method is intended to be used by subclass updateDisplayList() 
      *  methods to sync the rowCount property with the actual number
@@ -148,10 +147,10 @@ public class VerticalLayout extends LayoutBase
      * 
      *  If <code>requestedRowCount</code> is -1, then all of the items are displayed.
      * 
-     *  This value implies the layout's <code>measuredHeight</code>.
+     *  This property implies the layout's <code>measuredHeight</code>.
      * 
      *  If the height of the <code>target</code> has been explicitly set,
-     *  this property has no effect.
+     *  then this property has no effect.
      * 
      *  @default -1
      */
@@ -389,6 +388,9 @@ public class VerticalLayout extends LayoutBase
         var li:ILayoutItem = g.getLayoutItemAt(index);
         if ((li == null) || !li.includeInLayout)
             return 0.0;
+            
+        if (!clipContent)
+            return 1.0;
 
         var r0:int = firstIndexInView;	
         var r1:int = lastIndexInView;
@@ -423,15 +425,6 @@ public class VerticalLayout extends LayoutBase
 	 *  This function is intended for variable height items.
 	 * 
 	 *  Returns the index of the item that contains y, or -1.
-	 * 
-	 *  Implementation note: currently the inclusion test is slightly
-	 *  incorrect, since we're comparing y with the _closed_ interval
-	 *  from p.y to p.y + s.y + gap.  This is to accomodate checking the
-	 *  "bottom" of the scrollRect, see the computation of i1 in
-	 *  scrollPositionChanged.  One alternative that would restore
-	 *  the more correct open ended interval, would be to check
-	 *  the bottom of the scrollRect less some infintesimally small
-	 *  amount.
 	 *   
 	 * @private 
 	 */
@@ -442,7 +435,7 @@ public class VerticalLayout extends LayoutBase
 	    var p:Point = item.actualPosition;
         var s:Point = item.actualSize;
         // TBD: deal with null item, includeInLayout false.
-        if ((y >= p.y) && (y <= p.y + s.y + gap))
+        if ((y >= p.y) && (y < p.y + s.y + gap))
             return index;
         else if (i0 == i1)
             return -1;
@@ -503,8 +496,15 @@ public class VerticalLayout extends LayoutBase
             return;    
         }
         
+        // We're going to use findIndexAt to find the index of 
+        // the items that overlap the top and bottom edges of the scrollRect.
+        // Values that are exactly equal to scrollRect.bottom aren't actually
+        // rendered, since the top,bottom interval is only half open.
+        // To account for that we back away from the bottom edge by a
+        // hopefully infinitesimal amount.
+        
         var y0:Number = scrollR.top;
-        var y1:Number = scrollR.bottom;
+        var y1:Number = scrollR.bottom - .0001;
         if (y1 <= y0)
         {
             setIndexInView(-1, -1);
@@ -885,7 +885,8 @@ public class VerticalLayout extends LayoutBase
             var dy:Number = layoutItem.actualSize.y;
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);
-            if (((y < maxVisibleY) && ((y + dy) > minVisibleY)) || 
+            if (!clipContent ||
+                ((y < maxVisibleY) && ((y + dy) > minVisibleY)) || 
                 ((dy <= 0) && ((y == maxVisibleY) || (y == minVisibleY))))
             {
             	visibleRows += 1;
