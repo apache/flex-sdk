@@ -63,6 +63,7 @@ import spark.components.supportClasses.InvalidatingSprite;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.MaskType;
+import spark.utils.FTETextUtil;
 import spark.utils.MaskUtil;
 
 use namespace mx_internal;
@@ -422,6 +423,16 @@ public class GraphicElement extends EventDispatcher
     {    
         // Subclasses of GraphicElement should return something 
         // here as appropriate (e.g. text centric GraphicElements).
+        var parentUIC:UIComponent = parent as UIComponent;
+        
+        if (parentUIC)
+        {
+            if (!parentUIC.validateBaselinePosition())
+                return NaN;
+            
+            return FTETextUtil.calculateFontBaseline(parentUIC, height, parentUIC.moduleFactory);
+        }
+        
         return 0;
     }
     
