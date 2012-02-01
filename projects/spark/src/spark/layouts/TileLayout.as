@@ -1248,7 +1248,7 @@ public class TileLayout extends LayoutBase
         if ((visibleStartIndex != -1) && (visibleEndIndex != -1))
         {
             for (var index:int = visibleStartIndex; index <= visibleEndIndex; index++)
-                updateVirtualTileSize(target.getVirtualElementAt(index));
+                updateVirtualTileSize(target.getElementAt(index));
         }
         
         // Make sure that we always have non-NaN values in the cache, even
@@ -1432,7 +1432,7 @@ public class TileLayout extends LayoutBase
                 i = visibleEndIndex;
                 continue;
             } 
-            var el:ILayoutElement = layoutTarget.getVirtualElementAt(i);
+            var el:ILayoutElement = layoutTarget.getElementAt(i);
             if (!el)
                 continue;
             el.setLayoutBoundsSize(0, 0);
