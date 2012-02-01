@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the track of the Halo Slider component. 
+<!--- The wireframe skin class for the track of the MX Slider component. 
+
+     @see mx.controls.sliderClasses.Slider
         
       @langversion 3.0
       @playerversion Flash 10
@@ -19,23 +21,23 @@
       @productversion Flex 4
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-						
-						width="200" height="11" 
-						alpha.disabled="0.5">
-	
-	<s:states>
-		<s:State name="up" />
-		<s:State name="disabled" />
-	</s:states>
+                        
+                        width="200" height="11" 
+                        alpha.disabled="0.5">
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="disabled" />
+    </s:states>
 
-	<s:Rect left="0" right="0" top="2" bottom="2" 
-			radiusX="3" radiusY="3" height="7">
-		<s:stroke>
-			<s:SolidColorStroke color="0x5380D0" />
-		</s:stroke>
-		<s:fill>
-			<s:SolidColor color="0xDEECFF" />
-		</s:fill>
-	</s:Rect>
-	
+    <s:Rect left="0" right="0" top="2" bottom="2" 
+            radiusX="3" radiusY="3" height="7">
+        <s:stroke>
+            <s:SolidColorStroke color="0x5380D0" />
+        </s:stroke>
+        <s:fill>
+            <s:SolidColor color="0xDEECFF" />
+        </s:fill>
+    </s:Rect>
+    
 </s:Skin>
