@@ -33,7 +33,7 @@ in accordance with the terms of the license agreement accompanying it.
     
     <fx:Script fb:purpose="styling">
         /* Define the skin elements that should not be colorized. 
-        For panel, border and title backround are skinned, but the content area and title text are not. */
+        For panel, border and title background are skinned, but the content area and title text are not. */
         static private const exclusions:Array = ["background", "titleDisplay", "contentGroup"];
         
         /**
