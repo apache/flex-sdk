@@ -65,6 +65,6 @@
              left="19" top="3"
              textAlign="start"
              verticalAlign="middle"
-             truncation="1"/>
+             maxDisplayedLines="1"/>
 
 </s:Skin>
