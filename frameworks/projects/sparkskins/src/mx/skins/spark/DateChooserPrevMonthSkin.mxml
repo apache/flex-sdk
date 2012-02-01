@@ -27,10 +27,16 @@
         /* Define the skin elements that should not be colorized. 
         For button, the graphics are colorized but the arrow is not. */
         static private const exclusions:Array = ["arrow", "arrowHighlight"];
+        /**
+         * @private
+         */
         override public function get colorizeExclusions():Array {return exclusions;}
 
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["arrowFill1", "arrowFill2", "arrowFill3"];
+        /**
+         * @private
+         */
         override public function get symbolItems():Array {return symbols};
         
         /**
@@ -51,16 +57,21 @@
         <s:State name="disabled" />
     </s:states>
     
+    <!--- @private -->
     <s:Path id="arrow" left="4" verticalCenter="-1" data="M 0 4 L 1 4 L 1 3 L 2 3 L 2 2 L 3 2 L 3 1 L 4 1 L 4 0 L 5 0 L 5 9 L 4 9 L 4 8 L 3 8 L 3 7 L 2 7 L 2 6 L 1 6 L 1 5 L 0 5 L 0 4 Z">
         <s:fill>
             <s:RadialGradient rotation="45" focalPointRatio="-0.4" x="4" y="5" scaleX="7">    
+            <!--- @private -->
             <s:GradientEntry id="arrowFill1" color="0" alpha="0.45" ratio="0"/>
+                <!--- @private -->
                 <s:GradientEntry id="arrowFill2" color="0" alpha="0.55" ratio="0.9"/>
+                <!--- @private -->
                 <s:GradientEntry id="arrowFill3" color="0" alpha="0.75" ratio="1"/>
             </s:RadialGradient>
         </s:fill>
     </s:Path>
     <!-- Highlight -->
+    <!--- @private -->
     <s:Path id="arrowHighlight" left="4" verticalCenter="2" data="M 0 5 L 1 5 L 1 6 L 2 6 L 2 7 L 3 7 L 3 8 L 4 8 L 4 9 L 5 9 L 5 10">
         <s:fill>
             <s:SolidColor color="0xFFFFFF"/>
