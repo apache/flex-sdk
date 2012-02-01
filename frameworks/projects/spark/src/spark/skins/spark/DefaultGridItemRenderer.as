@@ -362,6 +362,8 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         measuredMinHeight = measuredHeight;
     }
     
+    private var textIsTruncated:Boolean = false;
+    
     /**
      *  @private
      */
@@ -372,6 +374,11 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         // labelDisplay layout: padding of 3 on left and right and padding of 5 on top and bottom.
         
         labelDisplay.setActualSize(width-6, height-10);
+        
+        if (textIsTruncated)
+            labelDisplay.text = _label;
+        textIsTruncated = labelDisplay.truncateToFit();
+        
         labelDisplay.move(3, 5);
     }
     
