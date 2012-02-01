@@ -104,7 +104,8 @@ The default skin class for a Spark DataGrid component.
             <s:ColumnHeaderBar id="columnHeaderBar" skinClass="spark.skins.spark.ColumnHeaderBarSkin" width="100%" height="21"/>
         </s:HGroup>
         <s:Scroller id="scroller" minViewportInset="1" hasFocusableChildren="false" height="100%">
-            <s:Grid id="grid"> <!--itemRenderer="spark.skins.spark.DefaultGridItemRenderer"-->
+            <s:Grid id="grid" itemRenderer="spark.skins.spark.DefaultGridItemRenderer"> 
+                <!--
                 <s:itemRenderer>
                     <fx:Component>
                         <s:GridItemRenderer>
@@ -112,7 +113,7 @@ The default skin class for a Spark DataGrid component.
                         </s:GridItemRenderer>
                     </fx:Component>
                 </s:itemRenderer>
-                
+                -->
                 <s:caretIndicator>
                     <fx:Component>
                         <s:Rect>
@@ -166,17 +167,19 @@ The default skin class for a Spark DataGrid component.
                 <s:rowBackground>
                     <fx:Component>
                         <s:Rect>
-<!--                            <fx:Script>
+                            <!--
+                            <fx:Script>
                                 <![CDATA[
                                     
-                                    // TBD: should get a grid argument as well, class should implement IGridElement
+                                    // alternating row background colors.
                                     public function initializeGridElement(rowIndex:int, columnIndex:int):void
                                     {
                                         rowBackgroundFillColor.color = ((rowIndex & 1) == 0) ? 0xFFFFFF : 0xF0F0F0;
                                     }
                                     
                                 ]]>
-                            </fx:Script>  -->              
+                            </fx:Script>  
+                            -->              
                             <s:fill>
                                 <s:SolidColor id="rowBackgroundFillColor" color="0xF9F9F9"/>
                             </s:fill>
