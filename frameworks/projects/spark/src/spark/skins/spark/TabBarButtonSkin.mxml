@@ -55,7 +55,7 @@ The default skin class for Spark TabBar buttons.
          */
         override protected function initializationComplete():void
         {
-            useBaseColor = true;
+            useChromeColor = true;
             super.initializationComplete();
         }
 
