@@ -71,8 +71,12 @@ The default skin class for Spark TabBar buttons.
         */        
         private function updateBorderTop(width:Number, height:Number):void
         {
+            // Generate path data and lay it out. The path is not being layout by the default BasicLayout of this skin
+            // since we excluded it from the layout.
             var path:String = createPathData(true);
             borderTop.data = path;
+            borderTop.setLayoutBoundsSize(width, height, false);
+            borderTop.setLayoutBoundsPosition(0, 0, false);
         }
         
         /**
@@ -89,18 +93,30 @@ The default skin class for Spark TabBar buttons.
             if (!selectedHighlightV)
                 return;
             
-            var left:Number = -0.5;  // assuming stroke weight is 1.0
-            var right:Number = width - 0.5;
+            var left:Number = 0;
+            var right:Number = width;
             
+            // Generate path data and lay it out. The path is not being layout by the default BasicLayout of this skin
+            // since we excluded it from the layout.
             var path:String = createPathData(false);
             selectedHighlightV.data = path;
+            selectedHighlightV.setLayoutBoundsSize(width - 2, height - 2, false);
+            selectedHighlightV.setLayoutBoundsPosition(1, 1, false);
             
             // Configure the left/right sides of the two horizontal lines, defined with
             // s:Rects, that appear at the top of the selected highlight.
             
-            selectedHighlightH1.x = selectedHighlightH2.x = left + cornerRadius;
-            selectedHighlightH1.width = selectedHighlightH2.width = (right - left) - (2 * cornerRadius);            
-        }  
+            // SDK-26127: Use the ILayoutElement APIs, instead of setting explicitly x/y/width/height as
+            // this method is called from updateDisplayList() and it should not affect the 
+            // explicit sizes (and therefore the measured sizes) or trigger a new layout pass.
+            selectedHighlightH1.setLayoutBoundsSize(width - (2 * cornerRadius), 
+                                                    1, false);
+            selectedHighlightH1.setLayoutBoundsPosition(cornerRadius, 1, false);
+
+            selectedHighlightH2.setLayoutBoundsSize(width - (2 * cornerRadius), 
+                                                    1, false);
+            selectedHighlightH2.setLayoutBoundsPosition(cornerRadius, 2, false);
+         }  
         
         /**
          *  @private
@@ -108,8 +124,8 @@ The default skin class for Spark TabBar buttons.
          */
         private function createPathData(isBorder:Boolean):String
         {
-            var left:Number = -0.5;  // assuming stroke weight is 1.0
-            var right:Number = width - 0.5;
+            var left:Number = 0;
+            var right:Number = width;
             var top:Number = 0.5;
             var bottom:Number = height;
             
@@ -172,7 +188,7 @@ The default skin class for Spark TabBar buttons.
         override protected function updateDisplayList(unscaledWidth:Number, unscaleHeight:Number):void
         {
             updateCornerRadius();
-            updateSelectedHighlight(unscaledWidth, unscaledHeight);
+            updateSelectedHighlight(unscaledWidth, unscaledHeight); 
             updateBorderTop(unscaledWidth, unscaledHeight);
             super.updateDisplayList(unscaledWidth, unscaledHeight);
         }
@@ -191,7 +207,7 @@ The default skin class for Spark TabBar buttons.
     </s:states>
 
     <!--- layer 2: fill @private-->
-    <s:Rect id="fill" left="1" right="1" top="1" bottom="1" topLeftRadiusX="4" topRightRadiusX="4" width="69" height="21">
+    <s:Rect id="fill" left="1" right="1" top="1" bottom="1" topLeftRadiusX="4" topRightRadiusX="4" width="70" height="22">
         <s:fill>
             <s:LinearGradient rotation="90">
                 <s:GradientEntry color="0xFFFFFF" 
@@ -212,7 +228,7 @@ The default skin class for Spark TabBar buttons.
     </s:Rect>
     
     <!--- layer 3: fill lowlight @private-->
-        <s:Rect id="lowlight" left="1" right="1" top="1" bottom="1" topLeftRadiusX="4" topRightRadiusX="4">
+    <s:Rect id="lowlight" left="1" right="1" top="1" bottom="1" topLeftRadiusX="4" topRightRadiusX="4">
         <s:fill>
             <s:LinearGradient rotation="270">
                 <s:GradientEntry color="0x000000" ratio="0.0" alpha="0.0627" />
@@ -256,8 +272,11 @@ The default skin class for Spark TabBar buttons.
         </s:stroke>
     </s:Rect>
     
-    <!--- layer 6: highlight stroke, selected tab, alpha=0.0 when not selected @private -->
-    <s:Path id="selectedHighlightV" left="1" right="1" top="1" bottom="1" width="69" height="21">
+    <!--- layer 6: highlight stroke, selected tab, alpha=0.0 when not selected.
+          Set includeInLayout="false" as we regenerate the path data and lay out the path in
+          the updateDisplayList() override and we don't want it to affect measurement. @private
+    -->
+    <s:Path id="selectedHighlightV" left="1" right="1" top="1" bottom="1" includeInLayout="false">
         <s:stroke>
             <s:SolidColorStroke weight="1" color="0x000000" alpha="0.0" 
                                 alpha.downStates="0.15" 
@@ -266,7 +285,7 @@ The default skin class for Spark TabBar buttons.
         </s:stroke>
     </s:Path>
     <!--- @private -->
-    <s:Rect id="selectedHighlightH1" top="1" height="1">
+    <s:Rect id="selectedHighlightH1" top="1" height="1" includeInLayout="false">
         <s:fill>
             <s:SolidColor color="0x000000" alpha="0.0"
                                 alpha.downStates="0.25" 
@@ -275,7 +294,7 @@ The default skin class for Spark TabBar buttons.
         </s:fill>
     </s:Rect>
     <!--- @private -->
-    <s:Rect id="selectedHighlightH2" top="2" height="1">
+    <s:Rect id="selectedHighlightH2" top="2" height="1" includeInLayout="false">
         <s:fill>
             <s:SolidColor color="0x000000" alpha="0.0"
                                 alpha.downStates="0.15" 
@@ -295,8 +314,10 @@ The default skin class for Spark TabBar buttons.
                                 alpha.selectedStates="0.5" />
         </s:stroke>
     </s:Line>
-    <!--- @private -->
-    <s:Path id="borderTop" left="0" right="0" top="0" bottom="0" width="69" height="21">
+    <!--- Set includeInLayout="false" as we regenerate the path data and lay out the path in
+          the updateDisplayList() override and we don't want it to affect measurement. @private
+    -->
+    <s:Path id="borderTop" left="0" right="0" top="0" bottom="0" includeInLayout="false">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry color="0x000000" 
