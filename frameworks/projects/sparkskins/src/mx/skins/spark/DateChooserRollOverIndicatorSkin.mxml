@@ -27,6 +27,9 @@
         import mx.styles.StyleManager;
         import mx.utils.ColorUtil;
         
+        /**
+         * @private
+         */
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {
             var rollOverColor:uint = getStyle("rollOverColor");       
@@ -41,11 +44,14 @@
     ]]>
     </fx:Script>
 
+    <!--- @private -->
     <s:Rect id="rect" left="0" right="0" top="0" bottom="0">
         <s:fill>
+            <!--- @private -->
             <s:SolidColor id="fill" color="#FFFFFF" alpha="1" />
         </s:fill>
         <s:stroke>
+            <!--- @private -->
             <s:SolidColorStroke id="stroke" color="#6D8BA7" alpha="1" />
         </s:stroke>
     </s:Rect>
