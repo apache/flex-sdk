@@ -24,12 +24,19 @@ import spark.layouts.supportClasses.LayoutElementHelper;
 
 /**
  *  The BasicLayout class arranges the layout elements according to their individual settings,
- *  independent of each-other.
+ *  independent of each-other. BasicLayout, also called absolute layout, requires that you 
+ *  explicitly position each container child. 
+ *  You can use the <code>x</code> and <code>y</code> properties of the child, 
+ *  or constraints to position each child.
  *
- *  Per-element supported constraints are <code>left</code>, <code>right</code>, 
+ *  <p><b>Note: </b>The Spark list-based controls (the Spark List control and its subclasses
+ *  such as ButtonBar, ComboBox, DropDownList, and TabBar) do not support the BasicLayout class. 
+ *  Do not use BasicLayout with the Spark list-based controls.</p>
+ *
+ *  <p>Per-element supported constraints are <code>left</code>, <code>right</code>, 
  *  <code>top</code>, <code>bottom</code>, <code>horizontalCenter</code>,
  *  <code>verticalCenter</code>, <code>baseline</code>, <code>percentWidth</code>, and <code>percentHeight</code>.
- *  Element's minimum and maximum sizes will always be respected.
+ *  Element's minimum and maximum sizes will always be respected.</p>
  *
  *  <p>The measured size of the container is calculated from the elements, their
  *  constraints and their preferred sizes. The measured size of the container
