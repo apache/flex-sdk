@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+ 
+--> 
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"> 
+
+    <!-- host component -->
+    <Metadata>
+        [HostComponent("mx.components.DropDownList")]
+    </Metadata> 
+
+	<states>
+		<State name="normal" />
+		<State name="open" />
+		<State name="disabled" />
+	</states>
+	
+   <!-- <transitions>    	
+    	<Transition fromState="open" toState="normal">
+    		<Sequence targets="{[p]}">
+	    		<FxFade duration="150"/>
+	    		<SetAction property="open"/>	
+    		</Sequence>
+    	</Transition>
+    </transitions>-->
+    
+    <PopUp id="p" includeIn="open" open.normal="false" open.open="true" 
+    	left="0" right="0" top="0" bottom="0"
+    	placement="below">
+		<FxList id="dropDown" maxHeight="140">
+	        <filters>
+	            <DropShadowFilter blurX="20" blurY="20" distance="5" angle="90" alpha="0.6" />
+	        </filters>
+	    </FxList>
+	</PopUp>    
+    
+	<FxButton id="button" width="100%" height="100%" skinClass="mx.skins.spark.DropDownListButtonSkin"/>  
+	<Group left="5" right="5" top="5" bottom="5" mouseChildren="false" mouseEnabled="false">
+		<TextBox id="labelElement" /> 
+	</Group>
+
+</SparkSkin>
