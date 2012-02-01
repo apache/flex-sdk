@@ -13,7 +13,7 @@
  *  Controls word wrapping within the container.
  * 
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.blockProgression</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.blockProgression.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -30,7 +30,7 @@
  *  Bottom inset, in pixels.
  * 
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.paddingBottom</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.paddingBottom.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -47,7 +47,7 @@
  *  Left inset, in pixels.
  * 
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.paddingLeft</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.paddingLeft.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -64,7 +64,7 @@
  *  Right inset, in pixels.
  * 
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.paddingRight</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.paddingRight.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -81,7 +81,7 @@
  *  Top inset, in pixels.
  * 
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.paddingRight</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.paddingRight.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
@@ -98,7 +98,7 @@
  *  Vertical alignment or justification.
  * 
  *  <p><b>For the Spark theme, see
- *  flashx.textLayout.formats.ITextLayoutFormat.verticalAlign</b></p>
+ *  flashx.textLayout.formats.ITextLayoutFormat.verticalAlign.</b></p>
  *
  *  <p><b>For the Mobile theme, this is not supported.</b></p>
  * 
