@@ -12,6 +12,8 @@
 package spark.effects.supportClasses
 {
 
+import mx.core.IFlexModule;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 
 import mx.effects.effectClasses.ActionEffectInstance;
@@ -192,7 +194,11 @@ public class SetActionInstance extends ActionEffectInstance
             else if (currentVal is Number &&
                 propName.toLowerCase().indexOf("color") != -1)
             {
-                val = StyleManager.getColorName(value);
+                var moduleFactory:IFlexModuleFactory = null;
+                if (target is IFlexModule)
+                    moduleFactory = target.moduleFactory;
+
+                val = StyleManager.getStyleManager(moduleFactory).getColorName(value);
             }
         }
         
