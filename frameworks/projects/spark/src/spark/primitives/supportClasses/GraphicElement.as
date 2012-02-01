@@ -1370,7 +1370,6 @@ public class GraphicElement extends EventDispatcher
      */
     public function get maxHeight():Number
     {
-        // FIXME (egeorgie): Examine this logic, Make this arbitrarily large (use UIComponent max)
         return !isNaN(_maxHeight) ? _maxHeight : DEFAULT_MAX_HEIGHT;
     }
 
@@ -1410,7 +1409,6 @@ public class GraphicElement extends EventDispatcher
      */
     public function get maxWidth():Number
     {
-        // FIXME (egeorgie): Examine this logic, Make this arbitrarily large (use UIComponent max)
         return !isNaN(_maxWidth) ? _maxWidth : DEFAULT_MAX_WIDTH;
     }
 
@@ -1574,7 +1572,6 @@ public class GraphicElement extends EventDispatcher
      */
     public function get minHeight():Number
     {
-        // FIXME (egeorgie): Examine this logic
         return !isNaN(_minHeight) ? _minHeight : DEFAULT_MIN_HEIGHT;
     }
 
@@ -1614,7 +1611,6 @@ public class GraphicElement extends EventDispatcher
      */
     public function get minWidth():Number
     {
-        // FIXME (egeorgie): Examine this logic
         return !isNaN(_minWidth) ? _minWidth : DEFAULT_MIN_WIDTH;
     }
 
@@ -3784,11 +3780,14 @@ public class GraphicElement extends EventDispatcher
      */
     public function validateDisplayList():void
     {
-        // FIXME (egeorgie): Turn this off for now because we need to clear all of the DisplayObject
-        // graphics and thus need to redraw each graphic element
-        // Put this back in once we implement drawingAPI2 
-        /* if (!invalidateDisplayListFlag)
-            return; */
+        // Don't check the invalidateDisplayListFlag for early return, the Group takes care to
+        // call validateDisplayList() only for elements that need to redraw.
+        // Note that even when invalidateDisplayListFlag is false for a particular element,
+        // the Group may still call it to redraw if it shares a display object with another
+        // element that is redrawing.
+        // if (!invalidateDisplayListFlag)
+        //    return;
+
         var wasInvalid:Boolean = invalidateDisplayListFlag; 
         invalidateDisplayListFlag = false;
 
@@ -3800,7 +3799,6 @@ public class GraphicElement extends EventDispatcher
             applyComputedTransform();
         }
 
-        // FIXME (egeorgie): don't clear the graphics if the GraphicElement is invisible and explicitly owns the DO?
         // If we are the first in the sequence, clear the graphics:
         if (displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT)
         {
