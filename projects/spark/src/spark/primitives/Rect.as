@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.graphics
+package mx.graphics
 {
 import flash.events.EventDispatcher;
 import flash.display.Graphics;
