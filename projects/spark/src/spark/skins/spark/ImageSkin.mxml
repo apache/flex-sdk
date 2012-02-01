@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2010 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The default skin class for the Spark Image component.  
+
+    @see spark.components.Image
+
+    @langversion 3.0
+    @playerversion Flash 10
+    @playerversion AIR 1.5
+    @productversion Flex 4.5
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+        xmlns:s="library://ns.adobe.com/flex/spark" 
+        xmlns:local="components.*" alpha.disabled="0.5"
+        xmlns:mx="library://ns.adobe.com/flex/mx">
+    
+    <s:states>
+        <s:State name="uninitialized" />
+        <s:State name="loading"/>
+        <s:State name="ready" />
+        <s:State name="invalid" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <!-- host component -->
+    <fx:Metadata>
+        <![CDATA[ 
+        [HostComponent("spark.components.Image")]
+        ]]>
+    </fx:Metadata>
+    
+    <s:BitmapImage id="imageDisplay" left="0" top="0" right="0" bottom="0"/>
+    <s:Range id="progressIndicator" skinClass="spark.skins.spark.ImageLoadingSkin" verticalCenter="0" horizontalCenter="0" includeIn="loading" layoutDirection="ltr" />
+    <s:BitmapImage id="ii" includeIn="invalid" source="@Embed(source='Assets.swf',symbol='__brokenImage')" verticalCenter="0" horizontalCenter="0"/>
+    
+</s:Skin>
