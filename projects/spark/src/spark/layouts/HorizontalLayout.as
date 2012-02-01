@@ -358,8 +358,18 @@ public class HorizontalLayout implements ILayout
     
     private function fixedColumnWidthMeasure(layoutTarget:Group):void
     {
-        // TBD init columnWidth if explicitColumnWidth isNaN
         var cols:uint = layoutTarget.numLayoutItems;
+        
+		var columnWidth:Number = this.columnWidth;
+        if (isNaN(explicitColumnWidth))
+        {
+            if (cols == 0)
+            	columnWidth = 0;
+            else 
+      			columnWidth = layoutTarget.getLayoutItemAt(0).preferredSize.x;
+        	setColumnWidth(columnWidth);
+        }
+
         var visibleCols:uint = (explicitColumnCount == -1) ? cols : explicitColumnCount;
         var contentWidth:Number = (cols * columnWidth) + ((cols > 1) ? (gap * (cols - 1)) : 0);
         var visibleWidth:Number = (visibleCols * columnWidth) + ((visibleCols > 1) ? (gap * (visibleCols - 1)) : 0);
