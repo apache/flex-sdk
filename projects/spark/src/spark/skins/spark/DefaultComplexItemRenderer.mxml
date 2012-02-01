@@ -16,6 +16,8 @@
       Each component is wrapped in its own Group container. 
       Therefore, it is useful when the children of the container 
       are visual elements, such as Flex components. .  
+
+       @see spark.components.Group
         
       @langversion 3.0
       @playerversion Flash 10
