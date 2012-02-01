@@ -43,6 +43,11 @@ import mx.events.AnimationEvent;
  * you do not create one yourself.
  * 
  * @see mx.effects.Rotate
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */  
 public class FxRotateInstance extends FxAnimateInstance
 {
@@ -58,6 +63,11 @@ public class FxRotateInstance extends FxAnimateInstance
      * Constructor.
      *
      * @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxRotateInstance(target:Object)
     {
@@ -124,6 +134,11 @@ public class FxRotateInstance extends FxAnimateInstance
      * The starting angle of rotation of the target object,
      * expressed in degrees.
      * Valid values range from 0 to 360.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var angleFrom:Number;
     
@@ -144,6 +159,11 @@ public class FxRotateInstance extends FxAnimateInstance
      * Otherwise, it rotates in clockwise direction.
      * If you want the target to rotate multiple times,
      * set this value to a large positive or small negative number.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var angleTo:Number;
  
@@ -156,6 +176,11 @@ public class FxRotateInstance extends FxAnimateInstance
     /** 
      * Degrees by which to rotate the target object. Value
      * may be negative.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var angleBy:Number;
 
@@ -167,6 +192,11 @@ public class FxRotateInstance extends FxAnimateInstance
      * The x-position of the center point of rotation.
      * The target rotates around this point.
      * The valid values are between 0 and the width of the target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var originX:Number;
     
@@ -178,6 +208,11 @@ public class FxRotateInstance extends FxAnimateInstance
      * The y-position of the center point of rotation.
      * The target rotates around this point.
      * The valid values are between 0 and the height of the target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var originY:Number;
 
