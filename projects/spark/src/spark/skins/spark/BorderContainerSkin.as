@@ -19,7 +19,7 @@ import mx.graphics.SolidColorStroke;
 import mx.states.SetProperty;
 import mx.states.State;
 
-import spark.components.Border;
+import spark.components.BorderContainer;
 import spark.components.Group;
 import spark.components.supportClasses.Skin;
 import spark.primitives.Path;
@@ -28,19 +28,19 @@ import spark.primitives.Rect;
 /** 
  * @copy spark.skins.spark.ApplicationSkin#hostComponent
  */
-[HostComponent("spark.components.Border")]
+[HostComponent("spark.components.BorderContainer")]
 
 [States("normal", "disabled")]
 
 /**
- *  The default skin class for a Spark Border container.
+ *  The default skin class for a Spark BorderContainer component.
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4 
  */ 
-public class BorderSkin extends Skin
+public class BorderContainerSkin extends Skin
 {
 
     //--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ public class BorderSkin extends Skin
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-	public function BorderSkin()
+	public function BorderContainerSkin()
 	{
 	    super();
        
