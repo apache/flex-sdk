@@ -11,17 +11,23 @@
 
 package spark.layouts.supportClasses
 {
-
-import flash.geom.Point;
+import flash.display.DisplayObject;
 import flash.events.Event;
+import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.ui.Keyboard; 
+
+import mx.core.ILayoutElement;
+import mx.core.IVisualElement;
+import mx.core.UIComponentGlobals;
+import mx.core.mx_internal;
+import mx.events.DragEvent;
+import mx.managers.ILayoutManagerClient;
+import mx.utils.OnDemandEventDispatcher;
 
 import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
-import mx.core.ILayoutElement;
-import mx.utils.OnDemandEventDispatcher;
-import spark.core.NavigationUnit;
+
+use namespace mx_internal;
 
 /**
  *  The LayoutBase class defines the base class for all Spark layouts.
@@ -421,6 +427,65 @@ public class LayoutBase extends OnDemandEventDispatcher
             g.invalidateSize();
     }
 
+    //----------------------------------
+    //  dropIndicator
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage property for the drop indicator
+     */
+    private var _dropIndicator:DisplayObject;
+    
+    /**
+     *  The <code>DisplayObject</code> this layout uses for
+     *  drop indicator during drag and drop operation.
+     *
+     *  Typically developers don't set this property directly,
+     *  but instead rely on the List's default <code>DragEvent</code>
+     *  handlers.
+     * 
+     *  <p>The <code>List</code> sets this property in response to a
+     *  <code>DragEvent.DRAG_ENTER</code> event.
+     *  The <code>List</code> initializes this property with an
+     *  instance of its <code>dropIndicator</code> skin part.
+     *  The <code>List</code> clears this property in response to a
+     *  <code>DragEvent.DRAG_EXIT</code> event.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get dropIndicator():DisplayObject
+    {
+        return _dropIndicator;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set dropIndicator(value:DisplayObject):void
+    {
+        if (_dropIndicator)
+            // FIXME (egeorgie): use the overlay APIs instead.
+            target.$removeChild(_dropIndicator);
+        
+        _dropIndicator = value;
+        
+        if (_dropIndicator)
+        {
+            _dropIndicator.visible = false;
+            // FIXME (egeorgie): use the overlay APIs instead.
+            target.addingChild(_dropIndicator);
+            target.$addChild(_dropIndicator);
+            target.childAdded(_dropIndicator);
+            
+            if (_dropIndicator is ILayoutManagerClient)
+                UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(_dropIndicator), true);             
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -1233,79 +1298,240 @@ public class LayoutBase extends OnDemandEventDispatcher
         return Math.min(maxDelta, Math.max(minDelta, delta));
     }
     
+   /**
+    *  Computes the <code>verticalScrollPosition</code> and 
+    *  <code>horizontalScrollPosition</code> deltas needed to 
+    *  scroll the element at the specified index into view.
+    * 
+    *  <p>This method attempts to minimize the change to <code>verticalScrollPosition</code>
+    *  and <code>horizontalScrollPosition</code>.</p>
+    * 
+    *  <p>If <code>clipAndEnableScrolling</code> is <code>true</code> 
+    *  and the element at the specified index is not
+    *  entirely visible relative to the target's scroll rectangle, then 
+    *  return the delta to be added to <code>horizontalScrollPosition</code> and
+    *  <code>verticalScrollPosition</code> that scrolls the element completely 
+    *  within the scroll rectangle's bounds.</p>
+    * 
+    *  @param index The index of the element to be scrolled into view.
+    *
+    *  @return A Point that contains offsets to horizontalScrollPosition 
+    *      and verticalScrollPosition that will scroll the specified
+    *      element into view, or null if no change is needed. 
+    *      If the specified element is partially visible and larger than the
+    *      scroll rectangle, meaning it is already the only element visible, then
+    *      return null.
+    *      If the specified index is invalid, or target is null, then
+    *      return null.
+    *      If the element at the specified index is null or includeInLayout
+    *      false, then return null.
+    * 
+    *  @see #clipAndEnableScrolling
+    *  @see #verticalScrollPosition
+    *  @see #horizontalScrollPosition
+    *  @see #udpdateScrollRect()
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
+    */
+    public function getScrollPositionDeltaToElement(index:int):Point
+    {
+        var elementR:Rectangle = getElementBounds(index);
+        if (!elementR)
+           return null;
+        
+        var scrollR:Rectangle = getScrollRect();
+        if (!scrollR || !target.clipAndEnableScrolling)
+           return null;
+        
+        if (scrollR.containsRect(elementR) || elementR.containsRect(scrollR))
+           return null;
+           
+        var dxl:Number = elementR.left - scrollR.left;     // left justify element
+        var dxr:Number = elementR.right - scrollR.right;   // right justify element
+        var dyt:Number = elementR.top - scrollR.top;       // top justify element
+        var dyb:Number = elementR.bottom - scrollR.bottom; // bottom justify element
+        
+        // minimize the scroll
+        var dx:Number = (Math.abs(dxl) < Math.abs(dxr)) ? dxl : dxr;
+        var dy:Number = (Math.abs(dyt) < Math.abs(dyb)) ? dyt : dyb;
+                
+        // scrollR "contains"  elementR in just one dimension
+        if ((elementR.left >= scrollR.left) && (elementR.right <= scrollR.right))
+           dx = 0;
+        else if ((elementR.bottom <= scrollR.bottom) && (elementR.top >= scrollR.top))
+           dy = 0;
+           
+        // elementR "contains" scrollR in just one dimension
+        if ((elementR.left <= scrollR.left) && (elementR.right >= scrollR.right))
+           dx = 0;
+        else if ((elementR.bottom >= scrollR.bottom) && (elementR.top <= scrollR.top))
+            dy = 0;
+           
+        return new Point(dx, dy);
+    }
+     
+    //--------------------------------------------------------------------------
+    //
+    //  Drop methods
+    //
+    //--------------------------------------------------------------------------
+     
     /**
-     *  Computes the <code>verticalScrollPosition</code> and 
-     *  <code>horizontalScrollPosition</code> deltas needed to 
-     *  scroll the element at the specified index into view.
-     * 
-     *  <p>This method attempts to minimize the change to <code>verticalScrollPosition</code>
-     *  and <code>horizontalScrollPosition</code>.</p>
-     * 
-     *  <p>If <code>clipAndEnableScrolling</code> is <code>true</code> 
-     *  and the element at the specified index is not
-     *  entirely visible relative to the target's scroll rectangle, then 
-     *  return the delta to be added to <code>horizontalScrollPosition</code> and
-     *  <code>verticalScrollPosition</code> that scrolls the element completely 
-     *  within the scroll rectangle's bounds.</p>
-     * 
-     *  @param index The index of the element to be scrolled into view.
+     *  Calculates the <code>LayoutDragEventDropLocation</code> for
+     *  the specified <code>dragEvent</code>.
      *
-     *  @return A Point that contains offsets to horizontalScrollPosition 
-     *      and verticalScrollPosition that will scroll the specified
-     *      element into view, or null if no change is needed. 
-     *      If the specified element is partially visible and larger than the
-     *      scroll rectangle, meaning it is already the only element visible, then
-     *      return null.
-     *      If the specified index is invalid, or target is null, then
-     *      return null.
-     *      If the element at the specified index is null or includeInLayout
-     *      false, then return null.
+     *  @param dragEvent The dragEvent dispatched by the DragManager.
+     *
+     *  @return Returns the drop location for this event, or null if the drop 
+     *  operation is not available.
      * 
-     *  @see #clipAndEnableScrolling
-     *  @see #verticalScrollPosition
-     *  @see #horizontalScrollPosition
-     *  @see #udpdateScrollRect()
+     *  @see #showDropIndicator
+     *  @see #hideDropIndicator
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-     public function getScrollPositionDeltaToElement(index:int):Point
-     {
-         var elementR:Rectangle = getElementBounds(index);
-         if (!elementR)
+    public function calculateDropLocation(dragEvent:DragEvent):DropLocation
+    {
+        // Find the drop index
+        var dropPoint:Point = target.globalToLocal(new Point(dragEvent.stageX, dragEvent.stageY));
+        var dropIndex:int = calculateDropIndex(dropPoint.x, dropPoint.y);
+        if (dropIndex == -1)
             return null;
-         
-         var scrollR:Rectangle = getScrollRect();
-         if (!scrollR || !target.clipAndEnableScrolling)
-            return null;
-         
-         if (scrollR.containsRect(elementR) || elementR.containsRect(scrollR))
-            return null;
+        
+        // Create and fill the drop location info
+        var dropLocation:DropLocation = new DropLocation();
+        dropLocation.dragEvent = dragEvent;
+        dropLocation.dropPoint = dropPoint;
+        dropLocation.dropIndex = dropIndex;
+        return dropLocation;
+    }
+    
+    /**
+     *  Sizes, positions and parents the dropIndicator based on the specified
+     *  dropLocation.
+     *
+     *  Starts/stops drag-scrolling when necessary conditions are met.
+     * 
+     *  @param dropLocation <p>Specifies the location where to show the indicator.
+     *  Drop location is obtained through the computeDropLocation() method.</p>
+     *
+     *  @see #dropIndicator 
+     *  @see #hideDropIndicator
+     *  @see #getDragEventContext
+     *  @see #dropIndicator
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function showDropIndicator(dropLocation:DropLocation):void
+    {
+        if (!_dropIndicator)
+            return;
+
+        // Make the drop indicator invisible, we'll make it visible 
+        // only if successfully sized and positioned
+        _dropIndicator.visible = false;
+
+        var bounds:Rectangle = calculateDropIndicatorBounds(dropLocation);
+        if (!bounds)
+            return;
+        
+        if (_dropIndicator is ILayoutElement)
+        {
+            var element:ILayoutElement = ILayoutElement(_dropIndicator);
+            element.setLayoutBoundsSize(bounds.width, bounds.height);
+            element.setLayoutBoundsPosition(bounds.x, bounds.y);
+        }
+        else
+        {
+            _dropIndicator.width = bounds.width;
+            _dropIndicator.height = bounds.height;
+            _dropIndicator.x = bounds.x;
+            _dropIndicator.y = bounds.y;
+        }
             
-         var dxl:Number = elementR.left - scrollR.left;     // left justify element
-         var dxr:Number = elementR.right - scrollR.right;   // right justify element
-         var dyt:Number = elementR.top - scrollR.top;       // top justify element
-         var dyb:Number = elementR.bottom - scrollR.bottom; // bottom justify element
-         
-         // minimize the scroll
-         var dx:Number = (Math.abs(dxl) < Math.abs(dxr)) ? dxl : dxr;
-         var dy:Number = (Math.abs(dyt) < Math.abs(dyb)) ? dyt : dyb;
-                 
-         // scrollR "contains"  elementR in just one dimension
-         if ((elementR.left >= scrollR.left) && (elementR.right <= scrollR.right))
-            dx = 0;
-         else if ((elementR.bottom <= scrollR.bottom) && (elementR.top >= scrollR.top))
-            dy = 0;
-            
-         // elementR "contains" scrollR in just one dimension
-         if ((elementR.left <= scrollR.left) && (elementR.right >= scrollR.right))
-            dx = 0;
-         else if ((elementR.bottom >= scrollR.bottom) && (elementR.top <= scrollR.top))
-            dy = 0;
-            
-         return new Point(dx, dy);
-     }
+        _dropIndicator.visible = true;
+    }
+    
+    /**
+     *  Hides the previously shown <code>dropIndicator</code>,
+     *  removes it from the display list and also stops the drag-scrolling.
+     *
+     *  @see #showDropIndicator
+     *  @see #dropIndicator
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function hideDropIndicator():void
+    {
+        if (_dropIndicator)
+            _dropIndicator.visible = false;
+    }
+
+    /**
+     *  Returns the index where a new item should be inserted if
+     *  the user releases the mouse at the specified coordinates
+     *  while completing a drag and drop gesture.
+     * 
+     *  Called by the <code>calculatedDropLocation()</code> method.
+     *
+     *  @param x The x coordinate of the drag and drop gesture, in target's
+     *  local coordinates.
+     * 
+     *  @param y The y coordinate of the drag and drop gesture, in target's
+     *  local coordinates.
+     *
+     *  @return The drop index or -1 if the drop operation is not available
+     *  at the specified coordinates.
+     * 
+     *  @see #calculateDropLocation
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function calculateDropIndex(x:Number, y:Number):int
+    {
+        // Always add to the end by default.
+        return target.numElements;
+    }
+    
+    /**
+     *  Calculates the bounds for the drop indicator UI that provides visual feedback
+     *  to the user of where the items will be inserted at the end of a drag and drop
+     *  gesture.
+     * 
+     *  Called by the <code>showDropIndicator()</code> method.
+     * 
+     *  @param dropLocation A valid <code>DropLocation</code> previously calculated
+     *  through the <code>calculateDropLocation</code> method.
+     * 
+     *  @return The bounds for the drop indicator or null.
+     * 
+     *  @see spark.layouts.supportClasses.DropLocation
+     *  @see #calculateDropIndex
+     *  @see #calculateDragScrollDelta
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function calculateDropIndicatorBounds(dropLocation:DropLocation):Rectangle
+    {
+        return null;
+    }
 }
 }
