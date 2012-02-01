@@ -40,14 +40,6 @@
      */     
         override public function get colorizeExclusions():Array {return exclusions;}
         
-        /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
-        static private const contentFill:Array = ["bgFill"];
-        
-        /**
-         * @inheritDoc
-         */
-        override public function get contentItems():Array {return contentFill};
-        
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {
             if (getStyle("borderVisible") == true)
@@ -112,7 +104,8 @@
                 bottomRightRadiusX.withControls="{cornerRadius}">
         <s:fill>
         <!--- Defines the  PanelSkin class's background fill. The default color is 0xFFFFFF. -->
-            <s:SolidColor color="0xFFFFFF" id="bgFill" />
+            <s:SolidColor color="{getStyle('backgroundColor')}"
+                          alpha="{getStyle('backgroundAlpha')}" />
         </s:fill>
     </s:Rect>
     
