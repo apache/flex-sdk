@@ -24,36 +24,32 @@
         <State name="disabled" />
     </states>
 
-    <content>
-        <Group>
-            <!-- border -->
-            <Rect width="12" height="12">
-                <stroke>
-                    <SolidColorStroke color="0x808080" color.disabled="0xC0C0C0" />
-                </stroke>
-            </Rect>
-            <!-- fill -->
-            <Rect left="1" top="1" width="10" height="10">
-                <stroke>
-                    <SolidColorStroke color="0xFFFFFF" color.over="0xFAFAFA" color.down="0xEFEFEF" />
-                </stroke>
-                <fill>
-                    <SolidColor color="0xFFFFFF" color.over="0xF2F2F2" color.down="0xD8D8D8" />
-                </fill>
-            </Rect>
-            <!-- arrow -->
-            <Path>
-                <fill>
-                    <SolidColor color="0x808080" color.disabled="0xC0C0C0" />
-                </fill>
-                <segments>
-                    <MoveSegment x="6.5" y="8" />
-                    <LineSegment x="9.5" y="5" />
-                    <LineSegment x="3.5" y="5" />
-                    <LineSegment x="6.5" y="8" />
-                </segments>
-            </Path>
-        </Group>
-    </content>
+    <!-- border -->
+    <Rect width="12" height="12">
+        <stroke>
+            <SolidColorStroke color="0x808080" color.disabled="0xC0C0C0" />
+        </stroke>
+    </Rect>
+    <!-- fill -->
+    <Rect left="1" top="1" width="10" height="10">
+        <stroke>
+            <SolidColorStroke color="0xFFFFFF" color.over="0xFAFAFA" color.down="0xEFEFEF" />
+        </stroke>
+        <fill>
+            <SolidColor color="0xFFFFFF" color.over="0xF2F2F2" color.down="0xD8D8D8" />
+        </fill>
+    </Rect>
+    <!-- arrow -->
+    <Path>
+        <fill>
+            <SolidColor color="0x808080" color.disabled="0xC0C0C0" />
+        </fill>
+        <segments>
+            <MoveSegment x="6.5" y="8" />
+            <LineSegment x="9.5" y="5" />
+            <LineSegment x="3.5" y="5" />
+            <LineSegment x="6.5" y="8" />
+        </segments>
+    </Path>
 
 </Skin>
