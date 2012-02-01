@@ -28,19 +28,19 @@ in accordance with the terms of the license agreement accompanying it.
     
     <s:Rect top="0" width="16" height="1">
         <s:fill>
-            <s:SolidColor color="0x5380D0"/>
+            <s:SolidColor color="#707070"/>
         </s:fill>
     </s:Rect>
     
     <s:Rect top="2" width="16" height="1">
         <s:fill>
-            <s:SolidColor color="0x5380D0"/>
+            <s:SolidColor color="#707070"/>
         </s:fill>
     </s:Rect>
     
     <s:Rect top="4" width="16" height="1">
         <s:fill>
-            <s:SolidColor color="0x5380D0"/>
+            <s:SolidColor color="#707070"/>
         </s:fill>
     </s:Rect>
     
