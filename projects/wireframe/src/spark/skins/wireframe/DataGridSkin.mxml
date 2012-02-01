@@ -12,7 +12,7 @@ in accordance with the terms of the license agreement accompanying it.
 -->
 
 <!--- 
-The default skin class for a Spark DataGrid component.  
+The default skin class for a Spark DataGrid component in the Wireframe theme.  
 
 @see spark.components.DataGrid
 -->
@@ -26,6 +26,9 @@ The default skin class for a Spark DataGrid component.
     
     <fx:Metadata>
     <![CDATA[
+        /** 
+        * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.DataGrid")]
     ]]>
     </fx:Metadata>
@@ -36,6 +39,7 @@ The default skin class for a Spark DataGrid component.
     </s:states>
     
     <fx:Declarations>
+        <!--- @private -->        
         <fx:Component id="alternatingRowColorsBackground">
             <s:Rect implements="spark.components.gridClasses.IGridVisualElement">
                 <fx:Script>
@@ -43,6 +47,9 @@ The default skin class for a Spark DataGrid component.
                         import spark.components.DataGrid;
                         import spark.components.Grid;
                         
+                        /**
+                         * @private
+                         */
                         public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
                         {
                             const dataGrid:DataGrid = grid.dataGrid;
@@ -64,11 +71,13 @@ The default skin class for a Spark DataGrid component.
                     ]]>
                 </fx:Script>  
                 <s:fill>
+                    <!--- @private -->   
                     <s:SolidColor id="rowBackgroundFillColor" color="0xFFFFFF"/>
                 </s:fill>
             </s:Rect>
         </fx:Component>
         
+        <!--- @private -->        
         <fx:Component id="caretIndicator">
             <s:Rect>
                 <s:stroke>
@@ -77,6 +86,7 @@ The default skin class for a Spark DataGrid component.
             </s:Rect>
         </fx:Component>
         
+        <!--- @private -->        
         <fx:Component id="columnSeparator">
             <s:Line>
                 <s:stroke>
@@ -85,6 +95,7 @@ The default skin class for a Spark DataGrid component.
             </s:Line>
         </fx:Component>
         
+        <!--- Defines the value of the columnSeparator property for the columnHeaderGroup. -->
         <fx:Component id="headerColumnSeparator">
             <s:Line>
                 <s:stroke>
@@ -93,6 +104,7 @@ The default skin class for a Spark DataGrid component.
             </s:Line>
         </fx:Component>
         
+        <!--- @private -->
         <fx:Component id="hoverIndicator">
             <s:Rect>
                 <s:fill>
@@ -101,6 +113,7 @@ The default skin class for a Spark DataGrid component.
             </s:Rect>
         </fx:Component>      
 
+        <!--- @private -->
         <fx:Component id="rowSeparator">
             <s:Line>
                 <s:stroke>
@@ -109,6 +122,7 @@ The default skin class for a Spark DataGrid component.
             </s:Line>
         </fx:Component>
         
+        <!--- @private -->
         <fx:Component id="selectionIndicator">
             <s:Rect>
                 <s:fill>
@@ -117,6 +131,7 @@ The default skin class for a Spark DataGrid component.
             </s:Rect>
         </fx:Component>
         
+        <!--- @private -->
         <fx:Component id="editorIndicator">
             <s:Rect>
                 <s:fill>
@@ -136,19 +151,23 @@ The default skin class for a Spark DataGrid component.
     </s:Rect>
     
     <s:VGroup horizontalAlign="justify" gap="0" left="0" right="0" top="0" bottom="0">
+        <!--- @private -->
         <s:GridColumnHeaderGroup id="columnHeaderGroup"
             paddingLeft="1" paddingTop="1" paddingRight="1" minHeight="21"
             columnSeparator="{headerColumnSeparator}"
             headerRenderer="spark.skins.wireframe.DefaultGridHeaderRenderer" />
         
         <s:VGroup horizontalAlign="justify" height="100%" gap="-1">
+            <!--- @private -->
             <s:Line id="headerSeparator">
                 <s:stroke>
                     <s:SolidColorStroke color="0x666666" weight="1" caps="square"/>
                 </s:stroke>
             </s:Line>   
             
+            <!--- @private -->
             <s:Scroller id="scroller" minViewportInset="1" hasFocusableChildren="false" height="100%">
+                <!--- @private -->
                 <s:Grid id="grid" itemRenderer="spark.skins.spark.DefaultGridItemRenderer">
                     <s:GridLayer name="backgroundLayer"/>
                     <s:GridLayer name="selectionLayer"/>
