@@ -138,7 +138,7 @@
             </s:Rect>
             
             <!--- @private -->
-            <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" focusEnabled="false" minViewportInset="1">
+            <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" hasFocusableChildren="false" minViewportInset="1">
                 <!--- @copy spark.components.SkinnableDataContainer#dataGroup-->
                 <s:DataGroup id="dataGroup" itemRenderer="spark.skins.spark.DefaultItemRenderer">
                     <s:layout>
