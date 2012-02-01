@@ -58,6 +58,14 @@
         <s:State name="disabled" />
     </s:states>
     
+    <!-- highlight circle (over/down states) -->
+    <!--- @private -->
+    <s:Ellipse left="5" right="-1" top="-4" bottom="-3">
+        <s:fill>
+            <s:SolidColor color="0" alpha="0" alpha.over=".12" alpha.down=".22" />
+        </s:fill>
+    </s:Ellipse>
+    
     <!--- @private -->
     <s:Path id="arrow" right="4" verticalCenter="-1" data="M 5 4 L 4 4 L 4 3 L 3 3 L 3 2 L 2 2 L 2 1 L 1 1 L 1 0 L 0 0 L 0 9 L 1 9 L 1 8 L 2 8 L 2 7 L 3 7 L 3 6 L 4 6 L 4 5 L 5 5 L 5 4 Z">
         <s:fill>
@@ -78,6 +86,5 @@
             <s:SolidColor color="0xFFFFFF"/>
         </s:fill>
     </s:Path>
-    <!-- FIXME (jszeto) Need over and down states -->
 
 </s:SparkSkin>
