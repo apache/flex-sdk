@@ -12,6 +12,8 @@
 -->
 
 <!--- The wireframe skin class for the play/pause button of a Spark VideoPlayer component.  
+
+      @see spark.components.VideoPlayer
         
       @langversion 3.0
       @playerversion Flash 10
@@ -70,7 +72,7 @@
         </s:stroke>
     </s:Rect>
     
-    <!--- play symbol -->
+    <!--- Defines the play symbol. -->
     <s:Group horizontalCenter="0" verticalCenter="0" excludeFrom="selectedStates" id="playSymbol">
         
         <!-- triangle -->
@@ -81,7 +83,7 @@
         </s:Path>
     </s:Group>
     
-    <!--- pause symbol -->
+    <!--- Defines the pause symbol. -->
     <s:Group horizontalCenter="0" verticalCenter="0" includeIn="selectedStates" id="pauseSymbol">
     
         <!-- big line on left -->
