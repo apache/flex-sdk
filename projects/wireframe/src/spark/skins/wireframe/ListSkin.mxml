@@ -37,7 +37,7 @@
     <s:Scroller left="0" top="0" right="0" bottom="0" id="scroller" 
         minViewportInset="1" focusEnabled="false">
 	    <s:DataGroup id="dataGroup" width="110" height="110"
-		   itemRenderer="spark.skins.default.DefaultItemRenderer">
+		   itemRenderer="spark.skins.spark.DefaultItemRenderer">
 	    	<s:layout>
 	    	    <s:VerticalLayout gap="0" horizontalAlign="contentJustify" />
 	    	</s:layout>
