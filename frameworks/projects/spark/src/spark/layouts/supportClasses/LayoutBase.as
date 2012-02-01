@@ -1388,8 +1388,10 @@ public class LayoutBase extends OnDemandEventDispatcher
     private var _dragScrollTimer:Timer;
     private var _dragScrollDelta:Point;
     private var _dragScrollEvent:DragEvent;
-    mx_internal var dragScrollRegionSize:Number = 20;
+    mx_internal var dragScrollRegionSizeHorizontal:Number = 20;
+	mx_internal var dragScrollRegionSizeVertical:Number = 20;
     mx_internal var dragScrollSpeed:Number = 5;
+	mx_internal var dragScrollInitialDelay:int = 250;
     mx_internal var dragScrollInterval:int = 32;
     mx_internal var dragScrollHidesIndicator:Boolean = false;
     
@@ -1461,7 +1463,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         _dragScrollDelta = calculateDragScrollDelta(dropLocation,
                                                     dragScrollInterval,
                                                     dragScrollElapsedTime);
-        if (_dragScrollDelta && (_dragScrollDelta.x != 0 || _dragScrollDelta.y != 0))
+        if (_dragScrollDelta)
         {
             // Update the drag-scroll event
             _dragScrollEvent = dropLocation.dragEvent;
@@ -1614,17 +1616,20 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (!scrollRect)
             return null;
 
-        // Make sure that the drag-scrolling regions don't overlap 
-        var horizontalRegionSize:Number = Math.min(dragScrollRegionSize, layoutTarget.width);
-        var verticalRegionSize:Number = Math.min(dragScrollRegionSize, layoutTarget.height);
-
-        var x:Number = dropLocation.dropPoint.x;
-        var y:Number = dropLocation.dropPoint.y;
-        
-        // Return early if the mouse is outside of the drag-scroll region.
-        if (scrollRect.left + horizontalRegionSize < x && x < scrollRect.right - horizontalRegionSize &&
-            scrollRect.top + verticalRegionSize < y && y < scrollRect.bottom - verticalRegionSize )
-            return null;
+		// Make sure that the drag-scrolling regions don't overlap 
+		var x:Number = dropLocation.dropPoint.x;
+		var y:Number = dropLocation.dropPoint.y;
+		
+		var horizontalRegionSize:Number = Math.min(dragScrollRegionSizeHorizontal, layoutTarget.width/2);
+		var verticalRegionSize:Number = Math.min(dragScrollRegionSizeVertical, layoutTarget.height/2);
+		// Return early if the mouse is outside of the drag-scroll region.
+		if (scrollRect.left + horizontalRegionSize < x && x < scrollRect.right - horizontalRegionSize &&
+			scrollRect.top + verticalRegionSize < y && y < scrollRect.bottom - verticalRegionSize )
+			return null;
+		
+		if (timeElapsed < dragScrollInitialDelay)
+			return new Point(); // Return zero point to continue firing events, but not actually scroll.
+		timeElapsed -= dragScrollInitialDelay;
 
         // Speedup based on time elapsed
         var timeSpeedUp:Number = Math.min(timeElapsed, 2000) / 2000;
@@ -1723,8 +1728,22 @@ public class LayoutBase extends OnDemandEventDispatcher
         
         // Re-dispatch the event so that the drag initiator handles it as if
         // the DragProxy is dispatching in response to user input.
-        var dragEvent:DragEvent = _dragScrollEvent;
-        dragEvent.target.dispatchEvent(dragEvent);
+		// Always switch over to DRAG_OVER, don't re-dispatch DRAG_ENTER
+		var dragEvent:DragEvent = new DragEvent(DragEvent.DRAG_OVER,
+											    _dragScrollEvent.bubbles,
+												_dragScrollEvent.cancelable, 
+												_dragScrollEvent.dragInitiator, 
+												_dragScrollEvent.dragSource, 
+												_dragScrollEvent.action, 
+												_dragScrollEvent.ctrlKey, 
+												_dragScrollEvent.altKey, 
+												_dragScrollEvent.shiftKey);
+		
+		dragEvent.draggedItem = _dragScrollEvent.draggedItem;
+		dragEvent.localX = _dragScrollEvent.localX;
+		dragEvent.localY = _dragScrollEvent.localY;
+		dragEvent.relatedObject = _dragScrollEvent.relatedObject;
+        _dragScrollEvent.target.dispatchEvent(dragEvent);
     }
     
     /**
