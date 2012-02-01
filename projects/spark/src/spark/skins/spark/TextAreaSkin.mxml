@@ -11,14 +11,14 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
 	  alpha.disabled="0.5">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxTextArea")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.TextArea")]
+    </fx:Metadata> 
     
-    <Script>
+    <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For text area, the skin itself is colorized but the individual parts are not. */
         static private const exclusions:Array = ["background", "scroller"];
@@ -27,38 +27,38 @@
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
         static private const contentFill:Array = ["bgFill"];
         override public function get contentItems():Array {return contentFill};
-    </Script>
+    </fx:Script>
     
-    <states>
-        <State name="normal"/>
-        <State name="disabled"/>
-    </states>
+    <s:states>
+        <s:State name="normal"/>
+        <s:State name="disabled"/>
+    </s:states>
     
     <!-- border --> 
-	<Rect left="0" right="0" top="0" bottom="0">
-        <stroke>
-            <SolidColorStroke color="0x686868" weight="1"/>            
-        </stroke>
-    </Rect>
+	<s:Rect left="0" right="0" top="0" bottom="0">
+        <s:stroke>
+            <s:SolidColorStroke color="0x686868" weight="1"/>            
+        </s:stroke>
+    </s:Rect>
 
     <!-- fill -->
-    <Rect id="background" left="1" right="1" top="1" bottom="1">
-        <fill>
-            <SolidColor id="bgFill" color="0xFFFFFF" />
-        </fill>
-    </Rect>
+    <s:Rect id="background" left="1" right="1" top="1" bottom="1">
+        <s:fill>
+            <s:SolidColor id="bgFill" color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
     
 	<!-- shadow -->
-	<Rect left="1" top="1" right="1" height="1">
-		<fill>
-			<SolidColor color="0x000000" alpha="0.12" />
-		</fill>
-	</Rect>
+	<s:Rect left="1" top="1" right="1" height="1">
+		<s:fill>
+			<s:SolidColor color="0x000000" alpha="0.12" />
+		</s:fill>
+	</s:Rect>
 
-    <FxScroller id="scroller" left="0" top="0" right="0" bottom="0">
-        <TextView id="textView" 
+    <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0">
+        <s:RichEditableText id="textView" 
                   paddingLeft="4" paddingTop="4"
                   paddingRight="4" paddingBottom="4"/>
-    </FxScroller>
+    </s:Scroller>
 
-</SparkSkin>
+</s:SparkSkin>
