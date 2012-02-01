@@ -468,16 +468,16 @@ public final class LinearLayoutVector
             
         if (majorAxis == VERTICAL)
         {
-            setMajorSize(index, elt.getLayoutHeight());
-            minorSize = Math.max(minorSize, elt.getLayoutWidth());
-            var mw:Number =  isNaN(elt.percentWidth) ? elt.getPreferredWidth() : elt.getMinWidth();            
+            setMajorSize(index, elt.getLayoutBoundsHeight());
+            minorSize = Math.max(minorSize, elt.getLayoutBoundsWidth());
+            var mw:Number =  isNaN(elt.percentWidth) ? elt.getPreferredBoundsWidth() : elt.getMinBoundsWidth();            
             minMinorSize = Math.max(minMinorSize, mw);
         }
         else
         {
-            setMajorSize(index, elt.getLayoutWidth());            
-            minorSize = Math.max(minorSize, elt.getLayoutHeight());
-            var mh:Number =  isNaN(elt.percentHeight) ? elt.getPreferredHeight() : elt.getMinHeight();            
+            setMajorSize(index, elt.getLayoutBoundsWidth());            
+            minorSize = Math.max(minorSize, elt.getLayoutBoundsHeight());
+            var mh:Number =  isNaN(elt.percentHeight) ? elt.getPreferredBoundsWidth() : elt.getMinBoundsHeight();            
             minMinorSize = Math.max(minMinorSize, mh);
         }
     }
