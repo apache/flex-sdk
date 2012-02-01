@@ -1962,16 +1962,19 @@ public class TileLayout extends LayoutBase
         {
             // Make sure we don't return an index for an empty space in the last column.
             // newColumn is guaranteed to be greater than zero:
-
-            // Step 1: We can end up at the empty space in the last column if we moved down from
-            // the last item.
-            if (currentIndex == maxIndex && newRow > currentRow)
-                newRow = currentRow;
-
-            // Step 2: We can end up at the empty space in the last column if we moved right from
-            // the previous column.    
-            if (newColumn == columnCount - 1 && newRow > maxIndex - rowCount * (columnCount - 1))
-                newColumn--;
+            
+            if (newColumn == columnCount - 1)
+            {
+                // Step 1: We can end up at the empty space in the last column if we moved down from
+                // the last item.
+                if (currentIndex == maxIndex && newRow > currentRow)
+                    newRow = currentRow;
+                
+                // Step 2: We can end up at the empty space in the last column if we moved right from
+                // the previous column.    
+                if (newRow > maxIndex - rowCount * (columnCount - 1))
+                    newColumn--;
+            }
 
             return newColumn * rowCount + newRow;
         }
