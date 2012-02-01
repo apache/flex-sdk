@@ -2032,7 +2032,7 @@ public class HorizontalLayout extends LayoutBase
             
             if (elementBounds.left <= x && x <= elementBounds.right)
             {
-                var centerX:Number = elementBounds.x + elementBounds.height / 2;
+                var centerX:Number = elementBounds.x + elementBounds.width / 2;
                 return (x < centerX) ? i : i + 1;
             }
             
