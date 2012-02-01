@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the header of the Halo Accordion container. 
+<!--- The Spark skin class for the header of the MX Accordion container. 
+
+      @see mx.containers.Accordion
         
       @langversion 3.0
       @playerversion Flash 10
