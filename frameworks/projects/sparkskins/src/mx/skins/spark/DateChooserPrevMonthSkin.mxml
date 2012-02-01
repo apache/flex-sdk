@@ -11,20 +11,20 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009" minWidth="21" minHeight="9" >
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" minWidth="21" minHeight="9" >
 
 	<!-- states -->
-	<states>
-		<State name="up" />
-		<State name="over" />
-		<State name="down" />
-		<State name="disabled" />
-	</states>
+	<s:states>
+		<s:State name="up" />
+		<s:State name="over" />
+		<s:State name="down" />
+		<s:State name="disabled" />
+	</s:states>
 	
-	<BitmapGraphic source="@Embed('assets/DateChooserArrowLeft.png')" includeIn="up" left="0" verticalCenter="0" />
+	<s:BitmapImage source="@Embed('assets/DateChooserArrowLeft.png')" includeIn="up" left="0" verticalCenter="0" />
 	
-	<BitmapGraphic source="@Embed('assets/DateChooserArrowLeftOver.png')" includeIn="over" left="0" verticalCenter="0" />
+	<s:BitmapImage source="@Embed('assets/DateChooserArrowLeftOver.png')" includeIn="over" left="0" verticalCenter="0" />
 	
-	<BitmapGraphic source="@Embed('assets/DateChooserArrowLeftDown.png')" includeIn="down" left="0" verticalCenter="0" />
+	<s:BitmapImage source="@Embed('assets/DateChooserArrowLeftDown.png')" includeIn="down" left="0" verticalCenter="0" />
 	
-</Skin>
+</s:Skin>
