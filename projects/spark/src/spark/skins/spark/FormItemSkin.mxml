@@ -28,7 +28,7 @@ Change mx:Image to s:Image once it is ready
         xmlns:s="library://ns.adobe.com/flex/spark" 
         xmlns:mx="library://ns.adobe.com/flex/mx"
         xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
-        alpha.disabled=".5">  
+        alpha.disabledStates=".5">  
     
     <!-- host component -->
     <fx:Metadata>
@@ -103,7 +103,7 @@ Change mx:Image to s:Image once it is ready
                 <s:ConstraintColumn id="helpCol"/>
             </s:constraintColumns>         
             <s:constraintRows>
-                <s:ConstraintRow id="row1"/>
+                <s:ConstraintRow id="row1" baseline="maxAscent:4"/>
             </s:constraintRows>  
         </s:FormItemLayout>
     </s:layout>
@@ -118,17 +118,16 @@ Change mx:Image to s:Image once it is ready
     
     <s:Label id="sequenceLabelDisplay" styleName="labelStyle" 
              left="sequenceCol:4" right="sequenceCol:4"
-             top="row1:4" bottom="row1:4"
-             baseline="row1:18"/>
+             bottom="row1:4"
+             baseline="row1:0"/>
     <s:Label id="labelDisplay" styleName="labelStyle"
              left="labelCol:0" right="labelCol:5" 
-             top="row1:4" bottom="row1:4"
-             baseline="row1:18"/>  
+             bottom="row1:4"
+             baseline="row1:0"/>  
     <!-- Don't show the error tip on the content elements -->
     <s:Group id="contentGroup" showErrorTip="false" showErrorSkin="true"
              left="contentCol:0" right="contentCol:1" 
-             baseline="row1:18"
-             top="row1:4" bottom="row1:4">
+             baseline="row1:0" bottom="row1:4">
         <s:layout>
             <s:VerticalLayout/>
         </s:layout>
@@ -137,13 +136,13 @@ Change mx:Image to s:Image once it is ready
               source.errorStates="@Embed(source='assets/ErrorIndicator.png')"
               toolTip="Required" toolTip.errorStates=""
               includeIn="requiredStates,errorStates" scaleContent="false"
-              baseline="row1:18"
+              baseline="row1:0"
               x="{contentGroup.x + contentGroup.contentWidth + 3}"/>
     <s:Group id="helpContentGroup" styleName="helpTextStyle" excludeFrom="errorStates"
              left="helpCol:27" right="helpCol:4"
              top="row1:4" bottom="row1:4"/>
     <s:RichText id="errorTextDisplay" styleName="errorTextStyle" includeIn="errorStates"
                 left="helpCol:27" right="helpCol:4"
-                top="row1:4" bottom="row1:4"
-                baseline="row1:18" maxDisplayedLines="-1"/>    
+                bottom="row1:4" 
+                baseline="row1:0" maxDisplayedLines="-1"/>    
  </s:Skin>
