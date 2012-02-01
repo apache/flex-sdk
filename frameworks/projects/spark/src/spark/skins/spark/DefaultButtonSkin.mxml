@@ -36,7 +36,7 @@ an Alert. It is defined by the defaultButton property on a container.
     <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For button, the graphics are colorized but the label is not. */
-        static private const exclusions:Array = ["labelElement"];
+        static private const exclusions:Array = ["labelDisplay"];
 
     /** 
      * @copy spark.skins.SparkSkin#colorizeExclusions
@@ -151,7 +151,7 @@ an Alert. It is defined by the defaultButton property on a container.
     </s:Rect>
 
     <!-- layer 8: text -->
-    <s:SimpleText id="labelElement"
+    <s:SimpleText id="labelDisplay"
              textAlign="center"
              verticalAlign="middle"
              truncation="1"
