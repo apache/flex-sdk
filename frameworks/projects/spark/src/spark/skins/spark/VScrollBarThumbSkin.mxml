@@ -25,7 +25,7 @@
     </states>
 
     <!-- background -->
-    <Rect left="0" top="1" right="0" bottom="2" minWidth="14" minHeight="24">
+    <Rect left="0" top="1" right="0" bottom="2" minWidth="14" minHeight="14">
         <stroke>
             <SolidColorStroke color="0x5C5C5C" weight="1"/>
         </stroke>
