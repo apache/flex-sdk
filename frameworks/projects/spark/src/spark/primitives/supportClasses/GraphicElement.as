@@ -450,11 +450,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     }
     
     /**
-     *  @private
+     *  @inheritDoc
      */
-    public function set parent(value:DisplayObjectContainer):void
+    public function parentChanged(p:DisplayObjectContainer):void
     {
-        elementHost = GroupBase(value);
+        elementHost = GroupBase(p);
     }
 
     //----------------------------------
@@ -1977,8 +1977,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     [Inspectable(category="General")]
 
     /**
-     *  The DisplayObject where the GraphicElement will be drawn.
-     *  This property is automatically assigned by the parent Group of this element.
+     *  @inheritDoc
      */
     public function get displayObject():DisplayObject
     {
@@ -2099,21 +2098,20 @@ public class GraphicElement extends OnDemandEventDispatcher
     //--------------------------------------------------------------------------
 
     /**
-     *  Creates a new DisplayObject where the GraphicElement is drawn, 
-     *  if one does not already exist.
+     *  @inheritDoc
      */
     public function createDisplayObject():DisplayObject
     {
         if (displayObject)
             return displayObject;
         
-        return new Sprite();
+        displayObject = new Sprite();
+        return displayObject;
     }
     
     
     /**
-     *  Destroys the DisplayObject where the GraphicElement is drawn, 
-     *  if it exists.
+     *  @inheritDoc
      */
     public function destroyDisplayObject():void
     {
@@ -2146,9 +2144,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     }
 
     /**
-     *  <code>true</code> if the graphic element needs its own unique display object to render into.
-     *  In general, you will not set this property, although if you extend the GraphicElement class, you
-     *  might override the setter.
+     *  @inheritDoc
      */
     public function get needsDisplayObject():Boolean
     {
@@ -2173,7 +2169,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     }
     
     /**
-     *  
+     *  @inheritDoc
      */
     public function get nextSiblingNeedsDisplayObject():Boolean
     {
@@ -2185,7 +2181,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     private var _sharedDisplayObject:DisplayObject;
     
     /**
-     *  
+     *  @inheritDoc
      */
     public function set sharedDisplayObject(value:DisplayObject):void
     {
