@@ -16,6 +16,8 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 
+import flex.core.Group;
+
 import mx.core.mx_internal;
 import mx.effects.effectClasses.ActionEffectInstance;
 
@@ -95,7 +97,7 @@ public class RemoveActionInstance extends ActionEffectInstance
     
     private function addChild(container:*, child:*):void
     {
-        if (hasParent)
+        if (hasParent && !(container is Group))
            container.addChild(child);
         else
            container.addItem(child);
@@ -103,7 +105,7 @@ public class RemoveActionInstance extends ActionEffectInstance
     
     private function removeChild(container:*, child:*):void
     {
-        if (hasParent)
+        if (hasParent && !(container is Group))
            container.removeChild(child);
         else
            container.removeItem(child);
@@ -111,7 +113,7 @@ public class RemoveActionInstance extends ActionEffectInstance
     
     private function addChildAt(container:*, child:*, index:int):void
     {
-        if (hasParent)
+        if (hasParent && !(container is Group))
            container.addChildAt(child, index);
         else
            container.addItemAt(child, index);
@@ -119,7 +121,7 @@ public class RemoveActionInstance extends ActionEffectInstance
     
     private function getChildIndex(container:*, child:*):int
     {
-        if (hasParent)
+        if (hasParent && !(container is Group))
            return container.getChildIndex(child);
         else
            return container.getItemIndex(child);
