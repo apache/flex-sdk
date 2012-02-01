@@ -17,6 +17,8 @@ import mx.core.mx_internal;
 import mx.effects.effectClasses.ActionEffectInstance;
 import mx.styles.StyleManager;
 
+use namespace mx_internal;
+
 /**
  *  The SetActionInstance class implements the instance class
  *  for the SetAction effect.
@@ -101,7 +103,7 @@ public class SetActionInstance extends ActionEffectInstance
     {
         var val:*;
     
-        if (mx_internal::playReversed)
+        if (playReversed)
         {
              val = getStartValue();
              if (val !== undefined)
