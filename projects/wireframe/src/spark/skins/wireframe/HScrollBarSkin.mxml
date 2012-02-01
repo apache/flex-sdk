@@ -11,8 +11,15 @@
 
 -->
 
-<!--- The default skin class for the Spark HScrollBar component. 
-        
+<!--- The default wireframe skin class for the Spark HScrollBar component. The thumb and track skins are defined by the
+wireframe HScrollBarThumbSkin and HScrollBarTrackSkin classes, respectively.  
+
+        Skin classes in the wireframe package are useful for using as a simple base for a custom skin.
+
+       @see spark.components.HScrollBar
+       @see spark.skins.wireframe.HScrollBarThumbSkin
+       @see spark.skins.wireframe.HScrollBarTrackSkin
+          
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
@@ -40,12 +47,12 @@
             skinClass="spark.skins.wireframe.HScrollBarTrackSkin" focusEnabled="false" />
     
     <!--- The default skin class is ScrollBarLeftButtonSkin.
-          @copy spark.components.supportClasses.ScrollBar#decrementButton  -->
+          @copy spark.components.supportClasses.ScrollBarBase#decrementButton  -->
     <s:Button id="decrementButton" left="0" enabled.inactive="false"
             skinClass="spark.skins.wireframe.ScrollBarLeftButtonSkin" focusEnabled="false" />
     
     <!--- The default skin class is ScrollBarRightButtonSkin.
-          @copy spark.components.supportClasses.ScrollBar#incrementButton -->
+          @copy spark.components.supportClasses.ScrollBarBase#incrementButton -->
     <s:Button id="incrementButton" right="0" enabled.inactive="false"
             skinClass="spark.skins.wireframe.ScrollBarRightButtonSkin" focusEnabled="false" />
     
