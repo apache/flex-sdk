@@ -9,11 +9,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.effects.effectClasses
+package mx.effects.effectClasses
 {
 
-import flex.effects.PropertyValuesHolder;
-import flex.events.AnimationEvent;
+import mx.effects.PropertyValuesHolder;
+import mx.events.AnimationEvent;
 
 import mx.core.mx_internal;
 import mx.effects.EffectManager;
@@ -46,9 +46,9 @@ import mx.styles.IStyleClient;
  * Flex creates an instance of this class when it plays a Rotate effect;
  * you do not create one yourself.
  * 
- * @see flex.effects.Rotate
+ * @see mx.effects.Rotate
  */  
-public class RotateInstance extends AnimateInstance
+public class FxRotateInstance extends FxAnimateInstance
 {
     include "../../core/Version.as";
 
@@ -63,7 +63,7 @@ public class RotateInstance extends AnimateInstance
      *
      * @param target The Object to animate with this effect.
      */
-    public function RotateInstance(target:Object)
+    public function FxRotateInstance(target:Object)
     {
         super(target);
         affectsConstraints = true;
