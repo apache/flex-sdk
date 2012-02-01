@@ -389,6 +389,9 @@ public class HorizontalLayout extends LayoutBase
         var g:GroupBase = GroupBase(target);
         if (!g)
             return 0.0;
+            
+        if ((index < 0) || (index >= g.numLayoutItems))
+           return 0.0;            
 
         var li:ILayoutItem = g.getLayoutItemAt(index);
         if ((li == null) || !li.includeInLayout)
@@ -551,31 +554,61 @@ public class HorizontalLayout extends LayoutBase
         setIndexInView(i0, i1);
     }
 
-   /**
-    *  Returns the actual position/size Rectangle of the first non-null
-    *  includeInLayout item, beginning with the item at index i.  
-    * 
-    *  Returns null if no such item can be found.
-    *  
-    *  @private
-    */
-    private static function findLayoutItemBounds(g:GroupBase, i:int, dir:int):Rectangle
+       /**
+     *  If the item at index i is non-null and includeInLayout,
+     *  then return it's actual bounds, otherwise return null.
+     * 
+     *  @private
+     */
+    private static function layoutItemBounds(g:GroupBase, i:int):Rectangle
+    {
+        var item:ILayoutItem = g.getLayoutItemAt(i);
+        if (item && item.includeInLayout)
+        {
+            var p:Point = item.actualPosition;
+            var s:Point = item.actualSize; 
+            return new Rectangle(p.x, p.y, s.x, s.y);        
+        }
+        return null;    
+    }
+
+    /**
+     *  Returns the actual position/size Rectangle of the first partially 
+     *  visible or not-visible, non-null includeInLayout item, beginning
+     *  with the item at index i, searching in direction dir (dir must
+     *  be +1 or -1).   The last argument is the GroupBase scrollRect, it's
+     *  guaranteed to be non-null.
+     * 
+     *  Returns null if no such item can be found.
+     *  
+     *  @private
+     */
+    private function findLayoutItemBounds(g:GroupBase, i:int, dir:int, r:Rectangle):Rectangle
     {
         var n:int = g.numLayoutItems;
+
+        if (inView(i) >= 1)
+            i = Math.max(0, Math.min(n - 1, i + dir));
+
         while((i >= 0) && (i < n))
         {
-           var item:ILayoutItem = g.getLayoutItemAt(i);
-           if (item && item.includeInLayout)
+           var itemR:Rectangle = layoutItemBounds(g, i);
+           // Special case: if the scrollRect r _only_ contains
+           // itemR, then if we're searching left (dir == -1),
+           // and itemR's left edge is visible, then try again
+           // with i-1.   Likewise for dir == +1.
+           if (itemR)
            {
-               var p:Point = item.actualPosition;
-               var s:Point = item.actualSize; 
-               return new Rectangle(p.x, p.y, s.x, s.y);        
+               var overlapsLeft:Boolean = (dir == -1) && (itemR.left == r.left) && (itemR.right >= r.right);
+               var overlapsRight:Boolean = (dir == +1) && (itemR.right == r.right) && (itemR.left <= r.left);
+               if (!(overlapsLeft || overlapsRight))             
+                   return itemR;               
            }
            i += dir;
         }
         return null;
     }
-    
+
     /**
      *  Overrides the default handling of UP/DOWN and 
      *  PAGE_UP, PAGE_DOWN. 
@@ -626,90 +659,55 @@ public class HorizontalLayout extends LayoutBase
         if (!scrollR)
             return 0;
             
-        var maxDelta:Number = g.contentWidth - scrollR.width - scrollR.x;
-        var minDelta:Number = -scrollR.x; 
         var itemR:Rectangle = null;
-        var firstIndex:int;
-        var lastIndex:int;
-        
-        switch (unit)
+        switch(unit)
         {
-            // Compute the bounds of the leftmost item that's not
-            // completely visible, is non-null, and is includeInLayout.
-            // If the item whose index is firstIndexInView satisfies
-            // all of the requirements, we'll use that, otherwise we'll
-            // scan "leftwards" until we find one.         	
             case Keyboard.LEFT:
             case Keyboard.PAGE_UP:
-            {
-                firstIndex = firstIndexInView;
-                if (inView(firstIndex) >= 1)
-                   firstIndex = Math.max(0, firstIndex -1);
-                itemR = findLayoutItemBounds(g, firstIndex, -1);
+                itemR = findLayoutItemBounds(g, firstIndexInView, -1, scrollR);
                 break;
-            }
 
-            // Compute the bounds of the rightmost item that's not
-            // completely visible, is non-null, and is includeInLayout.
-            // If the item whose index is lastIndexInView satisfies
-            // all of the requirements, we'll use that, otherwise we'll
-            // scan "rightwards" until we find one.             
             case Keyboard.RIGHT:
             case Keyboard.PAGE_DOWN:
-            {
-                lastIndex = lastIndexInView;
-                if (inView(lastIndex) >= 1)
-                   lastIndex = Math.min(maxIndex, lastIndex + 1);
-                itemR = findLayoutItemBounds(g, lastIndex, +1);
+                itemR = findLayoutItemBounds(g, lastIndexInView, +1, scrollR);
                 break;
-            }
-            
+
             default:
                 return super.horizontalScrollPositionDelta(unit);
         }
-
+        
         if (!itemR)
             return 0;
-
+            
+        var delta:Number = 0;     
         switch (unit)
         {
-            // Special case: only one item is partially visible.   If it
-            // extends above the scrollR, then top justify it
             case Keyboard.LEFT:
+                delta = Math.max(-scrollR.width, itemR.left - scrollR.left);
+                break;
+                
+            case Keyboard.RIGHT:
+                delta = Math.min(scrollR.width, itemR.right - scrollR.right);
+                break;
+                
             case Keyboard.PAGE_UP:
-            {
                 if ((itemR.left < scrollR.left) && (itemR.right >= scrollR.right))
-                    return itemR.left - scrollR.left;
+                    delta = Math.max(-scrollR.width, itemR.left - scrollR.left);
+                else
+                    delta = itemR.right - scrollR.right;
                 break;
-            }
-                    
-            // Special case: only one item is partially visible.   If it
-            // extends below the scrollR, then bottom justify it
-            case Keyboard.RIGHT:
-            case Keyboard.PAGE_DOWN:
-            {
-                if ((itemR.left <= scrollR.left) && (itemR.right > scrollR.right))
-                   return itemR.right - scrollR.right;
-                break;
-            }
-        }
-                
-        switch (unit)
-        {
-            case Keyboard.LEFT:
-                return Math.max(minDelta, itemR.left - scrollR.left);
-                
-            case Keyboard.RIGHT:
-                return Math.min(maxDelta, itemR.right - scrollR.right);
-                
-            case Keyboard.PAGE_UP:
-                return Math.max(minDelta, itemR.right - scrollR.right);
 
             case Keyboard.PAGE_DOWN:
-                return Math.min(maxDelta, itemR.left - scrollR.left);
+                if ((itemR.left < scrollR.left) && (itemR.right >= scrollR.right))
+                    delta = Math.min(scrollR.width, itemR.right - scrollR.right);
+                else
+                    delta = itemR.left - scrollR.left;
+                break;
         }
         
-        return 0;   
+        var maxDelta:Number = g.contentWidth - scrollR.width - scrollR.x;
+        var minDelta:Number = -scrollR.x;
+        return Math.min(maxDelta, Math.max(minDelta, delta));        
     }     
 
     public function variableColumnWidthMeasure(layoutTarget:GroupBase):void
