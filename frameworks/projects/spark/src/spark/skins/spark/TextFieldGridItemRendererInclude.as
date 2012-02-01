@@ -41,7 +41,7 @@ are identical, save the superclass and constructor names.  This file contains th
     import spark.components.gridClasses.GridColumn;
     
     use namespace mx_internal;
-    
+
     /**
      *  @private
      *  Distance by which this textfield is inset from the edges of the cell.
@@ -76,7 +76,7 @@ are identical, save the superclass and constructor names.  This file contains th
      */
     private var inSetLayoutBoundsSize:Boolean = false;
 
-    
+
     //--------------------------------------------------------------------------
     //
     //  Properties 
@@ -861,25 +861,26 @@ are identical, save the superclass and constructor names.  This file contains th
     //--------------------------------------------------------------------------     
     
     /**
-     *  @private
+     * @private 
      */
     public function get layoutDirection():String
     {
-        return getStyle("layoutDirection");
+        return getStyle("layoutDirection");        
     }
     
     /**
-     *  @private
+     * @private 
+     * <code>layoutDirection</code> should not be set directly on this 
+     * <code>UIFTETextField</code>.  
+     * It will inherit <code>layoutDirection</code> from its parent.
      */
     public function set layoutDirection(value:String):void
     {
-        // Set the value to null to inherit the layoutDirection.
-        if (value == null)
-            setStyle("layoutDirection", undefined);
-        else
-            setStyle("layoutDirection", value);
     }
-    
+
+    /**
+     * @private 
+     */
     public function invalidateLayoutDirection():void
     {
     }
