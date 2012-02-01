@@ -368,7 +368,14 @@ public class Path extends FilledElement
 	        drawHeight = bounds.height;
         }
 
-        return _bounds.clone();
+        var result:Rectangle = _bounds.clone();
+        if (!isNaN(_explicitWidth))
+            result.width = _explicitWidth;
+        
+        if (!isNaN(_explicitHeight))
+            result.height = _explicitHeight; 
+
+        return result;
     }
     
     //----------------------------------
@@ -514,14 +521,6 @@ public class Path extends FilledElement
         _scaleX = _userScaleX;
         _scaleY = _userScaleY;
 
-        // If no width or height are specified, then we've already
-        // set ourselves to the preferredSize by resetting the scale.
-        if (isNaN(width) && isNaN(height))
-        {
-        	commitScaleAndRotation();
-            return actualSize;
-        }
-        
         // TODO EGeorgie: arbitrary 2d transforms for paths
         if (isNaN(width))
             width = preferredSize.x;
@@ -530,8 +529,8 @@ public class Path extends FilledElement
 
         var w:Number = width;
         var h:Number = height;
-        var bw:Number = bounds.width;
-        var bh:Number = bounds.height;
+        var bw:Number = _bounds.width;
+        var bh:Number = _bounds.height;
 
         var stroke:IStroke = getStroke();
         if (!stroke)
