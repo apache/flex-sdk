@@ -445,11 +445,11 @@ are identical, save the superclass and constructor names.  This file contains th
         
         const paddedTextWidth:Number = isNaN(explicitWidth) ? 
             textWidth + LEFT_PADDING + RIGHT_PADDING + TEXT_WIDTH_PADDING : 
-            Math.max(explicitWidth, 4) + LEFT_PADDING + RIGHT_PADDING;
+            Math.max(explicitWidth, 4, LEFT_PADDING + RIGHT_PADDING + TEXT_WIDTH_PADDING);
         
         const paddedTextHeight:Number = isNaN(explicitHeight) ? 
             textHeight + TOP_PADDING + BOTTOM_PADDING + TEXT_HEIGHT_PADDING : 
-            explicitHeight + TOP_PADDING + BOTTOM_PADDING;
+            Math.max(explicitHeight, TOP_PADDING + BOTTOM_PADDING + TEXT_HEIGHT_PADDING);
         
         if (!stage || embedFonts)
         {
