@@ -28,7 +28,7 @@ import mx.core.mx_internal;
 import flash.utils.Dictionary;
 
 /**
- *  Error skins for Spark components.
+ *  Error skin for Spark components.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -67,6 +67,14 @@ public class ErrorSkin extends UIComponent
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function ErrorSkin()
     {
         super();
@@ -98,7 +106,7 @@ public class ErrorSkin extends UIComponent
     private var _errorObject:SkinnableComponent;
     
     /**
-     *  Object to draw error around.  
+     *  Object to draw the error glow around.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -127,6 +135,9 @@ public class ErrorSkin extends UIComponent
     //
     //--------------------------------------------------------------------------
     
+    /**
+     * @inheritDoc
+     */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         // Early exit if we don't have an error object
