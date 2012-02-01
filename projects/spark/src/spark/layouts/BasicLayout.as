@@ -16,7 +16,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.components.baseClasses.GroupBase;
-import mx.layout.ILayoutElement;
+import mx.core.ILayoutElement;
 import mx.layout.LayoutBase;
 
 /**
