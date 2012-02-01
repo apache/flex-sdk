@@ -136,10 +136,13 @@ public class VerticalLayout extends LayoutBase
         return percentWidth < width ? percentWidth : width;
     }
     
-    private static function sizeLayoutElement(layoutElement:ILayoutElement, width:Number, 
-                                           horizontalAlign:String, restrictedWidth:Number, 
-                                           height:Number, variableRowHeight:Boolean, 
-                                           rowHeight:Number):void
+    private static function sizeLayoutElement(layoutElement:ILayoutElement, 
+                                              width:Number, 
+                                              horizontalAlign:String, 
+                                              restrictedWidth:Number, 
+                                              height:Number, 
+                                              variableRowHeight:Boolean, 
+                                              rowHeight:Number):void
     {
         var newWidth:Number = NaN;
         
@@ -324,6 +327,52 @@ public class VerticalLayout extends LayoutBase
         
         _horizontalAlign = value;
 
+        var layoutTarget:GroupBase = target;
+        if (layoutTarget)
+            layoutTarget.invalidateDisplayList();
+    }
+    
+    //----------------------------------
+    //  verticalAlign
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _verticalAlign:String = VerticalAlign.TOP;
+    
+    [Inspectable(category="General", enumeration="top,bottom,middle", defaultValue="top")]
+    
+    /** 
+     *  The vertical alignment of the content relative to the container's height.
+     *
+     *  <p>This property has no effect when <code>clipAndEnableScrolling</code> is true
+     *  and the <code>contentHeight</code> is greater than the container's height.</p>
+     *
+     *  <p>This property does not affect the layout's measured size.</p>
+     *  
+     *  @default "top"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get verticalAlign():String
+    {
+        return _verticalAlign;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set verticalAlign(value:String):void
+    {
+        if (value == _verticalAlign) 
+            return;
+        
+        _verticalAlign = value;
+        
         var layoutTarget:GroupBase = target;
         if (layoutTarget)
             layoutTarget.invalidateDisplayList();
@@ -750,6 +799,21 @@ public class VerticalLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
+    override public function set clipAndEnableScrolling(value:Boolean):void
+    {
+        super.clipAndEnableScrolling = value;
+        var vAlign:String = verticalAlign;
+        if (vAlign == VerticalAlign.MIDDLE || vAlign == VerticalAlign.BOTTOM)
+        {
+            var g:GroupBase = target;
+            if (g)
+                g.invalidateDisplayList();
+        }
+    }
+
     /**
      * @private
      */
@@ -1638,6 +1702,33 @@ public class VerticalLayout extends LayoutBase
                 }
             }
         }
+        
+        // Third pass: if neccessary, fix up y based on updated contentHeight
+        var contentHeight:Number = llv.end(llv.length - 1) - paddingTop;
+        var targetHeight:Number = Math.max(0, layoutTarget.height - paddingTop - paddingBottom);
+        if (contentHeight < targetHeight)
+        {
+            var excessHeight:Number = targetHeight - contentHeight;
+            var dy:Number = 0;
+            var vAlign:String = verticalAlign;
+            if (vAlign == VerticalAlign.MIDDLE)
+            {
+                dy = Math.floor(excessHeight / 2);   
+            }
+            else if (vAlign == VerticalAlign.BOTTOM)
+            {
+                dy = excessHeight;
+            }
+            if (dy > 0)
+            {
+                for (index = startIndex; index <= endIndex; index++)
+                {
+                    elt = layoutTarget.getVirtualElementAt(index, NaN, NaN);
+                    elt.setLayoutBoundsPosition(elt.getLayoutBoundsX(), dy + elt.getLayoutBoundsY());
+                }
+                contentHeight += dy;
+            }
+        }
 
         setRowCount(index - startIndex);
         setIndexInView(startIndex, endIndex);
@@ -1645,7 +1736,7 @@ public class VerticalLayout extends LayoutBase
         // Make sure that if the content spans partially over a pixel to the right/bottom,
         // the content size includes the whole pixel.
         var paddedContentWidth:Number = Math.ceil(contentWidth + paddingLeft + paddingRight);
-        var paddedContentHeight:Number = Math.ceil(llv.end(llv.length - 1) + paddingBottom);
+        var paddedContentHeight:Number = Math.ceil(contentHeight + paddingTop + paddingBottom);
         layoutTarget.setContentSize(paddedContentWidth, paddedContentHeight);
     }
     
@@ -1686,7 +1777,7 @@ public class VerticalLayout extends LayoutBase
             }
         }
 
-        distributeHeight(targetWidth, targetHeight, containerWidth);
+        var excessHeight:Number = distributeHeight(targetWidth, targetHeight, containerWidth);
         
         // default to left (0)
         var hAlign:Number = 0;
@@ -1711,6 +1802,20 @@ public class VerticalLayout extends LayoutBase
         var firstRowInView:int = -1;
         var lastRowInView:int = -1;
         
+        // Take verticalAlign into account
+        if (excessHeight > 0 || !clipAndEnableScrolling)
+        {
+            var vAlign:String = verticalAlign;
+            if (vAlign == VerticalAlign.MIDDLE)
+            {
+                y = paddingTop + Math.floor(excessHeight / 2);   
+            }
+            else if (vAlign == VerticalAlign.BOTTOM)
+            {
+                y = paddingTop + excessHeight;   
+            }
+        }
+
         for (var index:int = 0; index < count; index++)
         {
             layoutElement = layoutTarget.getElementAt(index);
@@ -1820,10 +1925,10 @@ public class VerticalLayout extends LayoutBase
         // Distribute the extra space among the flexible children
         if (totalPercentHeight)
         {
-            spaceToDistribute = Flex.flexChildrenProportionally(height,
-                                                                spaceToDistribute,
-                                                                totalPercentHeight,
-                                                                childInfoArray);
+            Flex.flexChildrenProportionally(height,
+                                            spaceToDistribute,
+                                            totalPercentHeight,
+                                            childInfoArray);
 
             var roundOff:Number = 0;            
             for each (childInfo in childInfoArray)
@@ -1835,6 +1940,7 @@ public class VerticalLayout extends LayoutBase
                 sizeLayoutElement(childInfo.layoutElement, width, horizontalAlign, 
                                restrictedWidth, childSize, 
                                variableRowHeight, rh);
+                spaceToDistribute -= childSize;
             }
         }
         return spaceToDistribute;
