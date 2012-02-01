@@ -156,7 +156,13 @@
 			<define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>
 		</asdoc>
-		
+		<zip destfile="${FLEX_HOME}/frameworks/locale/en_US/textLayout_rb.swc" update="true">
+		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+			    <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
 		<available file="${output.docs}/validation_errors.log" property="asdoc.errors"/>
 		<fail if="asdoc.errors" message="ASDoc Errors"/>
 	</target>
