@@ -12,14 +12,11 @@
 package mx.layout
 {
 
-import flash.events.Event;
-import flash.geom.Rectangle;
 import flash.geom.Point;
-import flash.ui.Keyboard;
+import flash.geom.Rectangle;
 
 import mx.components.baseClasses.GroupBase;
 import mx.core.ScrollUnit;
-import mx.layout.ILayoutElement;
 import mx.utils.OnDemandEventDispatcher;
 
 
@@ -85,6 +82,45 @@ public class LayoutBase extends OnDemandEventDispatcher
     public function set target(value:GroupBase):void
     {
         _target = value;
+    }
+    
+    //----------------------------------
+    //  virtualLayout
+    //----------------------------------
+
+    private var _virtualLayout:Boolean = false;
+
+    [Inspectable(defaultValue="false")]
+
+    /**
+     *  If true, subclasses will be advised that when scrolling it's
+     *  preferable to lazily create layout elements as they come into view,
+     *  and to discard or recycle layout elements that are no longer in view.
+     *
+     *  If true, the layout class will call the target's GroupBase methods 
+     *  beginVirtualLayout and endVirtualLayout when the visible part of
+     *  the layout is updated.
+     * 
+     *  @default false
+     *  @see GroupBase::beginVirtualLayout
+     *  @see GroupBase::endVirtualLayout
+     */
+    public function get virtualLayout():Boolean
+    {
+        return _virtualLayout;
+    }
+
+    /**
+     *  @private
+     */
+    public function set virtualLayout(value:Boolean):void
+    {
+        if (_virtualLayout == value)
+            return;
+
+        _virtualLayout = value;
+        if (target)
+            target.invalidateDisplayList();
     }
     
     //----------------------------------
@@ -174,7 +210,45 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (g)
             updateScrollRect(g.width, g.height);
     }
-        
+    
+    //----------------------------------
+    //  typicalLayoutElement
+    //----------------------------------
+
+    private var _typicalLayoutElement:ILayoutElement = null;
+
+    /**
+     *  Used by layouts when fixed row/column sizes are requested but
+     *  a specific size isn't specified.
+     * 
+     *  Used by virtualLayouts to estimate the size of layout elements
+     *  that have not been scrolled into view.
+     *
+     *  @default null
+     *  @see DataGroup#typicalItem
+     *  @see #getLayoutElement
+     *  @see GroupBase#virtualLayout
+     *  @see mx.layout.VerticalLayout#variableRowHeight
+     *  @see mx.layout.HorizontalLayout#variableColumnWidth
+     */
+    public function get typicalLayoutElement():ILayoutElement
+    {
+        return _typicalLayoutElement;
+    }
+
+    /**
+     *  @private
+     */
+    public function set typicalLayoutElement(value:ILayoutElement):void
+    {
+        if (_typicalLayoutElement == value)
+            return;
+
+        _typicalLayoutElement = value;
+        var g:GroupBase = target;
+        if (g)
+            g.invalidateSize();
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -199,6 +273,8 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (!scrollR)
             return 0;
             
+        // maxDelta is the horizontalScrollPosition delta required 
+        // to scroll to the END and minDelta scrolls to HOME. 
         var maxDelta:Number = g.contentWidth - scrollR.width - scrollR.x;
         var minDelta:Number = -scrollR.x; 
             
@@ -243,7 +319,9 @@ public class LayoutBase extends OnDemandEventDispatcher
         var scrollR:Rectangle = g.scrollRect;
         if (!scrollR)
             return 0;
-            
+
+        // maxDelta is the verticalScrollPosition delta required 
+        // to scroll to the END and minDelta scrolls to HOME. 
         var maxDelta:Number = g.contentHeight - scrollR.height - scrollR.y;
         var minDelta:Number = -scrollR.y; 
             
