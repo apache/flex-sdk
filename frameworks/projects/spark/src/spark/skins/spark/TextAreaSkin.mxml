@@ -24,7 +24,7 @@
         static private const exclusions:Array = ["background", "scroller"];
         override public function get colorizeExclusions():Array {return exclusions;}
         
-        /* Define the content fill items that should be colored by the "contentColor" style. */
+        /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
         static private const contentFill:Array = ["bgFill"];
         override public function get contentItems():Array {return contentFill};
     </Script>
