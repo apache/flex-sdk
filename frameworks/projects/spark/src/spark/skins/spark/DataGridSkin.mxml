@@ -21,7 +21,8 @@ The default skin class for a Spark DataGrid component.
     xmlns:fx="http://ns.adobe.com/mxml/2009" 
     xmlns:s="library://ns.adobe.com/flex/spark" 
     xmlns:mx="library://ns.adobe.com/flex/mx"
-    xmlns:fb="http://ns.adobe.com/flashbuilder/2009">
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+    alpha.disabled="0.5" minWidth="89" minHeight="84">
     
     <fx:Metadata>
         [HostComponent("spark.components.DataGrid")]
@@ -85,7 +86,7 @@ The default skin class for a Spark DataGrid component.
     <s:Rect left="0" right="0" top="0" bottom="0" id="border">
         <s:stroke>
             <!--- @private -->
-            <s:SolidColorStroke id="borderStroke" weight="1"/>
+            <s:SolidColorStroke id="borderStroke" color="0x686868" weight="1"/>
         </s:stroke>
     </s:Rect>
     
@@ -94,21 +95,20 @@ The default skin class for a Spark DataGrid component.
     <s:Rect id="background" left="1" right="1" top="1" bottom="1" >
         <s:fill>
             <!--- Defines the color of the background. The default color is 0xFFFFFF. -->
-            <s:SolidColor id="bgFill" color="0xFFFFFF" />
+            <s:SolidColor id="bgFill" color="0xF9F9F9" />
         </s:fill>
     </s:Rect>
     
-    <s:VGroup horizontalAlign="justify" gap="0" left="0" right="0" top="0" bottom="0">
-        <s:HGroup gap="0">
-            <s:Group width="1" height="1"/>
-            <s:ColumnHeaderBar id="columnHeaderBar" skinClass="spark.skins.spark.ColumnHeaderBarSkin" width="100%"/>
+    <s:VGroup horizontalAlign="justify" gap="-1" left="0" right="0" top="0" bottom="0">
+        <s:HGroup paddingLeft="1" gap="0">
+            <s:ColumnHeaderBar id="columnHeaderBar" skinClass="spark.skins.spark.ColumnHeaderBarSkin" width="100%" height="21"/>
         </s:HGroup>
         <s:Scroller id="scroller" minViewportInset="1" hasFocusableChildren="false" height="100%">
-            <s:Grid id="grid">
+            <s:Grid id="grid"> <!--itemRenderer="spark.skins.spark.DefaultGridItemRenderer"-->
                 <s:itemRenderer>
                     <fx:Component>
                         <s:GridItemRenderer>
-                            <s:Label id="labelDisplay" paddingLeft="3" paddingRight="3" paddingBottom="5" paddingTop="10" width="100%" height="100%"/> 
+                            <s:Label id="labelDisplay" paddingLeft="7" paddingRight="7" paddingBottom="5" paddingTop="9" width="100%" height="100%"/> 
                         </s:GridItemRenderer>
                     </fx:Component>
                 </s:itemRenderer>
@@ -117,7 +117,7 @@ The default skin class for a Spark DataGrid component.
                     <fx:Component>
                         <s:Rect>
                             <s:stroke>
-                                <s:SolidColorStroke color="0xFFBC7A" weight="2"/>
+                                <s:SolidColorStroke color="0xA8C6EE" weight="1"/>
                             </s:stroke>
                         </s:Rect>
                     </fx:Component>
@@ -127,7 +127,7 @@ The default skin class for a Spark DataGrid component.
                     <fx:Component>
                         <s:Rect>
                             <s:fill>
-                                <mx:SolidColor color="0xC082FF"/>
+                                <s:SolidColor color="0xA8C6EE"/>
                             </s:fill>                
                         </s:Rect>
                     </fx:Component>           
@@ -137,7 +137,7 @@ The default skin class for a Spark DataGrid component.
                     <fx:Component>
                         <s:Line>
                             <s:stroke>
-                                <s:SolidColorStroke color="0x000000" weight="1"/>
+                                <s:SolidColorStroke color="0xE6E6E6" weight="1"/>
                             </s:stroke>
                         </s:Line>
                     </fx:Component>
@@ -147,7 +147,7 @@ The default skin class for a Spark DataGrid component.
                     <fx:Component>
                         <s:Line>
                             <s:stroke>
-                                <s:SolidColorStroke color="0x000000" weight="1"/>
+                                <s:SolidColorStroke color="0xE6E6E6" weight="1"/>
                             </s:stroke>
                         </s:Line>
                     </fx:Component>
@@ -157,7 +157,7 @@ The default skin class for a Spark DataGrid component.
                     <fx:Component>
                         <s:Rect>
                             <s:fill>
-                                <mx:SolidColor color="0xFFBC7A"/>
+                                <s:SolidColor color="0xCEDBEF"/>
                             </s:fill>
                         </s:Rect>
                     </fx:Component>            
@@ -166,25 +166,25 @@ The default skin class for a Spark DataGrid component.
                 <s:rowBackground>
                     <fx:Component>
                         <s:Rect>
-                            <fx:Script>
+<!--                            <fx:Script>
                                 <![CDATA[
                                     
                                     // TBD: should get a grid argument as well, class should implement IGridElement
                                     public function initializeGridElement(rowIndex:int, columnIndex:int):void
                                     {
-                                        rowBackgroundFillColor.color = ((rowIndex & 1) == 0) ? 0xFFFFFF : 0xE9D2FF;
+                                        rowBackgroundFillColor.color = ((rowIndex & 1) == 0) ? 0xFFFFFF : 0xF0F0F0;
                                     }
                                     
                                 ]]>
-                            </fx:Script>                
+                            </fx:Script>  -->              
                             <s:fill>
-                                <mx:SolidColor id="rowBackgroundFillColor"/>
+                                <s:SolidColor id="rowBackgroundFillColor" color="0xF9F9F9"/>
                             </s:fill>
                         </s:Rect>
                     </fx:Component>
                 </s:rowBackground>
             </s:Grid>
-        </s:Scroller>    
+        </s:Scroller>
     </s:VGroup>
 
 </s:SparkSkin>
