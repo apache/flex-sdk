@@ -18,6 +18,7 @@ import flash.geom.Point;
 
 import mx.controls.listClasses.*;
 import mx.core.IDataRenderer;
+import mx.core.InteractionMode;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -528,7 +529,7 @@ public class DefaultItemRenderer extends UIComponent
         
         super.styleChanged(styleName);
         
-        if (allStyles || styleName == "inputMode")
+        if (allStyles || styleName == "interactionMode")
         {
             addHandlers();
         }
@@ -556,7 +557,7 @@ public class DefaultItemRenderer extends UIComponent
      */
     private function addHandlers():void
     {
-        if (getStyle("inputMode") == "mouse")
+        if (getStyle("interactionMode") == InteractionMode.MOUSE)
         {
             if (!rolloverEventsAdded)
             {
