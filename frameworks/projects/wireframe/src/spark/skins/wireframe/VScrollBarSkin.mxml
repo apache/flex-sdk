@@ -39,22 +39,22 @@
 
     <!--- The default skin class is VScrollBarTrackSkin. 
           @copy spark.components.supportClasses.TrackBase#track-->
-    <s:Button id="track" top="17" bottom="17" height="51" 
+    <s:Button id="track" top="17" bottom="17" height="51" tabEnabled="false" 
             skinClass="spark.skins.wireframe.VScrollBarTrackSkin" focusEnabled="false" />
     
     <!--- The default skin class is VScrollBarThumbSkin.
     @copy spark.components.supportClasses.TrackBase#thumb -->
-    <s:Button id="thumb" skinClass="spark.skins.wireframe.VScrollBarThumbSkin" 
+    <s:Button id="thumb" skinClass="spark.skins.wireframe.VScrollBarThumbSkin" tabEnabled="false" 
               visible.inactive="false" focusEnabled="false" />
     
     <!--- The default skin class is ScrollBarUpButtonSkin.
           @copy spark.components.supportClasses.ScrollBarBase#decrementButton -->
-    <s:Button id="decrementButton" top="0" enabled.inactive="false"
+    <s:Button id="decrementButton" top="0" enabled.inactive="false" tabEnabled="false"
             skinClass="spark.skins.wireframe.ScrollBarUpButtonSkin" focusEnabled="false" />
     
     <!--- The default skin class is ScrollBarDownButtonSkin.
           @copy spark.components.supportClasses.ScrollBarBase#incrementButton  -->
-    <s:Button id="incrementButton" bottom="0" enabled.inactive="false"
+    <s:Button id="incrementButton" bottom="0" enabled.inactive="false" tabEnabled="false"
             skinClass="spark.skins.wireframe.ScrollBarDownButtonSkin" focusEnabled="false" />
     
 </s:Skin>
