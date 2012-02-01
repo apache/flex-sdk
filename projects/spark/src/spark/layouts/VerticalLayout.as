@@ -548,7 +548,7 @@ public class VerticalLayout extends LayoutBase
         var g:GroupBase = target;
         if (!g)
             return 0;     
-
+   
         var maxIndex:int = g.numLayoutItems -1;
         if (maxIndex < 0)
             return 0;
@@ -577,6 +577,7 @@ public class VerticalLayout extends LayoutBase
                 if (inView(firstIndex) >= 1)
                    firstIndex = Math.max(0, firstIndex -1);
                 itemR = itemScan(g, firstIndex, -1);
+                break;
             }
              
             // Compute the bounds of the last item that's not
@@ -591,6 +592,7 @@ public class VerticalLayout extends LayoutBase
                 if (inView(lastIndex) >= 1)
                    lastIndex = Math.min(maxIndex, lastIndex + 1);
                 itemR = itemScan(g, lastIndex, +1);
+                break;
             }
         }
     
