@@ -16,7 +16,8 @@ import flash.events.Event;
 import flash.display.LoaderInfo;
 
 /**
- *  Used to notify ContentRequest instances that their original request
+ *  The LoaderInvalidationEvent class represents events that are dispatched 
+ *  to notify ContentRequest instances that their original request
  *  has been invalidated.
  *  
  *  @langversion 3.0
@@ -33,6 +34,27 @@ public class LoaderInvalidationEvent extends Event
     //--------------------------------------------------------------------------
     
     /**
+     *  The <code>LoaderInvalidationEvent.INVALIDATE_LOADER</code> constant defines 
+     *  the value of the <code>type</code> property of the event object for a 
+     *  <code>invalidateLoader</code> event. 
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>content</code></td><td>The content for which to 
+     *       invalidate the content request.</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myDataGrid.addEventListener()</code> to register an event listener, 
+     *       myDataGrid is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *       it is not always the Object listening for the event. 
+     *       Use the <code>currentTarget</code> property to always access the 
+     *       Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>LoaderInvalidationEvent.INVALIDATE_LOADER</td></tr>
+     *  </table>
      *
      *  @eventType invalidateLoader
      *  
@@ -78,7 +100,7 @@ public class LoaderInvalidationEvent extends Event
     //----------------------------------
     
     /**
-     *  The content for which we are invalidating the content request for.
+     *  The content for which to invalidate the content request.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
