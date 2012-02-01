@@ -256,8 +256,9 @@ public class RotateInstance extends AnimateInstance
         newX = Number((centerX - originalOffsetX).toFixed(1)); // use a precision of 1
         newY = Number((centerY - originalOffsetY).toFixed(1)); // use a precision of 1
  
-        motionPaths = 
-            [new SimpleMotionPath("rotation", angleFrom, angleTo, duration, angleBy)];
+        motionPaths = new <MotionPath>[new MotionPath("rotation")];
+        motionPaths[0].keyframes = new <Keyframe>[new Keyframe(0, angleFrom), 
+            new Keyframe(duration, angleTo, angleBy)];
 
         super.play();
     }
