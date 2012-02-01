@@ -64,6 +64,11 @@
             
             super.updateDisplayList(unscaledWidth, unscaledHeight);
         }
+
+        /**
+         * @inheritDoc
+         */
+        override public function get focusSkinExclusions():Array { return [ textDisplay ] };
     </fx:Script>
     
     <s:states>
