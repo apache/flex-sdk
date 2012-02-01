@@ -42,6 +42,7 @@ HSliderThumbSkin and HSliderTrackSkin classes, respectively. -->
     </s:states>
     
     <fx:Declarations>
+	<!--- Defines the appearance of the the Slider's DataTip. To customize the DataTip's appearance, create a custom HSliderSkin class. -->
         <fx:Component id="dataTip">    	
     	   <s:MXMLComponent minHeight="24" minWidth="40" y="-34">  
     		  <s:Rect top="0" left="0" right="0" bottom="0">
@@ -62,9 +63,10 @@ HSliderThumbSkin and HSliderTrackSkin classes, respectively. -->
 	   </fx:Component>
 	</fx:Declarations>
     
+    <!--- Defines the skin class for the HSliderSkin's track. The default skin class is HSliderTrackSkin. -->
     <s:Button id="track" left="0" right="0" top="0" bottom="0"
               skinClass="spark.skins.default.HSliderTrackSkin" />
+    <!--- Defines the skin class for the HSliderSkin's thumb. The default skin class is HSliderThumbSkin. -->
     <s:Button id="thumb" top="0" bottom="0" width="11" height="11" 
               skinClass="spark.skins.default.HSliderThumbSkin" />
-
 </s:SparkSkin>
