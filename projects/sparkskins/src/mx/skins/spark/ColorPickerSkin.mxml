@@ -2,171 +2,177 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The Spark skin class for the Halo ColorPicker component. -->
+<!--- The Spark skin class for the Halo ColorPicker component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
-	<!-- states -->
-	<s:states>
-		<s:State name="up" />
-		<s:State name="over" />
-		<s:State name="down" />
-		<s:State name="disabled" />
-	</s:states>
-	
-	<!-- opaque backdrop so color chip doesn't bleed through -->
-	<s:Rect left="0" right="0" top="0" bottom="0">
-		<s:stroke>
-			<s:SolidColorStroke color="0xFFFFFF" weight="2" />
-		</s:stroke>
-	</s:Rect>
-	<s:Rect right="2" bottom="2" width="7" height="5">
-		<s:fill>
-			<s:SolidColor color="0xFFFFFF" />
-		</s:fill>
-	</s:Rect>
-	
-	<s:Group left="0" right="0" top="0" bottom="0">
-		<!-- layer 1: shadow -->
-		<s:Rect left="-1" right="-1" top="-1" bottom="-1" >
-			<s:stroke>
-				<s:LinearGradientStroke rotation="90">
-	                    <s:GradientEntry color="0x000000" 
-	                                   color.down="0xFFFFFF"
-	                                   alpha="0.02"
-	                                   alpha.down="0" />
-	                    <s:GradientEntry color="0x000000" 
-	                                   color.down="0xFFFFFF" 
-	                                   alpha="0.22"
-	                                   alpha.down="0.5" />
-				</s:LinearGradientStroke>
-			</s:stroke>
-		</s:Rect>
-		
-		<!-- layer 2: border -->
-		<s:Rect left="0" right="0" top="0" bottom="0">
-			<s:stroke>
-				<s:LinearGradientStroke rotation="90">
-					<s:GradientEntry color="0x000000" 
-					               alpha="0.75"
-					               alpha.down="0.6375" />
-					<s:GradientEntry color="0x171717" 
-					               alpha="1" 
-					               alpha.down="0.85" />
-				</s:LinearGradientStroke>
-			</s:stroke>
-		</s:Rect>
-		
-		<!-- layer 3: fill -->
-		<s:Rect left="1" top="1" bottom="1" width="2" >
-			<s:fill>
-				<s:LinearGradient rotation="90">
-					<s:GradientEntry color="0xFFFFFF" color.down="0xCACACA" alpha="1" />
-					<s:GradientEntry color="0xD8D8D8" color.down="0x878787" alpha="1" />
-				</s:LinearGradient>
-			</s:fill>
-		</s:Rect>
-		<s:Rect right="1" top="1" bottom="1" width="2" >
-			<s:fill>
-				<s:LinearGradient rotation="90">
-					<s:GradientEntry color="0xFFFFFF" color.down="0xCACACA" alpha="1" />
-					<s:GradientEntry color="0xD8D8D8" color.down="0x878787" alpha="1" />
-				</s:LinearGradient>
-			</s:fill>
-		</s:Rect>
-		<s:Rect left="3" top="1" right="3" height="2" >
-			<s:fill>
-				<s:SolidColor color="0xFFFFFF" color.down="0xCACACA" alpha="1" />
-			</s:fill>
-		</s:Rect>
-		<s:Rect left="3" bottom="1" right="3" height="2" >
-			<s:fill>
-				<s:SolidColor color="0xD8D8D8" color.down="0x878787" alpha="1" />
-			</s:fill>
-		</s:Rect>
-		
-		<!-- layer 4: fill square -->
-		<s:Rect right="3" bottom="3" height="5" width="7" >
-			<s:fill>
-				<s:LinearGradient rotation="90">
-					<s:GradientEntry color="0xEEEEEE" color.down="0xA9A9A9" alpha="1" />
-					<s:GradientEntry color="0xD8D8D8" color.down="0x9C9C9C" alpha="1" />
-				</s:LinearGradient>
-			</s:fill>
-		</s:Rect>
-		
-		<!-- layer 5: fill highlight -->
-		<s:Rect left="3" width="1" top="3" bottom="3" >
-			<s:fill>
-				<s:SolidColor color="0x000000" alpha="0.33" />
-			</s:fill>
-		</s:Rect>
-		<s:Rect width="1" right="3" top="3" bottom="8" >
-			<s:fill>
-				<s:SolidColor color="0x000000" alpha="0.33" />
-			</s:fill>
-		</s:Rect>
-		<s:Rect left="4" right="4" top="3" height="1" >
-			<s:fill>
-				<s:SolidColor color="0x000000" alpha="0.33" />
-			</s:fill>
-		</s:Rect>
-		<s:Rect left="4" right="10" bottom="3" height="1" >
-			<s:fill>
-				<s:SolidColor color="0x000000" alpha="0.33" />
-			</s:fill>
-		</s:Rect>
-		<s:Rect width="7" right="4" bottom="8" height="1" >
-			<s:fill>
-				<s:SolidColor color="0x000000" alpha="0.33" />
-			</s:fill>
-		</s:Rect>
-		<s:Rect right="10" width="1" height="4" bottom="4" >
-			<s:fill>
-				<s:SolidColor color="0x000000" alpha="0.33" />
-			</s:fill>
-		</s:Rect>
-		
-		<!-- layer 6: down shadow -->
-		<s:Rect left="1" width="1" top="1" bottom="1" includeIn="down" >
-			<s:fill>
-				<s:SolidColor color="0x000000" alpha="0.12" />
-			</s:fill>
-		</s:Rect>
-		<s:Rect width="1" right="1" top="1" bottom="1" includeIn="down" >
-			<s:fill>
-				<s:SolidColor color="0x000000" alpha="0.12" />
-			</s:fill>
-		</s:Rect>
-		<s:Rect left="2" right="2" top="1" height="1" includeIn="down" >
-			<s:fill>
-				<s:SolidColor color="0x000000" alpha="0.12" />
-			</s:fill>
-		</s:Rect>
-		
-		<!-- layer 7: invisible hit area -->
-		<s:Rect left="1" right="1" top="1" bottom="1" >
-			<s:fill>
-				<s:SolidColor color="0x000000" alpha="0" />
-			</s:fill>
-		</s:Rect>
-		
-		<!-- layer 8: arrow -->
-		<s:BitmapImage source="@Embed('assets/ColorPickerArrow.png')" right="2" bottom="1" />
-		
-	</s:Group>
-	
-	<s:Rect includeIn="disabled" left="0" top="0" right="0" bottom="0">
-		<s:fill>
-			<s:SolidColor color="0xFFFFFF" alpha="0.5" />
-		</s:fill>
-	</s:Rect>
+    <!-- states -->
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <!-- opaque backdrop so color chip doesn't bleed through -->
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:stroke>
+            <s:SolidColorStroke color="0xFFFFFF" weight="2" />
+        </s:stroke>
+    </s:Rect>
+    <s:Rect right="2" bottom="2" width="7" height="5">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
+    
+    <s:Group left="0" right="0" top="0" bottom="0">
+        <!-- layer 1: shadow -->
+        <s:Rect left="-1" right="-1" top="-1" bottom="-1" >
+            <s:stroke>
+                <s:LinearGradientStroke rotation="90">
+                        <s:GradientEntry color="0x000000" 
+                                       color.down="0xFFFFFF"
+                                       alpha="0.02"
+                                       alpha.down="0" />
+                        <s:GradientEntry color="0x000000" 
+                                       color.down="0xFFFFFF" 
+                                       alpha="0.22"
+                                       alpha.down="0.5" />
+                </s:LinearGradientStroke>
+            </s:stroke>
+        </s:Rect>
+        
+        <!-- layer 2: border -->
+        <s:Rect left="0" right="0" top="0" bottom="0">
+            <s:stroke>
+                <s:LinearGradientStroke rotation="90">
+                    <s:GradientEntry color="0x000000" 
+                                   alpha="0.75"
+                                   alpha.down="0.6375" />
+                    <s:GradientEntry color="0x171717" 
+                                   alpha="1" 
+                                   alpha.down="0.85" />
+                </s:LinearGradientStroke>
+            </s:stroke>
+        </s:Rect>
+        
+        <!-- layer 3: fill -->
+        <s:Rect left="1" top="1" bottom="1" width="2" >
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0xFFFFFF" color.down="0xCACACA" alpha="1" />
+                    <s:GradientEntry color="0xD8D8D8" color.down="0x878787" alpha="1" />
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
+        <s:Rect right="1" top="1" bottom="1" width="2" >
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0xFFFFFF" color.down="0xCACACA" alpha="1" />
+                    <s:GradientEntry color="0xD8D8D8" color.down="0x878787" alpha="1" />
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
+        <s:Rect left="3" top="1" right="3" height="2" >
+            <s:fill>
+                <s:SolidColor color="0xFFFFFF" color.down="0xCACACA" alpha="1" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect left="3" bottom="1" right="3" height="2" >
+            <s:fill>
+                <s:SolidColor color="0xD8D8D8" color.down="0x878787" alpha="1" />
+            </s:fill>
+        </s:Rect>
+        
+        <!-- layer 4: fill square -->
+        <s:Rect right="3" bottom="3" height="5" width="7" >
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0xEEEEEE" color.down="0xA9A9A9" alpha="1" />
+                    <s:GradientEntry color="0xD8D8D8" color.down="0x9C9C9C" alpha="1" />
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
+        
+        <!-- layer 5: fill highlight -->
+        <s:Rect left="3" width="1" top="3" bottom="3" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.33" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect width="1" right="3" top="3" bottom="8" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.33" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect left="4" right="4" top="3" height="1" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.33" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect left="4" right="10" bottom="3" height="1" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.33" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect width="7" right="4" bottom="8" height="1" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.33" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect right="10" width="1" height="4" bottom="4" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.33" />
+            </s:fill>
+        </s:Rect>
+        
+        <!-- layer 6: down shadow -->
+        <s:Rect left="1" width="1" top="1" bottom="1" includeIn="down" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.12" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect width="1" right="1" top="1" bottom="1" includeIn="down" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.12" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect left="2" right="2" top="1" height="1" includeIn="down" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.12" />
+            </s:fill>
+        </s:Rect>
+        
+        <!-- layer 7: invisible hit area -->
+        <s:Rect left="1" right="1" top="1" bottom="1" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0" />
+            </s:fill>
+        </s:Rect>
+        
+        <!-- layer 8: arrow -->
+        <s:BitmapImage source="@Embed('assets/ColorPickerArrow.png')" right="2" bottom="1" />
+        
+    </s:Group>
+    
+    <s:Rect includeIn="disabled" left="0" top="0" right="0" bottom="0">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" alpha="0.5" />
+        </s:fill>
+    </s:Rect>
 </s:SparkSkin>
