@@ -62,6 +62,9 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
     private static const DATE_STYLE:String = "dateStyle";
     private static const TIME_STYLE:String = "timeStyle";
     private static const DATE_TIME_PATTERN:String = "dateTimePattern";
+    // Note: new Date(undefined) creates a Date object with NaN value for each
+    // of the elements.
+    private static const UNDEFINED_DATE:Date = new Date(undefined);
 
     //--------------------------------------------------------------------------
     //
@@ -147,6 +150,12 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
     //  Variables
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Basic properies of the actual underlying working instance.
+     */
+    mx_internal var properties:Object = null;
 
     /**
      *  @private
@@ -319,7 +328,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
 
     public function set dateStyle(value:String):void
     {
-        if(dateStyleOverride != null && dateStyleOverride == value)
+        if (dateStyleOverride && (dateStyleOverride == value))
             return;
         dateStyleOverride = value;
 
@@ -399,11 +408,11 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
 
     public function set dateTimePattern(value:String):void
     {
-        if(dateTimePatternOverride != null && dateTimePatternOverride == value)
+        if (dateTimePatternOverride && (dateTimePatternOverride == value))
             return;
         dateTimePatternOverride = value;
 
-        if(g11nWorkingInstance)
+        if (g11nWorkingInstance)
             g11nWorkingInstance.setDateTimePattern(value);
         else
         {
@@ -414,6 +423,53 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
                 fallbackFormatter.dateTimePattern = value;
             fallbackLastOperationStatus = LastOperationStatus.NO_ERROR;
         }
+
+        update();
+    }
+
+    //----------------------------------
+    //  errorText
+    //----------------------------------
+
+    private var _errorText:String;
+
+    [Bindable("change")]
+
+    /**
+     *  Replacement string returned by the format method when an error occurs.
+     *
+     *  <p>If <code>errorText</code> is non-null and an error occurs
+     *  while formatting a date, the format method
+     *  will return the string assigned to this property.</p>
+     *
+     *  For example:
+     *  <listing version="3.0" >
+     *  var dtf:DateTimeFormatter = new DateTimeFormatter();
+     *  dtf.setStyle("locale", "en-US");
+     *  dtf.errorText = "----"
+     *  trace(dtf.format("abc"));  // ----
+     *  </listing>
+     *
+     *  @default null
+     *
+     *  @see spark.globalization.LastOperationStatus
+     *
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2
+     *  @langversion 3.0
+     *  @productversion Flex 4.5
+     */
+    public function get errorText():String
+    {
+        return _errorText;
+    }
+
+    public function set errorText(value:String):void
+    {
+        if (_errorText == value)
+            return;
+
+        _errorText = value;
 
         update();
     }
@@ -485,7 +541,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
 
     public function set timeStyle(value:String):void
     {
-        if(timeStyleOverride != null && timeStyleOverride == value)
+        if (timeStyleOverride && (timeStyleOverride == value))
             return;
         timeStyleOverride = value;
 
@@ -564,6 +620,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
             g11nWorkingInstance = null;
+            properties = null;
             return;
         }
 
@@ -582,6 +639,8 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
         {
             if (dateTimePatternOverride)
                 g11nWorkingInstance.setDateTimePattern(dateTimePatternOverride);
+            properties = g11nWorkingInstance;
+            propagateBasicProperties(g11nWorkingInstance);
             return;
         }
 
@@ -620,7 +679,6 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      *  <code>dateTimePattern</code>, specified for this
      *  <code>DateTimeFormatter</code> instance.
      *
-     *
      *  @param value A <code>Date</code> value to be formatted.
      *  @return A formatted string representing the date or time value.
      *
@@ -642,18 +700,37 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
         const dateTime:Date = (value is Date) ?
                                             (value as Date) : new Date(value);
 
+        if (dateTime == UNDEFINED_DATE)
+        {
+            if (g11nWorkingInstance)
+            {
+                // Have g11nFormatter.lastOperationStatus property hold
+                // ILLEGAL_ARGUMENT_ERROR value.
+                g11nWorkingInstance.setDateTimeStyles(null, null);
+            }
+            else
+            {
+                fallbackLastOperationStatus
+                                = LastOperationStatus.ILLEGAL_ARGUMENT_ERROR;
+            }
+            return errorText;
+        }
+
         if (g11nWorkingInstance)
         {
-            return _useUTC ?
+            const retVal:String = _useUTC ?
                 g11nWorkingInstance.formatUTC(dateTime) :
                 g11nWorkingInstance.format(dateTime);
+
+            return errorText && LastOperationStatus.isFatalError(
+                g11nWorkingInstance.lastOperationStatus) ? errorText : retVal;
         }
 
         if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
-            return undefined;
+            return errorText;
         }
 
         fallbackLastOperationStatus = LastOperationStatus.NO_ERROR;
@@ -882,8 +959,8 @@ final class FallbackDateTimeFormatter
     //----------------------------------
 
     private static const SHORT_DATE_PATTERN:String = "m/d/yyyy";
-    private static const MEDIUM_DATE_PATTERN:String = "dddd, mmmm d, yyyy ";
-    private static const LONG_DATE_PATTERN:String = "dddd, mmmm d, yyyy ";
+    private static const MEDIUM_DATE_PATTERN:String = "dddd, mmmm d, yyyy";
+    private static const LONG_DATE_PATTERN:String = "dddd, mmmm d, yyyy";
     private static const NONE_DATE_PATTERN:String = "";
 
     private static const SHORT_TIME_PATTERN:String = "hh:mm a";
@@ -926,12 +1003,12 @@ final class FallbackDateTimeFormatter
 
     private var utc:Boolean;
 
-    private var space:String = "";
-
     private var dateString:String;
 
     private var timeString:String;
     private var localTime:String;
+
+    private var thisDate:Date;
 
 
     //----------------------------------
@@ -971,25 +1048,37 @@ final class FallbackDateTimeFormatter
 
     public function get dateTimePattern():String
     {
-        if (dateStyle == DateTimeStyle.SHORT )
-            dateString = SHORT_DATE_PATTERN;
-        else if (dateStyle == DateTimeStyle.MEDIUM)
-            dateString = LONG_DATE_PATTERN;
-        else if (dateStyle == DateTimeStyle.NONE)
-            dateString = NONE_DATE_PATTERN;
-        else
-            dateString = LONG_DATE_PATTERN;
+        switch (dateStyle)
+        {
+            case DateTimeStyle.SHORT:
+                dateString = SHORT_DATE_PATTERN;
+                break;
+            case DateTimeStyle.MEDIUM:
+                dateString = LONG_DATE_PATTERN;
+                break;
+            case DateTimeStyle.NONE:
+                dateString = NONE_DATE_PATTERN;
+                break;
+            default:
+                dateString = LONG_DATE_PATTERN;
+        }
 
-        if (timeStyle == DateTimeStyle.SHORT)
-            timeString = SHORT_TIME_PATTERN;
-        else if (timeStyle == DateTimeStyle.MEDIUM)
-            timeString = LONG_TIME_PATTERN;
-        else if (timeStyle == DateTimeStyle.NONE)
-            timeString = NONE_TIME_PATTERN;
-        else
-            timeString =LONG_TIME_PATTERN;
+        switch (timeStyle)
+        {
+            case DateTimeStyle.SHORT:
+                timeString = SHORT_TIME_PATTERN;
+                break;
+            case DateTimeStyle.MEDIUM:
+                timeString = LONG_TIME_PATTERN;
+                break;
+            case DateTimeStyle.NONE:
+                timeString = NONE_TIME_PATTERN;
+                break;
+            default:
+                timeString =LONG_TIME_PATTERN;
+        }
 
-        return (dateString + timeString);
+        return (dateString + returnSpace() + timeString);
     }
 
     public function set dateTimePattern(value:String):void
@@ -1004,36 +1093,42 @@ final class FallbackDateTimeFormatter
 
     public function format(dateTime:Date):String
     {
-        utc= false;
-        return (returnDate(dateTime) + space+ returnTime(dateTime));
+        thisDate = dateTime;
+        utc = false;
+        return (returnDate(dateTime) + returnSpace() + returnTime(dateTime));
     }
 
     public function formatUTC(dateTime:Date):String
     {
-        utc= true;
-        return (returnDate(dateTime) + space+ returnTime(dateTime));
+        thisDate = dateTime;
+        utc = true;
+        return (returnDate(dateTime) + returnSpace() + returnTime(dateTime));
     }
 
     public function getMonthNames(nameStyle:String = "full",
                             context:String = "standalone"):Vector.<String>
     {
-        if (nameStyle == DateTimeNameStyle.SHORT_ABBREVIATION)
-            return MONTH_LABELS_SHORT_ABB;
-        else if (nameStyle == DateTimeNameStyle.LONG_ABBREVIATION)
-            return MONTH_LABELS_LONG_ABB;
-        else
-            return MONTH_LABELS;
+        switch (nameStyle)
+        {
+            case DateTimeNameStyle.SHORT_ABBREVIATION:
+                return MONTH_LABELS_SHORT_ABB;
+            case DateTimeNameStyle.LONG_ABBREVIATION:
+                return MONTH_LABELS_LONG_ABB;
+        }
+        return MONTH_LABELS;
     }
 
     public function getWeekdayNames(nameStyle:String = "full",
                             context:String = "standalone"):Vector.<String>
     {
-        if (nameStyle == DateTimeNameStyle.SHORT_ABBREVIATION)
-            return WEEKDAY_LABELS_SHORT_ABB;
-        else if (nameStyle == DateTimeNameStyle.LONG_ABBREVIATION)
-            return WEEKDAY_LABELS_LONG_ABB;
-        else
-            return WEEKDAY_LABELS;
+        switch (nameStyle)
+        {
+            case DateTimeNameStyle.SHORT_ABBREVIATION:
+                return WEEKDAY_LABELS_SHORT_ABB;
+            case DateTimeNameStyle.LONG_ABBREVIATION:
+                return WEEKDAY_LABELS_LONG_ABB;
+        }
+        return WEEKDAY_LABELS;
     }
 
     public static function validDateTimeStyle(value:String):Boolean
@@ -1048,132 +1143,119 @@ final class FallbackDateTimeFormatter
     // Private Methods
     //----------------------------------
 
+    private function returnSpace():String
+    {
+        const fullYearIsNaN:Boolean = thisDate && isNaN(thisDate.fullYear);
+        const oneOfStyleIsNone:Boolean = (dateStyle == DateTimeStyle.NONE)
+                                        || (timeStyle == DateTimeStyle.NONE);
+
+        return (fullYearIsNaN || oneOfStyleIsNone) ? "" : " ";
+    }
+
     private function returnDate(dateTime:Date):String
     {
         if (isNaN(dateTime.fullYear))
             return "";
-        else
+
+        switch (dateStyle)
         {
-            if (dateStyle == DateTimeStyle.SHORT)
-            {
-                space = " ";
+            case DateTimeStyle.SHORT:
                 return shortDate(dateTime);
-            }
-            else if (dateStyle == DateTimeStyle.MEDIUM)
-            {
-                space = " ";
+            case DateTimeStyle.MEDIUM:
                 return longDate(dateTime);
-            }
-            else if (dateStyle == DateTimeStyle.NONE)
-            {
-                space = "";
+            case DateTimeStyle.NONE:
                 return "";
-            }
-            else
-            {
-                space = " ";
-                return longDate(dateTime);
-            }
         }
+
+        return longDate(dateTime);
     }
 
     private function returnTime(dateTime:Date):String
     {
         if (isNaN(dateTime.hours))
             return "";
-        else
+
+        switch (timeStyle)
         {
-            if (timeStyle == DateTimeStyle.SHORT)
+            case DateTimeStyle.SHORT:
                 return shortTime(dateTime);
-            else if (timeStyle == DateTimeStyle.MEDIUM)
+            case DateTimeStyle.MEDIUM:
                 return longTime(dateTime);
-            else if (timeStyle == DateTimeStyle.NONE)
-            {
-                space = "";
+            case DateTimeStyle.NONE:
                 return "";
-            }
-            else
-                return longTime(dateTime);
         }
+
+        return longTime(dateTime);
     }
 
     private function shortDate(dateTime:Date):String
     {
-        if (!utc)
+        if (utc)
         {
-            return (doubleDigitFormat(dateTime.getMonth() + 1)) + "/"
-                + doubleDigitFormat(dateTime.getDate()) + "/"
-                + doubleDigitFormat(dateTime.getFullYear());
+            return (dateTime.getUTCMonth() + 1) + "/"
+                + dateTime.getUTCDate() + "/"
+                + dateTime.getUTCFullYear();
         }
-        else
-        {
-            return (doubleDigitFormat(dateTime.getUTCMonth() + 1)) + "/"
-                + doubleDigitFormat(dateTime.getUTCDate()) + "/"
-                + doubleDigitFormat(dateTime.getUTCFullYear());
-        }
+
+        return (dateTime.getMonth() + 1) + "/"
+                + dateTime.getDate() + "/"
+                + dateTime.getFullYear();
     }
 
     private function longDate(dateTime:Date):String
     {
-        if (!utc)
+        if (utc)
         {
-            return (WEEKDAY_LABELS[dateTime.getDay()] + ","
-                + MONTH_LABELS[dateTime.getMonth()])
-                + dateTime.getDate() + ","
-                + dateTime.getFullYear();
-        }
-        else
-        {
-            return (WEEKDAY_LABELS[dateTime.getUTCDay()] + ","
-                + MONTH_LABELS[dateTime.getUTCMonth()])
-                + dateTime.getUTCDate() + ","
+            return (WEEKDAY_LABELS[dateTime.getUTCDay()] + ","+" "
+                + MONTH_LABELS[dateTime.getUTCMonth()])+" "
+                + dateTime.getUTCDate() + ","+" "
                 + dateTime.getUTCFullYear();
         }
+
+        return (WEEKDAY_LABELS[dateTime.getDay()] + ","+" "
+            + MONTH_LABELS[dateTime.getMonth()])+" "
+            + dateTime.getDate() + ","+" "
+            + dateTime.getFullYear();
     }
 
     private function shortTime(dateTime:Date):String
     {
-        if (!utc)
-        {
-            localTime = getUSClockTime(
-                                dateTime.getHours(), dateTime.getMinutes());
-        }
-        else
-        {
-            localTime = getUSClockTime(
-                            dateTime.getUTCHours(), dateTime.getUTCMinutes());
-        }
+        localTime = utc ?
+            getUSClockTime(dateTime.getUTCHours(), dateTime.getUTCMinutes()) :
+            getUSClockTime(dateTime.getHours(), dateTime.getMinutes());
+
         return localTime + " " + formatAMPM(dateTime);
     }
 
     private function longTime(dateTime:Date):String
     {
-        if (!utc)
+        var seconds:Number;
+
+        if (utc)
         {
             localTime = getUSClockTime(
-                                dateTime.getHours(), dateTime.getMinutes());
-            return localTime + ":" + doubleDigitFormat(dateTime.getSeconds())
-                + " " + formatAMPM(dateTime);
+                            dateTime.getUTCHours(), dateTime.getUTCMinutes());
+            seconds = dateTime.getUTCSeconds();
         }
         else
         {
             localTime = getUSClockTime(
-                            dateTime.getUTCHours(), dateTime.getUTCMinutes());
-            return localTime + ":" + doubleDigitFormat(dateTime.getUTCSeconds())
-                + " " + formatAMPM(dateTime);
+                                dateTime.getHours(), dateTime.getMinutes());
+            seconds = dateTime.getSeconds();
         }
+
+        return localTime + ":" + doubleDigitFormat(seconds) + " "
+                                                        + formatAMPM(dateTime);
     }
 
     private function getUSClockTime(hrs:uint, mins:uint):String
     {
         const minLabel:String = doubleDigitFormat(mins);
 
-        if (hrs > 12)
-            hrs = hrs-12;
-        else if (hrs == 0)
-            hrs = 12;
+        hrs %= 12;
+        hrs = hrs ? hrs : 12;
 
-        return doubleDigitFormat(hrs) + ":" + minLabel;
+        return hrs + ":" + minLabel;
     }
 
     private function doubleDigitFormat(num:uint):String
@@ -1183,6 +1265,8 @@ final class FallbackDateTimeFormatter
 
     private function formatAMPM(dateTime:Date):String
     {
-        return (dateTime.getHours() < 12) ? "AM" : "PM";
+        const hours:Number = utc ? dateTime.getUTCHours() : dateTime.getHours();
+
+        return (hours < 12) ? "AM" : "PM";
     }
 }
