@@ -37,18 +37,18 @@ public class HorizontalLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------
     
-    private static function calculatePercentHeight( layoutItem:ILayoutItem, height:Number ):Number
+    private static function calculatePercentHeight(layoutElement:ILayoutElement, height:Number):Number
     {
-    	var percentHeight:Number = LayoutItemHelper.pinBetween(layoutItem.percentHeight * 0.01 * height,
-    	                                                       layoutItem.minSize.y,
-    	                                                       layoutItem.maxSize.y );
+    	var percentHeight:Number = LayoutElementHelper.pinBetween(layoutElement.percentHeight * 0.01 * height,
+    	                                                          layoutElement.getMinHeight(),
+    	                                                          layoutElement.getMaxHeight() );
     	return percentHeight < height ? percentHeight : height;
     }
     
-    private static function sizeLayoutItem(layoutItem:ILayoutItem, height:Number, 
-                                           verticalAlign:String, restrictedHeight:Number, 
-                                           width:Number, variableColumnWidth:Boolean, 
-                                           columnWidth:Number):void
+    private static function sizeLayoutElement(layoutElement:ILayoutElement, height:Number, 
+                                              verticalAlign:String, restrictedHeight:Number, 
+                                              width:Number, variableColumnWidth:Boolean, 
+                                              columnWidth:Number):void
     {
         var newHeight:Number = NaN;
         
@@ -62,14 +62,14 @@ public class HorizontalLayout extends LayoutBase
         }
         else
         {
-            if (hasPercentHeight(layoutItem))
-               newHeight = calculatePercentHeight(layoutItem, height);   
+            if (hasPercentHeight(layoutElement))
+               newHeight = calculatePercentHeight(layoutElement, height);   
         }
         
         if (variableColumnWidth)
-            layoutItem.setActualSize(width, newHeight);
+            layoutElement.setLayoutSize(width, newHeight);
         else
-            layoutItem.setActualSize(columnWidth, newHeight);
+            layoutElement.setLayoutSize(columnWidth, newHeight);
     }
         
     //--------------------------------------------------------------------------
@@ -132,7 +132,7 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Returns the current number of visible items.
+     *  Returns the current number of visible elements.
      * 
      *  @default -1
      */
@@ -170,9 +170,9 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Specifies the number of items to display.
+     *  Specifies the number of elements to display.
      * 
-     *  If <code>requestedColumnCount</code> is -1, then all of them items are displayed.
+     *  If <code>requestedColumnCount</code> is -1, then all of them elements are displayed.
      * 
      *  This property implies the layout's <code>measuredWidth</code>.
      * 
@@ -211,16 +211,16 @@ public class HorizontalLayout extends LayoutBase
      *  is false.
      * 
      *  If this property isn't explicitly set, then the measured width
-     *  of the first item is returned.
+     *  of the first element is returned.
      */
     public function get columnWidth():Number
     {
         if (!isNaN(_columnWidth))
             return _columnWidth;
-        else if (!target || (target.numLayoutItems <= 0))
+        else if (!target || (target.numLayoutElements <= 0))
             return 0;
         else
-            return target.getLayoutItemAt(0).preferredSize.x;
+            return target.getLayoutElementAt(0).getPreferredWidth();
     }
 
     /**
@@ -248,13 +248,13 @@ public class HorizontalLayout extends LayoutBase
 
     /**
      *  If false, i.e. "fixed column width" is specified, the width of
-     *  each item is set to the value of <code>columnWidth</code>.
+     *  each element is set to the value of <code>columnWidth</code>.
      * 
      *  If the <code>columnWidth</code> property wasn't explicitly set,
      *  then it's initialized with the <code>measuredWidth</code> of
-     *  the first item.
+     *  the first element.
      * 
-     *  The items' <code>includeInLayout</code>, 
+     *  The elements' <code>includeInLayout</code>, 
      *  <code>measuredWidth</code>, <code>minWidth</code>,
      *  and <code>percentWidth</code> properties are ignored when 
      *  <code>variableColumnWidth</code> is false.
@@ -397,7 +397,7 @@ public class HorizontalLayout extends LayoutBase
     }
     
     /**
-     *  An index is "in view" if the corresponding non-null layout item is 
+     *  An index is "in view" if the corresponding non-null layout element is 
      *  within the horizontal limits of the layout target's scrollRect
      *  and included in the layout.
      *  
@@ -407,12 +407,12 @@ public class HorizontalLayout extends LayoutBase
      * 
      *  If the specified index is partially within the view, the 
      *  returned value is the percentage of the corresponding
-     *  layout item that's visible.
+     *  layout element that's visible.
      * 
      *  Returns 0.0 if the specified index is invalid or if it corresponds to
-     *  null item, or a ILayoutItem for which includeInLayout is false.
+     *  null element, or a ILayoutElement for which includeInLayout is false.
      * 
-     *  @return the percentage of the specified item that's in view.
+     *  @return the percentage of the specified element that's in view.
      *  @see firstIndexInView
      *  @see lastIndexInView
      */
@@ -422,11 +422,11 @@ public class HorizontalLayout extends LayoutBase
         if (!g)
             return 0.0;
             
-        if ((index < 0) || (index >= g.numLayoutItems))
+        if ((index < 0) || (index >= g.numLayoutElements))
            return 0.0;   
            
-        var li:ILayoutItem = g.getLayoutItemAt(index);
-        if ((li == null) || !li.includeInLayout)
+        var le:ILayoutElement = g.getLayoutElementAt(index);
+        if ((le == null) || !le.includeInLayout)
             return 0.0;
             
         if (!clipContent)
@@ -446,9 +446,9 @@ public class HorizontalLayout extends LayoutBase
         // index is first (c0) or last (c1) visible column
         var x0:Number = g.horizontalScrollPosition;
         var x1:Number = x0 + g.width;
-        var ix0:Number = li.actualPosition.x;
-        var ix1:Number = ix0 + li.actualSize.x;
-        if (ix0 >= ix1)  // item has 0 or negative width
+        var ix0:Number = le.getLayoutPositionX();
+        var ix1:Number = ix0 + le.getLayoutWidth();
+        if (ix0 >= ix1)  // element has 0 or negative width
             return 1.0;
         if ((ix0 >= x0) && (ix1 <= x1))
             return 1.0;
@@ -456,50 +456,49 @@ public class HorizontalLayout extends LayoutBase
     } 
     
     /**
-     *  Binary search for the first layout item that contains y.  
+     *  Binary search for the first layout element that contains y.  
      * 
-     *  This function considers both the item's actual bounds and 
-     *  the gap that follows it to be part of the item.  The search 
+     *  This function considers both the element's actual bounds and 
+     *  the gap that follows it to be part of the element.  The search 
      *  covers index i0 through i1 (inclusive).
      * 
-     *  This function is intended for variable height items.
+     *  This function is intended for variable height elements.
      * 
-     *  Returns the index of the item that contains x, or -1.
+     *  Returns the index of the element that contains x, or -1.
      * 
      * @private 
      */
     private static function findIndexAt(x:Number, gap:int, g:GroupBase, i0:int, i1:int):int
     {
         var index:int = (i0 + i1) / 2;
-        var item:ILayoutItem = g.getLayoutItemAt(index);        
-        var p:Point = item.actualPosition;
-        var s:Point = item.actualSize;
-        // TBD: deal with null item, includeInLayout false.
-        if ((x >= p.x) && (x < p.x + s.x + gap))
+        var element:ILayoutElement = g.getLayoutElementAt(index);        
+        var elementX:Number = element.getLayoutPositionX();
+        // TBD: deal with null element, includeInLayout false.
+        if ((x >= elementX) && (x < elementX + element.getLayoutWidth() + gap))
             return index;
         else if (i0 == i1)
             return -1;
-        else if (x < p.x)
+        else if (x < elementX)
             return findIndexAt(x, gap, g, i0, Math.max(i0, index-1));
         else 
             return findIndexAt(x, gap, g, Math.min(index+1, i1), i1);
     }  
     
    /**
-    *  Returns the index of the first non-null includeInLayout item, 
-    *  beginning with the item at index i.  
+    *  Returns the index of the first non-null includeInLayout element, 
+    *  beginning with the element at index i.  
     * 
-    *  Returns -1 if no such item can be found.
+    *  Returns -1 if no such element can be found.
     *  
     *  @private
     */
-    private static function findLayoutItemIndex(g:GroupBase, i:int, dir:int):int
+    private static function findLayoutElementIndex(g:GroupBase, i:int, dir:int):int
     {
-        var n:int = g.numLayoutItems;
+        var n:int = g.numLayoutElements;
         while((i >= 0) && (i < n))
         {
-           var item:ILayoutItem = g.getLayoutItemAt(i);
-           if (item && item.includeInLayout)
+           var element:ILayoutElement = g.getLayoutElementAt(i);
+           if (element && element.includeInLayout)
            {
                return i;      
            }
@@ -522,7 +521,7 @@ public class HorizontalLayout extends LayoutBase
         if (!g)
             return;     
 
-        var n:int = g.numLayoutItems - 1;
+        var n:int = g.numLayoutElements - 1;
         if (n < 0) 
         {
             setIndexInView(-1, -1);
@@ -537,7 +536,7 @@ public class HorizontalLayout extends LayoutBase
         }
         
         // We're going to use findIndexAt to find the index of 
-        // the items that overlap the left and right edges of the scrollRect.
+        // the elements that overlap the left and right edges of the scrollRect.
         // Values that are exactly equal to scrollRect.right aren't actually
         // rendered, since the left,right interval is only half open.
         // To account for that we back away from the right edge by a
@@ -555,30 +554,30 @@ public class HorizontalLayout extends LayoutBase
 
         var i0:int = findIndexAt(x0 + gap, gap, g, 0, n);
         var i1:int = findIndexAt(x1, gap, g, 0, n);
-        // Special case: no item overlaps x0, is index 0 visible?
+        // Special case: no element overlaps x0, is index 0 visible?
         if (i0 == -1)
         {   
-            var index0:int = findLayoutItemIndex(g, 0, +1);
+            var index0:int = findLayoutElementIndex(g, 0, +1);
             if (index0 != -1)
             {
-                var item0:ILayoutItem = g.getLayoutItemAt(index0); 
-                var p0:Point = item0.actualPosition;
-                var s0:Point = item0.actualSize;                 
-                if ((p0.x < x1) && ((p0.x + s0.x) > x0))
+                var element0:ILayoutElement = g.getLayoutElementAt(index0); 
+                var element0X:Number = element0.getLayoutPositionX();
+                var element0Width:Number = element0.getLayoutWidth();                 
+                if ((element0X < x1) && ((element0X + element0Width) > x0))
                     i0 = index0;
             }
         }
 
-        // Special case: no item overlaps y1, is index n visible?
+        // Special case: no element overlaps y1, is index n visible?
         if (i1 == -1)
         {
-            var index1:int = findLayoutItemIndex(g, n, -1);
+            var index1:int = findLayoutElementIndex(g, n, -1);
             if (index1 != -1)
             {
-                var item1:ILayoutItem = g.getLayoutItemAt(index1); 
-                var p1:Point = item1.actualPosition;
-                var s1:Point = item1.actualSize;                 
-                if ((p1.x < x1) && ((p1.x + s1.x) > x0))
+                var element1:ILayoutElement = g.getLayoutElementAt(index1); 
+                var element1X:Number = element1.getLayoutPositionX();
+                var element1Width:Number = element1.getLayoutWidth();                 
+                if ((element1X < x1) && ((element1X + element1Width) > x0))
                     i1 = index1;
             }
         }   
@@ -586,55 +585,56 @@ public class HorizontalLayout extends LayoutBase
         setIndexInView(i0, i1);
     }
 
-       /**
-     *  If the item at index i is non-null and includeInLayout,
+    /**
+     *  If the element at index i is non-null and includeInLayout,
      *  then return it's actual bounds, otherwise return null.
      * 
      *  @private
      */
-    private static function layoutItemBounds(g:GroupBase, i:int):Rectangle
+    private static function layoutElementBounds(g:GroupBase, i:int):Rectangle
     {
-        var item:ILayoutItem = g.getLayoutItemAt(i);
-        if (item && item.includeInLayout)
+        var element:ILayoutElement = g.getLayoutElementAt(i);
+        if (element && element.includeInLayout)
         {
-            var p:Point = item.actualPosition;
-            var s:Point = item.actualSize; 
-            return new Rectangle(p.x, p.y, s.x, s.y);        
+            return new Rectangle(element.getLayoutPositionX(),
+                                 element.getLayoutPositionY(),
+                                 element.getLayoutWidth(),
+                                 element.getLayoutHeight());        
         }
         return null;    
     }
 
     /**
      *  Returns the actual position/size Rectangle of the first partially 
-     *  visible or not-visible, non-null includeInLayout item, beginning
-     *  with the item at index i, searching in direction dir (dir must
+     *  visible or not-visible, non-null includeInLayout element, beginning
+     *  with the element at index i, searching in direction dir (dir must
      *  be +1 or -1).   The last argument is the GroupBase scrollRect, it's
      *  guaranteed to be non-null.
      * 
-     *  Returns null if no such item can be found.
+     *  Returns null if no such element can be found.
      *  
      *  @private
      */
-    private function findLayoutItemBounds(g:GroupBase, i:int, dir:int, r:Rectangle):Rectangle
+    private function findLayoutElementBounds(g:GroupBase, i:int, dir:int, r:Rectangle):Rectangle
     {
-        var n:int = g.numLayoutItems;
+        var n:int = g.numLayoutElements;
 
         if (inView(i) >= 1)
             i = Math.max(0, Math.min(n - 1, i + dir));
 
         while((i >= 0) && (i < n))
         {
-           var itemR:Rectangle = layoutItemBounds(g, i);
+           var elementR:Rectangle = layoutElementBounds(g, i);
            // Special case: if the scrollRect r _only_ contains
-           // itemR, then if we're searching left (dir == -1),
-           // and itemR's left edge is visible, then try again
+           // elementR, then if we're searching left (dir == -1),
+           // and elementR's left edge is visible, then try again
            // with i-1.   Likewise for dir == +1.
-           if (itemR)
+           if (elementR)
            {
-               var overlapsLeft:Boolean = (dir == -1) && (itemR.left == r.left) && (itemR.right >= r.right);
-               var overlapsRight:Boolean = (dir == +1) && (itemR.right == r.right) && (itemR.left <= r.left);
+               var overlapsLeft:Boolean = (dir == -1) && (elementR.left == r.left) && (elementR.right >= r.right);
+               var overlapsRight:Boolean = (dir == +1) && (elementR.right == r.right) && (elementR.left <= r.left);
                if (!(overlapsLeft || overlapsRight))             
-                   return itemR;               
+                   return elementR;               
            }
            i += dir;
         }
@@ -649,26 +649,26 @@ public class HorizontalLayout extends LayoutBase
      * 
      *  <li> 
      *  <code>LEFT</code>
-     *  If the firstIndexInView item is partially visible then top justify
-     *  it, otherwise top justify the item at the previous index.
+     *  If the firstIndexInView element is partially visible then top justify
+     *  it, otherwise top justify the element at the previous index.
      *  </li>
      * 
      *  <li> 
      *  <code>RIGHT</code>
-     *  If the lastIndexInView item is partially visible, then bottom justify
-     *  it, otherwise bottom justify the item at the following index.
+     *  If the lastIndexInView element is partially visible, then bottom justify
+     *  it, otherwise bottom justify the element at the following index.
      *  </li>
      * 
      *  <code>PAGE_UP</code>
      *  <li>
-     *  If the firstIndexInView item is partially visible, then bottom
-     *  justify it, otherwise bottom justify item at the previous index.  
+     *  If the firstIndexInView element is partially visible, then bottom
+     *  justify it, otherwise bottom justify element at the previous index.  
      *  </li>
      * 
      *  <li> 
      *  <code>PAGE_DOWN</code>
-     *  If the lastIndexInView item is partially visible, then top
-     *  justify it, otherwise top justify item at the following index.  
+     *  If the lastIndexInView element is partially visible, then top
+     *  justify it, otherwise top justify element at the following index.  
      *  </li>
      *  
      *  </ul>
@@ -683,7 +683,7 @@ public class HorizontalLayout extends LayoutBase
         if (!g)
             return 0;     
 
-        var maxIndex:int = g.numLayoutItems -1;
+        var maxIndex:int = g.numLayoutElements -1;
         if (maxIndex < 0)
             return 0;
             
@@ -691,49 +691,49 @@ public class HorizontalLayout extends LayoutBase
         if (!scrollR)
             return 0;
             
-        var itemR:Rectangle = null;
+        var elementR:Rectangle = null;
         switch(unit)
         {
             case ScrollUnit.LEFT:
             case ScrollUnit.PAGE_LEFT:
-                itemR = findLayoutItemBounds(g, firstIndexInView, -1, scrollR);
+                elementR = findLayoutElementBounds(g, firstIndexInView, -1, scrollR);
                 break;
 
             case ScrollUnit.RIGHT:
             case ScrollUnit.PAGE_RIGHT:
-                itemR = findLayoutItemBounds(g, lastIndexInView, +1, scrollR);
+                elementR = findLayoutElementBounds(g, lastIndexInView, +1, scrollR);
                 break;
 
             default:
                 return super.getHorizontalScrollPositionDelta(unit);
         }
         
-        if (!itemR)
+        if (!elementR)
             return 0;
             
         var delta:Number = 0;     
         switch (unit)
         {
             case ScrollUnit.LEFT:
-                delta = Math.max(-scrollR.width, itemR.left - scrollR.left);
+                delta = Math.max(-scrollR.width, elementR.left - scrollR.left);
                 break;
                 
             case ScrollUnit.RIGHT:
-                delta = Math.min(scrollR.width, itemR.right - scrollR.right);
+                delta = Math.min(scrollR.width, elementR.right - scrollR.right);
                 break;
                 
             case ScrollUnit.PAGE_LEFT:
-                if ((itemR.left < scrollR.left) && (itemR.right >= scrollR.right))
-                    delta = Math.max(-scrollR.width, itemR.left - scrollR.left);
+                if ((elementR.left < scrollR.left) && (elementR.right >= scrollR.right))
+                    delta = Math.max(-scrollR.width, elementR.left - scrollR.left);
                 else
-                    delta = itemR.right - scrollR.right;
+                    delta = elementR.right - scrollR.right;
                 break;
 
             case ScrollUnit.PAGE_RIGHT:
-                if ((itemR.left <= scrollR.left) && (itemR.right > scrollR.right))
-                    delta = Math.min(scrollR.width, itemR.right - scrollR.right);
+                if ((elementR.left <= scrollR.left) && (elementR.right > scrollR.right))
+                    delta = Math.min(scrollR.width, elementR.right - scrollR.right);
                 else
-                    delta = itemR.left - scrollR.left;
+                    delta = elementR.left - scrollR.left;
                 break;
         }
         
@@ -752,25 +752,25 @@ public class HorizontalLayout extends LayoutBase
         var visibleColumns:uint = 0;
         var reqColumns:int = requestedColumnCount;        
         
-        var count:uint = layoutTarget.numLayoutItems;
-        var totalCount:uint = count; // How many items will be laid out
+        var count:uint = layoutTarget.numLayoutElements;
+        var totalCount:uint = count; // How many elements will be laid out
         for (var i:int = 0; i < count; i++)
         {
-            var li:ILayoutItem = layoutTarget.getLayoutItemAt(i);
-            if (!li || !li.includeInLayout)
+            var le:ILayoutElement = layoutTarget.getLayoutElementAt(i);
+            if (!le || !le.includeInLayout)
             {
             	totalCount--;
                 continue;
             }            
 
-            preferredHeight = Math.max(preferredHeight, li.preferredSize.y);
-            preferredWidth += li.preferredSize.x; 
+            preferredHeight = Math.max(preferredHeight, le.getPreferredHeight());
+            preferredWidth += le.getPreferredWidth(); 
             
             var vcr:Boolean = (reqColumns != -1) && (visibleColumns < reqColumns);
             if (vcr || (reqColumns == -1))
             {
-                var mw:Number =  hasPercentWidth(li) ? li.minSize.x : li.preferredSize.x;
-                var mh:Number = hasPercentHeight(li) ? li.minSize.y : li.preferredSize.y;                   
+                var mw:Number = hasPercentWidth(le)  ? le.getMinWidth() : le.getPreferredWidth();
+                var mh:Number = hasPercentHeight(le) ? le.getMinHeight() : le.getPreferredHeight();                   
                 minWidth += mw;
                 minHeight = Math.max(minHeight, mh);
             }
@@ -801,7 +801,7 @@ public class HorizontalLayout extends LayoutBase
     
     private function fixedColumnWidthMeasure(layoutTarget:GroupBase):void
     {
-        var cols:uint = layoutTarget.numLayoutItems;
+        var cols:uint = layoutTarget.numLayoutElements;
         var visibleCols:uint = (requestedColumnCount == -1) ? cols : requestedColumnCount;
 
         var cw:Number = columnWidth; // can be expensive to compute
@@ -813,14 +813,14 @@ public class HorizontalLayout extends LayoutBase
         if (isNaN(rowHeight)) 
         {
 			minRowHeight = rowHeight = 0;
-	        var count:uint = layoutTarget.numLayoutItems;
+	        var count:uint = layoutTarget.numLayoutElements;
 	        for (var i:int = 0; i < count; i++)
 	        {
-	            var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
-	            if (!layoutItem || !layoutItem.includeInLayout) continue;
-	            rowHeight = Math.max(rowHeight, layoutItem.preferredSize.y);
-	            var itemMinHeight:Number = hasPercentHeight(layoutItem) ? layoutItem.minSize.y : layoutItem.preferredSize.y;
-	            minRowHeight = Math.max(minRowHeight, itemMinHeight);
+	            var layoutElement:ILayoutElement = layoutTarget.getLayoutElementAt(i);
+	            if (!layoutElement || !layoutElement.includeInLayout) continue;
+	            rowHeight = Math.max(rowHeight, layoutElement.getPreferredHeight());
+	            var elementMinHeight:Number = hasPercentHeight(layoutElement) ? layoutElement.getMinHeight() : layoutElement.getPreferredHeight();
+	            minRowHeight = Math.max(minRowHeight, elementMinHeight);
 	        }
         }     
         
@@ -853,12 +853,12 @@ public class HorizontalLayout extends LayoutBase
         if (!layoutTarget)
             return;
         
-        var layoutItem:ILayoutItem;
-        var count:uint = layoutTarget.numLayoutItems;
+        var layoutElement:ILayoutElement;
+        var count:uint = layoutTarget.numLayoutElements;
         
         // If verticalAlign is top, we don't need to figure out the contentHeight.
-        // Otherwise the contentHeight is used to position the item and even size 
-        // the item if it's "contentJustify" or "justify".
+        // Otherwise the contentHeight is used to position the element and even size 
+        // the element if it's "contentJustify" or "justify".
         var contentHeight:Number = unscaledHeight;
         
         
@@ -869,22 +869,22 @@ public class HorizontalLayout extends LayoutBase
         {
             for (var i:int = 0; i < count; i++)
             {
-                layoutItem = layoutTarget.getLayoutItemAt(i);
-                if (!layoutItem || !layoutItem.includeInLayout)
+                layoutElement = layoutTarget.getLayoutElementAt(i);
+                if (!layoutElement || !layoutElement.includeInLayout)
                     continue;
                 
-                var layoutItemHeight:Number;
-                if (hasPercentHeight(layoutItem))
-                    layoutItemHeight = calculatePercentHeight(layoutItem, unscaledHeight);
+                var layoutElementHeight:Number;
+                if (hasPercentHeight(layoutElement))
+                    layoutElementHeight = calculatePercentHeight(layoutElement, unscaledHeight);
                 else
-                    layoutItemHeight = layoutItem.preferredSize.y;
+                    layoutElementHeight = layoutElement.getPreferredHeight();
                     
-                contentHeight = Math.max(contentHeight, layoutItemHeight);
+                contentHeight = Math.max(contentHeight, layoutElementHeight);
             }
         }
 
-        // If we're justifying the items, then all heights should be set to
-        // unscaledHeight.  If we're content justifying the items, then 
+        // If we're justifying the elements, then all heights should be set to
+        // unscaledHeight.  If we're content justifying the elements, then 
         // all heights should be set to the contentHeight.
         // Otherwise restrictedHeight is ignored in distributedWidth.
         var restrictedHeight:Number;
@@ -902,15 +902,15 @@ public class HorizontalLayout extends LayoutBase
         else if (verticalAlign == VerticalAlign.BOTTOM)
             vAlign = 1;
         
-        // If columnCount wasn't set, then as the LayoutItems are positioned
+        // If columnCount wasn't set, then as the LayoutElements are positioned
         // we'll count how many columns fall within the layoutTarget's scrollRect
         var visibleColumns:uint = 0;
         var minVisibleX:Number = layoutTarget.horizontalScrollPosition;
         var maxVisibleX:Number = minVisibleX + unscaledWidth
             
-        // Finally, position the LayoutItems and find the first/last
+        // Finally, position the LayoutElements and find the first/last
         // visible indices, the content size, and the number of 
-        // visible items. 
+        // visible elements. 
         var x:Number = 0;
         var maxX:Number = 0;
         var maxY:Number = 0;     
@@ -919,17 +919,17 @@ public class HorizontalLayout extends LayoutBase
                 
         for (var index:int = 0; index < count; index++)
         {
-            layoutItem = layoutTarget.getLayoutItemAt(index);
-            if (!layoutItem || !layoutItem.includeInLayout)
+            layoutElement = layoutTarget.getLayoutElementAt(index);
+            if (!layoutElement || !layoutElement.includeInLayout)
                 continue;
                 
-            // Set the layout item's position
-            var y:Number = (contentHeight - layoutItem.actualSize.y) * vAlign;
-            layoutItem.setActualPosition(x, y);
+            // Set the layout element's position
+            var y:Number = (contentHeight - layoutElement.getLayoutHeight()) * vAlign;
+            layoutElement.setLayoutPosition(x, y);
             
             // Update maxX,Y, first,lastVisibleIndex, and x
-            var dx:Number = layoutItem.actualSize.x;
-            var dy:Number = layoutItem.actualSize.y;
+            var dx:Number = layoutElement.getLayoutWidth();
+            var dy:Number = layoutElement.getLayoutHeight();
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);            
             if (!clipContent || 
@@ -970,45 +970,45 @@ public class HorizontalLayout extends LayoutBase
         var spaceToDistribute:Number = width;
         var totalPercentWidth:Number = 0;
         var childInfoArray:Array = [];
-        var childInfo:HLayoutItemFlexChildInfo;
+        var childInfo:HLayoutElementFlexChildInfo;
         var newHeight:Number;
-        var layoutItem:ILayoutItem;
+        var layoutElement:ILayoutElement;
         
         // columnWidth can be expensive to compute
         var cw:Number = (variableColumnWidth) ? 0 : columnWidth;
-        var count:uint = target.numLayoutItems;
-        var totalCount:uint = count; // number of items to use in gap calculation
+        var count:uint = target.numLayoutElements;
+        var totalCount:uint = count; // number of elements to use in gap calculation
         
         // If the child is flexible, store information about it in the
         // childInfoArray. For non-flexible children, just set the child's
         // width and height immediately.
         for (var index:int = 0; index < count; index++)
         {
-            layoutItem = target.getLayoutItemAt(index);
-            if (!layoutItem || !layoutItem.includeInLayout)
+            layoutElement = target.getLayoutElementAt(index);
+            if (!layoutElement || !layoutElement.includeInLayout)
             {
                 totalCount--;
                 continue;
             }
             
-            if (hasPercentWidth(layoutItem) && variableColumnWidth)
+            if (hasPercentWidth(layoutElement) && variableColumnWidth)
             {
-                totalPercentWidth += layoutItem.percentWidth;
+                totalPercentWidth += layoutElement.percentWidth;
 
-                childInfo = new HLayoutItemFlexChildInfo();
-                childInfo.layoutItem = layoutItem;
-                childInfo.percent    = layoutItem.percentWidth;
-                childInfo.min        = layoutItem.minSize.x;
-                childInfo.max        = layoutItem.maxSize.x;
+                childInfo = new HLayoutElementFlexChildInfo();
+                childInfo.layoutElement = layoutElement;
+                childInfo.percent    = layoutElement.percentWidth;
+                childInfo.min        = layoutElement.getMinWidth();
+                childInfo.max        = layoutElement.getMaxWidth();
                 
                 childInfoArray.push(childInfo);                
             }
             else
             {
-                sizeLayoutItem(layoutItem, height, verticalAlign, 
+                sizeLayoutElement(layoutElement, height, verticalAlign, 
                                restrictedHeight, NaN, variableColumnWidth, cw);
                 
-                spaceToDistribute -= layoutItem.actualSize.x;
+                spaceToDistribute -= layoutElement.getLayoutWidth();
             } 
         }
         
@@ -1025,7 +1025,7 @@ public class HorizontalLayout extends LayoutBase
             
             for each (childInfo in childInfoArray)
             {
-                sizeLayoutItem(childInfo.layoutItem, height, verticalAlign, 
+                sizeLayoutElement(childInfo.layoutElement, height, verticalAlign, 
                                restrictedHeight, childInfo.size, 
                                variableColumnWidth, cw); 
             }
@@ -1038,10 +1038,10 @@ public class HorizontalLayout extends LayoutBase
 
 [ExcludeClass]
 
-import mx.layout.ILayoutItem;
+import mx.layout.ILayoutElement;
 import mx.containers.utilityClasses.FlexChildInfo;
 
-class HLayoutItemFlexChildInfo extends FlexChildInfo
+class HLayoutElementFlexChildInfo extends FlexChildInfo
 {
-    public var layoutItem:ILayoutItem;	
+    public var layoutElement:ILayoutElement;	
 }
