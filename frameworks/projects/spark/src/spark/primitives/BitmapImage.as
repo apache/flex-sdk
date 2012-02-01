@@ -177,7 +177,7 @@ public class BitmapImage extends GraphicElement
      */
     protected var _resizeMode:uint = _REPEAT_UINT;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="normal,repeat,scale")]
     
     /**
      *  The resizeMode determines how the bitmap fills in the dimensions. If you set the value
@@ -222,7 +222,7 @@ public class BitmapImage extends GraphicElement
     //  repeat
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="true,false")]
 
     /**
      *  Whether the bitmap is repeated to fill the area. Set to <code>true</code> to cause 
@@ -375,7 +375,7 @@ public class BitmapImage extends GraphicElement
 
     private var _smooth:Boolean = false;
 
-    [Inspectable(category="General")]   
+    [Inspectable(category="General", enumeration="true,false")]   
     
     /**
      *  @copy flash.display.GraphicsBitmapFill#smooth
