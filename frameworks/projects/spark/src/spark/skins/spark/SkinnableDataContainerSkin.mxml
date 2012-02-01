@@ -12,6 +12,8 @@
 -->
 
 <!--- The default skin class for the Spark SkinnableDataContainer container.  
+
+     @see spark.components.SkinnableDataContainer
         
       @langversion 3.0
       @playerversion Flash 10
