@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.filters {  
+package mx.filters {  
 
 import flash.display.Shader;
 import flash.display.ShaderInput;
