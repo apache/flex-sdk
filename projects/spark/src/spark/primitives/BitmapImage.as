@@ -393,18 +393,18 @@ public class BitmapImage extends GraphicElement
     [Inspectable(category="General", enumeration="clip,repeat,scale", defaultValue="scale")]
     
     /**
-     *  The fillMode determines how the bitmap fills in the dimensions. If you set the value
+     *  Determines how the bitmap fills in the dimensions. If you set the value
      *  of this property in a tag, use the string (such as "repeat"). If you set the value of 
      *  this property in ActionScript, use the constant (such as <code>BitmapFillMode.CLIP</code>).
      * 
-     *  When set to <code>BitmapFillMode.CLIP</code> ("clip"), the bitmap
-     *  ends at the edge of the region.
+     *  <p>When set to <code>BitmapFillMode.CLIP</code> ("clip"), the bitmap
+     *  ends at the edge of the region.</p>
      * 
-     *  When set to <code>BitmapFillMode.REPEAT</code> ("repeat"), the bitmap 
-     *  repeats to fill the region.
+     *  <p>When set to <code>BitmapFillMode.REPEAT</code> ("repeat"), the bitmap 
+     *  repeats to fill the region.</p>
      *
-     *  When set to <code>BitmapFillMode.SCALE</code> ("scale"), the bitmap
-     *  stretches to fill the region.
+     *  <p>When set to <code>BitmapFillMode.SCALE</code> ("scale"), the bitmap
+     *  stretches to fill the region.</p>
      * 
      *  @default <code>BitmapFillMode.SCALE</code>
      *  
@@ -580,7 +580,7 @@ public class BitmapImage extends GraphicElement
     [Inspectable(category="General", enumeration="stretch,letterbox", defaultValue="stretch")]
     
     /** 
-     *  Determines how the image is scaled when fillMode is set to
+     *  Determines how the image is scaled when <code>fillMode</code> is set to
      *  <code>BitmapFillMode.SCALE</code>.
      * 
      *  <p>When set to <code>BitmapScaleMode.STRETCH</code> ("stretch"),
@@ -817,9 +817,9 @@ public class BitmapImage extends GraphicElement
     /**
      *  A read-only flag denoting whether the currently loaded 
      *  content is considered loaded form a source whose security 
-     *  policy allows for cross domain image access.  When false, 
-     *  advanced bitmap operations such as high quality scaling, 
-     *  tiling, etc. are not permitted.  This flag is set once an
+     *  policy allows for cross domain image access.  
+     *  When <code>false</code>, advanced bitmap operations such as high quality scaling, 
+     *  and tiling are not permitted.  This flag is set once an
      *  image has been fully loaded. 
      *
      *  @default true
