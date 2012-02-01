@@ -1766,6 +1766,9 @@ public class VerticalLayout extends LayoutBase
         var targetWidth:Number = Math.max(0, layoutTarget.width - paddingLeft - paddingRight);
         var minVisibleY:Number = layoutTarget.verticalScrollPosition;
         var maxVisibleY:Number = minVisibleY + layoutTarget.height;
+
+        var contentHeight:Number;
+        var paddedContentHeight:Number;
        
         updateLLV(layoutTarget);
         
@@ -1776,7 +1779,13 @@ public class VerticalLayout extends LayoutBase
         // simply start from minVisibleY - SDK-22497.
         var startIndex:int = llv.indexOf(Math.max(0, minVisibleY + gap));
         if (startIndex == -1)
+        {
+            // No items are visible.  Just set the content size.
+            contentHeight = llv.end(llv.length - 1) - paddingTop;
+            paddedContentHeight = Math.ceil(contentHeight + paddingTop + paddingBottom);
+            layoutTarget.setContentSize(layoutTarget.contentWidth, paddedContentHeight);
             return;
+        }
                         
         var fixedRowHeight:Number = NaN;
         if (!variableRowHeight)
@@ -1829,7 +1838,7 @@ public class VerticalLayout extends LayoutBase
         }
         
         // Third pass: if neccessary, fix up y based on updated contentHeight
-        var contentHeight:Number = llv.end(llv.length - 1) - paddingTop;
+        contentHeight = llv.end(llv.length - 1) - paddingTop;
         var targetHeight:Number = Math.max(0, layoutTarget.height - paddingTop - paddingBottom);
         if (contentHeight < targetHeight)
         {
@@ -1861,7 +1870,7 @@ public class VerticalLayout extends LayoutBase
         // Make sure that if the content spans partially over a pixel to the right/bottom,
         // the content size includes the whole pixel.
         var paddedContentWidth:Number = Math.ceil(contentWidth + paddingLeft + paddingRight);
-        var paddedContentHeight:Number = Math.ceil(contentHeight + paddingTop + paddingBottom);
+        paddedContentHeight = Math.ceil(contentHeight + paddingTop + paddingBottom);
         layoutTarget.setContentSize(paddedContentWidth, paddedContentHeight);
     }
     
