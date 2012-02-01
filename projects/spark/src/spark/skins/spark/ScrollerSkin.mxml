@@ -16,32 +16,131 @@
     <Metadata>
         [HostComponent("flex.component.Scroller")]
     </Metadata> 
-    	
-    <VScrollBar id="verticalScrollBar"
-    	top="0" 
-        right="0" 
-        bottom="{(viewportHolder.contentWidth > viewportHolder.width) ? horizontalScrollBar.height : 0}"
-        visible="{viewportHolder.contentHeight > viewportHolder.height}"
-        includeInLayout="{viewportHolder.contentHeight > viewportHolder.height}"
-        pageSize="{viewportHolder.height}"
-        maximum="{viewportHolder.contentHeight - viewportHolder.height}" />
-
-    <HScrollBar id="horizontalScrollBar" 
-        left="0" 
-        right="{(viewportHolder.contentHeight > viewportHolder.height) ? verticalScrollBar.width : 0}" 
-        bottom="0"
-        visible="{viewportHolder.contentWidth > viewportHolder.width}"
-        includeInLayout="{viewportHolder.contentWidth > viewportHolder.width}"
-        pageSize="{viewportHolder.width}"
-        maximum="{viewportHolder.contentWidth - viewportHolder.width}" />
         
-    <Group 
-        id="viewportHolder"
-        top="0" 
-        left="0" 
-        right="{(viewportHolder.contentHeight > viewportHolder.height) ? verticalScrollBar.width : 0}" 
-        bottom="{(viewportHolder.contentWidth > viewportHolder.width) ? horizontalScrollBar.height : 0}"     
-        verticalScrollPosition="{verticalScrollBar.value}"
-        horizontalScrollPosition="{horizontalScrollBar.value}" />
+    <VScrollBar id="verticalScrollBar" />
+    <HScrollBar id="horizontalScrollBar" />
+
+    <Script>  
+      <![CDATA[
+    
+        import flex.layout.LayoutItemFactory;
+        import flex.intf.ILayoutItem;
+        import flex.intf.IViewport;
+        import mx.core.ScrollPolicy;
+
+        private static var SHOW_HSB:uint = 0x1;
+        private static var SHOW_VSB:uint = 0x2;
+        
+        private function showSBFlags(viewportW:Number, viewportH:Number):uint
+        {
+            var viewport:IViewport = hostComponent.viewport;
+            var showHSB:Boolean = false;
+            var showVSB:Boolean = false;
+         
+            switch(hostComponent.horizontalScrollPolicy) {
+                case ScrollPolicy.ON: 
+                    showHSB = true; 
+                    break;
+                case ScrollPolicy.OFF: 
+                    showHSB = false; 
+                    break;
+                default:
+                    showHSB = viewport.contentWidth > viewportW;           
+            } 
+            switch(hostComponent.verticalScrollPolicy) {
+               case ScrollPolicy.ON: 
+                    showVSB = true; 
+                    break;
+                case ScrollPolicy.OFF: 
+                    showVSB = false; 
+                    break;
+                default:
+                    showVSB = viewport.contentHeight > viewportH;           
+            }
+            return (showHSB ? SHOW_HSB : 0) | (showVSB ? SHOW_VSB : 0); 
+        }        
+            
+                
+        private function layoutItemFor(item:Object):ILayoutItem
+        {
+            return LayoutItemFactory.getLayoutItemFor(item);
+        }
+        
+        
+	    override protected function measure():void
+	    {
+            // TBD - what if viewport is null, scrollbars are optional skin parts
+            var viewportLI:ILayoutItem = layoutItemFor(hostComponent.viewport);
+            var measuredW:Number = viewportLI.preferredSize.x;
+            var measuredH:Number = viewportLI.preferredSize.y;
+            var minW:Number = viewportLI.minSize.x;
+            var minH:Number = viewportLI.minSize.y;
+            
+	        var sbFlags:uint = showSBFlags(measuredW, measuredH);
+	        var showHSB:Boolean = (sbFlags & SHOW_HSB) == SHOW_HSB;  
+	        var showVSB:Boolean = (sbFlags & SHOW_VSB) == SHOW_VSB;
+	        
+            if (showHSB)
+            {
+                var hsbLI:ILayoutItem = layoutItemFor(hostComponent.horizontalScrollBar);
+                measuredH += hsbLI.preferredSize.y;
+                minH += hsbLI.minSize.y;
+            }
+            if (showVSB)
+            {
+                var vsbLI:ILayoutItem = layoutItemFor(hostComponent.verticalScrollBar);
+                measuredW += vsbLI.preferredSize.x;
+                minW += vsbLI.minSize.x;
+            }
+            measuredWidth = Math.max(minW, measuredW);
+            measuredHeight = Math.max(minH, measuredH);
+            minWidth = minW;
+            minHeight = minH;
+	    }
+	    
+	    
+        override protected function updateDisplayList(w:Number, h:Number):void
+        {
+            var sbFlags:uint = showSBFlags(w, h);
+            var showHSB:Boolean = (sbFlags & SHOW_HSB) == SHOW_HSB;  
+            var showVSB:Boolean = (sbFlags & SHOW_VSB) == SHOW_VSB;
+            
+            // TBD - what if viewport is null, scrollbars are optional skin parts
+            var viewportLI:ILayoutItem = layoutItemFor(hostComponent.viewport);
+            var vsbLI:ILayoutItem = layoutItemFor(hostComponent.verticalScrollBar);
+            var hsbLI:ILayoutItem = layoutItemFor(hostComponent.horizontalScrollBar);
+
+            var vsbW:Number = vsbLI.preferredSize.x;
+            var hsbH:Number = hsbLI.preferredSize.y;
+            
+            var viewportW:Number = w - ((showVSB) ? vsbW : 0);
+            var viewportH:Number = h - ((showHSB) ? hsbH : 0);
+            viewportLI.setActualPosition(0,0);
+            viewportLI.setActualSize(viewportW, viewportH);
+
+            horizontalScrollBar.visible = showHSB;
+            if (showHSB)
+            {
+	            horizontalScrollBar.pageSize = viewportW;
+	            horizontalScrollBar.maximum = hostComponent.viewport.contentWidth - viewportW;
+	            hsbLI.setActualPosition(0, h - hsbH);
+	            hsbLI.setActualSize(viewportW, hsbH);
+            }
+
+            verticalScrollBar.visible = showVSB;
+            if (showVSB)
+            {
+	            verticalScrollBar.pageSize = viewportH;
+	            verticalScrollBar.maximum = hostComponent.viewport.contentHeight - viewportH;
+	            vsbLI.setActualPosition(w - vsbW, 0);
+	            vsbLI.setActualSize(vsbW, viewportH);
+            }
+            
+            // TBD if the value of showSBFlags() changes, then need to re-layout
+            setContentSize(w, h);
+        }
+        	              
+      ]]>
+    </Script>
 
 </Skin>
