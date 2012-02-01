@@ -266,7 +266,7 @@ public class VerticalLayout extends LayoutBase
      *  Sets the <code>rowCount</code> property and dispatches a
      *  PropertyChangeEvent.
      */
-    private function setRowCount(value:int):void
+    mx_internal function setRowCount(value:int):void
     {
         if (_rowCount == value)
             return;
@@ -834,7 +834,7 @@ public class VerticalLayout extends LayoutBase
      *  
      *  @private
      */
-    private function setIndexInView(firstIndex:int, lastIndex:int):void
+    mx_internal function setIndexInView(firstIndex:int, lastIndex:int):void
     {
         if ((_firstIndexInView == firstIndex) && (_lastIndexInView == lastIndex))
             return;
@@ -887,7 +887,7 @@ public class VerticalLayout extends LayoutBase
 
         return llv.getBounds(index);
     }
-    
+	
     /**
      *  Returns 1.0 if the specified index is completely in view, 0.0 if
      *  it's not, or a value between 0.0 and 1.0 that represents the percentage 
@@ -1236,7 +1236,7 @@ public class VerticalLayout extends LayoutBase
      *  @private
      *  @return rows to measure based on elements in layout and any requested/min/max rowCount settings. 
      */
-    private function getRowsToMeasure(numElementsInLayout:int):int
+    mx_internal function getRowsToMeasure(numElementsInLayout:int):int
     {
         var rowsToMeasure:int;
         if (requestedRowCount != -1)
@@ -1766,11 +1766,11 @@ public class VerticalLayout extends LayoutBase
         var targetWidth:Number = Math.max(0, layoutTarget.width - paddingLeft - paddingRight);
         var minVisibleY:Number = layoutTarget.verticalScrollPosition;
         var maxVisibleY:Number = minVisibleY + layoutTarget.height;
-
-        var contentHeight:Number;
-        var paddedContentHeight:Number;
        
-        updateLLV(layoutTarget);
+		var contentHeight:Number;
+		var paddedContentHeight:Number;
+		
+		updateLLV(layoutTarget);
         
         // Find the index of the first visible item. Since the item's bounds includes the gap
         // that follows it, we want to avoid looking at an item that has only a portion of
@@ -1779,13 +1779,13 @@ public class VerticalLayout extends LayoutBase
         // simply start from minVisibleY - SDK-22497.
         var startIndex:int = llv.indexOf(Math.max(0, minVisibleY + gap));
         if (startIndex == -1)
-        {
-            // No items are visible.  Just set the content size.
-            contentHeight = llv.end(llv.length - 1) - paddingTop;
-            paddedContentHeight = Math.ceil(contentHeight + paddingTop + paddingBottom);
-            layoutTarget.setContentSize(layoutTarget.contentWidth, paddedContentHeight);
-            return;
-        }
+		{
+			// No items are visible.  Just set the content size.
+			contentHeight = llv.end(llv.length - 1) - paddingTop;
+			paddedContentHeight = Math.ceil(contentHeight + paddingTop + paddingBottom);
+			layoutTarget.setContentSize(layoutTarget.contentWidth, paddedContentHeight);
+			return;
+		}
                         
         var fixedRowHeight:Number = NaN;
         if (!variableRowHeight)
@@ -1838,7 +1838,7 @@ public class VerticalLayout extends LayoutBase
         }
         
         // Third pass: if neccessary, fix up y based on updated contentHeight
-        contentHeight = llv.end(llv.length - 1) - paddingTop;
+		contentHeight = llv.end(llv.length - 1) - paddingTop;
         var targetHeight:Number = Math.max(0, layoutTarget.height - paddingTop - paddingBottom);
         if (contentHeight < targetHeight)
         {
@@ -1870,7 +1870,7 @@ public class VerticalLayout extends LayoutBase
         // Make sure that if the content spans partially over a pixel to the right/bottom,
         // the content size includes the whole pixel.
         var paddedContentWidth:Number = Math.ceil(contentWidth + paddingLeft + paddingRight);
-        paddedContentHeight = Math.ceil(contentHeight + paddingTop + paddingBottom);
+		paddedContentHeight = Math.ceil(contentHeight + paddingTop + paddingBottom);
         layoutTarget.setContentSize(paddedContentWidth, paddedContentHeight);
     }
     
@@ -2233,6 +2233,56 @@ public class VerticalLayout extends LayoutBase
             delta.x = 0;
         return delta;
     }
+
+    /**
+     *  @private
+     *  Identifies the element which has its "compare point" located closest 
+     *  to the specified position.
+     */
+    override mx_internal function getElementNearestScrollPosition(
+        position:Point,
+        elementComparePoint:String = "center"):int
+    {
+        if (!useVirtualLayout)
+            return super.getElementNearestScrollPosition(position, elementComparePoint);
+
+        var g:GroupBase = GroupBase(target);
+        if (!g || !llv)
+            return -1;
+        
+        // Find the element which overlaps with the position
+        var index:int = llv.indexOf(position.y);
+        
+        // Invalid index indicates that the position is past either end of the 
+        // laid-out elements.   In this case, choose either the first or last one.
+        if (index == -1)
+            index = position.y < 0 ? 0 : g.numElements - 1; 
+
+        var bounds:Rectangle = llv.getBounds(index);
+        var adjacentBounds:Rectangle;
+        
+        // If we're comparing with a bottom-edge point, check both the current element and the element
+        // at index-1 to see which is closest.
+        if ((elementComparePoint == "bottomLeft" || elementComparePoint == "bottomRight") && index > 0)
+        {
+            adjacentBounds = llv.getBounds(index - 1);
+            if (Point.distance(position,adjacentBounds.bottomRight) < Point.distance(position,bounds.bottomRight))
+                index--;
+        }
+        
+        // If we're comparing with a top-edge point, check both the current element and the element
+        // at index+1 to see which is closest.
+        if ((elementComparePoint == "topLeft" || elementComparePoint == "topRight") && index < g.numElements-1) 
+        {
+            adjacentBounds = llv.getBounds(index + 1);             
+            if (Point.distance(position,adjacentBounds.topLeft) < Point.distance(position,bounds.topLeft))
+                index++;
+        }
+        
+        return index;
+    }
+
+
 }
 }
 
