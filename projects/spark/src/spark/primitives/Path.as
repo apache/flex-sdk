@@ -75,14 +75,6 @@ public class Path extends FilledElement
     //  Variables
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  Vars holding the last scale set by setActualSize in order to
-     *  resize the path.  Used to detect when setActualSize should
-     *  call invalidateDisplayList(). 
-     */    
-    private var lastActualScaleX:Number = 0;
-    private var lastActualScaleY:Number = 0;
     
     /**
      *  Dirty flag to indicate when path data has changed. 
@@ -443,19 +435,24 @@ public class Path extends FilledElement
 
     private var _bounds:Rectangle;
 
+    private static var boundsShape:Shape = new Shape();
+    
     private function getBounds():Rectangle
     {
         if (_bounds)
             return _bounds;
 
-        var s:Shape = new Shape();
         
         // Draw element at (0,0):
-        drawElement(s.graphics);
+        renderGraphicsAtScale(0,0,1,1);
+        boundsShape.graphics.clear();
+        boundsShape.graphics.drawPath(graphicsPath.commands, graphicsPath.data, winding);
 
         // Get bounds
-        _bounds = s.getRect(s);
-
+        _bounds = boundsShape.getRect(boundsShape);
+        
+        graphicsPathChanged = true;
+        
         return _bounds;
     }
 
@@ -486,73 +483,73 @@ public class Path extends FilledElement
         measuredY = bounds.top;
     }
  
-    //----------------------------------
-    //  scaleX
-    //----------------------------------
-    private var _userScaleX:Number = 1;
-    
-    override public function set scaleX(value:Number):void
-    {
-        super.scaleX = value;
-        _userScaleX = value;
-    }
-    
-    //----------------------------------
-    //  scaleY
-    //----------------------------------
-    private var _userScaleY:Number = 1;
-    
-    override public function set scaleY(value:Number):void
-    {
-        super.scaleY = value;
-        _userScaleY = value;        
-    }
-    private function setActualScale(sX:Number,sY:Number):void
-    {
-        layoutFeatures.layoutScaleX = sX;
-        layoutFeatures.layoutScaleY = sY;
-        invalidateTransform(false,false);
-    }
 
+    //TODO: these are a short term fix for MAX to work around the fact
+    //that graphic elements can't differentiate between owning a display object
+    //and sharing one.  The problem is, a previous graphic element might be
+    //moving our display object around, messing with our drawX/drawY.
+    //after MAX, we'll be cleaning up the sharing code, and putting graphics caching
+    //into the GraphicElement base class.
+    private var _drawBounds:Rectangle = new Rectangle(); 
     /**
      * @inheritDoc
-     */
+     */    
     override protected function drawElement(g:Graphics):void
     {
+        //TODO: temporary check until DOsharing and graphics caching is cleaned up
+        //after MAX.  See above.
+        if(drawX !=  _drawBounds.x || drawY !=  _drawBounds.y ||
+            width !=  _drawBounds.width || height !=  _drawBounds.height)
+        {
+            graphicsPathChanged = true;
+            _drawBounds.x = drawX;
+            _drawBounds.y = drawY;
+            _drawBounds.width = width;
+            _drawBounds.height = height;            
+        }
+        
     	if (graphicsPathChanged)
     	{
-    		graphicsPath.commands = null;
-    		graphicsPath.data = null;
-    		
-	        // Always start by moving to 0, 0. Otherwise
-	        // the path will begin at the previous pen location
-	        // if it does not start with a MoveSegment.
-	        graphicsPath.moveTo(0, 0);
-	        var currentSubPathStartIndex:int = 0;
-	        
-	        for (var i:int = 0; i < segments.length; i++)
-	        {
-	            var segment:PathSegment = segments[i];
-	                    
-	            segment.draw(graphicsPath, (i > 0 ? segments[i - 1] : null));
-	            
-	            if (segment is CloseSegment)
-	            {   
-	                if (segments[currentSubPathStartIndex] is MoveSegment)
-	                    graphicsPath.lineTo(segments[currentSubPathStartIndex].x, segments[currentSubPathStartIndex].y)
-	                else
-	                    graphicsPath.lineTo(0, 0);
-	                    
-	                currentSubPathStartIndex = i+1;
-	            }
-	        }
-	        
+    	    var rcBounds:Rectangle = getBounds();
+    	    var sx:Number = width/((rcBounds.width == 0)? 0:rcBounds.width);
+    	    var sy:Number = height/((rcBounds.height == 0)? 0:rcBounds.height);
+    	        	    
+	        renderGraphicsAtScale(drawX,drawY,sx,sy);
 	        graphicsPathChanged = false;
      	}
      	 
      	g.drawPath(graphicsPath.commands, graphicsPath.data, winding);
     }
-    
+
+    protected function renderGraphicsAtScale(tx:Number,ty:Number,sx:Number,sy:Number):void    
+    {
+        graphicsPath.commands = null;
+        graphicsPath.data = null;
+        
+
+        // Always start by moving to drawX, drawY. Otherwise
+        // the path will begin at the previous pen location
+        // if it does not start with a MoveSegment.
+        graphicsPath.moveTo(tx, ty);
+        var currentSubPathStartIndex:int = 0;
+        
+        for (var i:int = 0; i < segments.length; i++)
+        {
+            var segment:PathSegment = segments[i];
+                    
+            segment.draw(graphicsPath, tx,ty,sx,sy, (i > 0 ? segments[i - 1] : null));
+            
+            if (segment is CloseSegment)
+            {   
+                if (segments[currentSubPathStartIndex] is MoveSegment)
+                    graphicsPath.lineTo(tx + segments[currentSubPathStartIndex].x*sx, ty + segments[currentSubPathStartIndex].y*sy);
+                else
+                    graphicsPath.lineTo(tx, ty);
+                    
+                currentSubPathStartIndex = i+1;
+            }
+        }
+    }
     /**
      * @inheritDoc
      */
@@ -565,13 +562,7 @@ public class Path extends FilledElement
         super.endDraw(g);
     } 
     
-    // TODO!!! For now we create a DO. Once we figure out how to apply transforms
-    // to each of the path segments, we can remove this. 
-    override public function get needsDisplayObject():Boolean
-    {
-        return true;
-    }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -585,6 +576,12 @@ public class Path extends FilledElement
     {
     	graphicsPathChanged = true;
         boundsChanged();
+    }
+
+    override protected function notifyElementLayerChanged():void
+    {
+        graphicsPathChanged = true;
+        super.notifyElementLayerChanged();
     }
     
     /**
@@ -605,169 +602,7 @@ public class Path extends FilledElement
     {
         _bounds = null;
     }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  ILayoutItem
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     * @inheritDoc
-     */
-    override protected function computeMatrix(actualMatrix:Boolean):Matrix
-    {
-        var tmpScaleX:Number = actualMatrix ? super.scaleX : _userScaleX;
-        var tmpScaleY:Number = actualMatrix ? super.scaleY : _userScaleY;
-
-        if (tmpScaleX == 1 && tmpScaleY == 1 && rotation == 0)
-            return null;
-
-        return MatrixUtil.composeMatrix(x, y, tmpScaleX, tmpScaleY,
-                                           rotation, transformX, transformY);
-    }
-
-    //----------------------------------
-    //  actualSize
-    //----------------------------------
-
-    /**
-     *  @inheritDoc
-     */
-    override public function get actualSize():Point
-    {
-        // Path always draws at bounds size
-        var bounds:Rectangle = getBounds();
-        return transformSizeForLayout(bounds.width, bounds.height, true /*actualMatrix*/);
-    }
-
-    /**
-     *  @inheritDoc
-     */
-    override public function setActualSize(width:Number = Number.NaN, height:Number = Number.NaN):Point
-    {
-        // Reset scale
-        setActualScale(_userScaleX,_userScaleY);
-
-        // TODO EGeorgie: arbitrary 2d transforms for paths
-        if (isNaN(width))
-            width = preferredSize.x;
-        if (isNaN(height))
-            height = preferredSize.y;
-
-        var w:Number = width;
-        var h:Number = height;
-        
-        var bounds:Rectangle = getBounds();
-        
-        var bw:Number = bounds.width;
-        var bh:Number = bounds.height;
-
-        // Actual size is always the bounds size
-        var oldWidth:Number = _width;
-        var oldHeight:Number = _height;
-        _width = bw;
-        _height = bh;
-        dispatchPropertyChangeEvent("width", oldWidth, _width);
-        dispatchPropertyChangeEvent("height", oldHeight, _height);
-            
-        // Make sure we don't divide by zero while calculating the scale
-        if (bw == 0)
-            bw = 1;
-        if (bh == 0)
-            bh = 1;
-
-        var stroke:IStroke = getStroke();
-        if (!stroke)
-        {
-            setActualScale(w / bw,  h / bh);    
-        }
-        else if (stroke.weight == 0 )
-        {
-            setActualScale( (w - 1) / bw, (h - 1) / bh);
-        }
-        else if(stroke.scaleMode != LineScaleMode.NORMAL)
-        {
-            var strokeWeight:Number = stroke.weight;
-            if (stroke.scaleMode == LineScaleMode.HORIZONTAL)
-            {
-                setActualScale(w / (bw + strokeWeight),(h - strokeWeight) / bh);
-            }
-            else if(stroke.scaleMode == LineScaleMode.VERTICAL)
-            {
-                setActualScale((w - strokeWeight) / bw,h / (bh + strokeWeight));                
-            }
-            else // LineScaleMode.NONE
-            {
-                setActualScale((w - strokeWeight) / bw,(h - strokeWeight) / bh);
-            }
-        }
-        else
-        {
-            var t:Number = stroke.weight;
-            t = t * t / 2;
-            var t1:Number = t / ( bw * bw);
-    
-            // TODO EGeorige: the following equations don't 
-            // account for skew components of the matrix.
-            // Also, this can be greatly optimized.            
-    
-            // (1) w = bw * x + sqrt( x^2 * t + y^2 * t)
-            // (2) h = bh * y + sqrt( x^2 * t + y^2 * t)
-            // (1) - (2):
-            // w - h = bw * x - bh * y
-            // x = ( w - h + bh * y ) / bw
-            // substitute back in (2):
-            // h - bh * y = sqrt( (w - h + bh * y )^2 * t / bw^2 + y^2 * t )
-            // h^2 - 2*h*bh*y +bh^2 * y^2 = ((w - h)^2 + 2 * (w-h) * bh * y + bh^2 * y^2 ) * t / bw^2 + y^2 * t
-            // bh^2 * y^2 - 2*h*bh*y  + h ^2 = t1 * (w - h)^2 + 2 * t1 * (w-h) * bh * y + t1 * bh^2 * y^2 + t * y^2
-            // bh^2 * y^2 - 2*h*bh*y  + h^2 = t1*(w-h)^2 + 2*t1*(w-h)*bh* y + (t1*bh^2 + t)*y^2
-            // (bh^2 - t1*bh^2 - t) * y^2 -(2*h*bh +2*t1*(w-h)*bh) * y + (h^2 - t1*(w-h)^2) = 0 
-            
-            if( bw != 0 && bh != 0)
-            {
-                var A:Number = bh * bh - t1 * bh * bh - t;   
-                var B:Number = -2 *h * bh - 2 * t1 * (w-h) * bh;            
-                var C:Number = h * h - t1 * (w-h) * (w-h);                
-    
-                var D:Number = B * B - 4 * A * C;
-                if (D >= 0)
-                {
-                    var y1:Number = (-B + Math.sqrt(D)) / (2 * A);
-                    var y2:Number = (-B - Math.sqrt(D)) / (2 * A);
-                    
-                    var x1:Number = ( w - h + bh * y1 ) / bw;
-                    var x2:Number = ( w - h + bh * y2 ) / bw;
-                    
-                    if (Math.abs(h - bh * y1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5 &&
-                        Math.abs(w - bw * x1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5)
-                    {
-                        setActualScale(x1,y1);
-                    }
-                    else
-                    if (Math.abs(h - bh * y2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5 &&
-                        Math.abs(w - bw * x2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5)
-                    {
-                        setActualScale(x2,y2);
-                    }
-                }
-            }
-        }
-
-        if (super.scaleX != lastActualScaleX || super.scaleY != lastActualScaleY)
-        {
-            lastActualScaleX = super.scaleX;
-            lastActualScaleY = super.scaleY;
-    
-            invalidateDisplayList();
-        }
-
-        // TODO EGeorgie: move to commit properties
-        // Finally, apply the transforms to the object
-        applyComputedTransform();
-
-        return actualSize;
-    }
+ 
 }
 
 }
