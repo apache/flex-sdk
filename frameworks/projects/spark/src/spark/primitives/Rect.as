@@ -11,7 +11,6 @@
 
 package spark.primitives
 {
-import flash.events.EventDispatcher;
 import flash.display.Graphics;
 import flash.geom.Matrix;
 import flash.geom.Point;
@@ -19,7 +18,10 @@ import flash.geom.Rectangle;
 
 import mx.core.mx_internal;
 import mx.utils.MatrixUtil;
+
 import spark.primitives.supportClasses.FilledElement;
+
+use namespace mx_internal;
 
 /**
  *  The Rect class is a filled graphic element that draws a rectangle.
@@ -146,7 +148,7 @@ public class Rect extends FilledElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override protected function drawElement(g:Graphics):void
+    override protected function draw(g:Graphics):void
     {
         if (radiusX != 0 && radiusY != 0)
             g.drawRoundRect(drawX, drawY, width, height, radiusX * 2, radiusY * 2);
@@ -161,12 +163,9 @@ public class Rect extends FilledElement
                                                         height:Number,
                                                         postLayoutTransform:Boolean = true):Number
     {
-        if (postLayoutTransform)
-        {
-            var m:Matrix = computeMatrix();
-            if (m)
-                width = getRoundRectBoundingBox(width, height, radiusX, radiusY, m).width;
-        }
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+            width = getRoundRectBoundingBox(width, height, radiusX, radiusY, 
+            								layoutFeatures.layoutMatrix).width;
 
         // Take stroke into account
         return width + getStrokeExtents(postLayoutTransform).x;
@@ -179,12 +178,9 @@ public class Rect extends FilledElement
                                                          height:Number,
                                                          postLayoutTransform:Boolean = true):Number
     {
-        if (postLayoutTransform)
-        {
-            var m:Matrix = computeMatrix();
-            if (m)
-                height = getRoundRectBoundingBox(width, height, radiusX, radiusY, m).height;
-        }
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+            height = getRoundRectBoundingBox(width, height, radiusX, radiusY, 
+            								 layoutFeatures.layoutMatrix).height;
 
         // Take stroke into account
         return height + getStrokeExtents(postLayoutTransform).y;
@@ -201,7 +197,7 @@ public class Rect extends FilledElement
     override public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
         var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
             return strokeExtents.x * -0.5 + this.x;
 
@@ -235,7 +231,7 @@ public class Rect extends FilledElement
     override public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
         var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
             return strokeExtents.y * -0.5 + this.y;
 
@@ -264,12 +260,9 @@ public class Rect extends FilledElement
     override public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
         var stroke:Number = -getStrokeExtents(postLayoutTransform).x * 0.5;
-        if (postLayoutTransform)
-        {
-            var m:Matrix = computeMatrix();
-            if (m)
-                return stroke + getRoundRectBoundingBox(width, height, radiusX, radiusY, m).x;  
-        }
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+            return stroke + getRoundRectBoundingBox(width, height, radiusX, radiusY, 
+            										layoutFeatures.layoutMatrix).x;  
 
         return stroke + this.x;
     }
@@ -280,12 +273,9 @@ public class Rect extends FilledElement
     override public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
     {
         var stroke:Number = - getStrokeExtents(postLayoutTransform).y * 0.5;
-        if (postLayoutTransform)
-        {
-            var m:Matrix = computeMatrix();
-            if (m)
-                return stroke + getRoundRectBoundingBox(width, height, radiusX, radiusY, m).y;
-        }
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+            return stroke + getRoundRectBoundingBox(width, height, radiusX, radiusY, 
+            										layoutFeatures.layoutMatrix).y;
 
         return stroke + this.y;
     }
