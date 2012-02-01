@@ -320,7 +320,7 @@ public class BitmapImage extends GraphicElement
     
     //--------------------------------------------------------------------------
     //
-    //  overriden methods from GraphicElement
+    //  overridden methods from GraphicElement
     //
     //--------------------------------------------------------------------------
     
