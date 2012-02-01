@@ -22,7 +22,7 @@ is defined by the ComboBoxTextInputSkin class.
 @playerversion AIR 1.5
 @productversion Flex 4
 -->
-<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
         xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabled=".5"> 
     
     <!-- host component -->
@@ -41,6 +41,14 @@ is defined by the ComboBoxTextInputSkin class.
             private var cornerRadiusChanged:Boolean;
             private var cornerRadius:Number = 0;            
             
+            /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
+            static private const contentFill:Array = ["bgFill"];
+            
+            /**
+             * @private
+             */
+            override public function get contentItems():Array {return contentFill};
+
             /**
              *  @private
              */
@@ -211,5 +219,5 @@ is defined by the ComboBoxTextInputSkin class.
                  left="0" right="19" top="0" bottom="0" 
                  skinClass="spark.skins.spark.ComboBoxTextInputSkin"/> 
     
-</s:Skin>
+</s:SparkSkin>
 
