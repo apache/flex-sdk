@@ -612,7 +612,6 @@ public class Rect extends FilledElement
             return Math.min(result, max);
         }
         
-        // FIXME (egeorgie): optimize to not allocate a new Rectangle?
         var boundingBox:Rectangle;
         var rX:Number;
         var rY:Number;
