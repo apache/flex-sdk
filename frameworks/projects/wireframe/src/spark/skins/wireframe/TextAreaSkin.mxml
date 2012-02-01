@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009"
+	  alpha.disabled="0.5">
+
+    <Metadata>
+    	[HostComponent("mx.components.FxTextArea")]
+    </Metadata> 
+    
+    <states>
+        <State name="enabledNoScrollBars" stateGroups="enabled"/>
+        <State name="enabledHScrollBar" stateGroups="enabled,hScrollBar"/>
+        <State name="enabledVScrollBar" stateGroups="enabled,vScrollBar"/>
+        <State name="enabledBothScrollBars" stateGroups="enabled,hScrollBar,vScrollBar"/>
+        <State name="disabledNoScrollBars" stateGroups="disabled"/>
+        <State name="disabledHScrollBar" stateGroups="disabled,hScrollBar"/>
+        <State name="disabledVScrollBar" stateGroups="disabled,vScrollBar"/>
+        <State name="disabledBothScrollBars" stateGroups="disabled,hScrollBar,vScrollBar"/>
+    </states>
+        
+	<Rect left="0" right="0" top="0" bottom="0">
+        <stroke>            
+            <SolidColorStroke color="0x5380D0" />
+        </stroke>
+        <fill>
+            <SolidColor color="0xFFFFFF"/>
+        </fill>
+    </Rect>
+
+    <TextView id="textView"
+              left="1" right="1" right.vScrollBar="16"
+              top="1" bottom="1" bottom.hScrollBar="16"
+              paddingLeft="4" paddingTop="4"
+              paddingRight="4" paddingBottom="4"
+              horizontalScrollPosition="{horizontalScrollBar.value}"
+              verticalScrollPosition="{verticalScrollBar.value}"/>
+
+    <FxVScrollBar id="verticalScrollBar" includeIn="vScrollBar"
+                right="1" top="1" bottom="1" bottom.hScrollBar="16"
+                maximum="{textView.contentHeight - textView.height}"
+                value="{textView.verticalScrollPosition}"
+                pageSize="{textView.height}"/>
+
+    <FxHScrollBar id="horizontalScrollBar" includeIn="hScrollBar"
+                left="1" bottom="1" right="1" right.vScrollBar="16"
+                maximum="{textView.contentWidth - textView.width}"
+                value="{textView.horizontalScrollPosition}"
+                pageSize="{textView.width}"/>
+    
+</Skin>
