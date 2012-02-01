@@ -99,6 +99,7 @@ use namespace mx_internal;
  *    paddingLeft="0"
  *    paddingRight="0"
  *    paddingTop="0"
+ *    requestedMaxRowCount="-1"
  *    requestedMinRowCount="-1"
  *    requestedRowCount="-1"
  *    rowHeight="<i>calculated</i>"
@@ -532,6 +533,52 @@ public class VerticalLayout extends LayoutBase
     }    
     
     //----------------------------------
+    //  requestedMaxRowCount
+    //----------------------------------
+    
+    private var _requestedMaxRowCount:int = -1;
+    
+    [Inspectable(category="General", minValue="-1")]
+    
+    /**
+     *  The measured height of this layout is large enough to display 
+     *  at most <code>requestedMaxRowCount</code> layout elements. 
+     * 
+     *  <p>If <code>requestedRowCount</code> is set, then
+     *  this property has no effect.</p>
+     *
+     *  <p>If the actual size of the container has been explicitly set,
+     *  then this property has no effect.</p>
+     *
+     *  @default -1
+     *  @see #requestedRowCount
+     *  @see #requestedMinRowCount
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get requestedMaxRowCount():int
+    {
+        return _requestedMaxRowCount;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set requestedMaxRowCount(value:int):void
+    {
+        if (_requestedMaxRowCount == value)
+            return;
+        
+        _requestedMaxRowCount = value;
+        
+        if (target)
+            target.invalidateSize();
+    }    
+    
+    //----------------------------------
     //  requestedMinRowCount
     //----------------------------------
 
@@ -550,6 +597,8 @@ public class VerticalLayout extends LayoutBase
      *  then this property has no effect.</p>
      *
      *  @default -1
+     *  @see #requestedRowCount
+     *  @see #requestedMaxRowCount
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -592,9 +641,11 @@ public class VerticalLayout extends LayoutBase
      * 
      *  <p>If the actual size of the container has been explicitly set,
      *  then this property has no effect.</p>
-     * 
+     *
      *  @default -1
-     *  
+     *  @see #requestedMinRowCount
+     *  @see #requestedMaxRowCount
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1178,6 +1229,26 @@ public class VerticalLayout extends LayoutBase
 
     /**
      *  @private
+     *  @return rows to measure based on elements in layout and any requested/min/max rowCount settings. 
+     */
+    private function getRowsToMeasure(numElementsInLayout:int):int
+    {
+        var rowsToMeasure:int;
+        if (requestedRowCount != -1)
+            rowsToMeasure = requestedRowCount;
+        else
+        {
+            rowsToMeasure = numElementsInLayout;
+            if (requestedMaxRowCount != -1)
+                rowsToMeasure = Math.min(requestedMaxRowCount, rowsToMeasure);
+            if (requestedMinRowCount != -1)
+                rowsToMeasure = Math.max(requestedMinRowCount, rowsToMeasure);
+        }
+        return rowsToMeasure;
+    }
+
+    /**
+     *  @private
      * 
      *  Compute exact values for measuredWidth,Height and measuredMinWidth,Height.
      * 
@@ -1233,8 +1304,8 @@ public class VerticalLayout extends LayoutBase
         }
         
         // Calculate the total number of rows to measure
-        var rowsToMeasure:int = (requestedRowCount != -1) ? requestedRowCount : 
-                                                            Math.max(requestedMinRowCount, numElementsInLayout);
+        var rowsToMeasure:int = getRowsToMeasure(numElementsInLayout);
+
         // Do we need to measure more rows?
         if (rowsMeasured < rowsToMeasure)
         {
@@ -1339,8 +1410,7 @@ public class VerticalLayout extends LayoutBase
     private function measureVirtual(layoutTarget:GroupBase):void
     {
         var eltCount:int = layoutTarget.numElements;
-        var measuredEltCount:int = (requestedRowCount != -1) ? requestedRowCount : 
-                                                               Math.max(requestedMinRowCount, eltCount);
+        var measuredEltCount:int = getRowsToMeasure(eltCount);
         
         var hPadding:Number = paddingLeft + paddingRight;
         var vPadding:Number = paddingTop + paddingBottom;
