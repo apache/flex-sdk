@@ -54,7 +54,7 @@ public class Ellipse extends FilledElement
 	 */
 	override protected function drawElement(g:Graphics):void
 	{
-		g.drawEllipse(0, 0, width, height);
+		g.drawEllipse(drawX, drawY, width, height);
 	}
 }
 
