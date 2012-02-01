@@ -50,8 +50,8 @@ internal class WireframeClasses
 	import spark.skins.wireframe.ScrollBarLeftButtonSkin; ScrollBarLeftButtonSkin;
 	import spark.skins.wireframe.ScrollBarRightButtonSkin; ScrollBarRightButtonSkin;
 	import spark.skins.wireframe.ScrollBarUpButtonSkin; ScrollBarUpButtonSkin;
-	import spark.skins.wireframe.SpinnerDecrButtonSkin; SpinnerDecrButtonSkin;
-	import spark.skins.wireframe.SpinnerIncrButtonSkin; SpinnerIncrButtonSkin;
+	import spark.skins.wireframe.SpinnerDecrementButtonSkin; SpinnerDecrementButtonSkin;
+	import spark.skins.wireframe.SpinnerIncrementButtonSkin; SpinnerIncrementButtonSkin;
 	import spark.skins.wireframe.SpinnerSkin; SpinnerSkin;
 	import spark.skins.wireframe.TextAreaSkin; TextAreaSkin;
 	import spark.skins.wireframe.TextInputSkin; TextInputSkin;
