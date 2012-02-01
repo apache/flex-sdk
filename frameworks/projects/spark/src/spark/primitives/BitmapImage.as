@@ -300,13 +300,18 @@ public class BitmapGraphic extends GraphicElement
             _scaleGridTop = NaN;
             _scaleGridBottom = NaN;
             
-            // This code stolen from BitmapFill. The only change is to make the BitmapData transparent.
             if (value is Class)
             {
                 var cls:Class = Class(value);
-                tmpSprite = new cls();
+                value = new cls();
             }
-            else if (value is BitmapData)
+            else if (value is String)
+            {
+                var tmpClass:Class = Class(getDefinitionByName(String(value)));
+                value = new tmpClass();
+            }
+            
+            if (value is BitmapData)
             {
                 bitmapData = value as BitmapData;
             }
@@ -317,11 +322,6 @@ public class BitmapGraphic extends GraphicElement
             else if (value is DisplayObject)
             {
                 tmpSprite = value as DisplayObject;
-            }
-            else if (value is String)
-            {
-                var tmpClass:Class = Class(getDefinitionByName(String(value)));
-                tmpSprite = new tmpClass();
             }
             else
             {
