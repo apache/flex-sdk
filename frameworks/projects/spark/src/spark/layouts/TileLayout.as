@@ -1211,7 +1211,7 @@ public class TileLayout extends LayoutBase
             {
                 visibleStartIndex = (visibleRow0 * _columnCount);
                 visibleEndIndex = Math.min(eltCount - 1, (visibleRow1 * _columnCount) + visibleCol1); 
-                visibleStartY = visibleRow0 * rwg;                
+                visibleStartY = visibleRow0 * rwg;
             }
             else
             {
@@ -1235,19 +1235,17 @@ public class TileLayout extends LayoutBase
      {
         var oldVisibleStartIndex:int = visibleStartIndex;
         var oldVisibleEndIndex:int = visibleEndIndex;
-        calculateDisplayParameters(unscaledWidth, unscaledHeight);
+        calculateDisplayParameters(unscaledWidth, unscaledHeight);  // compute new visibleStart,EndIndex values
         
-        // We're responsible for the laying *all* of the elements requested
+        // We're responsible for laying out *all* of the elements requested
         // with getVirtualElementAt(), even if they don't fall within the final
         // visible range.  Hide any extra ones.  On the next layout pass, they'll
         // be added to DataGroup::freeRenderers
         
         var layoutTarget:GroupBase = target;
-        var start:int = Math.min(visibleStartIndex, oldVisibleStartIndex);
-        var end:int = Math.max(visibleEndIndex, oldVisibleEndIndex);
-        for(var i:int = start; i <= end; i++)
+        for(var i:int = oldVisibleStartIndex; i <= oldVisibleEndIndex; i++)
         {
-            if (i == visibleStartIndex)
+            if ((i >= visibleStartIndex) && (i <= visibleEndIndex)) // skip past the visible range
             {
                 i = visibleEndIndex;
                 continue;
