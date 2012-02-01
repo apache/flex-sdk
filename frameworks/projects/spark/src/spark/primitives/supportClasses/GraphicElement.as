@@ -16,11 +16,12 @@ import flash.display.BitmapData;
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.display.Shape;
+import flash.display.Shape; 
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
+import flash.filters.ShaderFilter;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Matrix3D;
@@ -39,7 +40,7 @@ import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
-import mx.events.FlexEvent;
+import mx.events.FlexEvent; 
 import mx.events.PropertyChangeEvent;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
@@ -53,6 +54,15 @@ import spark.components.supportClasses.InvalidatingSprite;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.MaskType;
+import spark.primitives.shaders.ColorBurnShader;
+import spark.primitives.shaders.ColorDodgeShader;
+import spark.primitives.shaders.ColorShader;
+import spark.primitives.shaders.ExclusionShader;
+import spark.primitives.shaders.HueShader;
+import spark.primitives.shaders.LuminosityShader;
+import spark.primitives.shaders.SaturationShader;
+import spark.primitives.shaders.SoftLightShader;
+import spark.primitives.shaders.LuminosityMaskShader; 
 
 use namespace mx_internal;
 
@@ -443,11 +453,12 @@ public class GraphicElement extends EventDispatcher
      *  Storage for the blendMode property.
      */
     private var _blendMode:String = "auto"; 
-    
-    /**
+	
+	/**
      *  @private
      */
     private var blendModeChanged:Boolean;
+	private var blendShaderChanged:Boolean; 
     private var blendModeExplicitlySet:Boolean = false;
 
     [Inspectable(category="General", enumeration="auto,add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay,colordodge,colorburn,exclusion,softlight,hue,saturation,color,luminosity", defaultValue="auto")]
@@ -477,16 +488,6 @@ public class GraphicElement extends EventDispatcher
     {
         if (blendModeExplicitlySet && value == _blendMode)
             return;
-        
-        // FIXME (dsubrama): Temporarily exit when blendMode is set
-    	// to one of the AIM blendModes; support for this will come
-    	// shortly. 
-        if (value == "colordodge" || 
-        	value =="colorburn" || value =="exclusion" || 
-        	value =="softlight" || value =="hue" || 
-        	value =="saturation" || value =="color" 
-        	|| value =="luminosity")
-            return;
 
         //The default blendMode in FXG is 'auto'. There are only
         //certain cases where this results in a rendering difference,
@@ -514,14 +515,22 @@ public class GraphicElement extends EventDispatcher
         }
         else 
         {
-            var previous:Boolean = needsDisplayObject;
             _blendMode = value;
-            if (previous != needsDisplayObject)
-                invalidateDisplayObjectSharing();
-        
-            blendModeExplicitlySet = true;
-            blendModeChanged = true;
-            invalidateProperties();   
+            
+			// If one of the non-native Flash blendModes is set, 
+			// record the new value and set the appropriate 
+			// blendShader on the display object. 
+			if (value == "colordodge" || 
+				value =="colorburn" || value =="exclusion" || 
+				value =="softlight" || value =="hue" || 
+				value =="saturation" || value =="color" 
+				|| value =="luminosity")
+				blendShaderChanged = true;
+			else 
+				blendModeChanged = true;
+            	
+			blendModeExplicitlySet = true;
+			invalidateProperties(); 
         }
     }
 
@@ -1208,16 +1217,10 @@ public class GraphicElement extends EventDispatcher
      */
     public function set maskType(value:String):void
     {
-    	// FIXME (dsubrama): Temporarily exit when maskType is
-    	// set to luminosity; support for this will come shortly. 
-    	if (value == "luminosity")
-    		return; 
-    	
         if (_maskType == value)
             return;
 
         _maskType = value;
-
         maskTypeChanged = true;
         invalidateProperties();
     }
@@ -3141,6 +3144,32 @@ public class GraphicElement extends EventDispatcher
                 //notifyElementLayerChanged(); // Trigger recreation of the layers
                 drawnDisplayObject.cacheAsBitmap = true;
             }
+			else if (_maskType == MaskType.LUMINOSITY)
+			{
+				// Sets up the mask's mode property based on 
+				// whether the luminosityClip and 
+				// luminosityInvert properties are on or off. 
+				var mode:int;
+				if (luminosityClip && !luminosityInvert) 
+					mode = 0; 
+				if (luminosityClip && luminosityInvert) 
+					mode = 1; 
+				if (!luminosityClip && !luminosityInvert) 
+					mode = 2; 
+				if (!luminosityClip && luminosityInvert) 
+					mode = 3;
+				
+				_mask.cacheAsBitmap = true;
+				
+				// Create the luminosityMask shader, apply the correct mode to it, 
+				// and create the filter
+				var luminosityMaskShader:LuminosityMaskShader = new LuminosityMaskShader();
+				luminosityMaskShader.mode = mode;
+				var maskFilter:ShaderFilter = new ShaderFilter(luminosityMaskShader);
+				
+				// Apply the filter to the mask
+				_mask.filters = [maskFilter];
+			}
         }
     }
 
@@ -3407,7 +3436,7 @@ public class GraphicElement extends EventDispatcher
                     displayObject.alpha = _effectiveAlpha;
             }  
 
-            if (blendModeChanged || displayObjectChanged)
+            if (blendModeChanged || displayObjectChanged && !blendShaderChanged)
             {
                 blendModeChanged = false;
                 if (_blendMode == "auto" && alpha < 1 && alpha > 0)
@@ -3415,8 +3444,36 @@ public class GraphicElement extends EventDispatcher
                 else if (_blendMode == "auto" && alpha == 1 || alpha == 0)
                     displayObject.blendMode = BlendMode.NORMAL;
                 else 
-                    displayObject.blendMode = _blendMode; 
+                    displayObject.blendMode = _blendMode; 				
             }
+			
+			if (blendShaderChanged || displayObjectChanged)
+			{
+				// The graphic element's blendMode was set to a non-Flash 
+				// blendMode. We mimic the look by instantiating the 
+				// appropriate shader class and setting the blendShader
+				// property on the displayObject. 
+				blendShaderChanged = false; 
+				switch(_blendMode)
+				{
+					case "color": 
+						displayObject.blendShader = new ColorShader(); 
+					case "colordodge": 
+						displayObject.blendShader = new ColorDodgeShader(); 
+					case "colorburn": 
+						displayObject.blendShader = new ColorBurnShader(); 
+					case "exclusion": 
+						displayObject.blendShader = new ExclusionShader();
+					case "hue": 
+						displayObject.blendShader = new HueShader(); 
+					case "luminosity":
+						displayObject.blendShader = new LuminosityShader(); 
+					case "saturation": 
+						displayObject.blendShader = new SaturationShader(); 
+					case "softlight":
+						displayObject.blendShader = new SoftLightShader(); 
+				}
+			}
 
             if (filtersChanged || displayObjectChanged)
             {
