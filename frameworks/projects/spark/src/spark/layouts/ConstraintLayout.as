@@ -35,6 +35,11 @@ public class ConstraintLayout extends LayoutBase
         return !isNaN(elementInfo.left) && !isNaN(elementInfo.right);
     }
     
+    /**
+     *  @private
+     * 
+     *  @return true if the constraints determine the element's height;
+     */
     private static function constraintsDetermineHeight(elementInfo:ElementConstraintInfo):Boolean
     {
         return !isNaN(elementInfo.top) && !isNaN(elementInfo.bottom);
@@ -79,6 +84,14 @@ public class ConstraintLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function ConstraintLayout()
     {
         super();
@@ -95,13 +108,13 @@ public class ConstraintLayout extends LayoutBase
         ResourceManager.getInstance();
     
     // Arrays that keep track of children spanning
-    // content size columns or rows or whether the elements don't
-    // use columns or rows at all
+    // content size columns or rows or whether the 
+    // elements don't use columns or rows at all.
     private var colSpanElements:Vector.<ElementConstraintInfo> = null;
     private var rowSpanElements:Vector.<ElementConstraintInfo> = null;
     private var otherElements:Vector.<ElementConstraintInfo> = null;
     
-    private var constraintCache:Dictionary = new Dictionary(true);
+    private var constraintCache:Dictionary = null;
     
     //--------------------------------------------------------------------------
     //
@@ -115,12 +128,20 @@ public class ConstraintLayout extends LayoutBase
     
     private var _constraintColumns:Vector.<ConstraintColumn> = new Vector.<ConstraintColumn>(0, true);
     
+    /**
+     *  A Vector of ConstraintColumn instances that partition the target container.
+     *  The ConstraintColumn instance at index 0 is the left-most column;
+     *  indices increase from left to right. 
+     */
     public function get constraintColumns():Vector.<ConstraintColumn>
     {
         // make defensive copy
         return Vector.<ConstraintColumn>(_constraintColumns);
     }
     
+    /**
+     *  @private
+     */
     public function set constraintColumns(value:Vector.<ConstraintColumn>):void
     {   
         // clear constraintColumns
@@ -153,11 +174,19 @@ public class ConstraintLayout extends LayoutBase
     
     private var _constraintRows:Vector.<ConstraintRow> = new Vector.<ConstraintRow>(0, true);
     
+    /**
+     *  A Vector of ConstraintRow instances that partition the target container.
+     *  The ConstraintRow instance at index 0 is the top-most column;
+     *  indices increase from top to bottom. 
+     */
     public function get constraintRows():Vector.<ConstraintRow> 
     {
         return Vector.<ConstraintRow>(_constraintRows);
     }
     
+    /**
+     *  @private
+     */
     public function set constraintRows(value:Vector.<ConstraintRow>):void
     {
         // clear constraintRows
@@ -186,8 +215,7 @@ public class ConstraintLayout extends LayoutBase
     
     /**
      *  @private
-     * 
-     *  resets the columns'/rows' targets.
+     *  Resets the target on the constraintColumns and constraintRows.
      */
     override public function set target(value:GroupBase):void
     {
@@ -210,10 +238,14 @@ public class ConstraintLayout extends LayoutBase
         }
     }
 
+    /**
+     *  @private
+     *  Used by FormItemLayout to implement its updateDisplayList.
+     */
     mx_internal function checkUseVirtualLayout():void
     {
         if (useVirtualLayout)
-            throw new Error(ResourceManager.getInstance().getString("layout", "basicLayoutNotVirtualized"));
+            throw new Error(ResourceManager.getInstance().getString("layout", "constraintLayoutNotVirtualized"));
     }
 
     /**
@@ -251,8 +283,10 @@ public class ConstraintLayout extends LayoutBase
         layoutTarget.measuredWidth = Math.ceil(width);
         layoutTarget.measuredHeight = Math.ceil(height);
         
-        // FIXME (klin): measuredMinWidth/Height?
+        // FIXME (klin): measuredMinWidth/Height? I think we only have to do this for other content,
+        // since the columns and rows are fixed at this point.
         
+        // clear out cache
         colSpanElements = null;
         rowSpanElements = null;
         otherElements = null;
@@ -262,9 +296,9 @@ public class ConstraintLayout extends LayoutBase
     /**
      *  @private
      * 
-     *  1) Reparse element constraints because they may have changed.
-     *  2) Resize the columns and rows based on this information
-     *  3) Size and position the elements based on the available space.
+     *  1) Re-parse element constraints because they may have changed.
+     *  2) Resize and reposition the columns and rows based on new constraints.
+     *  3) Size and position the elements in the available space.
      */
     override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
@@ -338,7 +372,8 @@ public class ConstraintLayout extends LayoutBase
     }
     
     /**
-     *  wrapper for parsing all the element constraints
+     *  @private
+     *  Iterates over elements and calls parseElementConstraints on each.
      */
     private function parseConstraints():void
     {
@@ -365,21 +400,20 @@ public class ConstraintLayout extends LayoutBase
      *  @private
      *  This function parses the constraints of a single element, creates an
      *  ElementConstraintInfo object for the element, and throws errors if the
-     *  columns or rows are not found.
+     *  columns or rows are not found for each constraint.
      */
     private function parseElementConstraints(layoutElement:ILayoutElement):void
     {
-        // parse constraint values
-        //Variables to track the offsets
+        // Variables to track the offsets
         var left:Number;
         var right:Number;
         var top:Number;
         var bottom:Number;
         var baseline:Number;
         
-        //Variables to track the boundaries from which
-        //the offsets are calculated from. If null, the 
-        //boundary is the parent container edge. 
+        // Variables to track the boundaries from which
+        // the offsets are calculated from. If null, the 
+        // boundary is the parent container edge. 
         var leftBoundary:String;
         var rightBoundary:String;
         var topBoundary:String;
@@ -451,7 +485,9 @@ public class ConstraintLayout extends LayoutBase
             topBoundary, bottomBoundary, baselineBoundary);
         constraintCache[layoutElement] = elementInfo;
         
-        // put into either column/row buckets or no column/row constraints buckets.
+        // If some pair of boundaries don't exist, we will need to measure
+        // the container size based on the element's other properties like
+        // x, y, width, height.
         var i:Number;
         if (!(leftBoundary || rightBoundary) ||
             !(topBoundary || bottomBoundary) ||
@@ -462,7 +498,8 @@ public class ConstraintLayout extends LayoutBase
             
             otherElements.push(elementInfo);
         }
-            
+        
+        // match columns
         if (leftBoundary || rightBoundary)
         {
             var numColumns:Number = _constraintColumns.length;
@@ -495,7 +532,6 @@ public class ConstraintLayout extends LayoutBase
                 }
             }
             
-            
             // can we assume rightIndex >= leftIndex?
             if (rightBoundary)
             {
@@ -520,8 +556,8 @@ public class ConstraintLayout extends LayoutBase
             }
         }
         
+        // match rows.
         var numRows:Number = _constraintRows.length;
-        
         if (topBoundary || bottomBoundary || baselineBoundary)
         {
             var rowid:String;
@@ -601,12 +637,10 @@ public class ConstraintLayout extends LayoutBase
     
     /** 
      *  @private
-     *  This function measures the ConstraintColumns and 
-     *  and ConstraintRows partitioning the target and
-     *  sets their x/y positions.
+     *  This function measures the ConstraintColumns partitioning
+     *  the target and sets their x positions.
      * 
-     *  The algorithm works like this (in the horizontal 
-     *  direction):
+     *  The algorithm works like this:
      *  1. Fixed columns honor their pixel values.
      * 
      *  2. Content sized columns whose children span
@@ -713,19 +747,14 @@ public class ConstraintLayout extends LayoutBase
                     for (j = rightIndex; j >= 0; j--)
                     {
                         col = _constraintColumns[j];
-                        if (col.contentSize)
+                        
+                        if (!isNaN(col.explicitWidth))
+                            maxExtent -= col.width;
+                        
+                        if (col.contentSize || maxExtent < 0)
                         {
                             leftIndex = j;
                             break;
-                        }
-                        else if (!isNaN(col.explicitWidth))
-                        {
-                            maxExtent -= col.width;
-                            if (maxExtent < 0)
-                            {
-                                leftIndex = j;
-                                break;
-                            }
                         }
                     }
                 }
@@ -737,19 +766,14 @@ public class ConstraintLayout extends LayoutBase
                     for (j = leftIndex; j < numCols; j++)
                     {
                         col = _constraintColumns[j];
-                        if (col.contentSize)
+
+                        if (!isNaN(col.explicitWidth))
+                            maxExtent -= col.width;
+                        
+                        if (col.contentSize || maxExtent < 0)
                         {
                             rightIndex = j;
                             break;
-                        }
-                        else if (!isNaN(col.explicitWidth))
-                        {
-                            maxExtent -= col.width;
-                            if (maxExtent < 0)
-                            {
-                                rightIndex = j;
-                                break;
-                            }
                         }
                     }
                 }
@@ -794,7 +818,9 @@ public class ConstraintLayout extends LayoutBase
     
     /**
      *  @private
-     *  synonymous to measureAndPositionColumns(), but with added baseline constraint.
+     *  Synonymous to measureAndPositionColumns(), but with added baseline constraint.
+     *  Baseline is only included in the measurement if at least one of the element's
+     *  top or bottom constraint doesn't exist.
      */
     private function measureAndPositionRows():Number
     {
@@ -865,13 +891,15 @@ public class ConstraintLayout extends LayoutBase
                         bottomIndex = numRows - 1; // constrained to parent
                 }
                 
-                // baseline could win if either are less than 0
+                // Only include baseline if at least one of top or bottom don't
+                // exist.
                 if (!isNaN(elementInfo.baseline) && (topIndex < 0 || bottomIndex < 0))
                 {
                     extY += elementInfo.baseline - layoutElement.baselinePosition;
                     
                     if (!isNaN(elementInfo.top))
                         extY -= elementInfo.top;
+                    
                     if (elementInfo.baselineBoundary)
                         topIndex = elementInfo.baselineIndex;
                     else
@@ -892,19 +920,14 @@ public class ConstraintLayout extends LayoutBase
                     for (j = bottomIndex; j >= 0; j--)
                     {
                         row = _constraintRows[j];
-                        if (row.contentSize)
+
+                        if (!isNaN(row.explicitHeight))
+                            maxExtent -= row.height;
+                        
+                        if (row.contentSize || maxExtent < 0)
                         {
                             topIndex = j;
                             break;
-                        }
-                        else if (!isNaN(row.explicitHeight))
-                        {
-                            maxExtent -= row.height;
-                            if (maxExtent < 0)
-                            {
-                                topIndex = j;
-                                break;
-                            }
                         }
                     }
                 }
@@ -916,19 +939,14 @@ public class ConstraintLayout extends LayoutBase
                     for (j = topIndex; j < numRows; j++)
                     {
                         row = _constraintRows[j];
-                        if (row.contentSize)
+
+                        if (!isNaN(row.explicitHeight))
+                            maxExtent -= row.height;
+                        
+                        if (row.contentSize || maxExtent < 0)
                         {
                             bottomIndex = j;
                             break;
-                        }
-                        else if (!isNaN(row.explicitHeight))
-                        {
-                            maxExtent -= row.height;
-                            if (maxExtent < 0)
-                            {
-                                bottomIndex = j;
-                                break;
-                            }
                         }
                     }
                 }
@@ -972,6 +990,7 @@ public class ConstraintLayout extends LayoutBase
     }
     
     /**
+     *  @private
      *  Measures the size of target based on content not included in the columns and rows.
      *  Basically, applies BasicLayout to other content to determine measured size.
      */
@@ -988,11 +1007,11 @@ public class ConstraintLayout extends LayoutBase
             var elementInfo:ElementConstraintInfo = otherElements[i];
             var layoutElement:ILayoutElement = elementInfo.layoutElement;
             
-            // Only measure if not constrained to columns
+            // Only measure width if not constrained to columns.
             if (!(elementInfo.leftBoundary || elementInfo.rightBoundary))
             {
-                var left:Number      = elementInfo.left;
-                var right:Number     = elementInfo.right;
+                var left:Number = elementInfo.left;
+                var right:Number = elementInfo.right;
                 var extX:Number;
                 
                 if (!isNaN(left) && !isNaN(right))
@@ -1023,7 +1042,7 @@ public class ConstraintLayout extends LayoutBase
                 minWidth = Math.max(minWidth, extX + elementMinWidth);
             }
             
-            // only measure if not constrained to rows.
+            // only measure height if not constrained to rows.
             var hasTopOrBottom:Boolean = !(elementInfo.topBoundary || elementInfo.bottomBoundary);
             var hasBaseline:Boolean = !elementInfo.baselineBoundary;
             
@@ -1080,19 +1099,24 @@ public class ConstraintLayout extends LayoutBase
         return new Point(Math.max(width, minWidth), Math.max(height, minHeight));
     }
     
+    /**
+     *  @private
+     *  Sizes and positions the element based on the given size of the container
+     *  and the element's constraints.
+     * 
+     *  1) Retrieves element constraints from the constraint cache.
+     *  2) Determines the x and y boundaries of each side.
+     *  3) Sizes the element based on constraints and its preferred
+     *     size. The precedence for sizing is as follows: percent, 
+     *     top and bottom constraints, preferred size.
+     *  4) Positions the element based on its constraints. The precedence
+     *     for positioning is as follows: baseline, left and top, right and bottom,
+     *     x and y.  
+     */
     private function applyConstraintsToElement(unscaledWidth:Number,
                                                unscaledHeight:Number,
                                                layoutElement:ILayoutElement):void
     {
-        //-------------------
-        // Fixed Width
-        //
-        // To layout children:
-        //        grab constraints from filled out cache
-        //         Assuming constraints are good...
-        //        Size the child based on constraints.
-        //         Position the child based on left and top constraint
-        //-------------------
         var elementInfo:ElementConstraintInfo = constraintCache[layoutElement];
         
         var left:Number = elementInfo.left;
@@ -1159,6 +1183,11 @@ public class ConstraintLayout extends LayoutBase
         {
             row = _constraintRows[elementInfo.baselineIndex];
             baselineHolder = row.y;
+            
+            // If bottom doesn't exist, then the bottom should be restricted to the
+            // baseline row.
+            if (isNaN(bottom))
+                bottomHolder = row.y + row.height;
         }
         
         // available width
@@ -1166,7 +1195,6 @@ public class ConstraintLayout extends LayoutBase
         
         // cases are baseline with top and bottom, 
         // baseline with top, baseline with bottom, no baseline
-        
         if (!isNaN(baseline) && (isNaN(top) || isNaN(bottom)))
             availableHeight = Math.round(bottomHolder - baselineHolder);
         else
