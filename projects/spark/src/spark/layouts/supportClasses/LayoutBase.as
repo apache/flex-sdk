@@ -18,7 +18,7 @@ import flash.geom.Rectangle;
 import flash.ui.Keyboard; 
 
 import spark.components.supportClasses.GroupBase;
-import spark.core.ScrollUnit;
+import spark.core.NavigationUnit;
 import mx.core.ILayoutElement;
 import mx.utils.OnDemandEventDispatcher;
 import spark.core.NavigationUnit;
@@ -98,7 +98,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     {
         if (_target == value)
             return;
-        clearCachedVirtualLayoutState();
+        clearVirtualLayoutCache();
         _target = value;
     }
     
@@ -172,7 +172,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         dispatchEvent(new Event("useVirtualLayoutChanged"));
         
         if (_useVirtualLayout && !value)  // turning virtual layout off
-            clearCachedVirtualLayoutState();
+            clearVirtualLayoutCache();
                      
         _useVirtualLayout = value;
         if (target)
@@ -196,7 +196,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    public function clearCachedVirtualLayoutState():void
+    public function clearVirtualLayoutCache():void
     {
     }
     
@@ -594,7 +594,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */  
-     public function getDestinationIndex(navigationUnit:uint, currentIndex:int):int
+     public function getNavigationDestinationIndex(currentIndex:int, navigationUnit:uint):int
      {
         if (!target || target.numElements < 1)
             return -1; 
@@ -894,7 +894,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
+    public function getHorizontalScrollPositionDelta(navigationUnit:uint):Number
     {
         var g:GroupBase = target;
         if (!g)
@@ -914,26 +914,26 @@ public class LayoutBase extends OnDemandEventDispatcher
         var maxDelta:Number = g.contentWidth - scrollRect.right;
         var minDelta:Number = -scrollRect.left;
         var getElementBounds:Rectangle;
-        switch(scrollUnit)
+        switch(navigationUnit)
         {
-            case ScrollUnit.LEFT:
-            case ScrollUnit.PAGE_LEFT:
+            case NavigationUnit.LEFT:
+            case NavigationUnit.PAGE_LEFT:
                 // Find the bounds of the first non-fully visible element
                 // to the left of the scrollRect.
                 getElementBounds = getElementBoundsLeftOfScrollRect(scrollRect);
                 break;
 
-            case ScrollUnit.RIGHT:
-            case ScrollUnit.PAGE_RIGHT:
+            case NavigationUnit.RIGHT:
+            case NavigationUnit.PAGE_RIGHT:
                 // Find the bounds of the first non-fully visible element
                 // to the right of the scrollRect.
                 getElementBounds = getElementBoundsRightOfScrollRect(scrollRect);
                 break;
 
-            case ScrollUnit.HOME: 
+            case NavigationUnit.HOME: 
                 return minDelta;
                 
-            case ScrollUnit.END: 
+            case NavigationUnit.END: 
                 return maxDelta;
                 
             default:
@@ -944,19 +944,19 @@ public class LayoutBase extends OnDemandEventDispatcher
             return 0;
 
         var delta:Number = 0;
-        switch (scrollUnit)
+        switch (navigationUnit)
         {
-            case ScrollUnit.LEFT:
+            case NavigationUnit.LEFT:
                 // Snap the left edge of element to the left edge of the scrollRect.
                 // The element is the the first non-fully visible element left of the scrollRect.
                 delta = Math.max(getElementBounds.left - scrollRect.left, -scrollRect.width);
             break;    
-            case ScrollUnit.RIGHT:
+            case NavigationUnit.RIGHT:
                 // Snap the right edge of the element to the right edge of the scrollRect.
                 // The element is the the first non-fully visible element right of the scrollRect.
                 delta = Math.min(getElementBounds.right - scrollRect.right, scrollRect.width);
             break;    
-            case ScrollUnit.PAGE_LEFT:
+            case NavigationUnit.PAGE_LEFT:
             {
                 // Snap the right edge of the element to the right edge of the scrollRect.
                 // The element is the the first non-fully visible element left of the scrollRect. 
@@ -969,7 +969,7 @@ public class LayoutBase extends OnDemandEventDispatcher
                     delta = Math.max(getElementBounds.left - scrollRect.left, -scrollRect.width);  
             }
             break;
-            case ScrollUnit.PAGE_RIGHT:
+            case NavigationUnit.PAGE_RIGHT:
             {
                 // Align the left edge of the element to the left edge of the scrollRect.
                 // The element is the the first non-fully visible element right of the scrollRect.
@@ -1051,7 +1051,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
+    public function getVerticalScrollPositionDelta(navigationUnit:uint):Number
     {
         var g:GroupBase = target;
         if (!g)
@@ -1071,26 +1071,26 @@ public class LayoutBase extends OnDemandEventDispatcher
         var maxDelta:Number = g.contentHeight - scrollRect.bottom;
         var minDelta:Number = -scrollRect.top;
         var getElementBounds:Rectangle;
-        switch(scrollUnit)
+        switch(navigationUnit)
         {
-            case ScrollUnit.UP:
-            case ScrollUnit.PAGE_UP:
+            case NavigationUnit.UP:
+            case NavigationUnit.PAGE_UP:
                 // Find the bounds of the first non-fully visible element
                 // that spans right of the scrollRect.
                 getElementBounds = getElementBoundsAboveScrollRect(scrollRect);
                 break;
 
-            case ScrollUnit.DOWN:
-            case ScrollUnit.PAGE_DOWN:
+            case NavigationUnit.DOWN:
+            case NavigationUnit.PAGE_DOWN:
                 // Find the bounds of the first non-fully visible element
                 // that spans below the scrollRect.
                 getElementBounds = getElementBoundsBelowScrollRect(scrollRect);
                 break;
 
-            case ScrollUnit.HOME: 
+            case NavigationUnit.HOME: 
                 return minDelta;
 
-            case ScrollUnit.END: 
+            case NavigationUnit.END: 
                 return maxDelta;
 
             default:
@@ -1101,19 +1101,19 @@ public class LayoutBase extends OnDemandEventDispatcher
             return 0;
 
         var delta:Number = 0;
-        switch (scrollUnit)
+        switch (navigationUnit)
         {
-            case ScrollUnit.UP:
+            case NavigationUnit.UP:
                 // Snap the top edge of element to the top edge of the scrollRect.
                 // The element is the the first non-fully visible element above the scrollRect.
                 delta = Math.max(getElementBounds.top - scrollRect.top, -scrollRect.height);
             break;    
-            case ScrollUnit.DOWN:
+            case NavigationUnit.DOWN:
                 // Snap the bottom edge of the element to the bottom edge of the scrollRect.
                 // The element is the the first non-fully visible element below the scrollRect.
                 delta = Math.min(getElementBounds.bottom - scrollRect.bottom, scrollRect.height);
             break;    
-            case ScrollUnit.PAGE_UP:
+            case NavigationUnit.PAGE_UP:
             {
                 // Snap the bottom edge of the element to the bottom edge of the scrollRect.
                 // The element is the the first non-fully visible element below the scrollRect. 
@@ -1126,7 +1126,7 @@ public class LayoutBase extends OnDemandEventDispatcher
                     delta = Math.max(getElementBounds.top - scrollRect.top, -scrollRect.height);  
             }
             break;
-            case ScrollUnit.PAGE_DOWN:
+            case NavigationUnit.PAGE_DOWN:
             {
                 // Align the top edge of the element to the top edge of the scrollRect.
                 // The element is the the first non-fully visible element below the scrollRect.
