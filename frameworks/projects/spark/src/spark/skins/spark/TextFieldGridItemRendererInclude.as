@@ -29,12 +29,15 @@ are identical, save the superclass and constructor names.  This file contains th
     import mx.core.DesignLayer;
     import mx.core.IFlexDisplayObject;
     import mx.core.IFlexModuleFactory;
+    import mx.core.ILayoutDirectionElement;
     import mx.core.IToolTip;
+    import mx.core.LayoutDirection;
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
     import mx.events.ToolTipEvent;
     import mx.geom.TransformOffsets;
     import mx.managers.ISystemManager;
+    import mx.managers.ToolTipManager;
     import mx.styles.CSSStyleDeclaration;
     import mx.styles.IStyleClient;
     import mx.styles.StyleProtoChain;
@@ -640,11 +643,11 @@ are identical, save the superclass and constructor names.  This file contains th
             return;
         
         updatePreferredSize(); 
-        
-        // If the effective value of showDataTips has changed for this column, then
+
+		// If the effective value of showDataTips has changed for this column, then
         // set the renderer's toolTip property to a placeholder.  The real tooltip
         // text is computed in the TOOL_TIP_SHOW handler below.
-        
+		
         // TBD(hmuller) - this code should be common with GridItemRenderer
         
         const showDataTips:Boolean = rowIndex != -1 && column && column.getShowDataTips();  
@@ -1341,36 +1344,4 @@ are identical, save the superclass and constructor names.  This file contains th
     public function set styleDeclaration(value:CSSStyleDeclaration):void
     {
         _styleDeclaration = value;
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Event Handlers
-    //
-    //-------------------------------------------------------------------------- 
-    
-    // TBD(hmuller) - this code should be common with GridItemRenderer
-    private function toolTipShowHandler(event:ToolTipEvent):void
-    {
-        var toolTip:IToolTip = event.toolTip;
-        
-        toolTip.text = column.itemToDataTip(data);  // Lazily compute the tooltip text
-        
-        // Move the origin of the tooltip to the origin of this item renderer
-        
-        var sm:ISystemManager = systemManager.topLevelSystemManager;
-        var sbRoot:DisplayObject = sm.getSandboxRoot();
-        var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
-        var pt:Point = new Point(0, 0);
-        pt = localToGlobal(pt);
-        pt = sbRoot.globalToLocal(pt);          
-        
-        toolTip.move(pt.x, Math.round(pt.y + (height - toolTip.height) / 2));
-        
-        var screenRight:Number = screen.x + screen.width;
-        pt.x = toolTip.x;
-        pt.y = toolTip.y;
-        pt = sbRoot.localToGlobal(pt);
-        if (pt.x + toolTip.width > screenRight)
-            toolTip.move(toolTip.x - (pt.x + toolTip.width - screenRight), toolTip.y);
     }
