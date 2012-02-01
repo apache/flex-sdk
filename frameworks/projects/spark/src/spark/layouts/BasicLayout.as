@@ -16,8 +16,8 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import flex.core.GroupBase;
-import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
+
 
 /**
  *  Documentation is not currently available.
@@ -62,7 +62,7 @@ public class BasicLayout extends LayoutBase
 
     //--------------------------------------------------------------------------
     //
-    //  Methods: ILayout
+    //  Methods
     //
     //--------------------------------------------------------------------------
 
