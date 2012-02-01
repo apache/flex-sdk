@@ -12,14 +12,14 @@
 /**
  *  Documentation is not currently available.
  */
-[Style(name="selectionColor", type="uint", format="color", inherit="yes")]
+[Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  Documentation is not currently available.
  */
-[Style(name="inactiveSelectionColor", type="uint", format="color", inherit="yes")]
+[Style(name="inactiveSelectionColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  Documentation is not currently available.
  */
-[Style(name="unfocusedSelectionColor", type="uint", format="color", inherit="yes")]
+[Style(name="unfocusedSelectionColor", type="uint", format="Color", inherit="yes")]
