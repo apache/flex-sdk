@@ -592,7 +592,14 @@ public class GraphicElement extends EventDispatcher
         _layer = value;
         
         if (_layer)
+        {
             _layer.addEventListener("layerPropertyChange", layer_PropertyChange, false, 0, true);
+            _computedAlpha = _alpha * _layer.computedAlpha;
+            _computedVisibility = _visible && _layer.computedVisibility;
+            alphaChanged = true;
+            visibleChanged = true;
+            invalidateProperties();
+        }
     }
         
     //----------------------------------
@@ -2994,7 +3001,7 @@ public class GraphicElement extends EventDispatcher
     {
         switch (event.property)
         {
-            case "visible":
+            case "computedVisibility":
             {
                 var newValue:Boolean = (event.newValue && _visible);
                 
@@ -3006,7 +3013,7 @@ public class GraphicElement extends EventDispatcher
                 }
                 break;
             }
-            case "alpha":
+            case "computedAlpha":
             {
                 var newAlpha:Number = Number(event.newValue) * _alpha;
                 if (newAlpha != _computedAlpha)
