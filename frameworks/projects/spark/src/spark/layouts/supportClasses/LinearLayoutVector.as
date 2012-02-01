@@ -320,7 +320,7 @@ public final class LinearLayoutVector
      */
     public function start(index:uint):Number
     {
-        if (index == 0)
+        if ((_length == 0) || (index == 0))
             return 0;
             
         if (index >= _length)
