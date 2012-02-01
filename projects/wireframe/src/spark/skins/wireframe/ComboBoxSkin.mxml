@@ -9,7 +9,11 @@
     in accordance with the terms of the license agreement accompanying it.
  
 --> 
-<!--- The default skin class for the Spark ComboBox component. 
+<!--- The default wireframe skin class for the Spark ComboBox component. 
+        Skin classes in the wireframe package are useful for using as a simple base for a custom skin.
+
+    @see spark.components.ComboBox        
+    @see spark.skins.wireframe.ComboBoxButtonSkin
         
       @langversion 3.0
       @playerversion Flash 10
@@ -81,7 +85,7 @@
     -->
     <s:Button id="openButton" width="19" right="0" top="0" bottom="0" focusEnabled="false"
               skinClass="spark.skins.wireframe.ComboBoxButtonSkin" /> 
-    <!--- @copy spark.components.ComboBoxSkin#textInput -->
+    <!--- @copy spark.components.ComboBox#textInput -->
     <s:TextInput id="textInput" textAlign="left"
                  left="0" right="18" top="0" bottom="0" />
 
