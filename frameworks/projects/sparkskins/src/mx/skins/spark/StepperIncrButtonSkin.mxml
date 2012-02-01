@@ -11,7 +11,7 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009">
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" alpha.disabled="0.5">
     
     <Script>
         /* Define the skin elements that should not be colorized. 
