@@ -9,11 +9,12 @@
 	in accordance with the terms of the license agreement accompanying it.
 
 -->
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" implements="mx.core.IRectangularBorder" blendMode="layer">
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" implements="mx.core.IRectangularBorder">
     
     <Script>
 		<![CDATA[
 		import mx.core.EdgeMetrics;
+		import mx.core.IUIComponent;
 		import mx.graphics.RectangularDropShadow;
 		
         /* Define the skin elements that should not be colorized. */
@@ -59,6 +60,11 @@
 			
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
 			
+	        if (parent && parent is IUIComponent && !IUIComponent(parent).enabled)
+	        	alpha = 0.5;
+	        else
+	        	alpha = 1;
+			
 			// Draw drop shadow, if needed
 	        if (getStyle("dropShadowEnabled") == false || 
 	            getStyle("dropShadowEnabled") == "false" ||
@@ -98,17 +104,19 @@
 		]]>
     </Script>
     
-    <!-- border --> 
-	<Rect left="0" right="0" top="0" bottom="0">
-        <stroke>            
-            <SolidColorStroke color="0x696969" />
-        </stroke>
-    </Rect>
-
-    <!-- fill -->
-    <Rect id="background" left="1" right="1" top="1" bottom="1">
-        <fill>
-            <SolidColor id="bgFill" color="0xFFFFFF" />
-        </fill>
-    </Rect>
+    <Group left="0" right="0" top="0" bottom="0">
+	    <!-- border --> 
+		<Rect left="0" right="0" top="0" bottom="0">
+	        <stroke>            
+	            <SolidColorStroke color="0x696969" />
+	        </stroke>
+	    </Rect>
+	
+	    <!-- fill -->
+	    <Rect id="background" left="1" right="1" top="1" bottom="1">
+	        <fill>
+	            <SolidColor id="bgFill" color="0xFFFFFF" />
+	        </fill>
+	    </Rect>
+    </Group>
  </SparkSkin>
