@@ -41,6 +41,11 @@ public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
 	 *  Use this property if the mode property is set to DisplacementMapFilterMode.COLOR.
 	 * 
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get alpha():Number
 	{
@@ -68,6 +73,11 @@ public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
 	 *  for color is 0. Use this property if the mode property is set to 
 	 *  DisplacementMapFilterMode.COLOR. 
 	 *  @default 0x000000
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get color():uint
 	{
@@ -96,6 +106,11 @@ public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
      *  BitmapDataChannel.BLUE
      *  BitmapDataChannel.GREEN
      *  BitmapDataChannel.RED
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get componentX():uint
 	{
@@ -124,6 +139,11 @@ public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
      *  BitmapDataChannel.BLUE
      *  BitmapDataChannel.GREEN
      *  BitmapDataChannel.RED
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get componentY():uint
 	{
@@ -147,6 +167,11 @@ public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
 	
 	/**
 	 *  A BitmapData object containing the displacement map data.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get mapBitmap():BitmapData
 	{
@@ -171,6 +196,11 @@ public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
 	/**
 	 *  A value that contains the offset of the upper-left corner of the target display 
 	 *  object from the upper-left corner of the map image.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get mapPoint():Point
 	{
@@ -204,6 +234,11 @@ public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
      *    substitutes the values in the color and alpha properties.
      *  
      *  @default DisplacementMapFilterMode.WRAP
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
 	public function get mode():String
 	{
@@ -229,6 +264,11 @@ public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
 	 *  The multiplier to use to scale the x displacement result from the map calculation.
 	 * 
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get scaleX():Number
 	{
@@ -254,6 +294,11 @@ public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
 	 *  The multiplier to use to scale the y displacement result from the map calculation.
 	 * 
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get scaleY():Number
 	{
