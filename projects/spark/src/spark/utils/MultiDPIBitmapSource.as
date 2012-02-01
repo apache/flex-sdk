@@ -69,7 +69,7 @@ public class MultiDPIBitmapSource
      *  @playerversion AIR 2.6
      *  @productversion Flex 4.5
      */
-    public function getSource(desiredDPI:int):Object
+    public function getSource(desiredDPI:Number):Object
     {
         var source:Object = source160dpi;
         switch (desiredDPI)
