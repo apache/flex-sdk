@@ -71,29 +71,34 @@ public final class LinearLayoutVector
      */
     public static const HORIZONTAL:uint = 1;
 
-    /* Assumption: vector elements (sizes) will typically be set in
-     * small ranges that reflect localized scrolling.  Allocate vector
-     * elements in blocks of BLOCK_SIZE, which must be a power of 2.
-     * BLOCK_SHIFT is the power of 2 and BLOCK_MASK masks off as many 
-     * low order bits.  The blockTable contains all of the allocated 
-     * blocks and has length/BLOCK_SIZE elements which are allocated lazily.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
+    // Assumption: vector elements (sizes) will typically be set in
+    // small ranges that reflect localized scrolling.  Allocate vector
+    // elements in blocks of BLOCK_SIZE, which must be a power of 2.
+    // BLOCK_SHIFT is the power of 2 and BLOCK_MASK masks off as many 
+    // low order bits.  The blockTable contains all of the allocated 
+    // blocks and has length/BLOCK_SIZE elements which are allocated lazily.
     internal static const BLOCK_SIZE:uint = 128;
     internal static const BLOCK_SHIFT:uint = 7;
     internal static const BLOCK_MASK:uint = 0x7F;
-    private var blockTable:Vector.<Block> = new Vector.<Block>(0, false);
+    private const blockTable:Vector.<Block> = new Vector.<Block>(0, false);
+
+    // Sorted Vector of intervals for the pending removes, in descending order, 
+    // for example [7, 5, 3, 1] for the removes at 7, 6, 5, 3, 2, 1
+    private var pendingRemoves:Vector.<int> = null;
+
+    // Sorted Vector of intervals for the pending inserts, in ascending order, 
+    // for example [1, 3, 5, 7] for the inserts at 1, 2, 3, 5, 6, 7
+    private var pendingInserts:Vector.<int> = null;
+
+    // What the length will be after any pending changes are flushed.
+    private var pendingLength:int = -1;
 
     public function LinearLayoutVector(majorAxis:uint = VERTICAL)
     {
         super();
         this.majorAxis = majorAxis;
     }
-    
+
     
     //--------------------------------------------------------------------------
     //
@@ -133,22 +138,41 @@ public final class LinearLayoutVector
      */
     public function get length():uint
     {
-        return _length;
+        return pendingLength == -1 ? _length : pendingLength;
     }
     
     /**
-     * @private
+     *  @private
      */
     public function set length(value:uint):void
     {
-        if (_length == value)
-            return;
+        flushPendingChanges();
+        setLength(value);
+    }
+    
+    /**
+     *  @private
+     *  Grows or truncates the vector to be the specified newLength.
+     *  When truncating, releases empty blocks and sets to NaN any values 
+     *  in the last block beyond the newLength.
+     */
+    private function setLength(newLength:uint):void
+    {
+        if (newLength < _length)
+        {
+            // Clear any remaining non-NaN values in the last block
+            var blockIndex:uint = newLength >> BLOCK_SHIFT;
+            var endIndex:int = Math.min(blockIndex * BLOCK_SIZE + BLOCK_SIZE, _length) - 1;
+            clearInterval(newLength, endIndex);
+        }
         
-        _length = value;  
+        _length = newLength;  
+        
+        // update the table
         var partialBlock:uint = ((_length & BLOCK_MASK) == 0) ? 0 : 1;
         blockTable.length = (_length >> BLOCK_SHIFT) + partialBlock;       
     }
-    
+
     //----------------------------------
     //  defaultMajorSize
     //----------------------------------
@@ -391,6 +415,8 @@ public final class LinearLayoutVector
      */      
     public function getMajorSize(index:uint):Number
     {
+        flushPendingChanges();
+        
         var block:Block = blockTable[index >> BLOCK_SHIFT];
         if (block)
         {
@@ -417,6 +443,8 @@ public final class LinearLayoutVector
      */      
     public function setMajorSize(index:uint, value:Number):void
     {
+        flushPendingChanges();
+        
         if (index >= length)
             throw new Error(resourceManager.getString("layout", "invalidIndex"));
             
@@ -445,44 +473,6 @@ public final class LinearLayoutVector
     }
     
     /**
-     *  @private
-     *  Shift block.sizes[startIndex ... BLOCK_SIZE-2] to the right one position, replace
-     *  block.sizes[startIndex] with value, and return the original value of 
-     *  block.sizes[BLOCK_SIZE-1].
-     * 
-     *  We're shifting the sizes to the right to make room for the new value at
-     *  startIndex, and we're returning the value that gets shifted off the end.
-     * 
-     *  This function returns the (old) last value so that a series of blocks
-     *  can be shifted bucket brigade style, by making the last elt of
-     *  one block the first element - after shifting - of the next block.
-     *
-     *  @param block The Block.
-     *  @param startIndex The block relative index.
-     *  @param value The value that block.sizes[startIndex] should have
-     *  @return The value of block.sizes[BLOCK_SIZE-1] before the shift.
-     */
-    private function shiftBlockRight(block:Block, startIndex:uint, value:Number):Number
-    {
-        var sizes:Vector.<Number> = block.sizes;
-        var lastSize:Number = sizes[BLOCK_SIZE - 1];
-        if (!isNaN(lastSize))
-        {
-            block.sizesSum -= lastSize;
-            block.defaultCount += 1;
-        }
-        if (!isNaN(value))
-        {
-            block.sizesSum += value;
-            block.defaultCount -= 1;
-        }
-        for (var i:int = BLOCK_SIZE - 2; i >= startIndex; i--)
-            sizes[i + 1] = sizes[i];
-        sizes[startIndex] = value;
-        return lastSize;
-    }
-    
-    /**
      *  Make room for a new item at index by shifting all of the sizes 
      *  one position to the right, beginning with startIndex.  
      * 
@@ -494,63 +484,43 @@ public final class LinearLayoutVector
      */
     public function insert(index:uint):void
     {
-        length = Math.max(length, index) + 1;
-        var lastSize:Number = NaN;
-        var blockIndex:uint = index >> BLOCK_SHIFT;
-        var sizesIndex:uint = index & BLOCK_MASK;        
-        do
+        // We don't support interleaved pending inserts and removes
+        if (pendingRemoves)
+            flushPendingChanges();
+        
+        if (pendingInserts)
         {
-            var block:Block = blockTable[blockIndex];
-            if (!block)
+            // Update the last interval or add a new one?
+            var lastIndex:int = pendingInserts.length - 1;
+            var intervalEnd:int = pendingInserts[lastIndex];
+            
+            if (index == intervalEnd + 1)
             {
-                if (!isNaN(lastSize))
-                {
-                    block = blockTable[blockIndex] = new Block();
-                    block.sizes[sizesIndex] = lastSize;
-                    block.sizesSum = lastSize;
-                    block.defaultCount -= 1;
-                }
-                break;
+                // Extend the end of the interval
+                pendingInserts[lastIndex] = index;
+            }
+            else if (index > intervalEnd)
+            {
+                // New interval
+                pendingInserts.push(index);
+                pendingInserts.push(index);
             }
             else
-                lastSize = shiftBlockRight(block, sizesIndex, lastSize);
-                
-            sizesIndex = 0;
-            blockIndex += 1;
+            {
+                // We can't support pending inserts that are not ascending
+                flushPendingChanges();
+            }
         }
-        while(blockIndex < blockTable.length)        
-    }
 
-    /**
-     *  @private
-     *  Shift block.sizes[removeIndex ... BLOCK_SIZE-1] to the left one position, 
-     *  effectively removing removeIndex, and replace block.sizes[BLOCK_SIZE-1]
-     *  with lastValue.
-     * 
-     *  @param block The Block.
-     *  @param startIndex The block relative index.
-     *  @param value The value that block.sizes[startIndex] should have
-     *  @return The value of block.sizes[0] before the shift.
-     */
-    private function shiftBlockLeft(block:Block, removeIndex:uint, lastValue:Number):void
-    {
-        var sizes:Vector.<Number> = block.sizes;
-        var removedSize:Number = sizes[removeIndex];
-        if (!isNaN(removedSize))
+        pendingLength = Math.max(length + 1, index + 1);
+        
+        if (!pendingInserts)
         {
-            block.sizesSum -= removedSize;
-            block.defaultCount += 1;
+            pendingInserts = new Vector.<int>();
+            pendingInserts.push(index);
+            pendingInserts.push(index);
         }
-        if (!isNaN(lastValue))
-        {
-            block.sizesSum += lastValue;
-            block.defaultCount -= 1;
-        }
-        for (var i:int = removeIndex; i < BLOCK_SIZE - 1; i++)
-            sizes[i] = sizes[i + 1];
-        sizes[BLOCK_SIZE - 1] = lastValue;
     }
-    
 
     /**
      *  Remove index by shifting all of the sizes one position to the left, 
@@ -562,28 +532,330 @@ public final class LinearLayoutVector
      */
     public function remove(index:uint):void
     {
+        // We don't support interleaved pending inserts and removes
+        if (pendingInserts)
+            flushPendingChanges();
+
+        // length getter takes into account pending inserts/removes but doesn't flush
         if (index >= length)
             throw new Error(resourceManager.getString("layout", "invalidIndex"));
-            
-        var blockIndex:uint = index >> BLOCK_SHIFT;
-        var sizesIndex:uint = index & BLOCK_MASK;        
-        do
+
+        if (pendingRemoves)
         {
-            var block:Block = blockTable[blockIndex];
-            if (!block)
-                break;
+            // Update the last interval or add a new one?
+            var lastIndex:int = pendingRemoves.length - 1;
+            var intervalStart:int = pendingRemoves[lastIndex];
+            
+            if (index == intervalStart - 1)
+            {
+                // Extend the start of the interval
+                pendingRemoves[lastIndex] = index;
+            }
+            else if (index < intervalStart)
+            {
+                // New interval
+                pendingRemoves.push(index);
+                pendingRemoves.push(index);
+            }
             else
             {
-                var nextBlock:Block = ((blockIndex + 1) < blockTable.length) ? blockTable[blockIndex + 1] : null;
-                var firstSize:Number = (nextBlock) ? nextBlock.sizes[0] : NaN;
-                shiftBlockLeft(block, sizesIndex, firstSize);
+                // We can't support pending removes that are not descending
+                flushPendingChanges();
             }
-                
-            sizesIndex = 0;
-            blockIndex += 1;
         }
-        while(blockIndex < blockTable.length)
-        length -= 1;
+
+        pendingLength = (pendingLength == -1) ? length - 1 : pendingLength - 1;
+
+        if (!pendingRemoves)
+        {
+            pendingRemoves = new Vector.<int>();
+            pendingRemoves.push(index);
+            pendingRemoves.push(index);
+        }
+    }
+    
+    /**
+     *  @private
+     *  Returns true when all sizes in the specified interval for the block are NaN
+     */
+    private function isIntervalClear(block:Block, index:int, count:int):Boolean
+    {
+        var sizesSrc:Vector.<Number> = block.sizes;
+        for (var i:int = 0; i < count; i++)
+        {
+            if (!isNaN(sizesSrc[index + i]))
+                return true;
+        }
+        return false;
+    }
+    
+    /**
+     *  @private 
+     *  Copies elements between blocks. Indices relative to the blocks.
+     *  If srcBlock is null, then it fills the destination with NaNs.
+     *  The case of srcBlock == dstBlock is also supported.
+     *  The caller must ensure that count is within range.
+     */
+    private function inBlockCopy(dstBlock:Block, dstIndexStart:int, srcBlock:Block, srcIndexStart:int, count:int):void
+    {
+        var ascending:Boolean = dstIndexStart < srcIndexStart;
+
+        var srcIndex:int = ascending ? srcIndexStart : srcIndexStart + count - 1;
+        var dstIndex:int = ascending ? dstIndexStart : dstIndexStart + count - 1;
+        var increment:int = ascending ? +1 : -1;
+        
+        var dstSizes:Vector.<Number> = dstBlock.sizes;
+        var srcSizes:Vector.<Number> = srcBlock ? srcBlock.sizes : null;
+        var dstValue:Number = NaN;
+        var srcValue:Number = NaN;
+        var sizesSumDelta:Number = 0;   // How much the destination sizesSum will change 
+        var defaultCountDelta:int = 0;  // How much the destination defaultCount will change
+        
+        while (count > 0)
+        {
+            if (srcSizes)
+                srcValue = srcSizes[srcIndex];
+            dstValue = dstSizes[dstIndex];
+            
+            // Are the values different?
+            if (!(srcValue === dstValue)) // Triple '=' to handle NaN comparison
+            {
+                // Are we removing a default size or a chached size?
+                if (isNaN(dstValue))
+                    defaultCountDelta--;
+                else
+                    sizesSumDelta -= dstValue;
+                
+                // Are we adding a default size or a cached size?
+                if (isNaN(srcValue))
+                    defaultCountDelta++;
+                else
+                    sizesSumDelta += srcValue;
+                
+                dstSizes[dstIndex] = srcValue;
+            }
+            
+            srcIndex += increment;
+            dstIndex += increment;
+            count--;
+        }
+        
+        dstBlock.sizesSum += sizesSumDelta;
+        dstBlock.defaultCount += defaultCountDelta;
+    }
+    
+    /**
+     *  @private
+     *  Copies 'count' elements from dstIndex to srcIndex.
+     *  Safe for overlapping source and destination intervals.
+     *  If any blocks are left full of NaNs, they will be deallcated.
+     */
+    private function copyInterval(dstIndex:int, srcIndex:int, count:int):void
+    {
+        var ascending:Boolean =  dstIndex < srcIndex;
+        if (!ascending)
+        {
+            dstIndex += count -1;
+            srcIndex += count -1;
+        }
+        
+        while (count > 0)
+        {
+            // Figure out destination block
+            var dstBlockIndex:uint = dstIndex >> BLOCK_SHIFT;
+            var dstSizesIndex:uint = dstIndex & BLOCK_MASK;
+            var dstBlock:Block = blockTable[dstBlockIndex];
+            
+            // Figure out source block
+            var srcBlockIndex:uint = srcIndex >> BLOCK_SHIFT;
+            var srcSizesIndex:uint = srcIndex & BLOCK_MASK;
+            var srcBlock:Block = blockTable[srcBlockIndex];
+
+            // Figure out number of elements to copy
+            var copyCount:int;
+            if (ascending)
+                copyCount = Math.min(BLOCK_SIZE - dstSizesIndex, BLOCK_SIZE - srcSizesIndex);
+            else
+                copyCount = 1 + Math.min(dstSizesIndex, srcSizesIndex);
+            copyCount = Math.min(copyCount, count);
+            
+            // Figure out the start index for each block
+            var dstStartIndex:int = ascending ? dstSizesIndex : dstSizesIndex - copyCount + 1;
+            var srcStartIndex:int = ascending ? srcSizesIndex : srcSizesIndex - copyCount + 1;
+            
+            // Check whether a destination block needs to be allocated.
+            // Allocate only if there are non-default values to be copied from the source. 
+            if (srcBlock && !dstBlock &&
+                isIntervalClear(srcBlock, srcStartIndex, copyCount))
+            {
+                dstBlock = new Block();
+                blockTable[dstBlockIndex] = dstBlock;
+            }
+
+            // Copy to non-null dstBlock, srcBlock can be null
+            if (dstBlock)
+            {
+                inBlockCopy(dstBlock, dstStartIndex, srcBlock, srcStartIndex, copyCount);
+                
+                // If this is the last time we're visiting this block, and it contains
+                // only NaNs, then remove it
+                if (dstBlock.defaultCount == BLOCK_SIZE)
+                {
+                    var blockEndReached:Boolean = ascending ? (dstStartIndex + copyCount == BLOCK_SIZE) :
+                                                              (dstStartIndex == 0);
+                    if (blockEndReached || count == copyCount)
+                        blockTable[dstBlockIndex] = null;
+                }
+            }
+
+            dstIndex += ascending ? copyCount : -copyCount;
+            srcIndex += ascending ? copyCount : -copyCount;
+            count -= copyCount;
+        }
+    }
+    
+    /**
+     *  @private
+     *  Sets all elements within the specified interval to NaN (both ends inclusive). 
+     *  Releases empty blocks.
+     */
+    private function clearInterval(start:int, end:int):void
+    {
+        while (start <= end)
+        {
+            // Figure our destination block
+            var blockIndex:uint = start >> BLOCK_SHIFT;
+            var sizesIndex:uint = start & BLOCK_MASK;
+            var block:Block = blockTable[blockIndex];
+            
+            // Figure out number of elements to clear in this iteration
+            // Make sure we don't clear more items than requested
+            var clearCount:int = BLOCK_SIZE - sizesIndex;
+            clearCount = Math.min(clearCount, end - start + 1);
+            
+            if (block)
+            {
+                if (clearCount == BLOCK_SIZE)
+                    blockTable[blockIndex] = null;
+                else
+                {
+                    // Copying from null source block is equivalent of clearing the destination block
+                    inBlockCopy(block, sizesIndex, null /*srcBlock*/, 0, clearCount);
+                    
+                    // If the blockDst contains only default sizes, then remove the block
+                    if (block.defaultCount == BLOCK_SIZE)
+                        blockTable[blockIndex] = null;                    
+                }
+            }
+
+            start += clearCount;
+        }
+    }
+
+    /**
+     *  @private
+     *  Removes the elements designated by the intervals and truncates
+     *  the LinearLayoutVector to the new length.
+     *  'intervals' is a Vector of descending intervals [7, 5, 3, 1]
+     */
+    private function removeIntervals(intervals:Vector.<int>):void
+    {
+        var intervalsCount:int = intervals.length;
+        if (intervalsCount == 0)
+            return;
+        
+        // Adding final nextIntervalStart value (see below).
+        intervals.reverse(); // turn into ascending, for example [7, 5, 3, 1] --> [1, 3, 5, 7]
+        intervals.push(length);
+
+        // Move the elements
+        var dstStart:int = intervals[0];
+        var srcStart:int; 
+        var count:int;
+        var i:int = 0;
+        do
+        {
+            var intervalEnd:int       = intervals[i + 1];
+            var nextIntervalStart:int = intervals[i + 2]
+            i += 2;
+            
+            // Start copy from after the end of current interval
+            srcStart = intervalEnd + 1;
+
+            // copy all elements up to the start of the next interval.
+            count = nextIntervalStart - srcStart;
+
+            copyInterval(dstStart, srcStart, count);
+            dstStart += count;
+        } 
+        while (i < intervalsCount)
+
+        // Truncate the excess elements.
+        setLength(dstStart);
+    }
+    
+    /**
+     *  @private
+     *  Increases the length and inserts NaN values for the elements designated by the intervals.
+     *  'intervals' is a Vector of ascending intervals [1, 3, 5, 7]
+     */
+    private function insertIntervals(intervals:Vector.<int>, newLength:int):void
+    {
+        var intervalsCount:int = intervals.length;
+        if (intervalsCount == 0)
+            return;
+        
+        // Allocate enough space for the insertions, all the elements
+        // allocated are NaN by default.
+        var oldLength:int = length;
+        setLength(newLength);
+        
+        var srcEnd:int = oldLength - 1;
+        var dstEnd:int = newLength - 1;
+        var i:int = intervalsCount - 2;
+        while (i >= 0)
+        {
+            // Find current interval
+            var intervalStart:int = intervals[i];
+            var intervalEnd:int = intervals[i + 1];
+            i -= 2;
+            
+            // Start after the current interval 
+            var dstStart:int = intervalEnd + 1;
+            var copyCount:int = dstEnd - dstStart + 1;
+            var srcStart:int = srcEnd - copyCount + 1;
+            
+            copyInterval(dstStart, srcStart, copyCount);
+            dstStart -= copyCount;
+            dstEnd = intervalStart - 1;
+            
+            // Fill in with default NaN values after the copy
+            clearInterval(intervalStart, intervalEnd);
+        }
+    }
+    
+    /**
+     *  @private
+     *  Processes any pending removes or pending inserts.
+     */
+    private function flushPendingChanges():void
+    {
+        var intervals:Vector.<int>;
+        if (pendingRemoves)
+        {
+            intervals = pendingRemoves;
+            pendingRemoves = null;
+            pendingLength = -1;
+            removeIntervals(intervals);
+        }
+        else if (pendingInserts)
+        {
+            intervals = pendingInserts;
+            var newLength:int = pendingLength;
+            pendingInserts = null;
+            pendingLength = -1;
+            insertIntervals(intervals, newLength);
+        }
     }
     
     /**
@@ -612,6 +884,8 @@ public final class LinearLayoutVector
      */
     public function start(index:uint):Number
     {
+        flushPendingChanges();
+
         if ((_length == 0) || (index == 0))
             return majorAxisOffset;
             
@@ -664,7 +938,8 @@ public final class LinearLayoutVector
      */
     public function end(index:uint):Number
     {
-       return start(index) + getMajorSize(index);
+        flushPendingChanges();
+        return start(index) + getMajorSize(index);
     }
 
     /**
@@ -682,6 +957,7 @@ public final class LinearLayoutVector
      */
     public function indexOf(distance:Number):int
     {
+        flushPendingChanges();
         var index:int = indexOfInternal(distance);
         return (index >= _length) ? -1 : index;
     }
@@ -773,6 +1049,7 @@ public final class LinearLayoutVector
      */
     public function cacheDimensions(index:uint, elt:ILayoutElement):void
     {
+        flushPendingChanges();
         if (!elt || (index >= _length))
             return;
             
@@ -828,6 +1105,7 @@ public final class LinearLayoutVector
      */
     public function getBounds(index:uint, bounds:Rectangle = null):Rectangle
     {
+        flushPendingChanges();
         if (!bounds)
             bounds = new Rectangle();
 
@@ -855,7 +1133,13 @@ public final class LinearLayoutVector
      */
     public function clear():void
     {
-        length = 0;
+        // Discard any pending changes, before setting the length
+        // otherwise the length setter will commit the changes.
+        pendingRemoves = null;
+        pendingInserts = null;
+        pendingLength = -1;
+
+        length = 0; // clears the BlockTable as well
         minorSize = 0;
         minMinorSize = 0;
     }
@@ -868,6 +1152,8 @@ public final class LinearLayoutVector
             " " + ((majorAxis == VERTICAL) ? "VERTICAL" : "HORIZONTAL") + 
             " gap=" + _gap + 
             " defaultMajorSize=" + _defaultMajorSize + 
+            " pendingRemoves=" + (pendingRemoves ? pendingRemoves.length : 0) +
+            " pendingInserts=" + (pendingInserts ? pendingInserts.length : 0) +
             "}";
     }
 }
