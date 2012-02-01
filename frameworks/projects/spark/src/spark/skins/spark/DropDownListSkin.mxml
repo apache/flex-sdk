@@ -22,7 +22,7 @@
       @productversion Flex 4
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-    alpha.disabled=".5"> 
+    xmlns:fb="http://ns.adobe.com/fb/2009" alpha.disabled=".5"> 
 
     <!-- host component -->
     <fx:Metadata>
@@ -34,8 +34,11 @@
     ]]>
     </fx:Metadata> 
 
-    <fx:Script>
-        <![CDATA[
+    <fx:Script fb:stylingSupport="true">
+        <![CDATA[            
+            /**
+             * @private
+             */
             override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
             {
                 if (getStyle("borderVisible") == false)
@@ -64,6 +67,13 @@
                 if (dropShadow)
                     dropShadow.visible = getStyle("dropShadowVisible");
                 
+                openButton.setStyle("cornerRadius", getStyle("cornerRadius"));
+                
+                if (borderStroke)
+                {
+                    borderStroke.color = getStyle("borderColor");
+                    borderStroke.alpha = getStyle("borderAlpha");
+                }
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
             }
         ]]>
@@ -95,9 +105,7 @@
             <!-- border -->
             <s:Rect id="border" left="0" right="0" top="0" bottom="0">
                 <s:stroke>
-                    <s:SolidColorStroke color="{getStyle('borderColor')}"
-                                        alpha="{getStyle('borderAlpha')}"
-                                        weight="1"/>
+                    <s:SolidColorStroke id="borderStroke" weight="1"/>
                 </s:stroke>
             </s:Rect>
             
@@ -130,7 +138,7 @@
     
     <!--- The anchor button used by the DropDownList. The default skin is DropDownListButtonSkin. -->
     <s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
-        skinClass="spark.skins.spark.DropDownListButtonSkin" cornerRadius="{getStyle('cornerRadius')}" />  
+        skinClass="spark.skins.spark.DropDownListButtonSkin" />  
     <!--- The prompt area of the DropDownList. -->
     <s:Label id="labelDisplay" verticalAlign="middle" maxDisplayedLines="1" 
         mouseEnabled="false" mouseChildren="false"
