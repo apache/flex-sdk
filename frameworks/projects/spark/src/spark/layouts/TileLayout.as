@@ -1452,16 +1452,18 @@ public class TileLayout extends LayoutBase
     /**
      *  @private 
      */  
-    override public function getNavigationDestinationIndex(currentIndex:int, navigationUnit:uint):int
+    override public function getNavigationDestinationIndex(currentIndex:int, navigationUnit:uint, arrowKeysWrapFocus:Boolean):int
     {
         if (!target || target.numElements < 1)
             return -1; 
             
+        var maxIndex:int = target.numElements - 1;
+
         // Special case when nothing was previously selected
         if (currentIndex == -1)
         {
             if (navigationUnit == NavigationUnit.UP || navigationUnit == NavigationUnit.LEFT)
-                return -1;
+                return arrowKeysWrapFocus ? maxIndex : -1;
 
             if (navigationUnit == NavigationUnit.DOWN || navigationUnit == NavigationUnit.RIGHT)
                 return 0;    
@@ -1469,7 +1471,6 @@ public class TileLayout extends LayoutBase
             
         // Make sure currentIndex is within range
         var inRows:Boolean = orientation == TileOrientation.ROWS;
-        var maxIndex:int = target.numElements - 1;
         currentIndex = Math.max(0, Math.min(maxIndex, currentIndex));
 
         // Find the current column and row
@@ -1510,6 +1511,11 @@ public class TileLayout extends LayoutBase
                     newRow--;
                     newColumn = columnCount - 1;
                 }
+                else if (arrowKeysWrapFocus && newColumn == 0 && inRows && newRow == 0)
+                {
+                    newRow = rowCount - 1;
+                    newColumn = columnCount - 1;
+                }
                 else
                     newColumn--;
                 break;
@@ -1523,6 +1529,11 @@ public class TileLayout extends LayoutBase
                 {
                     newColumn = 0;
                     newRow++;
+                }
+                else if (arrowKeysWrapFocus && newColumn == columnCount - 1 && inRows && newRow == rowCount - 1)
+                {
+                    newColumn = 0;
+                    newRow = 0;
                 }
                 else
                     newColumn++;
@@ -1538,6 +1549,11 @@ public class TileLayout extends LayoutBase
                     newColumn--;
                     newRow = rowCount - 1;
                 }
+                else if (arrowKeysWrapFocus && newRow == 0 && !inRows && newColumn == 0)
+                {
+                    newColumn = columnCount - 1;
+                    newRow = rowCount - 1;
+                }
                 else
                     newRow--;
                 break; 
@@ -1550,6 +1566,11 @@ public class TileLayout extends LayoutBase
                 if (newRow == rowCount - 1 && !inRows && newColumn < columnCount - 1)
                 {
                     newColumn++;
+                    newRow = 0;
+                }
+                else if (arrowKeysWrapFocus && newRow == rowCount - 1 && !inRows && newColumn == columnCount - 1)
+                {
+                    newColumn = 0;
                     newRow = 0;
                 }
                 else
@@ -1611,7 +1632,7 @@ public class TileLayout extends LayoutBase
                 }
                 break; 
             }
-            default: return super.getNavigationDestinationIndex(currentIndex, navigationUnit);
+            default: return super.getNavigationDestinationIndex(currentIndex, navigationUnit, arrowKeysWrapFocus);
         }
 
         // Make sure rows and columns are within range
