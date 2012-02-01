@@ -1510,6 +1510,7 @@ public class LayoutBase extends OnDemandEventDispatcher
             return null;
         
         if (isNaN(topOffset) && isNaN(bottomOffset) && isNaN(leftOffset) && isNaN(rightOffset) &&
+            !elementLocalBounds &&
             (scrollR.containsRect(elementR) || elementR.containsRect(scrollR)))
             return null;
         
