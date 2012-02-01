@@ -18,12 +18,11 @@ import flash.geom.Point;
 import flash.ui.Keyboard;
 
 import flex.core.GroupBase;
-import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 import flash.events.EventDispatcher;
 
     
-public class LayoutBase extends EventDispatcher implements ILayout
+public class LayoutBase extends EventDispatcher
 {
     //--------------------------------------------------------------------------
     //
@@ -156,6 +155,47 @@ public class LayoutBase extends EventDispatcher implements ILayout
         _verticalScrollPosition = value;
         scrollPositionChanged();
     }    
+    
+    //----------------------------------
+    //  clipContent
+    //----------------------------------
+        
+    private var _clipContent:Boolean = true;
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  When scrolling is enabled, clip the target's contents by 
+     *  setting its scrollRect.  If this property is set to false,
+     *  then the target's scrollRect will be null, even if its
+     *  scrollPosition is non-zero or its content size is larger
+     *  than its actual size.
+     * 
+     *  @default true
+     *  @see target
+     *  @see updateScrollRect
+     *  @see verticalScrollPosition
+     *  @see horizontalScrollPosition
+     */
+    public function get clipContent():Boolean 
+    {
+        return _clipContent;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set clipContent(value:Boolean):void 
+    {
+        if (value == _clipContent) 
+            return;
+    
+        _clipContent = value;
+        var g:GroupBase = target;
+        if (g)
+            updateScrollRect(g.width, g.height);
+    }
+        
 
     //--------------------------------------------------------------------------
     //
@@ -286,7 +326,6 @@ public class LayoutBase extends EventDispatcher implements ILayout
             return;
 
         updateScrollRect(g.width, g.height);
-        // TBD: subclasses override to update first,lastIndexInView 
     }
     
     /**
@@ -302,13 +341,14 @@ public class LayoutBase extends EventDispatcher implements ILayout
      *  is larger than its width,height, or the target's 
      *  vertical,horizontalScrollPosition is non-zero.
      * 
-     *  If none of the above conditions are true, the scrollRect
-     *  is set to null.
+     *  If none of the above conditions are true, or if clipContent
+     *  is false, then the scrollRect is set to null.
      * 
      *  @param w The target's unscaled width.
      *  @param h The target's unscaled height.
      * 
      *  @see target
+     *  @see flash.display.DisplayObject#scrollRect
      *  @see updateDisplayList
      *  @see flex.core.GroupBase#contentWidth
      *  @see flex.core.GroupBase#contentHeight
@@ -318,6 +358,12 @@ public class LayoutBase extends EventDispatcher implements ILayout
         var g:GroupBase = target;
         if (!g)
             return;
+            
+        if (!clipContent)
+        {
+            g.scrollRect = null;
+            return;
+        }            
 
         var hsp:Number = horizontalScrollPosition;
         var vsp:Number = verticalScrollPosition;
