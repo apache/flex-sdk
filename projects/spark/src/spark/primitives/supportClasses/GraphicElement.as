@@ -2386,7 +2386,7 @@ public class GraphicElement extends EventDispatcher
         if (xformOffsets.updatePending ||
             updateTransform)
         {
-            commitTransform();
+            applyComputedTransform();
         }
     }
 
@@ -2518,7 +2518,7 @@ public class GraphicElement extends EventDispatcher
 		// change our xform as a result of layout, and we need to commit it before we end up on screen.   
         if (xformOffsets.updatePending)
         {
-            commitTransform();
+            applyComputedTransform();
         }
         
 		if (visible)
@@ -2794,7 +2794,7 @@ public class GraphicElement extends EventDispatcher
     /**
      *  Applies the transform to the display object.
      */
-    protected function commitTransform():void
+    protected function applyComputedTransform():void
     {		
         xformOffsets.updatePending = false;
 
