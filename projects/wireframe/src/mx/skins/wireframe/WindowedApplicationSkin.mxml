@@ -120,11 +120,11 @@ in accordance with the terms of the license agreement accompanying it.
     <!--- @private -->
     <s:Rect id="border" left="0" right="0" top="0" bottom="0">
         <s:stroke>
-            <s:SolidColorStroke color="0x5581D1" weight="1" />
+            <s:SolidColorStroke color="#707070" weight="1" />
         </s:stroke>
         <s:fill>
             <!--- @private -->
-            <s:SolidColor id="backgroundFill" color="0xFFFFFF" />
+            <s:SolidColor id="backgroundFill" color="#FFFFFF" />
         </s:fill>
     </s:Rect>
     
