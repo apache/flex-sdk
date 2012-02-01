@@ -13,6 +13,10 @@
 
 <Skin xmlns="http://ns.adobe.com/mxml/2009">
 
+    <Metadata>
+    	[HostComponent("flex.component.Spinner")]
+    </Metadata> 
+    
     <content>    
         <Button id="incrButton" width="12" height="12" skinZZ="flex.skin.SpinnerIncrButtonSkin" />
         <Button id="decrButton" top="12" width="12" height="12" skinZZ="flex.skin.SpinnerDecrButtonSkin" />
