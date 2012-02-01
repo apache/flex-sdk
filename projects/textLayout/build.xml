@@ -1,0 +1,203 @@
+<project name="combined" default="main" basedir=".">
+
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+
+	<property file="${FLEX_HOME}/build.properties"/>
+
+	<property name="output.file" value="${FLEX_HOME}/frameworks/libs/textLayout.swc"/>
+
+	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
+
+	<property name="project.uri" value="library:adobe/flashx/textLayout"/>
+
+	<property name="debug" value="false"/>
+
+	<property name="release" value="true"/>
+
+	
+
+	<!-- ***************************************************************************
+
+	 * 
+
+	 *  build-combined.xml
+
+	 *  Build script for combined SWC
+
+	 * 
+
+	 *  ***************************************************************************** -->
+
+	
+
+	<target name="main" depends="clean,compile" description="Clean build of combined textLayout.swc"/>
+
+	
+
+	<target name="clean" description="Deletes the combined swc">
+
+		<delete failonerror="false">
+
+			<fileset dir="${FLEX_HOME}/frameworks/libs">
+
+				<include name="textLayout.swc"/>
+
+				<include name="combined_link.xml"/>
+
+			</fileset>
+
+		</delete>
+
+	</target>
+
+	
+
+	<target name="compile" description="Builds the combined swc">
+
+		<taskdef resource="flexTasks.tasks" classpath="${flexTasks.location}"/>
+
+		<compc fork="true"
+
+			debug="${debug}"
+
+			output="${output.file}"
+
+			compute-digest="true"
+
+			include-classes="flashx.textLayout.CoreClasses flashx.textLayout.EditClasses flashx.textLayout.ConversionClasses flashx.textLayout.TextFieldClasses">
+
+			<jvmarg line="${compc.jvm.args}"/>
+
+		
+
+			<include-namespaces uri="${project.uri}"/>
+
+			<namespace uri="${project.uri}" manifest="textLayout_core/manifest.xml"/>
+
+			<namespace uri="${project.uri}" manifest="textLayout_edit/manifest.xml"/>
+
+			<!-- <optimize/> -->
+
+			<source-path path-element="textLayout_core/src"/>
+
+			<source-path path-element="textLayout_edit/src"/>
+
+			<source-path path-element="textLayout_conversion/src"/>
+
+			<source-path path-element="textLayout_textField/src"/>
+
+			
+
+			<!-- 	we don't link to any of the frameworks provided by flex so we set the library-path with 
+
+					no entries (note: this implies append="false") -->
+
+			<library-path/>
+
+			<external-library-path dir="${FLEX_HOME}/frameworks/libs" append="false">
+
+				<include name="player/${global.playerglobal.version}playerglobal.swc"/>
+
+			</external-library-path>
+
+
+
+			<define name="CONFIG::debug" value="${debug}"/>
+
+			<define name="CONFIG::release" value="true"/>
+
+		</compc>
+
+     </target>
+
+	 
+
+	 <target name="doc" depends="clean-temp-docs" description="updates textLayout.swc with asdoc xml">
+
+		<taskdef resource="flexTasks.tasks" classpath="${flexTasks.location}"/>
+
+	 <!-- builds asdoc xml -->
+
+		 <condition property="asdoc.jvm.args" value="-Xmx384m">
+
+			<os family="windows"/>
+
+		</condition>
+
+
+
+		<condition property="asdoc.jvm.args" value="-Xmx512m">
+
+			<os family="mac"/>
+
+		</condition>
+
+
+
+		<condition property="asdoc.jvm.args" value="-Xmx512m">
+
+			<os family="unix"/>
+
+		</condition>
+
+	
+
+		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+
+		    <compiler.source-path path-element="textLayout_core/src"/>
+
+			<compiler.source-path path-element="textLayout_edit/src"/>
+
+			<compiler.source-path path-element="textLayout_conversion/src"/>
+
+			<compiler.source-path path-element="textLayout_textField/src"/>
+
+			<external-library-path dir="${output.file}"/>
+
+		    <doc-namespaces uri="${project.uri}"/>
+
+		    <namespace uri="${project.uri}" manifest="textLayout_core/manifest.xml"/>
+
+			<namespace uri="${project.uri}" manifest="textLayout_edit/manifest.xml"/>
+
+		    <jvmarg line="${asdoc.jvm.args}"/>
+
+	    
+
+		    <define name="CONFIG::debug" value="${debug}"/>
+
+			<define name="CONFIG::release" value="true"/>
+
+		</asdoc>
+
+
+
+		<!-- updates combined swc with asdoc xml -->
+
+		
+
+		<zip destfile="${output.file}" update="true">
+
+		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+
+			    <include name="*.*"/>
+
+				<exclude name="ASDoc_Config.xml"/>
+
+				<exclude name="overviews.xml"/>
+
+		    </zipfileset>
+
+		</zip>
+
+	 </target>
+
+	 
+
+	 <target name="clean-temp-docs">
+
+		<delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+
+	</target>
+
+</project>
