@@ -35,7 +35,7 @@ The default skin class for a Spark DataGrid component.
     
     <fx:Declarations>
         <fx:Component id="alternatingRowColorsBackground">
-            <s:Rect implements="spark.components.IGridRowBackground">
+            <s:Rect implements="spark.components.gridClasses.IGridRowBackground">
                 <fx:Script>
                     <![CDATA[
                         import spark.components.DataGrid;
@@ -201,7 +201,7 @@ The default skin class for a Spark DataGrid component.
     
     <!-- column header, separator, scroller with grid -->
     <s:VGroup horizontalAlign="justify" gap="0" left="0" right="0" top="0" bottom="0">
-        <s:ColumnHeaderBar id="columnHeaderBar" paddingLeft="1" paddingTop="1" paddingRight="1"
+        <s:GridColumnHeaderGroup id="columnHeaderGroup" paddingLeft="1" paddingTop="1" paddingRight="1"
             columnSeparator="{headerColumnSeparator}"
             headerRenderer="{headerRenderer}" />
 
