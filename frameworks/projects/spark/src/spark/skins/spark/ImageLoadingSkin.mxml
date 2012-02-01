@@ -24,6 +24,9 @@ in accordance with the terms of the license agreement accompanying it.
     <!-- host component -->
     <fx:Metadata>
         <![CDATA[ 
+        /** 
+        * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.supportClasses.Range")]
         ]]>
     </fx:Metadata>
