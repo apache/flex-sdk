@@ -12,6 +12,8 @@
 -->
 
 <!--- The default skin class for a Spark List component.  
+
+      @see spark.components.List
         
       @langversion 3.0
       @playerversion Flash 10
@@ -43,6 +45,7 @@
         
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
         static private const contentFill:Array = ["bgFill"];
+        <!--- @inheritDoc -->
         override public function get contentItems():Array {return contentFill};
     </fx:Script>
     
@@ -67,8 +70,9 @@
         </s:fill>
     </s:Rect>
 
-    <!--- Defines the appearance of the list items, including their layout direction and the item renderer class. -->
+    <!--- The Scroller component to add scroll bars to the list. -->
     <s:Scroller left="0" top="0" right="0" bottom="0" id="scroller" minViewportInset="1" focusEnabled="false">
+        <!--- The container for the data items. -->
         <s:DataGroup id="dataGroup" itemRenderer="spark.skins.default.DefaultItemRenderer">
             <s:layout>
                 <s:VerticalLayout gap="0" horizontalAlign="contentJustify" />
