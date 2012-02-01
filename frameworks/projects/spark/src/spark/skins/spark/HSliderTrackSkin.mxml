@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009" xmlns:m="library:adobe/flex/gumbo">
+
+    <states>
+        <State name="up" />
+        <State name="down" />
+        <State name="over" />
+        <State name="disabled" />
+    </states>
+
+    <content>
+
+        <Rect left="-6.5" right="-6.5" top="1" bottom="1" radiusX="3" radiusY="4">
+            <fill>
+                <SolidColor color="#deecff" alpha="1" 
+                            color.disabled="0xFFFFFF" />
+            </fill>
+            <stroke>
+                <SolidColorStroke color="#5280d0" color.disabled="0xAAC0E8" 
+                                  weight="1" />
+            </stroke>
+            <filters>
+                <m:DropShadowFilter angle="90" color="#030303" distance="1" 
+                                    alpha="NaN" quality="0" inner="true" />
+            </filters>
+        </Rect>
+
+    </content>
+
+</Skin>
