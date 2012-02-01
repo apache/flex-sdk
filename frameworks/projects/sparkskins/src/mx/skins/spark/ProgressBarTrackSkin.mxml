@@ -14,7 +14,7 @@
 <SparkSkin xmlns="http://ns.adobe.com/mxml/2009" minHeight="9">
 	
 	<!-- layer 1: border -->
-	<Rect left="0" right="0" top="0" bottom="0" >
+	<Rect left="0" right="0" top="0" bottom="0" width="199">
 		<stroke>
 			<LinearGradientStroke rotation="90">
 				<GradientEntry color="0xFFFFFF" 
