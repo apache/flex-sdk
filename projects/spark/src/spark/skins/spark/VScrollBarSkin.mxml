@@ -11,37 +11,37 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
 	  minWidth="15" minHeight="35"
 	  alpha.disabled="0.5">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxVScrollBar")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.VScrollBar")]
+    </fx:Metadata> 
     
-    <Script>
+    <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For scroll bar, the skin itself is colorized but the individual parts are not. */
         static private const exclusions:Array = ["track", "thumb", "decrementButton", "incrementButton"];
         override public function get colorizeExclusions():Array {return exclusions;}
-    </Script>
+    </fx:Script>
      
-    <states>
-    	<State name="normal" />
-    	<State name="disabled" />
-    </states>
+    <s:states>
+    	<s:State name="normal" />
+    	<s:State name="disabled" />
+    </s:states>
    
-    <FxButton id="track" top="16" bottom="15" height="54"
+    <s:Button id="track" top="16" bottom="15" height="54"
               focusEnabled="false"
-              skinClass="mx.skins.spark.FxVScrollBarTrackSkin" />
-    <FxButton id="thumb" 
+              skinClass="spark.skins.default.VScrollBarTrackSkin" />
+    <s:Button id="thumb" 
               focusEnabled="false"
-              skinClass="mx.skins.spark.FxVScrollBarThumbSkin" />
-    <FxButton id="decrementButton" top="0"
+              skinClass="spark.skins.default.VScrollBarThumbSkin" />
+    <s:Button id="decrementButton" top="0"
               focusEnabled="false"
-              skinClass="mx.skins.spark.FxScrollBarUpButtonSkin" />
-    <FxButton id="incrementButton" bottom="0"
+              skinClass="spark.skins.default.ScrollBarUpButtonSkin" />
+    <s:Button id="incrementButton" bottom="0"
               focusEnabled="false"
-              skinClass="mx.skins.spark.FxScrollBarDownButtonSkin" />
+              skinClass="spark.skins.default.ScrollBarDownButtonSkin" />
 
-</SparkSkin>
+</s:SparkSkin>
