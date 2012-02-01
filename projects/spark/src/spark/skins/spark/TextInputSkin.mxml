@@ -32,32 +32,32 @@
     </fx:Metadata> 
     
     <fx:Script fb:purpose="styling">
-		<![CDATA[
-		import mx.core.FlexVersion;
-		
-		private var paddingChanged:Boolean;
+        <![CDATA[
+        import mx.core.FlexVersion;
+        
+        private var paddingChanged:Boolean;
         
         /* Define the skin elements that should not be colorized. */
         static private const exclusions:Array = ["background", "textDisplay", "promptDisplay", "border"];
-		
-		/* exclusions before Flex 4.5 for backwards-compatibility purposes */
-		static private const exclusions_4_0:Array = ["background", "textDisplay", "promptDisplay"];
-		
-		/**
-		 * @private
-		 */
-		override public function get colorizeExclusions():Array 
-		{
-			// Since border is styleable via borderColor, no need to allow chromeColor to affect
-			// the border.  This is wrapped in a compatibility flag since this change was added  
-			// in Flex 4.5
-			if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
-			{
-				return exclusions_4_0;
-			}
-			
-			return exclusions;
-		}
+        
+        /* exclusions before Flex 4.5 for backwards-compatibility purposes */
+        static private const exclusions_4_0:Array = ["background", "textDisplay", "promptDisplay"];
+        
+        /**
+         * @private
+         */
+        override public function get colorizeExclusions():Array 
+        {
+            // Since border is styleable via borderColor, no need to allow chromeColor to affect
+            // the border.  This is wrapped in a compatibility flag since this change was added  
+            // in Flex 4.5
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+            {
+                return exclusions_4_0;
+            }
+            
+            return exclusions;
+        }
         
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
         static private const contentFill:Array = ["bgFill"];
@@ -188,7 +188,7 @@
                 invalidateProperties();
             }
         }
-		]]>
+        ]]>
     </fx:Script>
     
     <fx:Script>
@@ -244,7 +244,7 @@
               verticalAlign="middle"
               widthInChars="10"
               left="1" right="1" top="1" bottom="1" />
-    <!-- includeInLayout is false so prompt doesn't affect measurement -->
+    <!--- Defines the Label that is used for prompt text. The includeInLayout property is false so the prompt text does not affect measurement. -->
     <s:Label id="promptDisplay" maxDisplayedLines="1"
                 verticalAlign="middle"
                 mouseEnabled="false" mouseChildren="false"
