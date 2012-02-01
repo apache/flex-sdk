@@ -153,7 +153,7 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Returns the current number of visible elements.
+     *  Returns the current number of elements in view.
      * 
      *  @default -1
      *  
@@ -173,9 +173,9 @@ public class HorizontalLayout extends LayoutBase
      * 
      *  This method is intended to be used by subclass updateDisplayList() 
      *  methods to sync the columnCount property with the actual number
-     *  of visible columns.
+     *  of columns in view.
      *
-     *  @param value The number of visible columns.
+     *  @param value The number of columns in view.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1336,13 +1336,16 @@ public class HorizontalLayout extends LayoutBase
         if (!layoutTarget)
             return;
 
-        if (layoutTarget.numElements == 0)
+        if ((layoutTarget.numElements == 0) || (unscaledWidth == 0) || (unscaledHeight == 0))
         {
             setColumnCount(0);
             setIndexInView(-1, -1);
-            layoutTarget.setContentSize(0, 0);            
+            if (layoutTarget.numElements == 0)
+                layoutTarget.setContentSize(0, 0);
+            return;         
         }
-        else if (useVirtualLayout) 
+
+        if (useVirtualLayout) 
             updateDisplayListVirtual();
         else
             updateDisplayListReal();
