@@ -170,35 +170,30 @@ public class VerticalLayout extends LayoutBase
         _requestedRowCount = value;
         invalidateTargetSizeAndDisplayList();
     }    
-    
-
-    //----------------------------------
-    //  explicitRowHeight
-    //----------------------------------
-
-    /**
-     *  The row height requested by explicitly setting
-     *  <code>rowHeight</code>.
-     */
-    protected var explicitRowHeight:Number;
 
     //----------------------------------
     //  rowHeight
     //----------------------------------
     
-    private var _rowHeight:Number = 20;
+    private var _rowHeight:Number;
 
     [Inspectable(category="General")]
 
     /**
      *  Specifies the height of the rows if <code>variableRowHeight</code>
      *  is false.
-     *  
-     *  @default 20
+     * 
+     *  If this property isn't explicitly set, then the measured height
+     *  of the first item is returned.
      */
     public function get rowHeight():Number
     {
-        return _rowHeight;
+        if (!isNaN(_rowHeight))
+            return _rowHeight;
+        else if (!target || (target.numLayoutItems <= 0))
+            return 0;
+        else
+            return target.getLayoutItemAt(0).preferredSize.y;
     }
 
     /**
@@ -206,28 +201,13 @@ public class VerticalLayout extends LayoutBase
      */
     public function set rowHeight(value:Number):void
     {
-        explicitRowHeight = value;
-
-        if (_rowHeight != value)
-        {
-            setRowHeight(value);
-            invalidateTargetSizeAndDisplayList();
-        }
-    }
-
-    /**
-     *  Sets the <code>rowHeight</code> property without causing invalidation or 
-     *  setting of <code>explicitRowHeight</code> which
-     *  permanently locks in the height of the rows.
-     *
-     *  @param value The row height, in pixels.
-     */
-    protected function setRowHeight(value:Number):void
-    {
+        if (_rowHeight == value)
+            return;
+            
         _rowHeight = value;
-    }    
-
-
+        invalidateTargetSizeAndDisplayList();
+    }
+    
     //----------------------------------
     //  variableRowHeight
     //----------------------------------
@@ -765,22 +745,11 @@ public class VerticalLayout extends LayoutBase
     private function fixedRowHeightMeasure(layoutTarget:GroupBase):void
     {
     	var rows:uint = layoutTarget.numLayoutItems;
-
-		// If rowHeight wasn't set, then use the height of the first row
-		var rowHeight:Number = this.rowHeight;
-        if (isNaN(explicitRowHeight))
-        {
-            if (rows == 0)
-            	rowHeight = 0;
-            else 
-      			rowHeight = layoutTarget.getLayoutItemAt(0).preferredSize.y;
-        	setRowHeight(rowHeight);
-        }
-
-        var reqRows:int = requestedRowCount;
-        var visibleRows:uint = (reqRows == -1) ? rows : reqRows;
-        var contentHeight:Number = (rows * rowHeight) + ((rows > 1) ? (gap * (rows - 1)) : 0);
-        var visibleHeight:Number = (visibleRows * rowHeight) + ((visibleRows > 1) ? (gap * (visibleRows - 1)) : 0);
+        var visibleRows:uint = (requestedRowCount == -1) ? rows : requestedRowCount;
+        
+        var rh:Number = rowHeight; // can be expensive to compute
+        var contentHeight:Number = (rows * rh) + ((rows > 1) ? (gap * (rows - 1)) : 0);
+        var visibleHeight:Number = (visibleRows * rh) + ((visibleRows > 1) ? (gap * (visibleRows - 1)) : 0);
         
         var columnWidth:Number = layoutTarget.explicitWidth;
         var minColumnWidth:Number = columnWidth;
@@ -791,7 +760,8 @@ public class VerticalLayout extends LayoutBase
 	        for (var i:int = 0; i < count; i++)
 	        {
 	            var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
-	            if (!layoutItem || !layoutItem.includeInLayout) continue;
+	            if (!layoutItem || !layoutItem.includeInLayout) 
+	               continue;
 	            columnWidth = Math.max(columnWidth, layoutItem.preferredSize.x);
 	            var itemMinWidth:Number = hasPercentWidth(layoutItem) ? layoutItem.minSize.x : layoutItem.preferredSize.x;
 	            minColumnWidth = Math.max(minColumnWidth, itemMinWidth);
@@ -813,7 +783,6 @@ public class VerticalLayout extends LayoutBase
     	var layoutTarget:GroupBase = target;
         if (!layoutTarget)
             return;
-            
         if (variableRowHeight) 
             variableRowHeightMeasure(layoutTarget);
         else 
@@ -867,6 +836,9 @@ public class VerticalLayout extends LayoutBase
         var maxY:Number = 0;
         var firstRowInView:int = -1;
         var lastRowInView:int = -1;
+
+        // rowHeight can be expensive to compute
+        var rh:Number = (variableRowHeight) ? 0 : rowHeight;
         
         for (var index:int = 0; index < count; index++)
         {
@@ -879,7 +851,7 @@ public class VerticalLayout extends LayoutBase
             layoutItem.setActualPosition(x, y);
             var dx:Number = layoutItem.actualSize.x;
             if (!variableRowHeight)
-                layoutItem.setActualSize(dx, rowHeight);
+                layoutItem.setActualSize(dx, rh);
                 
             // Update maxX,Y, first,lastVisibleIndex, and y
             var dy:Number = layoutItem.actualSize.y;
