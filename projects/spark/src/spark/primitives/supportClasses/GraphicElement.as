@@ -187,6 +187,7 @@ public class GraphicElement extends EventDispatcher
         if(triggerLayout)
         {
     	    invalidateParentSizeAndDisplayList();
+	       	invalidateProperties();
         }
         layoutFeatures.updatePending = true;
 	}
