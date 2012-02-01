@@ -15,7 +15,7 @@ package spark.events
 /**
  *  The GridSelectionEventKind class contains constants for the valid values 
  *  of the spark.events.GridSelectionEvent class <code>kind</code> property.
- *  These constants indicate the kind ofchange that was made to the selection.
+ *  These constants indicate the kind of change that was made to the selection.
  *
  *  @see spark.events.GridSelectionEvent#kind
  *  @see spark.events.GridSelectionEvent
