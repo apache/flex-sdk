@@ -34,11 +34,19 @@ public class LabelUtil
     /**
      *  A function typically used by renderer-aware controls to determine
      *  the correct text a renderer should display for a particular data item, 
-     *  given the item, a labelField and a labelFunction. 
+     *  given the item, a labelField and a labelFunction. If no labelField
+     *  or labelFunction is set, the toString() representation of the data 
+     *  item is returned. Null items return the empty string. 
      * 
-     *  @param item
-     *  @param labelField
-     *  @param labelFunction
+     *  @param item The data item  
+     * 
+     *  @param labelField The field in the data item to return  
+     * 
+     *  @param labelFunction A function that takes the data item 
+     *  as a single parameter and returns a string. 
+     * 
+     *  @return A String representation for the data item 
+     * 
      */
     public static function itemToLabel(item:Object, labelField:String=null, 
     	labelFunction:Function=null):String
@@ -77,7 +85,8 @@ public class LabelUtil
 
         try
         {
-            return item.toString();
+            if (item !== null)
+                return item.toString();
         }
         catch(e:Error)
         {
