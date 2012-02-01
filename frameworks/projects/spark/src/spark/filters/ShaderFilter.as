@@ -12,8 +12,10 @@
 package flex.filters {  
 
 import flash.display.Shader;
+import flash.display.ShaderInput;
 import flash.display.ShaderParameter;
 import flash.display.ShaderParameterType;
+import flash.display.ShaderPrecision;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
@@ -219,7 +221,7 @@ public dynamic class ShaderFilter extends Proxy
     /**
      * @private
      */  
-    private var _precisionHint:String;
+    private var _precisionHint:String = ShaderPrecision.FULL;
 
     /**
      * The precision of math operations performed by the shader.
@@ -250,11 +252,12 @@ public dynamic class ShaderFilter extends Proxy
 
     /**
      * @private
-     * Proxies all property 'gets' to the owned shader instance.
+     * Proxies all property 'gets' to the owned shader instance or
+     * our propertyQueue otherwise.
      */     
     override flash_proxy function getProperty(name:*):*
     {
-        return _shader ? _shader.data[name].value : propertyQueue[name];
+        return (_shader) ? retrieveShaderProperty(name) : propertyQueue[name];
     }
 
     /**
@@ -324,9 +327,13 @@ public dynamic class ShaderFilter extends Proxy
      */
     private function applyProperty(property:String, value:*):void
     {
+        if (!value) return;
+        
         var suffixPattern:RegExp = /_.$/;
         var match:Array = property.match(suffixPattern);
         
+        // If this property name contains a suffix, attempt to push the value
+        // to the specified component of a multi-dimensional property.
         if (match && match[0] && !(value is Array))
         {
             var suffix:String = match[0];
@@ -347,8 +354,47 @@ public dynamic class ShaderFilter extends Proxy
             }
         }
         
-        _shader.data[property].value = (value is Array) ? value : [value];
+        // Otherwise if the target property is a ShaderInput instance or
+        // array property, set the value.
+        if (_shader.data[property] is ShaderInput)
+            _shader.data[property].input = value;
+        else
+            _shader.data[property].value = (value is Array) ? value : [value];
     }  
+    
+    /**
+     * @private
+     * Retrieve a single property value, provides special case conventions for 
+     * retrieving specific components of multi-dimensional shader properties.
+     */
+    private function retrieveShaderProperty(name:*)
+    {
+        name = (name is QName) ? name.localName : name;
+        var suffixPattern:RegExp = /_.$/;
+        var match:Array = name.match(suffixPattern);
+        
+        // If this property name contains a suffix, attempt to retrieve the value
+        // from the specified component of a multi-dimensional property.
+        if (match && match[0])
+        {
+            var suffix:String = match[0];
+            var prop:String = name.substr(0, name.length - suffix.length);
+            var dimension:String = suffix.substr(suffix.length-1, 1);
+            
+            var propertyInfo:ShaderParameter = _shader.data[prop];
+            if (propertyInfo)
+            {
+                var index:int = indexForDimension(propertyInfo.type, dimension);
+                if (index != -1)
+                    return propertyInfo.value[index];
+            }
+        }
+        
+        // Otherwise return the appropriate value for the property type.
+        return (_shader.data[name] is ShaderInput) ? 
+            _shader.data[name].input : 
+            _shader.data[name].value;  
+    }
     
     /**
      * @private
