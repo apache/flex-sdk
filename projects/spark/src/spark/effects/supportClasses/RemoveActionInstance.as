@@ -29,6 +29,11 @@ import mx.core.IVisualElementContainer;
  *  effect; you do not create one yourself.
  *
  *  @see mx.effects.RemoveChildAction
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */  
 public class RemoveActionInstance extends ActionEffectInstance
 {
@@ -44,6 +49,11 @@ public class RemoveActionInstance extends ActionEffectInstance
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function RemoveActionInstance(target:Object)
 	{
