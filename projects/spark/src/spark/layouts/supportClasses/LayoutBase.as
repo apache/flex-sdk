@@ -9,14 +9,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.layout
+package spark.layout.supportClasses
 {
 
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import mx.components.baseClasses.GroupBase;
-import mx.core.ScrollUnit;
+import spark.components.supportClasses.GroupBase;
+import spark.core.ScrollUnit;
 import mx.core.ILayoutElement;
 import mx.utils.OnDemandEventDispatcher;
 
