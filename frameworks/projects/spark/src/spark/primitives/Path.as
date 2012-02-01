@@ -700,8 +700,8 @@ public class Path extends FilledElement
     	if (graphicsPathChanged)
     	{
     	    var rcBounds:Rectangle = getBounds();
-    	    var sx:Number = width/((rcBounds.width == 0)? 0:rcBounds.width);
-    	    var sy:Number = height/((rcBounds.height == 0)? 0:rcBounds.height);
+    	    var sx:Number = rcBounds.width == 0 ? 1 : width/rcBounds.width;
+    	    var sy:Number = rcBounds.height == 0 ? 1 : height/rcBounds.height;
     	        	    
 	        renderGraphicsAtScale(drawX,drawY,sx,sy);
 	        graphicsPathChanged = false;
