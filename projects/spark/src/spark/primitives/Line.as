@@ -251,7 +251,9 @@ public class Line extends StrokedElement
      */
     override protected function beginDraw(g:Graphics):void
     {
-        var graphicsStroke:GraphicsStroke = stroke.generateGraphicsStroke(new 
+        var graphicsStroke:GraphicsStroke; 
+        if (stroke)
+            graphicsStroke = stroke.generateGraphicsStroke(new 
             Rectangle(drawX + measuredX, drawY + measuredY, 
             Math.max(width, stroke.weight), Math.max(height, stroke.weight))); 
         
