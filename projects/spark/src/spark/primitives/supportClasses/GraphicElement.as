@@ -2503,26 +2503,23 @@ public class GraphicElement extends EventDispatcher
         y += strokeExtents.y * 0.5;
 
         // Finally commit x & y property changes:
-        var doCommit:Boolean = false;
+        var changed:Boolean = false;
         if (_x != x)
         {
         	_x = x;
-        	doCommit = true;
+        	changed = true;
         }
         
         if (_y != y)
         {
         	_y = y;
-        	doCommit = true;
+        	changed = true;
         }
         
-        if (doCommit)
-        {
-        	if (displayObject)
-        		commitXY();
-        	else
-        		invalidateDisplayList();
-        }
+        if (displayObject)
+        	commitXY();
+        else if (changed)
+        	invalidateDisplayList();
     }
 
     /**
