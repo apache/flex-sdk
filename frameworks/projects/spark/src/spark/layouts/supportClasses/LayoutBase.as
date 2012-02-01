@@ -162,8 +162,8 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  
      *  <p>To configure a container to use virtual layout, set the <code>useVirtualLayout</code> property 
      *  to <code>true</code> for the layout associated with the container. 
-     *  Only the DataGroup or SkinnableDataContainer with the VerticalLayout, 
-     *  HorizontalLayout, and TileLayout supports virtual layout. 
+     *  Only DataGroup or SkinnableDataContainer with layout set to VerticalLayout, 
+     *  HorizontalLayout, or TileLayout supports virtual layout. 
      *  Layout subclasses that do not support virtualization must prevent changing
      *  this property.</p>
      *
