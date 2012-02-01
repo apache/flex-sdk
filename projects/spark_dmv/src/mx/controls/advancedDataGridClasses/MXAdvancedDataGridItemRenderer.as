@@ -13,6 +13,8 @@ package mx.controls.advancedDataGridClasses
 {
 import flash.events.MouseEvent;
 
+import mx.controls.AdvancedDataGrid;
+import mx.controls.listClasses.AdvancedListBase;
 import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
@@ -197,7 +199,29 @@ public class MXAdvancedDataGridItemRenderer extends ItemRenderer implements ILis
             }
         }
     }
-    
+	
+	//----------------------------------
+	//  advancedDataGridListData
+	//----------------------------------
+	
+	[Bindable("dataChange")]
+	
+	/**
+	 *  The implementation of the <code>listData</code> property
+	 *  as defined by the IDropInListItemRenderer interface.
+	 *
+	 *  @see mx.controls.listClasses.IDropInListItemRenderer
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function get advancedDataGridListData():AdvancedDataGridListData
+	{
+		return listData as AdvancedDataGridListData;
+	}
+	
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -212,9 +236,8 @@ public class MXAdvancedDataGridItemRenderer extends ItemRenderer implements ILis
     {
         event.stopPropagation();
 		
-		var adg:Object = listData.owner;
-		var advancedDataGridListData:Object = listData;
-        
+		var adg:AdvancedDataGrid = listData.owner as AdvancedDataGrid;
+		
         if (adg.isOpening || !adg.enabled)
             return;
         
@@ -257,7 +280,7 @@ public class MXAdvancedDataGridItemRenderer extends ItemRenderer implements ILis
             // see if we need to change state.  This is the only invalidation method guaranteed to be
             // called.  We set up the renderers properties here so no matter what validation method gets
             // called first, the properties are set up accordingly.
-            var listBase:Object = listData.owner;
+            var listBase:AdvancedListBase = listData.owner as AdvancedListBase;
             if (listBase)
             {
                 showsCaret = listBase.isItemShowingCaret(data);
@@ -281,7 +304,7 @@ public class MXAdvancedDataGridItemRenderer extends ItemRenderer implements ILis
             // and you should still be hovered, so we double check and override here.
             // then we get all the other state-related variables updated so the state
             // calculation will do the right thing.
-            var listBase:Object = listData.owner;
+            var listBase:AdvancedListBase = listData.owner as AdvancedListBase;
             if (listBase)
             {
                 selected = listBase.isItemSelected(data);
