@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the disabled branchIcon of a Halo Menu component. 
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" alpha="0.5">
+    <fx:Script>
+        /* Define the skin elements that should not be colorized. 
+        For button, the graphics are colorized but the arrow is not. */
+        static private const exclusions:Array = ["arrow"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the symbol fill items that should be colored by the "symbolColor" style. */
+        static private const symbols:Array = ["arrowFill1", "arrowFill2", "arrowFill3"];
+        override public function get symbolItems():Array {return symbols};
+    
+    </fx:Script>
+    
+    <s:Path id="arrow" data="M 5 4 L 4 4 L 4 3 L 3 3 L 3 2 L 2 2 L 2 1 L 1 1 L 1 0 L 0 0 L 0 9 L 1 9 L 1 8 L 2 8 L 2 7 L 3 7 L 3 6 L 4 6 L 4 5 L 5 5 L 5 4 Z">
+        <s:fill>
+            <s:RadialGradient rotation="135" focalPointRatio="-0.7" x="0" y="5" scaleX="7">
+                <s:GradientEntry id="arrowFill1" color="0" alpha="0.45" ratio="0"/>
+                <s:GradientEntry id="arrowFill2" color="0" alpha="0.55" ratio="0.9"/>
+                <s:GradientEntry id="arrowFill3" color="0" alpha="0.75" ratio="1"/>
+            </s:RadialGradient>
+        </s:fill>
+    </s:Path>
+</s:SparkSkin>
