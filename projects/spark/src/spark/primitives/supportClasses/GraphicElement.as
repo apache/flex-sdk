@@ -93,52 +93,28 @@ public class GraphicElement extends EventDispatcher
     //--------------------------------------------------------------------------
 
     /**
+     *  @private
      *  The default value for the <code>maxWidth</code> property.
-     *
-     *  @default 10000
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    public static const DEFAULT_MAX_WIDTH:Number = 10000;
+    private static const DEFAULT_MAX_WIDTH:Number = 10000;
 
     /**
+     *  @private
      *  The default value for the <code>maxHeight</code> property.
-     *
-     *  @default 10000
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    public static const DEFAULT_MAX_HEIGHT:Number = 10000;
+    private static const DEFAULT_MAX_HEIGHT:Number = 10000;
 
      /**
+     *  @private 
      *  The default value for the <code>minWidth</code> property.
-     *
-     *  @default 0
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    public static const DEFAULT_MIN_WIDTH:Number = 0;
+    private static const DEFAULT_MIN_WIDTH:Number = 0;
 
     /**
+     *  @private
      *  The default value for the <code>minHeight</code> property.
-     *
-     *  @default 0
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    public static const DEFAULT_MIN_HEIGHT:Number = 0;
+    private static const DEFAULT_MIN_HEIGHT:Number = 0;
 
     //--------------------------------------------------------------------------
     //
@@ -272,35 +248,38 @@ public class GraphicElement extends EventDispatcher
      *  Defines a set of adjustments that can be applied to the component's transform in a way that is 
      *  invisible to the component's parent's layout. For example, if you want a layout to adjust 
      *  for a component that will be rotated 90 degrees, you set the component's <code>rotation</code> property. 
-     *  If you want the layout to <i>not</i> adjust for the component being rotated, you set its <code>offsets.rotationZ</code> 
-     *  property.
+     *  If you want the layout to <i>not</i> adjust for the component being rotated, 
+     *  you set its <code>postLayoutTransformOffsets.rotationZ</code> property.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function set offsets(value:TransformOffsets):void
+    public function set postLayoutTransformOffsets(value:TransformOffsets):void
     {
         if(value != null)
             allocateLayoutFeatures();
         
-        if(layoutFeatures.offsets != null)
-            layoutFeatures.offsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
-        layoutFeatures.offsets = value;
-        if(layoutFeatures.offsets != null)
-            layoutFeatures.offsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+        if(layoutFeatures.postLayoutTransformOffsets != null)
+            layoutFeatures.postLayoutTransformOffsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+        layoutFeatures.postLayoutTransformOffsets = value;
+        if(layoutFeatures.postLayoutTransformOffsets != null)
+            layoutFeatures.postLayoutTransformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
     }
     
     /**
      * @private
      */
-    public function get offsets():TransformOffsets
+    public function get postLayoutTransformOffsets():TransformOffsets
     {
-        return (layoutFeatures == null)? null:layoutFeatures.offsets;
+        return (layoutFeatures == null)? null:layoutFeatures.postLayoutTransformOffsets;
     }
 
-    protected function allocateLayoutFeatures():void
+    /**
+     *  @private
+     */
+    mx_internal function allocateLayoutFeatures():void
     {
         if(layoutFeatures != null)
             return;
@@ -309,11 +288,14 @@ public class GraphicElement extends EventDispatcher
         layoutFeatures.layoutY = _y;
     }
     
-    protected function invalidateTransform(changeInvalidatesLayering:Boolean = true,
+    /**
+     *  @private
+     */
+    private function invalidateTransform(changeInvalidatesLayering:Boolean = true,
                                            invalidateLayout:Boolean = true):void
     {
         if (changeInvalidatesLayering)
-            notifyElementLayerChanged();
+            invalidateDisplayObjectSharing();
 
         // Make sure we apply the transform    
         if (layoutFeatures != null)
@@ -379,7 +361,7 @@ public class GraphicElement extends EventDispatcher
 		var previous:Boolean = needsDisplayObject;
 	   	_alpha = value;
     	if (previous != needsDisplayObject)
-			notifyElementLayerChanged();    
+			invalidateDisplayObjectSharing();    
 
         alphaChanged = true;
         invalidateProperties();
@@ -488,7 +470,7 @@ public class GraphicElement extends EventDispatcher
         var previous:Boolean = needsDisplayObject;
     	_blendMode = value;
 		if (previous != needsDisplayObject)
-			notifyElementLayerChanged();
+			invalidateDisplayObjectSharing();
 		
         blendModeExplicitlySet = true;
         blendModeChanged = true;
@@ -801,7 +783,7 @@ public class GraphicElement extends EventDispatcher
 		var previous:Boolean = needsDisplayObject;
 	   	_filters = value;
     	if (previous != needsDisplayObject)
-			notifyElementLayerChanged();
+			invalidateDisplayObjectSharing();
 		
         _clonedFilters = [];
         
@@ -1019,7 +1001,7 @@ public class GraphicElement extends EventDispatcher
         maskChanged = true;
         maskTypeChanged = true;
         if (previous != needsDisplayObject)
-			notifyElementLayerChanged();
+			invalidateDisplayObjectSharing();
 
         invalidateProperties();
     }
@@ -1832,7 +1814,7 @@ public class GraphicElement extends EventDispatcher
             	colorTransformChanged = true;
             	invalidateProperties();
                 if (previous != needsDisplayObject)
-                	notifyElementLayerChanged();
+                	invalidateDisplayObjectSharing();
             }				
         }
     }
@@ -2079,11 +2061,11 @@ public class GraphicElement extends EventDispatcher
     }
 
     //----------------------------------
-    //  layer
+    //  depth
     //----------------------------------  
 	/**
-	 * Determines the order in which items inside of groups are rendered. Groups order their items based on their layer property, with the lowest layer
-	 * in the back, and the higher in the front.  items with the same layer value will appear in the order they are added to the Groups item list.
+	 * Determines the order in which items inside of groups are rendered. Groups order their items based on their depth property, with the lowest depth
+	 * in the back, and the higher in the front.  items with the same depth value will appear in the order they are added to the Groups item list.
 	 * 
 	 * defaults to 0
 	 * 
@@ -2094,21 +2076,21 @@ public class GraphicElement extends EventDispatcher
 	 *  @playerversion AIR 1.5
 	 *  @productversion Flex 4
 	 */
-    public function get layer():Number
+    public function get depth():Number
     {
-        return (layoutFeatures == null)? 0:layoutFeatures.layer;
+        return (layoutFeatures == null)? 0:layoutFeatures.depth;
     }
 
     /**
      *  @private
      */
-    public function set layer(value:Number):void
+    public function set depth(value:Number):void
     {
-        if(value == layer)
+        if(value == depth)
             return;
 
         allocateLayoutFeatures();
-        layoutFeatures.layer = value;  
+        layoutFeatures.depth = value;  
         if(_parent != null && _parent is UIComponent)
             (_parent as UIComponent).invalidateLayering();
         invalidateProperties();
@@ -2349,8 +2331,8 @@ public class GraphicElement extends EventDispatcher
             
         // Otherwise we draw at x,y since the display object will be
         // positioned at 0,0
-        if (layoutFeatures != null && layoutFeatures.offsets != null)
-            return x + layoutFeatures.offsets.x;
+        if (layoutFeatures != null && layoutFeatures.postLayoutTransformOffsets != null)
+            return x + layoutFeatures.postLayoutTransformOffsets.x;
             
         return x;
     } 
@@ -2376,10 +2358,27 @@ public class GraphicElement extends EventDispatcher
             
         // Otherwise we draw at x,y since the display object will be
         // positioned at 0,0
-        if (layoutFeatures != null && layoutFeatures.offsets != null)
-            return y + layoutFeatures.offsets.y;
+        if (layoutFeatures != null && layoutFeatures.postLayoutTransformOffsets != null)
+            return y + layoutFeatures.postLayoutTransformOffsets.y;
             
         return y;
+    }
+    
+    //----------------------------------
+    //  hasComplexLayoutMatrix
+    //----------------------------------
+    
+    /**
+     *  Returns true if the GraphicElement has any non-translation (x,y) transform properties
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function get hasComplexLayoutMatrix():Boolean
+    {
+    	return (layoutFeatures == null ? false : !MatrixUtil.isDeltaIdentity(layoutFeatures.layoutMatrix))
     }
     
     //----------------------------------
@@ -2494,7 +2493,7 @@ public class GraphicElement extends EventDispatcher
     private var _alwaysCreateDisplayObject:Boolean;
     
     // TODO (jszeto) Remove once we have a better solution for a design tool 
-    // to getBitmapData for hit testing.
+    // to captureBitmapData for hit testing.
     mx_internal function set alwaysCreateDisplayObject(value:Boolean):void
     {
     	if (value != _alwaysCreateDisplayObject)
@@ -2502,7 +2501,7 @@ public class GraphicElement extends EventDispatcher
     		var previous:Boolean = needsDisplayObject;
 		    _alwaysCreateDisplayObject = value;
 	    	if (previous != needsDisplayObject)
-				notifyElementLayerChanged();
+				invalidateDisplayObjectSharing();
     	}
     }
     
@@ -2530,9 +2529,9 @@ public class GraphicElement extends EventDispatcher
             _colorTransform != null ||
             _alpha != 1);
     
-        if(layoutFeatures != null && layoutFeatures.offsets != null)
+        if(layoutFeatures != null && layoutFeatures.postLayoutTransformOffsets != null)
         {
-            var o:TransformOffsets = layoutFeatures.offsets;
+            var o:TransformOffsets = layoutFeatures.postLayoutTransformOffsets;
             result = result || (o.scaleX != 1 || o.scaleY != 1 || o.scaleZ != 1 ||
             o.rotationX != 0 || o.rotationY != 0 || o.rotationZ != 0 || o.z  != 0);       
         }
@@ -2637,6 +2636,10 @@ public class GraphicElement extends EventDispatcher
      *  @param useLocalSpace Whether or not the bitmap shows the GraphicElement in the local or global 
      *  coordinate space. If true, then the snapshot is in the local space. The default value is true. 
      * 
+     *  @param clipRect A Rectangle object that defines the area of the source object to draw. 
+     *  If you do not supply this value, no clipping occurs and the entire source object is drawn.
+     *  The clipRect should be defined in the coordinate space specified by useLocalSpace
+     * 
      *  @return A bitmap snapshot of the GraphicElement. 
      *  
      *  
@@ -2645,7 +2648,7 @@ public class GraphicElement extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getBitmapData(transparent:Boolean = true, fillColor:uint = 0xFFFFFFFF, useLocalSpace:Boolean = true):BitmapData
+    mx_internal function captureBitmapData(transparent:Boolean = true, fillColor:uint = 0xFFFFFFFF, useLocalSpace:Boolean = true, clipRect:Rectangle = null):BitmapData
     {
         if (!layoutFeatures || !layoutFeatures.is3D)
         {               
@@ -2674,7 +2677,7 @@ public class GraphicElement extends EventDispatcher
             if (m)
                 m.translate(-rectBounds.x, -rectBounds.y);
             
-            bitmapData.draw(displayObject, m);
+            bitmapData.draw(displayObject, m, null, null, clipRect);
            
             if (restoreDisplayObject)
             {
@@ -2761,14 +2764,10 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
+     *  @private
      *  Enables clipping or alpha, depending on the type of mask being applied.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    protected function applyMaskType():void
+    mx_internal function applyMaskType():void
     {
         if (_mask)
         {
@@ -2803,7 +2802,7 @@ public class GraphicElement extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function dispatchPropertyChangeEvent(prop:String, oldValue:*,
+    mx_internal function dispatchPropertyChangeEvent(prop:String, oldValue:*,
                                                    value:*):void
     {
         dispatchEvent(PropertyChangeEvent.createUpdateEvent(
@@ -2820,7 +2819,7 @@ public class GraphicElement extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function notifyElementLayerChanged():void
+    protected function invalidateDisplayObjectSharing():void
     {
         if (parent)
             Group(parent).graphicElementLayerChanged(this);
@@ -3155,7 +3154,7 @@ public class GraphicElement extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */    
-    protected function skipMeasure():Boolean
+    protected function canSkipMeasurement():Boolean
     {
         return !isNaN(explicitWidth) && !isNaN(explicitHeight);
     }
@@ -3170,7 +3169,7 @@ public class GraphicElement extends EventDispatcher
         var oldX:Number = measuredX;
         var oldY:Number = measuredY;
 
-        if (!skipMeasure())
+        if (!canSkipMeasurement())
             measure();
             
         if (!isNaN(explicitMinWidth) && measuredWidth < explicitMinWidth)
@@ -3450,7 +3449,7 @@ public class GraphicElement extends EventDispatcher
     public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
         var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = getComplexMatrix(postLayoutTransform); 
         if (!m)
             return strokeExtents.x * -0.5 + this.measuredX + this.x;
 
@@ -3485,7 +3484,7 @@ public class GraphicElement extends EventDispatcher
     public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
         var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
             return strokeExtents.y * -0.5 + this.measuredY + this.y;
 
@@ -3524,7 +3523,7 @@ public class GraphicElement extends EventDispatcher
         // and that's not necessarily true.
         var stroke:Number = -getStrokeExtents(postLayoutTransform).x * 0.5;
 
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
             return stroke + this.measuredX + this.x;
             
@@ -3548,7 +3547,7 @@ public class GraphicElement extends EventDispatcher
         // and that's not necessarily true.
         var stroke:Number = -getStrokeExtents(postLayoutTransform).y * 0.5;
 
-        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
             return stroke + this.measuredY + this.y;
 
@@ -3584,39 +3583,6 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  A reference to the object in the layout tree represented by this interface.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get target():Object
-    {
-        return this;
-    }
-
-    /**
-     *  Gets the transformation matrix.
-     *  
-     *  @return Returns the transformation matrix for this element, or null
-     *  if it is delta identity.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function computeMatrix():Matrix
-    {
-        if (layoutFeatures == null)
-            return null;
-
-        var m:Matrix = layoutFeatures.layoutMatrix;
-        return MatrixUtil.isDeltaIdentity(m) ? null : m;
-    }
-
-    /**
      *  Transform the element's size.
      *  
      *  @param width The target pre-transform width.
@@ -3635,15 +3601,9 @@ public class GraphicElement extends EventDispatcher
                                                height:Number,
                                                postLayoutTransform:Boolean = true):Number
     {
-        if (postLayoutTransform)
-        {
-            var m:Matrix = computeMatrix();
-            if (m)
-            {
-                var size:Point = new Point(width, height);
-                width = MatrixUtil.transformSize(size, m).x;
-            }
-        }
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+            width = MatrixUtil.transformSize(new Point(width, height), 
+                                             layoutFeatures.layoutMatrix).x;
 
         // Take stroke into account
         var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
@@ -3670,15 +3630,9 @@ public class GraphicElement extends EventDispatcher
                                                 height:Number,
                                                 postLayoutTransform:Boolean = true):Number
     {
-        if (postLayoutTransform)
-        {
-            var m:Matrix = computeMatrix();
-            if (m)
-            {
-                var size:Point = new Point(width, height);
-                height = MatrixUtil.transformSize(size, m).y;
-            }
-        }
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+            height = MatrixUtil.transformSize(new Point(width, height), 
+                                              layoutFeatures.layoutMatrix).y;
 
         // Take stroke into account
         var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
@@ -3766,8 +3720,8 @@ public class GraphicElement extends EventDispatcher
 
         // Calculate the width and height pre-transform:
         var m:Matrix;
-        if (postLayoutTransform)
-            m = computeMatrix();
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+            m = layoutFeatures.layoutMatrix;
         if (!m)
         {
             if (isNaN(width))
@@ -3885,14 +3839,10 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
+     *  @private
      *  Applies the transform to the DisplayObject.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    protected function applyComputedTransform():void
+    mx_internal function applyComputedTransform():void
     {   
         if (layoutFeatures != null)
 	        layoutFeatures.updatePending = false;
@@ -3933,6 +3883,11 @@ public class GraphicElement extends EventDispatcher
                 displayObject.y = _y;
         	}
         }
+    }
+    
+    mx_internal function getComplexMatrix(performCheck:Boolean):Matrix
+    {
+    	return performCheck && hasComplexLayoutMatrix ? layoutFeatures.layoutMatrix : null;
     }
     
     /**
@@ -4018,16 +3973,10 @@ public class GraphicElement extends EventDispatcher
     //--------------------------------------------------------------------------
 
     /**
+     *  @private
      *  Called when a bitmap filter associated with the element is modified.
-     *  
-     *  @param event The event that is dispatched when the filter was changed.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    protected function filterChangedHandler(event:Event):void
+    private function filterChangedHandler(event:Event):void
     {
         filters = _filters;
     }
