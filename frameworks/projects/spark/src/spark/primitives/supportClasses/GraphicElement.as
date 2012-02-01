@@ -44,7 +44,7 @@ import mx.geom.TransformOffsets;
 import mx.graphics.IGraphicElement;
 import mx.graphics.IStroke;
 import mx.graphics.MaskType;
-import mx.layout.ILayoutElement;
+import mx.core.ILayoutElement;
 import mx.managers.ILayoutManagerClient;
 import mx.utils.MatrixUtil;
 import mx.utils.OnDemandEventDispatcher;
