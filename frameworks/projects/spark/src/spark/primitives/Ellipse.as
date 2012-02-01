@@ -167,13 +167,25 @@ public class Ellipse extends FilledElement
     /**
      *  @private
      */
-    override protected function computeTopLeft(topLeft:Point, width:Number, height:Number, m:Matrix):Point
+    override public function getLayoutBoundsX(postTransform:Boolean = true):Number
     {
-        var bbox:Rectangle = getBBox(width / 2, height / 2, m);
-        topLeft.x = bbox.x;
-        topLeft.y = bbox.y;
-        return topLeft; 
+        var stroke:Number = -getStrokeExtents(postTransform).x * 0.5;
+        var m:Matrix = postTransform ? computeMatrix() : null;
+        if (!m)
+            return stroke + this.x;
+        return stroke + getBBox(width / 2, height / 2, m).x;
+    }
+
+    /**
+     *  @private
+     */
+    override public function getLayoutBoundsY(postTransform:Boolean = true):Number
+    {
+        var stroke:Number = - getStrokeExtents(postTransform).y * 0.5;
+        var m:Matrix = postTransform ? computeMatrix() : null;
+        if (!m)
+            return stroke + this.y;
+        return stroke + getBBox(width / 2, height / 2, m).y;
     }
 }
-
 }
