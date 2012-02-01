@@ -134,6 +134,7 @@
                     <s:ToggleButton id="playPauseButton" left="0" bottom="0" 
                             skinClass="spark.skins.spark.mediaClasses.normal.PlayPauseButtonSkin" 
                             skinClass.fullScreenStates="spark.skins.spark.mediaClasses.fullScreen.PlayPauseButtonSkin"
+                            layoutDirection="ltr"
                             focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
                     
                     <!-- scrubbar + the currentTime/duration labels -->
@@ -208,6 +209,7 @@
                     <!--- @copy spark.components.VideoPlayer#volumeBar -->
                     <s:VolumeBar id="volumeBar" snapInterval=".01" stepSize=".01" liveDragging="true"
                             right="37" bottom="0" 
+                            layoutDirection="ltr"
                             skinClass="spark.skins.spark.mediaClasses.normal.VolumeBarSkin"
                             skinClass.fullScreenStates="spark.skins.spark.mediaClasses.fullScreen.VolumeBarSkin"
                             focusIn="event.target.depth=1" focusOut="event.target.depth=0" />
