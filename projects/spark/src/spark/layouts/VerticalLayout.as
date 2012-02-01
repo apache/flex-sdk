@@ -1869,8 +1869,10 @@ public class VerticalLayout extends LayoutBase
         }
         
         var x:Number = paddingLeft;
-        var y:Number = emptySpaceTop + Math.round((emptySpace - height)/2);
-        y = Math.max(-Math.ceil(height / 2), Math.min(target.contentHeight - Math.ceil(height/2), y));
+
+		var y:Number = emptySpaceTop + Math.round((emptySpace - height)/2);
+		// Allow 1 pixel overlap with container border
+        y = Math.max(-1, Math.min(target.contentHeight - height + 1, y));
         return new Rectangle(x, y, width, height);
     }
 }
