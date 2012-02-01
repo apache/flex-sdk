@@ -290,7 +290,7 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 	private var _matrixX:Number = 0;
 	
 	/**
-	 * The x dimension of the matrix (the number of columns in the matrix). 
+	 * The x dimension of the matrix (the number of rows in the matrix). 
 	 * @default 0
 	 *  
 	 *  @langversion 3.0
