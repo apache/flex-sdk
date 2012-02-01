@@ -844,21 +844,6 @@ public class VerticalLayout extends LayoutBase
         dispatchEvent(new Event("indexInViewChanged"));
     }
     
-    //----------------------------------
-    //  typicalLayoutElementBaselinePosition
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override mx_internal function get typicalLayoutElementBaselinePosition():Number
-    {
-        if (!typicalLayoutElement)
-            return paddingTop;
-        
-        return typicalLayoutElement.baselinePosition + paddingTop;
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Methods
