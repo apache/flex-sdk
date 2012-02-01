@@ -328,7 +328,7 @@ public class VerticalLayout extends LayoutBase
 
     private var _paddingLeft:Number = 0;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
 
     /**
      *  The minimum number of pixels between the container's left edge and
@@ -364,7 +364,7 @@ public class VerticalLayout extends LayoutBase
 
     private var _paddingRight:Number = 0;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
 
     /**
      *  The minimum number of pixels between the container's right edge and
@@ -400,7 +400,7 @@ public class VerticalLayout extends LayoutBase
 
     private var _paddingTop:Number = 0;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
 
     /**
      *  Number of pixels between the container's top edge
@@ -436,7 +436,7 @@ public class VerticalLayout extends LayoutBase
 
     private var _paddingBottom:Number = 0;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
 
     /**
      *  Number of pixels between the container's bottom edge
@@ -472,7 +472,7 @@ public class VerticalLayout extends LayoutBase
 
     private var _requestedRowCount:int = -1;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="-1")]
 
     /**
      *  The measured size of this layout is tall enough to display 
@@ -514,7 +514,7 @@ public class VerticalLayout extends LayoutBase
     
     private var _rowHeight:Number;
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
 
     /**
      *  If <code>variableRowHeight</code> is <code>false</code>, then 
