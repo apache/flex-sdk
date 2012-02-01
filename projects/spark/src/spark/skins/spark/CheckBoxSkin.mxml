@@ -27,43 +27,32 @@
         <State name="downAndSelected" stateGroups="downStates" />
         <State name="disabledAndSelected" stateGroups="disabledStates" />
     </states>
-
-    <content>
         
-		<Group top="1">
-            <!-- border -->
-            <Rect width="12" height="12">
-                <stroke>            
-                    <SolidColorStroke color="0x808080" color.disabledStates="0xC0C0C0"  />
-                </stroke>
-            </Rect>
-            <!-- fill -->
-            <Rect left="1" top="1" width="10" height="10">
-                <stroke>
-                    <SolidColorStroke color="0xFFFFFF" 
-                            color.overStates="0xFAFAFA" color.downStates="0xEFEFEF" />
-                </stroke>
-                <fill>
-                    <SolidColor color="0xFFFFFF" 
-                            color.overStates="0xF2F2F2" color.down="0xD8D8D8" 
-                            color.downAndSelected="0xEFEFEF" />
-                </fill>
-            </Rect>
-            <!-- checkmark -->
-            <Path data="M 3.5 6.5 l 2 2 l 4 -4" 
-                     includeIn="upAndSelected, overAndSelected, downAndSelected, disabledAndSelected">
-                <stroke>
-                    <SolidColorStroke weight="2" caps="square" color="0x747474" color.disabledAndSelected="0xB3B3B3" />
-                </stroke>
-            </Path>
-        </Group>
+	<Group top="1">
+        <!-- background -->
+        <Rect width="12" height="12">
+            <stroke>            
+                <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
+            </stroke>
+            <fill>
+                <SolidColor color="0xFFFFFF" color.overStates="0xEBF4FF" 
+                	      color.downStates="0xDEEBFF" />
+            </fill>
+        </Rect>
 
-        <!-- Label -->
-        <TextBox text="{hostComponent.label}"
-                 fontFamily="Arial" fontSize="11"
-                 color="0x444444" color.disabled="0xC0C0C0" 
-                 left="19" top="3" />
-    
-	</content>
+        <!-- checkmark -->
+        <Path data="M 3.5 6.5 l 2 2 l 6 -7"
+                 includeIn="upAndSelected, overAndSelected, downAndSelected, disabledAndSelected">
+            <stroke>
+                <SolidColorStroke weight="2" caps="square" color="0x3D5D92" color.disabledAndSelected="0x9DADC9" />
+            </stroke>
+        </Path>
+    </Group>
+
+    <!-- Label -->
+    <TextBox text="{hostComponent.label}"
+             fontFamily="Arial" fontSize="12"
+             color="0x2B4381" color.disabled="0x95A1C0" 
+             left="19" top="3" />
 
 </Skin>
