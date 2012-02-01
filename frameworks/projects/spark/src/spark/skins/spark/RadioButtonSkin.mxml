@@ -153,7 +153,7 @@
     <s:SimpleText id="labelDisplay"
              textAlign="start"
              verticalAlign="middle"
-             truncation="1"
+			 maxDisplayedLines="1"
              left="18" right="0" top="3" bottom="3" verticalCenter="2" />
 
 </s:SparkSkin>
