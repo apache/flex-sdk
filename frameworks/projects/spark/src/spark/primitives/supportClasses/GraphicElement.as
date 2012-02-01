@@ -25,17 +25,20 @@ import flex.graphics.TransformUtil;
 import flex.intf.ILayoutItem;
 
 import mx.core.IConstraintClient;
+import mx.core.IInvalidating;
 import mx.core.mx_internal;
+import mx.core.UIComponentGlobals;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
 import mx.graphics.IStroke;
+import mx.managers.ILayoutManagerClient;
 
 use namespace mx_internal;
 
-public class GraphicElement extends EventDispatcher 
-							implements IGraphicElement, ILayoutItem, IConstraintClient, IDisplayObjectElement
+public class GraphicElement extends EventDispatcher
+							implements IGraphicElement, ILayoutItem, IConstraintClient, IDisplayObjectElement, IInvalidating
 {
-	
+
 	 /**
      *  The default value for the <code>maxWidth</code> property.
      *
@@ -49,7 +52,7 @@ public class GraphicElement extends EventDispatcher
      *  @default 10000
      */
     public static const DEFAULT_MAX_HEIGHT:Number = 10000;
-    
+
      /**
      *  The default value for the <code>minWidth</code> property.
      *
@@ -63,24 +66,18 @@ public class GraphicElement extends EventDispatcher
      *  @default 0
      */
     public static const DEFAULT_MIN_HEIGHT:Number = 0;
-    
-	
+
+
 	public function GraphicElement()
 	{
 	}
-	
-	private var sizeChanged:Boolean = false;
-		
-	protected var drawWidth:Number = 0;
-	protected var drawHeight:Number = 0;
-	
-	
+
 	//--------------------------------------------------------------------------
 	//
 	//  IGraphicElement properties
 	//
 	//--------------------------------------------------------------------------
-	
+
 	//----------------------------------
 	//  alpha
 	//----------------------------------
@@ -94,20 +91,21 @@ public class GraphicElement extends EventDispatcher
 	{
 		return _alpha;
 	}
-	
+
 	public function set alpha(value:Number):void
 	{
-		if (value != _alpha)
-		{
-			var oldValue:Number = _alpha;
-			_alpha = value;
-			dispatchPropertyChangeEvent("alpha", oldValue, value);
-			
-			alphaChanged = true;
-			notifyElementLayerChanged();
-		}
+		if (_alpha == value)
+		    return;
+
+		var oldValue:Number = _alpha;
+		_alpha = value;
+		dispatchPropertyChangeEvent("alpha", oldValue, value);
+
+		alphaChanged = true;
+		notifyElementLayerChanged();
+		invalidateDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  blendMode
 	//----------------------------------
@@ -121,70 +119,69 @@ public class GraphicElement extends EventDispatcher
 	{
 		return _blendMode;
 	}
-	
+
 	public function set blendMode(value:String):void
 	{
-		if (value != _blendMode)
-		{
-			var oldValue:String = _blendMode;
-			_blendMode = value;
-			dispatchPropertyChangeEvent("blendMode", oldValue, value);
-			
-			blendModeChanged = true;
-			notifyElementLayerChanged();
-		}
+		if (_blendMode == value)
+		    return;
+
+		var oldValue:String = _blendMode;
+		_blendMode = value;
+		dispatchPropertyChangeEvent("blendMode", oldValue, value);
+
+		blendModeChanged = true;
+		notifyElementLayerChanged();
+        invalidateDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  baseline
 	//----------------------------------
 	private var _baseline:Number;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	public function get baseline():Number
 	{
 		return _baseline;
 	}
-	
+
 	public function set baseline(value:Number):void
 	{
-		if (_baseline != value)
-		{
-			var oldValue:Number = _baseline;
-			_baseline = value;
-			dispatchPropertyChangeEvent("baseline", oldValue, value);
-			
-			sizeChanged = true;
-			notifyElementChanged();
-		}
+		if (_baseline == value)
+		    return;
+
+		var oldValue:Number = _baseline;
+		_baseline = value;
+		dispatchPropertyChangeEvent("baseline", oldValue, value);
+
+		invalidateParentSizeAndDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  bottom
 	//----------------------------------
 	private var _bottom:Number;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	public function get bottom():Number
 	{
 		return _bottom;
 	}
-	
+
 	public function set bottom(value:Number):void
 	{
-		if (_bottom != value)
-		{
-			var oldValue:Number = _bottom;
-			_bottom = value;
-			dispatchPropertyChangeEvent("bottom", oldValue, value);
-			
-			sizeChanged = true;
-			notifyElementChanged();
-		}
+		if (_bottom == value)
+		    return;
+
+		var oldValue:Number = _bottom;
+		_bottom = value;
+		dispatchPropertyChangeEvent("bottom", oldValue, value);
+
+		invalidateParentSizeAndDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  bounds
 	//----------------------------------
@@ -195,12 +192,12 @@ public class GraphicElement extends EventDispatcher
 	{
 		return new Rectangle();
 	}
-	
+
 	//----------------------------------
 	//  elementHost
 	//----------------------------------
 	protected var _host:IGraphicElementHost;
-	
+
 	/**
 	 *  @private
 	 *  The host of this element. This is the Group or Graphic tag that contains
@@ -215,22 +212,22 @@ public class GraphicElement extends EventDispatcher
 				_host.addMaskElement(_mask); */
 		}
 	}
-	
-	public function get elementHost():IGraphicElementHost 
+
+	public function get elementHost():IGraphicElementHost
 	{
 		return _host;
 	}
-	
+
 	//----------------------------------
 	//  filters
 	//----------------------------------
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	
+
 	private var _filters:Array = [];
 	private var _clonedFilters:Array;
 	private var filtersChanged:Boolean;
-	
+
 	/**
 	 *  @private
 	 */
@@ -240,7 +237,7 @@ public class GraphicElement extends EventDispatcher
 		var oldFilters:Array = _filters ? _filters.slice() : null;
 		var len:int = oldFilters ? oldFilters.length : 0;
 		var edFilter:EventDispatcher;
-		
+
 		for (i = 0; i < len; i++)
 		{
 			if (oldFilters[i] is IBitmapFilter)
@@ -250,11 +247,11 @@ public class GraphicElement extends EventDispatcher
 					edFilter.removeEventListener(BaseFilter.FILTER_CHANGED_TYPE, filterChangedHandler);
 			}
 		}
-				
+
 		_clonedFilters = new Array();
 		_filters = value;
 		len = value.length;
-		
+
 		for (i = 0; i < len; i++)
 		{
 			if (value[i] is IBitmapFilter)
@@ -267,348 +264,416 @@ public class GraphicElement extends EventDispatcher
 			else
 				_clonedFilters.push(value[i]);
 		}
-		
+
 		dispatchPropertyChangeEvent("filters", oldFilters, _filters);
-		
+
 		filtersChanged = true;
 		notifyElementLayerChanged();
 	}
-	
+
 	public function get filters():Array
 	{
 		return _filters;
 	}
-	
+
+	//----------------------------------
+	//  explicitHeight
+	//----------------------------------
+	private var _explicitHeight:Number;
+
+	[Bindable("propertyChange")]
+	[Inspectable(category="General")]
+
+	public function get explicitHeight():Number
+	{
+        return _explicitHeight;
+	}
+
+	public function set explicitHeight(value:Number):void
+	{
+	    if (_explicitHeight == value)
+	        return;
+
+        // height can be pixel or percent, not both
+        if (!isNaN(value))
+            percentHeight = NaN;
+
+        var oldValue:Number = _explicitHeight;
+        _explicitHeight = value;
+        dispatchPropertyChangeEvent("explicitHeight", oldValue, value);
+
+        invalidateSize();
+        invalidateParentSizeAndDisplayList();
+	}
+
+	//----------------------------------
+	//  explicitWidth
+	//----------------------------------
+	private var _explicitWidth:Number;
+
+	[Bindable("propertyChange")]
+	[Inspectable(category="General")]
+
+	public function get explicitWidth():Number
+	{
+        return _explicitWidth;
+	}
+
+	public function set explicitWidth(value:Number):void
+	{
+	    if (_explicitWidth == value)
+	        return;
+
+        // height can be pixel or percent, not both
+        if (!isNaN(value))
+            percentWidth = NaN;
+
+        var oldValue:Number = _explicitWidth;
+        _explicitWidth = value;
+        dispatchPropertyChangeEvent("explicitWidth", oldValue, value);
+
+        invalidateSize();
+        invalidateParentSizeAndDisplayList();
+	}
+
 	//----------------------------------
 	//  height
 	//----------------------------------
+	mx_internal var _height:Number = 0;
 
-	private var _height:Number = 0;
-	protected var _explicitHeight:Number;
-	
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	
+
 	/**
 	 *  The height of the rect.
-	 * 
+	 *
 	 *  @default 0
 	 */
-	public function get height():Number 
+	public function get height():Number
 	{
 		return _height;
 	}
-	
+
 	public function set height(value:Number):void
 	{
-		_explicitHeight = value;
+		explicitHeight = value;
+
+		if (_height == value)
+		    return;
+
 		var oldValue:Number = _height;
-		
-		if (value != oldValue)
-		{
-			_height = value;
-			drawHeight = value;
-			dispatchPropertyChangeEvent("height", oldValue, value);	
-			notifyElementChanged();		
-		}
+		_height = value;
+		dispatchPropertyChangeEvent("height", oldValue, value);
+
+        // Invalidate the display list, since we're changing the actual width
+        // and we're not going to correctly detect whether the layout sets
+        // new actual width different from our previous value.
+        // TODO EGeorgie: is this worth optimizing?
+		invalidateDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  horizontalCenter
 	//----------------------------------
 	private var _horizontalCenter:Number;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	public function get horizontalCenter():Number
 	{
 		return _horizontalCenter;
 	}
-	
+
 	public function set horizontalCenter(value:Number):void
 	{
-		if (_horizontalCenter != value)
-		{
-			var oldValue:Number = _horizontalCenter;
-			_horizontalCenter = value;
-			dispatchPropertyChangeEvent("horizontalCenter", oldValue, value);
-			
-			sizeChanged = true;
-			notifyElementChanged();
-		}
+		if (_horizontalCenter == value)
+		    return;
+
+		var oldValue:Number = _horizontalCenter;
+		_horizontalCenter = value;
+		dispatchPropertyChangeEvent("horizontalCenter", oldValue, value);
+
+		invalidateParentSizeAndDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  left
 	//----------------------------------
 	private var _left:Number;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	public function get left():Number
 	{
 		return _left;
 	}
-	
+
 	public function set left(value:Number):void
 	{
-		if (_left != value)
-		{
-			var oldValue:Number = _left;
-			_left = value;
-			dispatchPropertyChangeEvent("left", oldValue, value);
-			
-			sizeChanged = true;
-			notifyElementChanged();
-		}
+		if (_left == value)
+		    return;
+
+		var oldValue:Number = _left;
+		_left = value;
+		dispatchPropertyChangeEvent("left", oldValue, value);
+
+		invalidateParentSizeAndDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  mask
 	//----------------------------------
-	
+
 	private var _mask:DisplayObject;
 	private var previousMask:DisplayObject;
 	private var isMaskInElementSpace:Boolean;
 	private var maskChanged:Boolean;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	
+
 	public function set mask(value:DisplayObject):void
 	{
-		if (_mask !== value)
-		{
-			var oldValue:DisplayObject = _mask;
-			previousMask = _mask;
-			_mask = value;
-			dispatchPropertyChangeEvent("mask", oldValue, value);
-			maskChanged = true;
-			maskTypeChanged = true;
-			isMaskInElementSpace = false;
-			notifyElementLayerChanged();
-		}
+		if (_mask == value)
+		    return;
+
+		var oldValue:DisplayObject = _mask;
+		previousMask = _mask;
+		_mask = value;
+		dispatchPropertyChangeEvent("mask", oldValue, value);
+		maskChanged = true;
+		maskTypeChanged = true;
+		isMaskInElementSpace = false;
+		notifyElementLayerChanged();
+
+        // TODO EGeorgie: currently need to invalidate the display list,
+        // because the mask gets applied on updateDisplayList. Should it get
+        // applied on commit properties?
+		invalidateDisplayList();
 	}
-	
+
 	public function get mask():DisplayObject
 	{
 		return _mask;
 	}
-	
+
 	//----------------------------------
 	//  maskType
 	//----------------------------------
 	private var _maskType:String = MaskType.CLIP;
 	private var maskTypeChanged:Boolean;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General",enumeration="clip,alpha", defaultValue="clip")]
 	public function get maskType():String
 	{
 		return _maskType;
 	}
-	
+
 	public function set maskType(value:String):void
 	{
-		if (_maskType != value)
-		{
-			var oldValue:String = _maskType;
-			_maskType = value;
-			dispatchPropertyChangeEvent("maskType", oldValue, value);
-			
-			maskTypeChanged = true;
-			notifyElementChanged();
-		}
+		if (_maskType == value)
+		    return;
+
+		var oldValue:String = _maskType;
+		_maskType = value;
+		dispatchPropertyChangeEvent("maskType", oldValue, value);
+
+		maskTypeChanged = true;
+		invalidateDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  maxHeight
 	//----------------------------------
 	private var _maxHeight:Number;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	public function get maxHeight():Number
 	{
 		// TODO!!! Examine this logic, Make this arbitrarily large (use UIComponent max)
-		return !isNaN(_maxHeight) ? _maxHeight : DEFAULT_MAX_HEIGHT; 
+		return !isNaN(_maxHeight) ? _maxHeight : DEFAULT_MAX_HEIGHT;
 	}
-	
+
 	public function set maxHeight(value:Number):void
 	{
-		if (_maxHeight != value)
-		{
-			var oldValue:Number = _maxHeight;
-			_maxHeight = value;
-			dispatchPropertyChangeEvent("maxHeight", oldValue, value);
-			
-			sizeChanged = true;
-			notifyElementChanged();
-		}
+		if (_maxHeight == value)
+		    return;
+
+		var oldValue:Number = _maxHeight;
+		_maxHeight = value;
+		dispatchPropertyChangeEvent("maxHeight", oldValue, value);
+
+		invalidateSize();
+        invalidateParentSizeAndDisplayList();
 	}
 
 	//----------------------------------
 	//  maxWidth
 	//----------------------------------
 	private var _maxWidth:Number;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	public function get maxWidth():Number
 	{
 		// TODO!!! Examine this logic, Make this arbitrarily large (use UIComponent max)
-		return !isNaN(_maxWidth) ? _maxWidth : DEFAULT_MAX_WIDTH; 
+		return !isNaN(_maxWidth) ? _maxWidth : DEFAULT_MAX_WIDTH;
 	}
-	
+
 	public function set maxWidth(value:Number):void
 	{
-		if (_maxWidth != value)
-		{
-			var oldValue:Number = _maxWidth;
-			_maxWidth = value;
-			dispatchPropertyChangeEvent("maxWidth", oldValue, value);
-			
-			sizeChanged = true;
-			notifyElementChanged();
-		}
+		if (_maxWidth == value)
+		    return;
+
+        var oldValue:Number = _maxWidth;
+		_maxWidth = value;
+		dispatchPropertyChangeEvent("maxWidth", oldValue, value);
+
+		invalidateSize();
+        invalidateParentSizeAndDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  minHeight
 	//----------------------------------
 	private var _minHeight:Number;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	public function get minHeight():Number
 	{
 		// TODO!!! Examine this logic
-		return !isNaN(_minHeight) ? _minHeight : DEFAULT_MIN_HEIGHT; 
+		return !isNaN(_minHeight) ? _minHeight : DEFAULT_MIN_HEIGHT;
 	}
-	
+
 	public function set minHeight(value:Number):void
 	{
-		if (_minHeight != value)
-		{
-			var oldValue:Number = _minHeight;
-			_minHeight = value;
-			dispatchPropertyChangeEvent("minHeight", oldValue, value);
-			
-			sizeChanged = true;
-			notifyElementChanged();
-		}
-	}	
-	
+		if (_minHeight == value)
+		    return;
+
+        var oldValue:Number = _minHeight;
+		_minHeight = value;
+		dispatchPropertyChangeEvent("minHeight", oldValue, value);
+
+		invalidateSize();
+		invalidateParentSizeAndDisplayList();
+	}
+
 	//----------------------------------
 	//  minWidth
 	//----------------------------------
 	private var _minWidth:Number;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	public function get minWidth():Number
 	{
 		// TODO!!! Examine this logic
-		return !isNaN(_minWidth) ? _minWidth : DEFAULT_MIN_WIDTH; 
+		return !isNaN(_minWidth) ? _minWidth : DEFAULT_MIN_WIDTH;
 	}
-	
+
 	public function set minWidth(value:Number):void
 	{
-		if (_minWidth != value)
-		{
-			var oldValue:Number = _minWidth;
-			_minWidth = value;
-			dispatchPropertyChangeEvent("minWidth", oldValue, value);
-			
-			sizeChanged = true;
-			notifyElementChanged();
-		}
+		if (_minWidth == value)
+		    return;
+
+		var oldValue:Number = _minWidth;
+		_minWidth = value;
+		dispatchPropertyChangeEvent("minWidth", oldValue, value);
+
+		invalidateSize();
+		invalidateParentSizeAndDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  percentHeight
 	//----------------------------------
 	private var _percentHeight:Number;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	public function get percentHeight():Number
 	{
 		// TODO!!! Examine this logic
-		return _percentHeight; 
+		return _percentHeight;
 	}
-	
+
 	public function set percentHeight(value:Number):void
 	{
-		if (_percentHeight != value)
-		{
-			var oldValue:Number = _percentHeight;
-			_percentHeight = value;
-			dispatchPropertyChangeEvent("percentHeight", oldValue, value);
-			
-			sizeChanged = true;
-			notifyElementChanged();
-		}
+		if (_percentHeight == value)
+		    return;
+
+	    if (!isNaN(value))
+	        explicitHeight = NaN;
+
+	    var oldValue:Number = _percentHeight;
+		_percentHeight = value;
+		dispatchPropertyChangeEvent("percentHeight", oldValue, value);
+
+		invalidateParentSizeAndDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  percentWidth
 	//----------------------------------
 	private var _percentWidth:Number;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	public function get percentWidth():Number
 	{
 		// TODO!!! Examine this logic
-		return _percentWidth; 
+		return _percentWidth;
 	}
-	
+
 	public function set percentWidth(value:Number):void
 	{
-		if (_percentWidth != value)
-		{
-			var oldValue:Number = _percentWidth;
-			_percentWidth = value;
-			dispatchPropertyChangeEvent("percentWidth", oldValue, value);
-			
-			sizeChanged = true;
-			notifyElementChanged();	
-		}
+		if (_percentWidth == value)
+		    return;
+
+	    if (!isNaN(value))
+	        explicitWidth = NaN;
+
+	    var oldValue:Number = _percentWidth;
+		_percentWidth = value;
+		dispatchPropertyChangeEvent("percentWidth", oldValue, value);
+
+		invalidateParentSizeAndDisplayList();
 	}
 
 	//----------------------------------
 	//  right
 	//----------------------------------
 	private var _right:Number;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	public function get right():Number
 	{
 		return _right;
 	}
-	
+
 	public function set right(value:Number):void
 	{
-		if (_right != value)
-		{
-			var oldValue:Number = _right;
-			_right = value;
-			dispatchPropertyChangeEvent("right", oldValue, value);
-			
-			sizeChanged = true;
-			notifyElementChanged();
-		}
+		if (_right == value)
+		    return;
+
+		var oldValue:Number = _right;
+		_right = value;
+		dispatchPropertyChangeEvent("right", oldValue, value);
+
+		invalidateParentSizeAndDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  rotation
 	//----------------------------------
-	
+
 	private var _rotation:Number = 0;
 	private var rotationChanged:Boolean;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	/**
@@ -618,30 +683,33 @@ public class GraphicElement extends EventDispatcher
 	{
 		return _rotation;
 	}
-	
+
 	public function set rotation(value:Number):void
 	{
-		if (_rotation != value)
-		{
-			var oldValue:Number = _rotation;			
-			_rotation = value;
-			dispatchPropertyChangeEvent("rotation", oldValue, value);
-			
-			rotationChanged = true;
-			notifyElementTransformChanged();
-		}
+		if (_rotation == value)
+		    return;
+
+		var oldValue:Number = _rotation;
+		_rotation = value;
+		dispatchPropertyChangeEvent("rotation", oldValue, value);
+
+		rotationChanged = true;
+		invalidateParentSizeAndDisplayList();
+		// TODO EGeorgie: currently we apply rotation during setActualSize,
+		// however we should do this on commitProperties.
+		// invalidateProperties();
 	}
-	
+
 	//----------------------------------
 	//  scaleX
 	//----------------------------------
-	
+
 	mx_internal var _scaleX:Number = 1;
 	private var scaleXChanged:Boolean;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	
+
 	/**
 	 *  Indicates the horizontal scale (percentage) of the element as applied from the transform point.
 	 */
@@ -649,29 +717,36 @@ public class GraphicElement extends EventDispatcher
 	{
 		return _scaleX;
 	}
-	
+
 	public function set scaleX(value:Number):void
 	{
-		if (_scaleX != value)
-		{
-			var oldValue:Number = _scaleX;
-			_scaleX = value;
-			dispatchPropertyChangeEvent("scaleX", oldValue, value);
-			
-			scaleXChanged = true;			
-			notifyElementTransformChanged();
-		}
+		if (_scaleX == value)
+		    return;
+
+		var oldValue:Number = _scaleX;
+		_scaleX = value;
+		dispatchPropertyChangeEvent("scaleX", oldValue, value);
+
+		scaleXChanged = true;
+		notifyElementLayerChanged();
+
+		// Parent layout takes transform into account
+		invalidateParentSizeAndDisplayList();
+
+		// TODO EGeorgie: apply the transform properties in commitProperties
+		// instead of in setActualSize, setActualPosition.
+		// invalidateProperties();
 	}
-	
+
 	//----------------------------------
 	//  scaleY
 	//----------------------------------
 	mx_internal var _scaleY:Number = 1;
 	private var scaleYChanged:Boolean;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	
+
 	/**
 	 *  Indicates the vertical scale (percentage) of the element as applied from the transform point.
 	 */
@@ -679,210 +754,238 @@ public class GraphicElement extends EventDispatcher
 	{
 		return _scaleY;
 	}
-	
+
 	public function set scaleY(value:Number):void
 	{
-		if (_scaleY != value)
-		{
-			var oldValue:Number = _scaleY;
-			_scaleY = value;
-			dispatchPropertyChangeEvent("scaleY", oldValue, value);
-			
-			scaleYChanged = true;
-			notifyElementTransformChanged();
-		}
+		if (_scaleY == value)
+		    return;
+
+		var oldValue:Number = _scaleY;
+		_scaleY = value;
+		dispatchPropertyChangeEvent("scaleY", oldValue, value);
+
+		scaleYChanged = true;
+		notifyElementLayerChanged();
+
+		// Parent layout takes transform into account
+		invalidateParentSizeAndDisplayList();
+
+		// TODO EGeorgie: apply the transform properties in commitProperties
+		// instead of in setActualSize, setActualPosition.
+		// invalidateProperties();
 	}
 
 	//----------------------------------
 	//  top
 	//----------------------------------
 	private var _top:Number;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	public function get top():Number
 	{
 		return _top;
 	}
-	
+
 	public function set top(value:Number):void
 	{
-		if (_top != value)
-		{
-			var oldValue:Number = _top;
-			_top = value;
-			dispatchPropertyChangeEvent("top", oldValue, value);
-			
-			sizeChanged = true;
-			notifyElementChanged();
-		}
+		if (_top == value)
+		    return;
+
+		var oldValue:Number = _top;
+		_top = value;
+		dispatchPropertyChangeEvent("top", oldValue, value);
+
+		invalidateParentSizeAndDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  transform
 	//----------------------------------
 	private var _matrix:Matrix;
 	private var _colorTransform:ColorTransform;
 	private var _transform:flash.geom.Transform;
-		
+
 	/**
-	 *  The x position transform point of the element. 
+	 *  The x position transform point of the element.
 	 */
 	public function get transform():flash.geom.Transform
 	{
 		return _transform;
 	}
-	
+
 	public function set transform(value:flash.geom.Transform):void
 	{
 		// Clean up the old event listeners
-		var oldTransform:flex.geom.Transform = _transform as flex.geom.Transform;		
+		var oldTransform:flex.geom.Transform = _transform as flex.geom.Transform;
 		if (oldTransform)
 		{
 			oldTransform.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
 		}
-		
+
 		var newTransform:flex.geom.Transform = value as flex.geom.Transform;
-		
+
 		if (newTransform)
-		{	
+		{
 			newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
 			_matrix = value.matrix.clone(); // Make sure it is a copy
 			clearTransformProperties();
-			_colorTransform = value.colorTransform; 
+			_colorTransform = value.colorTransform;
 		}
-	
-		_transform = value;	
-		notifyElementTransformChanged();
-	} 
-	
+
+		_transform = value;
+		notifyElementLayerChanged();
+
+        // Parent layout takes transform into account
+		invalidateParentSizeAndDisplayList();
+
+		// TODO EGeorgie: apply the transform properties in commitProperties
+		// instead of in setActualSize, setActualPosition.
+		// invalidateProperties();
+	}
+
 	//----------------------------------
 	//  transformX
 	//----------------------------------
 	private var _transformX:Number = 0;
 	private var transformXChanged:Boolean;
-		
+
 	[Bindable("propertyChange")]
-	[Inspectable(category="General")]	
-		
+	[Inspectable(category="General")]
+
 	/**
-	 *  The x position transform point of the element. 
+	 *  The x position transform point of the element.
 	 */
 	public function get transformX():Number
 	{
 		return _transformX;
 	}
-	
+
 	public function set transformX(value:Number):void
 	{
-		if (_transformX != value)
-		{
-			var oldValue:Number = _transformX;	
-			_transformX = value;
-			dispatchPropertyChangeEvent("transformX", oldValue, value);
-			
-			transformXChanged = true;
-			notifyElementTransformChanged();
-		}
+		if (_transformX == value)
+		    return;
+
+		var oldValue:Number = _transformX;
+		_transformX = value;
+		dispatchPropertyChangeEvent("transformX", oldValue, value);
+
+		transformXChanged = true;
+		notifyElementLayerChanged();
+
+        // Parent layout takes transform into account
+		invalidateParentSizeAndDisplayList();
+
+		// TODO EGeorgie: apply the transform properties in commitProperties
+		// instead of in setActualSize, setActualPosition.
+		// invalidateProperties();
 	}
-	
+
 	//----------------------------------
 	//  transformY
 	//----------------------------------
 	private var _transformY:Number = 0;
 	private var transformYChanged:Boolean;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	
+
 	/**
-	 *  The y position transform point of the element. 
+	 *  The y position transform point of the element.
 	 */
 	public function get transformY():Number
 	{
 		return _transformY;
 	}
-	
+
 	public function set transformY(value:Number):void
 	{
-		if (_transformY != value)
-		{
-			var oldValue:Number = _transformY;
-			_transformY = value;
-			dispatchPropertyChangeEvent("transformY", oldValue, value);
-			
-			transformYChanged = true;
-			notifyElementTransformChanged();
-		}
+		if (_transformY == value)
+		    return;
+		var oldValue:Number = _transformY;
+		_transformY = value;
+		dispatchPropertyChangeEvent("transformY", oldValue, value);
+
+		transformYChanged = true;
+		notifyElementLayerChanged();
+
+        // Parent layout takes transform into account
+		invalidateParentSizeAndDisplayList();
+
+		// TODO EGeorgie: apply the transform properties in commitProperties
+		// instead of in setActualSize, setActualPosition.
+		// invalidateProperties();
 	}
-	
-	
+
+
 	//----------------------------------
 	//  verticalCenter
 	//----------------------------------
 	private var _verticalCenter:Number;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	public function get verticalCenter():Number
 	{
 		return _verticalCenter;
 	}
-	
+
 	public function set verticalCenter(value:Number):void
 	{
-		if (_verticalCenter != value)
-		{
-			var oldValue:Number = _verticalCenter;
-			_verticalCenter = value;
-			dispatchPropertyChangeEvent("verticalCenter", oldValue, value);
-			
-			sizeChanged = true;
-			notifyElementChanged();
-		}
+		if (_verticalCenter == value)
+		    return;
+
+		var oldValue:Number = _verticalCenter;
+		_verticalCenter = value;
+		dispatchPropertyChangeEvent("verticalCenter", oldValue, value);
+
+		invalidateParentSizeAndDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  width
 	//----------------------------------
 
-	private var _width:Number = 0;
-	protected var _explicitWidth:Number;
-	
+	mx_internal var _width:Number = 0;
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	
+
 	/**
 	 *  The width of the Graphic Element.
-	 * 
+	 *
 	 *  @default 0
 	 */
-	public function get width():Number 
+	public function get width():Number
 	{
 		return _width;
 	}
-	
+
 	public function set width(value:Number):void
 	{
-	    _explicitWidth = value;
-		var oldValue:Number = _width;
-		
-		if (value != oldValue)
-		{
-			_width = value;
-			drawWidth = value;
-			dispatchPropertyChangeEvent("width", oldValue, value);	
-			notifyElementChanged();			
-		}
+	    explicitWidth = value;
+
+		if (_width == value)
+		    return;
+
+	    var oldValue:Number = _width;
+		_width = value;
+		dispatchPropertyChangeEvent("width", oldValue, value);
+
+        // Invalidate the display list, since we're changing the actual height
+        // and we're not going to correctly detect whether the layout sets
+        // new actual height different from our previous value.
+        // TODO EGeorgie: is this worth optimizing?
+	    invalidateDisplayList();
 	}
-	
+
 	//----------------------------------
 	//  x
 	//----------------------------------
 	// TODO!!! Change to NaN and integrate Rect/Ellipse bounds/draw functions
 	private var _x:Number = 0;
 	private var xChanged:Boolean;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	/**
@@ -892,28 +995,33 @@ public class GraphicElement extends EventDispatcher
 	{
 		return _x;
 	}
-	
+
 	public function set x(value:Number):void
 	{
-		
-		if (value != _x)
-		{
-			var oldValue:Number = _x;
-			_x = value;
-			dispatchPropertyChangeEvent("x", oldValue, value);	
-			
-			xChanged = true;	
-			notifyElementChanged();	
-		}	
+		if (_x == value)
+		    return;
+
+		var oldValue:Number = _x;
+		_x = value;
+		dispatchPropertyChangeEvent("x", oldValue, value);
+
+		xChanged = true;
+
+        // Parent layout takes transform into account
+		invalidateParentSizeAndDisplayList();
+
+		// TODO EGeorgie: apply the transform properties in commitProperties
+		// instead of in setActualSize, setActualPosition.
+		// invalidateProperties();
 	}
-	
+
 	//----------------------------------
 	//  y
 	//----------------------------------
 	// TODO!!! Change to NaN and integrate Rect/Ellipse bounds/draw functions
 	private var _y:Number = 0;
 	private var yChanged:Boolean;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	/**
@@ -923,88 +1031,99 @@ public class GraphicElement extends EventDispatcher
 	{
 		return _y;
 	}
-	
+
 	public function set y(value:Number):void
 	{
-		
-		if (value != _y)
-		{
-			var oldValue:Number = _y;
-			_y = value;
-			dispatchPropertyChangeEvent("y", oldValue, value);	
-			
-			yChanged = true;	
-			notifyElementChanged();		
-		}	
+		if (_y == value)
+		    return;
+
+		var oldValue:Number = _y;
+		_y = value;
+		dispatchPropertyChangeEvent("y", oldValue, value);
+
+		yChanged = true;
+
+        // Parent layout takes transform into account
+		invalidateParentSizeAndDisplayList();
+
+		// TODO EGeorgie: apply the transform properties in commitProperties
+		// instead of in setActualSize, setActualPosition.
+		// invalidateProperties();
 	}
-	
+
 	//----------------------------------
 	//  visible
 	//----------------------------------
 
 	private var _visible:Boolean = true;
 	private var visibleChanged:Boolean;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 
 	/**
 	 *  The visible flag for this element.
 	 */
-	public function set visible(value:Boolean):void
-	{
-		if (value != _visible)
-		{
-			var oldValue:Boolean = _visible;
-			_visible = value;
-			dispatchPropertyChangeEvent("visible", oldValue, value);
-			
-			visibleChanged = true;
-			notifyElementChanged();			
-		}
-	}
-	
-	public function get visible():Boolean 
+	public function get visible():Boolean
 	{
 		return _visible;
 	}
-	
-	
+
+	public function set visible(value:Boolean):void
+	{
+		if (_visible == value)
+		    return;
+
+		var oldValue:Boolean = _visible;
+		_visible = value;
+		dispatchPropertyChangeEvent("visible", oldValue, value);
+
+		visibleChanged = true;
+
+        // TODO EGeorgie: should we redraw for visibility changes?
+		invalidateDisplayList();
+	}
+
 	//--------------------------------------------------------------------------
 	//
 	//  IDisplayObjectElement properties
 	//
 	//--------------------------------------------------------------------------
-	
-	
+
 	//----------------------------------
 	//  displayObject
 	//----------------------------------
 	private var _displayObject:DisplayObject;
-	
+
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
-	
+
 	public function get displayObject():DisplayObject
 	{
 		return _displayObject;
 	}
-	
+
 	// TODO!!! Figure out what happens when DO is set.
 	public function set displayObject(value:DisplayObject):void
 	{
-		if (value != _displayObject)
-		{
-			var oldValue:DisplayObject = _displayObject;
-			_displayObject = value;
-			//applyTransforms();
-			/* TransformUtil.applyTransforms(value, _matrix, _x, _y, _scaleX, _scaleY, 
-				_rotation, _transformX, _transformY); */
-			dispatchPropertyChangeEvent("displayObject", oldValue, value);	
-				
-		}
+		if (_displayObject == value)
+		    return;
+
+		var oldValue:DisplayObject = _displayObject;
+		_displayObject = value;
+		//applyTransforms();
+		/* TransformUtil.applyTransforms(value, _matrix, _x, _y, _scaleX, _scaleY,
+			_rotation, _transformX, _transformY); */
+		dispatchPropertyChangeEvent("displayObject", oldValue, value);
+
+        // New display object, we need to redraw
+        invalidateDisplayList();
+
+		// TODO EGeorgie: apply the transform properties in commitProperties
+		// instead of in setActualSize, setActualPosition.
+		// invalidateProperties();
 	}
-	
+
 	public function createDisplayObject():DisplayObject
 	{
 		if (displayObject)
@@ -1012,17 +1131,17 @@ public class GraphicElement extends EventDispatcher
 		else
 			return new Sprite();
 	}
-	
+
 	public function needsDisplayObject():Boolean
 	{
 		return true;
 	}
-	
-	
+
+
 	public function draw(g:Graphics):void
 	{
 	}
-	
+
 	public function applyMask():void
 	{
 		if (displayObject && _mask)
@@ -1037,13 +1156,13 @@ public class GraphicElement extends EventDispatcher
         	}
 		}
 	}
-		
+
 	//--------------------------------------------------------------------------
 	//
 	//  Methods
 	//
 	//--------------------------------------------------------------------------
-	
+
 	protected function applyDisplayObjectProperties():void
 	{
 		if (displayObject)
@@ -1053,20 +1172,20 @@ public class GraphicElement extends EventDispatcher
 				alphaChanged = false;
 				displayObject.alpha = _alpha;
 			}
-			
-			
+
+
 			if (blendModeChanged)
 			{
 				blendModeChanged = true;
 				displayObject.blendMode = _blendMode;
 			}
-			
+
 			if (filtersChanged)
 			{
 				filtersChanged = false;
 				displayObject.filters = _clonedFilters;
 			}
-			
+
 			if (maskChanged)
 			{
 				maskChanged = false;
@@ -1079,16 +1198,16 @@ public class GraphicElement extends EventDispatcher
 							displayObject.mask = null;
 					}
 					if (_mask)
-						elementHost.addMaskElement(_mask, this); 
+						elementHost.addMaskElement(_mask, this);
 				}
 			}
-			
+
 			if (maskTypeChanged)
 			{
 				maskTypeChanged = false;
 				applyMaskType();
 			}
-			
+
 			if (visibleChanged)
 			{
 				visibleChanged = false;
@@ -1096,10 +1215,10 @@ public class GraphicElement extends EventDispatcher
 			}
 		}
 	}
-	
+
 	protected function applyMaskType():void
 	{
-		if (_mask)	
+		if (_mask)
 		{
 			if (_maskType == MaskType.CLIP)
 			{
@@ -1107,7 +1226,7 @@ public class GraphicElement extends EventDispatcher
 				_mask.cacheAsBitmap = false;
 				// Save the original filters and clear the filters property
 				//originalMaskFilters = _mask.filters;
-				_mask.filters = []; 
+				_mask.filters = [];
 			}
 			else if (_maskType == MaskType.ALPHA)
 			{
@@ -1117,17 +1236,17 @@ public class GraphicElement extends EventDispatcher
 			}
 		}
 	}
-	
+
 	protected function clearTransformProperties():void
 	{
 		scaleXChanged = false;
 		scaleYChanged = false;
 		xChanged = false;
 		yChanged = false;
-		rotationChanged = false; 
+		rotationChanged = false;
 	}
-	
-	/** 
+
+	/**
 	 *  Dispatch a propertyChange event.
 	 */
 	protected function dispatchPropertyChangeEvent(prop:String, oldValue:*, value:*):void
@@ -1135,47 +1254,37 @@ public class GraphicElement extends EventDispatcher
 		dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop, oldValue, value));
 
 	}
-	
-	/**
-	 *  Utility method that notifies our host that we have changed and need
-	 *  to be updated.
-	 */
-	protected function notifyElementChanged():void
-	{
-		if (elementHost)
-			elementHost.elementChanged(this);
-	}
-	
+
+	// TODO EGeorgie: can we use the standart IInvalidating methods instead of
+	// notifyElementLayerChanged()?
 	/**
 	 *  Utility method that notifies our host that we have changed and need
 	 *  our layer to be updated.
 	 */
 	protected function notifyElementLayerChanged():void
 	{
+	    // TODO EGeorgie: figure this out. For now, invalidateDisplayList
+	    // to preseve original behavior before layout API unification.
+	    invalidateDisplayList();
 		if (elementHost)
 			elementHost.elementLayerChanged(this);
 	}
-	
-	protected function notifyElementTransformChanged():void
-	{
-		notifyElementLayerChanged();
-	}
-	
+
 	//--------------------------------------------------------------------------
 	//
 	//  EventHandlers
 	//
 	//--------------------------------------------------------------------------
-	
+
 	protected function filterChangedHandler(event:Event):void
 	{
 		filters = _filters;
 	}
-	
+
 	protected function transformPropertyChangeHandler(event:PropertyChangeEvent):void
 	{
 		if (event.kind == PropertyChangeEventKind.UPDATE)
-		{			
+		{
 			if (event.property == "matrix")
 			{
 				// Apply matrix
@@ -1183,8 +1292,15 @@ public class GraphicElement extends EventDispatcher
 				{
 					_matrix = _transform.matrix.clone();
 					clearTransformProperties();
-					notifyElementTransformChanged();
-				} 
+					notifyElementLayerChanged();
+
+                    // Parent layout takes transform into account
+					invalidateParentSizeAndDisplayList();
+
+					// TODO EGeorgie: apply the transform properties in commitProperties
+                	// instead of in setActualSize, setActualPosition.
+                	// invalidateProperties();
+				}
 			}
 			else if (event.property == "colorTransform")
 			{
@@ -1192,12 +1308,335 @@ public class GraphicElement extends EventDispatcher
 				if (_transform)
 				{
 					_colorTransform = _transform.colorTransform;
-					notifyElementTransformChanged();
+					invalidateDisplayList();
+					notifyElementLayerChanged();
 				}
 			}
 		}
 	}
-	
+
+	//--------------------------------------------------------------------------
+	//
+	//  IInvalidating
+	//
+	//--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Whether this component needs to have its
+     *  commitProperties() method called.
+     */
+    mx_internal var invalidatePropertiesFlag:Boolean = false;
+
+    /**
+     *  @private
+     *  Whether this component needs to have its
+     *  measure() method called.
+     */
+    mx_internal var invalidateSizeFlag:Boolean = false;
+
+    /**
+     *  @private
+     *  Whether this component needs to be have its
+     *  updateDisplayList() method called.
+     */
+    mx_internal var invalidateDisplayListFlag:Boolean = false;
+
+
+	/**
+	 *  Calling this method results in a call to the component's
+	 *  <code>validateProperties()</code> method
+	 *  before the display list is rendered.
+	 *
+	 *  <p>For components that extend UIComponent, this implies
+	 *  that <code>commitProperties()</code> is called.</p>
+	 */
+	public function invalidateProperties():void
+	{
+	    if (invalidatePropertiesFlag)
+	        return;
+	    invalidatePropertiesFlag = true;
+
+        // TODO EGeorgie: hook up directly with the layout manager?
+	    if (elementHost && elementHost is IInvalidating)
+	        IInvalidating(elementHost).invalidateProperties();
+	}
+
+	/**
+	 *  Calling this method results in a call to the component's
+	 *  <code>validateSize()</code> method
+	 *  before the display list is rendered.
+	 *
+	 *  <p>For components that extend UIComponent, this implies
+	 *  that <code>measure()</code> is called, unless the component
+	 *  has both <code>explicitWidth</code> and <code>explicitHeight</code>
+	 *  set.</p>
+	 */
+	public function invalidateSize():void
+	{
+	    if (invalidateSizeFlag)
+	        return;
+	    invalidateSizeFlag = true;
+
+        // TODO EGeorgie: hook up directly with the layout manager?
+	    if (elementHost)
+	        elementHost.elementSizeChanged(this);
+	}
+
+	/**
+	 *  Helper method to invalidate parent size and display list if
+	 *  this object affects its layout (includeInLayout is true).
+	 */
+	protected function invalidateParentSizeAndDisplayList():void
+	{
+	    if (!includeInLayout)
+	        return;
+
+	    // We want to invalidate both the parent size and parent display list.
+	    if (elementHost && elementHost is IInvalidating)
+	    {
+	        IInvalidating(elementHost).invalidateSize();
+	        IInvalidating(elementHost).invalidateDisplayList();
+	    }
+	}
+
+	/**
+	 *  Calling this method results in a call to the component's
+	 *  <code>validateDisplayList()</code> method
+	 *  before the display list is rendered.
+	 *
+	 *  <p>For components that extend UIComponent, this implies
+	 *  that <code>updateDisplayList()</code> is called.</p>
+	 */
+	public function invalidateDisplayList():void
+	{
+	    if (invalidateDisplayListFlag)
+	        return;
+	    invalidateDisplayListFlag = true;
+
+        // TODO EGeorgie: make sure elements that share the display object
+        // will be invalidated as well.
+
+        // TODO EGeorgie: hook up directly with the layout manager?
+        if (elementHost)
+            elementHost.elementChanged(this);
+	}
+
+    /**
+     *  Validates and updates the properties and layout of this object
+     *  by immediately calling <code>validateProperties()</code>,
+	 *  <code>validateSize()</code>, and <code>validateDisplayList()</code>,
+	 *  if necessary.
+     *
+     *  <p>When properties are changed, the new values do not usually have
+	 *  an immediate effect on the component.
+	 *  Usually, all of the application code that needs to be run
+	 *  at that time is executed. Then the LayoutManager starts
+	 *  calling the <code>validateProperties()</code>,
+	 *  <code>validateSize()</code>, and <code>validateDisplayList()</code>
+	 *  methods on components, based on their need to be validated and their
+	 *  depth in the hierarchy of display list objects.</p>
+	 *
+     *  <p>For example, setting the <code>width</code> property is delayed, because
+	 *  it may require recalculating the widths of the object's children
+	 *  or its parent.
+     *  Delaying the processing also prevents it from being repeated
+     *  multiple times if the application code sets the <code>width</code> property
+	 *  more than once.
+     *  This method lets you manually override this behavior.</p>
+     */
+    public function validateNow():void
+    {
+        if (elementHost)
+            UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(elementHost));
+    }
+
+    /**
+     *  Used by layout logic to validate the properties of a component
+     *  by calling the <code>commitProperties()</code> method.
+     *  In general, subclassers should
+     *  override the <code>commitProperties()</code> method and not this method.
+     */
+    public function validateProperties():void
+    {
+        if (!invalidatePropertiesFlag)
+            return;
+        commitProperties();
+        invalidatePropertiesFlag = false;
+    }
+
+    /**
+     *  Processes the properties set on the component.
+     *  This is an advanced method that you might override
+     *  when creating a subclass of UIComponent.
+     *
+     *  <p>You do not call this method directly.
+     *  Flex calls the <code>commitProperties()</code> method when you
+     *  use the <code>addChild()</code> method to add a component to a container,
+     *  or when you call the <code>invalidateProperties()</code> method of the component.
+     *  Calls to the <code>commitProperties()</code> method occur before calls to the
+     *  <code>measure()</code> method. This lets you set property values that might
+     *  be used by the <code>measure()</code> method.</p>
+     *
+     *  <p>Some components have properties that affect the number or kinds
+     *  of child objects that they need to create, or have properties that
+     *  interact with each other, such as the <code>horizontalScrollPolicy</code>
+     *  and <code>horizontalScrollPosition</code> properties.
+     *  It is often best at startup time to process all of these
+     *  properties at one time to avoid duplicating work.</p>
+     */
+    protected function commitProperties():void
+    {
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function validateSize(recursive:Boolean = false):void
+    {
+        if (!invalidateSizeFlag)
+            return;
+        invalidateSizeFlag = false;
+
+        var sizeChanging:Boolean = measureSizes();
+        if (!sizeChanging || !includeInLayout)
+            return;
+
+        // Our size has changed, parent has to resize and run layout code
+        invalidateParentSizeAndDisplayList();
+    }
+
+    /**
+     *  @private
+     */
+    private function measureSizes():Boolean
+    {
+        var changed:Boolean = false;
+
+        // TODO EGeorgie: Optimize. We don't always need to
+        // call measure() when we have explicit sizes.
+        measure();
+
+        // TODO EGeorgie: Optimize. Detect when the size has changed.
+        changed = true;
+        return changed;
+    }
+
+    /**
+     *  Calculates the default size, and optionally the default minimum size,
+     *  of the component. This is an advanced method that you might override when
+     *  creating a subclass of UIComponent.
+     *
+     *  <p>You do not call this method directly. Flex calls the
+     *  <code>measure()</code> method when the component is added to a container
+     *  using the <code>addChild()</code> method, and when the component's
+     *  <code>invalidateSize()</code> method is called. </p>
+     *
+     *  <p>When you set a specific height and width of a component,
+     *  Flex does not call the <code>measure()</code> method,
+     *  even if you explicitly call the <code>invalidateSize()</code> method.
+     *  That is, Flex only calls the <code>measure()</code> method if
+     *  the <code>explicitWidth</code> property or the <code>explicitHeight</code>
+     *  property of the component is NaN. </p>
+     *
+     *  <p>In your override of this method, you must set the
+     *  <code>measuredWidth</code> and <code>measuredHeight</code> properties
+     *  to define the default size.
+     *  You may optionally set the <code>measuredMinWidth</code> and
+     *  <code>measuredMinHeight</code> properties to define the default
+     *  minimum size.</p>
+     *
+     *  <p>Most components calculate these values based on the content they are
+     *  displaying, and from the properties that affect content display.
+     *  A few components simply have hard-coded default values. </p>
+     *
+     *  <p>The conceptual point of <code>measure()</code> is for the component to provide
+     *  its own natural or intrinsic size as a default. Therefore, the
+     *  <code>measuredWidth</code> and <code>measuredHeight</code> properties
+     *  should be determined by factors such as:</p>
+     *  <ul>
+     *     <li>The amount of text the component needs to display.</li>
+     *     <li>The styles, such as <code>fontSize</code>, for that text.</li>
+     *     <li>The size of a JPEG image that the component displays.</li>
+     *     <li>The measured or explicit sizes of the component's children.</li>
+     *     <li>Any borders, margins, and gaps.</li>
+     *  </ul>
+     *
+     *  <p>In some cases, there is no intrinsic way to determine default values.
+     *  For example, a simple GreenCircle component might simply set
+     *  measuredWidth = 100 and measuredHeight = 100 in its <code>measure()</code> method to
+     *  provide a reasonable default size. In other cases, such as a TextArea,
+     *  an appropriate computation (such as finding the right width and height
+     *  that would just display all the text and have the aspect ratio of a Golden Rectangle)
+     *  might be too time-consuming to be worthwhile.</p>
+     *
+     *  <p>The default implementation of <code>measure()</code>
+     *  sets <code>measuredWidth</code>, <code>measuredHeight</code>,
+     *  <code>measuredMinWidth</code>, and <code>measuredMinHeight</code>
+     *  to <code>0</code>.</p>
+     */
+    protected function measure():void
+    {
+        // TODO EGeorgie:
+//        measuredMinWidth = 0;
+//        measuredMinHeight = 0;
+//        measuredWidth = 0;
+//        measuredHeight = 0;
+    }
+
+    /**
+     *  @inheritDoc
+     */
+    public function validateDisplayList():void
+    {
+        if (!invalidateDisplayListFlag)
+            return;
+        invalidateDisplayListFlag = false;
+
+        updateDisplayList(_width, _height);
+    }
+
+    /**
+     *  Draws the object and/or sizes and positions its children.
+     *  This is an advanced method that you might override
+     *  when creating a subclass of UIComponent.
+     *
+     *  <p>You do not call this method directly. Flex calls the
+     *  <code>updateDisplayList()</code> method when the component is added to a container
+     *  using the <code>addChild()</code> method, and when the component's
+     *  <code>invalidateDisplayList()</code> method is called. </p>
+     *
+     *  <p>If the component has no children, this method
+     *  is where you would do programmatic drawing
+     *  using methods on the component's Graphics object
+     *  such as <code>graphics.drawRect()</code>.</p>
+     *
+     *  <p>If the component has children, this method is where
+     *  you would call the <code>move()</code> and <code>setActualSize()</code>
+     *  methods on its children.</p>
+     *
+     *  <p>Components may do programmatic drawing even if
+     *  they have children. In doing either, you should use the
+     *  component's <code>unscaledWidth</code> and <code>unscaledHeight</code>
+     *  as its bounds.</p>
+     *
+     *  <p>It is important to use <code>unscaledWidth</code> and
+     *  <code>unscaledHeight</code> instead of the <code>width</code>
+     *  and <code>height</code> properties.</p>
+     *
+     *  @param unscaledWidth Specifies the width of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleX</code> property of the component.
+     *
+     *  @param unscaledHeight Specifies the height of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleY</code> property of the component.
+     */
+    protected function updateDisplayList(unscaledWidth:Number,
+                                         unscaledHeight:Number):void
+    {
+    }
+
 	//--------------------------------------------------------------------------
     //
     //  ILayoutItem
@@ -1207,7 +1646,7 @@ public class GraphicElement extends EventDispatcher
     /**
      *  @return Returns the transformation matrix for this element, or null
      *  if it is detla identity.
-     */    
+     */
     protected function computeMatrix(actualMatrix:Boolean):Matrix
     {
     	if (_matrix)
@@ -1217,14 +1656,14 @@ public class GraphicElement extends EventDispatcher
             return null;
 
         // TODO EGeorgie: share the duplicated code with the TransformUtil.applyTransforms?
-        var m:Matrix = new Matrix();        
+        var m:Matrix = new Matrix();
         m.translate(-_transformX, -_transformY);
-        m.scale(_scaleX, _scaleY); 
+        m.scale(_scaleX, _scaleY);
         m.rotate(TransformUtil.rotationInRadians(_rotation));
         m.translate(_transformX, _transformY);
         return m;
     }
-    
+
     /**
      *  @return Returns the transformed size. Transformation is this element's
      *  transformation matrix.
@@ -1245,7 +1684,7 @@ public class GraphicElement extends EventDispatcher
 
     /**
      *  Indicates whether to layout should ignore this item or not.
-     */ 
+     */
     public function get includeInLayout():Boolean
     {
         return true;
@@ -1278,7 +1717,7 @@ public class GraphicElement extends EventDispatcher
     {
         return transformSizeForLayout(maxWidth, maxHeight, false /*actualMatrix*/);
     }
-        
+
     /**
      *  @return Returns the desired item TBounds size
      *  as a percentage of parent UBounds. Could be NaN.
@@ -1286,14 +1725,14 @@ public class GraphicElement extends EventDispatcher
     public function get percentSize():Point
     {
         return new Point(percentWidth, percentHeight);
-    } 
+    }
 
     /**
      *  @return Returns the item TBounds size.
-     */ 
+     */
     public function get actualSize():Point
     {
-    	return transformSizeForLayout(drawWidth, drawHeight, true /*actualMatrix*/);
+    	return transformSizeForLayout(_width, _height, true /*actualMatrix*/);
     }
 
     /**
@@ -1311,8 +1750,8 @@ public class GraphicElement extends EventDispatcher
     	{
 	        // Calculate the vector from pre-transform top-left to
 	        // post-transform top-left:
-	    	TransformUtil.transformBounds(new Point(drawWidth, drawHeight), m, vec);
-	    	
+	    	TransformUtil.transformBounds(new Point(_width, _height), m, vec);
+
 	    	// Subtract it from (xPos, yPos):
 	    	vec.x = xPos - vec.x;
 	    	vec.y = yPos - vec.y;
@@ -1331,7 +1770,7 @@ public class GraphicElement extends EventDispatcher
     /**
      *  <code>setActualPosition</code> moves the item such that the item TBounds
      *  top left corner has the specified coordinates.
-     */  
+     */
     public function setActualPosition(x:Number, y:Number):void
     {
         x -= bounds.left;
@@ -1343,14 +1782,14 @@ public class GraphicElement extends EventDispatcher
         {
         	// Calculate the vector from pre-transform top-left to
         	// post-transform top-left:
-	        var vec:Point = new Point();       
-	        TransformUtil.transformBounds(new Point(drawWidth, drawHeight), m, vec);
+	        var vec:Point = new Point();
+	        TransformUtil.transformBounds(new Point(_width, _height), m, vec);
 
             // Add it to (x,y):
 	        x += vec.x;
 	        y += vec.y;
         }
-        
+
         // Take stroke into account:
         // TODO EGeorgie: We assume that the stroke extents are even on both sides.
         // and that's not necessarily true.
@@ -1367,23 +1806,23 @@ public class GraphicElement extends EventDispatcher
     /**
      *  <code>setActualSize</code> modifies the item size/transform so that
      *  its TBounds have the specified <code>width</code> and <code>height</code>.
-     *  
+     *
      *  If one of the desired TBounds dimensions is left unspecified, it's size
      *  will be picked such that item can be optimally sized to fit the other
-     *  TBounds dimension. This is useful when the layout doesn't want to 
+     *  TBounds dimension. This is useful when the layout doesn't want to
      *  overconstrain the item in cases where the item TBounds width & height
      *  are dependent (text, components with complex transforms, etc.)
-     * 
+     *
      *  If both TBounds dimensions are left unspecified, the item will have its
      *  preferred size set.
-     * 
+     *
      *  <code>setActualSize</code> does not clip against <code>minSize</code> and
      *  <code>maxSize</code> properties.
-     * 
+     *
      *  <code>setActualSize</code> must preserve the item's TBounds position,
      *  which means that in some cases it will move the item in addition to
      *  changing its size.
-     * 
+     *
      *  @return Returns the TBounds of the new item size.
      */
     public function setActualSize(width:Number = Number.NaN, height:Number = Number.NaN):Point
@@ -1393,7 +1832,7 @@ public class GraphicElement extends EventDispatcher
     	// Calculate the width and height pre-transform:
     	var m:Matrix = computeMatrix(true /*actualMatrix*/);
         if (!m)
-        {            	    	  
+        {
 	        if (isNaN(width))
 	        	width = preferredSize.x;
 	        if (isNaN(height))
@@ -1407,10 +1846,10 @@ public class GraphicElement extends EventDispatcher
         {
         	if (!isNaN(width))
                width -= strokeExtents.x;
-            
+
             if (!isNaN(height))
                height -= strokeExtents.y;
-        	
+
             var newSize:Point = TransformUtil.fitBounds(width, height, m,
                                                         bounds.width, bounds.height,
                                                         minWidth, minHeight,
@@ -1427,28 +1866,33 @@ public class GraphicElement extends EventDispatcher
             }
         }
 
-        drawWidth = width;
-        drawHeight = height;
+        if (_width != width || _height != height)
+        {
+            _width = width;
+            _height = height;
+            invalidateDisplayList();
+        }
 
+        // TODO EGeorgie: move to commit properties
         // Finally, apply the transforms to the object
         commitScaleAndRotation();
         return actualSize;
     }
-    
+
     private function beginCommitTransformProps():void
 	{
         if (_mask && isMaskInElementSpace)
         {
             var maskMatrix:Matrix = _mask.transform.matrix;
             var dispObjMatrix:Matrix = displayObject.transform.matrix.clone();
-            
+
             dispObjMatrix.invert();
             maskMatrix.concat(dispObjMatrix);
             _mask.transform.matrix = maskMatrix;
             isMaskInElementSpace = false;
         }
 	}
-	
+
 	private function endCommitTransformProps():void
 	{
         if (_mask && !isMaskInElementSpace)
@@ -1459,9 +1903,9 @@ public class GraphicElement extends EventDispatcher
             isMaskInElementSpace = true;
         }
 	}
-    
+
     /**
-     *  Applies _x and _y properties to the display object. 
+     *  Applies _x and _y properties to the display object.
      */
     protected function commitXY():void
     {
@@ -1469,44 +1913,44 @@ public class GraphicElement extends EventDispatcher
             return;
 
         beginCommitTransformProps();
-            
+
         TransformUtil.applyTransforms(displayObject, null, _x, _y);
         _x = displayObject.x;
         _y = displayObject.y;
         xChanged = false;
         yChanged = false;
-        
+
         endCommitTransformProps();
     }
-    
+
     /**
-     *  Applies _scaleX and _scaleY properties to the display object. 
-     */    
+     *  Applies _scaleX and _scaleY properties to the display object.
+     */
     protected function commitScaleAndRotation():void
     {
         if (!displayObject)
             return;
-        
+
         beginCommitTransformProps();
 
         var rot:Number = rotationChanged ? _rotation : NaN;
-        TransformUtil.applyTransforms(displayObject, _matrix, NaN, NaN, 
+        TransformUtil.applyTransforms(displayObject, _matrix, NaN, NaN,
                                       _scaleX, _scaleY, rot, _transformX, _transformY);
 
-        _matrix = null;         
+        _matrix = null;
         _scaleX = displayObject.scaleX;
         _scaleY = displayObject.scaleY;
         _rotation = displayObject.rotation;
-        
+
         if (!xChanged)
             _x = displayObject.x;
         if (!yChanged)
             _y = displayObject.y;
-        
+
         scaleXChanged = false;
         scaleYChanged = false;
         rotationChanged = false;
-        
+
         endCommitTransformProps();
     }
 
@@ -1517,7 +1961,7 @@ public class GraphicElement extends EventDispatcher
 
     // TODO EGeorgie: return rectangle instead so that the function can
     // correctly indicate the left, right, top and bottom extents. Right
-    // now we assume they are the same on both sides.    
+    // now we assume they are the same on both sides.
     protected function getStrokeExtents():Point
     {
     	// TODO EGeorgie: currently we take only scale into account,
@@ -1535,7 +1979,7 @@ public class GraphicElement extends EventDispatcher
         var scaleMode:String = stroke.scaleMode;
         if (!scaleMode || scaleMode == LineScaleMode.NONE)
             return new Point(weight, weight);
-            
+
         // TODO EGeorgie: stroke thickness depends on all matrix components,
         // not only on scale.
         if (scaleMode == LineScaleMode.NORMAL)
@@ -1562,16 +2006,16 @@ public class GraphicElement extends EventDispatcher
     //  IConstraintClient
     //
     //--------------------------------------------------------------------------
-    
+
     public function getConstraintValue(constraintName:String):*
     {
     	return this[constraintName];
     }
-    
+
     public function setConstraintValue(constraintName:String, value:*):void
     {
     	this[constraintName] = value;
     }
-	
+
 }
 }
