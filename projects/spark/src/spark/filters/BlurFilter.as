@@ -48,7 +48,7 @@ import mx.filters.IBitmapFilter;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;BlurFilter
+ *  &lt;s:BlurFilter
  *    <strong>Properties</strong>
  *    blurX="4.0"
  *    blurY="4.0"
