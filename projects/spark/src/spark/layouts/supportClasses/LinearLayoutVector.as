@@ -10,10 +10,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-package mx.layout
+package spark.layout.supportClasses
 {
 import flash.geom.Rectangle;
-import mx.graphics.Rect;
+import spark.primitives.Rect;
 import mx.core.ILayoutElement;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
