@@ -16,7 +16,7 @@ import flash.display.BitmapData;
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.display.Shape; 
+import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -40,7 +40,7 @@ import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
-import mx.events.FlexEvent; 
+import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
@@ -54,15 +54,15 @@ import spark.components.supportClasses.InvalidatingSprite;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.MaskType;
-import spark.primitives.shaders.ColorBurnShader;
-import spark.primitives.shaders.ColorDodgeShader;
-import spark.primitives.shaders.ColorShader;
-import spark.primitives.shaders.ExclusionShader;
-import spark.primitives.shaders.HueShader;
-import spark.primitives.shaders.LuminosityShader;
-import spark.primitives.shaders.SaturationShader;
-import spark.primitives.shaders.SoftLightShader;
-import spark.primitives.shaders.LuminosityMaskShader; 
+import spark.primitives.supportClasses.shaders.ColorBurnShader;
+import spark.primitives.supportClasses.shaders.ColorDodgeShader;
+import spark.primitives.supportClasses.shaders.ColorShader;
+import spark.primitives.supportClasses.shaders.ExclusionShader;
+import spark.primitives.supportClasses.shaders.HueShader;
+import spark.primitives.supportClasses.shaders.LuminosityMaskShader;
+import spark.primitives.supportClasses.shaders.LuminosityShader;
+import spark.primitives.supportClasses.shaders.SaturationShader;
+import spark.primitives.supportClasses.shaders.SoftLightShader; 
 
 use namespace mx_internal;
 
@@ -1163,7 +1163,8 @@ public class GraphicElement extends EventDispatcher
     /**
      *  <p>The maskType defines how the mask is applied to the GraphicElement.</p> 
      * 
-     *  <p>The possible values are MaskType.CLIP and MaskType.ALPHA.</p>  
+     *  <p>The possible values are MaskType.CLIP, MaskType.ALPHA and 
+	 *  MaskType.LUMINOSITY.</p>  
      * 
      *  <p>Clip Masking</p>
      * 
@@ -1187,10 +1188,10 @@ public class GraphicElement extends EventDispatcher
      * 
      *  <p>In alpha mode, the opacity of each pixel in the source content is multiplied by the opacity 
      *  of the corresponding region of the mask.  i.e., a pixel in the source content with an opacity of 
-     * 1 that is masked by a region of opacity of .5 will have a resulting opacity of .5.  A source pixel 
-     * with an opacity of .8 masked by a region with opacity of .5 will have a resulting opacity of .4.</p>
+     *  1 that is masked by a region of opacity of .5 will have a resulting opacity of .5.  A source pixel 
+     *  with an opacity of .8 masked by a region with opacity of .5 will have a resulting opacity of .4.</p>
      * 
-     *  <p>Conceptually, Alpha masking is equivalent to rendering the transformed mask and source content 
+     *  <p>Conceptually, alpha masking is equivalent to rendering the transformed mask and source content 
      *  into separate RGBA surfaces, and multiplying the alpha channel of the mask content into the alpha 
      *  channel of the source content.  All of the mask content is rendered into its surface before 
      *  compositing into the source content's surface. As a result, all FXG features, such as strokes, 
@@ -1199,6 +1200,27 @@ public class GraphicElement extends EventDispatcher
      *  <p>When in alpha mode, the alpha channel of any bitmap data is composited normally into the mask 
      *  alpha channel, and will affect the final rendered content. This holds true for both BitmapGraphics 
      *  and bitmap filled shapes and paths.</p>
+	 * 
+	 *  <p>Luminosity Masking</p>
+     * 
+	 *  <p>A luminosity mask, sometimes called a 'soft mask', works very similarly to an alpha mask
+	 *  except that both the opacity and RGB color value of a pixel in the source content is multiplied
+	 *  by the opacity and RGB color value of the corresponding region in the mask.</p>
+     * 
+     *  <p>Conceptually, luminosity masking is equivalent to rendering the transformed mask and source content 
+     *  into separate RGBA surfaces, and multiplying the alpha channel and the RGB color value of the mask 
+	 *  content into the alpha channel and RGB color value of the source content.  All of the mask content is 
+	 *  rendered into its surface before compositing into the source content's surface. As a result, all FXG 
+	 *  features, such as strokes, bitmap filters, and fill opacity will affect the final composited 
+	 *  content.</p>
+     * 
+     *  <p>Luminosity masking is not native to Flash but is common in Adobe Creative Suite tools like Adobe 
+	 *  Illustrator and Adobe Photoshop. In order to accomplish the visual effect of a luminosity mask in 
+	 *  Flash-rendered content, a graphic element specifying a luminosity mask actually instantiates a shader
+	 *  filter that mimics the visual look of a luminosity mask as rendered in Adobe Creative Suite tools.</p>
+	 * 
+	 *  <p>Objects being masked by luminosity masks can set properties to control the RGB color value and 
+	 *  clipping of the mask. See the luminosityInvert and luminosityClip attributes.</p>
      * 
      *  @default MaskType.CLIP
      *  
@@ -1238,12 +1260,21 @@ public class GraphicElement extends EventDispatcher
     /**
      *  @private
      */
-    private var luminosityInvertChanged:Boolean;
+    private var luminositySettingsChanged:Boolean;
 
     [Inspectable(category="General", enumeration="true,false", defaultValue="false")]
     
     /**
-     *  Documentation is not currently available.
+     *  A property that controls the calculation of the RGB 
+	 *  color value of a graphic element being masked by 
+	 *  a luminosity mask. If true, the RGB color value of a  
+	 *  pixel in the source content is inverted and multipled  
+	 *  by the corresponding region in the mask. If false, 
+	 *  the source content's pixel's RGB color value is used 
+	 *  directly. 
+	 * 
+	 *  @default false 
+	 *  @see #maskType 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1264,6 +1295,7 @@ public class GraphicElement extends EventDispatcher
             return;
 
         _luminosityInvert = value;
+		luminositySettingsChanged = true; 
     }
 
 	//----------------------------------
@@ -1276,15 +1308,17 @@ public class GraphicElement extends EventDispatcher
      */
     private var _luminosityClip:Boolean = false; 
     
-    /**
-     *  @private
-     */
-    private var luminosityClipChanged:Boolean;
-
     [Inspectable(category="General", enumeration="true,false", defaultValue="false")]
     
     /**
-     *  Documentation is not currently available.
+     *  A property that controls whether the luminosity 
+	 *  mask clips the masked content. This property can 
+	 *  only have an effect if the graphic element has a 
+	 *  mask applied to it that is of type 
+	 *  MaskType.LUMINOSITY.  
+	 * 
+	 *  @default false 
+	 *  @see #maskType 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1305,6 +1339,7 @@ public class GraphicElement extends EventDispatcher
             return;
 
         _luminosityClip = value;
+		luminositySettingsChanged = true; 
     }
     
     //----------------------------------
@@ -3124,7 +3159,8 @@ public class GraphicElement extends EventDispatcher
 
     /**
      *  @private
-     *  Enables clipping or alpha, depending on the type of mask being applied.
+     *  Enables clipping, alpha or luminosity, depending on the 
+	 *  type of mask being applied.
      */
     mx_internal function applyMaskType():void
     {
@@ -3146,32 +3182,43 @@ public class GraphicElement extends EventDispatcher
             }
 			else if (_maskType == MaskType.LUMINOSITY)
 			{
-				// Sets up the mask's mode property based on 
-				// whether the luminosityClip and 
-				// luminosityInvert properties are on or off. 
-				var mode:int;
-				if (luminosityClip && !luminosityInvert) 
-					mode = 0; 
-				if (luminosityClip && luminosityInvert) 
-					mode = 1; 
-				if (!luminosityClip && !luminosityInvert) 
-					mode = 2; 
-				if (!luminosityClip && luminosityInvert) 
-					mode = 3;
-				
 				_mask.cacheAsBitmap = true;
 				
-				// Create the luminosityMask shader, apply the correct mode to it, 
-				// and create the filter
+				// Create the shader wrapper class which wraps the pixel bender filter 
 				var luminosityMaskShader:LuminosityMaskShader = new LuminosityMaskShader();
-				luminosityMaskShader.mode = mode;
-				var maskFilter:ShaderFilter = new ShaderFilter(luminosityMaskShader);
 				
-				// Apply the filter to the mask
-				_mask.filters = [maskFilter];
+				// Sets up the shader's mode property based on 
+				// whether the luminosityClip and 
+				// luminosityInvert properties are on or off. 
+				luminosityMaskShader.mode = calculateLuminositySettings(); 
+				
+				// Create the shader filter 
+				var shaderFilter:ShaderFilter = new ShaderFilter(luminosityMaskShader);
+				
+				// Apply the shader filter to the mask
+				_mask.filters = [shaderFilter];
 			}
         }
     }
+	
+	/**
+	 *  @private
+	 *  Calculates the luminosity mask shader's mode property which 
+	 *  determines how the shader is drawn. 
+	 */
+	private function calculateLuminositySettings():int
+	{
+		var mode:int = -1; 
+		if (luminosityClip && !luminosityInvert) 
+			mode = 0; 
+		if (luminosityClip && luminosityInvert) 
+			mode = 1; 
+		if (!luminosityClip && !luminosityInvert) 
+			mode = 2; 
+		if (!luminosityClip && luminosityInvert) 
+			mode = 3;
+		return mode; 
+	}
 
     /**
      *  @private
@@ -3562,6 +3609,31 @@ public class GraphicElement extends EventDispatcher
                     drawnDisplayObject.mask = _mask;
                 }
             }
+			
+			if (luminositySettingsChanged)
+			{
+				luminositySettingsChanged = false; 
+				
+				if (_mask && _maskType == MaskType.LUMINOSITY && _mask.filters.length > 0)
+				{
+					// Grab the shader filter and clear out the mask 
+					var shaderFilter:ShaderFilter = _mask.filters[0];
+					
+					if (shaderFilter && (shaderFilter.shader is LuminosityMaskShader))
+					{
+						// Clear out the mask's filters because we could potentially
+						// have a rendering change by setting the mode dynamically 
+						// while the filters have been set. 
+						_mask.filters = []; 
+						
+						// Reset the mode property  
+						LuminosityMaskShader(shaderFilter.shader).mode = calculateLuminositySettings();
+						
+						// Re-apply the filter to the mask 
+						_mask.filters = [shaderFilter];
+					}
+				}
+			}
 
             if (maskTypeChanged || displayObjectChanged)
             {
