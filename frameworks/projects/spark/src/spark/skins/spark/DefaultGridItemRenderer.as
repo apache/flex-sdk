@@ -18,13 +18,17 @@ package spark.skins.spark
 {
 import flash.text.TextFieldAutoSize;
 
+import mx.core.mx_internal;
 import mx.core.UIFTETextField;
 import mx.styles.CSSMergedStyleDeclaration;
 import mx.styles.IStyleClient;
 import mx.styles.IStyleManager2;
 import mx.styles.StyleManager;
 
+import spark.components.gridClasses.GridItemRenderer;
 import spark.components.gridClasses.IGridItemRenderer;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Styles
@@ -120,7 +124,8 @@ public class DefaultGridItemRenderer extends UIFTETextField implements IGridItem
         inheritingStyles = StyleProtoChain.STYLE_UNINITIALIZED;
         nonInheritingStyles = StyleProtoChain.STYLE_UNINITIALIZED;
         
-        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);
+        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, 
+						 GridItemRenderer.toolTipShowHandler);
     }
         
     /**
