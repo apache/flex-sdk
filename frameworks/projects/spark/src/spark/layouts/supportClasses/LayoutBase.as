@@ -83,20 +83,7 @@ public class LayoutBase extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  The X coordinate of the origin of the region the target is
-     *  scrolled to.  
-     * 
-     *  Setting this property causes the target's 
-     *  <code>scrollRect</code> to be set, if necessary, to:
-     *  <pre>
-     *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
-     *  </pre>
-     *  Where <code>width</code> and <code>height</code> are properties
-     *  of the target.
-     * 
-     *  @default 0
-     *  @see target
-     *  @see verticalScrollPosition
+     *  @copy flex.intf.IViewport#horizontalScrollPosition
      */
     public function get horizontalScrollPosition():Number 
     {
@@ -125,19 +112,7 @@ public class LayoutBase extends EventDispatcher
     [Inspectable(category="General")]    
     
     /**
-     *  The Y coordinate of the origin of the region this Group is
-     *  scrolled to.  
-     * 
-     *  Setting this property causes the <code>scrollRect</code> to
-     *  be set, if necessary, to:
-     *  <pre>
-     *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
-     *  </pre>                 
-     *  Where <code>width</code> and <code>height</code> are properties
-     *  of the target.
-     * 
-     *  @default 0
-     *  @see horizontalScrollPosition
+     *  @copy flex.intf.IViewport#verticalScrollPosition
      */
     public function get verticalScrollPosition():Number 
     {
@@ -165,17 +140,7 @@ public class LayoutBase extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  When scrolling is enabled, clip the target's contents by 
-     *  setting its scrollRect.  If this property is set to false,
-     *  then the target's scrollRect will be null, even if its
-     *  scrollPosition is non-zero or its content size is larger
-     *  than its actual size.
-     * 
-     *  @default true
-     *  @see target
-     *  @see updateScrollRect
-     *  @see verticalScrollPosition
-     *  @see horizontalScrollPosition
+     *  @copy flex.intf.IViewport#clipContent
      */
     public function get clipContent():Boolean 
     {
@@ -204,66 +169,7 @@ public class LayoutBase extends EventDispatcher
     //--------------------------------------------------------------------------
     
     /**
-     *  Returns the amount one would have to add to the viewport's current 
-     *  verticalScrollPosition to scroll by the requested "scrolling" unit.
-     * 
-     *  The value of unit must be one of the following flash.ui.Keyboard
-     *  constants: UP, DOWN, PAGE_UP, PAGE_DOWN, HOME, END.
-     * 
-     *  To scroll by a single row use UP or DOWN and to scroll to the
-     *  first or last row, use HOME or END.
-     */
-    public function verticalScrollPositionDelta(unit:uint):Number
-    {
-        var g:GroupBase = target;
-        if (!g)
-            return 0;     
-
-        var maxIndex:int = g.numLayoutItems -1;
-        if (maxIndex < 0)
-            return 0;
-
-        var scrollR:Rectangle = g.scrollRect;
-        if (!scrollR)
-            return 0;
-            
-        var maxDelta:Number = g.contentHeight - scrollR.height - scrollR.y;
-        var minDelta:Number = -scrollR.y; 
-            
-        switch (unit)
-        {
-        	case Keyboard.UP:
-        	    return (scrollR.y <= 0) ? 0 : -1;
-        	    
-        	case Keyboard.DOWN:
-        	    return (scrollR.y >= maxDelta) ? 0 : 1;
-        	    
-            case Keyboard.PAGE_UP:
-                return Math.max(minDelta, -scrollR.height);
-                
-            case Keyboard.PAGE_DOWN:
-                return Math.min(maxDelta, scrollR.height);
-                
-            case Keyboard.HOME: 
-                return minDelta;
-                
-            case Keyboard.END: 
-                return maxDelta;
-                
-            default:
-                return 0;
-        }    	
-    } 
-    
-    /**
-     *  Returns the amount one would have to add to the viewport's current 
-     *  verticalScrollPosition to scroll by the requested "scrolling" unit.
-     * 
-     *  The value of unit must be one of the following flash.ui.Keyboard
-     *  constants: UP, DOWN, PAGE_UP, PAGE_DOWN, HOME, END.
-     * 
-     *  To scroll by a single row use UP or DOWN and to scroll to the
-     *  first or last row, use HOME or END.
+     *  @copy flex.intf.IViewport#horizontalScrollPositionDelta
      */
     public function horizontalScrollPositionDelta(unit:uint):Number
     {
@@ -306,6 +212,51 @@ public class LayoutBase extends EventDispatcher
                 return 0;
         }       
     }
+    
+    /**
+     *  @copy flex.intf.IViewport#verticalScrollPositionDelta
+     */
+    public function verticalScrollPositionDelta(unit:uint):Number
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return 0;     
+
+        var maxIndex:int = g.numLayoutItems -1;
+        if (maxIndex < 0)
+            return 0;
+
+        var scrollR:Rectangle = g.scrollRect;
+        if (!scrollR)
+            return 0;
+            
+        var maxDelta:Number = g.contentHeight - scrollR.height - scrollR.y;
+        var minDelta:Number = -scrollR.y; 
+            
+        switch (unit)
+        {
+        	case Keyboard.UP:
+        	    return (scrollR.y <= 0) ? 0 : -1;
+        	    
+        	case Keyboard.DOWN:
+        	    return (scrollR.y >= maxDelta) ? 0 : 1;
+        	    
+            case Keyboard.PAGE_UP:
+                return Math.max(minDelta, -scrollR.height);
+                
+            case Keyboard.PAGE_DOWN:
+                return Math.min(maxDelta, scrollR.height);
+                
+            case Keyboard.HOME: 
+                return minDelta;
+                
+            case Keyboard.END: 
+                return maxDelta;
+                
+            default:
+                return 0;
+        }    	
+    } 
      
     /**
      *  Called when the verticalScrollPosition or horizontalScrollPosition 
