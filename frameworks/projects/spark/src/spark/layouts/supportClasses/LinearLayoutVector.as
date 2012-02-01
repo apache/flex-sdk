@@ -12,7 +12,6 @@
 
 package mx.layout
 {
-import __AS3__.vec.Vector;
 import flash.geom.Rectangle;
 import mx.graphics.Rect;
 import mx.layout.ILayoutElement;
