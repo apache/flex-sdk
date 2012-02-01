@@ -1071,7 +1071,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get maxHeight():Number
     {
-        // TODO!!! Examine this logic, Make this arbitrarily large (use UIComponent max)
+        // FIXME (egeorgie): Examine this logic, Make this arbitrarily large (use UIComponent max)
         return !isNaN(_maxHeight) ? _maxHeight : DEFAULT_MAX_HEIGHT;
     }
 
@@ -1111,7 +1111,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get maxWidth():Number
     {
-        // TODO!!! Examine this logic, Make this arbitrarily large (use UIComponent max)
+        // FIXME (egeorgie): Examine this logic, Make this arbitrarily large (use UIComponent max)
         return !isNaN(_maxWidth) ? _maxWidth : DEFAULT_MAX_WIDTH;
     }
 
@@ -1275,7 +1275,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get minHeight():Number
     {
-        // TODO!!! Examine this logic
+        // FIXME (egeorgie): Examine this logic
         return !isNaN(_minHeight) ? _minHeight : DEFAULT_MIN_HEIGHT;
     }
 
@@ -1315,7 +1315,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get minWidth():Number
     {
-        // TODO!!! Examine this logic
+        // FIXME (egeorgie): Examine this logic
         return !isNaN(_minWidth) ? _minWidth : DEFAULT_MIN_WIDTH;
     }
 
@@ -1748,7 +1748,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function set transform(value:flash.geom.Transform):void
     {
-    	// TODO jszeto Add perspectiveProjection support
+    	// FIXME (jszeto): Add perspectiveProjection support
     	
     	var matrix:Matrix = value && value.matrix ? value.matrix.clone() : null;
     	var matrix3D:Matrix3D = value && value.matrix3D ? value.matrix3D.clone() : null;
@@ -1839,7 +1839,7 @@ public class GraphicElement extends EventDispatcher
                                     postLayoutRotation:Vector3D = null,
                                     postLayoutTranslation:Vector3D = null):void
     {
-        //TODO: optimize for simple translations
+        // FIXME (egreenfi): optimize for simple translations
         allocateLayoutFeatures();
         var previous:Boolean = needsDisplayObject;
         layoutFeatures.transformAround(transformCenter,scale,rotation,translation,postLayoutScale,postLayoutRotation,postLayoutTranslation);
@@ -2530,7 +2530,7 @@ public class GraphicElement extends EventDispatcher
     
     private var _alwaysCreateDisplayObject:Boolean;
     
-    // TODO (jszeto) Remove once we have a better solution for a design tool 
+    // FIXME (jszeto): Remove once we have a better solution for a design tool 
     // to captureBitmapData for hit testing.
     mx_internal function set alwaysCreateDisplayObject(value:Boolean):void
     {
@@ -3270,7 +3270,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function validateDisplayList():void
     {
-        // TODO!!! Turn this off for now because we need to clear all of the DisplayObject
+        // FIXME (egeorgie): Turn this off for now because we need to clear all of the DisplayObject
         // graphics and thus need to redraw each graphic element
         // Put this back in once we implement drawingAPI2 
         /* if (!invalidateDisplayListFlag)
@@ -3286,13 +3286,13 @@ public class GraphicElement extends EventDispatcher
             applyComputedTransform();
         }
 
-        // TODO EGeorgie: don't clear the graphics if the GraphicElement is invisible and explicitly owns the DO?
+        // FIXME (egeorgie): don't clear the graphics if the GraphicElement is invisible and explicitly owns the DO?
         // If we are the first in the sequence, clear the graphics:
         if (displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT)
         {
             if (drawnDisplayObject is Sprite)
                 Sprite(drawnDisplayObject).graphics.clear();
-            // TODO (rfrishbe): We don't really support shapes, but we should 
+            // FIXME (rfrishbe): We don't really support shapes, but we should 
             //else if (drawnDisplayObject is Shape)
                 //Shape(drawnDisplayObject).graphics.clear();
         }
@@ -3526,7 +3526,7 @@ public class GraphicElement extends EventDispatcher
     public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
         // Take stroke into account:
-        // TODO EGeorgie: We assume that the stroke extents are even on both sides.
+        // FIXME (egeorgie): We assume that the stroke extents are even on both sides.
         // and that's not necessarily true.
         var stroke:Number = -getStrokeExtents(postLayoutTransform).x * 0.5;
 
@@ -3550,7 +3550,7 @@ public class GraphicElement extends EventDispatcher
     public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
     {
         // Take stroke into account:
-        // TODO EGeorgie: We assume that the stroke extents are even on both sides.
+        // FIXME (egeorgie): We assume that the stroke extents are even on both sides.
         // and that's not necessarily true.
         var stroke:Number = -getStrokeExtents(postLayoutTransform).y * 0.5;
 
@@ -3899,7 +3899,7 @@ public class GraphicElement extends EventDispatcher
 
     static private var _strokeExtents:Point = new Point();
 
-    // TODO EGeorgie: return rectangle instead so that the function can
+    // FIXME (egeorgie): return rectangle instead so that the function can
     // correctly indicate the left, right, top and bottom extents. Right
     // now we assume they are the same on both sides.
     protected function getStrokeExtents(postLayoutTransform:Boolean = true):Point
