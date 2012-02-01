@@ -19,6 +19,7 @@ import flash.events.Event;
 import flash.filters.GlowFilter;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
+import flash.geom.Matrix3D;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
@@ -158,7 +159,15 @@ public class ErrorSkin extends UIComponent
         // If the error object has a focus skin, make sure it is hidden.
         if (errorObject.focusObj)
             errorObject.focusObj.visible = false;
-       
+        
+        // Ensure no 3D transforms apply, as this skews our snapshot bitmap.
+        var transform3D:Matrix3D = null;
+        if (errorObject.transform.matrix3D)
+        {
+            transform3D = errorObject.transform.matrix3D;  
+            errorObject.transform.matrix3D = null;
+        }
+        
         // Temporary solution for error drawing on CheckBox and RadioButton components.
         // Hide the label before drawing the focus. 
         // FIXME (gruehle): Figure out a better solution.
@@ -219,6 +228,10 @@ public class ErrorSkin extends UIComponent
         // of overlaying the error skin on the border of the component.
         bitmap.width = errorObject.width;
         bitmap.height = errorObject.height;
+        
+        // Restore original 3D matrix if applicable.
+        if (transform3D)
+            errorObject.transform.matrix3D = transform3D;
     }
     
     private static var classDefCache:Object = {};
