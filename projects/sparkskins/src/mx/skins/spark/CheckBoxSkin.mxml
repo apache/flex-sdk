@@ -11,10 +11,10 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
 	  alpha.disabledStates="0.5">
     
-    <Script>
+    <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For checkbox, the graphics are colorized but the check mark is not. */
         static private const exclusions:Array = ["check"];
@@ -23,111 +23,111 @@
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["checkMarkFill"];
         override public function get symbolItems():Array {return symbols};
-    </Script>
+    </fx:Script>
     
-    <states>
-        <State name="up" />
-        <State name="over" stateGroups="overStates" />
-        <State name="down" stateGroups="downStates" />
-        <State name="disabled" stateGroups="disabledStates" />
-        <State name="selectedUp" stateGroups="selectedStates" />
-        <State name="selectedOver" stateGroups="overStates, selectedStates" />
-        <State name="selectedDown" stateGroups="downStates, selectedStates" />
-        <State name="selectedDisabled" stateGroups="disabledStates, selectedStates" />
-    </states>
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" stateGroups="overStates" />
+        <s:State name="down" stateGroups="downStates" />
+        <s:State name="disabled" stateGroups="disabledStates" />
+        <s:State name="selectedUp" stateGroups="selectedStates" />
+        <s:State name="selectedOver" stateGroups="overStates, selectedStates" />
+        <s:State name="selectedDown" stateGroups="downStates, selectedStates" />
+        <s:State name="selectedDisabled" stateGroups="disabledStates, selectedStates" />
+    </s:states>
     
-    <Group width="13" height="13">
+    <s:Group width="13" height="13">
 	    <!-- drop shadow -->
-	    <Rect left="-1" top="-1" right="-1" bottom="-1">
-	    	<stroke>
-	    		<LinearGradientStroke rotation="90" weight="1">
-	    			<GradientEntry color="0x000000" 
+	    <s:Rect left="-1" top="-1" right="-1" bottom="-1">
+	    	<s:stroke>
+	    		<s:LinearGradientStroke rotation="90" weight="1">
+	    			<s:GradientEntry color="0x000000" 
 	    				           color.downStates="0xFFFFFF"
 	    				           alpha="0.011"
 	    				           alpha.downStates="0" />
-	    			<GradientEntry color="0x000000" 
+	    			<s:GradientEntry color="0x000000" 
 	    				           color.downStates="0xFFFFFF" 
 	    				           alpha="0.121"
 	    				           alpha.downStates="0.57" />
-	    		</LinearGradientStroke>
-	    	</stroke>
-	    </Rect>
+	    		</s:LinearGradientStroke>
+	    	</s:stroke>
+	    </s:Rect>
 	    
 		<!-- fill -->
-		<Rect left="1" top="1" right="1" bottom="1">
-			<fill>
-				<LinearGradient rotation="90">
-					<GradientEntry color="0xFFFFFF" 
+		<s:Rect left="1" top="1" right="1" bottom="1">
+			<s:fill>
+				<s:LinearGradient rotation="90">
+					<s:GradientEntry color="0xFFFFFF" 
 								   color.overStates="0xBBBDBD" 
 								   color.downStates="0xAAAAAA" 
 								   alpha="0.85" />
-					<GradientEntry color="0xD8D8D8" 
+					<s:GradientEntry color="0xD8D8D8" 
 								   color.overStates="0x9FA0A1" 
 								   color.downStates="0x929496" 
 								   alpha="0.85" />
-				</LinearGradient>
-			</fill>
-		</Rect>
+				</s:LinearGradient>
+			</s:fill>
+		</s:Rect>
 		
 		<!-- fill highlight -->
-		<Rect left="1" right="1" top="1" height="5">
-			<fill>
-				<SolidColor color="0xFFFFFF" alpha="0.33" alpha.downStates="0" />
-			</fill>
-		</Rect>
+		<s:Rect left="1" right="1" top="1" height="5">
+			<s:fill>
+				<s:SolidColor color="0xFFFFFF" alpha="0.33" alpha.downStates="0" />
+			</s:fill>
+		</s:Rect>
 		
 		<!-- layer 6: highlight stroke (all states except down) -->
-		<Rect left="1" right="1" top="1" bottom="1" excludeFrom="downStates">
-			<stroke>
-				<LinearGradientStroke rotation="90" weight="1">
-					<GradientEntry color="0xFFFFFF" alpha.overStates="0.33" />
-					<GradientEntry color="0xFFFFFF" alpha="0.12" alpha.overStates="0.0396" />
-				</LinearGradientStroke>
-			</stroke>
-		</Rect>
+		<s:Rect left="1" right="1" top="1" bottom="1" excludeFrom="downStates">
+			<s:stroke>
+				<s:LinearGradientStroke rotation="90" weight="1">
+					<s:GradientEntry color="0xFFFFFF" alpha.overStates="0.33" />
+					<s:GradientEntry color="0xFFFFFF" alpha="0.12" alpha.overStates="0.0396" />
+				</s:LinearGradientStroke>
+			</s:stroke>
+		</s:Rect>
 		
 		<!-- layer 6: highlight stroke (down state only) -->
-		<Rect left="1" top="1" bottom="1" width="1" includeIn="downStates">
-			<fill>
-				<SolidColor color="0x000000" alpha="0.07" />
-			</fill>
-		</Rect>
-		<Rect right="1" top="1" bottom="1" width="1" includeIn="downStates">
-			<fill>
-				<SolidColor color="0x000000" alpha="0.07" />
-			</fill>
-		</Rect>
-		<Rect left="1" top="1" right="1" height="1" includeIn="downStates">
-			<fill>
-				<SolidColor color="0x000000" alpha="0.25" />
-			</fill>
-		</Rect>
-		<Rect left="1" top="2" right="1" height="1" includeIn="downStates">
-			<fill>
-				<SolidColor color="0x000000" alpha="0.09" />
-			</fill>
-		</Rect>
+		<s:Rect left="1" top="1" bottom="1" width="1" includeIn="downStates">
+			<s:fill>
+				<s:SolidColor color="0x000000" alpha="0.07" />
+			</s:fill>
+		</s:Rect>
+		<s:Rect right="1" top="1" bottom="1" width="1" includeIn="downStates">
+			<s:fill>
+				<s:SolidColor color="0x000000" alpha="0.07" />
+			</s:fill>
+		</s:Rect>
+		<s:Rect left="1" top="1" right="1" height="1" includeIn="downStates">
+			<s:fill>
+				<s:SolidColor color="0x000000" alpha="0.25" />
+			</s:fill>
+		</s:Rect>
+		<s:Rect left="1" top="2" right="1" height="1" includeIn="downStates">
+			<s:fill>
+				<s:SolidColor color="0x000000" alpha="0.09" />
+			</s:fill>
+		</s:Rect>
 		
         <!-- border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
-        <Rect left="0" top="0" right="0" bottom="0">
-            <stroke>
-                <LinearGradientStroke rotation="90" weight="1">
-                    <GradientEntry color="0x000000" 
+        <s:Rect left="0" top="0" right="0" bottom="0">
+            <s:stroke>
+                <s:LinearGradientStroke rotation="90" weight="1">
+                    <s:GradientEntry color="0x000000" 
                                    alpha="0.5625"
                                    alpha.downStates="0.6375" />
-                    <GradientEntry color="0x000000" 
+                    <s:GradientEntry color="0x000000" 
                                    alpha="0.75"
                                    alpha.downStates="0.85" />
-                </LinearGradientStroke>
-            </stroke>
-        </Rect>
+                </s:LinearGradientStroke>
+            </s:stroke>
+        </s:Rect>
     
 	    <!-- checkmark -->
-        <Path left="2" top="0" includeIn="selectedStates" id="check" itemCreationPolicy="immediate"
+        <s:Path left="2" top="0" includeIn="selectedStates" id="check" itemCreationPolicy="immediate"
               data="M 9.2 0.1 L 4.05 6.55 L 3.15 5.0 L 0.05 5.0 L 4.6 9.7 L 12.05 0.1 L 9.2 0.1">
-            <fill>
-                <SolidColor id="checkMarkFill" color="0" alpha="0.8" />
-            </fill>
-        </Path>
-    </Group>
-</SparkSkin>
+            <s:fill>
+                <s:SolidColor id="checkMarkFill" color="0" alpha="0.8" />
+            </s:fill>
+        </s:Path>
+    </s:Group>
+</s:SparkSkin>
