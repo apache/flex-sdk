@@ -162,12 +162,12 @@ public final class LastOperationStatus
      *  <code>lastOperationStatus</code> property after an invalid "xx" pattern
      *  is used for date formatting:</p>
      *
-     *  <listing version="3.0">
+     *  <pre>
      *  var df:DateTimeFormatter = new DateTimeFormatter();
      *  df.setStyle("locale","en_US");
      *  df.setDateTimePattern("xx");
      *  trace(df.lastOperationStatus); // "patternSyntaxError"
-     *  </listing>
+     *  </pre>
      *
      *  @see flash.globalization.LastOperationStatus.PATTERN_SYNTAX_ERROR
      *
@@ -199,12 +199,12 @@ public final class LastOperationStatus
      *  status is set when <code>CurrencyFormatter.grouping</code> property is
      *  set to the invalid value "3;".</p>
      *
-     *  <listing version="3.0">
+     *  <pre>
      *  var cf:CurrencyFormatter = new CurrencyFormatter();
      *  cf.setStyle("locale","en_US");
      *  cf.groupingPattern = "3;";
      *  trace(cf.lastOperationStatus); // "illegalArgumentError"
-     *  </listing>
+     *  </pre>
      *
      *  @see flash.globalization.LastOperationStatus.ILLEGAL_ARGUMENT_ERROR
      *
@@ -237,12 +237,12 @@ public final class LastOperationStatus
      *  <code>NumberFormatter.negativeNumberFormat</code> property to an
      *  out-of-range value results in an invalid attribute value status.</p>
      *
-     *  <listing version="3.0">
+     *  <pre>
      *  var nf:NumberFormatter = new NumberFormatter();
      *  nf.setStyle("locale","en_US");
      *  nf.negativeNumberFormat = 9;
      *  nf.lastOperationStatus; // "invalidAttrValue"
-     *  </listing>
+     *  </pre>
      *
      *  @see flash.globalization.LastOperationStatus.INVALID_ATTR_VALUE
      *
@@ -331,11 +331,11 @@ public final class LastOperationStatus
      *  value <code>UNEXPECTED_TOKEN</code> after a call to the
      *  <code>LocaleID.getKeysAndValues()</code> method.</p>
      *
-     *  <listing version="3.0">
+     *  <pre>
      *  var locale:flash.globalization.LocaleID = new flash.globalization.LocaleID("en-US&#64;Collation");
      *  var kav:Object = locale.getKeysAndValues();
      *  trace(locale.lastOperationStatus); // "unexpectedToken"
-     *  </listing>
+     *  </pre>
      *
      *  @see flash.globalization.LastOperationStatus.UNEXPECTED_TOKEN
      *
