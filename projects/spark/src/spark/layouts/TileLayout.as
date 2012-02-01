@@ -14,6 +14,7 @@ package spark.layouts
 import flash.geom.Rectangle;
 
 import mx.core.ILayoutElement;
+import mx.core.IVisualElement;
 import mx.events.PropertyChangeEvent;
 import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
@@ -1208,9 +1209,10 @@ public class TileLayout extends LayoutBase
         
         // We're responsible for the laying *all* of the elements requested
         // with getVirtualElementAt(), even if they don't fall within the final
-        // visible range.  Hide any extra ones.
+        // visible range.  Hide any extra ones.  On the next layout pass, they'll
+        // be added to DataGroup::freeRenderers
         
-        var layoutTarget:GroupBase = target;         
+        var layoutTarget:GroupBase = target; 
         for(var i:int = oldVisibleStartIndex; i <= oldVisibleEndIndex; i++)
         {
             if (i == visibleStartIndex)
@@ -1222,6 +1224,8 @@ public class TileLayout extends LayoutBase
             if (!el)
                 continue;
             el.setLayoutBoundsSize(0, 0);
+            if (el is IVisualElement)
+                IVisualElement(el).visible = false; 
         }
      }    
 
