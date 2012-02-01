@@ -98,7 +98,7 @@ Move the indicator tooltip string to a resource bundle
                 <s:ConstraintColumn id="helpCol" maxWidth="200"/>
             </s:constraintColumns>         
             <s:constraintRows>
-                <s:ConstraintRow id="row1" baseline="maxAscent:10"/>
+                <s:ConstraintRow id="row1" baseline="maxAscent:10" height="100%"/>
             </s:constraintRows>  
         </s:FormItemLayout>
     </s:layout>
