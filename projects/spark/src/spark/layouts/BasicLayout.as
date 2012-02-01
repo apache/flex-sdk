@@ -25,6 +25,44 @@ import flex.core.Group;
 public class BasicLayout implements ILayout
 {
     include "../core/Version.as";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     * Layout class utility function used by updateDisplayList functions.
+     * Conditionally sets the origin of the specified Group's scrollRect to 
+     * verticalScrollPosition,horizontalScrollPosition and its width
+     * width,height to unscaledWidth,unscaledHeight.  We avoid setting
+     * the scrollRect (and therefore clipping) when scrolling isn't indicated:
+     * if the scrollRect is currently null and the scrollPosition properties
+     * are 0, and the Group's contentWidth,Height is <= to unscaledWidth,Height,
+     * then the scrollRect is *not* set.
+     */ 
+	static function setScrollRect(g:Group, unscaledWidth:Number, unscaledHeight:Number):void
+	{
+	    var r:Rectangle = g.scrollRect;
+	    if (r != null) 
+	    {
+			r.width = unscaledWidth;
+			r.height = unscaledHeight;
+			g.scrollRect = r;
+	    }
+	    else // scrollRect wasn't set
+	    {
+			var hsp:Number = g.horizontalScrollPosition;
+			var vsp:Number = g.verticalScrollPosition;
+			var cw:Number = g.contentWidth;
+			var ch:Number = g.contentHeight;
+			// don't set the scrollRect needlessly
+			if ((hsp != 0) || (vsp != 0) || (cw > unscaledWidth) || (ch > unscaledHeight))
+			    g.scrollRect = new Rectangle(hsp, vsp, unscaledWidth, unscaledHeight);
+	    }
+	}
+    
 
     //--------------------------------------------------------------------------
     //
@@ -209,19 +247,8 @@ public class BasicLayout implements ILayout
             // Set position
             layoutItem.setActualPosition(childX, childY);
         }
-        var r:Rectangle = layoutTarget.scrollRect;
-        if (r != null) 
-        {
-            r.width = unscaledWidth;
-            r.height = unscaledHeight;
-            layoutTarget.scrollRect = r;
-        }
-        else 
-        {
-        	var rx:Number = layoutTarget.horizontalScrollPosition;
-        	var ry:Number = layoutTarget.verticalScrollPosition;
-        	layoutTarget.scrollRect = new Rectangle(rx, ry, unscaledWidth, unscaledHeight);
-        } 
+        
+        setScrollRect(layoutTarget, unscaledWidth, unscaledHeight);
     }
 }
 
