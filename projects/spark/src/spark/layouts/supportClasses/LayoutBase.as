@@ -227,7 +227,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         _useVirtualLayout = value;
         if (target)
             target.invalidateDisplayList();
-    }     
+    }
     
     /**
      *  When <code>useVirtualLayout</code> is <code>true</code>, 
@@ -251,6 +251,16 @@ public class LayoutBase extends OnDemandEventDispatcher
      */ 
     public function clearVirtualLayoutCache():void
     {
+    }
+    
+    /**
+     *  Specifies whether this layout supports virtual layout.
+     *  
+     *  @default true
+     */ 
+    mx_internal function get virtualLayoutSupported():Boolean
+    {
+        return true;
     }
     
     //----------------------------------
