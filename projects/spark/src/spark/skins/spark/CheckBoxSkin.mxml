@@ -122,6 +122,6 @@
 
     <!-- Label -->
     <TextBox id="labelField"
-             left="18" top="3" bottom="3" verticalCenter="2" />
+             left="18" right="0" top="3" bottom="3" verticalCenter="2" />
 
 </Skin>
