@@ -26,12 +26,7 @@
                             alpha="0" alpha.hovered="0.2" alpha.selected="0.8" />
 			</fill>
 		</Rect>
-		<Group id="contentHolder" content="{data}"
-               left="0" right="0" top="0" bottom="0">
-			<layout>
-				<HorizontalLayout/>
-			</layout>
-		</Group>
+		<TextBox text="{data}" verticalCenter="0" left="2" right="2" top="2" bottom="2" />
 	</content>
 
 </ItemRenderer>
