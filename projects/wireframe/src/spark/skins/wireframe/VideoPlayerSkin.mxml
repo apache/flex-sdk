@@ -102,11 +102,11 @@
                             <!-- spacer -->
                             <s:Rect width="8" height="1" />
                             
-                            <s:SimpleText id="playheadTimeDisplay" styleName="videoTextStyle" />
+                            <s:Label id="playheadTimeDisplay" styleName="videoTextStyle" />
                             
-                            <s:SimpleText id="timeDivider" text="/" styleName="videoTextStyle" />
+                            <s:Label id="timeDivider" text="/" styleName="videoTextStyle" />
                             
-                            <s:SimpleText id="totalTimeDisplay" styleName="videoTextStyle" />
+                            <s:Label id="totalTimeDisplay" styleName="videoTextStyle" />
                             
                             <!-- spacer -->
                             <s:Rect width="8" height="1" />
