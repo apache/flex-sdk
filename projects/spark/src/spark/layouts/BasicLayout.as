@@ -21,6 +21,11 @@ import mx.layout.LayoutBase;
 
 /**
  *  Documentation is not currently available.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class BasicLayout extends LayoutBase
 {
@@ -54,6 +59,11 @@ public class BasicLayout extends LayoutBase
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function BasicLayout():void
     {
@@ -140,6 +150,11 @@ public class BasicLayout extends LayoutBase
      *  spill out of the container size. Calculations are based on the layout rules.
      *  Pass in unscaledWidth, hCenter, left, right, childX to get a maxWidth value.
      *  Pass in unscaledHeight, vCenter, top, bottom, childY to get a maxHeight value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     static private function maxSizeToFitIn(totalSize:Number,
                                            center:Number,
