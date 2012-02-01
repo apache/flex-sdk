@@ -16,6 +16,7 @@ import flash.errors.IllegalOperationError;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
+import mx.core.FlexGlobals;
 import mx.core.mx_internal;
 import mx.styles.AdvancedStyleClient;
 
@@ -116,6 +117,14 @@ public class GlobalizationBase extends AdvancedStyleClient
      *  simply copied into a new instance.
      */
     private var basicProperties:Object = null;
+    
+    /**
+     *  @private
+     *  Properties object to be used by higher level class ONLY.
+     *
+     *  Store overriden properties.
+     */
+    mx_internal var properties:Object = null;
 
     /**
      *  @private
@@ -263,6 +272,44 @@ public class GlobalizationBase extends AdvancedStyleClient
     //
     //--------------------------------------------------------------------------
 
+    override public function getStyle(styleProp:String):*
+    {
+        if (styleProp != "locale")
+            return super.getStyle(styleProp);
+
+        if ((localeStyle !== undefined) && (localeStyle !== null))
+            return localeStyle;
+
+        if (styleParent)
+            return styleParent.getStyle(styleProp);
+
+        if (FlexGlobals.topLevelApplication)
+            return FlexGlobals.topLevelApplication.getStyle(styleProp);
+
+        return undefined;
+    }
+
+    /**
+     *  @private
+     *  Intercept style change for "locale".
+     *
+     *  In the case that there is no associated UI component or the
+     *  module factory of the UIComponent has not yet been intialized
+     *  style changes are only recorded but the styleChanged method
+     *  is not called.  Overriding the setStyle method allows
+     *  the class to be updated immediately when the locale style is
+     *  set directly on this class instance.
+     */
+    override public function setStyle(styleProp:String, newValue:*):void
+    {
+        super.setStyle(styleProp, newValue);
+
+        if (styleProp != "locale")
+            return;
+
+        localeChanged();
+    }
+
     /**
      *  @private
      *  Detects changes to style properties. When any style property is set,
@@ -289,27 +336,6 @@ public class GlobalizationBase extends AdvancedStyleClient
         super.styleChanged(styleProp);
     }
 
-    /**
-     *  @private
-     *  Intercept style change for "locale".
-     *
-     *  In the case that there is no associated UI component or the
-     *  module factory of the UIComponent has not yet been intialized
-     *  style changes are only recorded but the styleChanged method
-     *  is not called.  Overriding the setStyle method allows
-     *  the class to be updated immediately when the locale style is
-     *  set directly on this class instance.
-     */
-    override public function setStyle(styleProp:String, newValue:*):void
-    {
-        super.setStyle(styleProp, newValue);
-
-        if (styleProp != "locale")
-            return;
-
-        localeChanged();
-    }
-
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -327,6 +353,32 @@ public class GlobalizationBase extends AdvancedStyleClient
     {
         // This method must be overridden by the inherited class.
         throw new IllegalOperationError();
+    }
+
+    /**
+     *  @private
+     *  Ensure some style source exists for this instance of a globalization
+     *  object.
+     *
+     *  A style source is considered exist if (A) styleParent value is non-null,
+     *  or (B) localeStyle value has some useable value.
+     *  If neither is the case, this style client will be added to the
+     *  FlexGlobals.topLevelApplication as a child if possible.
+     *
+     *  As a side effect this will call the styleChanged method and if the
+     *  locale has changed will cause the createWorkingInstance method
+     *  to be called.
+     */
+    mx_internal function ensureStyleSource():void
+    {
+        if (!styleParent &&
+            ((localeStyle === undefined) || (localeStyle === null)))
+        {
+            if (FlexGlobals.topLevelApplication) 
+            {
+                FlexGlobals.topLevelApplication.addStyleClient(this);
+            }
+        }
     }
 
    /**
@@ -360,8 +412,17 @@ public class GlobalizationBase extends AdvancedStyleClient
      */
     mx_internal function getBasicProperty(obj:Object, propertyName:String):*
     {
+        ensureStyleSource();
+
         if (obj)
+        {
             return obj[propertyName];
+        }
+        // ensureStyleSource() above could have created properties.
+        else if (properties)
+        {
+            return properties[propertyName];
+        }
 
         // Note that there is the rule in flash.globalization class is that the
         // getters do not update lastOperationStatus property. So we are
@@ -441,7 +502,7 @@ public class GlobalizationBase extends AdvancedStyleClient
      */
     private function localeChanged():void
     {
-        const newlocaleStyle:*= getStyle("locale") ;
+        const newlocaleStyle:* = super.getStyle("locale") ;
 
         if (localeStyle === newlocaleStyle)
             return;
