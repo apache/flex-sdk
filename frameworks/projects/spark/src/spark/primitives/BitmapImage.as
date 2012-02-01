@@ -824,7 +824,7 @@ public class BitmapImage extends GraphicElement
      *
      *  @default true
      *  
-     *  @langversion 4.0
+     *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
