@@ -32,8 +32,10 @@
     </Rect>
 
     <TextView id="textView" text="{hostComponent.text}"
+              left="1" right="1" top="1" bottom="1"
               fontFamily="Arial" fontSize="12"
               color="0x2B4381" color.disabled="0x95A1C0"
-			  left="1" right="1" top="1" bottom="1"/>
+			  paddingLeft="4" paddingTop="4"
+              paddingRight="4" paddingBottom="4"/>
 
 </Skin>
