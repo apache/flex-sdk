@@ -147,7 +147,8 @@
     <s:SimpleText id="labelElement"
              textAlign="start"
              verticalAlign="middle"
-             lineBreak="explicit"
+             lineBreak="toFit"
+             truncation="1"
              left="18" right="0" top="3" bottom="3" verticalCenter="2" />
 
 </s:SparkSkin>
