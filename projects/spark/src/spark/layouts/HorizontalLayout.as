@@ -12,6 +12,7 @@
 package flex.layout
 {
 import flash.display.DisplayObject;	
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.events.Event;
 import flash.events.EventDispatcher;	
@@ -386,11 +387,11 @@ public class HorizontalLayout extends LayoutBase
      */
    public function inView(index:int):Number 
     {
-        var vp:GroupBase = GroupBase(target);
-        if (!vp)
+        var g:GroupBase = GroupBase(target);
+        if (!g)
             return 0.0;
 
-        var li:ILayoutItem = vp.getLayoutItemAt(index);
+        var li:ILayoutItem = g.getLayoutItemAt(index);
         if ((li == null) || !li.includeInLayout)
             return 0.0;
             
@@ -406,8 +407,8 @@ public class HorizontalLayout extends LayoutBase
             return 1.0;
 
         // index is first (c0) or last (c1) visible column
-        var x0:Number = vp.horizontalScrollPosition;
-        var x1:Number = x0 + vp.width;
+        var x0:Number = g.horizontalScrollPosition;
+        var x1:Number = x0 + g.width;
         var ix0:Number = li.actualPosition.x;
         var ix1:Number = ix0 + li.actualSize.x;
         if (ix0 >= ix1)  // item has 0 or negative height
@@ -419,6 +420,75 @@ public class HorizontalLayout extends LayoutBase
         else 
             return (x1 - ix0) / (ix1 - ix0);
     } 
+    
+    /**
+     *  Binary search for the first layout item that contains y.  
+     * 
+     *  This function considers both the item's actual bounds and 
+     *  the gap that follows it to be part of the item.  The search 
+     *  covers index i0 through i1 (inclusive).
+     * 
+     *  This function is intended for variable height items.
+     * 
+     *  Returns the index of the item that contains x, or -1.
+     * 
+     *  Implementation note: currently the inclusion test is slightly
+     *  incorrect, since we're comparing y with the _closed_ interval
+     *  from p.x to p.x + s.x + gap.  This is to accomodate checking the
+     *  "right" of the scrollRect, see the computation of i1 in
+     *  scrollPositionChanged.  One alternative that would restore
+     *  the more correct open ended interval, would be to check
+     *  the right of the scrollRect less some infintesimally small
+     *  amount.
+     * 
+     * @private 
+     */
+    private static function findIndexAt(x:Number, gap:int, g:GroupBase, i0:int, i1:int):int
+    {
+        var index:int = (i0 + i1) / 2;
+        var item:ILayoutItem = g.getLayoutItemAt(index);        
+        var p:Point = item.actualPosition;
+        var s:Point = item.actualSize;
+        // TBD: deal with null item, includeInLayout false.
+        if ((x >= p.x) && (x <= p.x + s.x + gap))
+            return index;
+        else if (i0 == i1)
+            return -1;
+        else if (x < p.x)
+            return findIndexAt(x, gap, g, i0, Math.max(i0, index-1));
+        else 
+            return findIndexAt(x, gap, g, Math.min(index+1, i1), i1);
+    }   
+
+   /**
+    *  Updates the first,lastIndexInView properties per the new
+    *  scroll position.
+    *  
+    *  @see setIndexInView
+    */
+    override protected function scrollPositionChanged():void
+    {
+        super.scrollPositionChanged();
+        
+        var g:GroupBase = target;
+        if (!g)
+            return;     
+
+        var r:Rectangle = g.scrollRect;
+        if (!r)
+        {
+            // TBD: find first/last non-null includeInLayout items
+        }
+        // TBD: special case for variableRowHeight false
+        else 
+        {
+            var n:int = Math.max(g.numLayoutItems - 1, 0);
+            var i0:int = findIndexAt(r.x + gap, gap, g, 0, n);
+            var i1:int = findIndexAt(r.right, gap, g, 0, n);
+            setIndexInView(i0, i1);
+        }
+    }
+        
 
 
     public function variableColumnWidthMeasure(layoutTarget:GroupBase):void
