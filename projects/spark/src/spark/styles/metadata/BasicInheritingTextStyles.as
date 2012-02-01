@@ -66,11 +66,14 @@
  *  <p><b>For the Spark theme, see
  *  flashx.textLayout.formats.ITextLayoutFormat.color.</b></p>
  *
- *  <p><b>For the Mobile theme, see
- *  spark.components.supportClasses.StyleableTextField Style color.</b></p>
+ *  <p><b>For the Mobile theme, if using StyleableTextField,
+ *  see spark.components.supportClasses.StyleableTextField Style color,
+ *  and if using StyleableStageText,
+ *  see spark.components.supportClasses.StyleableStageText Style color.</b></p>
  *
  *  @see flashx.textLayout.formats.ITextLayoutFormat#color
  *  @see spark.components.supportClasses.StyleableTextField#style:color
+ *  @see spark.components.supportClasses.StyleableStageText#style:color
  * 
  *  @default 0x000000
  *  
@@ -156,13 +159,16 @@
  *  <p><b>For the Spark theme, see
  *  flashx.textLayout.formats.ITextLayoutFormat.fontFamily.</b></p>
  *
- *  <p><b>For the Mobile theme, see
- *  spark.components.supportClasses.StyleableTextField Style fontFamily.</b></p>
+ *  <p><b>For the Mobile theme, if using StyleableTextField,
+ *  see spark.components.supportClasses.StyleableTextField Style fontFamily,
+ *  and if using StyleableStageText,
+ *  see spark.components.supportClasses.StyleableStageText Style fontFamily.</b></p>
  * 
  *  <p>The default value for the Spark theme is <code>Arial</code>.
  *  The default value for the Mobile theme is <code>_sans</code>.</p>
  *
  *  @see flashx.textLayout.formats.ITextLayoutFormat#fontFamily
+ *  @see spark.components.supportClasses.StyleableStageText#style:fontFamily
  *  @see spark.components.supportClasses.StyleableTextField#style:fontFamily
  *  
  *  @langversion 3.0
@@ -195,13 +201,16 @@
  *  <p><b>For the Spark theme, see
  *  flashx.textLayout.formats.ITextLayoutFormat.fontSize</b></p>
  *
- *  <p><b>For the Mobile theme, see
- *  spark.components.supportClasses.StyleableTextField Style fontSize</b></p>
+ *  <p><b>For the Mobile theme, if using StyleableTextField,
+ *  see spark.components.supportClasses.StyleableTextField Style fontSize,
+ *  and if using StyleableStageText,
+ *  see spark.components.supportClasses.StyleableStageText Style fontSize.</b></p>
  * 
  *  <p>The default value for the Spark theme is <code>12</code>.
  *  The default value for the Mobile theme is <code>24</code>.</p>
  *
  *  @see flashx.textLayout.formats.ITextLayoutFormat#fontSize
+ *  @see spark.components.supportClasses.StyleableStageText#style:fontSize
  *  @see spark.components.supportClasses.StyleableTextField#style:fontSize
  *  
  *  @langversion 3.0
@@ -217,10 +226,13 @@
  *  <p><b>For the Spark theme, see
  *  flashx.textLayout.formats.ITextLayoutFormat.fontStyle</b></p>
  *
- *  <p><b>For the Mobile theme, see
- *  spark.components.supportClasses.StyleableTextField Style fontStyle</b></p>
- *
+ *  <p><b>For the Mobile theme, if using StyleableTextField,
+ *  see spark.components.supportClasses.StyleableTextField Style fontStyle,
+ *  and if using StyleableStageText,
+ *  see spark.components.supportClasses.StyleableStageText Style fontStyle.</b></p>
+ * 
  *  @see flashx.textLayout.formats.ITextLayoutFormat#fontStyle
+ *  @see spark.components.supportClasses.StyleableStageText#style:fontStyle
  *  @see spark.components.supportClasses.StyleableTextField#style:fontStyle
  *  
  *  @langversion 3.0
@@ -236,10 +248,13 @@
  *  <p><b>For the Spark theme, see
  *  flashx.textLayout.formats.ITextLayoutFormat.fontWeight</b></p>
  *
- *  <p><b>For the Mobile theme, see
- *  spark.components.supportClasses.StyleableTextField Style fontWeight</b></p>
- *
+ *  <p><b>For the Mobile theme, if using StyleableTextField,
+ *  see spark.components.supportClasses.StyleableTextField Style fontWeight,
+ *  and if using StyleableStageText,
+ *  see spark.components.supportClasses.StyleableStageText Style fontWeight.</b></p>
+ * 
  *  @see flashx.textLayout.formats.ITextLayoutFormat#fontWeight
+ *  @see spark.components.supportClasses.StyleableStageText#style:fontWeight
  *  @see spark.components.supportClasses.StyleableTextField#style:fontWeight
  *  
  *  @langversion 3.0
@@ -309,8 +324,9 @@
  *
  *  <p><b>For the Spark theme, this is not supported.</b>  See <code>lineHeight</code>.</p>
  *
- *  <p><b>For the Mobile theme, see 
- *  spark.components.supportClasses.StyleableTextField.leading.</b></p>
+ *  <p><b>For the Mobile theme, if using StyleableTextField,
+ *  see spark.components.supportClasses.StyleableStageText Style fontWeight
+ *  and if using StyleableStageText, this is not supported.</b></p>
  * 
  *  @see spark.components.supportClasses.StyleableTextField#style:leading
  *  @see #style:lineHeight
@@ -328,9 +344,10 @@
  *  <p><b>For the Spark theme, this is not supported.</b>  See <code>trackingLeft</code>
  *  and <code>trackingRight</code>.</p>
  *
- *  <p><b>For the Mobile theme, see 
- *  spark.components.supportClasses.StyleableTextField.letterSpacing.</b></p>
- * 
+ *  <p><b>For the Mobile theme, if using StyleableTextField,
+ *  see spark.components.supportClasses.StyleableTextField.letterSpacing 
+ *  and if using StyleableStageText, this is not supported.</b></p>
+ *
  *  @see spark.components.supportClasses.StyleableTextField#style:letterSpacing
  *  @see #style:trackingLeft
  *  @see #style:trackingRight
@@ -395,14 +412,23 @@
 [Style(name="lineThrough", type="Boolean", inherit="yes")]
 
 /**
- * The locale of the text. Controls case transformations and shaping. Uses standard locale identifiers as described in Unicode Technical Standard #35. For example "en", "en_US" and "en-US" are all English, "ja" is Japanese. 
+ *  The locale of the text. 
+ *  Controls case transformations and shaping. 
+ *  Uses standard locale identifiers as described in Unicode Technical Standard #35. 
+ *  For example "en", "en_US" and "en-US" are all English, "ja" is Japanese. 
  *  
- * <p>The default value is undefined. This property inherits its value from an ancestor; if still undefined, it inherits from the global <code>locale</code> style. 
- * During the application initialization, if the global <code>locale</code> style is undefined, then the default value is set to "en".</p>
+ *  <p>The default value is undefined. This property inherits its value from an ancestor; if 
+ *  still undefined, it inherits from the global <code>locale</code> style. 
+ *  During the application initialization, if the global <code>locale</code> style is undefined, 
+ *  then the default value is set to "en".</p>
  * 
- * <p>When using the Spark formatters and globalization classes, you can set this style on the root application to the value of the <code>LocaleID.DEFAULT</code> constant. 
- * Those classes will then use the client operating system's international preferences.</p>
+ *  <p>When using the Spark formatters and globalization classes, you can set this style on the 
+ *  root application to the value of the <code>LocaleID.DEFAULT</code> constant. 
+ *  Those classes will then use the client operating system's international preferences.</p>
  * 
+ *  @default undefined
+ *  @see http://www.unicode.org/reports/tr35/
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -433,10 +459,13 @@
  *  <p><b>For the Spark theme, see
  *  flashx.textLayout.formats.ITextLayoutFormat.textAlign</b></p>
  *
- *  <p><b>For the Mobile theme, see
- *  spark.components.supportClasses.StyleableTextField Style textAlign</b></p>
- *
+ *  <p><b>For the Mobile theme, if using StyleableTextField,
+ *  see spark.components.supportClasses.StyleableTextField Style textAlign,
+ *  and if using StyleableStageText,
+ *  see spark.components.supportClasses.StyleableStageText Style textAlign.</b></p>
+ * 
  *  @see flashx.textLayout.formats.ITextLayoutFormat#textAlign
+ *  @see spark.components.supportClasses.StyleableStageText#style:textAlign
  *  @see spark.components.supportClasses.StyleableTextField#style:textAlign
  *
  *  @langversion 3.0
@@ -486,8 +515,9 @@
  *  <p><b>For the Spark theme, see
  *  flashx.textLayout.formats.ITextLayoutFormat.textDecoration</b></p>
  *
- *  <p><b>For the Mobile theme, see
- *  spark.components.supportClasses.StyleableTextField Style textDecoration</b></p>
+ *  <p><b>For the Mobile theme, if using StyleableTextField,
+ *  see spark.components.supportClasses.StyleableTextField Style textDecoration,
+ *  and if using StyleableStageText, this is not supported.</b></p>
  *
  *  @see flashx.textLayout.formats.ITextLayoutFormat#textDecoration
  *  @see spark.components.supportClasses.StyleableTextField#style:textDecoration
