@@ -2635,6 +2635,7 @@ public class GraphicElement extends OnDemandEventDispatcher
 		                	}
 		                	
 		                	// Size the mask so that it actually renders
+		                	maskComp.validateProperties();
 		                    maskComp.validateSize();
 		                    maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
 		                                           maskComp.getExplicitOrMeasuredHeight());
