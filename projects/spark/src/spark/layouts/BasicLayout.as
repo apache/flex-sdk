@@ -106,7 +106,7 @@ import spark.layouts.supportClasses.LayoutElementHelper;
  *  coordinates of the bottom-right corner of all the layout elements.</p>
  *
  *  @mxml 
- *  <p>The <code>&lt;BasicLayout&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:BasicLayout&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds no additional tag attributes:</p>
  *
  *  <pre>
