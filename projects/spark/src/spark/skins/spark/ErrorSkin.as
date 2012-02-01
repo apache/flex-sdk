@@ -25,6 +25,7 @@ import flash.geom.Rectangle;
 import spark.components.supportClasses.SkinnableComponent;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
 
 /**
  *  The ErrorSkin class defines the error skin for Spark components.
@@ -127,7 +128,7 @@ public class ErrorSkin extends UIComponent
         // Add an "updateComplete" listener to the skin so we can redraw
         // whenever the skin is drawn.
         if (_errorObject.skin)
-            _errorObject.skin.addEventListener("updateComplete", 
+            _errorObject.skin.addEventListener(FlexEvent.UPDATE_COMPLETE, 
                     skin_updateCompleteHandler, false, 0, true);
     }
     
