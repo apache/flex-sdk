@@ -11,8 +11,6 @@
 
 package mx.skins.spark {
 
-import mx.core.UIComponent;
-
 import spark.skins.SparkSkin;
 
 /** 
@@ -73,6 +71,21 @@ public class SparkSkinForHalo extends SparkSkin
     }
     
     /**
+     *  Default border alpha. If NaN, don't change alpha value.
+     * 
+     *  @default NaN 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function get defaultBorderAlpha():Number
+    {
+        return NaN;
+    }
+    
+    /**
      *  @private
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
@@ -84,6 +97,7 @@ public class SparkSkinForHalo extends SparkSkin
             var isError:Boolean = false;
             var borderItemColor:uint;
             var errorColor:uint = getStyle("errorColor");
+            var borderAlpha:Number = defaultBorderAlpha;
             
             if (getStyle("borderColor") == errorColor)
                 borderItemColor = errorColor;
@@ -93,7 +107,11 @@ public class SparkSkinForHalo extends SparkSkin
             for (var i:int = 0; i < borderItems.length; i++)
             {
                 if (this[borderItems[i]])
+                {
                     this[borderItems[i]].color = borderItemColor;
+                    if (!isNaN(borderAlpha))
+                        this[borderItems[i]].alpha = borderAlpha;
+                }
             }
         }
 
