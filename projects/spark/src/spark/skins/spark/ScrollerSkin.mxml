@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009">
+
+    <Metadata>
+        [HostComponent("flex.component.Scroller")]
+    </Metadata> 
+    	
+    <VScrollBar id="verticalScrollBar"
+    	top="0" 
+        right="0" 
+        bottom="{(viewportHolder.contentWidth > viewportHolder.width) ? horizontalScrollBar.height : 0}"
+        visible="{viewportHolder.contentHeight > viewportHolder.height}"
+        includeInLayout="{viewportHolder.contentHeight > viewportHolder.height}"
+        pageSize="{viewportHolder.height}"
+        maximum="{viewportHolder.contentHeight - viewportHolder.height}" />
+
+    <HScrollBar id="horizontalScrollBar" 
+        left="0" 
+        right="{(viewportHolder.contentHeight > viewportHolder.height) ? verticalScrollBar.width : 0}" 
+        bottom="0"
+        visible="{viewportHolder.contentWidth > viewportHolder.width}"
+        includeInLayout="{viewportHolder.contentWidth > viewportHolder.width}"
+        pageSize="{viewportHolder.width}"
+        maximum="{viewportHolder.contentWidth - viewportHolder.width}" />
+        
+    <Group 
+        id="viewportHolder"
+        top="0" 
+        left="0" 
+        right="{(viewportHolder.contentHeight > viewportHolder.height) ? verticalScrollBar.width : 0}" 
+        bottom="{(viewportHolder.contentWidth > viewportHolder.width) ? horizontalScrollBar.height : 0}"     
+        verticalScrollPosition="{verticalScrollBar.value}"
+        horizontalScrollPosition="{horizontalScrollBar.value}" />
+
+</Skin>
