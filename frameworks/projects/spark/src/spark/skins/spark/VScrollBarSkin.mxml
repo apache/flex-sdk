@@ -25,9 +25,9 @@ VScrollBarThumbSkin and VScrollBarTrackSkin classes, respectively.
 
     <fx:Metadata>
     <![CDATA[ 
-    /** 
-     * @copy spark.skins.spark.ApplicationSkin#hostComponent
-     */
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.VScrollBar")]
     ]]>
     </fx:Metadata> 
@@ -58,19 +58,26 @@ VScrollBarThumbSkin and VScrollBarTrackSkin classes, respectively.
         <s:State name="inactive" />
     </s:states>
    
-    <!--- Defines the skin class for the VScrollBarSkin's track. The default skin class is VScrollBarTrackSkin. -->
+    <!--- The default skin class is VScrollBarTrackSkin. 
+          @copy spark.components.supportClasses.TrackBase#track-->
     <s:Button id="track" top="16" bottom="15" height="54"
               focusEnabled="false"
               skinClass="spark.skins.spark.VScrollBarTrackSkin" />
-    <!--- Defines the skin class for the VScrollBarSkin's thumb. The default skin class is VScrollBarThumbSkin. -->
+    
+    <!--- The default skin class is VScrollBarThumbSkin.
+          @copy spark.components.supportClasses.TrackBase#thumb -->
     <s:Button id="thumb" 
               focusEnabled="false" visible.inactive="false"
               skinClass="spark.skins.spark.VScrollBarThumbSkin" />
-    <!--- Defines the skin class for the up button of the VScrollBarSkin. The default skin class is ScrollBarUpButtonSkin. -->
+    
+    <!--- The default skin class is ScrollBarUpButtonSkin.
+          @copy spark.components.supportClasses.ScrollBar#decrementButton -->
     <s:Button id="decrementButton" top="0" enabled.inactive="false"
               focusEnabled="false" 
               skinClass="spark.skins.spark.ScrollBarUpButtonSkin" />
-    <!--- Defines the skin class for the down button of the VScrollBarSkin. The default skin class is ScrollBarDownButtonSkin. -->
+    
+    <!--- The default skin class is ScrollBarDownButtonSkin.  
+          @copy spark.components.supportClasses.ScrollBar#incrementButton -->
     <s:Button id="incrementButton" bottom="0" enabled.inactive="false"
               focusEnabled="false" 
               skinClass="spark.skins.spark.ScrollBarDownButtonSkin" />
