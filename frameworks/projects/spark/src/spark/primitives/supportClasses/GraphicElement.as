@@ -19,6 +19,7 @@ import flash.display.LineScaleMode;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.IEventDispatcher;
+import flash.filters.BitmapFilter;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Matrix3D;
@@ -40,8 +41,7 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
-import mx.filters.BaseFilter;
-import mx.filters.IBitmapFilter;
+import mx.filters.IFlexBitmapFilter;
 import mx.geom.Transform;
 import mx.geom.TransformOffsets;
 import mx.graphics.IGraphicElement;
@@ -681,7 +681,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         {
             edFilter = _filters[i] as IEventDispatcher;
             if (edFilter)
-                edFilter.removeEventListener(BaseFilter.CHANGE, filterChangedHandler);
+                edFilter.removeEventListener(Event.CHANGE, filterChangedHandler);
         }
 
 		var previous:Boolean = needsDisplayObject;
@@ -693,16 +693,16 @@ public class GraphicElement extends OnDemandEventDispatcher
         
         for (i = 0; i < newLen; i++)
         {
-            if (value[i] is IBitmapFilter)
-            {
-                edFilter = value[i] as IEventDispatcher;
+        	if (value[i] is IFlexBitmapFilter)
+        	{
+        		edFilter = value[i] as IEventDispatcher;
                 if (edFilter)
-                    edFilter.addEventListener(BaseFilter.CHANGE, filterChangedHandler);
-                _clonedFilters.push(IBitmapFilter(value[i]).clone());
-            }
+                    edFilter.addEventListener(Event.CHANGE, filterChangedHandler);
+                _clonedFilters.push(IFlexBitmapFilter(value[i]).createBitmapFilter());
+        	}
             else
             {
-                _clonedFilters.push(value[i]);
+            	_clonedFilters.push(value[i]);
             }
         }
 
