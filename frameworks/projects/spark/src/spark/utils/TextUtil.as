@@ -14,12 +14,12 @@ package flex.utils
 
 import flash.utils.describeType;
 
-import text.model.ICharacterFormat;
-import text.model.IContainerFormat;
-import text.model.IParagraphFormat;
-import text.model.LeafElement;
-import text.model.Paragraph;
-import text.model.TextFlow;
+import text.elements.FlowLeafElement;
+import text.elements.ParagraphElement;
+import text.elements.TextFlow;
+import text.formats.ICharacterFormat;
+import text.formats.IContainerFormat;
+import text.formats.IParagraphFormat;
 
 [ExcludeClass]
 
@@ -121,10 +121,10 @@ public class TextUtil
     {
         var text:String = "";
         
-        var leaf:LeafElement = textFlow.getFirstLeaf();
+        var leaf:FlowLeafElement = textFlow.getFirstLeaf();
         while (leaf)
         {
-            var p:Paragraph = leaf.getParagraph();
+            var p:ParagraphElement = leaf.getParagraph();
             for (;;)
             {
                 text += leaf.text;
