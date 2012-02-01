@@ -13,6 +13,18 @@
 
 <s:ItemRenderer focusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 	
+	<fx:Script>
+        <![CDATA[
+            
+            override public function set labelText(value:String):void
+            {
+                super.labelText = value;
+                labelElement.text = labelText; 
+            }
+        ]]>
+    </fx:Script>
+    
+	
     <s:states>
 		<s:State name="normal"/>			
 		<s:State name="hovered"/>
