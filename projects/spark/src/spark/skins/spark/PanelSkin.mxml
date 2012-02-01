@@ -32,7 +32,7 @@
     <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For panel, border and title backround are skinned, but the content area and title text are not. */
-        static private const exclusions:Array = ["background", "titleField", "contentGroup"];
+        static private const exclusions:Array = ["background", "titleDisplay", "contentGroup"];
 
     /** 
      * @copy spark.skins.SparkSkin#colorizeExclusions
@@ -100,7 +100,7 @@
     
     <!-- layer 5: text -->
     <!--- Defines the appearance of the PanelSkin class's title bar. -->
-    <s:SimpleText id="titleField" lineBreak="explicit"
+    <s:SimpleText id="titleDisplay" lineBreak="explicit"
              left="10" right="4" top="2" height="30"
              verticalAlign="middle" fontWeight="bold">
     </s:SimpleText>
