@@ -13,28 +13,24 @@
 
 <!--- The default skin class for the play/pause button of a Spark VideoPlayer component. -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-      minWidth="21" minHeight="21"
       alpha.disabledStates="0.5">
 
     <!-- host component -->
     <fx:Metadata>
-    <![CDATA[ 
-	/** 
-	 * @copy spark.skins.default.ApplicationSkin#hostComponent
-	 */
         [HostComponent("spark.components.ToggleButton")]
-    ]]>
     </fx:Metadata>
     
     <fx:Script>
-        /* Define the skin elements that should not be colorized. 
-           For toggle button, the graphics are colorized but the label is not. */
-        static private const exclusions:Array = ["labelElement"];
-
-	/** 
-	 * @copy spark.skins.SparkSkin#colorizeExclusions
-	 */		
+        /* Define the skin elements that should not be colorized. */
+        static private const exclusions:Array = ["playSymbol", "pauseSymbol"];
         override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the symbol fill items that should be colored by the "symbolColor" style.*/
+        static private const symbols:Array = ["playSymbolFill", "pauseSymbolFill1_1", "pauseSymbolFill1_2", 
+                                              "pauseSymbolFill1_3", "pauseSymbolFill1_4", "pauseSymbolFill1_5", 
+                                              "pauseSymbolFill2_1", "pauseSymbolFill2_2", "pauseSymbolFill2_3", 
+                                              "pauseSymbolFill2_4", "pauseSymbolFill2_5"];
+        override public function get symbolItems():Array {return symbols};
     </fx:Script>
     
     <!-- states -->
@@ -48,119 +44,122 @@
         <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
         <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
     </s:states>
-    
-    <!-- layer 1: shadow -->
-    <s:Rect left="-1" right="-1" top="-1" bottom="-1" radiusX="2" radiusY="2">
+        
+    <!-- layer 1: fill -->
+    <s:Rect left="1" right="1" top="1" bottom="1">
         <s:fill>
             <s:LinearGradient rotation="90">
-                    <s:GradientEntry color="0x000000" 
-                                   color.downStates="0xFFFFFF"
-                                   alpha="0.01"
-                                   alpha.downStates="0" />
-                    <s:GradientEntry color="0x000000" 
-                                   color.downStates="0xFFFFFF" 
-                                   alpha="0.07"
-                                   alpha.downStates="0.5" />
+                <s:GradientEntry color="0xFFFFFF"
+                                 color.overStates="0xCACACA"
+                                 color.downStates="0xA8A8A8" />
+                <s:GradientEntry color="0xDCDCDC"
+                                 color.overStates="0x8D8D8D" 
+                                 color.downStates="0x6B6B6B"/>
             </s:LinearGradient>
         </s:fill>
     </s:Rect>
     
-    <!-- layer 2: fill -->
-    <s:Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2">
-        <s:fill>
-            <s:LinearGradient rotation="90">
-                <s:GradientEntry color="0xFFFFFF" 
-                               color.selectedUpStates="0xBBBDBD"
-                               color.overStates="0xBBBDBD" 
-                               color.downStates="0xAAAAAA" 
-                               alpha="0.85" 
-                               alpha.overAndSelected="1" />
-                <s:GradientEntry color="0xD8D8D8" 
-                               color.selectedUpStates="0x9FA0A1"
-                               color.over="0x9FA0A1" 
-                               color.overAndSelected="0x8E8F90"
-                               color.downStates="0x929496" 
-                               alpha="0.85"
-                               alpha.overAndSelected="1" />
-            </s:LinearGradient>
-        </s:fill>
+    <!-- layer 2: One pixel stroke inside border (exclude in downStates) -->
+    <s:Rect left="1" right="1" top="1" bottom="1" excludeFrom="downStates">
+        <s:stroke>
+            <s:LinearGradientStroke weight="1">
+                <s:GradientEntry color="0xFEFEFE" alpha.overStates="0.22" />
+                <s:GradientEntry color="0xEAEAEA" alpha.overStates="0.22" />
+            </s:LinearGradientStroke>
+        </s:stroke>
     </s:Rect>
     
-    <!-- layer 3: fill lowlight -->
-    <s:Rect left="1" right="1" bottom="1" height="9" radiusX="2" radiusY="2">
-        <s:fill>
-            <s:LinearGradient rotation="90">
-                <s:GradientEntry color="0x000000" alpha="0.0099" />
-                <s:GradientEntry color="0x000000" alpha="0.0627" />
-            </s:LinearGradient>
-        </s:fill>
-    </s:Rect>
-    
-    <!-- layer 4: fill highlight -->
-    <s:Rect left="1" right="1" top="1" height="9" radiusX="2" radiusY="2">
+    <!-- layer 3: fill highlight  (exclude in downStates) -->
+    <s:Rect left="1" right="1" top="1" height="11" excludeFrom="downStates">
         <s:fill>
             <s:SolidColor color="0xFFFFFF" 
-                        alpha="0.33" 
-                        alpha.selectedUpStates="0.22"
-                        alpha.overStates="0.22" 
-                        alpha.downStates="0.12" />
+                        alpha="0.3" 
+                        alpha.overStates="0.12" />
         </s:fill>
     </s:Rect>
     
-    <!-- layer 5: highlight stroke (all states except down) -->
-    <s:Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2" excludeFrom="downStates">
+    <!-- layer 4: downstate inset border  (include only in downStates) -->
+    <s:Rect left="1" top="1" right="1" height="1" includeIn="downStates">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.4" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect left="1" top="2" right="1" height="1" includeIn="downStates">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.12" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect left="1" top="1" bottom="1" width="1" includeIn="downStates">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.12" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect right="1" top="1" bottom="1" width="1" includeIn="downStates">
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.12" />
+        </s:fill>
+    </s:Rect>
+    
+    <!-- layer 5: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    <s:Rect left="0" right="0" top="0" bottom="0" width="38" height="24">
         <s:stroke>
-            <s:LinearGradientStroke rotation="90" weight="1">
-                <s:GradientEntry color="0xFFFFFF" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
-                <s:GradientEntry color="0xD8D8D8" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
-            </s:LinearGradientStroke>
+            <s:SolidColorStroke color="0x131313" />
         </s:stroke>
     </s:Rect>
     
-    <!-- layer 6: highlight stroke (down state only) -->
-    <s:Rect left="1" top="1" bottom="1" width="1" includeIn="downStates, selectedUpStates, overAndSelected">
-        <s:fill>
-            <s:SolidColor color="0x000000" alpha="0.07" />
-        </s:fill>
-    </s:Rect>
-    <s:Rect right="1" top="1" bottom="1" width="1" includeIn="downStates, selectedUpStates, overAndSelected">
-        <s:fill>
-            <s:SolidColor color="0x000000" alpha="0.07" />
-        </s:fill>
-    </s:Rect>
-    <s:Rect left="2" top="1" right="2" height="1" includeIn="downStates, selectedUpStates, overAndSelected">
-        <s:fill>
-            <s:SolidColor color="0x000000" alpha="0.25" />
-        </s:fill>
-    </s:Rect>
-    <s:Rect left="1" top="2" right="1" height="1" includeIn="downStates, selectedUpStates, overAndSelected">
-        <s:fill>
-            <s:SolidColor color="0x000000" alpha="0.09" />
-        </s:fill>
-    </s:Rect>
+    <!-- play symbol -->
+    <s:Group horizontalCenter="0" verticalCenter="0" excludeFrom="selectedStates" id="playSymbol">
+        
+        <!-- triangle -->
+        <s:Path winding="evenOdd" data="M 1 0 L 1 13 L 8 7 L 1 0 Z">
+            <s:fill>
+                <s:SolidColor color="0x555555" alpha="0.75" id="playSymbolFill"/>
+            </s:fill>
+        </s:Path>
+        
+        <!-- triangle drop shadow on bottom/right -->
+        <s:Line xFrom="1" xTo="7" yFrom="0" yTo="7">
+            <s:stroke>
+                <s:SolidColorStroke color="0x000000" alpha="0.33" />
+            </s:stroke>
+        </s:Line>
+        
+        <!-- line on left of triangle -->
+        <s:Line x="0" yFrom="0" yTo="13">
+            <s:stroke>
+                <s:SolidColorStroke color="0x000000" alpha="0.5" />
+            </s:stroke>
+        </s:Line>
+    </s:Group>
     
-    <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
-    <s:Rect left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2" radiusY="2">
-        <s:stroke>
-            <s:LinearGradientStroke rotation="90" weight="1">
-                <s:GradientEntry color="0x000000" 
-                               alpha="0.5625"
-                               alpha.down="0.6375"
-                               alpha.selectedStates="0.6375" />
-                <s:GradientEntry color="0x000000" 
-                               alpha="0.75" 
-                               alpha.down="0.85"
-                               alpha.selectedStates="0.85" />
-            </s:LinearGradientStroke>
-        </s:stroke>
-    </s:Rect>
+    <!-- pause symbol -->
+    <s:Group horizontalCenter="0" verticalCenter="0" includeIn="selectedStates" id="pauseSymbol">
     
-    <!-- layer 8: text -->
-    <s:SimpleText id="labelElement"
-             verticalAlign="middle"
-             horizontalCenter="0" verticalCenter="1"
-             left="10" right="10" top="2" bottom="2"
-             text="Play" text.selectedStates="Pause">
-    </s:SimpleText>
-    
+        <!-- big line on left -->
+        <s:Rect left="0" top="0" height="11" width="3">
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0x252525" alpha="0.75" ratio="0.1" id="pauseSymbolFill1_1"/>
+                    <s:GradientEntry color="0x404040" alpha="0.75" ratio="0.2" id="pauseSymbolFill1_2"/>
+                    <s:GradientEntry color="0x4B4B4B" alpha="0.75" ratio="0.55" id="pauseSymbolFill1_3"/>
+                    <s:GradientEntry color="0x424242" alpha="0.75" ratio="0.9" id="pauseSymbolFill1_4"/>
+                    <s:GradientEntry color="0xC4C4C4" alpha="0.75" ratio="1.0" id="pauseSymbolFill1_5"/>
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
+        
+        <!-- big line on right -->
+        <s:Rect left="4" top="0" height="11" width="3">
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0x252525" alpha="0.75" ratio="0.1" id="pauseSymbolFill2_1"/>
+                    <s:GradientEntry color="0x404040" alpha="0.75" ratio="0.2" id="pauseSymbolFill2_2"/>
+                    <s:GradientEntry color="0x4B4B4B" alpha="0.75" ratio="0.55" id="pauseSymbolFill2_3"/>
+                    <s:GradientEntry color="0x424242" alpha="0.75" ratio="0.9" id="pauseSymbolFill2_4"/>
+                    <s:GradientEntry color="0xC4C4C4" alpha="0.75" ratio="1.0" id="pauseSymbolFill2_5"/>
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
+        
+    </s:Group>
 </s:SparkSkin>
