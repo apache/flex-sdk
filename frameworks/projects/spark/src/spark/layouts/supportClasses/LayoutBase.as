@@ -1601,6 +1601,68 @@ public class LayoutBase extends OnDemandEventDispatcher
         
     }
     
+	/**
+	 *  @private
+	 * 
+	 *  Given an x\y position and a compare point 
+	 *  (topLeft/topRight/bottomRight/bottomLeft/center), returns the element 
+	 *  who's compare point is closest to the position. 
+	 *  For example, the position might be in the bounds of element A, but 
+	 *  closer to the topLeft corner of element B than to the topLeft corner 
+	 *  of element A. 
+	 *  In which case, this function would return the index for element B. 
+	 */
+	mx_internal function getElementNearestScrollPosition(
+		position:Point,
+		elementComparePoint:String = "center"):int
+	{
+		var num:int = target.numElements;
+		var minDistance:Number = Number.MAX_VALUE;
+		var minDistanceElement:int = -1;
+		var i:int;
+		var rect:Rectangle;
+		var dist:int;
+		
+		// This base implementation uses brute force:  the compare point of every existing 
+		// element is compared to the position and the closest one wins.  Most derived layout
+		// classes will have a better mechanism for finding the closest element without
+		// a linear search like this.
+		// TODO (eday) - possible performance optimization: Pull the switch statement out of the 
+		// loop and have a separate loop for each case.  
+		for (i = 0; i < num; i++)
+		{
+			rect = getElementBounds(i);
+			
+			var elementPoint:Point = null;
+			switch (elementComparePoint)
+			{
+				case "topLeft":
+					elementPoint = rect.topLeft;
+					break;
+				case "bottomRight":
+					elementPoint = rect.bottomRight;
+					break;
+				case "bottomLeft":
+					elementPoint = new Point(rect.left, rect.bottom);
+					break;
+				case "topRight":
+					elementPoint = new Point(rect.right, rect.top);
+					break;
+				case "center":
+					elementPoint = new Point(rect.left + rect.width/2, rect.top + rect.height/2);
+					break;
+			}
+			
+			dist = Point.distance(position, elementPoint); 
+			if (dist < minDistance)
+			{
+				minDistance = dist;
+				minDistanceElement = i;
+			}
+		}
+		return minDistanceElement;
+	}
+	
     //--------------------------------------------------------------------------
     //
     //  Drop methods
