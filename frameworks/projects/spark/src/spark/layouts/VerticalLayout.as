@@ -16,10 +16,12 @@ import flash.geom.Rectangle;
 
 import mx.containers.utilityClasses.Flex;
 import mx.core.ILayoutElement;
+import mx.core.IVisualElement;
 import mx.events.PropertyChangeEvent;
 
 import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
+import spark.layouts.supportClasses.DropLocation;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.layouts.supportClasses.LayoutElementHelper;
 import spark.layouts.supportClasses.LinearLayoutVector;
@@ -1783,6 +1785,94 @@ public class VerticalLayout extends LayoutBase
         g.invalidateDisplayList();
     }
         
+    //--------------------------------------------------------------------------
+    //
+    //  Drop methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private 
+     */
+    override protected function calculateDropIndex(x:Number, y:Number):int
+    {
+        // Iterate over the visible elements
+        var layoutTarget:GroupBase = target;
+        var count:int = layoutTarget.numElements;
+
+        // If there are no items, insert at index 0
+        if (count == 0)
+            return 0;
+
+        // Go through the visible elements
+        var minDistance:Number = Number.MAX_VALUE;
+        var bestIndex:int = -1;
+        var start:int = this.firstIndexInView;
+        var end:int = this.lastIndexInView;
+        
+        for (var i:int = start; i <= end; i++)
+        {
+            var elementBounds:Rectangle = this.getElementBounds(i);
+            if (!elementBounds)
+                continue;
+            
+            if (elementBounds.top <= y && y <= elementBounds.bottom)
+            {
+                var centerY:Number = elementBounds.y + elementBounds.height / 2;
+                return (y < centerY) ? i : i + 1;
+            }
+
+            var curDistance:Number = Math.min(Math.abs(y - elementBounds.top),
+                                              Math.abs(y - elementBounds.bottom));
+            if (curDistance < minDistance)
+            {
+                minDistance = curDistance;
+                bestIndex = (y < elementBounds.top) ? i : i + 1;
+            }
+        }
+
+        // If there are no visible elements, either pick to drop at the beginning or at the end
+        if (bestIndex == -1)
+            bestIndex = getElementBounds(0).y < y ? count : 0;
+
+        return bestIndex;
+    }
+
+    /**
+     *  @private
+     */
+    override protected function calculateDropIndicatorBounds(dropLocation:DropLocation):Rectangle
+    {
+        var dropIndex:int = dropLocation.dropIndex;
+        var count:int = target.numElements;
+        var gap:Number = this.gap;
+
+        // Special case, if we insert at the end, and the gap is negative, consider it to be zero
+        if (gap < 0 && dropIndex == count)
+            gap = 0;
+            
+        var emptySpace:Number = (0 < gap ) ? gap : 0; 
+        var emptySpaceTop:Number = 0;
+        if (target.numElements > 0)
+        {
+            emptySpaceTop = (dropIndex < count) ? getElementBounds(dropIndex).top - emptySpace : 
+                                                  getElementBounds(dropIndex - 1).bottom + gap - emptySpace;
+        }
+                                        
+        // Calculate the size of the bounds, take minium and maximum into account
+        var width:Number = Math.max(target.width, target.contentWidth) - paddingLeft - paddingRight;
+        var height:Number = emptySpace;
+        if (dropIndicator is IVisualElement)
+        {
+            var element:IVisualElement = IVisualElement(dropIndicator);
+            height = Math.max(Math.min(height, element.getMaxBoundsHeight(false)), element.getMinBoundsHeight(false));
+        }
+        
+        var x:Number = paddingLeft;
+        var y:Number = emptySpaceTop + Math.round((emptySpace - height)/2);
+        y = Math.max(-Math.ceil(height / 2), Math.min(target.contentHeight - Math.ceil(height/2), y));
+        return new Rectangle(x, y, width, height);
+    }
 }
 }
 
