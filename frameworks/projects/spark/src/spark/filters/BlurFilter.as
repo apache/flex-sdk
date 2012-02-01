@@ -1,4 +1,4 @@
-package mx.filters
+package spark.filters
 {
 import flash.filters.BitmapFilter;
 import flash.filters.BitmapFilterQuality;
