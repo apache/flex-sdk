@@ -165,9 +165,9 @@ public class ErrorSkin extends UIComponent
         var hidLabelElement:Boolean = false;
         if ((weakIsCheck(errorObject, "spark.components::CheckBox") ||
              weakIsCheck(errorObject, "spark.components::RadioButton"))
-             && Object(errorObject).labelElement)
+             && Object(errorObject).labelDisplay)
         {
-            Object(errorObject).labelElement.displayObject.visible = false;
+            Object(errorObject).labelDisplay.displayObject.visible = false;
             hidLabelElement = true;
         }
             
@@ -181,7 +181,7 @@ public class ErrorSkin extends UIComponent
         
         // Show the label, if needed.
         if (hidLabelElement)
-            Object(errorObject).labelElement.displayObject.visible = true;
+            Object(errorObject).labelDisplay.displayObject.visible = true;
         
         // Special case for Scroller - fill the entire rect.
         // TODO: Figure out a better solution.
