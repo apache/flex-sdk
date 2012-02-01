@@ -65,7 +65,7 @@ import spark.layouts.supportClasses.LayoutBase;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;TileLayout 
+ *  &lt;s:TileLayout 
  *    <strong>Properties</strong>
  *    columnAlign="left"
  *    columnWidth="NaN"
