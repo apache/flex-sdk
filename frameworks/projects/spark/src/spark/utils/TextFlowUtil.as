@@ -219,7 +219,12 @@ public class TextFlowUtil
         {
             try
             {
-                var xml:XML = XML(markup);
+                // Preserve whitespace and let TLF collapse if requested.
+                var oldValue:Boolean = XML.ignoreWhitespace;
+                XML.ignoreWhitespace = false;                
+                var xml:XML = XML(markup);                
+                XML.ignoreWhitespace = oldValue;
+                
                 if (xml.localName() == "TextFlow")
                 {
                     markupToImport = xml;
