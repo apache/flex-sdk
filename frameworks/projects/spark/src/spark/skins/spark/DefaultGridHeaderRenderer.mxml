@@ -13,12 +13,15 @@ in accordance with the terms of the license agreement accompanying it.
 
 <!--- 
 
-The default header renderer for s:DataGrid columns.
+The DefaultGridHeaderRenderer class defines the default header renderer 
+for the columns of a Spark DataGrid control.
 
 <p>Subclasses defined in MXML can redefine the values of the <code>labelDisplay</code>
 and <code>sortIndicator</code> properties.</p>
 
+@see spark.components.DataGrid
 @see spark.components.GridColumnHeaderGroup
+@see spark.components.gridClasses.GridItemRenderer
 
 @langversion 3.0
 @playerversion Flash 10
@@ -35,7 +38,7 @@ and <code>sortIndicator</code> properties.</p>
         <!--- The default value of the <code>sortIndicator</code> property.
         It must be an IFactory for an IVisualElement.        
         
-        <p>This value is specified with a <code>fx:Declaration</code> and can be overridden
+        <p>This value is specified in a <code>fx:Declaration</code> block and can be overridden
         by a declaration with <code>id="defaultSortIndicator"</code>
         in an MXML subclass.</p>
         
