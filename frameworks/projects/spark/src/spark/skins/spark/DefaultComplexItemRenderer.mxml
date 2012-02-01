@@ -35,10 +35,11 @@
         
             import mx.core.IVisualElement; 
           
-            /**
-            * @copy spark.components.DataRenderer#data
-            */
             [Bindable("dataChanged")]
+            
+            /**
+             * @private
+             */
             override public function set data(value:Object):void
             {
                 super.data = value;
