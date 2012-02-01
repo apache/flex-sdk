@@ -3147,7 +3147,7 @@ public class GraphicElement extends EventDispatcher
      *  If you do not supply this value, no clipping occurs and the entire source object is drawn.
      *  The clipRect should be defined in the coordinate space specified by useLocalSpace
      * 
-     *  @return A bitmap snapshot of the GraphicElement. 
+     *  @return A bitmap snapshot of the GraphicElement or null if the input element has no visible bounds.
      *  
      *  
      *  @langversion 3.0
@@ -3176,6 +3176,10 @@ public class GraphicElement extends EventDispatcher
             var rectBounds:Rectangle = useLocalSpace ? 
                         new Rectangle(getLayoutBoundsX(), getLayoutBoundsY(), getLayoutBoundsWidth(), getLayoutBoundsHeight()) :
                         displayObject.getBounds(topLevel); 
+            
+            if (rectBounds.width == 0 || rectBounds.height == 0)
+                return null;
+            
             var bitmapData:BitmapData = new BitmapData(Math.ceil(rectBounds.width), Math.ceil(rectBounds.height), transparent, fillColor);
                 
             // Can't use target's concatenatedMatrix, as it is sometimes wrong
