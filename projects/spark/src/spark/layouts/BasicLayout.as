@@ -15,7 +15,7 @@ package flex.layout
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import flex.core.Group;
+import flex.core.GroupBase;
 import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 
@@ -68,14 +68,14 @@ public class BasicLayout implements ILayout
     // target
     //----------------------------------
 
-    private var _target:Group;
+    private var _target:GroupBase;
 
-    public function get target():Group
+    public function get target():GroupBase
     {
         return _target;
     }
 
-    public function set target(value:Group):void
+    public function set target(value:GroupBase):void
     {
         _target = value;
     }
@@ -89,7 +89,7 @@ public class BasicLayout implements ILayout
 
     public function measure():void
     {
-        var layoutTarget:Group = target; 
+        var layoutTarget:GroupBase = target; 
         if (!layoutTarget)
             return;
         
@@ -156,7 +156,7 @@ public class BasicLayout implements ILayout
 
     public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        var layoutTarget:Group = target; 
+        var layoutTarget:GroupBase = target; 
         if (!layoutTarget)
             return;
 
