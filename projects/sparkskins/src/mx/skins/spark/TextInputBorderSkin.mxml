@@ -43,24 +43,38 @@
         
         public function get borderMetrics():EdgeMetrics
         {
+            if (getStyle("borderStyle") == "none")
+                return EdgeMetrics.EMPTY;
+            
             return metrics;
         }
             
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-        {                       
-            if (getStyle("borderVisible") == false)
+        {     
+            if (getStyle("borderStyle") == "none")
             {
                 border.visible = false;
-                background.left = background.top = background.right = background.bottom = 0;
-                shadow.left = shadow.top = shadow.right = 0;
+                shadow.visible = false;
+                background.visible = false;
             }
             else
             {
-                border.visible = true;
-                background.left = background.top = background.right = background.bottom = 1;
-                shadow.left = shadow.top = shadow.right = 1;
+                if (getStyle("borderVisible") == false)
+                {
+                    border.visible = false;
+                    shadow.visible = false;
+                    background.left = background.top = background.right = background.bottom = 0;
+                    shadow.left = shadow.top = shadow.right = 0;
+                }
+                else
+                {
+                    border.visible = true;
+                    shadow.visible = true;
+                    background.left = background.top = background.right = background.bottom = 1;
+                    shadow.left = shadow.top = shadow.right = 1;
+                }
             }
-
+            
             super.updateDisplayList(unscaledWidth, unscaledHeight);
             
             if (parent && parent is IUIComponent && !IUIComponent(parent).enabled)
