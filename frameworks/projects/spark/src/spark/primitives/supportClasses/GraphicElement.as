@@ -2690,7 +2690,7 @@ public class GraphicElement extends OnDemandEventDispatcher
   		else
   		{
   			displayObject.transform.matrix3D = globalMat3D;
-    }
+    	}
         // Translate the bitmap so that the left-top bounds ends up at (0,0)
 		var m:Matrix = new Matrix();
 		m.translate(-topLevelRect.left, - topLevelRect.top);
