@@ -290,16 +290,6 @@
 [Style(name="textJustify", type="String", enumeration="interWord,distribute", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#textRotation
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="textRotation", type="String", enumeration="auto,rotate0,rotate90,rotate180,rotate270", inherit="yes")]
-
-/**
  *  Space added to the advance after each character, as a percentage of the current point size. Percentages can be negative, 
  *  to bring characters closer together. The default value is 0.
  *  
