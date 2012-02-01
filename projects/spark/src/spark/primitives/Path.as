@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.graphics
+package mx.graphics
 {
 
 import flash.display.Graphics;
@@ -22,6 +22,7 @@ import flash.display.Shape;
 
 import mx.core.mx_internal;
 import mx.graphics.IStroke;
+import mx.utils.MatrixUtil;
 
 use namespace mx_internal;
 
@@ -310,7 +311,7 @@ public class Path extends FilledElement
 
     private var _segments:Array = [];
     
-    [ArrayElementType("flex.graphics.PathSegment")]
+    [ArrayElementType("mx.graphics.PathSegment")]
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
     /**
@@ -519,7 +520,7 @@ public class Path extends FilledElement
         if (tmpScaleX == 1 && tmpScaleY == 1 && rotation == 0)
             return null;
 
-        return TransformUtil.composeMatrix(x, y, tmpScaleX, tmpScaleY,
+        return MatrixUtil.composeMatrix(x, y, tmpScaleX, tmpScaleY,
                                            rotation, transformX, transformY);
     }
 
