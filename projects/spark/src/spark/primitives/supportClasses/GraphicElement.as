@@ -2485,7 +2485,7 @@ public class GraphicElement extends OnDemandEventDispatcher
      *
      *  <p>You do not call this method directly.
      *  Flex calls the <code>commitProperties()</code> method when you
-     *  use the <code>addItem()</code> method to add an element to the group,
+     *  use the <code>addElement()</code> method to add an element to the group,
      *  or when you call the <code>invalidateProperties()</code> method of the element.
      *  Calls to the <code>commitProperties()</code> method occur before calls to the
      *  <code>measure()</code> method. This lets you set property values that might
@@ -2664,7 +2664,7 @@ public class GraphicElement extends OnDemandEventDispatcher
      *
      *  <p>You do not call this method directly. Flex calls the
      *  <code>measure()</code> method when the element is added to a group
-     *  using the <code>addItem()</code> method, and when the element's
+     *  using the <code>addElement()</code> method, and when the element's
      *  <code>invalidateSize()</code> method is called. </p>
      *
      *  <p>By default you set both explicit height and explicit width of an element,
@@ -2745,7 +2745,7 @@ public class GraphicElement extends OnDemandEventDispatcher
      *
      *  <p>You do not call this method directly. Flex calls the
      *  <code>updateDisplayList()</code> method when the component is added 
-     *  to a group using the <code>addItem()</code> method, and when the element's
+     *  to a group using the <code>addElement()</code> method, and when the element's
      *  <code>invalidateDisplayList()</code> method is called. </p>
      *
      *  <p>This method is where you would do programmatic drawing
