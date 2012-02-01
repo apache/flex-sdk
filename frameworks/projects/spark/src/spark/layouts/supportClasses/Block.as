@@ -19,6 +19,11 @@ package mx.layout
  * 
  *  This class is essentially a C-struct.   If it was possible to make it a static
  *  inner class of DistanceVector, then it would be.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public final class Block
 {
