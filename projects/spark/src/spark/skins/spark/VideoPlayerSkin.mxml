@@ -147,11 +147,11 @@
                             <!-- spacer -->
                             <s:Rect width="8" height="1" />
                             
-                            <s:SimpleText id="playheadTimeDisplay" color.fullScreenStates="0xFFFFFF" />
+                            <s:Label id="playheadTimeDisplay" color.fullScreenStates="0xFFFFFF" />
                             
-                            <s:SimpleText id="timeDivider" text="/" color.fullScreenStates="0xFFFFFF" />
+                            <s:Label id="timeDivider" text="/" color.fullScreenStates="0xFFFFFF" />
                             
-                            <s:SimpleText id="totalTimeDisplay" color.fullScreenStates="0xFFFFFF" />
+                            <s:Label id="totalTimeDisplay" color.fullScreenStates="0xFFFFFF" />
                             
                             <!-- spacer -->
                             <s:Rect width="8" height="1" />
