@@ -10,10 +10,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  Specifies the baseline to which the dominant baseline aligns.
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#alignmentBaseline
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.alignmentBaseline</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#alignmentBaseline
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -22,10 +27,15 @@
 [Style(name="alignmentBaseline", type="String", enumeration="useDominantBaseline,roman,ascent,descent,ideographicTop,ideographicCenter,ideographicBottom", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  Amount to shift the baseline.
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#baselineShift
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.baselineShift</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#baselineShift
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -34,10 +44,15 @@
 [Style(name="baselineShift", type="Object", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  The type of CFF hinting used for this text.
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#cffHinting
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.cffHinting</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#cffHinting
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -47,15 +62,15 @@
 
 /**
  *  Color of the text.
- *  The default value for the Spark theme is <code>0x000000</code>.
- *  The default value for the Mobile theme is <code>0xFFFFFF</code>.
- *  
- *  <p><i>For the Mobile theme, this is the color of text in the component, including 
- *  the component label.</i></p>
+ * 
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.color</b></p>
  *
- *  <p><i>For the Spark theme:</i></p>
+ *  <p><b>For the Mobile theme, see
+ *  spark.components.supportClasses.StyleableTextField Style color</b></p>
  *
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#color
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#color
+ *  @see spark.components.supportClasses.StyleableTextField#style:color
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -65,10 +80,15 @@
 [Style(name="color", type="uint", format="Color", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  The type of digit case used for this text.
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#digitCase
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.digitCase</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#digitCase
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -77,10 +97,15 @@
 [Style(name="digitCase", type="String", enumeration="default,lining,oldStyle", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  Type of digit width used for this text.
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#digitWidth
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.digitWidth</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#digitWidth
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -89,10 +114,15 @@
 [Style(name="digitWidth", type="String", enumeration="default,proportional,tabular", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  Specifies the default bidirectional embedding level of the text.
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#direction
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.direction</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#direction
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -101,10 +131,16 @@
 [Style(name="direction", type="String", enumeration="ltr,rtl", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  Specifies which element baseline snaps to the <code>alignmentBaseline</code> to 
+ *  determine the vertical position of the element on the line.
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#dominantBaseline
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.dominantBaseline</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#dominantBaseline
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -113,7 +149,16 @@
 [Style(name="dominantBaseline", type="String", enumeration="auto,roman,ascent,descent,ideographicTop,ideographicCenter,ideographicBottom", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontFamily
+ *  The name of the font to use, or a comma-separated list of font names. 
+ * 
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.fontFamily</b></p>
+ *
+ *  <p><b>For the Mobile theme, see
+ *  spark.components.supportClasses.StyleableTextField Style fontFamily</b></p>
+ *
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#fontFamily
+ *  @see spark.components.supportClasses.StyleableTextField#style:fontFamily
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -123,10 +168,15 @@
 [Style(name="fontFamily", type="String", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  Font lookup to use. 
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontLookup
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.fontLookup</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#fontLookup
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -136,14 +186,15 @@
 
 /**
  *  Height of the text, in pixels.
- *  In the Spark theme, the default value is
- *  12 for all controls except the ColorPicker control. For the Spark 
- *  themed ColorPicker control, the default value is 11.
- *  The default value for the Mobile theme is 24.
- *  
- *  <p><i>For the Spark theme:</i></p>
  * 
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontSize
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.fontSize</b></p>
+ *
+ *  <p><b>For the Mobile theme, see
+ *  spark.components.supportClasses.StyleableTextField Style fontSize</b></p>
+ *
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#fontSize
+ *  @see spark.components.supportClasses.StyleableTextField#style:fontSize
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -155,12 +206,14 @@
 /**
  *  Determines whether the text is italic font.
  * 
- *  <p><i>For the Mobile theme</i> recognized values are <code>"normal"</code> and 
- *  <code>"italic"</code>.</p>
- * 
- *  <p><i>For the Spark theme:</i></p>
- * 
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontStyle
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.fontStyle</b></p>
+ *
+ *  <p><b>For the Mobile theme, see
+ *  spark.components.supportClasses.StyleableTextField Style fontStyle</b></p>
+ *
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#fontStyle
+ *  @see spark.components.supportClasses.StyleableTextField#style:fontStyle
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -172,15 +225,14 @@
 /**
  *  Determines whether the text is boldface.
  * 
- *  <p><i>For the Mobile theme:</i></p>
- * 
- *  <p>Recognized values are <code>normal</code> and <code>bold</code>.
- *  The default value for Button controls is <code>bold</code>. 
- *  The default value for all other controls is <code>normal</code>.</p>
- *  
- *  <p><i>For the Spark theme:</i></p>
- * 
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontWeight
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.fontWeight</b></p>
+ *
+ *  <p><b>For the Mobile theme, see
+ *  spark.components.supportClasses.StyleableTextField Style fontWeight</b></p>
+ *
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#fontWeight
+ *  @see spark.components.supportClasses.StyleableTextField#style:fontWeight
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -190,10 +242,15 @@
 [Style(name="fontWeight", type="String", enumeration="normal,bold", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  Rule used to justify text in a paragraph.
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#justificationRule
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.justificationRule</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#justificationRule
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -202,10 +259,15 @@
 [Style(name="justificationRule", type="String", enumeration="auto,space,eastAsian", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  The style used for justification of the paragraph. 
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#justificationStyle
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.justificationStyle</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#justificationStyle
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -214,14 +276,19 @@
 [Style(name="justificationStyle", type="String", enumeration="auto,prioritizeLeastAdjustment,pushInKinsoku,pushOutOnly", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  The style used for justification of the paragraph. 
  *  
  *  <p>Kerning is enabled by default for Spark components, but is disabled by default for MX components.
  *  Spark components interpret <code>default</code> as <code>auto</code>, 
  *  while MX components interpret <code>default</code> as <code>false</code>.</p>
- *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#kerning
- *  
+ * 
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.kerning</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#kerning
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -230,9 +297,7 @@
 [Style(name="kerning", type="String", enumeration="auto,on,off", inherit="yes")]
 
 /**
- *  Additional vertical space between lines of text.
- *
- *  <p>The default value is 0.</p>
+ *  @see spark.components.supportClasses.StyleableTextField#style:leading
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
@@ -242,11 +307,7 @@
 [Style(name="leading", type="Number", format="Length", inherit="yes", theme="mobile")]
 
 /**
- *  The number of additional pixels to appear between each character.
- *  A positive value increases the character spacing beyond the normal spacing,
- *  while a negative value decreases it.
- * 
- *  @default 0
+ *  @see spark.components.supportClasses.StyleableTextField#style:letterSpacing
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
@@ -256,8 +317,15 @@
 [Style(name="letterSpacing", type="Number", inherit="yes", theme="mobile")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#ligatureLevel
+ *  Controls which of the ligatures that are defined in the font may be used in the text. 
  *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.ligatureLevel</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#ligatureLevel
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -266,10 +334,15 @@
 [Style(name="ligatureLevel", type="String", enumeration="common,minimum,uncommon,exotic", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  Leading controls for the text. 
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineHeight
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.lineHeight</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#lineHeight
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -278,10 +351,15 @@
 [Style(name="lineHeight", type="Object", inherit="yes")]
 
 /** 
- *  <i>This style is not supported in the mobile theme.</i>
+ *  If true, applies strikethrough, a line drawn through the middle of the text.  
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineThrough
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.lineThrough</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#lineThrough
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -306,10 +384,15 @@
 [Style(name="locale", type="String", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
- * 
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#renderingMode
+ *  The rendering mode used for this text which applies only to embedded fonts.  
  *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.renderingMode</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#renderingMode
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -320,25 +403,14 @@
 /**
  *  Alignment of text within a container.
  * 
- *  <p><i>For the Mobile theme:</i></p>
- * 
- *  <p>Possible values are <code>"left"</code>, <code>"right"</code>,
- *  or <code>"center"</code>.</p>
- * 
- *  <p>The default value for most components is <code>"left"</code>.
- *  For the FormItem component,
- *  the default value is <code>"right"</code>.
- *  For the Button, LinkButton, and AccordionHeader components,
- *  the default value is <code>"center"</code>, and
- *  this property is only recognized when the
- *  <code>labelPlacement</code> property is set to <code>"left"</code> or
- *  <code>"right"</code>.
- *  If <code>labelPlacement</code> is set to <code>"top"</code> or
- *  <code>"bottom"</code>, the text and any icon are centered.</p>
- *  
- *  <p><i>For the Spark theme:</i></p>
- * 
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlign
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.textAlign</b></p>
+ *
+ *  <p><b>For the Mobile theme, see
+ *  spark.components.supportClasses.StyleableTextField Style textAlign</b></p>
+ *
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#textAlign
+ *  @see spark.components.supportClasses.StyleableTextField#style:textAlign
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -348,10 +420,15 @@
 [Style(name="textAlign", type="String", enumeration="start,end,left,right,center,justify", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  Alignment of the last line in the paragraph relative to the container in justified text. 
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlignLast
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.textAlignLast</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#textAlignLast
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -360,10 +437,15 @@
 [Style(name="textAlignLast", type="String", enumeration="start,end,left,right,center,justify", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  Alpha (transparency) value for the text.  
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlpha
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.textAlpha</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#textAlpha
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -374,13 +456,15 @@
 /**
  *  Determines whether the text is underlined.
  *
- *  <p><i>For the Mobile theme</i> possible values are <code>"none"</code> and 
- *  <code>"underline"</code>.  The default is <code>"none"</code>.</p>
- * 
- *  <p><i>For the Spark theme:</i></p>
- * 
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#textDecoration
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.textDecoration</b></p>
+ *
+ *  <p><b>For the Mobile theme, see
+ *  spark.components.supportClasses.StyleableTextField Style textDecoration</b></p>
+ *
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#textDecoration
+ *  @see spark.components.supportClasses.StyleableTextField#style:textDecoration
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -389,10 +473,15 @@
 [Style(name="textDecoration", type="String", enumeration="none,underline", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  Specifies options for justifying text.  
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#textJustify
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.textJustify</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#textJustify
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -401,10 +490,15 @@
 [Style(name="textJustify", type="String", enumeration="interWord,distribute", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  The amount of tracking (manual kerning) to be applied to the left of each character.   
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#trackingLeft
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.trackingLeft</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#trackingLeft
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -413,10 +507,15 @@
 [Style(name="trackingLeft", type="Object", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  The amount of tracking (manual kerning) to be applied to the right of each character.   
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#trackingRight
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.trackingRight</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#trackingRight
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -425,10 +524,15 @@
 [Style(name="trackingRight", type="Object", inherit="yes")]
 
 /**
- *  <i>This style is not supported in the mobile theme.</i>
+ *  The type of typographic case used for this text.   
  *  
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#typographicCase
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.typographicCase</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#typographicCase
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
