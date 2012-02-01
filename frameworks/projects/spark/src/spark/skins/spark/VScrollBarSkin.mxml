@@ -12,14 +12,18 @@
 -->
 
 <Skin xmlns="http://ns.adobe.com/mxml/2009"
-      width="16" height="120">
+      width="15" height="120">
 
     <Metadata>
     	[HostComponent("flex.component.VScrollBar")]
     </Metadata> 
-    
-    <Button id="track" top="17" bottom="17" skinZZ="flex.skin.VScrollBarTrackSkin" />
-    <Button top="0" id="upButton" skinZZ="flex.skin.ScrollBarUpButtonSkin" />
+
+    <Button id="track" top="17" bottom="17" 
+            skinZZ="flex.skin.VScrollBarTrackSkin" />
     <Button id="thumb" skinZZ="flex.skin.VScrollBarThumbSkin" />
-    <Button bottom="0" id="downButton" skinZZ="flex.skin.ScrollBarDownButtonSkin" />
+    <Button id="decrementButton" top="0"
+            skinZZ="flex.skin.ScrollBarUpButtonSkin" />
+    <Button id="incrementButton" bottom="0"
+            skinZZ="flex.skin.ScrollBarDownButtonSkin" />
+
 </Skin>
