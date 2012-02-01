@@ -62,14 +62,18 @@
         <s:Group minWidth="263" minHeight="184" left="0" right="0" top="0" bottom="0">
             
             <!-- background when the videoDisplay doesn't fill its whole spot -->
-            <s:Rect bottom="1" left="1" right="1" top="1">
+            <s:Rect bottom="1" left="1" right="1" top="1"
+                    bottom.fullScreenStates="0" left.fullScreenStates="0" 
+                    right.fullScreenStates="0" top.fullScreenStates="0">
                 <s:fill>
                     <s:SolidColor color="0xFBFCFF" />
                 </s:fill>
             </s:Rect>
             
             <!--- @copy spark.components.VideoPlayer#videoDisplay -->
-            <s:VideoDisplay id="videoDisplay" bottom="24" left="1" right="1" top="1" />
+            <s:VideoDisplay id="videoDisplay" bottom="24" left="1" right="1" top="1" 
+                            bottom.fullScreenStates="0" left.fullScreenStates="0" 
+                            right.fullScreenStates="0" top.fullScreenStates="0"  />
             
             <!-- video player controls -->
             <s:Group left="0" right="0" height="24" bottom="0" bottom.fullScreenStates="150">
@@ -144,7 +148,7 @@
             </s:Group>
             
             <!-- border -->
-            <s:Rect left="0" right="0" top="0" bottom="0">
+            <s:Rect left="0" right="0" top="0" bottom="0" excludeFrom="fullScreenStates">
                 <s:stroke>
                     <s:SolidColorStroke color="0x131313" />
                 </s:stroke>
