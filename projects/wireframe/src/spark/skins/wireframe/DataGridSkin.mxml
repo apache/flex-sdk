@@ -43,7 +43,7 @@ The default skin class for a Spark DataGrid component.
                         
                         public function initializeRowBackground(grid:Grid, rowIndex:int):void
                         {
-                            const dataGrid:DataGrid = grid.gridOwner as DataGrid;
+                            const dataGrid:DataGrid = grid.dataGrid;
                             if (!dataGrid)
                                 return;
                             
