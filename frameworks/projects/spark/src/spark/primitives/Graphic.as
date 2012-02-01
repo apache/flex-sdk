@@ -28,14 +28,17 @@ import spark.components.ResizeMode;
 //  Excluded APIs
 //--------------------------------------
 
+[Exclude(name="setFocus", kind="method")]
+
 [Exclude(name="focusEnabled", kind="property")]
 [Exclude(name="focusPane", kind="property")]
+[Exclude(name="layout", kind="property")]
 [Exclude(name="mouseFocusEnabled", kind="property")]
 [Exclude(name="tabEnabled", kind="property")]
+
 [Exclude(name="focusBlendMode", kind="style")]
 [Exclude(name="focusSkin", kind="style")]
 [Exclude(name="focusThickness", kind="style")]
-[Exclude(name="setFocus", kind="method")]
 
 //--------------------------------------
 //  Other metadata
