@@ -158,7 +158,6 @@
     <s:SimpleText id="labelElement"
              textAlign="center"
              verticalAlign="middle"
-             lineBreak="toFit"
              truncation="1"
              horizontalCenter="0" verticalCenter="1"
              left="10" right="10" top="2" bottom="2">
