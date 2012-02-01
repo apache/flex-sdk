@@ -4065,6 +4065,7 @@ public class GraphicElement extends EventDispatcher
 
         // Calculate the width and height pre-transform:
         var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                 explicitWidth, explicitHeight,
                                                  preferredWidthPreTransform(),
                                                  preferredHeightPreTransform(),
                                                  minWidth, minHeight,
@@ -4100,6 +4101,7 @@ public class GraphicElement extends EventDispatcher
 
         // Calculate the width and height pre-transform:
         var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                 explicitWidth, explicitHeight,
                                                  preferredWidthPreTransform(),
                                                  preferredHeightPreTransform(),
                                                  minWidth, minHeight,
@@ -4339,6 +4341,7 @@ public class GraphicElement extends EventDispatcher
         else
         {
             var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                     explicitWidth, explicitHeight,
                                                      preferredWidthPreTransform(),
                                                      preferredHeightPreTransform(),
                                                      minWidth, minHeight,
