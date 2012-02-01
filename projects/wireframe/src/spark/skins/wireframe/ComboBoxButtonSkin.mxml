@@ -19,7 +19,7 @@
       @productversion Flex 4
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-      minWidth="21" minHeight="21"
+      minWidth="19" minHeight="21"
       alpha.disabled="0.5">
 
     <fx:Metadata>
@@ -36,7 +36,7 @@
     <!-- background -->
     <s:Rect left="0" right="0" top="0" bottom="0"
           width="69" height="20"
-          radiusX="2" radiusY="2">
+          topRightRadiusX="2" bottomRightRadiusX="2">
         <s:stroke>
             <s:SolidColorStroke color="0x5380D0" />
         </s:stroke>
