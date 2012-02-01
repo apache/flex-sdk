@@ -25,14 +25,33 @@ import spark.globalization.supportClasses.GlobalizationBase;
 use namespace mx_internal;
 
 /**
- * <code>NumberFormatterBase</code> is a base class for the
- * <code>NumberFormatter</code> and <code>CurrencyFormatter</code> classes.
+ *  The NumberFormatterBase class is a base class for the
+ *  NumberFormatter and CurrencyFormatter classes.
+ *
+ *  @mxml <p>The <code>&lt;s:NumberFormatterBase&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:NumberFormatterBase 
+ *    <strong>Properties</strong>
+ *    decimalSeparator="<i>locale and OS dependent</i>"
+ *    digitsType="<i>locale and OS dependent</i>"
+ *    errorText="null"
+ *    fractionalDigits="<i>locale and OS dependent</i>"
+ *    groupingPattern="<i>locale and OS dependent</i>"
+ *    groupingSeparator="<i>locale and OS dependent</i>"
+ *    leadingZero="<i>locale and OS dependent</i>"
+ *    negativeSymbol="<i>locale and OS dependent</i>"
+ *    trailingZeros="<i>locale and OS dependent</i>"
+ *    useGrouping="<i>locale and OS dependent</i>"
+ *  /&gt;
+ *  </pre>
  * 
  *  @see spark.formatters.CurrencyFormatter
  *  @see spark.formatters.NumberFormatter
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10.1
+ *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -66,7 +85,7 @@ public class NumberFormatterBase extends GlobalizationBase
      *  Constructor.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -116,7 +135,7 @@ public class NumberFormatterBase extends GlobalizationBase
      *  @inheritDoc
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -157,15 +176,15 @@ public class NumberFormatterBase extends GlobalizationBase
      *  The decimal separator character used for formatting or parsing
      *  numbers that have a decimal part.
      *
+     *  <p>The default value is dependent on the locale and operating system.</p>
+
      *  @throws TypeError if this property is assigned a null value.
      *
-     *  The default value is dependent on the locale and operating system.
-     *
-     *  @see spark.formatters.CurrencyFormatter.format()
-     *  @see spark.formatters.NumberFormatter.format()
+     *  @see spark.formatters.CurrencyFormatter#format()
+     *  @see spark.formatters.NumberFormatter#format()
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -191,20 +210,20 @@ public class NumberFormatterBase extends GlobalizationBase
      *
      *  <p>Different languages and regions use different sets of
      *  characters to represent the
-     *  digits 0 through 9.  This property defines the set of digits
-     *  to be used.</p>
+     *  digits 0 through 9.  
+     *  This property defines the set of digits to be used.</p>
      *
      *  <p>The value of this property represents the Unicode value for
      *  the zero digit of a decimal digit set.
      *  The valid values for this property are defined in the
      *  <code>NationalDigitsType</code> class.</p>
      *
-     *  The default value is dependent on the locale and operating system.
+     *  <p>The default value is dependent on the locale and operating system.</p>
      *
      *  @see flash.globalization.NationalDigitsType
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -247,7 +266,7 @@ public class NumberFormatterBase extends GlobalizationBase
      *  @see spark.globalization.LastOperationStatus
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -278,21 +297,21 @@ public class NumberFormatterBase extends GlobalizationBase
      *  separator.
      *
      *  <p>Numbers are rounded to the number of digits specified by this
-     *  property. <strong>The rounding scheme
-     *  varies depending on the user's operating system.</strong></p>
+     *  property. The rounding scheme
+     *  varies depending on the application user's operating system.</p>
      *
      *  <p>When the <code>trailingZeros</code> property is set to
      *  <code>true</code>, the fractional portion of the
-     *  number (after the decimal separaotr) is padded with trailing zeros
+     *  number (after the decimal separator) is padded with trailing zeros
      *  until its length matches the value of this
      *  <code>fractionalDigits</code> property.</p>
      *
-     *  @default dependent on the locale and operating system.
+     *  <p>The default value is dependent on the locale and operating system.</p>
      *
      *  @see #trailingZeros
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -377,15 +396,15 @@ public class NumberFormatterBase extends GlobalizationBase
      *  being used.
      *  </p>
      *
-     *  @throws TypeError if this property is assigned a null value.
+     *  <p>The default value is dependent on the locale and operating system.</p>
      *
-     *  The default value is dependent on the locale and operating system.
+     *  @throws TypeError if this property is assigned a null value.
      *
      *  @see #groupingSeparator
      *  @see #useGrouping
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -414,17 +433,17 @@ public class NumberFormatterBase extends GlobalizationBase
      *  property is initially set based on the locale that is selected
      *  when the formatter object is constructed.</p>
      *
-     *  @throws TypeError if this property is assigned a null value.
-     *
      *  <p>The default value is dependent on the locale and operating system.</p>
      *
-     *  @see spark.formatters.CurrencyFormatter.format()
-     *  @see spark.formatters.NumberFormatter.format()
+     *  @throws TypeError if this property is assigned a null value.
+     *
+     *  @see spark.formatters.CurrencyFormatter#format()
+     *  @see spark.formatters.NumberFormatter#format()
      *  @see #useGrouping
      *  @see #groupingPattern
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -508,17 +527,17 @@ public class NumberFormatterBase extends GlobalizationBase
      *  </table>
      *
      *
-     *  @throws TypeError if this property is assigned a null value.
-     *
      *  <p>The default value is dependent on the locale and operating system.</p>
      *
-     *  @see spark.formatters.CurrencyFormatter.format()
-     *  @see spark.formatters.NumberFormatter.format()
+     *  @throws TypeError if this property is assigned a null value.
+     *
+     *  @see spark.formatters.CurrencyFormatter#format()
+     *  @see spark.formatters.NumberFormatter#format()
      *
      *  @see #trailingZeros
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -557,7 +576,7 @@ public class NumberFormatterBase extends GlobalizationBase
      *  @see #format()
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -640,14 +659,14 @@ public class NumberFormatterBase extends GlobalizationBase
      *         </tr>
      *  </table>
      *
-     *  @throws TypeError if this property is assigned a null value.
-     *
      *  <p>The default value is dependent on the locale and operating system.</p>
+     *
+     *  @throws TypeError if this property is assigned a null value.
      * 
      *  @see #leadingZero
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -690,7 +709,7 @@ public class NumberFormatterBase extends GlobalizationBase
      *  @see #groupingSeparator
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
