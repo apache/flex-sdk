@@ -46,7 +46,7 @@ import mx.filters.IBitmapFilter;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;GlowFilter
+ *  &lt;s:GlowFilter
  *    <strong>Properties</strong>
  *    alpha="1"
  *    color="0xFF0000"
