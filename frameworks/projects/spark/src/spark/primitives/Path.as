@@ -519,7 +519,7 @@ public class Path extends FilledElement
      */
     override protected function transformWidthForLayout(width:Number,
                                                         height:Number,
-                                                        postTransform:Boolean=true):Number
+                                                        postTransform:Boolean = true):Number
     {
         if (postTransform)
         {
@@ -537,7 +537,7 @@ public class Path extends FilledElement
      */
     override protected function transformHeightForLayout(width:Number,
                                                          height:Number,
-                                                         postTransform:Boolean=true):Number
+                                                         postTransform:Boolean = true):Number
     {
         if (postTransform)
         {
