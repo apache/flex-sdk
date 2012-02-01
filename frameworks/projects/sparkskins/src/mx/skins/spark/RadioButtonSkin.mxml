@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
+	  alpha.disabledStates="0.5">
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For button, the graphics are colorized but the dot is not. */
+        static private const exclusions:Array = ["dot"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the symbol fill items that should be colored by the "symbolColor" style. */
+        static private const symbols:Array = ["dotFill"];
+        override public function get symbolItems():Array {return symbols};
+    </Script>
+    
+    <states>
+        <State name="up" />
+        <State name="over" stateGroups="overStates" />
+        <State name="down" stateGroups="downStates" />
+        <State name="disabled" stateGroups="disabledStates" />
+        <State name="selectedUp" stateGroups="selectedStates" />
+        <State name="selectedOver" stateGroups="overStates, selectedStates" />
+        <State name="selectedDown" stateGroups="downStates, selectedStates" />
+        <State name="selectedDisabled" stateGroups="disabledStates, selectedStates" />
+    </states>
+    
+    <Group verticalCenter="-1" width="13" height="13">
+	    <!-- drop shadow -->
+	    <Ellipse left="-1" top="-1" right="-1" bottom="-1">
+	    	<stroke>
+	    		<LinearGradientStroke rotation="90" weight="1">
+                    <GradientEntry color="0x000000" 
+                                   color.downStates="0xFFFFFF"
+                                   alpha="0.011"
+                                   alpha.downStates="0" />
+                    <GradientEntry color="0x000000" 
+                                   color.downStates="0xFFFFFF" 
+                                   alpha="0.121"
+                                   alpha.downStates="0.57" />
+	    		</LinearGradientStroke>
+	    	</stroke>
+	    </Ellipse>
+	    
+		<!-- fill -->
+		<Ellipse left="1" top="1" right="1" bottom="1">
+			<fill>
+				<LinearGradient rotation="90">
+					<GradientEntry color="0xFFFFFF" 
+								   color.overStates="0xBBBDBD" 
+								   color.downStates="0xAAAAAA" 
+								   alpha="0.85" />
+					<GradientEntry color="0xD8D8D8" 
+								   color.overStates="0x9FA0A1" 
+								   color.downStates="0x929496" 
+								   alpha="0.85" />
+				</LinearGradient>
+			</fill>
+		</Ellipse>
+		
+		<!-- fill highlight -->
+		<Path data="M 1 6 Q 2 2 6 1 Q 11 2 12 6 h -9">
+			<fill>
+				<SolidColor color="0xFFFFFF" alpha="0.33" />
+			</fill>
+		</Path>
+		
+		<!-- layer 6: highlight stroke (all states except down) -->
+		<Ellipse left="1" right="1" top="1" bottom="1">
+			<stroke>
+				<LinearGradientStroke rotation="90" weight="1">
+					<GradientEntry color="0xFFFFFF" color.downStates="0x939393" alpha.overStates="0.22" />
+					<GradientEntry color="0xD8D8D8" color.downStates="0xB1B1B1" alpha.overStates="0.22" />
+				</LinearGradientStroke>
+			</stroke>
+		</Ellipse>
+		<Rect left="5" top="1" right="5" height="1">
+			<fill>
+				<SolidColor color="0xFFFFFF" 
+					        color.downStates="0x939393"
+					        alpha.overStates="0.22" />
+			</fill>
+		</Rect>
+		
+        <!-- border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+        <Ellipse left="0" top="0" right="0" bottom="0">
+            <stroke>
+                <LinearGradientStroke rotation="90" weight="1">
+                    <GradientEntry color="0x000000" alpha="0.70" />
+                    <GradientEntry color="0x000000" alpha="0.80" />
+                </LinearGradientStroke>
+            </stroke>
+        </Ellipse>
+		
+	    <!-- dot -->
+       <Path left="4" top="4" includeIn="selectedStates" id="dot" itemCreationPolicy="immediate"
+             data="M 2.5 0 Q 4.5 0.5 5 2.5 Q 4.5 4.5 2.5 5 Q 0.5 4.5 0 2.5 Q 0.5 0.5 2.5 0">
+           <fill>
+               <SolidColor id="dotFill" color="0" alpha="0.9" />
+           </fill>
+       </Path>
+       <Path left="4" top="7" includeIn="selectedStates" 
+             data="M 0 0 Q 0.5 2 2.5 2.0 Q 3.5 2.0 4 0">
+           <stroke>
+               <LinearGradientStroke>
+                   <GradientEntry color="0xFFFFFF" alpha="0.3" />
+                   <GradientEntry color="0xFFFFFF" alpha="0.7" />
+                   <GradientEntry color="0xFFFFFF" alpha="0.3" />
+               </LinearGradientStroke>
+           </stroke>
+       </Path>
+    </Group>
+</SparkSkin>
