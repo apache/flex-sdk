@@ -23,9 +23,9 @@
 
     <fx:Metadata>
     <![CDATA[ 
-    /** 
-     * @copy spark.skins.spark.ApplicationSkin#hostComponent
-     */
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.Button")]
     ]]>
     </fx:Metadata> 
@@ -109,9 +109,11 @@
           data="M 7.0 3.5 L 0.0 7.0 L 0.0 0.0 L 7.0 3.5">
         <s:fill>
             <s:RadialGradient rotation="90" focalPointRatio="1">    
-            <!--- Defines the first fill color in the ScrollBar component's right arrow. -->
+                <!--- @private
+                      Defines the first fill color in the ScrollBar component's right arrow. -->
                 <s:GradientEntry id="arrowFill1" color="0" alpha="0.65" />
-            <!--- Defines the second fill color in the ScrollBar component's right arrow. -->
+                <!--- @private
+                      Defines the second fill color in the ScrollBar component's right arrow. -->
                 <s:GradientEntry id="arrowFill2" color="0" alpha="0.8" />
             </s:RadialGradient>
         </s:fill>
