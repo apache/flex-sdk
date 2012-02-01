@@ -160,7 +160,10 @@ The default header renderer for s:DataGrid columns.
                 super.prepare(hasBeenRecycled);
                 
                 if (labelDisplay && labelDisplayGroup && (labelDisplay.parent != labelDisplayGroup))
+                {
+                    labelDisplayGroup.removeAllElements();
                     labelDisplayGroup.addElement(labelDisplay);
+                }
                 
                 const column:GridColumn = this.column;
                 if (sortIndicator && column && column.grid && column.grid.dataGrid && column.grid.dataGrid.columnHeaderGroup)
