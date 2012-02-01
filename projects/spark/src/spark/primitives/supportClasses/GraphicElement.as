@@ -1299,23 +1299,23 @@ public class GraphicElement extends EventDispatcher
             // the matrix itself.
             if (TransformUtil.isDeltaIdentity(_matrix))
             {
-            	if (_matrix.tx != _x)
-            	{
-	            	_x = _matrix.tx;
-	            	xChanged = true;
-            	}
-            	
-            	if (_matrix.ty != _y)
-            	{
-            		_y = _matrix.ty;
-            		yChanged = true;
-            	}
-            	
-            	_matrix = null;
+                if (_matrix.tx != _x)
+                {
+                    _x = _matrix.tx;
+                    xChanged = true;
+                }
+                
+                if (_matrix.ty != _y)
+                {
+                    _y = _matrix.ty;
+                    yChanged = true;
+                }
+                
+                _matrix = null;
             }
             else
             {
-            	matrixChanged = true;
+                matrixChanged = true;
             }
             
             clearTransformProperties();
@@ -1741,8 +1741,8 @@ public class GraphicElement extends EventDispatcher
      */
     protected function get drawX():Number
     {
-    	// Draw position depends upon which coordinate space we are located in.
-    	// TODO!!! We need to apply all of the transforms of our ancestors
+        // Draw position depends upon which coordinate space we are located in.
+        // TODO!!! We need to apply all of the transforms of our ancestors
         return displayObject ? 0 : sharedDisplayObject && sharedDisplayObject != elementHost ? x - sharedDisplayObject.x : x;
     }
     
@@ -1755,8 +1755,8 @@ public class GraphicElement extends EventDispatcher
      */
     protected function get drawY():Number
     {
-    	// Draw position depends upon which coordinate space we are located in.
-    	// TODO!!! We need to apply all of the transforms of our ancestors
+        // Draw position depends upon which coordinate space we are located in.
+        // TODO!!! We need to apply all of the transforms of our ancestors
         return displayObject ? 0 : sharedDisplayObject && sharedDisplayObject != elementHost ? y - sharedDisplayObject.y : y;
     }
     
@@ -1874,13 +1874,13 @@ public class GraphicElement extends EventDispatcher
     
     public function destroyDisplayObject():void
     {
-    	// TODO!! Figure out what cleanup to do
-    	if (displayObject)
-    	{
-	    	if (displayObject.parent)
-				displayObject.parent.removeChild(displayObject);
-			displayObject = null;
-    	}
+        // TODO!! Figure out what cleanup to do
+        if (displayObject)
+        {
+            if (displayObject.parent)
+                displayObject.parent.removeChild(displayObject);
+            displayObject = null;
+        }
     }
        
     /**
@@ -1888,40 +1888,40 @@ public class GraphicElement extends EventDispatcher
      */
     public function get needsDisplayObject():Boolean
     {
-    	if ((_filters && _filters.length > 0) || 
-    		_blendMode != BlendMode.NORMAL || _mask ||
-    		_scaleX != 1 || _scaleY != 1 ||
-    		_rotation != 0 || _alpha != 1 || _transform ||
-    		_transformX != 0 || _transformY != 0)
-    	{
-			return true;
-    	}
-    	else
-    		return false;
+        if ((_filters && _filters.length > 0) || 
+            _blendMode != BlendMode.NORMAL || _mask ||
+            _scaleX != 1 || _scaleY != 1 ||
+            _rotation != 0 || _alpha != 1 || _transform ||
+            _transformX != 0 || _transformY != 0)
+        {
+            return true;
+        }
+        else
+            return false;
     }
     
     public function get nextSiblingNeedsDisplayObject():Boolean
     {
-    	// TODO: The displayObject && visible test is a quick fix for MXMLG-228.
-    	// Should investigate a better solution.
-    	return needsDisplayObject || (displayObject && visible == false);
+        // TODO: The displayObject && visible test is a quick fix for MXMLG-228.
+        // Should investigate a better solution.
+        return needsDisplayObject || (displayObject && visible == false);
     }
     
     private var _sharedDisplayObject:DisplayObject;
     
     public function set sharedDisplayObject(value:DisplayObject):void
     {
-    	_sharedDisplayObject = value;
+        _sharedDisplayObject = value;
     }
     
     public function get sharedDisplayObject():DisplayObject
     {
-    	return _sharedDisplayObject;
+        return _sharedDisplayObject;
     }
     
     protected function get drawnDisplayObject():DisplayObject
     {
-    	return displayObject ? displayObject : sharedDisplayObject;
+        return displayObject ? displayObject : sharedDisplayObject;
     }
 
     /**
@@ -1938,20 +1938,20 @@ public class GraphicElement extends EventDispatcher
         
         setActualPosition(0, 0);
         if (displayObject && nextSiblingNeedsDisplayObject)
-        	bitmapData.draw(displayObject, displayObject.transform.matrix);
-		else
-		{
-			var oldDisplayObject:DisplayObject = displayObject;
-			displayObject = new Sprite();
-			invalidateDisplayList();
-			validateDisplayList();
-			
-			bitmapData.draw(displayObject);
-			
-			displayObject = oldDisplayObject;
-				
-		}
-			       
+            bitmapData.draw(displayObject, displayObject.transform.matrix);
+        else
+        {
+            var oldDisplayObject:DisplayObject = displayObject;
+            displayObject = new Sprite();
+            invalidateDisplayList();
+            validateDisplayList();
+            
+            bitmapData.draw(displayObject);
+            
+            displayObject = oldDisplayObject;
+                
+        }
+                   
         setActualPosition(oldPos.x, oldPos.y);
     
         return bitmapData;
@@ -2172,7 +2172,7 @@ public class GraphicElement extends EventDispatcher
      */
     protected function commitProperties():void
     {
-    	//trace("GraphicElement.commitProperties displayObject",displayObject,"this",this);
+        //trace("GraphicElement.commitProperties displayObject",displayObject,"this",this);
         if (displayObject)
         {
             if (alphaChanged)
@@ -2235,14 +2235,14 @@ public class GraphicElement extends EventDispatcher
         }
         else
         {
-        	if (visibleChanged)
-        	{
-        		visibleChanged = false;
-        		
-        		// If we're sharing a display list, we need to force a redraw
-        		// to change visibility.
-        		invalidateDisplayList();
-        	}
+            if (visibleChanged)
+            {
+                visibleChanged = false;
+                
+                // If we're sharing a display list, we need to force a redraw
+                // to change visibility.
+                invalidateDisplayList();
+            }
         }
     }
 
@@ -2362,15 +2362,15 @@ public class GraphicElement extends EventDispatcher
      */
     public function validateDisplayList():void
     {
-    	// TODO!!! Turn this off for now because we need to clear all of the DisplayObject
-    	// graphics and thus need to redraw each graphic element
-    	// Put this back in once we implement drawingAPI2 
+        // TODO!!! Turn this off for now because we need to clear all of the DisplayObject
+        // graphics and thus need to redraw each graphic element
+        // Put this back in once we implement drawingAPI2 
         /* if (!invalidateDisplayListFlag)
             return; */
         invalidateDisplayListFlag = false;
 
-		if (visible)
-        	updateDisplayList(_width, _height);
+        if (visible)
+            updateDisplayList(_width, _height);
         
         // If we aren't doing any more invalidation, send out an UpdateComplete event
         if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag)
@@ -2483,7 +2483,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function setActualPosition(x:Number, y:Number):void
     {
-    	//trace("GraphicElement.setActualPosition x",x,"y",y,"this",this);
+        //trace("GraphicElement.setActualPosition x",x,"y",y,"this",this);
         x -= measuredX;
         y -= measuredY;
 
@@ -2512,20 +2512,20 @@ public class GraphicElement extends EventDispatcher
         var changed:Boolean = false;
         if (_x != x)
         {
-        	_x = x;
-        	changed = true;
+            _x = x;
+            changed = true;
         }
         
         if (_y != y)
         {
-        	_y = y;
-        	changed = true;
+            _y = y;
+            changed = true;
         }
         
         if (displayObject)
-        	commitXY();
+            commitXY();
         else if (changed)
-        	invalidateDisplayList();
+            invalidateDisplayList();
     }
 
     /**
@@ -2536,7 +2536,7 @@ public class GraphicElement extends EventDispatcher
      *  If one of the desired TBounds dimensions is left unspecified, it's size
      *  will be picked such that item can be optimally sized to fit the other
      *  TBounds dimension. This is useful when the layout doesn't want to
-     *  overconstrain the item in cases where the item TBounds width & height
+     *  overconstrain the item in cases where the item TBounds width and height
      *  are dependent (text, components with complex transforms, etc.)
      *
      *  If both TBounds dimensions are left unspecified, the item will have its
@@ -2654,7 +2654,7 @@ public class GraphicElement extends EventDispatcher
 
         beginCommitTransformProps();
 
-		/*
+        /*
         TransformUtil.applyTransforms(displayObject, null, _x, _y);
         _x = displayObject.x;
         _y = displayObject.y;
@@ -2691,14 +2691,14 @@ public class GraphicElement extends EventDispatcher
         _scaleY = displayObject.scaleY;
         _rotation = displayObject.rotation;
 
-		// Pull the x and y backing vars only if we have a matrix.
+        // Pull the x and y backing vars only if we have a matrix.
         if (_matrix)
         {
             _x = displayObject.x;
             _y = displayObject.y;
         }
-		
-		matrixChanged = false;
+        
+        matrixChanged = false;
         scaleXChanged = false;
         scaleYChanged = false;
         rotationChanged = false;
