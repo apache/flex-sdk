@@ -374,18 +374,16 @@ public class BitmapGraphic extends GraphicElement
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
     {
-        /* if (!displayObject || !(displayObject is Sprite))
-            return; */
-
-        if (!source)
+        if (!source || !drawnDisplayObject || !(drawnDisplayObject is Sprite))
             return;
             
-        if (displayObject is Sprite)
-            Sprite(displayObject).graphics.clear();
-        else if (displayObject is Shape)
-            Shape(displayObject).graphics.clear();
-
-        var g:Graphics = Sprite(drawnDisplayObject).graphics;
+       	var g:Graphics = Sprite(drawnDisplayObject).graphics;
+        
+        // We only clear if we have a displayObject. This handles the case of having our own displayObject and the 
+		// case when we have a mask and have created a _drawnDisplayObject. We don't want to clear if we are 
+		// sharing a display object. 
+		if (displayObject)
+			g.clear();
         
         g.lineStyle();
         _fill.offsetX = drawX;
