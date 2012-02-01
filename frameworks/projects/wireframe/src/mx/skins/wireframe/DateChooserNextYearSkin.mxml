@@ -37,7 +37,7 @@
     <s:Path id="arrow" top="1" left="1" data="M 0 3 L 0 2 L 1 2 L 1 1 L 2 1 L 2 0 L 3 0 L 3 1 L 4 1 L 4 2 L 5 2 L 5 3 L 0 3 Z">
         <s:fill>
             <!--- @private -->
-            <s:SolidColor id="arrowFill" color="0x4E6290" />
+            <s:SolidColor id="arrowFill" color="#666666" />
         </s:fill>
     </s:Path>   
 </s:Skin>
