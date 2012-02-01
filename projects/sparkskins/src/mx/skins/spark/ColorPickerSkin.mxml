@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the Halo ColorPicker component. 
+<!--- The Spark skin class for the MX ColorPicker component. 
+
+      @see mx.controls.ColorPicker
         
       @langversion 3.0
       @playerversion Flash 10
