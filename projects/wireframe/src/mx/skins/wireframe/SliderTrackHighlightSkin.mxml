@@ -29,7 +29,7 @@
     
     <s:Rect left="0" right="0" top="2" height="4">
         <s:fill>
-            <s:SolidColor color="0x0099FF" alpha="0.35" />
+            <s:SolidColor color="#EEEEEE" alpha="0.35" />
         </s:fill>
     </s:Rect>
 </s:Skin>
