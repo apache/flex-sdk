@@ -2,19 +2,26 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
+<!--- The default skin class for the Spark ScrollBarRightButton component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
     <fx:Metadata>
-    	[HostComponent("spark.components.Button")]
+        [HostComponent("spark.components.Button")]
     </fx:Metadata> 
     
     <s:states>
@@ -33,15 +40,15 @@
         </s:fill>
     </s:Rect>
 
-	<!-- shadow (down state only) -->
-	<s:Rect left="1" top="1" right="1" bottom="1" includeIn="down">
-		<s:stroke>
-			<s:LinearGradientStroke rotation="90">
-				<s:GradientEntry color="0x5380D0" alpha="0.25" />
-				<s:GradientEntry color="0x5380D0" alpha="0" />
-			</s:LinearGradientStroke>
-		</s:stroke>
-	</s:Rect>
+    <!-- shadow (down state only) -->
+    <s:Rect left="1" top="1" right="1" bottom="1" includeIn="down">
+        <s:stroke>
+            <s:LinearGradientStroke rotation="90">
+                <s:GradientEntry color="0x5380D0" alpha="0.25" />
+                <s:GradientEntry color="0x5380D0" alpha="0" />
+            </s:LinearGradientStroke>
+        </s:stroke>
+    </s:Rect>
 
     <!-- arrow -->
     <s:Path data="M 13 7.5 L 6 11 L 6 3.5 L 13 7.5">
