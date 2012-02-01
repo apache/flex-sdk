@@ -11,14 +11,14 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
 	  alpha.disabledStates="0.5">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxRadioButton")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.RadioButton")]
+    </fx:Metadata> 
     
-    <Script>
+    <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For button, the graphics are colorized but the label is not. */
         static private const exclusions:Array = ["labelElement", "dot"];
@@ -27,108 +27,108 @@
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["dotFill"];
         override public function get symbolItems():Array {return symbols};
-    </Script>
+    </fx:Script>
     
-    <states>
-        <State name="up" />
-        <State name="over" stateGroups="overStates" />
-        <State name="down" stateGroups="downStates" />
-        <State name="disabled" stateGroups="disabledStates" />
-        <State name="upAndSelected" stateGroups="selectedStates" />
-        <State name="overAndSelected" stateGroups="overStates, selectedStates" />
-        <State name="downAndSelected" stateGroups="downStates, selectedStates" />
-        <State name="disabledAndSelected" stateGroups="disabledStates, selectedStates" />
-    </states>
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" stateGroups="overStates" />
+        <s:State name="down" stateGroups="downStates" />
+        <s:State name="disabled" stateGroups="disabledStates" />
+        <s:State name="upAndSelected" stateGroups="selectedStates" />
+        <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <s:State name="disabledAndSelected" stateGroups="disabledStates, selectedStates" />
+    </s:states>
     
-    <Group verticalCenter="0" width="13" height="13">
+    <s:Group verticalCenter="0" width="13" height="13">
 	    <!-- drop shadow -->
-	    <Ellipse left="-1" top="-1" right="-1" bottom="-1">
-	    	<stroke>
-	    		<LinearGradientStroke rotation="90" weight="1">
-                    <GradientEntry color="0x000000" 
+	    <s:Ellipse left="-1" top="-1" right="-1" bottom="-1">
+	    	<s:stroke>
+	    		<s:LinearGradientStroke rotation="90" weight="1">
+                    <s:GradientEntry color="0x000000" 
                                    color.downStates="0xFFFFFF"
                                    alpha="0.011"
                                    alpha.downStates="0" />
-                    <GradientEntry color="0x000000" 
+                    <s:GradientEntry color="0x000000" 
                                    color.downStates="0xFFFFFF" 
                                    alpha="0.121"
                                    alpha.downStates="0.57" />
-	    		</LinearGradientStroke>
-	    	</stroke>
-	    </Ellipse>
+	    		</s:LinearGradientStroke>
+	    	</s:stroke>
+	    </s:Ellipse>
 	    
 		<!-- fill -->
-		<Ellipse left="1" top="1" right="1" bottom="1">
-			<fill>
-				<LinearGradient rotation="90">
-					<GradientEntry color="0xFFFFFF" 
+		<s:Ellipse left="1" top="1" right="1" bottom="1">
+			<s:fill>
+				<s:LinearGradient rotation="90">
+					<s:GradientEntry color="0xFFFFFF" 
 								   color.overStates="0xBBBDBD" 
 								   color.downStates="0xAAAAAA" 
 								   alpha="0.85" />
-					<GradientEntry color="0xD8D8D8" 
+					<s:GradientEntry color="0xD8D8D8" 
 								   color.overStates="0x9FA0A1" 
 								   color.downStates="0x929496" 
 								   alpha="0.85" />
-				</LinearGradient>
-			</fill>
-		</Ellipse>
+				</s:LinearGradient>
+			</s:fill>
+		</s:Ellipse>
 		
 		<!-- fill highlight -->
-		<Path data="M 1 6 Q 2 2 6 1 Q 11 2 12 6 h -9">
-			<fill>
-				<SolidColor color="0xFFFFFF" alpha="0.33" />
-			</fill>
-		</Path>
+		<s:Path data="M 1 6 Q 2 2 6 1 Q 11 2 12 6 h -9">
+			<s:fill>
+				<s:SolidColor color="0xFFFFFF" alpha="0.33" />
+			</s:fill>
+		</s:Path>
 		
 		<!-- layer 6: highlight stroke (all states except down) -->
-		<Ellipse left="1" right="1" top="1" bottom="1">
-			<stroke>
-				<LinearGradientStroke rotation="90" weight="1">
-					<GradientEntry color="0xFFFFFF" color.downStates="0x939393" alpha.overStates="0.22" />
-					<GradientEntry color="0xD8D8D8" color.downStates="0xB1B1B1" alpha.overStates="0.22" />
-				</LinearGradientStroke>
-			</stroke>
-		</Ellipse>
-		<Rect left="5" top="1" right="5" height="1">
-			<fill>
-				<SolidColor color="0xFFFFFF" 
+		<s:Ellipse left="1" right="1" top="1" bottom="1">
+			<s:stroke>
+				<s:LinearGradientStroke rotation="90" weight="1">
+					<s:GradientEntry color="0xFFFFFF" color.downStates="0x939393" alpha.overStates="0.22" />
+					<s:GradientEntry color="0xD8D8D8" color.downStates="0xB1B1B1" alpha.overStates="0.22" />
+				</s:LinearGradientStroke>
+			</s:stroke>
+		</s:Ellipse>
+		<s:Rect left="5" top="1" right="5" height="1">
+			<s:fill>
+				<s:SolidColor color="0xFFFFFF" 
 					        color.downStates="0x939393"
 					        alpha.overStates="0.22" />
-			</fill>
-		</Rect>
+			</s:fill>
+		</s:Rect>
 		
         <!-- border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
-        <Ellipse left="0" top="0" right="0" bottom="0">
-            <stroke>
-                <LinearGradientStroke rotation="90" weight="1">
-                    <GradientEntry color="0x000000" alpha="0.70" />
-                    <GradientEntry color="0x000000" alpha="0.80" />
-                </LinearGradientStroke>
-            </stroke>
-        </Ellipse>
+        <s:Ellipse left="0" top="0" right="0" bottom="0">
+            <s:stroke>
+                <s:LinearGradientStroke rotation="90" weight="1">
+                    <s:GradientEntry color="0x000000" alpha="0.70" />
+                    <s:GradientEntry color="0x000000" alpha="0.80" />
+                </s:LinearGradientStroke>
+            </s:stroke>
+        </s:Ellipse>
 		
 	    <!-- dot -->
-       <Path left="4" top="4" includeIn="selectedStates" id="dot" itemCreationPolicy="immediate"
+       <s:Path left="4" top="4" includeIn="selectedStates" id="dot" itemCreationPolicy="immediate"
              data="M 2.5 0 Q 4.5 0.5 5 2.5 Q 4.5 4.5 2.5 5 Q 0.5 4.5 0 2.5 Q 0.5 0.5 2.5 0">
-           <fill>
-               <SolidColor id="dotFill" color="0" alpha="0.9" />
-           </fill>
-       </Path>
-       <Path left="4" top="7" includeIn="selectedStates" 
+           <s:fill>
+               <s:SolidColor id="dotFill" color="0" alpha="0.9" />
+           </s:fill>
+       </s:Path>
+       <s:Path left="4" top="7" includeIn="selectedStates" 
              data="M 0 0 Q 0.5 2 2.5 2.0 Q 3.5 2.0 4 0">
-           <stroke>
-               <LinearGradientStroke>
-                   <GradientEntry color="0xFFFFFF" alpha="0.3" />
-                   <GradientEntry color="0xFFFFFF" alpha="0.7" />
-                   <GradientEntry color="0xFFFFFF" alpha="0.3" />
-               </LinearGradientStroke>
-           </stroke>
-       </Path>
-    </Group>
+           <s:stroke>
+               <s:LinearGradientStroke>
+                   <s:GradientEntry color="0xFFFFFF" alpha="0.3" />
+                   <s:GradientEntry color="0xFFFFFF" alpha="0.7" />
+                   <s:GradientEntry color="0xFFFFFF" alpha="0.3" />
+               </s:LinearGradientStroke>
+           </s:stroke>
+       </s:Path>
+    </s:Group>
 
     <!-- Label -->
-    <TextBox id="labelElement"
+    <s:SimpleText id="labelElement"
              verticalAlign="middle"
              left="18" right="0" top="3" bottom="3" verticalCenter="2" />
 
-</SparkSkin>
+</s:SparkSkin>
