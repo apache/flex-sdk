@@ -20,7 +20,7 @@ an Alert. It is defined by the defaultButton property on a container.
       @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-      xmlns:fb="http://ns.adobe.com/fb/2009" minWidth="21" minHeight="21"
+      xmlns:fb="http://ns.adobe.com/flashbuilder/2009" minWidth="21" minHeight="21"
       alpha.disabled="0.5">
 
     <!-- host component -->
@@ -33,7 +33,7 @@ an Alert. It is defined by the defaultButton property on a container.
         ]]>
     </fx:Metadata>
     
-    <fx:Script fb:stylingSupport="true">
+    <fx:Script fb:purpose="styling">
         /* Define the skin elements that should not be colorized. 
            For button, the graphics are colorized but the label is not. */
         static private const exclusions:Array = ["labelDisplay"];
