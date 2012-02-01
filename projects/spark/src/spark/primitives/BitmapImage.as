@@ -114,49 +114,33 @@ public class BitmapImage extends GraphicElement
     //  resizeMode
     //----------------------------------
     /**
+     *  @private
      *  The default state.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    protected static const _NORMAL_UINT:uint = 0;
+    private static const _NORMAL_UINT:uint = 0;
 
     /**
+     *  @private
      *  Repeats the graphic.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    protected static const _REPEAT_UINT:uint = 1;
+    private static const _REPEAT_UINT:uint = 1;
 
     /**
+     *  @private
      *  Scales the graphic.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    protected static const _SCALE_UINT:uint = 2;
+    private static const _SCALE_UINT:uint = 2;
 
     /**
+     *  @private
      *  Converts from the String to the uint
      *  representation of the enum values.
      *  
      *  @param value The String to convert.
      *  
      *  @return The uint representation of the enum values.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    protected static function resizeModeToUINT(value:String):uint
+    private static function resizeModeToUINT(value:String):uint
     {
         switch(value)
         {
