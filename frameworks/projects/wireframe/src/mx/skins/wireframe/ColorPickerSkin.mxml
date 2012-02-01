@@ -36,22 +36,22 @@
     <!-- opaque backdrop so color chip doesn't bleed through -->
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:stroke>
-            <s:SolidColorStroke color="0x5380D0" weight="4" />
+            <s:SolidColorStroke color="#707070" weight="4" />
         </s:stroke>
     </s:Rect>
     <s:Rect right="2" bottom="2" width="9" height="7">
         <s:fill>
-            <s:SolidColor color="0x5380D0" />
+            <s:SolidColor color="#707070" />
         </s:fill>
     </s:Rect>
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:stroke>
-            <s:SolidColorStroke color="0xFFFFFF" weight="3" />
+            <s:SolidColorStroke color="#FFFFFF" weight="3" />
         </s:stroke>
     </s:Rect>
     <s:Rect right="2" bottom="2" width="8" height="6">
         <s:fill>
-            <s:SolidColor color="0xFFFFFF" />
+            <s:SolidColor color="#FFFFFF" />
         </s:fill>
     </s:Rect>
     
@@ -60,12 +60,12 @@
         <s:Rect left="-1" right="-1" top="-1" bottom="-1" >
             <s:stroke>
                 <s:LinearGradientStroke rotation="90">
-                        <s:GradientEntry color="0x000000" 
-                                       color.down="0xFFFFFF"
+                        <s:GradientEntry color="#000000" 
+                                       color.down="#FFFFFF"
                                        alpha="0.02"
                                        alpha.down="0" />
-                        <s:GradientEntry color="0x000000" 
-                                       color.down="0xFFFFFF" 
+                        <s:GradientEntry color="#000000" 
+                                       color.down="#FFFFFF" 
                                        alpha="0.22"
                                        alpha.down="0.5" />
                 </s:LinearGradientStroke>
@@ -75,31 +75,31 @@
         <!-- layer 2: border -->
         <s:Rect left="0" right="0" top="0" bottom="0">
             <s:stroke>
-                <s:SolidColorStroke color="0x5380D0" />
+                <s:SolidColorStroke color="#707070" />
             </s:stroke>
         </s:Rect>
         
         <!-- layer 3: down shadow -->
         <s:Rect left="1" width="1" top="1" bottom="1" includeIn="down" >
             <s:fill>
-                <s:SolidColor color="0x000000" alpha="0.12" />
+                <s:SolidColor color="#000000" alpha="0.12" />
             </s:fill>
         </s:Rect>
         <s:Rect width="1" right="1" top="1" bottom="1" includeIn="down" >
             <s:fill>
-                <s:SolidColor color="0x000000" alpha="0.12" />
+                <s:SolidColor color="#000000" alpha="0.12" />
             </s:fill>
         </s:Rect>
         <s:Rect left="2" right="2" top="1" height="1" includeIn="down" >
             <s:fill>
-                <s:SolidColor color="0x000000" alpha="0.12" />
+                <s:SolidColor color="#000000" alpha="0.12" />
             </s:fill>
         </s:Rect>
         
         <!-- layer 4: invisible hit area -->
         <s:Rect left="1" right="1" top="1" bottom="1" >
             <s:fill>
-                <s:SolidColor color="0x000000" alpha="0" />
+                <s:SolidColor color="#000000" alpha="0" />
             </s:fill>
         </s:Rect>
         
@@ -119,7 +119,7 @@
     
     <s:Rect includeIn="disabled" left="0" top="0" right="0" bottom="0">
         <s:fill>
-            <s:SolidColor color="0xFFFFFF" alpha="0.5" />
+            <s:SolidColor color="#FFFFFF" alpha="0.5" />
         </s:fill>
     </s:Rect>
 </s:Skin>
