@@ -42,15 +42,30 @@
         /* Define the skin elements that should not be colorized. 
            For panel, border and title backround are skinned, but the content area and title text are not. */
         static private const exclusions:Array = ["background"];
+        /**
+         *  @private
+         */
         override public function get colorizeExclusions():Array {return exclusions;}
             
         /* Define the border items.*/
         static private const borderItem:Array = ["borderStroke"];
+        /**
+         *  @private
+         */
         override protected function get borderItems():Array {return borderItem;}
+        /**
+         *  @private
+         */
         override protected function get defaultBorderItemColor():uint {return getStyle("borderColor");}
+        /**
+         *  @private
+         */
         override protected function get defaultBorderAlpha():Number {return getStyle("borderAlpha");}
 
         private var _metrics:EdgeMetrics = new EdgeMetrics(1, 32, 1, 1);
+        /**
+         *  @private
+         */
         public function get borderMetrics():EdgeMetrics
         {
             var hasPanelParent:Boolean = isPanel(parent);
@@ -114,16 +129,25 @@
             invalidateDisplayList();
         }
         
+        /**
+         *  @private
+         */
         public function get hasBackgroundImage():Boolean
         {
             return false;
         }
         
+        /**
+         *  @private
+         */
         public function layoutBackgroundImage():void
         {
         
         }
 
+        /**
+         *  @private
+         */
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {
             var hasPanelParent:Boolean = isPanel(parent);
@@ -234,6 +258,7 @@
     </fx:Script>
      
     <!-- drop shadow -->
+    <!--- @private -->
     <s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.32" distance="11" 
                              angle="90" color="#000000" left="0" top="0" right="0" bottom="0" 
                              tlRadius="0" trRadius="0"
@@ -241,7 +266,9 @@
                              brRadius="0"  />
     
     <!-- content mask -->
+    <!--- @private -->
     <s:Group left="1" top="1" right="1" bottom="1" id="contentMask" >
+        <!--- @private -->
         <s:Rect left="0" top="0" right="0" bottom="0" id="contentMaskRect"
                 topLeftRadiusX="0" topRightRadiusX="0">
             <s:fill>
@@ -251,22 +278,28 @@
     </s:Group>
     
     <!-- layer 1: border -->
+    <!--- @private -->
     <s:Rect id="border" left="0" right="0" top="0" bottom="0" 
             topLeftRadiusX="0" topRightRadiusX="0">
         <s:stroke>
+            <!--- @private -->
             <s:SolidColorStroke id="borderStroke" weight="1" />
         </s:stroke>
     </s:Rect>
 
+    <!--- @private -->
     <s:Group left="1" right="1" top="1" bottom="1" id="contents" mask="{contentMask}">
         <!-- layer 2: background fill -->
+        <!--- @private -->
         <s:Rect id="background" left="0" top="0" right="0" bottom="0">
             <s:fill>
+                <!--- @private -->
                 <s:SolidColor id="backgroundFill" />
             </s:fill>
         </s:Rect>
         
         <!-- layer 3: title bar fill -->
+        <!--- @private -->
         <s:Rect id="tbbg" left="0" right="0" top="0" minHeight="30">
            <s:fill>
                 <s:LinearGradient rotation="90">
@@ -277,6 +310,7 @@
         </s:Rect>
         
         <!-- layer 4: title bar highlight -->
+        <!--- @private -->
         <s:Rect id="tbhi" left="0" right="0" top="0" minHeight="30">
            <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
@@ -285,6 +319,7 @@
                 </s:LinearGradientStroke>
            </s:stroke>
         </s:Rect>
+        <!--- @private -->
         <s:Rect id="tbdiv" left="0" right="0" top="30" height="1">
             <s:fill>
                 <s:SolidColor color="0xC0C0C0" />
@@ -292,6 +327,7 @@
         </s:Rect>
         
         <!-- layer 5: control bar background -->
+        <!--- @private -->
         <s:Rect id="cbbg" left="0" right="0" bottom="0" height="20">
             <s:fill>
                 <s:SolidColor color="0xE8E8E8" />
@@ -299,6 +335,7 @@
         </s:Rect>
         
         <!-- layer 6: control bar divider line -->
+        <!--- @private -->
         <s:Rect id="cbdiv" left="0" right="0" bottom="20" height="1">
             <s:fill>
                 <s:SolidColor color="0xCDCDCD" />
