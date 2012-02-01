@@ -73,6 +73,7 @@ package spark.skins
          * Our transient icon and label Group.
          */ 
         private var iconGroup:Group;
+        private var _icon:Object;
         
         /**
          * @private
@@ -165,20 +166,12 @@ package spark.skins
         public function set hostComponent(value:ButtonBase):void
         {
             if (_hostComponent)
-            {
-                _hostComponent.removeEventListener("iconChange", iconChangeHandler);
                 _hostComponent.removeEventListener("contentChange", contentChangeHandler);
-            }
             
             _hostComponent = value;
             
             if (value)
-            {
-                // Detect changes to our icon or label content so that we can
-                // realize the necessary component parts and layout as appropriate.
-                _hostComponent.addEventListener("iconChange", iconChangeHandler);
                 _hostComponent.addEventListener("contentChange", contentChangeHandler);
-            }
         }
         
         /**
@@ -353,18 +346,31 @@ package spark.skins
         {
             super.commitProperties();
             
-            if (!((iconChanged || iconPlacementChanged || groupPaddingChanged) 
-                && autoIconManagement))
+            if (!autoIconManagement)
                 return;
-            
+
+            if (iconChanged)
+            {
+                // Make sure the icon has really changed, to avoid doing extra work for 
+                // broad stylesheet changes that don't actually change the "icon" style
+                var icon:Object = getStyle("icon");
+                if (_icon == icon)
+                    iconChanged = false;
+                else
+                    _icon = icon;
+            }
+
+            if (!(iconChanged || iconPlacementChanged || groupPaddingChanged))
+                return;
+
             // If we have an icon to render we ensure the necessary
             // parts are created and we configure a helper layout
             // (LabelAndIconLayout) to manage our display parts.
-            if (_hostComponent.icon && labelDisplay)
+            if (_icon && labelDisplay)
             {
                 if (iconChanged)
                     constructIconParts(true);
-                
+
                 var layout:LabelAndIconLayout = iconGroup.layout as LabelAndIconLayout;
                 
                 if (groupPaddingChanged || iconChanged)
@@ -399,14 +405,21 @@ package spark.skins
          *  Detected changes to iconPlacement and update as necessary.
          */ 
         override public function styleChanged(styleProp:String):void 
-        {    
-            if (!styleProp || 
-                styleProp == "styleName" || styleProp == "iconPlacement")
+        {
+            var allStyles:Boolean = !styleProp || styleProp == "styleName";
+
+            if (allStyles || styleProp == "iconPlacement")
             {
                 iconPlacementChanged = true;
                 invalidateProperties();
             }
-            
+
+            if (allStyles || styleProp == "icon")
+            {
+                iconChanged = true;
+                invalidateProperties();
+            }
+
             super.styleChanged(styleProp);
         }
         
@@ -490,15 +503,6 @@ package spark.skins
         //  Event Handlers
         //
         //--------------------------------------------------------------------------
-        
-        /**
-         *  @private 
-         */ 
-        private function iconChangeHandler(event:Event):void
-        {
-            iconChanged = true;
-            invalidateProperties();
-        }
         
         /**
          *  @private 
