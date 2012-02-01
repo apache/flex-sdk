@@ -651,6 +651,17 @@ public class GraphicElement extends EventDispatcher
     {
         _parent = value;
         invalidateLayoutDirection();
+        
+        // if we now have a parent and we need to do some invalidation, let our parent know
+        if (parent)
+        {
+            if (invalidatePropertiesFlag)
+                IGraphicElementContainer(parent).invalidateGraphicElementProperties(this);
+            if (invalidateSizeFlag)
+                IGraphicElementContainer(parent).invalidateGraphicElementSize(this);
+            if (invalidateDisplayListFlag)
+                IGraphicElementContainer(parent).invalidateGraphicElementDisplayList(this);
+        }
     }
 
     //----------------------------------
