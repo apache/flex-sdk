@@ -37,9 +37,9 @@ use namespace mx_internal;
  *  you must extend <code>LayoutBase</code> or one of its subclasses.
  *
  *  <p>At minimum, subclasses must implement the <code>updateDisplayList()</code>
- *  method, which positions and sizes the target GroupBase's elements, and 
- *  the <code>measure()</code> method, which calculates the target's default
- *  size.</p>
+ *  method, which positions and sizes the <code>target</code> GroupBase's elements, and 
+ *  the <code>measure()</code> method, which calculates the default
+ *  size of the <code>target</code>.</p>
  *
  *  <p>Subclasses may override methods like <code>getElementBoundsAboveScrollRect()</code>
  *  and <code>getElementBoundsBelowScrollRect()</code> to customize the way 
@@ -376,16 +376,17 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  define the height of all container children, 
      *  as the following example shows:</p>
      * 
-     *  <pre>&lt;s:Group&gt;
-          &lt;s:layout&gt;
-            &lt;s:VerticalLayout variableRowHeight="false"
-                typicalLayoutElement="{b3}"/&gt; 
-          &lt;/s:layout&gt;
-          &lt;s:Button id="b1" label="Button 1"/&gt;
-          &lt;s:Button id="b2" label="Button 2"/&gt;
-          &lt;s:Button id="b3" label="Button 3" fontSize="36"/&gt;
-          &lt;s:Button id="b4" label="Button 4" fontSize="24"/&gt;
-        &lt;/s:Group&gt;</pre>
+     *  <pre>
+     *  &lt;s:Group&gt;
+     *    &lt;s:layout&gt;
+     *      &lt;s:VerticalLayout variableRowHeight="false"
+     *          typicalLayoutElement="{b3}"/&gt; 
+     *    &lt;/s:layout&gt;
+     *    &lt;s:Button id="b1" label="Button 1"/&gt;
+     *    &lt;s:Button id="b2" label="Button 2"/&gt;
+     *    &lt;s:Button id="b3" label="Button 3" fontSize="36"/&gt;
+     *    &lt;s:Button id="b4" label="Button 4" fontSize="24"/&gt;
+     *  &lt;/s:Group&gt;</pre>
      * 
      *  <p>If this property has not been set and the target is non-null 
      *  then the target's first layout element is cached and returned.</p>
@@ -1418,9 +1419,9 @@ public class LayoutBase extends OnDemandEventDispatcher
     private var _dragScrollDelta:Point;
     private var _dragScrollEvent:DragEvent;
     mx_internal var dragScrollRegionSizeHorizontal:Number = 20;
-	mx_internal var dragScrollRegionSizeVertical:Number = 20;
+    mx_internal var dragScrollRegionSizeVertical:Number = 20;
     mx_internal var dragScrollSpeed:Number = 5;
-	mx_internal var dragScrollInitialDelay:int = 250;
+    mx_internal var dragScrollInitialDelay:int = 250;
     mx_internal var dragScrollInterval:int = 32;
     mx_internal var dragScrollHidesIndicator:Boolean = false;
     
@@ -1645,20 +1646,20 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (!scrollRect)
             return null;
 
-		// Make sure that the drag-scrolling regions don't overlap 
-		var x:Number = dropLocation.dropPoint.x;
-		var y:Number = dropLocation.dropPoint.y;
-		
-		var horizontalRegionSize:Number = Math.min(dragScrollRegionSizeHorizontal, layoutTarget.width/2);
-		var verticalRegionSize:Number = Math.min(dragScrollRegionSizeVertical, layoutTarget.height/2);
-		// Return early if the mouse is outside of the drag-scroll region.
-		if (scrollRect.left + horizontalRegionSize < x && x < scrollRect.right - horizontalRegionSize &&
-			scrollRect.top + verticalRegionSize < y && y < scrollRect.bottom - verticalRegionSize )
-			return null;
-		
-		if (timeElapsed < dragScrollInitialDelay)
-			return new Point(); // Return zero point to continue firing events, but not actually scroll.
-		timeElapsed -= dragScrollInitialDelay;
+        // Make sure that the drag-scrolling regions don't overlap 
+        var x:Number = dropLocation.dropPoint.x;
+        var y:Number = dropLocation.dropPoint.y;
+        
+        var horizontalRegionSize:Number = Math.min(dragScrollRegionSizeHorizontal, layoutTarget.width/2);
+        var verticalRegionSize:Number = Math.min(dragScrollRegionSizeVertical, layoutTarget.height/2);
+        // Return early if the mouse is outside of the drag-scroll region.
+        if (scrollRect.left + horizontalRegionSize < x && x < scrollRect.right - horizontalRegionSize &&
+            scrollRect.top + verticalRegionSize < y && y < scrollRect.bottom - verticalRegionSize )
+            return null;
+        
+        if (timeElapsed < dragScrollInitialDelay)
+            return new Point(); // Return zero point to continue firing events, but not actually scroll.
+        timeElapsed -= dragScrollInitialDelay;
 
         // Speedup based on time elapsed
         var timeSpeedUp:Number = Math.min(timeElapsed, 2000) / 2000;
@@ -1757,21 +1758,21 @@ public class LayoutBase extends OnDemandEventDispatcher
         
         // Re-dispatch the event so that the drag initiator handles it as if
         // the DragProxy is dispatching in response to user input.
-		// Always switch over to DRAG_OVER, don't re-dispatch DRAG_ENTER
-		var dragEvent:DragEvent = new DragEvent(DragEvent.DRAG_OVER,
-											    _dragScrollEvent.bubbles,
-												_dragScrollEvent.cancelable, 
-												_dragScrollEvent.dragInitiator, 
-												_dragScrollEvent.dragSource, 
-												_dragScrollEvent.action, 
-												_dragScrollEvent.ctrlKey, 
-												_dragScrollEvent.altKey, 
-												_dragScrollEvent.shiftKey);
-		
-		dragEvent.draggedItem = _dragScrollEvent.draggedItem;
-		dragEvent.localX = _dragScrollEvent.localX;
-		dragEvent.localY = _dragScrollEvent.localY;
-		dragEvent.relatedObject = _dragScrollEvent.relatedObject;
+        // Always switch over to DRAG_OVER, don't re-dispatch DRAG_ENTER
+        var dragEvent:DragEvent = new DragEvent(DragEvent.DRAG_OVER,
+                                                _dragScrollEvent.bubbles,
+                                                _dragScrollEvent.cancelable, 
+                                                _dragScrollEvent.dragInitiator, 
+                                                _dragScrollEvent.dragSource, 
+                                                _dragScrollEvent.action, 
+                                                _dragScrollEvent.ctrlKey, 
+                                                _dragScrollEvent.altKey, 
+                                                _dragScrollEvent.shiftKey);
+        
+        dragEvent.draggedItem = _dragScrollEvent.draggedItem;
+        dragEvent.localX = _dragScrollEvent.localX;
+        dragEvent.localY = _dragScrollEvent.localY;
+        dragEvent.relatedObject = _dragScrollEvent.relatedObject;
         _dragScrollEvent.target.dispatchEvent(dragEvent);
     }
     
