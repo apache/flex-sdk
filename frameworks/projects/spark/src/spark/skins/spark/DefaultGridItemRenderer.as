@@ -108,50 +108,28 @@ public class DefaultGridItemRenderer extends UIFTETextField implements IGridItem
         addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);
     }
 
-    //--------------------------------------------------------------------------
-    //
-    //  IStyleClient Methods and Properties
-    //  (source code from mx.controls.dataGridClassses.DataGridItemRenderer.as)
-    //
-    //-------------------------------------------------------------------------- 
-    
-    //----------------------------------
-    //  styleDeclaration
-    //----------------------------------
-    
-    private var _styleDeclaration:CSSStyleDeclaration;
-    
     /**
      *  @private
+     * 
+     *  Called from initProtoChain() in TextFieldGridItemRendererInclude.as.
      */
-    public function get styleDeclaration():CSSStyleDeclaration
+    private function addStyleDeclarationToProtoChain(chain:Object,
+                                                       target:DisplayObject):Object
     {
-        return _styleDeclaration;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set styleDeclaration(value:CSSStyleDeclaration):void
-    {
+        // Add style declaration to the proto chain as usual but also add
+        // direction and locale styles.
         // The "direction" and "locale" are treated as properites instead of
         // styles by the compiler when the DefaultGridItemRenderer is used. 
         // This means styleDeclaration will not include these inline styles. 
         // This code adds "direction" and "locale" back into styleDeclaration
-        // so the style system sees the styles.
-        var uiFTETextField:UIFTETextField = UIFTETextField(this);
-        var styleManager:IStyleManager2 = StyleManager.getStyleManager(moduleFactory);
-        var style:CSSStyleDeclaration = new CSSStyleDeclaration(value.selector, styleManager);
+        // so the style system sees the styles.        
+        var styles:Object = styleDeclaration.addStyleToProtoChain(chain, target);
         
-        style.defaultFactory = function():void
-        {
-            this.direction = uiFTETextField.direction;
-            this.locale = uiFTETextField.locale;
-        }
+        styles.direction = direction;
+        styles.locale = locale;
         
-        _styleDeclaration = new CSSMergedStyleDeclaration(style, value, value.selector, 
-            styleManager);
-    }
+        return styles;
+    } 
     
 include "TextFieldGridItemRendererInclude.as"
 
