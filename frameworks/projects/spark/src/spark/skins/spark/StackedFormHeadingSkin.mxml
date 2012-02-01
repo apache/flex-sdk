@@ -88,6 +88,6 @@ Use this skin when your FormItems use the StackedFormItemSkin
     </s:Rect>
     
     <s:Label id="labelDisplay"
-             left="contentCol:0" right="helpCol:4" top="row1:4" bottom="row1:4" />
+             left="contentCol:0" right="helpCol:10" top="row1:10" bottom="row1:10" />
     
 </s:Skin>
