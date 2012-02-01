@@ -23,7 +23,7 @@
     <Script>
         /* Define the skin elements that should not be colorized. 
            For toggle button, the graphics are colorized but the label is not. */
-        static private const exclusions:Array = ["labelField"];
+        static private const exclusions:Array = ["labelElement"];
         override public function get colorizeExclusions():Array {return exclusions;}
     </Script>
     
