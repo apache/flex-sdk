@@ -29,11 +29,17 @@ import spark.validators.supportClasses.GlobalizationValidatorBase;
 use namespace mx_internal;
 /**
  *  The NumberValidatorBase class contains all the common functionality that is
- *  required by the <code>NumberValidator</code> and 
- *  <code>CurrencyValidator</code> classes.
- *  <p> This class is similar to the <code>NumberFormatterBase</code> class used
- *  by the spark <code>NumberFormatter</code> and <code>CurrencyFormatter</code>
- *  classes.</p>
+ *  required by the Spark NumberValidator and 
+ *  CurrencyValidator classes.
+ *
+ *  @mxml
+ *
+ *  <p>The NumberValidatorBase class defines no new tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;spark:NumberValidatorBase
+ *  /&gt;
+ *  </pre>
  * 
  *  @see spark.formatters.NumberFormatterBase
  *
@@ -234,9 +240,9 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  is selected when the validator object
      *  is constructed.</p>
      *
-     *  @throws TypeError if this property is assigned a null value.
+     *  <p>The default value is dependent on the locale and operating system.</p>
      *
-     *  @default dependent on the locale and operating system.
+     *  @throws TypeError if this property is assigned a null value.
      *
      *  @see #validate()
      *
@@ -370,7 +376,7 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  The maximum number of digits that can appear after the decimal
      *  separator.
      *
-     *  @default dependent on the locale and operating system.
+     *  <p>The default value is dependent on the locale and operating system.</p>
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -401,9 +407,9 @@ public class NumberValidatorBase extends GlobalizationValidatorBase
      *  property is initially set based on the locale that is selected
      *  when the validator object is constructed.</p>
      *
-     *  @throws TypeError if this property is assigned a null value.
+     *  <p>The default value is dependent on the locale and operating system.</p>
      *
-     *  @default dependent on the locale and operating system.
+     *  @throws TypeError if this property is assigned a null value.
      *
      *  @see #validate()
      *  @see #groupingPattern
