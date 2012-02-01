@@ -112,6 +112,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 //  Excluded APIs
 //--------------------------------------
 
+[Exclude(name="focusBlendMode", kind="style")]
 [Exclude(name="focusThickness", kind="style")]
 
 /**
