@@ -100,7 +100,7 @@ Change mx:Image to s:Image once it is ready
                 <s:ConstraintColumn id="sequenceCol" />
                 <s:ConstraintColumn id="labelCol" />
                 <s:ConstraintColumn id="contentCol"/>
-                <s:ConstraintColumn id="helpCol"/>
+                <s:ConstraintColumn id="helpCol" maxWidth="200"/>
             </s:constraintColumns>         
             <s:constraintRows>
                 <s:ConstraintRow id="row1" baseline="maxAscent:4"/>
