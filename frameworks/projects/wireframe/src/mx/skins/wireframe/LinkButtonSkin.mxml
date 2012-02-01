@@ -40,7 +40,7 @@
     <!-- layer 1: fill -->
     <s:Rect left="0" right="0" top="0" bottom="0" excludeFrom="upStates,disabledStates" >
         <s:fill>
-            <s:SolidColor color.overStates="0xEBF4FF" color.downStates="0xDEEBFF" alpha="1" />
+            <s:SolidColor color.overStates="#EEEEEE" color.downStates="#DDDDDD" alpha="1" />
         </s:fill>
     </s:Rect>
     
