@@ -3,6 +3,7 @@ package spark.skins.spark
     
 import flash.display.DisplayObject;
 import flash.events.Event;
+import flash.text.TextFieldAutoSize;
 
 import mx.core.LayoutElementUIComponentUtils;
 import mx.core.UIComponent;
@@ -295,6 +296,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
             return;
         
         _labelDisplay = value;
+        invalidateSize();
         dispatchChangeEvent("labelDisplayChanged");        
     }
     
@@ -334,6 +336,10 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         if (!labelDisplay)
         {
             labelDisplay = new UITextField();
+            /*
+            labelDisplay.autoSize = TextFieldAutoSize.LEFT;
+            labelDisplay.wordWrap = true;
+            */
             addChild(DisplayObject(labelDisplay));
             if (_label != "")
                 labelDisplay.text = _label;
@@ -366,7 +372,6 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         // labelDisplay layout: padding of 3 on left and right and padding of 5 on top and bottom.
         
         labelDisplay.setActualSize(width-6, height-10);
-        labelDisplay.truncateToFit();
         labelDisplay.move(3, 5);
     }
     
