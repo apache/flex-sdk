@@ -4372,6 +4372,11 @@ public class GraphicElement extends EventDispatcher
     {
         allocateLayoutFeatures();
         var previous:Boolean = needsDisplayObject;
+        
+        // Early exit if possible. We don't want to invalidate unnecessarily.
+        if (MatrixUtil.isEqual(layoutFeatures.layoutMatrix, value))
+            return;
+            
         layoutFeatures.layoutMatrix = value;
         invalidateTransform(previous != needsDisplayObject, invalidateLayout);
     }
@@ -4435,6 +4440,11 @@ public class GraphicElement extends EventDispatcher
     {
         allocateLayoutFeatures();
         var previous:Boolean = needsDisplayObject;
+        
+        // Early exit if possible. We don't want to invalidate unnecessarily.
+        if (MatrixUtil.isEqual3D(layoutFeatures.layoutMatrix3D, value))
+            return;
+            
         layoutFeatures.layoutMatrix3D = value;
         invalidateTransform(previous != needsDisplayObject, invalidateLayout);
     }
