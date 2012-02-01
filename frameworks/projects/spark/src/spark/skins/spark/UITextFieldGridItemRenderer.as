@@ -68,8 +68,6 @@ public class UITextFieldGridItemRenderer extends UITextField implements IGridIte
     {
         super();
         
-        multiline = true;  // consistent with singleLine=false (the default) 
-        wordWrap = true;
         autoSize = TextFieldAutoSize.NONE;
         
         addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);        
