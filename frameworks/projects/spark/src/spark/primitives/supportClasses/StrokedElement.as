@@ -34,161 +34,170 @@ use namespace mx_internal;
  */
 public class StrokedElement extends GraphicElement
 {
-	include "../core/Version.as";
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    include "../core/Version.as";
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor. 
-	 */
-	public function StrokedElement()
-	{
-		super();
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-	
-	//----------------------------------
-	//  stroke
-	//----------------------------------
-
-	mx_internal var _stroke:IStroke;
-		
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-
-	/**
-	 *  The stroke used by this element.
-	 */
-	public function get stroke():IStroke
-	{
-		return _stroke;
-	}
-	
-	public function set stroke(value:IStroke):void
-	{
-		var strokeEventDispatcher:EventDispatcher;
-		var oldValue:IStroke = _stroke;
-		
-		strokeEventDispatcher = _stroke as EventDispatcher;
-		if (strokeEventDispatcher)
-			strokeEventDispatcher.removeEventListener(
-				PropertyChangeEvent.PROPERTY_CHANGE, 
-				stroke_propertyChangeHandler);
-			
-		_stroke = value;
-		
-		strokeEventDispatcher = _stroke as EventDispatcher;
-		if (strokeEventDispatcher)
-			strokeEventDispatcher.addEventListener(
-				PropertyChangeEvent.PROPERTY_CHANGE, 
-				stroke_propertyChangeHandler);
-			
-		dispatchPropertyChangeEvent("stroke", oldValue, _stroke);
-		
-		invalidateDisplayList();
-		// Parent layout takes stroke into account
-		invalidateParentSizeAndDisplayList();
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  IGraphicElement Implementation
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @inheritDoc
-	 */
-    override protected function updateDisplayList(unscaledWidth:Number, 
-                                                  unscaledHeight:Number):void
-	{
-		//trace("StrokedElement.updateDisplayList w",unscaledWidth,"h",unscaledHeight,"drawnDisplayObject",drawnDisplayObject,"this",this);                                                  	
-	    if (!drawnDisplayObject || !(drawnDisplayObject is Sprite))
-	        return;
-	    
-	    if (displayObject is Sprite)
-	       	Sprite(displayObject).graphics.clear();
-	    else if (displayObject is Shape)
-	    	Shape(displayObject).graphics.clear();
-	        
-	    var g:Graphics = (drawnDisplayObject as Sprite).graphics;
-
-		beginDraw(g);
-		drawElement(g);
-		endDraw(g);
-	}
-			
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  Set up the drawing for this element. This is the first of three steps
-	 *  taken during the drawing process. In this step, the stroke properties
-	 *  are applied.
-	 */
-	protected function beginDraw(g:Graphics):void
-	{
-		if (stroke)
-			stroke.draw(g,new Rectangle(measuredX, measuredY, width, height));
-		else
-			g.lineStyle();
-			
-		// Even though this is a stroked element, we still need to beginFill/endFill
-		// otherwise subsequent fills could get messed up.
-		g.beginFill(0, 0);
-	}
-	
-	/**
-	 *  Draw the element. This is the second of three steps taken during the drawing
-	 *  process. Override this method to implement your drawing. The stroke
-	 *  (and fill, if applicable) have been set in beginDraw. Your override should
-	 *  only contain drawing commands like moveTo(), curveTo(), and drawRect().
-	 */
-	protected function drawElement(g:Graphics):void
-	{
-		// override to do your drawing
-	}
-	
-	/**
-	 *  Finalize drawing for this element. This is the final of the three steps taken
-	 *  during the drawing process. In this step, fills are closed.
-	 */
-	protected function endDraw(g:Graphics):void
-	{
-		g.endFill();
-	}
-	
-    override protected function getStroke():IStroke
+    /**
+     *  Constructor. 
+     */
+    public function StrokedElement()
     {
-    	return stroke;
+        super();
     }
     
-	//--------------------------------------------------------------------------
-	//
-	//  EventHandlers
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	protected function stroke_propertyChangeHandler(event:Event):void
-	{
-		invalidateDisplayList();
-	    // Parent layout takes stroke into account
-		invalidateParentSizeAndDisplayList();
-	}
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  stroke
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    mx_internal var _stroke:IStroke;
+        
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+
+    /**
+     *  The stroke used by this element.
+     */
+    public function get stroke():IStroke
+    {
+        return _stroke;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set stroke(value:IStroke):void
+    {
+        var strokeEventDispatcher:EventDispatcher;
+        var oldValue:IStroke = _stroke;
+        
+        strokeEventDispatcher = _stroke as EventDispatcher;
+        if (strokeEventDispatcher)
+            strokeEventDispatcher.removeEventListener(
+                PropertyChangeEvent.PROPERTY_CHANGE, 
+                stroke_propertyChangeHandler);
+            
+        _stroke = value;
+        
+        strokeEventDispatcher = _stroke as EventDispatcher;
+        if (strokeEventDispatcher)
+            strokeEventDispatcher.addEventListener(
+                PropertyChangeEvent.PROPERTY_CHANGE, 
+                stroke_propertyChangeHandler);
+            
+        dispatchPropertyChangeEvent("stroke", oldValue, _stroke);
+        
+        invalidateDisplayList();
+        // Parent layout takes stroke into account
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  IGraphicElement Implementation
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @inheritDoc
+     */
+    override protected function updateDisplayList(unscaledWidth:Number, 
+                                                  unscaledHeight:Number):void
+    {
+        //trace("StrokedElement.updateDisplayList w",unscaledWidth,"h",unscaledHeight,"drawnDisplayObject",drawnDisplayObject,"this",this);                                                     
+        if (!drawnDisplayObject || !(drawnDisplayObject is Sprite))
+            return;
+        
+        if (displayObject is Sprite)
+            Sprite(displayObject).graphics.clear();
+        else if (displayObject is Shape)
+            Shape(displayObject).graphics.clear();
+            
+        var g:Graphics = (drawnDisplayObject as Sprite).graphics;
+
+        beginDraw(g);
+        drawElement(g);
+        endDraw(g);
+    }
+            
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Set up the drawing for this element. This is the first of three steps
+     *  taken during the drawing process. In this step, the stroke properties
+     *  are applied.
+     */
+    protected function beginDraw(g:Graphics):void
+    {
+        if (stroke)
+            stroke.draw(g,new Rectangle(measuredX, measuredY, width, height));
+        else
+            g.lineStyle();
+            
+        // Even though this is a stroked element, we still need to beginFill/endFill
+        // otherwise subsequent fills could get messed up.
+        g.beginFill(0, 0);
+    }
+    
+    /**
+     *  Draw the element. This is the second of three steps taken during the drawing
+     *  process. Override this method to implement your drawing. The stroke
+     *  (and fill, if applicable) have been set in the <code>beginDraw()</code> method. 
+     *  Your override should only contain calls to drawing methods such as 
+     *  <code>moveTo()</code>, <code>curveTo()</code>, and <code>drawRect()</code>.
+     */
+    protected function drawElement(g:Graphics):void
+    {
+        // override to do your drawing
+    }
+    
+    /**
+     *  Finalize drawing for this element. This is the final of the three steps taken
+     *  during the drawing process. In this step, fills are closed.
+     *  
+     *  @param g The graphics element to finish drawing.
+     */
+    protected function endDraw(g:Graphics):void
+    {
+        g.endFill();
+    }
+    
+    override protected function getStroke():IStroke
+    {
+        return stroke;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  EventHandlers
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    protected function stroke_propertyChangeHandler(event:Event):void
+    {
+        invalidateDisplayList();
+        // Parent layout takes stroke into account
+        invalidateParentSizeAndDisplayList();
+    }
 
 }
 
