@@ -2,26 +2,33 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
+<!--- The default skin class for the Spark ButtonBarMiddleButton component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-	  minWidth="21" minHeight="21"
-	  alpha.disabledStates="0.5">
+      minWidth="21" minHeight="21"
+      alpha.disabledStates="0.5">
 
-	<!-- host component -->
-	<fx:Metadata>
-		[HostComponent("spark.components.ButtonBarButton")]
-	</fx:Metadata>
-	
-	<!-- states -->
-	<s:states>
+    <!-- host component -->
+    <fx:Metadata>
+        [HostComponent("spark.components.ButtonBarButton")]
+    </fx:Metadata>
+    
+    <!-- states -->
+    <s:states>
         <s:State name="up" />
         <s:State name="over" stateGroups="overStates" />
         <s:State name="down" stateGroups="downStates" />
@@ -30,16 +37,16 @@
         <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
         <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
         <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
-	</s:states>
-	
-	<!-- fill -->
-	<s:Rect left="1" right="1" top="1" bottom="1">
-		<s:fill>
+    </s:states>
+    
+    <!-- fill -->
+    <s:Rect left="1" right="1" top="1" bottom="1">
+        <s:fill>
             <s:SolidColor color="0xFFFFFF" color.over="0xEBF4FF" 
-						color.down="0xDEEBFF" color.selectedStates="0xE2E6F6" />
-		</s:fill>
-	</s:Rect>
-	
+                        color.down="0xDEEBFF" color.selectedStates="0xE2E6F6" />
+        </s:fill>
+    </s:Rect>
+    
     <!-- shadow (down state only) -->
     <s:Rect left="2" top="1" right="2" height="1" includeIn="downStates">
         <s:fill>
@@ -61,21 +68,21 @@
             <s:SolidColor color="0x5380D0" alpha="0.07" />
         </s:fill>
     </s:Rect>
-	
-	<!-- border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    
+    <!-- border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
     <s:Rect left="0" right="0" top="0" bottom="0" width="69" height="20">
         <s:stroke>
             <s:SolidColorStroke color="0x5380D0" />
         </s:stroke>
     </s:Rect>
-	
-	<!-- text -->
-	<s:Label id="labelDisplay"
+    
+    <!-- text -->
+    <s:Label id="labelDisplay"
              textAlign="center"
              verticalAlign="middle"
              maxDisplayedLines="1"
-			 horizontalCenter="0" verticalCenter="1"
-			 left="10" right="10" top="2" bottom="2">
-	</s:Label>
-	
+             horizontalCenter="0" verticalCenter="1"
+             left="10" right="10" top="2" bottom="2">
+    </s:Label>
+    
 </s:Skin>
