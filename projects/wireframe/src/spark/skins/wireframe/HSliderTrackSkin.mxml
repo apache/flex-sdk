@@ -32,7 +32,7 @@
     </s:states>
 
     <s:Rect left="0" right="0" top="2" bottom="2" 
-          radiusX="3" radiusY="3" height="7">
+          radiusX="3" radiusY="3" height="6">
         <s:stroke>
             <s:SolidColorStroke color="0x5380D0" />
         </s:stroke>
