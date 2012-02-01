@@ -82,8 +82,8 @@
         <s:RichEditableText id="textDisplay"
                   heightInLines="10"
                   widthInChars="15"
-                  paddingLeft="4" paddingTop="4"
-                  paddingRight="4" paddingBottom="4"/>
+                  paddingLeft="3" paddingTop="5"
+                  paddingRight="3" paddingBottom="3"/>
     </s:Scroller>
 
 </s:SparkSkin>
