@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<project name="spark_dmv" default="main" basedir=".">
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+	<property file="${FLEX_HOME}/build.properties"/>
+		
+	<target name="main" depends="clean,compile" description="Clean build of spark_dmv.swc and en_US"/>
+		
+	<target name="clean">
+		<delete failonerror="false">
+			<fileset dir="${basedir}" >
+				<include name="bundles.properties"/>
+			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/libs">
+				<include name="spark_dmv.swc"/>
+				<include name="spark_dmv.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="compile" description="Compiles spark_dmv.swc">
+		<echo file="${FLEX_HOME}/frameworks/version.properties" append="false">build=${build.number}</echo>
+		<echo message="Compiling frameworks/libs/spark_dmv.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<!--
+			Link in the classes (and their dependencies) for the MXML tags
+			listed in this project's manifest_spark_dmv.xml.
+			Also link the additional classes (and their dependencies)
+			listed in SparkDmvClasses.as,
+			because these aren't referenced by the manifest classes.
+			Link in accessibility support.
+			Include the appropriate CSS files and assets in the SWC.
+			Don't include any resources in the SWC.
+			Write a bundle list of referenced resource bundles
+			into the file bundles.properties in this directory.
+		-->
+		<compc fork="true" minimum-supported-version="4.0.0"
+			   output="${FLEX_HOME}/frameworks/libs/spark_dmv.swc"
+			   resource-bundle-list="${basedir}/bundles.properties">
+			<jvmarg line="${compc.jvm.args}"/>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest_spark_dmv.xml"/>
+			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
+			<include-classes>SparkDmvClasses</include-classes>
+			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="${basedir}/../spark/src"/>
+			<library-path />
+			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+			<include name="player/${global.playerglobal.version}/playerglobal.swc"/>
+				<include name="framework.swc"/>
+				<include name="spark.swc"/>
+				<include name="mx/mx.swc"/>
+				<include name="datavisualization.swc"/>
+                <include name="osmf.swc"/>
+                <include name="textLayout.swc"/>
+			</external-library-path>
+			<include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>
+			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
+			<locale/>
+			<accessible>true</accessible>
+		</compc>
+		<delete file="${FLEX_HOME}/frameworks/version.properties"/>
+     	</target>
+	
+	<target name="doc" depends="clean-temp-docs" description="updates spark_dmv.swc with asdoc xml">
+		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx384m">
+	        <os family="windows"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="mac"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="unix"/>
+	    </condition>
+
+		<!-- Call asdoc to generate dita xml files -->
+		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+		    <compiler.source-path path-element="${basedir}/src"/>
+		    <doc-classes class="SparkDmvClasses"/>
+		    <doc-namespaces uri="library://ns.adobe.com/flex/spark"/>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest_spark_dmv.xml"/>
+		    <jvmarg line="${asdoc.jvm.args}"/>
+		</asdoc>
+
+		<!-- updates spark_dmv.swc with asdoc xml -->
+		<zip destfile="${FLEX_HOME}/frameworks/locale/en_US/spark_dmv.swc" update="true">
+		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+			    <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
+	</target>
+
+	<target name="clean-temp-docs">
+		<delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+	</target>
+
+</project>
+
+
