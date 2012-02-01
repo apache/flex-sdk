@@ -98,10 +98,7 @@ use namespace mx_internal;
  *    fractionalDigits="(locale specified number or customized by user)."
  *    fractionalDigitsError="The amount entered has too many digits beyond the
  *    decimal point."
- *    groupingPattern="(locale specified string or customized by user)."
  *    groupingSeparator="(locale specified string or customized by user)."
- *    groupingSeparationError="The number digits grouping is not following the
- *    grouping pattern."
  *  /&gt;
  *  </pre>
  *
@@ -125,7 +122,6 @@ public class CurrencyValidator extends NumberValidatorBase
     /**
      *  @private
      */
-    private static const NEGATIVE_FORMATTING_CHARS:String = "-() ";
     private static const CURRENCY_SPACE_SEP:String = " ";
     private static const CURRENCY_ISOCODE_LEN:uint = 3;
     private static const CURRENCY_ISOCODE:String = "currencyISOCode";
@@ -609,12 +605,13 @@ public class CurrencyValidator extends NumberValidatorBase
     private var currencyStringErrorOverride:String;
 
     [Inspectable(category="Errors", defaultValue="null")]
+    [Bindable("change")]
 
     /**
      *  Error message when the currency symbol or currency ISO code is repeated
      *  or is in the incorrect location.
      *
-     *  @default "Currency symbol or ISO code is repeated or not correct."
+     *  @default "Currency name is repeated or not correct."
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -628,10 +625,15 @@ public class CurrencyValidator extends NumberValidatorBase
 
     public function set currencyStringError(value:String):void
     {
+        if (currencyStringErrorOverride &&
+            (currencyStringErrorOverride == value))
+            return;
+            
         currencyStringErrorOverride = value;
 
         _currencyStringError = value ? value :
                  resourceManager.getString("validators", "currencyStringError");
+        update();
     }
 
     //----------------------------------
@@ -642,7 +644,7 @@ public class CurrencyValidator extends NumberValidatorBase
     private var negativeCurrencyFormatErrorOverride:String;
 
     [Inspectable(category="Errors", defaultValue="null")]
-
+    [Bindable("change")]
     /**
      *  Error message when the negative number format of the input currency
      *  string is incorrect.
@@ -661,10 +663,15 @@ public class CurrencyValidator extends NumberValidatorBase
 
     public function set negativeCurrencyFormatError(value:String):void
     {
+        if (negativeCurrencyFormatErrorOverride &&
+            (negativeCurrencyFormatErrorOverride == value))
+            return;
+        
         negativeCurrencyFormatErrorOverride = value;
 
         _negativeCurrencyFormatError = value ? value :
          resourceManager.getString("validators", "negativeCurrencyFormatError");
+        update();
     }
 
     //----------------------------------
@@ -675,7 +682,7 @@ public class CurrencyValidator extends NumberValidatorBase
     private var positiveCurrencyFormatErrorOverride:String;
 
     [Inspectable(category="Errors", defaultValue="null")]
-
+    [Bindable("change")]
     /**
      *  Error message when the positive currency number format is incorrect.
      *
@@ -696,10 +703,15 @@ public class CurrencyValidator extends NumberValidatorBase
      */
     public function set positiveCurrencyFormatError(value:String):void
     {
+        if (positiveCurrencyFormatErrorOverride &&
+            (positiveCurrencyFormatErrorOverride == value))
+            return;
+        
         positiveCurrencyFormatErrorOverride = value;
 
         _positiveCurrencyFormatError = value ? value :
          resourceManager.getString("validators", "positiveCurrencyFormatError");
+        update();
     }
 
     //--------------------------------------------------------------------------
@@ -754,15 +766,12 @@ public class CurrencyValidator extends NumberValidatorBase
         else
             return validateCurrency(value, null);
     }
-    
+
     /**
      *  Create internal formatter object and initialize all properties.
      */
     override mx_internal function createWorkingInstance():void
     {
-        // release this array as it contains symbols based on previous locale
-        // grouping pattern.
-        groupingPatternSymbols = null;
         createWorkingInstanceCore(CURRENCY_VALIDATOR_TYPE);
         if (g11nWorkingInstance)
         {
@@ -786,7 +795,8 @@ public class CurrencyValidator extends NumberValidatorBase
      *  Convenience method for calling a validator
      *  from within a custom validation function.
      *  Each of the standard Flex validators has a similar convenience method.
-     *  Caller must check the lastOperationStatus after this.
+     *  Caller must check the ValidationResult objects in the returned array for
+     *  validation status.
      *
      *  @param value A currency number string to validate.
      *
@@ -818,11 +828,19 @@ public class CurrencyValidator extends NumberValidatorBase
         if (!inputStr)
             return results;
 
-        // If spark formatter is null, no-go-forward.
-        if (!g11nWorkingInstance)
+        // If spark formatter is null, no-go-forward. If spark formatter locale
+        // id is null or last operationstatus has locale undefined, then also
+        // no forward going situaion.
+        // The spark formatter createion has a situation where it's localeid is
+        // null but LasyOperationStatus is not set. TestLocaleUndef.mxml 
+        // testcase has this situation.
+        if ((!g11nWorkingInstance) || (!g11nWorkingInstance.actualLocaleIDName) 
+            || (g11nWorkingInstance.lastOperationStatus == 
+                LastOperationStatus.LOCALE_UNDEFINED_ERROR))
         {
-            fallbackLastOperationStatus =
-                LastOperationStatus.LOCALE_UNDEFINED_ERROR;
+            results.push(new ValidationResult(
+                true, baseField, "localeUndefinedError",
+                localeUndefinedError));
             return results;
         }
 
@@ -836,7 +854,9 @@ public class CurrencyValidator extends NumberValidatorBase
         // NumberValidatorBase has this method. Unlike flash globalization,
         // validator gives error if decimal and grouping separator are same.
         if (!validateCurrencyFormat(input, baseField, results))
+        {
             return results;
+        }
         const cf:spark.formatters.CurrencyFormatter =
             g11nWorkingInstance as spark.formatters.CurrencyFormatter;
         const cpdata:CurrencyParseResult = cf.parse(input);
@@ -866,32 +886,13 @@ public class CurrencyValidator extends NumberValidatorBase
         if (!validateCurrencyString(cpdata, baseField, results))
             return results;
 
-        var valStr:String = cpdata.value.toString();
-
-        if (cpdata.value < 0)
-            valStr = valStr.substring(1);
-
-        // We need the original number string extracted from input with grouping
-        // separators intact. Value may have different digits after decimal
-        // because of rounding by parse() but if there is a decimal, then last
-        // digit before decimal is what we need. Locales like Saudi currency ISO
-        // code have decimal inside them. Hence locate the correct decimal
-        // following the first digit only.
-        const numStart:int = input.indexOf(valStr.charAt(0));
-        const numEnd:int = input.lastIndexOf(valStr.charAt(valStr.length-1));
+        const numStart:int = indexOfFirstDigit(input, len);
         const decimalSeparatorIndex:int =
             input.indexOf(decimalSeparator, numStart);
-        const end:int = (decimalSeparatorIndex == -1) ? numEnd :
-                                                      decimalSeparatorIndex - 1;
         // check if fraction digits exceed the limit.
         if (!validateFractionPart(input,
-                                  decimalSeparatorIndex, baseField, results))
-            return results;
-        if (!validateGrouping(input.substring(numStart, end), end-numStart))
+            decimalSeparatorIndex, baseField, results))
         {
-            results.push(new ValidationResult(
-                true, baseField, "groupingSeparation",
-                groupingSeparationError));
             return results;
         }
 
@@ -916,7 +917,12 @@ public class CurrencyValidator extends NumberValidatorBase
                                            results:Array,
                                            baseField:String):Boolean
     {
+        if (!input)
+            return true;
         const len:int = input.length;
+        
+        if (!len)
+            return true;
         // Saudi currency symbol has decimal symbol. So to establish multiple
         // decimals problem, only number string must be considered.
         const isoIndex:int = input.indexOf(currencySymbol);
@@ -925,27 +931,42 @@ public class CurrencyValidator extends NumberValidatorBase
         var numStr:String = input;
         if (isoIndex != -1)
         {
-            var pattern:RegExp = /\d/;
-            var digitIndex:int = input.search(pattern);
-            if (digitIndex > isoIndex) // isocode is before digits.
-                startIndex = digitIndex;
-            else
-                endIndex = isoIndex - 1; // isocode is after digit start
-                                         // or in  middle
-            if ((startIndex >= 0) && (endIndex <= len))
-                numStr = input.substring(startIndex, endIndex);
+            var digitIndex:int = indexOfFirstDigit(input, len);
+            if (digitIndex != -1)
+            {
+                if (digitIndex > isoIndex) // isocode is before digits.
+                    startIndex = digitIndex;
+                else
+                    endIndex = isoIndex - 1; // isocode is after digit start
+                                             // or in  middle
+                if ((startIndex >= 0) && (endIndex <= len))
+                    numStr = input.substring(startIndex, endIndex);
+            }
         }
-
+        var negPosLeft:Boolean = false;
+        if ((negativeCurrencyFormat <= 2) ||
+            (negativeCurrencyFormat == 4) ||
+            (negativeCurrencyFormat == 5) ||
+            (negativeCurrencyFormat == 8) ||
+            (negativeCurrencyFormat == 9) ||
+            (negativeCurrencyFormat == 12) ||
+            (negativeCurrencyFormat == 14) ||
+            (negativeCurrencyFormat == 15))
+        {
+            negPosLeft = true;
+        }
+        
         // Make sure there's only one decimal point.
-        if (numStr.indexOf(decimalSeparator) !=
-            numStr.lastIndexOf(decimalSeparator))
+        if ((decimalSeparator != negativeSymbol) && 
+            (numStr.indexOf(decimalSeparator) !=
+            numStr.lastIndexOf(decimalSeparator)))
         {
             results.push(new ValidationResult(
                          true, baseField, "decimalPointCount",
                          decimalPointCountError));
             return false;
         }
-        else if (!validateDecimalString(numStr, baseField, results))
+        else if (!validateDecimalString(numStr, baseField, results, negPosLeft))
         {
             return false;
         }
@@ -961,15 +982,15 @@ public class CurrencyValidator extends NumberValidatorBase
                                             baseField:String):Boolean
     {
         const len:int = input.length;
-        const inputHasNegativeSymbol:Boolean =
-            ((input.indexOf(negativeSymbol) != -1) ||
+        const inputIsNegative:Boolean =
+            ((inputHasNegativeSymbol(input)) ||
             ((input.charAt(0) == "(") && (input.charAt(len-1) == ")")));
         const inputHasCurrencyStr:Boolean =
             ((input.indexOf(currencySymbol) != -1) ||
              (input.indexOf(currencyISOCode) != -1));
         // Check for invalid characters in input.
         // One of the negative format of number is enclosing in parenthesis.
-        const validChars:String = DECIMAL_DIGITS + NEGATIVE_FORMATTING_CHARS +
+        const validChars:String = VALID_CHARS +
             decimalSeparator + groupingSeparator + currencySymbol +
             currencyISOCode;
 
@@ -1004,7 +1025,7 @@ public class CurrencyValidator extends NumberValidatorBase
                 currencyStringError));
             return false;
         }
-        else if (inputHasNegativeSymbol)
+        else if (inputIsNegative)
         {
             results.push(new ValidationResult(
                 true, baseField, "negativeCurrencyFormat",
@@ -1013,7 +1034,7 @@ public class CurrencyValidator extends NumberValidatorBase
         }
         // An input like "0 1 2 3" should be parseError rather than
         // postiveCurrencyFormatError.
-        else if (!inputHasNegativeSymbol && inputHasCurrencyStr)
+        else if (!inputIsNegative && inputHasCurrencyStr)
         {
             results.push(new ValidationResult(
                 true, baseField, "positiveCurrencyFormat",
@@ -1034,10 +1055,9 @@ public class CurrencyValidator extends NumberValidatorBase
         if (!validateNumberFormat(input, results, baseField))
             return false;
 
-        if ((currencyISOCode == currencySymbol) ||
-            (currencyISOCode == decimalSeparator) ||
+        if ((currencyISOCode == decimalSeparator) ||
             (currencyISOCode == groupingSeparator) ||
-            (currencyISOCode == negativeSymbol))
+            (isNegativeSymbol(currencyISOCode)))
         {
             results.push(new ValidationResult(
                 true, baseField, "invalidFormatCharsError",
@@ -1045,10 +1065,9 @@ public class CurrencyValidator extends NumberValidatorBase
             return false;
         }
 
-        if ((currencySymbol == currencyISOCode) ||
-            (currencySymbol == decimalSeparator) ||
+        if ((currencySymbol == decimalSeparator) ||
             (currencySymbol == groupingSeparator) ||
-            (currencySymbol == negativeSymbol))
+            (isNegativeSymbol(currencySymbol)))
         {
             results.push(new ValidationResult(
                 true, baseField, "invalidFormatCharsError",
@@ -1100,7 +1119,6 @@ public class CurrencyValidator extends NumberValidatorBase
                 true, baseField, "currencyString",
                 this.currencyStringError));
             return false;
-
         }
     }
    }
