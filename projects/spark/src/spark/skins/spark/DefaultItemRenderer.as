@@ -19,14 +19,13 @@
 		<State name="selected"/>
 	</states>
 	
-    <content>
-		<Rect left="0" right="0" top="0" bottom="0">
-			<fill>
-				<SolidColor color="0x00FFFF"
-                            alpha="0" alpha.hovered="0.2" alpha.selected="0.8" />
-			</fill>
-		</Rect>
-		<TextBox text="{data}" verticalCenter="0" left="2" right="2" top="2" bottom="2" />
-	</content>
+	<Rect left="0" right="0" top="0" bottom="0">
+		<fill>
+			<SolidColor color="0xFFFFFF"
+                        color.hovered="0xCEDBEF"
+                        color.selected="0xA8C6EE" />
+		</fill>
+	</Rect>
+	<TextBox text="{data}" verticalCenter="0" left="3" right="3" top="6" bottom="4" />
 
 </ItemRenderer>
