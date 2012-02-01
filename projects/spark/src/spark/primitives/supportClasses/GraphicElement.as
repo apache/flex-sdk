@@ -1558,8 +1558,12 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function get layoutMatrix():Matrix
     {
+		// esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+		// since this is an internal class, we don't need to worry about developers
+		// accidentally messing with this matrix, _unless_ we hand it out. Instead,
+		// we hand out a clone.
         if(layoutFeatures != null)
-            return layoutFeatures.layoutMatrix;
+            return layoutFeatures.layoutMatrix.clone();
         var m:Matrix = new Matrix();
         m.translate(_x,_y);
         return m;         
@@ -1599,8 +1603,12 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function get layoutMatrix3D():Matrix3D
     {
+		// esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+		// since this is an internal class, we don't need to worry about developers
+		// accidentally messing with this matrix, _unless_ we hand it out. Instead,
+		// we hand out a clone.
         if(layoutFeatures != null)
-            return layoutFeatures.layoutMatrix3D;
+            return layoutFeatures.layoutMatrix3D.clone();
         var m:Matrix3D = new Matrix3D();
         m.appendTranslation(_x,_y,0);
         return m;           
