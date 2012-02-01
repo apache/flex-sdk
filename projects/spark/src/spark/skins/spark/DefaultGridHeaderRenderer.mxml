@@ -123,7 +123,6 @@ and <code>sortIndicator</code> properties.</p>
             private static const DEFAULT_SYMBOL_COLOR:uint = 0x000000;
             
             private static var colorTransform:ColorTransform = new ColorTransform();
-            private const exclusions:Array = [labelDisplay, sortIndicatorInstance];
             
             /**
              *  @private
@@ -302,6 +301,8 @@ and <code>sortIndicator</code> properties.</p>
                         colorTransform.alphaMultiplier = alpha;
                         
                         transform.colorTransform = colorTransform;
+                        
+                        var exclusions:Array = [labelDisplay, sortIndicatorInstance];
                         
                         // Apply inverse colorizing to exclusions
                         if (exclusions && exclusions.length > 0)
