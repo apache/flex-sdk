@@ -94,6 +94,11 @@ public class FxResizeInstance extends FxAnimateInstance
     /** 
      *  Number of pixels by which to modify the height of the component.
      *  Values may be negative.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get heightBy():Number
     {
@@ -115,6 +120,11 @@ public class FxResizeInstance extends FxAnimateInstance
 
     /** 
      *  Initial height. If omitted, Flex uses the current size.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var heightFrom:Number;
 
@@ -130,6 +140,11 @@ public class FxResizeInstance extends FxAnimateInstance
     
     /** 
      *  Final height, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get heightTo():Number
     {
@@ -158,6 +173,11 @@ public class FxResizeInstance extends FxAnimateInstance
     /** 
      *  Number of pixels by which to modify the width of the component.
      *  Values may be negative.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function get widthBy():Number
     {
@@ -179,6 +199,11 @@ public class FxResizeInstance extends FxAnimateInstance
 
     /** 
      *  Initial width. If omitted, Flex uses the current size.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var widthFrom:Number;
 
@@ -194,6 +219,11 @@ public class FxResizeInstance extends FxAnimateInstance
     
     /** 
      *  Final width, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get widthTo():Number
     {
@@ -216,6 +246,11 @@ public class FxResizeInstance extends FxAnimateInstance
     /**
      *  An Array of Panels.
      *  The children of these Panels are hidden while the Resize effect plays.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var hideChildrenTargets:Array /* of Panel */;
 
@@ -255,6 +290,11 @@ public class FxResizeInstance extends FxAnimateInstance
     /**
      * Handles the end event from the tween. The value here is an Array of
      * values, one for each 'property' in our animationProperties.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function endHandler(event:AnimationEvent):void
     {
@@ -378,6 +418,11 @@ public class FxResizeInstance extends FxAnimateInstance
 
         return numHideEffectsPlaying > 0;
     }
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     
     /**
@@ -427,6 +472,11 @@ public class FxResizeInstance extends FxAnimateInstance
         //    restoreAutoLayoutArray[panelIndex] = true;
         //}
     }    
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     
     /**
@@ -506,6 +556,11 @@ public class FxResizeInstance extends FxAnimateInstance
                 animation.resume();     
         } 
     }
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
 }
 }
