@@ -17,17 +17,17 @@ import flash.events.Event;
 [ExcludeClass]
 
 /**
- *  The DisplayPlaneExistanceEvent class represents events that are dispatched when 
- *  an object of a DisplayPlane is created or destroyed. 
+ *  The DisplayLayerExistanceEvent class represents events that are dispatched when 
+ *  an object is added to or removed from a DisplayLayer. 
  *
- *  @see spark.components.supportClasses.DisplayPlane
+ *  @see spark.components.supportClasses.DisplayLayerObjectExistenceEvent
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class DisplayPlaneObjectExistenceEvent extends Event
+public class DisplayLayerObjectExistenceEvent extends Event
 {
 	include "../core/Version.as";
 	
@@ -38,7 +38,7 @@ public class DisplayPlaneObjectExistenceEvent extends Event
 	//--------------------------------------------------------------------------
 	
 	/**
-	 *  The <code>DisplayPlaneExistanceEvent.OBJECT_ADD</code> constant 
+	 *  The <code>DisplayLayerExistanceEvent.OBJECT_ADD</code> constant 
 	 *  defines the value of the <code>type</code> property of the event 
 	 *  object for an <code>objectAdd</code> event.
 	 *
@@ -71,7 +71,7 @@ public class DisplayPlaneObjectExistenceEvent extends Event
 	public static const OBJECT_ADD:String = "objectAdd";
 	
 	/**
-	 *  The <code>DisplayPlaneExistanceEvent.OBJECT_REMOVE</code> constant 
+	 *  The <code>DisplayLayer.OBJECT_REMOVE</code> constant 
 	 *  defines the value of the <code>type</code> property of the event 
 	 *  object for an <code>objectRemove</code> event.
 	 *
@@ -127,7 +127,7 @@ public class DisplayPlaneObjectExistenceEvent extends Event
 	 *  @playerversion AIR 1.5
 	 *  @productversion Flex 4
 	 */
-	public function DisplayPlaneObjectExistenceEvent(
+	public function DisplayLayerObjectExistenceEvent(
 		type:String, bubbles:Boolean = false,
 		cancelable:Boolean = false,
 		object:DisplayObject = null, 
@@ -184,7 +184,7 @@ public class DisplayPlaneObjectExistenceEvent extends Event
 	 */
 	override public function clone():Event
 	{
-		return new DisplayPlaneObjectExistenceEvent(type, bubbles, cancelable,
+		return new DisplayLayerObjectExistenceEvent(type, bubbles, cancelable,
 			object, index);
 	}
 }
