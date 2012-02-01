@@ -75,7 +75,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  actions. For example a 3D layout may set the target's
      *  <code>maintainProjectionCenter</code> property here.</p> 
      *
-     *  @default null;
+     *  @default null
      *  @see #updateDisplayList
      *  @see #measure
      *  
