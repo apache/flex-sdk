@@ -20,10 +20,19 @@ Button
 	skinClass: ClassReference("spark.skins.wireframe.ButtonSkin");
 }
 
+/* TODO: Button.emphasized */
+
+ButtonBar 
+{
+	skinClass: ClassReference("spark.skins.wireframe.ButtonBarSkin");
+}
+
 CheckBox
 {
 	skinClass: ClassReference("spark.skins.wireframe.CheckBoxSkin");
 }
+
+/* TODO: DropDownList */
 
 HScrollBar
 {
@@ -43,6 +52,11 @@ List
 NumericStepper
 {
     skinClass: ClassReference("spark.skins.wireframe.NumericStepperSkin");
+}
+
+Panel
+{
+	skinClass: ClassReference("spark.skins.wireframe.PanelSkin");
 }
 
 RadioButton
@@ -70,6 +84,8 @@ ToggleButton
 	skinClass: ClassReference("spark.skins.wireframe.ToggleButtonSkin");
 }
 
+/* TODO: VideoPlayer */
+
 VScrollBar
 {
 	skinClass: ClassReference("spark.skins.wireframe.VScrollBarSkin");
@@ -80,23 +96,6 @@ VSlider
     skinClass: ClassReference("spark.skins.wireframe.VSliderSkin");
 }
 
-
-/* Default text styles for the Spark components. Eventually these
-   will be moved into the global selector, but to avoid collision
-   with the Halo defaults, they are currently defined here.
-   
-   The default font settings for Spark components are defined in
-   two selectors: TextGraphicElement, and RichEditableText. */
-TextGraphicElement
-{
-    fontFamily: Arial;
-    fontSize: 12;
-    color: #2B4381;
-}
-
-RichEditableText
-{
-    fontFamily: Arial;
-    fontSize: 12;
-    color: #2B4381;
+global {
+	color: #2B4381;
 }
