@@ -17,6 +17,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.mx_internal;
+import mx.utils.GraphicsUtil;
 import mx.utils.MatrixUtil;
 
 import spark.primitives.supportClasses.FilledElement;
@@ -67,6 +68,146 @@ public class Rect extends FilledElement
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  bottomLeftRadiusX
+    //----------------------------------
+    
+    private var _bottomLeftRadiusX:Number;
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  The x radius of the bottom left corner of the rectangle.
+     *  
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get bottomLeftRadiusX():Number 
+    {
+        return _bottomLeftRadiusX;
+    }
+    
+    public function set bottomLeftRadiusX(value:Number):void
+    {        
+        if (value != _bottomLeftRadiusX)
+        {
+            _bottomLeftRadiusX = value;
+            
+            invalidateSize();
+            invalidateDisplayList();
+            invalidateParentSizeAndDisplayList();
+        }
+    }
+    
+    //----------------------------------
+    //  bottomLeftRadiusY
+    //----------------------------------
+    
+    private var _bottomLeftRadiusY:Number;
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  The y radius of the bottom left corner of the rectangle.
+     *  
+     *  @default NaN
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get bottomLeftRadiusY():Number 
+    {
+        return _bottomLeftRadiusY;
+    }
+    
+    public function set bottomLeftRadiusY(value:Number):void
+    {        
+        if (value != _bottomLeftRadiusY)
+        {
+            _bottomLeftRadiusY = value;
+            
+            invalidateSize();
+            invalidateDisplayList();
+            invalidateParentSizeAndDisplayList();
+        }
+    }
+    
+    //----------------------------------
+    //  bottomRightRadiusX
+    //----------------------------------
+    
+    private var _bottomRightRadiusX:Number;
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  The x radius of the bottom right corner of the rectangle.
+     *  
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get bottomRightRadiusX():Number 
+    {
+        return _bottomRightRadiusX;
+    }
+    
+    public function set bottomRightRadiusX(value:Number):void
+    {        
+        if (value != bottomRightRadiusX)
+        {
+            _bottomRightRadiusX = value;
+            
+            invalidateSize();
+            invalidateDisplayList();
+            invalidateParentSizeAndDisplayList();
+        }
+    }
+    
+    //----------------------------------
+    //  bottomRightRadiusY
+    //----------------------------------
+    
+    private var _bottomRightRadiusY:Number;
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  The y radius of the bottom right corner of the rectangle.
+     *  
+     *  @default NaN
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get bottomRightRadiusY():Number 
+    {
+        return _bottomRightRadiusY;
+    }
+    
+    public function set bottomRightRadiusY(value:Number):void
+    {        
+        if (value != _bottomRightRadiusY)
+        {
+            _bottomRightRadiusY = value;
+            
+            invalidateSize();
+            invalidateDisplayList();
+            invalidateParentSizeAndDisplayList();
+        }
+    }
             
     //----------------------------------
     //  radiusX
@@ -77,7 +218,10 @@ public class Rect extends FilledElement
     [Inspectable(category="General")]
     
     /**
-     *  The corner radius to use along the x axis.
+     *  The default corner radius to use for the x axis on all corners. The 
+     *  <code>topLeftRadiusX</code>, <code>topRightRadiusX</code>, 
+     *  <code>bottomLeftRadiusX</code>, and <code>bottomRightRadiusX</code>
+     *  properties take precedence over this property.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -110,7 +254,10 @@ public class Rect extends FilledElement
     [Inspectable(category="General")]
     
     /**
-     *  The corner radius to use along the y axis.
+     *  The default corner radius to use for the y axis on all corners. The 
+     *  <code>topLeftRadiusY</code>, <code>topRightRadiusY</code>, 
+     *  <code>bottomLeftRadiusY</code>, and <code>bottomRightRadiusY</code>
+     *  properties take precedence over this property.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -133,6 +280,146 @@ public class Rect extends FilledElement
             invalidateParentSizeAndDisplayList();
         }
     }
+    
+    //----------------------------------
+    //  topLeftRadiusX
+    //----------------------------------
+    
+    private var _topLeftRadiusX:Number;
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  The x radius of the top left corner of the rectangle.
+     *  
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get topLeftRadiusX():Number 
+    {
+        return _topLeftRadiusX;
+    }
+    
+    public function set topLeftRadiusX(value:Number):void
+    {        
+        if (value != _topLeftRadiusX)
+        {
+            _topLeftRadiusX = value;
+            
+            invalidateSize();
+            invalidateDisplayList();
+            invalidateParentSizeAndDisplayList();
+        }
+    }
+    
+    //----------------------------------
+    //  topLeftRadiusY
+    //----------------------------------
+    
+    private var _topLeftRadiusY:Number;
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  The y radius of the top left corner of the rectangle.
+     *  
+     *  @default NaN
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get topLeftRadiusY():Number 
+    {
+        return _topLeftRadiusY;
+    }
+    
+    public function set topLeftRadiusY(value:Number):void
+    {        
+        if (value != _topLeftRadiusY)
+        {
+            _topLeftRadiusY = value;
+            
+            invalidateSize();
+            invalidateDisplayList();
+            invalidateParentSizeAndDisplayList();
+        }
+    }
+    
+    //----------------------------------
+    //  topRightRadiusX
+    //----------------------------------
+    
+    private var _topRightRadiusX:Number;
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  The x radius of the top right corner of the rectangle.
+     *  
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get topRightRadiusX():Number 
+    {
+        return _topRightRadiusX;
+    }
+    
+    public function set topRightRadiusX(value:Number):void
+    {        
+        if (value != topRightRadiusX)
+        {
+            _topRightRadiusX = value;
+            
+            invalidateSize();
+            invalidateDisplayList();
+            invalidateParentSizeAndDisplayList();
+        }
+    }
+    
+    //----------------------------------
+    //  topRightRadiusY
+    //----------------------------------
+    
+    private var _topRightRadiusY:Number;
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  The y radius of the top right corner of the rectangle.
+     *  
+     *  @default NaN
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get topRightRadiusY():Number 
+    {
+        return _topRightRadiusY;
+    }
+    
+    public function set topRightRadiusY(value:Number):void
+    {        
+        if (value != _topRightRadiusY)
+        {
+            _topRightRadiusY = value;
+            
+            invalidateSize();
+            invalidateDisplayList();
+            invalidateParentSizeAndDisplayList();
+        }
+    }
         
     //--------------------------------------------------------------------------
     //
@@ -150,10 +437,23 @@ public class Rect extends FilledElement
      */
     override protected function draw(g:Graphics):void
     {
-        if (radiusX != 0)
+        // If any of the explicit radiusX values are specified, we have corner-specific rounding.
+        if (!isNaN(topLeftRadiusX) || !isNaN(topRightRadiusX) ||
+            !isNaN(bottomLeftRadiusX) || !isNaN(bottomRightRadiusX))
+        {      
+            // All of the fallback rules are implemented in drawRoundRectComplex2().
+            GraphicsUtil.drawRoundRectComplex2(g, drawX, drawY, width, height, 
+                                               radiusX, radiusY, 
+                                               topLeftRadiusX, topLeftRadiusY,
+                                               topRightRadiusX, topRightRadiusY,
+                                               bottomLeftRadiusX, bottomLeftRadiusY,
+                                               bottomRightRadiusX, bottomRightRadiusY);
+        }
+        else if (radiusX != 0)
         {
+            var rX:Number = radiusX;
             var rY:Number =  radiusY == 0 ? radiusX : radiusY;
-            g.drawRoundRect(drawX, drawY, width, height, radiusX * 2, rY * 2);
+            g.drawRoundRect(drawX, drawY, width, height, rX * 2, rY * 2);
         }
         else
         {
@@ -169,7 +469,7 @@ public class Rect extends FilledElement
                                                         postLayoutTransform:Boolean = true):Number
     {
         if (postLayoutTransform && hasComplexLayoutMatrix)
-            width = getRoundRectBoundingBox(width, height, radiusX, radiusY, 
+            width = getRoundRectBoundingBox(width, height, this, 
                                             layoutFeatures.layoutMatrix).width;
 
         // Take stroke into account
@@ -184,7 +484,7 @@ public class Rect extends FilledElement
                                                          postLayoutTransform:Boolean = true):Number
     {
         if (postLayoutTransform && hasComplexLayoutMatrix)
-            height = getRoundRectBoundingBox(width, height, radiusX, radiusY, 
+            height = getRoundRectBoundingBox(width, height, this, 
                                              layoutFeatures.layoutMatrix).height;
 
         // Take stroke into account
@@ -222,7 +522,7 @@ public class Rect extends FilledElement
             newSize = new Point(minWidth, minHeight);
 
         return strokeExtents.left +
-            getRoundRectBoundingBox(newSize.x, newSize.y, radiusX, radiusY, m).x;
+            getRoundRectBoundingBox(newSize.x, newSize.y, this, m).x;
     }
 
     /**
@@ -256,7 +556,7 @@ public class Rect extends FilledElement
             newSize = new Point(minWidth, minHeight);
 
         return strokeExtents.top +
-            getRoundRectBoundingBox(newSize.x, newSize.y, radiusX, radiusY, m).y;
+            getRoundRectBoundingBox(newSize.x, newSize.y, this, m).y;
     }
 
     /**
@@ -266,7 +566,7 @@ public class Rect extends FilledElement
     {
         var stroke:Number = getStrokeExtents(postLayoutTransform).left;
         if (postLayoutTransform && hasComplexLayoutMatrix)
-            return stroke + getRoundRectBoundingBox(width, height, radiusX, radiusY, 
+            return stroke + getRoundRectBoundingBox(width, height, this, 
                                                     layoutFeatures.layoutMatrix).x;  
 
         return stroke + this.x;
@@ -279,7 +579,7 @@ public class Rect extends FilledElement
     {
         var stroke:Number = getStrokeExtents(postLayoutTransform).top;
         if (postLayoutTransform && hasComplexLayoutMatrix)
-            return stroke + getRoundRectBoundingBox(width, height, radiusX, radiusY, 
+            return stroke + getRoundRectBoundingBox(width, height, this, 
                                                     layoutFeatures.layoutMatrix).y;
 
         return stroke + this.y;
@@ -290,28 +590,49 @@ public class Rect extends FilledElement
      */
     static private function getRoundRectBoundingBox(width:Number,
                                                     height:Number,
-                                                    radiusX:Number,
-                                                    radiusY:Number,
+                                                    r:Rect,
                                                     m:Matrix):Rectangle
     {
         // We can find the round rect bounds by finding the 
         // bounds of the four ellipses at the four corners
         
         // Make sure that radiusX & radiusY don't exceed the width & height:
-        radiusX = Math.min(radiusX, width / 2);
-        radiusY = Math.min(radiusY, height / 2);
+        var maxRadiusX:Number = width / 2;
+        var maxRadiusY:Number = height / 2;
+        
+        var radiusX:Number = r.radiusX;
+        var radiusY:Number = r.radiusY == 0 ? radiusX : r.radiusY;
+        
+        function radiusValue(def:Number, value:Number, max:Number):Number
+        {
+            var result:Number = isNaN(value) ? def : value;
+            return Math.min(result, max);
+        }
         
         // FIXME (egeorgie): optimize to not allocate a new Rectangle?
         var boundingBox:Rectangle;
-
+        var rX:Number;
+        var rY:Number;
+        
         // top-left corner ellipse
-        boundingBox = MatrixUtil.getEllipseBoundingBox(radiusX, radiusY, radiusX, radiusY, m, boundingBox);
+        rX = radiusValue(radiusX, r.topLeftRadiusX, maxRadiusX);
+        rY = radiusValue(rX, r.topLeftRadiusY, maxRadiusY);
+        boundingBox = MatrixUtil.getEllipseBoundingBox(rX, rY, rX, rY, m, boundingBox);
+        
         // top-right corner ellipse
-        boundingBox = MatrixUtil.getEllipseBoundingBox(width - radiusX, radiusY, radiusX, radiusY, m, boundingBox);
+        rX = radiusValue(radiusX, r.topRightRadiusX, maxRadiusX);
+        rY = radiusValue(rX, r.topRightRadiusY, maxRadiusY);
+        boundingBox = MatrixUtil.getEllipseBoundingBox(width - rX, rY, rX, rY, m, boundingBox);
+        
         // bottom-right corner ellipse
-        boundingBox = MatrixUtil.getEllipseBoundingBox(width - radiusX, height - radiusY, radiusX, radiusY, m, boundingBox);
+        rX = radiusValue(radiusX, r.bottomRightRadiusX, maxRadiusX);
+        rY = radiusValue(rX, r.bottomRightRadiusY, maxRadiusY);
+        boundingBox = MatrixUtil.getEllipseBoundingBox(width - rX, height - rY, rX, rY, m, boundingBox);
+        
         // bottom-left corner ellipse
-        boundingBox = MatrixUtil.getEllipseBoundingBox(radiusX, height - radiusY, radiusX, radiusY, m, boundingBox);
+        rX = radiusValue(radiusX, r.bottomLeftRadiusX, maxRadiusX);
+        rY = radiusValue(rX, r.bottomLeftRadiusY, maxRadiusY);
+        boundingBox = MatrixUtil.getEllipseBoundingBox(rX, height - rY, rX, rY, m, boundingBox);
         
         return boundingBox;
     }
