@@ -102,7 +102,7 @@
     </Group>
 
     <!-- Label -->
-    <TextBox text="{hostComponent.label}"
+    <TextBox id="labelField"
              left="18" top="3" bottom="3" verticalCenter="2" />
 
 </Skin>
