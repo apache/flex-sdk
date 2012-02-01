@@ -21,10 +21,14 @@
 	
 	<Rect left="0" right="0" top="0" bottom="0">
 		<fill>
-			<SolidColor color="0xFFFFFF"
-                        color.hovered="0xCEDBEF"
-                        color.selected="0xA8C6EE" />
+			<SolidColor color="{contentColor}" />
 		</fill>
+		<fill.hovered>
+		    <SolidColor color="{rollOverColor}" />
+		</fill.hovered>
+		<fill.selected>
+		    <SolidColor color="{selectionColor}" />
+		</fill.selected>
 	</Rect>
 	<TextBox id="labelField" text="{data}" verticalCenter="0" left="3" right="3" top="6" bottom="4" />
 
