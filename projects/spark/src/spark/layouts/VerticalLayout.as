@@ -67,7 +67,7 @@ public class VerticalLayout extends LayoutBase
         }
         else
         {
-            if (hasPercentWidth(layoutElement))
+            if (!isNaN(layoutElement.percentWidth))
                newWidth = calculatePercentWidth(layoutElement, width);
         }
         
@@ -1127,7 +1127,7 @@ public class VerticalLayout extends LayoutBase
                     continue;
 
                 var layoutElementWidth:Number;
-                if (hasPercentWidth(layoutElement))
+                if (!isNaN(layoutElement.percentWidth))
                     layoutElementWidth = calculatePercentWidth(layoutElement, targetWidth);
                 else
                     layoutElementWidth = layoutElement.getPreferredBoundsWidth();
@@ -1249,7 +1249,7 @@ public class VerticalLayout extends LayoutBase
                 continue;
             }
             
-            if (hasPercentHeight(layoutElement) && variableRowHeight)
+            if (!isNaN(layoutElement.percentHeight) && variableRowHeight)
             {
                 totalPercentHeight += layoutElement.percentHeight;
 
