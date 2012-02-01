@@ -43,7 +43,7 @@ The default skin class for a Spark DataGrid component.
                         
                         public function initializeRowBackground(grid:Grid, rowIndex:int):void
                         {
-                            const dataGrid:DataGrid = grid.gridOwner as DataGrid;
+                            const dataGrid:DataGrid = grid.dataGrid;
                             if (!dataGrid)
                                 return;
                             
@@ -173,8 +173,11 @@ The default skin class for a Spark DataGrid component.
         </s:fill>
     </s:Rect>
     
+    <!-- column header, separator, scroller with grid -->
     <s:VGroup horizontalAlign="justify" gap="0" left="0" right="0" top="0" bottom="0">
-        <s:ColumnHeaderBar id="columnHeaderBar" paddingLeft="1" paddingTop="1" paddingRight="1" headerRenderer="spark.skins.spark.DefaultGridHeaderRenderer"/>
+        <s:ColumnHeaderBar id="columnHeaderBar" paddingLeft="1" paddingTop="1" paddingRight="1"
+            columnSeparator="{headerColumnSeparator}"
+            headerRenderer="spark.skins.spark.DefaultGridHeaderRenderer"/>
 
         <s:VGroup horizontalAlign="justify" height="100%" gap="-1">
             <s:Line id="headerSeparator">
