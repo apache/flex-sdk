@@ -72,6 +72,9 @@ import mx.filters.IBitmapFilter;
  * @playerversion AIR 1.5
  * @productversion Flex 4
  *
+ * @includeExample examples/BlurFilterExample.mxml
+ *  
+ * @see flash.filters.BlurFilter
  * @see flash.display.DisplayObject#filters
  * @see flash.display.DisplayObject#cacheAsBitmap
  * @see flash.display.BitmapData#applyFilter()
