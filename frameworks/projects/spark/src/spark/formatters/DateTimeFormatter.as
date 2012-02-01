@@ -29,28 +29,47 @@ use namespace mx_internal;
 [ResourceBundle("core")]
 
 /**
- *  The <code>DateTimeFormatter</code> class provides locale-sensitve
+ *  The DateTimeFormatter class provides locale-sensitve
  *  formatting for a <code>Date</code> object.
  *
  *  <p>This class is a wrapper class around the
- *  <code>flash.globalization.DateTimeFormatter</code>.
+ *  flash.globalization.DateTimeFormatter class.
  *  Therefore, the locale-specific formatting functionality and the month
  *  names, day names and the first day of the week are provided by the
- *  <code>flash.globalization.DateTimeFormatter</code>.
- *  However, this DateTimeFormatter class can be used in MXML declartions,
+ *  flash.globalization.DateTimeFormatter.
+ *  However, this DateTimeFormatter class can be used in MXML declarations,
  *  uses the locale style for the requested Locale ID name, and has methods
  *  and properties that are bindable.</p>
  *
- *  <p>The <code>flash.globalization.DateTimeFormatter</code> class uses the
+ *  <p>The flash.globalization.DateTimeFormatter class uses the
  *  underlying operating system for the formatting functionality and to
  *  supply the locale-specific data.
- *  On some operating systems, the <code>flash.globalization</code> classes
+ *  On some operating systems, the flash.globalization classes
  *  are unsupported, on these systems, this wrapper class provides 
  *  fallback functionality.</p>
+ *
+ *  @mxml <p>The <code>&lt;s:DateTimeFormatter&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:DateTimeFormatter
+ *    <strong>Properties</strong>
+ *    dateStyle="long"
+ *    dateTimePattern="EEEE, MMMM dd, yyyy h:mm:ss a"
+ *    errorText="null"
+ *    timeStyle="long"
+ *    useUTC="false"
+ *  /&gt;
+ *  </pre>
  *
  *  @includeExample examples/DateTimeFormatterExample.mxml
  *
  *  @see flash.globalization.DateTimeFormatter
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class DateTimeFormatter extends GlobalizationBase implements IFormatter
 {
@@ -89,25 +108,21 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      *  By using the class in an MXML declaration and inheriting the
      *  locale from the document that contains the declaration.
      *  </li>
-     *  Example:
-     *  <listing version="3.0" >
-     *  &lt;fx:Declarations&gt; <br>
-     *         &lt;s:DateTimeFormatter id="df" /&gt; <br>
-     *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  Example:<pre>
+     *  &lt;fx:Declarations&gt; 
+     *         &lt;s:DateTimeFormatter id="df" /&gt;
+     *  &lt;/fx:Declarations&gt;</pre>
      *  <li>
      *  By using an MXML declaration and specifying the locale value
      *  in the list of assignments.
      *  </li>
-     *  Example:
-     *  <listing version="3.0" >
-     *  &lt;fx:Declarations&gt; <br>
-     *      &lt;s:DateTimeFormatter id="df_Japanese" locale="ja-JP" /&gt; <br>
-     *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  Example:<pre>
+     *  &lt;fx:Declarations&gt; 
+     *      &lt;s:DateTimeFormatter id="df_Japanese" locale="ja-JP" /&gt;
+     *  &lt;/fx:Declarations&gt;</pre>
      *  <li>
-     *  Calling the setStyle method,
-     *  e.g. <code>df.setStyle("locale", "ja-JP")</code>
+     *  Calling the setStyle method. For example: <pre>
+     *  df.setStyle("locale", "ja-JP")</pre>
      *  </li>
      *  <li> 
      *  Inheriting the style from a <code>UIComponent</code> by calling the
@@ -157,7 +172,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
     
     /**
      *  @private
-     *  Basic properies of the actual underlying working instance.
+     *  Basic properties of the actual underlying working instance.
      */
     mx_internal var properties:Object = null;
 
@@ -285,7 +300,9 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      *  assigning a value to either the <code>dateStyle</code> property or
      *  the <code>dateTimePattern</code> property. 
      *
-     *  <p>Possible values for the dateStyle property are:</p>
+     *  <p>The possible for this property are defined by 
+     *  the flash.globalization.DateTimeStyle class. 
+     *  Possible values for the <code>dateStyle</code> property are:</p>
      *
      *  <ul>
      *  <li><code>DateTimeStyle.LONG</code> </li>
@@ -296,7 +313,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      *  </ul>
      * 
      * <p>If the <code>dateTimePattern</code>
-     *  property is assigned a value, as a side effect, the dateStyle property 
+     *  property is assigned a value, as a side effect, the <code>dateStyle</code> property 
      *  is set to <code>DateTimeStyle.CUSTOM </code></p>
      *
      *  @default <code>DateTimeStyle.LONG</code>
@@ -381,16 +398,15 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      *  </ol>
      *
      *  <p>If this property is assigned a value directly, as a side effect,
-     *  the current time and date styles will be overriden and
+     *  the current time and date styles are overridden and
      *  set to the value <code>DateTimeStyle.CUSTOM</code>.</p>
      *
-     *  <p>For a description of the pattern syntax please see the
-     *  <a href="flash.globalization.DateTimeFormatter.setDateTimePattern()">
+     *  <p>For a description of the pattern syntax, please see the
+     *  <a href="..\..\flash\globalization\DateTimeFormatter.html#setDateTimePattern()">
      *  <code>flash.globalization.DateTimeFormatter.setDateTimePattern()
      *  </code></a> method.</p>
      *
-     *  @return A string containing the pattern used by this
-     *  DateTimeFormatter object to format dates and times.
+     *  @default "EEEE, MMMM dd, yyyy h:mm:ss a"
      *
      *  @see #dateStyle
      *  @see #timeStyle
@@ -450,7 +466,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
     [Bindable("change")]
 
     /**
-     *  Replacement string returned by the <code>format()</code> method
+     *  String returned by the <code>format()</code> method
      *  when an error occurs.
      *
      *  <p>If <code>errorText</code> is non-null and an error occurs
@@ -510,7 +526,9 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      *  assigning a value to either the <code>timeStyle</code> property or
      *  the <code>dateTimePattern</code> property.
      *
-     *  <p>Possible values for the timeStyle property are:</p>
+     *  <p>The value of the property are defined by the 
+     *  flash.globalization.DateTimeStyle class. 
+     *  Possible values for the <code>timeStyle</code> property are:</p>
      *
      *  <ul>
      *  <li><code>DateTimeStyle.LONG</code></li>
@@ -606,7 +624,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      *  values are used when the formatting a date.
      *
      *  If <code>useUTC</code> is set to <code>true</code> then the UTC values 
-     *  are used. If the value is set to<code>false</code>, then the 
+     *  are used. If the value is set to <code>false</code>, then the 
      *  date time values of the operating system's current time zone is used.
      *
      *  @default false
@@ -719,6 +737,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      *  @param value A <code>Date</code> value to be formatted. If the 
      *  object is not a <code>Date</code> then it will be converted
      *  to a date using the <code>Date()</code> constructor.
+     * 
      *  @return A formatted string representing the date or time value.
      *
      *  @see #dateStyle
