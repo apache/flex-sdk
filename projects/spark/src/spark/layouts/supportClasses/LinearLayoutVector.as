@@ -153,12 +153,12 @@ public final class LinearLayoutVector
     //  defaultMajorSize
     //----------------------------------
     
-    private var _defaultMajorSize:Number = 20;
+    private var _defaultMajorSize:Number = 0;
     
     /**
      *  The size of items whose majorSize was not specified with setMajorSize.
      * 
-     *  @default 20
+     *  @default 0
      *  @see #cacheDimensions
      *  
      *  @langversion 3.0
@@ -180,19 +180,50 @@ public final class LinearLayoutVector
     }
     
     //----------------------------------
+    //  defaultMinorSize
+    //----------------------------------
+    
+    private var _defaultMinorSize:Number = 0;
+    
+    /**
+     *  The default minimum value for the minorSize property.
+     *
+     *  @default 0
+     *  @see #cacheDimensions
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get defaultMinorSize():Number
+    {
+        return _defaultMinorSize;
+    }
+    
+    /**
+     * @private
+     */
+    public function set defaultMinorSize(value:Number):void
+    {
+        _defaultMinorSize = value;
+    }
+
+    //----------------------------------
     //  minorSize
     //----------------------------------
     
     private var _minorSize:Number = 0;
 
     /**
-     *  The maximum size of items along the axis opposite the majorAxis.
+     *  The maximum size of items along the axis opposite the majorAxis and the defaultMinorSize.
      * 
      *  This property is updated by the <code>cacheDimensions()</code> method.
      * 
      *  @default 0
      *  @see #cacheDimensions
      *  @see majorAxis
+     *  @see #defaultMinorSize
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -201,7 +232,7 @@ public final class LinearLayoutVector
      */
     public function get minorSize():Number
     {
-        return _minorSize;
+        return Math.max(defaultMinorSize, _minorSize);
     }
     
     /**
@@ -754,14 +785,20 @@ public final class LinearLayoutVector
         {
             setMajorSize(index, elt.getLayoutBoundsHeight());
             var w:Number = Math.min(elt.getPreferredBoundsWidth(), elt.getLayoutBoundsWidth());
-            minorSize = Math.max(minorSize, w);
+            
+            // Use the _minorSize instead of the getter, since the getter returns maximum
+            // of _minorSize and _defaultMinorSize.
+            _minorSize = Math.max(_minorSize, w);
             minMinorSize = Math.max(minMinorSize, elt.getMinBoundsWidth());
         }
         else
         {
             setMajorSize(index, elt.getLayoutBoundsWidth());            
             var h:Number = Math.min(elt.getPreferredBoundsHeight(), elt.getLayoutBoundsHeight());
-            minorSize = Math.max(minorSize, h);
+
+            // Use the _minorSize instead of the getter, since the getter returns maximum
+            // of _minorSize and _defaultMinorSize.
+            _minorSize = Math.max(_minorSize, h);
             minMinorSize = Math.max(minMinorSize, elt.getMinBoundsHeight());
         }
     }
