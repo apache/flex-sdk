@@ -659,7 +659,7 @@ public class BitmapImage extends GraphicElement
     
     /**
      *  Determines how the image is down-scaled.  When set to
-     *  <code>BitmapSmoothingQuality.BEST</code>, the image is resampled (if data
+     *  <code>BitmapSmoothingQuality.HIGH</code>, the image is resampled (if data
      *  is from a trusted source) to achieve a higher quality result.  
      *  If set to <code>BitmapSmoothingQuality.DEFAULT</code>, the default stage 
      *  quality for scaled bitmap fills is used.
