@@ -12,6 +12,8 @@
 -->
 
 <!--- The default skin class for the up button of a Spark Spinner component.  
+
+     @see spark.components.Spinner
         
       @langversion 3.0
       @playerversion Flash 10
