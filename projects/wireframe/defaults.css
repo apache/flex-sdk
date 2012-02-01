@@ -55,6 +55,11 @@ List
 	skinClass: ClassReference("spark.skins.wireframe.ListSkin");
 }
 
+MuteButton
+{
+    skinClass: ClassReference("spark.skins.wireframe.mediaClasses.MuteButtonSkin");
+}
+
 NumericStepper
 {
     skinClass: ClassReference("spark.skins.wireframe.NumericStepperSkin");
@@ -68,6 +73,11 @@ Panel
 RadioButton
 {
 	skinClass: ClassReference("spark.skins.wireframe.RadioButtonSkin");
+}
+
+ScrubBar
+{
+    skinClass: ClassReference("spark.skins.wireframe.mediaClasses.ScrubBarSkin");
 }
 
 Spinner
@@ -93,6 +103,11 @@ ToggleButton
 VideoPlayer
 {
 	skinClass: ClassReference("spark.skins.wireframe.VideoPlayerSkin");
+}
+
+VolumeBar
+{
+    skinClass: ClassReference("spark.skins.wireframe.mediaClasses.VolumeBarSkin");
 }
 
 VScrollBar
