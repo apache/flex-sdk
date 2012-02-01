@@ -11,76 +11,76 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" 
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
 	  minWidth="21" minHeight="21"
 	  alpha.disabledStates="0.5">
 
 	<!-- states -->
-	<states>
-		<State name="up" />
-		<State name="over" />
-		<State name="down" />
-		<State name="disabled" stateGroups="disabledStates"/>
-		<State name="selectedUp" stateGroups="selectedStates" />
-		<State name="selectedOver" stateGroups="selectedStates" />
-		<State name="selectedDown" stateGroups="selectedStates" />
-		<State name="selectedDisabled" stateGroups="disabledStates, selectedStates" />
-	</states>
+	<s:states>
+		<s:State name="up" />
+		<s:State name="over" />
+		<s:State name="down" />
+		<s:State name="disabled" stateGroups="disabledStates"/>
+		<s:State name="selectedUp" stateGroups="selectedStates" />
+		<s:State name="selectedOver" stateGroups="selectedStates" />
+		<s:State name="selectedDown" stateGroups="selectedStates" />
+		<s:State name="selectedDisabled" stateGroups="disabledStates, selectedStates" />
+	</s:states>
 	
 	<!-- layer 1: fill -->
-	<Rect left="1" right="1" top="1" bottom="0" >
-		<fill>
-			<LinearGradient rotation="90">
-				<GradientEntry color="0xE4E4E4" color.over="0xCACACA"
+	<s:Rect left="1" right="1" top="1" bottom="0" >
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xE4E4E4" color.over="0xCACACA"
 								color.selectedStates="0xFFFFFF"
 							   alpha="1" />
-				<GradientEntry color="0xA1A1A1" color.over="0x878787"
+				<s:GradientEntry color="0xA1A1A1" color.over="0x878787"
 								color.selectedStates="0xE4E4E4" 
 							   alpha="1" />
-			</LinearGradient>
-		</fill>
-	</Rect>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
 	
 	<!-- layer 2: highlight stroke -->
-	<Rect left="1" right="1" top="1" bottom="1" alpha=".22" >
-		<stroke>
-			<LinearGradientStroke rotation="90">
-				<GradientEntry color="0xFFFFFF" alpha="1" />
-				<GradientEntry color="0xD8D8D8" alpha="1" />
-			</LinearGradientStroke>
-		</stroke>
-	</Rect>
+	<s:Rect left="1" right="1" top="1" bottom="1" alpha=".22" >
+		<s:stroke>
+			<s:LinearGradientStroke rotation="90">
+				<s:GradientEntry color="0xFFFFFF" alpha="1" />
+				<s:GradientEntry color="0xD8D8D8" alpha="1" />
+			</s:LinearGradientStroke>
+		</s:stroke>
+	</s:Rect>
 	
 	<!-- layer 3: fill highlight -->
-	<Rect left="1" right="1" top="1" height="10" >
-		<fill>
-			<SolidColor color="0xFFFFFF" 
+	<s:Rect left="1" right="1" top="1" height="10" >
+		<s:fill>
+			<s:SolidColor color="0xFFFFFF" 
 					    alpha="0.12" />
-		</fill>
-	</Rect>
+		</s:fill>
+	</s:Rect>
 	
 	<!-- layer 4: border - unselected only -->
-	<Rect left="0" right="0" top="0" bottom="0" excludeFrom="selectedStates" >
-		<stroke>
-			<SolidColorStroke color="0x696969" alpha="1" />
-		</stroke>
-	</Rect>
+	<s:Rect left="0" right="0" top="0" bottom="0" excludeFrom="selectedStates" >
+		<s:stroke>
+			<s:SolidColorStroke color="0x696969" alpha="1" />
+		</s:stroke>
+	</s:Rect>
 	
 	<!-- layer 5: border - selected only -->
-	<Rect left="0" width="1" top="0" bottom="0" includeIn="selectedStates" >
-		<fill>
-			<SolidColor color="0x696969" alpha="1" />
-		</fill>
-	</Rect>
-	<Rect left="1" right="1" top="0" height="1" includeIn="selectedStates" >
-		<fill>
-			<SolidColor color="0x696969" alpha="1" />
-		</fill>
-	</Rect>
-	<Rect width="1" right="0" top="0" bottom="0" includeIn="selectedStates" >
-		<fill>
-			<SolidColor color="0x696969" alpha="1" />
-		</fill>
-	</Rect>
+	<s:Rect left="0" width="1" top="0" bottom="0" includeIn="selectedStates" >
+		<s:fill>
+			<s:SolidColor color="0x696969" alpha="1" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect left="1" right="1" top="0" height="1" includeIn="selectedStates" >
+		<s:fill>
+			<s:SolidColor color="0x696969" alpha="1" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect width="1" right="0" top="0" bottom="0" includeIn="selectedStates" >
+		<s:fill>
+			<s:SolidColor color="0x696969" alpha="1" />
+		</s:fill>
+	</s:Rect>
 	
-</SparkSkin>
+</s:SparkSkin>
