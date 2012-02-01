@@ -25,7 +25,7 @@
     </states>
     
     <!-- border/fill -->
-	<Path data="M 0 0 h 18 v 8 Q 18 9 16 10 h -16 c" 
+	<Path data="M 0 0 h 18 v 8 Q 18 9 16 10 h -16 Z" 
 		  left="0" top="0" right="0" bottom="0">
 		<stroke>
 			<SolidColorStroke color="0x686868" />
@@ -43,7 +43,7 @@
 	</Path>    
 	
 	<!-- highlight -->
-	<Path data="M 0 0 h 16 v 6 Q 16 8 14 8 h -14 c" 
+	<Path data="M 0 0 h 16 v 6 Q 16 8 14 8 h -14 Z" 
 		  left="1" top="1" right="1" bottom="1" >
 		<stroke>
 			<LinearGradientStroke rotation="90">
