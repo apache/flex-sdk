@@ -26,6 +26,6 @@
                         color.selected="0xA8C6EE" />
 		</fill>
 	</Rect>
-	<TextBox text="{data}" verticalCenter="0" left="3" right="3" top="6" bottom="4" />
+	<TextBox id="labelField" text="{data}" verticalCenter="0" left="3" right="3" top="6" bottom="4" />
 
 </ItemRenderer>
