@@ -513,7 +513,11 @@ public class Path extends FilledElement
 
 		// If path is empty, it's untransformed bounding box is (0,0), so we return transformed point (0,0)
         if (!pathBBox)
-            pathBBox = new Rectangle(m.tx, m.ty);
+		{
+			var x:Number = m ? m.tx : 0;
+			var y:Number = m ? m.ty : 0;
+            pathBBox = new Rectangle(x, y);
+		}
         return pathBBox;
     }
 
