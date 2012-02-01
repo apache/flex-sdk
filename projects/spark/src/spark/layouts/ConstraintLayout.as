@@ -1068,7 +1068,7 @@ public class ConstraintLayout extends LayoutBase
                 
                 // remainingSpace -= size;
             }
-            // FIXME (klin): What do we do if there's remainingSpace after all this?
+            // TODO (klin): What do we do if there's remainingSpace after all this?
         }
     }
     
