@@ -45,8 +45,7 @@
     </local:states>
     
     <!-- border/fill -->
-    <s:Path data="M 0 0 h 15 Q 16 0 17 2 v 8 h -17 Z" 
-          left="-1" top="0" right="0" bottom="0">
+    <s:Rect left="-1" top="0" right="0" bottom="0" width="17" height="11" topRightRadiusX="{getStyle('cornerRadius')}">
         <s:stroke>
             <s:SolidColorStroke id="borderStroke" weight="1"/>
         </s:stroke>
@@ -60,11 +59,10 @@
                                color.down="0xA1A3A5" />
             </s:LinearGradient>
         </s:fill>
-    </s:Path>    
+    </s:Rect>    
     
     <!-- highlight -->
-    <s:Path data="M 0 0 h 13 Q 15 0 15 2 v 6 h -15 Z" 
-          left="0" top="1" right="1" bottom="1" >
+    <s:Rect left="1" top="1" right="1" bottom="1" topRightRadiusX="{getStyle('cornerRadius')}">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry color="0xFFFFFF" 
@@ -78,7 +76,7 @@
                                alpha.down="0" />
             </s:LinearGradientStroke>
         </s:stroke>
-    </s:Path>
+    </s:Rect>
     
     <!-- shadow -->
     <s:Rect left="0" top="2" right="1" height="1" includeIn="down">
@@ -88,7 +86,7 @@
     </s:Rect>
     
     <!-- arrow -->
-    <s:Path horizontalCenter="0" verticalCenter="0" id="arrow"
+    <s:Path horizontalCenter="-1" verticalCenter="0" id="arrow"
           data="M 3.0 0.0 L 3.0 1.0 L 4.0 1.0 L 4.0 2.0 L 5.0 2.0 L 5.0 3.0 L 0.0 3.0 L 0.0 2.0 L 1.0 2.0 L 1.0 1.0 L 2.0 1.0 L 2.0 0.0 L 3.0 0.0">
         <s:fill>
             <s:SolidColor id="arrowFill" color="0" alpha="0.8" />
