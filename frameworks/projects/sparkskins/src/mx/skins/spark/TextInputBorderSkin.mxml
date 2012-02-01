@@ -49,6 +49,12 @@
             return metrics;
         }
             
+        override protected function initializationComplete():void
+        {
+            useBaseColor = true;
+            super.initializationComplete();
+        }
+        
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {     
             if (getStyle("borderStyle") == "none")
