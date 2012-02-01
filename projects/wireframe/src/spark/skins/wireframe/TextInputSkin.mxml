@@ -11,8 +11,11 @@
 
 -->
 
-<!--- The default skin class for the Spark TextInput component. 
+<!--- The default wireframe skin class for the Spark TextInput component. 
+        Skin classes in the wireframe package are useful for using as a simple base for a custom skin.
         
+     @see spark.components.TextInput
+
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
