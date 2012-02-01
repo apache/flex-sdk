@@ -1327,7 +1327,7 @@ public class VerticalLayout extends LayoutBase
      */
     private function measureVirtual(layoutTarget:GroupBase):void
     {
-        var eltCount:uint = layoutTarget.numElements;
+        var eltCount:int = layoutTarget.numElements;
         var measuredEltCount:int = (requestedRowCount != -1) ? requestedRowCount : 
                                                                Math.max(requestedMinRowCount, eltCount);
         
@@ -1766,7 +1766,7 @@ public class VerticalLayout extends LayoutBase
         var targetHeight:Number = Math.max(0, layoutTarget.height - paddingTop - paddingBottom);
         
         var layoutElement:ILayoutElement;
-        var count:uint = layoutTarget.numElements;
+        var count:int = layoutTarget.numElements;
         
         // If horizontalAlign is left, we don't need to figure out the contentWidth
         // Otherwise the contentWidth is used to position the element and even size 
@@ -1898,8 +1898,8 @@ public class VerticalLayout extends LayoutBase
         
         // rowHeight can be expensive to compute
         var rh:Number = (variableRowHeight) ? 0 : Math.ceil(rowHeight);
-        var count:uint = target.numElements;
-        var totalCount:uint = count; // number of elements to use in gap calculation
+        var count:int = target.numElements;
+        var totalCount:int = count; // number of elements to use in gap calculation
         
         // If the child is flexible, store information about it in the
         // childInfoArray. For non-flexible children, just set the child's
