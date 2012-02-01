@@ -817,7 +817,7 @@ public class GraphicElement extends EventDispatcher
     /**
      *  @private
      */
-    private var _clonedFilters:Array;
+    private var _clonedFilters:Array;  
     
     [Inspectable(category="General")]
 
@@ -825,6 +825,9 @@ public class GraphicElement extends EventDispatcher
      *  An indexed array that contains each filter object currently associated with the graphic element. 
      *  The mx.filters.* package contains several classes that define specific filters you can use.
      *  
+     *  The getter returns a copy of the filters array. The filters property value can only be changed 
+     *  via the setter. 
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -832,7 +835,9 @@ public class GraphicElement extends EventDispatcher
      */
     public function get filters():Array
     {
-        return _filters;
+        // Return a copy of the filters to prevent it from being mutated. 
+        // The only way to change the filters is through the setter. 
+        return _filters.slice();
     }
 
     /**
