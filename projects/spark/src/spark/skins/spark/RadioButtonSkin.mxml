@@ -29,7 +29,7 @@
         <State name="disabledAndSelected" stateGroups="disabledStates, selectedStates" />
     </states>
     
-    <Group verticalCenter="0" width="13" height="13" clipContent="false">
+    <Group verticalCenter="0" width="13" height="13">
 	    <!-- drop shadow -->
 	    <Ellipse left="-1" top="-1" right="-1" bottom="-1">
 	    	<stroke>
