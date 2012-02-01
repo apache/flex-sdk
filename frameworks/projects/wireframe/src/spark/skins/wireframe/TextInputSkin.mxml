@@ -67,24 +67,24 @@
     
     <!-- inner shadow -->
     <s:Group left="1" right="1" top="1">       
-        <s:Rect left="0" right="0" top="0" bottom="0" height="1">
+        <s:Rect left="0" right="0" top="0" height="1">
             <s:fill>
-                <s:SolidColor color="0x000000" alpha="0.12" />
+                <s:SolidColor color="0x000000" alpha="0.15" />
             </s:fill>
         </s:Rect>
-        <s:Rect left="0" right="0" top="1" bottom="0" height="1">
+        <s:Rect left="0" right="0" top="1" height="1">
             <s:fill>
                 <s:SolidColor color="0x000000" alpha="0.06" />
             </s:fill>
         </s:Rect>
     </s:Group>
     <s:Group left="1" top="1" bottom="1">
-        <s:Rect left="0" right="0" top="0" bottom="0" width="1">
+        <s:Rect left="0" top="0" bottom="0" width="1">
             <s:fill>
-                <s:SolidColor color="0x000000" alpha="0.12" />
+                <s:SolidColor color="0x000000" alpha="0.15" />
             </s:fill>
         </s:Rect>
-        <s:Rect left="1" right="0" top="0" bottom="0" width="1">
+        <s:Rect left="1" top="0" bottom="0" width="1">
             <s:fill>
                 <s:SolidColor color="0x000000" alpha="0.06" />
             </s:fill>
