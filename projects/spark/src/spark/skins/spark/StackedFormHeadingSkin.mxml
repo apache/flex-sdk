@@ -69,7 +69,7 @@ Use this skin when your FormItems use the StackedFormItemSkin
         <s:FormItemLayout>
             <s:constraintColumns>
                 <s:ConstraintColumn id="sequenceCol" />
-                <s:ConstraintColumn id="contentCol"/>
+                <s:ConstraintColumn id="contentCol" width="100%"/>
                 <s:ConstraintColumn id="helpCol"/>
             </s:constraintColumns>         
             <s:constraintRows>
