@@ -15,11 +15,10 @@ import mx.core.UIComponent;
 
 import spark.skins.SparkSkin;
 
-[ExcludeClass]
-
 /** 
- *  Base class for Spark skins for Halo components. This class
- *  adds support for colorizing the border with errorColor.
+ *  The SparkSkinForHalo class is the base class for Spark skins for Halo components. 
+ *  This class adds support for setting the color of the border with the 
+ *  value of the <code>errorColor</code> style when a validation error occurs.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -29,7 +28,7 @@ import spark.skins.SparkSkin;
 public class SparkSkinForHalo extends SparkSkin
 {   
     /**
-     * Constructor.
+     *  Constructor.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -42,8 +41,11 @@ public class SparkSkinForHalo extends SparkSkin
     }
       
     /**
-     * Names of items that should have their <code>color</code> property set to the <code>errorColor</code> style
-     * if the component has an errorString.
+     *  If the <code>errorString</code> property of the component contains text, 
+     *  this property contains the names of the items that should have their 
+     *  <code>color</code> property set to the value of the <code>errorColor</code> style.
+     *  The text in the <code>errorString</code> property is displayed by a component's 
+     *  error tip when the component is monitored by a Validator and validation fails.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -56,7 +58,9 @@ public class SparkSkinForHalo extends SparkSkin
     }
       
     /**
-     * Default border item color.
+     *  Default border item color.
+     *
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -69,7 +73,7 @@ public class SparkSkinForHalo extends SparkSkin
     }
     
     /**
-     *  @private.
+     *  @private
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
