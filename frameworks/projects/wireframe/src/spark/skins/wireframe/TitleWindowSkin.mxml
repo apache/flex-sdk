@@ -86,7 +86,7 @@
             
             <!-- layer 3: text -->
             <s:Label id="titleDisplay" maxDisplayedLines="1"
-                     left="9" right="16" top="1" minHeight="23"
+                     left="9" right="24" top="1" minHeight="23"
                      verticalAlign="middle" fontWeight="bold">
             </s:Label>
             
