@@ -444,53 +444,33 @@ public class GraphicElement extends OnDemandEventDispatcher
     //----------------------------------
 
     /**
+     *  @private
+     *  Storage for the parent property.
+     */
+    private var _parent:DisplayObjectContainer;
+
+    /**
      *  @inheritDoc
      */
     public function get parent():DisplayObjectContainer
     {
-        return elementHost;
+        return _parent;
     }
     
     /**
      *  @inheritDoc
      */
-    public function parentChanged(p:DisplayObjectContainer):void
+    public function parentChanged(value:DisplayObjectContainer):void
     {
-        elementHost = GroupBase(p);
-    }
-
-    //----------------------------------
-    //  elementHost
-    //----------------------------------
-    
-    /**
-     *  @private
-     *  Storage for the elementHost property.
-     */
-    protected var _host:GroupBase;
-
-    /**
-     *  The is a temporary property, which will be removed when all references to 
-     *  elementHost have been removed.
-     */
-    public function get elementHost():GroupBase
-    {
-        return _host;
-    }
-
-    /**
-     *  @private
-     */
-    public function set elementHost(value:GroupBase):void
-    {
-        if (_host !== value)
+        // Should I check to make sure it's a Group here?
+        if (_parent !== value)
         {
-            _host = value;
-            if (_host && _host is IInvalidating)
+            _parent = value;
+            if (_parent && _parent is IInvalidating)
             {
-                IInvalidating(_host).invalidateProperties();
-                IInvalidating(_host).invalidateSize();
-                IInvalidating(_host).invalidateDisplayList();
+                IInvalidating(_parent).invalidateProperties();
+                IInvalidating(_parent).invalidateSize();
+                IInvalidating(_parent).invalidateDisplayList();
             }
         }
     }
@@ -1818,8 +1798,8 @@ public class GraphicElement extends OnDemandEventDispatcher
 
         allocateLayoutFeatures();
         layoutFeatures.layer = value;  
-        if(_host != null && _host is UIComponent)
-            (_host as UIComponent).invalidateLayering();
+        if(_parent != null && _parent is UIComponent)
+            (_parent as UIComponent).invalidateLayering();
         invalidateProperties();
     }
 
