@@ -18,14 +18,11 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.controls.listClasses.*;
-import mx.core.IContainerInvalidating;
 import mx.core.IDataRenderer;
-import mx.core.ILayoutElement;
 import mx.core.InteractionMode;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.managers.ILayoutManagerContainerClient;
 
 import spark.components.IItemRenderer;
 import spark.components.Label;
@@ -552,44 +549,6 @@ public class DefaultItemRenderer extends UIComponent
         // set the label's position and size
         labelDisplay.setLayoutBoundsSize(childWidth, childHeight);
         labelDisplay.setLayoutBoundsPosition(3, 5);
-    }
- 
-    /**
-     *  @private
-     */
-    override mx_internal function validateEstimatedSizesOfChild(child:ILayoutElement):void
-    {
-        var cw:Number;
-        var ch:Number;
-        var c:Number;
-        var oldcw:Number = child.estimatedWidth;
-        var oldch:Number = child.estimatedHeight;
-        c = estimatedWidth;
-        if (isNaN(c) && !isNaN(explicitWidth))
-            c = explicitWidth;
-        if (!isNaN(c))
-        {
-            cw = c - 6;
-        }
-        c = estimatedHeight;
-        if (isNaN(c) && !isNaN(explicitHeight))
-            c = explicitHeight;
-        if (!isNaN(c))
-        {
-            ch = c - 10;
-        }
-        child.setEstimatedSize(cw, ch);
-		if (child is ILayoutManagerContainerClient)
-		{
-			var sameWidth:Boolean = isNaN(cw) && isNaN(oldcw) || cw == oldcw;
-			var sameHeight:Boolean = isNaN(ch) && isNaN(oldch) || ch == oldch;
-            if (!(sameHeight && sameWidth))
-            {
-                if (child is IContainerInvalidating)
-                    IContainerInvalidating(child).invalidateEstimatedSizesOfChildren();
-                ILayoutManagerContainerClient(child).validateEstimatedSizesOfChildren();
-            }
-		}
     }
     
     //--------------------------------------------------------------------------
