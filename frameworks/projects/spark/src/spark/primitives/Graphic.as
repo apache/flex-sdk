@@ -9,11 +9,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.graphics
+package mx.graphics
 {
 
 import mx.events.PropertyChangeEvent;
-import flex.core.Group;
+import mx.components.Group;
 
 //--------------------------------------
 //  Events
