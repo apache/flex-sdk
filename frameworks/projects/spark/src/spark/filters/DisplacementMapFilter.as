@@ -142,6 +142,8 @@ public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
     
     private var _alpha:Number = 0;
     
+    [Inspectable(minValue="0.0", maxValue="1.0")]    
+    
     /**
      *  Specifies the alpha transparency value to use for out-of-bounds 
      *  displacements. It is specified as a normalized value from 0.0 to 1.0. For 
