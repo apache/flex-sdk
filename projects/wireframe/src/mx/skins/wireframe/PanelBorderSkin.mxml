@@ -231,7 +231,7 @@
     <!--- @private -->
     <s:Rect id="border" left="0" right="0" top="0" bottom="0">
         <s:stroke>
-            <s:SolidColorStroke color="0x5581D1" weight="1" />
+            <s:SolidColorStroke color="#707070" weight="1" />
         </s:stroke>
     </s:Rect>
     
@@ -239,7 +239,7 @@
     <s:Rect left="1" top="1" right="1" bottom="1">
         <s:fill>
             <!--- @private -->
-            <s:SolidColor id="backgroundFill" color="0xFFFFFF" />
+            <s:SolidColor id="backgroundFill" color="#FFFFFF" />
         </s:fill>
     </s:Rect>
     
@@ -255,7 +255,7 @@
             <!--- @private -->
             <s:Rect id="tbbg" left="0" right="0" top="0" bottom="1">
                 <s:fill> 
-                    <s:SolidColor color="0xE2EDF7" />
+                    <s:SolidColor color="#EEEEEE" />
                 </s:fill>
             </s:Rect>
             
@@ -264,8 +264,8 @@
             <s:Rect id="tbhi" left="0" right="0" top="0" bottom="0">
                 <s:stroke>
                     <s:LinearGradientStroke rotation="90" weight="1">
-                        <s:GradientEntry color="0xEAF2F8" />
-                        <s:GradientEntry color="0xE2EDF7" />
+                        <s:GradientEntry color="#EEEEEE" />
+                        <s:GradientEntry color="#EEEEEE" />
                     </s:LinearGradientStroke>
                 </s:stroke>
             </s:Rect>
@@ -274,7 +274,7 @@
             <!--- @private -->
             <s:Rect id="tbdiv" left="0" right="0" bottom="0" height="1">
                 <s:fill>
-                    <s:SolidColor color="0xD1E0F2" />
+                    <s:SolidColor color="#DDDDDD" />
                 </s:fill>
             </s:Rect>
             
