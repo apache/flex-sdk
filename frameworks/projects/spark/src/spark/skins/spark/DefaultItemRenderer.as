@@ -33,21 +33,40 @@
     
     
     <s:states>
-        <s:State name="normal"/>            
-        <s:State name="hovered"/>
-        <s:State name="selected"/>
+        <s:State name="normal" />            
+        <s:State name="hovered" />
+        <s:State name="selected" />
+        <s:State name="normalAndCaret"/>
+        <s:State name="hoveredAndCaret"/>
+        <s:State name="selectedAndCaret"/>
     </s:states>
     
     <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:stroke.normalAndCaret>
+            <s:SolidColorStroke 
+                color="{selectionColor}" 
+                weight="1"/>
+        </s:stroke.normalAndCaret>
+        <s:stroke.hoveredAndCaret>
+            <s:SolidColorStroke 
+                color="{selectionColor}" 
+                weight="1"/>
+        </s:stroke.hoveredAndCaret>
+        <s:stroke.selectedAndCaret>
+            <s:SolidColorStroke 
+                color="{selectionColor}" 
+                weight="1"/>
+        </s:stroke.selectedAndCaret>
         <s:fill>
-            <s:SolidColor color="{contentBackgroundColor}" />
+            <s:SolidColor 
+            	color.normal="{contentBackgroundColor}"
+                color.normalAndCaret="{contentBackgroundColor}"
+                color.hovered="{rollOverColor}"	
+                color.hoveredAndCaret="{rollOverColor}"
+            	color.selected="{selectionColor}"
+                color.selectedAndCaret="{selectionColor}"
+            	/>
         </s:fill>
-        <s:fill.hovered>
-            <s:SolidColor color="{rollOverColor}" />
-        </s:fill.hovered>
-        <s:fill.selected>
-            <s:SolidColor color="{selectionColor}" />
-        </s:fill.selected>
     </s:Rect>
     <s:SimpleText id="labelElement" verticalCenter="0" left="3" right="3" top="6" bottom="4"/>
 
