@@ -222,6 +222,9 @@ public class StrokedElement extends GraphicElement
         g.endFill();
     }
     
+    /**
+     *  @private
+     */  
     override protected function getStrokeExtents(postLayoutTransform:Boolean = true):Point
     {
         // FIXME (egeorgie): currently we take only scale into account,
