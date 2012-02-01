@@ -284,8 +284,6 @@ public class FxResizeInstance extends FxAnimateInstance
         {
             if (!isNaN(widthTo) && !isNaN(widthBy))
                 widthFrom = widthTo - widthBy;
-            else if (propertyChanges && propertyChanges.start["width"] !== undefined)
-                widthFrom = propertyChanges.start["width"];
         }
         if (isNaN(widthTo))
         {       
@@ -316,8 +314,6 @@ public class FxResizeInstance extends FxAnimateInstance
         {
             if (!isNaN(heightTo) && !isNaN(heightBy))
                 heightFrom = heightTo - heightBy;
-            else if (propertyChanges && propertyChanges.start["height"] != undefined)
-                heightFrom = propertyChanges.start["height"];
         }
         if (isNaN(heightTo))
         {       
