@@ -22,8 +22,8 @@
       @playerversion AIR 1.5
       @productversion Flex 4
 -->
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-             alpha.disabledStates="0.5">
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+        alpha.disabledStates="0.5">
 
     <fx:Metadata>
         /** 
@@ -82,4 +82,4 @@
              maxDisplayedLines="1"
              left="18" right="0" top="3" bottom="3" verticalCenter="2" />
 
-</s:SparkSkin>
+</s:Skin>
