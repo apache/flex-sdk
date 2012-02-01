@@ -32,7 +32,7 @@ use namespace mx_internal;
  *  The StrokedElement class is the base class for all graphic elements that
  *  have a stroke.
  */
-public class StrokedElement extends GraphicElement implements IDisplayObjectElement
+public class StrokedElement extends GraphicElement
 {
 	include "../core/Version.as";
 	//--------------------------------------------------------------------------
