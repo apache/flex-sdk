@@ -1043,17 +1043,18 @@ public class VerticalLayout extends LayoutBase
             if ((reqEltCount == -1) || ((reqEltCount != -1) && eltInLayoutCount < requestedRowCount))
             {
                 var height:Number = isNaN(fixedRowHeight) ? elt.getPreferredBoundsHeight() : fixedRowHeight;
+                height = Math.ceil(height); // Round up to give it a whole pixel.
                 preferredHeight += height;
-                minHeight += (isNaN(elt.percentHeight)) ? height : elt.getMinBoundsHeight();
+                minHeight += (isNaN(elt.percentHeight)) ? height : Math.ceil(elt.getMinBoundsHeight());
                 eltInLayoutCount += 1;
             }
             
             // Consider the width of each element, inclusive of those outside
             // the requestedRowCount range.
-            var width:Number = elt.getPreferredBoundsWidth();
+            var width:Number = Math.ceil(elt.getPreferredBoundsWidth());
             preferredWidth = Math.max(preferredWidth, width);
             var flexibleWidth:Boolean = !isNaN(elt.percentWidth) || horizontalAlign == HorizontalAlign.JUSTIFY;
-            minWidth = Math.max(minWidth, flexibleWidth ? elt.getMinBoundsWidth() : width);           
+            minWidth = Math.max(minWidth, flexibleWidth ? Math.ceil(elt.getMinBoundsWidth()) : width);           
         }
         
         if (eltInLayoutCount > 1)
@@ -1574,7 +1575,7 @@ public class VerticalLayout extends LayoutBase
                 else
                     layoutElementWidth = layoutElement.getPreferredBoundsWidth();
                 
-                containerWidth = Math.max(containerWidth, layoutElementWidth);
+                containerWidth = Math.max(containerWidth, Math.ceil(layoutElementWidth));
             }
         }
 
@@ -1610,16 +1611,16 @@ public class VerticalLayout extends LayoutBase
                 continue;
                 
             // Set the layout element's position
-            var x:Number = x0 + (containerWidth - layoutElement.getLayoutBoundsWidth()) * hAlign;
+            var dx:Number = Math.ceil(layoutElement.getLayoutBoundsWidth());
+            var dy:Number = Math.ceil(layoutElement.getLayoutBoundsHeight());
+
+            var x:Number = x0 + (containerWidth - dx) * hAlign;
             // In case we have HorizontalAlign.CENTER we have to round
             if (hAlign == 0.5)
                 x = Math.round(x);
             layoutElement.setLayoutBoundsPosition(x, y);
                             
             // Update maxX,Y, first,lastVisibleIndex, and y
-            var dx:Number = layoutElement.getLayoutBoundsWidth();
-            var dy:Number = layoutElement.getLayoutBoundsHeight();
-            
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);
             if (!clipAndEnableScrolling ||
@@ -1659,8 +1660,8 @@ public class VerticalLayout extends LayoutBase
      *  after growing all children to their maxHeight.
      */
     private function distributeHeight(width:Number, 
-                                     height:Number, 
-                                     restrictedWidth:Number):Number
+                                      height:Number, 
+                                      restrictedWidth:Number):Number
     {
         var spaceToDistribute:Number = height;
         var totalPercentHeight:Number = 0;
@@ -1669,7 +1670,7 @@ public class VerticalLayout extends LayoutBase
         var layoutElement:ILayoutElement;
         
         // rowHeight can be expensive to compute
-        var rh:Number = (variableRowHeight) ? 0 : rowHeight;
+        var rh:Number = (variableRowHeight) ? 0 : Math.ceil(rowHeight);
         var count:uint = target.numElements;
         var totalCount:uint = count; // number of elements to use in gap calculation
         
@@ -1702,7 +1703,7 @@ public class VerticalLayout extends LayoutBase
                 sizeLayoutElement(layoutElement, width, horizontalAlign, 
                                restrictedWidth, NaN, variableRowHeight, rh);
                 
-                spaceToDistribute -= layoutElement.getLayoutBoundsHeight();
+                spaceToDistribute -= Math.ceil(layoutElement.getLayoutBoundsHeight());
             } 
         }
         
