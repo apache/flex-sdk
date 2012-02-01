@@ -91,13 +91,14 @@
     </s:states>
     
     <fx:Declarations>
-        <!-- Defines the appearance of the the List's drop indicator.
+        <!--- Defines the appearance of the the List's drop indicator.
              To customize the drop indicator appearance, create a custom ListSkin class.
-             The List's layout will take care to size and position the dropIndicator.
-		     The size of the dropIndicator is typically set to the size of the gaps between the items.
-		     The minimum and maximum settings are typically respected only in the direction
-		     along the major axis (the gap axis).  For example a VerticalLayout will ignore the 
-		     minWidth and maxWidth settings, but respect minHeight and maxHeight. -->
+             The List's layout takes care to size and position the dropIndicator.
+             The size of the <code>dropIndicator</code> is typically set to the size of the gaps between the items.
+             The minimum and maximum settings are typically respected only in the direction
+             along the major axis (the gap axis).  For example a VerticalLayout ignores the 
+             <code>minWidth</code> and <code>maxWidth</code> settings, 
+             but respect <code>minHeight</code> and <code>maxHeight</code>. -->
         <fx:Component id="dropIndicator">
             <s:Group minWidth="3" minHeight="3" maxWidth="3" maxHeight="3">
                 <s:Rect left="0" right="0" top="0" bottom="0">
