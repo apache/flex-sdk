@@ -2907,8 +2907,7 @@ public class GraphicElement extends EventDispatcher
         // set the layoutFeatures.mirror flag.  Similarly, if mirroring isn't 
         // required, then clear the layoutFeatures.mirror flag.
         
-        const mirror:Boolean = (parentElt.layoutDirection != null && _layoutDirection != null) 
-            && (_layoutDirection != parentElt.layoutDirection);
+        const mirror:Boolean = (_layoutDirection != null) && (_layoutDirection != parentElt.layoutDirection);
         
         if ((layoutFeatures) ? (mirror != layoutFeatures.mirror) : mirror)
         {
