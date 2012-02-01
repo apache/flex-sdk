@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+    
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The default skin class for a Spark SkinnablePopUpContainer container.  
+
+    @see spark.components.SkinnablePopUpContainer
+    
+    @langversion 3.0
+    @playerversion Flash 10
+    @playerversion AIR 2.5
+    @productversion Flex 4.5
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+        xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabled="0.5">
+    
+    <fx:Metadata>
+    <![CDATA[ 
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
+        [HostComponent("spark.components.SkinnablePopUpContainer")]
+    ]]>
+    </fx:Metadata> 
+    
+    <fx:Script fb:purpose="styling">
+        <![CDATA[         
+            /**
+             *  @private
+             */
+            override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
+            {
+                // Push backgroundColor and backgroundAlpha directly.
+                // Handle undefined backgroundColor by hiding the background object.
+                if (isNaN(getStyle("backgroundColor")))
+                {
+                    background.visible = false;
+                }
+                else
+                {
+                    background.visible = true;
+                    bgFill.color = getStyle("backgroundColor");
+                    bgFill.alpha = getStyle("backgroundAlpha");
+                }
+                
+                super.updateDisplayList(unscaledWidth, unscaledHeight);
+            }
+        ]]>        
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="normal"/>
+        <s:State name="disabled"/>
+        <s:State name="closed" stateGroups="closedGroup"/>
+        <s:State name="disabledAndClosed" stateGroups="closedGroup"/>
+    </s:states>
+    
+    <!-- Transitions for open and close -->
+    <s:transitions>
+        <s:Transition fromState="closed" toState="normal" autoReverse="true">
+            <s:Fade duration="150" target="{chrome}"/>
+        </s:Transition>
+
+        <s:Transition fromState="disabledAndClosed" toState="disabled" autoReverse="true">
+            <s:Fade duration="150" target="{chrome}"/>
+        </s:Transition>
+        
+        <s:Transition fromState="normal" toState="closed" autoReverse="true">
+            <s:Fade duration="150" target="{chrome}"/>
+        </s:Transition>
+
+        <s:Transition fromState="disabled" toState="disabledAndClosed" autoReverse="true">
+            <s:Fade duration="150" target="{chrome}"/>
+        </s:Transition>
+    </s:transitions>
+    
+    <s:Group id="chrome" left="0" right="0" top="0" bottom="0" visible.closedGroup="false">
+
+        <!--- Defines the appearance of the SkinnablePopUpContainer class's background. -->
+        <s:Rect id="background" left="0" right="0" top="0" bottom="0">
+            <s:fill>
+                <!--- @private -->
+                <s:SolidColor id="bgFill" color="#FFFFFF"/>
+            </s:fill>
+        </s:Rect>
+        
+        <!--
+        Note: setting the minimum size to 0 here so that changes to the host component's
+        size will not be thwarted by this skin part's minimum size.   This is a compromise,
+        more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
+        -->
+        <!--- @copy spark.components.SkinnableContainer#contentGroup -->
+        <s:Group id="contentGroup" left="0" right="0" top="0" bottom="0" minWidth="0" minHeight="0">
+            <s:layout>
+                <s:BasicLayout/>
+            </s:layout>
+        </s:Group>
+    </s:Group>
+    
+</s:Skin>
