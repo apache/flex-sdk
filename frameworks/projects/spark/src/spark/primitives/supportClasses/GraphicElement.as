@@ -257,7 +257,7 @@ public class GraphicElement extends EventDispatcher
         layoutFeatures = new AdvancedLayoutFeatures();
         layoutFeatures.layoutX = _x;
         layoutFeatures.layoutY = _y;
-		layoutFeatures.layoutWidth = _width;  // for the mirror transform		
+        layoutFeatures.layoutWidth = _width;  // for the mirror transform       
     }
     
     /**
@@ -367,6 +367,42 @@ public class GraphicElement extends EventDispatcher
         invalidateProperties();
     }
 
+    //----------------------------------
+    //  alwaysCreateDisplayObject
+    //----------------------------------
+    
+    private var _alwaysCreateDisplayObject:Boolean;
+    
+    /**
+     *  Specifies that this GraphicElement is to be associated with and be rendered 
+     *  to its own DisplayObject.
+     * 
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get alwaysCreateDisplayObject():Boolean
+    {
+        return _alwaysCreateDisplayObject;
+    }
+	
+	/**
+	 *  @private
+	 */
+	public function set alwaysCreateDisplayObject(value:Boolean):void
+	{
+		if (value != _alwaysCreateDisplayObject)
+		{
+			var previous:Boolean = needsDisplayObject;
+			_alwaysCreateDisplayObject = value;
+			if (previous != needsDisplayObject)
+				invalidateDisplayObjectSharing();
+		}
+	}
+    
     //----------------------------------
     //  baseline
     //----------------------------------
@@ -1081,36 +1117,36 @@ public class GraphicElement extends EventDispatcher
         invalidateParentSizeAndDisplayList();
     }
 
-	//----------------------------------
-	//  id
-	//----------------------------------
+    //----------------------------------
+    //  id
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the id property.
-	 */
-	private var _id:String;
+    /**
+     *  @private
+     *  Storage for the id property.
+     */
+    private var _id:String;
 
-	/**
-	 *  The identity of the component.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */ 
-	public function get id():String
-	{
-		return _id;
-	}
+    /**
+     *  The identity of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    public function get id():String
+    {
+        return _id;
+    }
 
-	/**
-	 *  @private
-	 */ 
-	public function set id(value:String):void
-	{
-		_id = value;
-	}
+    /**
+     *  @private
+     */ 
+    public function set id(value:String):void
+    {
+        _id = value;
+    }
 
     //----------------------------------
     //  left
@@ -2502,14 +2538,14 @@ public class GraphicElement extends EventDispatcher
         var oldValue:Number = _width;
         _width = value;
 
-		// The width is needed for the mirroring transform.
-		if (layoutFeatures)
-		{
-			layoutFeatures.layoutWidth = value;
-			invalidateTransform();
-		}        
+        // The width is needed for the mirroring transform.
+        if (layoutFeatures)
+        {
+            layoutFeatures.layoutWidth = value;
+            invalidateTransform();
+        }        
 
-		dispatchPropertyChangeEvent("width", oldValue, value);
+        dispatchPropertyChangeEvent("width", oldValue, value);
 
         // Invalidate the display list, since we're changing the actual width
         // and we're not going to correctly detect whether the layout sets
@@ -2934,36 +2970,36 @@ public class GraphicElement extends EventDispatcher
     {
         return _displayObjectSharingMode;    
     }
-	
-	//----------------------------------
-	//  layoutDirection
-	//----------------------------------
-	
-	private var _layoutDirection:String = null;
-	
+    
+    //----------------------------------
+    //  layoutDirection
+    //----------------------------------
+    
+    private var _layoutDirection:String = null;
+    
     [Inspectable(category="General", enumeration="ltr,rtl")]
     
     /**
      *  @inheritDoc
      */
     public function get layoutDirection():String
-	{
+    {
         if (_layoutDirection != null)
             return _layoutDirection;
         
         const parentElt:ILayoutDirectionElement = parent as ILayoutDirectionElement;
         return (parentElt) ? parentElt.layoutDirection : LayoutDirection.LTR; 
     }
-	
-	/**
-	 *  @private
-	 */
-	public function set layoutDirection(value:String):void
-	{
-		if (_layoutDirection == value)
-			return;
-		
-		_layoutDirection = value;
+    
+    /**
+     *  @private
+     */
+    public function set layoutDirection(value:String):void
+    {
+        if (_layoutDirection == value)
+            return;
+        
+        _layoutDirection = value;
         invalidateLayoutDirection();
     }
     
@@ -2999,24 +3035,24 @@ public class GraphicElement extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Called automatically by the MXML compiler when the GraphicElement
-	 *  is created using an MXML tag.
-	 *  If you create the GraphicElement through ActionScript you must set the
-	 * <code>id</code> property manually.
-	 *
-	 *  @param document The MXML document containing this GraphicElement (not used).
-	 *  @param id The MXML id for this GraphicElement.
-	 *  
+    /**
+     *  Called automatically by the MXML compiler when the GraphicElement
+     *  is created using an MXML tag.
+     *  If you create the GraphicElement through ActionScript you must set the
+     * <code>id</code> property manually.
+     *
+     *  @param document The MXML document containing this GraphicElement (not used).
+     *  @param id The MXML id for this GraphicElement.
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-	 */
-	public function initialized(document:Object, id:String):void
-	{
-		this.id = id;
-	}
+     */
+    public function initialized(document:Object, id:String):void
+    {
+        this.id = id;
+    }
 
     /**
      * Converts the point object from the object's (local) coordinates 
@@ -3081,25 +3117,6 @@ public class GraphicElement extends EventDispatcher
         return displayObject;
     }
     
-    private var _alwaysCreateDisplayObject:Boolean;
-    
-    // Used by the design tool to get bitmap captures
-    mx_internal function set alwaysCreateDisplayObject(value:Boolean):void
-    {
-        if (value != _alwaysCreateDisplayObject)
-        {
-            var previous:Boolean = needsDisplayObject;
-            _alwaysCreateDisplayObject = value;
-            if (previous != needsDisplayObject)
-                invalidateDisplayObjectSharing();
-        }
-    }
-    
-    mx_internal function get alwaysCreateDisplayObject():Boolean
-    {
-        return _alwaysCreateDisplayObject;
-    }
-
     /**
      *  True if the element requires an exclusive DisplayObject.
      *
@@ -4395,9 +4412,9 @@ public class GraphicElement extends EventDispatcher
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-	public function setEstimatedSize(estimatedWidth:Number = NaN, 
+    public function setEstimatedSize(estimatedWidth:Number = NaN, 
                                      estimatedHeight:Number = NaN,
-									 invalidateSize:Boolean = true):void
+                                     invalidateSize:Boolean = true):void
     {
         _estimatedWidth = estimatedWidth;
         _estimatedHeight = estimatedHeight;
