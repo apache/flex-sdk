@@ -32,37 +32,42 @@
         <s:State name="disabled" />
     </s:states>
     
-    <!-- TODO: this part is a little fuzzy...what can we do to make it better? -->
+    <!-- black line on top -->
+    <s:Rect width="1" x="7" y="0" height="7">
+        <s:fill>
+            <s:SolidColor color="0x000000"/>
+        </s:fill>
+    </s:Rect>
     
     <!-- now the base shape of the component -->
-    <s:Group y="5">
+    <s:Group y="6">
     
         <!-- drop shadow for shape -->
-        <s:Line xFrom="2" xTo="11" y="12">
+        <s:Line xFrom="4" xTo="11" y="10">
             <s:stroke>
                 <s:SolidColorStroke color="0x000000" alpha="0.5" />
             </s:stroke>
         </s:Line>
-        <s:Line yFrom="5" yTo="13" x="1">
+        <s:Line yFrom="4" yTo="11" x="3">
             <s:stroke>
                 <s:SolidColorStroke color="0x000000" alpha="0.12" />
             </s:stroke>
         </s:Line>
-        <s:Line yFrom="5" yTo="13" x="11">
+        <s:Line yFrom="4" yTo="11" x="11">
             <s:stroke>
                 <s:SolidColorStroke color="0x000000" alpha="0.12" />
             </s:stroke>
         </s:Line>
         
         <!-- shape border -->
-        <s:Path winding="evenOdd" data="M 2 5 L 2 12 L 11 12 L 11 5 L 6 0 L 2 5 Z">
+        <s:Path winding="evenOdd" data="M 4 2 L 4 10 L 11 10 L 11 3 L 10 3 L 10 2 L 9 2 L 9 1 L 6 1 L 6 2 L 5 2 L 5 3 L 4 3 L 4 2 Z">
             <s:fill>
                 <s:SolidColor color="0x000000"/>
             </s:fill>
         </s:Path>
     
         <!-- shape fill -->
-        <s:Path winding="evenOdd" data="M 3 6 L 3 11 L 10 11 L 10 6 L 6 1 L 3 6 Z">
+        <s:Path winding="evenOdd" data="M 5 4 L 5 9 L 10 9 L 10 4 L 9 4 L 9 3 L 8 3 L 8 2 L 8 1 L 8 2 L 7 2 L 7 3 L 6 3 L 6 4 L 5 4 Z">
             <s:fill>
                 <s:LinearGradient rotation="90">
                     <s:GradientEntry color="0xFFFFFF" />
@@ -84,7 +89,7 @@
         </s:Path>
         
         <!-- shape fill highlight -->
-        <s:Path winding="evenOdd" data="M 3 6 L 3 11 L 10 11 L 10 6 L 6 1 L 3 6 Z">
+        <s:Path winding="evenOdd" data="M 5 4 L 5 9 L 10 9 L 10 4 L 9 4 L 9 3 L 8 3 L 8 2 L 8 1 L 8 2 L 7 2 L 7 3 L 6 3 L 6 4 L 5 4 Z">
             <s:fill>
                 <s:SolidColor color="0xFFFFFF" alpha="0.22"/>
             </s:fill>
@@ -92,7 +97,7 @@
     </s:Group>
     
     <!-- for sizing/hit-test only -->
-    <s:Rect width="14" height="19">
+    <s:Rect width="13" height="19">
         <s:fill>
             <s:SolidColor color="0x000000" alpha="0" />
         </s:fill>
