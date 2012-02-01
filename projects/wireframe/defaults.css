@@ -57,6 +57,11 @@ s|ComboBox
     skinClass: ClassReference("spark.skins.wireframe.ComboBoxSkin");
 }
 
+s|DataGrid
+{
+    skinClass: ClassReference("spark.skins.wireframe.DataGridSkin");
+}
+
 s|DropDownList
 {
 	skinClass: ClassReference("spark.skins.wireframe.DropDownListSkin");
