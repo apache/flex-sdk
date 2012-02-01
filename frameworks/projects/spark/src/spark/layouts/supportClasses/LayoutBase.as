@@ -224,21 +224,33 @@ public class LayoutBase extends OnDemandEventDispatcher
      * 
      *  Used by virtualLayouts to estimate the size of layout elements
      *  that have not been scrolled into view.
-     *
-     *  @default null
+     * 
+     *  If this property has not been set and the target is non-null 
+     *  then the target's first layout element is cached and returned.
+     * 
+     *  @default The target's first layout element.
+     *  @see target
      *  @see DataGroup#typicalItem
-     *  @see #getLayoutElement
-     *  @see GroupBase#virtualLayout
      *  @see mx.layout.VerticalLayout#variableRowHeight
      *  @see mx.layout.HorizontalLayout#variableColumnWidth
      */
     public function get typicalLayoutElement():ILayoutElement
     {
+        if (!_typicalLayoutElement && target && (target.numLayoutElements > 0))
+            _typicalLayoutElement = target.getLayoutElementAt(0);
         return _typicalLayoutElement;
     }
 
     /**
      *  @private
+     *  Current implementation limitations:
+     * 
+     *  The default value of this property may be initialized
+     *  lazily to layout element zero.  That means you can't rely on the
+     *  set method being called to stay in sync with the property's value.
+     * 
+     *  If the default value is lazily initialized, it will not be reset if
+     *  the target changes.
      */
     public function set typicalLayoutElement(value:ILayoutElement):void
     {
