@@ -28,13 +28,13 @@ in accordance with the terms of the license agreement accompanying it.
     <!-- layer 0: control bar background -->
     <s:Rect left="0" right="0" bottom="0" top="1" >
         <s:fill>
-            <s:SolidColor color="0xE2EdF7" />
+            <s:SolidColor color="#EEEEEE" />
         </s:fill>
     </s:Rect>
     
     <s:Rect left="0" right="0" bottom="0" height="1">
         <s:fill>
-            <s:SolidColor color="0xD1E0F2" />
+            <s:SolidColor color="#DDDDDD" />
         </s:fill>
     </s:Rect>
     
