@@ -451,7 +451,6 @@ public class TileLayout extends LayoutBase
 
     private var _horizontalAlign:String = HorizontalAlign.JUSTIFY;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General", enumeration="left,center,right,justify")]
 
     /**
@@ -495,7 +494,6 @@ public class TileLayout extends LayoutBase
 
     private var _verticalAlign:String = VerticalAlign.JUSTIFY;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General", enumeration="top,middle,bottom,justify")]
 
     /**
@@ -662,7 +660,6 @@ public class TileLayout extends LayoutBase
 
     private var _orientation:String = TileOrientation.ROWS;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General", enumeration="rows,columns", defaultValue="rows")]
 
     /**
