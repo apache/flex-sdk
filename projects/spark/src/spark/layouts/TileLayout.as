@@ -1613,6 +1613,15 @@ public class TileLayout extends LayoutBase
      */
     override public function measure():void
     {
+        // Save and restore these values so they're not modified 
+        // as a sideeffect of measure().
+        var savedColumnCount:int = _columnCount;
+        var savedRowCount:int = _rowCount;
+        var savedHorizontalGap:int = _horizontalGap;
+        var savedVerticalGap:int = _verticalGap;
+        var savedColumnWidth:int = _columnWidth;
+        var savedRowHeight:int = _rowHeight; 
+
         var layoutTarget:GroupBase = target;
         if (!layoutTarget)
             return;
@@ -1650,6 +1659,13 @@ public class TileLayout extends LayoutBase
         layoutTarget.measuredMinWidth = measuredMinWidth + hPadding;
         layoutTarget.measuredHeight = measuredHeight + vPadding;
         layoutTarget.measuredMinHeight = measuredMinHeight + vPadding;
+
+        _columnCount = savedColumnCount;
+        _rowCount = savedRowCount;
+        _horizontalGap = savedHorizontalGap;
+        _verticalGap = savedVerticalGap;
+        _columnWidth = savedColumnWidth;
+        _rowHeight = savedRowHeight; 
     }
 
     /**
