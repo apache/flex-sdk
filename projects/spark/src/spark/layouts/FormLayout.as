@@ -23,12 +23,17 @@ import spark.layouts.supportClasses.LayoutBase;
 use namespace mx_internal;
 
 /**
- *  The default layout for Spark Form skins.
+ *  The FormLayout class defines the default layout for Spark Form skins.
+ *  FormLayout provides a vertical layout for the child FormItem containers in the Form.
+ *
+ *  @see spark.components.Form
+ *  @see spark.components.FormHeading
+ *  @see spark.components.FormItem
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class FormLayout extends VerticalLayout
 {
@@ -122,7 +127,7 @@ public class FormLayout extends VerticalLayout
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */                  
     public function FormLayout()
