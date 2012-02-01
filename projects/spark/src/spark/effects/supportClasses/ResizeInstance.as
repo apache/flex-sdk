@@ -242,77 +242,10 @@ public class FxResizeInstance extends FxAnimateInstance
         // effects manually on the children themselves
         var childrenHiding:Boolean = false; // hidePanelChildren();
 
-        if (target is IStyleClient)
-        {
-            var left:* = target.getStyle("left");
-            if (left != undefined)
-                target.setStyle("left",undefined);
-        
-            var right:* = target.getStyle("right");
-            if (right != undefined)
-                target.setStyle("right",undefined);
-            
-            var top:* = target.getStyle("top");
-            if (top != undefined)
-                target.setStyle("top",undefined);
-            
-            var bottom:* = target.getStyle("bottom");
-            if (bottom != undefined)
-                target.setStyle("bottom",undefined);    
-        }
-        
         propertyValuesList = 
             [new PropertyValuesHolder("width", [widthFrom, widthTo]),
              new PropertyValuesHolder("height", [heightFrom, heightTo])];
-        
-        // TODO: These additional pvholder items are a workaround for the
-        // current difference between GraphicElement constraints and
-        // UIComponent constraints. For components, the constraints
-        // side-effect the width/height properties which we can then animate.
-        // For GraphicElements, this does not happen, so animations on
-        // width/height are ignored when constraints are set.
-        // Expect this to change with GraphicElement and UIComponent are
-        // more closely aligned in behavior. 
-        if (target is IGraphicElement && propertyChanges)
-        {
-            if (propertyChanges.start["left"] !== undefined ||
-                propertyChanges.start["right"] !== undefined ||
-                propertyChanges.end["left"] !== undefined ||
-                propertyChanges.end["right"] !== undefined)
-            {
-                var lFrom:Number = (propertyChanges.start["left"] !== undefined) ?
-                    propertyChanges.start["left"] : getCurrentValue("left");
-                var rFrom:Number = (propertyChanges.start["right"] !== undefined) ?
-                    propertyChanges.start["right"] : getCurrentValue("right");
-                var lTo:Number = (propertyChanges.end["left"] !== undefined) ?
-                    propertyChanges.end["left"] : getCurrentValue("left");
-                var rTo:Number = (propertyChanges.end["right"] !== undefined) ?
-                    propertyChanges.end["right"] : getCurrentValue("right");
-                if (!isNaN(lFrom) && !isNaN(lTo))
-                    propertyValuesList.push(new PropertyValuesHolder("left", [lFrom, lTo]));
-                if (!isNaN(rFrom) && !isNaN(rTo))
-                    propertyValuesList.push(new PropertyValuesHolder("right", [rFrom, rTo]));
-            }
-            if (propertyChanges.start["top"] !== undefined ||
-                propertyChanges.start["bottom"] !== undefined ||
-                propertyChanges.end["top"] !== undefined ||
-                propertyChanges.end["bottom"] !== undefined)
-            {
-                var tFrom:Number = (propertyChanges.start["top"] !== undefined) ?
-                    propertyChanges.start["top"] : getCurrentValue("top");
-                var bFrom:Number = (propertyChanges.start["bottom"] !== undefined) ?
-                    propertyChanges.start["bottom"] : getCurrentValue("bottom");
-                var tTo:Number = (propertyChanges.end["top"] !== undefined) ?
-                    propertyChanges.end["top"] : getCurrentValue("top");
-                var bTo:Number = (propertyChanges.end["bottom"] !== undefined) ?
-                    propertyChanges.end["bottom"] : getCurrentValue("bottom");
-                if (!isNaN(tFrom) && !isNaN(tTo))
-                    propertyValuesList.push(new PropertyValuesHolder("top", [tFrom, tTo]));
-                if (!isNaN(bFrom) && !isNaN(bTo))
-                    propertyValuesList.push(new PropertyValuesHolder("bottom", [bFrom, bTo]));
-            }
-        }
-        
+                
         super.play();
 
         if (childrenHiding)
