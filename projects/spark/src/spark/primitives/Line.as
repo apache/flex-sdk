@@ -9,12 +9,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics
+package spark.primitives
 {
 
 import flash.display.Graphics;
 import flash.events.EventDispatcher;
 import flash.geom.Rectangle;
+import spark.primitives.supportClasses.StrokedElement;
 
 /**
  *  The Line class is a graphic element that draws a line between two points.
