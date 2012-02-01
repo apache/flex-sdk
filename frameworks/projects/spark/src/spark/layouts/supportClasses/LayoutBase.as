@@ -1476,7 +1476,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     {
         var elementR:Rectangle = getElementBounds(index);
         return getScrollPositionDeltaToElementHelperHelper(
-                                                elementR, null,
+                                                elementR, null, true,
                                                 topOffset, bottomOffset, 
                                                 leftOffset, rightOffset);
     }
@@ -1489,6 +1489,9 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  For the offset properties, a value of NaN means don't offset from that edge. A value
      *  of 0 means to put the element flush against that edge.
      * 
+     *  @param elementR The bounds of the element to position
+     *  @param elementLocalBounds The bounds inside of the element to position
+     *  @param entireElementVisible If true, position the entire element in the viewable area
      *  @param topOffset Number of pixels to position the element below the top edge.
      *  @param bottomOffset Number of pixels to position the element above the bottom edge.
      *  @param leftOffset Number of pixels to position the element to the right of the left edge.
@@ -1497,6 +1500,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     protected function getScrollPositionDeltaToElementHelperHelper(
                                     elementR:Rectangle,
                                     elementLocalBounds:Rectangle,
+                                    entireElementVisible:Boolean = true,
                                     topOffset:Number = NaN, 
                                     bottomOffset:Number = NaN, 
                                     leftOffset:Number = NaN,
@@ -1513,41 +1517,47 @@ public class LayoutBase extends OnDemandEventDispatcher
             (scrollR.containsRect(elementR) || (!elementLocalBounds && elementR.containsRect(scrollR))))
             return null;
         
-        var dxl:Number = elementR.left - scrollR.left;     // left justify element
-        var dxr:Number = elementR.right - scrollR.right;   // right justify element
-        var dyt:Number = elementR.top - scrollR.top;       // top justify element
-        var dyb:Number = elementR.bottom - scrollR.bottom; // bottom justify element
+        var dx:Number = 0;
+        var dy:Number = 0;
         
-        // minimize the scroll
-        var dx:Number = (Math.abs(dxl) < Math.abs(dxr)) ? dxl : dxr;
-        var dy:Number = (Math.abs(dyt) < Math.abs(dyb)) ? dyt : dyb;
+        if (entireElementVisible)
+        {
+            var dxl:Number = elementR.left - scrollR.left;     // left justify element
+            var dxr:Number = elementR.right - scrollR.right;   // right justify element
+            var dyt:Number = elementR.top - scrollR.top;       // top justify element
+            var dyb:Number = elementR.bottom - scrollR.bottom; // bottom justify element
+            
+            // minimize the scroll
+            dx = (Math.abs(dxl) < Math.abs(dxr)) ? dxl : dxr;
+            dy = (Math.abs(dyt) < Math.abs(dyb)) ? dyt : dyb;
+            
+            if (!isNaN(topOffset))
+                dy = dyt + topOffset;
+            else if (!isNaN(bottomOffset))
+                dy = dyb - bottomOffset;
+            
+            if (!isNaN(leftOffset))
+                dx = dxl + leftOffset;
+            else if (!isNaN(rightOffset))
+                dx = dxr - rightOffset;
+            
+            // scrollR "contains"  elementR in just one dimension
+            if ((elementR.left >= scrollR.left) && (elementR.right <= scrollR.right))
+                dx = 0;
+            else if ((elementR.bottom <= scrollR.bottom) && (elementR.top >= scrollR.top))
+                dy = 0;
+            
+            // elementR "contains" scrollR in just one dimension
+            if ((elementR.left <= scrollR.left) && (elementR.right >= scrollR.right))
+                dx = 0;
+            else if ((elementR.bottom >= scrollR.bottom) && (elementR.top <= scrollR.top))
+                dy = 0;
+        }
         
-        if (!isNaN(topOffset))
-            dy = dyt + topOffset;
-        else if (!isNaN(bottomOffset))
-            dy = dyb - bottomOffset;
-        
-        if (!isNaN(leftOffset))
-            dx = dxl + leftOffset;
-        else if (!isNaN(rightOffset))
-            dx = dxr - rightOffset;
-        
-        // scrollR "contains"  elementR in just one dimension
-        if ((elementR.left >= scrollR.left) && (elementR.right <= scrollR.right))
-            dx = 0;
-        else if ((elementR.bottom <= scrollR.bottom) && (elementR.top >= scrollR.top))
-            dy = 0;
-        
-        // elementR "contains" scrollR in just one dimension
-        if ((elementR.left <= scrollR.left) && (elementR.right >= scrollR.right))
-            dx = 0;
-        else if ((elementR.bottom >= scrollR.bottom) && (elementR.top <= scrollR.top))
-            dy = 0;
-    
         if (elementLocalBounds)
         {
             // Only adjust for local bounds if the element is wider than the scroll width
-            if (elementR.width > scrollR.width)
+            if (elementR.width > scrollR.width || !entireElementVisible)
             {
                 if (elementLocalBounds.left < scrollR.left)
                     dx = elementLocalBounds.left - scrollR.left;
@@ -1556,7 +1566,7 @@ public class LayoutBase extends OnDemandEventDispatcher
             }
             
             // Only adjust for local bounds if the element is taller than the scroll height
-            if (elementR.height > scrollR.height)
+            if (elementR.height > scrollR.height || !entireElementVisible)
             {
                 if (elementLocalBounds.bottom > scrollR.bottom) 
                     dy = elementLocalBounds.bottom - scrollR.bottom;
@@ -1573,6 +1583,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      */  
     mx_internal function getScrollPositionDeltaToAnyElement(element:IVisualElement, 
                                                             elementLocalBounds:Rectangle = null, 
+                                                            entireElementVisible:Boolean = true,
                                                             topOffset:Number = NaN,
                                                             bottomOffset:Number = NaN,
                                                             leftOffset:Number = NaN,
@@ -1584,7 +1595,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (elementLocalBounds)
             elementLocalBounds = convertLocalToTarget(element, elementLocalBounds);
         return getScrollPositionDeltaToElementHelperHelper(
-            elementR, elementLocalBounds,
+            elementR, elementLocalBounds, entireElementVisible,
             topOffset, bottomOffset, 
             leftOffset, rightOffset);
         
