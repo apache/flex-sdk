@@ -14,7 +14,7 @@
 <Skin xmlns="http://ns.adobe.com/mxml/2009">
 
     <Metadata>
-    	[HostComponent("flex.component.TextArea")]
+    	[HostComponent("mx.components.FxTextArea")]
     </Metadata> 
     
     <states>
@@ -47,13 +47,13 @@
               horizontalScrollPosition="{horizontalScrollBar.value}"
               verticalScrollPosition="{verticalScrollBar.value}"/>
 
-    <VScrollBar id="verticalScrollBar" includeIn="vScrollBar"
+    <FxVScrollBar id="verticalScrollBar" includeIn="vScrollBar"
                 right="1" top="1" bottom="1" bottom.hScrollBar="16"
                 maximum="{textView.contentHeight - textView.height}"
                 value="{textView.verticalScrollPosition}"
                 pageSize="{textView.height}"/>
 
-    <HScrollBar id="horizontalScrollBar" includeIn="hScrollBar"
+    <FxHScrollBar id="horizontalScrollBar" includeIn="hScrollBar"
                 left="1" bottom="1" right="1" right.vScrollBar="16"
                 maximum="{textView.contentWidth - textView.width}"
                 value="{textView.horizontalScrollPosition}"
