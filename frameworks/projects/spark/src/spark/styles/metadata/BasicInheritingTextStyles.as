@@ -12,6 +12,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#alignmentBaseline
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -22,6 +24,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#baselineShift
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -31,6 +35,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#cffHinting
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -52,6 +58,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#digitCase
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -61,6 +69,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#digitWidth
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -72,6 +82,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#direction
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -81,6 +93,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#dominantBaseline
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -101,6 +115,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontLookup
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -142,6 +158,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#justificationRule
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -151,6 +169,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#justificationStyle
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -166,6 +186,8 @@
  *  Spark components interpret <code>default</code> as <code>auto</code>, 
  *  while MX components interpret <code>default</code> as <code>false</code>.</p>
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -175,6 +197,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#ligatureLevel
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -186,6 +210,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineHeight
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -195,6 +221,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineThrough
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -206,6 +234,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#locale
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -215,6 +245,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#renderingMode
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -236,6 +268,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlignLast
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -245,6 +279,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlpha
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -266,6 +302,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textJustify
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -275,6 +313,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#trackingLeft
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -286,6 +326,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#trackingRight
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -295,6 +337,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#typographicCase
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
