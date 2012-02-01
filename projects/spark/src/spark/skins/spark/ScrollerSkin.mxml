@@ -77,15 +77,22 @@ viewport property to link them together.
         }
     ]]>
     </fx:Script>
-        
-    <!---  A vertical scrollbar that lets you control the portion of data that is displayed 
-            when there is too much data to fit vertically in a display area.
-            The Scroller determines whether the vertical ScrollBar is visible. -->
-    <s:VScrollBar id="verticalScrollBar" visible="false" />
     
-    <!---  A horizontal scrollbar that lets you control the portion of data that is displayed 
-            when there is too much data to fit horizontally in a display area.
-            The Scroller determines whether the horizontal ScrollBar is visible. -->
-    <s:HScrollBar id="horizontalScrollBar" visible="false" />
+    <fx:Declarations>
+        <!---  A vertical scrollbar that lets you control the portion of data that is displayed 
+        when there is too much data to fit vertically in a display area.
+        The Scroller determines whether the vertical ScrollBar is visible. -->
+        <fx:Component id="verticalScrollBarFactory">
+            <s:VScrollBar visible="false" />
+        </fx:Component>
+        
+        <!---  A horizontal scrollbar that lets you control the portion of data that is displayed 
+        when there is too much data to fit horizontally in a display area.
+        The Scroller determines whether the horizontal ScrollBar is visible. -->
+        <fx:Component  id="horizontalScrollBarFactory">
+            <s:HScrollBar visible="false" />
+        </fx:Component> 
+
+    </fx:Declarations>
 
 </s:SparkSkin>
