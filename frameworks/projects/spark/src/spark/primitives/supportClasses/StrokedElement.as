@@ -18,7 +18,7 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.geom.Rectangle;
 
-import mx.graphics.graphicsClasses.GraphicElement;
+import mx.graphics.baseClasses.GraphicElement;
 
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
