@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the next year arrow of a Halo DateChooser component. 
+<!--- The Spark skin class for the next year arrow of an MX DateChooser component. 
+
+      @see mx.controls.DateChooser
         
       @langversion 3.0
       @playerversion Flash 10
@@ -29,7 +31,7 @@
 
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["arrowFill1", "arrowFill2", "arrowFill3"];
-        override public function get symbolItems():Array {return symbols};		
+        override public function get symbolItems():Array {return symbols};      
         
         /**
          * @private
