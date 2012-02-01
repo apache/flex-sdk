@@ -89,6 +89,7 @@
 				<include name="framework.swc" />
 				<include name="flex4.swc" />
 			</external-library-path>
+			<jvmarg line="${compc.jvm.args}"/>
 		</asdoc>
 
 		<!-- updates wireframe.swc with asdoc xml -->
