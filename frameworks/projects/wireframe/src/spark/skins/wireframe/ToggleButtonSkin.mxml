@@ -22,6 +22,9 @@
       minWidth="21" minHeight="21" alpha.disabledStates="0.5">
 
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.ToggleButton")]
     </fx:Metadata>
 
@@ -72,6 +75,7 @@
     </s:Rect>
     
     <!-- label -->
+    <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
     <s:Label id="labelDisplay"
              horizontalCenter="0" verticalCenter="1"
              left="10" right="10" top="2" bottom="2"
