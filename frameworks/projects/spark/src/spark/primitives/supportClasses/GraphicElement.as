@@ -27,6 +27,7 @@ import flash.geom.Matrix3D;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.geom.Transform;
+import flash.geom.Vector3D;
 
 import mx.components.Group;
 import mx.core.AdvancedLayoutFeatures;
@@ -1857,13 +1858,43 @@ public class GraphicElement extends OnDemandEventDispatcher
 	 *  @playerversion AIR 1.5
 	 *  @productversion Flex 4
 	 */
-    public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
+    public function transformAround(transformCenter:Vector3D,
+                                    scale:Vector3D = null,
+                                    rotation:Vector3D = null,
+                                    translation:Vector3D = null,
+                                    postLayoutScale:Vector3D = null,
+                                    postLayoutRotation:Vector3D = null,
+                                    postLayoutTranslation:Vector3D = null):void
     {
+        //TODO: optimize for simple translations
         allocateLayoutFeatures();
         var previous:Boolean = needsDisplayObject;
-        layoutFeatures.transformAround(rx,ry,rz,sx,sy,sz,tx,ty,tz,true);
-		invalidateTransform(previous != needsDisplayObject);
-    }       
+        layoutFeatures.transformAround(transformCenter,scale,rotation,translation,postLayoutScale,postLayoutRotation,postLayoutTranslation);
+        invalidateTransform(previous != needsDisplayObject);
+    }
+           
+    public function transformPointToParent(transformCenter:Vector3D,position:Vector3D,postLayoutPosition:Vector3D):void
+    {
+        if(layoutFeatures != null)
+        {
+            layoutFeatures.transformPointToParent(true,transformCenter,position,postLayoutPosition);
+        }
+        else
+        {
+            if(position != null)
+            {            
+                position.x = transformCenter.x + _x;
+                position.y = transformCenter.y + _y;
+                position.z = 0;
+            }
+            if (postLayoutPosition != null)
+            {
+                postLayoutPosition.x = transformCenter.x + _x;
+                postLayoutPosition.y = transformCenter.y + _y;
+                postLayoutPosition.z = 0;
+            }
+        }
+    }
 
     //----------------------------------
     //  transformX
