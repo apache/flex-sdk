@@ -16,10 +16,12 @@
 
 package spark.skins.spark
 {
+import flash.text.TextFieldAutoSize;
+
 import mx.core.UITextField;
 import mx.styles.IStyleClient;
 
-import spark.components.IGridItemRenderer;
+import spark.components.gridClasses.IGridItemRenderer;
 
 //--------------------------------------
 //  Styles
@@ -59,7 +61,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *   effectively final.  Custom item renderers can be created in MXML with the 
  *   GridItemRenderer component.</p>
  * 
- *   @see spark.components.supportClasses.GridItemRenderer
+ *   @see spark.components.gridClasses.GridItemRenderer
  */
 public class UITextFieldGridItemRenderer extends UITextField implements IGridItemRenderer, IStyleClient
 {
