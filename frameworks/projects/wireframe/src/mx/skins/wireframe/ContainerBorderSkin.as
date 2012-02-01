@@ -12,6 +12,9 @@
 package mx.skins.wireframe {
 
 /**
+ *  Defines the border and background for the MX Container class's wireframe skin.
+ *  
+ *  @see mx.core.Container
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
