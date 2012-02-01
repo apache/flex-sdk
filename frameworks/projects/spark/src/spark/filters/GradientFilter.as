@@ -16,8 +16,34 @@ use namespace mx_internal;
 
 [DefaultProperty("entries")]
 
+/**
+ * The base class for filters that provide gradient visual effects.
+ *
+ * @langversion 3.0
+ * @playerversion Flash 10
+ * @playerversion AIR 1.5
+ * @productversion Flex 4
+ *
+ */
 public class GradientFilter extends BaseDimensionFilter
 {
+	/**
+	 * Constructor.
+	 *
+	 * @param colors An array of RGB hexadecimal color values to use in the gradient.
+	 * For example, red is 0xFF0000, blue is 0x0000FF, and so on.
+	 * @param alphas An array of alpha transparency values for the corresponding colors in
+	 * the <code>colors</code> array. Valid values for each element in the array are 0 to 1.
+	 * For example, .25 sets a transparency value of 25%.
+	 * @param ratios An array of color distribution ratios; valid values are
+	 * 0 to 255.
+	 *
+	 * @langversion 3.0
+	 * @playerversion Flash 10
+	 * @playerversion AIR 1.5
+ 	 * @productversion Flex 4
+	 *
+	 */
 	public function GradientFilter(colors:Array = null, 
 								   alphas:Array = null,
 								   ratios:Array = null)
