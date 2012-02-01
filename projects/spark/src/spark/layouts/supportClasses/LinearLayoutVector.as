@@ -278,6 +278,37 @@ public final class LinearLayoutVector
     }
 
     //----------------------------------
+    //  majorAxisOffset
+    //----------------------------------
+    
+    private var _majorAxisOffset:Number = 0;
+    
+    /**
+     *  The offset of the first item from the origin in the majorAxis
+     *  direction. This is useful when implementing padding,
+     *  in addition to gaps, for virtual layouts.
+     *  
+     *  @see #gap
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get majorAxisOffset():Number
+    {
+        return _majorAxisOffset;
+    }
+
+    /**
+     * @private
+     */
+    public function set majorAxisOffset(value:Number):void
+    {
+        _majorAxisOffset = value;
+    }
+
+    //----------------------------------
     //  gap
     //----------------------------------
     
@@ -523,13 +554,13 @@ public final class LinearLayoutVector
     
     /**
      *  The cumulative distance to the start of the item at index, including
-     *  the gaps between items. 
+     *  the gaps between items and the majorAxisOffset. 
      * 
-     *  The value of start(0) is 0.  
+     *  The value of start(0) is majorAxisOffset.  
      * 
      *  Equivalent to:
      *  <pre>
-     *  var distance:Number = 0;
+     *  var distance:Number = majorAxisOffset;
      *  for (var i:int = 0; i &lt; index; i++)
      *      distance += get(i);
      *  return distance + (gap * index);
@@ -548,12 +579,12 @@ public final class LinearLayoutVector
     public function start(index:uint):Number
     {
         if ((_length == 0) || (index == 0))
-            return 0;
+            return majorAxisOffset;
             
         if (index >= _length)
             throw new Error(resourceManager.getString("layout", "invalidIndex"));            
 
-        var distance:Number = 0;
+        var distance:Number = majorAxisOffset;
         var blockIndex:uint = index >> BLOCK_SHIFT;
         for (var i:int = 0; i < blockIndex; i++)
         {
@@ -625,8 +656,12 @@ public final class LinearLayoutVector
     {
         if ((_length == 0) || (distance < 0))
             return -1;
-            
-        var curDistance:Number = 0;
+
+        // The area of the first item includes the majorAxisOffset            
+        var curDistance:Number = majorAxisOffset;
+        if (distance < curDistance)
+            return 0;
+        
         var index:int = -1;
         var block:Block = null;
         var blockGap:Number = _gap * BLOCK_SIZE;
