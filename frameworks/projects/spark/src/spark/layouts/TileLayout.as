@@ -1939,15 +1939,18 @@ public class TileLayout extends LayoutBase
         if (y > midRowLine)
             row++;
         
-        // Limit row and column
-        if (column < 0)
+        // Limit row and column, if any one is too far from the drop location
+		// And there is white space
+		if (column > _columnCount || row > _rowCount)
+		{
+			row = _rowCount;
+			column = _columnCount;
+		}
+
+		if (column < 0)
             column = 0;
-        else if (column > _columnCount)
-            column = _columnCount;
         if (row < 0)
             row = 0;
-        else if (row > _rowCount)
-            row = _rowCount;
         
         var index:int;
         if (rowOrientation)
@@ -2059,8 +2062,10 @@ public class TileLayout extends LayoutBase
             }
             
             x = emptySpaceLeft + Math.round((emptySpace - width) / 2);
-            x = Math.max(-Math.ceil(width / 2), Math.min(target.contentWidth - Math.ceil(width / 2), x));
-            y = row * (_rowHeight + _verticalGap);
+			// Allow 1 pixel overlap with container border
+            x = Math.max(-1, Math.min(target.contentWidth - width + 1, x));
+
+			y = row * (_rowHeight + _verticalGap);
         }
         else
         {
@@ -2087,8 +2092,10 @@ public class TileLayout extends LayoutBase
             }
             
             x = column * (_columnWidth + _horizontalGap);
-            y = emptySpaceTop + Math.round((emptySpace - height) / 2);
-            y = Math.max(-Math.ceil(height / 2), Math.min(target.contentHeight - Math.ceil(height / 2), y));
+         
+			y = emptySpaceTop + Math.round((emptySpace - height) / 2);
+			// Allow 1 pixel overlap with container border
+            y = Math.max(-1, Math.min(target.contentHeight - height + 1, y));
         }
         
         return new Rectangle(x, y, width, height);
