@@ -417,7 +417,7 @@ public class HorizontalLayout extends LayoutBase
             return 1.0;
         if ((ix0 >= x0) && (ix1 <= x1))
             return 1.0;
-        return (Math.max(x0, ix0) - Math.min(x1, ix1)) / (ix1 - ix0);
+        return (Math.min(x1, ix1) - Math.max(x0, ix0)) / (ix1 - ix0);
     } 
     
     /**
