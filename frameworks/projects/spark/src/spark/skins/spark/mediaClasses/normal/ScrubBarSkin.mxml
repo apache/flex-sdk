@@ -79,8 +79,8 @@
     <s:Button id="track" left="0" right="0" top="0" height="11"
               skinClass="spark.skins.spark.mediaClasses.normal.ScrubBarTrackSkin" />
 
-    <!--- @copy spark.components.mediaClasses.ScrubBar#bufferedArea -->
-    <s:Group id="bufferedArea" x="0" y="0" height="11" includeInLayout="false">
+    <!--- @copy spark.components.mediaClasses.ScrubBar#loadedRangeArea -->
+    <s:Group id="loadedRangeArea" x="0" y="0" height="11" includeInLayout="false">
     
         <!-- inset 7 and 6 pixels because that's thumbSize/2 -->
         <s:Group left="7" right="6" top="0" bottom="0" minWidth="0">
