@@ -14,10 +14,11 @@ in accordance with the terms of the license agreement accompanying it.
 <!--- 
 
 The default skin class for the Spark TabBar component. The ButtonBarButtons 
-created by the TabBar component use the TabBarButtonSkin class.  
+created by the TabBarSkin use the TabBarButtonSkin class.  
 
 @see spark.components.TabBar
 @see spark.components.ButtonBarButton
+@see spark.skins.spark.TabBarButtonSkin
 
 @langversion 3.0
 @playerversion Flash 10
