@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the previous month arrow of a Halo DateChooser component. 
+<!--- The Spark skin class for the previous month arrow of an MX DateChooser component. 
+
+      @see mx.controls.DateChooser
         
       @langversion 3.0
       @playerversion Flash 10
