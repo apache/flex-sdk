@@ -33,7 +33,6 @@ import flash.geom.Vector3D;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.DesignLayer;
 import mx.core.IInvalidating;
-import mx.core.ILayoutDirection;
 import mx.core.ILayoutElement;
 import mx.core.IMXMLObject;
 import mx.core.IUIComponent;
@@ -94,7 +93,7 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 public class GraphicElement extends EventDispatcher
-    implements IGraphicElement, IInvalidating, ILayoutElement, ILayoutDirection, IVisualElement, IMXMLObject
+    implements IGraphicElement, IInvalidating, ILayoutElement, IVisualElement, IMXMLObject
 {
     include "../../core/Version.as";
 
@@ -2856,13 +2855,20 @@ public class GraphicElement extends EventDispatcher
 	
 	private var _layoutDirection:String = "inherit";
 	
-	public function get layoutDirection():String
+    /**
+     *  @inheritDoc
+     */
+    public function get layoutDirection():String
 	{
-		return _layoutDirection;
-	}
+        if (_layoutDirection != "inherit")
+            return _layoutDirection;
+        
+        const parentElt:IVisualElement = parent as IVisualElement;
+        return (parentElt) ? parentElt.layoutDirection : "ltr"; 
+    }
 	
 	/**
-	 *  @copy mx.core.IVisualElement#layoutDirection
+	 *  @private
 	 */
 	public function set layoutDirection(value:String):void
 	{
@@ -2874,11 +2880,11 @@ public class GraphicElement extends EventDispatcher
     }
     
     /**
-     * @copy mx.core.ILayoutDirection#invalidateLayoutDirection()
+     * @inheritDoc
      */
     public function invalidateLayoutDirection():void
     {
-        const parentElt:ILayoutDirection = parent as ILayoutDirection;
+        const parentElt:IVisualElement = parent as IVisualElement;
         if (!parentElt)
             return;
         
