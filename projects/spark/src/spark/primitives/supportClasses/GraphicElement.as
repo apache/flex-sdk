@@ -55,6 +55,7 @@ import spark.components.Group;
 import spark.components.supportClasses.InvalidatingSprite;
 import spark.core.IGraphicElement;
 import spark.core.MaskType;
+
 use namespace mx_internal;
 
 /**
@@ -3237,8 +3238,7 @@ public class GraphicElement extends OnDemandEventDispatcher
                 //Shape(drawnDisplayObject).graphics.clear();
         }
 
-        if (visible || sharedIndex == -1)
-            updateDisplayList(_width, _height);
+        doUpdateDisplayList();
 
         // If we aren't doing any more invalidation, send out an UpdateComplete event
         if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag && wasInvalid)
@@ -3246,6 +3246,15 @@ public class GraphicElement extends OnDemandEventDispatcher
          
         // LAYOUT_DEBUG  
         //LayoutManager.debugHelper.addElement(ILayoutElement(this));
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function doUpdateDisplayList():void
+    {
+		if (visible || sharedIndex == -1)
+    		updateDisplayList(_width, _height);
     }
 
     /**
