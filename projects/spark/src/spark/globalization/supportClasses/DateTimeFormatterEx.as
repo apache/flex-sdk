@@ -52,7 +52,7 @@ use namespace mx_internal;
  *  @langversion 3.0
  *  @playerversion Flash 11
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class DateTimeFormatterEx extends DateTimeFormatter
 {
@@ -314,7 +314,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function DateTimeFormatterEx()
     {
@@ -430,7 +430,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get dateTimeSkeletonPattern():String
     {
@@ -731,7 +731,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function getYearPosition():int
     {
@@ -766,7 +766,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     private function get elementPatternList():Object
     {
@@ -1105,7 +1105,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     private static function analysePattern(pattern:String,
                                            analyseDateElements:Boolean,
@@ -1140,7 +1140,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     private static function extractDateElements(
         pattern:String, elementList:Array):void
@@ -1192,7 +1192,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     private static function extractTimeElements(
         pattern:String, elementList:Array):void
