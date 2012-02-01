@@ -24,10 +24,15 @@ import flash.filters.ShaderFilter;
 import flash.utils.Proxy;
 import flash.utils.flash_proxy;
 
-import mx.filters.BaseFilter;
-import mx.filters.IBitmapFilter;
+import mx.filters.IFlexBitmapFilter;
 
 use namespace flash_proxy;
+
+/**
+ *  @review 
+ *  Dispatched when a property value has changed. 
+ */ 
+[Event(name="change", type="flash.events.Event")]
 
 /**
  * The Flex ShaderFilter class abstracts away many of the details of using
@@ -107,19 +112,9 @@ use namespace flash_proxy;
  * </listing>
  */
 public dynamic class ShaderFilter extends Proxy
-    implements IBitmapFilter, IEventDispatcher
+    implements IEventDispatcher, IFlexBitmapFilter
 {  
-    //--------------------------------------------------------------------------
-    //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
-         
-    /**
-     * Private storage for incoming properties, queued until
-     * shader is initialized and available.
-     */
-    private var propertyQueue:Object;  
+	include "../core/Version.as";
           
     //--------------------------------------------------------------------------
     //
@@ -138,6 +133,18 @@ public dynamic class ShaderFilter extends Proxy
         eventDispatcher = new EventDispatcher();
         this.shader = shader;         
     }  
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+         
+    /**
+     * Private storage for incoming properties, queued until
+     * shader is initialized and available.
+     */
+    private var propertyQueue:Object;  
      
     //--------------------------------------------------------------------------
     //
@@ -528,9 +535,9 @@ public dynamic class ShaderFilter extends Proxy
      * Notify of a change to our filter, so that filter stack is ultimately 
      * re-applied by the framework.
      */     
-    public function notifyFilterChanged():void
+    private function notifyFilterChanged():void
     {
-        dispatchEvent(new Event(BaseFilter.CHANGE));
+        dispatchEvent(new Event(Event.CHANGE));
     }
 
     /**
@@ -538,7 +545,7 @@ public dynamic class ShaderFilter extends Proxy
      * Returns a native flash.filters.ShaderFilter instance suitable
      * for application in a DisplayObject filter stack.
      */ 
-    public function clone():BitmapFilter
+    public function createBitmapFilter():BitmapFilter 
     {
         var instance:flash.filters.ShaderFilter;
         if (_shader)
