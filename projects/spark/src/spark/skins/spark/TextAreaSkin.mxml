@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009">
+
+    <states>
+        <State name="enabled"/>
+        <State name="disabled"/>
+    </states>
+
+	<content>
+        
+		<Rect left="0" right="0" top="0" bottom="0">
+            <stroke>            
+                <SolidColorStroke color="0x000000" color.disabled="0xCCCCCC"/>
+            </stroke>
+            <fill>
+                <SolidColor color="0xFFFFFF"/>
+            </fill>
+        </Rect>
+
+        <TextView id="textView" text="{data.text}"
+                  fontFamily="Arial" fontSize="11"
+                  color="0x444444" color.disabled="0xCCCCCC"
+				  left="1" right="1" top="1" bottom="1"/>
+    
+	</content>
+
+</Skin>
