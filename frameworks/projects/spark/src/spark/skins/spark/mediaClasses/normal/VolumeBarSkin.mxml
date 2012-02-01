@@ -38,7 +38,7 @@
     
     <s:PopUpAnchor id="popup"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
         left="0" right="0" top="0" bottom="0" popUpPosition="above">
-        <s:Group id="dropDown" width="38" height="84" horizontalCenter="0" creationComplete="this.transform.colorTransform.redOffset=200)">
+        <s:Group id="dropDown" width="38" height="84" horizontalCenter="0">
         
             <!-- dropshadow for the dropdown -->
             <s:Rect left="0" top="0" right="0" bottom="0">
