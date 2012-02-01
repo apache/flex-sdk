@@ -13,7 +13,7 @@ package mx.effects.effectClasses
 import flash.events.Event;
 
 import mx.effects.Animation;
-import mx.effects.PropertyValuesHolder;
+import mx.effects.AnimationProperty;
 import mx.events.AnimationEvent;
 
 import mx.components.FxApplication;
@@ -241,9 +241,9 @@ public class FxResizeInstance extends FxAnimateInstance
         // effects manually on the children themselves
         var childrenHiding:Boolean = false; // hidePanelChildren();
 
-        propertyValuesList = 
-            [new PropertyValuesHolder("width", [widthFrom, widthTo], widthBy),
-             new PropertyValuesHolder("height", [heightFrom, heightTo], heightBy)];
+        animationProperties = 
+            [new AnimationProperty("width", widthFrom, widthTo, widthBy),
+             new AnimationProperty("height", heightFrom, heightTo, heightBy)];
                 
         super.play();
 
@@ -254,7 +254,7 @@ public class FxResizeInstance extends FxAnimateInstance
 
     /**
      * Handles the end event from the tween. The value here is an Array of
-     * values, one for each 'property' in our propertyValuesList.
+     * values, one for each 'property' in our animationProperties.
      */
     override protected function endHandler(event:AnimationEvent):void
     {
