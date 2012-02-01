@@ -15,6 +15,26 @@
 
 /*
 //------------------------------
+//  global
+//------------------------------
+*/
+global
+{
+	borderSkin: ClassReference(null);
+}
+
+/*
+//------------------------------
+//  AccordionHeader
+//------------------------------
+*/
+Accordion
+{
+	borderSkin: ClassReference(null);
+}
+
+/*
+//------------------------------
 //  AccordionHeader
 //------------------------------
 */
@@ -29,6 +49,7 @@ AccordionHeader
 	selectedOverSkin: Embed(source="AeonGraphical.swf", symbol="AccordionHeader_overSkin");
 	selectedUpSkin: Embed(source="AeonGraphical.swf", symbol="AccordionHeader_upSkin");
 	upSkin: Embed(source="AeonGraphical.swf", symbol="AccordionHeader_upSkin");
+	skin: ClassReference(null);
 
 }
 
@@ -53,6 +74,8 @@ Button
 	downSkin: Embed(source="AeonGraphical.swf", symbol="Button_downSkin");
 	overSkin: Embed(source="AeonGraphical.swf", symbol="Button_overSkin");
 	upSkin: Embed(source="AeonGraphical.swf", symbol="Button_upSkin");
+	skin: ClassReference(null);
+	emphasizedSkin: ClassReference(null);
 }
 
 /* 
@@ -65,7 +88,18 @@ ButtonBar
 { 
         buttonStyleName: "buttonBarButton"; 
         firstButtonStyleName: "firstButtonBarButton"; 
-        lastButtonStyleName: "lastButtonBarButton" 
+        lastButtonStyleName: "lastButtonBarButton"; 
+	borderSkin: ClassReference(null);
+}
+
+/* 
+//------------------------------ 
+//  Container
+//------------------------------ 
+*/ 
+Container
+{
+	borderSkin: ClassReference(null);
 }
 
 /* 
@@ -87,6 +121,21 @@ ToggleButtonBar
 //------------------------------ 
 */ 
 
+ButtonBarButton
+{
+	skin: ClassReference(null);
+}
+
+ButtonBarButton.buttonBarFirstButtonStyle
+{
+        skin: ClassReference(null);
+}
+
+ButtonBarButton.buttonBarLastButtonStyle
+{
+        skin: ClassReference(null);
+}
+
 .firstButtonBarButton 
 { 
         disabledSkin: Embed(source="AeonGraphical.swf", symbol="ButtonBar_firstDisabledSkin"); 
@@ -97,6 +146,7 @@ ToggleButtonBar
         selectedOverSkin: Embed(source="AeonGraphical.swf", symbol="ButtonBar_firstSelectedUpSkin");
         selectedUpSkin: Embed(source="AeonGraphical.swf", symbol="ButtonBar_firstSelectedUpSkin");
         upSkin: Embed(source="AeonGraphical.swf", symbol="ButtonBar_firstUpSkin"); 
+	skin: ClassReference(null);
 }
 .buttonBarButton 
 { 
@@ -108,6 +158,7 @@ ToggleButtonBar
         selectedOverSkin: Embed(source="AeonGraphical.swf", symbol="ButtonBar_buttonSelectedUpSkin");
         selectedUpSkin: Embed(source="AeonGraphical.swf", symbol="ButtonBar_buttonSelectedUpSkin");
         upSkin: Embed(source="AeonGraphical.swf", symbol="ButtonBar_buttonUpSkin"); 
+	skin: ClassReference(null);
 }
 
 .lastButtonBarButton 
@@ -120,6 +171,7 @@ ToggleButtonBar
         selectedOverSkin: Embed(source="AeonGraphical.swf", symbol="ButtonBar_lastSelectedUpSkin");
         selectedUpSkin: Embed(source="AeonGraphical.swf", symbol="ButtonBar_lastSelectedUpSkin");
         upSkin: Embed(source="AeonGraphical.swf", symbol="ButtonBar_lastUpSkin"); 
+	skin: ClassReference(null);
 }
 
 /*
@@ -137,6 +189,7 @@ CheckBox
 	selectedOverIcon: Embed(source="AeonGraphical.swf", symbol="CheckBox_selectedOverIcon");
 	selectedUpIcon: Embed(source="AeonGraphical.swf", symbol="CheckBox_selectedUpIcon");
 	upIcon: Embed(source="AeonGraphical.swf", symbol="CheckBox_upIcon");
+	icon: ClassReference(null);
 }		
 
 /*
@@ -155,6 +208,8 @@ ComboBox
 	editableUpSkin: Embed(source="AeonGraphical.swf", symbol="ComboBoxArrow_editableUpSkin");
 	overSkin: Embed(source="AeonGraphical.swf", symbol="ComboBoxArrow_overSkin");
 	upSkin: Embed(source="AeonGraphical.swf", symbol="ComboBoxArrow_upSkin");
+	skin: ClassReference(null);
+	editableSkin: ClassReference(null);
 }		
 
 /*
@@ -168,6 +223,7 @@ ColorPicker
 	downSkin: ClassReference("mx.skins.halo.ColorPickerSkin");
 	overSkin: ClassReference("mx.skins.halo.ColorPickerSkin");
 	upSkin: ClassReference("mx.skins.halo.ColorPickerSkin");
+	skin: ClassReference(null);
 }
 
 /*
@@ -196,6 +252,7 @@ DataGrid
 	headerSeparatorSkin: Embed(source="AeonGraphical.swf", symbol="DataGrid_headerSeparatorSkin");
 	sortArrowSkin: Embed(source="AeonGraphical.swf", symbol="DataGrid_sortArrowSkin");
 	stretchCursor: Embed(source="AeonGraphical.swf",symbol="DataGrid_stretchCursor");
+	headerBackgroundSkin: ClassReference(null);
 }
 
 /*
@@ -213,6 +270,8 @@ DateChooser
 	prevMonthDownSkin: Embed(source="AeonGraphical.swf", symbol="DateChooser_prevMonthDownSkin");
 	prevMonthOverSkin: Embed(source="AeonGraphical.swf", symbol="DateChooser_prevMonthOverSkin");
 	prevMonthUpSkin: Embed(source="AeonGraphical.swf", symbol="DateChooser_prevMonthUpSkin");
+	nextMonthSkin: ClassReference(null);
+	prevMonthSkin: ClassReference(null);
 	
 	nextYearDisabledSkin: Embed(source="AeonGraphical.swf", symbol="DateChooser_nextYearDisabledSkin");
 	nextYearDownSkin: Embed(source="AeonGraphical.swf", symbol="DateChooser_nextYearDownSkin");
@@ -222,6 +281,8 @@ DateChooser
 	prevYearDownSkin: Embed(source="AeonGraphical.swf", symbol="DateChooser_prevYearDownSkin");
 	prevYearOverSkin: Embed(source="AeonGraphical.swf", symbol="DateChooser_prevYearOverSkin");
 	prevYearUpSkin: Embed(source="AeonGraphical.swf", symbol="DateChooser_prevYearUpSkin");
+	nextYearSkin: ClassReference(null);
+	prevYearSkin: ClassReference(null);
 
 	todayIndicatorSkin: Embed(source="AeonGraphical.swf", symbol="DateChooser_todayIndicatorSkin");	
 	
@@ -308,6 +369,7 @@ HSlider
 	thumbUpSkin: Embed(source="AeonGraphical.swf", symbol="HSliderThumb_upSkin");
 	trackHighlightSkin: Embed(source="AeonGraphical.swf", symbol="HSliderHighlight_Skin");
 	trackSkin: Embed(source="AeonGraphical.swf", symbol="HSliderTrack_Skin");
+	thumbSkin: ClassReference(null);
 
 }
 
@@ -328,7 +390,7 @@ Image
 //  Loader
 //------------------------------
 */
-Loader
+SWFLoader
 {
 
 	brokenImageSkin: Embed(source="AeonGraphical.swf",symbol="Loader_brokenImageSkin");
@@ -382,6 +444,8 @@ NumericStepper
 	upArrowDownSkin: Embed(source="AeonGraphical.swf", symbol="NumericStepperUpArrow_DownSkin");
 	upArrowOverSkin: Embed(source="AeonGraphical.swf", symbol="NumericStepperUpArrow_OverSkin");
 	upArrowUpSkin: Embed(source="AeonGraphical.swf", symbol="NumericStepperUpArrow_UpSkin");
+	upArrowSkin: ClassReference(null);
+	downArrowSkin: ClassReference(null);
 
 }
 
@@ -398,6 +462,7 @@ Panel
 	closeButtonOverSkin: Embed(source="AeonGraphical.swf",symbol="CloseButtonOver");
 	closeButtonUpSkin: Embed(source="AeonGraphical.swf",symbol="CloseButtonUp");
 	titleBackgroundSkin: Embed(source="AeonGraphical.swf", symbol="PanelTitleBackground");
+	borderSkin: ClassReference(null);
 
 }
 
@@ -424,6 +489,7 @@ PopUpButton
 	overSkin: Embed(source="AeonGraphical.swf", symbol="PopUpButton_overSkin");	
 	popUpDownSkin: Embed(source="AeonGraphical.swf", symbol="PopUpButton_popUpDownSkin");
 	popUpOverSkin: Embed(source="AeonGraphical.swf", symbol="PopUpButton_popUpOverSkin");
+	skin: ClassReference(null);
 
 	upSkin: Embed(source="AeonGraphical.swf", symbol="PopUpButton_upSkin");
 }
@@ -440,7 +506,7 @@ ProgressBar
 	barSkin: Embed(source="AeonGraphical.swf", symbol="ProgressBarSkin");
 	indeterminateSkin: Embed(source="AeonGraphical.swf", symbol="ProgressIndeterminateSkin");
 	trackSkin: Embed(source="AeonGraphical.swf", symbol="ProgressTrackSkin");
-
+	maskSkin: ClassReference(null);
 }
 
 /*
@@ -459,7 +525,7 @@ RadioButton
 	selectedOverIcon: Embed(source="AeonGraphical.swf", symbol="RadioButtonSelected_overIcon");
 	selectedUpIcon: Embed(source="AeonGraphical.swf", symbol="RadioButtonSelected_upIcon");
 	upIcon: Embed(source="AeonGraphical.swf", symbol="RadioButtonIcon");
-
+	icon: ClassReference(null);
 }
 
 /*
@@ -481,6 +547,16 @@ RichTextEditor
 //  ScrollBar
 //------------------------------
 */
+ScrollControlBase
+{
+	borderSkin: ClassReference(null);
+}
+
+/*
+//------------------------------
+//  ScrollBar
+//------------------------------
+*/
 ScrollBar
 {
 
@@ -488,16 +564,29 @@ ScrollBar
 	downArrowDownSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_downSkin");
 	downArrowOverSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_overSkin");
 	downArrowUpSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowDown_upSkin");
+	downArrowSkin: ClassReference(null);
 	thumbDownSkin: Embed(source="AeonGraphical.swf", symbol="ScrollThumb_downSkin");
 	thumbIcon: Embed(source="AeonGraphical.swf", symbol="ScrollBar_thumbIcon");
 	thumbOverSkin: Embed(source="AeonGraphical.swf", symbol="ScrollThumb_overSkin");
 	thumbUpSkin: Embed(source="AeonGraphical.swf", symbol="ScrollThumb_upSkin");
+	thumbSkin: ClassReference(null);
 	trackSkin: Embed(source="AeonGraphical.swf", symbol="ScrollTrack_Skin");
 	upArrowDisabledSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_disabledSkin");
 	upArrowDownSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_downSkin");
 	upArrowOverSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_overSkin");
 	upArrowUpSkin: Embed(source="AeonGraphical.swf", symbol="ScrollArrowUp_upSkin");
+	upArrowSkin: ClassReference(null);
 
+}
+
+/*
+//------------------------------
+//  TextInput
+//------------------------------
+*/
+TextInput
+{
+	borderSkin: ClassReference(null);
 }
 
 /*
@@ -550,6 +639,19 @@ VScrollBar
 
 /*
 //------------------------------
+//  Slider
+//------------------------------
+*/
+Slider
+{
+	skin: ClassReference(null);
+	trackSkin: ClassReference(null);
+	trackHighlightSkin: ClassReference(null);
+	thumbSkin: ClassReference(null);
+}
+
+/*
+//------------------------------
 //  Tab
 //------------------------------
 */
@@ -564,6 +666,7 @@ Tab
 	selectedOverSkin: Embed(source="AeonGraphical.swf", symbol="TabSelected_upSkin");
 	selectedUpSkin: Embed(source="AeonGraphical.swf", symbol="TabSelected_upSkin");
 	upSkin: Embed(source="AeonGraphical.swf", symbol="Tab_upSkin");
+	skin: ClassReference(null);
 
 }
 
@@ -633,5 +736,6 @@ VSlider
 	thumbUpSkin: Embed(source="AeonGraphical.swf", symbol="VSliderThumb_upSkin");
 	trackHighlightSkin: Embed(source="AeonGraphical.swf", symbol="HSliderHighlight_Skin");
 	trackSkin: Embed(source="AeonGraphical.swf", symbol="HSliderTrack_Skin");
+	thumbSkin: ClassReference(null);
 
 }
