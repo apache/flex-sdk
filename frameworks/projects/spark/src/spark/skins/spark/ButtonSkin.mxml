@@ -11,38 +11,127 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009" minWidth="23" minHeight="23">
+<Skin xmlns="http://ns.adobe.com/mxml/2009" 
+	  minWidth="21" minHeight="21" clipContent="false"
+	  alpha.disabled="0.5">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxButton")]
-    </Metadata>
-
-    <states>
-        <State name="up" />
-        <State name="over" />
-        <State name="down" />
-        <State name="disabled" />
-    </states>
-
-    <!-- background -->
-    <Rect left="0" right="0" top="0" bottom="0"
-    	  width="70" height="23"
-    	  radiusX="2" radiusY="2">
-        <stroke>
-            <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
-        </stroke>
-        <fill>
-        	<SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF" />
-        </fill>
-    </Rect>
-
-    <!-- label -->
+	<!-- host component -->
+	<Metadata>
+		[HostComponent("mx.components.FxButton")]
+	</Metadata>
+	
+	<!-- states -->
+	<states>
+		<State name="up" />
+		<State name="over" />
+		<State name="down" />
+		<State name="disabled" />
+	</states>
+	
+	<!-- layer 1: shadow -->
+	<Rect left="-1" right="-1" top="-1" bottom="-1" radiusX="2" radiusY="2">
+		<fill>
+			<LinearGradient rotation="90">
+                    <GradientEntry color="0x000000" 
+                                   color.down="0xFFFFFF"
+                                   alpha="0.01"
+                                   alpha.down="0" />
+                    <GradientEntry color="0x000000" 
+                                   color.down="0xFFFFFF" 
+                                   alpha="0.07"
+                                   alpha.down="0.5" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 2: border -->
+	<Rect left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2" radiusY="2">
+		<stroke>
+			<LinearGradientStroke rotation="90">
+				<GradientEntry color="0x000000" 
+				               alpha="0.5625"
+				               alpha.down="0.6375" />
+				<GradientEntry color="0x000000" 
+				               alpha="0.75" 
+				               alpha.down="0.85" />
+			</LinearGradientStroke>
+		</stroke>
+	</Rect>
+	
+	<!-- layer 3: fill -->
+	<Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0xFFFFFF" 
+							   color.over="0xBBBDBD" 
+							   color.down="0xAAAAAA" 
+							   alpha="0.85" />
+				<GradientEntry color="0xD8D8D8" 
+							   color.over="0x9FA0A1" 
+							   color.down="0x929496" 
+							   alpha="0.85" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 4: fill lowlight -->
+	<Rect left="1" right="1" bottom="1" height="9" radiusX="2" radiusY="2">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0x000000" alpha="0.0099" />
+				<GradientEntry color="0x000000" alpha="0.0627" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 5: fill highlight -->
+	<Rect left="1" right="1" top="1" height="9" radiusX="2" radiusY="2">
+		<fill>
+			<SolidColor color="0xFFFFFF" 
+					    alpha="0.33" 
+					    alpha.over="0.22" 
+					    alpha.down="0.12" />
+		</fill>
+	</Rect>
+	
+	<!-- layer 6: highlight stroke (all states except down) -->
+	<Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2" excludeFrom="down">
+		<stroke>
+			<LinearGradientStroke rotation="90">
+				<GradientEntry color="0xFFFFFF" alpha.over="0.22" />
+				<GradientEntry color="0xD8D8D8" alpha.over="0.22" />
+			</LinearGradientStroke>
+		</stroke>
+	</Rect>
+	
+	<!-- layer 6: highlight stroke (down state only) -->
+	<Rect left="1" top="1" bottom="1" width="1" includeIn="down">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.07" />
+		</fill>
+	</Rect>
+	<Rect right="1" top="1" bottom="1" width="1" includeIn="down">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.07" />
+		</fill>
+	</Rect>
+	<Rect left="2" top="1" right="2" height="1" includeIn="down">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.25" />
+		</fill>
+	</Rect>
+	<Rect left="1" top="2" right="1" height="1" includeIn="down">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.09" />
+		</fill>
+	</Rect>
+	
+	<!-- layer 7: text -->
 	<TextBox id="labelField"
-             fontFamily="Arial" fontSize="12"
-             color="0x2B4381" color.disabled="0x95A1C0"
 			 horizontalCenter="0" verticalCenter="1"
 			 left="10" right="10" top="2" bottom="2"
-			 textAlign="center" verticalAlign="middle">
+			 textAlign="center" verticalAlign="middle"
+			 fontWeight="normal">
 	</TextBox>
-
+	
 </Skin>
