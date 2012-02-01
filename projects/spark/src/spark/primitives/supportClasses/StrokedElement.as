@@ -157,8 +157,6 @@ public class StrokedElement extends GraphicElement implements IDisplayObjectElem
 		beginDraw(g);
 		drawElement(g);
 		endDraw(g);
-		
-		applyDisplayObjectProperties();
 	}
 			
 	//--------------------------------------------------------------------------
