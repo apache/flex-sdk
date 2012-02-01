@@ -3526,12 +3526,7 @@ public class GraphicElement extends EventDispatcher
     }
     
     /**
-     *  Determines if the call to the <code>measure()</code> method can be skipped.
-     *  
-     *  @return Returns <code>true</code> when the <code>measureSizes()</code> method can skip the call to
-     *  the <code>measure()</code> method. For example this is usually <code>true</code> when both <code>explicitWidth</code> and
-     *  <code>explicitHeight</code> are set. For paths, this is <code>true</code> when the bounds of the path
-     *  have not changed.
+     *  @copy mx.core.UIComponent#canSkipMeasurement
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3669,7 +3664,7 @@ public class GraphicElement extends EventDispatcher
         {
             if (drawnDisplayObject is Sprite)
                 Sprite(drawnDisplayObject).graphics.clear();
-            // FIXME (rfrishbe): We don't really support shapes, but we should 
+            // TODO (rfrishbe): We don't really support shapes, but we should 
             //else if (drawnDisplayObject is Shape)
                 //Shape(drawnDisplayObject).graphics.clear();
         }
