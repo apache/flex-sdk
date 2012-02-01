@@ -117,7 +117,7 @@ public class StrokedElement extends GraphicElement
     
     //--------------------------------------------------------------------------
     //
-	//  overriden methods from GraphicElement
+	//  overridden methods from GraphicElement
     //
     //--------------------------------------------------------------------------
     
