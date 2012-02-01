@@ -163,47 +163,51 @@ is defined by the ComboBoxTextInputSkin class.
     </s:states>
     
     <!--- 
-    The PopUpAnchor control that opens the drop-down list. 
+        The PopUpAnchor control that opens the drop-down list. 
+        
+        <p>In a custom skin class that uses transitions, set the 
+        <code>itemDestructionPolicy</code> property to <code>none</code>.</p>
     -->
     <s:PopUpAnchor id="popUp"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
                    left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
                    popUpPosition="below" popUpWidthMatchesAnchorWidth="true">
         
         <!--- 
-        The drop down area of the skin. 
-        This includes borders, background colors, scrollers, and filters. 
+            This includes borders, background colors, scrollers, and filters. 
+            @copy spark.components.supportClasses.DropDownListBase#dropDown
         -->
         <s:Group id="dropDown" maxHeight="134" minHeight="22" >
             
             <!-- drop shadow -->
+            <!--- @private -->
             <s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.45" distance="7" 
                                      angle="90" color="#000000" left="0" top="0" right="0" bottom="0"/>
             
             <!-- border -->
+            <!--- @private -->
             <s:Rect id="border" left="0" right="0" top="0" bottom="0">
                 <s:stroke>
+                    <!--- @private -->
                     <s:SolidColorStroke id="borderStroke" weight="1"/>
                 </s:stroke>
             </s:Rect>
             
             <!-- fill -->
-            <!---  
-            Defines the appearance of drop-down list's background fill.
-            -->
+            <!--- Defines the appearance of drop-down list's background fill. -->
             <s:Rect id="background" left="1" right="1" top="1" bottom="1" >
                 <s:fill>
                     <!---  
-                    The color of the drop down's background fill.
-                    The default color is 0xFFFFFF.
+                        @private
+                        The color of the drop down's background fill.
+                        The default color is 0xFFFFFF.
                     -->
                     <s:SolidColor id="bgFill" color="0xFFFFFF" />
                 </s:fill>
             </s:Rect>
             
+            <!--- @private -->
             <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" focusEnabled="false" minViewportInset="1">
-                <!---  
-                The container for the data items in the drop-down list.
-                -->
+                <!--- @copy spark.components.SkinnableDataContainer#dataGroup-->
                 <s:DataGroup id="dataGroup" itemRenderer="spark.skins.spark.DefaultItemRenderer">
                     <s:layout>
                         <s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
@@ -213,10 +217,13 @@ is defined by the ComboBoxTextInputSkin class.
         </s:Group>
     </s:PopUpAnchor>
     
-    <!--- The anchor button used by the ComboBox. The default skin is ComboBoxButtonSkin. -->
+    <!--- 
+        The default skin is ComboBoxButtonSkin. 
+        @copy spark.components.supportClasses.DropDownListBase#openButton
+    -->
     <s:Button id="openButton" width="19" right="0" top="0" bottom="0" focusEnabled="false"
               skinClass="spark.skins.spark.ComboBoxButtonSkin" />  
-    <!--- The text input area of the ComboBox. -->
+    <!--- @copy spark.components.ComboBox#textInput -->
     <s:TextInput id="textInput"
                  left="0" right="18" top="0" bottom="0" 
                  skinClass="spark.skins.spark.ComboBoxTextInputSkin"/> 
