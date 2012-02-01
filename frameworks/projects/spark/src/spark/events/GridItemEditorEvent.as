@@ -16,29 +16,30 @@ import flash.events.Event;
 import spark.components.gridClasses.GridColumn;
 
 /**
- *  This class represents events that are dispatched over 
+ *  The GridItemEditorEvent class represents events that are dispatched over 
  *  the life cycle of an item editor.
  *
  *  <p>The life cycle starts with the dispatch of an <code>
- *  GRID_ITEM_EDITOR_SESSION_STARTING</code> event. This event may be cancelled by a
- *  listener to stop the creation of an editing session.</p>
+ *  GRID_ITEM_EDITOR_SESSION_STARTING</code> event. 
+ *  You can cancel the event to stop the editing session by 
+ *  calling the <code>preventDefault()</code> method in the event listener.</p>
  * 
- *  <p>Next, after the editor is opened the <code>GRID_ITEM_EDITOR_SESSION_START
- * </code> is dispatched to notify listeners that the editor has been opened.</p>
+ *  <p>After the item editor opens, the <code>GRID_ITEM_EDITOR_SESSION_START</code> 
+ *  is dispatched to notify listeners that the editor has been opened.</p>
  * 
- *  <p>The editing session can be saved or cancelled. If the session is saved
+ *  <p>The editing session can be saved or canceled. If the session is saved,
  *  then the <code>GRID_ITEM_EDITOR_SESSION_SAVE</code> event is dispatched.
- *  If the editor is cancelled a <code>GRID_ITEM_EDITOR_SESSION_CANCEL</code>
- *  event is dispatched.
- * </p>
+ *  If the editor is canceled, a <code>GRID_ITEM_EDITOR_SESSION_CANCEL</code>
+ *  event is dispatched. </p>
  * 
  *  @see spark.components.DataGrid
- *  @see spark.components.IGridItemEditor
- *  @see spark.components.gridClasses.GridColumn;
+ *  @see spark.components.gridClasses.IGridItemEditor
+ *  @see spark.components.gridClasses.GridColumn
+ *  @see spark.components.gridClasses.GridColumn#itemEditor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 public class GridItemEditorEvent extends Event
@@ -56,12 +57,12 @@ public class GridItemEditorEvent extends Event
      *  constant defines the value of the <code>type</code> property of the
      *  event object for a <code>startGridItemEditorSession</code> event. 
      *  Dispatched when a new item editor session has been requested. A listener
-     *  can dynamically determine if a cell is editable and cancel the edit (with 
-     *  preventDefault()) if it is not. A listener may also dynamically 
-     *  change the editor that will be used by assigning a different item editor
-     *  to a column.
+     *  can dynamically determine if a cell is editable and cancel the edit by calling 
+     *  the <code>preventDefault()</code> method if it is not. 
+     *  A listener can also dynamically change the editor used 
+     *  by assigning a different item editor to a grid column.
      * 
-     *  <p>If this event is cancelled the item editor will not be created.</p>
+     *  <p>If this event is canceled the item editor will not be created.</p>
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -89,11 +90,11 @@ public class GridItemEditorEvent extends Event
      *   
      *  @eventType gridItemEditorSessionStarting
      * 
-     *  @see spark.components.gridClasses.GridColumn;
+     *  @see spark.components.gridClasses.GridColumn
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const GRID_ITEM_EDITOR_SESSION_STARTING:String = "gridItemEditorSessionStarting";
@@ -130,11 +131,11 @@ public class GridItemEditorEvent extends Event
      *   
      *  @eventType gridItemEditorSessionStart
      * 
-     *  @see spark.components.gridClasses.GridColumn;
+     *  @see spark.components.gridClasses.GridColumn
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const GRID_ITEM_EDITOR_SESSION_START:String = "gridItemEditorSessionStart";
@@ -172,11 +173,11 @@ public class GridItemEditorEvent extends Event
      *   
      *  @eventType gridItemEditorSessionSave
      * 
-     *  @see spark.components.gridClasses.GridColumn;
+     *  @see spark.components.gridClasses.GridColumn
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const GRID_ITEM_EDITOR_SESSION_SAVE:String = "gridItemEditorSessionSave";
@@ -213,11 +214,11 @@ public class GridItemEditorEvent extends Event
      *   
      *  @eventType gridItemEditorSessionCancel
      * 
-     *  @see spark.components.gridClasses.GridColumn;
+     *  @see spark.components.gridClasses.GridColumn
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const GRID_ITEM_EDITOR_SESSION_CANCEL:String = "gridItemEditorSessionCancel";
@@ -240,21 +241,17 @@ public class GridItemEditorEvent extends Event
      *  @param cancelable Specifies whether the behavior
      *  associated with the event can be prevented.
      *
-     *  @param kind The kind of changing event.  The valid values are defined in 
-     *  <code>GridSelectionEventKind</code> class as constants.  This value 
-     *  determines which properties in the event are used.
-     * 
      *  @param rowIndex The zero-based index of the column that is being edited.
      * 
      *  @param columnIndex The zero-based index of the column that is being edited.
      * 
      *  @param column The column that is being edited.
      *   
-     *  @see spark.components.gridClasses.GridColumn;
+     *  @see spark.components.gridClasses.GridColumn
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function GridItemEditorEvent(type:String, 
@@ -286,7 +283,7 @@ public class GridItemEditorEvent extends Event
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */ 
     public var columnIndex:int;
@@ -301,7 +298,7 @@ public class GridItemEditorEvent extends Event
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */
     public var column:GridColumn;
@@ -315,7 +312,7 @@ public class GridItemEditorEvent extends Event
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */
     public var rowIndex:int;
