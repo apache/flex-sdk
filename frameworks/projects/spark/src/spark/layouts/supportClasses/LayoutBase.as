@@ -21,7 +21,7 @@ import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 import flash.events.EventDispatcher;
 
-	
+    
 public class LayoutBase extends EventDispatcher implements ILayout
 {
     //--------------------------------------------------------------------------
@@ -46,11 +46,11 @@ public class LayoutBase extends EventDispatcher implements ILayout
     //
     //--------------------------------------------------------------------------
 
-	public function LayoutBase()
-	{
-		super();
-	}
-	
+    public function LayoutBase()
+    {
+        super();
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -91,7 +91,7 @@ public class LayoutBase extends EventDispatcher implements ILayout
      *  <pre>
      *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
      *  </pre>
-     *  Where <code>width</code> and <code>height<code> are properties
+     *  Where <code>width</code> and <code>height</code> are properties
      *  of the target.
      * 
      *  @default 0
@@ -133,7 +133,7 @@ public class LayoutBase extends EventDispatcher implements ILayout
      *  <pre>
      *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
      *  </pre>                 
-     *  Where <code>width</code> and <code>height<code> are properties
+     *  Where <code>width</code> and <code>height</code> are properties
      *  of the target.
      * 
      *  @default 0
@@ -223,7 +223,7 @@ public class LayoutBase extends EventDispatcher implements ILayout
         if ((hsp != 0) || (vsp != 0) || (cw > w) || (ch > h))
             g.scrollRect = new Rectangle(hsp, vsp, w, h);
         else 
-        	g.scrollRect = null;
+            g.scrollRect = null;
     } 
     
     /**
