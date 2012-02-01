@@ -26,7 +26,7 @@ in accordance with the terms of the license agreement accompanying it.
     xmlns:fx="http://ns.adobe.com/mxml/2009" 
     xmlns:s="library://ns.adobe.com/flex/spark" 
     xmlns:fb="http://ns.adobe.com/flashbuilder/2009" 
-    minWidth="21" minHeight="21" alpha.disabledStates="0.5">
+    minWidth="22" minHeight="22" alpha.disabledStates="0.5">
     
     <!-- host component -->
     <fx:Metadata>
@@ -49,7 +49,7 @@ in accordance with the terms of the license agreement accompanying it.
     </s:states>
 
     <!-- fill -->
-    <s:Rect left="1" right="1" top="1" bottom="1" topLeftRadiusX="4" topRightRadiusX="4" width="69" height="21">
+    <s:Rect left="1" right="1" top="1" bottom="1" topLeftRadiusX="4" topRightRadiusX="4" width="69" height="20">
         <s:fill>
             <s:SolidColor color="#FFFFFF" color.over="#EEEEEE" color.down="#DDDDDD" color.selectedStates="#DDDDDD" />
         </s:fill>
