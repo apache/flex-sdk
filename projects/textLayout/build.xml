@@ -40,7 +40,6 @@
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-namespaces uri="${project.uri}"/>
 			<namespace uri="${project.uri}" manifest="textLayout_core/manifest.xml"/>
-			<namespace uri="${project.uri}" manifest="textLayout_edit/manifest.xml"/>
 			<source-path path-element="textLayout_core/src"/>
 			<source-path path-element="textLayout_edit/src"/>
 			<source-path path-element="textLayout_conversion/src"/>
@@ -75,7 +74,6 @@
 			<external-library-path dir="${output.file}"/>
 		    <doc-namespaces uri="${project.uri}"/>
 		    <namespace uri="${project.uri}" manifest="textLayout_core/manifest.xml"/>
-			<namespace uri="${project.uri}" manifest="textLayout_edit/manifest.xml"/>
 		    <jvmarg line="${asdoc.jvm.args}"/>
 			<define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>
