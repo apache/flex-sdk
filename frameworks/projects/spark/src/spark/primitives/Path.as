@@ -484,8 +484,9 @@ public class Path extends FilledElement
      */
     private function getBoundingBox(width:Number, height:Number, m:Matrix):Rectangle
     {
-        var sx:Number = measuredWidth == 0 ? 1 : width / measuredWidth;
-        var sy:Number = measuredHeight == 0 ? 1 : height / measuredHeight; 
+        var naturalBounds:Rectangle = getBounds();
+        var sx:Number = naturalBounds.width == 0 ? 1 : width / naturalBounds.width;
+        var sy:Number = naturalBounds.height == 0 ? 1 : height / naturalBounds.height; 
 
         var currentSubPathStartIndex:int = 0;
         var prevSegment:PathSegment;
@@ -571,8 +572,10 @@ public class Path extends FilledElement
         // invisible fill.
         
         // Adjust the position by the internal scale factor
-        var bounds:Rectangle = new Rectangle(drawX + (measuredX * width / measuredWidth),
-        									 drawY + (measuredY * height / measuredHeight),
+        var naturalBounds:Rectangle = getBounds();
+
+        var bounds:Rectangle = new Rectangle(drawX + (measuredX * width / naturalBounds.width),
+        									 drawY + (measuredY * height / naturalBounds.height),
         									 width, 
         									 height);
         if (stroke)
