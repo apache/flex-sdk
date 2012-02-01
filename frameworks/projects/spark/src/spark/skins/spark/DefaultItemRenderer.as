@@ -15,22 +15,12 @@ package spark.skins.spark
 import flash.display.DisplayObject;
 import flash.events.MouseEvent;
 import flash.geom.Point;
-import flash.geom.Rectangle;
 
 import mx.controls.listClasses.*;
 import mx.core.IDataRenderer;
-import mx.core.IFlexDisplayObject;
-import mx.core.IFlexModuleFactory;
-import mx.core.IFontContextComponent;
-import mx.core.IToolTip;
-import mx.core.IUITextField;
 import mx.core.UIComponent;
-import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.InterManagerRequest;
-import mx.events.ToolTipEvent;
-import mx.managers.ISystemManager;
 
 import spark.components.IItemRenderer;
 import spark.components.Label;
@@ -502,6 +492,7 @@ public class DefaultItemRenderer extends UIComponent
         graphics.clear();
         
         var backgroundColor:uint;
+        var drawBackground:Boolean = true;
         if (selected)
             backgroundColor = getStyle("selectionColor");
         else if (hovered)
@@ -519,23 +510,28 @@ public class DefaultItemRenderer extends UIComponent
             }
             else
             {
-                backgroundColor = getStyle("contentBackgroundColor");
+                // don't draw background if it is the contentBackgroundColor. The
+                // list skin handles the background drawing for us.
+                drawBackground = false;
             }
         }
-        graphics.beginFill(backgroundColor, 1);
         
+        if (drawBackground)
+            graphics.beginFill(backgroundColor, 1);
+            
         if (showsCaret)
         {
             graphics.lineStyle(1, getStyle("selectionColor"));
             graphics.drawRect(0.5, 0.5, unscaledWidth-1, unscaledHeight-1);
         }
-        else
+        else 
         {
             graphics.lineStyle();
             graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
         }
-        
-        graphics.endFill();
+            
+        if (drawBackground)
+            graphics.endFill();
         
         labelDisplay.move(3, 5);
         labelDisplay.setActualSize(unscaledWidth - 6, unscaledHeight - 10);
