@@ -1,7 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2010 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!-- TODO
+Move the indicator tooltip string to a resource bundle
+Change mx:Image to s:Image once it is ready
+-->
+
+<!--- The default skin class for the Spark FormItem component.  
+
+@see spark.components.FormItem
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4.5
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
         xmlns:s="library://ns.adobe.com/flex/spark" 
-        xmlns:mx="library://ns.adobe.com/flex/mx">
+        xmlns:mx="library://ns.adobe.com/flex/mx"
+        xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+        alpha.disabled=".5">  
+    
+    <!-- host component -->
+    <fx:Metadata>
+        <![CDATA[ 
+        /** 
+        * @copy spark.skins.spark.ApplicationSkin#hostComponent
+        */
+        [HostComponent("spark.components.FormItem")]
+        ]]>
+    </fx:Metadata>
+    
+    <fx:Style>        
+        .labelStyle
+        {
+            fontWeight : "bold";
+            color : #333333;
+        }
+        
+        .helpTextStyle
+        {
+            fontStyle : "italic";
+            color : #666666;
+        }
+        
+        .errorTextStyle
+        {
+            fontStyle : "italic";
+            color : #FE0000;
+        }
+    </fx:Style>
+    
+    <fx:Script fb:purpose="styling">
+        <![CDATA[         
+            /**
+             *  @private
+             */
+            override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
+            {
+                // Push backgroundColor and backgroundAlpha directly.
+                // Handle undefined backgroundColor by hiding the background object.
+                if (isNaN(getStyle("backgroundColor")))
+                {
+                    background.visible = false;
+                }
+                else
+                {
+                    background.visible = true;
+                    bgFill.color = getStyle("backgroundColor");
+                    bgFill.alpha = getStyle("backgroundAlpha");
+                }
+                
+                super.updateDisplayList(unscaledWidth, unscaledHeight);
+            }
+        ]]>        
+    </fx:Script>
+    
     <s:states>
         <s:State name="normal" />
         <s:State name="disabled" stateGroups="disabledStates"/>	
@@ -11,62 +94,56 @@
         <s:State name="requiredAndError" stateGroups="requiredStates, errorStates"/>	
     </s:states>
     
-    <fx:Style>
-        @namespace s "library://ns.adobe.com/flex/spark";
-        @namespace mx "library://ns.adobe.com/flex/mx";
-        
-        .labelStyle
-        {
-            fontWeight : "bold";
-        }
-        
-        .helpTextStyle
-        {
-            fontStyle : "italic";
-            color : #6c6c6c;
-        }
-        
-        .errorTextStyle
-        {
-            fontWeight : "bold";
-            color : #dd2222;
-        }
-    </fx:Style>
-    
     <s:layout>
         <s:FormItemLayout>
             <s:constraintColumns>
-                <s:ConstraintColumn id="numCol" />
+                <s:ConstraintColumn id="sequenceCol" />
                 <s:ConstraintColumn id="labelCol" />
-                <s:ConstraintColumn id="indicatorCol" width="16"/>
                 <s:ConstraintColumn id="contentCol"/>
                 <s:ConstraintColumn id="helpCol"/>
-                <s:ConstraintColumn id="errorCol" width="160"/>
             </s:constraintColumns>         
             <s:constraintRows>
-                <s:ConstraintRow id="row1" />
+                <s:ConstraintRow id="row1"/>
             </s:constraintRows>  
         </s:FormItemLayout>
     </s:layout>
-    
-    <s:Rect left="0" right="0" top="0" bottom="0">
+            
+    <!--- Defines the appearance of the FormItem's background. -->
+    <s:Rect id="background" left="0" right="0" top="0" bottom="0">
         <s:fill>
-            <s:SolidColor color="0x449922" color.errorStates="0xFFDDDD" alpha="0" alpha.requiredStates=".3" alpha.error=".2"/>
+            <!--- @private -->
+            <s:SolidColor id="bgFill" color="#FFFFFF"/>
         </s:fill>
     </s:Rect>
-
-            
-    <s:Label id="sequenceLabelDisplay" right="numCol:3" baseline="row1:24" />
-    <s:Label id="labelDisplay" left="labelCol:2" right="labelCol:2" baseline="row1:24" styleName="labelStyle"/>
-    <mx:Image source="@Embed(source='Assets.swf',symbol='mx.containers.FormItem.Required')" 
-              left="indicatorCol:3" right="indicatorCol:3" baseline="row1:24" visible="false" visible.requiredStates="true"/>
-    <s:Group id="contentGroup" left="contentCol:2" right="contentCol:2" baseline="row1:20" showErrorTip="false" showErrorSkin="true">
+    
+    <s:Label id="sequenceLabelDisplay" styleName="labelStyle" 
+             left="sequenceCol:4" right="sequenceCol:4"
+             top="row1:4" bottom="row1:4"
+             baseline="row1:18"/>
+    <s:Label id="labelDisplay" styleName="labelStyle"
+             left="labelCol:0" right="labelCol:5" 
+             top="row1:4" bottom="row1:4"
+             baseline="row1:18"/>  
+    <!-- Don't show the error tip on the content elements -->
+    <s:Group id="contentGroup" showErrorTip="false" showErrorSkin="true"
+             left="contentCol:0" right="contentCol:1" 
+             baseline="row1:18"
+             top="row1:4" bottom="row1:4">
         <s:layout>
             <s:VerticalLayout/>
         </s:layout>
     </s:Group>
-    <s:Group id="helpContentGroup" left="helpCol:5" right="helpCol:3" top="row1:0" bottom="row1:0"/>
-    <s:RichText id="errorTextDisplay" styleName="errorTextStyle" visible="false" visible.errorStates="true"
-                left="errorCol:5" right="errorCol:3" height="100%" baseline="row1:24" maxDisplayedLines="-1"/>    
-        
-</s:Skin>
+    <mx:Image source="@Embed(source='assets/RequiredIndicator.png')"
+              source.errorStates="@Embed(source='assets/ErrorIndicator.png')"
+              toolTip="Required" toolTip.errorStates=""
+              includeIn="requiredStates,errorStates" scaleContent="false"
+              baseline="row1:18"
+              x="{contentGroup.x + contentGroup.contentWidth + 3}"/>
+    <s:Group id="helpContentGroup" styleName="helpTextStyle" excludeFrom="errorStates"
+             left="helpCol:27" right="helpCol:4"
+             top="row1:4" bottom="row1:4"/>
+    <s:RichText id="errorTextDisplay" styleName="errorTextStyle" includeIn="errorStates"
+                left="helpCol:27" right="helpCol:4"
+                top="row1:4" bottom="row1:4"
+                baseline="row1:18" maxDisplayedLines="-1"/>    
+ </s:Skin>
