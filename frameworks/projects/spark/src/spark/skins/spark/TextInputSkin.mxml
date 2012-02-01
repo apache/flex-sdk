@@ -53,11 +53,8 @@
     
     <!-- border --> 
     <s:Rect left="0" right="0" top="0" bottom="0">
-        <s:stroke>            
-            <s:LinearGradientStroke rotation="90" weight="1">
-                <s:GradientEntry color="0x000000" alpha="0.5525" />
-                <s:GradientEntry color="0x000000" alpha="0.6375" />
-            </s:LinearGradientStroke>
+        <s:stroke>     
+            <s:SolidColorStroke color="0x686868" weight="1" />
         </s:stroke>
     </s:Rect>
 
