@@ -26,7 +26,7 @@ use namespace mx_internal;
 
 /**
  *  The Rect class is a filled graphic element that draws a rectangle.
- *  The corners of the rectangle can be rounded. The <code>drawElementent()</code> method
+ *  The corners of the rectangle can be rounded. The <code>drawElement()</code> method
  *  calls the <code>Graphics.drawRect()</code> and <code>Graphics.drawRoundRect()</code> 
  *  methods.
  * 
