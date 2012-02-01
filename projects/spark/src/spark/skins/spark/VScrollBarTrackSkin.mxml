@@ -24,13 +24,35 @@
         <State name="disabled" />
     </states>
 
+	<!-- border/fill -->
     <Rect top="0" bottom="0" left="0" right="0" minWidth="14" minHeight="14">
         <stroke>
-            <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
+            <SolidColorStroke color="0x686868" />
         </stroke>
         <fill>
-            <SolidColor color="0xDEECFF" color.disabled="0xEFF6FF" />
+            <SolidColor color="0xCACACA" />
         </fill>
     </Rect>
 
+	<!-- shadow -->
+	<Rect left="1" top="1" bottom="1" width="1">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.24" />
+		</fill>
+	</Rect>
+	<Rect left="2" top="1" bottom="1" width="1">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.12" />
+		</fill>
+	</Rect>
+	<Rect left="2" right="1" top="1" height="2">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.12" />
+		</fill>
+	</Rect>
+	<Rect left="2" right="1" bottom="1" height="3">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.12" />
+		</fill>
+	</Rect>
 </Skin>
