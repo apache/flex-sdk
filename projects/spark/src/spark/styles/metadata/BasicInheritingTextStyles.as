@@ -117,7 +117,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="fontLookup", type="String", enumeration="device,embeddedCFF", inherit="yes")]
+[Style(name="fontLookup", type="String", enumeration="device,embeddedCFF,auto", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontSize
