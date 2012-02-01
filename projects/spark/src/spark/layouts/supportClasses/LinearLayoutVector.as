@@ -35,6 +35,11 @@ import mx.resources.ResourceManager;
  * 
  *  Default major/minor sizes is used for items whose size hasn't 
  *  been specified.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 public final class LinearLayoutVector
 {
@@ -42,6 +47,11 @@ public final class LinearLayoutVector
      *  Specifies that the <code>majorAxis</code> is vertical.
      * 
      *  @see majorAxis
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const VERTICAL:uint = 0;
     
@@ -50,6 +60,11 @@ public final class LinearLayoutVector
      *  Specifies that the <code>majorAxis</code> is horizontal.
      * 
      *  @see majorAxis
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const HORIZONTAL:uint = 1;
 
@@ -59,6 +74,11 @@ public final class LinearLayoutVector
      * BLOCK_SHIFT is the power of 2 and BLOCK_MASK masks off as many 
      * low order bits.  The blockTable contains all of the allocated 
      * blocks and has length/BLOCK_SIZE elements which are allocated lazily.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     internal static const BLOCK_SIZE:uint = 128;
     internal static const BLOCK_SHIFT:uint = 7;
@@ -95,6 +115,11 @@ public final class LinearLayoutVector
      *  The number of item size valued elements.
      * 
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get length():uint
     {
@@ -125,6 +150,11 @@ public final class LinearLayoutVector
      * 
      *  @default 20
      *  @see #cacheDimensions
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get defaultMajorSize():Number
     {
@@ -153,6 +183,11 @@ public final class LinearLayoutVector
      *  @default 0
      *  @see #cacheDimensions
      *  @see majorAxis
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get minorSize():Number
     {
@@ -185,6 +220,11 @@ public final class LinearLayoutVector
      *  @default 0
      *  @see #cacheDimensions
      *  @see majorAxis
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get minMinorSize():Number
     {
@@ -211,6 +251,11 @@ public final class LinearLayoutVector
      * 
      *  @default VERTICAL
      *  @see #cacheDimensions
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get majorAxis():uint
     {
@@ -235,6 +280,11 @@ public final class LinearLayoutVector
      *  The distance between items.
      * 
      *  @default 6  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get gap():Number
     {
@@ -261,6 +311,11 @@ public final class LinearLayoutVector
      * 
      *  @param index The item's index.
      *  @see defaultMajorSize
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */      
     public function getMajorSize(index:uint):Number
     {
@@ -282,6 +337,11 @@ public final class LinearLayoutVector
      *  @param index The item's index.
      *  @param value The item's size.
      *  @see defaultMajorSize
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */      
     public function setMajorSize(index:uint, value:Number):void
     {
@@ -330,6 +390,11 @@ public final class LinearLayoutVector
      * 
      *  @param index The item's index.
      *  @see #end
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function start(index:uint):Number
     {
@@ -377,6 +442,11 @@ public final class LinearLayoutVector
      * 
      *  @param index The item's index.
      *  @see #start
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function end(index:uint):Number
     {
@@ -390,6 +460,11 @@ public final class LinearLayoutVector
      *  if <code>start(i) &lt;= distance &lt; end(i)</code>.
      * 
      *  If no such item exists, -1 is returned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function indexOf(distance:Number):int
     {
@@ -471,6 +546,11 @@ public final class LinearLayoutVector
      *  @see minorSize
      *  @see minMinorSize
      *  @see majorAxis
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function cacheDimensions(index:uint, elt:ILayoutElement):void
     {
@@ -510,6 +590,11 @@ public final class LinearLayoutVector
      * 
      *  @param index The item's index.
      *  @param bounds The Rectangle to return or null for a new Rectangle
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getBounds(index:uint, bounds:Rectangle = null):Rectangle
     {
