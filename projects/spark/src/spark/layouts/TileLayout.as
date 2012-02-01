@@ -1090,6 +1090,13 @@ public class TileLayout extends LayoutBase
             for (var index:int = visibleStartIndex; index <= visibleEndIndex; index++)
                 updateVirtualTileSize(target.getVirtualElementAt(index));
         }
+		
+		// Make sure that we always have non-NaN values in the cache, even
+		// when there are no elements.
+		if (isNaN(_tileWidthCached))
+			_tileWidthCached = 0;
+		if (isNaN(_tileHeightCached))
+			_tileHeightCached = 0;
         
         if (isNaN(_columnWidth))
             _columnWidth = _tileWidthCached;
