@@ -18,8 +18,8 @@ package spark.skins.spark
 {
 import flash.text.TextFieldAutoSize;
 
-import mx.core.mx_internal;
 import mx.core.UIFTETextField;
+import mx.core.mx_internal;
 import mx.styles.CSSMergedStyleDeclaration;
 import mx.styles.IStyleClient;
 import mx.styles.IStyleManager2;
@@ -101,12 +101,6 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  */
 public class DefaultGridItemRenderer extends UIFTETextField implements IGridItemRenderer, IStyleClient
 {
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Constructor.
-    //
-    //--------------------------------------------------------------------------
     
     /**
      *  Constructor.
