@@ -2277,11 +2277,13 @@ public class GraphicElement extends OnDemandEventDispatcher
 
         var oldValue:DisplayObject = _displayObject;
 
-        //esg: matrix3D's are owned by a DO, so we need to reclaim any
-        // matrix3D we might have assigned.
-        if(oldValue != null)
+        // If we owned the old display object and we have assigned a 3D matrix,
+        // clear it from the display object so that we can set it in the new
+        // display object. A Matrix3D object can't be used simultaneously with
+        // more than one display object.
+        if (oldValue && sharedIndex == -1)
             oldValue.transform.matrix3D = null;
-        
+
         _displayObject = value;
         dispatchPropertyChangeEvent("displayObject", oldValue, value);
 
