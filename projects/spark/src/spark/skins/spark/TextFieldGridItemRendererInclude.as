@@ -38,6 +38,7 @@ are identical, save the superclass and constructor names.  This file contains th
     import mx.styles.IStyleClient;
     import mx.styles.StyleProtoChain;
     
+    import spark.components.Grid;
     import spark.components.gridClasses.GridColumn;
     
     use namespace mx_internal;
@@ -119,6 +120,19 @@ are identical, save the superclass and constructor names.  This file contains th
         _column = value;
         dispatchChangeEvent("columnChanged");
     }
+
+    //----------------------------------
+    //  column
+    //----------------------------------
+
+    /**
+     *  @inheritDoc
+     */
+    public function get columnIndex():int
+    {
+        return (_column) ? _column.columnIndex : -1;
+    }
+
     
     //----------------------------------
     //  data
@@ -187,6 +201,23 @@ are identical, save the superclass and constructor names.  This file contains th
         _down = value;
         dispatchChangeEvent("downChanged");        
     }
+
+    //----------------------------------
+    //  grid
+    //----------------------------------
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
+     */
+    public function get grid():Grid
+    {
+        return (_column) ? _column.grid : null;
+    }   
 
     //----------------------------------
     //  hovered
