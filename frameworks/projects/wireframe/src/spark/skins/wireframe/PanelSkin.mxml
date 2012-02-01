@@ -69,7 +69,7 @@
     </s:Rect>
 	
 	<!-- layer 5: text -->
-	<s:SimpleText id="titleField" lineBreak="explicit"
+	<s:SimpleText id="titleDisplay" lineBreak="explicit"
 			 left="10" right="4" top="2" height="30"
 			 verticalAlign="middle" fontWeight="bold">
 	</s:SimpleText>
