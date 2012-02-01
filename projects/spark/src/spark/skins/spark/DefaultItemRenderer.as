@@ -30,6 +30,7 @@
 		<s:State name="normal"/>			
 		<s:State name="hovered"/>
 		<s:State name="selected"/>
+        <s:State name="caret"/>
 	</s:states>
 	
 	<s:Rect left="0" right="0" top="0" bottom="0">
@@ -42,6 +43,9 @@
 		<s:fill.selected>
 		    <s:SolidColor color="{selectionColor}" />
 		</s:fill.selected>
+        <s:stroke.caret>
+            <s:SolidColorStroke color="0xFFFF00" />
+        </s:stroke.caret>
 	</s:Rect>
 	<s:SimpleText id="labelElement" verticalCenter="0" left="3" right="3" top="6" bottom="4"/>
 
