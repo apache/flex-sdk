@@ -493,6 +493,30 @@ are identical, save the superclass and constructor names.  This file contains th
     }
 
     //----------------------------------
+    //  multiline
+    //----------------------------------
+    
+    private var multilineSet:Boolean = false;  // true if explicitly set
+    
+    /**
+     *  @private
+     */
+    override public function set multiline(value:Boolean):void
+    {
+        super.multiline = value;
+        multilineSet = true;        
+    }
+    
+    /**
+     *  @private
+     *  See updatePreferredSize().
+     */
+    private function setMultiline(value:Boolean):void
+    {
+        super.multiline = value;
+    }
+
+    //----------------------------------
     //  text
     //----------------------------------
 
@@ -597,9 +621,12 @@ are identical, save the superclass and constructor names.  This file contains th
         
         if (!wordWrapSet && column && column.grid)
             super.wordWrap = column.grid.variableRowHeight;
-        
-        if (getStyle("lineBreak") == "explicit")
-            multiline = _label.indexOf("\n") != -1;
+   
+        // Only automatically set multiline="true" if lineBreak="explicit" and the
+        // text actually contains a newline, since doing so is expensive.
+
+        if (!multilineSet && (getStyle("lineBreak") == "explicit"))
+            setMultiline(_label.indexOf("\n") != -1);
         
         text = _label;
         super.validateNow();
@@ -676,6 +703,8 @@ are identical, save the superclass and constructor names.  This file contains th
      */
     public function discard(hasBeenRecycled:Boolean):void
     {
+        setMultiline(false);
+        multilineSet = false;
     }    
     
     //--------------------------------------------------------------------------
