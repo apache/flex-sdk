@@ -51,7 +51,7 @@ public class TitleWindowBoundsEvent extends Event
      *       <code>myButton.addEventListener()</code> to register an event listener,
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
      *     <tr><td><code>beforeBounds</code></td><td>The starting bounds of the object.</td></tr>
-     *     <tr><td><code>afterBounds</code></td><td>The final bounds of the object.</td></tr>
+     *     <tr><td><code>afterBounds</code></td><td>null</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
      *       it is not always the Object listening for the event.
      *       Use the <code>currentTarget</code> property to always access the
