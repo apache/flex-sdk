@@ -15,6 +15,7 @@ package spark.layout.supportClasses
 [ExcludeClass]
 
 /**
+ *  @private
  *  Total "distance" for a Block is: sizesSum + (defaultCount * distanceVector.default).
  * 
  *  This class is essentially a C-struct.   If it was possible to make it a static
