@@ -94,17 +94,17 @@ public class BitmapGraphic extends GraphicElement
     //  resizeMode
     //----------------------------------
     /**
-     *  Documentation is not currently available.
+     *  The default state.
      */
     protected static const _NORMAL_UINT:uint = 0;
 
     /**
-     *  Documentation is not currently available.
+     *  Repeats the graphic.
      */
     protected static const _REPEAT_UINT:uint = 1;
 
     /**
-     *  Documentation is not currently available.
+     *  Scales the graphic.
      */
     protected static const _SCALE_UINT:uint = 2;
 
@@ -153,15 +153,17 @@ public class BitmapGraphic extends GraphicElement
     [Inspectable(category="General")]
     
     /**
-     *  The resizeMode determines how the bitmap fills in the dimensions.
+     *  The resizeMode determines how the bitmap fills in the dimensions. If you set the value
+     *  of this property in a tag, use the string (such as "Repeat"). If you set the value of 
+     *  this property in ActionScript, use the constant (such as <code>BitmapResizeMode.NORMAL</code>).
      * 
-     *  When set to <code>BitmapResizeMode.NORMAL</code>, the bitmap
+     *  When set to <code>BitmapResizeMode.NORMAL</code> ("Normal"), the bitmap
      *  ends at the edge of the region.
      * 
-     *  When set to <code>BitmapResizeMode.REPEAT</code>, the bitmap 
+     *  When set to <code>BitmapResizeMode.REPEAT</code> ("Repeat"), the bitmap 
      *  repeats to fill the region.
      *
-     *  When set to <code>BitmapResizeMode.SCALE</code>, the bitmap
+     *  When set to <code>BitmapResizeMode.SCALE</code> ("Scale"), the bitmap
      *  stretches to fill the region.
      * 
      *  @default <code>BitmapResizeMode.NORMAL</code>
@@ -171,6 +173,9 @@ public class BitmapGraphic extends GraphicElement
         return resizeModeToString(_resizeMode);
     }
     
+    /**
+     *  @private
+     */
     public function set resizeMode(mode:String):void
     {
         var value:uint = resizeModeToUINT(mode);
