@@ -347,7 +347,7 @@ public class StringTools extends GlobalizationBase
     }
 
     /**
-     *  @copy spark.globalization.supportClasses.CollatorBase#getAvailableLocaleIDNames
+     *  @copy spark.globalization.supportClasses.CollatorBase#getAvailableLocaleIDNames()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
