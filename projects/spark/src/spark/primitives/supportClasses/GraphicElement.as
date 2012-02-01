@@ -30,6 +30,7 @@ import mx.components.baseClasses.GroupBase;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.IInvalidating;
 import mx.core.IVisualElement;
+import mx.core.InvalidatingSprite;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -138,10 +139,10 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @private The Sprite to draw into. 
      *  If null, then we just use displayObject or sharedDisplayObject
      */
-	private var _drawnDisplayObject:Sprite;
+	private var _drawnDisplayObject:InvalidatingSprite;
 
     /**
-     *  @private
+     *  @private 
      *  Whether this element needs to have its
      *  commitProperties() method called.
      */
@@ -232,6 +233,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         {
             invalidateParentSizeAndDisplayList();
             invalidateProperties();
+            invalidateDisplayList();
         }
         if(layoutFeatures != null)
 	        layoutFeatures.updatePending = true;
@@ -1818,6 +1820,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         layoutFeatures.layer = value;  
         if(_host != null && _host is UIComponent)
             (_host as UIComponent).invalidateLayering();
+        invalidateProperties();
     }
 
     //----------------------------------
@@ -2025,16 +2028,15 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     protected function get drawX():Number
     {
-        // Draw position depends upon which coordinate space we are located in.
-        // TODO!!! We need to apply all of the transforms of our ancestors
-        if(displayObject != null)
-            return 0;
-        var result:Number = x;
+    	// If we have a display object and we might be shared, the display object 
+    	// gets moved to 0,0. Otherwise, use the x position plus the offset. 
+    	// (Note that in the first case, the offset is already calculated when the
+    	// layout matrix is applied to the display object). 
+    	if (displayObject != null && nextSiblingNeedsDisplayObject)
+    		return 0;
         if(layoutFeatures != null && layoutFeatures.offsets != null)
-            result +=  layoutFeatures.offsets.x;    
-        return (sharedDisplayObject && (sharedDisplayObject != parent)) ? 
-                    result - sharedDisplayObject.x : 
-                    result;
+            return x + layoutFeatures.offsets.x;
+		return x;
     }
     
     //----------------------------------
@@ -2046,14 +2048,15 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     protected function get drawY():Number
     {
-        // Draw position depends upon which coordinate space we are located in.
-        // TODO!!! We need to apply all of the transforms of our ancestors
-        if(displayObject != null)
-            return 0;
-        var result:Number = y;
+    	// If we have a display object and we might be shared, the display object 
+    	// gets moved to 0,0. Otherwise, use the x position plus the offset. 
+    	// (Note that in the first case, the offset is already calculated when the
+    	// layout matrix is applied to the display object). 
+    	if (displayObject != null && nextSiblingNeedsDisplayObject)
+    		return 0;
         if(layoutFeatures != null && layoutFeatures.offsets != null)
-            result +=  layoutFeatures.offsets.y;    
-        return sharedDisplayObject && sharedDisplayObject != parent ? result - sharedDisplayObject.y : result;
+            return y + layoutFeatures.offsets.y;    
+        return y;
     }
     
     //----------------------------------
@@ -2105,7 +2108,11 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (displayObject)
             return displayObject;
         
-        displayObject = new Sprite();
+        displayObject = new InvalidatingSprite();
+        InvalidatingSprite(displayObject).invalid = true;
+        
+        sharedDisplayObject = null;
+        
         return displayObject;
     }
     
@@ -2185,7 +2192,16 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set sharedDisplayObject(value:DisplayObject):void
     {
-        _sharedDisplayObject = value;
+    	if (value !== _sharedDisplayObject)
+    	{
+    		if (_sharedDisplayObject is InvalidatingSprite)
+    			InvalidatingSprite(_sharedDisplayObject).invalid = true;
+        	_sharedDisplayObject = value;
+        	// Invalidate the old _sharedDisplayObject before reassigning it to value
+        	// This should handle the case where value == null (ie. we are no longer sharing)
+        	// Also, instead of setting invalid flag, simply call invalidateDisplayList
+        	invalidateDisplayList();
+     	}
     }
     
     /**
@@ -2236,7 +2252,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         else
         {
             var oldDisplayObject:DisplayObject = displayObject;
-            displayObject = new Sprite();
+            displayObject = new InvalidatingSprite();
             invalidateDisplayList();
             validateDisplayList();
             
@@ -2373,12 +2389,16 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function invalidateDisplayList():void
     {
+    	// Mark all elements that share the display object as invalid.
+    	// Always set this because we might already be invalid when  
+    	// the drawnDisplayObject is set
+		if (drawnDisplayObject is InvalidatingSprite)
+			InvalidatingSprite(drawnDisplayObject).invalid = true;
+    	
         if (invalidateDisplayListFlag)
             return;
+            
         invalidateDisplayListFlag = true;
-
-        // TODO EGeorgie: make sure elements that share the display object
-        // will be invalidated as well.
 
         // TODO EGeorgie: hook up directly with the layout manager?
         if (parent)
@@ -2494,7 +2514,7 @@ public class GraphicElement extends OnDemandEventDispatcher
 		                if (!_drawnDisplayObject)
 						{
 							// Create a new target for the drawing commands
-							_drawnDisplayObject = new Sprite();
+							_drawnDisplayObject = new InvalidatingSprite();
 							Sprite(displayObject).addChild(_drawnDisplayObject);
 						}    	
 	                }
@@ -3131,6 +3151,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         layoutFeatures.layoutMatrix3D = value;
         invalidateTransform(previous != needsDisplayObject,
                             false /*triggerLayout*/);
+		invalidateDisplayList();
     }
 
     /**
@@ -3143,23 +3164,38 @@ public class GraphicElement extends OnDemandEventDispatcher
 
         if(displayObject == null)
             return;
-			                    
                                 
         if(layoutFeatures != null)
-        {
+        {        	
 	        if(layoutFeatures.is3D)
 	        {
 	            displayObject.transform.matrix3D = layoutFeatures.computedMatrix3D;             
 	        }
 	        else
 	        {
-	            displayObject.transform.matrix = layoutFeatures.computedMatrix;
+	        	var m:Matrix = layoutFeatures.computedMatrix.clone();
+	        	// If the displayObject is shared, then put it at 0,0
+	        	if (!nextSiblingNeedsDisplayObject)
+	        	{
+	        		m.tx = 0;
+	        		m.ty = 0;
+	        	}
+	            displayObject.transform.matrix = m;
 	        }
         }
-        else
+        else 
         {
-            displayObject.x = _x;
-            displayObject.y = _y;
+        	// If the displayObject is shared, then put it at 0,0
+        	if (nextSiblingNeedsDisplayObject)
+        	{
+        		displayObject.x = _x;
+        		displayObject.y = _y;	
+        	}
+        	else
+        	{
+        		displayObject.x = 0;
+        		displayObject.y = 0;	
+        	}
         }
         
         if (_colorTransform)
