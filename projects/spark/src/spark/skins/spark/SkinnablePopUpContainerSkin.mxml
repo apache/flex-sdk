@@ -82,7 +82,8 @@
             <s:Fade duration="150" target="{chrome}"/>
         </s:Transition>
     </s:transitions>
-    
+        
+    <!--- Defines the background and content group used by this skin. -->
     <s:Group id="chrome" left="0" right="0" top="0" bottom="0" visible.closedGroup="false">
 
         <!--- Defines the appearance of the SkinnablePopUpContainer class's background. -->
@@ -94,7 +95,7 @@
         </s:Rect>
         
         <!--
-        Note: setting the minimum size to 0 here so that changes to the host component's
+        Note: Setting the minimum size to 0 here so that changes to the host component's
         size will not be thwarted by this skin part's minimum size.   This is a compromise,
         more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
         -->
