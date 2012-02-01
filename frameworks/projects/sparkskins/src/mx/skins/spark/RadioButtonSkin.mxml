@@ -38,6 +38,15 @@
         /* Define the border items.*/
         static private const borderItem:Array = ["borderEntry1", "borderEntry2"];
         override protected function get borderItems():Array {return borderItem;}
+        
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useBaseColor = true;
+            super.initializationComplete();
+        }
     </fx:Script>
     
     <local:states>
