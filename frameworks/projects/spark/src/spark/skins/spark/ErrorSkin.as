@@ -27,7 +27,10 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 
 /**
- *  Error skin for Spark components.
+ *  The ErrorSkin class defines the error skin for Spark components.
+ *  Flex displays the error skin when a validation error occurs.
+ *
+ *  @see mx.validators.Validator
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -105,7 +108,7 @@ public class ErrorSkin extends UIComponent
     private var _errorObject:SkinnableComponent;
     
     /**
-     *  Object to draw the error glow around.  
+     *  The Spark component to draw the error skin around.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
