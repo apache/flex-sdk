@@ -21,23 +21,19 @@
         <State name="enabled"/>
         <State name="disabled"/>
     </states>
-
-	<content>
         
-		<Rect left="0" right="0" top="0" bottom="0">
-            <stroke>            
-                <SolidColorStroke color="0x000000" color.disabled="0xCCCCCC"/>
-            </stroke>
-            <fill>
-                <SolidColor color="0xFFFFFF"/>
-            </fill>
-        </Rect>
+	<Rect left="0" right="0" top="0" bottom="0">
+        <stroke>            
+            <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8"/>
+        </stroke>
+        <fill>
+            <SolidColor color="0xF1F7FF"/>
+        </fill>
+    </Rect>
 
-        <TextView id="textView" text="{hostComponent.text}"
-                  fontFamily="Arial" fontSize="11"
-                  color="0x444444" color.disabled="0xCCCCCC"
-				  left="1" right="1" top="1" bottom="1"/>
+    <TextView id="textView" text="{hostComponent.text}"
+              fontFamily="Arial" fontSize="11"
+              color="0x2B4381" color.disabled="0x95A1C0"
+			  left="1" right="1" top="1" bottom="1"/>
     
-	</content>
-
 </Skin>
