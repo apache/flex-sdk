@@ -92,7 +92,7 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  *
- *  @includeExample examples/NumberValidatorExample.mxml
+ *  @includeExample examples/NumberValidatorExample1.mxml
  *
  *  @see flash.globalization.NumberFormatter
  *
