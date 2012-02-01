@@ -27,7 +27,7 @@
 	<!-- border/fill -->
     <Rect top="0" bottom="0" left="0" right="0" minWidth="14" minHeight="14">
         <stroke>
-            <SolidColorStroke color="0x686868" />
+            <SolidColorStroke color="0x686868" weight="1"/>
         </stroke>
         <fill>
             <SolidColor color="0xCACACA" />
