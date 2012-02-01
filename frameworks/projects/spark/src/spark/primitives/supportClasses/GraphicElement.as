@@ -2874,7 +2874,7 @@ public class GraphicElement extends EventDispatcher
     {
         var result:Boolean = (alwaysCreateDisplayObject ||
         (_filters && _filters.length > 0) || 
-            _blendMode != BlendMode.NORMAL || _mask ||
+            (_blendMode != BlendMode.NORMAL && _blendMode != "auto") || _mask ||
             (layoutFeatures != null && (layoutFeatures.layoutScaleX != 1 || layoutFeatures.layoutScaleY != 1 || layoutFeatures.layoutScaleZ != 1 ||
             layoutFeatures.layoutRotationX != 0 || layoutFeatures.layoutRotationY != 0 || layoutFeatures.layoutRotationZ != 0 ||
             layoutFeatures.layoutZ  != 0)) ||  
