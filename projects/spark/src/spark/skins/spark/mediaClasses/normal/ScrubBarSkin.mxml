@@ -22,7 +22,7 @@
       alpha.disabled="0.5">
 
     <fx:Metadata>
-        [HostComponent("spark.components.VideoPlayerScrubBar")]
+        [HostComponent("spark.components.mediaClasses.ScrubBar")]
     </fx:Metadata> 
     
     <fx:Script>
@@ -59,7 +59,7 @@
     </fx:Declarations>
     
     <s:Button id="track" left="0" right="0" top="0" height="11"
-              skinClass="spark.skins.default.VideoPlayerScrubBarTrackSkin" />
+              skinClass="spark.skins.default.mediaClasses.normal.ScrubBarTrackSkin" />
 
     <s:Group id="bufferedArea" x="0" y="0" height="11" includeInLayout="false">
     
@@ -137,6 +137,6 @@
     </s:Group>
 
     <s:Button id="thumb" x="0" y="0" width="14" height="19" includeInLayout="false"
-              skinClass="spark.skins.default.VideoPlayerScrubBarThumbSkin" />
+              skinClass="spark.skins.default.mediaClasses.normal.ScrubBarThumbSkin" />
 
 </s:SparkSkin>
