@@ -20,7 +20,7 @@
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
       creationComplete="init()"
-      alpha.disabledStates="0.5"> <!-- TODO: value="{hostComponent.value}"> -->
+      alpha.disabled="0.5"> <!-- TODO: value="{hostComponent.value}"> -->
 
     <!-- host component -->
     <fx:Metadata>
@@ -44,6 +44,7 @@
             
             private function init():void
             {
+                volume = hostComponent.value;
                 hostComponent.addEventListener(FlexEvent.VALUE_COMMIT, valueCommitHandler);
             }
             
@@ -99,13 +100,9 @@
     <!-- states -->
     <s:states>
         <s:State name="up" />
-        <s:State name="over" stateGroups="overStates" />
-        <s:State name="down" stateGroups="downStates" />
-        <s:State name="disabled" stateGroups="disabledStates" />
-        <s:State name="upAndSelected" stateGroups="selectedStates, selectedUpStates" />
-        <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
-        <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
-        <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
+        <s:State name="over"/>
+        <s:State name="down" />
+        <s:State name="disabled" />
     </s:states>
         
     <!-- layer 1: fill -->
@@ -113,51 +110,51 @@
         <s:fill>
             <s:LinearGradient rotation="90">
                 <s:GradientEntry color="0xFFFFFF"
-                                 color.overStates="0xCACACA"
-                                 color.downStates="0xA8A8A8" />
+                                 color.over="0xCACACA"
+                                 color.down="0xA8A8A8" />
                 <s:GradientEntry color="0xDCDCDC"
-                                 color.overStates="0x8D8D8D" 
-                                 color.downStates="0x6B6B6B"/>
+                                 color.over="0x8D8D8D" 
+                                 color.down="0x6B6B6B"/>
             </s:LinearGradient>
         </s:fill>
     </s:Rect>
     
-    <!-- layer 2: One pixel stroke inside border (exclude in downStates) -->
-    <s:Rect left="1" right="1" top="1" bottom="1" excludeFrom="downStates">
+    <!-- layer 2: One pixel stroke inside border (exclude in down) -->
+    <s:Rect left="1" right="1" top="1" bottom="1" excludeFrom="down">
         <s:stroke>
             <s:LinearGradientStroke weight="1">
-                <s:GradientEntry color="0xFEFEFE" alpha.overStates="0.22" />
-                <s:GradientEntry color="0xEAEAEA" alpha.overStates="0.22" />
+                <s:GradientEntry color="0xFEFEFE" alpha.over="0.22" />
+                <s:GradientEntry color="0xEAEAEA" alpha.over="0.22" />
             </s:LinearGradientStroke>
         </s:stroke>
     </s:Rect>
     
-    <!-- layer 3: fill highlight  (exclude in downStates) -->
-    <s:Rect left="1" right="1" top="1" height="11" excludeFrom="downStates">
+    <!-- layer 3: fill highlight  (exclude in down) -->
+    <s:Rect left="1" right="1" top="1" height="11" excludeFrom="down">
         <s:fill>
             <s:SolidColor color="0xFFFFFF" 
                         alpha="0.3" 
-                        alpha.overStates="0.12" />
+                        alpha.over="0.12" />
         </s:fill>
     </s:Rect>
     
-    <!-- layer 4: downstate inset border  (include only in downStates) -->
-    <s:Rect left="1" top="1" right="1" height="1" includeIn="downStates">
+    <!-- layer 4: downstate inset border  (include only in down) -->
+    <s:Rect left="1" top="1" right="1" height="1" includeIn="down">
         <s:fill>
             <s:SolidColor color="0x000000" alpha="0.4" />
         </s:fill>
     </s:Rect>
-    <s:Rect left="1" top="2" right="1" height="1" includeIn="downStates">
+    <s:Rect left="1" top="2" right="1" height="1" includeIn="down">
         <s:fill>
             <s:SolidColor color="0x000000" alpha="0.12" />
         </s:fill>
     </s:Rect>
-    <s:Rect left="1" top="1" bottom="1" width="1" includeIn="downStates">
+    <s:Rect left="1" top="1" bottom="1" width="1" includeIn="down">
         <s:fill>
             <s:SolidColor color="0x000000" alpha="0.12" />
         </s:fill>
     </s:Rect>
-    <s:Rect right="1" top="1" bottom="1" width="1" includeIn="downStates">
+    <s:Rect right="1" top="1" bottom="1" width="1" includeIn="down">
         <s:fill>
             <s:SolidColor color="0x000000" alpha="0.12" />
         </s:fill>
