@@ -108,7 +108,7 @@ The default skin class for a Spark DataGrid component.
                 <s:itemRenderer>
                     <fx:Component>
                         <s:GridItemRenderer>
-                            <s:Label id="labelDisplay" paddingLeft="3" paddingRight="3" paddingBottom="5" paddingTop="10" width="100%"/> 
+                            <s:Label id="labelDisplay" paddingLeft="3" paddingRight="3" paddingBottom="5" paddingTop="10" width="100%" height="100%"/> 
                         </s:GridItemRenderer>
                     </fx:Component>
                 </s:itemRenderer>
