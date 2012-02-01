@@ -67,7 +67,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="leadingModel", type="String", enumeration="auto,romanUp,ideographicCenterDown,ideographicCenterUp,ideographicTopDown,ideographicTopUp", inherit="yes")]
+[Style(name="leadingModel", type="String", enumeration="auto,romanUp,ideographicTopUp,ideographicCenterUp,ideographicTopDown,ideographicCenterDown,ascentDescentUp", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphEndIndent
