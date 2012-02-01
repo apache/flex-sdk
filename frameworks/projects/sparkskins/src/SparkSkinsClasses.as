@@ -34,6 +34,7 @@ internal class SparkSkinsClasses
 	import mx.skins.spark.ComboBoxSkin; ComboBoxSkin;
 	import mx.skins.spark.DataGridHeaderBackgroundSkin; DataGridHeaderBackgroundSkin;
 	import mx.skins.spark.DataGridHeaderSeparatorSkin; DataGridHeaderSeparatorSkin;
+	import mx.skins.spark.DataGridSortArrow; DataGridSortArrow;
 	import mx.skins.spark.DateChooserNextMonthSkin; DateChooserNextMonthSkin;
 	import mx.skins.spark.DateChooserNextYearSkin; DateChooserNextYearSkin;
 	import mx.skins.spark.DateChooserPrevMonthSkin; DateChooserPrevMonthSkin;
@@ -43,6 +44,12 @@ internal class SparkSkinsClasses
 	import mx.skins.spark.DateChooserTodayIndicatorSkin; DateChooserTodayIndicatorSkin;
 	import mx.skins.spark.EditableComboBoxSkin; EditableComboBoxSkin;
 	import mx.skins.spark.LinkButtonSkin; LinkButtonSkin;
+	import mx.skins.spark.MenuArrow; MenuArrow;
+	import mx.skins.spark.MenuArrowDisabled; MenuArrowDisabled;
+	import mx.skins.spark.MenuCheck; MenuCheck;
+	import mx.skins.spark.MenuCheckDisabled; MenuCheckDisabled;
+	import mx.skins.spark.MenuRadio; MenuRadio;
+	import mx.skins.spark.MenuRadioDisabled; MenuRadioDisabled;
 	import mx.skins.spark.MenuItemSkin; MenuItemSkin;
 	import mx.skins.spark.MenuSeparatorSkin; MenuSeparatorSkin;
 	import mx.skins.spark.PanelBorderSkin; PanelBorderSkin;
