@@ -50,7 +50,7 @@
     </Group>
 
     <!-- Label -->
-    <TextBox text="{hostComponent.label}"
+    <TextBox id="labelField"
              fontFamily="Arial" fontSize="12"
              color="0x2B4381" color.disabledStates="0x95A1C0" 
              left="19" top="3" />
