@@ -28,14 +28,14 @@
     <!-- layer 1: fill -->
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:fill> 
-            <s:SolidColor color="0xE2EdF7" />
+            <s:SolidColor color="#EEEEEE" />
         </s:fill>
     </s:Rect>
     
     <!-- layer 2: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
     <s:Rect left="0" right="0" bottom="0" height="1">
         <s:fill>
-            <s:SolidColor color="0x5581D1" />
+            <s:SolidColor color="#A9A9A9" />
         </s:fill>
     </s:Rect>
     
