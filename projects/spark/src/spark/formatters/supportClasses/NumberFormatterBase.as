@@ -108,16 +108,31 @@ public class NumberFormatterBase extends GlobalizationBase
      *  Because it can be either type and they don't have common base except
      *  Object, it is defined as Object.
      */
-    mx_internal var g11nWorkingInstance:Object = null;
+    private var _g11nWorkingInstance:Object = null;
 
     /**
-    *  @private
-    *  Basic properies of the actual underlying working instance.
-    *
-    *  It can be flash.globalization.NumberFormatter/CurrencyFormatter OR
-    *  the fallback's propery set.
-    */
-    mx_internal var properties:Object = null;
+     *  @private
+     *  If the g11nWorkingInstance has not been defined. Call
+     *  ensureStyleSource to ensure that there is a styleParent. If there is
+     *  not a style parent, then this instance will be added as a style client
+     *  to the topLevelApplication. As a side effect of this, the styleChanged
+     *  method will be called and if there is a locale style defined for the
+     *  topLevelApplication, the createWorkingInstance method will be
+     *  executed creating a g11nWorkingInstance.
+     */
+    mx_internal function get g11nWorkingInstance ():Object
+    {
+        if (!_g11nWorkingInstance)
+            ensureStyleSource();
+        
+        return _g11nWorkingInstance;
+    }
+    
+    mx_internal function set g11nWorkingInstance 
+        (flashFormatter:Object): void 
+    {
+        _g11nWorkingInstance = flashFormatter;
+    }
 
     //--------------------------------------------------------------------------
     //
