@@ -1510,8 +1510,7 @@ public class LayoutBase extends OnDemandEventDispatcher
             return null;
         
         if (isNaN(topOffset) && isNaN(bottomOffset) && isNaN(leftOffset) && isNaN(rightOffset) &&
-            !elementLocalBounds &&
-            (scrollR.containsRect(elementR) || elementR.containsRect(scrollR)))
+            (scrollR.containsRect(elementR) || (!elementLocalBounds && elementR.containsRect(scrollR))))
             return null;
         
         var dxl:Number = elementR.left - scrollR.left;     // left justify element
