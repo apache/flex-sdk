@@ -163,16 +163,16 @@ public class BitmapImage extends GraphicElement
     
     /**
      *  The resizeMode determines how the bitmap fills in the dimensions. If you set the value
-     *  of this property in a tag, use the string (such as "Repeat"). If you set the value of 
+     *  of this property in a tag, use the string (such as "repeat"). If you set the value of 
      *  this property in ActionScript, use the constant (such as <code>BitmapImageResizeMode.NORMAL</code>).
      * 
-     *  When set to <code>BitmapImageResizeMode.NORMAL</code> ("Normal"), the bitmap
+     *  When set to <code>BitmapImageResizeMode.NORMAL</code> ("normal"), the bitmap
      *  ends at the edge of the region.
      * 
-     *  When set to <code>BitmapImageResizeMode.REPEAT</code> ("Repeat"), the bitmap 
+     *  When set to <code>BitmapImageResizeMode.REPEAT</code> ("repeat"), the bitmap 
      *  repeats to fill the region.
      *
-     *  When set to <code>BitmapImageResizeMode.SCALE</code> ("Scale"), the bitmap
+     *  When set to <code>BitmapImageResizeMode.SCALE</code> ("scale"), the bitmap
      *  stretches to fill the region.
      * 
      *  @default <code>BitmapImageResizeMode.NORMAL</code>
@@ -239,7 +239,7 @@ public class BitmapImage extends GraphicElement
     //  source
     //----------------------------------
 
-	private var _source:Object;
+    private var _source:Object;
 
     [Inspectable(category="General")]
 
@@ -325,8 +325,8 @@ public class BitmapImage extends GraphicElement
             }
             else if (value == null)
             {
-            	// This will set source to null
-            }	
+                // This will set source to null
+            }   
             else
             {
                 return;
@@ -339,10 +339,10 @@ public class BitmapImage extends GraphicElement
                 
                 if (tmpSprite.scale9Grid)
                 {
-	                _scaleGridLeft = tmpSprite.scale9Grid.left;
-	                _scaleGridRight = tmpSprite.scale9Grid.right;
-	                _scaleGridTop = tmpSprite.scale9Grid.top;
-	                _scaleGridBottom = tmpSprite.scale9Grid.bottom;
+                    _scaleGridLeft = tmpSprite.scale9Grid.left;
+                    _scaleGridRight = tmpSprite.scale9Grid.right;
+                    _scaleGridTop = tmpSprite.scale9Grid.top;
+                    _scaleGridBottom = tmpSprite.scale9Grid.bottom;
                 }
             }       
             
@@ -427,7 +427,7 @@ public class BitmapImage extends GraphicElement
             return;
             
         // The base GraphicElement class has cleared the graphics for us.    
-       	var g:Graphics = Sprite(drawnDisplayObject).graphics;
+        var g:Graphics = Sprite(drawnDisplayObject).graphics;
         
         g.lineStyle();
         var repeatBitmap:Boolean = false;
@@ -452,92 +452,92 @@ public class BitmapImage extends GraphicElement
             break;
         }
 
-		// If no scaleGrid is defined or if resizeMode != SCALE, just draw the entire rect
-		if (_resizeMode != _SCALE_UINT ||
-			isNaN(_scaleGridTop) ||
-			isNaN(_scaleGridBottom) ||
-			isNaN(_scaleGridLeft) ||
-			isNaN(_scaleGridRight))
-		{
-			matrix.identity();
-			matrix.scale(fillScaleX, fillScaleY);
-			matrix.translate(drawX, drawY);
-	        g.beginBitmapFill(_source as BitmapData, matrix, repeatBitmap, smooth);
+        // If no scaleGrid is defined or if resizeMode != SCALE, just draw the entire rect
+        if (_resizeMode != _SCALE_UINT ||
+            isNaN(_scaleGridTop) ||
+            isNaN(_scaleGridBottom) ||
+            isNaN(_scaleGridLeft) ||
+            isNaN(_scaleGridRight))
+        {
+            matrix.identity();
+            matrix.scale(fillScaleX, fillScaleY);
+            matrix.translate(drawX, drawY);
+            g.beginBitmapFill(_source as BitmapData, matrix, repeatBitmap, smooth);
         g.drawRect(drawX, drawY, unscaledWidth, unscaledHeight);
-	        g.endFill();
+            g.endFill();
     }
-		else
-		{   
+        else
+        {   
     
-			// If we have scaleGrid, we draw 9 sections, each with a different scale factor based 
-			// on the grid region.
-			
-			if (cachedSourceGrid == null)
-			{
-				// Generate the 16 points of the source (unscaled) grid
-				cachedSourceGrid = [];
-				cachedSourceGrid.push([new Point(0, 0), new Point(_scaleGridLeft, 0), 
-							    new Point(_scaleGridRight, 0), new Point(_source.width, 0)]);
-				cachedSourceGrid.push([new Point(0, _scaleGridTop), new Point(_scaleGridLeft, _scaleGridTop), 
-							    new Point(_scaleGridRight, _scaleGridTop), new Point(_source.width, _scaleGridTop)]);
-				cachedSourceGrid.push([new Point(0, _scaleGridBottom), new Point(_scaleGridLeft, _scaleGridBottom), 
-							    new Point(_scaleGridRight, _scaleGridBottom), new Point(_source.width, _scaleGridBottom)]);
-				cachedSourceGrid.push([new Point(0, _source.height), new Point(_scaleGridLeft, _source.height), 
-								new Point(_scaleGridRight, _source.height), new Point(_source.width, _source.height)]);						    
-			}
-			
-			if (cachedDestGrid == null || 
-				previousUnscaledWidth != unscaledWidth || 
-				previousUnscaledHeight != unscaledHeight)
-			{
-				// Generate teh 16 points of the destination (scaled) grid
-				var destScaleGridBottom:Number = unscaledHeight - (_source.height - _scaleGridBottom);
-				var destScaleGridRight:Number = unscaledWidth - (_source.width - _scaleGridRight);	    
-				cachedDestGrid = [];
-				cachedDestGrid.push([new Point(0, 0), new Point(_scaleGridLeft, 0), 
-							    new Point(destScaleGridRight, 0), new Point(unscaledWidth, 0)]);
-				cachedDestGrid.push([new Point(0, _scaleGridTop), new Point(_scaleGridLeft, _scaleGridTop), 
-							    new Point(destScaleGridRight, _scaleGridTop), new Point(unscaledWidth, _scaleGridTop)]);
-				cachedDestGrid.push([new Point(0, destScaleGridBottom), new Point(_scaleGridLeft, destScaleGridBottom), 
-							    new Point(destScaleGridRight, destScaleGridBottom), new Point(unscaledWidth, destScaleGridBottom)]);
-				cachedDestGrid.push([new Point(0, unscaledHeight), new Point(_scaleGridLeft, unscaledHeight), 
-							   new Point(destScaleGridRight, unscaledHeight), new Point(unscaledWidth, unscaledHeight)]);				  	  
-			}			    				    			    
+            // If we have scaleGrid, we draw 9 sections, each with a different scale factor based 
+            // on the grid region.
+            
+            if (cachedSourceGrid == null)
+            {
+                // Generate the 16 points of the source (unscaled) grid
+                cachedSourceGrid = [];
+                cachedSourceGrid.push([new Point(0, 0), new Point(_scaleGridLeft, 0), 
+                                new Point(_scaleGridRight, 0), new Point(_source.width, 0)]);
+                cachedSourceGrid.push([new Point(0, _scaleGridTop), new Point(_scaleGridLeft, _scaleGridTop), 
+                                new Point(_scaleGridRight, _scaleGridTop), new Point(_source.width, _scaleGridTop)]);
+                cachedSourceGrid.push([new Point(0, _scaleGridBottom), new Point(_scaleGridLeft, _scaleGridBottom), 
+                                new Point(_scaleGridRight, _scaleGridBottom), new Point(_source.width, _scaleGridBottom)]);
+                cachedSourceGrid.push([new Point(0, _source.height), new Point(_scaleGridLeft, _source.height), 
+                                new Point(_scaleGridRight, _source.height), new Point(_source.width, _source.height)]);                         
+            }
+            
+            if (cachedDestGrid == null || 
+                previousUnscaledWidth != unscaledWidth || 
+                previousUnscaledHeight != unscaledHeight)
+            {
+                // Generate teh 16 points of the destination (scaled) grid
+                var destScaleGridBottom:Number = unscaledHeight - (_source.height - _scaleGridBottom);
+                var destScaleGridRight:Number = unscaledWidth - (_source.width - _scaleGridRight);      
+                cachedDestGrid = [];
+                cachedDestGrid.push([new Point(0, 0), new Point(_scaleGridLeft, 0), 
+                                new Point(destScaleGridRight, 0), new Point(unscaledWidth, 0)]);
+                cachedDestGrid.push([new Point(0, _scaleGridTop), new Point(_scaleGridLeft, _scaleGridTop), 
+                                new Point(destScaleGridRight, _scaleGridTop), new Point(unscaledWidth, _scaleGridTop)]);
+                cachedDestGrid.push([new Point(0, destScaleGridBottom), new Point(_scaleGridLeft, destScaleGridBottom), 
+                                new Point(destScaleGridRight, destScaleGridBottom), new Point(unscaledWidth, destScaleGridBottom)]);
+                cachedDestGrid.push([new Point(0, unscaledHeight), new Point(_scaleGridLeft, unscaledHeight), 
+                               new Point(destScaleGridRight, unscaledHeight), new Point(unscaledWidth, unscaledHeight)]);                     
+            }                                                   
 
-	        var sourceSection:Rectangle = new Rectangle();
-	        var destSection:Rectangle = new Rectangle();
-	        
-	        // Iterate over the columns and rows. We draw each of the nine sections at a calculated
-	        // scale and translation.        
-        	for (var rowIndex:int=0; rowIndex < 3; rowIndex++) 
-        	{
-	        	for (var colIndex:int = 0; colIndex < 3; colIndex++) 
-	        	{	
-	                // Create the source and destination rectangles for the current section
-	                sourceSection.topLeft = cachedSourceGrid[rowIndex][colIndex];
-	                sourceSection.bottomRight = cachedSourceGrid[rowIndex+1][colIndex+1];
-	                
-	                destSection.topLeft = cachedDestGrid[rowIndex][colIndex];
-	                destSection.bottomRight = cachedDestGrid[rowIndex+1][colIndex+1];
-	                
-	                matrix.identity();
-	                // Scale the bitmap by the ratio between the source and destination dimensions
-	                matrix.scale(destSection.width / sourceSection.width, destSection.height / sourceSection.height);
-	                // Translate based on the difference between the source and destination coordinates,
-	                // making sure to account for the new scale.
-	                matrix.translate(destSection.x - sourceSection.x * matrix.a, destSection.y - sourceSection.y * matrix.d);
-	                matrix.translate(drawX, drawY);
-	                
-	                // Draw the bitmap for the current section
-	                g.beginBitmapFill(_source as BitmapData, matrix);
-	                g.drawRect(destSection.x + drawX, destSection.y + drawY, destSection.width, destSection.height);
-	                g.endFill();
-	             }
-	        }
-  		}
-  		
-  		previousUnscaledWidth = unscaledWidth;
-  		previousUnscaledHeight = unscaledHeight;
+            var sourceSection:Rectangle = new Rectangle();
+            var destSection:Rectangle = new Rectangle();
+            
+            // Iterate over the columns and rows. We draw each of the nine sections at a calculated
+            // scale and translation.        
+            for (var rowIndex:int=0; rowIndex < 3; rowIndex++) 
+            {
+                for (var colIndex:int = 0; colIndex < 3; colIndex++) 
+                {   
+                    // Create the source and destination rectangles for the current section
+                    sourceSection.topLeft = cachedSourceGrid[rowIndex][colIndex];
+                    sourceSection.bottomRight = cachedSourceGrid[rowIndex+1][colIndex+1];
+                    
+                    destSection.topLeft = cachedDestGrid[rowIndex][colIndex];
+                    destSection.bottomRight = cachedDestGrid[rowIndex+1][colIndex+1];
+                    
+                    matrix.identity();
+                    // Scale the bitmap by the ratio between the source and destination dimensions
+                    matrix.scale(destSection.width / sourceSection.width, destSection.height / sourceSection.height);
+                    // Translate based on the difference between the source and destination coordinates,
+                    // making sure to account for the new scale.
+                    matrix.translate(destSection.x - sourceSection.x * matrix.a, destSection.y - sourceSection.y * matrix.d);
+                    matrix.translate(drawX, drawY);
+                    
+                    // Draw the bitmap for the current section
+                    g.beginBitmapFill(_source as BitmapData, matrix);
+                    g.drawRect(destSection.x + drawX, destSection.y + drawY, destSection.width, destSection.height);
+                    g.endFill();
+                 }
+            }
+        }
+        
+        previousUnscaledWidth = unscaledWidth;
+        previousUnscaledHeight = unscaledHeight;
     }
 
 }
