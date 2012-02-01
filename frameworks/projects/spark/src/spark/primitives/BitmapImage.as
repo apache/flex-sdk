@@ -440,7 +440,7 @@ public class BitmapImage extends GraphicElement
      *  BitmapScaleMode.LETTERBOX.
      * 
      *  <p>Can be one of <code>HorizontalAlign.LEFT</code> ("left"),
-     *  <code>HorizontalAlign.RIGHT</code> ("left"), or 
+     *  <code>HorizontalAlign.RIGHT</code> ("right"), or 
      *  <code>HorizontalAlign.CENTER</code> ("center").</p>
      * 
      *  <p>This property is only applicable when fillMode is set to
@@ -839,7 +839,7 @@ public class BitmapImage extends GraphicElement
      *  a one-to-one aspect ratio and scaleMode is set to 
      *  BitmapScaleMode.LETTERBOX.
      * 
-     *  <p>Can be one of <code>VerticalAlign.TOP</code> ("left"),
+     *  <p>Can be one of <code>VerticalAlign.TOP</code> ("top"),
      *  <code>VerticalAlign.BOTTOM</code> ("bottom"), or 
      *  <code>VerticalAlign.MIDDLE</code> ("middle").</p>
      * 
