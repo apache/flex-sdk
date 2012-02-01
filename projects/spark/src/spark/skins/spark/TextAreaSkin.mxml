@@ -47,6 +47,12 @@
          * @inheritDoc
          */
         override public function get contentItems():Array {return contentFill};
+
+        /**
+         * @inheritDoc
+         */
+        override public function get focusSkinExclusions():Array { return [ textDisplay ] };
+
     </fx:Script>
     
     <s:states>
