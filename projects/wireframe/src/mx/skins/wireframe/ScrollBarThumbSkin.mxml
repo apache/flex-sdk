@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2009 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the thumb of the Halo ScrollBar component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+						>
+        
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+
+	<!-- background -->
+	<s:Rect left="0" top="0" right="0" bottom="0" minWidth="14" minHeight="14">
+		<s:stroke>
+			<s:SolidColorStroke color="0x3D5D92" />
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor color="0xFFFFFF" />
+		</s:fill>
+	</s:Rect>
+	
+	<!-- Gripper -->
+	<s:Group horizontalCenter="0" verticalCenter="-1">
+		<s:Rect width="6" height="7">
+			<s:fill>
+				<s:SolidColor color="0xFFFFFF"  />
+			</s:fill>
+		</s:Rect>
+		<s:Line yFrom="1" yTo="1" xFrom="0" xTo="6">
+			<s:stroke>
+				<s:SolidColorStroke color="0x3D5D92" pixelHinting="true" />
+			</s:stroke>
+		</s:Line>
+		<s:Line yFrom="4" yTo="4" xFrom="0" xTo="6">
+			<s:stroke>
+				<s:SolidColorStroke color="0x3D5D92" pixelHinting="true" />
+			</s:stroke>
+		</s:Line>
+		<s:Line yFrom="7" yTo="7" xFrom="0" xTo="6">
+			<s:stroke>
+				<s:SolidColorStroke color="0x3D5D92" pixelHinting="true" />
+			</s:stroke>
+		</s:Line>
+	</s:Group>
+</s:Skin>
