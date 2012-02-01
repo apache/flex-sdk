@@ -10,10 +10,15 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#blockProgression
- *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  Specifies a vertical or horizontal progression of line placement.
+ * 
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.blockProgression</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#blockProgression
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -22,9 +27,15 @@
 [Style(name="blockProgression", type="String", enumeration="tb,rl", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#breakOpportunity
- *  
- *  <p>This style is not supported in the mobile theme.</p>
+ *  Controls where lines are allowed to break when breaking wrapping text into multiple 
+ *  lines. 
+ * 
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.breakOpportunity</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#breakOpportunity
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -34,10 +45,15 @@
 [Style(name="breakOpportunity", type="String", enumeration="auto,all,any,none", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#clearFloats
- *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  Controls how text wraps around a float.
+ * 
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.clearFloats</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#clearFloats
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -46,10 +62,15 @@
 [Style(name="clearFloats", type="String", enumeration="start,end,left,right,both,none", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#firstBaselineOffset
- *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  Specifies the baseline position of the first line in the container.
+ * 
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.firstBaselineOffset</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#firstBaselineOffset
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -58,10 +79,16 @@
 [Style(name="firstBaselineOffset", type="Object", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#leadingModel
- *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  Specifies the leading model, which is a combination of leading basis and leading 
+ *  direction.
+ * 
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.leadingModel</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#leadingModel
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -70,10 +97,16 @@
 [Style(name="leadingModel", type="String", enumeration="auto,romanUp,ideographicTopUp,ideographicCenterUp,ideographicTopDown,ideographicCenterDown,ascentDescentUp,box", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#listAutoPadding
+ *  This specifies an auto indent for the start edge of lists when the padding value of 
+ *  the list on that side is <code>auto</code>.
  *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.listAutoPadding</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#listAutoPadding
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -82,10 +115,15 @@
 [Style(name="listAutoPadding", type="Number", format="length", inherit="yes", minValue="-1000", maxValue="1000")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#listStylePosition
+ *  This controls the placement of a list item marker relative to the list item.
  *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.listStylePosition</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#listStylePosition
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
@@ -94,10 +132,15 @@
 [Style(name="listStylePosition", type="String", enumeration="inside,outside", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#listStyleType
+ *  This controls the appearance of items in a list.
  *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.listStyleType</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#listStyleType
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
@@ -106,10 +149,15 @@
 [Style(name="listStyleType", type="String", enumeration="upperAlpha,lowerAlpha,upperRoman,lowerRoman,none,disc,circle,square,box,check,diamond,hyphen,arabicIndic,bengali,decimal,decimalLeadingZero,devanagari,gujarati,gurmukhi,kannada,persian,thai,urdu,cjkEarthlyBranch,cjkHeavenlyStem,hangul,hangulConstant,hiragana,hiraganaIroha,katakana,katakanaIroha,lowerGreek,lowerLatin,upperGreek,upperLatin", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphEndIndent
+ *  The amount to indent the paragraph's end edge.
  *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.paragraphEndIndent</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#paragraphEndIndent
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -118,10 +166,15 @@
 [Style(name="paragraphEndIndent", type="Number", format="length", inherit="yes", minValue="0.0")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphSpaceAfter
+ *  The amount of space to leave after the paragraph.
  *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.paragraphSpaceAfter</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#paragraphSpaceAfter
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -130,10 +183,15 @@
 [Style(name="paragraphSpaceAfter", type="Number", format="length", inherit="yes", minValue="0.0")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphSpaceBefore
+ *  The amount of space to leave before the paragraph.
  *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.paragraphSpaceBefore</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#paragraphSpaceBefore
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -142,10 +200,15 @@
 [Style(name="paragraphSpaceBefore", type="Number", format="length", inherit="yes", minValue="0.0")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphStartIndent
+ *  The amount to indent the paragraph's start edge.
  *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.paragraphStartIndent</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#paragraphStartIndent
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -154,10 +217,15 @@
 [Style(name="paragraphStartIndent", type="Number", format="length", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#tabStops
+ *  Specifies the tab stops associated with the paragraph.
  *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.tabStops</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#tabStops
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -166,14 +234,16 @@
 [Style(name="tabStops", type="String", inherit="yes")]
 
 /**
- *  Offset of first line of text from the left side of the container, in pixels.
+ *  Offset of first line of text from the left side of the container.
  * .
- *  <p><i>For the Mobile theme</i>, this property defaults to 0 and cannot be a negative 
- *  number.</p>
- * 
- *  <p><i>For the Spark theme:</i></p>
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.textIndent</b></p>
  *
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#textIndent
+ *  <p><b>For the Mobile theme, see
+ *  spark.components.supportClasses.StyleableTextField Style textIndent</b></p>
+ *
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#textIndent
+ *  @see spark.components.supportClasses.StyleableTextField#style:textIndent
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -183,10 +253,15 @@
 [Style(name="textIndent", type="Number", format="Length", inherit="yes", minValue="0.0")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#textRotation
+ *  Determines the number of degrees to rotate this text.
  *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.textRotation</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#textRotation
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -195,10 +270,15 @@
 [Style(name="textRotation", type="String", enumeration="auto,rotate0,rotate90,rotate180,rotate270", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#whiteSpaceCollapse
+ *  Collapses or preserves whitespace when importing text into a TextFlow.
  *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.whiteSpaceCollapse</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#whiteSpaceCollapse
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -206,12 +286,16 @@
  */
 [Style(name="whiteSpaceCollapse", type="String", enumeration="collapse,preserve", inherit="yes")]
 
-
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#wordSpacing
+ *  Specifies the spacing between words to use during justification. 
  *  
- *  <p>This style is not supported in the mobile theme.</p>
- *  
+ *  <p><b>For the Spark theme, see
+ *  flashx.textLayout.formats.ITextLayoutFormat.wordSpacing</b></p>
+ *
+ *  <p><b>For the Mobile theme, this is not supported.</b></p>
+ * 
+ *  @see flashx.textLayout.formats.ITextLayoutFormat#wordSpacing
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10.5
  *  @playerversion AIR 2.0
