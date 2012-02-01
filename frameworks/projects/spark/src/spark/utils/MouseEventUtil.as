@@ -15,8 +15,10 @@ package spark.utils
     import flash.events.Event;
     import flash.events.IEventDispatcher;
     import flash.events.MouseEvent;
-    
+    import flash.display.InteractiveObject;
+        
     import mx.core.UIComponent;
+    import mx.events.FlexMouseEvent;
     import mx.events.SandboxMouseEvent;
     
     [ExcludeClass]
@@ -133,12 +135,22 @@ package spark.utils
                 new RemoveHandlerEvent(handleDown, handleDrag, handleUp));
         }
         
-        //--------------------------------------------------------------------------
-        //
-        //  Class properties
-        //
-        //--------------------------------------------------------------------------
-                
+        /**
+         *  Create a 'mouseWheelChanging' FlexMouseEvent from a 'mouseWheel'
+         *  MouseEvent.
+         */
+        public static function createMouseWheelChangingEvent(event:MouseEvent):FlexMouseEvent
+        {
+            const flexEvent:FlexMouseEvent = new FlexMouseEvent(
+                FlexMouseEvent.MOUSE_WHEEL_CHANGING, 
+                true, true,     // bubbles and cancelable
+                event.localX, event.localY,
+                InteractiveObject(event.target),
+                event.ctrlKey, event.altKey, event.shiftKey,
+                event.buttonDown, event.delta);
+            
+            return flexEvent;
+        }        
     }
 }
 
