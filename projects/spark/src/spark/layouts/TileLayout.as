@@ -21,7 +21,40 @@ import mx.layout.LayoutBase;
 import mx.layout.VerticalAlign;
 
 /**
- *  Documentation is not currently available.
+ *  TileLayout arranges the layout elements in columns and rows
+ *  of equally-sized cells.
+ *
+ *  There are a number of properties that control orientation,
+ *  count, size, gap and justification of the columns and the rows
+ *  as well as element alignment within the cells.
+ *
+ *  Per-element supported constraints are percentWidth, percentHeight.
+ *  Element's minimum and maximum sizes will always be respected and
+ *  where possible, element's size will be limited to less then or equal
+ *  of the cell size.
+ *
+ *  When not explicitly set, the columnWidth is calculated as the maximum
+ *  preferred bounds width of all elements and the columnHeight is calculated
+ *  as the maximum preferred bounds height of all elements.
+ *
+ *  When not explicitly set, the columnCount and rowCount are calculated from
+ *  any explicit width/height settings for the layout target and columnWidth
+ *  and columnHeight.  In case none is specified, the coulumnCount and rowCount
+ *  values are picked so that the resulting pixel area is as square as possible.
+ * 
+ *  The measured size is calculated from the columnCount, rowCount, 
+ *  columnWidth, rowHeight and the gap sizes.
+ *
+ *  The default measured size, when no properties were explicitly set, is
+ *  as square as possible area and is enough to fit all elements.
+ *
+ *  In other cases the measured size may not be big enough to fit all elements -
+ *  for example when both columnCount and rowCount are explicitly set to values
+ *  such that columnCount * rowCount < element count.
+ *
+ *  The minimum measured size is calculated the same way as the measured size but
+ *  it's guaranteed to encompass enough rows/columns along the minor axis to fit
+ *  all elements.
  */
 public class TileLayout extends LayoutBase
 {
@@ -429,6 +462,7 @@ public class TileLayout extends LayoutBase
     //  justifyRows
     //----------------------------------
 
+    // TODO EGeorgie: add enum class
     private var _justifyRows:String = "none";
 
     [Inspectable(category="General")]
@@ -527,6 +561,13 @@ public class TileLayout extends LayoutBase
     private var oldHorizontalGap:Number = NaN;
     private var oldVerticalGap:Number = NaN;
 
+    // Cache storage to avoid repeating work from measure() in updateDisplayList().
+    // These are set the first time the value is calculated and are reset at the end
+    // of updateDisplayList().
+    private var _tileWidthCached:Number = NaN;
+    private var _tileHeightCached:Number = NaN;
+    private var _numLayoutElementsCached:int = -1;
+
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -572,10 +613,6 @@ public class TileLayout extends LayoutBase
      */
     protected function updateActualValues(width:Number, height:Number):void
     {
-        _columnWidth = _rowHeight = NaN;
-        _horizontalGap = _verticalGap = NaN;
-        _columnCount = _rowCount = -1;
-
         // First, figure the tile size
         calculateTileSize();
 
@@ -609,7 +646,7 @@ public class TileLayout extends LayoutBase
         }
 
         // Last, if we have explicit overrides for both rowCount and columnCount, then
-        // make sure that we can fit all the elements. If we need to, we will increase 
+        // make sure that we can fit all the elements. If we need to, we will increase
         // the count along the minor axis based on the element count
         // and the count along the major axis.
         // Note that we do this *after* justification is taken into account as we want to
@@ -631,6 +668,8 @@ public class TileLayout extends LayoutBase
      */
     private function calculateColumnAndRowCount(width:Number, height:Number, elementCount:int):void
     {
+        _columnCount = _rowCount = -1;
+
         if (-1 != explicitColumnCount || -1 != explicitRowCount)
         {
             if (-1 != explicitRowCount)
@@ -787,24 +826,33 @@ public class TileLayout extends LayoutBase
      */
     private function calculateTileSize():void
     {
-        _columnWidth = explicitColumnWidth;
-        _rowHeight = explicitRowHeight;
-
+        _columnWidth = _tileWidthCached;
+        _rowHeight = _tileHeightCached;
         if (!isNaN(_columnWidth) && !isNaN(_rowHeight))
             return;
 
-        // TODO EGeorgie: make sure we cache the values so that we don't calculate twice
-        // on measure and updateDisplayList
+        // Are both dimensions explicitly set?
+        _columnWidth = _tileWidthCached = explicitColumnWidth;
+        _rowHeight = _tileHeightCached = explicitRowHeight;
+        if (!isNaN(_columnWidth) && !isNaN(_rowHeight))
+            return;
+
+        // Find the maxmimums of element's preferred sizes
         var columnWidth:Number = 0;
         var rowHeight:Number = 0;
 
         var layoutTarget:GroupBase = target;
         var count:int = layoutTarget.numLayoutElements;
+        // Remember the number of includeInLayout elements
+        _numLayoutElementsCached = count;
         for (var i:int = 0; i < count; i++)
         {
             var el:ILayoutElement = layoutTarget.getLayoutElementAt(i);
             if (!el || !el.includeInLayout)
+            {
+                _numLayoutElementsCached--;
                 continue;
+            }
 
             if (isNaN(_columnWidth))
                 columnWidth = Math.max(columnWidth, el.getPreferredBoundsWidth());
@@ -813,9 +861,9 @@ public class TileLayout extends LayoutBase
         }
 
         if (isNaN(_columnWidth))
-            _columnWidth = columnWidth;
+            _columnWidth = _tileWidthCached = columnWidth;
         if (isNaN(_rowHeight))
-            _rowHeight = rowHeight;
+            _rowHeight = _tileHeightCached = rowHeight;
     }
 
     /**
@@ -824,10 +872,20 @@ public class TileLayout extends LayoutBase
      */
     private function calculateElementCount():int
     {
-        // TODO EGeorgie: make sure we cache the values so that we don't calculate twice
-        // on measure and updateDisplayList.
-        // TODO EGeorgie: subtract number of "includeInLayout==false" elements.
-        return target.numLayoutElements;
+        if (-1 != _numLayoutElementsCached)
+            return _numLayoutElementsCached;
+
+        var layoutTarget:GroupBase = target;
+        var count:int = layoutTarget.numLayoutElements;
+        _numLayoutElementsCached = count;
+        for (var i:int = 0; i < count; i++)
+        {
+            var el:ILayoutElement = layoutTarget.getLayoutElementAt(i);
+            if (!el || !el.includeInLayout)
+                _numLayoutElementsCached--;
+        }
+
+        return _numLayoutElementsCached;
     }
 
     /**
@@ -848,24 +906,29 @@ public class TileLayout extends LayoutBase
         var childHeight:Number = NaN;
 
         // Determine size of the element
-        // TODO EGeorgie: Should we respect minimum element width?
-        if (!isNaN(element.percentWidth))
-            childWidth = Math.round(cellWidth * Math.min(100, element.percentWidth) / 100);
-
-        // TODO EGeorgie: Should we respect minimum element height?
-        if (!isNaN(element.percentHeight))
-            childHeight = Math.round(cellHeight * Math.min(100, element.percentHeight) / 100);
-
         if (elementHorizontalAlign == "justify")
             childWidth = cellWidth;
+        else if (!isNaN(element.percentWidth))
+            childWidth = Math.round(cellWidth * element.percentWidth * 0.01);
+        else
+            childWidth = element.getPreferredBoundsWidth();
+
         if (elementVerticalAlign == "justify")
             childHeight = cellHeight;
+        else if (!isNaN(element.percentHeight))
+            childHeight = Math.round(cellHeight * element.percentHeight * 0.01);
+        else
+            childHeight = element.getPreferredBoundsHeight();
 
-        // TODO EGeorgie: compare childWidth/childHeight against min/max.
-        // The cell size should be a maximum for the element (in cases where the cell has explicit width/height).
+        // Enforce min and max limits
+        var maxChildWidth:Number = Math.min(element.getMaxBoundsWidth(), _columnWidth);
+        var maxChildHeight:Number = Math.min(element.getMaxBoundsHeight(), _rowHeight);
+        // Make sure we enforce element's minimum last, since it has the highest priority
+        childWidth = Math.max(element.getMinBoundsWidth(), Math.min(maxChildWidth, childWidth));
+        childHeight = Math.max(element.getMinBoundsHeight(), Math.min(maxChildHeight, childHeight));
 
         // Size the element
-        element.setLayoutBoundsSize(childWidth, childHeight, true /*postTransform*/);
+        element.setLayoutBoundsSize(childWidth, childHeight);
 
         var x:Number = cellX;
         switch (elementHorizontalAlign)
@@ -896,26 +959,26 @@ public class TileLayout extends LayoutBase
     }
 
     /**
-     *  @private 
-     *  @return Returns the x coordinate of the left edge for the specified column.  
+     *  @private
+     *  @return Returns the x coordinate of the left edge for the specified column.
      */
     final private function leftEdge(columnIndex:int):Number
     {
         return Math.max(0, columnIndex * (_columnWidth + _horizontalGap));
     }
-    
+
     /**
-     *  @private 
-     *  @return Returns the x coordinate of the right edge for the specified column.  
+     *  @private
+     *  @return Returns the x coordinate of the right edge for the specified column.
      */
     final private function rightEdge(columnIndex:int):Number
     {
         return Math.min(target.contentWidth, columnIndex * (_columnWidth + _horizontalGap) + _columnWidth);
     }
-    
+
     /**
-     *  @private 
-     *  @return Returns the y coordinate of the top edge for the specified row.  
+     *  @private
+     *  @return Returns the y coordinate of the top edge for the specified row.
      */
     final private function topEdge(rowIndex:int):Number
     {
@@ -923,14 +986,14 @@ public class TileLayout extends LayoutBase
     }
 
     /**
-     *  @private 
-     *  @return Returns the y coordinate of the bottom edge for the specified row.  
+     *  @private
+     *  @return Returns the y coordinate of the bottom edge for the specified row.
      */
     final private function bottomEdge(rowIndex:int):Number
     {
         return Math.min(target.contentHeight, rowIndex * (_rowHeight + _verticalGap) + _rowHeight);
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Overriden methods from LayoutBase
@@ -949,15 +1012,15 @@ public class TileLayout extends LayoutBase
         updateActualValues(layoutTarget.explicitWidth, layoutTarget.explicitHeight);
 
         // For measure, any explicit overrides for rowCount and columnCount take precedence
-        var columnCount:int = explicitColumnCount != -1 ? explicitColumnCount : _columnCount;
-        var rowCount:int = explicitRowCount != -1 ? explicitRowCount : _rowCount;
+        var columnCount:int = explicitColumnCount != -1 ? Math.max(1, explicitColumnCount) : _columnCount;
+        var rowCount:int = explicitRowCount != -1 ? Math.max(1, explicitRowCount) : _rowCount;
 
         layoutTarget.measuredWidth = Math.round(columnCount * (_columnWidth + _horizontalGap) - _horizontalGap);
         layoutTarget.measuredHeight = Math.round(rowCount * (_rowHeight + _verticalGap) - _verticalGap);
 
-        // Minimum size is just enough to display a single cell
-        layoutTarget.measuredMinWidth = Math.round(_columnWidth);
-        layoutTarget.measuredMinHeight = Math.round(_rowHeight);
+        // measured min size is guaranteed to have enough rows/columns to fit all elements
+        layoutTarget.measuredMinWidth = Math.round(_columnCount * (_columnWidth + _horizontalGap) - _horizontalGap);
+        layoutTarget.measuredMinHeight = Math.round(_rowCount * (_rowHeight + _verticalGap) - _verticalGap);
     }
 
     /**
@@ -1044,13 +1107,17 @@ public class TileLayout extends LayoutBase
         layoutTarget.setContentSize(Math.round(_columnCount * (_columnWidth + _horizontalGap) - _horizontalGap),
                                     Math.round(_rowCount * (_rowHeight + _verticalGap) - _verticalGap));
 
+        // Reset the cache
+        _tileWidthCached = _tileHeightCached = NaN;
+        _numLayoutElementsCached = -1;
+
         // If actual values have chnaged, notify listeners
         dispatchEventsForActualValueChanges();
     }
 
     /**
-     *  @private 
-     */    
+     *  @private
+     */
     override protected function elementBoundsLeftOfScrollRect(scrollRect:Rectangle):Rectangle
     {
         var bounds:Rectangle = new Rectangle();
@@ -1059,11 +1126,11 @@ public class TileLayout extends LayoutBase
         bounds.left = leftEdge(column);
         bounds.right = rightEdge(column);
         return bounds;
-    } 
+    }
 
     /**
-     *  @private 
-     */    
+     *  @private
+     */
     override protected function elementBoundsRightOfScrollRect(scrollRect:Rectangle):Rectangle
     {
         var bounds:Rectangle = new Rectangle();
@@ -1072,11 +1139,11 @@ public class TileLayout extends LayoutBase
         bounds.left = leftEdge(column);
         bounds.right = rightEdge(column);
         return bounds;
-    } 
+    }
 
     /**
-     *  @private 
-     */    
+     *  @private
+     */
     override protected function elementBoundsAboveScrollRect(scrollRect:Rectangle):Rectangle
     {
         var bounds:Rectangle = new Rectangle();
@@ -1085,11 +1152,11 @@ public class TileLayout extends LayoutBase
         bounds.top = topEdge(row);
         bounds.bottom = bottomEdge(row);
         return bounds;
-    } 
+    }
 
     /**
-     *  @private 
-     */    
+     *  @private
+     */
     override protected function elementBoundsBelowScrollRect(scrollRect:Rectangle):Rectangle
     {
         var bounds:Rectangle = new Rectangle();
@@ -1098,6 +1165,6 @@ public class TileLayout extends LayoutBase
         bounds.top = topEdge(row);
         bounds.bottom = bottomEdge(row);
         return bounds;
-    } 
+    }
 }
 }
