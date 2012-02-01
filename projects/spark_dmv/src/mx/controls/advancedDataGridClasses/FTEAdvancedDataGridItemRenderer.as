@@ -18,7 +18,6 @@ import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
 import flash.utils.getQualifiedSuperclassName;
 
-import mx.controls.AdvancedDataGrid;
 import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
@@ -128,6 +127,11 @@ public class FTEAdvancedDataGridItemRenderer extends UIFTETextField
      *  @private
      */
     private var invalidateSizeFlag:Boolean = false;
+	
+	/**
+	 *  @private
+	 */
+	private var dataIsColumn:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -193,6 +197,14 @@ public class FTEAdvancedDataGridItemRenderer extends UIFTETextField
     public function set data(value:Object):void
     {
         _data = value;
+		
+		if (value != null)
+		{
+			// set it to false here as item renderers are re-used
+			dataIsColumn = false;
+			if (getQualifiedClassName(value) == "mx.controls.advancedDataGridClasses::AdvancedDataGridColumn")
+				dataIsColumn = true;
+		}
 
         dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
     }
@@ -204,7 +216,7 @@ public class FTEAdvancedDataGridItemRenderer extends UIFTETextField
     /**
      *  @private
      */
-    private var _listData:AdvancedDataGridListData;
+    private var _listData:BaseListData;
 
     [Bindable("dataChange")]
     
@@ -231,7 +243,7 @@ public class FTEAdvancedDataGridItemRenderer extends UIFTETextField
      */
     public function set listData(value:BaseListData):void
     {
-        _listData = AdvancedDataGridListData(value);
+        _listData = value;
         if (nestLevel && !invalidatePropertiesFlag)
         {
             UIComponentGlobals.layoutManager.invalidateProperties(this);
@@ -296,13 +308,14 @@ public class FTEAdvancedDataGridItemRenderer extends UIFTETextField
     {
         if (data && parent)
         {
+			var adg:Object = _listData.owner;
             var newColor:Number;
 
-            if (AdvancedDataGrid(_listData.owner).isItemHighlighted(_listData.uid))
+            if (adg.isItemHighlighted(_listData.uid))
             {
                 newColor = getStyle("textRollOverColor");
             }
-            else if (AdvancedDataGrid(_listData.owner).isItemSelected(_listData.uid))
+            else if (adg.isItemSelected(_listData.uid))
             {
                 newColor = getStyle("textSelectedColor");
             }
@@ -444,19 +457,19 @@ public class FTEAdvancedDataGridItemRenderer extends UIFTETextField
         invalidatePropertiesFlag = false;
         if (_listData)
         {
-            var dg:AdvancedDataGrid = AdvancedDataGrid(_listData.owner);
+            var dg:Object = _listData.owner;
 
-            var column:AdvancedDataGridColumn =
+            var column:Object =
                 dg.columns[_listData.columnIndex];
 
             text = _listData.label;
             
-            if (_data is AdvancedDataGridColumn)
+            if (dataIsColumn)
                 wordWrap = dg.columnHeaderWordWrap(column);
             else
                 wordWrap = dg.columnWordWrap(column);
             
-            if (AdvancedDataGrid(_listData.owner).variableRowHeight)
+            if (dg.variableRowHeight)
                 multiline = true;
             
             var dataTips:Boolean = dg.showDataTips;
@@ -466,7 +479,7 @@ public class FTEAdvancedDataGridItemRenderer extends UIFTETextField
                 dataTips = false;
             if (dataTips)
             {
-                if (!(_data is AdvancedDataGridColumn) && (textWidth > width 
+                if (!dataIsColumn && (textWidth > width 
                     || column.dataTipFunction || column.dataTipField 
                     || dg.dataTipFunction || dg.dataTipField))
                 {
