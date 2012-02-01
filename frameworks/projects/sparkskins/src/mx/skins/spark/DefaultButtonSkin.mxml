@@ -21,12 +21,19 @@
       @playerversion AIR 1.5
       @productversion Flex 4
 -->
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+<local:SparkSkinForHalo xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+      xmlns:local="mx.skins.spark.*"
       minWidth="21" minHeight="19" 
-      alpha.disabled="0.5">
+      alpha.disabledStates="0.5">
 
     <fx:Script>
         <![CDATA[
+            /* Define the border items.*/
+            static private const borderItem:Array = ["borderEntry1", "borderEntry2"];
+            /**
+             * @private
+             */
+            override protected function get borderItems():Array {return borderItem;}
         
             /**
              * @private
@@ -80,7 +87,7 @@
     </fx:Script>
     
     <!-- states -->
-    <s:states>
+    <local:states>
         <s:State name="up" />
         <s:State name="over" stateGroups="overStates" />
         <s:State name="down" stateGroups="downStates" />
@@ -89,7 +96,7 @@
         <s:State name="selectedOver" stateGroups="overStates, selectedStates" />
         <s:State name="selectedDown" stateGroups="downStates, selectedStates" />
         <s:State name="selectedDisabled" stateGroups="selectedUpStates, disabledStates, selectedStates" />
-    </s:states>
+    </local:states>
     
     <!-- layer 1: shadow -->
     <!--- @private -->
@@ -207,11 +214,15 @@
     <s:Rect id="border" left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
-                <s:GradientEntry color="0x000000" 
+                <!--- @private -->
+                <s:GradientEntry id="borderEntry1" 
+                               color="0x000000" 
                                alpha="0.5625"
                                alpha.down="0.6375"
                                alpha.selectedStates="0.6375" />
-                <s:GradientEntry color="0x000000" 
+                <!--- @private -->
+                <s:GradientEntry id="borderEntry2" 
+                               color="0x000000" 
                                alpha="0.75" 
                                alpha.down="0.85"
                                alpha.selectedStates="0.85" />
@@ -219,4 +230,4 @@
         </s:stroke>
     </s:Rect>
     
-</s:SparkSkin>
+</local:SparkSkinForHalo>
