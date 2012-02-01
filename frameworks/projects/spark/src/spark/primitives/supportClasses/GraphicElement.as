@@ -2565,6 +2565,14 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set sharedIndex(value:int):void
     {
+        if (value != _sharedIndex && (value <= 0 || _sharedIndex <= 0))
+        {
+            // If the element was previously at the head of the shared sequence or
+            // it is assigned to be at the head, make sure to reapply the 
+            // displayObject specific properties.
+            displayObjectChanged = true;
+            invalidateProperties();            
+        }
         _sharedIndex = value;
     }
 
@@ -3037,8 +3045,10 @@ public class GraphicElement extends OnDemandEventDispatcher
             }
             
             // If we don't share the DisplayObject, set the property directly.
-            if (displayObjectChanged && sharedIndex == -1)
-                displayObject.visible = _visible;
+            // If displayObject has changed and we're sharing, then ensure
+            // the visible property is set to true.
+            if (displayObjectChanged)
+                displayObject.visible = (sharedIndex == -1) ? _visible : true;
 
             updateTransform = true;
             displayObjectChanged = false;
