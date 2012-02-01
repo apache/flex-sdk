@@ -16,6 +16,7 @@ import flash.utils.describeType;
 
 import flashx.textLayout.elements.FlowLeafElement;
 import flashx.textLayout.elements.ParagraphElement;
+import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.formats.ICharacterFormat;
 import flashx.textLayout.formats.IContainerFormat;
@@ -138,6 +139,47 @@ public class TextUtil
         }
 
         return text;
+    }
+
+    /**
+     *  @private
+     */
+    public static function obscureTextFlow(textFlow:TextFlow,
+                                           obscurationChar:String):void
+    {
+        for (var leaf:FlowLeafElement = textFlow.getFirstLeaf();
+             leaf;
+             leaf = leaf.getNextLeaf())
+        {
+            if (leaf is SpanElement)
+            {
+                var leafText:String = SpanElement(leaf).text;
+                if (leafText)
+                {
+                	SpanElement(leaf).text = StringUtil.repeat(
+                		obscurationChar, leafText.length);
+                }
+            }
+        }
+    }
+
+    /**
+     *  @private
+     */
+    public static function unobscureTextFlow(textFlow:TextFlow,
+                                             text:String):void
+    {
+        for (var leaf:FlowLeafElement = textFlow.getFirstLeaf();
+             leaf;
+             leaf = leaf.getNextLeaf())
+        {
+            if (leaf is SpanElement)
+            {
+                var t:String = text.substring(leaf.getAbsoluteStart(),
+                                              leaf.textLength);
+                SpanElement(leaf).text = t;
+            }
+        }
     }
 }
 
