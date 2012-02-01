@@ -13,6 +13,10 @@
 
 <Skin xmlns="http://ns.adobe.com/mxml/2009">
 
+    <Metadata>
+    	[HostComponent("flex.component.TextInput")]
+    </Metadata> 
+    
     <states>
         <State name="enabled"/>
         <State name="disabled"/>
