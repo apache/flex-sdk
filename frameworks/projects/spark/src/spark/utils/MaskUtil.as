@@ -17,6 +17,7 @@ import flash.display.DisplayObjectContainer;
 import flash.filters.ShaderFilter;
 
 import mx.core.UIComponent;
+import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.graphics.shaderClasses.LuminosityMaskShader;
 import mx.graphics.shaderClasses.LuminosityShader;
@@ -108,9 +109,9 @@ public class MaskUtil
                     UIComponent(parent).childAdded(maskComp);
                 }
                 
-                // Size the mask so that it actually renders
-                maskComp.validateProperties();
-                maskComp.validateSize();
+                // Size the mask including its children so that it actually 
+                // renders.
+                UIComponentGlobals.layoutManager.validateClient(maskComp, true);
                 
                 // Call this to force the mask to complete initialization
                 maskComp.invalidateDisplayList();
