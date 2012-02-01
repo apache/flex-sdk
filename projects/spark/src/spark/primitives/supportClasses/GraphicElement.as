@@ -1458,6 +1458,12 @@ public class GraphicElement extends EventDispatcher
 	{
 		return layoutFeatures.layoutMatrix3D;			
 	}
+	
+	public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
+	{
+		layoutFeatures.transformAround(rx,ry,rz,sx,sy,sz,tx,ty,tz,true);
+		invalidateTransform();
+	}		
 
     //----------------------------------
     //  transformX
