@@ -51,9 +51,9 @@ public class RendererExistenceEvent extends Event
      *       event listener that handles the event. For example, if you use 
      *       <code>myButton.addEventListener()</code> to register an event listener, 
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>data</code></td><td>The data object that the renderer
+     *     <tr><td><code>data</code></td><td>The data item that the renderer
      *       is visualizing.</td></tr>
-     *     <tr><td><code>index</code></td><td>The dataProvider index for the 
+     *     <tr><td><code>index</code></td><td>The data provider index for the 
      *       renderer that was added.</td></tr>
      *     <tr><td><code>renderer</code></td><td>Contains a reference
      *         to the renderer that was added</td></tr>
@@ -86,9 +86,9 @@ public class RendererExistenceEvent extends Event
      *       event listener that handles the event. For example, if you use 
      *       <code>myButton.addEventListener()</code> to register an event listener, 
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>data</code></td><td>The data object that the renderer
+     *     <tr><td><code>data</code></td><td>The data item that the renderer
      *       was visualizing.</td></tr>
-     *     <tr><td><code>index</code></td><td>The dataProvider index for the 
+     *     <tr><td><code>index</code></td><td>The data provider index for the 
      *       renderer that is being removed.</td></tr>
      *     <tr><td><code>renderer</code></td><td>Contains a reference
      *        to the renderer that is about to be removed.</td></tr>
@@ -122,11 +122,11 @@ public class RendererExistenceEvent extends Event
      *
      *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
      *
-     *  @param renderer Reference to the renderer that was added or removed.
+     *  @param renderer Reference to the item renderer that was added or removed.
      * 
      *  @param index The index in the data provider where the renderer was added or removed.
      * 
-     *  @param data The data object that the renderer is visualizing.
+     *  @param data The data item that the renderer is visualizing.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -171,7 +171,7 @@ public class RendererExistenceEvent extends Event
     //----------------------------------
 
     /**
-     *  The index where the item renderer was added or removed
+     *  The index where the item renderer was added or removed.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
