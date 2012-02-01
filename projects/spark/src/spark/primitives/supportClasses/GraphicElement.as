@@ -3282,8 +3282,9 @@ public class GraphicElement extends EventDispatcher
     mx_internal function dispatchPropertyChangeEvent(prop:String, oldValue:*,
                                                    value:*):void
     {
-        dispatchEvent(PropertyChangeEvent.createUpdateEvent(
-                           this, prop, oldValue, value));
+        if (hasEventListener("propertyChange"))
+            dispatchEvent(PropertyChangeEvent.createUpdateEvent(
+                this, prop, oldValue, value));
 
     }
 
@@ -3932,7 +3933,8 @@ public class GraphicElement extends EventDispatcher
      */
     private function dispatchUpdateComplete():void
     {
-        dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
+        if (hasEventListener(FlexEvent.UPDATE_COMPLETE))
+            dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
     }
 
     //--------------------------------------------------------------------------
