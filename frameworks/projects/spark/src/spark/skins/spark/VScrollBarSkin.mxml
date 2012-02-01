@@ -14,6 +14,10 @@
 <Skin xmlns="http://ns.adobe.com/mxml/2009"
       width="16" height="120">
 
+    <Metadata>
+    	[HostComponent("flex.component.VScrollBar")]
+    </Metadata> 
+    
     <content>
         <Button id="track" top="11" bottom="11" width="12" skinZZ="flex.skin.VScrollBarTrackSkin" />
         <Button top="0" id="upButton" width="12" height="12" skinZZ="flex.skin.ScrollBarUpButtonSkin" />
