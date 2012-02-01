@@ -177,8 +177,6 @@ public class DropShadowFilter extends BaseDimensionFilter implements IBitmapFilt
     
     private var _angle:Number = 45;
     
-    [Inspectable(minValue="0.0", maxValue="360.0")]    
-    
     /**
      *   The angle of the bevel. Valid values are from 0 to 360°. 
      *   The angle value represents the angle of the theoretical light source falling on the 
