@@ -242,13 +242,13 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
 	{
-	    if (!displayObject || !(displayObject is Sprite))
-	        return;
-	    var g:Graphics = Sprite(displayObject).graphics;
+	    /* if (!displayObject || !(displayObject is Sprite))
+	        return; */
+	    var g:Graphics = Sprite(drawnDisplayObject).graphics;
 	    
 	    // TODO EGeorgie: clearing the graphics needs to be shared when
 	    // the display objects are shared.
-	    g.clear();
+	    //g.clear();
 	    
 		g.lineStyle(0,0,0);
 		_fill.offsetX = 0;
@@ -265,7 +265,7 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
 		}
 		
 		_fill.begin(g, new Rectangle(w, h));
-		g.drawRect(0, 0, w, h);
+		g.drawRect(drawX, drawY, w, h);
 		_fill.end(g);
 	}
 	
