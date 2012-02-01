@@ -1625,6 +1625,10 @@ public class GraphicElement extends EventDispatcher
         visibleChanged = true;
 
         invalidateProperties();
+        
+        // TODO: This is a quick fix for MXMLG-228. We should
+        // investigate a better solution.
+        notifyElementLayerChanged();
     }
 
     //--------------------------------------------------------------------------
@@ -1898,7 +1902,9 @@ public class GraphicElement extends EventDispatcher
     
     public function get nextSiblingNeedsDisplayObject():Boolean
     {
-    	return needsDisplayObject;
+    	// TODO: The displayObject && visible test is a quick fix for MXMLG-228.
+    	// Should investigate a better solution.
+    	return needsDisplayObject || (displayObject && visible == false);
     }
     
     private var _sharedDisplayObject:DisplayObject;
