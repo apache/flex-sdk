@@ -140,10 +140,13 @@ import spark.components.Group;
  *  only a single copy of the module SWF file is transferred over the network by using the
  *  ModuleManager singleton.</p>
  *  
+ *  @see mx.modules.ModuleManager
+ *  @see spark.modules.Module
  *  @see mx.controls.SWFLoader
+ * 
  *  @includeExample examples/ModuleLoaderExample.mxml
- *  @includeExample examples/ModuleVerticalLayout.mxml
- *  @includeExample examples/ModuleHorizontalLayout.mxml
+ *  @includeExample examples/ModuleVerticalLayout.mxml -noswf
+ *  @includeExample examples/ModuleHorizontalLayout.mxml -noswf
  *
  *  @langversion 3.0
  *  @playerversion Flash 10.2
@@ -165,9 +168,9 @@ public class ModuleLoader extends Group
      *  Constructor.
      *  
      *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function ModuleLoader()
     {
@@ -210,9 +213,9 @@ public class ModuleLoader extends Group
      *  @see flash.system.SecurityDomain
      *  
      *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var applicationDomain:ApplicationDomain;
 
@@ -224,9 +227,9 @@ public class ModuleLoader extends Group
      *  The IVisualElement created from the module factory.
      *  
      *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var child:IVisualElement;
 
@@ -244,9 +247,9 @@ public class ModuleLoader extends Group
      *  The location of the module, expressed as a URL.
      *  
      *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get url():String
     {
@@ -290,191 +293,191 @@ public class ModuleLoader extends Group
             loadModule();
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden Properties 
-	//
-	//--------------------------------------------------------------------------
-	
-	//----------------------------------
-	//  moduleFactory
-	//----------------------------------
-	/**
-	 *  @private
-	 */
-	override public function set moduleFactory(moduleFactory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = moduleFactory;
-		
-		// Register the _creationPolicy style as inheriting. See the creationPolicy
-		// getter for details on usage of this style.
-		styleManager.registerInheritingStyle("_creationPolicy");
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties: INavigatorContent
-	//
-	//--------------------------------------------------------------------------
-	
-	//----------------------------------
-	//  creationPolicy
-	//----------------------------------
-	
-	// Internal flag used when creationPolicy="none".
-	// When set, the value of the backing store _creationPolicy
-	// style is "auto" so descendants inherit the correct value.
-	private var creationPolicyNone:Boolean = false;
-	
-	[Inspectable(enumeration="auto,all,none", defaultValue="auto")]
-	
-	/**
-	 *  @inheritDoc
-	 *
-	 *  @default auto
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */
-	public function get creationPolicy():String
-	{
-		// Use an inheriting style as the backing storage for this property.
-		// This allows the property to be inherited by either mx or spark
-		// containers, and also to correctly cascade through containers that
-		// don't have this property (ie Group).
-		// This style is an implementation detail and should be considered
-		// private. Do not set it from CSS.
-		var result:String = getStyle("_creationPolicy");
-		
-		if (result == null)
-			result = ContainerCreationPolicy.AUTO;
-		
-		if (creationPolicyNone)
-			result = ContainerCreationPolicy.NONE;
-		
-		return result;
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set creationPolicy(value:String):void
-	{
-		if (value == ContainerCreationPolicy.NONE)
-		{
-			// creationPolicy of none is not inherited by descendants.
-			// In this case, set the style to "auto" and set a local
-			// flag for subsequent access to the creationPolicy property.
-			creationPolicyNone = true;
-			value = ContainerCreationPolicy.AUTO;
-		}
-		else
-		{
-			creationPolicyNone = false;
-		}
-		
-		setStyle("_creationPolicy", value);
-	}
-	
-	//----------------------------------
-	//  icon
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 *  Storage for the icon property.
-	 */
-	private var _icon:Class = null;
-	
-	[Bindable("iconChanged")]
-	[Inspectable(category="General", defaultValue="", format="EmbeddedFile")]
-	
-	/**
-	 *  The Class of the icon displayed by some navigator
-	 *  containers to represent this Container.
-	 *
-	 *  <p>For example, if this Container is a child of a TabNavigator,
-	 *  this icon appears in the corresponding tab.
-	 *  If this Container is a child of an Accordion,
-	 *  this icon appears in the corresponding header.</p>
-	 *
-	 *  <p>To embed the icon in the SWF file, use the &#64;Embed()
-	 *  MXML compiler directive:</p>
-	 *
-	 *  <pre>
-	 *    icon="&#64;Embed('filepath')"
-	 *  </pre>
-	 *
-	 *  <p>The image can be a JPEG, GIF, PNG, SVG, or SWF file.</p>
-	 *
-	 *  @default null
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */
-	public function get icon():Class
-	{
-		return _icon;
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set icon(value:Class):void
-	{
-		_icon = value;
-		
-		dispatchEvent(new Event("iconChanged"));
-	}
-	
-	//----------------------------------
-	//  label
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 *  Storage for the label property.
-	 */
-	private var _label:String = "";
-	
-	[Bindable("labelChanged")]
-	[Inspectable(category="General", defaultValue="")]
-	
-	/**
-	 *  The text displayed by some navigator containers to represent
-	 *  this Container.
-	 *
-	 *  <p>For example, if this Container is a child of a TabNavigator,
-	 *  this string appears in the corresponding tab.
-	 *  If this Container is a child of an Accordion,
-	 *  this string appears in the corresponding header.</p>
-	 *
-	 *  @default ""
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */
-	public function get label():String
-	{
-		return _label;
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set label(value:String):void
-	{
-		_label = value;
-		
-		dispatchEvent(new Event("labelChanged"));
-	}
-	
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Properties 
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  moduleFactory
+    //----------------------------------
+    /**
+     *  @private
+     */
+    override public function set moduleFactory(moduleFactory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = moduleFactory;
+        
+        // Register the _creationPolicy style as inheriting. See the creationPolicy
+        // getter for details on usage of this style.
+        styleManager.registerInheritingStyle("_creationPolicy");
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties: INavigatorContent
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  creationPolicy
+    //----------------------------------
+    
+    // Internal flag used when creationPolicy="none".
+    // When set, the value of the backing store _creationPolicy
+    // style is "auto" so descendants inherit the correct value.
+    private var creationPolicyNone:Boolean = false;
+    
+    [Inspectable(enumeration="auto,all,none", defaultValue="auto")]
+    
+    /**
+     *  @inheritDoc
+     *
+     *  @default auto
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get creationPolicy():String
+    {
+        // Use an inheriting style as the backing storage for this property.
+        // This allows the property to be inherited by either mx or spark
+        // containers, and also to correctly cascade through containers that
+        // don't have this property (ie Group).
+        // This style is an implementation detail and should be considered
+        // private. Do not set it from CSS.
+        var result:String = getStyle("_creationPolicy");
+        
+        if (result == null)
+            result = ContainerCreationPolicy.AUTO;
+        
+        if (creationPolicyNone)
+            result = ContainerCreationPolicy.NONE;
+        
+        return result;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set creationPolicy(value:String):void
+    {
+        if (value == ContainerCreationPolicy.NONE)
+        {
+            // creationPolicy of none is not inherited by descendants.
+            // In this case, set the style to "auto" and set a local
+            // flag for subsequent access to the creationPolicy property.
+            creationPolicyNone = true;
+            value = ContainerCreationPolicy.AUTO;
+        }
+        else
+        {
+            creationPolicyNone = false;
+        }
+        
+        setStyle("_creationPolicy", value);
+    }
+    
+    //----------------------------------
+    //  icon
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the icon property.
+     */
+    private var _icon:Class = null;
+    
+    [Bindable("iconChanged")]
+    [Inspectable(category="General", defaultValue="", format="EmbeddedFile")]
+    
+    /**
+     *  The Class of the icon displayed by some navigator
+     *  containers to represent this Container.
+     *
+     *  <p>For example, if this Container is a child of a TabNavigator,
+     *  this icon appears in the corresponding tab.
+     *  If this Container is a child of an Accordion,
+     *  this icon appears in the corresponding header.</p>
+     *
+     *  <p>To embed the icon in the SWF file, use the &#64;Embed()
+     *  MXML compiler directive:</p>
+     *
+     *  <pre>
+     *    icon="&#64;Embed('filepath')"
+     *  </pre>
+     *
+     *  <p>The image can be a JPEG, GIF, PNG, SVG, or SWF file.</p>
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get icon():Class
+    {
+        return _icon;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set icon(value:Class):void
+    {
+        _icon = value;
+        
+        dispatchEvent(new Event("iconChanged"));
+    }
+    
+    //----------------------------------
+    //  label
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the label property.
+     */
+    private var _label:String = "";
+    
+    [Bindable("labelChanged")]
+    [Inspectable(category="General", defaultValue="")]
+    
+    /**
+     *  The text displayed by some navigator containers to represent
+     *  this Container.
+     *
+     *  <p>For example, if this Container is a child of a TabNavigator,
+     *  this string appears in the corresponding tab.
+     *  If this Container is a child of an Accordion,
+     *  this string appears in the corresponding header.</p>
+     *
+     *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get label():String
+    {
+        return _label;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set label(value:String):void
+    {
+        _label = value;
+        
+        dispatchEvent(new Event("labelChanged"));
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods: INavigatorContent
@@ -488,48 +491,48 @@ public class ModuleLoader extends Group
     {
         return loadRequested;
     }
-	
-	/**
-	 *  @private
-	 */
-	public function createDeferredContent():void
-	{
-		loadRequested = true;
-		loadModule();
-	}
+    
+    /**
+     *  @private
+     */
+    public function createDeferredContent():void
+    {
+        loadRequested = true;
+        loadModule();
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden Methods
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 *  Create components that are children of this Container.
-	 */
-	override protected function createChildren():void
-	{
-		// if nobody has overridden creationPolicy, get it from the
-		// navigator parent
-		if (creationPolicy == ContainerCreationPolicy.AUTO)
-		{
-			if (parent is IDeferredContentOwner)
-			{
-				var parentCreationPolicy:String = IDeferredContentOwner(parent).creationPolicy;
-				creationPolicy = parentCreationPolicy == 
-					ContainerCreationPolicy.ALL ? ContainerCreationPolicy.ALL : 
-					ContainerCreationPolicy.NONE;
-				
-			}
-		}
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Create components that are children of this Container.
+     */
+    override protected function createChildren():void
+    {
+        // if nobody has overridden creationPolicy, get it from the
+        // navigator parent
+        if (creationPolicy == ContainerCreationPolicy.AUTO)
+        {
+            if (parent is IDeferredContentOwner)
+            {
+                var parentCreationPolicy:String = IDeferredContentOwner(parent).creationPolicy;
+                creationPolicy = parentCreationPolicy == 
+                    ContainerCreationPolicy.ALL ? ContainerCreationPolicy.ALL : 
+                    ContainerCreationPolicy.NONE;
+                
+            }
+        }
 
-		if (!loadRequested && creationPolicy != ContainerCreationPolicy.NONE)
-			createDeferredContent();
-		
-		super.createChildren();
-	}
-	
+        if (!loadRequested && creationPolicy != ContainerCreationPolicy.NONE)
+            createDeferredContent();
+        
+        super.createChildren();
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -559,9 +562,9 @@ public class ModuleLoader extends Group
      *  the url parameter if it is non-null, or the url property as a fallback.
      *  
      *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function loadModule(url:String = null, bytes:ByteArray = null):void
     {
@@ -622,9 +625,9 @@ public class ModuleLoader extends Group
      *  nothing.</p>
      *  
      *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function unloadModule():void
     {
