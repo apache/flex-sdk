@@ -24,7 +24,7 @@
     <fx:Metadata>
     <![CDATA[ 
     /** 
-     * @copy spark.skins.default.ApplicationSkin#hostComponent
+     * @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
         [HostComponent("spark.components.RadioButton")]
     ]]>
