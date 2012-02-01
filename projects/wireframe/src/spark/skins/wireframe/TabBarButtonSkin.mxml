@@ -87,4 +87,4 @@ The wireframe skin class for TabBar component.
              left="10" right="10" top="2" bottom="2">
     </s:Label>
     
-</s:SparkSkin>
+</s:Skin>
