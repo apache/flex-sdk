@@ -22,6 +22,9 @@
     alpha.disabled="0.5">
 
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.ButtonBar")]
     </fx:Metadata> 
 
@@ -31,23 +34,36 @@
     </s:states>
     
     <fx:Declarations>
+        <!--- 
+            @copy spark.components.ButtonBar#firstButton
+            @default spark.skins.wireframe.ButtonBarFirstButtonSkin
+        -->
         <fx:Component id="firstButton">
             <s:ButtonBarButton skinClass="spark.skins.wireframe.ButtonBarFirstButtonSkin" 
                              width="100%" height="100%" />
         </fx:Component>
 
+        <!--- 
+            @copy spark.components.ButtonBar#middleButton
+            @default spark.skins.wireframe.ButtonBarMiddleButtonSkin
+        -->
         <fx:Component id="middleButton" >
             <s:ButtonBarButton skinClass="spark.skins.wireframe.ButtonBarMiddleButtonSkin" 
                              width="100%" height="100%" />
         </fx:Component>
 
+        <!--- 
+            @copy spark.components.ButtonBar#lastButton
+            @default spark.skins.wireframe.ButtonBarLastButtonSkin
+        -->
         <fx:Component id="lastButton" >
             <s:ButtonBarButton skinClass="spark.skins.wireframe.ButtonBarLastButtonSkin" 
                              width="100%" height="100%"  />
         </fx:Component>
 
     </fx:Declarations>
-        
+    
+    <!--- @copy spark.components.SkinnableDataContainer#dataGroup -->
     <s:DataGroup id="dataGroup" width="100%" height="100%">
         <s:layout>
             <s:ButtonBarHorizontalLayout gap="-1" />
