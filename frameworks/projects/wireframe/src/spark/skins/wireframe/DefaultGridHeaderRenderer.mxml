@@ -42,7 +42,8 @@ The default header renderer for s:DataGrid columns.
                  textAlign="start"
                  fontWeight="bold"
                  verticalAlign="middle"
-                 maxDisplayedLines="1" />
+                 maxDisplayedLines="1"
+                 showTruncationTip="true" />
     </fx:Declarations>
     
     <fx:Script>
@@ -139,6 +140,7 @@ The default header renderer for s:DataGrid columns.
                 _sortIndicator = value;
                 if (sortIndicatorInstance)
                 {
+                    sortIndicatorGroup.includeInLayout = false;
                     sortIndicatorGroup.removeElement(sortIndicatorInstance);
                     sortIndicatorInstance = null;
                 }
@@ -173,6 +175,7 @@ The default header renderer for s:DataGrid columns.
                             sortIndicatorGroup.addElement(sortIndicatorInstance);
                         }
                         sortIndicatorInstance.visible = true;
+                        sortIndicatorGroup.includeInLayout = true;
                         sortIndicatorGroup.scaleY = (column.sortDescending) ? 1 : -1;
                     }
                     else
@@ -180,6 +183,7 @@ The default header renderer for s:DataGrid columns.
                         if (sortIndicatorInstance)
                         {
                             sortIndicatorGroup.removeElement(sortIndicatorInstance);
+                            sortIndicatorGroup.includeInLayout = false;
                             sortIndicatorInstance = null;
                         }
                     }
@@ -189,16 +193,15 @@ The default header renderer for s:DataGrid columns.
     </fx:Script>
     
     <s:states>
-        <s:State name="up" />
-        <s:State name="over" />
+        <s:State name="normal" />
+        <s:State name="hovered" />
         <s:State name="down" />
-        <s:State name="disabled" />
     </s:states>
     
     <!-- background -->
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:fill>
-            <s:SolidColor color="#BABABA" color.up="#EEEEEE" color.over="#DDDDDD" color.down="#DDDDDD" />
+            <s:SolidColor color="#BABABA" color.normal="#EEEEEE" color.hovered="#DDDDDD" color.down="#DDDDDD" />
         </s:fill>
     </s:Rect>
     
@@ -223,10 +226,14 @@ The default header renderer for s:DataGrid columns.
         </s:fill>
     </s:Rect>
     
-    <!-- Container for labelDisplay:TextBase  -->
-    <s:Group id="labelDisplayGroup" left="7" right="7" top="5" bottom="5"/>
+    <s:HGroup left="7" right="7" top="5" bottom="5" gap="2" verticalAlign="middle">
+       
+        <!-- Container for labelDisplay:TextBase  -->
+        <s:Group id="labelDisplayGroup" width="100%" />
+        
+        <!-- Container for sortIndicator:IVisualElement  -->
+        <s:Group id="sortIndicatorGroup" includeInLayout="false" />
     
-    <!-- Container for sortIndicator:IVisualElement  -->
-    <s:Group id="sortIndicatorGroup" right="5" verticalCenter="0" />
+    </s:HGroup>
     
 </s:GridItemRenderer>
