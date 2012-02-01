@@ -14,11 +14,14 @@ package spark.layouts
 
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
+import mx.core.mx_internal;
 import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.GroupBase;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.layouts.supportClasses.LayoutElementHelper;
+
+use namespace mx_internal;
 
 [ResourceBundle("layout")]
 
@@ -190,6 +193,20 @@ public class BasicLayout extends LayoutBase
     public function BasicLayout():void
     {
         super();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */ 
+    override mx_internal function get virtualLayoutSupported():Boolean
+    {
+        return false;
     }
 
     //--------------------------------------------------------------------------
