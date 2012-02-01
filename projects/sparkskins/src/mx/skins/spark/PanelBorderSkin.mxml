@@ -44,6 +44,15 @@
         {
             var hasPanelParent:Boolean = isPanel(parent);
             var controlBar:IUIComponent = hasPanelParent ? Object(parent).mx_internal::_controlBar : null;        
+            var titleBarHeight:Number;
+            // if headerHeight is specified, use it, plus 1 for the border, plus 1 more for the divider
+            if (hasPanelParent)
+                titleBarHeight = Object(parent).getStyle("headerHeight") + 2;
+            // if headerHeight is not specified, measure the text.  It comes out 1 higher than we'd like
+            // so we only add 1 more here
+            if (isNaN(titleBarHeight))
+                titleBarHeight = hasPanelParent ? Object(parent).mx_internal::getHeaderHeightProxy(true) + 1: 32;
+            _metrics.top = titleBarHeight;
             
             if (controlBar && controlBar.includeInLayout)
                 _metrics.bottom = controlBar.getExplicitOrMeasuredHeight() + 1;
@@ -75,6 +84,16 @@
 
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {
+            var hasPanelParent:Boolean = isPanel(parent);
+            var titleBarHeight:Number;
+            if (hasPanelParent)
+                titleBarHeight = Object(parent).getStyle("headerHeight");
+            if (isNaN(titleBarHeight))
+                titleBarHeight = hasPanelParent ? Object(parent).mx_internal::getHeaderHeightProxy(true) - 1 : 30;
+            tbbg.height = titleBarHeight;
+            tbhi.height = titleBarHeight;
+            tbdiv.top = titleBarHeight;
+
             var em:EdgeMetrics = borderMetrics;
             
             // Control bar visibility is determined by a borderMetric.bottom greater than 1
@@ -187,7 +206,7 @@
         </s:Rect>
         
         <!-- layer 3: title bar fill -->
-        <s:Rect left="0" right="0" top="0" height="30">
+        <s:Rect id="tbbg" left="0" right="0" top="0" minHeight="30">
            <s:fill>
                 <s:LinearGradient rotation="90">
                     <s:GradientEntry color="0xE2E2E2" />
@@ -197,7 +216,7 @@
         </s:Rect>
         
         <!-- layer 4: title bar highlight -->
-        <s:Rect left="0" right="0" top="0" height="30">
+        <s:Rect id="tbhi" left="0" right="0" top="0" minHeight="30">
            <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
                     <s:GradientEntry color="0xEAEAEA" />
@@ -205,7 +224,7 @@
                 </s:LinearGradientStroke>
            </s:stroke>
         </s:Rect>
-        <s:Rect left="0" right="0" top="30" height="1">
+        <s:Rect id="tbdiv" left="0" right="0" top="30" height="1">
             <s:fill>
                 <s:SolidColor color="0xC0C0C0" />
             </s:fill>
