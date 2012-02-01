@@ -11,6 +11,7 @@
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 	<property file="${FLEX_HOME}/build.properties"/>
 	<property name="output.file" value="${FLEX_HOME}/frameworks/libs/textLayout.swc"/>
+	<property name="output.docs" value="${FLEX_HOME}/tempDoc"/>
 	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
 	<property name="project.uri" value="library://ns.adobe.com/flashx/textLayout"/>
 
@@ -42,7 +43,7 @@
 			<namespace uri="${project.uri}" manifest="manifest.xml"/>
 			<source-path path-element="src"/>
 			<library-path/>
-            <include-file name="manifest.xml" path="${basedir}/manifest.xml"/>
+			<include-file name="manifest.xml" path="${basedir}/manifest.xml"/>
 			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>
@@ -62,13 +63,13 @@
 		</condition>
 		
 		<delete failonerror="false">
-			<fileset dir="${FLEX_HOME}/tempDoc">
+			<fileset dir="${output.docs}">
 				<include name="validation_errors.log"/>
 			</fileset>
 		</delete>
 		
 		<!-- builds ASDoc XML -->
-		<asdoc output="${FLEX_HOME}/tempDoc" lenient="false" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+		<asdoc output="${output.docs}" lenient="false" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
 			<doc-classes class="flashx.textLayout.CoreClasses"/>
 			<doc-classes class="flashx.textLayout.EditClasses"/>
 			<doc-classes class="flashx.textLayout.ConversionClasses"/>
@@ -82,21 +83,11 @@
 			<define name="CONFIG::release" value="${rel}"/>
 		</asdoc>
 		
-		<available file="${FLEX_HOME}/tempDoc/validation_errors.log" property="asdoc.errors"/>
+		<available file="${output.docs}/validation_errors.log" property="asdoc.errors"/>
 		<fail if="asdoc.errors" message="ASDoc Errors"/>
-		
-		<!-- updates combined swc with ASDoc XML -->
-		<zip destfile="${output.file}" update="true">
-		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
-			    <include name="*.*"/>
-				<exclude name="ASDoc_Config.xml"/>
-				<exclude name="overviews.xml"/>
-		    </zipfileset>
-		</zip>
 	</target>
-
 	<target name="clean-temp-docs">
-		<delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+		<delete dir="${output.docs}\tempdita" failonerror="false" includeEmptyDirs="true"/>
 	</target>
 
 </project>
