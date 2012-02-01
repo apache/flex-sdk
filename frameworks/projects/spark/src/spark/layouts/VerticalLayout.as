@@ -408,10 +408,7 @@ public class VerticalLayout extends LayoutBase
             return 0.0;
         if ((iy0 >= y0) && (iy1 <= y1))
             return 1.0;
-        if (index == r0)
-            return (iy1 - y0) / (iy1 - iy0);
-        else 
-            return (y1 - iy0) / (iy1 - iy0);
+        return (Math.min(y1, iy1) - Math.max(y0, iy0)) / (iy1 - iy0);
 	}
 	
 	/**
@@ -451,7 +448,30 @@ public class VerticalLayout extends LayoutBase
             return findIndexAt(y, gap, g, i0, Math.max(i0, index-1));
         else 
             return findIndexAt(y, gap, g, Math.min(index+1, i1), i1);
-	}   
+	} 
+	
+   /**
+    *  Returns the index of the first non-null includeInLayout item, 
+    *  beginning with the item at index i.  
+    * 
+    *  Returns -1 if no such item can be found.
+    *  
+    *  @private
+    */
+    private static function findLayoutItemIndex(g:GroupBase, i:int, dir:int):int
+    {
+        var n:int = g.numLayoutItems;
+        while((i >= 0) && (i < n))
+        {
+           var item:ILayoutItem = g.getLayoutItemAt(i);
+           if (item && item.includeInLayout)
+           {
+               return i;      
+           }
+           i += dir;
+        }
+        return -1;
+    }
 
    /**
     *  Updates the first,lastIndexInView properties per the new
@@ -467,19 +487,62 @@ public class VerticalLayout extends LayoutBase
         if (!g)
             return;     
 
-        var r:Rectangle = g.scrollRect;
-        if (!r)
+        var n:int = g.numLayoutItems - 1;
+        if (n < 0) 
         {
-            // TBD: find first/last non-null includeInLayout items
+            setIndexInView(-1, -1);
+            return;
         }
+        
+        var scrollR:Rectangle = g.scrollRect;
+        if (!scrollR)
+        {
+            setIndexInView(0, n);
+            return;    
+        }
+        
+        var y0:Number = scrollR.top;
+        var y1:Number = scrollR.bottom;
+        if (y1 <= y0)
+        {
+            setIndexInView(-1, -1);
+            return;
+        }
+
         // TBD: special case for variableRowHeight false
-        else 
-        {
-	        var n:int = Math.max(g.numLayoutItems - 1, 0);
-	        var i0:int = findIndexAt(r.y + gap, gap, g, 0, n);
-	        var i1:int = findIndexAt(r.bottom, gap, g, 0, n);
-	        setIndexInView(i0, i1);
+
+        var i0:int = findIndexAt(y0 + gap, gap, g, 0, n);
+        var i1:int = findIndexAt(y1, gap, g, 0, n);
+
+        // Special case: no item overlaps y0, is index 0 visible?
+        if (i0 == -1)
+        {   
+            var index0:int = findLayoutItemIndex(g, 0, +1);
+            if (index0 != -1)
+            {
+                var item0:ILayoutItem = g.getLayoutItemAt(index0); 
+                var p0:Point = item0.actualPosition;
+                var s0:Point = item0.actualSize;                 
+                if ((p0.y < y1) && ((p0.y + s0.y) > y0))
+                    i0 = index0;
+            }
         }
+
+        // Special case: no item overlaps y1, is index n visible?
+        if (i1 == -1)
+        {
+            var index1:int = findLayoutItemIndex(g, n, -1);
+            if (index1 != -1)
+            {
+                var item1:ILayoutItem = g.getLayoutItemAt(index1); 
+                var p1:Point = item1.actualPosition;
+                var s1:Point = item1.actualSize;                 
+                if ((p1.y < y1) && ((p1.y + s1.y) > y0))
+                    i1 = index1;
+            }
+        }   
+
+        setIndexInView(i0, i1);
     }
     
    /**
@@ -490,7 +553,7 @@ public class VerticalLayout extends LayoutBase
     *  
     *  @private
     */
-    private static function itemScan(g:GroupBase, i:int, dir:int):Rectangle
+    private static function findLayoutItemBounds(g:GroupBase, i:int, dir:int):Rectangle
     {
     	var n:int = g.numLayoutItems;
     	while((i >= 0) && (i < n))
@@ -559,7 +622,7 @@ public class VerticalLayout extends LayoutBase
             
         var maxDelta:Number = g.contentHeight - scrollR.height - scrollR.y;
         var minDelta:Number = -scrollR.y; 
-        var itemR:Rectangle;
+        var itemR:Rectangle = null;
         var firstIndex:int;
         var lastIndex:int;
         
@@ -576,7 +639,7 @@ public class VerticalLayout extends LayoutBase
                 firstIndex = firstIndexInView;
                 if (inView(firstIndex) >= 1)
                    firstIndex = Math.max(0, firstIndex -1);
-                itemR = itemScan(g, firstIndex, -1);
+                itemR = findLayoutItemBounds(g, firstIndex, -1);
                 break;
             }
              
@@ -591,28 +654,56 @@ public class VerticalLayout extends LayoutBase
                 lastIndex = lastIndexInView;
                 if (inView(lastIndex) >= 1)
                    lastIndex = Math.min(maxIndex, lastIndex + 1);
-                itemR = itemScan(g, lastIndex, +1);
+                itemR = findLayoutItemBounds(g, lastIndex, +1);
+                break;
+            }
+                                
+            default:
+                return super.verticalScrollPositionDelta(unit);            
+        }
+
+        if (!itemR)
+            return 0;
+        
+        switch (unit)
+        {
+            // Special case: only one item is partially visible.   If it
+            // extends below the scrollR, then bottom justify it
+            case Keyboard.DOWN:
+            case Keyboard.PAGE_DOWN:
+            {
+                if ((itemR.top <= scrollR.top) && (itemR.bottom > scrollR.bottom))
+                   return itemR.bottom - scrollR.bottom;
+                break;
+            }
+       
+            // Special case: only one item is partially visible.   If it
+            // extends above the scrollR, then top justify it
+            case Keyboard.UP:
+            case Keyboard.PAGE_UP:
+            {
+                if ((itemR.top < scrollR.top) && (itemR.bottom >= scrollR.bottom))
+                    return itemR.top - scrollR.top;
                 break;
             }
         }
-    
+                      
         switch (unit)
-        {
+        {                    
             case Keyboard.UP:
-                return (itemR) ? Math.max(minDelta, itemR.top - scrollR.top) : 0;
+                return Math.max(minDelta, itemR.top - scrollR.top);
                 
             case Keyboard.DOWN:
-            	return (itemR) ? Math.min(maxDelta, itemR.bottom - scrollR.bottom) : 0;
+                return Math.min(maxDelta, itemR.bottom - scrollR.bottom);
                 
             case Keyboard.PAGE_UP:
-                return (itemR) ? Math.max(minDelta, itemR.bottom - scrollR.bottom) : 0;
+                return Math.max(minDelta, itemR.bottom - scrollR.bottom);
                 
             case Keyboard.PAGE_DOWN:
-                return (itemR) ? Math.min(maxDelta, itemR.top - scrollR.y) : 0;
-                                
-            default:
-                return super.verticalScrollPositionDelta(unit);
-        }       
+                return Math.min(maxDelta, itemR.top - scrollR.top);
+        }
+        
+        return 0;      
     }     
         
     private function variableRowHeightMeasure(layoutTarget:GroupBase):void
