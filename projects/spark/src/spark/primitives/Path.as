@@ -521,6 +521,20 @@ public class Path extends FilledElement
     	return m;
     }
 
+ 	//----------------------------------
+	//  actualSize
+	//----------------------------------
+
+    /**
+     *  @inheritDoc
+     */
+    override public function get actualSize():Point
+    {
+        // Path always draws at bounds size
+        var bounds:Rectangle = getBounds();
+    	return transformSizeForLayout(bounds.width, bounds.height, true /*actualMatrix*/);
+    }
+
     /**
      *  <code>setActualSize</code> modifies the item size/transform so that
      *  its TBounds have the specified <code>width</code> and <code>height</code>.
