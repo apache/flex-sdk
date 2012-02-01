@@ -12,6 +12,10 @@
 -->
 
 <!--- The default skin class for down button of the Spark ScrollBar component.  
+
+       @see spark.components.supportClasses.ScrollBarBase
+       @see spark.components.HScrollBar
+       @see spark.components.VScrollBar
         
       @langversion 3.0
       @playerversion Flash 10
