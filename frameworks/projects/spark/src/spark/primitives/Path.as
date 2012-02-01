@@ -106,7 +106,13 @@ public class Path extends FilledElement
     private var graphicsPathChanged:Boolean = true;
     
     /**
-     *  Documentation is not currently available.
+     *  A GraphicsPath object that contains the drawing 
+     *  commands to draw this Path.  
+     *  
+     *  The data commands expressed in a Path's <code>data</code> 
+     *  property are translated into drawing commands and 
+     *  coordinate parameters for those commands, and then
+     *  drawn to screen. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -805,6 +811,31 @@ public class Path extends FilledElement
      	g.drawPath(graphicsPath.commands, graphicsPath.data, winding);
     }
 
+    /**
+     *  Workhorse method that iterates through the <code>segments</code>
+     *  array and draws each path egment based on its control points. 
+     *  
+     *  Segments are drawn from the x and y position of the path. 
+     *  Additionally, segments are drawn by taking into account the scale  
+     *  applied to the path. 
+     * 
+     *  @param tx A Number representing the x position of where this 
+     *  path segment should be drawn
+     *  
+     *  @param ty A Number representing the y position of where this  
+     *  path segment should be drawn
+     * 
+     *  @param sx A Number representing the scaleX at which to draw 
+     *  this path segment 
+     * 
+     *  @param sy A Number representing the scaleY at which to draw this
+     *  path segment
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     protected function renderGraphicsAtScale(tx:Number,ty:Number,sx:Number,sy:Number):void    
     {
         graphicsPath.commands = null;
@@ -834,6 +865,7 @@ public class Path extends FilledElement
             }
         }
     }
+    
     /**
      * @inheritDoc
      *  
@@ -859,7 +891,13 @@ public class Path extends FilledElement
     //--------------------------------------------------------------------------
     
     /**
-     * @inheritDoc
+     *  Individual path segments notify the host Path that 
+     *  the segment has changed in some way by invoking
+     *  this method. When a segment has changed, the 
+     *  bounds of the Path are re-calculated and the Path 
+     *  will be re-renderered. 
+     * 
+     *  @param e The PathSegment that has changed 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -872,6 +910,9 @@ public class Path extends FilledElement
         boundsChanged();
     }
 
+    /**
+     *   @inheritDoc 
+     */
     override protected function notifyElementLayerChanged():void
     {
         graphicsPathChanged = true;
