@@ -236,7 +236,7 @@
     <s:RichEditableText id="textDisplay"
               lineBreak="explicit"
               widthInChars="10" verticalCenter="0"/>
-    <!-- includeInLayout is false so prompt doesn't affect measurement -->
+    <!--- Defines the Label that is used for prompt text. The includeInLayout property is false so the prompt text does not affect measurement. -->
     <s:Label id="promptDisplay" maxDisplayedLines="1"
                 verticalAlign="middle"
                 mouseEnabled="false" mouseChildren="false"
