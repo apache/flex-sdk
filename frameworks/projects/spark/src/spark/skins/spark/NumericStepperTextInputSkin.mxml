@@ -10,6 +10,8 @@
 
 -->
 <!--- The default skin class for the text input field of a Spark NumericStepper component.  
+
+       @see spark.components.NumericStepper
         
       @langversion 3.0
       @playerversion Flash 10
