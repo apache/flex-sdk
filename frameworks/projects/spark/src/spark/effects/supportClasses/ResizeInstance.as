@@ -289,8 +289,10 @@ public class ResizeInstance extends AnimateInstance
                     propertyChanges.end["left"] : getCurrentValue("left");
                 var rTo:Number = (propertyChanges.end["right"] !== undefined) ?
                     propertyChanges.end["right"] : getCurrentValue("right");
-                propertyValuesList.push(new PropertyValuesHolder("left", [lFrom, lTo]));
-                propertyValuesList.push(new PropertyValuesHolder("right", [rFrom, rTo]));
+                if (!isNaN(lFrom) && !isNaN(lTo))
+                    propertyValuesList.push(new PropertyValuesHolder("left", [lFrom, lTo]));
+                if (!isNaN(rFrom) && !isNaN(rTo))
+                    propertyValuesList.push(new PropertyValuesHolder("right", [rFrom, rTo]));
             }
             if (propertyChanges.start["top"] !== undefined ||
                 propertyChanges.start["bottom"] !== undefined ||
@@ -305,8 +307,10 @@ public class ResizeInstance extends AnimateInstance
                     propertyChanges.end["top"] : getCurrentValue("top");
                 var bTo:Number = (propertyChanges.end["bottom"] !== undefined) ?
                     propertyChanges.end["bottom"] : getCurrentValue("bottom");
-                propertyValuesList.push(new PropertyValuesHolder("top", [tFrom, tTo]));
-                propertyValuesList.push(new PropertyValuesHolder("bottom", [bFrom, bTo]));
+                if (!isNaN(tFrom) && !isNaN(tTo))
+                    propertyValuesList.push(new PropertyValuesHolder("top", [tFrom, tTo]));
+                if (!isNaN(bFrom) && !isNaN(bTo))
+                    propertyValuesList.push(new PropertyValuesHolder("bottom", [bFrom, bTo]));
             }
         }
         
