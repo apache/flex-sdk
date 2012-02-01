@@ -63,7 +63,8 @@ public class BorderContainerSkin extends Skin
 	{
 	    super();
        
-        minWidth = minHeight = 112;
+        minWidth = 30;
+        minHeight = 30;
         
 	    states = [
             new State({name:"normal"}), 
