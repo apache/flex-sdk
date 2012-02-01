@@ -22,6 +22,17 @@
       minWidth="21" minHeight="21"
       alpha.disabledStates="0.5">
 
+      <fx:Script>
+          /**
+           * @private
+           */
+          override protected function initializationComplete():void
+          {
+              useBaseColor = true;
+              super.initializationComplete();
+          }
+      </fx:Script>
+
     <!-- states -->
     <s:states>
         <s:State name="up" />
