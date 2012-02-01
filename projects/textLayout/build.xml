@@ -10,7 +10,7 @@
 <project name="combined" default="main" basedir=".">
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 	<property file="${FLEX_HOME}/build.properties"/>
-	<property name="local.playerglobal.version" value="10.3"/>
+	<property name="local.playerglobal.version" value="10.2"/>
 	<property name="output.file" value="${FLEX_HOME}/frameworks/libs/textLayout.swc"/>
 	<property name="output.docs" value="${FLEX_HOME}/tempDoc"/>
 	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -34,7 +34,7 @@
 				   output="${FLEX_HOME}/frameworks/locale/@{locale}/textLayout_rb.swc"
 				   locale="@{locale}">
 				<jvmarg line="${compc.jvm.args}"/>
-				<target-player>10.3</target-player>
+				<target-player>10.2</target-player>
 				<include-resource-bundles bundle="textLayout"/>
 				<include-namespaces/>
 				<include-classes/>
