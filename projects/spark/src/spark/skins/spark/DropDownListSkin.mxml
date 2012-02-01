@@ -123,7 +123,7 @@
                     <s:layout>
                         <s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
                     </s:layout>
-                </s:DataGroup>
+                </s:DataGroup> 
             </s:Scroller>
         </s:Group>
     </s:PopUpAnchor>
@@ -132,7 +132,8 @@
     <s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
         skinClass="spark.skins.spark.DropDownListButtonSkin" cornerRadius="{getStyle('cornerRadius')}" />  
     <!--- The prompt area of the DropDownList. -->
-    <s:Label id="labelDisplay" verticalAlign="middle" maxDisplayedLines="1"
+    <s:Label id="labelDisplay" verticalAlign="middle" maxDisplayedLines="1" 
+        mouseEnabled="false" mouseChildren="false"
         left="7" right="30" top="2" bottom="2" verticalCenter="1" /> 
 
 </s:Skin>
