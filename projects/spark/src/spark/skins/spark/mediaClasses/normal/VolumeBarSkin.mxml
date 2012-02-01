@@ -10,7 +10,11 @@
  
 -->
 
-<!--- The default skin class for the volume bar of a Spark VideoPlayer component.  
+<!--- The default skin class for the volume bar of a Spark VideoPlayer component
+      in the normal skin state. The normal skin state means the component is not in 
+      one of the <code>fullScreen</code> skin states.  
+
+      @see spark.components.VideoPlayer
         
       @langversion 3.0
       @playerversion Flash 10
@@ -53,7 +57,7 @@
         <s:State name="disabled" />
     </s:states>
     
-    <!--- The popup that contains the dropdown -->
+    <!--- The PopUpAnchor control that contains the drop-down slider control. -->
     <s:PopUpAnchor id="popup"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
         left="0" right="0" top="0" bottom="0" popUpPosition="above" itemDestructionPolicy="auto">
         
@@ -83,11 +87,11 @@
                 </s:stroke>
             </s:Rect>
             
-            <!--- @copy spark.components.supportClasses.TrackBase#track -->
+            <!--- The skin pat that defines the drop-down slider track.  -->
             <s:Button id="track" horizontalCenter="0" top="6" bottom="7"
                       skinClass="spark.skins.spark.mediaClasses.normal.VolumeBarTrackSkin" />
             
-            <!--- @copy spark.components.supportClasses.TrackBase#thumb -->
+            <!--- The skin pat that defines the thumb in the drop-down slider track.  -->
             <s:Button id="thumb" horizontalCenter="0" width="11" height="11" 
                       skinClass="spark.skins.spark.mediaClasses.normal.VolumeBarThumbSkin" />
         </s:Group>
