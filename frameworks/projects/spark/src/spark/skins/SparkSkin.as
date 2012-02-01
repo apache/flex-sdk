@@ -43,14 +43,14 @@ public class SparkSkin extends Skin
     /**
      *  Flag that specified whether or not this skin should be affected by baseColor.
      *
-     *  @default true
+     *  @default false
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected var useBaseColor:Boolean = true;
+    protected var useBaseColor:Boolean = false;
     
     private var colorized:Boolean = false;
     
