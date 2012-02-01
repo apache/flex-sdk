@@ -26,11 +26,10 @@ import flash.utils.getDefinitionByName;
 
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 import mx.graphics.BitmapFill;
 
-
-import flex.filters.BaseFilter;
-import flex.filters.IBitmapFilter;
 import flex.graphics.graphicsClasses.GraphicElement;
 
 /**
