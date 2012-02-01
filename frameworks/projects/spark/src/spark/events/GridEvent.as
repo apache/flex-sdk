@@ -684,19 +684,20 @@ public class GridEvent extends MouseEvent
         cancelable:Boolean = false,
         localX:Number = NaN,
         localY:Number = NaN,
-        rowIndex:int = -1,
-        columnIndex:int = -1,
-        column:GridColumn = null,
-        item:Object = null,
-        itemRenderer:IGridItemRenderer = null,
         relatedObject:InteractiveObject = null,
         ctrlKey:Boolean = false,
         altKey:Boolean = false,
         shiftKey:Boolean = false,
         buttonDown:Boolean = false,
-        delta:int = 0)
+        delta:int = 0,
+        rowIndex:int = -1,
+        columnIndex:int = -1,
+        column:GridColumn = null,
+        item:Object = null,
+        itemRenderer:IGridItemRenderer = null)
     {
-        super(type, bubbles, cancelable, localX, localY, relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta);
+        super(type, bubbles, cancelable, localX, localY, 
+              relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta);
    
         this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;
@@ -825,9 +826,11 @@ public class GridEvent extends MouseEvent
      */
     override public function clone():Event
     {
-        var cloneEvent:GridEvent = new GridEvent(type, bubbles, cancelable, 
-            localX, localY, rowIndex, columnIndex, column, item, itemRenderer, 
-            relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta);
+        var cloneEvent:GridEvent = new GridEvent(
+            type, bubbles, cancelable, 
+            localX, localY, 
+            relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta,
+            rowIndex, columnIndex, column, item, itemRenderer);
         
         cloneEvent.relatedObject = this.relatedObject;
         
