@@ -1413,8 +1413,9 @@ public class TileLayout extends LayoutBase
      */  
     override public function getDestinationIndex(navigationUnit:uint, currentIndex:int):int
     {
-        if (!target)
+        if (!target || target.numElements < 1)
             return -1; 
+            
         // Make sure currentIndex is within range
         var maxIndex:int = target.numElements - 1;
         currentIndex = Math.max(0, Math.min(maxIndex, currentIndex));
