@@ -1,3 +1,20 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2010 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+/*
+
+The implementations of DefaultGridItemRenderer (nee UIFTETExtFieldGridItemRenderer) and UITextFieldGridItemRenderer
+are identical, save the superclass and constructor names.  This file contains the bulk of the code.
+
+*/
     import flash.display.DisplayObject;
     import flash.events.Event;
     import flash.geom.Matrix;
@@ -26,9 +43,9 @@
     
     import spark.components.IGridItemRenderer;
     import spark.components.supportClasses.GridColumn;
-
+    
     use namespace mx_internal;
-
+    
     /**
      *  @private
      *  Distance by which this textfield is inset from the edges of the cell.
@@ -54,6 +71,15 @@
      *  when its text property is set.
      */
     private var enableValidateNow:Boolean = true;
+
+
+    /**
+     *  @private
+     *  Used to prevent changes to width,height caused by calling setLayoutBoundsSize()
+     *  from updating explicitWidth,Height.
+     */
+    private var inSetLayoutBoundsSize:Boolean = false;
+
     
     //--------------------------------------------------------------------------
     //
@@ -395,10 +421,9 @@
     /**
      *  @private
      *  The renderer's measuredWidth,Height are just padded versions of the labelDisplay's
-     *  textWidth,Height properties.   The code below is based on the UITextField
-     *  meausuredWidth,Height get methods, although we do not call validateNow() here (as
-     *  they do).
-     *  
+     *  textWidth,Height or explicitWidth,Height properties.  This class assumes that its
+     *  size/position will be set by GridLayout with setLayoutBoundsSize,Position() and that its
+     *  preferred size will be queried by GridLayout with getPreferredBoundsWidth,Height().
      */
     private function updatePreferredSize():void
     {
@@ -411,19 +436,31 @@
         text = _label;
         super.validateNow();
         
-        const widthPadding:int = LEFT_PADDING + RIGHT_PADDING + TEXT_WIDTH_PADDING;
-        const heightPadding:int = TOP_PADDING + BOTTOM_PADDING + TEXT_HEIGHT_PADDING
+        // The LEFT,RIGHT,TOP,BOTTOM padding values added here will be subtracted
+        // by setLayoutBoundsPosition,Size(), they don't exist as far as the text field
+        // superclass is concerned.
+        
+        // Both UITextField and UIFTETExtField force explicitWidth to be >= 4,
+        // so we do the same here.
+        
+        const paddedTextWidth:Number = isNaN(explicitWidth) ? 
+            textWidth + LEFT_PADDING + RIGHT_PADDING + TEXT_WIDTH_PADDING : 
+            Math.max(explicitWidth, 4) + LEFT_PADDING + RIGHT_PADDING;
+        
+        const paddedTextHeight:Number = isNaN(explicitHeight) ? 
+            textHeight + TOP_PADDING + BOTTOM_PADDING + TEXT_HEIGHT_PADDING : 
+            explicitHeight + TOP_PADDING + BOTTOM_PADDING;
         
         if (!stage || embedFonts)
         {
-            preferredWidth = textWidth + widthPadding;
-            preferredHeight = textHeight + heightPadding;
+            preferredWidth = paddedTextWidth;
+            preferredHeight = paddedTextHeight;
         }
         else 
         {
             const m:Matrix = transform.concatenatedMatrix;      
-            preferredWidth = Math.abs((textWidth * m.a / m.d)) + widthPadding;
-            preferredHeight  = Math.abs((textHeight * m.a / m.d)) + heightPadding;
+            preferredWidth = Math.abs((paddedTextWidth * m.a / m.d));
+            preferredHeight  = Math.abs((paddedTextHeight * m.a / m.d));
         }
         
         preferredSizeInvalid = false;
@@ -475,9 +512,43 @@
     
     //--------------------------------------------------------------------------
     //
-    //  IVisualElement Methods
+    //  IVisualElement Properties, Methods
     //
     //-------------------------------------------------------------------------- 
+    
+    //----------------------------------
+    //  width
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set width(value:Number):void  
+    {
+        super.width = value;
+        if (!inSetLayoutBoundsSize)
+        {
+            explicitWidth = value;
+            preferredSizeInvalid = true;
+        }
+    }
+    
+    //----------------------------------
+    //  height
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set height(value:Number):void  
+    {
+        super.height = value;
+        if (!inSetLayoutBoundsSize)
+        {
+            explicitHeight = value;
+            preferredSizeInvalid = true;
+        }
+    }      
     
     public function get depth():Number
     {
@@ -510,7 +581,6 @@
     {
         return false;
     }
-    
     
     //--------------------------------------------------------------------------
     //
@@ -739,9 +809,14 @@
      */
     public function setLayoutBoundsSize(width:Number, height:Number, postLayoutTransform:Boolean=true):void
     {
+        inSetLayoutBoundsSize = true;  // UI[FTE]TextField/setActualSize() sets width,height
+        
         setActualSize(width - (LEFT_PADDING + RIGHT_PADDING), height - (TOP_PADDING + BOTTOM_PADDING));
         preferredSizeInvalid = true;
+        
+        inSetLayoutBoundsSize = false;        
     }
+    
     
     /**
      *  @private
@@ -825,7 +900,7 @@
     public function invalidateLayoutDirection():void
     {
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  IStyleClient Methods and Properties
@@ -1002,7 +1077,7 @@
     {
         _styleDeclaration = value;
     }
-
+    
     
     //--------------------------------------------------------------------------
     //
@@ -1035,4 +1110,3 @@
         if (pt.x + toolTip.width > screenRight)
             toolTip.move(toolTip.x - (pt.x + toolTip.width - screenRight), toolTip.y);
     }
-
