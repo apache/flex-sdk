@@ -665,14 +665,24 @@ are identical, save the superclass and constructor names.  This file contains th
     //--------------------------------------------------------------------------    
     
     /**
-     *  @private
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function prepare(willBeRecycled:Boolean):void
     {
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function discard(hasBeenRecycled:Boolean):void
     {
@@ -1060,7 +1070,14 @@ are identical, save the superclass and constructor names.  This file contains th
     //--------------------------------------------------------------------------     
     
     /**
-     * @private 
+     *  @inheritDoc
+     *  
+     *  The renderer will inherit <code>layoutDirection</code> from its parent.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get layoutDirection():String
     {
@@ -1068,10 +1085,7 @@ are identical, save the superclass and constructor names.  This file contains th
     }
     
     /**
-     * @private 
-     * <code>layoutDirection</code> should not be set directly on this 
-     * <code>UIFTETextField</code>.  
-     * It will inherit <code>layoutDirection</code> from its parent.
+     * @private
      */
     public function set layoutDirection(value:String):void
     {
