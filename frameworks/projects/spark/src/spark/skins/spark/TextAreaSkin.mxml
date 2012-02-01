@@ -11,28 +11,43 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009"
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
 	  alpha.disabled="0.5">
 
     <Metadata>
     	[HostComponent("mx.components.FxTextArea")]
     </Metadata> 
     
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For text area, the skin itself is colorized but the individual parts are not. */
+        static private const exclusions:Array = ["background", "scroller"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the content fill items that should be colored by the "contentColor" style. */
+        static private const contentFill:Array = ["bgFill"];
+        override public function get contentItems():Array {return contentFill};
+    </Script>
+    
     <states>
         <State name="normal"/>
         <State name="disabled"/>
     </states>
     
-    <!-- border/fill --> 
+    <!-- border --> 
 	<Rect left="0" right="0" top="0" bottom="0">
         <stroke>
             <SolidColorStroke color="0x686868" weight="1"/>            
         </stroke>
-        <fill>
-            <SolidColor color="0xFFFFFF"/>
-        </fill>
     </Rect>
 
+    <!-- fill -->
+    <Rect id="background" left="1" right="1" top="1" bottom="1">
+        <fill>
+            <SolidColor id="bgFill" color="0xFFFFFF" />
+        </fill>
+    </Rect>
+    
 	<!-- shadow -->
 	<Rect left="1" top="1" right="1" height="1">
 		<fill>
@@ -46,4 +61,4 @@
                   paddingRight="4" paddingBottom="4"/>
     </FxScroller>
 
-</Skin>
+</SparkSkin>
