@@ -109,7 +109,7 @@ public class FilledElement extends StrokedElement
 		if (stroke)
 			stroke.draw(g, bounds);
 		else
-			g.lineStyle(0, 0, 0);
+			g.lineStyle();
 		
 		if (fill)
 			fill.begin(g, bounds);
