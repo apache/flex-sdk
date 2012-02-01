@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the editable Halo ComboBox component. 
+<!--- The Spark skin class for the editable MX ComboBox component. 
+
+      @see mx.controls.ComboBox
         
       @langversion 3.0
       @playerversion Flash 10
