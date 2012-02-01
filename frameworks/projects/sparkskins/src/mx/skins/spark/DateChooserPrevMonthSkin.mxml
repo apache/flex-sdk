@@ -2,30 +2,36 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The Spark skin class for the previous month arrow of a Halo DateChooser component. -->
+<!--- The Spark skin class for the previous month arrow of a Halo DateChooser component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" minWidth="21" minHeight="9" >
 
-	<!-- states -->
-	<s:states>
-		<s:State name="up" />
-		<s:State name="over" />
-		<s:State name="down" />
-		<s:State name="disabled" />
-	</s:states>
-	
-	<s:BitmapImage source="@Embed('assets/DateChooserArrowLeft.png')" includeIn="up" left="0" verticalCenter="0" />
-	
-	<s:BitmapImage source="@Embed('assets/DateChooserArrowLeftOver.png')" includeIn="over" left="0" verticalCenter="0" />
-	
-	<s:BitmapImage source="@Embed('assets/DateChooserArrowLeftDown.png')" includeIn="down" left="0" verticalCenter="0" />
-	
+    <!-- states -->
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <s:BitmapImage source="@Embed('assets/DateChooserArrowLeft.png')" includeIn="up" left="0" verticalCenter="0" />
+    
+    <s:BitmapImage source="@Embed('assets/DateChooserArrowLeftOver.png')" includeIn="over" left="0" verticalCenter="0" />
+    
+    <s:BitmapImage source="@Embed('assets/DateChooserArrowLeftDown.png')" includeIn="down" left="0" verticalCenter="0" />
+    
 </s:Skin>
