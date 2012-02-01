@@ -742,18 +742,7 @@ public class FTEAdvancedDataGridItemRenderer extends UIFTETextField
         
         toolTip.move(pt.x, pt.y + (height - toolTip.height) / 2);
         
-        if (sm != sbRoot)
-        {
-            var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
-                false, false,
-                "getVisibleApplicationRect"); 
-            sbRoot.dispatchEvent(request);
-            screen = Rectangle(request.value);
-        }
-        else
-        {
-            screen = sm.getVisibleApplicationRect();
-        }
+        screen = sm.getVisibleApplicationRect(null, true);
         
         var screenRight:Number = screen.x + screen.width;
         pt.x = toolTip.x;
