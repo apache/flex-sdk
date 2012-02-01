@@ -348,11 +348,10 @@ public class HorizontalLayout implements ILayout
         layoutTarget.measuredWidth = (explicitColumnCount == -1) ? preferredWidth : visibleWidth;
         layoutTarget.measuredHeight = preferredHeight;
 
-        layoutTarget.contentWidth = preferredWidth;
-        layoutTarget.contentHeight = preferredHeight;
-
         layoutTarget.measuredMinWidth = minWidth; 
         layoutTarget.measuredMinHeight = minHeight;
+        
+        layoutTarget.setContentSize(preferredWidth, preferredHeight);
     }
     
     
@@ -393,11 +392,10 @@ public class HorizontalLayout implements ILayout
         layoutTarget.measuredWidth = visibleWidth;
         layoutTarget.measuredHeight = rowHeight;
         
-        layoutTarget.contentWidth = contentWidth; 
-        layoutTarget.contentHeight = rowHeight;
-
         layoutTarget.measuredMinWidth = columnWidth;
         layoutTarget.measuredMinHeight = minRowHeight;
+        
+        layoutTarget.setContentSize(contentWidth, rowHeight);
     }
     
 
@@ -453,21 +451,25 @@ public class HorizontalLayout implements ILayout
             
         // Finally, position the objects        
         var x:Number = 0;
+        var maxX:Number = 0;
+        var maxY:Number = 0;        
         for each (var lo:ILayoutItem in layoutItemArray)
         {
             var y:Number = (unscaledHeight - lo.actualSize.y) * vAlign;
             lo.setActualPosition(x, y);
+            var dy:Number = lo.actualSize.y;
             if (!variableColumnWidth)
-            	lo.setActualSize(columnWidth, lo.actualSize.y);
+            	lo.setActualSize(columnWidth, dy);
             var dx:Number = lo.actualSize.x;
+            maxX = Math.max(maxX, x + dx);
+            maxY = Math.max(maxY, y + dy);            
             if((explicitColumnCount == -1) && (x < maxVisibleX) && ((x + dx) > minVisibleX))
             	visibleColumns += 1;
             x += dx + gap;
         }
         if (explicitColumnCount == -1) 
-        	setColumnCount(visibleColumns);        
-
-        BasicLayout.setScrollRect(layoutTarget, unscaledWidth, unscaledHeight);
+        	setColumnCount(visibleColumns);  
+        layoutTarget.setContentSize(maxX, maxY);        	      
     }
 
 
