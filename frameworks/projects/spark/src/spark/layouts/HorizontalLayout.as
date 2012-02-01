@@ -1518,8 +1518,13 @@ public class HorizontalLayout extends LayoutBase
             llv.defaultMinorSize = typicalHeight;
             llv.defaultMajorSize = typicalWidth;
         }
+        
+        if (!isNaN(columnWidth))
+            llv.defaultMajorSize = columnWidth;
+        
         if (layoutTarget)
             llv.length = layoutTarget.numElements;        
+
         llv.gap = gap;
         llv.majorAxisOffset = paddingLeft;
     }
