@@ -529,11 +529,23 @@ public class ConstraintLayout extends LayoutBase
     }
     
     /**
+     *  @private
+     *  This function is mx_internal so that FormItemLayout can use it
+     *  in its updateDisplayList.
+     */
+    mx_internal function checkUseVirtualLayout():void
+    {
+        if (useVirtualLayout)
+            throw new Error(ResourceManager.getInstance().getString("layout", "constraintLayoutNotVirtualized"));
+    }
+    
+    /**
+     *  @private
      *  Used to set new column widths before laying out the elements.
      *  Used by FormItemLayout to set column widths provided by the
      *  Form.
      */ 
-    protected function setColumnWidths(value:Vector.<Number>):void
+    mx_internal function setColumnWidths(value:Vector.<Number>):void
     {
         if (value == null)
             return;
@@ -551,9 +563,10 @@ public class ConstraintLayout extends LayoutBase
     }
     
     /**
+     *  @private
      *  Used to set new row heights before laying out the elements.
      */ 
-    protected function setRowHeights(value:Vector.<Number>):void
+    mx_internal function setRowHeights(value:Vector.<Number>):void
     {
         if (value == null)
             return;
@@ -568,17 +581,6 @@ public class ConstraintLayout extends LayoutBase
             constraintRows[i].y = totalHeight;
             totalHeight += value[i];
         }
-    }
-
-    /**
-     *  @private
-     *  This function is mx_internal so that FormItemLayout can use it
-     *  in its updateDisplayList.
-     */
-    mx_internal function checkUseVirtualLayout():void
-    {
-        if (useVirtualLayout)
-            throw new Error(ResourceManager.getInstance().getString("layout", "constraintLayoutNotVirtualized"));
     }
     
     //--------------------------------------------------------------------------
