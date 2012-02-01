@@ -395,7 +395,7 @@ public class BitmapImage extends GraphicElement
     /**
      *  Determines how the bitmap fills in the dimensions. If you set the value
      *  of this property in a tag, use the string (such as "repeat"). If you set the value of
-     *  this property in ActionScript, use the constant (such as <code>BitmapFillMode.CLIP</code>).
+     *  this property in ActionScript, use the constant (such as <code>mx.graphics.BitmapFillMode.CLIP</code>).
      *
      *  <p>When set to <code>BitmapFillMode.CLIP</code> ("clip"), the bitmap
      *  ends at the edge of the region.</p>
@@ -407,6 +407,8 @@ public class BitmapImage extends GraphicElement
      *  stretches to fill the region.</p>
      *
      *  @default <code>BitmapFillMode.SCALE</code>
+     *
+     *  @see mx.graphics.BitmapFillMode
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -443,17 +445,20 @@ public class BitmapImage extends GraphicElement
 
     /**
      *  The horizontal alignment of the content when it does not have
-     *  a one-to-one aspect ratio and scaleMode is set to
-     *  BitmapScaleMode.LETTERBOX.
+     *  a one-to-one aspect ratio and <code>scaleMode</code> is set to
+     *  <code>mx.graphics.BitmapScaleMode.LETTERBOX</code>.
      *
      *  <p>Can be one of <code>HorizontalAlign.LEFT</code> ("left"),
      *  <code>HorizontalAlign.RIGHT</code> ("right"), or
      *  <code>HorizontalAlign.CENTER</code> ("center").</p>
      *
-     *  <p>This property is only applicable when fillMode is set to
-     *  to <code>BitmapFillMode.SCALE</code> ("scale").</p>
+     *  <p>This property is only applicable when <code>fillMode</code> is set to
+     *  to <code>mx.graphics.BitmapFillMode.SCALE</code> ("scale").</p>
      *
      *  @default <code>HorizontalAlign.CENTER</code>
+     *
+     *  @see mx.graphics.BitmapFillMode
+     *  @see mx.graphics.BitmapScaleMode
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -581,9 +586,9 @@ public class BitmapImage extends GraphicElement
 
     /**
      *  Determines how the image is scaled when <code>fillMode</code> is set to
-     *  <code>BitmapFillMode.SCALE</code>.
+     *  <code>mx.graphics.BitmapFillMode.SCALE</code>.
      *
-     *  <p>When set to <code>BitmapScaleMode.STRETCH</code> ("stretch"),
+     *  <p>When set to <code>mx.graphics.BitmapScaleMode.STRETCH</code> ("stretch"),
      *  the image is stretched to fit.</p>
      *
      *  <p>When set to <code>BitmapScaleMode.LETTERBOX</code> ("letterbox"),
@@ -595,6 +600,9 @@ public class BitmapImage extends GraphicElement
      *  aspect ratio. This results in cropping on one axis.</p>
      *
      *  @default <code>BitmapScaleMode.STRETCH</code>
+     *
+     *  @see mx.graphics.BitmapFillMode
+     *  @see mx.graphics.BitmapScaleMode
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -852,7 +860,7 @@ public class BitmapImage extends GraphicElement
     /**
      *  The vertical alignment of the content when it does not have
      *  a one-to-one aspect ratio and scaleMode is set to
-     *  BitmapScaleMode.LETTERBOX.
+     *  <code>mx.graphics.BitmapScaleMode.LETTERBOX</code>.
      *
      *  <p>Can be one of <code>VerticalAlign.TOP</code> ("top"),
      *  <code>VerticalAlign.BOTTOM</code> ("bottom"), or
@@ -862,6 +870,9 @@ public class BitmapImage extends GraphicElement
      *  to <code>BitmapFillMode.SCALE</code> ("scale").</p>
      *
      *  @default <code>VerticalAlign.MIDDLE</code>
+     *
+     *  @see mx.graphics.BitmapFillMode
+     *  @see mx.graphics.BitmapScaleMode
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
