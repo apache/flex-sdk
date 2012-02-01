@@ -309,16 +309,16 @@ public class ConstraintLayout extends LayoutBase
         var row:ConstraintRow;
         var temp:Vector.<ConstraintRow> = value.slice();
         var obj:Object = new Object();
-        var baselines:Vector.<Array> = new Vector.<Array>(n, true);
+        rowBaselines = new Vector.<Array>();
         
         for (var i:int = 0; i < n; i++)
         {
             row = temp[i];
             row.container = this.target;
             obj[row.id] = i;
-            baselines[i] = LayoutElementHelper.parseConstraintExp(row.baseline);
+            rowBaselines[i] = LayoutElementHelper.parseConstraintExp(row.baseline);
             
-            var maxAscentStr:String = baselines[i][1];
+            var maxAscentStr:String = rowBaselines[i][1];
             if (maxAscentStr && maxAscentStr != "maxAscent")
                 throw new Error(ResourceManager.getInstance().getString("layout", "invalidBaselineOnRow",
                                                                         [ row.id, row.baseline ]));
@@ -329,7 +329,6 @@ public class ConstraintLayout extends LayoutBase
         
         _constraintRows = temp;
         rowsObject = obj;
-        rowBaselines = baselines;
         
         if (target)
         {
@@ -418,6 +417,7 @@ public class ConstraintLayout extends LayoutBase
         colSpanElements = null;
         rowSpanElements = null;
         otherElements = null;
+        rowMaxAscents = null;
         constraintCache = null;
     }
     
@@ -496,6 +496,7 @@ public class ConstraintLayout extends LayoutBase
         colSpanElements = null;
         rowSpanElements = null;
         otherElements = null;
+        rowMaxAscents = null;
         constraintCache = null;
     }
     
@@ -1308,8 +1309,29 @@ public class ConstraintLayout extends LayoutBase
         var layoutElement:ILayoutElement;
         
         var cache:Dictionary = new Dictionary(true);
+        var i:int;
         
-        for (var i:int = 0; i < count; i++)
+        // Populate rowBaselines with baseline information from rows.
+        var n:int = _constraintRows.length;
+        var row:ConstraintRow;
+        var obj:Object = new Object();
+        if (rowBaselines == null)
+            rowBaselines = new Vector.<Array>();
+        else
+            rowBaselines.length = 0;
+        
+        for (i = 0; i < n; i++)
+        {
+            row = _constraintRows[i];
+            rowBaselines[i] = LayoutElementHelper.parseConstraintExp(row.baseline);
+            
+            var maxAscentStr:String = rowBaselines[i][1];
+            if (maxAscentStr && maxAscentStr != "maxAscent")
+                throw new Error(ResourceManager.getInstance().getString("layout", "invalidBaselineOnRow",
+                    [ row.id, row.baseline ]));
+        }
+        
+        for (i = 0; i < count; i++)
         {
             layoutElement = layoutTarget.getElementAt(i);
             if (!layoutElement || !layoutElement.includeInLayout)
