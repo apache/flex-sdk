@@ -1,5 +1,12 @@
 package mx.skins.spark {
 
+/**
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */     
 public class ContainerBorderSkin extends BorderSkin
 {
     public function ContainerBorderSkin()
