@@ -99,7 +99,7 @@ public class RemoveActionInstance extends ActionEffectInstance
     
     private function addChild(container:*, child:*):void
     {
-        // TODO: can remove once we're sure all parents are 
+        // FIXME (rfrishbe): can remove once we're sure all parents are 
         // IVisualElementContainers (Flash Component Kit)
         if (container is IVisualElementContainer)
            IVisualElementContainer(container).addElement(child);
