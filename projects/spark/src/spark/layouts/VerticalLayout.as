@@ -455,20 +455,8 @@ public class VerticalLayout implements ILayout
         }
         if (explicitRowCount == -1) 
         	setRowCount(visibleRows);
-        
-        var r:Rectangle = layoutTarget.scrollRect;
-        if (r != null) 
-        {
-            r.width = unscaledWidth;
-            r.height = unscaledHeight;
-            layoutTarget.scrollRect = r;
-        }
-        else 
-        {
-        	var rx:Number = layoutTarget.horizontalScrollPosition;
-        	var ry:Number = layoutTarget.verticalScrollPosition;
-        	layoutTarget.scrollRect = new Rectangle(rx, ry, unscaledWidth, unscaledHeight);
-        }
+
+        BasicLayout.setScrollRect(layoutTarget, unscaledWidth, unscaledHeight);
     }
     
     
