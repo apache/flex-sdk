@@ -14,7 +14,7 @@ package mx.layout
 {
 import flash.geom.Rectangle;
 import mx.graphics.Rect;
-import mx.layout.ILayoutElement;
+import mx.core.ILayoutElement;
 
     
 /**
