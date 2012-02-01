@@ -20,36 +20,6 @@
 [Style(name="blockProgression", type="String", enumeration="tb,rl", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#columnCount
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="columnCount", type="Object", inherit="no")]
-
-/**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#columnGap
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="columnGap", type="Number", format="Length", inherit="no")]
-
-/**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#columnWidth
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="columnWidth", type="Object", inherit="no")]
-
-/**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#firstBaselineOffset
  *  
  *  @langversion 3.0
