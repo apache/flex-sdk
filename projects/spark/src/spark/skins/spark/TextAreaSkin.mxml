@@ -12,6 +12,8 @@
 -->
 
 <!--- The default skin class for Spark TextArea component.  
+
+     @see spark.components.TextArea
         
       @langversion 3.0
       @playerversion Flash 10
@@ -205,6 +207,7 @@
     <!--- @private -->
     <s:Rect id="border" left="0" right="0" top="0" bottom="0">
         <s:stroke>
+            <!--- @private -->
             <s:SolidColorStroke id="borderStroke" weight="1"/>            
         </s:stroke>
     </s:Rect>
@@ -226,7 +229,7 @@
         </s:fill>
     </s:Rect>
 
-    <!--- Defines the scroller used to scroll the TextArea. -->
+    <!--- Defines the scroller that is used to scroll the TextArea control. -->
     <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" minViewportInset="1" measuredSizeIncludesScrollBars="false">
         <!--- @copy spark.components.supportClasses.SkinnableTextBase#textDisplay -->
         <s:RichEditableText id="textDisplay"
