@@ -26,6 +26,11 @@ import flash.filters.ColorMatrixFilter;
  *  BitmapData objects.
  * 
  *  @see flash.filters.ColorMatrixFilter
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class ColorMatrixFilter extends BaseFilter implements IBitmapFilter
 {
@@ -55,6 +60,11 @@ public class ColorMatrixFilter extends BaseFilter implements IBitmapFilter
 	 *  output red value, the second five determine the output green value, etc.
 	 * 
 	 *  The value must either be an array or comma delimited string of 20 numbers. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get matrix():Object
 	{
