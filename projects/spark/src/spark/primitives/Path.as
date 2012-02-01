@@ -1043,18 +1043,18 @@ public class Path extends FilledElement
                                     width, 
                                     height);
         if (stroke)
-		{
-			var strokeBounds:Rectangle = getStrokeBounds();
+        {
+            var strokeBounds:Rectangle = getStrokeBounds();
             // Objects drawn in shared display objects are drawn at x,y rather
             // than 0,0 so need to move the strokeBounds if sharing.
-			strokeBounds.offsetPoint(origin);
+            strokeBounds.offsetPoint(origin);
             stroke.apply(g, strokeBounds, origin);
-		}
+        }
         else
-		{
+        {
             g.lineStyle();
-		}
-		
+        }
+        
         if (fill)
             fill.begin(g, bounds, origin);
     }
@@ -1120,6 +1120,11 @@ public class Path extends FilledElement
     
     /**
      *  @inheritDoc
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function invalidateDisplayObjectSharing():void
     {
