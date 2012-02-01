@@ -9,11 +9,12 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.filters
+package spark.filters
 {
 import flash.filters.BitmapFilter;
 import flash.filters.ColorMatrixFilter;
-
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 /**
  *  The ColorMatrixFilter class lets you apply a 4 x 5 matrix transformation on the 
  *  RGBA color and alpha values of every pixel in the input image to produce a result 
