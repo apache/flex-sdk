@@ -59,7 +59,6 @@ public class Rect extends FilledElement
 
     private var _radiusX:Number = 0;
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -71,13 +70,10 @@ public class Rect extends FilledElement
     }
     
     public function set radiusX(value:Number):void
-    {
-        var oldValue:Number = _radiusX;
-        
-        if (value != oldValue)
+    {        
+        if (value != _radiusX)
         {
             _radiusX = value;
-            dispatchPropertyChangeEvent("radiusX", oldValue, value);
             invalidateDisplayList();
             // No need to invalidateSize() since we don't use radiusX to compute size 
         }
@@ -89,7 +85,6 @@ public class Rect extends FilledElement
 
     private var _radiusY:Number = 0;
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -101,13 +96,10 @@ public class Rect extends FilledElement
     }
 
     public function set radiusY(value:Number):void
-    {
-        var oldValue:Number = _radiusY;
-        
-        if (value != oldValue)
+    {        
+        if (value != _radiusY)
         {
             _radiusY = value;
-            dispatchPropertyChangeEvent("radiusY", oldValue, value);
             invalidateDisplayList();
             // No need to invalidateSize() since we don't use radiusY to compute size 
         }
