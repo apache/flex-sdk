@@ -151,7 +151,7 @@ public class NumberFormatter extends NumberBase implements IFormatter
                 as flash.globalization.NumberFormatter).actualLocaleIDName;
         }
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -257,7 +257,7 @@ public class NumberFormatter extends NumberBase implements IFormatter
      */
     override mx_internal function createWorkingInstance():void
     {
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -342,7 +342,7 @@ public class NumberFormatter extends NumberBase implements IFormatter
                 as flash.globalization.NumberFormatter).formatNumber(number);
         }
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -473,7 +473,7 @@ public class NumberFormatter extends NumberBase implements IFormatter
                 as flash.globalization.NumberFormatter).parse(inputString);
         }
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -524,7 +524,7 @@ public class NumberFormatter extends NumberBase implements IFormatter
                 as flash.globalization.NumberFormatter).parseNumber(parseString);
         }
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
