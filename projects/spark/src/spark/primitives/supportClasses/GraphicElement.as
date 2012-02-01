@@ -51,6 +51,7 @@ import mx.graphics.IGraphicElement;
 import mx.graphics.IStroke;
 import mx.graphics.MaskType;
 import mx.managers.ILayoutManagerClient;
+import mx.managers.LayoutManager;
 import mx.utils.MatrixUtil;
 import mx.utils.OnDemandEventDispatcher;
 
@@ -3213,6 +3214,9 @@ public class GraphicElement extends OnDemandEventDispatcher
         // If we aren't doing any more invalidation, send out an UpdateComplete event
         if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag && wasInvalid)
             dispatchUpdateComplete();
+         
+        // LAYOUT_DEBUG  
+        //LayoutManager.debugHelper.addElement(ILayoutElement(this));
     }
 
     /**
