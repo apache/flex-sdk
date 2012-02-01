@@ -148,10 +148,11 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (_useVirtualLayout == value)
             return;
 
+        dispatchEvent(new Event("useVirtualLayoutChanged"));            
         _useVirtualLayout = value;
         if (target)
             target.invalidateDisplayList();
-    }
+    }     
     
     //----------------------------------
     //  horizontalScrollPosition
