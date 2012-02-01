@@ -10,10 +10,27 @@ import flash.text.TextFieldAutoSize;
 import mx.core.LayoutElementUIComponentUtils;
 import mx.core.UIComponent;
 import mx.core.UITextField;
+import mx.events.FlexEvent;
 
 import spark.components.Grid;
 import spark.components.IGridItemRenderer;
 import spark.components.supportClasses.GridColumn;
+
+//--------------------------------------
+//  Events
+//--------------------------------------
+
+/**
+ *  Dispatched when the bindable <code>data</code> property changes.
+ *
+ *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="dataChange", type="mx.events.FlexEvent")]
 
 /**
  *  TBD
@@ -106,7 +123,10 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
             return;
         
         _data = value;
-        dispatchChangeEvent("dataChange");
+
+        const eventType:String = "dataChange"; 
+        if (hasEventListener(eventType))
+            dispatchEvent(new FlexEvent(eventType));        
     }
     
     //----------------------------------
