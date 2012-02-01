@@ -17,6 +17,7 @@ import flash.globalization.LocaleID;
 
 import mx.core.mx_internal;
 import mx.utils.ObjectUtil;
+import mx.utils.StringUtil;
 
 import spark.formatters.DateTimeFormatter;
 
@@ -34,6 +35,16 @@ use namespace mx_internal;
  *  Spark DateTimeFormatter.
  *  Another feature is the date time pattern analysis which tells relative
  *  positions of each of formatting element.</p>
+ *
+ *  <p>There are maximum year and minimum year this class can handle.</p>
+ *  <table>
+ *  <tr><th>Item</th><th>Constant</th><th>Value</th></tr>
+ *  <tr><td>Maximum year</td><td>MAX_YEAR</td><td>30827</td></tr>
+ *  <tr><td>Minimum year</td><td>MIN_YEAR</td><td>1601</td></tr>
+ *  </table>
+ *  <p>This limitation is inherited from the underlying technology used by this
+ *  class. (Spark DateTimeFormatter uses Flash DateTimeFormatter, which uses
+ *  platform OS calls.) The limitation value is same across the platforms.</p>
  *
  *  @see spark.formatters.DateTimeFormatter
  *  @see flash.globalization.DateTimeFormatter
@@ -61,6 +72,16 @@ public class DateTimeFormatterEx extends DateTimeFormatter
     public static const DATESTYLE_yMMMM:String = "yMMMM";
     public static const DATESTYLE_MMMEEEd:String = "MMMEEEd";
     
+    /**
+     *  Maximum year supported by DateTimeFormatterEx class.
+     */
+    public static const MAX_YEAR:uint = 30827;
+    
+    /**
+     *  Minimum year supported by DateTimeFormatterEx class.
+     */
+    public static const MIN_YEAR:uint = 1601;
+    
     // Number of milli seconds for a day
     private static const MILLISECONDS_PER_DAY:int = 1000 * 60 * 60 * 24;
     
@@ -77,7 +98,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
         /(^(?:[^'m]*(?:'[^']*')*[^m']*)*)(m+('分'|分|'분'|분)?)/;
     private static const REGEXP_SECOND:RegExp =
         /(^(?:[^'s]*(?:'[^']*')*[^s']*)*)(s+('秒'|秒|'초'|초)?)/;
-    private static const REGEXP_AMPM:RegExp =  /^(.*)(a)(?:[^']*'[^']*')*[^']*$/; 
+    private static const REGEXP_AMPM:RegExp =  /^(.*)(a)(?:[^']*'[^']*')*[^']*$/;
     private static const REGEXP_DAYOFWEEK:RegExp =
         /(^(?:[^'E]*(?:'[^']*')*[^E']*)*)(E+)/;
     
@@ -101,6 +122,10 @@ public class DateTimeFormatterEx extends DateTimeFormatter
     */
     private static const REGEXP_LOCALEID:RegExp =
         /([a-z]+)?(?:[-_]([A-Z][a-z]+))?(?:[-_]([A-Z]+))?([a-zA-Z-]+)?(?:@(.*))?/;
+    
+    private static const REGEXP_L:RegExp = /(?:^[^'L]*(?:'[^']*')*[^L']*)(L+)/;
+    
+    private static const REGEXP_c:RegExp = /(?:^[^'c]*(?:'[^']*')*[^c']*)(c+)/;
     
     // Format pattern for yMMM
     private static const FORMATPATTERNLIST_yMMM:Vector.<FormatPattern> =
@@ -223,16 +248,34 @@ public class DateTimeFormatterEx extends DateTimeFormatter
             new FormatPattern("d MMM, E", ["bg"]),
             new FormatPattern("d MMMM E", ["tr"]),
             new FormatPattern("E d LLL", ["fa"]),
-            new FormatPattern("E d MMM", ["agq", "ar", "bas", "bm", "bn", "ca", "dje", "dua", "dyo", "en_GB", "en_IN", "es", "ewo", "ff", "fr", "fur", "gl", "id", "kab", "khq", "ksf", "ln", "lu", "mfe", "mg", "mua", "nl", "nmg", "nus", "rn", "ses", "sg", "shi", "shi_Tfng", "sq", "sv", "swc", "th", "to", "twq", "vi", "yav"]),
-            new FormatPattern("E d. MMM", ["da", "fi", "gsw", "is", "nb", "nn", "rm", "sr", "sr_Latn"]),
+            new FormatPattern("E d MMM", [
+                "agq", "ar", "bas", "bm", "bn", "ca", "dje", "dua",
+                "dyo", "en_GB", "en_IN", "es", "ewo", "ff", "fr",
+                "fur", "gl", "id", "kab", "khq", "ksf", "ln", "lu",
+                "mfe", "mg", "mua", "nl", "nmg", "nus", "rn", "ses",
+                "sg", "shi", "shi_Tfng", "sq", "sv", "swc", "th", "to",
+                "twq", "vi", "yav"]),
+            new FormatPattern("E d. MMM", [
+                "da", "fi", "gsw", "is", "nb", "nn", "rm", "sr",
+                "sr_Latn"]),
             new FormatPattern("E dd MMM", ["en_ZA", "en_ZW"]),
-            new FormatPattern("E MMM d", ["fil", "mk", "root", "trv"]),
-            new FormatPattern("E, d MMM", ["be", "el", "en_AU", "en_CA", "en_HK", "en_MT", "en_NZ", "en_SG", "gu", "hi", "kn", "mr", "pl", "ro", "ta", "te", "uk"]),
+            new FormatPattern("E MMM d", ["fil", "mk", /*"root",*/ "trv"]),
+            new FormatPattern("E, d MMM", [
+                "be", "el", "en_AU", "en_CA", "en_HK", "en_MT", "en_NZ", "en_SG",
+                "gu", "hi", "kn", "mr", "pl", "ro", "ta", "te",
+                "uk"]),
             new FormatPattern("E, d בMMM", ["he"]),
-            new FormatPattern("E, d. MMM", ["cs", "de", "et", "hr", "lv", "sk", "sl", "wae"]),
+            new FormatPattern("E, d. MMM", [
+                "cs", "de", "et", "hr", "lv", "sk", "sl", "wae"]),
             new FormatPattern("E, d/MM", ["pt_PT"]),
             new FormatPattern("E, dd. MMM", ["bs"]),
-            new FormatPattern("E, MMM d", ["af", "ak", "am", "asa", "bem", "bez", "brx", "cgg", "dav", "ebu", "ee", "en", "es_US", "eu", "guz", "ha", "ig", "jmc", "kam", "kde", "ki", "kln", "ksb", "lag", "lg", "luo", "luy", "mas", "mer", "mgh", "naq", "nd", "nyn", "rof", "rwk", "saq", "sbp", "sn", "so", "sw", "teo", "tzm", "vai", "vai_Latn", "vun", "xog", "yo", "zu"]),
+            new FormatPattern("E, MMM d", [
+                "af", "ak", "am", "asa", "bem", "bez", "brx", "cgg",
+                "dav", "ebu", "ee", "en", "es_US", "eu", "guz", "ha",
+                "ig", "jmc", "kam", "kde", "ki", "kln", "ksb", "lag",
+                "lg", "luo", "luy", "mas", "mer", "mgh", "naq", "nd",
+                "nyn", "rof", "rwk", "saq", "sbp", "sn", "so", "sw",
+                "teo", "tzm", "vai", "vai_Latn", "vun", "xog", "yo", "zu"]),
             new FormatPattern("E، dی MMM", ["ku"]),
             new FormatPattern("EEE d MMM", ["en_BE", "it"]),
             new FormatPattern("EEE dd MMM", ["en_BW", "en_BZ"]),
@@ -248,10 +291,13 @@ public class DateTimeFormatterEx extends DateTimeFormatter
             new FormatPattern("M月d日E", ["zh", "zh_Hant"]),
         ];
     
-    // Process for FORMATPATTERNLIST_yMMMM_extra repeated. Locales list for MMMEEEd is compared with
-    // yMMM localelist and the missing ones data is extracted.
-    private static const FORMATPATTERNLIST_MMMEEEd_extra:Vector.<FormatPattern> =
+    // Process for FORMATPATTERNLIST_yMMMM_extra repeated.
+    // Locales list for MMMEEEd is compared with yMMM localelist and
+    // the missing ones data is extracted.
+    private static const
+    FORMATPATTERNLIST_MMMEEEd_extra:Vector.<FormatPattern> =
         new <FormatPattern> [
+            new FormatPattern("E MMM d", ["root"]),
             new FormatPattern("EEE MMM d", ["chr"]),
             new FormatPattern("EEE, MMM d", ["ksh"]),
         ];
@@ -333,7 +379,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
         */
         if (super.timeStyle == "custom")
             super.timeStyle = (value == "none") ? "long" : "none";
-        
+
         super.timeStyle = value;
     }
     
@@ -484,6 +530,8 @@ public class DateTimeFormatterEx extends DateTimeFormatter
         const element:Object = elementPatternList["dayOfMonth"];
         return element ? element["index"] : -1;
     }
+    
+    [Bindable("change")]
     
     /**
      *  Formatting pattern for the day of week.
@@ -726,7 +774,8 @@ public class DateTimeFormatterEx extends DateTimeFormatter
         {
             _elementPatternList =
                 DateTimeFormatterEx.analysePattern(dateTimePattern,
-                    (super.dateStyle != "none"), (super.timeStyle != "none"));
+                    patternMayContainDateElements,
+                    patternMayContainTimeElements);
             addPrefixes(dateTimePattern, _elementPatternList);
         }
         
@@ -740,6 +789,72 @@ public class DateTimeFormatterEx extends DateTimeFormatter
         _elementPatternList = null;
     }
     
+    //----------------------------------
+    //  patternMayContainDateElements
+    //----------------------------------
+    
+    private function get patternMayContainDateElements():Boolean
+    {
+        switch (super.dateStyle)
+        {
+            case "none":
+                return false;
+            case "custom":
+                break;
+            default:    // "long", "medium" and "short"
+                return true;
+        }
+        
+        switch (_dateTimeSkeletonPattern)
+        {
+            case DATESTYLE_yMMM:
+            case DATESTYLE_yMMMM:
+            case DATESTYLE_MMMEEEd:
+                return true;
+        }
+        
+        /*
+        The precise answer here is: it is unknown if the pattern contains
+        any of date elements.
+        Therefore, we return the value to say "it may contain some date
+        elements".
+        */
+        return true;
+    }
+    
+    //----------------------------------
+    //  patternMayContainTimeElements
+    //----------------------------------
+    
+    private function get patternMayContainTimeElements():Boolean
+    {
+        switch (super.timeStyle)
+        {
+            case "none":
+                return false;
+            case "custom":
+                break;
+            default:    // "long", "medium" and "short"
+                return true;
+        }
+        
+        switch (_dateTimeSkeletonPattern)
+        {
+            case DATESTYLE_yMMM:
+            case DATESTYLE_yMMMM:
+            case DATESTYLE_MMMEEEd:
+                return false;
+        }
+        
+        /*
+        The precise answer here is: it is unknown if the pattern contains
+        any of time elements.
+        Therefore, we return the value to say "it may contain some time
+        elements".
+        */
+        return true;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Private Methods
@@ -749,7 +864,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
     /**
      *  @private
      *  Special handling for locales that need prefix for pattern elements.
-     * 
+     *
      *  The regular expression becomes too complex to properly handle prefixed
      *  embeded strings. (Postfixes are ok, however.)
      *  This function adds the proper prefix to the elements.
@@ -824,12 +939,23 @@ public class DateTimeFormatterEx extends DateTimeFormatter
         if (pattern)
         {
             // 'L' is not supported by most systems so relace with 'M'
-            // Problem if pattern has L or c in string literals. 
-            // TBD: Discuss with Masa.
-            pattern = pattern.replace(/L/g, "M");
-            // ru locale uses c as symbol for day name of the week instead E.
-            // catering to only skeleton patterns.
-            pattern = pattern.replace(/ccc/g, "EEE");
+            pattern = pattern.replace(REGEXP_L, function(
+                matchedSubstring:String,
+                capturedMatch1:String, index:int, str:String):String
+            {
+                return replaceString(matchedSubstring,
+                    capturedMatch1, index, str, "M");
+            });
+            
+            // ru locale uses "c" as the symbol for the day name of the week
+            // instead "E".
+            pattern = pattern.replace(REGEXP_c, function(
+                matchedSubstring:String,
+                capturedMatch1:String, index:int, str:String):String
+            {
+                return replaceString(matchedSubstring,
+                    capturedMatch1, index, str, "E");
+            });
         }
         
         return pattern;
@@ -946,6 +1072,17 @@ public class DateTimeFormatterEx extends DateTimeFormatter
         };
     }
     
+    private function replaceString(matchedSubstring:String,
+                                   capturedMatch1:String, index:int, str:String,
+                                   newChar:String):String
+    {
+        const len:int = capturedMatch1.length;
+        const s:String = StringUtil.repeat(newChar, len);
+        const n:String = matchedSubstring.substr(0,
+            matchedSubstring.length - len) + s;
+        return n;
+    }
+    
     private function updatePattern():void
     {
         if (!_dateTimeSkeletonPattern)
@@ -974,15 +1111,44 @@ public class DateTimeFormatterEx extends DateTimeFormatter
                                            analyseDateElements:Boolean,
                                            analyseTimeElements:Boolean):Object
     {
-        var regExpOut:Object;
-        var element:Object;
-        const array:Array = new Array();
+        const elementList:Array = new Array();
         
-        const iBegining:uint = analyseDateElements ? 0 : 3;
-        const iEnd:uint = analyseTimeElements ? 8 : 2;
-        for (var i:int = iBegining; i <= iEnd; i++)
+        if (analyseDateElements)
+            DateTimeFormatterEx.extractDateElements(pattern, elementList);
+        
+        if (analyseTimeElements)
+            DateTimeFormatterEx.extractTimeElements(pattern, elementList);
+        
+        elementList.sortOn("index", Array.NUMERIC);
+        const processedElementList:Object = new Object();
+        for (var i:int = 0; i < elementList.length; i++)
         {
-            element = null;
+            var element:Object = new Object();
+            element["index"] = i;
+            element["pattern"] = elementList[i]["pattern"];
+            var name:String = elementList[i]["name"];
+            processedElementList[name] = element;
+        }
+        
+        return processedElementList;
+    }
+    
+    /**
+     *  @private
+     *  extractDateElements() function.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    private static function extractDateElements(
+        pattern:String, elementList:Array):void
+    {
+        var regExpOut:Object;
+        for (var i:int = 0; i < 4; i++)
+        {
+            var element:Object = null;
             switch (i)
             {
                 case 0:
@@ -1007,34 +1173,6 @@ public class DateTimeFormatterEx extends DateTimeFormatter
                                 + (regExpOut[1] as String).length) };
                     break;
                 case 3:
-                    regExpOut = REGEXP_HOUR.exec(pattern);
-                    if (regExpOut)
-                        element = { name: "hour", pattern: regExpOut[2],
-                            index: ((regExpOut["index"] as int)
-                                + (regExpOut[1] as String).length) };
-                    break;
-                case 4:
-                    regExpOut = REGEXP_MINUTE.exec(pattern);
-                    if (regExpOut)
-                        element = { name: "minute", pattern: regExpOut[2],
-                            index: ((regExpOut["index"] as int)
-                                + (regExpOut[1] as String).length) };
-                    break;
-                case 5:
-                    regExpOut = REGEXP_SECOND.exec(pattern);
-                    if (regExpOut)
-                        element = { name: "second", pattern: regExpOut[2],
-                            index: ((regExpOut["index"] as int)
-                                + (regExpOut[1] as String).length) };
-                    break;
-                case 6:
-                    regExpOut = REGEXP_AMPM.exec(pattern);
-                    if (regExpOut)
-                        element = { name: "ampm", pattern: regExpOut[2],
-                            index: ((regExpOut["index"] as int)
-                                + (regExpOut[1] as String).length) };
-                    break;
-                case 7:
                     regExpOut = REGEXP_DAYOFWEEK.exec(pattern);
                     if (regExpOut)
                         element = { name: "dayOfWeek", pattern: regExpOut[2],
@@ -1043,21 +1181,60 @@ public class DateTimeFormatterEx extends DateTimeFormatter
                     break;
             }
             if (element)
-                array.push(element);
+                elementList.push(element);
         }
-        array.sortOn("index", Array.NUMERIC);
-        const object:Object = new Object();
-        var name:String;
-        for (i = 0; i < array.length; i++)
+    }
+    
+    /**
+     *  @private
+     *  extractTimeElements() function.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    private static function extractTimeElements(
+        pattern:String, elementList:Array):void
+    {
+        var regExpOut:Object;
+        for (var i:int = 0; i < 4; i++)
         {
-            element = new Object();
-            element["index"] = i;
-            element["pattern"] = array[i]["pattern"];
-            name = array[i]["name"];
-            object[name] = element;
+            var element:Object = null;
+            switch (i)
+            {
+                case 0:
+                    regExpOut = REGEXP_HOUR.exec(pattern);
+                    if (regExpOut)
+                        element = { name: "hour", pattern: regExpOut[2],
+                            index: ((regExpOut["index"] as int)
+                                + (regExpOut[1] as String).length) };
+                    break;
+                case 1:
+                    regExpOut = REGEXP_MINUTE.exec(pattern);
+                    if (regExpOut)
+                        element = { name: "minute", pattern: regExpOut[2],
+                            index: ((regExpOut["index"] as int)
+                                + (regExpOut[1] as String).length) };
+                    break;
+                case 2:
+                    regExpOut = REGEXP_SECOND.exec(pattern);
+                    if (regExpOut)
+                        element = { name: "second", pattern: regExpOut[2],
+                            index: ((regExpOut["index"] as int)
+                                + (regExpOut[1] as String).length) };
+                    break;
+                case 3:
+                    regExpOut = REGEXP_AMPM.exec(pattern);
+                    if (regExpOut)
+                        element = { name: "ampm", pattern: regExpOut[2],
+                            index: ((regExpOut["index"] as int)
+                                + (regExpOut[1] as String).length) };
+                    break;
+            }
+            if (element)
+                elementList.push(element);
         }
-        
-        return object;
     }
 }
 }
