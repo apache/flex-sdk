@@ -11,7 +11,7 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009">
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" alpha.disabled="0.5">
     
     <states>
         <State name="up" />
@@ -40,7 +40,7 @@
     </Rect>
     
     <!-- border -->
-    <Rect left="0" right="0" top="0" bottom="0" radiusX="7" radiusY="7">
+    <Rect left="0" right="0" top="0" bottom="0" radiusX="7" radiusY="7" width="11" height="11">
         <fill>
             <SolidColor color="0x4F4F4F"  />
         </fill>
