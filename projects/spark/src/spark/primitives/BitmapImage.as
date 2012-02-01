@@ -16,6 +16,7 @@ import flash.display.BitmapData;
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
+import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -244,13 +245,15 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
 	{
 	    /* if (!displayObject || !(displayObject is Sprite))
 	        return; */
+
+        if (displayObject is Sprite)
+            Sprite(displayObject).graphics.clear();
+        else if (displayObject is Shape)
+            Shape(displayObject).graphics.clear();
+
 	    var g:Graphics = Sprite(drawnDisplayObject).graphics;
 	    
-	    // TODO EGeorgie: clearing the graphics needs to be shared when
-	    // the display objects are shared.
-	    //g.clear();
-	    
-		g.lineStyle(0,0,0);
+		g.lineStyle();
 		_fill.offsetX = drawX;
 		_fill.offsetY = drawY;
 		_fill.repeat = repeat;
