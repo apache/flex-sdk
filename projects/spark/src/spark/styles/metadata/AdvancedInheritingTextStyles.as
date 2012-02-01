@@ -20,6 +20,16 @@
 [Style(name="blockProgression", type="String", enumeration="tb,rl", inherit="yes")]
 
 /**
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#breakOpportunity
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="breakOpportunity", type="String", enumeration="auto,all,any,none", inherit="yes")]
+
+/**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#firstBaselineOffset
  *  
  *  @langversion 3.0
