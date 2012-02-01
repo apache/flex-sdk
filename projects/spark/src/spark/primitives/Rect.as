@@ -296,7 +296,7 @@ public class Rect extends FilledElement
         radiusX = Math.min(radiusX, width / 2);
         radiusY = Math.min(radiusY, height / 2);
         
-        // TODO EGeorgie: optimize to not allocate a new Rectangle?
+        // FIXME (egeorgie): optimize to not allocate a new Rectangle?
         var boundingBox:Rectangle;
 
         // top-left corner ellipse
