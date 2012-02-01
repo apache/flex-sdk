@@ -22,7 +22,6 @@ import flash.display.Shape;
 
 import mx.core.mx_internal;
 import mx.graphics.IStroke;
-import mx.core.TransformOffset;
 
 use namespace mx_internal;
 
@@ -429,8 +428,8 @@ public class Path extends FilledElement
     }
     private function setActualScale(sX:Number,sY:Number):void
     {
-		xformOffsets.layoutScaleX = sX;
-		xformOffsets.layoutScaleY = sY;
+		layoutFeatures.layoutScaleX = sX;
+		layoutFeatures.layoutScaleY = sY;
 		invalidateTransform(false,false);
     }
 
