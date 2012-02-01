@@ -1491,7 +1491,6 @@ public class LayoutBase extends OnDemandEventDispatcher
             dragScrollElapsedTime = _dragScrollTimer.currentCount * _dragScrollTimer.delay;
 
         _dragScrollDelta = calculateDragScrollDelta(dropLocation,
-                                                    dragScrollInterval,
                                                     dragScrollElapsedTime);
         if (_dragScrollDelta)
         {
@@ -1621,9 +1620,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @param context A valid DropLocation object previously obtained
      *  by calling the <code>calculateDropLocation()</code> method.
      *
-     *  @param timeInterval The interval, in milliseconds, between two consecutive drag-scrolls.
-     *
-     *  @param timeElapsed The duration, in milliseconds, since the drag scrolling start.
+     *  @param elapsedTime The duration, in milliseconds, since the drag scrolling start.
      *
      *  @return How much to drag scroll, or null if drag-scrolling is not needed.
      *
@@ -1636,7 +1633,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function calculateDragScrollDelta(dropLocation:DropLocation, timeInterval:int, timeElapsed:int):Point
+    protected function calculateDragScrollDelta(dropLocation:DropLocation, elapsedTime:Number):Point
     {
         var layoutTarget:GroupBase = target;
         if (layoutTarget.numElements == 0)
@@ -1657,15 +1654,15 @@ public class LayoutBase extends OnDemandEventDispatcher
             scrollRect.top + verticalRegionSize < y && y < scrollRect.bottom - verticalRegionSize )
             return null;
         
-        if (timeElapsed < dragScrollInitialDelay)
+        if (elapsedTime < dragScrollInitialDelay)
             return new Point(); // Return zero point to continue firing events, but not actually scroll.
-        timeElapsed -= dragScrollInitialDelay;
+        elapsedTime -= dragScrollInitialDelay;
 
         // Speedup based on time elapsed
-        var timeSpeedUp:Number = Math.min(timeElapsed, 2000) / 2000;
+        var timeSpeedUp:Number = Math.min(elapsedTime, 2000) / 2000;
         timeSpeedUp *= 3;
         timeSpeedUp += 1;
-        timeSpeedUp *= timeSpeedUp * dragScrollSpeed * timeInterval / 50;
+        timeSpeedUp *= timeSpeedUp * dragScrollSpeed * dragScrollInterval / 50;
 
         var minDeltaX:Number = -scrollRect.left;
         var minDeltaY:Number = -scrollRect.top;
