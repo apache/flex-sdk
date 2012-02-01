@@ -43,9 +43,9 @@
         <s:State name="disabledAndSelected" stateGroups="disabledStates" />
     </s:states>
 
-    <s:Group top="1.5">
+    <s:Group verticalCenter="0">
         <!-- background -->
-        <s:Ellipse left="0" width="12" height="12">
+        <s:Ellipse left="0" top="0" width="12" height="12">
             <s:stroke>            
                 <s:SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
             </s:stroke>
