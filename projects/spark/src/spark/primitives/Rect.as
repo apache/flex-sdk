@@ -36,8 +36,7 @@ use namespace mx_internal;
  *  
  *  @see flash.display.Graphics
  *  
- *  @includeExamples examples/RectExample.mxml
- *  
+ *  @includeExample examples/RectExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
