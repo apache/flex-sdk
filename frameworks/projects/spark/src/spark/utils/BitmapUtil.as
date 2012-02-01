@@ -44,16 +44,16 @@ public class BitmapUtil
      *  Creates a BitmapData representation of the target object.
      *
      *  @param target The object to capture in the resulting BitmapData
-     *   
-     *  @param bounds If non-null, this Rectangle will be populated with
-     *  the visible bounds of the object, relative to the object itself.
      * 
      *  @param padding Padding, in pixels, around to target to be included in the bitmap.
-     *    
-     *  @return A BitmapData object containing the image.
      *
      *  @param propagateColorTransform If true, the target's color transform will
      *  be applied to the bitmap capture operation. 
+     *   
+     *  @param bounds If non-null, this Rectangle will be populated with
+     *  the visible bounds of the object, relative to the object itself.
+     *    
+     *  @return A BitmapData object containing the image.
      *
      *  @throws SecurityError The <code>target</code> object and  all of its child
      *  objects do not come from the same domain as the caller,
