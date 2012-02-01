@@ -34,7 +34,7 @@ public class SparkSkin extends Skin
     static private var colorTransform:ColorTransform = new ColorTransform();
     
     /**
-     *  Flag that specified whether or not this skin should be affected by chromeColor.
+     *  Specifies whether or not this skin should be affected by the <code>chromeColor</code> style.
      *
      *  @default false
      *  
@@ -76,7 +76,8 @@ public class SparkSkin extends Skin
     }
     
     /**
-     * Names of items that should have their <code>color</code> property defined by the <code>symbolColor</code> style.
+     * Names of items that should have their <code>color</code> property defined by 
+     * the <code>symbolColor</code> style.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -88,8 +89,9 @@ public class SparkSkin extends Skin
         return null;
     }
     
-    /*
-     * Names of items that should have their <code>color</code> property defined by the <code>contentBackgroundColor</code> style.
+    /**
+     * Names of items that should have their <code>color</code> property defined by 
+     * the <code>contentBackgroundColor</code> style.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -189,6 +191,9 @@ public class SparkSkin extends Skin
         super.updateDisplayList(unscaledWidth, unscaledHeight);
     }
     
+    /**
+     *  @private
+     */
     override public function beginHighlightBitmapCapture():Boolean
     {
         var needRedraw:Boolean = super.beginHighlightBitmapCapture();
@@ -210,6 +215,9 @@ public class SparkSkin extends Skin
         return needRedraw;
     }
 
+    /**
+     *  @private
+     */
     override public function endHighlightBitmapCapture():Boolean
     {
         var needRedraw:Boolean = super.endHighlightBitmapCapture();
