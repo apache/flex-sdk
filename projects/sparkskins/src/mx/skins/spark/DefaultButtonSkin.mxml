@@ -24,6 +24,16 @@
 
     <fx:Script>
         <![CDATA[
+        
+            /**
+             * @private
+             */
+            override protected function initializationComplete():void
+            {
+                useBaseColor = true;
+                super.initializationComplete();
+            }
+        
             /**
              *  @private
              */
@@ -32,13 +42,21 @@
                 var cr:Number = getStyle("cornerRadius");
                 
                 if (cornerRadius != cr)
+                {
                     cornerRadius = cr;
+                    shadow.radiusX = cornerRadius;
+                    fill.radiusX = cornerRadius;
+                    lowlight.radiusX = cornerRadius;
+                    highlight.radiusX = cornerRadius;
+                    border.radiusX = cornerRadius;
+                }
                 
+                if (highlightStroke) highlightStroke.radiusX = cornerRadius;
+                    
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
             }
             
-            [Bindable]
-            public var cornerRadius:Number = 2;
+            private var cornerRadius:Number = 2;
 
         ]]>
     </fx:Script>
@@ -56,7 +74,7 @@
     </s:states>
     
     <!-- layer 1: shadow -->
-    <s:Rect left="-1" right="-1" top="-1" bottom="-1" radiusX="{cornerRadius}">
+    <s:Rect id="shadow" left="-1" right="-1" top="-1" bottom="-1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="90">
                     <s:GradientEntry color="0x000000" 
@@ -72,7 +90,7 @@
     </s:Rect>
     
     <!-- layer 2: fill -->
-    <s:Rect left="1" right="1" top="1" bottom="1" radiusX="{cornerRadius}">
+    <s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="90">
                 <s:GradientEntry color="0xAFCFED" 
@@ -93,7 +111,7 @@
     </s:Rect>
     
     <!-- layer 3: fill lowlight -->
-    <s:Rect left="1" right="1" bottom="1" height="9" radiusX="{cornerRadius}">
+    <s:Rect id="lowlight" left="1" right="1" bottom="1" height="9" radiusX="2">
         <s:fill>
             <s:LinearGradient rotation="90">
                 <s:GradientEntry color="0x000000" alpha="0.0099" />
@@ -103,7 +121,7 @@
     </s:Rect>
     
     <!-- layer 4: fill highlight -->
-    <s:Rect left="1" right="1" top="1" height="9" radiusX="{cornerRadius}">
+    <s:Rect id="highlight" left="1" right="1" top="1" height="9" radiusX="2">
         <s:fill>
             <s:SolidColor color="0xFFFFFF" 
                         alpha="0.33" 
@@ -114,7 +132,7 @@
     </s:Rect>
     
     <!-- layer 5: highlight stroke (all states except down) -->
-    <s:Rect left="1" right="1" top="1" bottom="1" radiusX="{cornerRadius}" excludeFrom="downStates">
+    <s:Rect id="highlightStroke" left="1" right="1" top="1" bottom="1" radiusX="2" excludeFrom="downStates">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry color="0xD6E9F7" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
@@ -146,7 +164,7 @@
     </s:Rect>
     
     <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
-    <s:Rect left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="{cornerRadius}">
+    <s:Rect id="border" left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry color="0x000000" 
