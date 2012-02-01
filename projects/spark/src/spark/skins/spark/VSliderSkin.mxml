@@ -25,8 +25,8 @@ width="300" height="16"
     </states>
     
     <FxButton id="track" left="3" right="3" top="0" bottom="0" 
-              skinZZ="mx.skins.spark.FxVSliderTrackSkin" />
+              skinClass="mx.skins.spark.FxVSliderTrackSkin" />
     <FxButton id="thumb" left="0" right="0" width="11" height="11" 
-              skinZZ="mx.skins.spark.FxVSliderThumbSkin" />
+              skinClass="mx.skins.spark.FxVSliderThumbSkin" />
 
 </Skin>
