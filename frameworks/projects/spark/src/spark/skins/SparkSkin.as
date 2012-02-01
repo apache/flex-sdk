@@ -34,7 +34,7 @@ public class SparkSkin extends Skin
     
     static private var colorTransform:ColorTransform = new ColorTransform();
     
-    public var colorized:Boolean = false;
+    private var colorized:Boolean = false;
     
     /**
      * Constructor.
