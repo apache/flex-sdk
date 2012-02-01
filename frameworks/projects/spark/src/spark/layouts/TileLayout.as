@@ -570,7 +570,7 @@ public class TileLayout extends LayoutBase
     // of updateDisplayList().
     private var _tileWidthCached:Number = NaN;
     private var _tileHeightCached:Number = NaN;
-    private var _numLayoutElementsCached:int = -1;
+    private var _numElementsCached:int = -1;
 
     //--------------------------------------------------------------------------
     //
@@ -849,15 +849,15 @@ public class TileLayout extends LayoutBase
         var rowHeight:Number = 0;
 
         var layoutTarget:GroupBase = target;
-        var count:int = layoutTarget.numLayoutElements;
+        var count:int = layoutTarget.numElements;
         // Remember the number of includeInLayout elements
-        _numLayoutElementsCached = count;
+        _numElementsCached = count;
         for (var i:int = 0; i < count; i++)
         {
-            var el:ILayoutElement = layoutTarget.getLayoutElementAt(i);
+            var el:ILayoutElement = layoutTarget.getElementAt(i);
             if (!el || !el.includeInLayout)
             {
-                _numLayoutElementsCached--;
+                _numElementsCached--;
                 continue;
             }
 
@@ -879,20 +879,20 @@ public class TileLayout extends LayoutBase
      */
     private function calculateElementCount():int
     {
-        if (-1 != _numLayoutElementsCached)
-            return _numLayoutElementsCached;
+        if (-1 != _numElementsCached)
+            return _numElementsCached;
 
         var layoutTarget:GroupBase = target;
-        var count:int = layoutTarget.numLayoutElements;
-        _numLayoutElementsCached = count;
+        var count:int = layoutTarget.numElements;
+        _numElementsCached = count;
         for (var i:int = 0; i < count; i++)
         {
-            var el:ILayoutElement = layoutTarget.getLayoutElementAt(i);
+            var el:ILayoutElement = layoutTarget.getElementAt(i);
             if (!el || !el.includeInLayout)
-                _numLayoutElementsCached--;
+                _numElementsCached--;
         }
 
-        return _numLayoutElementsCached;
+        return _numElementsCached;
     }
 
     /**
@@ -1074,10 +1074,10 @@ public class TileLayout extends LayoutBase
             yMinorDelta = 0;
         }
 
-        var count:int = layoutTarget.numLayoutElements;
+        var count:int = layoutTarget.numElements;
         for (var i:int = 0; i < count; i++)
         {
-            var el:ILayoutElement = layoutTarget.getLayoutElementAt(i);
+            var el:ILayoutElement = layoutTarget.getElementAt(i);
             if (!el || !el.includeInLayout)
                 continue;
 
@@ -1116,7 +1116,7 @@ public class TileLayout extends LayoutBase
 
         // Reset the cache
         _tileWidthCached = _tileHeightCached = NaN;
-        _numLayoutElementsCached = -1;
+        _numElementsCached = -1;
 
         // If actual values have chnaged, notify listeners
         dispatchEventsForActualValueChanges();
