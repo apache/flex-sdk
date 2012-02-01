@@ -94,18 +94,7 @@ public class UITextFieldGridItemRenderer extends UITextField implements IGridIte
         
         addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);        
     }
-    
-    /**
-     *  @private
-     * 
-     *  Called from initProtoChain() in TextFieldGridItemRendererInclude.as
-     */
-    private function addStyleDeclarationToProtoChain(chain:Object,
-                                                     target:DisplayObject):Object
-    {
-        return styleDeclaration.addStyleToProtoChain(chain, target);
-    } 
-    
+        
 include "TextFieldGridItemRendererInclude.as"
 
 }
