@@ -1411,11 +1411,11 @@ public class BitmapImage extends GraphicElement
     mx_internal function getActualValue(values:MultiDPIBitmapSource):Object
     {
         var app:Object = FlexGlobals.topLevelApplication;
-        var dpi:int;
+        var dpi:Number;
         if ("runtimeDPI" in app)
             dpi = app["runtimeDPI"];
         else
-            dpi = DensityUtil.classifyDPI(Capabilities.screenDPI);
+            dpi = DensityUtil.getRuntimeDPI();
         return values.getSource(dpi);
     }
 
