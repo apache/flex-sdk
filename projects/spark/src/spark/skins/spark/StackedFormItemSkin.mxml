@@ -114,11 +114,9 @@ which positions the label above the content
     </s:Rect>
     
     <s:Label id="sequenceLabelDisplay" 
-             fontWeight="bold" color="0x333333"
              left="sequenceCol:10" right="sequenceCol:5"
              bottom="row1:5" baseline="row1:0"/>
     <s:Label id="labelDisplay" 
-             fontWeight="bold" color="0x333333"
              left="contentCol:0" right="contentCol:5"
              bottom="row1:5" baseline="row1:0"/>
     <s:Group id="contentGroup" 
@@ -136,7 +134,7 @@ which positions the label above the content
                   includeIn="requiredStates,errorStates"/>
     </s:Group>
     <s:Group id="helpContentGroup"
-             fontStyle="italic" color="0x666666" 
+             fontStyle="italic" fontWeight="normal" color="0x666666" 
              left="helpCol:27" right="helpCol:10" 
              bottom="row2:10" baseline="row2:0"/>
 </s:Skin>
