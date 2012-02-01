@@ -127,8 +127,9 @@ Move the indicator tooltip string to a resource bundle
             <s:VerticalLayout/>
         </s:layout>
     </s:Group>
+    <!-- Don't include the indicator in layout since we position it ourselves -->
     <s:Group x="{contentGroup.x + contentGroup.contentWidth + 4}" y="{contentGroup.y}"
-             height="{Math.max(indicatorDisplay.height, contentGroup.contentHeight)}">
+             height="{Math.max(indicatorDisplay.height, contentGroup.contentHeight)}" includeInLayout="false">
         <s:Image id="indicatorDisplay" verticalCenter="0"
                        toolTip="Required" toolTip.errorStates=""
                        includeIn="requiredStates,errorStates"/>
