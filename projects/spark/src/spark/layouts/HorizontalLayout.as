@@ -840,7 +840,7 @@ public class HorizontalLayout extends LayoutBase
      *  of the layout elements is set to the container's height.</p>
      *
      *  <p>If the value is <code>"baseline"</code> then the elements are positioned
-     *  such that thier text is aligned to the <code>alignmentBaseline</code> of the layout.
+     *  such that thier text is aligned to the <code>alignmentBaseline</code> of the layout.</p>
      *
      *  <p>This property does not affect the layout's measured size.</p>
      *  
