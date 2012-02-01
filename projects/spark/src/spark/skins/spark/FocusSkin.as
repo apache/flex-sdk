@@ -24,6 +24,7 @@ import flash.geom.Rectangle;
 
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
 
 import spark.components.supportClasses.SkinnableComponent;
 
@@ -117,7 +118,7 @@ public class FocusSkin extends UIComponent
         // Add an "updateComplete" listener to the skin so we can redraw
         // whenever the skin is drawn.
         if (_focusObject.skin)
-            _focusObject.skin.addEventListener("updateComplete", 
+            _focusObject.skin.addEventListener(FlexEvent.UPDATE_COMPLETE, 
                     skin_updateCompleteHandler, false, 0, true);
 	}
     
