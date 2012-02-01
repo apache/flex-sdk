@@ -31,7 +31,7 @@
         <s:State name="disabled" />
     </s:states>
     
-    <s:Rect left="0" right="0" top="0" bottom="0" radiusX="7" radiusY="7">
+    <s:Rect left="0" right="0" top="0" bottom="0" radiusX="7" radiusY="7" width="11" height="11">
         <s:stroke>
             <s:SolidColorStroke color="#5C5C5C" />
         </s:stroke>
