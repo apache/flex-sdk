@@ -842,25 +842,31 @@ public class TileLayout extends LayoutBase
         _verticalGap = explicitVerticalGap;
 
         // Justify
-        switch (columnAlign)
-        {
-            case ColumnAlign.JUSTIFY_USING_GAP:
-                _horizontalGap = justifyByGapSize(width, _columnWidth, _horizontalGap, _columnCount);
-            break;
-            case ColumnAlign.JUSTIFY_USING_WIDTH:
-                _columnWidth = justifyByElementSize(width, _columnWidth, _horizontalGap, _columnCount);
-            break;
-        }
+		if (!isNaN(width))
+		{
+	        switch (columnAlign)
+	        {
+	            case ColumnAlign.JUSTIFY_USING_GAP:
+	                _horizontalGap = justifyByGapSize(width, _columnWidth, _horizontalGap, _columnCount);
+	            break;
+	            case ColumnAlign.JUSTIFY_USING_WIDTH:
+	                _columnWidth = justifyByElementSize(width, _columnWidth, _horizontalGap, _columnCount);
+	            break;
+	        }
+		}
 
-        switch (rowAlign)
-        {
-            case RowAlign.JUSTIFY_USING_GAP:
-                _verticalGap = justifyByGapSize(height, _rowHeight, _verticalGap, _rowCount);
-            break;
-            case RowAlign.JUSTIFY_USING_HEIGHT:
-                _rowHeight = justifyByElementSize(height, _rowHeight, _verticalGap, _rowCount);
-            break;
-        }
+		if (!isNaN(height))
+		{
+	        switch (rowAlign)
+	        {
+	            case RowAlign.JUSTIFY_USING_GAP:
+	                _verticalGap = justifyByGapSize(height, _rowHeight, _verticalGap, _rowCount);
+	            break;
+	            case RowAlign.JUSTIFY_USING_HEIGHT:
+	                _rowHeight = justifyByElementSize(height, _rowHeight, _verticalGap, _rowCount);
+	            break;
+	        }
+		}
 
         // Last, if we have explicit overrides for both rowCount and columnCount, then
         // make sure that column/row count along the minor axis reflects the actual count.
