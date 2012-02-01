@@ -252,7 +252,7 @@ DataGrid
 	headerSeparatorSkin: Embed(source="AeonGraphical.swf", symbol="DataGrid_headerSeparatorSkin");
 	sortArrowSkin: Embed(source="AeonGraphical.swf", symbol="DataGrid_sortArrowSkin");
 	stretchCursor: Embed(source="AeonGraphical.swf",symbol="DataGrid_stretchCursor");
-	headerBackgroundSkin: ClassReference(null);
+	headerBackgroundSkin: ClassReference("mx.skins.halo.DataGridHeaderBackgroundSkin");
 }
 
 /*
