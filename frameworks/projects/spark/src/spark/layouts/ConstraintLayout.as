@@ -491,9 +491,17 @@ public class ConstraintLayout extends LayoutBase
     //--------------------------------------------------------------------------
     
     /**
-     *  Lays out the elements of the layoutTarget using the current
+     *  Lays out the elements of the layout target using the current
      *  widths and heights of the columns and rows. Used by FormItemLayout
      *  after setting new column widths to lay elements using those new widths.
+     *
+     *  @param unscaledWidth Specifies the width of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleX</code> property of the component.
+     *
+     *  @param unscaledHeight Specifies the height of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleY</code> property of the component.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
