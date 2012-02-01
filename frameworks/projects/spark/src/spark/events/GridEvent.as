@@ -142,13 +142,92 @@ public class GridEvent extends MouseEvent
      */    
     public static const GRID_ROLL_OUT:String = "gridRollOut";
     
-    // TBD: do these belong here or somewhere else?
-    // TBD: once home is found they need to be documented
+    /**
+     *  The value of the <code>type</code> property for a separatorMouseDrag GridEvent.
+     *
+     *  @eventType separatorMouseDrag
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */  
     public static const SEPARATOR_MOUSE_DRAG:String = "separatorMouseDrag";
+    
+    /**
+     *  The value of the <code>type</code> property for a separatorClick GridEvent.
+     *
+     *  @eventType separatorClick
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */      
     public static const SEPARATOR_CLICK:String = "separatorClick";
+    
+    /**
+     *  The value of the <code>type</code> property for a separatorDoubleClick GridEvent.
+     *
+     *  @eventType separatorDoubleClick
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */      
+    public static const SEPARATOR_DOUBLE_CLICK:String = "separatorDoubleClick";    
+    
+    /**
+     *  The value of the <code>type</code> property for a separatorMouseDown GridEvent.
+     *
+     *  @eventType separatorMouseDown
+     * 
+     *  @see flash.display.InteractiveObject.rollOut
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */  
     public static const SEPARATOR_MOUSE_DOWN:String = "separatorMouseDown";
+    
+    /**
+     *  The value of the <code>type</code> property for a separatorMouseUp GridEvent.
+     *
+     *  @eventType separatorMouseUp
+     * 
+     *  @see flash.display.InteractiveObject.rollOut
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */      
     public static const SEPARATOR_MOUSE_UP:String = "separatorMouseUp";
+    
+    /**
+     *  The value of the <code>type</code> property for a separatorRollOut GridEvent.
+     *
+     *  @eventType separatorRollOut
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */      
     public static const SEPARATOR_ROLL_OUT:String = "separatorRollOut";
+    
+    /**
+     *  The value of the <code>type</code> property for a separatorRollOver GridEvent.
+     *
+     *  @eventType separatorRollOver
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */  
     public static const SEPARATOR_ROLL_OVER:String = "separatorRollOver";
 
     //--------------------------------------------------------------------------
