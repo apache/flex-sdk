@@ -115,6 +115,15 @@ and <code>sortIndicator</code> properties.</p>
             import spark.components.DataGrid;
             import spark.components.GridColumnHeaderGroup;
             import spark.components.gridClasses.GridColumn;
+            import spark.primitives.supportClasses.GraphicElement;
+
+            // chrome color constants and variables
+            private static const DEFAULT_COLOR_VALUE:uint = 0xCC;
+            private static const DEFAULT_COLOR:uint = 0xCCCCCC;
+            private static const DEFAULT_SYMBOL_COLOR:uint = 0x000000;
+            
+            private static var colorTransform:ColorTransform = new ColorTransform();
+            private const exclusions:Array = [labelDisplay, sortIndicatorInstance];
             
             /**
              *  @private
@@ -246,6 +255,8 @@ and <code>sortIndicator</code> properties.</p>
                         {
                             sortIndicatorInstance = sortIndicator.newInstance();
                             sortIndicatorGroup.addElement(sortIndicatorInstance);
+                            chromeColorChanged = true;
+                            invalidateDisplayList();
                         }
                         
                         // Initialize sortIndicator
@@ -266,6 +277,75 @@ and <code>sortIndicator</code> properties.</p>
                             sortIndicatorInstance = null;
                         }
                     }
+                }
+            }
+            
+            private var chromeColorChanged:Boolean = false;
+            private var colorized:Boolean = false;
+            
+            /**
+             *  @private
+             *  Apply chromeColor style.
+             */
+            override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+            {
+                // Apply chrome color
+                if (chromeColorChanged)
+                {
+                    var chromeColor:uint = getStyle("chromeColor");
+                    
+                    if (chromeColor != DEFAULT_COLOR || colorized)
+                    {          
+                        colorTransform.redOffset = ((chromeColor & (0xFF << 16)) >> 16) - DEFAULT_COLOR_VALUE;
+                        colorTransform.greenOffset = ((chromeColor & (0xFF << 8)) >> 8) - DEFAULT_COLOR_VALUE;
+                        colorTransform.blueOffset = (chromeColor & 0xFF) - DEFAULT_COLOR_VALUE;
+                        colorTransform.alphaMultiplier = alpha;
+                        
+                        transform.colorTransform = colorTransform;
+                        
+                        // Apply inverse colorizing to exclusions
+                        if (exclusions && exclusions.length > 0)
+                        {
+                            colorTransform.redOffset = -colorTransform.redOffset;
+                            colorTransform.greenOffset = -colorTransform.greenOffset;
+                            colorTransform.blueOffset = -colorTransform.blueOffset;
+                            
+                            for (var i:int = 0; i < exclusions.length; i++)
+                            {
+                                var exclusionObject:Object = exclusions[i];
+                                
+                                if (exclusionObject &&
+                                    (exclusionObject is DisplayObject ||
+                                        exclusionObject is GraphicElement))
+                                {
+                                    colorTransform.alphaMultiplier = exclusionObject.alpha;
+                                    exclusionObject.transform.colorTransform = colorTransform;
+                                }
+                            }
+                        }
+                        
+                        colorized = true;
+                    }
+                    
+                    chromeColorChanged = false;
+                }
+                
+                super.updateDisplayList(unscaledWidth, unscaledHeight);
+            }
+
+            /**
+             *  @private
+             */
+            override public function styleChanged(styleProp:String):void
+            {
+                var allStyles:Boolean = !styleProp || styleProp == "styleName";
+                
+                super.styleChanged(styleProp);
+                
+                if (allStyles || styleProp == "chromeColor")
+                {
+                    chromeColorChanged = true;
+                    invalidateDisplayList();
                 }
             }
         ]]>
