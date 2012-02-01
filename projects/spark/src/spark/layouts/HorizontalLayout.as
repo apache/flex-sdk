@@ -999,10 +999,13 @@ public class HorizontalLayout extends LayoutBase
      *  @private
      * 
      *  Compute exact values for measuredWidth,Height and  measuredMinWidth,Height.
+     *  
+     *  Measure each of the layout elements.  If requestedColumnCount >= 0 we 
+     *  consider the height and width of as many layout elements, padding with 
+     *  typicalLayoutElement if needed, starting with index 0. We then only 
+     *  consider the height of the elements remaining.
      * 
-     *  If requestedColumnCount is not -1, measure as many layout elements,
-     *  padding with typicalLayoutElement if needed, starting with index 0.  
-     *  Otherwise measure all of the layout elements.
+     *  If requestedColumnCount is -1, we consider width/height of each element.
      */
     private function measureReal(layoutTarget:GroupBase):void
     {
@@ -1022,9 +1025,6 @@ public class HorizontalLayout extends LayoutBase
 
         for (var i:uint = 0; i < eltCount; i++)
         {
-            if ((reqEltCount != -1) && (eltInLayoutCount >= reqEltCount))
-                break;
-
             if (i < layoutEltCount) // target.numElements
                 var elt:ILayoutElement = layoutTarget.getElementAt(i);
             else // target.numElements < requestedElementCount, so "pad"
@@ -1032,15 +1032,23 @@ public class HorizontalLayout extends LayoutBase
             if (!elt || !elt.includeInLayout)
                 continue;
                 
+            // Consider the height of each element, inclusive of those outside
+            // the requestedColumnCount range.
             var height:Number = elt.getPreferredBoundsHeight();
-            var width:Number = isNaN(fixedColumnWidth) ? elt.getPreferredBoundsWidth() : fixedColumnWidth;
             preferredHeight = Math.max(preferredHeight, height);
-            preferredWidth += width;
             var flexibleHeight:Boolean = !isNaN(elt.percentHeight) || verticalAlign == VerticalAlign.JUSTIFY;
             minHeight = Math.max(minHeight, flexibleHeight ? elt.getMinBoundsHeight() : height);
-            minWidth += (isNaN(elt.percentWidth)) ? width : elt.getMinBoundsWidth();
-
-            eltInLayoutCount += 1;
+            
+            // If requestedColumnCount is specified, no need to consider the width
+            // of cols outside the bounds of the "requested" range. Otherwise, we
+            // consider each element.
+            if ((reqEltCount == -1) || ((reqEltCount != -1) && eltInLayoutCount < requestedColumnCount))
+            {
+                var width:Number = isNaN(fixedColumnWidth) ? elt.getPreferredBoundsWidth() : fixedColumnWidth;
+                preferredWidth += width;
+                minWidth += (isNaN(elt.percentWidth)) ? width : elt.getMinBoundsWidth();
+                eltInLayoutCount += 1;
+            }
         }
         
         if (eltInLayoutCount > 1)
