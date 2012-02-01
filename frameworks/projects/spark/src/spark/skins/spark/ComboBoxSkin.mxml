@@ -97,14 +97,16 @@ is defined by the ComboBoxTextInputSkin class.
              */
             override public function styleChanged(styleProp:String):void
             {
+                var allStyles:Boolean = !styleProp || styleProp == "styleName";
+                
                 super.styleChanged(styleProp);
                 
-                if (!styleProp || styleProp.indexOf("padding") == 0)
+                if (allStyles || styleProp.indexOf("padding") == 0)
                 {
                     paddingChanged = true;
                     invalidateProperties();
                 }
-                if (!styleProp || styleProp == "cornerRadius")
+                if (allStyles || styleProp == "cornerRadius")
                 {
                     cornerRadiusChanged = true;
                     invalidateProperties();
