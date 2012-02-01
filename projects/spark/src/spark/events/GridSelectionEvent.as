@@ -42,8 +42,12 @@ public class GridSelectionEvent extends Event
     /**
      *  The <code>GridSelectionEvent.SELECTION_CHANGE</code> constant defines 
      *  the value of the <code>type</code> property of the event object for a 
-     *  <code>selectionChanging</code> event, which indicates that the current 
+     *  <code>selectionChange</code> event, which indicates that the current 
      *  selection has just been changed.
+     *
+     *  <p>This event is dispatched when the user interacts with the control.
+     *  When you sort the data provider's collection programmatically, 
+     *  the component does not dispatch the <code>selectionChange</code> event. </p>
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -86,6 +90,10 @@ public class GridSelectionEvent extends Event
      *  <code>selectionChanging</code> event, which indicates that the current 
      *  selection is about to change. Call preventDefault() on this event
      *  to prevent the selection from changing.
+     *
+     *  <p>This event is dispatched when the user interacts with the control.
+     *  When you sort the data provider's collection programmatically, 
+     *  the component does not dispatch the <code>selectionChanging</code> event. </p>
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
