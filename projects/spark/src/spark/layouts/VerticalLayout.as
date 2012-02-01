@@ -40,8 +40,8 @@ public class VerticalLayout extends LayoutBase
     private static function calculatePercentWidth(layoutElement:ILayoutElement, width:Number):Number
     {
     	var percentWidth:Number = LayoutElementHelper.pinBetween(layoutElement.percentWidth * 0.01 * width,
-    	                                                         layoutElement.getMinWidth(),
-    	                                                         layoutElement.getMaxWidth() );
+    	                                                         layoutElement.getMinBoundsWidth(),
+    	                                                         layoutElement.getMaxBoundsWidth() );
     	return percentWidth < width ? percentWidth : width;
     }
     
@@ -67,9 +67,9 @@ public class VerticalLayout extends LayoutBase
         }
         
         if (variableRowHeight)
-            layoutElement.setLayoutSize(newWidth, height);
+            layoutElement.setLayoutBoundsSize(newWidth, height);
         else
-            layoutElement.setLayoutSize(newWidth, rowHeight);
+            layoutElement.setLayoutBoundsSize(newWidth, rowHeight);
     }
         
     //--------------------------------------------------------------------------
@@ -257,9 +257,9 @@ public class VerticalLayout extends LayoutBase
         else if (!target || (target.numLayoutElements <= 0))
             return 0;
         else if (typicalLayoutElement)
-            return typicalLayoutElement.getPreferredHeight();
+            return typicalLayoutElement.getPreferredBoundsWidth();
         else
-            return target.getLayoutElementAt(0).getPreferredHeight();
+            return target.getLayoutElementAt(0).getPreferredBoundsWidth();
     }
 
     /**
@@ -461,8 +461,8 @@ public class VerticalLayout extends LayoutBase
             var elt:ILayoutElement = g.getLayoutElementAt(index);
             if (!elt || !elt.includeInLayout)
                 return 0.0;
-            eltY = elt.getLayoutPositionY();
-            eltHeight = elt.getLayoutHeight();
+            eltY = elt.getLayoutBoundsY();
+            eltHeight = elt.getLayoutBoundsHeight();
 	    }
             
         // index is first (r0) or last (r1) visible row
@@ -494,8 +494,8 @@ public class VerticalLayout extends LayoutBase
 	{
 	    var index:int = (i0 + i1) / 2;
         var element:ILayoutElement = g.getLayoutElementAt(index);	    
-	    var elementY:Number = element.getLayoutPositionY();
-        var elementHeight:Number = element.getLayoutHeight();
+	    var elementY:Number = element.getLayoutBoundsY();
+        var elementHeight:Number = element.getLayoutBoundsHeight();
         // TBD: deal with null element, includeInLayout false.
         if ((y >= elementY) && (y < elementY + elementHeight + gap))
             return index;
@@ -595,8 +595,8 @@ public class VerticalLayout extends LayoutBase
             if (index0 != -1)
             {
                 var element0:ILayoutElement = g.getLayoutElementAt(index0); 
-                var element0Y:Number = element0.getLayoutPositionY();
-                var elementHeight:Number = element0.getLayoutHeight();                 
+                var element0Y:Number = element0.getLayoutBoundsY();
+                var elementHeight:Number = element0.getLayoutBoundsHeight();                 
                 if ((element0Y < y1) && ((element0Y + elementHeight) > y0))
                     i0 = index0;
             }
@@ -609,8 +609,8 @@ public class VerticalLayout extends LayoutBase
             if (index1 != -1)
             {
                 var element1:ILayoutElement = g.getLayoutElementAt(index1); 
-                var element1Y:Number = element1.getLayoutPositionY();
-                var element1Height:Number = element1.getLayoutHeight();                 
+                var element1Y:Number = element1.getLayoutBoundsY();
+                var element1Height:Number = element1.getLayoutBoundsHeight();                 
                 if ((element1Y < y1) && ((element1Y + element1Height) > y0))
                     i1 = index1;
             }
@@ -636,10 +636,10 @@ public class VerticalLayout extends LayoutBase
             var element:ILayoutElement = g.getLayoutElementAt(i);
             if (element && element.includeInLayout)
             {
-                return new Rectangle(element.getLayoutPositionX(),
-                                     element.getLayoutPositionY(),
-                                     element.getLayoutWidth(),
-                                     element.getLayoutHeight());        
+                return new Rectangle(element.getLayoutBoundsX(),
+                                     element.getLayoutBoundsY(),
+                                     element.getLayoutBoundsWidth(),
+                                     element.getLayoutBoundsHeight());        
             }
         }
         return null;    
@@ -804,15 +804,15 @@ public class VerticalLayout extends LayoutBase
                 continue;
             }            
 
-            preferredWidth = Math.max(preferredWidth, li.getPreferredWidth());
-            preferredHeight += li.getPreferredHeight(); 
+            preferredWidth = Math.max(preferredWidth, li.getPreferredBoundsWidth());
+            preferredHeight += li.getPreferredBoundsWidth(); 
             
             var vrr:Boolean = (reqRows != -1) && (visibleRows < reqRows);
 
             if (vrr || (reqRows == -1))
             {
-                var mw:Number =  hasPercentWidth(li) ? li.getMinWidth() : li.getPreferredWidth();
-                var mh:Number = hasPercentHeight(li) ? li.getMinHeight() : li.getPreferredHeight();                   
+                var mw:Number =  hasPercentWidth(li) ? li.getMinBoundsWidth() : li.getPreferredBoundsWidth();
+                var mh:Number = hasPercentHeight(li) ? li.getMinBoundsHeight() : li.getPreferredBoundsWidth();                   
                 minWidth = Math.max(mw, minWidth);
                 minHeight += mh;
             }
@@ -862,8 +862,8 @@ public class VerticalLayout extends LayoutBase
 	            var layoutElement:ILayoutElement = layoutTarget.getLayoutElementAt(i);
 	            if (!layoutElement || !layoutElement.includeInLayout) 
 	               continue;
-	            columnWidth = Math.max(columnWidth, layoutElement.getPreferredWidth());
-	            var elementMinWidth:Number = hasPercentWidth(layoutElement) ? layoutElement.getMinWidth() : layoutElement.getPreferredWidth();
+	            columnWidth = Math.max(columnWidth, layoutElement.getPreferredBoundsWidth());
+	            var elementMinWidth:Number = hasPercentWidth(layoutElement) ? layoutElement.getMinBoundsWidth() : layoutElement.getPreferredBoundsWidth();
 	            minColumnWidth = Math.max(minColumnWidth, elementMinWidth);
 	        }
         }     
@@ -896,8 +896,8 @@ public class VerticalLayout extends LayoutBase
     {
         var rowCount:uint = layoutTarget.numLayoutElements;
         llv.length = rowCount;
-        llv.defaultMajorSize = typicalLayoutElement.getPreferredHeight();
-        llv.minorSize = typicalLayoutElement.getPreferredWidth();
+        llv.defaultMajorSize = typicalLayoutElement.getPreferredBoundsWidth();
+        llv.minorSize = typicalLayoutElement.getPreferredBoundsWidth();
         
         var measuredRowCount:int = (requestedRowCount != -1) ? requestedRowCount : rowCount;
         layoutTarget.measuredWidth = llv.minorSize;
@@ -946,7 +946,7 @@ public class VerticalLayout extends LayoutBase
        if (!isNaN(percentWidth))
        {
           var width:Number = percentWidth * 0.01 * targetWidth;
-          return Math.min(targetWidth, Math.min(elt.getMaxWidth(), Math.max(elt.getMinWidth(), width)));
+          return Math.min(targetWidth, Math.min(elt.getMaxBoundsWidth(), Math.max(elt.getMinBoundsWidth(), width)));
        }
        switch(horizontalAlign)
        {
@@ -955,7 +955,7 @@ public class VerticalLayout extends LayoutBase
            case HorizontalAlign.CONTENT_JUSTIFY: 
                return contentWidth;
        }
-       return elt.getPreferredWidth();
+       return elt.getPreferredBoundsWidth();
     }
     
     /**
@@ -1009,8 +1009,8 @@ public class VerticalLayout extends LayoutBase
         var maxVisibleY:Number = minVisibleY + layoutTarget.height;
         
         // TBD: don't assume typicalLayoutElement is set, use 1st row...
-        var typicalWidth:Number = typicalLayoutElement.getPreferredWidth();
-        var typicalHeight:Number = typicalLayoutElement.getPreferredHeight();
+        var typicalWidth:Number = typicalLayoutElement.getPreferredBoundsWidth();
+        var typicalHeight:Number = typicalLayoutElement.getPreferredBoundsWidth();
         llv.length = layoutTarget.numLayoutElements;        
         llv.minorSize = Math.max(llv.minorSize, typicalWidth);
         llv.defaultMajorSize = typicalHeight;
@@ -1027,11 +1027,11 @@ public class VerticalLayout extends LayoutBase
         for (; (y < maxVisibleY) && (index < eltCount); index++)
         {
             var elt:ILayoutElement = layoutTarget.getLayoutElementAt(index);
-            var h:Number = elt.getPreferredHeight();
+            var h:Number = elt.getPreferredBoundsWidth();
             var w:Number = calculateElementWidth(elt, targetWidth, contentWidth);
             var x:Number = calculateElementX(elt, w, contentWidth);
-            elt.setLayoutPosition(x, y);
-            elt.setLayoutSize(w, elt.getPreferredHeight());            
+            elt.setLayoutBoundsPosition(x, y);
+            elt.setLayoutBoundsSize(w, elt.getPreferredBoundsWidth());            
             llv.cacheDimensions(index, elt);
             y += h + gap;
         }
@@ -1050,8 +1050,8 @@ public class VerticalLayout extends LayoutBase
                 elt = layoutTarget.getLayoutElementAt(index);
                 w = calculateElementWidth(elt, targetWidth, contentWidth);
                 x = calculateElementX(elt, w, contentWidth);
-                elt.setLayoutPosition(x, elt.getLayoutPositionY());
-                elt.setLayoutSize(w, elt.getLayoutHeight());         
+                elt.setLayoutBoundsPosition(x, elt.getLayoutBoundsY());
+                elt.setLayoutBoundsSize(w, elt.getLayoutBoundsHeight());         
             }
         }
         setRowCount(index - startIndex);
@@ -1098,7 +1098,7 @@ public class VerticalLayout extends LayoutBase
                 if (hasPercentWidth(layoutElement))
                     layoutElementWidth = calculatePercentWidth(layoutElement, unscaledWidth);
                 else
-                    layoutElementWidth = layoutElement.getPreferredWidth();
+                    layoutElementWidth = layoutElement.getPreferredBoundsWidth();
                 
                 contentWidth = Math.max(contentWidth, layoutElementWidth);
             }
@@ -1145,12 +1145,12 @@ public class VerticalLayout extends LayoutBase
                 continue;
                 
             // Set the layout element's position
-            var x:Number = (contentWidth - layoutElement.getLayoutWidth()) * hAlign;
-            layoutElement.setLayoutPosition(x, y);
+            var x:Number = (contentWidth - layoutElement.getLayoutBoundsWidth()) * hAlign;
+            layoutElement.setLayoutBoundsPosition(x, y);
                             
             // Update maxX,Y, first,lastVisibleIndex, and y
-            var dx:Number = layoutElement.getLayoutWidth();
-            var dy:Number = layoutElement.getLayoutHeight();
+            var dx:Number = layoutElement.getLayoutBoundsWidth();
+            var dy:Number = layoutElement.getLayoutBoundsHeight();
             
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);
@@ -1219,8 +1219,8 @@ public class VerticalLayout extends LayoutBase
                 childInfo = new LayoutElementFlexChildInfo();
                 childInfo.layoutElement = layoutElement;
                 childInfo.percent    = layoutElement.percentHeight;
-                childInfo.min        = layoutElement.getMinHeight();
-                childInfo.max        = layoutElement.getMaxHeight();
+                childInfo.min        = layoutElement.getMinBoundsHeight();
+                childInfo.max        = layoutElement.getMaxBoundsHeight();
                 
                 childInfoArray.push(childInfo);                
             }
@@ -1229,7 +1229,7 @@ public class VerticalLayout extends LayoutBase
                 sizeLayoutElement(layoutElement, width, horizontalAlign, 
                                restrictedWidth, NaN, variableRowHeight, rh);
                 
-                spaceToDistribute -= layoutElement.getLayoutHeight();
+                spaceToDistribute -= layoutElement.getLayoutBoundsHeight();
             } 
         }
         
