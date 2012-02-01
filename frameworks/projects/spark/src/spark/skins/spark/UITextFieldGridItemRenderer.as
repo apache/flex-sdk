@@ -28,13 +28,6 @@ import spark.components.gridClasses.IGridItemRenderer;
 use namespace mx_internal;
 
 //--------------------------------------
-//  Styles
-//--------------------------------------
-
-include "../../styles/metadata/BasicNonInheritingTextStyles.as"
-include "../../styles/metadata/BasicInheritingTextStyles.as"
-
-//--------------------------------------
 //  Events
 //--------------------------------------
 
@@ -64,23 +57,27 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  item renderer that displays a single text label.  
  *  For applications displaying grid controls with large numbers of visible cells, 
  *  this renderer provides optimum performance on Microsoft Windows.   
- *  It is based on TextField, not FTE, so it lacks support for some Spark text features.
+ *  It is based on TextField, not the Flash Text Engine (FTE), so it lacks support for 
+ *  some Spark text features and it does not support the FTE specific text styles.
  * 
  *  <p>UITextFieldGridItemRenderer inherits its the value of the 
  *  <code>layoutDirection</code> property from its parent.  
  *  It should not be set directly on UITextFieldGridItemRenderer.</p>
  *
- *  <p>You can control the label text wrapping by using the <code>lineBreak</code> style.  
- *  For example, setting  <code>lineBreak="explicit"</code> and <code>variableRowHeight="false"</code> 
- *  creates fixed height cells whose labels do not wrap.</p>
+ *  <p>You can control the label text wrapping by using the <code>wordWrap</code> property.  
+ *  For example, setting <code>wordWrap="false"</code> and <code>variableRowHeight="false"</code> 
+ *  creates fixed height cells whose labels do not wrap.  
+ *  If you do not explicitly set the <code>wordWrap</code> property, <code>wordWrap</code> 
+ *  will be set to the value of the grid's <code>variableRowHeight</code> property.</p>
  * 
  *  <p>The UITextFieldGridItemRenderer class is not intended to be subclassed or copied.
- *  Create custom item renderers based on the  GridItemRenderer class.</p>
+ *  Create custom item renderers based on the GridItemRenderer class.</p>
  * 
  *  @see spark.components.DataGrid
  *  @see spark.components.gridClasses.GridItemRenderer
  *  @see DefaultGridItemRenderer
- *  
+ *  @see mx.core.FTETextField
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
