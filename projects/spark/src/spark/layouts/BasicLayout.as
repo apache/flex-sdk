@@ -20,8 +20,58 @@ import spark.layout.supportClasses.LayoutBase;
 import spark.layout.supportClasses.LayoutElementHelper;
 
 /**
- *  Documentation is not currently available.
- *  
+ *  BasicLayout arranges the layout elements according to their settings,
+ *  independent of each-other.
+ *
+ *  Per-element supported constraints are left, right, top, bottom, horizontalCenter,
+ *  verticalCenter, baseline, percentWidth, percentHeight.
+ *  Element's minimum and maximum sizes will always be respected.
+ *
+ *  The measured size of the container is calculated from the elements, their
+ *  constraints and their preferred sizes.
+ *
+ *  During updateDisplayList() the element's size is determined according to
+ *  the rules in the following order of precedence (the element's minimum and
+ *  maximum sizes are always respected):
+ *  <ul>
+ *    <li>If the element has percentWidth or percentHeight set, then its size
+ *    is calculated as a percentage of the container size, minus any left, right,
+ *    top, bottom constraints.</li>
+ *
+ *    <li>If the element has both left and right constraints, it's width is
+ *    set to be the container's width minus the left and right constraints.</li>
+ * 
+ *    <li>If the element has both top and bottom constraints, it's height is
+ *    set to be the container's height minus the top and bottom constraints.</li>
+ *
+ *    <li>The element is set to its preferred width and/or height.</li>
+ *  </ul>
+ * 
+ *  The element's position is determined according to the rules in the following
+ *  order of precedence:
+ *  <ul>
+ *    <li>If element's horizontalCenter/verticalCenter is specified, then the
+ *    element is positioned such that the distance between the element's center
+ *    and the container's center is equal to the horizontalCenter/verticalCenter.
+ *    Set horizontalCenter/verticalCenter to zero to cetner the element within
+ *    the container in the horizontal/vertical direction.</li>
+ * 
+ *    <li>If element's baseline is specified, then the element is positioned in
+ *    the vertical direction such that its baselinePosition (usually the baseline
+ *    of its first line of text) is aligned with baseline constraint.</li>
+ *
+ *    <li>If element's top/left constraints are specified, then the element is
+ *    positioned such that the top-left corner of the element's layout bounds is
+ *    offset from the top-left corner of the container by the specified values.</li>
+ *
+ *    <li>If element's bottom/right constraints are specified, then the element is
+ *    positioned such that the bottom-right corner of the element's layout bounds is
+ *    offset from the bottom-right corner of the container by the specified values.</li>
+ * 
+ *    <li>When no constraints determine the position in the horizontal/vertical
+ *    direction, the element is positioned according to its x/y coordinates.</li>
+ *  </ul>
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -76,6 +126,9 @@ public class BasicLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private 
+     */
     override public function measure():void
     {
         super.measure();
@@ -159,8 +212,7 @@ public class BasicLayout extends LayoutBase
             }
             else if (!isNaN(baseline))
             {
-                // TODO EGeorgie: move baselinePosition to ILayoutElement.
-                extY = baseline - IVisualElement(layoutElement).baselinePosition;
+                extY = baseline - layoutElement.baselinePosition;
             }
             else if (!isNaN(top) || !isNaN(bottom))
             {
@@ -254,6 +306,9 @@ public class BasicLayout extends LayoutBase
         }
     }
 
+    /**
+     *  @private 
+     */
     override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
