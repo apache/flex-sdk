@@ -12,6 +12,8 @@
 -->
 
 <!--- The default skin class for the thumb of a Spark HSlider component.  
+
+       @see spark.components.HSlider
         
       @langversion 3.0
       @playerversion Flash 10
