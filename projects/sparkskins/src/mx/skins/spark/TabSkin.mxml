@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the tabs of the Halo TabNavigator container. 
+<!--- The Spark skin class for the tabs of the MX TabNavigator container. 
+
+      @see mx.containers.TabNavigator
         
       @langversion 3.0
       @playerversion Flash 10
