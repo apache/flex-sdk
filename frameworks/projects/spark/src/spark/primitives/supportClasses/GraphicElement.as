@@ -80,6 +80,41 @@ public class GraphicElement extends EventDispatcher
 	//--------------------------------------------------------------------------
 
 	//----------------------------------
+	//  includeInLayout
+	//----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _includeInLayout:Boolean = true;
+
+	[Bindable("propertyChange")]
+	[Inspectable(category="General", defaultValue="true")]
+
+    /**
+     *  Specifies whether this element is included in the layout of the group.
+     *  @default true
+     */
+    public function get includeInLayout():Boolean
+    {
+        return _includeInLayout;
+    }
+    
+    public function set includeInLayout(value:Boolean):void
+    {
+        if (_includeInLayout == value)
+            return;
+
+		var oldValue:Boolean = _includeInLayout;
+        _includeInLayout = value;
+		dispatchPropertyChangeEvent("includeInLayout", oldValue, value);
+            
+        invalidateParentSizeAndDisplayList();
+        // TODO EGeorgie: if the displayObject is shared, we need to
+        // invalidateDisplayList();
+    }
+
+	//----------------------------------
 	//  measuredWidth
 	//----------------------------------
     
@@ -1736,14 +1771,6 @@ public class GraphicElement extends EventDispatcher
     private function preferredHeightPreTransform():Number
     {
         return isNaN(explicitHeight) ? measuredHeight: explicitHeight;
-    }
-
-    /**
-     *  Indicates whether to layout should ignore this item or not.
-     */
-    public function get includeInLayout():Boolean
-    {
-        return true;
     }
 
     /**
