@@ -72,9 +72,12 @@ use namespace mx_internal;
  * @playerversion AIR 1.5
  * @productversion Flex 4
  * 
+ * @includeExample examples/GradientBevelFilterExample.mxml
+ *  
+ * @see spark.filters.BevelFilter
+ * @see flash.filters.GradientBevelFilter
  * @see #ratios GradientBevelFilter.ratios
  * @see flash.display.BitmapData#applyFilter() 
- * @see flash.filters.BevelFilter BevelFilter
  * @see flash.display.DisplayObject#filters 
  * @see flash.display.DisplayObject#cacheAsBitmap
  */
