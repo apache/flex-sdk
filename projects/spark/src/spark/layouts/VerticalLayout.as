@@ -101,10 +101,10 @@ public class VerticalLayout extends LayoutBase
 
     private static function calculatePercentWidth(layoutElement:ILayoutElement, width:Number):Number
     {
-    	var percentWidth:Number = LayoutElementHelper.pinBetween(Math.round(layoutElement.percentWidth * 0.01 * width),
-    	                                                         layoutElement.getMinBoundsWidth(),
-    	                                                         layoutElement.getMaxBoundsWidth() );
-    	return percentWidth < width ? percentWidth : width;
+        var percentWidth:Number = LayoutElementHelper.pinBetween(Math.round(layoutElement.percentWidth * 0.01 * width),
+                                                                 layoutElement.getMinBoundsWidth(),
+                                                                 layoutElement.getMaxBoundsWidth() );
+        return percentWidth < width ? percentWidth : width;
     }
     
     private static function sizeLayoutElement(layoutElement:ILayoutElement, width:Number, 
@@ -250,18 +250,20 @@ public class VerticalLayout extends LayoutBase
     [Inspectable(category="General", enumeration="left,right,center,justify,contentJustify", defaultValue="left")]
 
     /** 
-     *  Horizontal alignment of layout elements.
+     *  The horizontal alignment of container children.
+     *  If the value is <code>"left"</code>, <code>"right"</code>, or <code>"center"</code> then the 
+     *  child is aligned relative to the container's <code>contentWidth</code> property.
      * 
-     *  If the value is one of "left", "right", "center"  then the 
-     *  layout element is aligned relative to the target's contentWidth.
+     *  <p>If the value is <code>"contentJustify"</code>, then the child's actual
+     *  width is set to the <code>contentWidth</code> of the container.
+     *  The <code>contentWidth</code> of the container is the width of the largest child. 
+     *  If all children are smaller than the width of the container, 
+     *  then set the width of all the children to the width of the container.</p>
      * 
-     *  If the value is "contentJustify" then the layout element's actual
-     *  width is set to the contentWidth.
-     * 
-     *  If the value is "justify" then the layout element's actual width
-     *  is set to the target's width.
+     *  <p>If the value is <code>"justify"</code> then the child's actual width
+     *  is set to the container's width.</p>
      *
-     *  This property does not affect the layout's measured size.
+     *  <p>This property does not affect the layout's measured size.</p>
      *  
      *  @default "left"
      *  
@@ -487,14 +489,14 @@ public class VerticalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  If variableRowHeight="false" then 
-     *  this property specifies the actual height of each layout element.
+     *  If <code>variableRowHeight</code> is <code>false</code>, then 
+     *  this property specifies the actual height of each child.
      * 
-     *  If variableRowHeight="true" (the default), then this property
-     *  has no effect.
+     *  <p>If <code>variableRowHeight</code> is <code>true</code>, 
+     *  the default, then this property has no effect.</p>
      * 
-     *  The default value of this property is the preferred height
-     *  of the typicalLayoutElement.
+     *  <p>The default value of this property is the preferred height
+     *  of the <code>typicalLayoutElement</code>.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -583,30 +585,30 @@ public class VerticalLayout extends LayoutBase
     [Inspectable(category="General")]
     [Bindable("indexInViewChanged")]    
 
-	/**
-	 *  The index of the first layout element that's part of the 
-	 *  layout and within the layout target's scrollRect, or -1 
-	 *  if nothing has been displayed yet.
-	 *  
-	 *  "Part of the layout" means that the element is non-null
-	 *  and that its includeInLayout property is true.
-	 * 
-	 *  Note that the layout element may only be partially in view.
-	 * 
-	 *  @see lastIndexInView
-	 *  @see fractionOfElementInView
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get firstIndexInView():int
-	{
-		return _firstIndexInView;
-	}
-	
-	
+    /**
+     *  The index of the first layout element that is part of the 
+     *  layout and within the layout target's scroll rectangle, or -1 
+     *  if nothing has been displayed yet.
+     *  
+     *  <p>"Part of the layout" means that the element is non-null
+     *  and that its <code>includeInLayout</code> property is <code>true</code>.</p>
+     * 
+     *  <p>Note that the layout element may only be partially in view.</p>
+     * 
+     *  @see lastIndexInView
+     *  @see fractionOfElementInView
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get firstIndexInView():int
+    {
+        return _firstIndexInView;
+    }
+    
+    
     //----------------------------------
     //  lastIndexInView
     //----------------------------------
@@ -619,27 +621,27 @@ public class VerticalLayout extends LayoutBase
     [Inspectable(category="General")]
     [Bindable("indexInViewChanged")]    
 
-	/**
+    /**
      *  The index of the last row that's part of the layout and within
-     *  the layout target's scrollRect, or -1 if nothing has been displayed yet.
+     *  the container's scroll rectangle, or -1 if nothing has been displayed yet.
      * 
-     *  "Part of the layout" means that the element is non-null
-     *  and that its includeInLayout property is true.
+     *  <p>"Part of the layout" means that the child is non-null
+     *  and that its <code>includeInLayout</code> property is <code>true</code>.</p>
      * 
-     *  Note that the row may only be partially in view.
+     *  <p>Note that the row may only be partially in view.</p>
      * 
      *  @see firstIndexInView
      *  @see fractionOfElementInView
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get lastIndexInView():int
-	{
-		return _lastIndexInView;
-	}
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get lastIndexInView():int
+    {
+        return _lastIndexInView;
+    }
 
     /**
      *  Sets the <code>firstIndexInView</code> and <code>lastIndexInView</code>
@@ -693,45 +695,45 @@ public class VerticalLayout extends LayoutBase
         return llv.getBounds(index);
     }
     
-	/**
+    /**
      *  Returns 1.0 if the specified index is completely in view, 0.0 if
      *  it's not, and a value in between if the index is partially 
      *  within the view.
      * 
-	 *  An index is "in view" if the corresponding non-null layout element is 
-	 *  within the vertical limits of the layout target's scrollRect
-	 *  and included in the layout.
-	 * 
-	 *  If the specified index is partially within the view, the 
-	 *  returned value is the percentage of the corresponding layout
-	 *  element that's visible.
-	 * 
-	 *  Returns 0.0 if the specified index is invalid or if it corresponds to
-	 *  null element, or a ILayoutElement for which includeInLayout is false.
-	 * 
-	 *  @return the percentage of the specified element that's in view.
-	 *  @see firstIndexInView
-	 *  @see lastIndexInView
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function fractionOfElementInView(index:int):Number 
-	{
-		var g:GroupBase = GroupBase(target);
-	    if (!g)
-	        return 0.0;
-	        
-	    if ((index < 0) || (index >= g.numElements))
-	       return 0.0;
-	       
+     *  An index is "in view" if the corresponding non-null layout element is 
+     *  within the vertical limits of the layout target's scrollRect
+     *  and included in the layout.
+     * 
+     *  If the specified index is partially within the view, the 
+     *  returned value is the percentage of the corresponding layout
+     *  element that's visible.
+     * 
+     *  Returns 0.0 if the specified index is invalid or if it corresponds to
+     *  null element, or a ILayoutElement for which includeInLayout is false.
+     * 
+     *  @return the percentage of the specified element that's in view.
+     *  @see firstIndexInView
+     *  @see lastIndexInView
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function fractionOfElementInView(index:int):Number 
+    {
+        var g:GroupBase = GroupBase(target);
+        if (!g)
+            return 0.0;
+            
+        if ((index < 0) || (index >= g.numElements))
+           return 0.0;
+           
         if (!clipAndEnableScrolling)
             return 1.0;
 
-	       
-        var r0:int = firstIndexInView;	
+           
+        var r0:int = firstIndexInView;  
         var r1:int = lastIndexInView;
         
         // outside the visible index range
@@ -743,21 +745,21 @@ public class VerticalLayout extends LayoutBase
             return 1.0;
 
         // get the layout element's Y and Height
-	    var eltY:Number;
-	    var eltHeight:Number;
-	    if (useVirtualLayout)
-	    {
-	        eltY = llv.start(index);
-	        eltHeight = llv.getMajorSize(index);
-	    }
-	    else 
-	    {
+        var eltY:Number;
+        var eltHeight:Number;
+        if (useVirtualLayout)
+        {
+            eltY = llv.start(index);
+            eltHeight = llv.getMajorSize(index);
+        }
+        else 
+        {
             var elt:ILayoutElement = g.getElementAt(index);
             if (!elt || !elt.includeInLayout)
                 return 0.0;
             eltY = elt.getLayoutBoundsY();
             eltHeight = elt.getLayoutBoundsHeight();
-	    }
+        }
             
         // So, index is either the first or last row in the scrollRect
         // and potentially partially visible.
@@ -772,26 +774,26 @@ public class VerticalLayout extends LayoutBase
         if ((iy0 >= y0) && (iy1 <= y1))
             return 1.0;
         return (Math.min(y1, iy1) - Math.max(y0, iy0)) / (iy1 - iy0);
-	}
-	
-	/**
+    }
+    
+    /**
      *  @private
      * 
-	 *  Binary search for the first layout element that contains y.  
-	 * 
-	 *  This function considers both the element's actual bounds and 
-	 *  the gap that follows it to be part of the element.  The search 
-	 *  covers index i0 through i1 (inclusive).
-	 *  
-	 *  This function is intended for variable height elements.
-	 * 
-	 *  Returns the index of the element that contains y, or -1.
-	 */
-	private static function findIndexAt(y:Number, gap:int, g:GroupBase, i0:int, i1:int):int
-	{
-	    var index:int = (i0 + i1) / 2;
-        var element:ILayoutElement = g.getElementAt(index);	    
-	    var elementY:Number = element.getLayoutBoundsY();
+     *  Binary search for the first layout element that contains y.  
+     * 
+     *  This function considers both the element's actual bounds and 
+     *  the gap that follows it to be part of the element.  The search 
+     *  covers index i0 through i1 (inclusive).
+     *  
+     *  This function is intended for variable height elements.
+     * 
+     *  Returns the index of the element that contains y, or -1.
+     */
+    private static function findIndexAt(y:Number, gap:int, g:GroupBase, i0:int, i1:int):int
+    {
+        var index:int = (i0 + i1) / 2;
+        var element:ILayoutElement = g.getElementAt(index);     
+        var elementY:Number = element.getLayoutBoundsY();
         var elementHeight:Number = element.getLayoutBoundsHeight();
         // TBD: deal with null element, includeInLayout false.
         if ((y >= elementY) && (y < elementY + elementHeight + gap))
@@ -802,8 +804,8 @@ public class VerticalLayout extends LayoutBase
             return findIndexAt(y, gap, g, i0, Math.max(i0, index-1));
         else 
             return findIndexAt(y, gap, g, Math.min(index+1, i1), i1);
-	} 
-	
+    } 
+    
     /**
      *  @private
      * 
@@ -1590,11 +1592,11 @@ public class VerticalLayout extends LayoutBase
                 ((y < maxVisibleY) && ((y + dy) > minVisibleY)) || 
                 ((dy <= 0) && ((y == maxVisibleY) || (y == minVisibleY))))
             {
-            	visibleRows += 1;
-            	if (firstRowInView == -1)
-            	   firstRowInView = lastRowInView = index;
-            	else
-            	   lastRowInView = index;
+                visibleRows += 1;
+                if (firstRowInView == -1)
+                   firstRowInView = lastRowInView = index;
+                else
+                   lastRowInView = index;
             }
             y += dy + gap;
         }
@@ -1754,5 +1756,5 @@ import mx.containers.utilityClasses.FlexChildInfo;
 
 class LayoutElementFlexChildInfo extends FlexChildInfo
 {
-    public var layoutElement:ILayoutElement;	
+    public var layoutElement:ILayoutElement;    
 }
