@@ -10,10 +10,11 @@ import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
+import flash.geom.Matrix3D;
 import flash.geom.Point;
 import flash.geom.Transform;
 
-import flex.geom.Transform;
+import mx.geom.Transform;
 import flex.graphics.IDisplayObjectElement;
 import flex.graphics.IGraphicElement;
 import flex.graphics.IGraphicElementHost;
@@ -23,7 +24,9 @@ import flex.intf.ILayoutItem;
 
 import mx.core.IConstraintClient;
 import mx.core.IInvalidating;
+import mx.core.TransformOffset;
 import mx.core.UIComponentGlobals;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
@@ -32,12 +35,15 @@ import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 import mx.graphics.IStroke;
 import mx.managers.ILayoutManagerClient;
+import mx.core.IVisualItem;
+import flash.utils.Dictionary;
+
 
 use namespace mx_internal;
 
 public class GraphicElement extends EventDispatcher
     implements IGraphicElement, ILayoutItem, IConstraintClient,
-    IDisplayObjectElement, IInvalidating
+    IDisplayObjectElement, IInvalidating, IVisualItem
 {
     include "../../core/Version.as";
 
@@ -87,6 +93,9 @@ public class GraphicElement extends EventDispatcher
     public function GraphicElement()
     {
         super();
+        xformOffsets = new TransformOffset();
+		xformOffsets.userVisible = false;
+		xformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
     }
 
     //--------------------------------------------------------------------------
@@ -94,17 +103,6 @@ public class GraphicElement extends EventDispatcher
     //  Variables
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Storage for the transform property.
-     */
-    private var _matrix:Matrix;
-    
-    /**
-     *  @private
-     */
-    private var matrixChanged:Boolean;
     
     /**
      *  @private
@@ -121,6 +119,11 @@ public class GraphicElement extends EventDispatcher
      */
     private var isMaskInElementSpace:Boolean;
     
+    /**
+     *  @private
+     */
+	private var _layer:Number = 0;
+
     /**
      *  @private
      *  Whether this element needs to have its
@@ -142,12 +145,62 @@ public class GraphicElement extends EventDispatcher
      */
     mx_internal var invalidateDisplayListFlag:Boolean = false;
 
+
+    /**
+     *  Documentation is not currently available.
+     */
+	protected var xformOffsets:TransformOffset;
     //--------------------------------------------------------------------------
     //
     //  Properties: IGraphicElement
     //
     //--------------------------------------------------------------------------
+	
+    [Bindable("propertyChange")]
+	public function get offsets():TransformOffset
+	{
+		return (xformOffsets != null && xformOffsets.userVisible == true)? xformOffsets:null;
+	}
+	public function set offsets(userValue:TransformOffset):void
+	{
+		var oldValue:TransformOffset = xformOffsets;
+		var value:TransformOffset = userValue;
+			
+		if(value == null)
+		{
+			value = new TransformOffset();
+			value.userVisible = false;
+		}
+		
+		if(value != null && oldValue != null)
+			value.initFrom(oldValue);
 
+		if(xformOffsets != null)
+			xformOffsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+		xformOffsets = value;
+		if(xformOffsets != null)
+			xformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+
+        dispatchPropertyChangeEvent("offsets", oldValue, userValue);
+	}
+	
+	
+	protected function invalidateTransform(changeInvalidatesLayering:Boolean = true,triggerLayout:Boolean = true):void
+	{
+        if(changeInvalidatesLayering)
+        	notifyElementLayerChanged();
+        if(triggerLayout)
+        {
+    	    invalidateParentSizeAndDisplayList();
+        }
+        xformOffsets.updatePending = true;
+	}
+
+    private function transformOffsetsChangedHandler(e:Event):void
+	{
+		invalidateTransform();
+	}
+	
     //----------------------------------
     //  alpha
     //----------------------------------
@@ -517,6 +570,7 @@ public class GraphicElement extends EventDispatcher
 
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
+    [PercentProxy("percentHeight")]
 
     /**
      *  The height of the graphic element.
@@ -531,6 +585,7 @@ public class GraphicElement extends EventDispatcher
     /**
      *  @private
      */
+    
     public function set height(value:Number):void
     {
         explicitHeight = value;
@@ -1089,16 +1144,85 @@ public class GraphicElement extends EventDispatcher
     //  rotation
     //----------------------------------
 
-    /**
-     *  @private
-     *  Storage for the rotation property.
-     */
-    private var _rotation:Number = 0;
+
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
     
     /**
+     *  Indicates the rotation of the element, in degrees,
+     *  from the transform point.
+     */
+    public function get rotationX():Number
+    {
+        return xformOffsets.layoutRotationX;
+    }
+
+    /**
      *  @private
      */
-    private var rotationChanged:Boolean;
+    public function set rotationX(value:Number):void
+    {
+        var oldValue:Number = xformOffsets.layoutRotationX;
+        if (oldValue == value)
+            return;
+
+        xformOffsets.layoutRotationX = value;
+        dispatchPropertyChangeEvent("rotationX", oldValue, value);
+		invalidateTransform();
+    }
+
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  Indicates the rotation of the element, in degrees,
+     *  from the transform point.
+     */
+    public function get rotationY():Number
+    {
+        return xformOffsets.layoutRotationY;
+    }
+
+    /**
+     *  @private
+     */
+    public function set rotationY(value:Number):void
+    {
+        var oldValue:Number = xformOffsets.layoutRotationY;
+        if (oldValue == value)
+            return;
+
+        xformOffsets.layoutRotationY = value;
+        dispatchPropertyChangeEvent("rotationY", oldValue, value);
+		invalidateTransform();
+    }
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  Indicates the rotation of the element, in degrees,
+     *  from the transform point.
+     */
+    public function get rotationZ():Number
+    {
+        return xformOffsets.layoutRotationZ;
+    }
+
+    /**
+     *  @private
+     */
+    public function set rotationZ(value:Number):void
+    {
+        var oldValue:Number = xformOffsets.layoutRotationZ;
+        if (oldValue == value)
+            return;
+
+        xformOffsets.layoutRotationZ = value;
+        dispatchPropertyChangeEvent("rotationZ", oldValue, value);
+        dispatchPropertyChangeEvent("rotation", oldValue, value);
+		invalidateTransform();
+    }
 
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
@@ -1109,41 +1233,16 @@ public class GraphicElement extends EventDispatcher
      */
     public function get rotation():Number
     {
-        return _rotation;
+        return xformOffsets.layoutRotationZ;
     }
-
-    /**
-     *  @private
-     */
     public function set rotation(value:Number):void
     {
-        if (_rotation == value)
-            return;
-
-        var oldValue:Number = _rotation;
-        _rotation = value;
-        dispatchPropertyChangeEvent("rotation", oldValue, value);
-
-        rotationChanged = true;
-        notifyElementLayerChanged();
-        invalidateProperties();
-        invalidateParentSizeAndDisplayList();
+    	rotationZ = value;
     }
 
     //----------------------------------
     //  scaleX
     //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the scaleX property.
-     */
-    mx_internal var _scaleX:Number = 1.0;
-    
-    /**
-     *  @private
-     */
-    private var scaleXChanged:Boolean;
 
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
@@ -1154,7 +1253,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get scaleX():Number
     {
-        return _scaleX;
+        return xformOffsets.layoutScaleX;
     }
 
     /**
@@ -1162,34 +1261,18 @@ public class GraphicElement extends EventDispatcher
      */
     public function set scaleX(value:Number):void
     {
-        if (_scaleX == value)
+        var oldValue:Number = xformOffsets.layoutScaleX;
+        if (oldValue == value)
             return;
 
-        var oldValue:Number = _scaleX;
-        _scaleX = value;
+        xformOffsets.layoutScaleX = value;
         dispatchPropertyChangeEvent("scaleX", oldValue, value);
-
-        scaleXChanged = true;
-        notifyElementLayerChanged();
-        invalidateProperties();
-        // Parent layout takes transform into account
-        invalidateParentSizeAndDisplayList();
+		invalidateTransform();
     }
 
     //----------------------------------
     //  scaleY
     //----------------------------------
-    
-    /**
-     *  @private
-     *  Storage for the scaleY property.
-     */
-    mx_internal var _scaleY:Number = 1.0;
-    
-    /**
-     *  @private
-     */
-    private var scaleYChanged:Boolean;
 
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
@@ -1200,7 +1283,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get scaleY():Number
     {
-        return _scaleY;
+        return xformOffsets.layoutScaleY;
     }
 
     /**
@@ -1208,18 +1291,43 @@ public class GraphicElement extends EventDispatcher
      */
     public function set scaleY(value:Number):void
     {
-        if (_scaleY == value)
+        var oldValue:Number = xformOffsets.layoutScaleY;
+        if (oldValue == value)
             return;
 
-        var oldValue:Number = _scaleY;
-        _scaleY = value;
+        xformOffsets.layoutScaleY = value;
         dispatchPropertyChangeEvent("scaleY", oldValue, value);
+		invalidateTransform();
+    }
 
-        scaleYChanged = true;
-        notifyElementLayerChanged();
-        invalidateProperties();
-        // Parent layout takes transform into account
-        invalidateParentSizeAndDisplayList();
+    //----------------------------------
+    //  scaleZ
+    //----------------------------------
+
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+
+    /**
+     *  The z scale (percentage) of the element
+     *  as applied from the transform point.
+     */
+    public function get scaleZ():Number
+    {
+        return xformOffsets.layoutScaleZ;
+    }
+
+    /**
+     *  @private
+     */
+    public function set scaleZ(value:Number):void
+    {
+        var oldValue:Number = xformOffsets.layoutScaleZ;
+        if (oldValue == value)
+            return;
+
+        xformOffsets.layoutScaleZ = value;
+        dispatchPropertyChangeEvent("scaleZ", oldValue, value);
+		invalidateTransform();
     }
 
     //----------------------------------
@@ -1282,8 +1390,8 @@ public class GraphicElement extends EventDispatcher
     public function set transform(value:flash.geom.Transform):void
     {
         // Clean up the old event listeners
-        var oldTransform:flex.geom.Transform =
-            _transform as flex.geom.Transform;
+        var oldTransform:mx.geom.Transform =
+            _transform as mx.geom.Transform;
         if (oldTransform)
         {
             oldTransform.removeEventListener(
@@ -1291,64 +1399,66 @@ public class GraphicElement extends EventDispatcher
                 transformPropertyChangeHandler);
         }
 
-        var newTransform:flex.geom.Transform = value as flex.geom.Transform;
+        var newTransform:mx.geom.Transform = value as mx.geom.Transform;
 
         if (newTransform)
         {
             newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE,
                                           transformPropertyChangeHandler);
-            _matrix = value.matrix.clone(); // Make sure it is a copy
-            
-            // If the matrix is a delta identity matrix (ie translation only),
-            // grab the translation values out of it, but don't hold on to 
-            // the matrix itself.
-            if (TransformUtil.isDeltaIdentity(_matrix))
-            {
-                if (_matrix.tx != _x)
-                {
-                    _x = _matrix.tx;
-                    xChanged = true;
-                }
-                
-                if (_matrix.ty != _y)
-                {
-                    _y = _matrix.ty;
-                    yChanged = true;
-                }
-                
-                _matrix = null;
-            }
-            else
-            {
-                matrixChanged = true;
-            }
-            
-            clearTransformProperties();
+			if(value.matrix != null)
+			{
+				xformOffsets.layoutMatrix = value.matrix;
+			}
+			else if (value.matrix3D != null)
+			{
+				xformOffsets.layoutMatrix3D = value.matrix3D;
+			}            
             _colorTransform = value.colorTransform;
         }
-
         _transform = value;
-        notifyElementLayerChanged();
-        invalidateProperties();
-        // Parent layout takes transform into account
-        invalidateParentSizeAndDisplayList();
+        invalidateTransform();
     }
+
+	/**
+	 * Documentation is not currently available.  the matrix of a component is the transform matrix used to calculate its layout
+	 * relative to its siblings. This matrix is modified by the values of the offset property to determine its final, computed matrix.
+	 */
+	public function get matrix():Matrix
+	{
+		return xformOffsets.layoutMatrix;			
+	}
+
+	/**
+	 * @private
+	 */
+	public function set matrix(value:Matrix):void
+	{
+		xformOffsets.matrix = value;
+		invalidateTransform();
+	}
+
+	/**
+	 * Documentation is not currently available.  the matrix of a component is the transform matrix used to calculate its layout
+	 * relative to its siblings. This matrix is modified by the values of the offset property to determine its final, computed matrix.
+	 */
+	public function set matrix3D(value:Matrix3D):void
+	{
+		xformOffsets.matrix3D = value;
+		invalidateTransform();
+	}
+
+	/**
+	 * @private
+	 */
+	public function get matrix3D():Matrix3D
+	{
+		return xformOffsets.layoutMatrix3D;			
+	}
 
     //----------------------------------
     //  transformX
     //----------------------------------
     
-    /**
-     *  @private
-     *  Storage for the transformX property.
-     */
-    private var _transformX:Number = 0;
-    
-    /**
-     *  @private
-     */
-    private var transformXChanged:Boolean;
-
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
@@ -1357,7 +1467,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get transformX():Number
     {
-        return _transformX;
+        return xformOffsets.transformX;
     }
 
     /**
@@ -1365,34 +1475,19 @@ public class GraphicElement extends EventDispatcher
      */
     public function set transformX(value:Number):void
     {
-        if (_transformX == value)
+        var oldValue:Number = xformOffsets.transformX;
+        if ( oldValue == value)
             return;
-
-        var oldValue:Number = _transformX;
-        _transformX = value;
+            
+        xformOffsets.transformX = value;
         dispatchPropertyChangeEvent("transformX", oldValue, value);
-
-        transformXChanged = true;
-        notifyElementLayerChanged();
-        invalidateProperties();
-        // Parent layout takes transform into account
-        invalidateParentSizeAndDisplayList();
+		invalidateTransform(false);
     }
 
     //----------------------------------
     //  transformY
     //----------------------------------
     
-    /**
-     *  @private
-     *  Storage for the transformY property.
-     */
-    private var _transformY:Number = 0;
-    
-    /**
-     *  @private
-     */
-    private var transformYChanged:Boolean;
 
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
@@ -1402,7 +1497,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get transformY():Number
     {
-        return _transformY;
+        return xformOffsets.transformY;
     }
 
     /**
@@ -1410,17 +1505,41 @@ public class GraphicElement extends EventDispatcher
      */
     public function set transformY(value:Number):void
     {
-        if (_transformY == value)
+        var oldValue:Number = xformOffsets.transformY;
+        if (oldValue == value)
             return;
-        var oldValue:Number = _transformY;
-        _transformY = value;
+        xformOffsets.transformY = value;
         dispatchPropertyChangeEvent("transformY", oldValue, value);
+		invalidateTransform(false);
+    }
 
-        transformYChanged = true;
-        notifyElementLayerChanged();
-        invalidateProperties();
-        // Parent layout takes transform into account
-        invalidateParentSizeAndDisplayList();
+    //----------------------------------
+    //  transformZ
+    //----------------------------------
+    
+
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+
+    /**
+     *  The y position transform point of the element.
+     */
+    public function get transformZ():Number
+    {
+        return xformOffsets.transformZ;
+    }
+
+    /**
+     *  @private
+     */
+    public function set transformZ(value:Number):void
+    {
+        var oldValue:Number = xformOffsets.transformZ;
+        if (oldValue == value)
+            return;
+        xformOffsets.transformZ = value;
+        dispatchPropertyChangeEvent("transformZ", oldValue, value);
+		invalidateTransform();
     }
 
     //----------------------------------
@@ -1471,6 +1590,7 @@ public class GraphicElement extends EventDispatcher
 
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
+    [PercentProxy("percentWidth")]
 
     /**
      *  The width of the graphic element.
@@ -1504,19 +1624,25 @@ public class GraphicElement extends EventDispatcher
     }
 
     //----------------------------------
+    //  layer
+    //----------------------------------  
+	public function get layer():Number
+	{
+		return xformOffsets.layer;
+	}
+
+	public function set layer(value:Number):void
+	{
+		if(value == layer)
+			return;
+		 xformOffsets.layer = value;	
+		if(_host != null && _host is UIComponent)
+			(_host as UIComponent).invalidateLayering();
+	}
+
+    //----------------------------------
     //  x
     //----------------------------------  
-    /**
-     *  @private
-     *  Storage for the x property.
-     */
-    private var _x:Number = 0;
-    
-    /**
-     *  @private
-     */
-    private var xChanged:Boolean;
-
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
@@ -1525,7 +1651,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get x():Number
     {
-        return _x;
+        return xformOffsets.layoutX;
     }
 
     /**
@@ -1533,32 +1659,18 @@ public class GraphicElement extends EventDispatcher
      */
     public function set x(value:Number):void
     {
-        if (_x == value)
+        var oldValue:Number = xformOffsets.layoutX;
+        if (oldValue == value)
             return;
 
-        var oldValue:Number = _x;
-        _x = value;
+        xformOffsets.layoutX = value;
         dispatchPropertyChangeEvent("x", oldValue, value);
-
-        xChanged = true;
-        invalidateProperties();
-        // Parent layout takes transform into account
-        invalidateParentSizeAndDisplayList();
+        invalidateTransform(false);
     }
 
     //----------------------------------
     //  y
     //----------------------------------   
-    /**
-     *  @private
-     *  Storage for the y property.
-     */
-    private var _y:Number = 0;
-
-    /**
-     *  @private
-     */
-    private var yChanged:Boolean;
 
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
@@ -1568,7 +1680,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get y():Number
     {
-        return _y;
+        return xformOffsets.layoutY;
     }
 
     /**
@@ -1576,17 +1688,42 @@ public class GraphicElement extends EventDispatcher
      */
     public function set y(value:Number):void
     {
-        if (_y == value)
+        var oldValue:Number = xformOffsets.layoutY;
+        if (oldValue == value)
             return;
 
-        var oldValue:Number = _y;
-        _y = value;
+        xformOffsets.layoutY = value;
         dispatchPropertyChangeEvent("y", oldValue, value);
+		invalidateTransform(false);
+    }
 
-        yChanged = true;
-        invalidateProperties();
-        // Parent layout takes transform into account
-        invalidateParentSizeAndDisplayList();
+    //----------------------------------
+    //  z
+    //----------------------------------   
+
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  The y position of the graphic element.
+     */
+    public function get z():Number
+    {
+        return xformOffsets.layoutZ;
+    }
+
+    /**
+     *  @private
+     */
+    public function set z(value:Number):void
+    {
+        var oldValue:Number = xformOffsets.layoutZ;
+        if (oldValue == value)
+            return;
+		
+        xformOffsets.layoutZ = value;
+        dispatchPropertyChangeEvent("z", oldValue, value);
+		invalidateTransform();
     }
 
     //----------------------------------
@@ -1672,6 +1809,12 @@ public class GraphicElement extends EventDispatcher
             return;
 
         var oldValue:DisplayObject = _displayObject;
+
+		//esg: matrix3D's are owned by a DO, so we need to reclaim any
+		// matrix3D we might have assigned.
+		if(oldValue != null)
+			oldValue.transform.matrix3D = null;
+		
         _displayObject = value;
         dispatchPropertyChangeEvent("displayObject", oldValue, value);
 
@@ -1698,9 +1841,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get actualPosition():Point
     {
-        var xPos:Number = measuredX + (_matrix ? _matrix.tx : _x);
-        var yPos:Number = measuredY + (_matrix ? _matrix.ty : _y);
-        var vec:Point = new Point(xPos, yPos);
+        var topLeft:Point = new Point(measuredX, measuredY);
 
         // Account for transform
         var m:Matrix = computeMatrix(true /*actualMatrix*/);
@@ -1708,21 +1849,22 @@ public class GraphicElement extends EventDispatcher
         {
             // Calculate the vector from pre-transform top-left to
             // post-transform top-left:
-            TransformUtil.transformBounds(new Point(_width, _height), m, vec);
-
-            // Subtract it from (xPos, yPos):
-            vec.x = xPos - vec.x;
-            vec.y = yPos - vec.y;
+            TransformUtil.transformBounds(new Point(_width, _height), m, topLeft);
+        }
+        else
+        {
+        	topLeft.x += xformOffsets.layoutX;
+        	topLeft.y += xformOffsets.layoutY;
         }
 
         // Take stroke into account:
         // TODO EGeorgie: We assume that the stroke extents are even on both sides.
         // and that's not necessarily true.
         var strokeExtents:Point = getStrokeExtents();
-        vec.x -= strokeExtents.x * 0.5;
-        vec.y -= strokeExtents.y * 0.5;
+        topLeft.x -= strokeExtents.x * 0.5;
+        topLeft.y -= strokeExtents.y * 0.5;
 
-        return vec;
+        return topLeft;
     }
 
     //----------------------------------
@@ -1748,7 +1890,10 @@ public class GraphicElement extends EventDispatcher
     {
         // Draw position depends upon which coordinate space we are located in.
         // TODO!!! We need to apply all of the transforms of our ancestors
-        return displayObject ? 0 : sharedDisplayObject && sharedDisplayObject != elementHost ? x - sharedDisplayObject.x : x;
+    	if(displayObject != null)
+    		return 0;
+    	var result:Number = xformOffsets.layoutX + xformOffsets.x;  	
+        return sharedDisplayObject && sharedDisplayObject != elementHost ? result - sharedDisplayObject.x : result;
     }
     
     //----------------------------------
@@ -1762,7 +1907,10 @@ public class GraphicElement extends EventDispatcher
     {
         // Draw position depends upon which coordinate space we are located in.
         // TODO!!! We need to apply all of the transforms of our ancestors
-        return displayObject ? 0 : sharedDisplayObject && sharedDisplayObject != elementHost ? y - sharedDisplayObject.y : y;
+    	if(displayObject != null)
+    		return 0;
+    	var result:Number = xformOffsets.layoutY + xformOffsets.y;  	
+        return sharedDisplayObject && sharedDisplayObject != elementHost ? result - sharedDisplayObject.y : result;
     }
     
     //----------------------------------
@@ -1893,16 +2041,22 @@ public class GraphicElement extends EventDispatcher
      */
     public function get needsDisplayObject():Boolean
     {
-        if ((_filters && _filters.length > 0) || 
-            _blendMode != BlendMode.NORMAL || _mask ||
-            _scaleX != 1 || _scaleY != 1 ||
-            _rotation != 0 || _alpha != 1 || _transform ||
-            _transformX != 0 || _transformY != 0)
-        {
-            return true;
-        }
-        else
-            return false;
+    	if ((_filters && _filters.length > 0) || 
+    		_blendMode != BlendMode.NORMAL || _mask ||
+    		xformOffsets.layoutScaleX != 1 || xformOffsets.layoutScaleY != 1 || xformOffsets.layoutScaleZ != 1 ||
+    		xformOffsets.layoutRotationX != 0 || xformOffsets.layoutRotationY != 0 || xformOffsets.layoutRotationZ != 0 ||
+    		xformOffsets.layoutZ  != 0 ||  
+    		xformOffsets.scaleX != 1 || xformOffsets.scaleY != 1 || xformOffsets.scaleZ != 1 ||
+    		xformOffsets.rotationX != 0 || xformOffsets.rotationY != 0 || xformOffsets.rotationZ != 0 ||
+    		xformOffsets.z  != 0 ||  
+    		_colorTransform != null ||
+    		_alpha != 1 ||
+    		_layer != 0)
+    	{
+			return true;
+    	}
+    	else
+    		return false;
     }
     
     public function get nextSiblingNeedsDisplayObject():Boolean
@@ -2002,18 +2156,6 @@ public class GraphicElement extends EventDispatcher
                 displayObject.cacheAsBitmap = true;
             }
         }
-    }
-
-    /**
-     *  Documentation is not currently available.
-     */
-    protected function clearTransformProperties():void
-    {
-        scaleXChanged = false;
-        scaleYChanged = false;
-        xChanged = false;
-        yChanged = false;
-        rotationChanged = false;
     }
 
     /**
@@ -2178,6 +2320,7 @@ public class GraphicElement extends EventDispatcher
     protected function commitProperties():void
     {
         //trace("GraphicElement.commitProperties displayObject",displayObject,"this",this);
+    	var updateTransform:Boolean = false;
         if (displayObject)
         {
             if (alphaChanged)
@@ -2226,16 +2369,7 @@ public class GraphicElement extends EventDispatcher
                 displayObject.visible = _visible;
             }
             
-            if (matrixChanged || scaleXChanged || scaleYChanged ||
-                rotationChanged || transformXChanged || transformYChanged ||
-                displayObjectChanged)
-            {
-                commitScaleAndRotation();
-            }
-
-            if (xChanged || yChanged || displayObjectChanged)
-                commitXY();
-            
+			updateTransform = true;
             displayObjectChanged = false;
         }
         else
@@ -2248,6 +2382,11 @@ public class GraphicElement extends EventDispatcher
                 // to change visibility.
                 invalidateDisplayList();
             }
+        }
+        if (xformOffsets.updatePending ||
+            updateTransform)
+        {
+            commitTransform();
         }
     }
 
@@ -2374,8 +2513,16 @@ public class GraphicElement extends EventDispatcher
             return; */
         invalidateDisplayListFlag = false;
 
-        if (visible)
-            updateDisplayList(_width, _height);
+		// we commit our transform in two places. First, during commit properties, because our size depends on it,
+		// and our parent will most likely take it into account during layout. Secondly, here, because our parent will likely
+		// change our xform as a result of layout, and we need to commit it before we end up on screen.   
+        if (xformOffsets.updatePending)
+        {
+            commitTransform();
+        }
+        
+		if (visible)
+        	updateDisplayList(_width, _height);
         
         // If we aren't doing any more invalidation, send out an UpdateComplete event
         if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag)
@@ -2441,8 +2588,8 @@ public class GraphicElement extends EventDispatcher
     {
         if (!displayObject)
             return null;
-
-        var m:Matrix = displayObject.transform.matrix;
+				
+        var m:Matrix = xformOffsets.layoutMatrix;
         return TransformUtil.isDeltaIdentity(m) ? null : m;
     }
 
@@ -2456,7 +2603,7 @@ public class GraphicElement extends EventDispatcher
         var size:Point = new Point(width, height);
         var m:Matrix = computeMatrix(actualMatrix);
         if (m)
-            size = TransformUtil.transformBounds(size, m);
+            size = TransformUtil.transformSize(size, m);
 
         // Take stroke into account
         var strokeExtents:Point = getStrokeExtents();
@@ -2488,23 +2635,6 @@ public class GraphicElement extends EventDispatcher
      */
     public function setActualPosition(x:Number, y:Number):void
     {
-        //trace("GraphicElement.setActualPosition x",x,"y",y,"this",this);
-        x -= measuredX;
-        y -= measuredY;
-
-        // Handle arbitrary 2d transform
-        var m:Matrix = computeMatrix(true /*actualMatrix*/);
-        if (m)
-        {
-            // Calculate the vector from pre-transform top-left to
-            // post-transform top-left:
-            var vec:Point = new Point();
-            TransformUtil.transformBounds(new Point(_width, _height), m, vec);
-
-            // Add it to (x,y):
-            x += vec.x;
-            y += vec.y;
-        }
 
         // Take stroke into account:
         // TODO EGeorgie: We assume that the stroke extents are even on both sides.
@@ -2513,24 +2643,36 @@ public class GraphicElement extends EventDispatcher
         x += strokeExtents.x * 0.5;
         y += strokeExtents.y * 0.5;
 
-        // Finally commit x & y property changes:
-        var changed:Boolean = false;
-        if (_x != x)
+        // Handle arbitrary 2d transform
+        var m:Matrix = computeMatrix(true /*actualMatrix*/);
+        if (m)
         {
-            _x = x;
-            changed = true;
+            // Calculate the origin of the element after transformation before our changes are applied.
+            var origin:Point = new Point(measuredX,measuredY);
+            TransformUtil.transformBounds(new Point(_width, _height), m, origin);
+
+            // now adjust our tx/ty values based on the difference between our current transformed position and 
+            // where we want to end up.
+            x = x - origin.x + xformOffsets.layoutX;
+            y = y - origin.y + xformOffsets.layoutY;
         }
-        
-        if (_y != y)
+        else
         {
-            _y = y;
-            changed = true;
+	        x -= measuredX;
+    	    y -= measuredY;
         }
-        
-        if (displayObject)
-            commitXY();
-        else if (changed)
+
+
+       	if(x != xformOffsets.layoutX || y != xformOffsets.layoutY)
+       	{
+			xformOffsets.layoutX = x;
+			xformOffsets.layoutY = y;
+			// note that we don't want to call invalidateTransform, because 
+			// this is in the middle of an update pass. Instead, we just note that the 
+			// transform has an update pending, so we can apply it later.
+			xformOffsets.updatePending = true;
             invalidateDisplayList();
+        }
     }
 
     /**
@@ -2650,67 +2792,26 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  Applies _x and _y properties to the display object.
+     *  Applies the transform to the display object.
      */
-    protected function commitXY():void
-    {
-        if (!displayObject)
-            return;
+    protected function commitTransform():void
+    {		
+        xformOffsets.updatePending = false;
 
-        beginCommitTransformProps();
-
-        /*
-        TransformUtil.applyTransforms(displayObject, null, _x, _y);
-        _x = displayObject.x;
-        _y = displayObject.y;
-        */
-        displayObject.x = _x;
-        displayObject.y = _y;
-        
-        xChanged = false;
-        yChanged = false;
-
-        endCommitTransformProps();
-        
-        // TODO EGeorgie: if the drawing depends on x & y, we need to
-        // invalidateDisplayList();
+        if(displayObject == null)
+        	return;
+        	        
+		if(xformOffsets.computedIs3D)
+		{
+			displayObject.transform.matrix3D = xformOffsets.computedMatrix3D;				
+		}
+		else
+		{
+			displayObject.transform.matrix = xformOffsets.computedMatrix;
+			//race("updating transform");
+		}
     }
-
-    /**
-     *  Applies _scaleX and _scaleY properties to the display object.
-     */
-    protected function commitScaleAndRotation():void
-    {
-        if (!displayObject)
-            return;
-
-        beginCommitTransformProps();
-
-        var rot:Number = rotationChanged ? _rotation : NaN;
-        
-        TransformUtil.applyTransforms(displayObject, _matrix, NaN, NaN,
-                                      _scaleX, _scaleY, rot,
-                                      _transformX, _transformY);
-        
-        _scaleX = displayObject.scaleX;
-        _scaleY = displayObject.scaleY;
-        _rotation = displayObject.rotation;
-
-        // Pull the x and y backing vars only if we have a matrix.
-        if (_matrix)
-        {
-            _x = displayObject.x;
-            _y = displayObject.y;
-        }
-        
-        matrixChanged = false;
-        scaleXChanged = false;
-        scaleYChanged = false;
-        rotationChanged = false;
-
-        endCommitTransformProps();
-    }
-
+    
     /**
      *  @private
      */
@@ -2744,20 +2845,20 @@ public class GraphicElement extends EventDispatcher
         // not only on scale.
         if (scaleMode == LineScaleMode.NORMAL)
         {
-            if (_scaleX == _scaleY)
-                weight *= _scaleX;
+            if (xformOffsets.layoutScaleX == xformOffsets.layoutScaleY)
+                weight *= xformOffsets.layoutScaleX;
             else
-                weight *= Math.sqrt(0.5 * (_scaleX * _scaleX + _scaleY * _scaleY));
+                weight *= Math.sqrt(0.5 * (xformOffsets.layoutScaleX * xformOffsets.layoutScaleX + xformOffsets.layoutScaleY * xformOffsets.layoutScaleY));
             
             return new Point(weight, weight);
         }
         else if (scaleMode == LineScaleMode.HORIZONTAL)
         {
-            return new Point(weight * _scaleX, weight);
+            return new Point(weight * xformOffsets.layoutScaleX, weight);
         }
         else if (scaleMode == LineScaleMode.VERTICAL)
         {
-            return new Point(weight, weight * _scaleY);
+            return new Point(weight, weight * xformOffsets.layoutScaleY);
         }
 
         return null;
@@ -2812,14 +2913,8 @@ public class GraphicElement extends EventDispatcher
                 // Apply matrix
                 if (_transform)
                 {
-                    _matrix = _transform.matrix.clone();
-                    matrixChanged = true;
-
-                    clearTransformProperties();
-                    notifyElementLayerChanged();
-                    invalidateProperties();
-                    // Parent layout takes transform into account
-                    invalidateParentSizeAndDisplayList();
+                    xformOffsets.layoutMatrix = _transform.matrix.clone();
+					invalidateTransform();
                 }
             }
             else if (event.property == "colorTransform")
