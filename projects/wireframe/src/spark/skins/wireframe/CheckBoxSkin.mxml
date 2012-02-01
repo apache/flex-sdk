@@ -25,15 +25,6 @@
         [HostComponent("spark.components.CheckBox")]
     </fx:Metadata> 
     
-    <fx:Script>
-        <![CDATA[
-            /**
-             * @inheritDoc
-             */
-            override public function get focusSkinExclusions():Array {return [labelDisplay]};
-        ]]>
-    </fx:Script>
-    
     <s:states>
         <s:State name="up" />
         <s:State name="over" stateGroups="overStates" />
