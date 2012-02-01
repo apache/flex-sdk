@@ -4,6 +4,8 @@ import flash.events.IEventDispatcher;
 import flash.filters.BevelFilter;
 import flash.filters.BitmapFilter;
 import flash.filters.BitmapFilterType;
+import mx.filters.BaseDimensionFilter;
+import mx.filters.IBitmapFilter;
 
 public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
 {
