@@ -176,26 +176,34 @@ public dynamic class ShaderFilter extends Proxy
      * The shader bytecode for this Shader instance, either a Class or ByteArray
      * instance.
      */
-    public function set byteCode(byteCode:*):void
+    public function set byteCode(value:*):void
     {
         // Since our bytecode is sometimes reassigned by the
         // binding infrastructure we only initialize ourselves
         // upon the first instance.
-        if (byteCode == _byteCode)
+        if (value == _byteCode)
             return;
             
         // Create our shader instance from the byteCode provided.
-        if (byteCode is ByteArray)
-            _shader = new Shader(byteCode);
-        else if (byteCode is Class)
-            _shader = new Shader(new byteCode());
-               
+        if (value is ByteArray)
+        {
+            _shader = new Shader(value);
+        }
+        else if (value is Class)
+        {
+            var obj:* = new value();
+            if (obj is Shader)
+                _shader = obj as Shader; 
+            else if (obj is ByteArray)
+                _shader = new Shader(obj as ByteArray);
+        }
+
         // Push any pending properties onto the new shader instance. 
         applyQueuedProperties();
             
         // Our new filter is ready to do its work.
         notifyFilterChanged();
-        _byteCode = byteCode;
+        _byteCode = value;
     }
 
     //----------------------------------
