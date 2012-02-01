@@ -324,10 +324,9 @@ public class FormLayout extends VerticalLayout
                     columnMaxWidths[j] = 0;
             }
             
-            // TODO (jszeto) grab this error message from a resource bundle
+            // TODO (jszeto): grab this error message from a resource bundle
             if (lastColumnCount != colWidths.length)
                 throw new Error("The Form must have form items with the same number of constraint columns");
-            // TODO add logic to throw RTE if column lengths don't match
             
             for (var k:int = 0; k < colWidths.length; k++)
             {
