@@ -1057,7 +1057,9 @@ public class HorizontalLayout extends LayoutBase
         var maxVisibleX:Number = minVisibleX + layoutTarget.width;
        
         updateLLV(layoutTarget);
-        var startIndex:int = llv.indexOf(minVisibleX); 
+        var startIndex:int = llv.indexOf(minVisibleX);
+        if (startIndex == -1)
+            return; 
             
         var fixedColumnWidth:Number = NaN;
         if (!variableColumnWidth)
