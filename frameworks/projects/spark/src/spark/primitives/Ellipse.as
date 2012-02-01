@@ -28,6 +28,11 @@ import mx.utils.MatrixUtil;
  *  @see flash.display.Graphics
  *  
  *  @includeExample examples/EllipseExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class Ellipse extends FilledElement
 {
@@ -41,6 +46,11 @@ public class Ellipse extends FilledElement
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function Ellipse()
     {
@@ -61,6 +71,11 @@ public class Ellipse extends FilledElement
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function drawElement(g:Graphics):void
     {
