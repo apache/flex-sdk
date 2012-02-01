@@ -12,12 +12,14 @@
 package spark.utils
 {
 import flash.display.BitmapData;
+import flash.display.DisplayObject;
 import flash.display.IBitmapDrawable;
 import flash.display.Sprite;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
 
 import mx.core.IUIComponent;
+import mx.utils.MatrixUtil;
 
 /**
  *  This class provides bitmap-related utility functions 
@@ -53,7 +55,8 @@ public class BitmapUtil
     {
         var topLevel:Sprite = Sprite(IUIComponent(target).systemManager);   
         var rectBounds:Rectangle = target.getBounds(topLevel);
-        var m:Matrix = target.transform.concatenatedMatrix;
+        // Can't use target's concatenatedMatrix, as it is sometimes wrong
+        var m:Matrix = MatrixUtil.getConcatenatedMatrix(target as DisplayObject);
         // truncate position because the fractional offset will already be figured
         // into the filter placement onto the target. 
         // FIXME (chaase): There are still some offset
