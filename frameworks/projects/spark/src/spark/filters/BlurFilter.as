@@ -1,68 +1,20 @@
-////////////////////////////////////////////////////////////////////////////////
-//
-//  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2003-2008 Adobe Systems Incorporated
-//  All Rights Reserved.
-//
-//  NOTICE: Adobe permits you to use, modify, and distribute this file
-//  in accordance with the terms of the license agreement accompanying it.
-//
-////////////////////////////////////////////////////////////////////////////////
-
 package mx.filters
 {
-import flash.events.Event;	
-import flash.events.EventDispatcher;	
 import flash.filters.BitmapFilter;
 import flash.filters.BitmapFilterQuality;
 import flash.filters.BlurFilter;
-import mx.filters.IFlexBitmapFilter;
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 
-/**
- *  @review 
- *  Dispatched when a property value has changed. 
- */ 
-[Event(name="change", type="flash.events.Event")]
-
-/**
- *  @review 
- * 
- * 	The mx.filters.BlurFilter class is based on flash.filters.BlurFilter but adds 
- *  support for dynamically updating property values. 
- *  When a property changes, it dispatches an event that tells the filter owner to
- *  reapply the filter. Use this class instead of flash.filters.BlurFilter if you plan
- *  to dynamically change the filter property values.  
- * 
- *  @see flash.filters.BlurFilter
- */
-public class BlurFilter extends EventDispatcher implements IFlexBitmapFilter
+public class BlurFilter extends BaseFilter implements IBitmapFilter
 {
-	include "../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //--------------------------------------------------------------------------
-    	
-	/**
-	 * @copy flash.filters.BlurFilter
-	 */ 
 	public function BlurFilter(blurX:Number = 4.0, blurY:Number = 4.0, quality:int = 1)
 	{
-		super();
-		
 		this.blurX = blurX;
 		this.blurY = blurY;
 		this.quality = quality;
 	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-		
+	
 	//----------------------------------
     //  blurX
     //----------------------------------
@@ -148,38 +100,11 @@ public class BlurFilter extends EventDispatcher implements IFlexBitmapFilter
 			notifyFilterChanged();
 		}
 	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
-   	
-   	/**
-     * @private
-     * Notify of a change to our filter, so that filter stack is ultimately 
-     * re-applied by the framework.
-     */ 
-	private function notifyFilterChanged():void
-	{
-		dispatchEvent(new Event(Event.CHANGE));
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  IFlexBitmapFilter 
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  Creates a flash.filters.BlurFilter instance using the current 
-	 *  property values. 
-	 * 
-	 *  @return flash.filters.BlurFilter instance
-	 */
-	public function createBitmapFilter():BitmapFilter 
+		
+	public function clone():BitmapFilter
 	{
 		return new flash.filters.BlurFilter(blurX, blurY, quality);
 	}
+	
 }
 }
