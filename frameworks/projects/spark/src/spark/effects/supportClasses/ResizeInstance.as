@@ -303,8 +303,9 @@ public class ResizeInstance extends AnimateInstance
         {       
             if (isNaN(widthBy) &&
                 propertyChanges &&
-                (propertyChanges.end["width"] !== undefined ||
-                 explicitWidth !== undefined ))
+                ((propertyChanges.end["width"] !== undefined &&
+                  propertyChanges.end["width"] != propertyChanges.start["width"]) ||
+                 (explicitWidth !== undefined && !isNaN(explicitWidth))))
             {
                 if (explicitWidth !== undefined && !isNaN(explicitWidth))
                 {
@@ -333,8 +334,9 @@ public class ResizeInstance extends AnimateInstance
         {       
             if (isNaN(heightBy) &&
                 propertyChanges &&
-                (propertyChanges.end["height"] !== undefined ||
-                 explicitHeight !== undefined))
+                ((propertyChanges.end["height"] !== undefined &&
+                  propertyChanges.end["height"] != propertyChanges.start["height"]) ||
+                 (explicitHeight !== undefined && !isNaN(explicitHeight))))
             {
                 if (explicitHeight !== undefined && !isNaN(explicitHeight))
                 {
