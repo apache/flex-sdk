@@ -12,7 +12,6 @@ package flex.effects.effectClasses
 {
 import flash.events.Event;
 
-import flex.component.Panel;
 import flex.effects.Animation;
 import flex.effects.PropertyValuesHolder;
 import flex.events.AnimationEvent;
@@ -241,7 +240,7 @@ public class ResizeInstance extends AnimateInstance
         // TODO: We should axe this from Resize and enable the
         // functionality in a different manner, such as setting hiding
         // effects manually on the children themselves
-        var childrenHiding:Boolean = hidePanelChildren();
+        var childrenHiding:Boolean = false; // hidePanelChildren();
 
         if (target is IStyleClient)
         {
@@ -423,6 +422,7 @@ public class ResizeInstance extends AnimateInstance
      *  @private
      *  Hides children of Panels while the effect is playing.
      */
+    /*
     private function hidePanelChildren():Boolean
     {
         if (!hideChildrenTargets)
@@ -456,10 +456,12 @@ public class ResizeInstance extends AnimateInstance
 
         return numHideEffectsPlaying > 0;
     }
-
+    */
+    
     /**
      *  @private
      */
+    /*
     private function makePanelChildrenInvisible(panel:Panel,
                                                 panelIndex:Number):void
     {
@@ -497,15 +499,14 @@ public class ResizeInstance extends AnimateInstance
 
         // Set autoLayout = false, which prevents the Panel's updateDisplayList()
         // method from executing while the Panel is resizing.  
-        /*
-        if (panel.autoLayout)
-        {
-            panel.autoLayout = false;
-            restoreAutoLayoutArray[panelIndex] = true;
-        }
-        */
+        //if (panel.autoLayout)
+        //{
+        //    panel.autoLayout = false;
+        //    restoreAutoLayoutArray[panelIndex] = true;
+        //}
     }    
-
+    */
+    
     /**
      *  @private
      */
@@ -548,6 +549,7 @@ public class ResizeInstance extends AnimateInstance
      *  This function is called when one of the Panels finishes
      *  its "hide children" animation. 
      */
+    /*
     private function panelChildrenEventHandler(event:Event):void
     {
         var panel:Panel = event.target as Panel;
@@ -582,6 +584,6 @@ public class ResizeInstance extends AnimateInstance
                 animation.resume();     
         } 
     }
-    
+    */
 }
 }
