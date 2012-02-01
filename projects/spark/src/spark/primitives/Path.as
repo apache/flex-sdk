@@ -828,7 +828,7 @@ public class Path extends FilledElement
                                              width, 
                                              height);
         if (stroke)
-            stroke.apply(g, bounds, origin);
+            stroke.apply(g, getStrokeBounds(), origin);
         else
             g.lineStyle();
         
