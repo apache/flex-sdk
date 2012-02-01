@@ -1284,8 +1284,14 @@ public class HorizontalLayout extends LayoutBase
         var layoutTarget:GroupBase = target; 
         if (!layoutTarget)
             return;
- 
-        if (virtualLayout) 
+
+        if (layoutTarget.numLayoutElements == 0)
+        {
+            setColumnCount(0);
+            setIndexInView(-1, -1);
+            layoutTarget.setContentSize(0, 0);            
+        }
+        else if (virtualLayout) 
             updateDisplayListVirtual();
         else
             updateDisplayListReal();
