@@ -22,6 +22,9 @@
 
     <!-- host component -->
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.mediaClasses.VolumeBar")]
     </fx:Metadata> 
 
@@ -31,9 +34,11 @@
         <s:State name="disabled" />
     </s:states>
     
+    <!--- The popup that contains the dropdown -->
     <s:PopUpAnchor id="popup"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
         left="0" right="0" top="0" bottom="0" popUpPosition="above">
         
+        <!--- @copy spark.components.mediaClasses.VolumeBar#dropDown -->
         <s:Group id="dropDown" width="38" height="84" horizontalCenter="0">
         
             <!-- dropshadow for the dropdown -->
@@ -56,14 +61,17 @@
                 </s:stroke>
             </s:Rect>
             
+            <!--- @copy spark.components.supportClasses.TrackBase#track -->
             <s:Button id="track" horizontalCenter="0" top="6" bottom="7"
                       skinClass="spark.skins.spark.mediaClasses.fullScreen.VolumeBarTrackSkin" />
             
+            <!--- @copy spark.components.supportClasses.TrackBase#track -->
             <s:Button id="thumb" horizontalCenter="0" width="11" height="11" 
                       skinClass="spark.skins.spark.mediaClasses.fullScreen.VolumeBarThumbSkin" />
         </s:Group>
     </s:PopUpAnchor>
-        
+    
+    <!--- @copy spark.components.mediaClasses.VolumeBar#muteButton -->
     <s:MuteButton id="muteButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
               skinClass="spark.skins.spark.mediaClasses.fullScreen.MuteButtonSkin" />
     
