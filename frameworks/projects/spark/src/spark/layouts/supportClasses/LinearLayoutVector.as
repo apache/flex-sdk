@@ -306,7 +306,7 @@ public final class LinearLayoutVector
      *  Equivalent to:
      *  <pre>
      *  var distance:Number = 0;
-     *  for (var i:int = 0; i < index; i++)
+     *  for (var i:int = 0; i &lt; index; i++)
      *      distance += get(i);
      *  return distance + (gap * index);
      *  </pre>
@@ -376,7 +376,7 @@ public final class LinearLayoutVector
     /**
      *  Returns the index of the item that overlaps the specified distance.
      * 
-     *  The item at index <code>i<code> overlaps a distance value 
+     *  The item at index <code>i</code> overlaps a distance value 
      *  if <code>start(i) &lt;= distance &lt; end(i)</code>.
      * 
      *  If no such item exists, -1 is returned.
