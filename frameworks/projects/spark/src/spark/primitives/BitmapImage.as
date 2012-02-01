@@ -128,7 +128,7 @@ public class BitmapImage extends GraphicElement
      *  of this property in a tag, use the string (such as "repeat"). If you set the value of 
      *  this property in ActionScript, use the constant (such as <code>BitmapFillMode.CLIP</code>).
      * 
-     *  When set to <code>BitmapFillMode.clip</code> ("clip"), the bitmap
+     *  When set to <code>BitmapFillMode.CLIP</code> ("clip"), the bitmap
      *  ends at the edge of the region.
      * 
      *  When set to <code>BitmapFillMode.REPEAT</code> ("repeat"), the bitmap 
