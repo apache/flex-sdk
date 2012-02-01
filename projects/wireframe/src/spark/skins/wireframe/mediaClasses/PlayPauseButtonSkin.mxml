@@ -78,7 +78,7 @@
         <!-- triangle -->
         <s:Path winding="evenOdd" data="M 1 0 L 1 13 L 8 7 L 1 0 Z">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Path>
     </s:Group>
@@ -89,14 +89,14 @@
         <!-- big line on left -->
         <s:Rect left="0" top="0" height="11" width="3">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Rect>
         
         <!-- big line on right -->
         <s:Rect left="4" top="0" height="11" width="3">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Rect>
         
