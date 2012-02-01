@@ -52,7 +52,7 @@
           data="M 0 0 l 0 18 l 65.2 0 C 66.2 18 67 17.2 67 16.2 L 67 1.8 C 66.2 0 67 0.8 65.2 0 L 0 0 z">
         <s:fill>
             <s:SolidColor color="#FFFFFF" color.over="#EEEEEE" 
-                        color.down="#EEEEEE" color.selectedStates="#EEEEEE" />
+                        color.down="#DDDDDD" color.selectedStates="#DDDDDD" />
         </s:fill>
     </s:Path>
     
