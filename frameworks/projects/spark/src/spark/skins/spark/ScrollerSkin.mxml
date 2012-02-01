@@ -24,6 +24,7 @@
       <![CDATA[
     
         import flex.component.ScrollBar;
+        import flex.core.Group;
         import flex.layout.LayoutItemFactory;
         import flex.intf.ILayoutItem;
         import flex.intf.IViewport;
@@ -34,7 +35,23 @@
             return (item) ? LayoutItemFactory.getLayoutItemFor(item) : null;
         }
         
-        
+        /**
+         *  Computes the union of the preferred size of the visible 
+         *  scrollbars and the viewport.  
+         * 
+         *  This becomes the ScrollerSkin's measuredWidth,Height.
+         *    
+         *  The ScrollerSkin's minimum size is only big enough to 
+         *  acccomodate the visible scrollbars.
+         * 
+         *  The viewport does not contribute to the minimum size.
+         * 
+         *  Note also: at updateDisplayList() time, we honor the vertical
+         *  scrollbar's minimum height, and the horizontal scrollbar's 
+         *  minimum width.  
+         *  
+         *  @see #updateDisplayList
+         */
 	    override protected function measure():void
 	    {
             var hsb:ScrollBar = horizontalScrollBar;
@@ -59,31 +76,67 @@
                     break;
             }
             
-            var viewportLI:ILayoutItem = layoutItemFor(hostComponent.viewport);
-            var measuredW:Number = viewportLI.preferredSize.x;
-            var measuredH:Number = viewportLI.preferredSize.y;
-            var minW:Number = viewportLI.minSize.x;
-            var minH:Number = viewportLI.minSize.y;
+            var measuredW:Number = 0;
+            var measuredH:Number = 0;
+            var minW:Number = 0;
+            var minH:Number = 0;            
+            
+            var viewport:IViewport = hostComponent.viewport;
+            if (viewport)
+            {
+	            var viewportLI:ILayoutItem = layoutItemFor(viewport);
+	            measuredW = viewportLI.preferredSize.x;
+	            measuredH = viewportLI.preferredSize.y;
+            }
             
             if (showHSB)
             {
                 var hsbLI:ILayoutItem = layoutItemFor(hsb);
                 measuredH += hsbLI.preferredSize.y;
-                minH += hsbLI.minSize.y;
+                minW += hsbLI.minSize.x;              
+                minH += hsbLI.minSize.y;  
             }
             if (showVSB)
             {
                 var vsbLI:ILayoutItem = layoutItemFor(vsb);
                 measuredW += vsbLI.preferredSize.x;
                 minW += vsbLI.minSize.x;
+                minH += vsbLI.minSize.y;
             }
-            measuredWidth = Math.max(minW, measuredW);
-            measuredHeight = Math.max(minH, measuredH);
-            minWidth = minW;
-            minHeight = minH;
+            measuredWidth = measuredW;
+            measuredHeight = measuredH;
+            minWidth = 0; 
+            minHeight = 0;
 	    }
 	    
-	    
+        /** 
+         *  Arrange the viewport and scrollbars conventionally within
+         *  the specified width and height: vertical scrollbar on the 
+         *  right, horizontal scrollbar along the bottom.
+         * 
+         *  In other words, the Scroller's height will not
+         *  shrink below the vertical scrollbar's minimum height, and its
+         *  width will not shrink below the horizontal scrollbar's
+         *  minimum width.
+         * 
+         *  The scrollbars are made visible if the viewport's content size is
+         *  bigger than the actual size.
+         * 
+         *  If the visibility of either scrollbar changes we apply invalidateSize()
+         *  to the ScrollerSkin.
+         * 
+         *  This causes new values for measuredWidth,Height to be computed, and 
+         *  it causes the update process to be restarted.
+         * 
+         *  Note also: the logic for calling updateDisplayList and then restarting
+         *  the process if the component has become invalid is in
+         *  mx.managers.LayoutManager::validateDisplayList.
+         * 
+         *  param w The skin's unscaled width.
+         *  param h The skin's unscaled height.
+         *
+         *  @see #measure 
+         */	    
         override protected function updateDisplayList(w:Number, h:Number):void
         {  
             var viewport:IViewport = hostComponent.viewport;
@@ -99,7 +152,7 @@
                     if (hsb) showHSB = true; 
                     break;
                 case ScrollPolicy.AUTO: 
-                    if (hsb) showHSB = viewport.contentWidth > w; 
+                    if (hsb && viewport) showHSB = viewport.contentWidth > w; 
                     break;
             } 
             var showVSB:Boolean = false;
@@ -108,7 +161,7 @@
                     if (vsb) showVSB = true; 
                     break;
                 case ScrollPolicy.AUTO: 
-                    if (vsb) showVSB = viewport.contentHeight > h
+                    if (vsb && viewport) showVSB = viewport.contentHeight > h;
                     break;
             }
             
@@ -130,9 +183,12 @@
             }
                         
             // layout the viewport
-            var viewportLI:ILayoutItem = layoutItemFor(viewport);
-            viewportLI.setActualPosition(0,0);
-            viewportLI.setActualSize(viewportW, viewportH);
+            if (viewport)
+            {
+	            var viewportLI:ILayoutItem = layoutItemFor(viewport);
+	            viewportLI.setActualPosition(0,0);
+	            viewportLI.setActualSize(viewportW, viewportH);
+            }
             setContentSize(w, h);
 
             // layout and sync the horizontal scrollbar
@@ -145,9 +201,9 @@
             if (showHSB)
             {
 	            hsb.pageSize = viewportW;
-	            hsb.maximum = hostComponent.viewport.contentWidth - viewportW;
+	            hsb.maximum = (viewport) ? viewport.contentWidth - viewportW : 0;
 	            hsbLI.setActualPosition(0, h - hsbH);
-	            hsbLI.setActualSize(viewportW, hsbH);
+	            hsbLI.setActualSize(Math.max(hsbLI.minSize.x, viewportW), hsbH);
             }
             if (oldShowHSB != showHSB)
                 invalidateSize();
@@ -162,9 +218,9 @@
             if (showVSB)
             {
 	            vsb.pageSize = viewportH;
-	            vsb.maximum = hostComponent.viewport.contentHeight - viewportH;
+	            vsb.maximum = (viewport) ? viewport.contentHeight - viewportH : 0;
 	            vsbLI.setActualPosition(w - vsbW, 0);
-	            vsbLI.setActualSize(vsbW, viewportH);
+	            vsbLI.setActualSize(vsbW, Math.max(vsbLI.minSize.y, viewportH));
             }
             if (oldShowVSB != showVSB)
                invalidateSize();
