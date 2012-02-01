@@ -62,29 +62,29 @@ HScrollBarThumbSkin and HScrollBarTrackSkin classes, respectively.
         <s:State name="inactive" />
     </s:states>
     
-    <!---  @copy spark.components.supportClasses.TrackBase#track
-            The default skin class is HScrollBarTrackSkin.    
+    <!---  The default skin class is HScrollBarTrackSkin.    
+            @copy spark.components.supportClasses.TrackBase#track
             @see spark.skins.spark.HScrollBarTrackSkin -->
     <s:Button id="track" left="16" right="15" width="54" 
               focusEnabled="false"
               skinClass="spark.skins.spark.HScrollBarTrackSkin" />
 
-    <!---  @copy spark.components.supportClasses.TrackBase#thumb
-            The default skin class is HScrollBarThumbSkin. 
+    <!---  The default skin class is HScrollBarThumbSkin. 
+            @copy spark.components.supportClasses.TrackBase#thumb
             @see spark.skins.spark.HScrollBarThumbSkin -->
     <s:Button id="thumb" 
               focusEnabled="false" visible.inactive="false"
               skinClass="spark.skins.spark.HScrollBarThumbSkin" />
 
-    <!--- @copy spark.components.supportClasses.ScrollBarBase#decrementButton
-            The default skin class is ScrollBarLeftButtonSkin.
+    <!--- The default skin class is ScrollBarLeftButtonSkin.
+            @copy spark.components.supportClasses.ScrollBarBase#decrementButton
             @see spark.skins.spark.ScrollBarLeftButtonSkin -->
     <s:Button id="decrementButton" left="0"
               focusEnabled="false" enabled.inactive="false"
               skinClass="spark.skins.spark.ScrollBarLeftButtonSkin" />
     
-    <!--- @copy spark.components.supportClasses.ScrollBarBase#incrementButton
-            The default skin class is ScrollBarRightButtonSkin. 
+    <!--- The default skin class is ScrollBarRightButtonSkin. 
+            @copy spark.components.supportClasses.ScrollBarBase#incrementButton
             @see spark.skins.spark.ScrollBarRightButtonSkin -->
     <s:Button id="incrementButton" right="0"
               focusEnabled="false" enabled.inactive="false"
