@@ -23,9 +23,9 @@
 
     <fx:Metadata>
     <![CDATA[ 
-    /** 
-     * @copy spark.skins.spark.ApplicationSkin#hostComponent
-     */
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.CheckBox")]
     ]]>
     </fx:Metadata> 
@@ -66,7 +66,7 @@
             private static const focusExclusions:Array = ["labelDisplay"];
 
             /**
-             * @inheritDoc
+             * @private
              */
             override public function get focusSkinExclusions():Array { return focusExclusions;};
         ]]>
@@ -174,13 +174,17 @@
         <s:Path left="2" top="0" includeIn="selectedStates" id="check" itemCreationPolicy="immediate"
               data="M 9.2 0.1 L 4.05 6.55 L 3.15 5.0 L 0.05 5.0 L 4.6 9.7 L 12.05 0.1 L 9.2 0.1">
             <s:fill>
-            <!--- The solid color fill for the CheckBox's checkmark. The default alpha is .9, and the default fill color is 0x000000. -->
+                <!--- 
+                    @private 
+                    The solid color fill for the CheckBox's checkmark. The default alpha is .9, and the default fill color is 0x000000. 
+                -->
                 <s:SolidColor id="checkMarkFill" color="0" alpha="0.8" />
             </s:fill>
         </s:Path>
     </s:Group>
 
     <!-- Label -->
+    <!--- @copy spark.components.ButtonBase#labelDisplay -->
     <s:Label id="labelDisplay"
              textAlign="start"
              verticalAlign="middle"
