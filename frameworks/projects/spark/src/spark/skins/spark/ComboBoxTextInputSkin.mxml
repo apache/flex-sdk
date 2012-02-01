@@ -19,7 +19,8 @@
       @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabled="0.5" blendMode="normal">
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" 
+    alpha.disabledStates="0.5" blendMode="normal">
 
     <fx:Metadata>
     <![CDATA[ 
@@ -35,7 +36,7 @@
         private var cornerRadius:Number = 0;
         
         /* Define the skin elements that should not be colorized. */
-        static private const exclusions:Array = ["background", "textDisplay"];
+        static private const exclusions:Array = ["background", "textDisplay", "promptDisplay"];
 
         /**
          * @private
@@ -84,6 +85,8 @@
                 shadow.visible = true;
                 background.left = background.top = background.right = background.bottom = 1;
                 textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 1;
+                if (promptDisplay)
+                    promptDisplay.left = promptDisplay.top = promptDisplay.right = promptDisplay.bottom = 1;
             }
             else
             {
@@ -91,6 +94,8 @@
                 shadow.visible = false;
                 background.left = background.top = background.right = background.bottom = 0;
                 textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 0;
+                if (promptDisplay)
+                    promptDisplay.left = promptDisplay.top = promptDisplay.right = promptDisplay.bottom = 0;
             }
             
             borderStroke.color = getStyle("borderColor");
@@ -135,6 +140,25 @@
             padding = getStyle("paddingBottom");
             if (textDisplay.getStyle("paddingBottom") != padding)
                 textDisplay.setStyle("paddingBottom", padding);
+
+            if (!promptDisplay)
+                return;
+            
+            padding = getStyle("paddingLeft");
+            if (promptDisplay.getStyle("paddingLeft") != padding)
+                promptDisplay.setStyle("paddingLeft", padding);
+            
+            padding = getStyle("paddingTop");
+            if (promptDisplay.getStyle("paddingTop") != padding)
+                promptDisplay.setStyle("paddingTop", padding);
+            
+            padding = getStyle("paddingRight");
+            if (promptDisplay.getStyle("paddingRight") != padding)
+                promptDisplay.setStyle("paddingRight", padding);
+            
+            padding = getStyle("paddingBottom");
+            if (promptDisplay.getStyle("paddingBottom") != padding)
+                promptDisplay.setStyle("paddingBottom", padding);
         }
         
         /**
@@ -170,7 +194,9 @@
     
     <s:states>
         <s:State name="normal"/>
-        <s:State name="disabled"/>
+        <s:State name="disabled" stateGroups="disabledStates"/>
+        <s:State name="normalWithPrompt"/>
+        <s:State name="disabledWithPrompt" stateGroups="disabledStates"/>
     </s:states>
     
     <!-- border --> 
@@ -206,5 +232,10 @@
               verticalAlign="middle"
               widthInChars="10"
               left="1" right="1" top="1" bottom="1" />
+    <s:Label id="promptDisplay"
+                verticalAlign="middle"
+                mouseEnabled="false" mouseChildren="false"
+                includeIn="normalWithPrompt,disabledWithPrompt" 
+                left="1" right="1" top="1" bottom="1" />
 
 </s:SparkSkin>
