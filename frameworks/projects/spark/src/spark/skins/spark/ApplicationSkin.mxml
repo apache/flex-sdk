@@ -33,8 +33,8 @@
     <s:states>
         <s:State name="normal" />
         <s:State name="disabled" />
-        <s:State name="normalWithControls" />
-        <s:State name="disabledWithControls" />
+        <s:State name="normalWithControlBar" />
+        <s:State name="disabledWithControlBar" />
     </s:states>
     
     <!-- fill -->
@@ -57,7 +57,7 @@
             Application Control Bar
         -->
         <s:Group id="topGroup" minWidth="0" minHeight="0"
-                    includeIn="normalWithControls, disabledWithControls" >
+                    includeIn="normalWithControlBar, disabledWithControlBar" >
             <!-- layer 0: control bar background -->
             <s:Rect left="0" right="0" bottom="0" top="1" >
                 <s:fill>
@@ -73,7 +73,7 @@
             </s:Rect>
 
             <!-- layer 2: control bar -->
-            <s:Group id="controlGroup" left="0" right="0" top="1" bottom="0" minWidth="0" minHeight="0">
+            <s:Group id="controlBarGroup" left="0" right="0" top="1" bottom="0" minWidth="0" minHeight="0">
                 <s:layout>
                     <s:HorizontalLayout paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10" />
                 </s:layout>
