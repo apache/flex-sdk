@@ -46,16 +46,6 @@
 	    	</stroke>
 	    </Ellipse>
 	    
-	    <!-- border -->
-	    <Ellipse left="0" top="0" right="0" bottom="0">
-			<stroke>
-				<LinearGradientStroke rotation="90">
-					<GradientEntry color="0x000000" alpha="0.70" />
-					<GradientEntry color="0x000000" alpha="0.80" />
-				</LinearGradientStroke>
-			</stroke>
-		</Ellipse>
-	
 		<!-- fill -->
 		<Ellipse left="1" top="1" right="1" bottom="1">
 			<fill>
@@ -95,6 +85,16 @@
 					        alpha.overStates="0.22" />
 			</fill>
 		</Rect>
+		
+        <!-- border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+        <Ellipse left="0" top="0" right="0" bottom="0">
+            <stroke>
+                <LinearGradientStroke rotation="90">
+                    <GradientEntry color="0x000000" alpha="0.70" />
+                    <GradientEntry color="0x000000" alpha="0.80" />
+                </LinearGradientStroke>
+            </stroke>
+        </Ellipse>
 		
 	    <!-- dot -->
 	    <BitmapGraphic source="@Embed('assets/RadioDot.png')" left="4" top="4"
