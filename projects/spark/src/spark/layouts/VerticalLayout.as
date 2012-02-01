@@ -41,7 +41,7 @@ public class VerticalLayout extends LayoutBase
 
     private static function calculatePercentWidth( layoutItem:ILayoutItem, width:Number ):Number
     {
-    	var percentWidth:Number = LayoutItemHelper.pinBetween( layoutItem.percentSize.x * width,
+    	var percentWidth:Number = LayoutItemHelper.pinBetween( layoutItem.percentSize.x * 0.01 * width,
     	                                                       layoutItem.minSize.x,
     	                                                       layoutItem.maxSize.x );
     	return percentWidth < width ? percentWidth : width;
@@ -935,7 +935,7 @@ public class VerticalLayout extends LayoutBase
 
                 childInfo = new LayoutItemFlexChildInfo();
                 childInfo.layoutItem = layoutItem;
-                childInfo.percent    = layoutItem.percentSize.y * 100;
+                childInfo.percent    = layoutItem.percentSize.y;
                 childInfo.min        = layoutItem.minSize.y;
                 childInfo.max        = layoutItem.maxSize.y;
                 
@@ -955,7 +955,6 @@ public class VerticalLayout extends LayoutBase
         // Distribute the extra space among the flexible children
         if (totalPercentHeight)
         {
-            totalPercentHeight *= 100;
             spaceToDistribute = Flex.flexChildrenProportionally(height,
                                                                 spaceToDistribute,
                                                                 totalPercentHeight,
