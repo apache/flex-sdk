@@ -190,6 +190,7 @@ public class BorderSkin extends Skin
  
                 bitmapFill.source = bgImage;
                 bitmapFill.resizeMode = getStyle("backgroundImageResizeMode");
+                bitmapFill.alpha = getStyle("backgroundAlpha");
                 
                 bgRect.fill = bitmapFill;
             }
