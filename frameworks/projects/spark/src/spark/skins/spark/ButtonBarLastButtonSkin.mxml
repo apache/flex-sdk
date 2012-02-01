@@ -12,6 +12,9 @@
 -->
 
 <!--- The default skin class for the last button in a Spark ButtonBar component.  
+
+       @see spark.components.ButtonBar
+       @see spark.components.ButtonBarButton
         
       @langversion 3.0
       @playerversion Flash 10
