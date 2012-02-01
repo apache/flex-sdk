@@ -10,8 +10,9 @@
 
 -->
 <!--- The Spark skin class for the border of the Halo TextInput component. -->
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-	  alpha.disabled="0.5" implements="mx.core.IBorder">
+<local:SparkSkinForHalo xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+      xmlns:local="mx.skins.spark.*"
+	  implements="mx.core.IBorder">
     
     <fx:Script>
 		<![CDATA[
@@ -26,6 +27,10 @@
         static private const contentFill:Array = ["bgFill"];
         override public function get contentItems():Array {return contentFill};
 
+        /* Define the border items.*/
+        static private const borderItem:Array = ["borderEntry1", "borderEntry2"];
+        override protected function get borderItems():Array {return borderItem;}
+        
 		static private const metrics:EdgeMetrics = new EdgeMetrics(2, 2, 2, 2);
 		
 		public function get borderMetrics():EdgeMetrics
@@ -44,17 +49,12 @@
 		]]>
     </fx:Script>
     
-    <s:states>
-        <s:State name="normal"/>
-        <s:State name="disabled"/>
-    </s:states>
-    
     <!-- border --> 
 	<s:Rect left="0" right="0" top="0" bottom="0">
         <s:stroke>            
             <s:LinearGradientStroke rotation="90" weight="1">
-            	<s:GradientEntry color="0x000000" alpha="0.5525" />
-            	<s:GradientEntry color="0x000000" alpha="0.6375" />
+            	<s:GradientEntry id="borderEntry1" alpha="0.5525" />
+            	<s:GradientEntry id="borderEntry2" alpha="0.6375" />
             </s:LinearGradientStroke>
         </s:stroke>
     </s:Rect>
@@ -72,4 +72,4 @@
 			<s:SolidColor color="0x000000" alpha="0.12" />
 		</s:fill>
 	</s:Rect>
-</s:SparkSkin>
+</local:SparkSkinForHalo>
