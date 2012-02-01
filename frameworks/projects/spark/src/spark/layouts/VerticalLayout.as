@@ -11,7 +11,6 @@
 
 package flex.layout
 {
-
 import flash.geom.Rectangle;
 
 import flex.core.Group;
@@ -83,7 +82,10 @@ public class VerticalLayout implements ILayout
     {
         _target = value;
     }
-    
+
+    //----------------------------------
+    //  gap
+    //----------------------------------
     
     /**
      *  @private
@@ -112,16 +114,16 @@ public class VerticalLayout implements ILayout
      */
     public function set gap(value:int):void
     {
-        if (_gap != value)
-        {
-			_gap = value;
- 		   	var layoutTarget:Group = target;
-        	if (layoutTarget != null) {
-				gapChanged = true;
-            	layoutTarget.invalidateSize();
-	            layoutTarget.invalidateDisplayList();
-        	}
-        }
+        if (_gap == value) return;
+
+		_gap = value;
+ 	   	var layoutTarget:Group = target;
+    	if (layoutTarget != null) 
+    	{
+			gapChanged = true;
+        	layoutTarget.invalidateSize();
+            layoutTarget.invalidateDisplayList();
+    	}
     }
     
     //----------------------------------
@@ -173,20 +175,12 @@ public class VerticalLayout implements ILayout
         {
             setRowCount(value);
  		   	var layoutTarget:Group = target;
-        	if (layoutTarget != null) {
+        	if (layoutTarget != null) 
+        	{
         		rowCountChanged = true;
             	layoutTarget.invalidateSize();
 	            layoutTarget.invalidateDisplayList();
         	}
-
-/*
-            rowCountChanged = true;
-            invalidateProperties();
-            invalidateSize();
-            itemsSizeChanged = true;
-            invalidateDisplayList();
-            dispatchEvent(new Event("rowCountChanged"));
-*/            
         }
     }
 
@@ -232,8 +226,6 @@ public class VerticalLayout implements ILayout
      *  The height of the rows in pixels.
      *  Unless the <code>variableRowHeight</code> property is
      *  <code>true</code>, all rows are the same height.  
-     *  If not specified, the row height is based on
-     *  the font size and other properties of the renderer.
      */
     public function get rowHeight():Number
     {
@@ -251,17 +243,12 @@ public class VerticalLayout implements ILayout
         {
             setRowHeight(value);
  		   	var layoutTarget:Group = target;
-        	if (layoutTarget != null) {
+        	if (layoutTarget != null) 
+        	{
         		rowHeightChanged = true;
             	layoutTarget.invalidateSize();
 	            layoutTarget.invalidateDisplayList();
         	}
-         /*
-            invalidateSize();
-            itemsSizeChanged = true;
-            invalidateDisplayList();
-            dispatchEvent(new Event("rowHeightChanged"));
-          */
         }
     }
 
@@ -270,92 +257,59 @@ public class VerticalLayout implements ILayout
      *  setting of <code>explicitRowHeight</code> which
      *  permanently locks in the height of the rows.
      *
-     *  @param v The row height, in pixels.
+     *  @param value The row height, in pixels.
      */
-    protected function setRowHeight(v:Number):void
+    protected function setRowHeight(value:Number):void
     {
-        _rowHeight = v;
+        _rowHeight = value;
     }    
-    
+
+
     //----------------------------------
-    //  explicitColWidth
+    //  variableRowHeight
     //----------------------------------
 
     /**
-     *  The column width requested by explicitly setting
-     *  <code>colWidth</code>.
-     */
-    protected var explicitColWidth:Number;
-
-    //----------------------------------
-    //  colWidth
-    //----------------------------------
-    
-    /**
      *  @private
      */
-    private var _colWidth:Number = 20;
-    
-    /**
-     *  @private
-     */
-    private var colWidthChanged:Boolean = false;
+    private var _variableRowHeight:Boolean = true;
 
     [Inspectable(category="General")]
 
     /**
-     *  The width of the (one) column in pixels.
+     *  @default true
      */
-    public function get colWidth():Number
+    public function get variableRowHeight():Boolean
     {
-        return _colWidth;
+        return _variableRowHeight;
     }
 
     /**
      *  @private
      */
-    public function set colWidth(value:Number):void
+    public function set variableRowHeight(value:Boolean):void
     {
-        explicitColWidth = value;
-
-        if (_colWidth != value)
-        {
-            setColWidth(value);
- 		   	var layoutTarget:Group = target;
-        	if (layoutTarget != null) {
-        		colWidthChanged = true;
-            	layoutTarget.invalidateSize();
-	            layoutTarget.invalidateDisplayList();
-        	}
+        if (value == _variableRowHeight) return;
+        
+        _variableRowHeight = value;
+ 		var layoutTarget:Group = target;
+        if (layoutTarget != null) {
+    		layoutTarget.invalidateSize();
+        	layoutTarget.invalidateDisplayList();
         }
     }
 
-    /**
-     *  Sets the <code>colWidth</code> property without causing invalidation or 
-     *  setting of <code>explicitColWidth</code> which
-     *  permanently locks in width of the (one) column.
-     *
-     *  @param v The row height, in pixels.
-     */
-    protected function setColWidth(v:Number):void
-    {
-        _colWidth = v;
-    } 
 
-
-    public function measure():void
+    private function variableRowHeightMeasure(layoutTarget:Group):void
     {
-    	var layoutTarget:Group = target;
-        if (!layoutTarget)
-            return;
-            
         var minWidth:Number = 0;
         var minHeight:Number = 0;
         var preferredWidth:Number = 0;
         var preferredHeight:Number = 0;
         var visibleHeight:Number = 0;
         var visibleRows:uint = 0;
-        
+        var explicitRowCount:int = explicitRowCount;
+         
         var count:uint = layoutTarget.numLayoutItems;
         var totalCount:uint = count; // How many items will be laid out
         for (var i:int = 0; i < count; i++)
@@ -375,7 +329,8 @@ public class VerticalLayout implements ILayout
             minWidth = Math.max(minWidth, itemMinWidth);
             minHeight += itemMinHeight;
             
-            if ((explicitRowCount != -1) && (visibleRows < explicitRowCount)) {
+            if ((explicitRowCount != -1) && (visibleRows < explicitRowCount)) 
+            {
             	visibleHeight = preferredHeight;
             	visibleRows += 1;
             }
@@ -386,7 +341,7 @@ public class VerticalLayout implements ILayout
             var gapSpace:Number = gap * (totalCount - 1);
             minHeight += gapSpace;
             preferredHeight += gapSpace; 
-            visibleHeight += (visibleRows < 2) ? 0 : ((visibleRows - 1) * gap); 
+            visibleHeight += (visibleRows > 1) ? (gap * (visibleRows - 1)) : 0;
         }
         
         layoutTarget.measuredWidth = preferredWidth;
@@ -397,6 +352,55 @@ public class VerticalLayout implements ILayout
 
         layoutTarget.measuredMinWidth = minWidth; 
         layoutTarget.measuredMinHeight = minHeight;
+    }
+   
+   
+    private function fixedRowHeightMeasure(layoutTarget:Group):void
+    {
+        // TBD init rowHeight if explicitRowHeight isNaN
+        var rows:uint = layoutTarget.numLayoutItems;
+        var visibleRows:uint = (explicitRowCount == -1) ? rows : explicitRowCount;
+        var contentHeight:Number = (rows * rowHeight) + ((rows > 1) ? (gap * (rows - 1)) : 0);
+        var visibleHeight:Number = (visibleRows * rowHeight) + ((visibleRows > 1) ? (gap * (visibleRows - 1)) : 0);
+        
+        var columnWidth:Number = layoutTarget.explicitWidth;
+        var minColumnWidth:Number = columnWidth;
+        if (isNaN(columnWidth)) 
+        {
+			minColumnWidth = columnWidth = 0;
+	        var count:uint = layoutTarget.numLayoutItems;
+	        for (var i:int = 0; i < count; i++)
+	        {
+	            var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
+	            if (!layoutItem || !layoutItem.includeInLayout) continue;
+	            columnWidth = Math.max(columnWidth, layoutItem.preferredSize.x);
+	            var itemMinWidth:Number = hasPercentWidth(layoutItem) ? layoutItem.minSize.x : layoutItem.preferredSize.x;
+	            minColumnWidth = Math.max(minColumnWidth, itemMinWidth);
+	        }
+        }     
+        
+        layoutTarget.measuredWidth = columnWidth;
+        layoutTarget.measuredHeight = visibleHeight;
+        
+        layoutTarget.contentWidth = columnWidth; 
+        layoutTarget.contentHeight = contentHeight;
+
+        layoutTarget.measuredMinWidth = minColumnWidth;
+        layoutTarget.measuredMinHeight = rowHeight;
+    }
+    
+    
+    public function measure():void
+    {
+    	var layoutTarget:Group = target;
+        if (!layoutTarget)
+            return;
+            
+        if (variableRowHeight) 
+        	variableRowHeightMeasure(layoutTarget);
+        else 
+        	fixedRowHeightMeasure(layoutTarget);
+
     }
     
     
@@ -430,18 +434,29 @@ public class VerticalLayout implements ILayout
         // TODO EGeorgie: horizontalAlign
         var hAlign:Number = 0;
         
+        // If rowCount wasn't set, then as the LayoutItems are positioned
+        // we'll count how many rows fall within the layoutTarget's scrollRect
+        var visibleRows:uint = 0;
+        var minVisibleY:Number = layoutTarget.verticalScrollPosition;
+        var maxVisibleY:Number = minVisibleY + unscaledHeight;
+        
         // Finally, position the objects        
         var y:Number = 0;
         for each (var lo:ILayoutItem in layoutItemArray)
         {
             var x:Number = (unscaledWidth - lo.actualSize.x) * hAlign;
-
             lo.setActualPosition(x, y);
-            y += lo.actualSize.y;
-            y += gap;
+            if (!variableRowHeight)
+                lo.setActualSize(lo.actualSize.x, rowHeight);
+            var dy:Number = lo.actualSize.y;
+            if ((explicitRowCount == -1) && (y < maxVisibleY) && ((y + dy) > minVisibleY)) 
+            	visibleRows += 1;
+            y += dy + gap;
         }
+        if (explicitRowCount == -1) 
+        	setRowCount(visibleRows);
         
-        var r:Rectangle = layoutTarget.scrollRect; // returns a copy
+        var r:Rectangle = layoutTarget.scrollRect;
         if (r != null) 
         {
             r.width = unscaledWidth;
