@@ -27,7 +27,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="baselineShift", type="Object", inherit="yes", enumeration="superscript,subscript,inherit")]
+[Style(name="baselineShift", type="Object", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#cffHinting
@@ -77,7 +77,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="direction", type="String", enumeration="ltr,rtl,inherit", inherit="yes")]
+[Style(name="direction", type="String", enumeration="ltr,rtl", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#dominantBaseline
