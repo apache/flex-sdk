@@ -13,7 +13,7 @@ package spark.events
 {
 
 import flash.events.Event;
-import spark.components.supportClasses.CellRegion;
+import spark.components.gridClasses.CellRegion;
 
 /**
  *  The GridSelectionEvent class represents events that are dispatched when 
