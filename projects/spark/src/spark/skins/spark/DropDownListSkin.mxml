@@ -12,6 +12,11 @@
 <!--- The default skin class for the Spark DropDownList component. 
       The skin for the anchor button for a DropDownList component 
       is defined by the DropDownListButtonSkin class.  
+      
+      <p>In a custom skin class that uses transitions, set the 
+      <code>itemDestructionPolicy</code> property to <code>none</code>
+      for the PopUpAnchor defined by the popUp property.</p>
+      
         
       @see spark.components.DropDownList        
       @see spark.skins.spark.DropDownListButtonSkin
@@ -95,6 +100,9 @@
     
     <!--- 
         The PopUpAnchor control that opens the drop-down list. 
+        
+        <p>In a custom skin class that uses transitions, set the 
+        <code>itemDestructionPolicy</code> property to <code>none</code>.</p>
     -->
     <s:PopUpAnchor id="popUp"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
         left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
@@ -106,13 +114,14 @@
         -->
         <s:Group id="dropDown" maxHeight="134" minHeight="22" >
         
-            <!-- drop shadow -->
+            <!--- drop shadow @private -->
             <s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.45" distance="7" 
                  angle="90" color="#000000" left="0" top="0" right="0" bottom="0"/>
         
-            <!-- border -->
+            <!--- border @private -->
             <s:Rect id="border" left="0" right="0" top="0" bottom="0">
                 <s:stroke>
+                    <!--- border stroke @private -->
                     <s:SolidColorStroke id="borderStroke" weight="1"/>
                 </s:stroke>
             </s:Rect>
@@ -131,6 +140,7 @@
                 </s:fill>
             </s:Rect>
             
+            <!--- scroller @private -->
             <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" focusEnabled="false" minViewportInset="1">
                 <!---  
                     The container for the data items in the drop-down list.
