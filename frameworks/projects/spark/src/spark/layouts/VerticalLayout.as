@@ -52,7 +52,7 @@ import spark.layout.supportClasses.LinearLayoutVector;
  *    property is ignored when the layout is virtualized.</li>
  *
  *    <li>Set the element's height to its preferred height.</li>
- *  <ul>
+ *  </ul>
  *
  *  The width of each element is calculated according to the following rules,
  *  listed in their respective order of precedence (element's minium width and
