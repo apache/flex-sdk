@@ -12,11 +12,10 @@
 package spark.layout
 {
 
-import flash.geom.Point;
-import flash.geom.Rectangle;
+import mx.core.ILayoutElement;
+import mx.core.IVisualElement;
 
 import spark.components.supportClasses.GroupBase;
-import mx.core.ILayoutElement;
 import spark.layout.supportClasses.LayoutBase;
 import spark.layout.supportClasses.LayoutElementHelper;
 
@@ -97,41 +96,96 @@ public class BasicLayout extends LayoutBase
             if (!layoutElement || !layoutElement.includeInLayout)
                 continue;
 
+            var hCenter:Number   = LayoutElementHelper.parseConstraintValue(layoutElement.horizontalCenter);
+            var vCenter:Number   = LayoutElementHelper.parseConstraintValue(layoutElement.verticalCenter);
+            var baseline:Number  = LayoutElementHelper.parseConstraintValue(layoutElement.baseline);
             var left:Number      = LayoutElementHelper.parseConstraintValue(layoutElement.left);
             var right:Number     = LayoutElementHelper.parseConstraintValue(layoutElement.right);
             var top:Number       = LayoutElementHelper.parseConstraintValue(layoutElement.top);
             var bottom:Number    = LayoutElementHelper.parseConstraintValue(layoutElement.bottom);
 
-            var extX:Number = 0;
-            var extY:Number = 0;
+            // Extents of the element - how much additional space (besides its own width/height)
+            // the element needs based on its constraints.
+            var extX:Number;
+            var extY:Number;
 
-            if (isNaN(left) && isNaN(right) &&
-                isNaN(LayoutElementHelper.parseConstraintValue(layoutElement.horizontalCenter)))
+            if (!isNaN(left) && !isNaN(right))
             {
-                extX += layoutElement.getLayoutBoundsX();
+                // If both left & right are set, then the extents is always
+                // left + right so that the element is resized to its preferred
+                // size (if it's the one that pushes out the default size of the container).
+                extX = left + right;                
             }
-            else
+            else if (!isNaN(hCenter))
             {
-                extX += isNaN(left) ? 0 : left;
+                // If we have horizontalCenter, then we want to have at least enough space
+                // so that the element is within the parent container.
+                // If the element is aligned to the left/right edge of the container and the
+                // distance between the centers is hCenter, then the container width will be
+                // parentWidth = 2 * (abs(hCenter) + elementWidth / 2)
+                // <=> parentWidth = 2 * abs(hCenter) + elementWidth
+                // Since the extents is the additional space that the element needs
+                // extX = parentWidth - elementWidth = 2 * abs(hCenter)
+                extX = Math.abs(hCenter) * 2;
+            }
+            else if (!isNaN(left) || !isNaN(right))
+            {
+                extX = isNaN(left) ? 0 : left;
                 extX += isNaN(right) ? 0 : right;
             }
-
-            if (isNaN(top) && isNaN(bottom) &&
-                isNaN(LayoutElementHelper.parseConstraintValue(layoutElement.verticalCenter)))
+            else
             {
-                extY += layoutElement.getLayoutBoundsY();
+                extX = layoutElement.getLayoutBoundsX();
+            }
+            
+            if (!isNaN(top) && !isNaN(bottom))
+            {
+                // If both top & bottom are set, then the extents is always
+                // top + bottom so that the element is resized to its preferred
+                // size (if it's the one that pushes out the default size of the container).
+                extY = top + bottom;                
+            }
+            else if (!isNaN(vCenter))
+            {
+                // If we have verticalCenter, then we want to have at least enough space
+                // so that the element is within the parent container.
+                // If the element is aligned to the top/bottom edge of the container and the
+                // distance between the centers is vCenter, then the container height will be
+                // parentHeight = 2 * (abs(vCenter) + elementHeight / 2)
+                // <=> parentHeight = 2 * abs(vCenter) + elementHeight
+                // Since the extents is the additional space that the element needs
+                // extY = parentHeight - elementHeight = 2 * abs(vCenter)
+                extY = Math.abs(vCenter) * 2;
+            }
+            else if (!isNaN(baseline))
+            {
+                // TODO EGeorgie: move baselinePosition to ILayoutElement.
+                extY = baseline - IVisualElement(layoutElement).baselinePosition;
+            }
+            else if (!isNaN(top) || !isNaN(bottom))
+            {
+                extY = isNaN(top) ? 0 : top;
+                extY += isNaN(bottom) ? 0 : bottom;
             }
             else
             {
-                extY += isNaN(top) ? 0 : top;
-                extY += isNaN(bottom) ? 0 : bottom;
+                extY = layoutElement.getLayoutBoundsY();
             }
 
-            width = Math.max(width, extX + layoutElement.getPreferredBoundsWidth());
-            height = Math.max(height, extY + layoutElement.getPreferredBoundsHeight());
+            var preferredWidth:Number = layoutElement.getPreferredBoundsWidth();
+            var preferredHeight:Number = layoutElement.getPreferredBoundsHeight();
 
-            var elementMinWidth:Number = constraintsDetermineWidth(layoutElement) ? layoutElement.getMinBoundsWidth() : layoutElement.getPreferredBoundsWidth();
-            var elementMinHeight:Number = constraintsDetermineHeight(layoutElement) ? layoutElement.getMinBoundsHeight() : layoutElement.getPreferredBoundsHeight();
+            width = Math.max(width, extX + preferredWidth);
+            height = Math.max(height, extY + preferredHeight);
+
+            // Find the minimum default extents, we take the minimum width/height only
+            // when the element size is determined by the parent size
+            var elementMinWidth:Number =
+                constraintsDetermineWidth(layoutElement) ? layoutElement.getMinBoundsWidth() :
+                                                           preferredWidth;
+            var elementMinHeight:Number =
+                constraintsDetermineHeight(layoutElement) ? layoutElement.getMinBoundsHeight() : 
+                                                            preferredHeight;
 
             minWidth = Math.max(minWidth, extX + elementMinWidth);
             minHeight = Math.max(minHeight, extY + elementMinHeight);
@@ -217,44 +271,55 @@ public class BasicLayout extends LayoutBase
             if (!layoutElement || !layoutElement.includeInLayout)
                 continue;
 
-            var hCenter:Number = LayoutElementHelper.parseConstraintValue(layoutElement.horizontalCenter);
-            var vCenter:Number = LayoutElementHelper.parseConstraintValue(layoutElement.verticalCenter);
-            var left:Number    = LayoutElementHelper.parseConstraintValue(layoutElement.left);
-            var right:Number   = LayoutElementHelper.parseConstraintValue(layoutElement.right);
-            var top:Number     = LayoutElementHelper.parseConstraintValue(layoutElement.top);
-            var bottom:Number  = LayoutElementHelper.parseConstraintValue(layoutElement.bottom);
+            var hCenter:Number       = LayoutElementHelper.parseConstraintValue(layoutElement.horizontalCenter);
+            var vCenter:Number       = LayoutElementHelper.parseConstraintValue(layoutElement.verticalCenter);
+            var baseline:Number      = LayoutElementHelper.parseConstraintValue(layoutElement.baseline);
+            var left:Number          = LayoutElementHelper.parseConstraintValue(layoutElement.left);
+            var right:Number         = LayoutElementHelper.parseConstraintValue(layoutElement.right);
+            var top:Number           = LayoutElementHelper.parseConstraintValue(layoutElement.top);
+            var bottom:Number        = LayoutElementHelper.parseConstraintValue(layoutElement.bottom);
+            var percentWidth:Number  = layoutElement.percentWidth;
+            var percentHeight:Number = layoutElement.percentHeight;
+            
             var elementMaxWidth:Number = layoutElement.getMaxBoundsWidth();
             var elementMaxHeight:Number = layoutElement.getMaxBoundsHeight();
-
-            // Remember child position before setting layoutSize, since changing the size may
-            // change the position.
-            var childX:Number = layoutElement.getLayoutBoundsX();
-            var childY:Number = layoutElement.getLayoutBoundsY();
 
             // Calculate size
             var childWidth:Number = NaN;
             var childHeight:Number = NaN;
 
-            if (!isNaN(left) && !isNaN(right))
+            if (!isNaN(percentWidth))
+            {
+                var availableWidth:Number = unscaledWidth;
+                if (!isNaN(left))
+                    availableWidth -= left;
+                if (!isNaN(right))
+                     availableWidth -= right;
+
+                childWidth = availableWidth * Math.min(percentWidth * 0.01, 1);
+                elementMaxWidth = Math.min(elementMaxWidth,
+                    maxSizeToFitIn(unscaledWidth, hCenter, left, right, layoutElement.getLayoutBoundsX()));
+            }
+            else if (!isNaN(left) && !isNaN(right))
             {
                 childWidth = unscaledWidth - right - left;
             }
-            else if (!isNaN(layoutElement.percentWidth))
-            {
-                childWidth = unscaledWidth * Math.min(layoutElement.percentWidth * 0.01, 1);
-                elementMaxWidth = Math.min(elementMaxWidth,
-                    maxSizeToFitIn(unscaledWidth, hCenter, left, right, childX));
-            }
 
-            if (!isNaN(top) && !isNaN(bottom))
+            if (!isNaN(percentHeight))
+            {
+                var availableHeight:Number = unscaledHeight;
+                if (!isNaN(top))
+                    availableHeight -= top;
+                if (!isNaN(bottom))
+                    availableHeight -= bottom;    
+                    
+                childHeight = availableHeight * Math.min(percentHeight * 0.01, 1);
+                elementMaxHeight = Math.min(elementMaxHeight,
+                    maxSizeToFitIn(unscaledHeight, vCenter, top, bottom, layoutElement.getLayoutBoundsY()));
+            }
+            else if (!isNaN(top) && !isNaN(bottom))
             {
                 childHeight = unscaledHeight - bottom - top;
-            }
-            else if (!isNaN(layoutElement.percentHeight))
-            {
-                childHeight = unscaledHeight * Math.min(layoutElement.percentHeight * 0.01, 1);
-                elementMaxHeight = Math.min(elementMaxHeight,
-                    maxSizeToFitIn(unscaledHeight, vCenter, top, bottom, childY));
             }
 
             // Apply min and max constraints, make sure min is applied last. In the cases
@@ -270,6 +335,9 @@ public class BasicLayout extends LayoutBase
             var elementWidth:Number = layoutElement.getLayoutBoundsWidth();
             var elementHeight:Number = layoutElement.getLayoutBoundsHeight();
 
+            var childX:Number = NaN;
+            var childY:Number = NaN;
+            
             // Horizontal position
             if (!isNaN(hCenter))
                 childX = Math.round((unscaledWidth - elementWidth) / 2 + hCenter);
@@ -277,18 +345,20 @@ public class BasicLayout extends LayoutBase
                 childX = left;
             else if (!isNaN(right))
                 childX = unscaledWidth - elementWidth - right;
-            else // since setting actual size might have moved the actual position, we need to reset here            
-            	childX = layoutElement.getLayoutBoundsX();
+            else
+                childX = layoutElement.getLayoutBoundsX();
 
             // Vertical position
             if (!isNaN(vCenter))
                 childY = Math.round((unscaledHeight - elementHeight) / 2 + vCenter);
+            else if (!isNaN(baseline))
+                childY = baseline - IVisualElement(layoutElement).baselinePosition;
             else if (!isNaN(top))
                 childY = top;
             else if (!isNaN(bottom))
                 childY = unscaledHeight - elementHeight - bottom;
-           	else  // since setting actual size might have moved the actual position, we need to reset here
-           		childY = layoutElement.getLayoutBoundsY();
+            else
+                childY = layoutElement.getLayoutBoundsY();
 
             // Set position
             layoutElement.setLayoutBoundsPosition(childX, childY);
