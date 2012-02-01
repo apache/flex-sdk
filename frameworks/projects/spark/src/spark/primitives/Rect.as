@@ -75,7 +75,7 @@ public class Rect extends FilledElement
     
     private var _bottomLeftRadiusX:Number;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
     
     /**
      *  The x radius of the bottom left corner of the rectangle.
@@ -110,7 +110,7 @@ public class Rect extends FilledElement
     
     private var _bottomLeftRadiusY:Number;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
     
     /**
      *  The y radius of the bottom left corner of the rectangle.
@@ -145,7 +145,7 @@ public class Rect extends FilledElement
     
     private var _bottomRightRadiusX:Number;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
     
     /**
      *  The x radius of the bottom right corner of the rectangle.
@@ -180,7 +180,7 @@ public class Rect extends FilledElement
     
     private var _bottomRightRadiusY:Number;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
     
     /**
      *  The y radius of the bottom right corner of the rectangle.
@@ -215,7 +215,7 @@ public class Rect extends FilledElement
 
     private var _radiusX:Number = 0;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
     
     /**
      *  The default corner radius to use for the x axis on all corners. The 
@@ -251,7 +251,7 @@ public class Rect extends FilledElement
 
     private var _radiusY:Number = 0;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
     
     /**
      *  The default corner radius to use for the y axis on all corners. The 
@@ -287,7 +287,7 @@ public class Rect extends FilledElement
     
     private var _topLeftRadiusX:Number;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
     
     /**
      *  The x radius of the top left corner of the rectangle.
@@ -322,7 +322,7 @@ public class Rect extends FilledElement
     
     private var _topLeftRadiusY:Number;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
     
     /**
      *  The y radius of the top left corner of the rectangle.
@@ -357,7 +357,7 @@ public class Rect extends FilledElement
     
     private var _topRightRadiusX:Number;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
     
     /**
      *  The x radius of the top right corner of the rectangle.
@@ -392,7 +392,7 @@ public class Rect extends FilledElement
     
     private var _topRightRadiusY:Number;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
     
     /**
      *  The y radius of the top right corner of the rectangle.
