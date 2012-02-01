@@ -8,27 +8,27 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package flex.effects.effectClasses
+package mx.effects.effectClasses
 {
 import flash.events.Event;
 
-import flex.effects.Animation;
-import flex.effects.PropertyValuesHolder;
-import flex.events.AnimationEvent;
-import flex.graphics.IGraphicElement;
+import mx.effects.Animation;
+import mx.effects.PropertyValuesHolder;
+import mx.events.AnimationEvent;
+import mx.graphics.IGraphicElement;
 
-import mx.core.Application;
+import mx.components.FxApplication;
 import mx.core.Container;
 import mx.core.IUIComponent;
 import mx.events.EffectEvent;
 import mx.events.TweenEvent;
 import mx.styles.IStyleClient;
     
-public class ResizeInstance extends AnimateInstance
+public class FxResizeInstance extends FxAnimateInstance
 {
     include "../../core/Version.as";
 
-    public function ResizeInstance(target:Object)
+    public function FxResizeInstance(target:Object)
     {
         super(target);
         
