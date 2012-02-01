@@ -21,7 +21,6 @@ import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 import flash.filters.BitmapFilter;
 import flash.filters.ShaderFilter;
-import flash.utils.ByteArray;
 import flash.utils.Proxy;
 import flash.utils.flash_proxy;
 
@@ -35,11 +34,11 @@ use namespace flash_proxy;
  * the stock Flash ShaderFilter, Shader, and ShaderData classes to apply a
  * Pixel Bender shader as a filter.
  *
- * <p>The ShaderFilter class must be initialized with byte code representing a
- * compiled Pixel Bender shader. After that the class will create (behind the scenes) a
- * Shader instance from the byte code. The ShaderFilter class then serves as a proxy to the
- * underlying Shader, providing a convenience mechanism for accessing both scalar
- * and multi-dimensional shader input parameters directly as simple named properties.</p>
+ * <p>The ShaderFilter class must be initialized with either an instance of a Shader 
+ * object or Class representative of a Shader (such as from an Embed). The ShaderFilter 
+ * class then serves as a proxy to the underlying Shader, providing a convenience 
+ * mechanism for accessing both scalar and multi-dimensional shader input parameters 
+ * directly as simple named properties.</p>
  *
  * <p>To set a simple scalar shader input parameter (e.g. of type FLOAT or INT), you can simply
  * refer to the property directly, e.g. <code>myFilter.radius</code>.</p>
@@ -99,7 +98,7 @@ use namespace flash_proxy;
  *  
  *     &lt;Label text="ABCDEF"&gt;
  *         &lt;filters&gt;
- *             &lt;ShaderFilter byteCode="&#64;Embed(source="shaders/spherize.pbj', mimeType='application/octet-stream')"
+ *             &lt;ShaderFilter shader="&#64;Embed(source='shaders/spherize.pbj')"
  *                 radius="25" center_x="50" center_y="15" /&gt;
  *        &lt;/filters&gt;
  *     &lt;/Label&gt;
@@ -130,13 +129,14 @@ public dynamic class ShaderFilter extends Proxy
 
     /**
      *  Constructor.
-     *  @param byteCode Compiled Pixel Bender byte code as ByteArray or Class.
+     *  @param shader Fully realized flash.display.Shader instance, or
+     *  Class representing a Shader (such as from an Embed).
      */ 
-    public function ShaderFilter(byteCode:*=null)  
+    public function ShaderFilter(shader:*=null)  
     {  
         super();
         eventDispatcher = new EventDispatcher();
-        this.byteCode = byteCode;         
+        this.shader = shader;         
     }  
      
     //--------------------------------------------------------------------------
@@ -148,54 +148,37 @@ public dynamic class ShaderFilter extends Proxy
     //----------------------------------
     //  shaderInstance
     //----------------------------------
+    
     /**
      *  @private
-     *  Storage for the shaderInstance property.
+     *  Storage for the shader property.
      */
     private var _shader:Shader;
     
     /**
-     * flash.display.Shader instance (valid once byteCode is assigned).
-     */  
-    public function get shaderInstance():Shader
-    {
-        return _shader;
-    }
- 
-    //----------------------------------
-    //  byteCode
-    //----------------------------------
+     *  @private
+     *  Storage for the last assigned Shader Class.
+     */
+    private var _shaderClass:Class;
     
     /**
-     *  @private
-     *  Storage for the custom filter byteCode.
+     * An object representing the Shader to use with this filter, either a Class 
+     * or Shader instance is allowed.
      */
-    private var _byteCode:*;
- 
-    /**
-     * The shader bytecode for this Shader instance, either a Class or ByteArray
-     * instance.
-     */
-    public function set byteCode(value:*):void
+    public function set shader(value:*):void
     {
-        // Since our bytecode is sometimes reassigned by the
-        // binding infrastructure we only initialize ourselves
-        // upon the first instance.
-        if (value == _byteCode)
-            return;
-            
-        // Create our shader instance from the byteCode provided.
-        if (value is ByteArray)
+        // Create our shader instance from the byteCode provided. Since our 
+        // bytecode is sometimes reassigned by the binding infrastructure we 
+        // only initialize ourselves upon the first instance.
+        if (value is Shader && value != _shader)
         {
-            _shader = new Shader(value);
+            _shader = value;
         }
-        else if (value is Class)
+        else if (value is Class && value != _shaderClass)
         {
             var obj:* = new value();
-            if (obj is Shader)
-                _shader = obj as Shader; 
-            else if (obj is ByteArray)
-                _shader = new Shader(obj as ByteArray);
+            _shader = obj as Shader; 
+            _shaderClass = value;
         }
 
         // Push any pending properties onto the new shader instance. 
@@ -203,9 +186,16 @@ public dynamic class ShaderFilter extends Proxy
             
         // Our new filter is ready to do its work.
         notifyFilterChanged();
-        _byteCode = value;
     }
-
+    
+    /**
+     * flash.display.Shader instance.
+     */  
+    public function get shader():Shader
+    {
+        return _shader;
+    }
+ 
     //----------------------------------
     //  bottomExtension
     //----------------------------------
