@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 import flash.display.IBitmapDrawable;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.IUIComponent;
@@ -38,6 +39,67 @@ public class BitmapUtil
     //  Class methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  Creates a BitmapData representation of the target object.
+     *
+     *  @param target The object to capture in the resulting BitmapData
+     *   
+     *  @param bounds If non-null, this Rectangle will be populated with
+     *  the visible bounds of the object, relative to the object itself.
+     * 
+     *  @param padding Padding, in pixels, around to target to be included in the bitmap.
+     *    
+     *  @return A BitmapData object containing the image.
+     *
+     *  @param propagateColorTransform If true, the target's color transform will
+     *  be applied to the bitmap capture operation. 
+     *
+     *  @throws SecurityError The <code>target</code> object and  all of its child
+     *  objects do not come from the same domain as the caller,
+     *  or are not in a content that is accessible to the caller by having called the
+     *  <code>Security.allowDomain()</code> method.
+     *
+     */
+    public static function getSnapshotWithPadding(target:IUIComponent, 
+                                                  padding:int = 4, 
+                                                  propagateColorTransform:Boolean = false,
+                                                  bounds:Rectangle = null):BitmapData
+    {
+        var width:Number = target.width;
+        var height:Number = target.height;
+        var m:Matrix = MatrixUtil.getConcatenatedComputedMatrix(target as DisplayObject);
+        
+        var position:Point = new Point(-padding, -padding);
+        var size:Point = MatrixUtil.transformBounds(width + padding * 2, 
+                                                      height + padding * 2, 
+                                                      m, 
+                                                      position);
+        
+        // Translate so that when we draw, the bitmap aligns with the top-left
+        // corner of the bmpData
+        position.x = Math.floor(position.x);
+        position.y = Math.floor(position.y);
+        m.translate(-position.x, -position.y);
+        
+        // Update the visibe bounds:
+        if (!bounds)
+            bounds = new Rectangle();
+        bounds.x = position.x;
+        bounds.y = position.y;
+        bounds.width = Math.ceil(size.x);
+        bounds.height = Math.ceil(size.y);
+        
+        var bmpData:BitmapData = new BitmapData(bounds.width, 
+                                                bounds.height, 
+                                                true /*transparent*/,
+                                                0);
+        
+        bmpData.draw(IBitmapDrawable(target), m, propagateColorTransform ? 
+            target.transform.colorTransform : null);
+        
+        return bmpData;
+    }
 
     /**
      *  Creates a BitmapData representation of the target object.
