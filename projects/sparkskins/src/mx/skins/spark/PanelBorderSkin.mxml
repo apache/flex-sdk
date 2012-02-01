@@ -157,22 +157,27 @@
        <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry color="0xEAEAEA" />
-                <s:GradientEntry color="0xBEBEBE" />
+                <s:GradientEntry color="0xD9D9D9" />
             </s:LinearGradientStroke>
        </s:stroke>
+    </s:Rect>
+    <s:Rect left="1" right="1" top="31" height="1">
+    	<s:fill>
+    		<s:SolidColor color="0xC0C0C0" />
+    	</s:fill>
     </s:Rect>
     
     <!-- layer 5: control bar background -->
     <s:Rect id="cbbg" left="1" right="1" bottom="1" height="20">
     	<s:fill>
-    		<s:SolidColor color="0xF6F6F6" />
+    		<s:SolidColor color="0xE8E8E8" />
     	</s:fill>
     </s:Rect>
     
     <!-- layer 6: control bar divider line -->
     <s:Rect id="cbdiv" left="1" right="1" bottom="20" height="1">
     	<s:fill>
-    		<s:SolidColor color="0xB9B9B9" />
+    		<s:SolidColor color="0xCDCDCD" />
     	</s:fill>
     </s:Rect>
 </s:SparkSkin>
