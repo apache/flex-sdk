@@ -12,7 +12,7 @@
 package mx.effects.effectClasses
 {
 
-import mx.effects.PropertyValuesHolder;
+import mx.effects.AnimationProperty;
 import mx.events.AnimationEvent;
 
 //  Let (phi) be angle between r=(Ox,Oy - Cx,Cy) and -X Axis.
@@ -238,8 +238,8 @@ public class FxRotateInstance extends FxAnimateInstance
         newX = Number((centerX - originalOffsetX).toFixed(1)); // use a precision of 1
         newY = Number((centerY - originalOffsetY).toFixed(1)); // use a precision of 1
  
-        propertyValuesList = 
-            [new PropertyValuesHolder("rotation", [angleFrom, angleTo], angleBy)];
+        animationProperties = 
+            [new AnimationProperty("rotation", angleFrom, angleTo, angleBy)];
 
         super.play();
     }
