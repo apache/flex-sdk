@@ -24,24 +24,25 @@ import spark.globalization.supportClasses.GlobalizationBase;
 use namespace mx_internal;
 
 /**
- * The <code>CollatorBase</code> class is a base class for the
+ * <code>CollatorBase</code> is a base class for the
  * SortingCollator and MatchingCollator classes.
  *
  * <p>This class is a wrapper class around the
  * <code>flash.globalization.Collator</code>.
  * Therefore the locale-specific string comparison is provided by the
  * <code>flash.globalization.Collator</code>.
- * However this CollatorBase class can be used in MXML declartions, uses the
- * locale style for the requested Locale ID name, and has methods and
- * properties that are bindable.
+ * However this class allows the <code>SortingCollator</code> and
+ * <code>MatchingCollator</code> classes to be used in MXML declartions.
+ * It uses the <code>locale</code> style for the requested Locale ID name,
+ * and has methods and properties that are bindable.
  * </p>
  *
  * <p>The flash.globalization.Collator class uses the underlying operating
  * system for the formatting functionality and to supply the locale
  * specific data.
  * On some operating systems, the flash.globalization classes are
- * unsupported, this wrapper class provides a fallback functionality in
- * this case.</p>
+ * unsupported. On these systems the wrapper class provides fallback
+ * functionality for string comparison.</p>
  *
  * @see flash.globalization.Collator
  */
@@ -95,24 +96,25 @@ public class CollatorBase extends GlobalizationBase
      *
      *  <p>For more details and examples when using these two modes, please
      *  see the documentation for the
-     *  <code>flash.globalization.Collator</code> class</p>
+     *  <code>flash.globalization.Collator</code> class.</p>
      *
-     *  <p>The locale for this class is supplied by the locale style.
-     *  The locale style can be set in several ways:</p>
+     *  <p>The locale for this class is supplied by the <code>locale</code>
+     *  style. The <code>locale</code> style can be set in several ways:</p>
      *
      *  <ul>
-     *      <li>Inheriting the style from a UIComponent by calling the
-     *          UIComponent's addStyleClient method.</li>
+     *      <li>Inheriting the style from a <code>UIComponent</code> by calling
+     *          the UIComponent's <code>addStyleClient</code> method.</li>
      *      <li>By using the class in an MXML declaration and inheriting the
-     *          locale from the document that contains the declaration.
+     *          <code>locale</code> from the document that contains the
+     *          declaration.
      *  <listing version="3.0">
      *  &lt;fx:Declarations&gt;
      *         &lt;s:StringTools id="st" /&gt;
      *  &lt;/fx:Declarations&gt;
      *  </listing>
      *  </li>
-     *      <li>By using an MXML declaration and specifying the locale value
-     *              in the list of assignments.
+     *      <li>By using an MXML declaration and specifying the
+     *          <code>locale</code> value in the list of assignments.
      *  <listing version="3.0">
      *  &lt;fx:Declarations&gt;
      *      &lt;s:StringTools id="st_turkish" locale="tr-TR" /&gt;
@@ -123,15 +125,16 @@ public class CollatorBase extends GlobalizationBase
      *              <code>st.setStyle("locale", "tr-TR")</code></li>
      *  </ul>
      *
-     *  <p>If the locale style is not set by one of the above techniques, the
-     *  methods of this class that depend on the locale will throw an
-     *  error.</p>
+     *  <p>If the <code>locale</code> style is not set by one of the above
+     *  techniques, the
+     *  methods of this class that depend on the <code>locale</code> will throw
+     *  an error.</p>
      *
      *  @see flash.globalization.Collator
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     *  @productversion Flash CS5
      */
     public function CollatorBase(initialMode:String)
     {
@@ -153,10 +156,10 @@ public class CollatorBase extends GlobalizationBase
      *  @private
      *  Basic properies of the actual underlying working instance.
      *
-     *  It can be flash.globalization.NumberFormatter/CurrencyFormatter OR
+     *  It can be flash.globalization.Collator OR
      *  the fallback's propery set.
      */
-    protected var properties:Object = null;
+    mx_internal var properties:Object = null;
 
     // Cache for the given initialMode through the constructor.
     private var initialMode:String = null;
@@ -210,9 +213,10 @@ public class CollatorBase extends GlobalizationBase
     /**
      *  @inheritDoc
      *
-     *  @playerversion Flash 10.1
+     *  @see spark.globalization.LastOperationStatus
      *  @langversion 3.0
-     *  @productversion Flash CS5
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     override public function get lastOperationStatus():String
@@ -252,14 +256,15 @@ public class CollatorBase extends GlobalizationBase
      *  When this property is set to true, identical strings and strings that
      *  differ only in the case of the letters are evaluated as equal.
      *
-     *  @default <code>true</code> when the <code>CollatorBase()</code>
-     *  constructor's <code>initialMode</code> parameter is set to
-     *          <code>Collator.MATCHING</code>.
-     *          <code>false</code> when the <code>CollatorBase()</code>
-     *  constructor's <code>initialMode</code> parameter is set to
-     *          <code>Collator.SORTING</code>.
+     *  <p>The default value is <code>true</code> when the 
+     *  <code>CollatorBase() </code> constructor's <code>initialMode</code>
+     *  parameter is set to  <code>Collator.MATCHING</code>. <code>false</code> 
+     *  when the <code>CollatorBase()</code>  constructor's 
+     *  <code>initialMode</code> parameter is set to 
+     *  <code>Collator.SORTING</code>.</p>
      *
-     *  @see flash.globalization.Collator.ignoreCase
+     *  @see #compare()
+     *  @see #equals()
      *
      *  @playerversion Flash 10.1
      *  @langversion 3.0
@@ -298,12 +303,12 @@ public class CollatorBase extends GlobalizationBase
      *  <code>false</code>, then full-width and half-width forms are not
      *  equal to one another.</p>
      *
-     *  @default <code>true</code> when the <code>CollatorBase()</code>
-     *          constructor's <code>initialMode</code> parameter is set to
-     *          <code>Collator.MATCHING</code>.
-     *          <code>false</code> when the <code>CollatorBase()</code>
-     *          constructor's <code>initialMode</code> parameter is set to
-     *          <code>Collator.SORTING</code>.
+     *  <p>The default value is <code>true</code> when the 
+     *  <code>CollatorBase()</code> constructor's <code>initialMode</code> 
+     *  parameter is set to <code>Collator.MATCHING</code>.
+     *  <code>false</code> when the <code>CollatorBase()</code>
+     *  constructor's <code>initialMode</code> parameter is set to
+     *  <code>Collator.SORTING</code>.</p>
      *
      *  @see #compare()
      *  @see #equals()
@@ -343,12 +348,12 @@ public class CollatorBase extends GlobalizationBase
      *  accents are not considered equal to one another.</p>
      *
      *
-     *  @default <code>true</code> when the <code>CollatorBase()</code>
-     *          constructor's <code>initialMode</code> parameter is set to
-     *          <code>Collator.MATCHING</code>.
-     *          <code>false</code> when the <code>CollatorBase()</code>
-     *          constructor's <code>initialMode</code> parameter is set to
-     *          <code>Collator.SORTING</code>.
+     *  <p>The default value is <code>true</code> when the 
+     *  <code>CollatorBase()</code> constructor's <code>initialMode</code> 
+     *  parameter is set to <code>Collator.MATCHING</code>.
+     *  <code>false</code> when the <code>CollatorBase()</code>
+     *  constructor's <code>initialMode</code> parameter is set to
+     *  <code>Collator.SORTING</code>.</p>
      *
      *  @see #compare()
      *  @see #equals()
@@ -387,12 +392,12 @@ public class CollatorBase extends GlobalizationBase
      *  then hiragana and katakana characters that refer to the same syllable
      *  are not equal to one another.</p>
      *
-     *  @default <code>true</code> when the <code>CollatorBase()</code>
-     *          constructor's <code>initialMode</code> parameter is set to
-     *          <code>Collator.MATCHING</code>.
-     *          <code>false</code> when the <code>CollatorBase()</code>
-     *          constructor's <code>initialMode</code> parameter is set to
-     *          <code>Collator.SORTING</code>.
+     *  <p>The default value is <code>true</code> when the 
+     *  <code>CollatorBase()</code> constructor's <code>initialMode</code> 
+     *  parameter is set to <code>Collator.MATCHING</code>.
+     *  <code>false</code> when the <code>CollatorBase()</code>
+     *  constructor's <code>initialMode</code> parameter is set to
+     *  <code>Collator.SORTING</code>.</p>
      *
      *  @see #compare()
      *  @see #equals()
@@ -427,12 +432,12 @@ public class CollatorBase extends GlobalizationBase
      *  be treated as equal when the <code>ignoreSymbols</code> property is
      *  set to <code>true</code>.
      *
-     *  @default <code>true</code> when the <code>CollatorBase()</code>
-     *          constructor's <code>initialMode</code> parameter is set to
-     *          <code>Collator.MATCHING</code>.
-     *          <code>false</code> when the <code>CollatorBase()</code>
-     *          constructor's <code>initialMode</code> parameter is set to
-     *          <code>Collator.SORTING</code>.
+     *  <p>The default value is <code>true</code> when the 
+     *  <code>CollatorBase()</code> constructor's <code>initialMode</code>
+     *  parameter is set to <code>Collator.MATCHING</code>.
+     *  <code>false</code> when the <code>CollatorBase()</code>
+     *  constructor's <code>initialMode</code> parameter is set to
+     *  <code>Collator.SORTING</code>.</p>
      *
      *  @see #compare()
      *  @see #equals()
@@ -468,7 +473,7 @@ public class CollatorBase extends GlobalizationBase
      *
      *  <p>When this property is set to <code>false</code>, the comparison
      *  treats numbers as character codes and sort them according to the
-     *  rules for sorting characters in the specified locale.</p>
+     *  rules for sorting characters in the specified <code>locale</code>.</p>
      *
      *  <p>For example, when this property is true for the locale ID "en-US",
      *  then the strings "version1", "version10", and "version2" are sorted
@@ -478,12 +483,12 @@ public class CollatorBase extends GlobalizationBase
      *  are sorted into the following order: version1 &#60; version10 &#60;
      *  version2.</p>
      *
-     *  @default <code>true</code> when the <code>CollatorBase()</code>
-     *          constructor's <code>initialMode</code> parameter is set to
-     *          <code>Collator.MATCHING</code>.
-     *          <code>false</code> when the <code>CollatorBase()</code>
-     *          constructor's <code>initialMode</code> parameter is set to
-     *          <code>Collator.SORTING</code>.
+     *  <p>The default value is <code>true</code> when the 
+     *  <code>CollatorBase()</code> constructor's <code>initialMode</code> 
+     *  parameter is set to <code>Collator.MATCHING</code>.
+     *  <code>false</code> when the <code>CollatorBase()</code>
+     *  constructor's <code>initialMode</code> parameter is set to
+     *  <code>Collator.SORTING</code>.</p>
      *
      *  @see #compare()
      *  @see #equals()
@@ -564,7 +569,7 @@ public class CollatorBase extends GlobalizationBase
      *  the first string is less than, equal to, or greater than the second
      *  string.
      *
-     *  The comparison uses the sort order rules for the locale sytle that is
+     *  The comparison uses the sort order rules for the <code>locale</code> sytle that is
      *  in effect when the compare method is called.
      *
      *  @param string1 First comparison string.
