@@ -2,25 +2,32 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
+<!--- The default skin class for the Spark Panel component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
     alpha.disabled="0.5" alpha.disabledWithControlBar="0.5" minWidth="131" minHeight="127">
 
     <fx:Metadata>
-    	[HostComponent("spark.components.Panel")]
+        [HostComponent("spark.components.Panel")]
     </fx:Metadata> 
     
     <s:states>
-    	<s:State name="normal" />
-    	<s:State name="disabled" />
+        <s:State name="normal" />
+        <s:State name="disabled" />
         <s:State name="normalWithControlBar" />
         <s:State name="disabledWithControlBar" />
     </s:states>
@@ -36,12 +43,12 @@
         </s:fill>
     </s:Rect>
     
-	<!-- layer 1: border -->
-	<s:Rect left="0" right="0" top="0" bottom="0">
-		<s:stroke>
-			<s:SolidColorStroke color="0x5581D1" weight="1" />
-		</s:stroke>
-	</s:Rect>
+    <!-- layer 1: border -->
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:stroke>
+            <s:SolidColorStroke color="0x5581D1" weight="1" />
+        </s:stroke>
+    </s:Rect>
 
     <!-- layer 2: background fill -->
     <s:Rect left="1" top="1" right="1" bottom="1">
@@ -50,21 +57,21 @@
         </s:fill>
     </s:Rect>
     
-	<!-- layer 3: contents -->
+    <!-- layer 3: contents -->
     <s:Group left="1" right="1" top="1" bottom="1" >
         <s:layout>
             <s:VerticalLayout gap="0" horizontalAlign="justify" />
         </s:layout>
 
         <s:Group id="topGroup" >
-	        <!-- layer 0: title bar fill -->
-	        <s:Rect left="0" right="0" top="0" bottom="1">
-	           <s:fill> 
-			        <s:SolidColor color="0xE2EdF7" />
-	           </s:fill>
-	        </s:Rect>
-	        
-	        <!-- layer 1: title bar highlight -->
+            <!-- layer 0: title bar fill -->
+            <s:Rect left="0" right="0" top="0" bottom="1">
+               <s:fill> 
+                    <s:SolidColor color="0xE2EdF7" />
+               </s:fill>
+            </s:Rect>
+            
+            <!-- layer 1: title bar highlight -->
             <s:Rect left="0" right="0" top="0" bottom="0">
                <s:stroke>
                     <s:LinearGradientStroke rotation="90" weight="1">
@@ -76,16 +83,16 @@
 
             <!-- layer 2: title bar divider -->
             <s:Rect left="0" right="0" bottom="0" height="1">
-    	        <s:fill>
-    		        <s:SolidColor color="0xD1E0F2" />
-    	        </s:fill>
+                <s:fill>
+                    <s:SolidColor color="0xD1E0F2" />
+                </s:fill>
             </s:Rect>
-	        
-	        <!-- layer 3: text -->
-	        <s:Label id="titleDisplay" maxDisplayedLines="1"
-			         left="9" right="3" top="1" minHeight="30"
-			         verticalAlign="middle" fontWeight="bold">
-	        </s:Label>
+            
+            <!-- layer 3: text -->
+            <s:Label id="titleDisplay" maxDisplayedLines="1"
+                     left="9" right="3" top="1" minHeight="30"
+                     verticalAlign="middle" fontWeight="bold">
+            </s:Label>
 
         </s:Group>
 
