@@ -23,6 +23,9 @@
       alpha.disabled="0.5">
 
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.mediaClasses.ScrubBar")]
     </fx:Metadata>
     
@@ -32,6 +35,7 @@
     </s:states>
     
     <fx:Declarations>
+        <!--- Defines the appearance of the the ScrubBar's DataTip. To customize the DataTip's appearance, create a custom ScrubBarSkin class. -->
         <fx:Component id="dataTip" className="DataTipClass">     
             <s:DataRenderer minHeight="24" minWidth="40" y="-34">
                 <s:RectangularDropShadow id="shadow" distance="3" 
@@ -53,9 +57,11 @@
         </fx:Component>
     </fx:Declarations>
     
+    <!--- @copy spark.components.supportClasses.TrackBase#track -->
     <s:Button id="track" left="0" right="0" top="0" height="11"
               skinClass="spark.skins.spark.mediaClasses.fullScreen.ScrubBarTrackSkin" />
-              
+    
+    <!--- @copy spark.components.mediaClasses.ScrubBar#bufferedArea -->
     <s:Group id="bufferedArea" x="0" y="0" height="11" includeInLayout="false">
     
         <!-- inset 7 and 6 pixels because that's thumbSize/2 -->
@@ -83,6 +89,7 @@
         </s:Group>    
     </s:Group>
     
+    <!--- @copy spark.components.mediaClasses.ScrubBar#playedArea -->
     <s:Group id="playedArea" x="0" y="0" height="11" includeInLayout="false">
     
         <!-- inset 7 and 6 pixels because that's thumbSize/2 -->
@@ -108,6 +115,7 @@
         </s:Group>  
     </s:Group>
     
+    <!--- @copy spark.components.supportClasses.TrackBase#thumb -->
     <s:Button id="thumb" x="0" y="0" width="14" height="19" includeInLayout="false"
               skinClass="spark.skins.spark.mediaClasses.fullScreen.ScrubBarThumbSkin" />
 
