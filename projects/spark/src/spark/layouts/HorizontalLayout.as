@@ -14,12 +14,18 @@ package spark.layouts
 import flash.events.Event;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.utils.Dictionary;
 
 import mx.containers.utilityClasses.Flex;
+import mx.core.FlexVersion;
+import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
+import mx.core.UIComponentGlobals;
+import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
+import mx.managers.ILayoutManagerClient;
 
 import spark.components.DataGroup;
 import spark.components.supportClasses.GroupBase;
@@ -125,6 +131,18 @@ public class HorizontalLayout extends LayoutBase
      */
     private var llv:LinearLayoutVector;
     
+    /**
+     *  @private
+     *  total percentages of children.  used to calculate estimatedWidth
+     */
+    private var totalPercentWidth:Number;
+    
+    /**
+     *  @private
+     *  actual space that is flexible.  used to calculate estimatedWidth
+     */
+    private var flexibleWidth:Number;
+    
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -187,6 +205,22 @@ public class HorizontalLayout extends LayoutBase
         // Don't drag-scroll in the vertical direction
         dragScrollRegionSizeVertical = 0;
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    // used to communicate between the loop and the event handlers
+    private var dontCacheMeasurements:Boolean;
+    private var notFinalTargets:Array;
+    
+    // indexes that have reported that a size should not be cached
+    private var notFinalIndexes:Array;
+    // components that have reported that they are not final
+    private var notFinalComponents:Dictionary;
+    
     
     //--------------------------------------------------------------------------
     //
@@ -928,7 +962,14 @@ public class HorizontalLayout extends LayoutBase
         {
             var layoutTarget:GroupBase = target;
             if (layoutTarget)
+            {
+                if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+                {
+                    layoutTarget.invalidateSize();
+                    layoutTarget.invalidateEstimatedSizesOfChildren();
+                }
                 layoutTarget.invalidateDisplayList();
+            }
         }
     }
 
@@ -955,12 +996,73 @@ public class HorizontalLayout extends LayoutBase
         dispatchEvent(new Event("indexInViewChanged"));
     }
     
+    //----------------------------------
+    //  target
+    //----------------------------------
+    
+    private var _target:GroupBase;
+    
+    /**
+     * @private
+     */
+    override public function set target(value:GroupBase):void
+    {
+        if (_target == value)
+            return;
+        
+        if (_target)
+            _target.removeEventListener(FlexEvent.MEASURED_SIZE_PRELIMINARY, measuredSizePreliminaryHandler);
+        _target = value;
+        super.target = value;
+        if (value)
+            value.addEventListener(FlexEvent.MEASURED_SIZE_PRELIMINARY, measuredSizePreliminaryHandler, false, 0, true);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
 
+	/**
+	 *  @private
+	 *  customize handling of a few cases
+	 */
+    override protected function estimateSizeOfElement(layoutElement:ILayoutElement, 
+                                                               percentWidth:Number,
+                                                               percentHeight:Number,
+                                                               parentEstimatedWidth:Number,
+                                                               parentEstimatedHeight:Number,
+                                                               estimatedSize:Point):void
+    {
+        super.estimateSizeOfElement(layoutElement,
+                                            percentWidth * 100 / totalPercentWidth,
+                                            percentHeight,
+                                            flexibleWidth,
+                                            parentEstimatedHeight,
+                                            estimatedSize);
+        
+		if (isNaN(estimatedSize.y))
+		{
+			var c:Number = target.estimatedHeight;
+			if (isNaN(c) && !isNaN(target.explicitHeight))
+				c = target.explicitHeight;
+			if (!isNaN(c))
+			{
+				// if verticalAlign is "justify" or "contentJustify", 
+				// restrict the height to estimatedHeight.  Otherwise, 
+				// size it normally
+				if (verticalAlign == VerticalAlign.JUSTIFY)
+					estimatedSize.y = c;
+			}
+			else
+			{
+				if (!isNaN(layoutElement.percentHeight) && !isNaN(target.height) && target.height > 0)
+					estimatedSize.y = calculatePercentHeight(layoutElement, target.height);
+			}
+		}
+	}
+	
     /**
      *  @private
      */
@@ -984,6 +1086,63 @@ public class HorizontalLayout extends LayoutBase
         llv = null;
     }     
 
+    /**
+     * @private
+     * if the estimated sizes changed, toss the cached sizes
+     */
+    override public function estimateSizesOfElements():void
+    {
+        if (llv)
+        {
+            llv.minorSize = 0;
+            llv.minMinorSize = 0;
+        }
+        
+        var size:SizesAndLimit = new SizesAndLimit();
+        var spaceToDistribute:Number = !isNaN(target.explicitWidth) ? target.explicitWidth : target.estimatedWidth;
+        spaceToDistribute -= paddingLeft + paddingRight;
+        totalPercentWidth = useVirtualLayout ? 100 : 0;
+		if (!useVirtualLayout)
+		{
+	        var layoutElement:ILayoutElement;
+	        
+	        // columnWidth can be expensive to compute
+	        var cw:Number = (variableColumnWidth) ? NaN : Math.ceil(columnWidth);
+	        var count:int = target.numElements;
+	        var totalCount:int = count; // number of elements to use in gap calculation
+	        
+	        // If the child is flexible, track total % in case of total %'s
+	        // add up to more than 100.
+	        // For non-flexible children, take its size away from the total amount
+	        // of flexible room
+	        for (var index:int = 0; index < count; index++)
+	        {
+	            layoutElement = target.getElementAt(index);
+	            if (!layoutElement || !layoutElement.includeInLayout)
+	            {
+	                totalCount--;
+	                continue;
+	            }
+	            
+	            if (!isNaN(layoutElement.percentWidth) && variableColumnWidth)
+	            {
+	                totalPercentWidth += layoutElement.percentWidth;
+	            }
+	            else
+	            {
+	                getElementWidth(layoutElement, cw, size);
+	                spaceToDistribute -= Math.ceil(size.preferredSize);
+	            } 
+	        }
+	        
+	        if (totalCount > 1)
+	            spaceToDistribute -= (totalCount-1) * gap;
+	        
+	        flexibleWidth = spaceToDistribute;
+		}
+        super.estimateSizesOfElements();
+    }
+        
     /**
      *  @private
      */
@@ -1561,6 +1720,17 @@ public class HorizontalLayout extends LayoutBase
         var typicalElt:ILayoutElement = typicalLayoutElement;
         if (typicalElt)
         {
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+            {
+                // warning:  If the data for a renderer is an IVisualElement
+                // the typicalElt's data will still be valid, but the data
+                // will likely have been re-parented to an actual renderer
+                // causing new measurements here to be off.  This is supposedly
+                // compensated for when we factor in the renderers we have created
+                // into measurement.
+                if (typicalElt is ILayoutManagerClient)
+                    UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(typicalElt), true);
+            }
             var typicalWidth:Number = typicalElt.getPreferredBoundsWidth();
             var typicalHeight:Number = typicalElt.getPreferredBoundsHeight();
             llv.defaultMinorSize = typicalHeight;
@@ -1634,6 +1804,7 @@ public class HorizontalLayout extends LayoutBase
             // paddingRight is already taken into account as the majorAxisOffset of the llv 
             // Measured size according to the cached actual size:
             var measuredWidth:Number = llv.end(measuredEltCount - 1) + paddingRight;
+            var measuredHeight:Number = llv.minorSize + vPadding;
             
             // For the live ItemRenderers use the preferred size
             // instead of the cached actual size:
@@ -1648,12 +1819,17 @@ public class HorizontalLayout extends LayoutBase
                     {
                         measuredWidth -= llv.getMajorSize(i);
                         measuredWidth += element.getPreferredBoundsWidth();
+                        measuredHeight = Math.max(measuredHeight, element.getPreferredBoundsHeight() + vPadding);
                     }
                 }
             }
             
             layoutTarget.measuredWidth = measuredWidth;
-            
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+                layoutTarget.measuredHeight = measuredHeight;
+            else
+                layoutTarget.measuredHeight = llv.minorSize + vPadding;
+                
             if (oldLength != -1)
                 llv.length = oldLength;
         }
@@ -1661,8 +1837,8 @@ public class HorizontalLayout extends LayoutBase
         {
             var hgap:Number = (measuredEltCount > 1) ? (measuredEltCount - 1) * gap : 0;
             layoutTarget.measuredWidth = (measuredEltCount * columnWidth) + hgap + hPadding;
+            layoutTarget.measuredHeight = llv.minorSize + vPadding;
         }
-        layoutTarget.measuredHeight = llv.minorSize + vPadding;
 
         layoutTarget.measuredMinWidth = layoutTarget.measuredWidth;
         layoutTarget.measuredMinHeight = (verticalAlign == VerticalAlign.JUSTIFY) ? 
@@ -1983,19 +2159,81 @@ public class HorizontalLayout extends LayoutBase
         var index:int = startIndex;
         var y0:Number = paddingTop;
         
+        var w:Number;
+        var h:Number;
+        var elt:ILayoutElement;
+
         // First pass: compute element x,y,width,height based on 
         // current contentHeight; cache computed widths/heights in llv.
         for (; (x < maxVisibleX) && (index < eltCount); index++)
         {
-            var elt:ILayoutElement = layoutTarget.getVirtualElementAt(index);
-            var w:Number = fixedColumnWidth; // NaN for variable width columns
-            var h:Number = calculateElementHeight(elt, targetHeight, containerHeight); // can be NaN
+            // reset this flag so components like Image can tell us
+            // not to cache measurements
+            dontCacheMeasurements = false;
+            // reset this array so we can find out what components are
+            // not final
+			if (!notFinalTargets)
+				notFinalTargets = [];
+			else
+	            notFinalTargets.length = 0;
+			// request element, but skip validation (especially of the displaylist)
+			elt = layoutTarget.getVirtualElementAt(index, eltWidth, eltHeight, true);
+			// then validate everything but the displaylist so there are valid
+			// default size
+			if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+				if (elt is ILayoutManagerClient)
+					UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(elt), true);
+			w = fixedColumnWidth; // NaN for variable width columns
+            h = calculateElementHeight(elt, targetHeight, containerHeight); // can be NaN
             elt.setLayoutBoundsSize(w, h);
             w = elt.getLayoutBoundsWidth();        
             h = elt.getLayoutBoundsHeight();
             var y:Number = y0 + calculateElementY(elt, h, containerHeight);
             elt.setLayoutBoundsPosition(x, y);
-            llv.cacheDimensions(index, elt);
+			// this flag potentially set by an event dispatched in the previous lines of code
+            if (dontCacheMeasurements)
+            {
+                // associate the index with the target
+                // so if the target is recycled to another
+                // index we know the current index
+                for each (var t:* in notFinalTargets)
+				{
+					if (!notFinalComponents)
+						notFinalComponents = new Dictionary(true);
+					notFinalComponents[t] = index;
+					
+				}
+				if (!notFinalIndexes)
+					notFinalIndexes = [];
+                // remember that this index didn't want to be cached
+                notFinalIndexes[index] = index;
+            }
+            else
+            {
+                if (notFinalIndexes && notFinalIndexes[index] != null)
+                {
+                    // we were previously told not to cache measurements.
+                    // clear it from the table.  We'll put it back in
+                    // if needed
+                    notFinalIndexes[index] = null;
+                    // scan the components that have dispatched a notFinal
+                    // to see if any are associated with this index
+                    for each(var p:* in notFinalComponents)
+                    {
+                        if (p == index)
+                        {
+                            // still a component that isn't final
+                            // so re-add it
+                            notFinalIndexes[index] = index;
+                            break;
+                        }
+                    }
+                    if (notFinalIndexes[index] == null)
+                        llv.cacheDimensions(index, elt);                
+                }
+                else
+                    llv.cacheDimensions(index, elt);                
+            }
             x += w + gap;
         }
         var endIndex:int = index - 1;
@@ -2010,7 +2248,7 @@ public class HorizontalLayout extends LayoutBase
             {
                 for (index = startIndex; index <= endIndex; index++)
                 {
-                    elt = layoutTarget.getVirtualElementAt(index);
+                    elt = layoutTarget.getVirtualElementAt(index, NaN, NaN, true);
                     h = calculateElementHeight(elt, targetHeight, containerHeight); // can be NaN
                     elt.setLayoutBoundsSize(elt.getLayoutBoundsWidth(), h);
                     h = elt.getLayoutBoundsHeight();
@@ -2040,7 +2278,7 @@ public class HorizontalLayout extends LayoutBase
             {
                 for (index = startIndex; index <= endIndex; index++)
                 {
-                    elt = layoutTarget.getVirtualElementAt(index, NaN, NaN);
+                    elt = layoutTarget.getVirtualElementAt(index, NaN, NaN, true);
                     elt.setLayoutBoundsPosition(dx + elt.getLayoutBoundsX(), elt.getLayoutBoundsY());
                 }
                 contentWidth += dx;
@@ -2340,6 +2578,40 @@ public class HorizontalLayout extends LayoutBase
         g.invalidateDisplayList();
     }
 
+    /**
+     *  React to indications that measurements are not final
+     *  and should not be cached
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    private function measuredSizePreliminaryHandler(event:FlexEvent):void
+    {
+        event.target.addEventListener(FlexEvent.MEASURED_SIZE_FINAL, measuredSizeFinalHandler, false, 0, true);
+		if (!notFinalTargets)
+			notFinalTargets = [];
+        notFinalTargets.push(event.target);
+        dontCacheMeasurements = true;
+    }
+    
+    /**
+     *  React to indications that measurements are final
+     *  and can be cached
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    private function measuredSizeFinalHandler(event:FlexEvent):void
+    {
+		if (notFinalComponents)
+        	delete notFinalComponents[event.target];
+    }
+    
+    
     //--------------------------------------------------------------------------
     //
     //  Drop methods
