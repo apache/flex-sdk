@@ -188,9 +188,8 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  measured size properties based on the <code>typicalLayoutElement</code> and other
      *  cached layout information, not by measuring elements.</p>
      * 
-     *  <p>Containers cooperate with <code>useVirtualLayout</code> = <code>true</code> layouts by 
-     *  recycling item renderers that were previously constructed in response to calls to
-     *  the <code>getVirtualLayoutElement()</code> method by are no longer in use.
+     *  <p>Containers cooperate with layouts that have <code>useVirtualLayout</code> = <code>true</code> by 
+     *  recycling item renderers that were previously constructed, but are no longer in use.
      *  An item is considered to be no longer in use if its index is not
      *  within the range of <code>getVirtualElementAt()</code> indices requested during
      *  the container's most recent <code>updateDisplayList()</code> invocation.</p>
