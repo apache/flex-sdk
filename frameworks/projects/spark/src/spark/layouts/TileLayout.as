@@ -473,15 +473,15 @@ public class TileLayout extends LayoutBase
 
     /**
      *  Specifies how to justify the fully visible columns to the container width.
-     *  ActionScript values can be <code>TileJustifyColumns.NONE</code>, <code>TileJustifyColumns.GAPSIZE</code>
-     *  and <code>TileJustifyColumns.COLUMNSIZE</code>.
+     *  ActionScript values can be <code>TileJustifyColumns.NONE</code>, <code>TileJustifyColumns.GAP_SIZE</code>
+     *  and <code>TileJustifyColumns.COLUMN_SIZE</code>.
      *  MXML values can be <code>"none"</code>, <code>"gapSize"</code> and <code>"columnSize"</code>.
      *
      *  <p>When set to <code>TileJustifyColumns.NONE</code> - turns column justification off, there may
      *  be partially visible columns or whitespace between the last column and
      *  the right edge of the container.  This is the default value.</p>
      *
-     *  <p>When set to <code>TileJustifyColumns.GAPSIZE</code> - the <code>horizontalGap</code>
+     *  <p>When set to <code>TileJustifyColumns.GAP_SIZE</code> - the <code>horizontalGap</code>
      *  actual value will increase so that
      *  the last fully visible column right edge aligns with the container's right edge.
      *  In case there is only a single fully visible column, the <code>horizontalGap</code> actual value
@@ -490,7 +490,7 @@ public class TileLayout extends LayoutBase
      *  justification, but just determines the initial gap value, and after thatn justification
      *  may increases it.</p>
      *
-     *  <p>When set to <code>TileJustifyColumns.COLUMNSIZE</code> - the <code>columnWidth</code>
+     *  <p>When set to <code>TileJustifyColumns.COLUMN_SIZE</code> - the <code>columnWidth</code>
      *  actual value will increase so that
      *  the last fully visible column right edge aligns with the container's right edge.  Note that
      *  explicitly setting the <code>columnWidth</code> does not turn off justification, but simply
@@ -533,15 +533,15 @@ public class TileLayout extends LayoutBase
 
     /**
      *  Specifies how to justify the fully visible rows to the container height.
-     *  ActionScript values can be <code>TileJustifyRows.NONE</code>, <code>TileJustifyRows.GAPSIZE</code>
-     *  and <code>TileJustifyRows.ROWSIZE</code>.
+     *  ActionScript values can be <code>TileJustifyRows.NONE</code>, <code>TileJustifyRows.GAP_SIZE</code>
+     *  and <code>TileJustifyRows.ROW_SIZE</code>.
      *  MXML values can be <code>"none"</code>, <code>"gapSize"</code> and <code>"rowSize"</code>.
      *
      *  <p>When set to <code>TileJustifyRows.NONE</code> - turns column justification off, there may
      *  be partially visible rows or whitespace between the last row and
      *  the bottom edge of the container.  This is the default value.</p>
      *
-     *  <p>When set to <code>TileJustifyRows.GAPSIZE</code> - the <code>verticalGap</code>
+     *  <p>When set to <code>TileJustifyRows.GAP_SIZE</code> - the <code>verticalGap</code>
      *  actual value will increase so that
      *  the last fully visible row bottom edge aligns with the container's bottom edge.
      *  In case there is only a single fully visible row, the <code>verticalGap</code> actual value
@@ -550,7 +550,7 @@ public class TileLayout extends LayoutBase
      *  justification, but just determines the initial gap value, and after that justification
      *  may increases it.</p>
      *
-     *  <p>When set to <code>TileJustifyRows.ROWSIZE</code> - the <code>rowHeight</code>
+     *  <p>When set to <code>TileJustifyRows.ROW_SIZE</code> - the <code>rowHeight</code>
      *  actual value will increase so that
      *  the last fully visible row bottom edge aligns with the container's bottom edge.  Note that
      *  explicitly setting the <code>rowHeight</code> does not turn off justification, but simply
@@ -719,20 +719,20 @@ public class TileLayout extends LayoutBase
         // Justify
         switch(justifyColumns)
         {
-            case TileJustifyColumns.GAPSIZE:
+            case TileJustifyColumns.GAP_SIZE:
                 _horizontalGap = justifyByGapSize(width, _columnWidth, _horizontalGap, _columnCount);
             break;
-            case TileJustifyColumns.COLUMNSIZE:
+            case TileJustifyColumns.COLUMN_SIZE:
                 _columnWidth = justifyByElementSize(width, _columnWidth, _horizontalGap, _columnCount);
             break;
         }
 
         switch(justifyRows)
         {
-            case TileJustifyRows.GAPSIZE:
+            case TileJustifyRows.GAP_SIZE:
                 _verticalGap = justifyByGapSize(height, _rowHeight, _verticalGap, _rowCount);
             break;
-            case TileJustifyRows.ROWSIZE:
+            case TileJustifyRows.ROW_SIZE:
                 _rowHeight = justifyByElementSize(height, _rowHeight, _verticalGap, _rowCount);
             break;
         }
