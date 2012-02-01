@@ -15,11 +15,11 @@ package mx.layout
 /**
  *  Documentation is not currently available.
  */
-public class LayoutItemHelper
+public class LayoutElementHelper
 {
     include "../core/Version.as";
 
-    // TODO EGeorgie: move to a more general place, this is not specific to the LayoutItemHelper
+    // TODO EGeorgie: move to a more general place, this is not specific to the LayoutElementHelper
     
     //--------------------------------------------------------------------------
     //
