@@ -35,6 +35,10 @@
         
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["arrowFill"];
+        
+        /**
+         * @inheritDoc
+         */
         override public function get symbolItems():Array {return symbols};
     </fx:Script>
     
@@ -89,9 +93,11 @@
     </s:Rect>
     
     <!-- arrow -->
+    <!--- Defines the appearance of the up arrow in the Spark Spinner skin. -->
     <s:Path horizontalCenter="0" verticalCenter="0" id="arrow"
           data="M 3.0 0.0 L 3.0 1.0 L 4.0 1.0 L 4.0 2.0 L 5.0 2.0 L 5.0 3.0 L 0.0 3.0 L 0.0 2.0 L 1.0 2.0 L 1.0 1.0 L 2.0 1.0 L 2.0 0.0 L 3.0 0.0">
         <s:fill>
+		<!--- Defines the up arrow's appearance. The default color is 0x000000. The default alpha is .8. -->
         	<s:SolidColor id="arrowFill" color="0" alpha="0.8" />
         </s:fill>
     </s:Path>            
