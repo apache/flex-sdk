@@ -1705,7 +1705,7 @@ public class HorizontalLayout extends LayoutBase
             var hAlign:String = horizontalAlign;
             if (hAlign == HorizontalAlign.CENTER)
             {
-                dx = Math.floor(excessWidth / 2);   
+                dx = Math.round(excessWidth / 2);   
             }
             else if (hAlign == HorizontalAlign.RIGHT)
             {
@@ -1799,7 +1799,7 @@ public class HorizontalLayout extends LayoutBase
             var hAlign:String = horizontalAlign;
             if (hAlign == HorizontalAlign.CENTER)
             {
-                x = paddingLeft + Math.floor(excessWidth / 2);   
+                x = paddingLeft + Math.round(excessWidth / 2);   
             }
             else if (hAlign == HorizontalAlign.RIGHT)
             {
