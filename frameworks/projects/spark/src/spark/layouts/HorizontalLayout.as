@@ -584,6 +584,7 @@ public class HorizontalLayout extends LayoutBase
                 if (inView(firstIndex) >= 1)
                    firstIndex = Math.max(0, firstIndex -1);
                 itemR = itemScan(g, firstIndex, -1);
+                break;
             }
 
             // Compute the bounds of the rightmost item that's not
@@ -598,6 +599,7 @@ public class HorizontalLayout extends LayoutBase
                 if (inView(lastIndex) >= 1)
                    lastIndex = Math.min(maxIndex, lastIndex + 1);
                 itemR = itemScan(g, lastIndex, +1);
+                break;
             }
         }
                 
