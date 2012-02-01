@@ -11,17 +11,19 @@
 
 -->
 
-<!--- The Spark skin class for the separator of a Halo DataGrid component. 
+<!--- The wireframe skin class for the separator of the MX DataGrid component. 
         
+      @see mx.controls.DataGrid
+
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
       @productversion Flex 4
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
-						xmlns:s="library://ns.adobe.com/flex/spark" 
-						
-    					width="2" height="10" mouseEnabled="false" mouseChildren="false">    
+                        xmlns:s="library://ns.adobe.com/flex/spark" 
+                        
+                        width="2" height="10" mouseEnabled="false" mouseChildren="false">    
     
     <!-- border -->
     <s:Rect top="0" left="0" bottom="0" width="1">
