@@ -22,7 +22,7 @@
       @productversion Flex 4
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-      alpha.disabled="0.5">
+      alpha.disabledStates="0.5">
 
     <fx:Metadata>
         /** 
@@ -33,7 +33,9 @@
     
     <s:states>
         <s:State name="normal"/>
-        <s:State name="disabled"/>
+        <s:State name="disabled" stateGroups="disabledStates"/>
+        <s:State name="normalWithPrompt"/>
+        <s:State name="disabledWithPrompt" stateGroups="disabledStates"/>
     </s:states>
     
     <!-- border/fill --> 
@@ -62,5 +64,11 @@
                   paddingLeft="3" paddingTop="5"
                   paddingRight="3" paddingBottom="3"/>
     </s:Scroller>
+    <s:Label id="promptDisplay"
+             mouseEnabled="false" mouseChildren="false"
+             includeIn="normalWithPrompt,disabledWithPrompt" 
+             paddingLeft="3" paddingTop="5"
+             paddingRight="3" paddingBottom="3"
+             left="1" top="1" right="0" bottom="0" />                
 
 </s:Skin>
