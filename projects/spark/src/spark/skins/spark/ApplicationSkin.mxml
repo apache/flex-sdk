@@ -43,7 +43,7 @@
             }
         ]]>
     </fx:Script>
-
+    
     <s:states>
         <s:State name="normal" />
         <s:State name="disabled" />
@@ -58,7 +58,7 @@
     -->
     <s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0"  >
         <s:fill>
-            <s:SolidColor id="bgRectFill"/>
+            <s:SolidColor id="bgRectFill" color="#FFFFFF"/>
         </s:fill>
     </s:Rect>
         
