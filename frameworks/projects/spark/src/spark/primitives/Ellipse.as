@@ -93,8 +93,8 @@ public class Ellipse extends FilledElement
                                                         postLayoutTransform:Boolean = true):Number
     {
         if (postLayoutTransform && hasComplexLayoutMatrix)
-        	width = MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, 
-        											 layoutFeatures.layoutMatrix).width;	
+            width = MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, 
+                                                     layoutFeatures.layoutMatrix).width;    
 
         // Take stroke into account
         return width + getStrokeExtents().x;
@@ -108,8 +108,8 @@ public class Ellipse extends FilledElement
                                                          postLayoutTransform:Boolean = true):Number
     {
         if (postLayoutTransform && hasComplexLayoutMatrix)
-			height = MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, 
-													  layoutFeatures.layoutMatrix).height;
+            height = MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, 
+                                                      layoutFeatures.layoutMatrix).height;
 
         // Take stroke into account
         return height + getStrokeExtents().y;
@@ -119,9 +119,9 @@ public class Ellipse extends FilledElement
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -152,9 +152,9 @@ public class Ellipse extends FilledElement
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -190,7 +190,7 @@ public class Ellipse extends FilledElement
         
         if (postLayoutTransform && hasComplexLayoutMatrix)
             return stroke + MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, 
-            												 layoutFeatures.layoutMatrix).x;
+                                                             layoutFeatures.layoutMatrix).x;
         
         return stroke + this.x;
     }
@@ -204,7 +204,7 @@ public class Ellipse extends FilledElement
 
         if (postLayoutTransform && hasComplexLayoutMatrix)
                 return stroke + MatrixUtil.getEllipseBoundingBox(width / 2, height / 2, width / 2, height / 2, 
-                												 layoutFeatures.layoutMatrix).y;
+                                                                 layoutFeatures.layoutMatrix).y;
 
         return stroke + this.y;
     }
