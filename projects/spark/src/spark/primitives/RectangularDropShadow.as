@@ -32,6 +32,11 @@ package spark.primitives
      *  
      *  @see flash.filters.DropShadowFilter
      *  @see flash.display.DisplayObject
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public class RectangularDropShadow extends UIComponent
     {
