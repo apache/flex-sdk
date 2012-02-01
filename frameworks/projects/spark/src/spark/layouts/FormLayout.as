@@ -25,10 +25,18 @@ use namespace mx_internal;
 /**
  *  The FormLayout class defines the default layout for Spark Form skins.
  *  FormLayout provides a vertical layout for the child FormItem containers in the Form.
+ *  
+ *  If any of the child containers uses a FormItemLayout, FormLayout will
+ *  align the ConstraintColumns of each child.
+ *  The number of columns across children should be the same, and the columns
+ *  should have the same type of width setting.
+ *  For example, if the first child's second column has a percent width, then the 
+ *  second child's second column should also be a percent width.
  *
  *  @see spark.components.Form
  *  @see spark.components.FormHeading
  *  @see spark.components.FormItem
+ *  @see spark.layouts.FormItemLayout
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
