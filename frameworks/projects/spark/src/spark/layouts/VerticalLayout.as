@@ -14,12 +14,18 @@ package spark.layouts
 import flash.events.Event;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.utils.Dictionary;
 
 import mx.containers.utilityClasses.Flex;
+import mx.core.FlexVersion;
+import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
+import mx.core.UIComponentGlobals;
+import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
+import mx.managers.ILayoutManagerClient;
 
 import spark.components.DataGroup;
 import spark.components.supportClasses.GroupBase;
@@ -125,6 +131,18 @@ public class VerticalLayout extends LayoutBase
      */
     private var llv:LinearLayoutVector;
     
+    /**
+     *  @private
+     *  total percentages of children.  used to calculate estimatedHeight
+     */
+    private var totalPercentHeight:Number;
+    
+    /**
+     *  @private
+     *  actual space that is flexible.  used to calculate estimatedHeight
+     */
+    private var flexibleHeight:Number;
+
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -191,6 +209,21 @@ public class VerticalLayout extends LayoutBase
         dragScrollRegionSizeHorizontal = 0;
     }
 
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    // used to communicate between the loop and the event handlers
+    private var dontCacheMeasurements:Boolean;
+    private var notFinalTargets:Array;
+    
+    // indexes that have reported that a size should not be cached
+    private var notFinalIndexes:Array;
+    // components that have reported that they are not final
+    private var notFinalComponents:Dictionary;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -325,7 +358,14 @@ public class VerticalLayout extends LayoutBase
 
         var layoutTarget:GroupBase = target;
         if (layoutTarget)
+        {
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+            {
+                layoutTarget.invalidateSize();
+                layoutTarget.invalidateEstimatedSizesOfChildren();
+            }
             layoutTarget.invalidateDisplayList();
+        }
     }
     
     //----------------------------------
@@ -853,11 +893,71 @@ public class VerticalLayout extends LayoutBase
         dispatchEvent(new Event("indexInViewChanged"));
     }
         
+    //----------------------------------
+    //  target
+    //----------------------------------
+    
+    private var _target:GroupBase;
+    
+    /**
+     * @private
+     */
+    override public function set target(value:GroupBase):void
+    {
+        if (_target == value)
+            return;
+        
+        if (_target)
+            _target.removeEventListener(FlexEvent.MEASURED_SIZE_PRELIMINARY, measuredSizePreliminaryHandler);
+        _target = value;
+        super.target = value;
+        if (value)
+            value.addEventListener(FlexEvent.MEASURED_SIZE_PRELIMINARY, measuredSizePreliminaryHandler, false, 0, true);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
+        
+    /**
+     *  @private
+     *  customize handling of a few cases
+     */
+    override protected function estimateSizeOfElement(layoutElement:ILayoutElement, 
+                                                               percentWidth:Number,
+                                                               percentHeight:Number,
+                                                               parentEstimatedWidth:Number,
+                                                               parentEstimatedHeight:Number,
+                                                               estimatedSize:Point):void
+    {
+        super.estimateSizeOfElement(layoutElement,
+                                            percentWidth,
+                                            percentHeight * 100 / totalPercentHeight,
+                                            parentEstimatedWidth,
+                                            flexibleHeight,
+                                            estimatedSize);
+        if (isNaN(estimatedSize.x))
+        {
+            var c:Number = target.estimatedWidth;
+            if (isNaN(c) && !isNaN(target.explicitWidth))
+                c = target.explicitWidth;
+            if (!isNaN(c))
+            {
+                // if horizontalAlign is "justify" or "contentJustify", 
+                // restrict the width to restrictedWidth.  Otherwise, 
+                // size it normally
+                if (horizontalAlign == HorizontalAlign.JUSTIFY)
+                    estimatedSize.x = c;
+            }
+            else
+            {
+                if (!isNaN(layoutElement.percentWidth) && !isNaN(target.width) && target.width > 0)
+                    estimatedSize.x = calculatePercentWidth(layoutElement, target.width);
+            }
+        }
+    }
     
     /**
      *  @private
@@ -880,7 +980,65 @@ public class VerticalLayout extends LayoutBase
     override public function clearVirtualLayoutCache():void
     {
         llv = null;
-    }     
+    }
+    
+    /**
+     * @private
+     * if the estimatedSize changed, toss the cached sizes
+     */
+    override public function estimateSizesOfElements():void
+    {
+        if (llv)
+        {
+            llv.minorSize = 0;
+            llv.minMinorSize = 0;
+        }
+        
+        var size:SizesAndLimit = new SizesAndLimit();
+        var spaceToDistribute:Number = !isNaN(target.explicitHeight) ? target.explicitHeight : target.estimatedHeight;
+        spaceToDistribute -= paddingTop + paddingBottom;
+        totalPercentHeight = useVirtualLayout ? 100 : 0;
+		if (!useVirtualLayout)
+		{
+	        var layoutElement:ILayoutElement;
+	        
+	        // columnWidth can be expensive to compute
+	        var ch:Number = (variableRowHeight) ? NaN : Math.ceil(rowHeight);
+	        var count:int = target.numElements;
+	        var totalCount:int = count; // number of elements to use in gap calculation
+	        
+	        // If the child is flexible, track total % in case of total %'s
+	        // add up to more than 100.
+	        // For non-flexible children, take its size away from the total amount
+	        // of flexible room
+	        for (var index:int = 0; index < count; index++)
+	        {
+	            layoutElement = target.getElementAt(index);
+	            if (!layoutElement || !layoutElement.includeInLayout)
+	            {
+	                totalCount--;
+	                continue;
+	            }
+	            
+	            if (!isNaN(layoutElement.percentHeight) && variableRowHeight)
+	            {
+	                totalPercentHeight += layoutElement.percentHeight;
+	            }
+	            else
+	            {
+	                getElementHeight(layoutElement, ch, size);
+	                spaceToDistribute -= Math.ceil(size.preferredSize);
+	            } 
+	        }
+	        
+	        if (totalCount > 1)
+	            spaceToDistribute -= (totalCount-1) * gap;
+	        
+	        flexibleHeight = spaceToDistribute;
+		}
+		
+        super.estimateSizesOfElements();
+    }
 
     /**
      *  @private
@@ -1366,6 +1524,9 @@ public class VerticalLayout extends LayoutBase
         var typicalElt:ILayoutElement = typicalLayoutElement;
         if (typicalElt)
         {
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+                if (typicalElt is ILayoutManagerClient)
+                    UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(typicalElt), true);
             var typicalWidth:Number = typicalElt.getPreferredBoundsWidth();
             var typicalHeight:Number = typicalElt.getPreferredBoundsHeight();
             llv.defaultMinorSize = typicalWidth;
@@ -1439,6 +1600,7 @@ public class VerticalLayout extends LayoutBase
             // paddingTop is already taken into account as the majorAxisOffset of the llv   
             // Measured size according to the cached actual size:
             var measuredHeight:Number = llv.end(measuredEltCount - 1) + paddingBottom;
+            var measuredWidth:Number = llv.minorSize + hPadding;
             
             // For the live ItemRenderers use the preferred size
             // instead of the cached actual size:
@@ -1453,12 +1615,17 @@ public class VerticalLayout extends LayoutBase
                     {
                         measuredHeight -= llv.getMajorSize(i);
                         measuredHeight += element.getPreferredBoundsHeight();
+                        measuredWidth = Math.max(measuredWidth, element.getPreferredBoundsWidth() + hPadding);
                     }
                 }
             }
             
             layoutTarget.measuredHeight = measuredHeight;
-            
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+                layoutTarget.measuredWidth = measuredWidth;
+            else
+                layoutTarget.measuredWidth = llv.minorSize + hPadding;
+                
             if (oldLength != -1)
                 llv.length = oldLength;
         }
@@ -1466,8 +1633,8 @@ public class VerticalLayout extends LayoutBase
         {
             var vgap:Number = (measuredEltCount > 1) ? (measuredEltCount - 1) * gap : 0;
             layoutTarget.measuredHeight = (measuredEltCount * rowHeight) + vgap + vPadding;
+            layoutTarget.measuredWidth = llv.minorSize + hPadding;
         }
-        layoutTarget.measuredWidth = llv.minorSize + hPadding;
                 
         layoutTarget.measuredMinWidth = (horizontalAlign == HorizontalAlign.JUSTIFY) ? 
                 llv.minMinorSize + hPadding : layoutTarget.measuredWidth;
@@ -1785,24 +1952,86 @@ public class VerticalLayout extends LayoutBase
         var y:Number = llv.start(startIndex);
         var index:int = startIndex;
         var x0:Number = paddingLeft;
+            
+		var w:Number;
+		var h:Number;
+		var elt:ILayoutElement;
         
         // First pass: compute element x,y,width,height based on 
         // current contentWidth; cache computed widths/heights in llv.
         for (; (y < maxVisibleY) && (index < eltCount); index++)
         {
-            var elt:ILayoutElement = layoutTarget.getVirtualElementAt(index, eltWidth, eltHeight);
-            var w:Number = calculateElementWidth(elt, targetWidth, containerWidth); // can be NaN
-            var h:Number = fixedRowHeight; // NaN for variable height rows
+            // reset this flag so components like Image can tell us
+            // not to cache measurements
+            dontCacheMeasurements = false;
+            // reset this array so we can find out what components are
+            // not final
+			if (!notFinalTargets)
+				notFinalTargets = [];
+			else
+            	notFinalTargets.length = 0;
+			// request element, but skip validation (especially of the displaylist)
+            elt = layoutTarget.getVirtualElementAt(index, eltWidth, eltHeight, true);
+			// then validate everything but the displaylist so there are valid
+			// default size
+			if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+				if (elt is ILayoutManagerClient)
+					UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(elt), true);
+            w = calculateElementWidth(elt, targetWidth, containerWidth); // can be NaN
+            h = fixedRowHeight; // NaN for variable height rows
             elt.setLayoutBoundsSize(w, h);
-            w = elt.getLayoutBoundsWidth();        
+            w = elt.getLayoutBoundsWidth();       
             h = elt.getLayoutBoundsHeight();            
             var x:Number = x0 + calculateElementX(elt, w, containerWidth);
             elt.setLayoutBoundsPosition(x, y);
-            llv.cacheDimensions(index, elt);
+			// this flag potentially set by an event dispatched in the previous lines of code
+            if (dontCacheMeasurements)
+            {
+                // associate the index with the target
+                // so if the target is recycled to another
+                // index we know the current index
+                for each (var t:* in notFinalTargets)
+				{
+					if (!notFinalComponents)
+						notFinalComponents = new Dictionary(true);
+					notFinalComponents[t] = index;
+					
+				}
+				if (!notFinalIndexes)
+					notFinalIndexes = [];
+                // remember that this index didn't want to be cached
+                notFinalIndexes[index] = index;
+            }
+            else
+            {
+                if (notFinalIndexes && notFinalIndexes[index] != null)
+                {
+                    // we were previously told not to cache measurements.
+                    // clear it from the table.  We'll put it back in
+                    // if needed
+                    notFinalIndexes[index] = null;
+                    // scan the components that have dispatched a notFinal
+                    // to see if any are associated with this index
+                    for each(var p:* in notFinalComponents)
+                    {
+                        if (p == index)
+                        {
+                            // still a component that isn't final
+                            // so re-add it
+                            notFinalIndexes[index] = index;
+                            break;
+                        }
+                    }
+                    if (notFinalIndexes[index] == null)
+                        llv.cacheDimensions(index, elt);                
+                }
+                else
+                    llv.cacheDimensions(index, elt);                
+            }
             y += h + gap;
         }
         var endIndex:int = index - 1;
-
+        
         // Second pass: if neccessary, fix up x and width values based
         // on the updated contentWidth
         if (!justifyWidths && (llv.minorSize != contentWidth))
@@ -1813,7 +2042,7 @@ public class VerticalLayout extends LayoutBase
             {
                 for (index = startIndex; index <= endIndex; index++)
                 {
-                    elt = layoutTarget.getVirtualElementAt(index, eltWidth, eltHeight);
+                    elt = layoutTarget.getVirtualElementAt(index, NaN, NaN, true);
                     w = calculateElementWidth(elt, targetWidth, containerWidth);  // can be NaN
                     elt.setLayoutBoundsSize(w, elt.getLayoutBoundsHeight());
                     w = elt.getLayoutBoundsWidth();
@@ -1843,13 +2072,12 @@ public class VerticalLayout extends LayoutBase
             {
                 for (index = startIndex; index <= endIndex; index++)
                 {
-                    elt = layoutTarget.getVirtualElementAt(index, NaN, NaN);
+                    elt = layoutTarget.getVirtualElementAt(index, NaN, NaN, true);
                     elt.setLayoutBoundsPosition(elt.getLayoutBoundsX(), dy + elt.getLayoutBoundsY());
                 }
                 contentHeight += dy;
             }
         }
-
         setRowCount(index - startIndex);
         setIndexInView(startIndex, endIndex);
         
@@ -2115,7 +2343,40 @@ public class VerticalLayout extends LayoutBase
         g.invalidateSize();
         g.invalidateDisplayList();
     }
-        
+
+    /**
+     *  React to indications that measurements are not final
+     *  and should not be cached
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    private function measuredSizePreliminaryHandler(event:FlexEvent):void
+    {
+        event.target.addEventListener(FlexEvent.MEASURED_SIZE_FINAL, measuredSizeFinalHandler, false, 0, true);
+		if (!notFinalTargets)
+			notFinalTargets = [];
+        notFinalTargets.push(event.target);
+        dontCacheMeasurements = true;
+    }
+    
+    /**
+     *  React to indications that measurements are final
+     *  and can be cached
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    private function measuredSizeFinalHandler(event:FlexEvent):void
+    {
+		if (notFinalComponents)
+        	delete notFinalComponents[event.target];
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Drop methods
