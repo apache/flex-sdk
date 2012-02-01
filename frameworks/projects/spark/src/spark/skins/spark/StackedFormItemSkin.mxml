@@ -104,7 +104,7 @@ which positions the label above the content
                 <s:ConstraintColumn id="helpCol"/>
             </s:constraintColumns>         
             <s:constraintRows>
-                <s:ConstraintRow id="row1"/>
+                <s:ConstraintRow id="row1" baseline="maxAscent:4"/>
                 <s:ConstraintRow id="row2"/>
             </s:constraintRows>  
         </s:FormItemLayout>
@@ -119,17 +119,15 @@ which positions the label above the content
     </s:Rect>
     
     <s:Label id="sequenceLabelDisplay" styleName="labelStyle"
-             left="sequenceCol:4" right="sequenceCol:5" 
-             top="row1:4" bottom="row1:5" 
-             baseline="row1:18"/>
+             left="sequenceCol:4" right="sequenceCol:5"
+             bottom="row1:5" baseline="row1:0"/>
     <s:Label id="labelDisplay" styleName="labelStyle"
              left="contentCol:0" right="helpCol:4"
-             top="row1:4" bottom="row1:5"
-             baseline="row1:18"/>
+             bottom="row1:5" baseline="row1:0"/>
     <s:Group id="contentGroup" 
              showErrorTip="false" showErrorSkin="true"
              left="contentCol:0" right="contentCol:27" 
-             top="row2:0" bottom="row2:4">
+             top="row2:0" bottom="row2:4" baseline="row2:0">
         <s:layout>
             <s:VerticalLayout/>
         </s:layout>
@@ -138,7 +136,7 @@ which positions the label above the content
               source.errorStates="@Embed(source='assets/ErrorIndicator.png')"
               toolTip="Required" toolTip.errorStates="{hostComponent.errorString}"
               includeIn="requiredStates,errorStates" scaleContent="false"
-              baseline="row2:18"
+              baseline="row2:0"
               x="{contentGroup.x + contentGroup.contentWidth + 3}"/>
     <s:Group id="helpContentGroup" styleName="helpTextStyle" 
              left="helpCol:27" right="helpCol:4" top="row2:0" bottom="row2:4"/>
