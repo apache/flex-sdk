@@ -66,8 +66,6 @@
                 <include name="textLayout.swc"/>
 			</external-library-path>
 			<include-file name="assets/CalendarIcon.png" path="${basedir}/assets/CalendarIcon.png"/>
-            <include-file name="assets/MenuArrow.png" path="${basedir}/assets/MenuArrow.png"/>
-            <include-file name="assets/MenuArrow_disabled.png" path="${basedir}/assets/MenuArrow_disabled.png"/>
 			<locale/>
 			<accessible>true</accessible>
 		</compc>
