@@ -20,6 +20,7 @@ import flash.utils.Timer;
 
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
+import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.DragEvent;
@@ -832,6 +833,39 @@ public class LayoutBase extends OnDemandEventDispatcher
     }
     
     /**
+     *  @private 
+     *  Given any descendant element of the target, return its bounds in the 
+     *  target's coordinate space.
+     */ 
+    mx_internal function getChildElementBounds(element:IVisualElement):Rectangle
+    {
+        // use localToContent
+        if (!element)
+            return new Rectangle(0,0,0,0);
+        
+        var parentUIC:UIComponent = element.parent as UIComponent;
+        
+        // Note that we don't check that the element is a descendant of the target
+        // since it can be expensive to calculae. 
+        if (parentUIC)
+        {
+            var g:GroupBase = target;
+            // Get the position in local coordinate
+            var posPointStart:Point = new Point(element.getLayoutBoundsX(), element.getLayoutBoundsY());
+            var sizePoint:Point = new Point(element.getLayoutBoundsWidth(), element.getLayoutBoundsHeight());
+            
+            // Convert from local to global coordinate space
+            var posPoint:Point = parentUIC.localToGlobal(posPointStart);
+            // Convert from global to target's local coordinate space
+            posPoint = g.globalToLocal(posPoint);
+                        
+            return new Rectangle(posPoint.x, posPoint.y, sizePoint.x, sizePoint.y);
+        }
+        
+        return new Rectangle(0,0,0,0);
+    }
+     
+    /**
      *  @private
      *  Return true if the specified element's layout bounds fall within the
      *  scrollRect, or if scrollRect is null.
@@ -1462,6 +1496,20 @@ public class LayoutBase extends OnDemandEventDispatcher
             dy = 0;
         
         return new Point(dx, dy);
+    }
+    
+    mx_internal function getScrollPositionDeltaToAnyElement(element:IVisualElement, topOffset:Number = NaN, 
+                                                       bottomOffset:Number = NaN, 
+                                                       leftOffset:Number = NaN,
+                                                       rightOffset:Number = NaN):Point
+    {
+        
+        var elementR:Rectangle = getChildElementBounds(element);
+        return getScrollPositionDeltaToElementHelperHelper(
+            elementR, 
+            topOffset, bottomOffset, 
+            leftOffset, rightOffset);
+        
     }
     
     //--------------------------------------------------------------------------
