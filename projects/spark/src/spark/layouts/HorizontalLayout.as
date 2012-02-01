@@ -503,7 +503,7 @@ public class HorizontalLayout extends LayoutBase
      */
     private var _variableColumnWidth:Boolean = true;
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="true,false")]
 
     /**
      *  If <code>true</code>, specifies that layout elements are to be allocated their
