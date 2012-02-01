@@ -1402,18 +1402,18 @@ public class TileLayout extends LayoutBase
             layoutTarget.measuredWidth = layoutTarget.measuredMinWidth = 0;
         else
         {
-            layoutTarget.measuredWidth = Math.round(columnCount * (_columnWidth + _horizontalGap) - _horizontalGap);
+            layoutTarget.measuredWidth = Math.ceil(columnCount * (_columnWidth + _horizontalGap) - _horizontalGap);
             // measured min size is guaranteed to have enough columns to fit all elements
-            layoutTarget.measuredMinWidth = Math.round(_columnCount * (_columnWidth + _horizontalGap) - _horizontalGap);
+            layoutTarget.measuredMinWidth = Math.ceil(_columnCount * (_columnWidth + _horizontalGap) - _horizontalGap);
         }
             
         if (rowCount == 0)
             layoutTarget.measuredHeight = layoutTarget.measuredMinHeight = 0;        
         else
         {
-            layoutTarget.measuredHeight = Math.round(rowCount * (_rowHeight + _verticalGap) - _verticalGap);
+            layoutTarget.measuredHeight = Math.ceil(rowCount * (_rowHeight + _verticalGap) - _verticalGap);
             // measured min size is guaranteed to have enough rows to fit all elements
-            layoutTarget.measuredMinHeight = Math.round(_rowCount * (_rowHeight + _verticalGap) - _verticalGap);
+            layoutTarget.measuredMinHeight = Math.ceil(_rowCount * (_rowHeight + _verticalGap) - _verticalGap);
         }
     }
 
@@ -1715,8 +1715,10 @@ public class TileLayout extends LayoutBase
             }
         }
 
-        layoutTarget.setContentSize(Math.round(_columnCount * (_columnWidth + _horizontalGap) - _horizontalGap),
-                                    Math.round(_rowCount * (_rowHeight + _verticalGap) - _verticalGap));
+        // Make sure that if the content spans partially over a pixel to the right/bottom,
+        // the content size includes the whole pixel.
+        layoutTarget.setContentSize(Math.ceil(_columnCount * (_columnWidth + _horizontalGap) - _horizontalGap),
+                                    Math.ceil(_rowCount * (_rowHeight + _verticalGap) - _verticalGap));
 
         // Reset the cache
         if (!useVirtualLayout)
