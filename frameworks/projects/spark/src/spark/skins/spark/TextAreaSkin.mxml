@@ -55,7 +55,7 @@
 		</fill>
 	</Rect>
 
-    <FxScroller id="scroller" left="1" top="1" right="1" bottom="1">
+    <FxScroller id="scroller" left="0" top="0" right="0" bottom="0">
         <TextView id="textView" 
                   paddingLeft="4" paddingTop="4"
                   paddingRight="4" paddingBottom="4"/>
