@@ -42,7 +42,7 @@ import spark.components.supportClasses.GridColumn;
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-public class DataGridEditEvent extends Event
+public class GridItemEditorEvent extends Event
 {
     include "../core/Version.as";    
     
@@ -53,14 +53,14 @@ public class DataGridEditEvent extends Event
     //--------------------------------------------------------------------------
     
     /**
-     *  The <code>DataGridEditEvent.START_GRID_ITEM_EDITOR_SESSION</code> 
+     *  The <code>GridItemEditorEvent.START_GRID_ITEM_EDITOR_SESSION</code> 
      *  constant defines the value of the <code>type</code> property of the
      *  event object for a <code>startGridItemEditorSession</code> event. 
-     *  This event is dispatch by the data grid when a new item editor 
-     *  session has been requested. A listener can dynamically determine 
-     *  if a cell is editable and cancel the edit if it is not. A listener 
-     *  may also dynamically change the editor that will be used by assigning a
-     *  different item editor to a column.
+     *  Dispatched when a new item editor session has been requested. A listener
+     *  can dynamically determine if a cell is editable and cancel the edit (with 
+     *  preventDefault()) if it is not. A listener may also dynamically 
+     *  change the editor that will be used by assigning a different item editor
+     *  to a column.
      * 
      *  <p>If this event is cancelled the item editor will not be created.</p>
      *
@@ -85,7 +85,7 @@ public class DataGridEditEvent extends Event
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
      *     <tr><td><code>type</code></td><td>
-     *     DataGridEditEvent.START_GRID_ITEM_EDITOR_SESSION</td></tr>
+     *     GridItemEditorEvent.START_GRID_ITEM_EDITOR_SESSION</td></tr>
      *  </table>
      *   
      *  @eventType startGridItemEditorSession
@@ -100,11 +100,10 @@ public class DataGridEditEvent extends Event
     public static const START_GRID_ITEM_EDITOR_SESSION:String = "startGridItemEditorSession";
     
     /**
-     *  The <code>DataGridEditEvent.OPEN_GRID_ITEM_EDITOR_SESSION</code> 
+     *  The <code>GridItemEditorEvent.OPEN_GRID_ITEM_EDITOR_SESSION</code> 
      *  constant defines the value of the <code>type</code> property of the
      *  event object for a <code>openGridItemEditor</code> event. 
-     *  This event is dispatch by the data grid after an item editor has 
-     *  been opened for a cell. 
+     *  Dispatched immediately after an item editor has been opened. 
      * 
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -127,7 +126,7 @@ public class DataGridEditEvent extends Event
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
      *     <tr><td><code>type</code></td><td>
-     *     DataGridEditEvent.OPEN_GRID_ITEM_EDITOR_SESSION</td></tr>
+     *     GridItemEditorEvent.OPEN_GRID_ITEM_EDITOR_SESSION</td></tr>
      *  </table>
      *   
      *  @eventType openGridItemEditor
@@ -139,14 +138,14 @@ public class DataGridEditEvent extends Event
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public static const OPEN_GRID_ITEM_EDITOR_SESSION:String = "openGridItemEditor";
+    public static const OPEN_GRID_ITEM_EDITOR_SESSION:String = "openGridItemEditorSession";
 
     /**
-     *  The <code>DataGridEditEvent.SAVE_GRID_ITEM_EDITOR_SESSION</code> 
+     *  The <code>GridItemEditorEvent.SAVE_GRID_ITEM_EDITOR_SESSION</code> 
      *  constant defines the value of the <code>type</code> property of the
      *  event object for a <code>saveGridItemEditor</code> event. 
-     *  This event is dispatch by the data grid after the data in item editor
-     *  has been saved into the item and the editor has been closed.  
+     *  Dispatched after the data in item editor has been saved into the data 
+     *  provider and the editor has been closed.  
      * 
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -169,7 +168,7 @@ public class DataGridEditEvent extends Event
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
      *     <tr><td><code>type</code></td><td>
-     *     DataGridEditEvent.SAVE_GRID_ITEM_EDITOR_SESSION</td></tr>
+     *     GridItemEditorEvent.SAVE_GRID_ITEM_EDITOR_SESSION</td></tr>
      *  </table>
      *   
      *  @eventType saveGridItemEditor
@@ -181,14 +180,13 @@ public class DataGridEditEvent extends Event
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public static const SAVE_GRID_ITEM_EDITOR_SESSION:String = "saveGridItemEditor";
+    public static const SAVE_GRID_ITEM_EDITOR_SESSION:String = "saveGridItemEditorSession";
 
     /**
-     *  The <code>DataGridEditEvent.CANCEL_GRID_ITEM_EDITOR_SESSION</code> 
+     *  The <code>GridItemEditorEvent.CANCEL_GRID_ITEM_EDITOR_SESSION</code> 
      *  constant defines the value of the <code>type</code> property of the
      *  event object for a <code>cancelridItemEditor</code> event. 
-     *  This event is dispatch by the data grid after item editor has been 
-     *  closed with saving its data.  
+     *  Dispatched after the item editor has been closed without saving its data.  
      * 
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -211,7 +209,7 @@ public class DataGridEditEvent extends Event
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
      *     <tr><td><code>type</code></td><td>
-     *     DataGridEditEvent.CANCEL_GRID_ITEM_EDITOR_SESSION</td></tr>
+     *     GridItemEditorEvent.CANCEL_GRID_ITEM_EDITOR_SESSION</td></tr>
      *  </table>
      *   
      *  @eventType cancelGridItemEditor
@@ -223,7 +221,7 @@ public class DataGridEditEvent extends Event
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public static const CANCEL_GRID_ITEM_EDITOR_SESSION:String = "cancelGridItemEditor";
+    public static const CANCEL_GRID_ITEM_EDITOR_SESSION:String = "cancelGridItemEditorSession";
     
     
     //--------------------------------------------------------------------------
@@ -260,7 +258,7 @@ public class DataGridEditEvent extends Event
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function DataGridEditEvent(type:String, 
+    public function GridItemEditorEvent(type:String, 
                                       bubbles:Boolean = false, 
                                       cancelable:Boolean = false,
                                       rowIndex:uint = -1,
@@ -334,7 +332,7 @@ public class DataGridEditEvent extends Event
      */
     override public function clone():Event
     {
-        var cloneEvent:DataGridEditEvent = new DataGridEditEvent(type, bubbles, cancelable, 
+        var cloneEvent:GridItemEditorEvent = new GridItemEditorEvent(type, bubbles, cancelable, 
             rowIndex, columnIndex, column); 
         
         return cloneEvent;
