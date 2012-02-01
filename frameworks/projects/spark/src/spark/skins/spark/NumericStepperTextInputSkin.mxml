@@ -44,6 +44,26 @@
      * @inheritDoc
      */
         override public function get contentItems():Array {return contentFill};
+        
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        {
+            if (getStyle("borderVisible") == true)
+            {
+                border.visible = true;
+                shadow.visible = true;
+                background.left = background.top = background.right = background.bottom = 1;
+                textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 1;
+            }
+            else
+            {
+                border.visible = false;
+                shadow.visible = false;
+                background.left = background.top = background.right = background.bottom = 0;
+                textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 0;
+            }
+            
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
     </fx:Script>
     
     <s:states>
@@ -52,9 +72,11 @@
     </s:states>
     
     <!-- border --> 
-    <s:Rect left="0" right="0" top="0" bottom="0">
+    <s:Rect left="0" right="0" top="0" bottom="0" id="border">
         <s:stroke>            
-            <s:SolidColorStroke color="0x686868" weight="1" />
+            <s:SolidColorStroke color="{getStyle('borderColor')}"
+                                alpha="{getStyle('borderAlpha')}"
+                                weight="1" />
         </s:stroke>
     </s:Rect>
 
@@ -68,7 +90,7 @@
     </s:Rect>
     
     <!-- shadow -->
-    <s:Rect left="1" top="1" right="1" height="1">
+    <s:Rect left="1" top="1" right="1" height="1" id="shadow">
         <s:fill>
             <s:SolidColor color="0x000000" alpha="0.12" />
         </s:fill>
