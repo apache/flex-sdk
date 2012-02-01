@@ -12,7 +12,7 @@
 -->
 
 <SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
-      alpha.disabled="0.5">
+      alpha.disabled="0.5" minHeight="24" minWidth="12">
 
     <Metadata>
     	[HostComponent("mx.components.FxSpinner")]
@@ -30,9 +30,9 @@
     	<State name="disabled" />
     </states>
     
-    <FxButton id="incrementButton" width="12" height="12" 
-            skinClass="mx.skins.spark.FxSpinnerIncrButtonSkin" />
-    <FxButton id="decrementButton" top="12" width="12" height="12"
+    <FxButton id="incrementButton" left="0" right="0" top="0" height="50%" 
+            skinClass="mx.skins.spark.FxSpinnerIncrButtonSkin" /> 
+    <FxButton id="decrementButton" left="0" right="0" bottom="0" height="50%"  
             skinClass="mx.skins.spark.FxSpinnerDecrButtonSkin" />
 
 </SparkSkin>
