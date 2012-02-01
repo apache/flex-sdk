@@ -91,23 +91,6 @@ The default skin class for a Spark DataGrid component.
             </s:Line>
         </fx:Component>
         
-        <fx:Component id="headerRenderer">
-            <s:DefaultGridHeaderRenderer>
-                <s:sortIndicator>
-                    <fx:Component>
-                        <s:Path data="M 3.5 7.0 L 0.0 0.0 L 7.0 0.0 L 3.5 7.0">
-                            <s:fill>
-                                <s:RadialGradient rotation="90" focalPointRatio="1">    
-                                    <s:GradientEntry id="arrowFill1" color="0" alpha="0.6" />
-                                    <s:GradientEntry id="arrowFill2" color="0" alpha="0.8" />
-                                </s:RadialGradient>
-                            </s:fill>
-                        </s:Path>
-                    </fx:Component>
-                </s:sortIndicator>
-            </s:DefaultGridHeaderRenderer>
-        </fx:Component>
-        
         <fx:Component id="hoverIndicator">
             <s:Rect>
                 <s:fill>
@@ -203,7 +186,7 @@ The default skin class for a Spark DataGrid component.
     <s:VGroup horizontalAlign="justify" gap="0" left="0" right="0" top="0" bottom="0">
         <s:GridColumnHeaderGroup id="columnHeaderGroup" paddingLeft="1" paddingTop="1" paddingRight="1"
             columnSeparator="{headerColumnSeparator}"
-            headerRenderer="{headerRenderer}" />
+            headerRenderer="spark.skins.spark.DefaultGridHeaderRenderer" />
 
         <s:VGroup horizontalAlign="justify" height="100%" gap="-1">
             <s:Line id="headerSeparator">
