@@ -38,11 +38,14 @@ use namespace mx_internal;
  *  &lt;s:GradientFilter
  *    <strong>Properties</strong>
  *    angle="45"
- *    disatance="4.0"
+ *    distance="4.0"
  *    entries="[]"
  *    type="inner"
  *  /&gt;
  *  </pre>
+ * 
+ * @see spark.filters.GradientGlowFilter
+ * @see spark.filters.GradientBevelFilter
  *
  * @langversion 3.0
  * @playerversion Flash 10
