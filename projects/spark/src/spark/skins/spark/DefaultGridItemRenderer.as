@@ -4,15 +4,19 @@ package spark.skins.spark
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.geom.Matrix;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.text.TextFieldAutoSize;
 
+import mx.core.IToolTip;
 import mx.core.IUITextField;
 import mx.core.LayoutElementUIComponentUtils;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.events.ToolTipEvent;
+import mx.managers.ISystemManager;
 
 import spark.components.Grid;
 import spark.components.IGridItemRenderer;
@@ -90,6 +94,8 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     public function DefaultGridItemRenderer()
     {
         super();
+        
+        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);        
     }
     
     /**
@@ -482,7 +488,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         // the TextField's width. This is not what we want when measuring the 
         // width of typicalItem columns that lack an explicit GridColumn width.
         
-        labelDisplay.setActualSize(4096, NaN);  // 4096 is just an arbitrarily large value
+        labelDisplay.setActualSize(4096, NaN);  // 4096 is just an arbitrarily large value        
         
         addChild(DisplayObject(labelDisplay));
     }
@@ -561,12 +567,6 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     
     /**
      *  @private
-     *  True if the labelDisplay's scrollRect has been set.  See below.
-     */
-    private var clippingEnabled:Boolean = false;
-    
-    /**
-     *  @private
      *  Watch Out: this code relies on the fact that UITextField/setActualSize() can cause
      *  labelDisplay.textHeight to change, if the text wraps.  The textfield's measuredHeight
      *  is just a padded version of textHeight.  This is the only place where labelDisplay.setActualSize() 
@@ -594,8 +594,52 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         updateMeasuredSize();  // See @private comment above
         
         labelDisplay.move(labelDisplayX, labelDisplayY);
+        
+        // If the effective value of showDataTips has changed for this column, then
+        // set the renderer's tooltTip property to a placeholder.  The real tooltip
+        // text is computed in the TOOL_TIP_SHOW handler below.
+        
+        // TBD(hmuller) - this code should be common with GridItemRenderer
+        
+        const showDataTips:Boolean = column.getShowDataTips();  
+        const dataTip:String = toolTip;
+        if (showDataTips && !dataTip)
+            toolTip = "<dataTip>";
+        else if (!showDataTips && dataTip)
+            toolTip = null;
+    } 
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //-------------------------------------------------------------------------- 
+    
+    // TBD(hmuller) - this code should be common with GridItemRenderer
+    private function toolTipShowHandler(event:ToolTipEvent):void
+    {
+        var toolTip:IToolTip = event.toolTip;
+        
+        toolTip.text = column.itemToDataTip(data);  // Lazily compute the tooltip text
+        
+        // Move the origin of the tooltip to the origin of this item renderer
+        
+        var sm:ISystemManager = systemManager.topLevelSystemManager;
+        var sbRoot:DisplayObject = sm.getSandboxRoot();
+        var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
+        var pt:Point = new Point(0, 0);
+        pt = localToGlobal(pt);
+        pt = sbRoot.globalToLocal(pt);          
+        
+        toolTip.move(pt.x, Math.round(pt.y + (height - toolTip.height) / 2));
+        
+        var screenRight:Number = screen.x + screen.width;
+        pt.x = toolTip.x;
+        pt.y = toolTip.y;
+        pt = sbRoot.localToGlobal(pt);
+        if (pt.x + toolTip.width > screenRight)
+            toolTip.move(toolTip.x - (pt.x + toolTip.width - screenRight), toolTip.y);
     }
- 
         
 }   
 }
