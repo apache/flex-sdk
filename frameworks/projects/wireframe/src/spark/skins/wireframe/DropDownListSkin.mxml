@@ -22,9 +22,9 @@
     <!-- host component -->
     <fx:Metadata>
     <![CDATA[ 
-    /** 
-     * @copy spark.skins.spark.ApplicationSkin#hostComponent
-     */
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.DropDownList")]
     ]]>
     </fx:Metadata> 
@@ -35,15 +35,21 @@
         <s:State name="disabled" />
     </s:states>
     
+    <!--- 
+        The PopUpAnchor control that opens the drop-down list. 
+        
+        <p>In a custom skin class that uses transitions, set the 
+        <code>itemDestructionPolicy</code> property to <code>none</code>.</p>
+    -->
     <s:PopUpAnchor id="popUp"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
         left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
         popUpPosition="below" popUpWidthMatchesAnchorWidth="true">
         
-            <!--- 
-                  The drop down area of the skin. This includes borders, background colors, scrollers, and filters. 
-                  To create a custom drop down, edit this skin and create a custom skin class. 
-            -->
-                <s:Group id="dropDown" maxHeight="134" minHeight="22" >
+        <!--- 
+              The drop down area of the skin. This includes borders, background colors, scrollers, and filters. 
+              To create a custom drop down, edit this skin and create a custom skin class. 
+        -->
+        <s:Group id="dropDown" maxHeight="134" minHeight="22" >
             <!-- border/fill -->
             <s:Rect left="0" right="0" top="0" bottom="0">
                 <s:stroke>
@@ -55,6 +61,7 @@
             </s:Rect>
             
             <s:Scroller left="0" top="0" right="0" bottom="0" focusEnabled="false" minViewportInset="1">
+                <!--- @copy spark.components.SkinnableDataContainer#dataGroup-->
                 <s:DataGroup id="dataGroup" itemRenderer="spark.skins.spark.DefaultItemRenderer">
                     <s:layout>
                         <s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
@@ -68,9 +75,13 @@
         </s:Group>
     </s:PopUpAnchor>
     
-    <!--- The button used by the DropDownList. The default skin is DropDownListButtonSkin. -->
+    <!--- 
+        The default skin is DropDownListButtonSkin. 
+        @copy spark.components.supportClasses.DropDownListBase#openButton
+    -->
     <s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
-        skinClass="spark.skins.wireframe.DropDownListButtonSkin" />  
+        skinClass="spark.skins.wireframe.DropDownListButtonSkin" />
+    <!--- @copy spark.components.DropDownList#labelDisplay -->
     <s:Label id="labelDisplay" verticalAlign="middle" lineBreak="explicit"
         mouseEnabled="false" mouseChildren="false"
         left="7" right="30" top="2" bottom="2" width="75" verticalCenter="1" /> 
