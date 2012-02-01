@@ -2533,25 +2533,25 @@ public class GraphicElement extends OnDemandEventDispatcher
         var updateTransform:Boolean = false;
         if (displayObject)
         {
-            if (alphaChanged)
+            if (alphaChanged || displayObjectChanged)
             {
                 alphaChanged = false;
                 displayObject.alpha = _alpha;
             }
 
-            if (blendModeChanged)
+            if (blendModeChanged || displayObjectChanged)
             {
                 blendModeChanged = false;
                 displayObject.blendMode = _blendMode;
             }
 
-            if (filtersChanged)
+            if (filtersChanged || displayObjectChanged)
             {
                 filtersChanged = false;
                 displayObject.filters = _clonedFilters;
             }
 
-            if (maskChanged)
+            if (maskChanged || displayObjectChanged)
             {
                 maskChanged = false;
                 
@@ -2594,13 +2594,13 @@ public class GraphicElement extends OnDemandEventDispatcher
                 }
             }
 
-            if (maskTypeChanged)
+            if (maskTypeChanged || displayObjectChanged)
             {
                 maskTypeChanged = false;
                 applyMaskType();
             }
 
-            if (visibleChanged)
+            if (visibleChanged || displayObjectChanged)
             {
                 visibleChanged = false;
                 displayObject.visible = _visible;
