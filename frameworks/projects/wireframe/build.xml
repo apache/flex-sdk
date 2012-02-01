@@ -63,10 +63,8 @@
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="flex4.swc"/>
-                <include name="textLayout_conversion.swc"/>
-                <include name="textLayout_core.swc"/>
-                <include name="textLayout_edit.swc"/>
-			</external-library-path>
+                <include name="textLayout.swc"/>
+             </external-library-path>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
 			<locale/>
 			<accessible>true</accessible>
