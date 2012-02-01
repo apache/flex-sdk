@@ -36,7 +36,7 @@ public class SparkSkin extends Skin
     
     public var colorized:Boolean = false;
     
-    /*
+    /**
      * Constructor
      *  
      *  @langversion 3.0
@@ -49,7 +49,7 @@ public class SparkSkin extends Skin
         super();
     }
     
-    /*
+    /**
      * names of items that should not be colorized by the "baseColor" style.
      *  
      *  @langversion 3.0
@@ -62,7 +62,7 @@ public class SparkSkin extends Skin
         return null;
     }
     
-    /*
+    /**
      * names of items that should have their "color" property defined by the "symbolColor" style.
      *  
      *  @langversion 3.0
