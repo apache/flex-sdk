@@ -15,7 +15,7 @@
 
     <!-- host component -->
     <fx:Metadata>
-        [HostComponent("spark.components.VideoDisplay")]
+        [HostComponent("spark.components.VideoPlayer")]
     </fx:Metadata>
     
     <fx:Script>
@@ -53,9 +53,9 @@
         
         <s:Button id="stopButton" label="Stop" />
         
-        <s:ToggleButton id="playPauseButton" skinClass="spark.skins.default.VideoDisplayPlayPauseButtonSkin" label="Play" />
+        <s:ToggleButton id="playPauseButton" skinClass="spark.skins.default.VideoPlayerPlayPauseButtonSkin" label="Play" />
         
-        <s:ToggleButton id="muteButton" skinClass="spark.skins.default.VideoDisplayMuteButtonSkin" label="Mute" />
+        <s:ToggleButton id="muteButton" skinClass="spark.skins.default.VideoPlayerMuteButtonSkin" label="Mute" />
         
         <s:VSlider id="volumeBar" liveDragging="true" height="21" valueInterval=".1" />
         
