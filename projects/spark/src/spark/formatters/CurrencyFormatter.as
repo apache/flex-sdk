@@ -153,14 +153,14 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  Note that the actual locale that is used is specified by the 
      *  <code>actualLocaleIDName</code> property.</p>
      *
-     *  <p><strong>NOTE: When a fallback locale is used, the currency
+     *  <p><strong>NOTE:</strong> When a fallback locale is used, the currency
      *  properties are set to default values,
      *  and therefore the <code>currencySymbol</code> or
      *  <code>currencyISOCode</code> properties might be given unexpected
      *  values. It is a good idea to examine the
      *  <code>currencySymbol</code> and <code>currencyISOCode</code>
      *  property values before formatting a currency amount.
-     *  </strong></p>
+     *  </p>
      *
      *  @see #actualLocaleIDName
      *  @see #lastOperationsStatus
@@ -255,7 +255,7 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  being used (e.g. USD, EUR, JPY, CNY).
      *
      *  <p>When the <code>useCurrencySymbol</code> property is set to
-     *  <code>false</code>, this code will be used to indicate the currency
+     *  <code>false</code>, this code is used to indicate the currency
      *  type when formatting currency amounts
      *  using the <code>format()</code> method. </p>
      *
@@ -643,19 +643,19 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
     [Bindable("change")]
 
     /**
-     *  Enables the use of the currencySymbol when formatting
-     *  currency amounts.
+     *  Enables the use of the <code>currencySymbol</code> property 
+     *  when formatting currency amounts.
      *
-     *  <p>When the <code>withCurrencySymbol</code> property is
+     *  <p>When the <code>useCurrencySymbol</code> property is
      *  set to <code>true</code>, the value of the
      *  <code>currencySymbol</code> property is used
      *  in the string returned by the format method.
-     *  For example: <code>$ 123,456,789.22</code></p>
+     *  For example: <code>$123,456,789.22</code></p>
      *
-     *  <p>When the <code>withCurrencySymbol</code> property is set to
+     *  <p>When the <code>useCurrencySymbol</code> property is set to
      *  <code>false</code>, the value of the <code>currencyISOCode</code>
      *  property is used in the string returned by the <code>format</code>
-     *  method. For example: <code>USD 123,456,789.22</code></p>
+     *  method. For example: <code>USD123,456,789.22</code></p>
      *
      *  @default false
      *
