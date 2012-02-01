@@ -20,6 +20,7 @@ import flash.display.LineScaleMode;
 import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
@@ -40,16 +41,13 @@ import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
-import mx.events.PropertyChangeEventKind;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 import mx.geom.Transform;
 import mx.geom.TransformOffsets;
 import mx.graphics.IStroke;
 import mx.managers.ILayoutManagerClient;
-import mx.managers.LayoutManager;
 import mx.utils.MatrixUtil;
-import mx.utils.OnDemandEventDispatcher;
 
 import spark.components.Group;
 import spark.components.supportClasses.InvalidatingSprite;
@@ -78,7 +76,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class GraphicElement extends OnDemandEventDispatcher
+public class GraphicElement extends EventDispatcher
     implements IGraphicElement, IInvalidating, ILayoutElement, IVisualElement, IID
 {
     include "../../core/Version.as";
@@ -166,6 +164,8 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @private
      */
     private var _colorTransform:ColorTransform;
+
+	private var colorTransformChanged:Boolean;
 
 	/**
      *  @private The Sprite to draw into. 
@@ -1762,6 +1762,12 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set transform(value:flash.geom.Transform):void
     {
+    	// TODO jszeto Add perspectiveProjection support
+    	
+    	var matrix:Matrix = value && value.matrix ? value.matrix.clone() : null;
+    	var matrix3D:Matrix3D = value && value.matrix3D ? value.matrix3D.clone() : null;
+    	var colorTransform:ColorTransform = value ? value.colorTransform : null;
+    	
         setTransform(value);
 
 		var previous:Boolean = needsDisplayObject;
@@ -1770,18 +1776,18 @@ public class GraphicElement extends OnDemandEventDispatcher
         {
             allocateLayoutFeatures();
 
-            if(_transform.matrix != null)
+            if(matrix != null)
             {
-                layoutFeatures.layoutMatrix = _transform.matrix.clone();
+                layoutFeatures.layoutMatrix = matrix;
             }
-            else if (_transform.matrix3D != null)
+            else if (matrix3D != null)
             {    
-                layoutFeatures.layoutMatrix3D = _transform.matrix3D.clone();
+                layoutFeatures.layoutMatrix3D = matrix3D;
             }          
         }
-        
-        _colorTransform = _transform ? _transform.colorTransform : null;
-        
+		
+		setColorTransform(colorTransform);
+
         invalidateTransform(previous != needsDisplayObject);
     }
 
@@ -1790,21 +1796,40 @@ public class GraphicElement extends OnDemandEventDispatcher
      */ 
     private function setTransform(value:flash.geom.Transform):void
     {
-        // Clean up the old event listeners
+        // Clean up the old transform
         var oldTransform:mx.geom.Transform = _transform as mx.geom.Transform;
         if (oldTransform)
-        {
-            oldTransform.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
-        }
+        	oldTransform.target = null;
 
         var newTransform:mx.geom.Transform = value as mx.geom.Transform;
 
         if (newTransform)
-        {
-            newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
-        }
+        	newTransform.target = this;
 
         _transform = value;
+    }
+    
+    public function setColorTransform(value:ColorTransform):void
+    {
+    	if (_colorTransform != value)
+		{
+			var previous:Boolean = needsDisplayObject;
+			// Make a copy of the colorTransform
+			_colorTransform = new ColorTransform(value.redMultiplier, value.greenMultiplier, value.blueMultiplier, value.alphaMultiplier,
+												 value.redOffset, value.greenOffset, value.blueOffset, value.alphaOffset);
+			
+			if (displayObject && sharedIndex == -1)
+            {
+                displayObject.transform.colorTransform = _colorTransform;
+            }
+            else
+            {
+            	colorTransformChanged = true;
+            	invalidateProperties();
+                if (previous != needsDisplayObject)
+                	notifyElementLayerChanged();
+            }				
+        }
     }
     
     /**
@@ -2635,7 +2660,7 @@ public class GraphicElement extends OnDemandEventDispatcher
             var rectBounds:Rectangle = displayObject.getBounds(useLocalSpace ? displayObject.parent : topLevel); 
             var bitmapData:BitmapData = new BitmapData(rectBounds.width, rectBounds.height, transparent, fillColor);
                 
-            var m:Matrix = useLocalSpace ? displayObject.transform.matrix : displayObject.transform.concatenatedMatrix;
+           	var m:Matrix = useLocalSpace ? displayObject.transform.matrix : displayObject.transform.concatenatedMatrix;
             
             if (m)
                 m.translate(-rectBounds.x, -rectBounds.y);
@@ -2962,6 +2987,13 @@ public class GraphicElement extends OnDemandEventDispatcher
         // If we are the first in the sequence, setup the displayObject properties
         if (sharedIndex <= 0 && displayObject)
         {
+			if (colorTransformChanged || displayObjectChanged)
+			{
+				colorTransformChanged = false;
+				if (_colorTransform)
+					displayObject.transform.colorTransform = _colorTransform;
+			}
+
             if (alphaChanged || displayObjectChanged)
             {
                 alphaChanged = false;
@@ -3892,11 +3924,6 @@ public class GraphicElement extends OnDemandEventDispatcher
                 displayObject.y = _y;
         	}
         }
-        
-        if (_colorTransform)
-        {
-            displayObject.transform.colorTransform = _colorTransform;
-        }
     }
     
     /**
@@ -3996,52 +4023,6 @@ public class GraphicElement extends OnDemandEventDispatcher
         filters = _filters;
     }
 
-    /**
-     *  Called when one of the properties of the transform changes.
-     *  
-     *  @param event The event that is dispatched when the property changed.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function transformPropertyChangeHandler(
-                                    event:PropertyChangeEvent):void
-    {
-        if (event.kind == PropertyChangeEventKind.UPDATE)
-        {
-            if (event.property == "matrix")
-            {
-                // Apply matrix
-                if (_transform)
-                { 
-			        allocateLayoutFeatures();
-					var previous:Boolean = needsDisplayObject;
-				   	layoutFeatures.layoutMatrix = _transform.matrix.clone();
-					invalidateTransform(previous != needsDisplayObject);
-                }
-            }
-            else if (event.property == "colorTransform")
-            {
-                // Apply colorTranform
-                if (_transform)
-                {
-                    _colorTransform = _transform.colorTransform;
-                    
-                    if (displayObject && sharedIndex == -1)
-                    {
-                        displayObject.transform.colorTransform = _colorTransform;
-                    }
-                    else
-                    {
-                        invalidateDisplayList();
-                        notifyElementLayerChanged();
-                    }
-                }
-            }
-        }
-    }
 }
 
 }
