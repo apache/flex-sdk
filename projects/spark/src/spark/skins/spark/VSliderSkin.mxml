@@ -15,7 +15,7 @@
 	  height="100" width="15">
 
     <Metadata>
-    	[HostComponent("flex.component.VSlider")]
+    	[HostComponent("mx.components.FxVSlider")]
     </Metadata> 
      
     <states>
@@ -23,9 +23,9 @@
     	<State name="disabled" />
     </states>
    
-    <Button id="track" left="2" right="2" top="0" bottom="0" 
-            skinZZ="flex.skin.VSliderTrackSkin" />
-    <Button id="thumb" left="0" right="0" height="15" 
-            skinZZ="flex.skin.VSliderThumbSkin" />
+    <FxButton id="track" left="2" right="2" top="0" bottom="0" 
+            skinZZ="mx.skins.spark.FxVSliderTrackSkin" />
+    <FxButton id="thumb" left="0" right="0" height="15" 
+            skinZZ="mx.skins.spark.FxVSliderThumbSkin" />
 
 </Skin>
