@@ -73,8 +73,7 @@ Use this skin when your FormItems use the StackedFormItemSkin
                 <s:ConstraintColumn id="helpCol"/>
             </s:constraintColumns>         
             <s:constraintRows>
-                <s:ConstraintRow id="row1"/>
-                <s:ConstraintRow id="row2"/>
+                <s:ConstraintRow id="row1" height="100%"/>
             </s:constraintRows>  
         </s:FormItemLayout>
     </s:layout>    
