@@ -27,7 +27,7 @@ in accordance with the terms of the license agreement accompanying it.
     <s:Ellipse id="radio" width="5" height="5">
         <s:fill>
             <!--- @private -->
-            <s:SolidColor color="0x5380D0" id="radioFill"/>
+            <s:SolidColor color="#707070" id="radioFill"/>
         </s:fill>
     </s:Ellipse>
 </s:Skin>
