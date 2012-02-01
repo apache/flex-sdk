@@ -50,7 +50,7 @@ public class ErrorSkin extends UIComponent
     //
     //--------------------------------------------------------------------------
     
-    // TODO: Make this a style property?
+    // FIXME (gruehle): Make this a style property?
     private const ERROR_THICKNESS:int = 1;    
     
     //--------------------------------------------------------------------------
@@ -161,7 +161,7 @@ public class ErrorSkin extends UIComponent
        
         // Temporary solution for error drawing on CheckBox and RadioButton components.
         // Hide the label before drawing the focus. 
-        // TODO: Figure out a better solution.
+        // FIXME (gruehle): Figure out a better solution.
         var hidLabelElement:Boolean = false;
         if ((weakIsCheck(errorObject, "spark.components::CheckBox") ||
              weakIsCheck(errorObject, "spark.components::RadioButton"))
@@ -184,7 +184,7 @@ public class ErrorSkin extends UIComponent
             Object(errorObject).labelDisplay.displayObject.visible = true;
         
         // Special case for Scroller - fill the entire rect.
-        // TODO: Figure out a better solution.
+        // FIXME (gruehle): Figure out a better solution.
         if (weakIsCheck(errorObject, "spark.components::Scroller"))
         {
             rect.x = rect.y = ERROR_THICKNESS;
