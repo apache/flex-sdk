@@ -27,15 +27,38 @@ import spark.layouts.supportClasses.LayoutElementHelper;
  *  verticalCenter, baseline, percentWidth, percentHeight.
  *  Element's minimum and maximum sizes will always be respected.
  *
- *  The measured size of the container is calculated from the elements, their
- *  constraints and their preferred sizes.
+ *  </p>The measured size of the container is calculated from the elements, their
+ *  constraints and their preferred sizes. The measured size of the container
+ *  is big enough to fit in all of the elements at their preferred sizes with
+ *  their constraints satisified. Here are some examples of how measured size is
+ *  calculated:
+ *  <ul>
+ *    <li>If the container has a single element with left constraint specified,
+ *    then the container's measured width will be equal to the element's preferred
+ *    width plus the value of the left constraint.</li>
+ *
+ *    <li>If the container has a single element with percentWidth specified, 
+ *    then the container's measured width will be equal to the element's preferred width.
+ *    Even though the element's precentWidth is not direclty factored in the calculations,
+ *    it will be respected during updateDisplayList().</li>
+ * 
+ *    <li>If the container has a single element with baseline constraint specified,
+ *    then the container's measured height will be equal to the element's preferred height
+ *    plus the baseline and minus the value of the element's baselinePosition property.</li>
+ *
+ *    <li>If the container has a single elment with verticalCenter constraint specified,
+ *    then the container's measured height will be equal to the element's preferred height
+ *    plus double the value of the verticalCenter constraint.</li>
+ *  </ul>
+ * </p>
  *
  *  During updateDisplayList() the element's size is determined according to
  *  the rules in the following order of precedence (the element's minimum and
  *  maximum sizes are always respected):
  *  <ul>
  *    <li>If the element has percentWidth or percentHeight set, then its size
- *    is calculated as a percentage of the container size, minus any left, right,
+ *    is calculated as a percentage of the available size, where the available
+ *    size is the container size minus any left, right,
  *    top, bottom constraints.</li>
  *
  *    <li>If the element has both left and right constraints, it's width is
@@ -50,14 +73,13 @@ import spark.layouts.supportClasses.LayoutElementHelper;
  *  The element's position is determined according to the rules in the following
  *  order of precedence:
  *  <ul>
- *    <li>If element's horizontalCenter/verticalCenter is specified, then the
- *    element is positioned such that the distance between the element's center
- *    and the container's center is equal to the horizontalCenter/verticalCenter.
+ *    <li>The horizontalCenter/verticalCenter constraints specify the distance
+ *    between the container's center and the element's center.
  *    Set horizontalCenter/verticalCenter to zero to cetner the element within
  *    the container in the horizontal/vertical direction.</li>
  * 
  *    <li>If element's baseline is specified, then the element is positioned in
- *    the vertical direction such that its baselinePosition (usually the baseline
+ *    the vertical direction such that its baselinePosition (usually the base line
  *    of its first line of text) is aligned with baseline constraint.</li>
  *
  *    <li>If element's top/left constraints are specified, then the element is
@@ -71,6 +93,9 @@ import spark.layouts.supportClasses.LayoutElementHelper;
  *    <li>When no constraints determine the position in the horizontal/vertical
  *    direction, the element is positioned according to its x/y coordinates.</li>
  *  </ul>
+ *
+ *  The content size of the container is calculated as the maximum of the
+ *  coordinates of the bottom-right corner of all the layout elements.
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
