@@ -111,20 +111,20 @@ component is defined by the NumericStepperTextInputSkin class.
         <s:State name="disabled" />
     </s:states>
 
-    <!--- @copy spark.components.Spinner#incrementButton
-           The default class is SpinnerIncrementButtonSkin.
+    <!--- The default class is SpinnerIncrementButtonSkin.
+           @copy spark.components.Spinner#incrementButton
            @see spark.skins.spark.SpinnerIncrementButtonSkin -->
     <s:Button id="incrementButton" right="0" top="0" height="50%" 
               skinClass="spark.skins.spark.SpinnerIncrementButtonSkin" />
               
-    <!--- @copy spark.components.Spinner#decrementButton
-            The default class is SpinnerDecrementButtonSkin.
+    <!--- The default class is SpinnerDecrementButtonSkin.
+            @copy spark.components.Spinner#decrementButton
             @see spark.skins.spark.SpinnerDecrementButtonSkin -->
     <s:Button id="decrementButton" right="0" bottom="0" height="50%" 
               skinClass="spark.skins.spark.SpinnerDecrementButtonSkin" />
                            
-    <!--- @copy spark.components.NumericStepper#textDisplay
-            The default class is NumericStepperTextInputSkin.
+    <!--- The default class is NumericStepperTextInputSkin.
+            @copy spark.components.NumericStepper#textDisplay
             @see spark.skins.spark.NumericStepperTextInputSkin -->
     <s:TextInput id="textDisplay" left="0" top="0" right="18" bottom="0"
         skinClass="spark.skins.spark.NumericStepperTextInputSkin" />
