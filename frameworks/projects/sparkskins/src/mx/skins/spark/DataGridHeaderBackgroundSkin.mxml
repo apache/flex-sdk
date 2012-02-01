@@ -32,6 +32,13 @@
         }
     </fx:Script>
     
+    <!-- layer 1: opaque white bg fill -->
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
+    
     <!-- layer 2: fill -->
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:fill>
