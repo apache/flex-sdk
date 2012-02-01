@@ -80,7 +80,7 @@
 [Style(name="paragraphSpaceBefore", type="Number", format="length", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.paragraphStartIndent
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphStartIndent
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
