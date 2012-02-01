@@ -14,25 +14,25 @@
 
 	<property name="release" value="false"/>
 
-	
+
 
 	<!-- ***************************************************************************
 
-	 * 
+	 *
 
 	 *  build-combined.xml
 
 	 *  Build script for combined SWC
 
-	 * 
+	 *
 
 	 *  ***************************************************************************** -->
 
-	
+
 
 	<target name="main" depends="clean,compile" description="Clean build of combined textLayout.swc"/>
 
-	
+
 
 	<target name="clean" description="Deletes the combined swc">
 
@@ -50,7 +50,7 @@
 
 	</target>
 
-	
+
 
 	<target name="compile" description="Builds the combined swc">
 
@@ -66,7 +66,7 @@
 
 			<jvmarg line="${compc.jvm.args}"/>
 
-		
+
 
 			<include-namespaces uri="${project.uri}"/>
 
@@ -84,9 +84,9 @@
 
 			<source-path path-element="textLayout_textField/src"/>
 
-			
 
-			<!-- 	we don't link to any of the frameworks provided by flex so we set the library-path with 
+
+			<!-- 	we don't link to any of the frameworks provided by flex so we set the library-path with
 
 					no entries (note: this implies append="false") -->
 
@@ -108,7 +108,7 @@
 
      </target>
 
-	 
+
 
 	 <target name="doc" depends="clean-temp-docs" description="updates textLayout.swc with asdoc xml">
 
@@ -138,9 +138,19 @@
 
 		</condition>
 
-	
+
 
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+
+			<doc-classes class="flashx.textLayout.CoreClasses"/>
+
+			<doc-classes class="flashx.textLayout.EditClasses"/>
+
+			<doc-classes class="flashx.textLayout.ConversionClasses"/>
+
+			<doc-classes class="flashx.textLayout.TextFieldClasses"/>
+
+
 
 		    <compiler.source-path path-element="textLayout_core/src"/>
 
@@ -160,11 +170,11 @@
 
 		    <jvmarg line="${asdoc.jvm.args}"/>
 
-	    
 
-		    <define name="CONFIG::debug" value="${debug}"/>
 
-			<define name="CONFIG::release" value="true"/>
+			<define name="CONFIG::debug" value="true"/>
+
+			<define name="CONFIG::release" value="false"/>
 
 		</asdoc>
 
@@ -172,7 +182,7 @@
 
 		<!-- updates combined swc with asdoc xml -->
 
-		
+
 
 		<zip destfile="${output.file}" update="true">
 
@@ -190,7 +200,7 @@
 
 	 </target>
 
-	 
+
 
 	 <target name="clean-temp-docs">
 
