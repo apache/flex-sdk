@@ -28,7 +28,7 @@
         /** 
          * @copy spark.skins.spark.ApplicationSkin#hostComponent
          */
-        [HostComponent("spark.components.ToggleButton")]
+        [HostComponent("spark.components.ButtonBarButton")]
         ]]>
     </fx:Metadata>
     
