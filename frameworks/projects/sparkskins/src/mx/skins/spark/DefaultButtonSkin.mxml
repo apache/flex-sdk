@@ -65,7 +65,8 @@
                 colorTransform.alphaMultiplier = 1;
                 
                 fill.transform.colorTransform = colorTransform;
-                highlightStroke.transform.colorTransform = colorTransform;
+                if (highlightStroke)
+                    highlightStroke.transform.colorTransform = colorTransform;
                     
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
             }
