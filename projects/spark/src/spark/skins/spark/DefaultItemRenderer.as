@@ -519,6 +519,21 @@ public class DefaultItemRenderer extends UIComponent
         labelDisplay.setLayoutBoundsPosition(3, 5);
     }
     
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleName:String):void
+    {
+        var allStyles:Boolean = !styleName || styleName == "styleName";
+        
+        super.styleChanged(styleName);
+        
+        if (allStyles || styleName == "inputMode")
+        {
+            addHandlers();
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handling
@@ -531,8 +546,16 @@ public class DefaultItemRenderer extends UIComponent
      */
     private function addHandlers():void
     {
-        addEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
-        addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
+        if (getStyle("inputMode") == "mouse")
+        {
+            addEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
+            addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
+        }
+        else
+        {
+            removeEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
+            removeEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
+        }
     }
     
     /**
