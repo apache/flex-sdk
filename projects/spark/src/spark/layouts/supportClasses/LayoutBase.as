@@ -808,7 +808,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function getElementBounds(index:int):Rectangle
+    public function getElementBounds(index:int):Rectangle
     {
         var g:GroupBase = target;
         if (!g)
@@ -1344,17 +1344,37 @@ public class LayoutBase extends OnDemandEventDispatcher
     */
     public function getScrollPositionDeltaToElement(index:int):Point
     {
+        return getScrollPositionDeltaToElementHelper(index);
+    }
+    
+    
+    /**
+     *  @private 
+     *  For the offset properties, a value of NaN means don't offset from that edge. A value
+     *  of 0 means to put the element flush against that edge.
+     * 
+     *  @param topOffset Number of pixels to position the element below the top edge.
+     *  @param bottomOffset Number of pixels to position the element above the bottom edge.
+     *  @param leftOffset Number of pixels to position the element to the right of the left edge.
+     *  @param rightOffset Number of pixels to position the element to the left of the right edge.
+     */ 
+    mx_internal function getScrollPositionDeltaToElementHelper(index:int, topOffset:Number = NaN, 
+                                                               bottomOffset:Number = NaN, 
+                                                               leftOffset:Number = NaN,
+                                                               rightOffset:Number = NaN):Point
+    {
         var elementR:Rectangle = getElementBounds(index);
         if (!elementR)
-           return null;
+            return null;
         
         var scrollR:Rectangle = getScrollRect();
         if (!scrollR || !target.clipAndEnableScrolling)
-           return null;
+            return null;
         
-        if (scrollR.containsRect(elementR) || elementR.containsRect(scrollR))
-           return null;
-           
+        if (isNaN(topOffset) && isNaN(bottomOffset) && isNaN(leftOffset) && isNaN(rightOffset) &&
+            (scrollR.containsRect(elementR) || elementR.containsRect(scrollR)))
+            return null;
+        
         var dxl:Number = elementR.left - scrollR.left;     // left justify element
         var dxr:Number = elementR.right - scrollR.right;   // right justify element
         var dyt:Number = elementR.top - scrollR.top;       // top justify element
@@ -1363,22 +1383,31 @@ public class LayoutBase extends OnDemandEventDispatcher
         // minimize the scroll
         var dx:Number = (Math.abs(dxl) < Math.abs(dxr)) ? dxl : dxr;
         var dy:Number = (Math.abs(dyt) < Math.abs(dyb)) ? dyt : dyb;
-                
+        
+        if (!isNaN(topOffset))
+            dy = dyt + topOffset;
+        else if (!isNaN(bottomOffset))
+            dy = dyb - bottomOffset;
+        
+        if (!isNaN(leftOffset))
+            dx = dxl + leftOffset;
+        else if (!isNaN(rightOffset))
+            dx = dxr - rightOffset;
+        
         // scrollR "contains"  elementR in just one dimension
         if ((elementR.left >= scrollR.left) && (elementR.right <= scrollR.right))
-           dx = 0;
+            dx = 0;
         else if ((elementR.bottom <= scrollR.bottom) && (elementR.top >= scrollR.top))
-           dy = 0;
-           
+            dy = 0;
+        
         // elementR "contains" scrollR in just one dimension
         if ((elementR.left <= scrollR.left) && (elementR.right >= scrollR.right))
-           dx = 0;
+            dx = 0;
         else if ((elementR.bottom >= scrollR.bottom) && (elementR.top <= scrollR.top))
             dy = 0;
-           
+        
         return new Point(dx, dy);
     }
-     
     //--------------------------------------------------------------------------
     //
     //  Drop methods
