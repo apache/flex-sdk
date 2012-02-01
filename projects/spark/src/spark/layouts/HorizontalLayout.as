@@ -863,8 +863,8 @@ public class HorizontalLayout extends LayoutBase
      */
      override public function elementAdded(index:int):void
      {
-         if (useVirtualLayout)
-            llv.insert(index);
+         if ((index >= 0) && useVirtualLayout)
+            llv.insert(index);  // insert index parameter is uint
      }
 
     /**
@@ -872,8 +872,8 @@ public class HorizontalLayout extends LayoutBase
      */
      override public function elementRemoved(index:int):void
      {
-        if (useVirtualLayout)
-            llv.remove(index);
+        if ((index >= 0) && useVirtualLayout)
+            llv.remove(index);  // remove index parameter is uint
      }     
 
     /**
@@ -1098,9 +1098,10 @@ public class HorizontalLayout extends LayoutBase
                 for (index = startIndex; index <= endIndex; index++)
                 {
                     elt = layoutTarget.getVirtualElementAt(index);
-                    h = calculateElementHeight(elt, targetHeight, containerHeight);
-                    y = calculateElementY(elt, h, containerHeight);
+                    h = calculateElementHeight(elt, targetHeight, containerHeight); // can be NaN
                     elt.setLayoutBoundsSize(elt.getLayoutBoundsWidth(), h);
+                    h = elt.getLayoutBoundsHeight();
+                    y = calculateElementY(elt, h, containerHeight);
                     elt.setLayoutBoundsPosition(elt.getLayoutBoundsX(), y);
                 }
              }
