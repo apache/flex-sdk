@@ -162,6 +162,10 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#kerning
  *  
+ *  <p>Kerning is enabled by default for Spark components, but is disabled by default for MX components.
+ *  Spark components interpret <code>default</code> as <code>auto</code>, 
+ *  while MX components interpret <code>default</code> as <code>false</code>.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
