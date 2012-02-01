@@ -100,9 +100,9 @@
 
 
 
-			<define name="CONFIG::debug" value="true"/>
+			<define name="CONFIG::debug" value="false"/>
 
-			<define name="CONFIG::release" value="false"/>
+			<define name="CONFIG::release" value="true"/>
 
 		</compc>
 
@@ -172,9 +172,9 @@
 
 
 
-			<define name="CONFIG::debug" value="true"/>
+			<define name="CONFIG::debug" value="false"/>
 
-			<define name="CONFIG::release" value="false"/>
+			<define name="CONFIG::release" value="true"/>
 
 		</asdoc>
 
