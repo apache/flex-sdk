@@ -79,6 +79,7 @@
     
     <!-- text -->
     <s:RichEditableText id="textView"
+              lineBreak="explicit" 
               left="1" right="1" top="1" bottom="1" 
               paddingLeft="3" paddingTop="5"
               paddingRight="6" paddingBottom="3"/>
