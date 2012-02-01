@@ -15,7 +15,7 @@
 	<!-- fill -->
     <Rect id="backgroundRect" left="0" right="0" top="0" bottom="0">
         <fill>
-            <SolidColor color="{data.backgroundColorNumber}" />
+            <SolidColor color="{data.backgroundColor}" />
         </fill>
     </Rect>
         
