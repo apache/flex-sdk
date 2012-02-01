@@ -232,8 +232,8 @@ public class GlobalizationBase extends AdvancedStyleClient
      *  or a method of this class is called, or when a property is set.
      *  For the possible values see the description under each method.
      *
-     *  
      * @see flash.globalization.LastOperationStatus
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
@@ -272,6 +272,14 @@ public class GlobalizationBase extends AdvancedStyleClient
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @copy mx.core.UIComponent#getStyle()
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     override public function getStyle(styleProp:String):*
     {
         if (styleProp != "locale")
