@@ -84,6 +84,27 @@ import spark.layouts.supportClasses.LayoutElementHelper;
  *
  *    <li>The element is set to its preferred width and/or height.</li>
  *  </ul>
+ *
+ *  <p>The BasicLayout class calculates its minimum size as the maximum of the minimum child sizes:</p>
+ *
+ *  <ol>
+ *    <li>For each child in the container, determine the minimum size 
+ *        to which the child could shrink:
+ *        <ul>
+ *          <li>If the child is constrained to its parent's width or height, 
+ *              then the child could shrink to its minimum width or height.  
+ *              Use the minimum size of the child.</li>
+ *          <li>If the child is not constrained to the parent, 
+ *              then it remains at its preferred size.  
+ *              Use the preferred size of the child.  </li>
+ *        </ul></li>
+ *     <li>Find the maximum of the sizes from step 1. </li>
+ *  </ol>
+ *
+ *  <p>Therefore, if a child is constrained to its parent, then the layout 
+ *  uses the child's minimum size. 
+ *  Otherwise, it uses its preferred size of the child to calculate 
+ *  the minimum size for the container.</p>
  * 
  *  <p>The element's position is determined according to the rules in the following
  *  order of precedence:</p>
