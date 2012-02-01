@@ -89,7 +89,7 @@ import spark.layouts.supportClasses.LinearLayoutVector;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;HorizontalLayout 
+ *  &lt;s:HorizontalLayout 
  *    <strong>Properties</strong>
  *    columnWidth="<i>calculated</i>"
  *    gap="6"
