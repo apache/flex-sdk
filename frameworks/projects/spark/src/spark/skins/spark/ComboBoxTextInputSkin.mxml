@@ -9,7 +9,7 @@
     in accordance with the terms of the license agreement accompanying it.
 
 -->
-<!--- The default skin class for Spark TextInput component.  
+<!--- The default skin class for the textInput of a Spark ComboBox component.  
         
       @langversion 3.0
       @playerversion Flash 10
