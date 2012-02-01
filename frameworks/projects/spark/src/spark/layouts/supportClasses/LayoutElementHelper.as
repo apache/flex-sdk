@@ -24,7 +24,7 @@ public class LayoutElementHelper
 {
     include "../../core/Version.as";
 
-    // TODO EGeorgie: move to a more general place, this is not specific to the LayoutElementHelper
+    // FIXME (egeorgie): move to a more general place, this is not specific to the LayoutElementHelper
     
     //--------------------------------------------------------------------------
     //
@@ -46,7 +46,7 @@ public class LayoutElementHelper
         return Math.min(max, Math.max(min, val));
     }
 
-    // TODO EGeorgie: this currently works only for constraints specified to
+    // FIXME (egeorgie): this currently works only for constraints specified to
     // the parent. Add constraintRow and constraintColumn support.
     /**
      *  @return returns the number for the passed in constraint value. Constraint value
@@ -73,7 +73,7 @@ public class LayoutElementHelper
         return result[0];
     }
 
-    // TODO EGeorgie: Duplicated code! Share this code with the Flex3 Canvas:
+    // FIXME (egeorgie): Duplicated code! Share this code with the Flex3 Canvas:
     /**
      *  @private
      *  Parses a constraint expression, like left="col1:10" 
