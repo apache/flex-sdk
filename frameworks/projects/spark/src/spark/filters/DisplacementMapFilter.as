@@ -6,6 +6,8 @@ import flash.filters.BitmapFilter;
 import flash.filters.DisplacementMapFilterMode;
 import flash.display.BitmapData;
 import flash.geom.Point;
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 
 public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
 {
