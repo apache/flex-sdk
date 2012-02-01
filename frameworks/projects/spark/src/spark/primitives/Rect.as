@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics
+package spark.primitives
 {
 import flash.events.EventDispatcher;
 import flash.display.Graphics;
@@ -19,6 +19,7 @@ import flash.geom.Rectangle;
 
 import mx.core.mx_internal;
 import mx.utils.MatrixUtil;
+import spark.primitives.supportClasses.FilledElement;
 
 /**
  *  The Rect class is a filled graphic element that draws a rectangle.
