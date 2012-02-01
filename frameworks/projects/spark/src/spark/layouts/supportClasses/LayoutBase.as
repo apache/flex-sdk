@@ -24,8 +24,7 @@ import mx.utils.OnDemandEventDispatcher;
 import spark.core.NavigationUnit;
 
 /**
- *  The base class for all layouts.
- * 
+ *  The LayoutBase class defines the base class for all Spark layouts.
  *  To create a custom layout that works with the Spark containers,
  *  you must extend <code>LayoutBase</code> or one of its subclasses.
  *
@@ -43,6 +42,26 @@ import spark.core.NavigationUnit;
  *  layout elements within the scrollRect (the value of
  *  <code>getScrollRect()</code>) using <code>getVirtualElementAt()</code>
  *  from within <code>updateDisplayList()</code>.</p>
+ *
+ *  @mxml 
+ *  <p>The <code>&lt;LayoutBase&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;LayoutBase 
+ *    <strong>Properties</strong>
+ *    clipAndEnableScrolling="false"
+ *    horizontalScrollPosition="0"
+ *    target="null"
+ *    typicalLayoutElement="null"
+ *    useVirtualLayout="false"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class LayoutBase extends OnDemandEventDispatcher
 {
@@ -52,6 +71,14 @@ public class LayoutBase extends OnDemandEventDispatcher
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */    
     public function LayoutBase()
     {
         super();
@@ -70,7 +97,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     private var _target:GroupBase;
     
     /**
-     *  The GroupBase whose elements are measured, sized and positioned
+     *  The GroupBase container whose elements are measured, sized and positioned
      *  by this layout.
      * 
      *  <p>Subclasses may override the setter to perform target specific
@@ -111,41 +138,50 @@ public class LayoutBase extends OnDemandEventDispatcher
     [Inspectable(defaultValue="false")]
 
     /**
-     *  If true, subclasses must only layout elements that are in view based on the 
-     *  current scrollRect.
-     * 
+     *  A container can hold any number of children. 
+     *  However, each child requires an instance of an item renderer. 
+     *  If the container has many children, you might notice performance degradation 
+     *  as you add more children to the container. 
+     *
+     *  <p>Instead of creating an item renderer for each child, 
+     *  you can configure the container to use a virtual layout. 
+     *  With virtual layout, the container reuses item renderers so that it only creates 
+     *  item renderers for the currently visible children of the container. 
+     *  As a child is moved off the screen, possible by scrolling the container, 
+     *  a new child being scrolled onto the screen can reuse its item renderer. </p>
+     *  
+     *  <p>To configure a container to use virtual layout, set the <code>useVirtualLayout</code> property 
+     *  to <code>true</code> for the layout associated with the container. 
+     *  Only the DataGroup or SkinnableDataContainer with the VerticalLayout, 
+     *  HorizontalLayout, and TileLayout supports virtual layout. 
      *  Layout subclasses that do not support virtualization must prevent changing
-     *  this property.
+     *  this property.</p>
      * 
-     *  When useVirtualLayout=true, layouts that support virtualization must use 
-     *  target.getVirtualElementAt(), rather than getElementAt(), and must only get the 
-     *  elements they anticipate will be visible given the value of getScrollRect().
+     *  <p>When <code>true</code>, layouts that support virtualization must use 
+     *  the <code>target.getVirtualElementAt()</code> method, 
+     *  rather than <code>getElementAt()</code>, and must only get the 
+     *  elements they anticipate will be visible given the value of <code>getScrollRect()</code>.</p>
      * 
-     *  To support useVirtualLayout=true, the layout class must be able to compute
-     *  the indices of the layout elements that overlap the scrollRect in its 
-     *  updateDisplayList() method based exclusively on cached information, not
-     *  by getting layout elements and examining their bounds.
+     *  <p>When <code>true</code>, the layout class must be able to compute
+     *  the indices of the layout elements that overlap the <code>scrollRect</code> in its 
+     *  <code>updateDisplayList()</code> method based exclusively on cached information, not
+     *  by getting layout elements and examining their bounds.</p>
      * 
-     *  Typically virtual layouts update their cached information in updateDisplayList(),
-     *  based on the sizes and locations computed for the elements in view.
+     *  <p>Typically virtual layouts update their cached information 
+     *  in the <code>updateDisplayList()</code> method,
+     *  based on the sizes and locations computed for the elements in view.</p>
      * 
-     *  Similarly, at measure() time, virtual layouts should update the target's 
-     *  measured size properties based on the typicalLayoutElement and other
-     *  cached layout information, not by measuring elements.
+     *  <p>Similarly, in the <code>measure()</code> method, virtual layouts should update the target's 
+     *  measured size properties based on the <code>typicalLayoutElement</code> and other
+     *  cached layout information, not by measuring elements.</p>
      * 
-     *  Presently only "data containers", i.e. that containers that construct 
-     *  an ItemRenderer layout element for each dataProvider item, support virtualization.   
-     * 
-     *  DataGroup is a data container and SkinnableDataContainer (e.g. List
-     *  and DropDownList) has a DataGroup skin part.
-     * 
-     *  Data containers cooperate with useVirtualLayout=true layouts by 
-     *  "recycling" ItemRenderers that were previously constructed in response
-     *  to getVirtualLayoutElement() calls by are no longer in use.
-     * 
+     *  <p>Containers cooperate with <code>useVirtualLayout</code> = <code>true</code> layouts by 
+     *  recycling item renderers that were previously constructed in response to calls to
+     *  the <code>getVirtualLayoutElement()</code> method by are no longer in use.
      *  An item is considered to be no longer in use if its index is not
-     *  within the range of getVirtualElementAt() indices requested during
-     *  the container's most recent updateDisplayList() invocation.
+     *  within the range of <code>getVirtualElementAt()</code> indices requested during
+     *  the container's most recent <code>updateDisplayList()</code> invocation.</p>
+     *
      *  @default false
      * 
      *  @see #getScrollRect
@@ -180,16 +216,19 @@ public class LayoutBase extends OnDemandEventDispatcher
     }     
     
     /**
-     *  When useVirtualLayout=true, this method can be used by the layout target
-     *  to clear cached layout information when target state that might invalidate
-     *  such information changes.   
+     *  When <code>useVirtualLayout</code> is <code>true</code>, 
+     *  this method can be used by the layout target
+     *  to clear cached layout information when the target changes.   
      * 
-     *  For example, when a DataGroup's dataProvider or itemRenderer changes, cached 
-     *  elements sizes will become invalid. 
+     *  <p>For example, when a DataGroup's <code>dataProvider</code> or 
+     *  <code>itemRenderer</code> property changes, cached 
+     *  elements sizes become invalid. </p>
      * 
-     *  When useVirtualLayout changes to false, this method is called automatically.
+     *  <p>When the <code>useVirtualLayout</code> property changes to <code>false</code>, 
+     *  this method is called automatically.</p>
      * 
-     *  Subclasses that support useVirtualLayout=true must override this method. 
+     *  <p>Subclasses that support <code>useVirtualLayout</code> = <code>true</code> 
+     *  must override this method. </p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -210,7 +249,9 @@ public class LayoutBase extends OnDemandEventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  @copy flex.intf.IViewport#horizontalScrollPosition
+     *  @copy spark.core.IViewport#horizontalScrollPosition
+     *
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -244,7 +285,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     [Inspectable(category="General")]    
     
     /**
-     *  @copy flex.intf.IViewport#verticalScrollPosition
+     *  @copy spark.core.IViewport#verticalScrollPosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -277,7 +318,9 @@ public class LayoutBase extends OnDemandEventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  @copy flex.intf.IViewport#clipAndEnableScrolling
+     *  @copy spark.core.IViewport#clipAndEnableScrolling
+     *
+     *  @default false
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -312,16 +355,32 @@ public class LayoutBase extends OnDemandEventDispatcher
     /**
      *  Used by layouts when fixed row/column sizes are requested but
      *  a specific size isn't specified.
-     * 
      *  Used by virtual layouts to estimate the size of layout elements
      *  that have not been scrolled into view.
+     *
+     *  <p>This property references a component that Flex uses to 
+     *  define the height of all container children, 
+     *  as the following example shows:</p>
      * 
-     *  If this property has not been set and the target is non-null 
-     *  then the target's first layout element is cached and returned.
+     *  <pre>&lt;s:Group&gt;
+          &lt;s:layout&gt;
+            &lt;s:VerticalLayout variableRowHeight="false"
+                typicalLayoutElement="{b3}"/&gt; 
+          &lt;/s:layout&gt;
+          &lt;s:Button id="b1" label="Button 1"/&gt;
+          &lt;s:Button id="b2" label="Button 2"/&gt;
+          &lt;s:Button id="b3" label="Button 3" fontSize="36"/&gt;
+          &lt;s:Button id="b4" label="Button 4" fontSize="24"/&gt;
+        &lt;/s:Group&gt;</pre>
      * 
-     *  @default The target's first layout element.
+     *  <p>If this property has not been set and the target is non-null 
+     *  then the target's first layout element is cached and returned.</p>
+     * 
+     *  <p>The default value is the target's first layout element.</p>
+     *
+     *  @default null
+     *
      *  @see target
-     *  @see DataGroup#typicalItem
      *  @see spark.layouts.VerticalLayout#variableRowHeight
      *  @see spark.layouts.HorizontalLayout#variableColumnWidth
      *  
@@ -458,23 +517,28 @@ public class LayoutBase extends OnDemandEventDispatcher
     }          
 
     /**
-     *  This method must is called by the target after a layout element 
+     *  Called by the target after a layout element 
      *  has been added and before the target's size and display list are
      *  validated.   
-     * 
      *  Layouts that cache per element state, like virtual layouts, can 
      *  override this method to update their cache.
      * 
-     *  If the target calls this method, it's only guaranteeing that a
+     *  <p>If the target calls this method, it's only guaranteeing that a
      *  a layout element will exist at the specified index at
      *  <code>updateDisplayList()</code> time, for example a DataGroup
-     *  with a virtual layout will call this method when a dataProvider
-     *  item is added.
+     *  with a virtual layout will call this method when an item is added 
+     *  to the targets <code>dataProvider</code>.</p>
      * 
-     *  By default, this method does nothing.
+     *  <p>By default, this method does nothing.</p>
      * 
      *  @param index The index of the element that was added.
+     * 
      *  @see #elementRemoved    
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
      public function elementAdded(index:int):void
      {
@@ -484,36 +548,40 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  This method must is called by the target after a layout element 
      *  has been removed and before the target's size and display list are
      *  validated.   
-     * 
      *  Layouts that cache per element state, like virtual layouts, can 
      *  override this method to update their cache.
      * 
-     *  If the target calls this method, it's only guaranteeing that a
+     *  <p>If the target calls this method, it's only guaranteeing that a
      *  a layout element will no longer exist at the specified index at
-     *  <code>updateDisplayList()</code> time, for example a DataGroup
-     *  with a virtual layout will call this method when a dataProvider
-     *  item is added.
+     *  <code>updateDisplayList()</code> time.
+     *  For example, a DataGroup
+     *  with a virtual layout calls this method when an item is added to 
+     *  the <code>dataProvider</code> property.</p>
      * 
-     *  By default, this method does nothing.
+     *  <p>By default, this method does nothing.</p>
      * 
      *  @param index The index of the element that was added.
      *  @see #elementAdded
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
      public function elementRemoved(index:int):void
      {
      }
 
     /**
-     *  Called when the verticalScrollPosition or horizontalScrollPosition 
-     *  properties change.
+     *  Called when the <code>verticalScrollPosition</code> or 
+     *  <code>horizontalScrollPosition</code> properties change.
      *
-     *  The default implementation updates the target's scrollRect property by
+     *  <p>The default implementation updates the target's <code>scrollRect</code> property by
      *  calling <code>updateScrollRect()</code>.
-     *
      *  Subclasses can override this method to compute other values that are
-     *  based on the current scrollPosition or scrollRect.
+     *  based on the current <code>scrollPosition</code> or <code>scrollRect</code>.</p>
      *
-     *  @see updateScrollRect
+     *  @see #updateScrollRect()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -533,20 +601,22 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  Called by the target at the end of its <code>updateDisplayList</code>
      *  to have the layout update its scrollRect.
      * 
-     *  If clipAndEnableScrolling is true, the default implementation
-     *  sets the origin of the scrollRect to verticalScrollPosition,
-     *  horizontalScrollPosition and its size to the width, height
-     *  parameters (the target's unscaled width,height).
+     *  <p>If <code>clipAndEnableScrolling</code> is <code>true</code>, 
+     *  the default implementation sets the origin of the target's <code>scrollRect</code> 
+     *  to <code>verticalScrollPosition</code>, <code>horizontalScrollPosition</code>.
+     *  It sets its size to the <code>width</code>, <code>height</code>
+     *  parameters (the target's unscaled width and height).</p>
      * 
-     *  If clipAndEnableScrolling is false, the default implementation
-     *  sets the scrollRect to null.
+     *  <p>If <code>clipAndEnableScrolling</code> is <code>false</code>, 
+     *  the default implementation sets the <code>scrollRect</code> to null.</p>
      *  
      *  @param width The target's width.
+     *
      *  @param height The target's height.
      * 
-     *  @see target
+     *  @see #target
      *  @see flash.display.DisplayObject#scrollRect
-     *  @see updateDisplayList
+     *  @see #updateDisplayList()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -573,13 +643,13 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  Delegation method that determines which item  
      *  to navigate to based on the current item in focus 
      *  and user input in terms of NavigationUnit. This method
-     *  is used by derivatives of ListBase to handle 
+     *  is used by subclasses of ListBase to handle 
      *  keyboard navigation. ListBase maps user input to
      *  NavigationUnit constants.
      * 
-     *  Subclasses can override this method to compute other 
+     *  <p>Subclasses can override this method to compute other 
      *  values that are based on the current index and key 
-     *  stroke encountered. 
+     *  stroke encountered. </p>
      * 
      *  @param currentIndex The current index of the item with focus.
      * 
@@ -590,7 +660,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  navigate within the component wraps when it hits either end.
      * 
      *  @return The index of the next item to jump to. Returns -1
-     *  when if the layout doens't recognize the navigationUnit.  
+     *  when if the layout doesn't recognize the navigationUnit.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -618,9 +688,9 @@ public class LayoutBase extends OnDemandEventDispatcher
      }
 
     /**
-     *  Returns the bounds of the target's scrollRect in layout coordinates.
+     *  Returns the bounds of the target's scroll rectangle in layout coordinates.
      * 
-     *  Layout methods should not get the target's scrollRect directly.
+     *  Layout methods should not get the target's scroll rectangle directly.
      * 
      *  @return The bounds of the target's scrollRect in layout coordinates, null
      *      if target or clipAndEnableScrolling is false. 
@@ -642,20 +712,22 @@ public class LayoutBase extends OnDemandEventDispatcher
     
    /**
      *  Returns the specified element's layout bounds as a Rectangle or null
-     *  if the index is invalid, the corresponding element is null
-     *  or <code>includeInLayout=false</code>, or if this layout's target is null.
+     *  if the index is invalid, the corresponding element is null,
+     *  <code>includeInLayout=false</code>, 
+     *  or if this layout's <code>target</code> property is null.
      *   
-     *  Layout subclasses that support <code>useVirtualLayout=true</code> must
+     *  <p>Layout subclasses that support <code>useVirtualLayout=true</code> must
      *  override this method to compute a potentially approximate value for
-     *  elements that are not in view.
+     *  elements that are not in view.</p>
      * 
-     *  @return Returns the specified element's layout bounds.
      *  @param index Index of the layout element.
      * 
-     *  @see mx.core.ILayoutElement#getLayoutBoundsX
-     *  @see mx.core.ILayoutElement#getLayoutBoundsY
-     *  @see mx.core.ILayoutElement#getLayoutBoundsWidth
-     *  @see mx.core.ILayoutElement#getLayoutBoundsHeight
+     *  @return The specified element's layout bounds.
+     *
+     *  @see mx.core.ILayoutElement#getLayoutBoundsX()
+     *  @see mx.core.ILayoutElement#getLayoutBoundsY()
+     *  @see mx.core.ILayoutElement#getLayoutBoundsWidth()
+     *  @see mx.core.ILayoutElement#getLayoutBoundsHeight()
      *   
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -694,12 +766,13 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  provide an accurate bounding rectangle that has valid <code>left</code> and 
      *  <code>right</code> properties.</p>
      * 
-     *  By default this method returns a Rectangle with width=1, height=0, 
-     *  whose left edge is one less than the scrollRect's left edge, 
-     *  and top=0.
+     *  <p>By default this method returns a Rectangle with width=1, height=0, 
+     *  whose left edge is one less than the left edge of the <code>scrollRect</code>, 
+     *  and top=0.</p>
      * 
      *  @param scrollRect The target's scrollRect.
-     *  @return Returns the bounds of the first element that spans or is to
+     *
+     *  @return The bounds of the first element that spans or is to
      *  the left of the scrollRect’s left edge.
      *  
      *  @see #getElementBoundsRightOfScrollRect
@@ -731,12 +804,13 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  provide an accurate bounding rectangle that has valid <code>left</code> and 
      *  <code>right</code> properties.</p>
      * 
-     *  By default this method returns a Rectangle with width=1, height=0, 
-     *  whose right edge is one more than the scrollRect's right edge, 
-     *  and top=0.
+     *  <p>By default this method returns a Rectangle with width=1, height=0, 
+     *  whose right edge is one more than the right edge of the <code>scrollRect</code>, 
+     *  and top=0.</p>
      * 
      *  @param scrollRect The target's scrollRect.
-     *  @return Returns the bounds of the first element that spans or is to
+     *
+     *  @return The bounds of the first element that spans or is to
      *  the right of the scrollRect’s right edge.
      *  
      *  @see #getElementBoundsLeftOfScrollRect
@@ -768,16 +842,17 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  provide an accurate bounding rectangle that has valid <code>top</code> and 
      *  <code>bottom</code> properties.</p>
      * 
-     *  By default this method returns a Rectangle with width=0, height=1, 
-     *  whose top edge is one less than the scrollRect's top edge, 
-     *  and left=0.
+     *  <p>By default this method returns a Rectangle with width=0, height=1, 
+     *  whose top edge is one less than the top edge of the <code>scrollRect</code>, 
+     *  and left=0.</p>
      * 
-     *  Subclasses should override this method to provide an accurate
+     *  <p>Subclasses should override this method to provide an accurate
      *  bounding rectangle that has valid <code>top</code> and 
-     *  <code>bottom</code> properties.
+     *  <code>bottom</code> properties.</p>
      * 
      *  @param scrollRect The target's scrollRect.
-     *  @return Returns the bounds of the first element that spans or is
+     *
+     *  @return The bounds of the first element that spans or is
      *  above the scrollRect’s top edge.
      *  
      *  @see #getElementBoundsLeftOfScrollRect
@@ -809,12 +884,13 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  provide an accurate bounding rectangle that has valid <code>top</code> and 
      *  <code>bottom</code> properties.</p>
      *
-     *  By default this method returns a Rectangle with width=0, height=1, 
-     *  whose bottom edge is one more than the scrollRect's bottom edge, 
-     *  and left=0.
+     *  <p>By default this method returns a Rectangle with width=0, height=1, 
+     *  whose bottom edge is one more than the bottom edge of the <code>scrollRect</code>, 
+     *  and left=0.</p>
      *
      *  @param scrollRect The target's scrollRect.
-     *  @return Returns the bounds of the first element that spans or is
+     *
+     *  @return The bounds of the first element that spans or is
      *  below the scrollRect’s bottom edge.
      *
      *  @see #getElementBoundsLeftOfScrollRect
@@ -836,10 +912,24 @@ public class LayoutBase extends OnDemandEventDispatcher
     }
 
     /**
-     *  Implements the default handling of
-     *  LEFT, RIGHT, PAGE_LEFT, PAGE_RIGHT, HOME and END. 
-     * 
+     *  Returns the change to the horizontal scroll position to handle 
+     *  different scrolling options. 
+     *  These options are defined by the NavigationUnit class: <code>END</code>, <code>HOME</code>, 
+     *  <code>LEFT</code>, <code>PAGE_LEFT</code>, <code>PAGE_RIGHT</code>, and <code>RIGHT</code>. 
+     *      
+     *  @param navigationUnit Takes the following values: 
      *  <ul>
+     *  <li> 
+     *  <code>END</code>
+     *  Returns scroll delta that will right justify the scrollRect
+     *  to the content area.
+     *  </li>
+     *  
+     *  <li> 
+     *  <code>HOME</code>
+     *  Returns scroll delta that will left justify the scrollRect
+     *  to the content area.
+     *  </li>
      * 
      *  <li> 
      *  <code>LEFT</code>
@@ -848,15 +938,8 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  scrollRect's left edge.
      *  </li>
      * 
-     *  <li> 
-     *  <code>RIGHT</code>
-     *  Returns scroll delta that will right justify the scrollRect
-     *  with the first element that spans or is to the right of the
-     *  scrollRect's right edge.
-     *  </li>
-     * 
-     *  <code>PAGE_LEFT</code>
      *  <li>
+     *  <code>PAGE_LEFT</code>
      *  Returns scroll delta that will right justify the scrollRect
      *  with the first element that spans or is to the left of the
      *  scrollRect's left edge.
@@ -868,17 +951,12 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  with the first element that spans or is to the right of the
      *  scrollRect's right edge.
      *  </li>
-     *  
-     *  <li> 
-     *  <code>HOME</code>
-     *  Returns scroll delta that will left justify the scrollRect
-     *  to the content area.
-     *  </li>
      * 
      *  <li> 
-     *  <code>END</code>
+     *  <code>RIGHT</code>
      *  Returns scroll delta that will right justify the scrollRect
-     *  to the content area.
+     *  with the first element that spans or is to the right of the
+     *  scrollRect's right edge.
      *  </li>
      *
      *  </ul>
@@ -888,6 +966,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  the elements.  Layout classes usually override those methods instead of
      *  getHorizontalScrollPositionDelta(). 
      * 
+     *  @see spark.core.NavigationUnit
      *  @see #getElementBoundsLeftOfScrollRect
      *  @see #getElementBoundsRightOfScrollRect
      *  @see #getHorizontalScrollPositionDelta
@@ -993,21 +1072,36 @@ public class LayoutBase extends OnDemandEventDispatcher
     }
     
     /**
-     *  Implements the default handling of
-     *  UP, DOWN, PAGE_UP, PAGE_DOWN, HOME and END. 
+     *  Returns the change to the horizontal scroll position to handle 
+     *  different scrolling options. 
+     *  These options are defined by the NavigationUnit class:
+     *  <code>DOWN</code>,  <code>END</code>, <code>HOME</code>, 
+     *  <code>PAGE_DOWN</code>, <code>PAGE_UP</code>, and <code>UP</code>. 
      * 
+     *  @param navigationUnit Takes the following values: 
      *  <ul>
-     * 
-     *  <li> 
-     *  <code>UP</code>
-     *  Returns scroll delta that will top justify the scrollRect
-     *  with the first element that spans or is above the scrollRect's
-     *  top edge.
-     *  </li>
-     * 
      *  <li> 
      *  <code>DOWN</code>
      *  Returns scroll delta that will bottom justify the scrollRect
+     *  with the first element that spans or is below the scrollRect's
+     *  bottom edge.
+     *  </li>
+     * 
+     *  <li> 
+     *  <code>END</code>
+     *  Returns scroll delta that will bottom justify the scrollRect
+     *  to the content area.
+     *  </li>
+     *  
+     *  <li> 
+     *  <code>HOME</code>
+     *  Returns scroll delta that will top justify the scrollRect
+     *  to the content area.
+     *  </li>
+     * 
+     *  <li> 
+     *  <code>PAGE_DOWN</code>
+     *  Returns scroll delta that will top justify the scrollRect
      *  with the first element that spans or is below the scrollRect's
      *  bottom edge.
      *  </li>
@@ -1018,24 +1112,12 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  with the first element that spans or is above the scrollRect's
      *  top edge.
      *  </li>
-     * 
+     *
      *  <li> 
-     *  <code>PAGE_DOWN</code>
+     *  <code>UP</code>
      *  Returns scroll delta that will top justify the scrollRect
-     *  with the first element that spans or is below the scrollRect's
-     *  bottom edge.
-     *  </li>
-     *  
-     *  <li> 
-     *  <code>HOME</code>
-     *  Returns scroll delta that will top justify the scrollRect
-     *  to the content area.
-     *  </li>
-     * 
-     *  <li> 
-     *  <code>END</code>
-     *  Returns scroll delta that will bottom justify the scrollRect
-     *  to the content area.
+     *  with the first element that spans or is above the scrollRect's
+     *  top edge.
      *  </li>
      *
      *  </ul>
@@ -1045,6 +1127,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  the elements.  Layout classes usually override those methods instead of
      *  getVerticalScrollPositionDelta(). 
      * 
+     *  @see spark.core.NavigationUnit
      *  @see #getElementBoundsAboveScrollRect
      *  @see #getElementBoundsBelowScrollRect
      *  @see #getVerticalScrollPositionDelta
@@ -1148,38 +1231,37 @@ public class LayoutBase extends OnDemandEventDispatcher
     }
     
     /**
-     *  LayoutBase::getScrollPositionDeltaToElement() computes the
-     *  vertical and horizontalScrollPosition deltas needed to 
+     *  Computes the <code>verticalScrollPosition</code> and 
+     *  <code>horizontalScrollPosition</code> deltas needed to 
      *  scroll the element at the specified index into view.
      * 
-     *  If clipAndEnableScrolling is true and the element at the specified index is not
-     *  entirely visible relative to the target's scrollRect, then 
-     *  return the delta to be added to horizontalScrollPosition and
-     *  verticalScrollPosition that will scroll the element completely 
-     *  within the scrollRect's bounds.
+     *  <p>This method attempts to minimize the change to <code>verticalScrollPosition</code>
+     *  and <code>horizontalScrollPosition</code>.</p>
      * 
-     *  If the specified element is partially visible and larger than the
-     *  scrollRect, i.e. it's already the only element visible, then
-     *  null is returned.
-     * 
-     *  This method attempts to minmimze the change to verticalScrollPosition
-     *  and horizontalScrollPosition.
-     * 
-     *  If the specified index is invalid, or target is null, then
-     *  null is returned.
-     * 
-     *  If the element at the specified index is null or includeInLayout
-     *  false, then null is returned.
+     *  <p>If <code>clipAndEnableScrolling</code> is <code>true</code> 
+     *  and the element at the specified index is not
+     *  entirely visible relative to the target's scroll rectangle, then 
+     *  return the delta to be added to <code>horizontalScrollPosition</code> and
+     *  <code>verticalScrollPosition</code> that scrolls the element completely 
+     *  within the scroll rectangle's bounds.</p>
      * 
      *  @param index The index of the element to be scrolled into view.
+     *
      *  @return A Point that contains offsets to horizontalScrollPosition 
      *      and verticalScrollPosition that will scroll the specified
      *      element into view, or null if no change is needed. 
+     *      If the specified element is partially visible and larger than the
+     *      scroll rectangle, meaning it is already the only element visible, then
+     *      return null.
+     *      If the specified index is invalid, or target is null, then
+     *      return null.
+     *      If the element at the specified index is null or includeInLayout
+     *      false, then return null.
      * 
-     *  @see clipAndEnableScrolling
-     *  @see verticalScrollPosition
-     *  @see horizontalScrollPosition
-     *  @see udpdateScrollRect
+     *  @see #clipAndEnableScrolling
+     *  @see #verticalScrollPosition
+     *  @see #horizontalScrollPosition
+     *  @see #udpdateScrollRect()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
