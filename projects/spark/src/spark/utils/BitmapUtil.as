@@ -59,7 +59,7 @@ public class BitmapUtil
     {
         // DisplayObject.getBounds() is not sufficient; we need the same
         // bounds as those used internally by the player
-        var m:Matrix = MatrixUtil.getConcatenatedMatrix(target as DisplayObject);
+        var m:Matrix = MatrixUtil.getConcatenatedComputedMatrix(target as DisplayObject);
         var bounds:Rectangle = getRealBounds(DisplayObject(target), m);
         if (bounds.width == 0 || bounds.height == 0)
             return null;
