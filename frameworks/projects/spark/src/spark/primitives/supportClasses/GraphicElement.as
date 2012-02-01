@@ -328,6 +328,12 @@ public class GraphicElement extends EventDispatcher
             _host = value;
             /* if (_mask)
                 _host.addMaskElement(_mask); */
+            if (_host && _host is IInvalidating)
+            {
+                IInvalidating(_host).invalidateProperties();
+                IInvalidating(_host).invalidateSize();
+                IInvalidating(_host).invalidateDisplayList();
+            }
         }
     }
 
