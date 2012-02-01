@@ -12,7 +12,7 @@
 /**
  *  The color of text when the component is enabled and has focus.
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported for the Mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -24,7 +24,7 @@
 /**
  *  The color of text when the component is disabled.
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported for the Mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -36,7 +36,7 @@
 /**
  *  The color of text when the component is enabled but does not have focus.
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported for the Mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
