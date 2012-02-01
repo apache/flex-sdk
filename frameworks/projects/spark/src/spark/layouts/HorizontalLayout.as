@@ -40,7 +40,7 @@ public class HorizontalLayout extends LayoutBase
     
     private static function calculatePercentHeight( layoutItem:ILayoutItem, height:Number ):Number
     {
-    	var percentHeight:Number = LayoutItemHelper.pinBetween( layoutItem.percentSize.y * height,
+    	var percentHeight:Number = LayoutItemHelper.pinBetween(layoutItem.percentSize.y * 0.01 * height,
     	                                                       layoutItem.minSize.y,
     	                                                       layoutItem.maxSize.y );
     	return percentHeight < height ? percentHeight : height;
@@ -939,7 +939,7 @@ public class HorizontalLayout extends LayoutBase
 
                 childInfo = new HLayoutItemFlexChildInfo();
                 childInfo.layoutItem = layoutItem;
-                childInfo.percent    = layoutItem.percentSize.x * 100;
+                childInfo.percent    = layoutItem.percentSize.x;
                 childInfo.min        = layoutItem.minSize.x;
                 childInfo.max        = layoutItem.maxSize.x;
                 
@@ -959,7 +959,6 @@ public class HorizontalLayout extends LayoutBase
         // Distribute the extra space among the flexible children
         if (totalPercentWidth)
         {
-            totalPercentWidth *= 100;
             spaceToDistribute = Flex.flexChildrenProportionally(width,
                                                                 spaceToDistribute,
                                                                 totalPercentWidth,
