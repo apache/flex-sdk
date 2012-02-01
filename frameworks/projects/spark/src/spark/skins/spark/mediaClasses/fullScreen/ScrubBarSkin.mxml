@@ -54,7 +54,7 @@
     </fx:Declarations>
     
     <s:Button id="track" left="0" right="0" top="0" height="11"
-              skinClass="spark.skins.default.mediaClasses.fullScreen.ScrubBarTrackSkin" />
+              skinClass="spark.skins.spark.mediaClasses.fullScreen.ScrubBarTrackSkin" />
               
     <s:Group id="bufferedArea" x="0" y="0" height="11" includeInLayout="false">
     
@@ -109,6 +109,6 @@
     </s:Group>
     
     <s:Button id="thumb" x="0" y="0" width="14" height="19" includeInLayout="false"
-              skinClass="spark.skins.default.mediaClasses.fullScreen.ScrubBarThumbSkin" />
+              skinClass="spark.skins.spark.mediaClasses.fullScreen.ScrubBarThumbSkin" />
 
 </s:Skin>
