@@ -31,13 +31,15 @@
     </fx:Metadata> 
     
     <fx:Script>
+        private var paddingChanged:Boolean;
+        
         /* Define the skin elements that should not be colorized. 
            For text area, the skin itself is colorized but the individual parts are not. */
         static private const exclusions:Array = ["background", "scroller"];
 
-    /** 
-     * @copy spark.skins.SparkSkin#colorizeExclusions
-     */     
+        /** 
+         * @copy spark.skins.SparkSkin#colorizeExclusions
+         */     
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
@@ -52,6 +54,85 @@
          * @inheritDoc
          */
         override public function get focusSkinExclusions():Array { return [ textDisplay ] };
+        
+        /**
+         *  @private
+         */
+        override protected function commitProperties():void
+        {
+            super.commitProperties();
+            
+            if (paddingChanged)
+            {
+                updatePadding();
+                paddingChanged = false;
+            }
+        }
+        
+        /**
+         *  @private
+         */
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        {
+            if (getStyle("borderVisible") == true)
+            {
+                border.visible = true;
+                shadow.visible = true;
+                background.left = background.top = background.right = background.bottom = 1;
+                textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 1;
+            }
+            else
+            {
+                border.visible = false;
+                shadow.visible = false;
+                background.left = background.top = background.right = background.bottom = 0;
+                textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 0;
+            }
+            
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
+        
+        /**
+         *  @private
+         */
+        private function updatePadding():void
+        {
+            if (!textDisplay)
+                return;
+            
+            // Push padding styles into the textDisplay
+            var padding:Number;
+            
+            padding = getStyle("paddingLeft");
+            if (textDisplay.getStyle("paddingLeft") != padding)
+                textDisplay.setStyle("paddingLeft", padding);
+            
+            padding = getStyle("paddingTop");
+            if (textDisplay.getStyle("paddingTop") != padding)
+                textDisplay.setStyle("paddingTop", padding);
+            
+            padding = getStyle("paddingRight");
+            if (textDisplay.getStyle("paddingRight") != padding)
+                textDisplay.setStyle("paddingRight", padding);
+            
+            padding = getStyle("paddingBottom");
+            if (textDisplay.getStyle("paddingBottom") != padding)
+                textDisplay.setStyle("paddingBottom", padding);
+        }
+        
+        /**
+         *  @private
+         */
+        override public function styleChanged(styleProp:String):void
+        {
+            super.styleChanged(styleProp);
+            
+            if (!styleProp || styleProp.indexOf("padding") == 0)
+            {
+                paddingChanged = true;
+                invalidateProperties();
+            }
+        }
 
     </fx:Script>
     
@@ -61,7 +142,7 @@
     </s:states>
     
     <!-- border --> 
-    <s:Rect left="0" right="0" top="0" bottom="0">
+    <s:Rect id="border" left="0" right="0" top="0" bottom="0">
         <s:stroke>
             <s:SolidColorStroke color="{getStyle('borderColor')}" 
                                 alpha="{getStyle('borderAlpha')}" 
@@ -79,7 +160,7 @@
     </s:Rect>
     
     <!-- shadow -->
-    <s:Rect left="1" top="1" right="1" height="1">
+    <s:Rect id="shadow" left="1" top="1" right="1" height="1">
         <s:fill>
             <s:SolidColor color="0x000000" alpha="0.12" />
         </s:fill>
