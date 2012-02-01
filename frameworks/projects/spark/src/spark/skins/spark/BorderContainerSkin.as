@@ -30,6 +30,8 @@ import spark.primitives.Rect;
  */
 [HostComponent("spark.components.Border")]
 
+[States("normal", "disabled")]
+
 /**
  *  The default skin class for a Spark Border container.
  * 
