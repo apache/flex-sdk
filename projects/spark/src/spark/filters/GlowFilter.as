@@ -65,6 +65,7 @@ import mx.filters.IBitmapFilter;
  *  /&gt;
  *  </pre>
  *
+ * @see flash.filters.GlowFilter
  * @see flash.display.BitmapData#applyFilter()
  * @see flash.display.DisplayObject#filters
  * @see flash.display.DisplayObject#cacheAsBitmap
@@ -73,6 +74,8 @@ import mx.filters.IBitmapFilter;
  * @see flash.filters.DropShadowFilter#distance
  * @see flash.filters.DropShadowFilter#angle
  *
+ * @includeExample examples/GlowFilterExample.mxml
+ *  
  * @langversion 3.0
  * @playerversion Flash 10
  * @playerversion AIR 1.5
