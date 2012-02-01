@@ -112,9 +112,7 @@ and <code>sortIndicator</code> properties.</p>
              *  <code>maxDisplayedLines</code> property of this renderer's 
              *  <code>labelDisplay</code> element.
              * 
-             *  <p>
              *  @copy spark.components.supportClasses.TextBase#maxDisplayedLines
-             *  </p>
              * 
              *  @default 1
              * 
