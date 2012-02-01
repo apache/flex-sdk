@@ -1297,7 +1297,13 @@ public class VerticalLayout extends LayoutBase
         if (!layoutTarget)
             return;
             
-        if (virtualLayout) 
+        if (layoutTarget.numLayoutElements == 0)
+        {
+            setRowCount(0);
+            setIndexInView(-1, -1);
+            layoutTarget.setContentSize(0, 0);            
+        }
+        else if (virtualLayout) 
             updateDisplayListVirtual();
         else
             updateDisplayListReal();
