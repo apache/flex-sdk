@@ -42,9 +42,13 @@
         <s:State name="stoppedAndFullScreen" stateGroups="stoppedStates, fullScreenStates"/>
     </s:states>
     
-    <!-- video and player controls are clipped if they exceed the size of the 
-         component, but the drop shadow above is not clipped and sizes to the component -->
-    <s:Group clipAndEnableScrolling="true" left="0" top="0" right="0" bottom="0">
+    <!-- Video and player controls are clipped if they exceed the size of the 
+         component, but the drop shadow above is not clipped and sizes to the component.
+         We also set verticalScrollPosition so that when we do clip, rather than clipping  
+         off the bottom first, we clip off the top fist.  This is so the player controls 
+         are still visible when we start clipping. -->
+    <s:Group id="clippedGroup" clipAndEnableScrolling="true" left="0" top="0" right="0" bottom="0" 
+             verticalScrollPosition="{Math.max(0, 184-clippedGroup.height)}">
     
         <!-- There's a minimum size for the video and controls.  If we go below that
              we are clipped. -->
