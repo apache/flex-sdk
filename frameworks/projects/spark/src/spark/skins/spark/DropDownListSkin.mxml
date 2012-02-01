@@ -9,6 +9,8 @@
     in accordance with the terms of the license agreement accompanying it.
  
 --> 
+<!--- The default skin class for the Spark DropDownList component. The button skin on a DropDownList component 
+is defined in the DropDownListButtonSkin class. -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" alpha.disabled=".5"> 
 
     <!-- host component -->
