@@ -176,7 +176,7 @@ is defined by the ComboBoxTextInputSkin class.
             This includes borders, background colors, scrollers, and filters. 
             @copy spark.components.supportClasses.DropDownListBase#dropDown
         -->
-        <s:Group id="dropDown" maxHeight="134" minHeight="22" >
+        <s:Group id="dropDown">
             
             <!-- drop shadow -->
             <!--- @private -->
@@ -210,7 +210,7 @@ is defined by the ComboBoxTextInputSkin class.
                 <!--- @copy spark.components.SkinnableDataContainer#dataGroup-->
                 <s:DataGroup id="dataGroup" itemRenderer="spark.skins.spark.DefaultItemRenderer">
                     <s:layout>
-                        <s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
+                        <s:VerticalLayout gap="0" horizontalAlign="contentJustify" requestedMinRowCount="1" requestedMaxRowCount="6"/>
                     </s:layout>
                 </s:DataGroup> 
             </s:Scroller>
