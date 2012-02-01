@@ -79,12 +79,9 @@
 	<!-- This is a private target for building automation_rb.swc for various locales. -->
 	<!-- The targets below set the 'locale' parameter  -->
 	<target name="bundles">
-		<bundler locale="de_DE"/><!-- German resources -->
+		
 		<bundler locale="en_US"/><!-- American English resources  -->
-		<bundler locale="fr_FR"/><!-- French resources -->
-		<bundler locale="ja_JP"/><!-- Japanese resources -->
-		<bundler locale="ru_RU"/><!-- Swedish resources -->
-		<bundler locale="zh_CN"/><!-- Simplified Chinese resources -->
+		
 	</target>
 	
 	<target name="clean" description="Deletes the combined swc">
