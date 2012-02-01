@@ -1467,7 +1467,13 @@ public class VerticalLayout extends LayoutBase
         var maxVisibleY:Number = minVisibleY + layoutTarget.height;
        
         updateLLV(layoutTarget);
-        var startIndex:int = llv.indexOf(minVisibleY + gap);
+		
+		// Find the index of the first visible item. Since the item's bounds includes the gap
+		// that follows it, we want to avoid looking at an item that has only a portion of
+		// its gap intersecting with the visible region.
+		// We have to also be careful, as gap could be negative and in that case, we should
+		// simply start from minVisibleY - SDK-22497.
+        var startIndex:int = llv.indexOf(Math.max(0, minVisibleY + gap));
         if (startIndex == -1)
             return;
                         
