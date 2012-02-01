@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009">
+
+    <states>
+        <State name="up" />
+        <State name="over" stateGroups="overStates" />
+        <State name="down" stateGroups="downStates" />
+        <State name="disabled" stateGroups="disabledStates" />
+        <State name="upAndSelected" />
+        <State name="overAndSelected" stateGroups="overStates" />
+        <State name="downAndSelected" stateGroups="downStates" />
+        <State name="disabledAndSelected" stateGroups="disabledStates" />
+    </states>
+
+    <content>
+        
+		<Group top="1">
+            <!-- border -->
+            <Rect width="12" height="12">
+                <stroke>            
+                    <SolidColorStroke color="0x808080" color.disabledStates="0xC0C0C0"  />
+                </stroke>
+            </Rect>
+            <!-- fill -->
+            <Rect left="1" top="1" width="10" height="10">
+                <stroke>
+                    <SolidColorStroke color="0xFFFFFF" 
+                            color.overStates="0xFAFAFA" color.downStates="0xEFEFEF" />
+                </stroke>
+                <fill>
+                    <SolidColor color="0xFFFFFF" 
+                            color.overStates="0xF2F2F2" color.down="0xD8D8D8" 
+                            color.downAndSelected="0xEFEFEF" />
+                </fill>
+            </Rect>
+            <!-- checkmark -->
+            <Path data="M 3.5 6.5 l 2 2 l 4 -4" 
+                     includeIn="upAndSelected, overAndSelected, downAndSelected, disabledAndSelected">
+                <stroke>
+                    <SolidColorStroke weight="2" caps="square" color="0x747474" color.disabledAndSelected="0xB3B3B3" />
+                </stroke>
+            </Path>
+        </Group>
+
+        <!-- Label -->
+        <TextBox text="{data.label}"
+                 fontFamily="Arial" fontSize="11"
+                 color="0x444444" color.disabled="0xC0C0C0" 
+                 left="19" top="3" />
+    
+	</content>
+
+</Skin>
