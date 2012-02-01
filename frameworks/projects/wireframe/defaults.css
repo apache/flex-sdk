@@ -1,0 +1,105 @@
+/*
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2008 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+/* Default Skins */
+
+FxButton
+{
+	skinClass: ClassReference("wireframe.FxButtonSkin");
+	
+	/* These font styles are shared by all Button subclasses,
+	   including ToggleButton, RadioButton, and CheckBox. */
+    fontFamily: Arial;
+    fontSize: 12;
+    color: #2B4381;
+}
+
+FxCheckBox
+{
+	skinClass: ClassReference("wireframe.FxCheckBoxSkin");
+}
+
+FxHScrollBar
+{
+    skinClass: ClassReference("wireframe.FxHScrollBarSkin");
+}
+
+FxHSlider
+{
+    skinClass: ClassReference("wireframe.FxHSliderSkin");
+}
+
+FxList
+{
+	skinClass: ClassReference("wireframe.FxListSkin");
+}
+
+FxNumericStepper
+{
+    skinClass: ClassReference("wireframe.FxNumericStepperSkin");
+}
+
+FxRadioButton
+{
+	skinClass: ClassReference("wireframe.FxRadioButtonSkin");
+}
+
+FxSpinner
+{
+    skinClass: ClassReference("wireframe.FxSpinnerSkin");    
+}
+
+FxTextArea
+{
+	skinClass: ClassReference("wireframe.FxTextAreaSkin");
+}
+
+FxTextInput
+{
+	skinClass: ClassReference("wireframe.FxTextInputSkin");
+}
+
+FxToggleButton
+{
+	skinClass: ClassReference("wireframe.FxToggleButtonSkin");
+}
+
+FxVScrollBar
+{
+	skinClass: ClassReference("wireframe.FxVScrollBarSkin");
+}
+
+FxVSlider
+{
+    skinClass: ClassReference("wireframe.FxVSliderSkin");
+}
+
+/* Default text styles for the Gumbo components. Eventually these
+   will be moved into the global selector, but to avoid collision
+   with the Halo defaults, they are currently defined here.
+   
+   The default font settings for Gumbo components are defined in
+   three selectors: FxButton (above), TextBox, and FxTextBase. */
+TextBox
+{
+    fontFamily: Arial;
+    fontSize: 12;
+    color: #2B4381;
+}
+
+FxTextBase
+{
+    fontFamily: Arial;
+    fontSize: 12;
+    color: #2B4381;
+}
