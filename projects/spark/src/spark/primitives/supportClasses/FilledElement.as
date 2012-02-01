@@ -88,7 +88,7 @@ public class FilledElement extends StrokedElement
 				fill_propertyChangeHandler);
 			
 		dispatchPropertyChangeEvent("fill", oldValue, _fill);
-		notifyElementChanged();
+		invalidateDisplayList();
 	}
 	
 	//--------------------------------------------------------------------------
@@ -105,7 +105,7 @@ public class FilledElement extends StrokedElement
 		// Don't call super.beginDraw() since it will also set up an 
 		// invisible fill.
 		
-		var bounds:Rectangle = new Rectangle(0, 0, drawWidth, drawHeight);
+		var bounds:Rectangle = new Rectangle(0, 0, width, height);
 		if (stroke)
 			stroke.draw(g, bounds);
 		else
@@ -138,7 +138,7 @@ public class FilledElement extends StrokedElement
 	 */
 	private function fill_propertyChangeHandler(event:Event):void
 	{
-		notifyElementChanged();
+		invalidateDisplayList();
 	}
 }
 }
