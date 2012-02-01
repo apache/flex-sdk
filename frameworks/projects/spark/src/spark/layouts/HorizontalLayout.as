@@ -16,13 +16,14 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.ui.Keyboard;
 
 import mx.containers.utilityClasses.Flex;
 import mx.core.ILayoutElement;
 import mx.events.PropertyChangeEvent;
 
 import spark.components.supportClasses.GroupBase;
+import spark.core.NavigationUnit;
+import spark.core.ScrollUnit;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.layouts.supportClasses.LayoutElementHelper;
 import spark.layouts.supportClasses.LinearLayoutVector;
@@ -1178,27 +1179,120 @@ public class HorizontalLayout extends LayoutBase
     
     /**
      *  @private 
-     *  For a HorizontalLayout, returns the index of the next item to 
-     *  navigate to given the current index and keyCode passed in. 
      */  
-     override public function nextItemIndex(keyCode:uint, currentIndex:int, maxIndex:int):int
+     override public function getDestinationIndex(navigationUnit:uint, currentIndex:int):int
      {
-         var retVal:int = super.nextItemIndex(keyCode, currentIndex, maxIndex);  
-         switch (keyCode)
-         {
-             case Keyboard.RIGHT:
-             {
-                retVal = Math.min(currentIndex + 1, maxIndex);   
+        var maxIndex:int = target.numElements - 1;
+        var newIndex:int; 
+        var bounds:Rectangle;
+        var x:Number;
+
+        switch (navigationUnit)
+        {
+            case NavigationUnit.LEFT:
+            {
+               newIndex = currentIndex - 1;  
+               break;
+            } 
+
+            case NavigationUnit.RIGHT: 
+            {
+               newIndex = currentIndex + 1;  
+               break;
+            }
+             
+            case NavigationUnit.PAGE_UP:
+            case NavigationUnit.PAGE_LEFT:
+            {
+                // Find the first fully visible element
+                var firstVisible:int = firstIndexInView;
+                var firstFullyVisible:int = firstVisible;
+                if (fractionOfElementInView(firstFullyVisible) < 1)
+                    firstFullyVisible += 1;
+                 
+                // Is the current element in the middle of the viewport?
+                if (firstFullyVisible < currentIndex && currentIndex <= lastIndexInView)
+                    newIndex = firstFullyVisible;
+                else
+                {
+                    // Find an element that's one page left
+                    if (currentIndex == firstFullyVisible || currentIndex == firstVisible)
+                    {
+                        // currentIndex is visible, we can calculate where the scrollRect top
+                        // would end up if we scroll by a page                    
+                        x = getHorizontalScrollPositionDelta(ScrollUnit.PAGE_LEFT) + getScrollRect().left;
+                    }
+                    else
+                    {
+                        // currentIndex is not visible, just find an element a page left from currentIndex
+                        x = getElementBounds(currentIndex).right - getScrollRect().width;
+                    }
+
+                    // Find the element after the last element that spans left of the x position
+                    newIndex = currentIndex - 1;
+                    while (0 < newIndex)
+                    {
+                        bounds = getElementBounds(newIndex);
+                        if (bounds && bounds.left < x)
+                        {
+                            // This element spans the y position, so return the next one
+                            newIndex = Math.min(currentIndex - 1, newIndex + 1);
+                            break;
+                        }
+                        newIndex--;    
+                    }
+                }
                 break;
-             } 
-             case Keyboard.LEFT: 
-             {
-                retVal = Math.max(currentIndex - 1, 0);  
+            }
+
+            case NavigationUnit.PAGE_DOWN:
+            case NavigationUnit.PAGE_RIGHT:
+            {
+                // Find the last fully visible element:
+                var lastVisible:int = lastIndexInView;
+                var lastFullyVisible:int = lastVisible;
+                if (fractionOfElementInView(lastFullyVisible) < 1)
+                    lastFullyVisible -= 1;
+                
+                // Is the current element in the middle of the viewport?
+                if (firstIndexInView <= currentIndex && currentIndex < lastFullyVisible)
+                    newIndex = lastFullyVisible;
+                else
+                {
+                    // Find an element that's one page right
+                    if (currentIndex == lastFullyVisible || currentIndex == lastVisible)
+                    {
+                        // currentIndex is visible, we can calculate where the scrollRect bottom
+                        // would end up if we scroll by a page                    
+                        x = getHorizontalScrollPositionDelta(ScrollUnit.PAGE_RIGHT) + getScrollRect().right;
+                    }
+                    else
+                    {
+                        // currentIndex is not visible, just find an element a page right from currentIndex
+                        x = getElementBounds(currentIndex).left + getScrollRect().width;
+                    }
+
+                    // Find the element before the first element that spans right of the y position
+                    newIndex = currentIndex + 1;
+                    while (newIndex < maxIndex)
+                    {
+                        bounds = getElementBounds(newIndex);
+                        if (bounds && bounds.right > x)
+                        {
+                            // This element spans the y position, so return the previous one
+                            newIndex = Math.max(currentIndex + 1, newIndex - 1);
+                            break;
+                        }
+                        newIndex++;    
+                    }
+                }
                 break;
-             }
-         }
-         return retVal; 
-     }
+            }
+
+            default: return super.getDestinationIndex(navigationUnit, currentIndex);
+        }
+        return Math.max(0, Math.min(maxIndex, newIndex));  
+    }
     
     /**
      *  @private
