@@ -1,6 +1,6 @@
 package spark.filters
 {
-	
+    
 import flash.filters.BitmapFilter;
 import flash.filters.GradientBevelFilter;
 
@@ -11,7 +11,7 @@ import mx.filters.IBitmapFilter;
 use namespace mx_internal;
 
 [DefaultProperty("entries")]
-	
+    
 
 /**
  * The GradientBevelFilter class lets you apply a gradient bevel effect to 
@@ -48,6 +48,14 @@ use namespace mx_internal;
  * For example, if you zoom in on a large movie clip with a filter applied, the filter is 
  * turned off if the resulting image exceeds the maximum dimensions.</p>
  * 
+ *  @mxml 
+ *  <p>The <code>&lt;GradientBevelFilter&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds no tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;GradientBevelFilter/&gt;
+ *  </pre>
+ * 
  * @langversion 3.0
  * @playerversion Flash 10
  * @playerversion AIR 1.5
@@ -61,87 +69,87 @@ use namespace mx_internal;
  */
 public class GradientBevelFilter extends GradientFilter implements IBitmapFilter
 {
-	/**
-	 * Constructor.
-	 *
-	 * @param distance The offset distance. Valid values are 0 to 8. 
-	 * @param angle The angle, in degrees. Valid values are 0 to 360. 
-	 * @param colors An array of RGB hexadecimal color values to use in the gradient.
-	 * For example, red is 0xFF0000, blue is 0x0000FF, and so on.
-	 * @param alphas An array of alpha transparency values for the corresponding colors in
-	 * the <code>colors</code> array. Valid values for each element in the array are 0 to 1.
-	 * For example, .25 sets a transparency value of 25%.
-	 * @param ratios An array of color distribution ratios; valid values are
-	 * 0 to 255.
-	 * @param blurX The amount of horizontal blur. Valid values are 0 to 255. A blur of 1 or 
-	 * less means that the original image is copied as is. The default value
-	 * is 4. Values that are a power of 2 (such as 2, 4, 8, 16 and 32) are optimized 
-	 * to render more quickly than other values.
-	 * @param blurY The amount of vertical blur. Valid values are 0 to 255. A blur of 1 or less
-	 * means that the original image is copied as is. Values that are a power of 2 
-	 * (such as 2, 4, 8, 16 and 32) are optimized 
-	 * to render more quickly than other values.
-	 * @param strength The strength of the imprint or spread. The higher the value, the more color 
-	 * is imprinted and the stronger the contrast between the bevel and the background. 
-	 * Valid values are 0 to 255. A value of 0 means that the filter is not applied. 
-	 * 
-	 * @param quality The quality of the filter. Use BitmapFilterQuality constants:
-	 * <ul>
-	 * <li><code>BitmapFilterQuality.LOW</code></li>
-	 * <li><code>BitmapFilterQuality.MEDIUM</code></li>
-	 * <li><code>BitmapFilterQuality.HIGH</code></li>
-	 * </ul>
-	 * <p>For more information, see the description of the <code>quality</code> property.</p>
-	 *
-	 * @param type The placement of the bevel effect. Possible values are BitmapFilterType constants:
-	 * <ul><li><code>BitmapFilterType.OUTER</code> &#x2014; Bevel on the outer edge of the object</li>
-	 * <li><code>BitmapFilterType.INNER</code> &#x2014; Bevel on the inner edge of the object</li>
-	 * <li><code>BitmapFilterType.FULL</code> &#x2014; Bevel on top of the object</li>
-	 * </ul>
-	 * @param knockout Specifies whether a knockout effect is applied. The value <code>true</code>
-	 * makes the object's fill transparent and reveals the background color of the document.
-	 *
-	 * @langversion 3.0
-    	 * @playerversion Flash 10
- 	 * @playerversion AIR 1.5
- 	 * @productversion Flex 4
-	 *
-	 */
-	public function GradientBevelFilter(distance:Number = 4.0, angle:Number = 45, 
-									    colors:Array = null, alphas:Array = null, 
-									    ratios:Array = null, blurX:Number = 4.0, 
-									    blurY:Number = 4.0, strength:Number = 1, 
-									    quality:int = 1, type:String = "inner", 
-									    knockout:Boolean = false)
-	{
-		super(colors, alphas, ratios);
-		
-		this.distance = distance;
-		this.angle = angle;
-		this.blurX =blurX ;
-		this.blurY = blurY;
-		this.strength = strength;
-		this.quality = quality;
-		this.type = type;
-		this.knockout = knockout;
-	}
-	
-	/**
-	 * Returns a copy of this filter object.
-	 * @return A new GradientBevelFilter instance with all the
-	 * same properties as the original GradientBevelFilter instance.
-	 *
-	 * @langversion 3.0
-    	 * @playerversion Flash 10
- 	 * @playerversion AIR 1.5
- 	 * @productversion Flex 4
-	 */
-	public function clone():BitmapFilter 
-	{
-		return new flash.filters.GradientBevelFilter(distance, angle, colors, alphas, ratios, 
-										blurX, blurY, strength, quality, type,
-										knockout); 
-	} 
-		
+    /**
+     * Constructor.
+     *
+     * @param distance The offset distance. Valid values are 0 to 8. 
+     * @param angle The angle, in degrees. Valid values are 0 to 360. 
+     * @param colors An array of RGB hexadecimal color values to use in the gradient.
+     * For example, red is 0xFF0000, blue is 0x0000FF, and so on.
+     * @param alphas An array of alpha transparency values for the corresponding colors in
+     * the <code>colors</code> array. Valid values for each element in the array are 0 to 1.
+     * For example, .25 sets a transparency value of 25%.
+     * @param ratios An array of color distribution ratios; valid values are
+     * 0 to 255.
+     * @param blurX The amount of horizontal blur. Valid values are 0 to 255. A blur of 1 or 
+     * less means that the original image is copied as is. The default value
+     * is 4. Values that are a power of 2 (such as 2, 4, 8, 16 and 32) are optimized 
+     * to render more quickly than other values.
+     * @param blurY The amount of vertical blur. Valid values are 0 to 255. A blur of 1 or less
+     * means that the original image is copied as is. Values that are a power of 2 
+     * (such as 2, 4, 8, 16 and 32) are optimized 
+     * to render more quickly than other values.
+     * @param strength The strength of the imprint or spread. The higher the value, the more color 
+     * is imprinted and the stronger the contrast between the bevel and the background. 
+     * Valid values are 0 to 255. A value of 0 means that the filter is not applied. 
+     * 
+     * @param quality The quality of the filter. Use BitmapFilterQuality constants:
+     * <ul>
+     * <li><code>BitmapFilterQuality.LOW</code></li>
+     * <li><code>BitmapFilterQuality.MEDIUM</code></li>
+     * <li><code>BitmapFilterQuality.HIGH</code></li>
+     * </ul>
+     * <p>For more information, see the description of the <code>quality</code> property.</p>
+     *
+     * @param type The placement of the bevel effect. Possible values are BitmapFilterType constants:
+     * <ul><li><code>BitmapFilterType.OUTER</code> &#x2014; Bevel on the outer edge of the object</li>
+     * <li><code>BitmapFilterType.INNER</code> &#x2014; Bevel on the inner edge of the object</li>
+     * <li><code>BitmapFilterType.FULL</code> &#x2014; Bevel on top of the object</li>
+     * </ul>
+     * @param knockout Specifies whether a knockout effect is applied. The value <code>true</code>
+     * makes the object's fill transparent and reveals the background color of the document.
+     *
+     * @langversion 3.0
+         * @playerversion Flash 10
+     * @playerversion AIR 1.5
+     * @productversion Flex 4
+     *
+     */
+    public function GradientBevelFilter(distance:Number = 4.0, angle:Number = 45, 
+                                        colors:Array = null, alphas:Array = null, 
+                                        ratios:Array = null, blurX:Number = 4.0, 
+                                        blurY:Number = 4.0, strength:Number = 1, 
+                                        quality:int = 1, type:String = "inner", 
+                                        knockout:Boolean = false)
+    {
+        super(colors, alphas, ratios);
+        
+        this.distance = distance;
+        this.angle = angle;
+        this.blurX =blurX ;
+        this.blurY = blurY;
+        this.strength = strength;
+        this.quality = quality;
+        this.type = type;
+        this.knockout = knockout;
+    }
+    
+    /**
+     * Returns a copy of this filter object.
+     * @return A new GradientBevelFilter instance with all the
+     * same properties as the original GradientBevelFilter instance.
+     *
+     * @langversion 3.0
+         * @playerversion Flash 10
+     * @playerversion AIR 1.5
+     * @productversion Flex 4
+     */
+    public function clone():BitmapFilter 
+    {
+        return new flash.filters.GradientBevelFilter(distance, angle, colors, alphas, ratios, 
+                                        blurX, blurY, strength, quality, type,
+                                        knockout); 
+    } 
+        
 }
 }
