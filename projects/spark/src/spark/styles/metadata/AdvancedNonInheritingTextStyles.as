@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- *  Number of text columns (adopts default value if undefined during cascade).
+ *  Number of text columns.
  * 
  *  <p><b>For the Spark theme, see
  *  flashx.textLayout.formats.ITextLayoutFormat.columnCount.</b></p>
@@ -27,8 +27,7 @@
 [Style(name="columnCount", type="Object", inherit="no")]
 
 /**
- *  Amount of gutter space, in pixels, to leave between the columns 
- *  (adopts default value if undefined during cascade).
+ *  Amount of gutter space, in pixels, to leave between the columns.
  * 
  *  <p><b>For the Spark theme, see
  *  flashx.textLayout.formats.ITextLayoutFormat.columnGap.</b></p>
@@ -45,7 +44,7 @@
 [Style(name="columnGap", type="Number", format="Length", inherit="no")]
 
 /**
- *  Column width in pixels (adopts default value if undefined during cascade). 
+ *  Column width in pixels. 
  * 
  *  <p><b>For the Spark theme, see
  *  flashx.textLayout.formats.ITextLayoutFormat.columnWidth.</b></p>
