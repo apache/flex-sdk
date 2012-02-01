@@ -15,8 +15,7 @@
       
       <p>In a custom skin class that uses transitions, set the 
       <code>itemDestructionPolicy</code> property to <code>none</code>
-      for the PopUpAnchor defined by the popUp property.</p>
-      
+      for the PopUpAnchor defined by the popUp property.</p>      
         
       @see spark.components.DropDownList        
       @see spark.skins.spark.DropDownListButtonSkin
@@ -151,11 +150,13 @@
     </s:PopUpAnchor>
     
     <!--- 
-        The default skin is DropDownListButtonSkin. 
         @copy spark.components.supportClasses.DropDownListBase#openButton
+        The default skin is DropDownListButtonSkin. 
+        @see spark.skins.spark.DropDownListButtonSkin
     -->
     <s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
         skinClass="spark.skins.spark.DropDownListButtonSkin" />  
+        
     <!--- @copy spark.components.DropDownList#labelDisplay -->
     <s:Label id="labelDisplay" verticalAlign="middle" maxDisplayedLines="1" 
         mouseEnabled="false" mouseChildren="false"
