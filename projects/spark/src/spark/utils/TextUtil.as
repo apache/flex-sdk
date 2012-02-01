@@ -313,37 +313,18 @@ public class TextUtil
 			var bold:Boolean = client.getStyle("fontWeight") == "bold";
 			var italic:Boolean = client.getStyle("fontStyle") == "italic";
 			
-            fontContext = embeddedFontRegistry.getAssociatedModuleFactory(
-            	font, bold, italic,
-                client, moduleFactory);
-
-            // If we found the font, then it is embedded. 
-            // But some fonts are not listed in info()
-            // and are therefore not in the above registry.
-            // So we call isFontFaceEmbedded() which gets the list
-            // of embedded fonts from the player.
-            if (!fontContext) 
+            var localLookup:ISystemManager; 
+            if (moduleFactory != null && moduleFactory is ISystemManager)
+                localLookup = ISystemManager(moduleFactory);
+            else if (client is IUIComponent)
             {
-                var sm:ISystemManager;
-                if (moduleFactory != null && moduleFactory is ISystemManager)
-                	sm = ISystemManager(moduleFactory);
-                else if (client is IUIComponent)
-                {
-                    var uic:IUIComponent = IUIComponent(client);
-                    if (uic.parent is IUIComponent)
-                	    sm = IUIComponent(uic.parent).systemManager;
-                }
-
-                if (!staticTextFormat)
-                    staticTextFormat = new TextFormat();
-
-                staticTextFormat.font = font;
-                staticTextFormat.bold = bold;
-                staticTextFormat.italic = italic;
-                
-                if (sm != null && sm.isFontFaceEmbedded(staticTextFormat))
-                    fontContext = sm;
+                var uic:IUIComponent = IUIComponent(client);
+                if (uic.parent is IUIComponent)
+                    localLookup = IUIComponent(uic.parent).systemManager;
             }
+            
+            fontContext = embeddedFontRegistry.getAssociatedModuleFactory(
+            	font, bold, italic, client, moduleFactory, localLookup, true);
         }
 
         if (!fontContext && fontLookup == FontLookup.EMBEDDED_CFF)
