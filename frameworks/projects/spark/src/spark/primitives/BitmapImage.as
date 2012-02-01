@@ -27,7 +27,9 @@ import flash.geom.Rectangle;
 import flash.net.URLRequest;
 import flash.system.LoaderContext;
 
-import spark.primitives.supportClasses.GraphicElement;
+import mx.graphics.BitmapResizeMode;
+
+import spark.primitives.supportClasses.GraphicElement; 
 
 /**
  *  Dispatched when an input/output error occurs.
@@ -113,88 +115,29 @@ public class BitmapImage extends GraphicElement
     //----------------------------------
     //  resizeMode
     //----------------------------------
-    /**
-     *  @private
-     *  The default state.
-     */
-    private static const _NORMAL_UINT:uint = 0;
-
-    /**
-     *  @private
-     *  Repeats the graphic.
-     */
-    private static const _REPEAT_UINT:uint = 1;
-
-    /**
-     *  @private
-     *  Scales the graphic.
-     */
-    private static const _SCALE_UINT:uint = 2;
-
-    /**
-     *  @private
-     *  Converts from the String to the uint
-     *  representation of the enum values.
-     *  
-     *  @param value The String to convert.
-     *  
-     *  @return The uint representation of the enum values.
-     */
-    private static function resizeModeToUINT(value:String):uint
-    {
-        switch(value)
-        {
-            case BitmapImageResizeMode.REPEAT: return _REPEAT_UINT;
-            case BitmapImageResizeMode.SCALE: return _SCALE_UINT;
-            default: return _NORMAL_UINT;
-        }
-    }
-
-    /**
-     *  Converts from the uint to the String
-     *  representation of the enum values.
-     *  
-     *  @param value The uint to convert.
-     *  
-     *  @return The String representation of the enum values.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected static function resizeModeToString(value:uint):String
-    {
-        switch(value)
-        {
-            case _REPEAT_UINT: return BitmapImageResizeMode.REPEAT;
-            case _SCALE_UINT: return BitmapImageResizeMode.SCALE;
-            default: return BitmapImageResizeMode.NORMAL;
-        }
-    }
 
     /**
      *  @private
      */
-    protected var _resizeMode:uint = _REPEAT_UINT;
+    protected var _resizeMode:String = BitmapResizeMode.SCALE;
     
-    [Inspectable(category="General", enumeration="normal,repeat,scale")]
+    [Inspectable(category="General", enumeration="noScale,repeat,scale", defaultValue="scale")]
     
     /**
      *  The resizeMode determines how the bitmap fills in the dimensions. If you set the value
      *  of this property in a tag, use the string (such as "repeat"). If you set the value of 
-     *  this property in ActionScript, use the constant (such as <code>BitmapImageResizeMode.NORMAL</code>).
+     *  this property in ActionScript, use the constant (such as <code>BitmapResizeMode.NOSCALE</code>).
      * 
-     *  When set to <code>BitmapImageResizeMode.NORMAL</code> ("normal"), the bitmap
+     *  When set to <code>BitmapResizeMode.NOSCALE</code> ("noScale"), the bitmap
      *  ends at the edge of the region.
      * 
-     *  When set to <code>BitmapImageResizeMode.REPEAT</code> ("repeat"), the bitmap 
+     *  When set to <code>BitmapResizeMode.REPEAT</code> ("repeat"), the bitmap 
      *  repeats to fill the region.
      *
-     *  When set to <code>BitmapImageResizeMode.SCALE</code> ("scale"), the bitmap
+     *  When set to <code>BitmapResizeMode.SCALE</code> ("scale"), the bitmap
      *  stretches to fill the region.
      * 
-     *  @default <code>BitmapImageResizeMode.REPEAT</code>
+     *  @default <code>BitmapResizeMode.SCALE</code>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -203,53 +146,17 @@ public class BitmapImage extends GraphicElement
      */
     public function get resizeMode():String 
     {
-        return resizeModeToString(_resizeMode);
+        return _resizeMode; 
     }
     
     /**
      *  @private
      */
-    public function set resizeMode(mode:String):void
+    public function set resizeMode(value:String):void
     {
-        var value:uint = resizeModeToUINT(mode);
         if (value != _resizeMode)
         {
             _resizeMode = value;
-            invalidateDisplayList();
-        }
-    }
-
-    //----------------------------------
-    //  repeat
-    //----------------------------------
-
-    [Inspectable(category="General", enumeration="true,false")]
-
-    /**
-     *  Whether the bitmap is repeated to fill the area. Set to <code>true</code> to cause 
-     *  the fill to tile outward to the edges of the region. 
-     *  Set to <code>false</code> to end the fill at the edge of the bitmap.
-     *
-     *  @default true
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get repeat():Boolean 
-    {
-        return _resizeMode == _REPEAT_UINT;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set repeat(value:Boolean):void
-    {        
-        if (value != repeat)
-        {
-            resizeMode = value ? BitmapImageResizeMode.REPEAT : BitmapImageResizeMode.NORMAL;  
             invalidateDisplayList();
         }
     }
@@ -461,14 +368,14 @@ public class BitmapImage extends GraphicElement
     
         switch(_resizeMode)
         {
-            case _REPEAT_UINT:
+            case BitmapResizeMode.REPEAT: 
                 if (_bitmapData)
                 {
                     repeatBitmap = true;
                 }    
             break;
 
-            case _SCALE_UINT:
+            case BitmapResizeMode.SCALE:
                 if (_bitmapData)
                 {
                     fillScaleX = unscaledWidth / _bitmapData.width;
@@ -476,7 +383,7 @@ public class BitmapImage extends GraphicElement
                 }
             break;
             
-            case _NORMAL_UINT:
+            case BitmapResizeMode.NOSCALE:
                 if (_bitmapData)
                 {
                     fillWidth = Math.min(unscaledWidth, _bitmapData.width);
@@ -486,7 +393,7 @@ public class BitmapImage extends GraphicElement
         }
 
         // If no scaleGrid is defined or if resizeMode != SCALE, just draw the entire rect
-        if (_resizeMode != _SCALE_UINT ||
+        if (_resizeMode != BitmapResizeMode.SCALE ||
             isNaN(_scaleGridTop) ||
             isNaN(_scaleGridBottom) ||
             isNaN(_scaleGridLeft) ||
