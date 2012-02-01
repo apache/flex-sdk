@@ -22,6 +22,9 @@
       minWidth="11" alpha.disabled="0.5">
 
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.VSlider")]
     </fx:Metadata> 
     
@@ -47,7 +50,8 @@
     </s:states>
    
     <fx:Declarations>
-        <!--- Defines the appearance of the the Slider's DataTip. To customize the DataTip's appearance, create a custom VSliderSkin class. -->
+        <!--- To customize the DataTip's appearance, create a custom VSliderSkin class. 
+              @copy spark.components.supportClasses.Slider#dataTip -->
         <fx:Component id="dataTip">
             <s:DataRenderer minHeight="24" minWidth="40" x="20"> 
                 <s:Rect top="0" left="0" right="0" bottom="0">
@@ -71,8 +75,12 @@
         </fx:Component>
     </fx:Declarations>
     
+    <!--- The default skin class is VSliderTrackSkin. 
+          @copy spark.components.supportClasses.TrackBase#track -->
     <s:Button id="track" left="0" right="0" top="0" bottom="0" minHeight="33" height="100" 
             skinClass="spark.skins.wireframe.VSliderTrackSkin" />
+    <!--- The default skin class is VSliderTrackSkin. 
+          @copy spark.components.supportClasses.TrackBase#track -->
     <s:Button id="thumb" left="0" right="0" horizontalCenter="0" height="11"
             skinClass="spark.skins.wireframe.VSliderThumbSkin" />
 
