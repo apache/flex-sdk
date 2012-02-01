@@ -140,6 +140,8 @@ public class DropShadowFilter extends BaseDimensionFilter implements IBitmapFilt
     
     private var _alpha:Number = 1.0;
     
+    [Inspectable(minValue="0.0", maxValue="1.0")]        
+    
     /**
      *  The alpha transparency value for the color. Valid values are 0 to 1. 
      *  For example, .25 sets a transparency value of 25%.
@@ -170,6 +172,8 @@ public class DropShadowFilter extends BaseDimensionFilter implements IBitmapFilt
     //----------------------------------
     
     private var _angle:Number = 45;
+    
+    [Inspectable(minValue="0.0", maxValue="360.0")]    
     
     /**
      *   The angle of the bevel. Valid values are from 0 to 360°. 
