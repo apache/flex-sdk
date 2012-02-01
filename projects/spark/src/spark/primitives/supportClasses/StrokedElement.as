@@ -120,13 +120,8 @@ public class StrokedElement extends GraphicElement
         if (!drawnDisplayObject || !(drawnDisplayObject is Sprite))
             return;
             
+        // The base GraphicElement class has cleared the graphics for us.    
         var g:Graphics = (drawnDisplayObject as Sprite).graphics;
-
-		// We only clear if we have a displayObject. This handles the case of having our own displayObject and the 
-		// case when we have a mask and have created a _drawnDisplayObject. We don't want to clear if we are 
-		// sharing a display object. 
-		if (displayObject)
-			g.clear();
 
         beginDraw(g);
         drawElement(g);
