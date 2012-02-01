@@ -31,7 +31,7 @@ use namespace flash_proxy;
 
 /**
  * The Flex ShaderFilter class abstracts away many of the details of using
- * the stock Flash ShaderFilter, Shader, and ShaderData classes to apply a
+ * the Flash ShaderFilter, Shader, and ShaderData classes to apply a
  * Pixel Bender shader as a filter.
  *
  * <p>The ShaderFilter class must be initialized with either an instance of a Shader 
@@ -40,35 +40,37 @@ use namespace flash_proxy;
  * mechanism for accessing both scalar and multi-dimensional shader input parameters 
  * directly as simple named properties.</p>
  *
- * <p>To set a simple scalar shader input parameter (e.g. of type FLOAT or INT), you can simply
- * refer to the property directly, e.g. <code>myFilter.radius</code>.</p>
+ * <p>To set a simple scalar shader input parameter, such as of type FLOAT or INT, you can 
+ * refer to the property directly, for example, <code>myFilter.radius</code>.</p>
  *
- * <p>To set or animate an individual component of a  multidimensional shader input parameter (such as 
- * FLOAT2) you can use a property suffix convention to address the individual value directly. For 
- * instance the following are equivalent means of settting the first and second components of the FLOAT2
- * property 'center':
+ * <p>To set or animate an individual component of a multidimensional shader input parameter, such as 
+ * FLOAT2, you can use a property suffix convention to access the individual value directly.  
+ * The following code shows two ways to set the first and second components of the FLOAT2
+ * property <code>center</code>:
  * <code><pre>
  *     // 'center' is an input parameter of type FLOAT2.
  *     shader.center = [10,20];
  * </pre></code>
  * <code><pre>
- *     // Alternate means of addressing the first and second component of 'center'. 
+ *     // Use property suffix convention to access the first and second component of 'center'. 
  *     shader.center_x = 10;
  *     shader.center_y = 20;
  * </pre></code></p>
  *
- * <p>The full set of supported convenience suffixes are as follows: </p>
+ * <p>The full set of supported property suffixes that you can use are as follows: </p>
  *
- * <p>For shader input parameters of type BOOL2, BOOL3, BOOL4, FLOAT2, FLOAT3, FLOAT4, INT2, 
- * INT3, or INT4, either "r g b a", "x y z w", or "s t p q" may be utilized as convenience suffixes 
- * to access the 1st, 2nd, 3rd and 4th component respectively.</p>
+ * <ul>
+ * <li>For shader input parameters of type BOOL2, BOOL3, BOOL4, FLOAT2, FLOAT3, FLOAT4, INT2, 
+ * INT3, or INT4, you can use "r g b a", "x y z w", or "s t p q"  
+ * to access the 1st, 2nd, 3rd and 4th component, respectively.</li>
  *
- * <p>For shader input parameters of type MATRIX2x2, MATRIX3x3, or MATRIX4x4, 
- * 'a b c d e f g h i j k l m n o p" may be used as property suffixes to access the 
- * 1st - 16th component of a given matrix.</p>
+ * <li>For shader input parameters of type MATRIX2x2, MATRIX3x3, or MATRIX4x4, you can use 
+ * "a b c d e f g h i j k l m n o p" to access the 
+ * 1st - 16th component of a given matrix, respectively.</li>
+ * </ul>
  *
- * <p>Note that as properties on the ShaderFilter change (such as during animation), the
- * ShaderFilter will automatically re-apply itself to the filters array of the visual
+ * <p>As properties on the ShaderFilter change (such as during animation), the
+ * ShaderFilter automatically reapplies itself to the filters array of the visual
  * component it is applied to.</p>
  *
  * @see mx.effects.AnimateFilter 
@@ -177,7 +179,7 @@ public dynamic class ShaderFilter extends Proxy
     private var _shaderClass:Class;
     
     /**
-     * An object representing the Shader to use with this filter, either a Class 
+     * An object representing the Shader to use with this filter. Either a Class 
      * or Shader instance is allowed.
      *  
      *  @langversion 3.0
@@ -209,7 +211,7 @@ public dynamic class ShaderFilter extends Proxy
     }
     
     /**
-     * flash.display.Shader instance.
+     * A flash.display.Shader instance.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -348,6 +350,7 @@ public dynamic class ShaderFilter extends Proxy
      * by the constants in the ShaderPrecision class.
      * 
      *  @see flash.display.Shader
+     *  @see flash.display.ShaderPrecision
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
