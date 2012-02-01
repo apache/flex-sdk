@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The wireframe skin class for the play/pause button of a Spark VideoPlayer component.  
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+      alpha.disabledStates="0.5">
+
+    <!-- host component -->
+    <fx:Metadata>
+        [HostComponent("spark.components.ToggleButton")]
+    </fx:Metadata>
+    
+    <!-- states -->
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" stateGroups="overStates" />
+        <s:State name="down" stateGroups="downStates" />
+        <s:State name="disabled" stateGroups="disabledStates" />
+        <s:State name="upAndSelected" stateGroups="selectedStates, selectedUpStates" />
+        <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
+    </s:states>
+        
+    <!-- layer 1: fill -->
+    <s:Rect left="1" right="1" top="1" bottom="1">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF"
+                          color.overStates="0xDEEBFF" 
+                          color.downStates="0xDEEBFF" />
+        </s:fill>
+    </s:Rect>
+    
+    <!-- layer 2: One pixel stroke on inside (there is no bottom highlight 
+         and the top highlight is 2 pixels big and darker on top) only in downStates -->
+    <s:Line left="1" right="1" top="1" includeIn="downStates">
+        <s:stroke>
+            <s:SolidColorStroke color="0xBCD1F3" />
+        </s:stroke>
+    </s:Line>
+    <s:Rect left="1" right="1" top="2" bottom="0" includeIn="downStates">
+        <s:stroke>
+            <s:SolidColorStroke color="0xD3E2FB" />
+        </s:stroke>
+    </s:Rect>
+        
+    <!-- layer 3: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    <s:Rect left="0" right="0" top="0" bottom="0" width="38" height="24">
+        <s:stroke>
+            <s:SolidColorStroke color="0x5581D1" />
+        </s:stroke>
+    </s:Rect>
+    
+    <!-- play symbol -->
+    <s:Group horizontalCenter="0" verticalCenter="0" excludeFrom="selectedStates" id="playSymbol">
+        
+        <!-- triangle -->
+        <s:Path winding="evenOdd" data="M 1 0 L 1 13 L 8 7 L 1 0 Z">
+            <s:fill>
+                <s:SolidColor color="0x5581D1" />
+            </s:fill>
+        </s:Path>
+    </s:Group>
+    
+    <!-- pause symbol -->
+    <s:Group horizontalCenter="0" verticalCenter="0" includeIn="selectedStates" id="pauseSymbol">
+    
+        <!-- big line on left -->
+        <s:Rect left="0" top="0" height="11" width="3">
+            <s:fill>
+                <s:SolidColor color="0x5581D1" />
+            </s:fill>
+        </s:Rect>
+        
+        <!-- big line on right -->
+        <s:Rect left="4" top="0" height="11" width="3">
+            <s:fill>
+                <s:SolidColor color="0x5581D1" />
+            </s:fill>
+        </s:Rect>
+        
+    </s:Group>
+</s:Skin>
