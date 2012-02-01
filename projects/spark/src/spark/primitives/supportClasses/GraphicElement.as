@@ -1003,6 +1003,7 @@ public class GraphicElement extends EventDispatcher
             invalidateDisplayObjectSharing();
 
         invalidateProperties();
+        invalidateDisplayList();
     }
 
     //----------------------------------
