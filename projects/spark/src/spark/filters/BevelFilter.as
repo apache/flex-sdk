@@ -103,6 +103,8 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
 								quality:int = 1, type:String = "inner", 
 								knockout:Boolean = false)
 	{
+		super();
+		
 		this.distance = distance;
 		this.angle = angle;
 		this.highlightColor = highlightColor;
