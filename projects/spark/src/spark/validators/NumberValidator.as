@@ -32,63 +32,37 @@ use namespace mx_internal;
 
 /**
  *  The NumberValidator class ensures that a String represents a valid number
- *  according to the conventions of a locale.  It can validate <code>int</code>,
- *  <code>uint</code>, and <code>Number</code> objects.
- *
- *  <p>It can ensure that the input falls within a given range
+ *  according to the conventions of a locale.  It can validate int,
+ *  uint, and Number objects.
+ *  This class uses the <code>locale</code> style for specifying the
+ *  requested locale ID.
+ * 
+ *  <p>The validator can ensure that the input falls within a given range
  *  (specified by <code>minValue</code> and <code>maxValue</code>  properties),
  *  is an integer (specified by <code>domain</code>  property),
  *  is non-negative (specified by <code>allowNegative</code>  property),
  *  has the grouping of digits correct per the locale conventions,
  *  has the correct way of specifying negative numbers,
- *  and does not exceed the specified <code>fractionalDigits</code>. The
- *  validator sets default property values from the operating system supplied
+ *  and does not exceed the specified <code>fractionalDigits</code>. 
+ *  The validator sets default property values from the operating system supplied
  *  locale data but they can be customized for specific needs.</p>
  *
- *  <p>This class internally uses the <code>flash.globalization.NumberFormatter
- *  </code> to obtain locale-specific information.
- *  The NumberValidator class can be used in MXML declarations or in
- *  ActionScript code. This class uses the locale style for specifying the
- *  requested Locale ID, and has methods and properties that are bindable.
- *  </p>
- *  <p>
- *  The flash.globalization.NumberFormatter class uses the underlying
+ *  <p>The flash.globalization.NumberFormatter class uses the underlying
  *  operating system for acquiring locale-specific data and parsing
  *  functionality. In case the operating system does not provide number
- *  formatting, this class provides fallback functionality.
- *  </p>
+ *  formatting, this class provides fallback functionality.</p>
  *
  *  @mxml
  *
- *  <p>The <code>&lt;spark:NumberValidator&gt;</code> tag
+ *  <p>The <code>&lt;s:NumberValidator&gt;</code> tag
  *  inherits all of the tag attributes of its superclass,
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;spark:NumberValidator
- *    allowNegative="true|false"
- *    decimalPointCountError="The decimal separator can only occur once."
- *    decimalSeparator="(locale specified string or customized by user)."
- *    domain="real|int"
- *    exceedsMaxError="The number entered is too large."
- *    integerError="The number must be an integer."
- *    invalidCharError="The input contains invalid characters."
- *    invalidFormatCharsError="One of the formatting parameters is invalid."
- *    lowerThanMinError="The amount entered is too small."
- *    maxValue="NaN"
- *    minValue="NaN"
- *    negativeError="The amount may not be negative."
- *    negativeNumberFormatError="The negative format of the input number is
- *    incorrect."
- *    negativeSymbol="(locale specified read-only string)."
- *    negativeSymbolError="The negative symbol is repeated or not in right
- *    place."
- *    parseError="The input string could not be parsed."
- *    fractionalDigits="(locale specified number or customized by user)."
- *    fractionalDigitsError="The amount entered has too many digits beyond the
- *    decimal point."
- *    groupingSeparator="(locale specified string or customized by user)."
- *    groupingSeparationError="The number digits grouping is not following the
+ *  &lt;s:NumberValidator
+ *    <strong>Properties</strong>
+ *    negativeNumberFormat="<i>locale specified string or customized by user</i>."
+ *    negativeNumberFormatError="The negative format of the input number is incorrect."
  *  /&gt;
  *  </pre>
  *
@@ -126,42 +100,41 @@ public class NumberValidator extends NumberValidatorBase
      *  Constructs a new NumberValidator object to validate numbers according
      *  to the conventions of a given locale.
      *  <p>
-     *  The locale for this class is supplied by the locale style.
-     *  The locale style can be set in several ways:
+     *  The locale for this class is supplied by the <code>locale</code> style property.
+     *  The <code>locale</code> style can be set in several ways:
      *  </p>
      *  <ul>
-     *  <li>         *
+     *  <li>         
      *  Inheriting the style from a UIComponent by calling the UIComponent's
-     *  addStyleClient method.
+     *  <code>addStyleClient()</code> method.
      *  </li>
      *  <li>
      *  By using the class in an MXML declaration and inheriting the
      *  locale from the document that contains the declaration.
-     *  <listing version="3.0" >
+     *  <pre>
      *  &lt;fx:Declarations&gt;
      *         &lt;s:NumberValidator id="nv" /&gt;
      *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  </pre>
      *  </li>
      *  <li>
      *  By using an MXML declaration and specifying the locale value in
      *  the list of assignments.
-     *  <listing version="3.0" >
+     *  <pre>
      *  &lt;fx:Declarations&gt;
      *      &lt;s:NumberValidator id="nv_French_France" locale="fr_FR" /&gt;
      *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  </pre>
      *  </li>
      *  <li>
-     *  Calling the setStyle method, e.g.
-     *  <code>nv.setStyle("locale", "fr-FR")</code>
+     *  Calling the <code>setStyle()</code> method.
+     *  For example: <code>nv.setStyle("locale", "fr-FR");</code>
      *  </li>
      *  </ul>
      *  <p>
-     *  If the locale style is not set by one of the above techniques,
-     *  the methods of this class that depend on the locale
-     *  will throw an error.
-     *  </p>         *
+     *  If the <code>locale</code> style is not set by one of the above techniques,
+     *  the methods of this class that depend on the locale throw an error.
+     *  </p>         
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -376,6 +349,8 @@ public class NumberValidator extends NumberValidatorBase
     }
 
     /**
+     *  @private
+     * 
      *  Load the error messages from the resource bundle.
      */
     override protected function resourcesChanged():void
