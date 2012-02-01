@@ -44,7 +44,7 @@
 
     <!-- background -->
     <s:Rect left="0" right="0" top="0" bottom="0"
-          width="69" height="0"
+          width="69" height="20"
           radiusX="2" radiusY="2">
         <s:stroke>
             <s:SolidColorStroke color="#A9A9A9" color.over="#9C9C9C" color.down="#9C9C9C" />
