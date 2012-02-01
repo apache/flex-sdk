@@ -17,8 +17,10 @@ package mx.skins.wireframe
 	import mx.skins.ProgrammaticSkin;
 	
 	/**
-	 *  The skin for the sort arrow in a column header in a DataGrid.
+	 *  The wireframe skin for the sort arrow in a column header in the MX DataGrid component.
 	 *  
+     *  @see mx.controls.DataGrid
+     * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
