@@ -20,7 +20,6 @@ import mx.events.PropertyChangeEvent;
 
 import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
-import spark.core.NavigationUnit;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.layouts.supportClasses.LayoutElementHelper;
 import spark.layouts.supportClasses.LinearLayoutVector;
@@ -1075,27 +1074,26 @@ public class VerticalLayout extends LayoutBase
     
     /**
      *  @private
-     *
      *  Syncs the LinearLayoutVector llv with typicalLayoutElement and
      *  the target's numElements.  Calling this function accounts
      *  for the possibility that the typicalLayoutElement has changed, or
      *  something that its preferred size depends on has changed.
      */
-     private function updateLLV(layoutTarget:GroupBase):void
-     {
+    private function updateLLV(layoutTarget:GroupBase):void
+    {
         var typicalElt:ILayoutElement = typicalLayoutElement;
         if (typicalElt)
         {
             var typicalWidth:Number = typicalElt.getPreferredBoundsWidth();
             var typicalHeight:Number = typicalElt.getPreferredBoundsHeight();
             llv.minorSize = Math.max(llv.minorSize, typicalWidth);
-            llv.defaultMajorSize = typicalHeight;        
+            llv.defaultMajorSize = typicalHeight; 
         }
         if (layoutTarget)
             llv.length = layoutTarget.numElements;
         llv.gap = gap;
         llv.majorAxisOffset = paddingTop;
-     }
+    }
      
     /**
      *  @private
@@ -1476,8 +1474,11 @@ public class VerticalLayout extends LayoutBase
         var fixedRowHeight:Number = NaN;
         if (!variableRowHeight)
             fixedRowHeight = rowHeight;  // may query typicalLayoutElement, elt at index=0
-         
-        var contentWidth:Number = llv.minorSize;
+        
+        var justifyWidths:Boolean = horizontalAlign == HorizontalAlign.JUSTIFY;
+        var eltWidth:Number = (justifyWidths) ? targetWidth : NaN;
+        var eltHeight:Number = NaN;  
+        var contentWidth:Number = (justifyWidths) ? Math.max(llv.minMinorSize, targetWidth) : llv.minorSize;
         var containerWidth:Number = Math.max(contentWidth, targetWidth);        
         var y:Number = llv.start(startIndex);
         var index:int = startIndex;
@@ -1487,7 +1488,7 @@ public class VerticalLayout extends LayoutBase
         // current contentWidth; cache computed widths/heights in llv.
         for (; (y < maxVisibleY) && (index < eltCount); index++)
         {
-            var elt:ILayoutElement = layoutTarget.getVirtualElementAt(index);
+            var elt:ILayoutElement = layoutTarget.getVirtualElementAt(index, eltWidth, eltHeight);
             var w:Number = calculateElementWidth(elt, targetWidth, containerWidth); // can be NaN
             var h:Number = fixedRowHeight; // NaN for variable height rows
             elt.setLayoutBoundsSize(w, h);
@@ -1502,15 +1503,15 @@ public class VerticalLayout extends LayoutBase
 
         // Second pass: if neccessary, fix up x and width values based
         // on the updated contentWidth
-        if (llv.minorSize != contentWidth)
+        if (!justifyWidths && (llv.minorSize != contentWidth))
         {
             contentWidth = llv.minorSize;
             containerWidth = Math.max(contentWidth, targetWidth);            
-            if ((horizontalAlign != HorizontalAlign.LEFT) && (horizontalAlign != HorizontalAlign.JUSTIFY))
+            if (horizontalAlign != HorizontalAlign.LEFT)
             {
                 for (index = startIndex; index <= endIndex; index++)
                 {
-                    elt = layoutTarget.getVirtualElementAt(index);
+                    elt = layoutTarget.getVirtualElementAt(index, eltWidth, eltHeight);
                     w = calculateElementWidth(elt, targetWidth, containerWidth);  // can be NaN
                     elt.setLayoutBoundsSize(w, elt.getLayoutBoundsHeight());
                     w = elt.getLayoutBoundsWidth();
@@ -1525,8 +1526,9 @@ public class VerticalLayout extends LayoutBase
         
         // Make sure that if the content spans partially over a pixel to the right/bottom,
         // the content size includes the whole pixel.
-        layoutTarget.setContentSize(Math.ceil(contentWidth + paddingLeft + paddingRight),
-                                    Math.ceil(llv.end(llv.length - 1) + paddingBottom));
+        var paddedContentWidth:Number = Math.ceil(contentWidth + paddingLeft + paddingRight);
+        var paddedContentHeight:Number = Math.ceil(llv.end(llv.length - 1) + paddingBottom);
+        layoutTarget.setContentSize(paddedContentWidth, paddedContentHeight);
     }
     
 
