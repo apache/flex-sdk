@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009">
+
+    <Metadata>
+    	[HostComponent("mx.components.FxButton")]
+    </Metadata> 
+    
+    <states>
+        <State name="up" />
+        <State name="over" />
+        <State name="down" />
+        <State name="disabled" />
+    </states>
+
+    <!-- background -->
+    <Rect left="0" top="0" right="0" bottom="0" minWidth="24" minHeight="14">
+        <stroke>
+            <SolidColorStroke color="0x3D5D92" />
+        </stroke>
+        <fill>
+            <SolidColor color="0xFFFFFF" />
+        </fill>
+    </Rect>
+
+    <!-- Gripper -->
+    <Group horizontalCenter="-1" verticalCenter="0">
+        <Rect width="7" height="6">
+            <fill>
+                <SolidColor color="0xFFFFFF"  />
+            </fill>
+        </Rect>
+        <Line xFrom="1" xTo="1" yFrom="0" yTo="6">
+            <stroke>
+                <SolidColorStroke color="0x3D5D92" pixelHinting="true" />
+            </stroke>
+        </Line>
+        <Line xFrom="4" xTo="4" yFrom="0" yTo="6">
+            <stroke>
+                <SolidColorStroke color="0x3D5D92" pixelHinting="true" />
+            </stroke>
+        </Line>
+        <Line xFrom="7" xTo="7" yFrom="0" yTo="6">
+            <stroke>
+                <SolidColorStroke color="0x3D5D92" pixelHinting="true" />
+            </stroke>
+        </Line>
+    </Group>
+
+</Skin>
