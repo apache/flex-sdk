@@ -11,7 +11,9 @@ in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The Spark skin class for the check icon of a Halo Menu component. 
+<!--- The Spark skin class for the <code>checkIcon</code> of an MX Menu component. 
+
+      @see mx.controls.Menu
 
 @langversion 3.0
 @playerversion Flash 10
@@ -30,5 +32,5 @@ in accordance with the terms of the license agreement accompanying it.
         <s:fill>
             <s:SolidColor color="0" id="checkFill"/>
         </s:fill>
-    </s:Path>	
+    </s:Path>   
 </s:SparkSkin>
