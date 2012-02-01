@@ -117,7 +117,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="fontLookup", type="String", enumeration="device,embeddedCFF,auto", inherit="yes")]
+[Style(name="fontLookup", type="String", enumeration="auto,device,embeddedCFF", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontSize
@@ -177,7 +177,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="kerning", type="String", enumeration="on,off,auto", inherit="yes")]
+[Style(name="kerning", type="String", enumeration="auto,on,off", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#ligatureLevel
@@ -187,7 +187,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="ligatureLevel", type="String", enumeration="common,uncommon,exotic,minimum", inherit="yes")]
+[Style(name="ligatureLevel", type="String", enumeration="common,minimum,uncommon,exotic", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineBreak 
@@ -290,17 +290,6 @@
 [Style(name="textJustify", type="String", enumeration="interWord,distribute", inherit="yes")]
 
 /**
- *  Space added to the advance after each character, as a percentage of the current point size. Percentages can be negative, 
- *  to bring characters closer together. The default value is 0.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="tracking", type="Object", inherit="yes")]
-
-/**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#trackingLeft
  *  
  *  @langversion 3.0
@@ -328,4 +317,4 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="typographicCase", type="String", enumeration="default,capsToSmallCaps,lowercase,lowercaseToSmallCaps,uppercase", inherit="yes")]
+[Style(name="typographicCase", type="String", enumeration="default,capsToSmallCaps,uppercase,lowercase,lowercaseToSmallCaps", inherit="yes")]
