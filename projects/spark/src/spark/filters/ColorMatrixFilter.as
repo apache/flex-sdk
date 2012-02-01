@@ -2,6 +2,8 @@ package flex.filters
 {
 import flash.filters.BitmapFilter;
 import flash.filters.ColorMatrixFilter;
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 
 public class ColorMatrixFilter extends BaseFilter implements IBitmapFilter
 {
