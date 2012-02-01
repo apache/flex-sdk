@@ -315,7 +315,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         
     private var _clipAndEnableScrolling:Boolean = false;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="true,false")]
     
     /**
      *  @copy spark.core.IViewport#clipAndEnableScrolling
