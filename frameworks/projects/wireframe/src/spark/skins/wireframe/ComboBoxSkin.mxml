@@ -18,7 +18,7 @@
     /** 
      * @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
-        [HostComponent("spark.components.DropDownList")]
+        [HostComponent("spark.components.ComboBox")]
     ]]>
     </fx:Metadata> 
 
@@ -61,7 +61,7 @@
         </s:Group>
     </s:PopUpAnchor>
     
-    <!--- The button used by the DropDownList. The default skin is DropDownListButtonSkin. -->
+    <!--- The button used by the ComboBox. The default skin is ComboBoxButtonSkin. -->
     <s:Button id="openButton" width="20" right="0" top="0" bottom="0" focusEnabled="false"
               skinClass="spark.skins.wireframe.ComboBoxButtonSkin" /> 
     <s:TextInput id="textInput" textAlign="left"
