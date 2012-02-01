@@ -17,6 +17,12 @@
     	[HostComponent("flex.core.Application")]
     </Metadata> 
     
+    <Script>        
+    	public function foo():void {
+    		//trace(hostComponent);	
+    	}
+    </Script>
+    
 	<!-- fill -->
     <Rect id="backgroundRect" left="0" right="0" top="0" bottom="0">
         <fill>
