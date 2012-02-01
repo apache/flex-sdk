@@ -557,14 +557,20 @@ public class Path extends FilledElement
 
         var w:Number = width;
         var h:Number = height;
+        
         var bounds:Rectangle = getBounds();
+        
         var bw:Number = bounds.width;
         var bh:Number = bounds.height;
 
         // Actual size is always the bounds size
+        var oldWidth:Number = _width;
+	    var oldHeight:Number = _height;
         _width = bw;
         _height = bh;
-
+        dispatchPropertyChangeEvent("width", oldWidth, _width);
+        dispatchPropertyChangeEvent("height", oldHeight, _height);
+            
         // Make sure we don't divide by zero while calculating the scale
         if (bw == 0)
             bw = 1;
