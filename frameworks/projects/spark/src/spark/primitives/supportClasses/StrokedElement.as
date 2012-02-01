@@ -63,7 +63,8 @@ public class StrokedElement extends GraphicElement
      *  @private
      */
     mx_internal var _stroke:IStroke;
-        
+    
+    [Bindable("propertyChange")]    
     [Inspectable(category="General")]
 
     /**
@@ -80,6 +81,7 @@ public class StrokedElement extends GraphicElement
     public function set stroke(value:IStroke):void
     {
         var strokeEventDispatcher:EventDispatcher;
+        var oldValue:IStroke = _stroke;
         
         strokeEventDispatcher = _stroke as EventDispatcher;
         if (strokeEventDispatcher)
@@ -94,6 +96,8 @@ public class StrokedElement extends GraphicElement
             strokeEventDispatcher.addEventListener(
                 PropertyChangeEvent.PROPERTY_CHANGE, 
                 stroke_propertyChangeHandler);
+     
+     	dispatchPropertyChangeEvent("stroke", oldValue, _stroke);
      
         invalidateDisplayList();
         // Parent layout takes stroke into account
