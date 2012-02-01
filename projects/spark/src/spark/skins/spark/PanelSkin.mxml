@@ -46,7 +46,7 @@ in accordance with the terms of the license agreement accompanying it.
          */
         override protected function initializationComplete():void
         {
-            useBaseColor = true;
+            useChromeColor = true;
             super.initializationComplete();
         }
         
