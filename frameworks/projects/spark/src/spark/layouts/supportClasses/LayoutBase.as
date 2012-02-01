@@ -156,6 +156,9 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  HorizontalLayout, and TileLayout supports virtual layout. 
      *  Layout subclasses that do not support virtualization must prevent changing
      *  this property.</p>
+     *
+     *  <p><b>Note: </b>The BasicLayout class throws a run-time error if you set 
+     *  <code>useVirtualLayout</code> to <code>true</code>.</p>
      * 
      *  <p>When <code>true</code>, layouts that support virtualization must use 
      *  the <code>target.getVirtualElementAt()</code> method, 
