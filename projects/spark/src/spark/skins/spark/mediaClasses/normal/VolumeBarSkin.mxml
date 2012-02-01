@@ -38,41 +38,15 @@
     
     <s:PopUpAnchor id="popup"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
         left="0" right="0" top="0" bottom="0" popUpPosition="above">
-        <s:Group id="dropDown" width="33" height="84" horizontalCenter="0">
+        <s:Group id="dropDown" width="38" height="84" horizontalCenter="0" creationComplete="this.transform.colorTransform.redOffset=200)">
         
             <!-- dropshadow for the dropdown -->
-            <s:Rect left="-7" width="7" top="0" bottom="0">
+            <s:Rect left="0" top="0" right="0" bottom="0">
+                <s:filters>
+                    <s:DropShadowFilter blurX="20" blurY="20" alpha="0.32" distance="11" angle="90" knockout="true" />
+                </s:filters>
                 <s:fill>
-                    <s:LinearGradient rotation="180">
-                        <s:GradientEntry color="0x000000" alpha="0.25" />
-                        <s:GradientEntry color="0x000000" alpha="0" />
-                    </s:LinearGradient>
-                </s:fill>
-            </s:Rect>
-            <s:Rect right="-7" width="7" top="0" bottom="0">
-                <s:fill>
-                    <s:LinearGradient>
-                        <s:GradientEntry color="0x000000" alpha="0.25" />
-                        <s:GradientEntry color="0x000000" alpha="0" />
-                    </s:LinearGradient>
-                </s:fill>
-            </s:Rect>
-        
-            <!-- dropshadow for the dropdown -->
-            <s:Rect left="-10" width="10" top="5" bottom="0">
-                <s:fill>
-                    <s:LinearGradient rotation="180">
-                        <s:GradientEntry color="0x000000" alpha="0.4" />
-                        <s:GradientEntry color="0x000000" alpha="0.1" />
-                    </s:LinearGradient>
-                </s:fill>
-            </s:Rect>
-            <s:Rect right="-10" width="10" top="5" bottom="0">
-                <s:fill>
-                    <s:LinearGradient>
-                        <s:GradientEntry color="0x000000" alpha="0.4" />
-                        <s:GradientEntry color="0x000000" alpha="0.1" />
-                    </s:LinearGradient>
+                    <s:SolidColor color="0" />
                 </s:fill>
             </s:Rect>
             
