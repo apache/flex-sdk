@@ -85,7 +85,7 @@
         <s:State name="disabledAndSelected" stateGroups="disabledStates, selectedStates" />
     </s:states>
     
-    <s:Group verticalCenter="0" width="13" height="13">
+    <s:Group verticalCenter="0" width="13" height="13" layoutDirection = "ltr">
         <!-- drop shadow -->
         <s:Rect left="-1" top="-1" right="-1" bottom="-1">
             <s:stroke>
@@ -174,7 +174,7 @@
         <!-- checkmark -->
         <!--- The checkmark in the box for this skin. To create a custom check mark, create a custom skin class. -->
         <s:Path left="2" top="0" includeIn="selectedStates" id="check" itemCreationPolicy="immediate"
-              data="M 9.2 0.1 L 4.05 6.55 L 3.15 5.0 L 0.05 5.0 L 4.6 9.7 L 12.05 0.1 L 9.2 0.1">
+                data="M 9.2 0.1 L 4.05 6.55 L 3.15 5.0 L 0.05 5.0 L 4.6 9.7 L 12.05 0.1 L 9.2 0.1">        
             <s:fill>
                 <!--- 
                     @private 
