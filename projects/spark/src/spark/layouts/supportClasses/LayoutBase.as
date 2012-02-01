@@ -340,6 +340,21 @@ public class LayoutBase extends OnDemandEventDispatcher
     }
     
     /**
+     *  Convenience function for subclasses that invalidates the
+     *  target's displayList if the target is non-null.
+     * 
+     *  @see mx.core.UIComponent#invalidateDisplayList
+     */
+    protected function invalidateTargetDisplayList():void
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return;
+
+        g.invalidateDisplayList();
+    }
+    
+    /**
      *  @copy mx.core.UIComponent#measure
      */
     public function measure():void
