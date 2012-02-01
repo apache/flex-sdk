@@ -86,10 +86,10 @@ public class LayoutBase extends OnDemandEventDispatcher
     }
     
     //----------------------------------
-    //  virtualLayout
+    //  useVirtualLayout
     //----------------------------------
 
-    private var _virtualLayout:Boolean = false;
+    private var _useVirtualLayout:Boolean = false;
 
     [Inspectable(defaultValue="false")]
 
@@ -97,29 +97,23 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  If true, subclasses will be advised that when scrolling it's
      *  preferable to lazily create layout elements as they come into view,
      *  and to discard or recycle layout elements that are no longer in view.
-     *
-     *  If true, the layout class will call the target's GroupBase methods 
-     *  beginVirtualLayout and endVirtualLayout when the visible part of
-     *  the layout is updated.
      * 
      *  @default false
-     *  @see GroupBase::beginVirtualLayout
-     *  @see GroupBase::endVirtualLayout
      */
-    public function get virtualLayout():Boolean
+    public function get useVirtualLayout():Boolean
     {
-        return _virtualLayout;
+        return _useVirtualLayout;
     }
 
     /**
      *  @private
      */
-    public function set virtualLayout(value:Boolean):void
+    public function set useVirtualLayout(value:Boolean):void
     {
-        if (_virtualLayout == value)
+        if (_useVirtualLayout == value)
             return;
 
-        _virtualLayout = value;
+        _useVirtualLayout = value;
         if (target)
             target.invalidateDisplayList();
     }
@@ -183,30 +177,30 @@ public class LayoutBase extends OnDemandEventDispatcher
     }    
     
     //----------------------------------
-    //  clipContent
+    //  clipAndEnableScrolling
     //----------------------------------
         
-    private var _clipContent:Boolean = false;
+    private var _clipAndEnableScrolling:Boolean = false;
     
     [Inspectable(category="General")]
     
     /**
-     *  @copy flex.intf.IViewport#clipContent
+     *  @copy flex.intf.IViewport#clipAndEnableScrolling
      */
-    public function get clipContent():Boolean 
+    public function get clipAndEnableScrolling():Boolean 
     {
-        return _clipContent;
+        return _clipAndEnableScrolling;
     }
     
     /**
      *  @private
      */
-    public function set clipContent(value:Boolean):void 
+    public function set clipAndEnableScrolling(value:Boolean):void 
     {
-        if (value == _clipContent) 
+        if (value == _clipAndEnableScrolling) 
             return;
     
-        _clipContent = value;
+        _clipAndEnableScrolling = value;
         var g:GroupBase = target;
         if (g)
             updateScrollRect(g.width, g.height);
@@ -222,7 +216,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  Used by layouts when fixed row/column sizes are requested but
      *  a specific size isn't specified.
      * 
-     *  Used by virtualLayouts to estimate the size of layout elements
+     *  Used by virtual layouts to estimate the size of layout elements
      *  that have not been scrolled into view.
      * 
      *  If this property has not been set and the target is non-null 
@@ -236,8 +230,8 @@ public class LayoutBase extends OnDemandEventDispatcher
      */
     public function get typicalLayoutElement():ILayoutElement
     {
-        if (!_typicalLayoutElement && target && (target.numLayoutElements > 0))
-            _typicalLayoutElement = target.getLayoutElementAt(0);
+        if (!_typicalLayoutElement && target && (target.numElements > 0))
+            _typicalLayoutElement = target.getElementAt(0);
         return _typicalLayoutElement;
     }
 
@@ -275,12 +269,12 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  Layout methods should not get the target's scrollRect directly.
      * 
      *  @return The bounds of the target's scrollRect in layout coordinates, null
-     *      if target or clipContent is false. 
+     *      if target or clipAndEnableScrolling is false. 
      */
     protected function getTargetScrollRect():Rectangle
     {
         var g:GroupBase = target;
-        if (!g || !g.clipContent)
+        if (!g || !g.clipAndEnableScrolling)
             return null;     
         var vsp:Number = g.verticalScrollPosition;
         var hsp:Number = g.horizontalScrollPosition;
@@ -469,7 +463,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @see #elementBoundsRightOfScrollRect
      *  @see #getHorizontalScrollPositionDelta
      */
-    public function getHorizontalScrollPositionDelta(unit:ScrollUnit):Number
+    public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
     {
         var g:GroupBase = target;
         if (!g)
@@ -489,7 +483,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         var maxDelta:Number = g.contentWidth - scrollRect.right;
         var minDelta:Number = -scrollRect.left;
         var elementBounds:Rectangle;
-        switch(unit)
+        switch(scrollUnit)
         {
             case ScrollUnit.LEFT:
             case ScrollUnit.PAGE_LEFT:
@@ -519,7 +513,7 @@ public class LayoutBase extends OnDemandEventDispatcher
             return 0;
 
         var delta:Number = 0;
-        switch (unit)
+        switch (scrollUnit)
         {
             case ScrollUnit.LEFT:
                 // Snap the left edge of element to the left edge of the scrollRect.
@@ -621,7 +615,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @see #elementBoundsBelowScrollRect
      *  @see #getVerticalScrollPositionDelta
      */
-    public function getVerticalScrollPositionDelta(unit:ScrollUnit):Number
+    public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
     {
         var g:GroupBase = target;
         if (!g)
@@ -641,7 +635,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         var maxDelta:Number = g.contentHeight - scrollRect.bottom;
         var minDelta:Number = -scrollRect.top;
         var elementBounds:Rectangle;
-        switch(unit)
+        switch(scrollUnit)
         {
             case ScrollUnit.UP:
             case ScrollUnit.PAGE_UP:
@@ -671,7 +665,7 @@ public class LayoutBase extends OnDemandEventDispatcher
             return 0;
 
         var delta:Number = 0;
-        switch (unit)
+        switch (scrollUnit)
         {
             case ScrollUnit.UP:
                 // Snap the top edge of element to the top edge of the scrollRect.
@@ -719,7 +713,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  vertical and horizontalScrollPosition deltas needed to 
      *  scroll the element at the specified index into view.
      * 
-     *  If clipContent is true and the element at the specified index is not
+     *  If clipAndEnableScrolling is true and the element at the specified index is not
      *  entirely visible relative to the target's scrollRect, then 
      *  return the delta to be added to horizontalScrollPosition and
      *  verticalScrollPosition that will scroll the element completely 
@@ -743,7 +737,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *      and verticalScrollPosition that will scroll the specified
      *      element into view, or null if no change is needed. 
      * 
-     *  @see clipContent
+     *  @see clipAndEnableScrolling
      *  @see verticalScrollPosition
      *  @see horizontalScrollPosition
      *  @see udpdateScrollRect
@@ -751,14 +745,14 @@ public class LayoutBase extends OnDemandEventDispatcher
      public function getScrollPositionDelta(index:int):Point
      {
         var g:GroupBase = target;
-        if (!g || !clipContent)
+        if (!g || !clipAndEnableScrolling)
             return null;     
             
-         var n:int = g.numLayoutElements;
+         var n:int = g.numElements;
          if ((index < 0) || (index >= n))
             return null;
             
-         var element:ILayoutElement = g.getLayoutElementAt(index);
+         var element:ILayoutElement = g.getElementAt(index);
          if (!element || !element.includeInLayout)
             return null;
             
@@ -822,11 +816,11 @@ public class LayoutBase extends OnDemandEventDispatcher
     }
     
     /**
-     *  If clipContent is true, sets the origin of the scrollRect to 
+     *  If clipAndEnableScrolling is true, sets the origin of the scrollRect to 
      *  verticalScrollPosition,horizontalScrollPosition and its width
      *  width,height to w,h (the target's unscaled width,height).
      * 
-     *  If clipContent is false, sets the scrollRect to null.
+     *  If clipAndEnableScrolling is false, sets the scrollRect to null.
      *  
      *  @param w The target's unscaled width.
      *  @param h The target's unscaled height.
@@ -841,7 +835,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (!g)
             return;
             
-        if (clipContent)
+        if (clipAndEnableScrolling)
         {
             var hsp:Number = horizontalScrollPosition;
             var vsp:Number = verticalScrollPosition;
