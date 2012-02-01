@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the down button of the Halo ScrollBar component. 
+<!--- The wireframe skin class for the down button of the MX ScrollBar component. 
+
+     @see mx.controls.scrollClasses.ScrollBar
         
       @langversion 3.0
       @playerversion Flash 10
@@ -19,8 +21,8 @@
       @productversion Flex 4
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-						
-    					alpha.disabled="0.5" blendMode="normal">
+                        
+                        alpha.disabled="0.5" blendMode="normal">
     
     <s:states>
         <s:State name="up" />
@@ -29,31 +31,31 @@
         <s:State name="disabled" />
     </s:states>
 
-	<!-- background -->
-	<s:Rect left="0" right="0" minWidth="14" top="0" bottom="0" minHeight="17">
-		<s:stroke>
-			<s:SolidColorStroke color="0x5380D0" />
-		</s:stroke>
-		<s:fill>
-			<s:SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF" />
-		</s:fill>
-	</s:Rect>
-	
-	<!-- shadow (down state only) -->
-	<s:Rect left="1" top="1" right="1" bottom="1" includeIn="down">
-		<s:stroke>
-			<s:LinearGradientStroke rotation="90">
-				<s:GradientEntry color="0x5380D0" alpha="0.25" />
-				<s:GradientEntry color="0x5380D0" alpha="0" />
-			</s:LinearGradientStroke>
-		</s:stroke>
-	</s:Rect>
-	
-	<!-- arrow -->
-	<s:Path data="M 7.5 13 L 11 6 L 3.5 6 L 7.5 13">
-		<s:fill>
-			<s:SolidColor color="0x4E6290" />
-		</s:fill>
-	</s:Path>            
+    <!-- background -->
+    <s:Rect left="0" right="0" minWidth="14" top="0" bottom="0" minHeight="17">
+        <s:stroke>
+            <s:SolidColorStroke color="0x5380D0" />
+        </s:stroke>
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF" />
+        </s:fill>
+    </s:Rect>
+    
+    <!-- shadow (down state only) -->
+    <s:Rect left="1" top="1" right="1" bottom="1" includeIn="down">
+        <s:stroke>
+            <s:LinearGradientStroke rotation="90">
+                <s:GradientEntry color="0x5380D0" alpha="0.25" />
+                <s:GradientEntry color="0x5380D0" alpha="0" />
+            </s:LinearGradientStroke>
+        </s:stroke>
+    </s:Rect>
+    
+    <!-- arrow -->
+    <s:Path data="M 7.5 13 L 11 6 L 3.5 6 L 7.5 13">
+        <s:fill>
+            <s:SolidColor color="0x4E6290" />
+        </s:fill>
+    </s:Path>            
     
 </s:Skin>
