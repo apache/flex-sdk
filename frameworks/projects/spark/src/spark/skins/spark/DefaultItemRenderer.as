@@ -72,28 +72,6 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  The alpha of the content background for this component.
- * 
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark")]
-
-/**
- *  Color of the fill of an item renderer
- *   
- *  @default 0xFFFFFF
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */ 
-[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
-
-/**
  *  Color of focus ring when the component is in focus
  *   
  *  @default 0x70B2EE
@@ -200,44 +178,6 @@ public class DefaultItemRenderer extends UIComponent
     
     //--------------------------------------------------------------------------
     //
-    //  Public Properties 
-    //
-    //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  itemIndex
-    //----------------------------------
-    
-    /**
-     *  @private
-     *  storage for the itemIndex property 
-     */    
-    private var _itemIndex:int;
-    
-    /**
-     *  @inheritDoc 
-     *
-     *  @default false
-     */    
-    public function get itemIndex():int
-    {
-        return _itemIndex;
-    }
-    
-    /**
-     *  @private
-     */    
-    public function set itemIndex(value:int):void
-    {
-        if (value == _itemIndex)
-            return;
-        
-        _itemIndex = value;
-        invalidateDisplayList();
-    }
-    
-    //--------------------------------------------------------------------------
-    //
     //  Overridden properties: UIComponent
     //
     //--------------------------------------------------------------------------
@@ -251,18 +191,15 @@ public class DefaultItemRenderer extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-        if (!validateBaselinePosition() || !labelDisplay)
+        if (!labelDisplay || !validateBaselinePosition())
             return super.baselinePosition;
         
-        var labelPosition:Point = globalToLocal(labelDisplay.parent.localToGlobal(
-            new Point(labelDisplay.x, labelDisplay.y)));
-        
-        return labelPosition.y + labelDisplay.baselinePosition;
+        return labelDisplay.y + labelDisplay.baselinePosition;
     }
     
     //--------------------------------------------------------------------------
     //
-    //  Properties
+    //  Public Properties 
     //
     //--------------------------------------------------------------------------
     
@@ -307,6 +244,38 @@ public class DefaultItemRenderer extends UIComponent
     }
     
     //----------------------------------
+    //  itemIndex
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  storage for the itemIndex property 
+     */    
+    private var _itemIndex:int;
+    
+    /**
+     *  @inheritDoc 
+     *
+     *  @default 0
+     */    
+    public function get itemIndex():int
+    {
+        return _itemIndex;
+    }
+    
+    /**
+     *  @private
+     */    
+    public function set itemIndex(value:int):void
+    {
+        if (value == _itemIndex)
+            return;
+        
+        _itemIndex = value;
+        invalidateDisplayList();
+    }
+    
+    //----------------------------------
     //  label
     //----------------------------------
     
@@ -331,11 +300,13 @@ public class DefaultItemRenderer extends UIComponent
      */ 
     public function set label(value:String):void
     {
-        if (value != _label)
-            _label = value;
+        if (value == _label)
+            return;
         
-        //Push the label down into the labelDisplay,
-        //if it exists
+        _label = value;
+        
+        // Push the label down into the labelDisplay,
+        // if it exists
         if (labelDisplay)
             labelDisplay.text = _label;
     }
@@ -478,7 +449,7 @@ public class DefaultItemRenderer extends UIComponent
     {
         super.measure();
         
-        // label had padding of 3 on left and right and padding of 5 on top and bottom.
+        // label has padding of 3 on left and right and padding of 5 on top and bottom.
         measuredWidth = labelDisplay.getExplicitOrMeasuredWidth() + 6;
         measuredHeight = labelDisplay.getExplicitOrMeasuredHeight() + 10;
     }
@@ -553,6 +524,9 @@ public class DefaultItemRenderer extends UIComponent
         addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
     }
     
+    /**
+     *  @private
+     */
     private function anyButtonDown(event:MouseEvent):Boolean
     {
         var type:String = event.type;
