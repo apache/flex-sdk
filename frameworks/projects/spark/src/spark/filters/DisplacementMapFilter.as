@@ -1,65 +1,22 @@
-////////////////////////////////////////////////////////////////////////////////
-//
-//  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2003-2008 Adobe Systems Incorporated
-//  All Rights Reserved.
-//
-//  NOTICE: Adobe permits you to use, modify, and distribute this file
-//  in accordance with the terms of the license agreement accompanying it.
-//
-////////////////////////////////////////////////////////////////////////////////
-
 package mx.filters
 {
 	
-import flash.display.BitmapData;	
-import flash.events.Event;
-import flash.events.EventDispatcher;
+
 import flash.filters.BitmapFilter;
 import flash.filters.DisplacementMapFilterMode;
+import flash.display.BitmapData;
 import flash.geom.Point;
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 
-import mx.filters.IFlexBitmapFilter;
-
-/**
- *  @review 
- *  Dispatched when a property value has changed. 
- */ 
-[Event(name="change", type="flash.events.Event")]
-
-/**
- *  @review 
- * 
- * 	The mx.filters.DisplacementMapFilter class is based on 
- *  flash.filters.DisplacementMapFilter but adds support for dynamically updating 
- *  property values. 
- *  When a property changes, it dispatches an event that tells the filter owner to
- *  reapply the filter. Use this class instead of flash.filters.DisplacementMapFilter
- *  if you plan to dynamically change the filter property values.  
- * 
- *  @see flash.filters.DisplacementMapFilter
- */
-public class DisplacementMapFilter extends EventDispatcher implements IFlexBitmapFilter
+public class DisplacementMapFilter extends BaseFilter implements IBitmapFilter
 {
-	include "../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //--------------------------------------------------------------------------
-    	
-	/**
-	 * @copy flash.filters.DisplacementMapFilter
-	 */ 	
 	public function DisplacementMapFilter(mapBitmap:BitmapData = null, 
 										  mapPoint:Point = null, componentX:uint = 0, 
 										  componentY:uint = 0, scaleX:Number = 0.0, 
 										  scaleY:Number = 0.0, mode:String = "wrap", 
 										  color:uint = 0, alpha:Number = 0.0)
 	{
-		super();
-		
 		this.mapBitmap = mapBitmap;
 		this.mapPoint = mapPoint;
 		this.componentX = componentX;
@@ -70,12 +27,6 @@ public class DisplacementMapFilter extends EventDispatcher implements IFlexBitma
 		this.color = color;
 		this.alpha = alpha;
 	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
 	
 	//----------------------------------
     //  alpha
@@ -317,40 +268,10 @@ public class DisplacementMapFilter extends EventDispatcher implements IFlexBitma
 			notifyFilterChanged();
 		}
 	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
-   	
-   	/**
-     * @private
-     * Notify of a change to our filter, so that filter stack is ultimately 
-     * re-applied by the framework.
-     */ 
-	private function notifyFilterChanged():void
-	{
-		dispatchEvent(new Event(Event.CHANGE));
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  IFlexBitmapFilter 
-	//
-	//--------------------------------------------------------------------------
 	
-	/**
-	 *  Creates a flash.filters.DisplacementMapFilter instance using the current 
-	 *  property values. 
-	 * 
-	 *  @return flash.filters.DisplacementMapFilter instance
-	 */	
-	public function createBitmapFilter():BitmapFilter 
+	public function clone():BitmapFilter
 	{
-		return new flash.filters.DisplacementMapFilter(mapBitmap, mapPoint, componentX, 
-													   componentY, scaleX, scaleY, mode,
-													   color, alpha);
+		return null;
 	}
 	
 }
