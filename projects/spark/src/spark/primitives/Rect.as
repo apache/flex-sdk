@@ -30,6 +30,11 @@ import mx.utils.MatrixUtil;
  *  
  *  @includeExamples examples/RectExample.mxml
  *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class Rect extends FilledElement
 {
@@ -43,6 +48,11 @@ public class Rect extends FilledElement
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function Rect()
     {
@@ -65,6 +75,11 @@ public class Rect extends FilledElement
     
     /**
      *  The corner radius to use along the x axis.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get radiusX():Number 
     {
@@ -93,6 +108,11 @@ public class Rect extends FilledElement
     
     /**
      *  The corner radius to use along the y axis.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get radiusY():Number 
     {
@@ -119,6 +139,11 @@ public class Rect extends FilledElement
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function drawElement(g:Graphics):void
     {
