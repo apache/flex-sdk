@@ -150,6 +150,14 @@ public class FocusSkin extends UIComponent
         if (focusObject.focusObj)
             focusObject.focusObj.visible = false;
        
+        // Ensure no 3D transforms apply, as this skews our snapshot bitmap.
+        var transform3D:Matrix3D = null;
+        if (focusObject.$transform.matrix3D)
+        {
+            transform3D = focusObject.$transform.matrix3D;  
+            focusObject.$transform.matrix3D = null;
+        }
+        
         // Temporary solution for focus drawing on CheckBox and RadioButton components.
         // Hide the label before drawing the focus. 
         // FIXME (gruehle): Figure out a better solution.
@@ -214,6 +222,10 @@ public class FocusSkin extends UIComponent
         }
         
         bitmap.bitmapData = bitmapData;
+        
+        // Restore original 3D matrix if applicable.
+        if (transform3D)
+            focusObject.$transform.matrix3D = transform3D;
     }
     
     private static var classDefCache:Object = {};
