@@ -59,7 +59,7 @@
         </Group>
 
         <!-- Label -->
-        <TextBox text="{data.label}"
+        <TextBox text="{hostComponent.label}"
                  fontFamily="Arial" fontSize="11"
                  color="0x444444" color.disabled="0xC0C0C0" 
                  left="19" top="3" />
