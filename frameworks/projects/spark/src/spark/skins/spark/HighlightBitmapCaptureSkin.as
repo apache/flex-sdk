@@ -35,6 +35,9 @@ package spark.skins.spark
      *  and apply a filter to the bitmap.
      *  This is the base class for FocusSkin and ErrorSkin.
      *  
+     *  @see spark.skins.spark.ErrorSkin
+     *  @see spark.skins.spark.FocusSkin
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -139,6 +142,9 @@ package spark.skins.spark
         //
         //--------------------------------------------------------------------------
         
+        /**
+         *  @inheritDoc
+         */
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {   
             // if we weren't handed a targetObject then exit early
