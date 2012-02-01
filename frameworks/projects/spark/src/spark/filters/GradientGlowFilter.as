@@ -43,7 +43,7 @@ package spark.filters
  * turned off if the resulting image exceeds the maximum dimensions.</p>
  * 
  *  @mxml 
- *  <p>The <code>&lt;GradientGlowFilter&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:GradientGlowFilter&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds no tag attributes:</p>
  *
  *  <pre>
