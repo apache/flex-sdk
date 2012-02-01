@@ -24,8 +24,8 @@
     </states>
     
     <FxButton id="incrementButton" width="12" height="12" 
-            skinZZ="mx.skins.spark.FxSpinnerIncrButtonSkin" />
+            skinClass="mx.skins.spark.FxSpinnerIncrButtonSkin" />
     <FxButton id="decrementButton" top="12" width="12" height="12"
-            skinZZ="mx.skins.spark.FxSpinnerDecrButtonSkin" />
+            skinClass="mx.skins.spark.FxSpinnerDecrButtonSkin" />
 
 </Skin>
