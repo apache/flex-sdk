@@ -878,7 +878,7 @@ public class HorizontalLayout extends LayoutBase
     }
     
     //  - virtual layout only - 
-    private function calculateElementHeight(elt:ILayoutElement, targetHeight:Number, contentHeight:Number):Number
+    private function calculateElementHeight(elt:ILayoutElement, targetHeight:Number, containerHeight:Number):Number
     {
        // If percentHeight is specified then the element's height is the percentage
        // of targetHeight clipped to min/maxHeight and to (upper limit) targetHeight.
@@ -893,7 +893,7 @@ public class HorizontalLayout extends LayoutBase
            case VerticalAlign.JUSTIFY: 
                return targetHeight;
            case VerticalAlign.CONTENT_JUSTIFY: 
-               return Math.max(elt.getPreferredBoundsHeight(), contentHeight);
+               return Math.max(elt.getPreferredBoundsHeight(), containerHeight);
        }
        return elt.getPreferredBoundsHeight();
     }
@@ -981,7 +981,7 @@ public class HorizontalLayout extends LayoutBase
         {
             var elt:ILayoutElement = layoutTarget.getLayoutElementAt(index);
             var w:Number = (isNaN(fixedColumnWidth)) ? elt.getPreferredBoundsWidth() : fixedColumnWidth;
-            var h:Number = calculateElementHeight(elt, targetHeight, contentHeight);
+            var h:Number = calculateElementHeight(elt, targetHeight, containerHeight);
             var y:Number = calculateElementY(elt, h, containerHeight);
             elt.setLayoutBoundsPosition(x, y);
             elt.setLayoutBoundsSize(w, h);            
@@ -1001,7 +1001,7 @@ public class HorizontalLayout extends LayoutBase
                 for (index = startIndex; index <= endIndex; index++)
                 {
                     elt = layoutTarget.getLayoutElementAt(index);
-                    h = calculateElementHeight(elt, targetHeight, contentHeight);
+                    h = calculateElementHeight(elt, targetHeight, containerHeight);
                     y = calculateElementY(elt, h, containerHeight);
                     elt.setLayoutBoundsPosition(elt.getLayoutBoundsX(), y);
                     elt.setLayoutBoundsSize(elt.getLayoutBoundsWidth(), h);
