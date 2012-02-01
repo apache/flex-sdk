@@ -16,6 +16,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.ui.Keyboard;
 
 import flex.core.GroupBase;
 import flex.graphics.IGraphicElement;
@@ -482,6 +483,130 @@ public class VerticalLayout extends LayoutBase
         }
     }
     
+   /**
+    *  Returns the actual position/size Rectangle of the first non-null
+    *  includeInLayout item, beginning with the item at index i.  
+    * 
+    *  Returns null if no such item can be found.
+    *  
+    *  @private
+    */
+    private static function itemScan(g:GroupBase, i:int, dir:int):Rectangle
+    {
+    	var n:int = g.numLayoutItems;
+    	while((i >= 0) && (i < n))
+    	{
+    	   var item:ILayoutItem = g.getLayoutItemAt(i);
+    	   if (item && item.includeInLayout)
+    	   {
+	           var p:Point = item.actualPosition;
+	           var s:Point = item.actualSize; 
+	           return new Rectangle(p.x, p.y, s.x, s.y);   	   	
+    	   }
+    	   i += dir;
+    	}
+    	return null;
+    }
+    
+    /**
+     *  Overrides the default handling of UP/DOWN and 
+     *  PAGE_UP, PAGE_DOWN. 
+     * 
+     *  <ul>
+     * 
+     *  <li> 
+     *  <code>UP</code>
+     *  If the firstIndexInView item is partially visible then top justify
+     *  it, otherwise top justify the item at the previous index.
+     *  </li>
+     * 
+     *  <li> 
+     *  <code>DOWN</code>
+     *  If the lastIndexInView item is partially visible, then bottom justify
+     *  it, otherwise bottom justify the item at the following index.
+     *  </li>
+     * 
+     *  <code>PAGE_UP</code>
+     *  <li>
+     *  If the firstIndexInView item is partially visible, then bottom
+     *  justify it, otherwise bottom justify item at the previous index.  
+     *  </li>
+     * 
+     *  <li> 
+     *  <code>PAGE_DOWN</code>
+     *  If the lastIndexInView item is partially visible, then top
+     *  justify it, otherwise top justify item at the following index.  
+     *  </li>
+     *  
+     *  </ul>
+     *   
+     *  @see firstIndexInView
+     *  @see lastIndexInView
+     *  @see verticalScrollPosition
+     */
+    override public function verticalScrollPositionDelta(unit:uint):Number
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return 0;     
+
+        var maxIndex:int = g.numLayoutItems -1;
+        if (maxIndex < 0)
+            return 0;
+            
+        var scrollR:Rectangle = g.scrollRect;
+        if (!scrollR)
+            return 0;
+            
+        var maxDelta:Number = g.contentHeight - scrollR.height - scrollR.y;
+        var minDelta:Number = -scrollR.y; 
+        var itemR:Rectangle;
+        var firstIndex:int;
+        var lastIndex:int;
+    
+        switch (unit)
+        {
+            case Keyboard.UP:
+            {
+                firstIndex = firstIndexInView;
+                if (inView(firstIndex) >= 1)
+                   firstIndex = Math.max(0, firstIndex -1);
+                itemR = itemScan(g, firstIndex, -1);
+                return (itemR) ? Math.max(minDelta, itemR.top - scrollR.top) : 0;
+            }
+                
+            case Keyboard.DOWN:
+            {
+            	lastIndex = lastIndexInView;
+            	if (inView(lastIndex) >= 1)
+            	   lastIndex = Math.min(maxIndex, lastIndex + 1);
+            	itemR = itemScan(g, lastIndex, +1);
+            	return (itemR) ? Math.min(maxDelta, itemR.bottom - scrollR.bottom) : 0;
+            }
+                
+            case Keyboard.PAGE_UP:
+            {
+                firstIndex = firstIndexInView;
+                if (inView(firstIndex) >= 1)
+                   firstIndex = Math.max(0, firstIndex -1);
+                itemR = itemScan(g, firstIndex, -1);
+                return (itemR) ? Math.max(minDelta, itemR.bottom - scrollR.bottom) : 0;
+            }          	
+                
+            case Keyboard.PAGE_DOWN:
+            {
+                lastIndex = lastIndexInView;
+                if (inView(lastIndex) >= 1)
+                   lastIndex = Math.min(maxIndex, lastIndex + 1);
+                itemR = itemScan(g, lastIndex, +1);
+                return (itemR) ? Math.min(maxDelta, itemR.top - scrollR.y) : 0;
+            }
+                                
+            default:
+                return super.verticalScrollPositionDelta(unit);
+        }       
+    }     
+        
     private function variableRowHeightMeasure(layoutTarget:GroupBase):void
     {
         var minWidth:Number = 0;
