@@ -50,7 +50,7 @@ public class LayoutItemHelper
      */
     public static function getConstraint(item:ILayoutItem, name:String):Number
     {
-        var constraintClient:IConstraintClient = item as IConstraintClient;
+        var constraintClient:IConstraintClient = item.target as IConstraintClient;
         if (!constraintClient)
             return NaN;
 
