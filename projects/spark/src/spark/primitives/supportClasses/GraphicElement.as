@@ -1385,6 +1385,9 @@ public class GraphicElement extends EventDispatcher
      */
     public function get transform():flash.geom.Transform
     {
+        if (!_transform) 
+            setTransform(new mx.geom.Transform());
+            
         return _transform;
     }
 
@@ -1393,36 +1396,47 @@ public class GraphicElement extends EventDispatcher
      */
     public function set transform(value:flash.geom.Transform):void
     {
+        setTransform(value);
+
+        if (_transform)
+        {
+            if(_transform.matrix != null)
+            {
+                layoutFeatures.layoutMatrix = _transform.matrix.clone();
+            }
+            else if (_transform.matrix3D != null)
+            {    
+                layoutFeatures.layoutMatrix3D = _transform.matrix3D.clone();
+            }          
+        }
+        
+        _colorTransform = _transform ? _transform.colorTransform : null;
+         
+        invalidateTransform();
+    }
+
+    /**
+     * @private
+     */ 
+    private function setTransform(value:flash.geom.Transform):void
+    {
         // Clean up the old event listeners
-        var oldTransform:mx.geom.Transform =
-            _transform as mx.geom.Transform;
+        var oldTransform:mx.geom.Transform = _transform as mx.geom.Transform;
         if (oldTransform)
         {
-            oldTransform.removeEventListener(
-                PropertyChangeEvent.PROPERTY_CHANGE,
-                transformPropertyChangeHandler);
+            oldTransform.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
         }
 
         var newTransform:mx.geom.Transform = value as mx.geom.Transform;
 
         if (newTransform)
         {
-            newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE,
-                                          transformPropertyChangeHandler);
-			if(value.matrix != null)
-			{
-				layoutFeatures.layoutMatrix = value.matrix;
-			}
-			else if (value.matrix3D != null)
-			{
-				layoutFeatures.layoutMatrix3D = value.matrix3D;
-			}            
-            _colorTransform = value.colorTransform;
+            newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
         }
-        _transform = value;
-        invalidateTransform();
-    }
 
+        _transform = value;
+    }
+    
 	/**
 	 * Documentation is not currently available.  the matrix of a component is the transform matrix used to calculate its layout
 	 * relative to its siblings. This matrix is modified by the values of the offset property to determine its final, computed matrix.
@@ -2034,8 +2048,8 @@ public class GraphicElement extends EventDispatcher
     {
         if (displayObject)
             return displayObject;
-        else
-            return new Sprite();
+        
+        return new Sprite();
     }
     
     
@@ -2824,17 +2838,21 @@ public class GraphicElement extends EventDispatcher
         layoutFeatures.updatePending = false;
 
         if(displayObject == null)
-        	return;
-        	        
-		if(layoutFeatures.is3D)
-		{
-			displayObject.transform.matrix3D = layoutFeatures.computedMatrix3D;				
-		}
-		else
-		{
-			displayObject.transform.matrix = layoutFeatures.computedMatrix;
-			//race("updating transform");
-		}
+            return;
+                    
+        if(layoutFeatures.is3D)
+        {
+            displayObject.transform.matrix3D = layoutFeatures.computedMatrix3D;             
+        }
+        else
+        {
+            displayObject.transform.matrix = layoutFeatures.computedMatrix;
+        }
+        
+        if (_colorTransform)
+        {
+            displayObject.transform.colorTransform = _colorTransform;
+        }
     }
     
     /**
@@ -2948,8 +2966,16 @@ public class GraphicElement extends EventDispatcher
                 if (_transform)
                 {
                     _colorTransform = _transform.colorTransform;
-                    invalidateDisplayList();
-                    notifyElementLayerChanged();
+                    
+                    if (displayObject)
+                    {
+                        displayObject.transform.colorTransform = _colorTransform;
+                    }
+                    else
+                    {
+                        invalidateDisplayList();
+                        notifyElementLayerChanged();
+                    }
                 }
             }
         }
