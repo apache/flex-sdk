@@ -94,7 +94,7 @@ Move the indicator tooltip string to a resource bundle
             <s:constraintColumns>
                 <s:ConstraintColumn id="sequenceCol" />
                 <s:ConstraintColumn id="labelCol" />
-                <s:ConstraintColumn id="contentCol"/>
+                <s:ConstraintColumn id="contentCol" width="100%"/>
                 <s:ConstraintColumn id="helpCol" maxWidth="200"/>
             </s:constraintColumns>         
             <s:constraintRows>
@@ -112,9 +112,11 @@ Move the indicator tooltip string to a resource bundle
     </s:Rect>
     
     <s:Label id="sequenceLabelDisplay" 
+             fontWeight="bold"
              left="sequenceCol:10" right="sequenceCol:5"
              bottom="row1:10" baseline="row1:0"/>
     <s:Label id="labelDisplay"
+             fontWeight="bold"
              left="labelCol:0" right="labelCol:5" 
              bottom="row1:10" baseline="row1:0"/>  
     <!-- Don't show the error tip on the content elements -->
