@@ -21,15 +21,15 @@ import spark.components.supportClasses.GridColumn;
  *  the life cycle of an item editor.
  *
  *  <p>The life cycle starts with the dispatch of an <code>
- *  START_GRID_ITEM_EDITOR_SESSION</code> event. This event may be cancelled by a
+ *  GRID_ITEM_EDITOR_SESSION_STARTING</code> event. This event may be cancelled by a
  *  listener to stop the creation of an editing session.</p>
  * 
- *  <p>Next, after the editor is opened the <code>OPEN_GRID_ITEM_EDITOR_SESSION
+ *  <p>Next, after the editor is opened the <code>GRID_ITEM_EDITOR_SESSION_START
  * </code> is dispatched to notify listeners that the editor has been opened.</p>
  * 
  *  <p>The editing session can be saved or cancelled. If the session is saved
- *  then the <code>SAVE_GRID_ITEM_EDITOR_SESSION</code> event is dispatched.
- *  If the editor is cancelled a <code>CANCEL_GRID_ITEM_EDITOR_SESSION</code>
+ *  then the <code>GRID_ITEM_EDITOR_SESSION_SAVE</code> event is dispatched.
+ *  If the editor is cancelled a <code>GRID_ITEM_EDITOR_SESSION_CANCEL</code>
  *  event is dispatched.
  * </p>
  * 
@@ -53,7 +53,7 @@ public class GridItemEditorEvent extends Event
     //--------------------------------------------------------------------------
     
     /**
-     *  The <code>GridItemEditorEvent.START_GRID_ITEM_EDITOR_SESSION</code> 
+     *  The <code>GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING</code> 
      *  constant defines the value of the <code>type</code> property of the
      *  event object for a <code>startGridItemEditorSession</code> event. 
      *  Dispatched when a new item editor session has been requested. A listener
@@ -85,10 +85,10 @@ public class GridItemEditorEvent extends Event
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
      *     <tr><td><code>type</code></td><td>
-     *     GridItemEditorEvent.START_GRID_ITEM_EDITOR_SESSION</td></tr>
+     *     GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING</td></tr>
      *  </table>
      *   
-     *  @eventType startGridItemEditorSession
+     *  @eventType gridItemEditorSessionStarting
      * 
      *  @see spark.components.supportClasses.GridColumn;
      *  
@@ -97,10 +97,10 @@ public class GridItemEditorEvent extends Event
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public static const START_GRID_ITEM_EDITOR_SESSION:String = "startGridItemEditorSession";
+    public static const GRID_ITEM_EDITOR_SESSION_STARTING:String = "gridItemEditorSessionStarting";
     
     /**
-     *  The <code>GridItemEditorEvent.OPEN_GRID_ITEM_EDITOR_SESSION</code> 
+     *  The <code>GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_START</code> 
      *  constant defines the value of the <code>type</code> property of the
      *  event object for a <code>openGridItemEditor</code> event. 
      *  Dispatched immediately after an item editor has been opened. 
@@ -126,10 +126,10 @@ public class GridItemEditorEvent extends Event
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
      *     <tr><td><code>type</code></td><td>
-     *     GridItemEditorEvent.OPEN_GRID_ITEM_EDITOR_SESSION</td></tr>
+     *     GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_START</td></tr>
      *  </table>
      *   
-     *  @eventType openGridItemEditor
+     *  @eventType gridItemEditorSessionStart
      * 
      *  @see spark.components.supportClasses.GridColumn;
      *  
@@ -138,10 +138,10 @@ public class GridItemEditorEvent extends Event
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public static const OPEN_GRID_ITEM_EDITOR_SESSION:String = "openGridItemEditorSession";
+    public static const GRID_ITEM_EDITOR_SESSION_START:String = "gridItemEditorSessionStart";
 
     /**
-     *  The <code>GridItemEditorEvent.SAVE_GRID_ITEM_EDITOR_SESSION</code> 
+     *  The <code>GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_SAVE</code> 
      *  constant defines the value of the <code>type</code> property of the
      *  event object for a <code>saveGridItemEditor</code> event. 
      *  Dispatched after the data in item editor has been saved into the data 
@@ -168,10 +168,10 @@ public class GridItemEditorEvent extends Event
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
      *     <tr><td><code>type</code></td><td>
-     *     GridItemEditorEvent.SAVE_GRID_ITEM_EDITOR_SESSION</td></tr>
+     *     GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_SAVE</td></tr>
      *  </table>
      *   
-     *  @eventType saveGridItemEditor
+     *  @eventType gridItemEditorSessionSave
      * 
      *  @see spark.components.supportClasses.GridColumn;
      *  
@@ -180,10 +180,10 @@ public class GridItemEditorEvent extends Event
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public static const SAVE_GRID_ITEM_EDITOR_SESSION:String = "saveGridItemEditorSession";
+    public static const GRID_ITEM_EDITOR_SESSION_SAVE:String = "gridItemEditorSessionSave";
 
     /**
-     *  The <code>GridItemEditorEvent.CANCEL_GRID_ITEM_EDITOR_SESSION</code> 
+     *  The <code>GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_CANCEL</code> 
      *  constant defines the value of the <code>type</code> property of the
      *  event object for a <code>cancelridItemEditor</code> event. 
      *  Dispatched after the item editor has been closed without saving its data.  
@@ -209,10 +209,10 @@ public class GridItemEditorEvent extends Event
      *       Use the <code>currentTarget</code> property to always access the 
      *       Object listening for the event.</td></tr>
      *     <tr><td><code>type</code></td><td>
-     *     GridItemEditorEvent.CANCEL_GRID_ITEM_EDITOR_SESSION</td></tr>
+     *     GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_CANCEL</td></tr>
      *  </table>
      *   
-     *  @eventType cancelGridItemEditor
+     *  @eventType gridItemEditorSessionCancel
      * 
      *  @see spark.components.supportClasses.GridColumn;
      *  
@@ -221,7 +221,7 @@ public class GridItemEditorEvent extends Event
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public static const CANCEL_GRID_ITEM_EDITOR_SESSION:String = "cancelGridItemEditorSession";
+    public static const GRID_ITEM_EDITOR_SESSION_CANCEL:String = "gridItemEditorSessionCancel";
     
     
     //--------------------------------------------------------------------------
