@@ -1461,7 +1461,13 @@ public class HorizontalLayout extends LayoutBase
         var maxVisibleX:Number = minVisibleX + layoutTarget.width;
        
         updateLLV(layoutTarget);
-        var startIndex:int = llv.indexOf(minVisibleX + gap);
+
+		// Find the index of the first visible item. Since the item's bounds includes the gap
+		// that follows it, we want to avoid looking at an item that has only a portion of
+		// its gap intersecting with the visible region.
+		// We have to also be careful, as gap could be negative and in that case, we should
+		// simply start from minVisibleX - SDK-22497.
+        var startIndex:int = llv.indexOf(Math.max(0, minVisibleX + gap));
         if (startIndex == -1)
             return; 
             
