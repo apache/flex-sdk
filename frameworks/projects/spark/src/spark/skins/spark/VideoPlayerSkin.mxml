@@ -33,7 +33,7 @@
         <![CDATA[
             /* Define the skin elements that should not be colorized. */
             static private const exclusions:Array = ["videoElement", "playPauseButton", "scrubBar", 
-                                                     "playheadTimeLabel", "timeDivider", "totalTimeLabel", 
+                                                     "playheadTimeDisplay", "timeDivider", "totalTimeDisplay", 
                                                      "volumeBar", "fullScreenButton"];
             
             override public function get colorizeExclusions():Array 
@@ -147,11 +147,11 @@
                             <!-- spacer -->
                             <s:Rect width="8" height="1" />
                             
-                            <s:SimpleText id="playheadTimeLabel" color.fullScreenStates="0xFFFFFF" />
+                            <s:SimpleText id="playheadTimeDisplay" color.fullScreenStates="0xFFFFFF" />
                             
                             <s:SimpleText id="timeDivider" text="/" color.fullScreenStates="0xFFFFFF" />
                             
-                            <s:SimpleText id="totalTimeLabel" color.fullScreenStates="0xFFFFFF" />
+                            <s:SimpleText id="totalTimeDisplay" color.fullScreenStates="0xFFFFFF" />
                             
                             <!-- spacer -->
                             <s:Rect width="8" height="1" />
