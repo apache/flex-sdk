@@ -29,17 +29,17 @@ import mx.utils.OnDemandEventDispatcher;
  *  <p>At minimum, subclasses must implement the <code>updateDisplayList()</code>
  *  method, which positions and sizes the target GroupBase's elements, and 
  *  the <code>measure()</code> method, which calculates the target's default
- *  size.
+ *  size.</p>
  *
- *  Subclasses may override methods like <code>elementBoundsAboveScrollRect()</code>
+ *  <p>Subclasses may override methods like <code>elementBoundsAboveScrollRect()</code>
  *  and <code>elementBoundsBelowScrollRect()</code> to customize the way 
- *  the target behaves when it's connected to scrollbars.
+ *  the target behaves when it's connected to scrollbars.</p>
  * 
  *  <p>Subclasses that support virtualization must respect the 
  *  <code>useVirtualLayout</code> property and should only retrieve
  *  layout elements within the scrollRect (the value of
  *  <code>getTargetScrollRect()</code>) using <code>getVirtualElementAt()</code>
- *  from within <code>updateDisplayList()</code>.
+ *  from within <code>updateDisplayList()</code>.</p>
  */
 public class LayoutBase extends OnDemandEventDispatcher
 {
@@ -325,19 +325,19 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  <p>This is one of the methods that you must override when creating a
      *  subclass of LayoutBase. The other method is <code>updateDisplayList()</code>.
      *  You do not call these methods directly. Flex calls this method as part
-     *  of a layout pass. A layout pass consists of three phases.
+     *  of a layout pass. A layout pass consists of three phases.</p>
      *
-     *  First, if the target's properties are invalid, the LayoutManager calls
-     *  the target's <code>commitProperties</code> method.
+     *  <p>First, if the target's properties are invalid, the LayoutManager calls
+     *  the target's <code>commitProperties</code> method.</p>
      *
-     *  Second, if the target's size is invalid, LayoutManager calls the target's
+     *  <p>Second, if the target's size is invalid, LayoutManager calls the target's
      *  <code>validateSize()</code> method. The target's <code>validateSize()</code>
      *  will in turn call the layout's <code>measure()</code> to calculate the
      *  target's default size unless it was explicitly specified by both target's
-     *  <code>explicitWidth</code> and <code>explicitHeight</codd> properties.
-     *  If the default size changes, Flex will invalidate the target's display list.
+     *  <code>explicitWidth</code> and <code>explicitHeight</code> properties.
+     *  If the default size changes, Flex will invalidate the target's display list.</p>
      *
-     *  Last, if the target's display list is invalid, LayoutManager calls the target's
+     *  <p>Last, if the target's display list is invalid, LayoutManager calls the target's
      *  <code>validateDisplayList</code>. The target's <code>validateDisplayList</code>
      *  will in turn call the layout's <code>updateDisplayList</code> method to
      *  size and position the target's elements.</p>
@@ -370,19 +370,19 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  <p>This is one of the methods that you must override when creating a
      *  subclass of LayoutBase. The other method is <code>measure()</code>.
      *  You do not call these methods directly. Flex calls this method as part
-     *  of a layout pass. A layout pass consists of three phases.
+     *  of a layout pass. A layout pass consists of three phases.</p>
      *
-     *  First, if the target's properties are invalid, the LayoutManager calls
-     *  the target's <code>commitProperties</code> method.
+     *  <p>First, if the target's properties are invalid, the LayoutManager calls
+     *  the target's <code>commitProperties</code> method.</p>
      *
-     *  Second, if the target's size is invalid, LayoutManager calls the target's
+     *  <p>Second, if the target's size is invalid, LayoutManager calls the target's
      *  <code>validateSize()</code> method. The target's <code>validateSize()</code>
      *  will in turn call the layout's <code>measure()</code> to calculate the
      *  target's default size unless it was explicitly specified by both target's
-     *  <code>explicitWidth</code> and <code>explicitHeight</codd> properties.
-     *  If the default size changes, Flex will invalidate the target's display list.
+     *  <code>explicitWidth</code> and <code>explicitHeight</code> properties.
+     *  If the default size changes, Flex will invalidate the target's display list.</p>
      *
-     *  Last, if the target's display list is invalid, LayoutManager calls the target's
+     *  <p>Last, if the target's display list is invalid, LayoutManager calls the target's
      *  <code>validateDisplayList</code>. The target's <code>validateDisplayList</code>
      *  will in turn call the layout's <code>updateDisplayList</code> method to
      *  size and position the target's elements.</p>
