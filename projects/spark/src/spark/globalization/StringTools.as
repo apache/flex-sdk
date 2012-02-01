@@ -44,6 +44,11 @@ use namespace mx_internal;
  *  @includeExample examples/StringToolsExample.mxml
  *
  *  @see flash.globalization.StringTools
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class StringTools extends GlobalizationBase
 {
@@ -281,7 +286,7 @@ public class StringTools extends GlobalizationBase
      *  @param s <code>String</code> to convert to lowercase.
      *  @return The converted lowercase string.
      *
-     *  @see StringTools
+     *  @see flash.globalization.StringTools
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -317,7 +322,7 @@ public class StringTools extends GlobalizationBase
      *  @param s <code>String</code> to convert to uppercase.
      *  @return The converted uppercase string.
      *
-     *  @see StringTools
+     *  @see flash.globalization.StringTools
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -342,7 +347,7 @@ public class StringTools extends GlobalizationBase
     }
 
     /**
-     *  @copy spark.globalization.SupportedClasses.CollatorBase#getAvailableLocaleIDNames
+     *  @copy spark.globalization.supportClasses.CollatorBase#getAvailableLocaleIDNames
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
