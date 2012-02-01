@@ -1547,7 +1547,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (elementLocalBounds)
         {
             // Only adjust for local bounds if the element is wider than the scroll width
-            if ((elementR.left <= scrollR.left) && (elementR.right >= scrollR.right))
+            if (elementR.width > scrollR.width)
             {
                 if (elementLocalBounds.left < scrollR.left)
                     dx = elementLocalBounds.left - scrollR.left;
@@ -1556,7 +1556,7 @@ public class LayoutBase extends OnDemandEventDispatcher
             }
             
             // Only adjust for local bounds if the element is taller than the scroll height
-            if ((elementR.bottom >= scrollR.bottom) && (elementR.top <= scrollR.top))
+            if (elementR.height > scrollR.height)
             {
                 if (elementLocalBounds.bottom > scrollR.bottom) 
                     dy = elementLocalBounds.bottom - scrollR.bottom;
