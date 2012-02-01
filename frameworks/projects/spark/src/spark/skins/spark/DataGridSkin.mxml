@@ -105,13 +105,13 @@ The default skin class for a Spark DataGrid component.
         </s:HGroup>        
         <s:Scroller id="scroller" minViewportInset="1" hasFocusableChildren="false" height="100%">
             <s:Grid id="grid">
-                <s:defaultItemRenderer>
+                <s:itemRenderer>
                     <fx:Component>
                         <s:GridItemRenderer>
                             <s:Label id="labelDisplay" paddingLeft="3" paddingRight="3" paddingBottom="5" paddingTop="10" width="100%"/> 
                         </s:GridItemRenderer>
                     </fx:Component>
-                </s:defaultItemRenderer>
+                </s:itemRenderer>
                 
                 <s:caretIndicator>
                     <fx:Component>
