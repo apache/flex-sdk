@@ -50,7 +50,7 @@ HSliderThumbSkin and HSliderTrackSkin classes, respectively.
     <fx:Declarations>
     <!--- Defines the appearance of the the Slider's DataTip. To customize the DataTip's appearance, create a custom HSliderSkin class. -->
         <fx:Component id="dataTip">     
-           <s:MXMLComponent minHeight="24" minWidth="40" y="-34">  
+           <s:DataRenderer minHeight="24" minWidth="40" y="-34">  
               <s:Rect top="0" left="0" right="0" bottom="0">
                     <s:fill>
                         <s:SolidColor color="0x000000" alpha=".9"/>
@@ -65,7 +65,7 @@ HSliderThumbSkin and HSliderTrackSkin classes, respectively.
                          textAlign="center" verticalAlign="middle"
                          fontWeight="normal" color="white" fontSize="11">
                 </s:SimpleText>
-            </s:MXMLComponent>
+            </s:DataRenderer>
        </fx:Component>
     </fx:Declarations>
     
