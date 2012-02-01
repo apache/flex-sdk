@@ -169,7 +169,7 @@ public class RendererExistenceEvent extends Event
     override public function clone():Event
     {
         return new RendererExistenceEvent(type, bubbles, cancelable,
-                                         renderer, index);
+                                         renderer, index, data);
     }
 }
 
