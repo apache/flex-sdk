@@ -18,7 +18,7 @@ import flash.events.Event;
  *  The VideoEvent class represents the event object passed to the event listener for 
  *  events dispatched by the video control.
  *
- *  @see spark.controls.VideoPlayer 
+ *  @see spark.components.VideoPlayer 
  *  @see spark.primitives.VideoElement
  *  
  *  @langversion 3.0
@@ -215,8 +215,8 @@ public class VideoEvent extends Event
      *
      *  @param playeheadTime The location of the playhead when the event occurs.   
      *
-     *  @param metadataInfo The metadata info object with properties 
-     *  describing the FLB file.
+     *  @param metadataInfo The metadata information object with properties 
+     *  describing the FLV file.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -245,7 +245,7 @@ public class VideoEvent extends Event
     //----------------------------------
 
     /**
-     *  The metadata info object with properties describing the FLB file.
+     *  The metadata information object with properties describing the FLV file.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
