@@ -11,7 +11,7 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<Skin xmlns="http://ns.adobe.com/mxml/2009" clipContent="false">
 
     <Metadata>
     	[HostComponent("mx.components.FxButton")]
@@ -19,19 +19,65 @@
     
     <states>
         <State name="up" />
-        <State name="over" stateGroups="overAndDown" />
-        <State name="down" stateGroups="overAndDown" />
+        <State name="over" />
+        <State name="down" />
         <State name="disabled" />
     </states>
 
-    <Rect left="1" right="1" top="1" bottom="1" 
-          radiusX="4" radiusY="4" minWidth="13" minHeight="13">
+    <!-- drop shadow -->
+    <Rect left="-2" top="-2" right="-2" bottom="-2" radiusX="8.5" radiusY="8.5">
         <stroke>
-            <SolidColorStroke color="#3D5D92" color.disabled="0x9DADC9" />
+            <LinearGradientStroke rotation="90">
+                <GradientEntry color="0x000000" alpha="0" />
+                <GradientEntry color="0x000000" alpha="0" />
+                <GradientEntry color="0x000000" alpha="0.03"/>
+            </LinearGradientStroke>
         </stroke>
+    </Rect>
+    <Rect left="-1" top="-1" right="-1" bottom="-1" radiusX="7.5" radiusY="7.5">
+        <stroke>
+            <LinearGradientStroke rotation="90">
+                <GradientEntry color="0x000000" alpha="0.011" />
+                <GradientEntry color="0x000000" alpha="0.121" />
+            </LinearGradientStroke>
+        </stroke>
+    </Rect>
+    
+    <!-- border -->
+    <Rect left="0" right="0" top="0" bottom="0" radiusX="7" radiusY="7">
         <fill>
-            <SolidColor color="0xFFFFFF" color.overAndDown="0xEEF3FF" />
+            <SolidColor color="0x4F4F4F"  />
         </fill>
     </Rect>
 
+	<!-- fill -->
+	<Rect left="0.5" right="0.5" top="0.5" bottom="0.5" radiusX="6" radiusY="6">
+		<stroke>
+			<LinearGradientStroke rotation="90">
+				<GradientEntry color="0x000000" alpha="0" />
+				<GradientEntry color="0x000000" alpha="0.33" />
+			</LinearGradientStroke>
+		</stroke>
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0xFFFFFF" 
+							   color.over="0xE5E5E5"
+							   color.down="0x999999" />
+				<GradientEntry color="0xD8D8D8" 
+							   color.over="0x7D7D7D"
+							   color.down="0x555555" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+
+	<!-- highlight -->
+	<Rect left="1" right="1" top="1" bottom="1" radiusX="3" radiusY="3">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0xFFFFFF" alpha.over="0" alpha.down="0" />
+				<GradientEntry color="0xFFFFFF" alpha="0" />
+				<GradientEntry color="0xFFFFFF" alpha="0" />
+			</LinearGradient>
+		</fill>
+	</Rect>
 </Skin>
