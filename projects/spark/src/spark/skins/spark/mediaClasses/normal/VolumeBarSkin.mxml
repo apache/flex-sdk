@@ -30,9 +30,8 @@
         <s:State name="disabled" />
     </s:states>
     
-    <s:PopUp id="popup"  open.normal="false" open.open="true" includeIn="open"
-        left="0" right="0" top="0" bottom="0"
-        placement="above">
+    <s:PopUpAnchor id="popup"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
+        left="0" right="0" top="0" bottom="0" popUpPosition="above">
         <s:Group id="dropDown" width="33" height="84" horizontalCenter="0">
         
             <!-- dropshadow for the dropdown -->
@@ -90,7 +89,7 @@
             <s:Button id="thumb" horizontalCenter="0" width="11" height="11" 
                       skinClass="spark.skins.default.VideoPlayerVolumeBarThumbSkin" />
         </s:Group>
-    </s:PopUp>
+    </s:PopUpAnchor>
         
     <s:VideoPlayerVolumeBarMuteButton id="muteButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
               skinClass="spark.skins.default.VideoPlayerVolumeBarMuteButtonSkin" />
