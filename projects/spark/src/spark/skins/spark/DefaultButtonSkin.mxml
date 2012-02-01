@@ -11,6 +11,8 @@
 
 -->
 
+<!--- The default skin class for a Spark DefaultButton component. The DefaultButton component is used in panels such as 
+an Alert. It is defined by the defaultButton property on a container. -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
 	  minWidth="21" minHeight="21"
 	  alpha.disabled="0.5">
