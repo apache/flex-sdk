@@ -222,8 +222,25 @@ public class Line extends StrokedElement
      */
     override protected function drawElement(g:Graphics):void
     {
-        g.moveTo(measuredX + drawX, measuredY + drawY);
-        g.lineTo(measuredX + drawX + width, measuredY + drawY + height);
+        // Our bounding box is (x1, y1, x2, y2)
+        var x1:Number = measuredX + drawX;
+        var y1:Number = measuredY + drawY;
+        var x2:Number = measuredX + drawX + width;
+        var y2:Number = measuredY + drawY + height;    
+        
+        // Which way should we draw the line?
+        if ((xFrom <= xTo) == (yFrom <= yTo))
+        { 
+            // top-left to bottom-right
+            g.moveTo(x1, y1);
+            g.lineTo(x2, y2);
+        }
+        else
+        {
+            // bottom-left to top-right
+            g.moveTo(x1, y2);
+            g.lineTo(x2, y1);
+        }
     }
 }
 
