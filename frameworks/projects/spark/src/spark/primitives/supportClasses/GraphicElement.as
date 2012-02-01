@@ -1,4 +1,5 @@
-package flex.graphics.graphicsClasses
+
+package mx.graphics.graphicsClasses
 {
 import flash.display.BitmapData;
 import flash.display.BlendMode;
@@ -15,12 +16,11 @@ import flash.geom.Point;
 import flash.geom.Transform;
 
 import mx.geom.Transform;
-import flex.graphics.IGraphicElement;
-import flex.graphics.IGraphicElementHost;
-import flex.graphics.MaskType;
-import flex.graphics.TransformUtil;
-import flex.intf.ILayoutItem;
-
+import mx.graphics.IGraphicElement;
+import mx.graphics.IGraphicElementHost;
+import mx.graphics.MaskType;
+import mx.utils.MatrixUtil;
+import mx.layout.ILayoutItem;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.IConstraintClient;
 import mx.core.IInvalidating;
@@ -1844,7 +1844,7 @@ public class GraphicElement extends EventDispatcher
         {
             // Calculate the vector from pre-transform top-left to
             // post-transform top-left:
-            TransformUtil.transformBounds(new Point(_width, _height), m, topLeft);
+            MatrixUtil.transformBounds(new Point(_width, _height), m, topLeft);
         }
         else
         {
@@ -2591,7 +2591,7 @@ public class GraphicElement extends EventDispatcher
             return null;
 				
         var m:Matrix = layoutFeatures.layoutMatrix;
-        return TransformUtil.isDeltaIdentity(m) ? null : m;
+        return MatrixUtil.isDeltaIdentity(m) ? null : m;
     }
 
     /**
@@ -2604,7 +2604,7 @@ public class GraphicElement extends EventDispatcher
         var size:Point = new Point(width, height);
         var m:Matrix = computeMatrix(actualMatrix);
         if (m)
-            size = TransformUtil.transformSize(size, m);
+            size = MatrixUtil.transformSize(size, m);
 
         // Take stroke into account
         var strokeExtents:Point = getStrokeExtents();
@@ -2650,7 +2650,7 @@ public class GraphicElement extends EventDispatcher
         {
             // Calculate the origin of the element after transformation before our changes are applied.
             var origin:Point = new Point(measuredX,measuredY);
-            TransformUtil.transformBounds(new Point(_width, _height), m, origin);
+            MatrixUtil.transformBounds(new Point(_width, _height), m, origin);
 
             // now adjust our tx/ty values based on the difference between our current transformed position and 
             // where we want to end up.
@@ -2725,7 +2725,7 @@ public class GraphicElement extends EventDispatcher
             if (!isNaN(height))
                height -= strokeExtents.y;
 
-            var newSize:Point = TransformUtil.fitBounds(
+            var newSize:Point = MatrixUtil.fitBounds(
                                     width, height, m,
                                     preferredWidthPreTransform(),
                                     preferredHeightPreTransform(),
