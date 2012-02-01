@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-package spark.layout.supportClasses
+package spark.layouts.supportClasses
 {
 import flash.geom.Rectangle;
 import spark.primitives.Rect;
