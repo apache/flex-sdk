@@ -990,7 +990,7 @@ public class HorizontalLayout extends LayoutBase
            case VerticalAlign.CONTENT_JUSTIFY: 
                return Math.max(elt.getPreferredBoundsHeight(), containerHeight);
        }
-       return elt.getPreferredBoundsHeight();
+       return NaN; // not constrained
     }
 
     //  - virtual layout only - 
@@ -1057,7 +1057,7 @@ public class HorizontalLayout extends LayoutBase
         var maxVisibleX:Number = minVisibleX + layoutTarget.width;
        
         updateLLV(layoutTarget);
-        var startIndex:int = llv.indexOf(minVisibleX);
+        var startIndex:int = llv.indexOf(minVisibleX + gap);
         if (startIndex == -1)
             return; 
             
@@ -1075,11 +1075,13 @@ public class HorizontalLayout extends LayoutBase
         for (; (x < maxVisibleX) && (index < eltCount); index++)
         {
             var elt:ILayoutElement = layoutTarget.getVirtualElementAt(index);
-            var w:Number = (isNaN(fixedColumnWidth)) ? elt.getPreferredBoundsWidth() : fixedColumnWidth;
-            var h:Number = calculateElementHeight(elt, targetHeight, containerHeight);
+            var w:Number = fixedColumnWidth; // NaN for variable width columns
+            var h:Number = calculateElementHeight(elt, targetHeight, containerHeight); // can be NaN
+            elt.setLayoutBoundsSize(w, h);
+            w = elt.getLayoutBoundsWidth();        
+            h = elt.getLayoutBoundsHeight();
             var y:Number = calculateElementY(elt, h, containerHeight);
             elt.setLayoutBoundsPosition(x, y);
-            elt.setLayoutBoundsSize(w, h);            
             llv.cacheDimensions(index, elt);
             x += w + gap;
         }
@@ -1098,8 +1100,8 @@ public class HorizontalLayout extends LayoutBase
                     elt = layoutTarget.getVirtualElementAt(index);
                     h = calculateElementHeight(elt, targetHeight, containerHeight);
                     y = calculateElementY(elt, h, containerHeight);
-                    elt.setLayoutBoundsPosition(elt.getLayoutBoundsX(), y);
                     elt.setLayoutBoundsSize(elt.getLayoutBoundsWidth(), h);
+                    elt.setLayoutBoundsPosition(elt.getLayoutBoundsX(), y);
                 }
              }
         }
