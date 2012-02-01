@@ -18,11 +18,13 @@
 
 global 
 {
-	color: #2B4381;
-	text-roll-over-color:			#2B4381;
-	text-selected-color:			#2B4381;
+	color: #464646;
+	text-roll-over-color:			#464646;
+	text-selected-color:			#464646;
 	dropDownStyleName:				dropDown;
 	menu-style-name:				menu;
+    selectionColor:                 #CCCCCC;
+    rollOverColor:                  #EEEEEE;
 }
 
 s|Application
@@ -202,8 +204,8 @@ mx|SwatchPanel
 {
 	backgroundColor:		 		#FFFFFF;
 	highlightColor:		 			#FFFFFF;
-	borderColor:					#5380D0;
-	shadowColor:					#5380D0;
+	borderColor:					#707070;
+	shadowColor:					#707070;
 	swatch-border-color:			#000000;
 }
 
@@ -216,18 +218,18 @@ mx|ComboBox
 mx|DataGrid
 {
 	borderSkin:						ClassReference("mx.skins.wireframe.BorderSkin");
-	borderColor:					#5380D0;
-	verticalGridLineColor:			#5380D0;
-	horizontalGridLineColor:		#5380D0;
-	symbolColor:					#4E6290;
+	borderColor:					#707070;
+	verticalGridLineColor:			#707070;
+	horizontalGridLineColor:		#707070;
+	symbolColor:					#666666;
 	headerBackgroundSkin:			ClassReference('mx.skins.wireframe.DataGridHeaderBackgroundSkin');
 	headerSeparatorSkin:			ClassReference('mx.skins.wireframe.DataGridHeaderSeparatorSkin');
 }
 
 mx|DateChooser
 {
-	headerColors:					#E2EDF7,#E2EDF7;
-	borderColor:					#5380D0;
+	headerColors:					#EEEEEE,#EEEEEE;
+	borderColor:					#707070;
 	next-month-skin:				ClassReference('mx.skins.wireframe.DateChooserNextMonthSkin');
 	prev-month-skin:				ClassReference('mx.skins.wireframe.DateChooserPrevMonthSkin');
 	next-year-skin:					ClassReference('mx.skins.wireframe.DateChooserNextYearSkin');
@@ -258,7 +260,7 @@ mx|HorizontalList
 
 mx|HRule
 {
-	strokeColor:					#5380D0;
+	strokeColor:					#707070;
 	stroke-width:					1;	
 }
 
@@ -408,7 +410,7 @@ mx|VDividedBox
 
 mx|VRule
 {
-	strokeColor:					#5380D0;
+	strokeColor:					#707070;
 	stroke-width:					1;
 }
 
