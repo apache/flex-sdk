@@ -24,7 +24,7 @@ import flash.events.Event;
  *  <code>true</code> to the <code>commit</code> parameter and optionally passing in
  *  any relevant data.  When the <code>SkinnablePopUpContainer</code> has completed closing,
  *  it will dispatch this event.  Then, in the listener, the developer can check
- *  the <code>commit</code> parameter and perform the appropriate action.
+ *  the <code>commit</code> parameter and perform the appropriate action.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
