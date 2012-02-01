@@ -14,12 +14,13 @@ package spark.primitives
 
 import flash.display.Graphics;
 import flash.display.GraphicsPath;
-import flash.display.Shape;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.mx_internal;
+import mx.events.PropertyChangeEvent;
+import mx.graphics.IStroke;
 import mx.utils.MatrixUtil;
 
 import spark.primitives.supportClasses.FilledElement;
@@ -202,7 +203,10 @@ public class Path extends FilledElement
      *  @productversion Flex 4
      */
     public function set data(value:String):void
-    {        
+    {
+        if (_data == value)
+            return;
+
         // Clear out the existing segments 
         segments = []; 
         
@@ -362,7 +366,7 @@ public class Path extends FilledElement
                                         control2X, control2Y, x, y));
                     break;
                 case "z":
-					// For a close segment, we generate a LineSegment to the last move point instead. 
+                    // For a close segment, we generate a LineSegment to the last move point instead.  
 					x = lastMoveX;
 					y = lastMoveY;
                     newSegments.push(new LineSegment(x, y));
@@ -467,20 +471,6 @@ public class Path extends FilledElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override protected function canSkipMeasurement():Boolean
-    {
-        // Don't measure when bounds are up to date.
-        return _bounds != null;
-    }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
     override protected function measure():void
     {
         var bounds:Rectangle = getBounds();
@@ -520,6 +510,353 @@ public class Path extends FilledElement
 		}
         return pathBBox;
     }
+    
+    /**
+     *  @private
+     *  Storage for the cached bounding box for particular transformation and size.
+     *  We are also caching the bounding box original x & y, so that we can reuse it
+     *  when bounds are requested with same size and transform that only differs by offsets. 
+     */
+    private var _boundingBoxCached:Rectangle;
+    private var _boundingBoxMatrixCached:Matrix;
+    private var _boundingBoxWidthParamCached:Number;
+    private var _boundingBoxHeightParamCached:Number;
+    private var _boundingBoxX:Number;
+    private var _boundingBoxY:Number;
+
+    /**
+     *  @private
+     *  Returns the bounding box for the path including stroke, if the path is resized
+     *  to the specified size and transformed with "m". 
+     *  Pass null for "m" to specify identity matrix.
+     *
+     *  Calling this method multiple times with the same parameters, or differences
+     *  only in the matrix offset is fast, as it returns the cached bounding box.
+     * 
+     *  Don't modify directly the return value!
+     */
+    private function getBoundingBoxWithStroke(width:Number, height:Number, m:Matrix):Rectangle
+    {
+        if (_boundingBoxCached && 
+            _boundingBoxWidthParamCached == width && 
+            _boundingBoxHeightParamCached == height)
+        {
+            // Compare matrices:
+            if (!m && !_boundingBoxMatrixCached)
+            {
+                _boundingBoxCached.x = _boundingBoxX;
+                _boundingBoxCached.y = _boundingBoxY;
+                return _boundingBoxCached;
+            }
+            else if (m && _boundingBoxMatrixCached &&
+                     m.a == _boundingBoxMatrixCached.a &&
+                     m.b == _boundingBoxMatrixCached.b &&
+                     m.c == _boundingBoxMatrixCached.c &&
+                     m.d == _boundingBoxMatrixCached.d)
+            {
+                _boundingBoxCached.x = _boundingBoxX + m.tx;
+                _boundingBoxCached.y = _boundingBoxY + m.ty;
+                return _boundingBoxCached;
+            }
+        }
+        
+        // Setup the matrix, ignore tx & ty, we'll account for it later
+        if (m)
+        {
+            _boundingBoxMatrixCached = m.clone();
+            _boundingBoxMatrixCached.tx = 0;
+            _boundingBoxMatrixCached.ty = 0;
+        }
+        else
+            _boundingBoxMatrixCached = null;
+        
+        // Remember width and height
+        _boundingBoxWidthParamCached = width;
+        _boundingBoxHeightParamCached = height;
+
+        _boundingBoxCached = computeBoundsWithStroke(_boundingBoxWidthParamCached,
+                                                     _boundingBoxHeightParamCached,
+                                                     m);
+
+        // Remember the original x & y:
+        _boundingBoxX = _boundingBoxCached.x - (m ? m.tx : 0);
+        _boundingBoxY = _boundingBoxCached.y - (m ? m.ty : 0);
+
+        return _boundingBoxCached; // No need to return clone, as this is for internal use only
+    }
+    
+    /**
+     *  @private
+     *  Static storage for intermediate calculations while calculating miter-limit bounds. 
+     */
+    static private var tangent:Point = new Point();
+    
+    /**
+     *  @private
+     *  Returns true when we have a valid tangent for curSegment. Pass prevSegment
+     *  to know what the starting point of curSegment is.
+     */
+    private function tangentIsValid(prevSegment:PathSegment, curSegment:PathSegment,
+                                    sx:Number, sy:Number, m:Matrix):Boolean
+    {
+        // FIXME (egeorgie): optimize, we don't need to compute the tangent,
+        // but just make sure the segment is not collapsed into a single point?
+
+        // Check the start tangent only. If it's valid,
+        // then there is a valid end tangent as well.
+        curSegment.getTangent(prevSegment, true, sx, sy, m, tangent);
+        return (tangent.x != 0 || tangent.y != 0);
+    }
+
+    /**
+     *  @private
+     *  @return Returns the axis aligned bounding box of the path when
+     *  resized to (width, height) and then transformed by matrix m.
+     */
+    mx_internal function computeBoundsWithStroke(width:Number, height:Number,
+                                                 m:Matrix, pathBBox:Rectangle = null):Rectangle
+    {
+        var naturalBounds:Rectangle = getBounds();
+        var sx:Number = naturalBounds.width == 0 ? 1 : width / naturalBounds.width;
+        var sy:Number = naturalBounds.height == 0 ? 1 : height / naturalBounds.height; 
+        
+        // First, figure out the bounding box without stroke
+        if (!pathBBox)
+        {
+            // Special case, if there's no transformation or only offset,
+            // then the non-stroked path bounds for the give size can be
+            // scaled from the pre-transform natural bounds:
+            if (!m || MatrixUtil.isDeltaIdentity(m))
+            {
+                pathBBox = new Rectangle(naturalBounds.x * sx,
+                                         naturalBounds.y * sy,
+                                         naturalBounds.width * sx,
+                                         naturalBounds.height * sy);
+                if (m)
+                    pathBBox.offset(m.tx, m.ty);
+            }
+            else
+            {
+                pathBBox = getBoundingBox(width, height, m);
+            }
+        }
+
+        // Do we have stroke? 
+        var strokeSettings:IStroke = this.stroke;
+        if (!strokeSettings)
+            return pathBBox;
+
+        // Always add half the stroke weight, even for miter limit paths,
+        // as a point on a curve and not necessarily a joint tip could be
+        // an extreme that pushes the bounds.
+        var strokeExtents:Rectangle = getStrokeExtents();
+        pathBBox.inflate(strokeExtents.right, strokeExtents.bottom);
+
+        if (strokeSettings.joints != "miter" || segments.length < 2)
+        {
+            // TODO (egeorgie): Will overshoot for "bevel"
+            // by the assumed roundness of the joints.
+            return pathBBox;
+        }
+        
+        // Use strokeExtents to get the transformed stroke weight.
+        var halfWeight:Number = strokeExtents.width / 2;
+
+        // Miter limit is always at least 1
+        var miterLimit:Number = Math.max(1, strokeSettings.miterLimit);
+        var count:int = segments.length;
+        var start:int = 0;
+        var end:int;
+        var lastMoveX:Number = 0;
+        var lastMoveY:Number = 0;
+        var lastOpenSegment:int = 0;
+        
+        while (true)
+        {
+            // Find a segment with a valid tangent or stop at a MoveSegment
+            while (start < count && (!segments[start] is MoveSegment))
+            {
+                var prevSegment:PathSegment = start > 0 ? segments[start - 1] : null;
+                if (tangentIsValid(prevSegment, segments[start], sx, sy, m))
+                    break;
+                start++;
+            }
+
+            if (start >= count)
+                break; // No more segments with valid tangents
+
+            var startSegment:PathSegment = segments[start];
+            if (startSegment is MoveSegment)
+            {
+                // remember the last move segment 
+                lastOpenSegment = start + 1;
+                lastMoveX = startSegment.x;
+                lastMoveY = startSegment.y;
+
+                // move onto next segment:
+                start++;
+                continue;
+            }
+
+            // Does the current segment close to a previous segment and form a joint with it?
+            // Note, even if the segment was originally a close segment, it may not form a joint
+            // with the segment it closes to, unless it's followed by a MoveSegment or it's the last
+            // segment in the sequence.
+            if ((start == count - 1 || segments[start + 1] is MoveSegment) && 
+                startSegment.x == lastMoveX &&
+                startSegment.y == lastMoveY)
+            {
+                end = lastOpenSegment;
+            }
+            else
+                end = start + 1;
+
+            // Find a segment with a valid tangent or stop at a MoveSegment 
+            while (end < count && !(segments[end] is MoveSegment))
+            {
+                if (tangentIsValid(startSegment, segments[end], sx, sy, m))
+                    break;
+                end++;
+            }
+
+            if (end >= count)
+                break; // No more segments with valid tangents
+
+            var endSegment:PathSegment = segments[end];
+
+            if (!(endSegment is MoveSegment))
+            {
+                addMiterLimitStrokeToBounds(start > 0 ? segments[start - 1] : null, 
+                                            startSegment,
+                                            endSegment, 
+                                            miterLimit,
+                                            halfWeight,
+                                            sx,
+                                            sy,
+                                            m,
+                                            pathBBox);
+            }
+
+            // Move on to the next segment, but never go back. End could be less
+            // than start, because of implicit/explicit CloseSegments.
+            start = start > end ? start + 1 : end;
+        }
+        return pathBBox;
+    }
+
+    /**
+     *  @private
+     *  Calculates the miter stroke contribution to the "result" bounding box.
+     *  
+     *  @param segment0 The segment before the first segment of the joint.
+     *  @param segment1 The first segment of the joint.
+     *  @param segment2 The second segment of the joint.
+     * 
+     *  @param miterLimit The miter limit. It must be at least 1. 
+     * 
+     *  @param weight The transformed stroke weight (the outside part only,
+     *  if stroke is centered, this must be weight/2).
+     * 
+     *  @param sx The pre-transform horizontal scale factor for the segments.
+     *  @param sy The pre-transform vertical scale factor for the segments.
+     * 
+     *  @param m The transformation for the segments.
+     * 
+     *  @param result The bounding box to be accumulating the bounds.
+     */    
+    private function addMiterLimitStrokeToBounds(segment0:PathSegment,
+                                                 segment1:PathSegment,
+                                                 segment2:PathSegment,
+                                                 miterLimit:Number,
+                                                 weight:Number,
+                                                 sx:Number,
+                                                 sy:Number,
+                                                 m:Matrix,
+                                                 result:Rectangle):void
+    {
+        // The tip of the joint
+        var pt:Point;
+        pt = MatrixUtil.transformPoint(segment1.x * sx, segment1.y * sy, m).clone();
+        var jointX:Number = pt.x;
+        var jointY:Number = pt.y;
+        
+        // End tangent for segment1:
+        var t0:Point = new Point();
+        segment1.getTangent(segment0, false /*start*/, sx, sy, m, t0);
+        
+        // Start tangent for segment2:
+        var t1:Point = new Point();
+        segment2.getTangent(segment1, true /*start*/, sx, sy, m, t1);
+        
+        // Valid tangents?
+        if (t0.length == 0 || t1.length == 0)
+            return;
+       
+        // The tip of the stroke lies on the bisector of the angle and lies at a distance
+        // of weight / sin(A/2), where A is the angle between the tangents.
+        
+        // Quick and dirty way to calculate it, make the tangents unit length:
+        t0.normalize(1);
+        t0.x = -t0.x;
+        t0.y = -t0.y;
+        t1.normalize(1);
+
+        // Find the vector from t0 to the midPoint from t0 to t1
+        var halfT0T1:Point = new Point( (t1.x - t0.x) * 0.5, (t1.y - t0.y) * 0.5);
+        
+        // sin(A/2) == halfT0T1.length / t1.length()
+        var sinHalfAlpha:Number = halfT0T1.length;
+        if (Math.abs(sinHalfAlpha) < 1.0E-9)
+        {
+            // Don't count degenerate joints that are close to 0 degrees so
+            // we avoid cases like this one L 0 0  0 50  100 0  30 0 50 0 Z
+            return; 
+        }
+
+        // Find the vector of the bisect
+        var bisect:Point = new Point( -0.5 * (t0.x + t1.x), -0.5 * (t0.y + t1.y) );
+        if (bisect.length == 0)
+        {
+            // 180 degrees, nothing to contribute
+            return;
+        }
+        
+        // Is there miter limit at play?
+        if (sinHalfAlpha == 0 || miterLimit < 1 / sinHalfAlpha)
+        {
+            // The miter limit is reached. Calculate two extra points that may
+            // contribute to the bounds.
+            // The points lie on the line perpendicular to the bisect and intersecting
+            // it at offset of miterLimit * weight from the joint tip.
+            // The points are equally offset from the bisect by a factor of X,
+            // where X / sinAlpha == (weight / sinAlpha - miterLimit * weight) / bisect.lenght. 
+            
+            var bisectLength:Number = bisect.length;
+            bisect.normalize(1);
+
+            halfT0T1.normalize((weight - miterLimit * weight * sinHalfAlpha) / bisectLength);
+
+            var pt0:Point = new Point(jointX + miterLimit * weight * bisect.x + halfT0T1.x,
+                                      jointY + miterLimit * weight * bisect.y + halfT0T1.y);
+
+            var pt1:Point = new Point(jointX + miterLimit * weight * bisect.x - halfT0T1.x,
+                                      jointY + miterLimit * weight * bisect.y - halfT0T1.y);
+
+            // Add it to the rectangle:
+            MatrixUtil.rectUnion(pt0.x, pt0.y, pt0.x, pt0.y, result);
+            MatrixUtil.rectUnion(pt1.x, pt1.y, pt1.x, pt1.y, result);
+        }
+        else
+        {
+            // miter limit is not reached, add the tip of the stroke
+            bisect.normalize(1);
+            var strokeTip:Point = new Point(jointX + bisect.x * weight / sinHalfAlpha,
+                                            jointY + bisect.y * weight / sinHalfAlpha);
+            
+            // Add it to the rectangle:
+            MatrixUtil.rectUnion(strokeTip.x, strokeTip.y, strokeTip.x, strokeTip.y, result);
+        }
+    }
 
     /**
      *  @private
@@ -528,11 +865,11 @@ public class Path extends FilledElement
                                                         height:Number,
                                                         postLayoutTransform:Boolean = true):Number
     {
-        if (postLayoutTransform && hasComplexLayoutMatrix)
-            width = getBoundingBox(width, height, layoutFeatures.layoutMatrix).width;
-
-        // Take stroke into account
-        return width + getStrokeExtents(postLayoutTransform).width;
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
+        // Optimize for no-stroke, no transform
+        if (!m && !stroke)
+            return width;
+        return getBoundingBoxWithStroke(width, height, m).width;
     }
 
     /**
@@ -542,11 +879,63 @@ public class Path extends FilledElement
                                                          height:Number,
                                                          postLayoutTransform:Boolean = true):Number
     {
-        if (postLayoutTransform && hasComplexLayoutMatrix)
-            height = getBoundingBox(width, height, layoutFeatures.layoutMatrix).height;
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
+        // Optimize for no-stroke, no transform
+        if (!m && !stroke)
+            return height;
+        return getBoundingBoxWithStroke(width, height, m).height;
+    }
+    
+    /**
+     *  @private
+     *  A helper function to implement the getBoundsXAtSize() and getBoundsYAtSize()
+     *  mehtods. Calculates where the top-left corner of the bounds would end up 
+     *  if the path is resized to the specified size.
+     */
+    private function getBoundsAtSize(width:Number, height:Number, m:Matrix):Rectangle
+    {
+        var strokeExtents:Rectangle = null;
+        
+        if (!isNaN(width))
+        {
+            strokeExtents = getStrokeExtents(true /*postLayoutTransform*/);
+            width -= strokeExtents.width;
+        }
+        
+        if (!isNaN(height))
+        {
+            if (!strokeExtents)
+                strokeExtents = getStrokeExtents(true /*postLayoutTransform*/);
+            height -= strokeExtents.height;
+        }
 
-        // Take stroke into account
-        return height + getStrokeExtents(postLayoutTransform).height;
+        var newWidth:Number = preferredWidthPreTransform();
+        var newHeight:Number = preferredHeightPreTransform();
+
+        // Calculate the width and height pre-transform:
+        if (m)
+        {
+            var newSize:Point = MatrixUtil.fitBounds(width,
+                height,
+                m,
+                newWidth,
+                newHeight,
+                minWidth, minHeight,
+                maxWidth, maxHeight);
+            
+            if (newSize)
+            {
+                newWidth = newSize.x;
+                newHeight = newSize.y;
+            }
+            else
+            {
+                newWidth = minWidth;
+                newHeight = minHeight;
+            }
+        }
+
+        return getBoundingBoxWithStroke(newWidth, newHeight, m);
     }
 
     /**
@@ -559,37 +948,8 @@ public class Path extends FilledElement
      */
     override public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var strokeExtents:Rectangle = getStrokeExtents(postLayoutTransform);
         var m:Matrix = getComplexMatrix(postLayoutTransform);
-
-        if (!m)
-        {
-            // Check for a common case, BasicLayout measure() always hits this:
-            if (isNaN(width))
-                return strokeExtents.left + this.x + measuredX;
-            else
-                width = preferredWidthPreTransform();
-
-            var naturalBounds:Rectangle = getBounds();
-            var sx:Number = (naturalBounds.width == 0 || width == 0) ? 1 : width / naturalBounds.width;
-            return strokeExtents.left + this.x + measuredX * sx;
-        }
-    
-        if (!isNaN(width))
-            width -= strokeExtents.width;
-
-        if (!isNaN(height))
-            height -= strokeExtents.height;
-
-        // Calculate the width and height pre-transform:
-        var newSize:Point = MatrixUtil.fitBounds(width, height, m,
-                                                 preferredWidthPreTransform(),
-                                                 preferredHeightPreTransform(),
-                                                 minWidth, minHeight,
-                                                 maxWidth, maxHeight);
-        if (!newSize)
-            newSize = new Point(minWidth, minHeight);
-        return strokeExtents.left + getBoundingBox(newSize.x, newSize.y, m).x;
+        return getBoundsAtSize(width, height, m).x + (m ? 0 : this.x);
     }
 
     /**
@@ -602,37 +962,8 @@ public class Path extends FilledElement
      */
     override public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var strokeExtents:Rectangle = getStrokeExtents(postLayoutTransform);
         var m:Matrix = getComplexMatrix(postLayoutTransform);
-
-        if (!m)
-        {
-            // Check for a common case, BasicLayout measure() always hits this:
-            if (isNaN(height))
-                return strokeExtents.top + this.y + measuredY;
-            else
-                height = preferredHeightPreTransform();    
-
-            var naturalBounds:Rectangle = getBounds();
-            var sy:Number = (naturalBounds.height == 0 || height == 0) ? 1 : height / naturalBounds.height;
-            return strokeExtents.top + this.y + measuredY * sy;
-        }
-    
-        if (!isNaN(width))
-            width -= strokeExtents.width;
-
-        if (!isNaN(height))
-            height -= strokeExtents.height;
-
-        // Calculate the width and height pre-transform:
-        var newSize:Point = MatrixUtil.fitBounds(width, height, m,
-                                                 preferredWidthPreTransform(),
-                                                 preferredHeightPreTransform(),
-                                                 minWidth, minHeight,
-                                                 maxWidth, maxHeight);
-        if (!newSize)
-            newSize = new Point(minWidth, minHeight);
-        return strokeExtents.top + getBoundingBox(newSize.x, newSize.y, m).y;
+        return getBoundsAtSize(width, height, m).y + (m ? 0 : this.y);
     }
 
     /**
@@ -640,17 +971,17 @@ public class Path extends FilledElement
      */
     override public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
-        var stroke:Number = getStrokeExtents(postLayoutTransform).left;
         var m:Matrix = getComplexMatrix(postLayoutTransform);
-        if (!m)
+        // Optimize for no-stroke, no transform
+        if (!m && !stroke)
         {
             if (measuredX == 0)
-                return stroke + this.x;
+                return this.x;
             var naturalBounds:Rectangle = getBounds();
             var sx:Number = (naturalBounds.width == 0 || _width == 0) ? 1 : _width / naturalBounds.width;
-            return stroke + this.x + measuredX * sx;
+            return this.x + measuredX * sx;
         }
-        return stroke + getBoundingBox(_width, _height, m).x;
+        return getBoundingBoxWithStroke(_width, _height, m).x + (m ? 0 : this.x);
     }
 
     /**
@@ -658,17 +989,17 @@ public class Path extends FilledElement
      */
     override public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
     {
-        var stroke:Number = getStrokeExtents(postLayoutTransform).top;
         var m:Matrix = getComplexMatrix(postLayoutTransform);
-        if (!m)
+        // Optimize for no-stroke, no transform
+        if (!m && !stroke)
         {
             if (measuredY == 0)
-                return stroke + this.y;
+                return this.y;
             var naturalBounds:Rectangle = getBounds();
             var sy:Number = (naturalBounds.height == 0 || _height == 0) ? 1 : _height / naturalBounds.height;
-            return stroke + this.y + measuredY * sy;
+            return this.y + measuredY * sy;
         }
-        return stroke + getBoundingBox(_width, _height, m).y;
+        return getBoundingBoxWithStroke(_width, _height, m).y + (m ? 0 : this.y);
     }
  
     /**
@@ -812,7 +1143,7 @@ public class Path extends FilledElement
     }
     
     /**
-     * @private
+     *  @private
      */
     private function boundsChanged(): void
     {
@@ -824,13 +1155,52 @@ public class Path extends FilledElement
     }
    
     /**
-     * @private
+     *  @private
      */
     private function clearBounds():void
     {
         _bounds = null;
+        clearCachedBoundingBoxWithStroke();
     }
- 
+    
+    /**
+     *  @private
+     */
+    private function clearCachedBoundingBoxWithStroke():void
+    {
+        _boundingBoxCached = null;
+        _boundingBoxMatrixCached = null;
+    }
+    
+    /**
+     *  @private
+     *  Make sure we clear the cached boundingBoxWithStroke
+     */
+    override protected function stroke_propertyChangeHandler(event:PropertyChangeEvent):void
+    {
+        super.stroke_propertyChangeHandler(event);
+        switch (event.property)
+        {
+            case "weight":
+            case "scaleMode":
+            case "joints":
+            case "miterLimit":
+                clearCachedBoundingBoxWithStroke();
+                // Parent layout takes stroke weight into account
+                invalidateParentSizeAndDisplayList();
+            break;
+        }
+    }
+    
+    /**
+     *  @private
+     *  Make sure we clear the cached boundingBoxWithStroke
+     */
+    override public function set stroke(value:IStroke):void
+    {
+        super.stroke = value;
+        clearCachedBoundingBoxWithStroke();
+    }
 }
 
 }
@@ -964,6 +1334,21 @@ class PathSegment extends Object
         // Override to calculate your segment's bounding box.
         return rect;
     }
+
+    /**
+     *  Returns the tangent for the segment. 
+     *  @param prev The previous segment drawn, or null if this is the first segment.
+     *  @param start If true, returns the tangent to the start point, otherwise the tangend to the end point.
+     *  @param sx Pre-transform scale factor for x coordinates.
+     *  @param sy Pre-transform scale factor for y coordinates.
+     *  @param m Transformation matrix.
+     *  @param result The tangent is returned as vector (x, y) in result.
+     */
+    public function getTangent(prev:PathSegment, start:Boolean, sx:Number, sy:Number, m:Matrix, result:Point):void
+    {
+        result.x = 0;
+        result.y = 0;
+    }
 }
 
 
@@ -1062,9 +1447,25 @@ class LineSegment extends PathSegment
 		return MatrixUtil.rectUnion(Math.min(x1, x2), Math.min(y1, y2),
 									Math.max(x1, x2), Math.max(y1, y2), rect); 
     }
+    
+    /**
+     *  Returns the tangent for the segment. 
+     *  @param prev The previous segment drawn, or null if this is the first segment.
+     *  @param start If true, returns the tangent to the start point, otherwise the tangend to the end point.
+     *  @param sx Pre-transform scale factor for x coordinates.
+     *  @param sy Pre-transform scale factor for y coordinates.
+     *  @param m Transformation matrix.
+     *  @param result The tangent is returned as vector (x, y) in result.
+     */
+    override public function getTangent(prev:PathSegment, start:Boolean, sx:Number, sy:Number, m:Matrix, result:Point):void
+    {
+        var pt0:Point = MatrixUtil.transformPoint(prev ? prev.x * sx : 0, prev ? prev.y * sy : 0, m).clone();
+        var pt1:Point = MatrixUtil.transformPoint(x * sx, y * sy, m);
 
+        result.x = pt1.x - pt0.x;
+        result.y = pt1.y - pt0.y;
+    }
 }
-
 
 //--------------------------------------------------------------------------
 //
@@ -1347,6 +1748,76 @@ class CubicBezierSegment extends PathSegment
         return rect;
     }
     
+    /**
+     *  Returns the tangent for the segment. 
+     *  @param prev The previous segment drawn, or null if this is the first segment.
+     *  @param start If true, returns the tangent to the start point, otherwise the tangend to the end point.
+     *  @param sx Pre-transform scale factor for x coordinates.
+     *  @param sy Pre-transform scale factor for y coordinates.
+     *  @param m Transformation matrix.
+     *  @param result The tangent is returned as vector (x, y) in result.
+     */
+    override public function getTangent(prev:PathSegment, start:Boolean, sx:Number, sy:Number, m:Matrix, result:Point):void
+    {
+        // Get the approximation (we want the tangents to be the same as the ones we use to draw
+        var qPts:QuadraticPoints = getQuadraticPoints(prev);
+
+        var pt0:Point = MatrixUtil.transformPoint(prev ? prev.x * sx : 0, prev ? prev.y * sy : 0, m).clone();
+        var pt1:Point = MatrixUtil.transformPoint(qPts.control1.x * sx, qPts.control1.y * sy, m).clone();
+        var pt2:Point = MatrixUtil.transformPoint(qPts.anchor1.x * sx, qPts.anchor1.y * sy, m).clone();
+        var pt3:Point = MatrixUtil.transformPoint(qPts.control2.x * sx, qPts.control2.y * sy, m).clone();
+        var pt4:Point = MatrixUtil.transformPoint(qPts.anchor2.x * sx, qPts.anchor2.y * sy, m).clone();
+        var pt5:Point = MatrixUtil.transformPoint(qPts.control3.x * sx, qPts.control3.y * sy, m).clone();
+        var pt6:Point = MatrixUtil.transformPoint(qPts.anchor3.x * sx, qPts.anchor3.y * sy, m).clone();
+        var pt7:Point = MatrixUtil.transformPoint(qPts.control4.x * sx, qPts.control4.y * sy, m).clone();
+        var pt8:Point = MatrixUtil.transformPoint(qPts.anchor4.x * sx, qPts.anchor4.y * sy, m).clone();
+        
+        if (start)
+        {
+            QuadraticBezierSegment.getQTangent(pt0.x, pt0.y, pt1.x, pt1.y, pt2.x, pt2.y, start, result);
+            // If there is no tangent
+            if (result.x == 0 && result.y == 0)
+            {
+                // Try 3 & 4
+                QuadraticBezierSegment.getQTangent(pt0.x, pt0.y, pt3.x, pt3.y, pt4.x, pt4.y, start, result);
+                
+                // If there is no tangent
+                if (result.x == 0 && result.y == 0)
+                {
+                    // Try 5 & 6
+                    QuadraticBezierSegment.getQTangent(pt0.x, pt0.y, pt5.x, pt5.y, pt6.x, pt6.y, start, result);
+
+                    // If there is no tangent
+                    if (result.x == 0 && result.y == 0)
+                        // Try 7 & 8
+                        QuadraticBezierSegment.getQTangent(pt0.x, pt0.y, pt7.x, pt7.y, pt8.x, pt8.y, start, result);
+                }
+            }
+        }
+        else
+        {
+            QuadraticBezierSegment.getQTangent(pt6.x, pt6.y, pt7.x, pt7.y, pt8.x, pt8.y, start, result);
+            // If there is no tangent
+            if (result.x == 0 && result.y == 0)
+            {
+                // Try 4 & 5
+                QuadraticBezierSegment.getQTangent(pt4.x, pt4.y, pt5.x, pt5.y, pt8.x, pt8.y, start, result);
+                
+                // If there is no tangent
+                if (result.x == 0 && result.y == 0)
+                {
+                    // Try 2 & 3
+                    QuadraticBezierSegment.getQTangent(pt2.x, pt2.y, pt3.x, pt3.y, pt8.x, pt8.y, start, result);
+                    
+                    // If there is no tangent
+                    if (result.x == 0 && result.y == 0)
+                        // Try 0 & 1
+                        QuadraticBezierSegment.getQTangent(pt0.x, pt0.y, pt1.x, pt1.y, pt8.x, pt8.y, start, result);
+                }
+            }
+        }
+    }    
+    
     /** 
      *  @private
      *  Tim Groleau's method to approximate a cubic bezier with 4 quadratic beziers, 
@@ -1563,6 +2034,58 @@ class QuadraticBezierSegment extends PathSegment
     override public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
     {
         graphicsPath.curveTo(dx+control1X*sx, dy+control1Y*sy, dx+x*sx, dy+y*sy);
+    }
+    
+    static public function getQTangent(x0:Number, y0:Number,
+                                       x1:Number, y1:Number,
+                                       x2:Number, y2:Number,
+                                       start:Boolean,
+                                       result:Point):void
+    {
+        if (start)
+        {
+            if (x0 == x1 && y0 == y1)
+            {
+                result.x = x2 - x0;
+                result.y = y2 - y0;
+            }
+            else
+            {
+                result.x = x1 - x0;
+                result.y = y1 - y0;
+            }
+        }
+        else
+        {
+            if (x2 == x1 && y2 == y1)
+            {
+                result.x = x2 - x0;
+                result.y = y2 - y0;
+            }
+            else
+            {
+                result.x = x2 - x1;
+                result.y = y2 - y1;
+            }
+        }
+    }
+
+    /**
+     *  Returns the tangent for the segment. 
+     *  @param prev The previous segment drawn, or null if this is the first segment.
+     *  @param start If true, returns the tangent to the start point, otherwise the tangend to the end point.
+     *  @param sx Pre-transform scale factor for x coordinates.
+     *  @param sy Pre-transform scale factor for y coordinates.
+     *  @param m Transformation matrix.
+     *  @param result The tangent is returned as vector (x, y) in result.
+     */
+    override public function getTangent(prev:PathSegment, start:Boolean, sx:Number, sy:Number, m:Matrix, result:Point):void
+    {
+        var pt0:Point = MatrixUtil.transformPoint(prev ? prev.x * sx : 0, prev ? prev.y * sy : 0, m).clone();
+        var pt1:Point = MatrixUtil.transformPoint(control1X * sx, control1Y * sy, m).clone();;
+        var pt2:Point = MatrixUtil.transformPoint(x * sx, y * sy, m).clone();
+        
+        getQTangent(pt0.x, pt0.y, pt1.x, pt1.y, pt2.x, pt2.y, start, result);
     }
 
     /**
