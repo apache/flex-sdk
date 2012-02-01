@@ -35,13 +35,14 @@ use namespace mx_internal;
 /**
  *  The CurrencyValidator class ensures that a String represents a valid
  *  currency amount according to the conventions of a locale.
+ *  This class uses the <code>locale</code> style for specifying the Locale ID.
  *
- *  <p>It can ensure that a currency string falls within a given range
+ *  <p>The validator can ensure that a currency string falls within a given range
  *  (specified by <code>minValue</code> and <code>maxValue</code> properties),
  *  is an integer (specified by <code>domain</code> property),
  *  is non-negative (specified by <code>allowNegative</code> property),
  *  has the grouping of digits correct according to the locale conventions,
- *  has the correct way of specifying negative numbers and postive numbers,
+ *  has the correct way of specifying negative numbers and positive numbers,
  *  has the correct currency ISO code or currency symbol,
  *  and does not exceed the specified <code>fractionalDigits</code>. The
  *  validator sets default property values from the operating system supplied
@@ -49,56 +50,29 @@ use namespace mx_internal;
  *
  *  <p>This class internally uses the
  *  <code>flash.globalization.CurrencyFormatter</code> for acquiring
- *  locale-specific validation data and parsing functionality.
- *  The CurrencyValidator class can be used in MXML declarations or can be
- *  used in ActionScript code.
- *  This class uses the locale style for specifying the Locale ID,
- *  and has methods and properties that are bindable.</p>
- *  <p>
- *  The flash.globalization.CurrencyFormatter class uses the underlying
+ *  locale-specific validation data and parsing functionality.</p>
+ * 
+ *  <p>The flash.globalization.CurrencyFormatter class uses the underlying
  *  operating system to supply the locale specific data. In case the operating
  *  system does not provide currency formatting, this class provides fallback
- *  functionality.
- *  </p>
+ *  functionality.</p>
  *
  *  @mxml
  *
- *  <p>The <code>&lt;spark:CurrencyValidator&gt;</code> tag
+ *  <p>The <code>&lt;s:CurrencyValidator&gt;</code> tag
  *  inherits all of the tag attributes of its superclass,
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;spark:CurrencyValidator
- *    allowNegative="true|false"
- *    currencyISOCode="(locale specified or cutomized by user)."
- *    currencySymbol="(locale specified or cutomized by user)."
- *    decimalPointCountError="The decimal separator can only occur once."
- *    decimalSeparator="(locale specified string or customized by user)."
- *    domain="real|int"
- *    exceedsMaxError="The number entered is too large."
- *    integerError="The number must be an integer."
- *    invalidCharError="The input contains invalid characters."
- *    invalidFormatCharsError="One of the formatting parameters is invalid."
- *    lowerThanMinError="The amount entered is too small."
- *    maxValue="NaN"
- *    minValue="NaN"
- *    negativeError="The amount may not be negative."
- *    negativeCurrencyFormat="(locale specified or cutomized by user)."
- *    positiveCurrencyFormat="(locale specified or cutomized by user)."
- *    negativeCurrencyFormatError="The negative format of the input currency is
- *    incorrect."
- *    positiveCurrencyFormatError="The positive format of the input currency is
- *    incorrect."
- *    negativeNumberFormatError="The negative format of the input number is
- *    incorrect."
- *    negativeSymbol="(locale specified read-only string)."
- *    negativeSymbolError="The negative symbol is repeated or not in right
- *    place."
- *    parseError="The input string could not be parsed."
- *    fractionalDigits="(locale specified number or customized by user)."
- *    fractionalDigitsError="The amount entered has too many digits beyond the
- *    decimal point."
- *    groupingSeparator="(locale specified string or customized by user)."
+ *  &lt;s:CurrencyValidator
+ *    <strong>Properties</strong>
+ *    currencyISOCode="<i>locale specified string or customized by user</i>."
+ *    currencyStringError="Currency name is repeated or not correct."
+ *    currencySymbol="<i>locale specified string or customized by user</i>."
+ *    negativeCurrencyFormat="<i>locale specified string or customized by user</i>."
+ *    negativeCurrencyFormatError="The negative format of the input currency is incorrect."
+ *    positiveCurrencyFormat="<i>locale specified string or customized by user</i>."
+ *    positiveCurrencyFormatError="The positive format of the input currency is incorrect."
  *  /&gt;
  *  </pre>
  *
@@ -145,54 +119,55 @@ public class CurrencyValidator extends NumberValidatorBase
      *  representing currency amounts according to
      *  the conventions of a given locale.
      *  <p>
-     *  The locale for this class is supplied by the locale style. The
-     *  locale style can be set in several ways:
+     *  The locale for this class is supplied by the <code>locale</code> 
+     *  style property. 
+     *  The <code>locale</code> style can be set in several ways:
      *  </p>
      *  <ul>
      *  <li>
      *  Inheriting the style from a UIComponent by calling the
-     *  UIComponent's addStyleClient method.
+     *  UIComponent's <code>addStyleClient()</code> method.
      *  </li>
      *  <li>
-     *  By using the class in an mxml declaration and inheriting the
+     *  By using the class in an MXML declaration and inheriting the
      *  locale from the document that contains the declaration.
      *  </li>
-     *  <listing version="3.0" >
+     *  <pre>
      *  &lt;fx:Declarations&gt;
      *         &lt;s:CurrencyValidator id="cv" /&gt;
      *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  </pre>
      *  <li>
-     *  By using an mxml declaration and specifying the locale value
+     *  By using an MXML declaration and specifying the locale value
      *  in the list of assignments.
      *  </li>
-     *  <listing version="3.0" >
+     *  <pre>
      *  &lt;fx:Declarations&gt;
      *      &lt;s:CurrencyValidator id="cv_turkish" locale="tr-TR" /&gt;
      *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  </pre>
      *  <li>
-     *  Calling the setStyle method,
-     *  e.g. <code>cv.setStyle("locale", "tr-TR")</code>
+     *  Calling the <code>setStyle()</code> method.
+     *  For example: <code>cv.setStyle("locale", "tr-TR")</code>
      *  </li>
      *  </ul>
      *  <p>
-     *  If the locale style is not set by one of the above techniques,
-     *  the methods of this class that depend on the locale
-     *  will throw an error.
-     *  </p>         *
+     *  If the <code>locale</code> style is not set by one of the above techniques,
+     *  the methods of this class that depend on the locale throw an error.
+     *  </p>         
      *  <p>The properties related to the currency string format are set to
      *     default values based on the locale.</p>
      *
      *  <p><strong>NOTE:</strong> When a fallback locale is used, the currency
      *  properties are set to default values,
-     *  and therefore may not match the currency for which the validation is
-     *  intended. It is a good idea to
-     *  examine the currencySymbol and currencyISOCode property values before
+     *  and therefore might not match the currency for which the validation is
+     *  intended. 
+     *  It is a good idea to examine the <code>currencySymbol</code> 
+     *  and <code>currencyISOCode</code> property values before
      *  validating a currency amount.
      *  </p>
      *
-     *  @see actualLocaleIDName
+     *  @see flash.globalization.CurrencyFormatter#actualLocaleIDName
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -265,7 +240,8 @@ public class CurrencyValidator extends NumberValidatorBase
      *  locale is used this property reflects the preferred, default
      *  currency code for the fallback locale.</p>
      *
-     *  @default dependent on the actual locale and operating system
+     *  <p>The default value is dependent on the actual locale 
+     *  and operating system.</p>
      *
      *  @see #validate()
      *  @see #currencySymbol
@@ -331,7 +307,8 @@ public class CurrencyValidator extends NumberValidatorBase
      *  locale is used this property reflects the preferred, default
      *  currency symbol for the fallback locale.</p>
      *
-     *  @default dependent on the actual locale and operating system
+     *  <p>The default value is dependent on the actual locale 
+     *  and operating system.</p>
      *
      *  @see #format()
      *  @see #setCurrency()
@@ -391,7 +368,7 @@ public class CurrencyValidator extends NumberValidatorBase
                         enumeration="0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15")]
 
     /**
-     *   A numeric value that indicates a validating pattern for negative
+     *  A numeric value that indicates a validating pattern for negative
      *  currency amounts. This property defines the location of the
      *  currency symbol and the negative symbol or parentheses in
      *  relation to the numeric portion of the currency
@@ -401,9 +378,6 @@ public class CurrencyValidator extends NumberValidatorBase
      *   <p>The value of this property must be one of the constants
      *  defined in the table below.
      *  </p>
-     *
-     *  <p> The table below summarizes the possible patterns
-     *  for negative currency amounts. </p>
      *
      *  <ul>
      *   <li>The '&#164;' symbol represents the location of the currencyISOCode
@@ -485,7 +459,8 @@ public class CurrencyValidator extends NumberValidatorBase
      *        </tr>
      *    </table>
      *
-     *  @default dependent on the actual locale and operating system
+     *  <p>The default value is dependent on the actual locale 
+     *  and operating system.</p>
      *
      *  @throws ArgumentError if the assigned value is not between 0 and 15.
      *
@@ -532,12 +507,8 @@ public class CurrencyValidator extends NumberValidatorBase
      *  defined in the table below.
      *  </p>
      *
-     *  <p> The table below summarizes the possible patterns
-     *  for positive currency amounts.
-     *  </p>
-     *
      *  <ul>
-     *   <li>The '&#164;' symbol irepresents the location of the currencyISOCode
+     *   <li>The '&#164;' symbol represents the location of the currencyISOCode
      *       or the currencySymbol in the currency string.</li>
      *   <li>The 'n' character represents the location of the currencyISOCode or
      *       the currencySymbol in the currency string.</li>
@@ -566,9 +537,10 @@ public class CurrencyValidator extends NumberValidatorBase
      *        </tr>
      *    </table>
      *
-     *  @throws ArgumentError if the assigned value is not between 0 and 3.
+     *  <p>The default value is dependent on the actual locale 
+     *  and operating system.</p>
      *
-     *  @default dependent on the actual locale and operating system
+     *  @throws ArgumentError if the assigned value is not between 0 and 3.
      *
      *  @see #currencySymbol
      *  @see #format()
