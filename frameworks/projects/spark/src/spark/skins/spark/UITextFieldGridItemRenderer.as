@@ -46,12 +46,25 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+// These must be inherited to work correctly.
+
+[Exclude(name="layoutDirection", kind="property")]
+[Exclude(name="layoutDirection", kind="style")]
+
 /**
- *   A simple and efficent IGridItemRenderer that displays a single text label.  For 
+ *   A simple and efficient IGridItemRenderer that displays a single text label.  For 
  *   applications displaying Grids with large numbers of visible cells, this renderer
  *   provides optimum performance on Windows.   It is based on TextField, not FTE, 
  *   so it lacks support for some Spark text features.
  * 
+ *   <p>UITextFieldGridItemRenderer will inherit its 
+ *   <code>layoutDirection</code> from its parent.  
+ *   It should not be set directly on UITextFieldGridItemRenderer.</p>
+ *
  *   <p>Label text wrapping can be controlled with the lineBreak style.  For example
  *   a DataGrid configured like this:
  *   <code>lineBreak="explicit" variableRowHeight="false"</code> yields fixed height
