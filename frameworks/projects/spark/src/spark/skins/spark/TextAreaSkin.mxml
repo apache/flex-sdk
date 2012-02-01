@@ -79,7 +79,8 @@
 
     <!--- Defines the scroller used to scroll the RichEditableText. -->
     <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0">
-        <s:RichEditableText id="textView" 
+        <s:RichEditableText id="textView"
+                  heightInLines="10"
                   paddingLeft="4" paddingTop="4"
                   paddingRight="4" paddingBottom="4"/>
     </s:Scroller>
