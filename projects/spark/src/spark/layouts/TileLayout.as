@@ -18,6 +18,9 @@ import mx.core.ILayoutElement;
 import mx.events.PropertyChangeEvent;
 import mx.layout.HorizontalAlign;
 import mx.layout.LayoutBase;
+import mx.layout.TileJustifyColumns;
+import mx.layout.TileJustifyRows;
+import mx.layout.TileOrientation;
 import mx.layout.VerticalAlign;
 
 /**
@@ -464,20 +467,22 @@ public class TileLayout extends LayoutBase
     //  justifyColumns
     //----------------------------------
 
-    // TODO EGeorgie: add String enum
-    private var _justifyColumns:String = "none";
+    private var _justifyColumns:String = TileJustifyColumns.NONE;
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="none,gapSize,columnSize", defaultValue="none")]
 
     /**
      *  Specifies how to justify the fully visible columns to the container width.
-     *  Supported values are "none", "gapSize", "columnSize".
+     *  ActionScript values can be <code>TileJustifyColumns.NONE</code>, <code>TileJustifyColumns.GAPSIZE</code>
+     *  and <code>TileJustifyColumns.COLUMNSIZE</code>.
+     *  MXML values can be <code>"none"</code>, <code>"gapSize"</code> and <code>"columnSize"</code>.
      *
-     *  <p>When set to "none" - turns column justification off, there may
+     *  <p>When set to <code>TileJustifyColumns.NONE</code> - turns column justification off, there may
      *  be partially visible columns or whitespace between the last column and
      *  the right edge of the container.  This is the default value.</p>
      *
-     *  <p>When set to "gapSize" - the <code>horizontalGap</code> actual value will increase so that
+     *  <p>When set to <code>TileJustifyColumns.GAPSIZE</code> - the <code>horizontalGap</code>
+     *  actual value will increase so that
      *  the last fully visible column right edge aligns with the container's right edge.
      *  In case there is only a single fully visible column, the <code>horizontalGap</code> actual value
      *  will increase so that it pushes any partially visible column just beyond the right edge
@@ -485,7 +490,8 @@ public class TileLayout extends LayoutBase
      *  justification, but just determines the initial gap value, and after thatn justification
      *  may increases it.</p>
      *
-     *  <p>When set to "columnSize" - the <code>columnWidth</code> actual value will increase so that
+     *  <p>When set to <code>TileJustifyColumns.COLUMNSIZE</code> - the <code>columnWidth</code>
+     *  actual value will increase so that
      *  the last fully visible column right edge aligns with the container's right edge.  Note that
      *  explicitly setting the <code>columnWidth</code> does not turn off justification, but simply
      *  determines the initial column width value, and after that justification may increases it.</p>
@@ -493,7 +499,7 @@ public class TileLayout extends LayoutBase
      *  @see #horizontalGap
      *  @see #columnWidth
      *  @see #justifyRows
-     *  @default "none"
+     *  @default TileJustifyColumns.NONE
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -521,20 +527,22 @@ public class TileLayout extends LayoutBase
     //  justifyRows
     //----------------------------------
 
-    // TODO EGeorgie: add enum class
-    private var _justifyRows:String = "none";
+    private var _justifyRows:String = TileJustifyRows.NONE;
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="none,gapSize,rowSize", defaultValue="none")]
 
     /**
      *  Specifies how to justify the fully visible rows to the container height.
-     *  Supported values are "none", "gapSize", "rowSize".
+     *  ActionScript values can be <code>TileJustifyRows.NONE</code>, <code>TileJustifyRows.GAPSIZE</code>
+     *  and <code>TileJustifyRows.ROWSIZE</code>.
+     *  MXML values can be <code>"none"</code>, <code>"gapSize"</code> and <code>"rowSize"</code>.
      *
-     *  <p>When set to "none" - turns column justification off, there may
+     *  <p>When set to <code>TileJustifyRows.NONE</code> - turns column justification off, there may
      *  be partially visible rows or whitespace between the last row and
      *  the bottom edge of the container.  This is the default value.</p>
      *
-     *  <p>When set to "gapSize" - the <code>verticalGap</code> actual value will increase so that
+     *  <p>When set to <code>TileJustifyRows.GAPSIZE</code> - the <code>verticalGap</code>
+     *  actual value will increase so that
      *  the last fully visible row bottom edge aligns with the container's bottom edge.
      *  In case there is only a single fully visible row, the <code>verticalGap</code> actual value
      *  will increase so that it pushes any partially visible row just beyond the bottom edge
@@ -542,7 +550,8 @@ public class TileLayout extends LayoutBase
      *  justification, but just determines the initial gap value, and after that justification
      *  may increases it.</p>
      *
-     *  <p>When set to "rowSize" - the <code>rowHeight</code> actual value will increase so that
+     *  <p>When set to <code>TileJustifyRows.ROWSIZE</code> - the <code>rowHeight</code>
+     *  actual value will increase so that
      *  the last fully visible row bottom edge aligns with the container's bottom edge.  Note that
      *  explicitly setting the <code>rowHeight</code> does not turn off justification, but simply
      *  determines the initial row height value, and after that justification may increases it.</p>
@@ -550,7 +559,7 @@ public class TileLayout extends LayoutBase
      *  @see #verticalGap
      *  @see #rowHeight
      *  @see #justifyColumns
-     *  @default "none"
+     *  @default TileJustifyRows.NONE
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -578,18 +587,19 @@ public class TileLayout extends LayoutBase
     //  orientation
     //----------------------------------
 
-    // TODO EGeorgie: add an enum instead of hardcoding
     private var _orientation:String = "rows";
 
     [Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="rows,columns", defaultValue="rows")]
 
     /**
-     *  Determines whether elements are arranged row by row or
+     *  Specifies whether elements are arranged row by row or
      *  column by column.
-     *  Supported values are "rows", "columns".
+     *  ActionScript values can be <code>TileOrientation.ROWS</code> and 
+     *  <code>TileOrientation.COLUMNS</code>.
+     *  MXML values can be <code>"rows"</code> and <code>"columns"</code>.
      *
-     *  @default "rows"
+     *  @default TileOrientation.ROWS
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -709,20 +719,20 @@ public class TileLayout extends LayoutBase
         // Justify
         switch(justifyColumns)
         {
-            case "gapSize":
+            case TileJustifyColumns.GAPSIZE:
                 _horizontalGap = justifyByGapSize(width, _columnWidth, _horizontalGap, _columnCount);
             break;
-            case "columnSize":
+            case TileJustifyColumns.COLUMNSIZE:
                 _columnWidth = justifyByElementSize(width, _columnWidth, _horizontalGap, _columnCount);
             break;
         }
 
         switch(justifyRows)
         {
-            case "gapSize":
+            case TileJustifyRows.GAPSIZE:
                 _verticalGap = justifyByGapSize(height, _rowHeight, _verticalGap, _rowCount);
             break;
-            case "rowSize":
+            case TileJustifyRows.ROWSIZE:
                 _rowHeight = justifyByElementSize(height, _rowHeight, _verticalGap, _rowCount);
             break;
         }
@@ -740,6 +750,22 @@ public class TileLayout extends LayoutBase
             else
                 _columnCount = Math.max(_columnCount, Math.ceil(elementCount / Math.max(1, explicitRowCount)));
         }
+    }
+    
+    /**
+     *  @private
+     *  Returns true, if the dimensions (colCounr1, rowCount1) are more square than (colCount2, rowCount2).
+     *  Squareness is the difference between width and height of a tile layout
+     *  with the specified number of columns and rows.
+     */
+    private function closerToSquare(colCount1:int, rowCount1:int, colCount2:int, rowCount2:int):Boolean
+    {
+        var difference1:Number = Math.abs(colCount1 * (_columnWidth + _horizontalGap) - _horizontalGap - 
+                                          rowCount1 * (_rowHeight   +   _verticalGap) + _verticalGap);
+        var difference2:Number = Math.abs(colCount2 * (_columnWidth + _horizontalGap) - _horizontalGap - 
+                                          rowCount2 * (_rowHeight   +   _verticalGap) + _verticalGap);
+        
+        return difference1 < difference2 || (difference1 == difference2 && rowCount1 <= rowCount2);
     }
 
     /**
@@ -798,26 +824,37 @@ public class TileLayout extends LayoutBase
             // We are guaranteed that we have only one positive root, since d >= b:
             var rowCount:Number = (a != 0) ? (b + d) / (2 * a) : elementCount;
 
-            var row1:int = Math.max(1, Math.round(rowCount));
+            // To get integer count for the columns/rows we round up and down so
+            // we get four possible solutions. Then we pick the best one.
+            var row1:int = Math.max(1, Math.floor(rowCount));
             var col1:int = Math.max(1, Math.ceil(elementCount / row1));
+            row1 = Math.max(1, Math.ceil(elementCount / col1));
 
-            // Now try to reduce the bigger dimension and see if we can come up with a better distribution
-            var row2:int;
-            var col2:int;
-            if (col1 * (_columnWidth + hGap) - hGap > row1 * (_rowHeight + vGap) - vGap)
+            var row2:int = Math.max(1, Math.ceil(rowCount));
+            var col2:int = Math.max(1, Math.ceil(elementCount / row2));
+            row2 = Math.max(1, Math.ceil(elementCount / col2));
+
+            var col3:int = Math.max(1, Math.floor(elementCount / rowCount));
+            var row3:int = Math.max(1, Math.ceil(elementCount / col3));
+            col3 = Math.max(1, Math.ceil(elementCount / row3));
+
+            var col4:int = Math.max(1, Math.ceil(elementCount / rowCount));
+            var row4:int = Math.max(1, Math.ceil(elementCount / col4));
+            col4 = Math.max(1, Math.ceil(elementCount / row4));
+
+            if (closerToSquare(col3, row3, col1, row1))
             {
-                col2 = Math.max(1, col1 - 1);
-                row2 = Math.max(1, Math.ceil(elementCount / col2));
-            }
-            else
-            {
-                row2 = Math.max(1, row2 - 1);
-                col2 = Math.max(1, Math.ceil(elementCount / row2));
+                col1 = col3;
+                row1 = row3;
             }
 
-            // Pick the better one of the two
-            if (Math.abs(col1 * (_columnWidth + hGap) - hGap - row1 * (_rowHeight + vGap) + vGap) <=
-                Math.abs(col2 * (_columnWidth + hGap) - hGap - row2 * (_rowHeight + vGap) + vGap))
+            if (closerToSquare(col4, row4, col2, row2))
+            {
+                col2 = col4;
+                row2 = row4;
+            }
+
+            if (closerToSquare(col1, row1, col2, row2))
             {
                 _columnCount = col1;
                 _rowCount = row1;
@@ -1008,8 +1045,8 @@ public class TileLayout extends LayoutBase
             childHeight = element.getPreferredBoundsHeight();
 
         // Enforce min and max limits
-        var maxChildWidth:Number = Math.min(element.getMaxBoundsWidth(), _columnWidth);
-        var maxChildHeight:Number = Math.min(element.getMaxBoundsHeight(), _rowHeight);
+        var maxChildWidth:Number = Math.min(element.getMaxBoundsWidth(), cellWidth);
+        var maxChildHeight:Number = Math.min(element.getMaxBoundsHeight(), cellHeight);
         // Make sure we enforce element's minimum last, since it has the highest priority
         childWidth = Math.max(element.getMinBoundsWidth(), Math.min(maxChildWidth, childWidth));
         childHeight = Math.max(element.getMinBoundsHeight(), Math.min(maxChildHeight, childHeight));
