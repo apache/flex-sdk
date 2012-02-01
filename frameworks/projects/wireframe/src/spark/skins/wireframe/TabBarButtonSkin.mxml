@@ -51,7 +51,7 @@ in accordance with the terms of the license agreement accompanying it.
     <!-- fill -->
     <s:Rect left="1" right="1" top="1" bottom="1" topLeftRadiusX="4" topRightRadiusX="4" width="69" height="21">
         <s:fill>
-            <s:SolidColor color="#FFFFFF" color.over="#EEEEEE" color.down="#EEEEEE" color.selectedStates="#EEEEEE" />
+            <s:SolidColor color="#FFFFFF" color.over="#EEEEEE" color.down="#DDDDDD" color.selectedStates="#DDDDDD" />
         </s:fill>
     </s:Rect>
         
