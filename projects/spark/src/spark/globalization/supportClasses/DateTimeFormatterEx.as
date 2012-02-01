@@ -77,8 +77,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
         /(^(?:[^'m]*(?:'[^']*')*[^m']*)*)(m+('分'|分|'분'|분)?)/;
     private static const REGEXP_SECOND:RegExp =
         /(^(?:[^'s]*(?:'[^']*')*[^s']*)*)(s+('秒'|秒|'초'|초)?)/;
-    private static const REGEXP_AMPM:RegExp =
-        /(^(?:[^'a]*(?:'[^']*')*[^a']*)*)(a+)/;
+    private static const REGEXP_AMPM:RegExp =  /^(.*)(a)(?:[^']*'[^']*')*[^']*$/; 
     private static const REGEXP_DAYOFWEEK:RegExp =
         /(^(?:[^'E]*(?:'[^']*')*[^E']*)*)(E+)/;
     
@@ -825,7 +824,12 @@ public class DateTimeFormatterEx extends DateTimeFormatter
         if (pattern)
         {
             // 'L' is not supported by most systems so relace with 'M'
+            // Problem if pattern has L or c in string literals. 
+            // TBD: Discuss with Masa.
             pattern = pattern.replace(/L/g, "M");
+            // ru locale uses c as symbol for day name of the week instead E.
+            // catering to only skeleton patterns.
+            pattern = pattern.replace(/ccc/g, "EEE");
         }
         
         return pattern;
