@@ -268,8 +268,6 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
 		_fill.begin(g, new Rectangle(w, h));
 		g.drawRect(0, 0, w, h);
 		_fill.end(g);
-		
-		applyDisplayObjectProperties();
 	}
 	
 	//--------------------------------------------------------------------------
