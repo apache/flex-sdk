@@ -445,7 +445,7 @@ public final class LinearLayoutVector
             block.sizesSum += value;
             block.defaultCount -= 1;
         }
-        for(var i:int = BLOCK_SIZE - 2; i >= startIndex; i--)
+        for (var i:int = BLOCK_SIZE - 2; i >= startIndex; i--)
             sizes[i + 1] = sizes[i];
         sizes[startIndex] = value;
         return lastSize;
@@ -515,7 +515,7 @@ public final class LinearLayoutVector
             block.sizesSum += lastValue;
             block.defaultCount -= 1;
         }
-        for(var i:int = removeIndex; i < BLOCK_SIZE - 1; i++)
+        for (var i:int = removeIndex; i < BLOCK_SIZE - 1; i++)
             sizes[i] = sizes[i + 1];
         sizes[BLOCK_SIZE - 1] = lastValue;
     }
@@ -603,7 +603,7 @@ public final class LinearLayoutVector
         if (lastBlock)
         {
             var sizes:Vector.<Number> = lastBlock.sizes;
-            for(i = 0; i < lastBlockLength; i++)
+            for (i = 0; i < lastBlockLength; i++)
             {
                 var size:Number = sizes[i];
                 distance += (isNaN(size)) ? _defaultMajorSize : size;
