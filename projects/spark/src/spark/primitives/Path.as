@@ -758,7 +758,7 @@ public class Path extends FilledElement
             fill.begin(g, bounds);
     }
  
-    //TODO: these are a short term fix for MAX to work around the fact
+    // FIXME (egeorgie): these are a short term fix for MAX to work around the fact
     //that graphic elements can't differentiate between owning a display object
     //and sharing one.  The problem is, a previous graphic element might be
     //moving our display object around, messing with our drawX/drawY.
@@ -775,7 +775,7 @@ public class Path extends FilledElement
      */    
     override protected function draw(g:Graphics):void
     {
-        //TODO: temporary check until DOsharing and graphics caching is cleaned up
+        // FIXME (egeorgie): temporary check until DOsharing and graphics caching is cleaned up
         //after MAX.  See above.
         if(drawX !=  _drawBounds.x || drawY !=  _drawBounds.y ||
             width !=  _drawBounds.width || height !=  _drawBounds.height)
