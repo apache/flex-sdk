@@ -68,7 +68,7 @@ public class BitmapUtil
     {
         var width:Number = target.width;
         var height:Number = target.height;
-        var m:Matrix = MatrixUtil.getConcatenatedComputedMatrix(target as DisplayObject);
+        var m:Matrix = MatrixUtil.getConcatenatedComputedMatrix(target as DisplayObject, false /*excludingRootSprite*/);
         
         var position:Point = new Point(-padding, -padding);
         var size:Point = MatrixUtil.transformBounds(width + padding * 2, 
@@ -126,7 +126,7 @@ public class BitmapUtil
     {
         // DisplayObject.getBounds() is not sufficient; we need the same
         // bounds as those used internally by the player
-        var m:Matrix = MatrixUtil.getConcatenatedComputedMatrix(target as DisplayObject);
+        var m:Matrix = MatrixUtil.getConcatenatedComputedMatrix(target as DisplayObject, false /*excludingRootSprite*/);
         var bounds:Rectangle = getRealBounds(DisplayObject(target), m);
         if (visibleBounds != null)
         {
