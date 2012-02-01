@@ -12,7 +12,7 @@
 -->
 
 <SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
-	  minWidth="15" minHeight="85"
+	  minWidth="15" minHeight="35"
 	  alpha.disabled="0.5">
 
     <Metadata>
@@ -31,7 +31,7 @@
     	<State name="disabled" />
     </states>
    
-    <FxButton id="track" top="16" bottom="15"
+    <FxButton id="track" top="16" bottom="15" height="54"
               skinClass="mx.skins.spark.FxVScrollBarTrackSkin" />
     <FxButton id="thumb" skinClass="mx.skins.spark.FxVScrollBarThumbSkin" />
     <FxButton id="decrementButton" top="0"
