@@ -675,6 +675,7 @@ public class TileLayout extends LayoutBase
             return;
 
         _orientation = value;
+        _tileWidthCached = _tileHeightCached = NaN;
         invalidateTargetSizeAndDisplayList();
     }
 
@@ -1542,7 +1543,24 @@ public class TileLayout extends LayoutBase
     /**
      *  @private
      */
-    override protected function elementBoundsLeftOfScrollRect(scrollRect:Rectangle):Rectangle
+    override protected function getElementBounds(index:int):Rectangle
+    {
+        if (!useVirtualLayout)
+            return super.getElementBounds(index);
+
+        var g:GroupBase = GroupBase(target);
+        if (!g || (index < 0) || (index >= g.numElements)) 
+            return null;
+
+        var col:int = index % _columnCount;
+        var row:int = index / Math.max(1, _columnCount);
+        return new Rectangle(leftEdge(col), topEdge(row), _columnWidth, _rowHeight);
+    }
+
+    /**
+     *  @private
+     */
+    override protected function getElementBoundsLeftOfScrollRect(scrollRect:Rectangle):Rectangle
     {
         var bounds:Rectangle = new Rectangle();
         // Find the column that spans or is to the left of the scrollRect left edge.
@@ -1555,7 +1573,7 @@ public class TileLayout extends LayoutBase
     /**
      *  @private
      */
-    override protected function elementBoundsRightOfScrollRect(scrollRect:Rectangle):Rectangle
+    override protected function getElementBoundsRightOfScrollRect(scrollRect:Rectangle):Rectangle
     {
         var bounds:Rectangle = new Rectangle();
         // Find the column that spans or is to the right of the scrollRect right edge.
@@ -1568,7 +1586,7 @@ public class TileLayout extends LayoutBase
     /**
      *  @private
      */
-    override protected function elementBoundsAboveScrollRect(scrollRect:Rectangle):Rectangle
+    override protected function getElementBoundsAboveScrollRect(scrollRect:Rectangle):Rectangle
     {
         var bounds:Rectangle = new Rectangle();
         // Find the row that spans or is above the scrollRect top edge
@@ -1581,7 +1599,7 @@ public class TileLayout extends LayoutBase
     /**
      *  @private
      */
-    override protected function elementBoundsBelowScrollRect(scrollRect:Rectangle):Rectangle
+    override protected function getElementBoundsBelowScrollRect(scrollRect:Rectangle):Rectangle
     {
         var bounds:Rectangle = new Rectangle();
         // Find the row that spans or is below the scrollRect bottom edge
