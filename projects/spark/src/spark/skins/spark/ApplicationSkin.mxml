@@ -2,37 +2,43 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The default skin class for the Spark Application component. -->
+<!--- The default skin class for the Spark Application component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
     alpha.disabled="0.5" >
 
     <fx:Metadata>
     <![CDATA[ 
-	/** 
-	 * A strongly typed property that references the component to which this skin is applied.
-	 */
-    	[HostComponent("spark.components.Application")]
+    /** 
+     * A strongly typed property that references the component to which this skin is applied.
+     */
+        [HostComponent("spark.components.Application")]
     ]]>
     </fx:Metadata> 
     
     <s:states>
-    	<s:State name="normal" />
-    	<s:State name="disabled" />
+        <s:State name="normal" />
+        <s:State name="disabled" />
     </s:states>
     
-	<!-- fill -->
+    <!-- fill -->
     <!--- 
-    	A rectangle with a solid color fill that forms the background of the application.
-    	The color of the fill is set to the Application's backgroundColor property.
+        A rectangle with a solid color fill that forms the background of the application.
+        The color of the fill is set to the Application's backgroundColor property.
     -->
     <s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0"  >
         <s:fill>
@@ -41,7 +47,7 @@
     </s:Rect>
         
     <!--- 
-    	@copy spark.components.SkinnableContainer#skinpart:contentGroup
+        @copy spark.components.SkinnableContainer#skinpart:contentGroup
     -->
     <s:Group id="contentGroup" left="0" right="0" top="0" bottom="0" minWidth="0" minHeight="0" />
 
