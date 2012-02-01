@@ -133,22 +133,34 @@
     </s:Rect>
     
     <!-- layer 3: fill lowlight -->
-    <s:Rect id="lowlight" left="1" right="1" bottom="1" height="9" radiusX="2">
+    <s:Rect id="lowlight" left="1" right="1" top="1" bottom="1" radiusX="2">
         <s:fill>
-            <s:LinearGradient rotation="90">
-                <s:GradientEntry color="0x000000" alpha="0.0099" />
-                <s:GradientEntry color="0x000000" alpha="0.0627" />
+            <s:LinearGradient rotation="270">
+                <s:GradientEntry color="0x000000" ratio="0.0" alpha="0.0627" />
+                <s:GradientEntry color="0x000000" ratio="0.48" alpha="0.0099" />
+                <s:GradientEntry color="0x000000" ratio="0.48001" alpha="0" />
             </s:LinearGradient>
         </s:fill>
     </s:Rect>
     
     <!-- layer 4: fill highlight -->
-    <s:Rect id="highlight" left="1" right="1" top="1" height="9" radiusX="2">
+    <s:Rect id="highlight" left="1" right="1" top="1" bottom="1" radiusX="2">
         <s:fill>
-            <s:SolidColor color="0xFFFFFF" 
-                        alpha="0.33" 
-                        alpha.overStates="0.22" 
-                        alpha.downStates="0.12" />
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="0xFFFFFF"
+                                 ratio="0.0"
+                                 alpha="0.33"
+                                 alpha.overStates="0.22" 
+                                 alpha.downStates="0.12"/>
+                <s:GradientEntry color="0xFFFFFF"
+                                 ratio="0.48"
+                                 alpha="0.33"
+                                 alpha.overStates="0.22" 
+                                 alpha.downStates="0.12"/>
+                <s:GradientEntry color="0xFFFFFF"
+                                 ratio="0.48001"
+                                 alpha="0" />
+            </s:LinearGradient>
         </s:fill>
     </s:Rect>
     
