@@ -57,7 +57,6 @@ public class FilledElement extends StrokedElement
      */
      protected var _fill:IFill;
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -76,7 +75,6 @@ public class FilledElement extends StrokedElement
      */
     public function set fill(value:IFill):void
     {
-        var oldValue:IFill = _fill;
         var fillEventDispatcher:EventDispatcher;
         
         fillEventDispatcher = _fill as EventDispatcher;
@@ -93,7 +91,6 @@ public class FilledElement extends StrokedElement
                 PropertyChangeEvent.PROPERTY_CHANGE, 
                 fill_propertyChangeHandler);
             
-        dispatchPropertyChangeEvent("fill", oldValue, _fill);
         invalidateDisplayList();
     }
     
