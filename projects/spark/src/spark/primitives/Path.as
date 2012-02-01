@@ -561,6 +561,29 @@ public class Path extends FilledElement
         return topLeft; 
     }
  
+ 	/**
+ 	 *  @private
+ 	 *  Use measuredX and measuredY instead of drawX and drawY
+ 	 */
+ 	override protected function beginDraw(g:Graphics):void
+    {
+        // Don't call super.beginDraw() since it will also set up an 
+        // invisible fill.
+        
+        // Adjust the position by the internal scale factor
+        var bounds:Rectangle = new Rectangle(drawX + (measuredX * width / measuredWidth),
+        									 drawY + (measuredY * height / measuredHeight),
+        									 width, 
+        									 height);
+        if (stroke)
+            stroke.draw(g, bounds);
+        else
+            g.lineStyle();
+        
+        if (fill)
+            fill.begin(g, bounds);
+    }
+ 
     //TODO: these are a short term fix for MAX to work around the fact
     //that graphic elements can't differentiate between owning a display object
     //and sharing one.  The problem is, a previous graphic element might be
