@@ -10,51 +10,50 @@
 	in accordance with the terms of the license agreement accompanying it.
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
 	  minHeight="11" minWidth="100"
 	  alpha.disabled="0.5">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxHSlider")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.HSlider")]
+    </fx:Metadata> 
     
-    <Script>
+    <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For slider, the skin itself is colorized but the individual parts are not. */
         static private const exclusions:Array = ["track", "thumb"];
         override public function get colorizeExclusions():Array {return exclusions;}
-    </Script>
+    </fx:Script>
     
-    <states>
-    	<State name="normal" />
-    	<State name="disabled" />
-    </states>
+    <s:states>
+    	<s:State name="normal" />
+    	<s:State name="disabled" />
+    </s:states>
     
-    <Declarations>
-    	<Component id="dataTip">    	
-    		<MXMLComponent minHeight="24" minWidth="40" y="-34">	
-				<Rect top="0" left="0" right="0" bottom="0">
-					<fill>
-						<SolidColor color="0x000000" alpha=".9"/>
-					</fill>
-					<filters>
-    					<DropShadowFilter angle="90" color="0x999999" distance="3"/>
-    				</filters>
-				</Rect>
-						
-				<TextBox id="labelElement" text="{data}"
-						 horizontalCenter="0" verticalCenter="1"
-						 left="5" right="5" top="5" bottom="5"
-						 textAlign="center" verticalAlign="middle"
-						 fontWeight="normal" color="white" fontSize="11">
-				</TextBox>
-			</MXMLComponent>
-    	</Component>
-    </Declarations>
+    <fx:Declarations>
+        <fx:Component id="dataTip">    	
+    	   <s:MXMLComponent minHeight="24" minWidth="40" y="-34">  
+    		  <s:Rect top="0" left="0" right="0" bottom="0">
+					<s:fill>
+						<s:SolidColor color="0x000000" alpha=".9"/>
+					</s:fill>
+					<s:filters>
+    					<s:DropShadowFilter angle="90" color="0x999999" distance="3"/>
+    				</s:filters>
+				</s:Rect>
+				<s:SimpleText id="labelElement" text="{data}"
+                         horizontalCenter="0" verticalCenter="1"
+                         left="5" right="5" top="5" bottom="5"
+                         textAlign="center" verticalAlign="middle"
+                         fontWeight="normal" color="white" fontSize="11">
+                </s:SimpleText>
+            </s:MXMLComponent>
+	   </fx:Component>
+	</fx:Declarations>
     
-    <FxButton id="track" left="0" right="0" top="0" bottom="0"
-              skinClass="mx.skins.spark.FxHSliderTrackSkin" />
-    <FxButton id="thumb" top="0" bottom="0" width="11" height="11" 
-              skinClass="mx.skins.spark.FxHSliderThumbSkin" />
+    <s:Button id="track" left="0" right="0" top="0" bottom="0"
+              skinClass="spark.skins.default.HSliderTrackSkin" />
+    <s:Button id="thumb" top="0" bottom="0" width="11" height="11" 
+              skinClass="spark.skins.default.HSliderThumbSkin" />
 
-</SparkSkin>
+</s:SparkSkin>
