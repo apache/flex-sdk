@@ -61,11 +61,14 @@ package spark.filters
  *  &lt;s:GradientGlowFilter/&gt;
  *  </pre>
  *
+ * @see spark.filters.GlowFilter
+ * @see flash.filters.GradientGlowFilter
  * @see flash.display.BitmapData#applyFilter()
  * @see flash.display.DisplayObject#cacheAsBitmap
  * @see flash.display.DisplayObject#filters
- * @see flash.filters.GlowFilter GlowFilter class
  *
+ * @includeExample examples/GradientGlowFilterExample.mxml
+ *  
  * @langversion 3.0
  * @playerversion Flash 10
  * @playerversion AIR 1.5
