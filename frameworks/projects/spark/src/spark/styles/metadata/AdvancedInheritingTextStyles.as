@@ -50,6 +50,26 @@
 [Style(name="leadingModel", type="String", enumeration="auto,romanUp,ideographicTopUp,ideographicCenterUp,ideographicTopDown,ideographicCenterDown,ascentDescentUp", inherit="yes")]
 
 /**
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#listStylePosition
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="listStylePosition", type="String", enumeration="inside,outside", inherit="yes")]
+
+/**
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#listStyleType
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="listStyleType", type="String", enumeration="upperAlpha,lowerAlpha,upperRoman,lowerRoman,none,disc,circle,square,box,check,diamond,hyphen,arabicIndic,bengali,decimal,decimalLeadingZero,devanagari,gujarati,gurmukhi,kannada,persian,thai,urdu,cjkEarthlyBranch,cjkHeavenlyStem,hangul,hangulConstant,hiragana,hiraganaIroha,katakana,katakanaIroha,lowerGreek,lowerLatin,upperGreek,upperLatin", inherit="yes")]
+
+/**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphEndIndent
  *  
  *  @langversion 3.0
