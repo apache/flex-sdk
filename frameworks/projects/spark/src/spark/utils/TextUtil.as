@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.utils
+package spark.utils
 {
 
 import flash.utils.describeType;
@@ -19,6 +19,7 @@ import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.formats.ITextLayoutFormat;
+import mx.utils.StringUtil;
 
 [ExcludeClass]
 
