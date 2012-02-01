@@ -12,7 +12,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#blockProgression
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -24,7 +24,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#breakOpportunity
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -36,7 +36,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#clearFloats
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -48,7 +48,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#firstBaselineOffset
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -60,7 +60,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#leadingModel
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -72,7 +72,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#listAutoPadding
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -84,7 +84,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#listStylePosition
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -96,7 +96,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#listStyleType
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -108,7 +108,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphEndIndent
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -120,7 +120,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphSpaceAfter
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -132,7 +132,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphSpaceBefore
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -144,7 +144,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphStartIndent
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -156,7 +156,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#tabStops
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -166,6 +166,13 @@
 [Style(name="tabStops", type="String", inherit="yes")]
 
 /**
+ *  Offset of first line of text from the left side of the container, in pixels.
+ * .
+ *  <p><i>For the Mobile theme</i>, this property defaults to 0 and cannot be a negative 
+ *  number.</p>
+ * 
+ *  <p><i>For the Spark theme:</i></p>
+ *
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textIndent
  *  
  *  @langversion 3.0
@@ -178,7 +185,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textRotation
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -190,7 +197,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#whiteSpaceCollapse
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -203,7 +210,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#wordSpacing
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <p>This style is not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.5
