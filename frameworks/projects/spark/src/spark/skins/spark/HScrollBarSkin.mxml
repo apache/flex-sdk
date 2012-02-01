@@ -32,11 +32,16 @@
     </states>
     
     <FxButton id="track" left="16" right="15" width="54"
+              focusEnabled="false"
               skinClass="mx.skins.spark.FxHScrollBarTrackSkin" />
-    <FxButton id="thumb" skinClass="mx.skins.spark.FxHScrollBarThumbSkin" />
+    <FxButton id="thumb" 
+              focusEnabled="false"
+              skinClass="mx.skins.spark.FxHScrollBarThumbSkin" />
     <FxButton id="decrementButton" left="0"
+              focusEnabled="false"
               skinClass="mx.skins.spark.FxScrollBarLeftButtonSkin" />
     <FxButton id="incrementButton" right="0"
+              focusEnabled="false"
               skinClass="mx.skins.spark.FxScrollBarRightButtonSkin" />
 
 </SparkSkin>
