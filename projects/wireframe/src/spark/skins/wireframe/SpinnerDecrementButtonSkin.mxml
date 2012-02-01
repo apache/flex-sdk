@@ -11,10 +11,17 @@
 
 -->
 
+<!--- The default skin class for the Spark SpinnerDecrementButton component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
     <fx:Metadata>
-    	[HostComponent("spark.components.Button")]
+        [HostComponent("spark.components.Button")]
     </fx:Metadata> 
     
     <s:states>
@@ -25,24 +32,24 @@
     </s:states>
 
     <!-- border/fill -->
-	<s:Path data="M 0 0 h 18 v 8 Q 18 9 16 10 h -16 Z" 
-		  left="0" top="0" right="0" bottom="0">
+    <s:Path data="M 0 0 h 18 v 8 Q 18 9 16 10 h -16 Z" 
+          left="0" top="0" right="0" bottom="0">
         <s:stroke>
             <s:SolidColorStroke color="0x5380D0" />
         </s:stroke>
         <s:fill>
             <s:SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF" />
         </s:fill>
-	</s:Path>    
+    </s:Path>    
     
     <!-- shadow (down state only) -->
     <s:Rect left="1" top="1" right="1" bottom="1" includeIn="down">
-    	<s:stroke>
-    		<s:LinearGradientStroke rotation="90">
-				<s:GradientEntry color="0x5380D0" alpha="0.25" />
-				<s:GradientEntry color="0x5380D0" alpha="0" />
-			</s:LinearGradientStroke>
-    	</s:stroke>
+        <s:stroke>
+            <s:LinearGradientStroke rotation="90">
+                <s:GradientEntry color="0x5380D0" alpha="0.25" />
+                <s:GradientEntry color="0x5380D0" alpha="0" />
+            </s:LinearGradientStroke>
+        </s:stroke>
     </s:Rect>
 
     <!-- arrow -->
