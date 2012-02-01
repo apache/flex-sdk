@@ -44,7 +44,7 @@ use namespace mx_internal;
  *  @langversion 3.0
  *  @playerversion Flash 11
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class CalendarDate
 {
@@ -71,7 +71,7 @@ public class CalendarDate
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function CalendarDate(date:Date = null)
     {
@@ -104,7 +104,7 @@ public class CalendarDate
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get date():Date
     {
@@ -126,7 +126,7 @@ public class CalendarDate
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get numDaysInMonth():int
     {
@@ -145,7 +145,7 @@ public class CalendarDate
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     private static function getBeginingOfMonth(date:Date):Date
     {
@@ -162,7 +162,7 @@ public class CalendarDate
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     private static function getBeginingOfNextMonth(date:Date):Date
     {
@@ -181,7 +181,7 @@ public class CalendarDate
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     private static function getEndOfMonth(date:Date):Date
     {
