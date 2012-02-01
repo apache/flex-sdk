@@ -86,15 +86,7 @@ public class HorizontalLayout implements ILayout
     //  gap
     //----------------------------------
 
-    /**
-     *  @private
-     */
     private var _gap:int = 6;
-    
-    /**
-     *  @private
-     */
-    private var gapChanged:Boolean = false;
 
     [Inspectable(category="General")]
 
@@ -119,7 +111,6 @@ public class HorizontalLayout implements ILayout
  	   	var layoutTarget:Group = target;
     	if (layoutTarget != null) 
     	{
-			gapChanged = true;
         	layoutTarget.invalidateSize();
             layoutTarget.invalidateDisplayList();
     	}
@@ -139,22 +130,19 @@ public class HorizontalLayout implements ILayout
     //  columnCount
     //----------------------------------
 
-    /**
-     *  @private
-     */
     private var _columnCount:int = -1;
     
-    /**
-     *  @private
-     */
-    private var columnCountChanged:Boolean = false;
-
     [Inspectable(category="General")]
 
     /**
-     *  Number of columns to be displayed.
-     *  If the width of the component has been explicitly set,
-     *  this property might not have any effect.
+     *  Specifies the number of items to display.
+     * 
+     *  If <code>columnCount</code> is -1, then all of them items are displayed.
+     * 
+     *  This value implies the layout's <code>measuredWidth</code>.
+     * 
+     *  If the width of the <code>target</code> has been explicitly set,
+     *  then this property has no effect.
      * 
      *  @default -1
      */
@@ -176,7 +164,6 @@ public class HorizontalLayout implements ILayout
  	   	var layoutTarget:Group = target;
     	if (layoutTarget != null) 
     	{
-    		columnCountChanged = true;
         	layoutTarget.invalidateSize();
             layoutTarget.invalidateDisplayList();
     	}
@@ -208,22 +195,15 @@ public class HorizontalLayout implements ILayout
     //  columnWidth
     //----------------------------------
     
-    /**
-     *  @private
-     */
     private var _columnWidth:Number = 20;
-    
-    /**
-     *  @private
-     */
-    private var columnWidthChanged:Boolean = false;
 
     [Inspectable(category="General")]
 
     /**
-     *  The width of the columns in pixels.
-     *  Unless the <code>variableColumnWidth</code> property is
-     *  <code>true</code>, all columns are the same width.  
+     *  Specifies the width of the columns if <code>variableColumnWidth</code>
+     *  is false.
+     *  
+     *  @default 20
      */
     public function get columnWidth():Number
     {
@@ -243,7 +223,6 @@ public class HorizontalLayout implements ILayout
  		   	var layoutTarget:Group = target;
         	if (layoutTarget != null) 
         	{
-        		columnWidthChanged = true;
             	layoutTarget.invalidateSize();
 	            layoutTarget.invalidateDisplayList();
         	}
@@ -275,6 +254,18 @@ public class HorizontalLayout implements ILayout
     [Inspectable(category="General")]
 
     /**
+     *  If false, i.e. "fixed column width" is specified, the width of
+     *  each item is set to the value of <code>columnWidth</code>.
+     * 
+     *  If the <code>columnWidth</code> property wasn't explicitly set,
+     *  then it's initialized with the <code>measuredWidth</code> of
+     *  the first item.
+     * 
+     *  The items' <code>includeInLayout</code>, 
+     *  <code>measuredWidth</code>, <code>minWidth</code>,
+     *  and <code>percentWidth</code> properties are ignored when 
+     *  <code>variableColumnWidth</code> is false.
+     * 
      *  @default true
      */
     public function get variableColumnWidth():Boolean
