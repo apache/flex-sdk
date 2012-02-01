@@ -891,7 +891,7 @@ public class VerticalLayout extends LayoutBase
     }
     
     //  - virtual layout only - 
-    private function calculateElementWidth(elt:ILayoutElement, targetWidth:Number, contentWidth:Number):Number
+    private function calculateElementWidth(elt:ILayoutElement, targetWidth:Number, containerWidth:Number):Number
     {
        // If percentWidth is specified then the element's width is the percentage
        // of targetWidth clipped to min/maxWidth and to (upper limit) targetWidth.
@@ -906,7 +906,7 @@ public class VerticalLayout extends LayoutBase
            case HorizontalAlign.JUSTIFY: 
                return targetWidth;
            case HorizontalAlign.CONTENT_JUSTIFY: 
-               return Math.max(elt.getPreferredBoundsWidth(), contentWidth);
+               return Math.max(elt.getPreferredBoundsWidth(), containerWidth);
        }
        return elt.getPreferredBoundsWidth();
     }
@@ -946,7 +946,7 @@ public class VerticalLayout extends LayoutBase
      *  be set to the target's actual (unscaled) width.
      * 
      *  - If horizontalAlign is "contentJustify", then the element's width
-     *  will be set to the target's content width.
+     *  will be set to the larger of the target's width and its content width.
      * 
      *  The X coordinate of each layout element will be set to 0 unless one of the
      *  following is true:
@@ -995,7 +995,7 @@ public class VerticalLayout extends LayoutBase
         {
             var elt:ILayoutElement = layoutTarget.getLayoutElementAt(index);
             var h:Number = (isNaN(fixedRowHeight)) ? elt.getPreferredBoundsHeight() : fixedRowHeight;
-            var w:Number = calculateElementWidth(elt, targetWidth, contentWidth);
+            var w:Number = calculateElementWidth(elt, targetWidth, containerWidth);
             var x:Number = calculateElementX(elt, w, containerWidth);
             elt.setLayoutBoundsPosition(x, y);
             elt.setLayoutBoundsSize(w, h);            
@@ -1015,7 +1015,7 @@ public class VerticalLayout extends LayoutBase
                 for (index = startIndex; index <= endIndex; index++)
                 {
                     elt = layoutTarget.getLayoutElementAt(index);
-                    w = calculateElementWidth(elt, targetWidth, contentWidth);
+                    w = calculateElementWidth(elt, targetWidth, containerWidth);
                     x = calculateElementX(elt, w, containerWidth);
                     elt.setLayoutBoundsPosition(x, elt.getLayoutBoundsY());
                     elt.setLayoutBoundsSize(w, elt.getLayoutBoundsHeight());         
