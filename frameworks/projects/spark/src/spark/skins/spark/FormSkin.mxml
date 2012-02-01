@@ -71,24 +71,15 @@ in accordance with the terms of the license agreement accompanying it.
             <s:SolidColor id="bgFill" color="#FFFFFF"/>
         </s:fill>
     </s:Rect>
-    
-    <!--
-    Note: setting the minimum size to 0 here so that changes to the host component's
-    size will not be thwarted by this skin part's minimum size.   This is a compromise,
-    more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
-    -->
     <!--- @copy spark.components.Form#contentGroup -->
-    <s:VGroup left="0" right="0" top="0" bottom="0">
-        <s:Label id="errorStringText" text="{hostComponent.errorString}" color="red"
-                 includeIn="error" maxWidth="{this.width}"/>
         <!-- We set Form's showErrorTip and showErrorSkin to false, so we set them back 
              to true for the Form's elements -->
-        <s:Group id="contentGroup" showErrorSkin="true" showErrorTip="true" width="100%" height="100%">
-            <s:layout>
-                <s:FormLayout gap="4"/>
-            </s:layout>
-        </s:Group>
-    </s:VGroup>
+    <s:Group id="contentGroup" showErrorSkin="true" showErrorTip="true" 
+             left="10" right="10" top="10" bottom="10">
+        <s:layout>
+            <s:FormLayout gap="7"/>
+        </s:layout>
+    </s:Group>
     
     
 </s:Skin>
