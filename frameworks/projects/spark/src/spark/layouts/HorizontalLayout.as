@@ -100,6 +100,7 @@ use namespace mx_internal;
  *    paddingRight="0"
  *    paddingTop="0"
  *    requestedColumnCount="-1"
+ *    requestedMinColumnCount="-1"
  *    variableColumnWidth="true"
  *    verticalAlign="top"
  *  /&gt;
