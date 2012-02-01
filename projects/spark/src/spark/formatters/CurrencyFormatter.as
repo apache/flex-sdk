@@ -253,8 +253,9 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
 
     public function set currencyISOCode(value:String):void
     {
-        if(currencyISOCodeOverride != null && currencyISOCodeOverride == value)
+        if (currencyISOCodeOverride && (currencyISOCodeOverride == value))
             return;
+
         currencyISOCodeOverride = value;
 
         if (g11nWorkingInstance)
@@ -322,8 +323,9 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
 
     public function set currencySymbol(value:String):void
     {
-        if(currencySymbolOverride != null && currencySymbolOverride == value)
+        if (currencySymbolOverride && (currencySymbolOverride == value))
             return;
+
         currencySymbolOverride = value;
 
         if (g11nWorkingInstance)
@@ -363,7 +365,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *  defined in the table below.
      *  </p>
      *
-     *  <p> The table below summarizes the possible formatting patterns
+     *  <p>The table below summarizes the possible formatting patterns
      *  for negative currency amounts. When a currency amount is formatted
      *  with the <code>format()</code> method:</p>
      *
@@ -495,7 +497,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *  defined in the table below.
      *  </p>
      *
-     *  <p> The table below summarizes the possible formatting patterns
+     *  <p>The table below summarizes the possible formatting patterns
      *  for positive currency amounts.
      *  When a currency amount is formatted with the <code>format()</code>
      *  method:</p>
@@ -604,8 +606,9 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
 
     public function set useCurrencySymbol(value:Boolean):void
     {
-        if(_useCurrencySymbol == value)
+        if (_useCurrencySymbol == value)
             return;
+
         _useCurrencySymbol = value;
 
         update();
@@ -784,20 +787,47 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
 
         const number:Number = Number(value);
 
+        if (isNaN(number))
+        {
+            if (g11nWorkingInstance)
+            {
+                // Have g11nFormatter.lastOperationStatus property hold
+                // ILLEGAL_ARGUMENT_ERROR value.
+                (g11nWorkingInstance as
+                    flash.globalization.CurrencyFormatter).fractionalDigits
+                                                                        = -1;
+            }
+            else
+            {
+                fallbackLastOperationStatus
+                                = LastOperationStatus.ILLEGAL_ARGUMENT_ERROR;
+            }
+            return errorText;
+        }
+
         if (g11nWorkingInstance)
-            return g11nWorkingInstance.format(number, useCurrencySymbol);
+        {
+            const g11nFormatter:flash.globalization.CurrencyFormatter =
+                (g11nWorkingInstance as flash.globalization.CurrencyFormatter);
+
+            const retVal:String = g11nFormatter.format(
+                                                    number, useCurrencySymbol);
+
+            return errorText && LastOperationStatus.isFatalError(
+                        g11nFormatter.lastOperationStatus) ? errorText : retVal;
+        }
 
         if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
-            return undefined;
+            return errorText;
         }
 
         fallbackLastOperationStatus = LastOperationStatus.NO_ERROR;
 
         return (useCurrencySymbol ? currencySymbol : currencyISOCode)
-                                                            + number.toString();
+                                + number.toFixed(properties.fractionalDigits);
     }
 
     [Bindable("change")]
@@ -856,7 +886,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
     public function formattingWithCurrencySymbolIsSafe(
                                                 requestedISOCode:String):Boolean
     {
-        if(g11nWorkingInstance)
+        if (g11nWorkingInstance)
         {
             return g11nWorkingInstance.formattingWithCurrencySymbolIsSafe(
                                                             requestedISOCode);
@@ -946,7 +976,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
         fallbackLastOperationStatus = LastOperationStatus.NO_ERROR;
 
         // TODO Implement some kind of simple parsing.
-        return new CurrencyParseResult();
+        return fallbackParseCurrency(inputString);
     }
 
     /**
@@ -970,6 +1000,12 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
     //  Private Methods
     //
     //--------------------------------------------------------------------------
+
+    private function fallbackParseCurrency(parseString:String)
+                                                            :CurrencyParseResult
+    {
+        return parseToCurrencyParseResult(parseString);
+    }
 
     private function fallbackInstantiate():void
     {
