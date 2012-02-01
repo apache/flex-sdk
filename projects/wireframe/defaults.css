@@ -20,7 +20,10 @@ Button
 	skinClass: ClassReference("spark.skins.wireframe.ButtonSkin");
 }
 
-/* TODO: Button.emphasized */
+Button.emphasized
+{
+	skinClass: ClassReference("spark.skins.wireframe.DefaultButtonSkin");
+}
 
 ButtonBar 
 {
