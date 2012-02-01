@@ -31,7 +31,81 @@ import mx.filters.IBitmapFilter;
 use namespace flash_proxy;
 
 /**
+ * The Flex ShaderFilter class abstracts away many of the details of using
+ * the stock Flash ShaderFilter, Shader, and ShaderData classes to apply a
+ * Pixel Bender shader as a filter.
+ *
+ * <p>The ShaderFilter class must be initialized with byte code representing a
+ * compiled Pixel Bender shader. After that the class will create (behind the scenes) a
+ * Shader instance from the byte code. The ShaderFilter class then serves as a proxy to the
+ * underlying Shader, providing a convenience mechanism for accessing both scalar
+ * and multi-dimensional shader input parameters directly as simple named properties.</p>
+ *
+ * <p>To set a simple scalar shader input parameter (e.g. of type FLOAT or INT), you can simply
+ * refer to the property directly, e.g. <code>myFilter.radius</code>.</p>
+ *
+ * <p>To set or animate an individual component of a  multidimensional shader input parameter (such as 
+ * FLOAT2) you can use a property suffix convention to address the individual value directly. For 
+ * instance the following are equivalent means of settting the first and second components of the FLOAT2
+ * property 'center':
+ * <code><pre>
+ *     // 'center' is an input parameter of type FLOAT2.
+ *     shader.center = [10,20];
+ * </pre></code>
+ * <code><pre>
+ *     // Alternate means of addressing the first and second component of 'center'. 
+ *     shader.center_x = 10;
+ *     shader.center_y = 20;
+ * </pre></code></p>
+ *
+ * <p>The full set of supported convenience suffixes are as follows: </p>
+ *
+ * <p>For shader input parameters of type BOOL2, BOOL3, BOOL4, FLOAT2, FLOAT3, FLOAT4, INT2, 
+ * INT3, or INT4, either "r g b a", "x y z w", or "s t p q" may be utilized as convenience suffixes 
+ * to access the 1st, 2nd, 3rd and 4th component respectively.</p>
+ *
+ * <p>For shader input parameters of type MATRIX2x2, MATRIX3x3, or MATRIX4x4, 
+ * 'a b c d e f g h i j k l m n o p" may be used as property suffixes to access the 
+ * 1st - 16th component of a given matrix.</p>
+ *
+ * <p>Note that as properties on the ShaderFilter change (such as during animation), the
+ * ShaderFilter will automatically re-apply itself to the filters array of the visual
+ * component it is applied to.</p>
+ *
+ * @see mx.effects.FxAnimateFilter 
+ *
+ * @example Simple ShaderFilter example:
+ * <listing version="3.0">
+ * &lt;?xml version="1.0"?&gt;
+ * &lt;FxApplication xmlns="http://ns.adobe.com/mxml/2009"&gt;
+ *
+ *     &lt;!-- The hypothetical 'spherize' shader applied below has two input parameters, 'center' and 'radius'
+ *          with the following attributes:
+ *
+ *          parameter 'center' ==&lt;
+ *              type: float2
+ *              minValue: float2(-200,-200)
+ *              maxValue: float2(800,500)
+ *              defaultValue: float2(400,250)
+ *              description: "displacement center"
  *  
+ *          parameter 'radius' ==&lt;
+ *              type: float
+ *              minValue: float(.1)
+ *              maxValue: float(400)
+ *              defaultValue: float(200)
+ *              description: "radius"
+ *     --&gt;
+ *  
+ *     &lt;Label text="ABCDEF"&gt;
+ *         &lt;filters&gt;
+ *             &lt;ShaderFilter byteCode="&#64;Embed(source="shaders/spherize.pbj', mimeType='application/octet-stream')"
+ *                 radius="25" center_x="50" center_y="15" /&gt;
+ *        &lt;/filters&gt;
+ *     &lt;/Label&gt;
+ *   
+ * &lt;/FxApplication&gt; 
+ * </listing>
  */
 public dynamic class ShaderFilter extends Proxy
     implements IBitmapFilter, IEventDispatcher
@@ -56,6 +130,7 @@ public dynamic class ShaderFilter extends Proxy
 
     /**
      *  Constructor.
+     *  @param byteCode Compiled Pixel Bender byte code as ByteArray or Class.
      */ 
     public function ShaderFilter(byteCode:*=null)  
     {  
@@ -98,7 +173,8 @@ public dynamic class ShaderFilter extends Proxy
     private var _byteCode:*;
  
     /**
-     * @private
+     * The shader bytecode for this Shader instance, either a Class or ByteArray
+     * instance.
      */
     public function set byteCode(byteCode:*):void
     {
@@ -129,7 +205,7 @@ public dynamic class ShaderFilter extends Proxy
     private var _bottomExtension:Number = 0.0;
 
     /**
-     *  @copy flash.filters.ShaderFilter#bottomExtension()
+     *  @copy flash.filters.ShaderFilter#bottomExtension
      */
     public function get bottomExtension():Number
     {
@@ -152,7 +228,7 @@ public dynamic class ShaderFilter extends Proxy
     private var _topExtension:Number = 0.0;
 
     /**
-     *  @copy flash.filters.ShaderFilter#topExtension()
+     *  @copy flash.filters.ShaderFilter#topExtension
      */
     public function get topExtension():Number
     {
@@ -175,7 +251,7 @@ public dynamic class ShaderFilter extends Proxy
     private var _leftExtension:Number = 0.0;
 
     /**
-     *  @copy flash.filters.ShaderFilter#leftExtension()
+     *  @copy flash.filters.ShaderFilter#leftExtension
      */
     public function get leftExtension():Number
     {
@@ -198,7 +274,7 @@ public dynamic class ShaderFilter extends Proxy
     private var _rightExtension:Number = 0.0;
 
     /**
-     *  @copy flash.filters.ShaderFilter#rightExtension()
+     *  @copy flash.filters.ShaderFilter#rightExtension
      */
     public function get rightExtension():Number
     {
@@ -224,7 +300,7 @@ public dynamic class ShaderFilter extends Proxy
     private var _precisionHint:String = ShaderPrecision.FULL;
 
     /**
-     * The precision of math operations performed by the shader.
+     * The precision of math operations performed by the underlying shader.
      * The set of possible values for the precisionHint property is defined 
      * by the constants in the ShaderPrecision class.
      * 
@@ -455,7 +531,7 @@ public dynamic class ShaderFilter extends Proxy
         if (_shader)
         {
             _shader.precisionHint = _precisionHint ? 
-            	_precisionHint : _shader.precisionHint;
+                _precisionHint : _shader.precisionHint;
             instance = new flash.filters.ShaderFilter(_shader);
             instance.bottomExtension = _bottomExtension;
             instance.topExtension = _topExtension;
