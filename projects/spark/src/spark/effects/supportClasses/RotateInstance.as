@@ -12,8 +12,8 @@
 package spark.effects.supportClasses
 {
 
-import spark.effects.AnimationProperty;
-import spark.events.AnimationEvent;
+import spark.effects.SimpleMotionPath;
+import spark.effects.animation.Animation;
 
 //  Let (phi) be angle between r=(Ox,Oy - Cx,Cy) and -X Axis.
 //   (theta) be clockwise further angle of rotation.
@@ -272,8 +272,8 @@ public class RotateInstance extends AnimateInstance
         newX = Number((centerX - originalOffsetX).toFixed(1)); // use a precision of 1
         newY = Number((centerY - originalOffsetY).toFixed(1)); // use a precision of 1
  
-        animationProperties = 
-            [new AnimationProperty("rotation", angleFrom, angleTo, duration, angleBy)];
+        motionPaths = 
+            [new SimpleMotionPath("rotation", angleFrom, angleTo, duration, angleBy)];
 
         super.play();
     }
@@ -284,7 +284,7 @@ public class RotateInstance extends AnimateInstance
      * We override updateHandler because we must set x and y according
      * to the current target location and the specified rotationX/Y values.
      */
-    override protected function updateHandler(event:AnimationEvent):void
+    override public function animationUpdate(animation:Animation):void
     {
         var targetX:Number = getCurrentValue("x");
         var targetY:Number = getCurrentValue("y");
@@ -307,7 +307,7 @@ public class RotateInstance extends AnimateInstance
         if (Math.abs(newY - targetY) > 0.1)
             centerY = targetY + originalOffsetY;
 
-        var rotateValue:Number = Number(event.animation.currentValue[0]);     
+        var rotateValue:Number = Number(animation.currentValue["rotation"]);     
         var radVal:Number = Math.PI * rotateValue / 180;
 
         newX = centerX - originX * Math.cos(radVal) + originY * Math.sin(radVal);
@@ -321,7 +321,7 @@ public class RotateInstance extends AnimateInstance
         
         // Now have the superclass handle the actual rotation as well as any
         // other event processing details
-        super.updateHandler(event);
+        super.animationUpdate(animation);
         
         // Cache the rotation we set for possible future adjustment of offsets
         lastRotation = getCurrentValue("rotation");
