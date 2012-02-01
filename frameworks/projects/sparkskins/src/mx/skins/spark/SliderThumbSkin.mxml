@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the thumb of the Halo Slider component. 
+<!--- The Spark skin class for the thumb of the MX Slider component. 
+
+      @see mx.controls.sliderClasses.Slider
         
       @langversion 3.0
       @playerversion Flash 10
