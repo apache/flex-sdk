@@ -15,7 +15,7 @@ width="300" height="16"
 	  height="15" width="100">
 
     <Metadata>
-    	[HostComponent("flex.component.HSlider")]
+    	[HostComponent("mx.components.FxHSlider")]
     </Metadata> 
     
     <states>
@@ -23,9 +23,9 @@ width="300" height="16"
     	<State name="disabled" />
     </states>
     
-    <Button id="track" left="0" right="0" top="2" bottom="2" 
-            skinZZ="flex.skin.HSliderTrackSkin" />
-    <Button id="thumb" top="0" bottom="0" width="15" 
-            skinZZ="flex.skin.HSliderThumbSkin" />
+    <FxButton id="track" left="0" right="0" top="2" bottom="2" 
+            skinZZ="mx.skins.spark.FxHSliderTrackSkin" />
+    <FxButton id="thumb" top="0" bottom="0" width="15" 
+            skinZZ="mx.skins.spark.FxHSliderSkin" />
 
 </Skin>
