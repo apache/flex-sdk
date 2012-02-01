@@ -21,19 +21,34 @@ import spark.components.gridClasses.IDataGridElement;
 import spark.components.gridClasses.IGridItemRenderer;
 
 /**
- *  An extended mouse event that includes additional grid specific information based
- *  on the event's location relative to a grid cell: the row and column index, the 
- *  GridColumn object, the dataProvider item that corresponds to the row, and the 
- *  item renderer.  GridEvents are dispatched by the Grid class.
+ *  The GridEvent class extends the MouseEvent class to includes additional 
+ *  grid specific information based on the event's location relative to a grid cell.
+ *  This information includes the following:
+ *
+ *  <ul>
+ *    <li>The row and column index of the cell.</li>
+ *    <li>The GridColumn object of the cell.</li>
+ *    <li>The data provider item that corresponds to the row of the cell.</li>
+ *    <li>The item renderer.</li>  
+ *  </ul>
  * 
- *  <p>In general, GridEvents have a one to one correspondence with MouseEvents.  They are 
- *  dispatched in response to mouse events that have "bubbled" from some Grid descendant
- *  to the Grid itself.   One significant difference is that listeners are guaranteed to
- *  see an entire down-drag-up mouse gesture, even if the drag and up parts of the
- *  gesture do not occur over the grid.   The gridMouseDrag event corresponds to a 
+ *  <p>Grid events have a one-to-one correspondence with mouse events.  
+ *  They are dispatched in response to mouse events that have "bubbled" 
+ *  from some Grid descendant to the Grid itself.   
+ *  One significant difference is that event listeners for grid events 
+ *  are guaranteed to see an entire down-drag-up mouse gesture, 
+ *  even if the drag and up parts of the gesture do not occur over the grid.   
+ *  The <code>gridMouseDrag</code> event corresponds to a 
  *  mouse move event with the button held down.</p> 
  * 
+ *  @see spark.components.DataGrid
  *  @see spark.components.Grid
+ *  @see spark.components.gridClasses.GridSelectionMode
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class GridEvent extends MouseEvent
 {
@@ -46,7 +61,34 @@ public class GridEvent extends MouseEvent
     //--------------------------------------------------------------------------
     
     /**
-     *  The value of the <code>type</code> property for a gridMouseDown GridEvent.
+     *  The value of the <code>type</code> property for a <code>gridMouseDown</code> GridEvent.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.GRID_MOUSE_DOWN</td></tr>
+     *  </table>
      *
      *  @eventType gridMouseDown
      * 
@@ -54,27 +96,81 @@ public class GridEvent extends MouseEvent
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public static const GRID_MOUSE_DOWN:String = "gridMouseDown";
     
     /**
-     *  The value of the <code>type</code> property for a gridMouseDrag GridEvent.  This event is
-     *  only dispatched when a listener has handled a mouseDown event, and then only while the
-     *  mouse moves with the button held down.
+     *  The value of the <code>type</code> property for a <code>gridMouseDrag</code> GridEvent.  
+     *  This event is only dispatched when a listener has handled a <code>mouseDown</code> event, 
+     *  and then only while the mouse moves with the button held down.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.GRID_MOUSE_DRAG</td></tr>
+     *  </table>
      *
      *  @eventType gridMouseDrag
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public static const GRID_MOUSE_DRAG:String = "gridMouseDrag";        
     
     /**
-     *  The value of the <code>type</code> property for a gridMouseUp GridEvent.
+     *  The value of the <code>type</code> property for a <code>gridMouseUp</code> GridEvent.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.GRID_MOUSE_UP</td></tr>
+     *  </table>
      *
      *  @eventType gridMouseUp
      * 
@@ -82,13 +178,40 @@ public class GridEvent extends MouseEvent
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public static const GRID_MOUSE_UP:String = "gridMouseUp";
     
     /**
-     *  The value of the <code>type</code> property for a gridClick GridEvent.
+     *  The value of the <code>type</code> property for a <code>gridClick</code> GridEvent.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.GRID_CLICK</td></tr>
+     *  </table>
      *
      *  @eventType gridClick
      * 
@@ -96,13 +219,40 @@ public class GridEvent extends MouseEvent
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public static const GRID_CLICK:String = "gridClick";
     
     /**
-     *  The value of the <code>type</code> property for a gridDoubleClick GridEvent.
+     *  The value of the <code>type</code> property for a <code>gridDoubleClick</code> GridEvent.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.GRID_DOUBLE_CLICK</td></tr>
+     *  </table>
      *
      *  @eventType gridDoubleClick
      * 
@@ -110,13 +260,40 @@ public class GridEvent extends MouseEvent
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public static const GRID_DOUBLE_CLICK:String = "gridDoubleClick";     
     
     /**
-     *  The value of the <code>type</code> property for a gridRollOver GridEvent.
+     *  The value of the <code>type</code> property for a <code>gridRollOver</code> GridEvent.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.GRID_ROLL_OVER</td></tr>
+     *  </table>
      *
      *  @eventType gridRollOver
      * 
@@ -124,13 +301,40 @@ public class GridEvent extends MouseEvent
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public static const GRID_ROLL_OVER:String = "gridRollOver";
 
     /**
-     *  The value of the <code>type</code> property for a gridRollOut GridEvent.
+     *  The value of the <code>type</code> property for a <code>gridRollOut</code> GridEvent.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.GRID_ROLL_OUT</td></tr>
+     *  </table>
      *
      *  @eventType gridRollOut
      * 
@@ -138,49 +342,157 @@ public class GridEvent extends MouseEvent
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public static const GRID_ROLL_OUT:String = "gridRollOut";
     
     /**
-     *  The value of the <code>type</code> property for a separatorMouseDrag GridEvent.
+     *  The value of the <code>type</code> property for a <code>separatorMouseDrag</code> GridEvent.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.SEPARATOR_MOUSE_DRAG</td></tr>
+     *  </table>
      *
      *  @eventType separatorMouseDrag
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */  
     public static const SEPARATOR_MOUSE_DRAG:String = "separatorMouseDrag";
     
     /**
-     *  The value of the <code>type</code> property for a separatorClick GridEvent.
+     *  The value of the <code>type</code> property for a <code>separatorClick</code> GridEvent.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.SEPARATOR_CLICK</td></tr>
+     *  </table>
      *
      *  @eventType separatorClick
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */      
     public static const SEPARATOR_CLICK:String = "separatorClick";
     
     /**
-     *  The value of the <code>type</code> property for a separatorDoubleClick GridEvent.
+     *  The value of the <code>type</code> property for a <code>separatorDoubleClick</code> GridEvent.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.SEPARATOR_DOUBLE_CLICK</td></tr>
+     *  </table>
      *
      *  @eventType separatorDoubleClick
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */      
     public static const SEPARATOR_DOUBLE_CLICK:String = "separatorDoubleClick";    
     
     /**
-     *  The value of the <code>type</code> property for a separatorMouseDown GridEvent.
+     *  The value of the <code>type</code> property for a <code>separatorMouseDown</code> GridEvent.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.SEPARATOR_MOUSE_DOWN</td></tr>
+     *  </table>
      *
      *  @eventType separatorMouseDown
      * 
@@ -188,13 +500,40 @@ public class GridEvent extends MouseEvent
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */  
     public static const SEPARATOR_MOUSE_DOWN:String = "separatorMouseDown";
     
     /**
-     *  The value of the <code>type</code> property for a separatorMouseUp GridEvent.
+     *  The value of the <code>type</code> property for a <code>separatorMouseUp</code> GridEvent.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.SEPARATOR_MOUSE_UP</td></tr>
+     *  </table>
      *
      *  @eventType separatorMouseUp
      * 
@@ -202,31 +541,85 @@ public class GridEvent extends MouseEvent
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */      
     public static const SEPARATOR_MOUSE_UP:String = "separatorMouseUp";
     
     /**
-     *  The value of the <code>type</code> property for a separatorRollOut GridEvent.
+     *  The value of the <code>type</code> property for a <code>separatorRollOut</code> GridEvent.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.SEPARATOR_ROLL_OUT</td></tr>
+     *  </table>
      *
      *  @eventType separatorRollOut
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */      
     public static const SEPARATOR_ROLL_OUT:String = "separatorRollOut";
     
     /**
-     *  The value of the <code>type</code> property for a separatorRollOver GridEvent.
+     *  The value of the <code>type</code> property for a <code>separatorRollOver</code> GridEvent.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>column</code></td><td>The column where the event occurred, 
+     *        or null if the event did not occur over a column.</td></tr>
+     *     <tr><td><code>columnIndex</code></td><td>The index of the column where 
+     *        the event occurred, or -1 if the event did not occur over a grid column.</td></tr>
+     *     <tr><td><code>grid</code></td><td>The Grid associated with this event.</td></tr>
+     *     <tr><td><code>item</code></td><td>The data provider item for this row, 
+     *        or null if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>itemRenderer</code></td><td>The The item renderer that displayed 
+     *       this cell, or null if the event did not occur over a visible cell.</td></tr>
+     *     <tr><td><code>rowIndex</code></td><td>The index of the row where the event occurred, 
+     *        or -1 if the event did not occur over a grid row.</td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *        it is not always the Object listening for the event. 
+     *        Use the <code>currentTarget</code> property to always access the 
+     *        Object listening for the event.</td></tr>
+     *     <tr><td><code>type</code></td><td>GirdEvent.SEPARATOR_ROLL_OVER</td></tr>
+     *  </table>
      *
      *  @eventType separatorRollOver
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */  
     public static const SEPARATOR_ROLL_OVER:String = "separatorRollOver";
@@ -238,11 +631,14 @@ public class GridEvent extends MouseEvent
     //--------------------------------------------------------------------------
     
     /**
-     *  GridEvents dispatched by the Grid class in response to MouseEvents are constructed with
-     *  the incoming mouse event's properties.   The grid event's x,y location, i.e. the value of
-     *  its localX and localY properties, is defined relative to the entire grid, not just the 
-     *  part of the grid that has been scrolled into view.   Similarly, the event's row and column
-     *  indices may correspond to a cell that has not been scrolled into view.
+     *  GridEvents dispatched by the Grid class in response to mouse event are constructed with
+     *  the incoming mouse event's properties.   
+     *  The grid event's x,y location, meaning the value of
+     *  its <code>localX</code> and <code>localY</code> properties, 
+     *  is defined relative to the entire grid, not just the 
+     *  part of the grid that has been scrolled into view.   
+     *  Similarly, the event's row and column
+     *  indices might correspond to a cell that has not been scrolled into view.
      *
      *  @param type Distinguishes the mouse gesture that caused this event to be dispatched.
      *
@@ -258,13 +654,14 @@ public class GridEvent extends MouseEvent
      * 
      *  @param columnIndex The index of the column where the event occurred, or -1.
      * 
-     *  @param column The column where the event occurred or null.
+     *  @param column The column where the event occurred, or null.
      * 
-     *  @param item The dataProvider item at rowIndex.
+     *  @param item The data provider item at <code>rowIndex</code>.
      * 
-     *  @param relatedObject The relatedObject property of the MouseEvent that triggered this GridEvent.
+     *  @param relatedObject The <code>relatedObject</code> property of the 
+     *  MouseEvent that triggered this GridEvent.
      * 
-     *  @param itemRenderer The visible item renderer where the event occurred or null.
+     *  @param itemRenderer The visible item renderer where the event occurred, or null.
      * 
      *  @param ctrlKey Whether the Control key is down.
      * 
@@ -278,7 +675,7 @@ public class GridEvent extends MouseEvent
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */
     public function GridEvent(
@@ -324,7 +721,7 @@ public class GridEvent extends MouseEvent
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */
     public var rowIndex:int;
@@ -334,12 +731,12 @@ public class GridEvent extends MouseEvent
     //----------------------------------
     
     /**
-     *  The index of the column where the event occurred, or -1 if the event did not occur
-     *  over a grid column.
+     *  The index of the column where the event occurred, or -1 if the event 
+     *  did not occur over a grid column.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */
     public var columnIndex:int;
@@ -349,12 +746,12 @@ public class GridEvent extends MouseEvent
     //----------------------------------
     
     /**
-     *  The column where the event occurred, or null if the event did not occur
-     *  over a column.
+     *  The column where the event occurred, or null if the event 
+     *  did not occur over a column.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */
     public var column:GridColumn;
@@ -365,11 +762,11 @@ public class GridEvent extends MouseEvent
     //----------------------------------
     
     /**
-     *  Returns the Grid associated with this event.
+     *  The Grid associated with this event.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */
     public function get grid():Grid
@@ -392,12 +789,12 @@ public class GridEvent extends MouseEvent
     //----------------------------------
     
     /**
-     *  The dataProvider item for this row, or null if the event did not occur over 
-     *  a grid row.
+     *  The data provider item for this row, or null if the event 
+     *  did not occur over a grid row.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */    
     public var item:Object;
@@ -407,12 +804,12 @@ public class GridEvent extends MouseEvent
     //----------------------------------
     
     /**
-     *  The itemRenderer that displayed this cell, or null if the event did not occur over
-     *  a visible cell. 
+     *  The item renderer that displayed this cell, or null if the event 
+     *  did not occur over a visible cell. 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5 
      */       
     public var itemRenderer:IGridItemRenderer;
