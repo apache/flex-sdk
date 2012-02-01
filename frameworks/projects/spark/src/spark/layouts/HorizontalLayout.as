@@ -172,32 +172,28 @@ public class HorizontalLayout extends LayoutBase
     }    
     
     //----------------------------------
-    //  explicitColumnWidth
-    //----------------------------------
-
-    /**
-     *  The column width requested by explicitly setting
-     *  <code>columnWidth</code>.
-     */
-    protected var explicitColumnWidth:Number;
-
-    //----------------------------------
     //  columnWidth
     //----------------------------------
     
-    private var _columnWidth:Number = 20;
+    private var _columnWidth:Number;
 
     [Inspectable(category="General")]
 
     /**
      *  Specifies the width of the columns if <code>variableColumnWidth</code>
      *  is false.
-     *  
-     *  @default 20
+     * 
+     *  If this property isn't explicitly set, then the measured width
+     *  of the first item is returned.
      */
     public function get columnWidth():Number
     {
-        return _columnWidth;
+        if (!isNaN(_columnWidth))
+            return _columnWidth;
+        else if (!target || (target.numLayoutItems <= 0))
+            return 0;
+        else
+            return target.getLayoutItemAt(0).preferredSize.x;
     }
 
     /**
@@ -205,32 +201,12 @@ public class HorizontalLayout extends LayoutBase
      */
     public function set columnWidth(value:Number):void
     {
-        explicitColumnWidth = value;
-
-        if (_columnWidth != value)
-        {
-            setColumnWidth(value);
- 		   	var layoutTarget:GroupBase = target;
-        	if (layoutTarget != null) 
-        	{
-            	layoutTarget.invalidateSize();
-	            layoutTarget.invalidateDisplayList();
-        	}
-        }
-    }
-
-    /**
-     *  Sets the <code>columnWidth</code> property without causing invalidation or 
-     *  setting of <code>explicitColumnWidth</code> which
-     *  permanently locks in the width of the columns.
-     *
-     *  @param value The column width, in pixels.
-     */
-    protected function setColumnWidth(value:Number):void
-    {
+        if (_columnWidth == value)
+            return;
+            
         _columnWidth = value;
-    }    
-
+        invalidateTargetSizeAndDisplayList();
+    }
 
     //----------------------------------
     //  variableColumnWidth
@@ -762,21 +738,11 @@ public class HorizontalLayout extends LayoutBase
     private function fixedColumnWidthMeasure(layoutTarget:GroupBase):void
     {
         var cols:uint = layoutTarget.numLayoutItems;
-        
-		var columnWidth:Number = this.columnWidth;
-        if (isNaN(explicitColumnWidth))
-        {
-            if (cols == 0)
-            	columnWidth = 0;
-            else 
-      			columnWidth = layoutTarget.getLayoutItemAt(0).preferredSize.x;
-        	setColumnWidth(columnWidth);
-        }
+        var visibleCols:uint = (requestedColumnCount == -1) ? cols : requestedColumnCount;
 
-        var reqColumns:int = requestedColumnCount;        
-        var visibleCols:uint = (reqColumns == -1) ? cols : reqColumns;
-        var contentWidth:Number = (cols * columnWidth) + ((cols > 1) ? (gap * (cols - 1)) : 0);
-        var visibleWidth:Number = (visibleCols * columnWidth) + ((visibleCols > 1) ? (gap * (visibleCols - 1)) : 0);
+        var cw:Number = columnWidth; // can be expensive to compute
+        var contentWidth:Number = (cols * cw) + ((cols > 1) ? (gap * (cols - 1)) : 0);
+        var visibleWidth:Number = (visibleCols * cw) + ((visibleCols > 1) ? (gap * (visibleCols - 1)) : 0);
         
         var rowHeight:Number = layoutTarget.explicitHeight;
         var minRowHeight:Number = rowHeight;
@@ -862,6 +828,10 @@ public class HorizontalLayout extends LayoutBase
         var maxY:Number = 0;     
         var firstColInView:int = -1;
         var lastColInView:int = -1;
+
+        // columnWidth can be expensive to compute
+        var cw:Number = (variableColumnWidth) ? 0 : columnWidth;
+                
         
         for (var index:int = 0; index < count; index++)
         {
@@ -874,7 +844,7 @@ public class HorizontalLayout extends LayoutBase
             layoutItem.setActualPosition(x, y);
             var dy:Number = layoutItem.actualSize.y;
             if (!variableColumnWidth)
-                layoutItem.setActualSize(columnWidth, dy);
+                layoutItem.setActualSize(cw, dy);
 
             // Update maxX,Y, first,lastVisibleIndex, and x
             var dx:Number = layoutItem.actualSize.x;
