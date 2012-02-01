@@ -11,18 +11,18 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
-	<Rect left="0" right="0" top="0" bottom="0" >
-		<fill>
-			<SolidColor color="#C6D0DB" alpha="1" />
-		</fill>
-	</Rect>
+	<s:Rect left="0" right="0" top="0" bottom="0" >
+		<s:fill>
+			<s:SolidColor color="#C6D0DB" alpha="1" />
+		</s:fill>
+	</s:Rect>
 	
-	<Rect left="0" right="0" top="0" bottom="0" alpha="1" >
-		<stroke>
-			<SolidColorStroke color="#9EAEC3" />
-		</stroke>
-	</Rect>
+	<s:Rect left="0" right="0" top="0" bottom="0" alpha="1" >
+		<s:stroke>
+			<s:SolidColorStroke color="#9EAEC3" />
+		</s:stroke>
+	</s:Rect>
 	
-</Skin>
+</s:Skin>
