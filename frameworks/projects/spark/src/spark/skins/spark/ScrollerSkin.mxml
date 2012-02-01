@@ -14,20 +14,20 @@
 <Skin xmlns="http://ns.adobe.com/mxml/2009">
 
     <Metadata>
-        [HostComponent("flex.component.Scroller")]
+        [HostComponent("mx.components.FxScroller")]
     </Metadata> 
         
-    <VScrollBar id="verticalScrollBar" visible="false" />
-    <HScrollBar id="horizontalScrollBar" visible="false" />
+    <FxVScrollBar id="verticalScrollBar" visible="false" />
+    <FxHScrollBar id="horizontalScrollBar" visible="false" />
 
     <Script>  
       <![CDATA[
     
-        import flex.component.ScrollBar;
-        import flex.core.Group;
-        import flex.layout.LayoutItemFactory;
-        import flex.intf.ILayoutItem;
-        import flex.intf.IViewport;
+        import mx.components.baseClasses.FxScrollBar;
+        import mx.components.Group;
+        import mx.layout.LayoutItemFactory;
+        import mx.layout.ILayoutItem;
+        import mx.core.IViewport;
         import mx.core.ScrollPolicy;
 
         private function layoutItemFor(item:Object):ILayoutItem
@@ -54,7 +54,7 @@
          */
 	    override protected function measure():void
 	    {
-            var hsb:ScrollBar = horizontalScrollBar;
+            var hsb:FxScrollBar = horizontalScrollBar;
             var showHSB:Boolean = false;
             switch(hostComponent.horizontalScrollPolicy) {
                 case ScrollPolicy.ON: 
@@ -65,7 +65,7 @@
                     break;
             } 
 
-            var vsb:ScrollBar = verticalScrollBar;
+            var vsb:FxScrollBar = verticalScrollBar;
             var showVSB:Boolean = false;
             switch(hostComponent.verticalScrollPolicy) {
                case ScrollPolicy.ON: 
@@ -140,8 +140,8 @@
         override protected function updateDisplayList(w:Number, h:Number):void
         {  
             var viewport:IViewport = hostComponent.viewport;
-            var hsb:ScrollBar = horizontalScrollBar;
-            var vsb:ScrollBar = verticalScrollBar;
+            var hsb:FxScrollBar = horizontalScrollBar;
+            var vsb:FxScrollBar = verticalScrollBar;
             var hsbLI:ILayoutItem = layoutItemFor(hsb);
             var vsbLI:ILayoutItem = layoutItemFor(vsb);
                
