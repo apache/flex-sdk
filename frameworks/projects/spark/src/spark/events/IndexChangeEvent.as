@@ -52,8 +52,6 @@ public class IndexChangeEvent extends Event
      *       event listener that handles the event. For example, if you use 
      *       <code>myButton.addEventListener()</code> to register an event listener, 
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>inputType</code></td><td>Indicates whether this event 
-     *         was caused by a mouse or keyboard interaction.</td></tr>
      *     <tr><td><code>newIndex</code></td><td>The zero-based index 
      *       after the change.</td></tr>
      *     <tr><td><code>oldIndex</code></td><td>The zero-based index 
@@ -88,8 +86,6 @@ public class IndexChangeEvent extends Event
      *       event listener that handles the event. For example, if you use 
      *       <code>myButton.addEventListener()</code> to register an event listener, 
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>inputType</code></td><td>Indicates whether this event 
-     *         was caused by a mouse or keyboard interaction.</td></tr>
      *     <tr><td><code>newIndex</code></td><td>The zero-based index of the 
      *       selected item after the change.</td></tr>
      *     <tr><td><code>oldIndex</code></td><td>The zero-based index of the 
@@ -124,8 +120,6 @@ public class IndexChangeEvent extends Event
      *       event listener that handles the event. For example, if you use 
      *       <code>myButton.addEventListener()</code> to register an event listener, 
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>inputType</code></td><td>Indicates whether this event 
-     *         was caused by a mouse or keyboard interaction.</td></tr>
      *     <tr><td><code>newIndex</code></td><td>The zero-based index of the 
      *       selected item after the change.</td></tr>
      *     <tr><td><code>oldIndex</code></td><td>The zero-based index of the 
