@@ -47,33 +47,70 @@
          * @inheritDoc
          */
         override public function get contentItems():Array {return contentFill};
+        
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        {
+            if (getStyle("borderVisible") == true)
+            {
+                border.visible = true;
+                background.left = background.top = background.right = background.bottom = 1;
+                contents.left = contents.top = contents.right = contents.bottom = 1;
+            }
+            else
+            {
+                border.visible = false;
+                background.left = background.top = background.right = background.bottom = 0;
+                contents.left = contents.top = contents.right = contents.bottom = 0;
+            }
+            
+            dropShadow.visible = getStyle("dropShadowVisible");
+            
+            var cr:Number = getStyle("cornerRadius");
+            
+            if (cornerRadius != cr)
+                cornerRadius = cr;
+
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
+        
+        [Bindable]
+        public var cornerRadius:Number;
     </fx:Script>
     
     <s:states>
         <s:State name="normal" />
         <s:State name="disabled" />
-        <s:State name="normalWithControlBar" />
-        <s:State name="disabledWithControlBar" />
+        <s:State name="normalWithControlBar" stateGroups="withControls" />
+        <s:State name="disabledWithControlBar" stateGroups="withControls" />
     </s:states>
     
     <!-- drop shadow can't be hittable so it stays sibling of other graphics -->
-    <s:RectangularDropShadow id="shadow" blurX="20" blurY="20" alpha="0.32" distance="11" 
-        angle="90" color="#000000" left="0" top="0" right="0" bottom="0"/>
+    <s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.32" distance="11" 
+        angle="90" color="#000000" left="0" top="0" right="0" bottom="0" 
+        tlRadius="{cornerRadius}" trRadius="{cornerRadius}"
+        blRadius="0" blRadius.withControls="{cornerRadius}"
+        brRadius="0" brRadius.withControls="{cornerRadius}" />
 
     <!-- drop shadow can't be hittable so all other graphics go in this group -->
     <s:Group left="0" right="0" top="0" bottom="0">
 
         <!-- layer 1: border -->
-        <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:Rect id="border" left="0" right="0" top="0" bottom="0"
+                topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}"
+                bottomLeftRadiusX.withControls="{cornerRadius}"
+                bottomRightRadiusX.withControls="{cornerRadius}" >
             <s:stroke>
-                <s:SolidColorStroke color="0" alpha="0.50" weight="1" />
+                <s:SolidColorStroke color="{getStyle('borderColor')}" alpha="{getStyle('borderAlpha')}" weight="1" />
             </s:stroke>
         </s:Rect>
 
         <!-- layer 2: background fill -->
         <!--- Defines the appearance of the PanelSkin class's background. -->
-        <s:Rect id="background" left="1" top="1" right="1" bottom="1">
-            <s:fill>
+        <s:Rect id="background" left="1" top="1" right="1" bottom="1"
+                topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}"
+                bottomLeftRadiusX.withControls="{cornerRadius}"
+                bottomRightRadiusX.withControls="{cornerRadius}">
+           <s:fill>
             <!--- Defines the  PanelSkin class's background fill. The default color is 0xFFFFFF. -->
                 <s:SolidColor color="0xFFFFFF" id="bgFill" />
             </s:fill>
@@ -81,7 +118,7 @@
     
         <!-- layer 3: contents -->
         <!--- contains the vertical stack of titlebar content and controlbar -->
-        <s:Group left="1" right="1" top="1" bottom="1" >
+        <s:Group left="1" right="1" top="1" bottom="1" id="contents">
             <s:layout>
                 <s:VerticalLayout gap="0" horizontalAlign="justify" />
             </s:layout>
@@ -89,7 +126,8 @@
             <s:Group id="topGroup" >
 
                 <!-- layer 0: title bar fill -->
-                <s:Rect id="tbFill" left="0" right="0" top="0" bottom="1" >
+                <s:Rect id="tbFill" left="0" right="0" top="0" bottom="1"
+                        topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
                    <s:fill>
                         <s:LinearGradient rotation="90">
                             <s:GradientEntry color="0xE2E2E2" />
@@ -99,7 +137,8 @@
                 </s:Rect>
     
                 <!-- layer 1: title bar highlight -->
-                <s:Rect id="tbHilite" left="0" right="0" top="0" bottom="0" >
+                <s:Rect id="tbHilite" left="0" right="0" top="0" bottom="0"
+                        topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
                    <s:stroke>
                         <s:LinearGradientStroke rotation="90" weight="1">
                             <s:GradientEntry color="0xEAEAEA" />
@@ -142,7 +181,8 @@
                 </s:Rect>
 
                 <!-- layer 1: control bar highlight -->
-                <s:Rect left="0" right="0" top="1" bottom="0" >
+                <s:Rect left="0" right="0" top="1" bottom="0"
+                        bottomLeftRadiusX="{cornerRadius}" bottomRightRadiusX="{cornerRadius}">
                    <s:stroke>
                         <s:LinearGradientStroke rotation="90" weight="1">
                             <s:GradientEntry color="0xE5E5E5" />
@@ -152,7 +192,8 @@
                 </s:Rect>
 
                 <!-- layer 2: control bar fill -->
-                <s:Rect left="1" right="1" top="2" bottom="1" >
+                <s:Rect left="1" right="1" top="2" bottom="1"
+                        bottomLeftRadiusX="{cornerRadius}" bottomRightRadiusX="{cornerRadius}">
                    <s:fill>
                         <s:LinearGradient rotation="90">
                             <s:GradientEntry color="0xDADADA" />
