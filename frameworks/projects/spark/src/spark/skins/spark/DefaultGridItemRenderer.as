@@ -21,6 +21,33 @@ import spark.components.supportClasses.GridColumn;
 use namespace mx_internal;
 
 //--------------------------------------
+//  Styles
+//--------------------------------------
+
+/**
+ *  The class implementing IUITextField that is used by this component
+ *  to render text.
+ *
+ *  <p>It can be set to either the mx.core.UITextField class
+ *  (to use the classic TextField class built into Flash Player)
+ *  or the mx.core.UIFTETextField class
+ *  (to use the Text Layout Framework to get improved text rendering,
+ *  including bidirectional layout).</p>
+ *
+ *  @default mx.core.UITextField
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="textFieldClass", type="Class", inherit="no")]
+
+
+include "../../styles/metadata/BasicNonInheritingTextStyles.as"
+include "../../styles/metadata/BasicInheritingTextStyles.as"
+
+//--------------------------------------
 //  Events
 //--------------------------------------
 
@@ -37,7 +64,26 @@ use namespace mx_internal;
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
 /**
- *  TBD
+ *   A simple and efficent IGridItemRenderer that displays a single text label.  This
+ *   class is the default value for the s:DataGrid itemRenderer property.
+ * 
+ *   <p>Label text wrapping can be controlled with the lineBreak style.  For example
+ *   a DataGrid configured like this:
+ *   <code>lineBreak="explicit" variableRowHeight="false"</code> yields fixed height
+ *   DataGrid cells whose labels do not wrap.</p>
+ * 
+ *   <p>The value of the label property is displayed with a either a UIFTETextField
+ *   or a UITEextField depending on the value of the textFieldClass style.  The default
+ *   is UIFTETextField because it balances Spark compatability and cross-platform
+ *   performance well.  In some cases specifying 
+ *   <code>textFieldClass="mx.core.UITextField" (MXML) for the DataGrid will yield
+ *   improved scrolling performance for very large DataGrids.</p>
+ * 
+ *   <p>DefaultGridItemRenderer is not intended to be subclassed or copied, it is
+ *   effectively final.  Custom item renderers can be created in MXML with the 
+ *   GridItemRenderer component.</p>
+ * 
+ *   @see spark.components.supportClasses.GridItemRenderer
  */
 public class DefaultGridItemRenderer extends UIComponent implements IGridItemRenderer
 {
@@ -461,11 +507,11 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     /**
      *  @private
      */
-    override public function styleChanged(styleName:String):void
+    override public function styleChanged(styleProp:String):void
     {
-        super.styleChanged(styleName);
+        super.styleChanged(styleProp);
         
-        if (!styleName || (styleName == "styleName") || (styleName = "lineBreak"))
+        if (!styleProp || (styleProp == "styleName") || (styleProp = "lineBreak"))
         {
             lineBreakStyleChanged = true;
             invalidateProperties();
