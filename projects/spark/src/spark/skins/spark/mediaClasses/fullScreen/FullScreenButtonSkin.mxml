@@ -24,6 +24,9 @@
 
     <!-- host component -->
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.Button")]
     </fx:Metadata>
     
@@ -68,7 +71,7 @@
         </s:stroke>
     </s:Rect>
     
-    <!-- full screen symbol -->
+    <!--- full screen symbol -->
     <s:Group horizontalCenter="0" verticalCenter="-1" id="fullScreenSymbol">
         <!-- size of area so left, right, bottom, top work well -->
         <s:Rect left="0" top="0" width="26" height="17">
