@@ -59,16 +59,16 @@ use namespace mx_internal;
  *  this renderer provides optimum performance on Microsoft Windows.   
  *  It is based on TextField, not the Flash Text Engine (FTE), so it lacks support for 
  *  some Spark text features and it does not support the FTE specific text styles.
- * 
- *  <p>UITextFieldGridItemRenderer inherits its the value of the 
- *  <code>layoutDirection</code> property from its parent.  
- *  It should not be set directly on UITextFieldGridItemRenderer.</p>
  *
  *  <p>You can control the label text wrapping by using the <code>wordWrap</code> property.  
  *  For example, setting <code>wordWrap="false"</code> and <code>variableRowHeight="false"</code> 
  *  creates fixed height cells whose labels do not wrap.  
  *  If you do not explicitly set the <code>wordWrap</code> property, <code>wordWrap</code> 
  *  will be set to the value of the grid's <code>variableRowHeight</code> property.</p>
+ * 
+ *  <p>UITextFieldGridItemRenderer inherits its the value of the 
+ *  <code>layoutDirection</code> property from its parent.  
+ *  It should not be set directly on UITextFieldGridItemRenderer.</p> 
  * 
  *  <p>The UITextFieldGridItemRenderer class is not intended to be subclassed or copied.
  *  Create custom item renderers based on the GridItemRenderer class.</p>
