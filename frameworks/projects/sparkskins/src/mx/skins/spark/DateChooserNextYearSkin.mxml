@@ -56,6 +56,23 @@
         <s:State name="down" />
         <s:State name="disabled" />
     </s:states>
+
+    <!-- highlight semicircle (over/down states) -->
+    <!--- @private -->
+    <s:Ellipse left="-5" right="-5" top="-3" bottom="-9">
+        <s:fill>
+            <s:SolidColor color="0" alpha="0" alpha.over=".12" alpha.down=".22" />
+        </s:fill>
+        <s:mask>
+            <s:Group left="0" right="0" top="0" bottom="0">
+                <s:Rect left="0" right="-20" top="0" bottom="-9">
+                    <s:fill>
+                        <s:SolidColor alpha="0"/>
+                    </s:fill>
+                </s:Rect>
+            </s:Group>
+        </s:mask>
+    </s:Ellipse>
     
     <!--- @private -->
     <s:Path id="arrow" top="1" left="1" data="M 0 3 L 0 2 L 1 2 L 1 1 L 2 1 L 2 0 L 3 0 L 3 1 L 4 1 L 4 2 L 5 2 L 5 3 L 0 3 Z">
@@ -77,7 +94,5 @@
             <s:SolidColor color="0xFFFFFF"/>
         </s:fill>
     </s:Rect>
-
-    <!-- FIXME (jszeto) Need over and down states -->
    
 </s:SparkSkin>
