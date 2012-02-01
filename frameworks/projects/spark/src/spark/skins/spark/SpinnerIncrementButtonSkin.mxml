@@ -55,48 +55,59 @@
         <s:State name="disabled" />
     </s:states>
     
-    <!-- border/fill -->
-    <s:Path data="M 0 0 h 16 Q 17 0 18 2 v 8 h -18 Z" 
-          left="0" top="0" right="0" bottom="0">
-        <s:stroke>
-            <s:SolidColorStroke color="0x686868" weight="1"/>
-        </s:stroke>
-        <s:fill>
-            <s:LinearGradient rotation="90">
-                <s:GradientEntry color="0xFFFFFF"
-                               color.over="0xC2C2C2"
-                               color.down="0xAEB0B1" />
-                <s:GradientEntry color="0xF0F0F0"
-                               color.over="0xADAEAF"
-                               color.down="0xA1A3A5" />
-            </s:LinearGradient>
-        </s:fill>
-    </s:Path>    
-    
-    <!-- highlight -->
-    <s:Path data="M 0 0 h 14 Q 16 0 16 2 v 6 h -16 Z" 
-          left="1" top="1" right="1" bottom="1" >
-        <s:stroke>
-            <s:LinearGradientStroke rotation="90" weight="1">
-                <s:GradientEntry color="0xFFFFFF" 
-                               color.down="0x000000"
-                               alpha.over="0.55" 
-                               alpha.down="0.15" />
-                <s:GradientEntry color="0xFFFFFF" 
-                               color.down="0x000000"
-                               alpha="0.45"
-                               alpha.over="0.2475"
-                               alpha.down="0" />
-            </s:LinearGradientStroke>
-        </s:stroke>
-    </s:Path>
-    
-    <!-- shadow -->
-    <s:Rect left="1" top="2" right="1" height="1" includeIn="down">
-        <s:fill>
-            <s:SolidColor color="0x000000" alpha="0.07" />
-        </s:fill>
-    </s:Rect>
+    <s:Group left="0" top="0" right="0" bottom="0"
+             scaleGridLeft="3" scaleGridTop="3" scaleGridRight="15" scaleGridBottom="6">
+        <!-- Workaround for scale grid. Draw a transparent filled rect the
+             size of the skin. -->
+        <s:Rect left="0" top="0" right="0" bottom="0">
+            <s:fill>
+                <s:SolidColor color="0" alpha="0" />
+            </s:fill>
+        </s:Rect>
+        
+        <!-- border/fill -->
+        <s:Path data="M 0 0 h 16 Q 17 0 18 2 v 8 h -18 Z" 
+              left="0" top="0" right="0" bottom="0">
+            <s:stroke>
+                <s:SolidColorStroke color="0x686868" weight="1"/>
+            </s:stroke>
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0xFFFFFF"
+                                   color.over="0xC2C2C2"
+                                   color.down="0xAEB0B1" />
+                    <s:GradientEntry color="0xF0F0F0"
+                                   color.over="0xADAEAF"
+                                   color.down="0xA1A3A5" />
+                </s:LinearGradient>
+            </s:fill>
+        </s:Path>    
+        
+        <!-- highlight -->
+        <s:Path data="M 0 0 h 14 Q 16 0 16 2 v 6 h -16 Z" 
+              left="1" top="1" right="1" bottom="1" >
+            <s:stroke>
+                <s:LinearGradientStroke rotation="90" weight="1">
+                    <s:GradientEntry color="0xFFFFFF" 
+                                   color.down="0x000000"
+                                   alpha.over="0.55" 
+                                   alpha.down="0.15" />
+                    <s:GradientEntry color="0xFFFFFF" 
+                                   color.down="0x000000"
+                                   alpha="0.45"
+                                   alpha.over="0.2475"
+                                   alpha.down="0" />
+                </s:LinearGradientStroke>
+            </s:stroke>
+        </s:Path>
+        
+        <!-- shadow -->
+        <s:Rect left="1" top="2" right="1" height="1" includeIn="down">
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.07" />
+            </s:fill>
+        </s:Rect>   
+    </s:Group>
     
     <!-- arrow -->
     <!--- Defines the appearance of the up arrow. -->
