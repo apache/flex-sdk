@@ -23,7 +23,7 @@ import mx.styles.StyleManager;
  *  Flex creates an instance of this class when it plays a SetAction
  *  effect; you do not create one yourself.
  *
- *  @see mx.effects.SetAction
+ *  @see spark.effects.SetAction
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
