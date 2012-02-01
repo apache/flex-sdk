@@ -368,8 +368,22 @@ public class GraphicElement extends EventDispatcher
         var previous:Boolean = needsDisplayObject;
         _alpha = value;
         
+	// The product of _alpha and the designLayer's 
+	// alpha is the effectiveAlpha which is 
+	// committed in commitProperties() 
         if (designLayer)
             value = value * designLayer.effectiveAlpha; 
+
+        if (_blendMode == "auto")
+        {
+            // If alpha changes from an opaque/transparent (1/0) and translucent
+            // (0 < value < 1), then trigger a blendMode change
+            if ((value > 0 && value < 1 && (_effectiveAlpha == 0 || _effectiveAlpha == 1)) ||
+                ((value == 0 || value == 1) && (_effectiveAlpha > 0 && _effectiveAlpha < 1)))
+            {
+                blendModeChanged = true;
+            }
+        }
         
         _effectiveAlpha = value;
         
