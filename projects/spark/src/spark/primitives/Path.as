@@ -14,22 +14,21 @@ package spark.primitives
 
 import flash.display.Graphics;
 import flash.display.GraphicsPath;
-import flash.display.LineScaleMode;
 import flash.display.Shape;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import mx.utils.MatrixUtil;
 import mx.core.mx_internal;
-import spark.primitives.pathSegments.LineSegment;
-import spark.primitives.supportClasses.FilledElement;
+import mx.utils.MatrixUtil;
+
 import spark.primitives.pathSegments.CloseSegment;
 import spark.primitives.pathSegments.CubicBezierSegment;
+import spark.primitives.pathSegments.LineSegment;
 import spark.primitives.pathSegments.MoveSegment;
 import spark.primitives.pathSegments.PathSegment;
 import spark.primitives.pathSegments.QuadraticBezierSegment;
-
+import spark.primitives.supportClasses.FilledElement;
 
 
 use namespace mx_internal;
@@ -238,8 +237,11 @@ public class Path extends FilledElement
         var newSegments:Array = [];
         
         var identifier:String;
+        var prevIdentifier:String;
         var prevX:Number = 0;
         var prevY:Number = 0;
+        var lastMoveX:Number = 0;
+        var lastMoveY:Number = 0;
         var x:Number;
         var y:Number;
         var controlX:Number;
@@ -273,6 +275,8 @@ public class Path extends FilledElement
                     x = getNumber(useRelative, i++, prevX);
                     y = getNumber(useRelative, i++, prevY);
                     newSegments.push(new MoveSegment(x, y));
+                    lastMoveX = x;
+                    lastMoveY = y;
                     break;
                 
                 case "l":
@@ -303,8 +307,17 @@ public class Path extends FilledElement
                 
                 case "t":
                     // control is a reflection of the previous control point
-                    controlX = prevX + (prevX - controlX);
-                    controlY = prevY + (prevY - controlY);
+                    if (prevIdentifier == "t" || prevIdentifier == "q")
+                    {
+                        controlX = prevX + (prevX - controlX);
+                        controlY = prevY + (prevY - controlY);
+                    }
+                    else
+                    {
+                        controlX = prevX;
+                        controlY = prevY;
+                    }
+                    
                     x = getNumber(useRelative, i++, prevX);
                     y = getNumber(useRelative, i++, prevY);
                     newSegments.push(new QuadraticBezierSegment(controlX, controlY, x, y));
@@ -323,8 +336,16 @@ public class Path extends FilledElement
                 
                 case "s":
                     // Control1 is a reflection of the previous control2 point
-                    controlX = prevX + (prevX - control2X);
-                    controlY = prevY + (prevY - control2Y);
+                    if (prevIdentifier == "s" || prevIdentifier == "c")
+                    {
+                        controlX = prevX + (prevX - control2X);
+                        controlY = prevY + (prevY - control2Y);
+                    }
+                    else
+                    {
+                        controlX = prevX;
+                        controlY = prevY;
+                    }
                     
                     control2X = getNumber(useRelative, i++, prevX);
                     control2Y = getNumber(useRelative, i++, prevY);
@@ -335,6 +356,8 @@ public class Path extends FilledElement
                     break;
                 case "z":
                     newSegments.push(new CloseSegment());
+                    x = lastMoveX;
+                    y = lastMoveY;
                     break;
                 
                 default:
@@ -345,6 +368,7 @@ public class Path extends FilledElement
             
             prevX = x;
             prevY = y;
+            prevIdentifier = identifier.toLowerCase();
         }
         
         segments = newSegments;
@@ -553,22 +577,23 @@ public class Path extends FilledElement
         var sx:Number = naturalBounds.width == 0 ? 1 : width / naturalBounds.width;
         var sy:Number = naturalBounds.height == 0 ? 1 : height / naturalBounds.height; 
 
-        var currentSubPathStartIndex:int = 0;
         var prevSegment:PathSegment;
         var pathBBox:Rectangle;
+        var lastMoveX:Number = 0;
+        var lastMoveY:Number = 0;
         
         for (var i:int = 0; i < segments.length; i++)
         {
             var segment:PathSegment = segments[i];
             
-            if (segment is CloseSegment)
+            if (segment is MoveSegment)
+            {
+                lastMoveX = segment.x;
+                lastMoveY = segment.y;
+            }
+            else if (segment is CloseSegment)
             {   
-                if (segments[currentSubPathStartIndex] is MoveSegment)
-                    segment = new LineSegment(segments[currentSubPathStartIndex].x, segments[currentSubPathStartIndex].y);
-                else
-                    segment = new LineSegment();
-                    
-                currentSubPathStartIndex = i+1;
+                segment = new LineSegment(lastMoveX, lastMoveY);     
             }
 
             pathBBox = segment.getBoundingBox(prevSegment, sx, sy, m, pathBBox);
@@ -825,27 +850,27 @@ public class Path extends FilledElement
         graphicsPath.commands = null;
         graphicsPath.data = null;
         
-
         // Always start by moving to drawX, drawY. Otherwise
         // the path will begin at the previous pen location
         // if it does not start with a MoveSegment.
         graphicsPath.moveTo(tx, ty);
-        var currentSubPathStartIndex:int = 0;
+        var lastMoveX:Number = tx;
+        var lastMoveY:Number = ty;
         
         for (var i:int = 0; i < segments.length; i++)
         {
             var segment:PathSegment = segments[i];
                     
             segment.draw(graphicsPath, tx,ty,sx,sy, (i > 0 ? segments[i - 1] : null));
-            
-            if (segment is CloseSegment)
+                        
+            if (segment is MoveSegment)
+            {
+                lastMoveX = segment.x;
+                lastMoveY = segment.y;
+            }
+            else if (segment is CloseSegment)
             {   
-                if (segments[currentSubPathStartIndex] is MoveSegment)
-                    graphicsPath.lineTo(tx + segments[currentSubPathStartIndex].x*sx, ty + segments[currentSubPathStartIndex].y*sy);
-                else
-                    graphicsPath.lineTo(tx, ty);
-                    
-                currentSubPathStartIndex = i+1;
+                graphicsPath.lineTo(tx + lastMoveX * sx, ty + lastMoveY * sy);    
             }
         }
     }
