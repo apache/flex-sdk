@@ -240,7 +240,7 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Number of pixels between the container's left border
+     *  Number of pixels between the container's left edge
      *  and the left edge of the first layout element.
      * 
      *  @default 0
@@ -276,7 +276,7 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Number of pixels between the container's right border
+     *  Number of pixels between the container's right edge
      *  and the right edge of the last layout element.
      * 
      *  @default 0
@@ -312,8 +312,8 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  All layout elements will have at least this much space
-     *  above them. 
+     *  The minimum number of pixels between the container's top edge and
+     *  the top of all the container's layout elements. 
      * 
      *  @default 0
      *  
@@ -348,8 +348,8 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  All layout elements will have at least this much space
-     *  below them. 
+     *  The minimum number of pixels between the container's bottom edge and
+     *  the bottom of all the container's layout elements. 
      * 
      *  @default 0
      *  
@@ -384,7 +384,7 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  The measured size of this layout will be big enough to display 
+     *  The measured size of this layout will be wide enough to display 
      *  the first <code>requestedColumnCount</code> layout elements. 
      * 
      *  If <code>requestedColumnCount</code> is -1, then the measured
@@ -477,13 +477,13 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Specifies that layout elements are to be allocated their 
+     *  Specifies whether or not layout elements are to be allocated their
      *  preferred width.
      * 
      *  Setting this property to false specifies fixed width columns.
      * 
      *  If false, the actual width of each layout element will be 
-     *  the value value of <code>columnWidth</code>.
+     *  the value of <code>columnWidth</code>.
      * 
      *  Setting this property to false causes the layout to ignore 
      *  layout elements' percentWidth.
@@ -671,14 +671,14 @@ public class HorizontalLayout extends LayoutBase
     }    
     
     /**
-     *  An index is "in view" if the corresponding non-null layout element is 
-     *  within the horizontal limits of the layout target's scrollRect
-     *  and included in the layout.
-     *  
      *  Returns 1.0 if the specified index is completely in view, 0.0 if
      *  it's not, and a value in between if the index is partially 
      *  within the view.
      * 
+     *  An index is "in view" if the corresponding non-null layout element is 
+     *  within the horizontal limits of the layout target's scrollRect
+     *  and included in the layout.
+     *  
      *  If the specified index is partially within the view, the 
      *  returned value is the percentage of the corresponding
      *  layout element that's visible.
