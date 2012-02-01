@@ -1182,6 +1182,8 @@ public class HorizontalLayout extends LayoutBase
      */  
      override public function getDestinationIndex(navigationUnit:uint, currentIndex:int):int
      {
+        if (!target)
+            return -1; 
         var maxIndex:int = target.numElements - 1;
         var newIndex:int; 
         var bounds:Rectangle;
