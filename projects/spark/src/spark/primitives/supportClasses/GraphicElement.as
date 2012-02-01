@@ -2689,7 +2689,7 @@ public class GraphicElement extends EventDispatcher
      */
     protected function get hasComplexLayoutMatrix():Boolean
     {
-        return (layoutFeatures == null ? false : !MatrixUtil.isDeltaIdentity(layoutFeatures.layoutMatrix))
+        return (layoutFeatures == null ? false : !MatrixUtil.isDeltaIdentity(layoutFeatures.layoutMatrix));
     }
     
     //----------------------------------
