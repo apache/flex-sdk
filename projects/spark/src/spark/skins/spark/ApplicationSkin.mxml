@@ -12,6 +12,11 @@
 -->
 
 <Skin xmlns="http://ns.adobe.com/mxml/2009">
+
+    <Metadata>
+    	[HostComponent("flex.core.Application")]
+    </Metadata> 
+    
 	<!-- fill -->
     <Rect id="backgroundRect" left="0" right="0" top="0" bottom="0">
         <fill>
