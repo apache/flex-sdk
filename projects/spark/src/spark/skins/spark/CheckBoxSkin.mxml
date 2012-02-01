@@ -32,7 +32,7 @@
         <!-- background -->
         <Rect left="0" right="0" minWidth="12" top="0" bottom="0" minHeight="12">
             <stroke>            
-                <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
+                <SolidColorStroke color="0x5380D0" color.disabledStates="0xA9C0E8" />
             </stroke>
             <fill>
                 <SolidColor color="0xFFFFFF" color.overStates="0xEBF4FF" 
@@ -52,7 +52,7 @@
     <!-- Label -->
     <TextBox text="{hostComponent.label}"
              fontFamily="Arial" fontSize="12"
-             color="0x2B4381" color.disabled="0x95A1C0" 
+             color="0x2B4381" color.disabledStates="0x95A1C0" 
              left="19" top="3" />
 
 </Skin>
