@@ -107,10 +107,12 @@ are identical, save the superclass and constructor names.  This file contains th
     /**
      *  @inheritDoc
      * 
-     *  <p>The Grid's <code>updateDisplayList()</code> method sets this property 
-     *  before calling <code>prepare()</code></p>. 
-     *  
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get column():GridColumn
     {
@@ -135,6 +137,11 @@ are identical, save the superclass and constructor names.  This file contains th
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get columnIndex():int
     {
@@ -151,11 +158,15 @@ are identical, save the superclass and constructor names.  This file contains th
     [Bindable("dataChange")]  // compatible with FlexEvent.DATA_CHANGE
     
     /**
-     *  The value of the dataProvider "item" for this row, i.e. <code>dataProvider.getItemAt(itemIndex)</code>.
-     *  Item renderers often bind visual element attributes to data properties.  Note 
-     *  that, despite its name, this property does not depend on the column's "dataField". 
+     *  The value of the data provider item for the entire row of the grid control.
+     *  Item renderers often bind visual element attributes to properties of this object.  
      *  
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get data():Object
     {
@@ -186,12 +197,17 @@ are identical, save the superclass and constructor names.  This file contains th
     [Bindable("downChanged")]    
     
     /**
+     *  <p>The grid control's <code>updateDisplayList()</code> method sets this property 
+     *  before calling <code>prepare()</code>.   </p>
+     * 
      *  @inheritDoc
      * 
-     *  <p>The Grid's <code>updateDisplayList()</code> method sets this property 
-     *  before calling <code>prepare()</code></p>.   
-     * 
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */    
     public function get down():Boolean
     {
@@ -215,7 +231,7 @@ are identical, save the superclass and constructor names.  This file contains th
     //----------------------------------
     
     /**
-     *  @inheritDoc
+     *  The grid control associated with this item renderer.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -239,6 +255,11 @@ are identical, save the superclass and constructor names.  This file contains th
      *  Set to <code>true</code> when the mouse is hovered over the item renderer.
      *
      *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
      */    
     public function get hovered():Boolean
     {
@@ -266,12 +287,17 @@ are identical, save the superclass and constructor names.  This file contains th
     [Bindable("rowIndexChanged")]
     
     /**
+     *  <p>The grid control's <code>updateDisplayList()</code> method sets this property 
+     *  before calling <code>prepare()</code>.</p>
+     * 
      *  @inheritDoc
      * 
-     *  <p>The Grid's <code>updateDisplayList()</code> method sets this property 
-     *  before calling <code>prepare()</code></p>.   
-     * 
      *  @default -1
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
      */    
     public function get rowIndex():int
     {
@@ -299,12 +325,17 @@ are identical, save the superclass and constructor names.  This file contains th
     [Bindable("showsCaretChanged")]    
     
     /**
+     *  <p>The grid control's <code>updateDisplayList()</code> method sets this property 
+     *  before calling <code>preprare()</code>.   </p>
+     * 
      *  @inheritDoc
      * 
-     *  <p>The Grid's <code>updateDisplayList()</code> method sets this property 
-     *  before calling <code>preprare()</code></p>.   
-     * 
      *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
      */    
     public function get showsCaret():Boolean
     {
@@ -332,12 +363,17 @@ are identical, save the superclass and constructor names.  This file contains th
     [Bindable("selectedChanged")]    
     
     /**
+     *  <p>The grid control's <code>updateDisplayList()</code> method sets this property 
+     *  before calling <code>prepare()</code>.</p>
+     * 
      *  @inheritDoc
      * 
-     *  <p>The Grid's <code>updateDisplayList()</code> method sets this property 
-     *  before calling <code>prepare()</code></p>.   
-     * 
      *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
      */    
     public function get selected():Boolean
     {
@@ -368,6 +404,11 @@ are identical, save the superclass and constructor names.  This file contains th
      *  @inheritDoc
      * 
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get dragging():Boolean
     {
@@ -395,12 +436,17 @@ are identical, save the superclass and constructor names.  This file contains th
     [Bindable("labelChanged")]
     
     /**
+     *  <p>The grid control sets this property to the value of the column's 
+     *  <code>itemToLabel()</code> method, before calling <code>preprare()</code>.</p>
+     *
      *  @inheritDoc
      *  
-     *  <p>The Grid sets this property to the value of the column's <code>itemToLabel()</code> method, before
-     *  calling <code>preprare()</code>.</p>   
-     *
      *  @default ""  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
      */
     public function get label():String
     {
@@ -1078,9 +1124,9 @@ are identical, save the superclass and constructor names.  This file contains th
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-	public function setEstimatedSize(estimatedWidth:Number = NaN, 
+    public function setEstimatedSize(estimatedWidth:Number = NaN, 
                                      estimatedHeight:Number = NaN,
-									 invalidateSize:Boolean = true):void
+                                     invalidateSize:Boolean = true):void
     {
         _estimatedWidth = estimatedWidth;
         _estimatedHeight = estimatedHeight;
