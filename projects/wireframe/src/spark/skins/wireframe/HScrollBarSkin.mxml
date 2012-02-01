@@ -12,7 +12,7 @@
 -->
 
 <Skin xmlns="http://ns.adobe.com/mxml/2009"
-	  minWidth="85" minHeight="15"
+	  minWidth="35" minHeight="15"
 	  alpha.disabled="0.5">
 
     <Metadata>
@@ -24,7 +24,7 @@
     	<State name="disabled" />
     </states>
     
-    <FxButton id="track" left="17" right="17"
+    <FxButton id="track" left="17" right="17" width="54"
             skinClass="wireframe.FxHScrollBarTrackSkin" />
     <FxButton id="decrementButton" left="0"
             skinClass="wireframe.FxScrollBarLeftButtonSkin" />
