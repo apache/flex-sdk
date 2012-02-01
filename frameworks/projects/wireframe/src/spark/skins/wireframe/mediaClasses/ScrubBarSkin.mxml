@@ -33,7 +33,7 @@
     <s:Button id="track" left="0" right="0" top="0" height="11"
               skinClass="spark.skins.wireframe.VideoPlayerScrubBarTrackSkin" />
 
-    <s:Group id="bufferedArea" left="0" top="0" height="11">
+    <s:Group id="bufferedArea" x="0" y="0" height="11" includeInLayout="false">
     
         <!-- inset 7 and 6 pixels because that's thumbSize/2 -->
         <s:Group left="7" right="6" top="0" bottom="0" minWidth="0">
@@ -48,7 +48,7 @@
         </s:Group>    
     </s:Group>
     
-    <s:Group id="playedArea" left="0" top="0" height="11">
+    <s:Group id="playedArea" x="0" y="0" height="11" includeInLayout="false">
     
         <!-- inset 7 and 6 pixels because that's thumbSize/2 -->
         <s:Group left="7" right="6" top="0" bottom="0" minWidth="0">
