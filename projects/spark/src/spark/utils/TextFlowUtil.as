@@ -32,6 +32,11 @@ use namespace tlf_internal;
  *  TextFlowUtil is a utility class which provides methods
  *  for importing a TextFlow from, and exporting a TextFlow to,
  *  the markup language used by the Text Layout Framework.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class TextFlowUtil
 {
@@ -111,19 +116,19 @@ public class TextFlowUtil
         // and then modify it and set it back.
         config = new Configuration();
         format = new TextLayoutFormat(config.textFlowInitialFormat);
-		format.whiteSpaceCollapse = "collapse";
-		config.textFlowInitialFormat = format;
+        format.whiteSpaceCollapse = "collapse";
+        config.textFlowInitialFormat = format;
         collapsingTextLayoutImporter = TextConverter.getImporter(
-			TextConverter.TEXT_LAYOUT_FORMAT, config);
+            TextConverter.TEXT_LAYOUT_FORMAT, config);
         collapsingTextLayoutImporter.throwOnError = true;
-		        
+                
         // Create an importer for TEXT_LAYOUT_FORMAT
         // that preserves whitespace.
-		// Note: We have to make a copy of the textFlowInitialFormat,
-		// which has various formats set to "inherit",
-		// and then modify it and set it back.
-		config = new Configuration();
-		format = new TextLayoutFormat(config.textFlowInitialFormat);
+        // Note: We have to make a copy of the textFlowInitialFormat,
+        // which has various formats set to "inherit",
+        // and then modify it and set it back.
+        config = new Configuration();
+        format = new TextLayoutFormat(config.textFlowInitialFormat);
         format.whiteSpaceCollapse = "preserve";
         config.textFlowInitialFormat = format;
         preservingTextLayoutImporter = TextConverter.getImporter(
@@ -148,7 +153,7 @@ public class TextFlowUtil
         initialized = true;
     }
 
-	[Bindable("unused")]
+    [Bindable("unused")]
     
     /**
      *  Creates a TextFlow by importing (i.e., parsing) a String
@@ -188,6 +193,11 @@ public class TextFlowUtil
      *  The default value is <code>WhiteSpaceCollapse.COLLAPSE</code>.
      *
      *  @return A new TextFlow instance created from the markup.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static function importFromString(
         markup:String, whiteSpaceCollapse:String = "collapse"):TextFlow
@@ -235,7 +245,7 @@ public class TextFlowUtil
         return importer.importToFlow(markupToImport);
     }
 
-	[Bindable("unused")]
+    [Bindable("unused")]
 
     /**
      *  Creates a TextFlow by importing (i.e., parsing) XML
@@ -276,8 +286,13 @@ public class TextFlowUtil
      *  The default value is <code>WhiteSpaceCollapse.COLLAPSE</code>.
      *
      *  @return A new TextFlow instance created from the markup.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-	public static function importFromXML(
+    public static function importFromXML(
         markup:XML, whiteSpaceCollapse:String = "collapse"):TextFlow
     {
         initClass();
@@ -329,6 +344,11 @@ public class TextFlowUtil
      * 
      *  @return XML containing Text Layout Framework
      *  markup language.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static function export(textFlow:TextFlow):XML
     {
