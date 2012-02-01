@@ -81,7 +81,7 @@
         <!-- background for big rectangle -->
         <s:Rect left="5" top="3" right="5" bottom="3">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Rect>
         
@@ -95,62 +95,62 @@
         <!-- inside rect2 -->
         <s:Rect left="7" top="5" right="7" bottom="5">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Rect>
         
         <!-- top-left -->
         <s:Rect left="0" top="2" width="3" height="1">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Rect>
         <s:Rect left="2" top="0" width="1" height="2">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Rect>
         
         <!-- top-right -->
         <s:Rect right="0" top="2" width="3" height="1">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Rect>
         <s:Rect right="2" top="0" width="1" height="2">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Rect>
         
         <!-- bottom-left -->
         <s:Rect left="0" bottom="3" width="3" height="1">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Rect>
         <s:Rect left="2" bottom="1" width="1" height="2">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Rect>
         
         <!-- bottom-right -->
         <s:Rect right="0" bottom="3" width="3" height="1">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Rect>
         <s:Rect right="2" bottom="1" width="1" height="2">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Rect>
         
         <!-- bar down below -->
         <s:Rect left="10" bottom="1" right="10" height="1">
             <s:fill>
-                <s:SolidColor color="#A9A9A9" />
+                <s:SolidColor color="#707070" />
             </s:fill>
         </s:Rect>
     </s:Group>
