@@ -76,7 +76,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *   or a UITEextField depending on the value of the textFieldClass style.  The default
  *   is UIFTETextField because it balances Spark compatability and cross-platform
  *   performance well.  In some cases specifying 
- *   <code>textFieldClass="mx.core.UITextField" (MXML) for the DataGrid will yield
+ *   <code>textFieldClass="mx.core.UITextField"</code> (MXML) for the DataGrid will yield
  *   improved scrolling performance for very large DataGrids.</p>
  * 
  *   <p>DefaultGridItemRenderer is not intended to be subclassed or copied, it is
