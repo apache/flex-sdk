@@ -72,6 +72,9 @@ Move the indicator tooltip string to a resource bundle
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
             }
             
+            /**
+             *  @private
+             */
             override public function setCurrentState(stateName:String, playTransition:Boolean=true):void
             {
                 super.setCurrentState(stateName, playTransition);
@@ -82,11 +85,11 @@ Move the indicator tooltip string to a resource bundle
     
     <s:states>
         <s:State name="normal" />
-        <s:State name="disabled" stateGroups="disabledStates"/>	
-        <s:State name="error" stateGroups="errorStates"/>	
-        <s:State name="required" stateGroups="requiredStates"/>	
+        <s:State name="disabled" stateGroups="disabledStates"/> 
+        <s:State name="error" stateGroups="errorStates"/>   
+        <s:State name="required" stateGroups="requiredStates"/> 
         <s:State name="requiredAndDisabled" stateGroups="requiredStates, disabledStates"/>
-        <s:State name="requiredAndError" stateGroups="requiredStates, errorStates"/>	
+        <s:State name="requiredAndError" stateGroups="requiredStates, errorStates"/>    
     </s:states>
     
     <s:layout>
