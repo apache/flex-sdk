@@ -117,11 +117,15 @@ public class SparkSkin extends Skin
         if (content && content.length > 0)
         {
             var contentBackgroundColor:uint = getStyle("contentBackgroundColor");
+            var contentBackgroundAlpha:Number = getStyle("contentBackgroundAlpha");
             
             for (i = 0; i < content.length; i++)
             {
                 if (this[content[i]])
+                {
                     this[content[i]].color = contentBackgroundColor;
+                    this[content[i]].alpha = contentBackgroundAlpha;
+                }
             }
         }
         
