@@ -17,6 +17,7 @@ import flash.events.MouseEvent;
 
 import mx.core.IVisualElement;
 
+import spark.components.IGridItemRenderer;
 import spark.components.supportClasses.GridColumn;
 
 /**
@@ -291,7 +292,7 @@ public class GridEvent extends MouseEvent
         columnIndex:int = -1,
         column:GridColumn = null,
         item:Object = null,
-        itemRenderer:IVisualElement = null,
+        itemRenderer:IGridItemRenderer = null,
         relatedObject:InteractiveObject = null,
         ctrlKey:Boolean = false,
         altKey:Boolean = false,
@@ -389,7 +390,7 @@ public class GridEvent extends MouseEvent
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5 
      */       
-    public var itemRenderer:IVisualElement;
+    public var itemRenderer:IGridItemRenderer;
     
     
     //--------------------------------------------------------------------------
