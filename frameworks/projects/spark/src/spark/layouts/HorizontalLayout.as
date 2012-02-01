@@ -12,10 +12,11 @@
 package spark.layouts
 {
 import flash.display.DisplayObject;
-import flash.events.Event;
+import flash.events.Event; 
 import flash.events.EventDispatcher;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.ui.Keyboard;
 
 import mx.containers.utilityClasses.Flex;
 import mx.core.ILayoutElement;
@@ -1176,6 +1177,30 @@ public class HorizontalLayout extends LayoutBase
         else 
             measureReal(layoutTarget);
     }
+    
+    /**
+     *  @private 
+     *  For a HorizontalLayout, returns the index of the next item to 
+     *  navigate to given the current index and keyCode passed in. 
+     */  
+     override public function nextItemIndex(keyCode:uint, currentIndex:int, maxIndex:int):int
+     {
+         var retVal:int = super.nextItemIndex(keyCode, currentIndex, maxIndex);  
+         switch (keyCode)
+         {
+             case Keyboard.RIGHT:
+             {
+                retVal = Math.min(currentIndex + 1, maxIndex);   
+                break;
+             } 
+             case Keyboard.LEFT: 
+             {
+                retVal = Math.max(currentIndex - 1, 0);  
+                break;
+             }
+         }
+         return retVal; 
+     }
     
     /**
      *  @private
