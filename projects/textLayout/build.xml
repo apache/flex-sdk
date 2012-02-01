@@ -12,7 +12,7 @@
 	<property file="${FLEX_HOME}/build.properties"/>
 	<property name="output.file" value="${FLEX_HOME}/frameworks/libs/textLayout.swc"/>
 	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
-	<property name="project.uri" value="library:adobe/flashx/textLayout"/>
+	<property name="project.uri" value="library://ns.adobe.com/flashx/textLayout"/>
 
         <!-- We use abbreviated token names here as, the 'release' 
              and 'debug' tokens conflict with those specified in 
@@ -39,12 +39,10 @@
 			   include-classes="flashx.textLayout.CoreClasses flashx.textLayout.EditClasses flashx.textLayout.ConversionClasses">
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-namespaces uri="${project.uri}"/>
-			<namespace uri="${project.uri}" manifest="manifest.xml"/>
+			<namespace uri="${project.uri}" manifest="textLayout/manifest.xml"/>
 			<source-path path-element="textLayout/src"/>
 			<library-path/>
-			<external-library-path dir="${FLEX_HOME}/frameworks/libs" append="false">
-				<include name="player/${global.playerglobal.version}playerglobal.swc"/>
-			</external-library-path>
+			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>
 		</compc>
@@ -69,8 +67,9 @@
 		    <compiler.source-path path-element="textLayout/src"/>
 			<external-library-path dir="${output.file}"/>
 		    <doc-namespaces uri="${project.uri}"/>
-		    <namespace uri="${project.uri}" manifest="manifest.xml"/>
+		    <namespace uri="${project.uri}" manifest="textLayout/manifest.xml"/>
 		    <jvmarg line="${asdoc.jvm.args}"/>
+			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="${dbg}"/>
 			<define name="CONFIG::release" value="${rel}"/>
 		</asdoc>
