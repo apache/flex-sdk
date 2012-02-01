@@ -118,8 +118,7 @@ public class DefaultGridItemRenderer extends UIFTETextField implements IGridItem
         inheritingStyles = StyleProtoChain.STYLE_UNINITIALIZED;
         nonInheritingStyles = StyleProtoChain.STYLE_UNINITIALIZED;
         
-        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, 
-						 GridItemRenderer.toolTipShowHandler);
+        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, GridItemRenderer.toolTipShowHandler);
     }
         
     /**
