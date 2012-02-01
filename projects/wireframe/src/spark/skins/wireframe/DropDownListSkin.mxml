@@ -53,7 +53,7 @@
               The drop down area of the skin. This includes borders, background colors, scrollers, and filters. 
               To create a custom drop down, edit this skin and create a custom skin class. 
         -->
-        <s:Group id="dropDown" maxHeight="134" minHeight="22" >
+        <s:Group id="dropDown">
             <!-- border/fill -->
             <s:Rect left="0" right="0" top="0" bottom="0">
                 <s:stroke>
@@ -68,7 +68,7 @@
                 <!--- @copy spark.components.SkinnableDataContainer#dataGroup-->
                 <s:DataGroup id="dataGroup" itemRenderer="spark.skins.spark.DefaultItemRenderer">
                     <s:layout>
-                        <s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
+                        <s:VerticalLayout gap="0" horizontalAlign="contentJustify" requestedMinRowCount="1" requestedMaxRowCount="6"/>
                     </s:layout>
                 </s:DataGroup>
             </s:Scroller>
