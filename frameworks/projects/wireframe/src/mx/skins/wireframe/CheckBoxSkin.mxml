@@ -43,11 +43,11 @@
          <!-- background -->
          <s:Rect left="0" right="0" minWidth="12" top="0" bottom="0" minHeight="12">
              <s:stroke>            
-                 <s:SolidColorStroke color="0x5380D0" />
+                 <s:SolidColorStroke color="#707070" />
              </s:stroke>
              <s:fill>
-                 <s:SolidColor color="0xFFFFFF" color.overStates="0xEBF4FF" 
-                               color.downStates="0xDEEBFF" />
+                 <s:SolidColor color="#EEEEEE" color.overStates="#FFFFFF" 
+                               color.downStates="#FFFFFF" />
              </s:fill>
          </s:Rect>
          
@@ -55,8 +55,8 @@
          <s:Rect left="1" top="1" right="1" bottom="1" includeIn="downStates">
              <s:stroke>
                  <s:LinearGradientStroke rotation="90">
-                     <s:GradientEntry color="0x5380D0" alpha="0.25" />
-                     <s:GradientEntry color="0x5380D0" alpha="0" />
+                     <s:GradientEntry color="#5C5C5C" alpha="0.25" />
+                     <s:GradientEntry color="#5C5C5C" alpha="0" />
                  </s:LinearGradientStroke>
              </s:stroke>
          </s:Rect>
@@ -67,7 +67,7 @@
                  includeIn="selectedStates" id="check" itemCreationPolicy="immediate">
              <s:stroke>
                  <!--- @private -->
-                 <s:SolidColorStroke id="checkMarkFill" weight="2" caps="square" color="0x3D5D92" />
+                 <s:SolidColorStroke id="checkMarkFill" weight="2" caps="square" color="#5C5C5C" />
              </s:stroke>
          </s:Path>
      </s:Group>
