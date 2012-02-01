@@ -148,8 +148,8 @@ public class GridEvent extends MouseEvent
     public static const SEPARATOR_CLICK:String = "separatorClick";
     public static const SEPARATOR_MOUSE_DOWN:String = "separatorMouseDown";
     public static const SEPARATOR_MOUSE_UP:String = "separatorMouseUp";
-    public static const SEPARATOR_ROLL_OUT:String = "separatorOut";
-    public static const SEPARATOR_ROLL_OVER:String = "separatorOver";
+    public static const SEPARATOR_ROLL_OUT:String = "separatorRollOut";
+    public static const SEPARATOR_ROLL_OVER:String = "separatorRollOver";
 
     //--------------------------------------------------------------------------
     //
