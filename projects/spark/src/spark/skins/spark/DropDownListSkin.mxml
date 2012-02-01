@@ -9,7 +9,7 @@
     in accordance with the terms of the license agreement accompanying it.
  
 --> 
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"> 
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" alpha.disabled=".5"> 
 
     <!-- host component -->
     <fx:Metadata>
@@ -22,10 +22,10 @@
 		<s:State name="disabled" />
 	</s:states>
     
-    <s:PopUp id="popup"  open.normal="false" open.open="true" 
+    <s:PopUp id="popup"  open.normal="false" open.open="true" includeIn="open"
     	left="0" right="0" top="0" bottom="0" visible.open = "true" visible.normal="false"
     	placement="below">
-    	<s:Group maxHeight="140" minHeight="22" visible.open = "true" visible.normal="false">
+    	<s:Group id="dropDown" maxHeight="134" minHeight="22" visible.open = "true" visible.normal="false">
 	    	 <!-- border -->
 		    <s:Rect left="0" right="0" top="0" bottom="0">
 		    	<s:stroke>
@@ -40,10 +40,10 @@
 		    	</s:fill>
 		    </s:Rect>
 		    
-		    <s:Scroller left="1" top="1" right="1" bottom="1" id="scroller">
+		    <s:Scroller left="1" top="1" right="1" bottom="1" >
 			    <s:DataGroup id="dataGroup" itemRenderer="spark.skins.default.DefaultItemRenderer">
 			    	<s:layout>
-			    	    <s:VerticalLayout gap="0" horizontalAlign="contentJustify" />
+			    	    <s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
 			    	</s:layout>
 			    </s:DataGroup>
 		    </s:Scroller>
