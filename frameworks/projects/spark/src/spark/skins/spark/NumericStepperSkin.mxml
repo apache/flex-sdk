@@ -85,15 +85,17 @@ component is defined by the NumericStepperTextInputSkin class.
          */
         override public function styleChanged(styleProp:String):void
         {
+            var allStyles:Boolean = !styleProp || styleProp == "styleName";
+
             super.styleChanged(styleProp);
             
-            if (!styleProp || styleProp == "cornerRadius")
+            if (allStyles || styleProp == "cornerRadius")
             {
                 cornerRadiusChanged = true;
                 invalidateProperties();
             }
             
-            if (!styleProp || styleProp.indexOf("border") == 0)
+            if (allStyles || styleProp.indexOf("border") == 0)
             {
                 borderStylesChanged = true;
                 invalidateProperties();
