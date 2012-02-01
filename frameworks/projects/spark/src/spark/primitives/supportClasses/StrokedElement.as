@@ -185,7 +185,7 @@ public class StrokedElement extends GraphicElement implements IDisplayObjectElem
 	protected function beginDraw(g:Graphics):void
 	{
 		if (stroke)
-			stroke.draw(g,bounds);
+			stroke.draw(g,new Rectangle(measuredX, measuredY, width, height));
 		else
 			g.lineStyle(0, 0, 0);
 			
