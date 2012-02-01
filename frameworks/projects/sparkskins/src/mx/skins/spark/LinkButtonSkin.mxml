@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the Halo LinkButton component. 
+<!--- The Spark skin class for the MX LinkButton component. 
+
+      @see mx.controls.LinkButton
         
       @langversion 3.0
       @playerversion Flash 10
