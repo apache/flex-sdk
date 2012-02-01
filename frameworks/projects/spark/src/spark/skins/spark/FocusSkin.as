@@ -14,6 +14,7 @@ package spark.skins.spark
 
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.display.DisplayObject;
 import flash.display.IBitmapDrawable;
 import flash.events.Event;
 import flash.filters.GlowFilter;
@@ -27,7 +28,10 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
+import spark.components.supportClasses.Skin;
 import spark.components.supportClasses.SkinnableComponent;
+import spark.core.DisplayObjectSharingMode;
+import spark.core.IGraphicElement;
 
 use namespace mx_internal;
 
@@ -159,18 +163,58 @@ public class FocusSkin extends UIComponent
             focusObject.$transform.matrix3D = null;
         }
         
-        // Temporary solution for focus drawing on CheckBox and RadioButton components.
-        // Hide the label before drawing the focus. 
-        // FIXME (gruehle): Figure out a better solution.
-        var hidLabelElement:Boolean = false;
-        if ((weakIsCheck(focusObject, "spark.components::CheckBox") ||
-             weakIsCheck(focusObject, "spark.components::RadioButton"))
-             && Object(focusObject).labelDisplay)
-        {
-            Object(focusObject).labelDisplay.displayObject.visible = false;
-            hidLabelElement = true;
-        }
-            
+		/* Some skins may have elements inside of them that they don't 
+		want considered for the focus skins.  if they list any sub elements
+		using the focusSkinExclusions property, we need to first set them to
+		invisible before we render our bitmap
+		*/
+		var skin:Skin = focusObject.skin;
+		var exclusions:Array = skin.focusSkinExclusions;
+		var exclusionCount:Number = (exclusions == null)? 0:exclusions.length;
+		/* we'll store off the previous visibility of the exclusions so we
+		can restore them when we're done
+		*/
+		var exclusionVisibilityValues:Array = [];
+		var needRedraw:Boolean = false;
+		for(var i:int = 0;i<exclusionCount;i++)		
+		{
+			var ex:Object = exclusions[i];
+			/* we're going to go under the covers here to try and modify visibility with the least
+			amount of disruption to the component.  For UIComponents, we go to Sprite's visibile property;
+			*/
+			if(ex is UIComponent)
+			{
+				exclusionVisibilityValues[i] = (ex as UIComponent).$visible; 
+				(ex as UIComponent).$visible = false;
+			} 
+			else if (ex is DisplayObject)
+			{
+				exclusionVisibilityValues[i] = (ex as UIComponent).visible; 
+				(ex as UIComponent).visible = false;
+			}
+			else if (ex is IGraphicElement) 
+			{
+				/* if we're lucky, the IGE has its own DisplayObject, and we can just trip its visibility.
+				If not, we're going to have to set it to invisible, and force a redraw of the whole component */
+				var ge:IGraphicElement = ex as IGraphicElement;
+				if(ge.displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
+				{
+					exclusionVisibilityValues[i] = ge.displayObject.visible;
+					ge.displayObject.visible = false;
+				}
+				else
+				{
+					exclusionVisibilityValues[i] = ge.visible;
+					ge.visible = false;
+					needRedraw = true;
+				}
+			}
+			
+		}
+		/* if we excluded an IGE without its own DO, we need to update the component before grabbing the bitmap */
+		if(needRedraw)
+			skin.validateNow();
+		
         m.tx = FOCUS_THICKNESS;
         m.ty = FOCUS_THICKNESS;
         bitmapData.draw(focusObject as IBitmapDrawable, m);
@@ -179,10 +223,39 @@ public class FocusSkin extends UIComponent
         if (focusObject.focusObj)
             focusObject.focusObj.visible = true;
         
-        // Show the label, if needed.
-        if (hidLabelElement)
-            Object(focusObject).labelDisplay.displayObject.visible = true;
-        
+		/* now go through and reverse our visibility modifications.  For any excluded component
+		that we made invisible, set it back to its previous value
+		*/
+		needRedraw = false;
+		for(i=0;i<exclusionCount;i++)		
+		{
+			ex = exclusions[i];
+			if(ex is UIComponent)
+			{
+				(ex as UIComponent).$visible = exclusionVisibilityValues[i];
+			} 
+			else if (ex is DisplayObject)
+			{
+				(ex as UIComponent).visible = exclusionVisibilityValues[i];
+			}
+			else if (ex is IGraphicElement) 
+			{
+				ge  = ex as IGraphicElement;
+				if(ge.displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
+				{
+					ge.displayObject.visible = exclusionVisibilityValues[i];
+				}
+				else
+				{
+					/* note that this is using a public API of GraphicElements that will, in fact,
+					trigger another update pass on the graphic element
+					*/
+					ge.visible = exclusionVisibilityValues[i];					
+				}
+			}
+			
+		}
+		
         // Special case for Scroller - fill the entire rect.
         // FIXME (gruehle): Figure out a better solution.
         if (weakIsCheck(focusObject, "spark.components::Scroller"))
