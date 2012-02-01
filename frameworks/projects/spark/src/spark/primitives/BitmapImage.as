@@ -1284,7 +1284,8 @@ public class BitmapImage extends GraphicElement
             dispatchEvent(new FlexEvent(FlexEvent.READY));
         }
         
-        invalidateSize();
+        if (!explicitHeight || !explicitWidth)
+            invalidateSize();
         invalidateDisplayList();
     }
     
@@ -1585,7 +1586,8 @@ public class BitmapImage extends GraphicElement
                 imageHeight = loaderInfo.height ;
                 
                 // Update
-                invalidateSize();
+                if (!explicitHeight || !explicitWidth)
+                    invalidateSize();
                 invalidateDisplayList(); 
                 
                 // Denote that we are hosting an untrusted image and as such some
