@@ -26,6 +26,11 @@ import mx.layout.LinearLayoutVector;
 
 /**
  *  Documentation is not currently available.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class VerticalLayout extends LayoutBase
 {
@@ -80,6 +85,11 @@ public class VerticalLayout extends LayoutBase
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function VerticalLayout():void
     {
@@ -108,6 +118,11 @@ public class VerticalLayout extends LayoutBase
      *  just one element, the gap has no effect on the layout.
      * 
      *  @default 6
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get gap():int
     {
@@ -140,6 +155,11 @@ public class VerticalLayout extends LayoutBase
      *  Returns the current number of visible elements.
      * 
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get rowCount():int
     {
@@ -155,6 +175,11 @@ public class VerticalLayout extends LayoutBase
      *  of visible rows.
      *
      *  @param value The number of visible rows.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function setRowCount(value:int):void
     {
@@ -191,6 +216,11 @@ public class VerticalLayout extends LayoutBase
      *  This property does not affect the layout's measured size.
      *  
      *  @default "left"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get horizontalAlign():String
     {
@@ -230,6 +260,11 @@ public class VerticalLayout extends LayoutBase
      *  then this property has no effect.
      * 
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get requestedRowCount():int
     {
@@ -265,6 +300,11 @@ public class VerticalLayout extends LayoutBase
      * 
      *  The default value of this property is the preferred height
      *  of the typicalLayoutElement.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get rowHeight():Number
     {
@@ -313,6 +353,11 @@ public class VerticalLayout extends LayoutBase
      *  layout elements' percentHeight.
      * 
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get variableRowHeight():Boolean
     {
@@ -355,6 +400,11 @@ public class VerticalLayout extends LayoutBase
 	 * 
 	 *  @see lastIndexInView
 	 *  @see inView
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get firstIndexInView():int
 	{
@@ -385,6 +435,11 @@ public class VerticalLayout extends LayoutBase
      * 
      *  @see firstIndexInView
      *  @see inView
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get lastIndexInView():int
 	{
@@ -405,6 +460,11 @@ public class VerticalLayout extends LayoutBase
      * 
      *  @see firstIndexInView
      *  @see lastIndexInview
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function setIndexInView(firstIndex:int, lastIndex:int):void
     {
@@ -442,6 +502,11 @@ public class VerticalLayout extends LayoutBase
 	 *  @return the percentage of the specified element that's in view.
 	 *  @see firstIndexInView
 	 *  @see lastIndexInView
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function inView(index:int):Number 
 	{
@@ -557,6 +622,11 @@ public class VerticalLayout extends LayoutBase
     *  scroll position.
     *  
     *  @see setIndexInView
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     override protected function scrollPositionChanged():void
     {
@@ -869,6 +939,11 @@ public class VerticalLayout extends LayoutBase
      *  As before the difference is due to the fact that flexible items are only
      *  guaranteed their minWidth.
      * 
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     override public function measure():void
     {
@@ -1140,6 +1215,11 @@ public class VerticalLayout extends LayoutBase
      *  
      *  The return value is any extra space that's left over
      *  after growing all children to their maxHeight.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function distributeHeight(width:Number, 
                                      height:Number, 
