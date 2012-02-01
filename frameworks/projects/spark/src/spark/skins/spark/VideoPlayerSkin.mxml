@@ -37,8 +37,7 @@
     </fx:Script>
     
     <fx:Style>
-        @namespace fx "http://ns.adobe.com/mxml/2009";
-        @namespace s "library://ns.adobe.com/flex/spark";
+        @namespace "library://ns.adobe.com/flex/spark";
         
         .videoTextStyle
         {
@@ -154,22 +153,14 @@
                             </s:layout>
                             
                             <!-- spacer -->
-                            <s:Rect width="7" height="1">
-                                <s:stroke>
-                                    <s:SolidColorStroke alpha="0"/>
-                                </s:stroke>
-                            </s:Rect>
+                            <s:Rect width="7" height="1" />
                             
                             <s:VideoPlayerScrubBar id="scrubBar" width="100%" liveDragging="true"
                                 skinClass="spark.skins.default.VideoPlayerScrubBarSkin"
                                 skinClass.fullScreenStates="spark.skins.default.VideoPlayerFullScreenScrubBarSkin" />
                             
                             <!-- spacer -->
-                            <s:Rect width="8" height="1">
-                                <s:stroke>
-                                    <s:SolidColorStroke alpha="0"/>
-                                </s:stroke>
-                            </s:Rect>
+                            <s:Rect width="8" height="1" />
                             
                             <s:SimpleText id="playheadTimeLabel" styleName="videoTextStyle" styleName.fullScreenStates="videoTextStyleFullScreen" />
                             
@@ -178,11 +169,7 @@
                             <s:SimpleText id="totalTimeLabel" styleName="videoTextStyle" styleName.fullScreenStates="videoTextStyleFullScreen" />
                             
                             <!-- spacer -->
-                            <s:Rect width="8" height="1">
-                                <s:stroke>
-                                    <s:SolidColorStroke alpha="0"/>
-                                </s:stroke>
-                            </s:Rect>
+                            <s:Rect width="8" height="1" />
                         </s:Group>
                     
                     </s:Group>
