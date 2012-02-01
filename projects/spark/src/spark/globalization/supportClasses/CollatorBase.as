@@ -28,17 +28,17 @@ use namespace mx_internal;
  * SortingCollator and MatchingCollator classes.
  *
  * <p>This class is a wrapper class around the
- * <code>flash.globalization.Collator</code>.
+ * <code>flash.globalization.Collator</code> class.
  * Therefore the locale-specific string comparison is provided by the
- * <code>flash.globalization.Collator</code>.
- * However this class allows the <code>SortingCollator</code> and
- * <code>MatchingCollator</code> classes to be used in MXML declartions.
- * It uses the <code>locale</code> style for the requested Locale ID name,
- * and has methods and properties that are bindable.
+ * <code>flash.globalization.Collator</code> class.
+ * However by using this class as a base class, the <code>SortingCollator</code>
+ * and <code>MatchingCollator</code> classes can be used in MXML declartions.
+ * In these classes, the <code>locale</code> style is used for the 
+ * requested Locale ID name and has methods and properties that are bindable.
  * </p>
  *
  * <p>The flash.globalization.Collator class uses the underlying operating
- * system for the formatting functionality and to supply the locale
+ * system for the formatting functionality and to supply locale
  * specific data.
  * On some operating systems, the flash.globalization classes are
  * unsupported. On these systems the wrapper class provides fallback
@@ -75,26 +75,25 @@ public class CollatorBase extends GlobalizationBase
      *  Constructs a new CollatorBase object to provide string comparisons
      *  according to the conventions of a specified locale.
      *
-     *  <p>The <code>initialMode</code> parameter sets various collation
-     *  options for general uses.
-     *  It can be set to one of the following values:</p>
+     *  <p>The <code>initialMode</code> parameter sets the initial collation
+     *  options for two use cases: sorting and matching.
+     *  It can be set to one of the two following values:</p>
      *
      *  <ul>
-     *   <li><code>CollatorMode.SORTING</code>: sets collation options for
-     *       general linguistic sorting usages such as sorting a list of
+     *   <li><code>CollatorMode.SORTING</code>: sets the collation options for
+     *       general linguistic sorting uses such as sorting a list of
      *       text strings that are displayed to an end user.
      *       In this mode, differences in uppercase and lowercase letters,
      *       accented characters, and other differences specific to the
      *       locale are considered when doing string comparisons.</li>
      *   <li><code>CollatorMode.MATCHING</code>: sets collation options for
-     *       general usages such as determining if two strings are
-     *       equivalent.
+     *       uses such as determining if two strings are equivalent.
      *       In this mode, differences in uppercase and lower case letters,
      *       accented characters, and so on are ignored when doing string
      *       comparisons.</li>
      *  </ul>
      *
-     *  <p>For more details and examples when using these two modes, please
+     *  <p>For more details and examples of using these two modes, please
      *  see the documentation for the
      *  <code>flash.globalization.Collator</code> class.</p>
      *
@@ -103,13 +102,14 @@ public class CollatorBase extends GlobalizationBase
      *
      *  <ul>
      *      <li>Inheriting the style from a <code>UIComponent</code> by calling
-     *          the UIComponent's <code>addStyleClient</code> method.</li>
+     *          the UIComponent's <code>addStyleClient</code> method with
+	 * 			an instance of this object as the parameter.</li>
      *      <li>By using the class in an MXML declaration and inheriting the
-     *          <code>locale</code> from the document that contains the
+     *          <code>locale</code> style from the document that contains the
      *          declaration.
      *  <listing version="3.0">
      *  &lt;fx:Declarations&gt;
-     *         &lt;s:StringTools id="st" /&gt;
+     *         &lt;s:SortingCollator id="collator" /&gt;
      *  &lt;/fx:Declarations&gt;
      *  </listing>
      *  </li>
@@ -117,20 +117,22 @@ public class CollatorBase extends GlobalizationBase
      *          <code>locale</code> value in the list of assignments.
      *  <listing version="3.0">
      *  &lt;fx:Declarations&gt;
-     *      &lt;s:StringTools id="st_turkish" locale="tr-TR" /&gt;
+     *      &lt;s:SortingCollator id="collator_german" locale="de-DE" /&gt;
      *  &lt;/fx:Declarations&gt;
      *  </listing>
      *  </li>
      *      <li>Calling the setStyle method, e.g.
-     *              <code>st.setStyle("locale", "tr-TR")</code></li>
+     *              <code>collator.setStyle("locale", "de-DE")</code></li>
      *  </ul>
      *
      *  <p>If the <code>locale</code> style is not set by one of the above
      *  techniques, the
-     *  methods of this class that depend on the <code>locale</code> will throw
-     *  an error.</p>
+     *  methods of this class that depend on the <code>locale</code> set the 
+	 *  lastOperationStatus property to 
+	 *  spark.globalization.LastOperationStatus.LOCALE_UNDEFINED_ERROR.</p>
      *
      *  @see flash.globalization.Collator
+	 *  @see spark.globalization.LastOperationStatus
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
@@ -156,8 +158,8 @@ public class CollatorBase extends GlobalizationBase
      *  @private
      *  Basic properies of the actual underlying working instance.
      *
-     *  It can be flash.globalization.Collator OR
-     *  the fallback's propery set.
+     *  This object can be a flash.globalization.Collator instance OR
+     *  an object that contains the fallback's propery set.
      */
     mx_internal var properties:Object = null;
 
@@ -182,9 +184,9 @@ public class CollatorBase extends GlobalizationBase
      *  @see flash.globalization.Collator.actualLocaleIDName
      *  @see #CollatorBase()
      *
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
-     *  @productversion Flash CS5
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     override public function get actualLocaleIDName():String
@@ -266,10 +268,10 @@ public class CollatorBase extends GlobalizationBase
      *  @see #compare()
      *  @see #equals()
      *
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     *  @productversion Flash CS5
      */
     public function get ignoreCase():Boolean
     {
@@ -313,10 +315,10 @@ public class CollatorBase extends GlobalizationBase
      *  @see #compare()
      *  @see #equals()
      *
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     *  @productversion Flash CS5
      */
     public function get ignoreCharacterWidth():Boolean
     {
@@ -358,10 +360,10 @@ public class CollatorBase extends GlobalizationBase
      *  @see #compare()
      *  @see #equals()
      *
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     *  @productversion Flash CS5
      */
     public function get ignoreDiacritics():Boolean
     {
@@ -402,10 +404,10 @@ public class CollatorBase extends GlobalizationBase
      *  @see #compare()
      *  @see #equals()
      *
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     *  @productversion Flash CS5
      */
     public function get ignoreKanaType():Boolean
     {
@@ -442,10 +444,10 @@ public class CollatorBase extends GlobalizationBase
      *  @see #compare()
      *  @see #equals()
      *
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     *  @productversion Flash CS5
      */
     public function get ignoreSymbols():Boolean
     {
@@ -483,20 +485,15 @@ public class CollatorBase extends GlobalizationBase
      *  are sorted into the following order: version1 &#60; version10 &#60;
      *  version2.</p>
      *
-     *  <p>The default value is <code>true</code> when the 
-     *  <code>CollatorBase()</code> constructor's <code>initialMode</code> 
-     *  parameter is set to <code>Collator.MATCHING</code>.
-     *  <code>false</code> when the <code>CollatorBase()</code>
-     *  constructor's <code>initialMode</code> parameter is set to
-     *  <code>Collator.SORTING</code>.</p>
+     *  @default <code>false</code>
      *
      *  @see #compare()
      *  @see #equals()
      *
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     *  @productversion Flash CS5
      */
     public function get numericComparison():Boolean
     {
@@ -588,10 +585,10 @@ public class CollatorBase extends GlobalizationBase
      *  @see #CollatorBase()
      *  @see #equals()
      *
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     *  @productversion Flash CS5
      */
     public function compare(string1:String, string2:String):int
     {
@@ -628,10 +625,10 @@ public class CollatorBase extends GlobalizationBase
      *  @see #CollatorBase()
      *  @see #compare
      *
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     *  @productversion Flash CS5
      */
     public function equals(string1:String, string2:String):Boolean
     {
@@ -657,9 +654,9 @@ public class CollatorBase extends GlobalizationBase
      *  @return A vector of strings containing all of the locale ID names
      *         supported by this class and operating system.
      *
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
-     *  @productversion Flash CS5
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static function getAvailableLocaleIDNames():Vector.<String>
