@@ -28,6 +28,8 @@ import spark.primitives.supportClasses.StrokedElement;
  *  
  *  @see mx.graphics.Stroke
  *  
+ *  @includeExample examples/LineExample.mxml
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -269,7 +271,7 @@ public class Line extends StrokedElement
     }
 
     /**
-     * @inheritDoc
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
