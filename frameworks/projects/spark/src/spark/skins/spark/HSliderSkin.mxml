@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+width="300" height="16"
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009"
+	  height="15" width="100">
+
+    <content>
+        <Button id="track" left="0" right="0" top="2" bottom="2" 
+                skinZZ="flex.skin.HSliderTrackSkin" />
+        <Button id="thumb" top="0" bottom="0" width="15" 
+                skinZZ="flex.skin.HSliderThumbSkin" />
+   </content>
+
+</Skin>
