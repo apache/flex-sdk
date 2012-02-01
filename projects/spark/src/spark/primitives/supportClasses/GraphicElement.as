@@ -388,20 +388,20 @@ public class GraphicElement extends EventDispatcher
     {
         return _alwaysCreateDisplayObject;
     }
-	
-	/**
-	 *  @private
-	 */
-	public function set alwaysCreateDisplayObject(value:Boolean):void
-	{
-		if (value != _alwaysCreateDisplayObject)
-		{
-			var previous:Boolean = needsDisplayObject;
-			_alwaysCreateDisplayObject = value;
-			if (previous != needsDisplayObject)
-				invalidateDisplayObjectSharing();
-		}
-	}
+    
+    /**
+     *  @private
+     */
+    public function set alwaysCreateDisplayObject(value:Boolean):void
+    {
+        if (value != _alwaysCreateDisplayObject)
+        {
+            var previous:Boolean = needsDisplayObject;
+            _alwaysCreateDisplayObject = value;
+            if (previous != needsDisplayObject)
+                invalidateDisplayObjectSharing();
+        }
+    }
     
     //----------------------------------
     //  baseline
@@ -4289,6 +4289,8 @@ public class GraphicElement extends EventDispatcher
      *  @param width The target pre-transform width.
      *  
      *  @param height The target pre-transform height.
+     * 
+     *  @param postLayoutTransform 
      *  
      *  @return Returns the transformed width. Transformation is this element's
      *  layout transformation matrix.
@@ -4673,7 +4675,7 @@ public class GraphicElement extends EventDispatcher
      *  Returns the amount of pixels occupied by the stroke on each side
      *  of the element's bounds.
      * 
-     *  @param postLayoutTransform - if true, the stroke extents are calculated
+     *  @param postLayoutTransform If <code>true</code>, the stroke extents are calculated
      *  in parent coordinate space (after applying the element's transformations).
      * 
      *  @return Rectangle of the stroke extents. The rectangle's <code>left</code>,
