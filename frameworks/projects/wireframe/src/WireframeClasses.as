@@ -53,6 +53,7 @@ internal class WireframeClasses
 	import spark.skins.wireframe.TextAreaSkin; TextAreaSkin;
 	import spark.skins.wireframe.TextInputSkin; TextInputSkin;
 	import spark.skins.wireframe.ToggleButtonSkin; ToggleButtonSkin;
+	import spark.skins.wireframe.VideoPlayerSkin; VideoPlayerSkin;
 	import spark.skins.wireframe.VScrollBarSkin; VScrollBarSkin;
 	import spark.skins.wireframe.VScrollBarThumbSkin; VScrollBarThumbSkin;
 	import spark.skins.wireframe.VScrollBarTrackSkin; VScrollBarTrackSkin;
