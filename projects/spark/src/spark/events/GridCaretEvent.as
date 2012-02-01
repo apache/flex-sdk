@@ -68,7 +68,7 @@ public class GridCaretEvent extends Event
      *     <tr><td><code>type</code></td><td>GirdCaretEvent.CARET_CHANGE</td></tr>
      *  </table>
      *   
-     *  @eventType selectionChange
+     *  @eventType caretChange
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
