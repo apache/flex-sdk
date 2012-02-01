@@ -15,7 +15,7 @@ package spark.utils
 import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.conversion.ITextExporter;
 import flashx.textLayout.conversion.ITextImporter;
-import flashx.textLayout.conversion.TextFilter;
+import flashx.textLayout.conversion.TextConverter;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.formats.FormatValue;
@@ -113,8 +113,8 @@ public class TextFlowUtil
         format = new TextLayoutFormat(config.textFlowInitialFormat);
 		format.whiteSpaceCollapse = "collapse";
 		config.textFlowInitialFormat = format;
-        collapsingTextLayoutImporter = TextFilter.getImporter(
-            TextFilter.TEXT_LAYOUT_FORMAT, config);
+        collapsingTextLayoutImporter = TextConverter.getImporter(
+			TextConverter.TEXT_LAYOUT_FORMAT, config);
         collapsingTextLayoutImporter.throwOnError = true;
 		        
         // Create an importer for TEXT_LAYOUT_FORMAT
@@ -126,13 +126,13 @@ public class TextFlowUtil
 		format = new TextLayoutFormat(config.textFlowInitialFormat);
         format.whiteSpaceCollapse = "preserve";
         config.textFlowInitialFormat = format;
-        preservingTextLayoutImporter = TextFilter.getImporter(
-            TextFilter.TEXT_LAYOUT_FORMAT, config);
+        preservingTextLayoutImporter = TextConverter.getImporter(
+            TextConverter.TEXT_LAYOUT_FORMAT, config);
         preservingTextLayoutImporter.throwOnError = true;
             
         // Create an exporter for TEXT_LAYOUT_FORMAT.
-        textLayoutExporter = TextFilter.getExporter(
-            TextFilter.TEXT_LAYOUT_FORMAT);
+        textLayoutExporter = TextConverter.getExporter(
+            TextConverter.TEXT_LAYOUT_FORMAT);
             
         // Build a list of the formats which are marked "inherit"
         // a Configuration's textFlowInitialFormat.
