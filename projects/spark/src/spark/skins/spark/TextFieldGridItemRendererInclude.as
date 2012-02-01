@@ -291,38 +291,6 @@ are identical, save the superclass and constructor names.  This file contains th
     }
     
     //----------------------------------
-    //  singleLine (private)
-    //----------------------------------
-    
-    private var _singleLine:Boolean = false;
-    
-    /**
-     *  @private
-     *  If true, then the labelDisplay is confgured to not wrap and to display 
-     *  only one line of text.  That's the most efficient rendering mode.  This 
-     *  property is false by default, which means that multiline and wordWrap are 
-     *  enabled (true) and autoSize is LEFT.
-     */    
-    public function get singleLine():Boolean
-    {
-        return _singleLine
-    }
-    
-    /**
-     *  @private
-     */    
-    public function set singleLine(value:Boolean):void
-    {
-        if (_singleLine == value)
-            return;
-        
-        _singleLine = value;
-        
-        multiline = !singleLine;
-        wordWrap = !singleLine;
-    }    
-    
-    //----------------------------------
     //  dragging
     //----------------------------------
     
@@ -401,7 +369,21 @@ are identical, save the superclass and constructor names.  This file contains th
         preferredSizeInvalid = true;
         enableValidateNow = true;
     }
-    
+ 
+    /**
+     *  @private
+     *  If set, then set the wordWrapSet flag.  This is used to enable the updatePreferredSize()
+     *  method to initialize the wordWrap based on the grid's varaibleRowHeight flag, if
+     *  wordWrap wasn't explicitly set.
+     */
+    override public function set wordWrap(value:Boolean):void
+    {
+        super.wordWrap = value;
+        wordWrapSet = true;
+    }
+
+    private var wordWrapSet:Boolean = false;
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -414,7 +396,6 @@ are identical, save the superclass and constructor names.  This file contains th
     override public function styleChanged(styleProp:String):void
     {
         super.styleChanged(styleProp);
-        singleLine = getStyle("lineBreak") == "explicit";        
         preferredSizeInvalid = true;
     }
     
@@ -429,6 +410,12 @@ are identical, save the superclass and constructor names.  This file contains th
     {
         if (!preferredSizeInvalid)
             return;
+        
+        // If the wordWrap property hasn't been explicitly set, then it's value
+        // is the same as the grid's variableRowHeight property.
+        
+        if (!wordWrapSet && column && column.grid)
+            super.wordWrap = column.grid.variableRowHeight;
         
         if (getStyle("lineBreak") == "explicit")
             multiline = _label.indexOf("\n") != -1;
