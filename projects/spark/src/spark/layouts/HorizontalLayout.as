@@ -26,10 +26,57 @@ import spark.layout.supportClasses.LayoutBase;
 import spark.layout.supportClasses.LayoutElementHelper;
 import spark.layout.supportClasses.LinearLayoutVector;
 
-
 /**
- *  Documentation is not currently available.
- *  
+ *  The HorizontalLayout arranges the layout elements in a horizontal sequence,
+ *  left to right, with optional gaps between the elements and optional padding
+ *  around the sequence of elements.
+ *
+ *  <p>During measure(), the default size of the container is calculated by
+ *  accumulating the preferred sizes of the elements, including gaps and padding.
+ *  When requestedColumnCount is set, only the space for that many elements
+ *  will be measured, starting from the first element.</p>
+ *
+ *  <p>During updateDisplayList(), the width of each element is calculated
+ *  according to the following rules, listed in their respective order of
+ *  precedence (element's minimum width and maximum width are always respected):
+ *  <ul>
+ *    <li>If variableColumnWidth is false, then set the element's width to the
+ *    value of the columnWidth property.</li>
+ *
+ *    <li>If the element's percentWidth is set, then calculate the element's
+ *    width by distributing the available container width between all
+ *    elements with percentWidth setting. The available container width
+ *    is equal to the container width minus the gaps, the padding and the
+ *    space occupied by the rest of the elements. The element's precentWidth
+ *    property is ignored when the layout is virtualized.</li>
+ *
+ *    <li>Set the element's width to its preferred width.</li>
+ *  <ul>
+ *
+ *  The height of each element is calculated according to the following rules,
+ *  listed in their respective order of precedence (element's minium height and
+ *  maximum height are always respected):
+ *  <ul>
+ *    <li>If verticalAlign is "justify" then set the element's height to the
+ *    container height.</li>
+ *
+ *    <li>If verticalAlign is "contentJustify" then set the element's height
+ *    to the maximum between the container's height and all elements' preferred
+ *    height.</li>
+ *
+ *    <li>If the element's percentHeight is set, then calculate the element's
+ *    height as a percentage of the container's height.</li>
+ *
+ *    <li>Set the element's height to its preferred height.</li>
+ *  </ul>
+ *
+ *  The horizontal position of the elements is determined by arranging them
+ *  in a horizontal sequence, left to right, taking into account the padding
+ *  before the first element and the gaps between the elements.
+ *
+ *  The vertical position of the elements is determined by the layout's 
+ *  verticalAlign property.</p>
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -459,11 +506,7 @@ public class HorizontalLayout extends LayoutBase
         if (value == _variableColumnWidth) return;
         
         _variableColumnWidth = value;
- 		var layoutTarget:GroupBase = target;
-        if (layoutTarget != null) {
-    		layoutTarget.invalidateSize();
-        	layoutTarget.invalidateDisplayList();
-        }
+        invalidateTargetSizeAndDisplayList();
     }
     
     //----------------------------------
@@ -485,7 +528,7 @@ public class HorizontalLayout extends LayoutBase
      *  Note that the column may only be partially in view.
      * 
      *  @see lastIndexInView
-     *  @see inView
+     *  @see fractionOfElementInView
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -517,7 +560,7 @@ public class HorizontalLayout extends LayoutBase
      *  Note that the column may only be partially in view.
      * 
      *  @see firstIndexInView
-     *  @see inView
+     *  @see fractionOfElementInView
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -575,7 +618,10 @@ public class HorizontalLayout extends LayoutBase
             return;
         
         _verticalAlign = value;
-        invalidateTargetDisplayList();
+
+        var layoutTarget:GroupBase = target;
+        if (layoutTarget)
+            layoutTarget.invalidateDisplayList();
     }
 
     /**
@@ -626,7 +672,7 @@ public class HorizontalLayout extends LayoutBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function inView(index:int):Number 
+    public function fractionOfElementInView(index:int):Number
     {
         var g:GroupBase = target;
         if (!g)
@@ -756,7 +802,7 @@ public class HorizontalLayout extends LayoutBase
             return;
         }
         
-        var scrollR:Rectangle = getTargetScrollRect();
+        var scrollR:Rectangle = getScrollRect();
         if (!scrollR)
         {
             setIndexInView(0, n);
@@ -863,7 +909,7 @@ public class HorizontalLayout extends LayoutBase
     {
         var n:int = g.numElements;
 
-        if (inView(i) >= 1)
+        if (fractionOfElementInView(i) >= 1)
         {
             // Special case: if we hit the first/last element, 
             // then return the area of the padding so that we
@@ -1095,7 +1141,7 @@ public class HorizontalLayout extends LayoutBase
      * 
      *  The layoutTarget's measuredMinWidth is the sum of the minWidths of 
      *  layout elements that have specified a value for the percentWidth
-     *  property, and the preferredWidtj of the elements that have not, 
+     *  property, and the preferredWidth of the elements that have not, 
      *  plus the sum of the gaps between elements.
      * 
      *  The difference reflects the fact that elements which specify 
@@ -1504,8 +1550,30 @@ public class HorizontalLayout extends LayoutBase
             updateDisplayListVirtual();
         else
             updateDisplayListReal();
-    }     
+    }
+    
+    /**
+     *  @private 
+     *  Convenience function for subclasses that invalidates the
+     *  target's size and displayList so that both layout's <code>measure()</code>
+     *  and <code>updateDisplayList</code> methods get called.
+     * 
+     *  <p>Typically a layout invalidates the target's size and display list so that
+     *  it gets a chance to recalculate the target's default size and also size and
+     *  position the target's elements. For example changing the <code>gap</code>
+     *  property on a <code>VerticalLayout</code> will internally call this method
+     *  to ensure that the elements are re-arranged with the new setting and the
+     *  target's default size is recomputed.</p> 
+     */
+    private function invalidateTargetSizeAndDisplayList():void
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return;
 
+        g.invalidateSize();
+        g.invalidateDisplayList();
+    }
 }
 }
 
