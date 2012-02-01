@@ -12,6 +12,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#columnCount
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -22,6 +24,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#columnGap
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -31,6 +35,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#columnWidth
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
