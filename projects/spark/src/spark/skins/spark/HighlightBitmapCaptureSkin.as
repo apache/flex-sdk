@@ -14,6 +14,7 @@ package spark.skins.spark
     
     import flash.display.Bitmap;
     import flash.display.BitmapData;
+    import flash.display.DisplayObject;
     import flash.display.IBitmapDrawable;
     import flash.events.Event;
     import flash.geom.ColorTransform;
@@ -27,6 +28,7 @@ package spark.skins.spark
     
     import spark.components.supportClasses.Skin;
     import spark.components.supportClasses.SkinnableComponent;
+    import spark.skins.IHighlightBitmapCaptureClient;
     
     use namespace mx_internal;
     
@@ -171,12 +173,12 @@ package spark.skins.spark
                 target.focusObj.visible = false;
             
             var needUpdate:Boolean;
-            var skin:Skin = target.skin as Skin;
-            if (skin)
+            var bitmapCaptureClient:IHighlightBitmapCaptureClient = target.skin as IHighlightBitmapCaptureClient;
+            if (bitmapCaptureClient)
             {
-                needUpdate = skin.beginHighlightBitmapCapture();
+                needUpdate = bitmapCaptureClient.beginHighlightBitmapCapture();
                 if (needUpdate)
-                    skin.validateNow();
+					bitmapCaptureClient.validateNow();
             }
             
             m.tx = borderWeight;
@@ -190,6 +192,8 @@ package spark.skins.spark
             {
                 // If capture fails, substitute with a Rect
                 var fillRect:Rectangle
+				var skin:DisplayObject = target.skin;
+				
                 if (skin)
                     fillRect = new Rectangle(skin.x, skin.y, skin.width, skin.height);
                 else
@@ -198,11 +202,11 @@ package spark.skins.spark
                 bitmapData.fillRect(fillRect, 0);
             }
             
-            if (skin)
+            if (bitmapCaptureClient)
             {
-                needUpdate = skin.endHighlightBitmapCapture();
+                needUpdate = bitmapCaptureClient.endHighlightBitmapCapture();
                 if (needUpdate)
-                    skin.validateNow();
+					bitmapCaptureClient.validateNow();
             }
             
             
