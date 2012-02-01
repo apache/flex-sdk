@@ -52,7 +52,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
      *  to prevent clipping/wrapping.
      */
     private static const WIDTH_PADDING:Number = 15;
-    private static const HEIGHT_PADDING:Number = 10;
+    private static const HEIGHT_PADDING:Number = 7;
     
     /** 
      *  Used to flag a lineBreak style change for commitProperties().   See styleChanged().
@@ -357,6 +357,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
             return;
         
         _label = value;
+        invalidateDisplayList();
         // Defer setting the labelDisplay's text property to avoid extra computation, see updateMeasuredSize()
         
         dispatchChangeEvent("labelChanged");
@@ -484,7 +485,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     {
         if (getStyle("lineBreak") == "explicit")
             labelDisplay.multiline = _label.indexOf("\n") != -1;
-        
+         
         labelDisplay.text = _label;  // forces a labelDisplay.validateNow(), if text has changed
 
         const widthPadding:int = WIDTH_PADDING + UITextField.TEXT_WIDTH_PADDING;
@@ -536,7 +537,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
             return;
         
         const labelDisplayX:int = 5;
-        const labelDisplayY:int = 5;
+        const labelDisplayY:int = 4;
         const labelDisplayWidth:int = unscaledWidth - (WIDTH_PADDING - labelDisplayX); 
         const labelDisplayHeight:int = unscaledHeight - (HEIGHT_PADDING - labelDisplayY);
         
