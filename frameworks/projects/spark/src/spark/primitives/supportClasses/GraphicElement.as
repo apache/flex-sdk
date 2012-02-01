@@ -14,10 +14,10 @@ package mx.graphics.graphicsClasses
 import flash.display.BitmapData;
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.display.LineScaleMode;
 import flash.display.Sprite;
 import flash.events.Event;
-import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
@@ -46,7 +46,6 @@ import mx.layout.ILayoutElement;
 import mx.managers.ILayoutManagerClient;
 import mx.utils.MatrixUtil;
 import mx.utils.OnDemandEventDispatcher;
-import flash.display.DisplayObjectContainer;
 
 use namespace mx_internal;
 
@@ -187,8 +186,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     //  Properties
     //
     //--------------------------------------------------------------------------
-    
-    [Bindable("propertyChange")]
+
     /**
      *  Defines a set of adjustments that can be applied to the component's transform in a way that is 
      *  invisible to the component's parent's layout. For example, if you want a layout to adjust 
@@ -200,15 +198,12 @@ public class GraphicElement extends OnDemandEventDispatcher
     {
         if(value != null)
             allocateLayoutFeatures();
-
-        var oldValue:TransformOffsets = layoutFeatures.offsets;
         
         if(layoutFeatures.offsets != null)
             layoutFeatures.offsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
         layoutFeatures.offsets = value;
         if(layoutFeatures.offsets != null)
             layoutFeatures.offsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
-        dispatchPropertyChangeEvent("offsets", oldValue, value);
     }
     
     /**
@@ -264,7 +259,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var alphaChanged:Boolean = false;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -283,12 +277,12 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (_alpha == value)
             return;
 
-        var oldValue:Number = _alpha;
-        _alpha = value;
-        dispatchPropertyChangeEvent("alpha", oldValue, value);
+		var previous:Boolean = needsDisplayObject;
+	   	_alpha = value;
+    	if (previous != needsDisplayObject)
+			notifyElementLayerChanged();    
 
         alphaChanged = true;
-        notifyElementLayerChanged();
         invalidateProperties();
     }
 
@@ -358,7 +352,6 @@ public class GraphicElement extends OnDemandEventDispatcher
     private var blendModeChanged:Boolean;
     private var blendModeExplicitlySet:Boolean = false;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General", enumeration="add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay", defaultValue="normal")]
 
     /**
@@ -379,14 +372,13 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (blendModeExplicitlySet && _blendMode == value)
             return;
 
-        var oldValue:String = _blendMode;
-        _blendMode = value;
-        dispatchPropertyChangeEvent("blendMode", oldValue, value);
-
+        var previous:Boolean = needsDisplayObject;
+    	_blendMode = value;
+		if (previous != needsDisplayObject)
+			notifyElementLayerChanged();
+		
         blendModeExplicitlySet = true;
-
         blendModeChanged = true;
-        notifyElementLayerChanged();
         invalidateProperties();
     }
 
@@ -510,7 +502,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var _explicitHeight:Number;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -533,9 +524,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (!isNaN(value))
             percentHeight = NaN;
 
-        var oldValue:Number = _explicitHeight;
         _explicitHeight = value;
-        dispatchPropertyChangeEvent("explicitHeight", oldValue, value);
 
         invalidateSize();
         invalidateParentSizeAndDisplayList();
@@ -591,7 +580,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var _explicitWidth:Number;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -614,9 +602,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (!isNaN(value))
             percentWidth = NaN;
 
-        var oldValue:Number = _explicitWidth;
         _explicitWidth = value;
-        dispatchPropertyChangeEvent("explicitWidth", oldValue, value);
 
         invalidateSize();
         invalidateParentSizeAndDisplayList();
@@ -642,7 +628,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var _clonedFilters:Array;
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -660,22 +645,29 @@ public class GraphicElement extends OnDemandEventDispatcher
     public function set filters(value:Array):void
     {
         var i:int = 0;
-        var oldFilters:Array = _filters ? _filters.slice() : null;
-        var len:int = oldFilters ? oldFilters.length : 0;
+        var len:int = _filters ? _filters.length : 0;
+        var newLen:int = value ? value.length : 0; 
         var edFilter:IEventDispatcher;
 
+		if (len == 0 && newLen == 0)
+			return;
+
+		// Remove the event listeners on the previous filters
         for (i = 0; i < len; i++)
         {
-            edFilter = value[i] as IEventDispatcher;
+            edFilter = _filters[i] as IEventDispatcher;
             if (edFilter)
                 edFilter.removeEventListener(BaseFilter.CHANGE, filterChangedHandler);
         }
 
+		var previous:Boolean = needsDisplayObject;
+	   	_filters = value;
+    	if (previous != needsDisplayObject)
+			notifyElementLayerChanged();
+		
         _clonedFilters = [];
-        _filters = value;
-        len = value.length;
-
-        for (i = 0; i < len; i++)
+        
+        for (i = 0; i < newLen; i++)
         {
             if (value[i] is IBitmapFilter)
             {
@@ -690,10 +682,7 @@ public class GraphicElement extends OnDemandEventDispatcher
             }
         }
 
-        dispatchPropertyChangeEvent("filters", oldFilters, _filters);
-
         filtersChanged = true;
-        notifyElementLayerChanged();
         invalidateProperties();
     }
 
@@ -822,7 +811,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var maskChanged:Boolean;
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -842,8 +830,10 @@ public class GraphicElement extends OnDemandEventDispatcher
             return;
 
         var oldMask:UIComponent = _mask as UIComponent;
-        _mask = value;
-        
+
+    	var previous:Boolean = needsDisplayObject;
+	   	_mask = value;	    
+
         // If the old mask was attached by us, then we need to 
         // undo the attachment logic        
  		if (oldMask && oldMask.$parent === displayObject)
@@ -869,10 +859,11 @@ public class GraphicElement extends OnDemandEventDispatcher
     		}
         }
         
-        dispatchPropertyChangeEvent("mask", oldMask, value);
         maskChanged = true;
         maskTypeChanged = true;
-        notifyElementLayerChanged();
+        if (previous != needsDisplayObject)
+			notifyElementLayerChanged();
+
         invalidateProperties();
     }
 
@@ -891,7 +882,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var maskTypeChanged:Boolean;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General", enumeration="clip,alpha", defaultValue="clip")]
     
     /**
@@ -910,9 +900,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (_maskType == value)
             return;
 
-        var oldValue:String = _maskType;
         _maskType = value;
-        dispatchPropertyChangeEvent("maskType", oldValue, value);
 
         maskTypeChanged = true;
         invalidateProperties();
@@ -928,7 +916,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var _maxHeight:Number;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -948,9 +935,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (_maxHeight == value)
             return;
 
-        var oldValue:Number = _maxHeight;
         _maxHeight = value;
-        dispatchPropertyChangeEvent("maxHeight", oldValue, value);
 
         invalidateSize();
         invalidateParentSizeAndDisplayList();
@@ -966,7 +951,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var _maxWidth:Number;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -986,9 +970,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (_maxWidth == value)
             return;
 
-        var oldValue:Number = _maxWidth;
         _maxWidth = value;
-        dispatchPropertyChangeEvent("maxWidth", oldValue, value);
 
         invalidateSize();
         invalidateParentSizeAndDisplayList();
@@ -1108,7 +1090,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var _minHeight:Number;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -1128,9 +1109,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (_minHeight == value)
             return;
 
-        var oldValue:Number = _minHeight;
         _minHeight = value;
-        dispatchPropertyChangeEvent("minHeight", oldValue, value);
 
         invalidateSize();
         invalidateParentSizeAndDisplayList();
@@ -1146,7 +1125,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var _minWidth:Number;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -1166,9 +1144,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (_minWidth == value)
             return;
 
-        var oldValue:Number = _minWidth;
         _minWidth = value;
-        dispatchPropertyChangeEvent("minWidth", oldValue, value);
 
         invalidateSize();
         invalidateParentSizeAndDisplayList();
@@ -1184,7 +1160,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var _percentHeight:Number;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -1206,9 +1181,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (!isNaN(value))
             explicitHeight = NaN;
 
-        var oldValue:Number = _percentHeight;
         _percentHeight = value;
-        dispatchPropertyChangeEvent("percentHeight", oldValue, value);
 
         invalidateParentSizeAndDisplayList();
     }
@@ -1223,7 +1196,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var _percentWidth:Number;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -1245,9 +1217,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (!isNaN(value))
             explicitWidth = NaN;
 
-        var oldValue:Number = _percentWidth;
         _percentWidth = value;
-        dispatchPropertyChangeEvent("percentWidth", oldValue, value);
 
         invalidateParentSizeAndDisplayList();
     }
@@ -1288,8 +1258,6 @@ public class GraphicElement extends OnDemandEventDispatcher
     //  rotation
     //----------------------------------
 
-
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
 	/**
@@ -1310,19 +1278,15 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set rotationX(value:Number):void
     {
-        
-        var oldValue:Number = rotationX;
-        if (oldValue == value)
+        if (rotationX == value)
             return;
 
         allocateLayoutFeatures();
-        
-        layoutFeatures.layoutRotationX = value;
-        dispatchPropertyChangeEvent("rotationX", oldValue, value);
-        invalidateTransform();
+		var previous:Boolean = needsDisplayObject;
+	   	layoutFeatures.layoutRotationX = value;
+		invalidateTransform(previous != needsDisplayObject); 
     }
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
 	/**
@@ -1342,17 +1306,15 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set rotationY(value:Number):void
     {
-        var oldValue:Number = rotationY;
-        if (oldValue == value)
+        if (rotationY == value)
             return;
         
         allocateLayoutFeatures();
-        layoutFeatures.layoutRotationY = value;
-        dispatchPropertyChangeEvent("rotationY", oldValue, value);
-        invalidateTransform();
+		var previous:Boolean = needsDisplayObject;
+		layoutFeatures.layoutRotationY = value;
+		invalidateTransform(previous != needsDisplayObject);
     }
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
     /**
@@ -1369,16 +1331,13 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set rotationZ(value:Number):void
     {
-        var oldValue:Number = rotationZ;
-        if (oldValue == value)
+        if (rotationZ == value)
             return;
-
+		
         allocateLayoutFeatures();
-        
-        layoutFeatures.layoutRotationZ = value;
-        dispatchPropertyChangeEvent("rotationZ", oldValue, value);
-        dispatchPropertyChangeEvent("rotation", oldValue, value);
-        invalidateTransform();
+		var previous:Boolean = needsDisplayObject;
+	   	layoutFeatures.layoutRotationZ = value;
+		invalidateTransform(previous != needsDisplayObject);
     }
 
     [Bindable("propertyChange")]
@@ -1405,7 +1364,6 @@ public class GraphicElement extends OnDemandEventDispatcher
     //  scaleX
     //----------------------------------
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -1422,22 +1380,19 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set scaleX(value:Number):void
     {
-        var oldValue:Number = scaleX;
-        if (oldValue == value)
+        if (scaleX == value)
             return;
-
+		
         allocateLayoutFeatures();
-
-        layoutFeatures.layoutScaleX = value;
-        dispatchPropertyChangeEvent("scaleX", oldValue, value);
-        invalidateTransform();
+		var previous:Boolean = needsDisplayObject;
+	   	layoutFeatures.layoutScaleX = value;
+		invalidateTransform(previous != needsDisplayObject);
     }
 
     //----------------------------------
     //  scaleY
     //----------------------------------
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -1454,22 +1409,19 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set scaleY(value:Number):void
     {
-        var oldValue:Number = scaleY;
-        if (oldValue == value)
+        if (scaleY == value)
             return;
-
+            
         allocateLayoutFeatures();
-
-        layoutFeatures.layoutScaleY = value;
-        dispatchPropertyChangeEvent("scaleY", oldValue, value);
-        invalidateTransform();
+		var previous:Boolean = needsDisplayObject;
+	   	layoutFeatures.layoutScaleY = value;
+		invalidateTransform(previous != needsDisplayObject);
     }
 
     //----------------------------------
     //  scaleZ
     //----------------------------------
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -1486,15 +1438,13 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set scaleZ(value:Number):void
     {
-        var oldValue:Number = scaleZ;
-        if (oldValue == value)
+        if (scaleZ == value)
             return;
-
+		
         allocateLayoutFeatures();
-
-        layoutFeatures.layoutScaleZ = value;
-        dispatchPropertyChangeEvent("scaleZ", oldValue, value);
-        invalidateTransform();
+		var previous:Boolean = needsDisplayObject;
+	   	layoutFeatures.layoutScaleZ = value;
+		invalidateTransform(previous != needsDisplayObject);	
     }
 
     //----------------------------------
@@ -1557,6 +1507,8 @@ public class GraphicElement extends OnDemandEventDispatcher
     {
         setTransform(value);
 
+		var previous:Boolean = needsDisplayObject;
+
         if (_transform)
         {
             allocateLayoutFeatures();
@@ -1572,8 +1524,8 @@ public class GraphicElement extends OnDemandEventDispatcher
         }
         
         _colorTransform = _transform ? _transform.colorTransform : null;
-         
-        invalidateTransform();
+        
+        invalidateTransform(previous != needsDisplayObject);
     }
 
     /**
@@ -1619,8 +1571,9 @@ public class GraphicElement extends OnDemandEventDispatcher
     public function set layoutMatrix(value:Matrix):void
     {
         allocateLayoutFeatures();
-        layoutFeatures.layoutMatrix = value;
-        invalidateTransform();
+		var previous:Boolean = needsDisplayObject;
+	   	layoutFeatures.layoutMatrix = value;
+		invalidateTransform(previous != needsDisplayObject);
     }
 
     /**
@@ -1635,9 +1588,10 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set layoutMatrix3D(value:Matrix3D):void
     {
-        allocateLayoutFeatures();
-        layoutFeatures.layoutMatrix3D = value;
-        invalidateTransform();
+       	allocateLayoutFeatures();
+		var previous:Boolean = needsDisplayObject;
+	   	layoutFeatures.layoutMatrix3D = value;
+		invalidateTransform(previous != needsDisplayObject);
     }
 
     /**
@@ -1663,15 +1617,15 @@ public class GraphicElement extends OnDemandEventDispatcher
     public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
     {
         allocateLayoutFeatures();
+        var previous:Boolean = needsDisplayObject;
         layoutFeatures.transformAround(rx,ry,rz,sx,sy,sz,tx,ty,tz,true);
-        invalidateTransform();
+		invalidateTransform(previous != needsDisplayObject);
     }       
 
     //----------------------------------
     //  transformX
     //----------------------------------
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -1687,14 +1641,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set transformX(value:Number):void
     {
-        var oldValue:Number = transformX;
-        if ( oldValue == value)
+        if (transformX  == value)
             return;
             
         allocateLayoutFeatures();
-            
         layoutFeatures.transformX = value;
-        dispatchPropertyChangeEvent("transformX", oldValue, value);
         invalidateTransform(false);
     }
 
@@ -1702,8 +1653,6 @@ public class GraphicElement extends OnDemandEventDispatcher
     //  transformY
     //----------------------------------
     
-
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -1719,14 +1668,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set transformY(value:Number):void
     {
-        var oldValue:Number = transformY;
-        if (oldValue == value)
+        if (transformY == value)
             return;
 
         allocateLayoutFeatures();
-
         layoutFeatures.transformY = value;
-        dispatchPropertyChangeEvent("transformY", oldValue, value);
         invalidateTransform(false);
     }
 
@@ -1734,8 +1680,6 @@ public class GraphicElement extends OnDemandEventDispatcher
     //  transformZ
     //----------------------------------
     
-
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -1751,15 +1695,13 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set transformZ(value:Number):void
     {
-        var oldValue:Number = transformZ;
-        if (oldValue == value)
+        if (transformZ == value)
             return;
 
         allocateLayoutFeatures();
-
+		var previous:Boolean = needsDisplayObject;
         layoutFeatures.transformZ = value;
-        dispatchPropertyChangeEvent("transformZ", oldValue, value);
-        invalidateTransform();
+        invalidateTransform(previous != needsDisplayObject);
     }
 
     //----------------------------------
@@ -1864,8 +1806,7 @@ public class GraphicElement extends OnDemandEventDispatcher
             return;
 
         allocateLayoutFeatures();
-
-         layoutFeatures.layer = value;  
+        layoutFeatures.layer = value;  
         if(_host != null && _host is UIComponent)
             (_host as UIComponent).invalidateLayering();
     }
@@ -1954,15 +1895,13 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function set z(value:Number):void
     {
-        var oldValue:Number = z;
-        if (oldValue == value)
+        if (z == value)
             return;
-        
+		
         allocateLayoutFeatures();
-
-        layoutFeatures.layoutZ = value;
-        dispatchPropertyChangeEvent("z", oldValue, value);
-        invalidateTransform();
+		var previous:Boolean = needsDisplayObject;
+	   	layoutFeatures.layoutZ = value;
+		invalidateTransform(previous != needsDisplayObject);
     }
 
     //----------------------------------
@@ -1980,7 +1919,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var visibleChanged:Boolean;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -1999,9 +1937,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (_visible == value)
             return;
 
-        var oldValue:Boolean = _visible;
         _visible = value;
-        dispatchPropertyChangeEvent("visible", oldValue, value);
 
         visibleChanged = true;
 
@@ -2122,7 +2058,6 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     private var _includeInLayout:Boolean = true;
 
-    [Bindable("propertyChange")]
     [Inspectable(category="General", defaultValue="true")]
 
     /**
@@ -2143,9 +2078,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (_includeInLayout == value)
             return;
 
-        var oldValue:Boolean = _includeInLayout;
         _includeInLayout = value;
-        dispatchPropertyChangeEvent("includeInLayout", oldValue, value);
             
         invalidateParentSizeAndDisplayList();
     }
@@ -2186,13 +2119,15 @@ public class GraphicElement extends OnDemandEventDispatcher
     
     private var _alwaysCreateDisplayObject:Boolean;
     
-    // TODO!! Remove once we have a better solution for a design tool to getBitmapData for hit testing
+    // TODO (jszeto) Remove once we have a better solution for a design tool to getBitmapData for hit testing
     mx_internal function set alwaysCreateDisplayObject(value:Boolean):void
     {
     	if (value != _alwaysCreateDisplayObject)
     	{
-    		_alwaysCreateDisplayObject = value;
-    		notifyElementLayerChanged();
+    		var previous:Boolean = needsDisplayObject;
+		    _alwaysCreateDisplayObject = value;
+	    	if (previous != needsDisplayObject)
+				notifyElementLayerChanged();
     	}
     }
     
@@ -2200,22 +2135,6 @@ public class GraphicElement extends OnDemandEventDispatcher
     {
     	return _alwaysCreateDisplayObject;
     }
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      *  <code>true</code> if the graphic element needs its own unique display object to render into.
@@ -2224,8 +2143,7 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function get needsDisplayObject():Boolean
     {
-        var result:Boolean;
-        result = (alwaysCreateDisplayObject ||
+        var result:Boolean = (alwaysCreateDisplayObject ||
 		(_filters && _filters.length > 0) || 
             _blendMode != BlendMode.NORMAL || _mask ||
             (layoutFeatures != null && (layoutFeatures.layoutScaleX != 1 || layoutFeatures.layoutScaleY != 1 || layoutFeatures.layoutScaleZ != 1 ||
@@ -2234,14 +2152,14 @@ public class GraphicElement extends OnDemandEventDispatcher
             _colorTransform != null ||
             _alpha != 1 ||
             layer != 0);
-
+	
         if(layoutFeatures != null && layoutFeatures.offsets != null)
         {
             var o:TransformOffsets = layoutFeatures.offsets;
             result = result || (o.scaleX != 1 || o.scaleY != 1 || o.scaleZ != 1 ||
-            o.rotationX != 0 || o.rotationY != 0 || o.rotationZ != 0 || o.z  != 0);  
-            
+            o.rotationX != 0 || o.rotationY != 0 || o.rotationZ != 0 || o.z  != 0);       
         }
+    	
         return result;
     }
     
@@ -2378,7 +2296,6 @@ public class GraphicElement extends OnDemandEventDispatcher
         // TODO EGeorgie: figure this out. For now, invalidateDisplayList
         // to preseve original behavior before layout API unification.
         invalidateDisplayList();
-        
         if (parent)
             GroupBase(parent).elementLayerChanged(this);
     }
@@ -3189,7 +3106,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     {
         allocateLayoutFeatures();
         layoutFeatures.layoutMatrix = value;
-        invalidateTransform(false /*changeInvalidatesLayering*/,
+ 	    invalidateTransform(false /*changeInvalidatesLayering*/,
                             false /*triggerLayout*/);
     }
 
@@ -3353,11 +3270,11 @@ public class GraphicElement extends OnDemandEventDispatcher
             {
                 // Apply matrix
                 if (_transform)
-                {
-                    allocateLayoutFeatures();
-
-                    layoutFeatures.layoutMatrix = _transform.matrix.clone();
-                    invalidateTransform();
+                { 
+			        allocateLayoutFeatures();
+					var previous:Boolean = needsDisplayObject;
+				   	layoutFeatures.layoutMatrix = _transform.matrix.clone();
+					invalidateTransform(previous != needsDisplayObject);
                 }
             }
             else if (event.property == "colorTransform")
