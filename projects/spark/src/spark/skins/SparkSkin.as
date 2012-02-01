@@ -9,12 +9,12 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.skins.spark
+package spark.skins
 {
-import mx.components.Skin;
+import spark.components.supportClasses.Skin;
 import flash.geom.ColorTransform;
 import flash.display.DisplayObject;
-import mx.graphics.StrokedElement;
+import spark.primitives.supportClasses.StrokedElement;
 import mx.graphics.SolidColor;
 import flash.events.Event;
 
