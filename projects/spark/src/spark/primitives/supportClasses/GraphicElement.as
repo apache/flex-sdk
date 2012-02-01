@@ -30,6 +30,7 @@ import flash.geom.Transform;
 import flash.geom.Vector3D;
 
 import mx.core.AdvancedLayoutFeatures;
+import mx.core.DesignLayer;
 import mx.core.IID;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
@@ -328,6 +329,7 @@ public class GraphicElement extends EventDispatcher
      *  Storage for the alpha property.
      */
     private var _alpha:Number = 1.0;
+    private var _computedAlpha:Number = 1.0;
     
     /**
      *  @private
@@ -359,6 +361,11 @@ public class GraphicElement extends EventDispatcher
         
         var previous:Boolean = needsDisplayObject;
         _alpha = value;
+        
+        if (layer)
+            value = value * layer.computedAlpha; 
+        
+        _computedAlpha = value;
         
         // Clear the colorTransform flag since alpha was explicitly set
         var mxTransform:mx.geom.Transform = _transform as mx.geom.Transform;
@@ -548,7 +555,46 @@ public class GraphicElement extends EventDispatcher
     {
         _owner = value;
     }
+
+    //----------------------------------
+    //  layer
+    //----------------------------------
     
+    /**
+     *  @private
+     *  Storage for the layer property.
+     */
+    private var _layer:DesignLayer;
+    
+    [Inspectable (environment='none')]
+    
+    /**
+     *  @copy mx.core.IVisualElement#layer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get layer():DesignLayer
+    {
+        return _layer;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set layer(value:DesignLayer):void
+    {
+        if (_layer)
+            _layer.removeEventListener("layerPropertyChange", layer_PropertyChange, false);
+        
+        _layer = value;
+        
+        if (_layer)
+            _layer.addEventListener("layerPropertyChange", layer_PropertyChange, false, 0, true);
+    }
+        
     //----------------------------------
     //  parent
     //----------------------------------
@@ -1906,7 +1952,10 @@ public class GraphicElement extends EventDispatcher
                 value.redOffset, value.greenOffset, value.blueOffset, value.alphaOffset);
             
             if (updateAlpha)
+            {
                 _alpha = value.alphaMultiplier;
+                _computedAlpha = _alpha;
+            }
             
             if (displayObject && displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
             {
@@ -2325,6 +2374,15 @@ public class GraphicElement extends EventDispatcher
      */
     private var _visible:Boolean = true;
     
+    
+    /**
+     *  @private
+     *  The actual 'effective' visibility of this
+     *  element, one that considers the visibility of
+     *  the owning design layer parent (if any).
+     */
+    protected var _computedVisibility:Boolean = true;
+    
     /**
      *  @private
      */
@@ -2350,10 +2408,15 @@ public class GraphicElement extends EventDispatcher
      */
     public function set visible(value:Boolean):void
     {
-        if (_visible == value)
-            return;
-
         _visible = value;
+        
+        if (layer && !layer.computedVisibility)
+            value = false; 
+        
+        if (_computedVisibility == value)
+            return;
+        
+        _computedVisibility = value;
         visibleChanged = true;
         invalidateProperties();
     }
@@ -2679,7 +2742,7 @@ public class GraphicElement extends EventDispatcher
             layoutFeatures.layoutRotationX != 0 || layoutFeatures.layoutRotationY != 0 || layoutFeatures.layoutRotationZ != 0 ||
             layoutFeatures.layoutZ  != 0)) ||  
             _colorTransform != null ||
-            _alpha != 1);
+            _computedAlpha != 1);
     
         if(layoutFeatures != null && layoutFeatures.postLayoutTransformOffsets != null)
         {
@@ -2920,6 +2983,45 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
+     *  @private
+     */
+    protected function layer_PropertyChange(event:PropertyChangeEvent):void
+    {
+        switch (event.property)
+        {
+            case "visible":
+            {
+                var newValue:Boolean = (event.newValue && _visible);
+                
+                if (newValue != _computedVisibility)
+                {
+                    _computedVisibility = newValue;
+                    visibleChanged = true;
+                    invalidateProperties();
+                }
+                break;
+            }
+            case "alpha":
+            {
+                var newAlpha:Number = Number(event.newValue) * _alpha;
+                if (newAlpha != _computedAlpha)
+                {
+                    _computedAlpha = newAlpha;
+                    alphaChanged = true;
+                    
+                    var mxTransform:mx.geom.Transform = _transform as mx.geom.Transform;
+                    if (mxTransform)
+                        mxTransform.applyColorTransformAlpha = false;        
+                    
+                    invalidateDisplayObjectSharing(); 
+                    invalidateProperties();
+                }
+                break;
+            }
+        }
+    }
+    
+    /**
      *  Dispatches a propertyChange event.
      *  
      *  @param prop The property that changed.
@@ -3140,7 +3242,7 @@ public class GraphicElement extends EventDispatcher
                 
                 mxTransform = _transform as mx.geom.Transform;
                 if (!mxTransform || !mxTransform.applyColorTransformAlpha)
-                    displayObject.alpha = _alpha;
+                    displayObject.alpha = _computedAlpha;
             }  
 
             if (blendModeChanged || displayObjectChanged)
@@ -3223,7 +3325,7 @@ public class GraphicElement extends EventDispatcher
             // If displayObject has changed and we're sharing, then ensure
             // the visible property is set to true.
             if (displayObjectChanged)
-                displayObject.visible = (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT) ? _visible : true;
+                displayObject.visible = (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT) ? _computedVisibility : true;
 
             updateTransform = true;
             displayObjectChanged = false;
@@ -3236,7 +3338,9 @@ public class GraphicElement extends EventDispatcher
             // If we don't share the DisplayObject, set the property directly,
             // otherwise redraw.
             if (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
-                displayObject.visible = _visible;
+            {
+                displayObject.visible = _computedVisibility;
+            }
             else
                 invalidateDisplayList();
         }
@@ -3440,7 +3544,7 @@ public class GraphicElement extends EventDispatcher
      */
     mx_internal function doUpdateDisplayList():void
     {
-        if (visible || displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
+        if (_computedVisibility || displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
             updateDisplayList(_width, _height);
     }
 
