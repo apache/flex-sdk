@@ -372,6 +372,21 @@ public dynamic class ShaderFilter extends Proxy
 
     /**
      * @private
+     * Required to support property 'in' operator.
+     */ 
+    override flash_proxy function hasProperty(name:*):Boolean
+    {
+        if (!_shader || !name || name == "")
+            return false;
+            
+        var index:int = name.indexOf("_");
+        var prefix:String = (index > 0) ? name.substring(0, index) : name;
+            
+        return (name in _shader || name in _shader.data || prefix in _shader.data);
+    }
+    
+    /**
+     * @private
      * Apply our queued properties once our shader instance has
      * been constructed and initialized from its bytecode.
      */
@@ -423,7 +438,7 @@ public dynamic class ShaderFilter extends Proxy
                 var index:int = indexForDimension(propertyInfo.type, dimension);
                 if (index != -1)
                 {
-                    var currentValue:Array = propertyInfo.value;
+                    var currentValue:Array = propertyInfo.value ? propertyInfo.value : new Array();
                     currentValue[index] = value;
                     propertyInfo.value = currentValue;
                     return;
