@@ -179,9 +179,9 @@ public class VerticalLayout extends LayoutBase
     public function VerticalLayout():void
     {
         super();
-		
-		// Don't drag-scroll in the horizontal direction
-		dragScrollRegionSizeHorizontal = 0;
+        
+        // Don't drag-scroll in the horizontal direction
+        dragScrollRegionSizeHorizontal = 0;
         
         // Virtualization defaults for cases
         // where there are no items and no typical item.
@@ -205,7 +205,7 @@ public class VerticalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  The vertical space between layout elements.
+     *  The vertical space between layout elements, in pixels.
      * 
      *  Note that the gap is only applied between layout elements, so if there's
      *  just one element, the gap has no effect on the layout.
@@ -570,7 +570,7 @@ public class VerticalLayout extends LayoutBase
 
     /**
      *  If <code>variableRowHeight</code> is <code>false</code>, then 
-     *  this property specifies the actual height of each child.
+     *  this property specifies the actual height of each child, in pixels.
      * 
      *  <p>If <code>variableRowHeight</code> is <code>true</code>, 
      *  the default, then this property has no effect.</p>
@@ -1578,12 +1578,12 @@ public class VerticalLayout extends LayoutBase
         var maxVisibleY:Number = minVisibleY + layoutTarget.height;
        
         updateLLV(layoutTarget);
-		
-		// Find the index of the first visible item. Since the item's bounds includes the gap
-		// that follows it, we want to avoid looking at an item that has only a portion of
-		// its gap intersecting with the visible region.
-		// We have to also be careful, as gap could be negative and in that case, we should
-		// simply start from minVisibleY - SDK-22497.
+        
+        // Find the index of the first visible item. Since the item's bounds includes the gap
+        // that follows it, we want to avoid looking at an item that has only a portion of
+        // its gap intersecting with the visible region.
+        // We have to also be careful, as gap could be negative and in that case, we should
+        // simply start from minVisibleY - SDK-22497.
         var startIndex:int = llv.indexOf(Math.max(0, minVisibleY + gap));
         if (startIndex == -1)
             return;
@@ -1978,25 +1978,25 @@ public class VerticalLayout extends LayoutBase
         
         var x:Number = paddingLeft;
 
-		var y:Number = emptySpaceTop + Math.round((emptySpace - height)/2);
-		// Allow 1 pixel overlap with container border
+        var y:Number = emptySpaceTop + Math.round((emptySpace - height)/2);
+        // Allow 1 pixel overlap with container border
         y = Math.max(-1, Math.min(target.contentHeight - height + 1, y));
         return new Rectangle(x, y, width, height);
     }
-	
-	/**
-	 *  @private
-	 */
-	override protected function calculateDragScrollDelta(dropLocation:DropLocation,
-														 timeInterval:int,
-														 timeElapsed:int):Point
-	{
-		var delta:Point = super.calculateDragScrollDelta(dropLocation, timeInterval, timeElapsed);
-		// Don't scroll in the horizontal direction
-		if (delta)
-			delta.x = 0;
-		return delta;
-	}
+    
+    /**
+     *  @private
+     */
+    override protected function calculateDragScrollDelta(dropLocation:DropLocation,
+                                                         timeInterval:int,
+                                                         timeElapsed:int):Point
+    {
+        var delta:Point = super.calculateDragScrollDelta(dropLocation, timeInterval, timeElapsed);
+        // Don't scroll in the horizontal direction
+        if (delta)
+            delta.x = 0;
+        return delta;
+    }
 }
 }
 
