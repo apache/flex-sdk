@@ -40,6 +40,11 @@ CheckBox
 	skinClass: ClassReference("spark.skins.wireframe.CheckBoxSkin");
 }
 
+ComboBox
+{
+    skinClass: ClassReference("spark.skins.wireframe.ComboBoxSkin");
+}
+
 DropDownList
 {
 	skinClass: ClassReference("spark.skins.wireframe.DropDownListSkin");
