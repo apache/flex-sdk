@@ -15,10 +15,6 @@ package mx.effects.effectClasses
 import mx.effects.PropertyValuesHolder;
 import mx.events.AnimationEvent;
 
-import mx.core.mx_internal;
-import mx.effects.EffectManager;
-import mx.styles.IStyleClient;
-
 //  Let (phi) be angle between r=(Ox,Oy - Cx,Cy) and -X Axis.
 //   (theta) be clockwise further angle of rotation.
 //  
@@ -106,6 +102,11 @@ public class FxRotateInstance extends FxAnimateInstance
      * @private
      */
     private var originalOffsetY:Number;
+
+    /**
+     * @private
+     */
+    private var lastRotation:Number;
     
     //--------------------------------------------------------------------------
     //
@@ -191,7 +192,8 @@ public class FxRotateInstance extends FxAnimateInstance
      */
     override public function play():void
     {
-        var radVal:Number = Math.PI * target.rotation / 180;        
+        lastRotation = getCurrentValue("rotation");
+        var radVal:Number = Math.PI * lastRotation / 180;        
         
         // Default to the center
         if (isNaN(originX))
@@ -207,7 +209,7 @@ public class FxRotateInstance extends FxAnimateInstance
         centerY = getCurrentValue("y") +
                   originX * Math.sin(radVal) +
                   originY * Math.cos(radVal);
-            
+
         if (isNaN(angleFrom))
             if (!isNaN(angleTo) && !isNaN(angleBy))
                 angleFrom = angleTo - angleBy;
@@ -219,9 +221,6 @@ public class FxRotateInstance extends FxAnimateInstance
         
         if (isNaN(angleTo))
         {
-            angleTo = (target.rotation == 0) ?
-                      ((angleFrom > 180) ? 360 : 0) :
-                      getCurrentValue("rotation");
             if (isNaN(angleBy) &&
                 propertyChanges &&
                 propertyChanges.end["rotation"] !== undefined)
@@ -237,10 +236,10 @@ public class FxRotateInstance extends FxAnimateInstance
         
         originalOffsetX = originX * Math.cos(radVal) - originY * Math.sin(radVal);
         originalOffsetY = originX * Math.sin(radVal) + originY * Math.cos(radVal);
-        
+
         newX = Number((centerX - originalOffsetX).toFixed(1)); // use a precision of 1
         newY = Number((centerY - originalOffsetY).toFixed(1)); // use a precision of 1
-
+ 
         propertyValuesList = 
             [new PropertyValuesHolder("rotation", [angleFrom, angleTo])];
 
@@ -257,17 +256,28 @@ public class FxRotateInstance extends FxAnimateInstance
     {
         var targetX:Number = getCurrentValue("x");
         var targetY:Number = getCurrentValue("y");
+        var targetRotation:Number = getCurrentValue("rotation");
 
-        // If somebody else has changed our position
+        // If somebody else has changed the rotation
+        if (Math.abs(targetRotation - lastRotation) > 0.1)
+        {
+            var radValCurr:Number = Math.PI * target.rotation / 180;        
+            originalOffsetX = originX * Math.cos(radValCurr) - 
+                originY * Math.sin(radValCurr);
+            originalOffsetY = originX * Math.sin(radValCurr) + 
+                originY * Math.cos(radValCurr);
+        }
+        
+        // If somebody else has changed the position
         if (Math.abs(newX - targetX) > 0.1)
             centerX = targetX + originalOffsetX;
-        
+
         if (Math.abs(newY - targetY) > 0.1)
             centerY = targetY + originalOffsetY;
-        
+
         var rotateValue:Number = Number(event.value);     
         var radVal:Number = Math.PI * rotateValue / 180;
-                
+
         newX = centerX - originX * Math.cos(radVal) + originY * Math.sin(radVal);
         newY = centerY - originX * Math.sin(radVal) - originY * Math.cos(radVal);
         
@@ -280,6 +290,9 @@ public class FxRotateInstance extends FxAnimateInstance
         // Now have the superclass handle the actual rotation as well as any
         // other event processing details
         super.updateHandler(event);
+        
+        // Cache the rotation we set for possible future adjustment of offsets
+        lastRotation = getCurrentValue("rotation");
     }
 }
 
