@@ -4,13 +4,22 @@
       minWidth="21" minHeight="21">
     
     <fx:Metadata>
+    <![CDATA[ 
+	/** 
+	 * @copy spark.skins.default.ApplicationSkin#hostComponent
+	 */
     	[HostComponent("spark.components.Button")]
+    ]]>
     </fx:Metadata> 
     
      <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For dropDownList buttons, the graphics are colorized but the arrow is not. */
         static private const exclusions:Array = ["arrow"];
+
+	/** 
+	 * @copy spark.skins.SparkSkin#colorizeExclusions
+	 */		
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
