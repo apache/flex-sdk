@@ -29,55 +29,79 @@ import spark.layouts.supportClasses.LayoutElementHelper;
 import spark.layouts.supportClasses.LinearLayoutVector;
 
 /**
- *  The HorizontalLayout arranges the layout elements in a horizontal sequence,
+ *  The HorizontalLayout class arranges the layout elements in a horizontal sequence,
  *  left to right, with optional gaps between the elements and optional padding
- *  around the sequence of elements.
+ *  around the elements.
  *
- *  <p>During measure(), the default size of the container is calculated by
+ *  <p>The horizontal position of the elements is determined by arranging them
+ *  in a horizontal sequence, left to right, taking into account the padding
+ *  before the first element and the gaps between the elements.</p>
+ *
+ *  <p>The vertical position of the elements is determined by the layout's 
+ *  <code>verticalAlign</code> property.</p>
+ *
+ *  <p>During the execution of the <code>measure()</code> method, 
+ *  the default size of the container is calculated by
  *  accumulating the preferred sizes of the elements, including gaps and padding.
- *  When requestedColumnCount is set, only the space for that many elements
- *  will be measured, starting from the first element.</p>
+ *  When the <code>requestedColumnCount</code> property is set to a value other than -1, 
+ *  only the space for that many elements
+ *  is measured, starting from the first element.</p>
  *
- *  <p>During updateDisplayList(), the width of each element is calculated
+ *  <p>During the execution of the <code>updateDisplayList()</code> method, 
+ *  the width of each element is calculated
  *  according to the following rules, listed in their respective order of
- *  precedence (element's minimum width and maximum width are always respected):
+ *  precedence (element's minimum width and maximum width are always respected):</p>
  *  <ul>
- *    <li>If variableColumnWidth is false, then set the element's width to the
- *    value of the columnWidth property.</li>
+ *    <li>If <code>variableColumnWidth</code> is <code>false</code>, 
+ *    then set the element's width to the
+ *    value of the <code>columnWidth</code> property.</li>
  *
- *    <li>If the element's percentWidth is set, then calculate the element's
+ *    <li>If the element's <code>percentWidth</code> is set, then calculate the element's
  *    width by distributing the available container width between all
- *    elements with percentWidth setting. The available container width
+ *    elements with <code>percentWidth</code> setting. 
+ *    The available container width
  *    is equal to the container width minus the gaps, the padding and the
- *    space occupied by the rest of the elements. The element's precentWidth
+ *    space occupied by the rest of the elements. The element's <code>precentWidth</code>
  *    property is ignored when the layout is virtualized.</li>
  *
  *    <li>Set the element's width to its preferred width.</li>
  *  </ul>
  *
- *  The height of each element is calculated according to the following rules,
- *  listed in their respective order of precedence (element's minium height and
- *  maximum height are always respected):
+ *  <p>The height of each element is calculated according to the following rules,
+ *  listed in their respective order of precedence (element's minimum height and
+ *  maximum height are always respected):</p>
  *  <ul>
- *    <li>If verticalAlign is "justify" then set the element's height to the
- *    container height.</li>
+ *    <li>If the <code>verticalAlign</code> property is <code>"justify"</code>,
+ *   then set the element's height to the container height.</li>
  *
- *    <li>If verticalAlign is "contentJustify" then set the element's height
- *    to the maximum between the container's height and all elements' preferred
- *    height.</li>
+ *    <li>If the <code>verticalAlign</code> property is <code>"contentJustify"</code>, 
+ *    then set the element's height to the maximum between the container's height 
+ *    and all elements' preferred height.</li>
  *
- *    <li>If the element's percentHeight is set, then calculate the element's
- *    height as a percentage of the container's height.</li>
+ *    <li>If the element's <code>percentHeight</code> property is set, 
+ *    then calculate the element's height as a percentage of the container's height.</li>
  *
  *    <li>Set the element's height to its preferred height.</li>
  *  </ul>
  *
- *  The horizontal position of the elements is determined by arranging them
- *  in a horizontal sequence, left to right, taking into account the padding
- *  before the first element and the gaps between the elements.
+ *  @mxml 
+ *  <p>The <code>&lt;HorizontalLayout&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
  *
- *  The vertical position of the elements is determined by the layout's 
- *  verticalAlign property.</p>
+ *  <pre>
+ *  &lt;HorizontalLayout 
+ *    <strong>Properties</strong>
+ *    columnWidth="<i>calculated</i>"
+ *    gap="6"
+ *    paddingBottom="0"
+ *    paddingLeft="0"
+ *    paddingRight="0"
+ *    paddingTop="0"
+ *    requestedColumnCount="-1"
+ *    variableColumnWidth="true"
+ *    verticalAlign="top"
+ *  /&gt;
+ *  </pre>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -392,16 +416,13 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  The measured size of this layout will be wide enough to display 
+     *  The measured size of this layout is wide enough to display 
      *  the first <code>requestedColumnCount</code> layout elements. 
-     * 
      *  If <code>requestedColumnCount</code> is -1, then the measured
      *  size will be big enough for all of the layout elements.
      * 
-     *  This property implies the layout target's <code>measuredWidth</code>.
-     * 
-     *  If the actual size of the <code>target</code> has been explicitly set,
-     *  then this property has no effect.
+     *  <p>If the actual size of the container using this layout has been explicitly set,
+     *  then this property has no effect.</p>
      * 
      *  @default -1
      *  
@@ -594,18 +615,18 @@ public class HorizontalLayout extends LayoutBase
      *  The vertical alignment of layout elements.
      * 
      *  <p>If the value is <code>"bottom"</code>, <code>"middle"</code>, 
-     *  or <code>"top"</code> then the container children are aligned relative 
+     *  or <code>"top"</code> then the layout elements are aligned relative 
      *  to the container's <code>contentHeight</code> property.</p>
      * 
      *  <p>If the value is <code>"contentJustify"</code> then the actual
-     *  height of the container children is set to 
+     *  height of the layout element is set to 
      *  the container's <code>contentHeight</code> property. 
-     *  The content height of the container is the height of the largest child. 
-     *  If all children are smaller than the height of the container, 
-     *  then set the height of all the children to the height of the container.</p>
+     *  The content height of the container is the height of the largest layout element. 
+     *  If all layout elements are smaller than the height of the container, 
+     *  then set the height of all the layout elements to the height of the container.</p>
      * 
      *  <p>If the value is <code>"justify"</code> then the actual height
-     *  of the container children is set to the container's height.</p>
+     *  of the layout elements is set to the container's height.</p>
      *
      *  <p>This property does not affect the layout's measured size.</p>
      *  
@@ -690,23 +711,23 @@ public class HorizontalLayout extends LayoutBase
     
     /**
      *  Returns 1.0 if the specified index is completely in view, 0.0 if
-     *  it's not, and a value in between if the index is partially 
-     *  within the view.
+     *  it's not, or a value between 0.0 and 1.0 that represents the percentage 
+     *  of the if the index that is partially in view.
      * 
-     *  An index is "in view" if the corresponding non-null layout element is 
-     *  within the horizontal limits of the layout target's scrollRect
-     *  and included in the layout.
+     *  <p>An index is "in view" if the corresponding non-null layout element is 
+     *  within the horizontal limits of the container's <code>scrollRect</code>
+     *  and included in the layout.</p>
      *  
-     *  If the specified index is partially within the view, the 
+     *  <p>If the specified index is partially within the view, the 
      *  returned value is the percentage of the corresponding
-     *  layout element that's visible.
+     *  layout element that's visible.</p>
+     *
+     *  @param index The index of the column.
      * 
+     *  @return The percentage of the specified element that's in view.
      *  Returns 0.0 if the specified index is invalid or if it corresponds to
-     *  null element, or a ILayoutElement for which includeInLayout is false.
-     * 
-     *  @return the percentage of the specified element that's in view.
-     *  @see firstIndexInView
-     *  @see lastIndexInView
+     *  null element, or a ILayoutElement for which 
+     *  the <code>includeInLayout</code> property is <code>false</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
