@@ -383,48 +383,6 @@ public class Path extends FilledElement
      */
     public function get data():String 
     {
-        if (!_data)
-        {
-            _data = "";
-            
-            for (var i:int = 0; i < segments.length; i++)
-            {
-                var segment:PathSegment = segments[i];
-                
-                if (segment is MoveSegment)
-                {
-                    _data += "M " + segment.x + " " + segment.y + " ";
-                }
-                else if (segment is LineSegment)
-                {
-                    _data += "L " + segment.x + " " + segment.y + " ";
-                }
-                else if (segment is CubicBezierSegment)
-                {
-                    var cSeg:CubicBezierSegment = segment as CubicBezierSegment;
-                    
-                    _data += "C " + cSeg.control1X + " " + cSeg.control1Y + " " +
-                            cSeg.control2X + " " + cSeg.control2Y + " " +
-                            cSeg.x + " " + cSeg.y + " ";
-                }
-                else if (segment is QuadraticBezierSegment)
-                {
-                    var qSeg:QuadraticBezierSegment = segment as QuadraticBezierSegment;
-                    
-                    _data += "Q " + qSeg.control1X + " " + qSeg.control1Y + " " + 
-                            qSeg.x + " " + qSeg.y + " ";
-                }
-                else if (segment is CloseSegment)
-                {
-                    _data += "Z ";
-                }
-                else
-                {
-                    // unknown segment, throw error?
-                }
-            }
-        }
-        
         return _data;
     }
     
