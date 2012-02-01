@@ -226,8 +226,8 @@ public class BitmapImage extends GraphicElement
 
     /**
      *  Whether the bitmap is repeated to fill the area. Set to <code>true</code> to cause 
-     *  the fill to tile outward to the edges of the filled region. 
-     *  Set to <code>false</code> to end the fill at the edge of the region.
+     *  the fill to tile outward to the edges of the region. 
+     *  Set to <code>false</code> to end the fill at the edge of the bitmap.
      *
      *  @default true
      *  
