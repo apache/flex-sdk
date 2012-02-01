@@ -9,8 +9,12 @@
     in accordance with the terms of the license agreement accompanying it.
  
 --> 
-<!--- The default skin class for the Spark DropDownList component. The button skin on a DropDownList component 
-is defined in the DropDownListButtonSkin class.  
+<!--- The default skin class for the Spark DropDownList component. 
+      The skin for the anchor button for a DropDownList component 
+      is defined by the DropDownListButtonSkin class.  
+        
+      @see spark.components.DropDownList        
+      @see spark.skins.default.DropDownListButtonSkin
         
       @langversion 3.0
       @playerversion Flash 10
@@ -35,14 +39,17 @@ is defined in the DropDownListButtonSkin class.
         <s:State name="disabled" />
     </s:states>
     
+    <!--- 
+        The PopUpAnchor control that opens the drop-down list. 
+    -->
     <s:PopUpAnchor id="popUp"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
         left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
         popUpPosition="below" autoSizePopUpWidth="true">
         
-    <!--- 
-          The drop down area of the skin. This includes borders, background colors, scrollers, and filters. 
-          To create a custom drop down, edit this skin and create a custom skin class. 
-    -->
+        <!--- 
+              The drop down area of the skin. 
+              This includes borders, background colors, scrollers, and filters. 
+        -->
         <s:Group id="dropDown" maxHeight="134" minHeight="22" >
              <!-- border -->
             <s:Rect left="0" right="0" top="0" bottom="0">
@@ -53,7 +60,7 @@ is defined in the DropDownListButtonSkin class.
             
             <!-- fill -->
             <!---  
-                Defines the appearance of the DropDownList component popup's rectangular background fill.
+                Defines the appearance of drop-down list's background fill.
             -->
             <s:Rect id="background" left="1" right="1" top="1" bottom="1" >
                 <s:fill>
@@ -66,6 +73,9 @@ is defined in the DropDownListButtonSkin class.
             </s:Rect>
             
             <s:Scroller left="0" top="0" right="0" bottom="0" focusEnabled="false" minViewportInset="1">
+                <!---  
+                    The container for the data items in the drop-down list.
+                -->
                 <s:DataGroup id="dataGroup" itemRenderer="spark.skins.default.DefaultItemRenderer">
                     <s:layout>
                         <s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
@@ -79,9 +89,10 @@ is defined in the DropDownListButtonSkin class.
         </s:Group>
     </s:PopUpAnchor>
     
-    <!--- The button used by the DropDownList. The default skin is DropDownListButtonSkin. -->
+    <!--- The anchor button used by the DropDownList. The default skin is DropDownListButtonSkin. -->
     <s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
         skinClass="spark.skins.default.DropDownListButtonSkin" />  
+    <!--- The prompt area of the DropDownList. -->
     <s:SimpleText id="labelElement" verticalAlign="middle" lineBreak="explicit"
         left="7" right="30" top="2" bottom="2" verticalCenter="1" /> 
 
