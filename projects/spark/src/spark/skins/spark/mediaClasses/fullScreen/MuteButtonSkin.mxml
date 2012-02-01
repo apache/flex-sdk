@@ -12,7 +12,9 @@
 -->
 
 <!--- The default skin class for the mute button of a Spark VideoPlayer 
-      component while in the fullScreen state.  
+      component while in one of the <code>fullScreen</code> skin states.  
+
+      @see spark.components.VideoPlayer
         
       @langversion 3.0
       @playerversion Flash 10
@@ -146,7 +148,7 @@
         </s:stroke>
     </s:Rect>
     
-    <!--- volume symbol -->
+    <!--- Defines the volume symbol. -->
     <s:Group horizontalCenter="0" verticalCenter="0" id="volumeSymbol">
     
         <!-- big trapezoid in center -->
