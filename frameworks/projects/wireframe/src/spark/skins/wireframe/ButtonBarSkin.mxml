@@ -11,7 +11,11 @@
 
 -->
 
-<!--- The default skin class for the Spark ButtonBar component. 
+<!--- The default wireframe skin class for the Spark ButtonBar component. 
+        Skin classes in the wireframe package are useful for using as a simple base for a custom skin.
+    
+      @see spark.components.ButtonBar
+      @see spark.components.ButtonBarButton    
         
       @langversion 3.0
       @playerversion Flash 10
