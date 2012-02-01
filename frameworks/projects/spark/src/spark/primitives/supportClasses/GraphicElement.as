@@ -1862,11 +1862,11 @@ public class GraphicElement extends EventDispatcher
      *  The bitmap contains all transformations and is reduced
      *  to fit the visual bounds of the object.
      */
-    public function getBitmapData():BitmapData
+    public function getBitmapData(transparent:Boolean = true, fillColor:uint = 0xFFFFFFFF):BitmapData
     {
     	// NOTE: This code will not work correctly when we share
         // display objects across multiple graphic elements.
-    	var bitmapData:BitmapData = new BitmapData(actualSize.x, actualSize.y);
+    	var bitmapData:BitmapData = new BitmapData(actualSize.x, actualSize.y, transparent, fillColor);
     	var oldPos:Point = actualPosition;
     	
     	setActualPosition(0, 0);
