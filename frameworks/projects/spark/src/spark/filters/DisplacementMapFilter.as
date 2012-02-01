@@ -53,7 +53,7 @@ import mx.filters.IBitmapFilter;
 *  attributes of its superclass and adds the following tag attributes:</p>
 *
 *  <pre>
-*  &lt;DisplacementMapFilter 
+*  &lt;s:DisplacementMapFilter 
 *    <strong>Properties</strong>
 *    alpha="0"
 *    color="0x000000"
