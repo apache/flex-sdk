@@ -22,14 +22,7 @@ import flash.geom.Rectangle;
 import mx.core.mx_internal;
 import mx.utils.MatrixUtil;
 
-import spark.primitives.pathSegments.CloseSegment;
-import spark.primitives.pathSegments.CubicBezierSegment;
-import spark.primitives.pathSegments.LineSegment;
-import spark.primitives.pathSegments.MoveSegment;
-import spark.primitives.pathSegments.PathSegment;
-import spark.primitives.pathSegments.QuadraticBezierSegment;
 import spark.primitives.supportClasses.FilledElement;
-
 
 use namespace mx_internal;
 
@@ -37,29 +30,23 @@ use namespace mx_internal;
  *  The Path class is a filled graphic element that draws a series of path segments.
  *  In vector graphics, a path is a series of points connected by straight or curved line segments. 
  *  Together the lines form an image. In Flex, you use the Path class to define a complex vector shape 
- *  constructed from a set of line segments. The LineSegment, CubicBezierSegment, and QuadraticBezierSegment 
- *  classes define the types of line segments that you can use. 
+ *  constructed from a set of line segments. 
  * 
- *  <p>Typically, the first element of a path definition is a MoveSegment class to specify the starting pen 
- *  position of the graphic. You then use the LineSegment, CubicBezierSegment, and QuadraticBezierSegment 
- *  classes draw the lines of the graphic. When using these classes, you only specify the x and y coordinates 
+ *  <p>Typically, the first element of a path definition is a Move segment to specify the starting pen 
+ *  position of the graphic. You then use the Line, CubicBezier and QuadraticBezier segments to  
+ *  draw the lines of the graphic. When using these classes, you only specify the x and y coordinates 
  *  of the end point of the line; the x and y coordinate of the starting point is defined by the current 
  *  pen position.</p>
  *  
  *  <p>After drawing a line segment, the current pen position becomes the x and y coordinates of the end 
- *  point of the line. You can use multiple instances of the MoveSegment class in the path definition to 
+ *  point of the line. You can use multiple Move segments in the path definition to 
  *  reposition the pen.</p>
  *  
  *  <p>The syntax used by the Path class to define the shape is the same as the SVG path syntax, 
  *  which makes it easy to convert SVG paths to Flex paths.</p>
  *  
  *  @includeExample examples/ArrowExample.mxml
- *  
- *  @see spark.primitives.pathSegments.MoveSegment
- *  @see spark.primitives.pathSegments.LineSegment
- *  @see spark.primitives.pathSegments.CubicBezierSegment
- *  @see spark.primitives.pathSegments.QuadraticBezierSegment
- *  
+ *    
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -103,6 +90,17 @@ public class Path extends FilledElement
      *  @productversion Flex 4
      */ 
     private var graphicsPathChanged:Boolean = true;
+    
+    /**
+     *  Private data structure to hold the parsed 
+     *  path segment information  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    private var segments:Array = []; 
     
     /**
      *  A GraphicsPath object that contains the drawing 
@@ -152,13 +150,13 @@ public class Path extends FilledElement
      *      <th>Example</th>
      *    </tr>
      *    <tr>
-     *      <td>MoveSegment</td>
+     *      <td>Move</td>
      *      <td>M/m</td>
      *      <td>x y</td>
      *      <td><code>M 10 20</code> - Move line to 10, 20.</td>
      *    </tr>
      *    <tr>
-     *      <td>LineSegment</td>
+     *      <td>Line</td>
      *      <td>L/l</td>
      *      <td>x y</td>
      *      <td><code>L 50 30</code> - Line to 50, 30.</td>
@@ -176,13 +174,13 @@ public class Path extends FilledElement
      *      <td><code>V 100</code> - Vertical line to 100.</td>
      *    </tr>
      *    <tr>
-     *      <td>QuadraticBezierSegment</td>
+     *      <td>QuadraticBezier</td>
      *      <td>Q/q</td>
      *      <td>controlX controlY x y</td>
      *      <td><code>Q 110 45 90 30</code> - Curve to 90, 30 with the control point at 110, 45.</td>
      *    </tr>
      *    <tr>
-     *      <td>CubicBezierSegment</td>
+     *      <td>CubicBezier</td>
      *      <td>C/c</td>
      *      <td>control1X control1Y control2X control2Y x y</td>
      *      <td><code>C 45 50 20 30 10 20</code> - Curve to 10, 20 with the first control point at 45, 50 and the second control point at 20, 30.</td>
@@ -372,6 +370,8 @@ public class Path extends FilledElement
         }
         
         segments = newSegments;
+        graphicsPathChanged = true;
+        boundsChanged(); 
         
         // Set the _data backing var as the last step since notifyElementChanged
         // clears the value.
@@ -426,44 +426,6 @@ public class Path extends FilledElement
         }
         
         return _data;
-    }
-    
-    //----------------------------------
-    //  segments
-    //----------------------------------
-
-    private var _segments:Array = [];
-    
-    [ArrayElementType("spark.primitives.pathSegments.PathSegment")]
-    [Inspectable(category="General")]
-    /**
-     *  The segments for the path. Each segment must be a subclass of PathSegment.
-     *
-     *  @default []
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function set segments(value:Array):void
-    {
-        _segments = value;
-            
-        for (var i:int = 0; i < _segments.length; i++)
-        {
-            _segments[i].segmentHost = this;
-        }
-        graphicsPathChanged = true;
-        boundsChanged();
-    }
-    
-    /** 
-     *  @private
-     */
-    public function get segments():Array 
-    {
-        return _segments;
     }
     
     //----------------------------------
@@ -898,27 +860,7 @@ public class Path extends FilledElement
     //  Methods
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  Individual path segments notify the host Path that 
-     *  the segment has changed in some way by invoking
-     *  this method. When a segment has changed, the 
-     *  bounds of the Path are re-calculated and the Path 
-     *  will be re-renderered. 
-     * 
-     *  @param e The PathSegment that has changed 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function segmentChanged(e:PathSegment):void 
-    {
-        graphicsPathChanged = true;
-        boundsChanged();
-    }
-
+  
     /**
      *  @inheritDoc
      */
@@ -950,4 +892,801 @@ public class Path extends FilledElement
  
 }
 
+}
+
+//--------------------------------------------------------------------------
+//
+//  Internal Helper Class - PathSegment 
+//
+//--------------------------------------------------------------------------
+import flash.display.GraphicsPath;
+import flash.geom.Matrix;
+import flash.geom.Rectangle;
+import spark.primitives.Path;
+import mx.events.PropertyChangeEvent;
+
+/**
+ *  The PathSegment class is the base class for a segment of a path.
+ *  This class is not created directly. It is the base class for 
+ *  MoveSegment, LineSegment, CubicBezierSegment and QuadraticBezierSegment.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+class PathSegment extends Object
+{
+
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Constructor.
+     * 
+     *  @param _x The x position of the pen in the current coordinate system.
+     *  
+     *  @param _y The y position of the pen in the current coordinate system.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function PathSegment(_x:Number = 0, _y:Number = 0)
+    {
+        super();
+        x = _x;  
+        y = _y; 
+    }   
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  x
+    //----------------------------------
+    
+	/**
+     *  The ending x position for this segment.
+     *
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var x:Number = 0;
+    
+    //----------------------------------
+    //  y
+    //----------------------------------
+    
+	/**
+     *  The ending y position for this segment.
+     *
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var y:Number = 0;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Draws this path segment. You can determine the current pen position by 
+     *  reading the x and y values of the previous segment. 
+     *
+     *  @param g The graphics context to draw into.
+     *  @param prev The previous segment drawn, or null if this is the first segment.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
+    {
+        // Override to draw your segment
+    }
+
+    /**
+     *  @param prev The previous segment drawn, or null if this is the first segment.
+     *  @param sx Pre-transform scale factor for x coordinates.
+     *  @param sy Pre-transform scale factor for y coordinates.
+     *  @param m Transformation matrix.
+     *  @param rect If non-null, rect is expanded to include the bounding box of the segment.
+     *  @return Returns the union of rect and the axis aligned bounding box of the post-transformed
+     *  path segment.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */    
+    public function getBoundingBox(prev:PathSegment, sx:Number, sy:Number, m:Matrix, rect:Rectangle):Rectangle
+    {
+        // Override to calculate your segment's bounding box.
+        return rect;
+    }
+}
+
+
+//--------------------------------------------------------------------------
+//
+//  Internal Helper Class - LineSegment 
+//
+//--------------------------------------------------------------------------
+
+import flash.display.GraphicsPath;
+import flash.geom.Matrix;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+
+import mx.utils.MatrixUtil;
+
+/**
+ *  The LineSegment draws a line from the current pen position to the coordinate located at x, y.
+ *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+class LineSegment extends PathSegment
+{
+
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Constructor.
+     *  
+     *  @param x The current location of the pen along the x axis. The <code>draw()</code> method uses 
+     *  this value to determine where to draw to.
+     * 
+     *  @param y The current location of the pen along the y axis. The <code>draw()</code> method uses 
+     *  this value to determine where to draw to.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function LineSegment(x:Number = 0, y:Number = 0)
+    {
+        super(x, y);
+    }   
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
+    {
+        graphicsPath.lineTo(dx + x*sx, dy + y*sy);
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function getBoundingBox(prev:PathSegment, sx:Number, sy:Number, m:Matrix, rect:Rectangle):Rectangle
+    {
+        // FIXME (egeorgie): optimize, we shouldn't look at the prev point, if it already contributed to rect
+        var pt1:Point = m.transformPoint(new Point(prev ? prev.x * sx : 0, prev ? prev.y * sy : 0)); 
+        var pt2:Point = m.transformPoint(new Point(x * sx, y * sy));
+
+        return MatrixUtil.rectUnion(Math.min(pt1.x, pt2.x), Math.min(pt1.y, pt2.y),
+                                    Math.max(pt1.x, pt2.x), Math.max(pt1.y, pt2.y), rect); 
+    }
+
+}
+
+
+//--------------------------------------------------------------------------
+//
+//  Internal Helper Class - MoveSegment 
+//
+//--------------------------------------------------------------------------
+import flash.display.GraphicsPath;
+
+/**
+ *  The MoveSegment moves the pen to the x,y position. This class calls the <code>Graphics.moveTo()</code> method 
+ *  from the <code>draw()</code> method.
+ * 
+ *  
+ *  @see flash.display.Graphics
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+class MoveSegment extends PathSegment
+{
+
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Constructor.
+     *  
+     *  @param x The target x-axis location in 2-d coordinate space.
+     *  
+     *  @param y The target y-axis location in 2-d coordinate space.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function MoveSegment(x:Number = 0, y:Number = 0)
+    {
+        super(x, y);
+    }   
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  The MoveSegment class moves the pen to the position specified by the
+     *  x and y properties.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
+    {
+        graphicsPath.moveTo(dx+x*sx, dy+y*sy);
+    }
+}
+
+//--------------------------------------------------------------------------
+//
+//  Internal Helper Class - CloseSegment 
+//
+//--------------------------------------------------------------------------
+
+import flash.display.GraphicsPath;
+
+/**
+ *  The CloseSegment closes the current path.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+class CloseSegment extends PathSegment
+{
+
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function CloseSegment()
+    {
+        super();
+    }   
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  The CloseSegment class draws a line from the current pen location to the 
+     *  position specified by the x and y properties.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
+    {
+    }
+}
+
+//--------------------------------------------------------------------------
+//
+//  Internal Helper Class - CubicBezierSegment 
+//
+//--------------------------------------------------------------------------
+
+import flash.display.GraphicsPath;
+import flash.geom.Matrix;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+
+import mx.utils.MatrixUtil;
+
+/**
+ *  The CubicBezierSegment draws a cubic bezier curve from the current pen position 
+ *  to x, y. The control1X and control1Y properties specify the first control point; 
+ *  the control2X and control2Y properties specify the second control point.
+ *
+ *  <p>Cubic bezier curves are not natively supported in Flash Player. This class does
+ *  an approximation based on the fixed midpoint algorithm and uses 4 quadratic curves
+ *  to simulate a cubic curve.</p>
+ *
+ *  <p>For details on the fixed midpoint algorithm, see:<br/>
+ *  http://timotheegroleau.com/Flash/articles/cubic_bezier_in_flash.htm</p>
+ *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+class CubicBezierSegment extends PathSegment
+{
+   
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Constructor.
+     *  
+     *  <p>For a CubicBezierSegment, there are two control points, each with x and y coordinates. Control points 
+     *  are points that define the direction and amount of curves of a Bezier curve. 
+     *  The curved line never reaches the control points; however, the line curves as though being drawn 
+     *  toward the control point.</p>
+     *  
+     *  @param _control1X The x-axis location in 2-d coordinate space of the first control point.
+     *  
+     *  @param _control1Y The y-axis location of the first control point.
+     *  
+     *  @param _control2X The x-axis location of the second control point.
+     *  
+     *  @param _control2Y The y-axis location of the second control point.
+     *  
+     *  @param x The x-axis location of the starting point of the curve.
+     *  
+     *  @param y The y-axis location of the starting point of the curve.
+     *  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function CubicBezierSegment(
+                _control1X:Number = 0, _control1Y:Number = 0,
+                _control2X:Number = 0, _control2Y:Number = 0,
+                x:Number = 0, y:Number = 0)
+    {
+        super(x, y);
+        
+        control1X = _control1X;
+        control1Y = _control1Y;
+        control2X = _control2X;
+        control2Y = _control2Y;
+    }   
+
+
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    private var _qPts:QuadraticPoints;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  control1X
+    //----------------------------------
+    
+	/**
+     *  The first control point x position.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var control1X:Number = 0;
+    
+    //----------------------------------
+    //  control1Y
+    //----------------------------------
+    
+	/**
+     *  The first control point y position.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var control1Y:Number = 0;
+    
+    //----------------------------------
+    //  control2X
+    //----------------------------------
+    
+	/**
+     *  The second control point x position.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var control2X:Number = 0;
+    
+    //----------------------------------
+    //  control2Y
+    //----------------------------------
+    
+	/**
+     *  The second control point y position.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var control2Y:Number = 0;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Draws the segment.
+     *
+     *  @param g The graphics context where the segment is drawn.
+     *  
+     *  @param prev The previous location of the pen.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
+    {
+        var qPts:QuadraticPoints = getQuadraticPoints(prev);
+                    
+        graphicsPath.curveTo(dx + qPts.control1.x*sx, dy+qPts.control1.y*sy, dx+qPts.anchor1.x*sx, dy+qPts.anchor1.y*sy);
+        graphicsPath.curveTo(dx + qPts.control2.x*sx, dy+qPts.control2.y*sy, dx+qPts.anchor2.x*sx, dy+qPts.anchor2.y*sy);
+        graphicsPath.curveTo(dx + qPts.control3.x*sx, dy+qPts.control3.y*sy, dx+qPts.anchor3.x*sx, dy+qPts.anchor3.y*sy);
+        graphicsPath.curveTo(dx + qPts.control4.x*sx, dy+qPts.control4.y*sy, dx+qPts.anchor4.x*sx, dy+qPts.anchor4.y*sy);
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function getBoundingBox(prev:PathSegment, sx:Number, sy:Number,
+                                            m:Matrix, rect:Rectangle):Rectangle
+    {
+        var qPts:QuadraticPoints = getQuadraticPoints(prev);
+        
+        rect = MatrixUtil.getQBezierSegmentBBox(prev ? prev.x : 0, prev ? prev.y : 0,
+                                                qPts.control1.x, qPts.control1.y,
+                                                qPts.anchor1.x, qPts.anchor1.y,
+                                                sx, sy, m, rect); 
+
+        rect = MatrixUtil.getQBezierSegmentBBox(qPts.anchor1.x, qPts.anchor1.y,
+                                                qPts.control2.x, qPts.control2.y,
+                                                qPts.anchor2.x, qPts.anchor2.y,
+                                                sx, sy, m, rect); 
+
+        rect = MatrixUtil.getQBezierSegmentBBox(qPts.anchor2.x, qPts.anchor2.y,
+                                                qPts.control3.x, qPts.control3.y,
+                                                qPts.anchor3.x, qPts.anchor3.y,
+                                                sx, sy, m, rect); 
+
+        rect = MatrixUtil.getQBezierSegmentBBox(qPts.anchor3.x, qPts.anchor3.y,
+                                                qPts.control4.x, qPts.control4.y,
+                                                qPts.anchor4.x, qPts.anchor4.y,
+                                                sx, sy, m, rect); 
+        return rect;
+    }
+    
+    /** 
+     *  @private
+     *  Tim Groleau's method to approximate a cubic bezier with 4 quadratic beziers, 
+     *  with endpoint and control point of each saved. 
+     */
+    private function getQuadraticPoints(prev:PathSegment):QuadraticPoints
+    {
+        if (_qPts)
+            return _qPts;
+
+        var p1:Point = new Point(prev ? prev.x : 0, prev ? prev.y : 0);
+        var p2:Point = new Point(x, y);
+        var c1:Point = new Point(control1X, control1Y);     
+        var c2:Point = new Point(control2X, control2Y);
+            
+        // calculates the useful base points
+        var PA:Point = Point.interpolate(c1, p1, 3/4);
+        var PB:Point = Point.interpolate(c2, p2, 3/4);
+    
+        // get 1/16 of the [p2, p1] segment
+        var dx:Number = (p2.x - p1.x) / 16;
+        var dy:Number = (p2.y - p1.y) / 16;
+
+        _qPts = new QuadraticPoints;
+        
+        // calculates control point 1
+        _qPts.control1 = Point.interpolate(c1, p1, 3/8);
+    
+        // calculates control point 2
+        _qPts.control2 = Point.interpolate(PB, PA, 3/8);
+        _qPts.control2.x -= dx;
+        _qPts.control2.y -= dy;
+    
+        // calculates control point 3
+        _qPts.control3 = Point.interpolate(PA, PB, 3/8);
+        _qPts.control3.x += dx;
+        _qPts.control3.y += dy;
+    
+        // calculates control point 4
+        _qPts.control4 = Point.interpolate(c2, p2, 3/8);
+    
+        // calculates the 3 anchor points
+        _qPts.anchor1 = Point.interpolate(_qPts.control1, _qPts.control2, 0.5); 
+        _qPts.anchor2 = Point.interpolate(PA, PB, 0.5); 
+        _qPts.anchor3 = Point.interpolate(_qPts.control3, _qPts.control4, 0.5); 
+    
+        // the 4th anchor point is p2
+        _qPts.anchor4 = p2;
+        
+        return _qPts;      
+    }
+}
+
+//--------------------------------------------------------------------------
+//
+//  Internal Helper Class - QuadraticPoints  
+//
+//--------------------------------------------------------------------------
+import flash.geom.Point;
+    
+/**
+ *  Utility class to store the computed quadratic points.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+class QuadraticPoints
+{
+    public var control1:Point;
+    public var anchor1:Point;
+    public var control2:Point;
+    public var anchor2:Point;
+    public var control3:Point;
+    public var anchor3:Point;
+    public var control4:Point;
+    public var anchor4:Point;
+    
+    /**
+     * Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function QuadraticPoints()
+    {
+        super();
+    }
+}
+
+//--------------------------------------------------------------------------
+//
+//  Internal Helper Class - QuadraticBezierSegment 
+//
+//--------------------------------------------------------------------------
+import flash.display.GraphicsPath;
+import flash.geom.Matrix;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+
+import mx.utils.MatrixUtil;
+
+/**
+ *  The QuadraticBezierSegment draws a quadratic curve from the current pen position 
+ *  to x, y. 
+ *
+ *  Quadratic bezier is the native curve type
+ *  in Flash Player.
+ *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+class QuadraticBezierSegment extends PathSegment
+{
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Constructor.
+     *  
+     *  <p>For a QuadraticBezierSegment, there is one control point. A control point
+     *  is a point that defines the direction and amount of a Bezier curve. 
+     *  The curved line never reaches the control point; however, the line curves as though being drawn 
+     *  toward the control point.</p>
+     * 
+     *  @param _control1X The x-axis location in 2-d coordinate space of the control point.
+     *  
+     *  @param _control1Y The y-axis location in 2-d coordinate space of the control point.
+     *  
+     *  @param x The x-axis location of the starting point of the curve.
+     *  
+     *  @param y The y-axis location of the starting point of the curve.
+     * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function QuadraticBezierSegment(
+                _control1X:Number = 0, _control1Y:Number = 0, 
+                x:Number = 0, y:Number = 0)
+    {
+        super(x, y);
+        
+        control1X = _control1X;
+        control1Y = _control1Y;
+    }   
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  control1X
+    //----------------------------------
+	
+	/**
+     *  The control point's x position.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var control1X:Number = 0;
+    
+    //----------------------------------
+    //  control1Y
+    //----------------------------------
+	
+	/**
+     *  The control point's y position.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var control1Y:Number = 0;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Draws the segment using the control point location and the x and y coordinates. 
+     *  This method calls the <code>Graphics.curveTo()</code> method.
+     *  
+     *  @see flash.display.Graphics
+     *
+     *  @param g The graphics context where the segment is drawn.
+     *  
+     *  @param prev The previous location of the pen.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
+    {
+        graphicsPath.curveTo(dx+control1X*sx, dy+control1Y*sy, dx+x*sx, dy+y*sy);
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function getBoundingBox(prev:PathSegment, sx:Number, sy:Number,
+                                            m:Matrix, rect:Rectangle):Rectangle
+    {
+        return MatrixUtil.getQBezierSegmentBBox(prev ? prev.x : 0, prev ? prev.y : 0,
+                                                control1X, control1Y, x, y, sx, sy, m, rect);
+    }
 }
