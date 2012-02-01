@@ -20,7 +20,7 @@ use namespace mx_internal;
  * The base class for filters that provide gradient visual effects.
  * 
  *  @mxml 
- *  <p>The <code>&lt;GradientFilter&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:GradientFilter&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
