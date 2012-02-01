@@ -49,6 +49,39 @@ Spinner component are defined by the SpinnerDecrementButtonSkin and SpinnerIncre
             useBaseColor = true;
             super.initializationComplete();
         }
+        
+        private var cornerRadiusChanged:Boolean;
+        
+        /**
+         *  @private
+         */
+        override protected function commitProperties():void
+        {
+            super.commitProperties();
+            
+            if (cornerRadiusChanged)
+            {
+                var cr:Number = getStyle("cornerRadius");
+                if (incrementButton)
+                    incrementButton.setStyle("cornerRadius", cr);
+                if (decrementButton)
+                    decrementButton.setStyle("cornerRadius", cr);
+            }
+        }
+        
+        /**
+         *  @private
+         */
+        override public function styleChanged(styleProp:String):void
+        {
+            super.styleChanged(styleProp);
+            
+            if (!styleProp || styleProp == "cornerRadius")
+            {
+                cornerRadiusChanged = true;
+                invalidateProperties();
+            }
+        }
     </fx:Script>
     
     <s:states>
