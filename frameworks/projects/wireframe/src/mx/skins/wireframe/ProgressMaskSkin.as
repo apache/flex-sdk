@@ -16,7 +16,7 @@ import flash.display.Graphics;
 import mx.skins.ProgrammaticSkin;
 
 /**
- *  The Spark skin for the mask of the Halo ProgressBar component's determinate and indeterminate bars.
+ *  The wireframe skin for the mask of the MX ProgressBar component's determinate and indeterminate bars.
  *  The mask defines the area in which the progress bar or 
  *  indeterminate progress bar is displayed.
  *  By default, the mask defines the progress bar to be inset 1 pixel from the track.
