@@ -63,6 +63,7 @@
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="flex4.swc" />
+                <include name="textLayout.swc"/>
 			</external-library-path>
 			<include-file name="assets/CalendarIcon.png" path="${basedir}/assets/CalendarIcon.png"/>
 			<include-file name="assets/MenuArrow.png" path="${basedir}/assets/MenuArrow.png"/>
