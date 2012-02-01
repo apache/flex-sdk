@@ -1051,7 +1051,7 @@ public class HorizontalLayout extends LayoutBase
         // current contentHeight; cache computed widths/heights in llv.
         for (; (x < maxVisibleX) && (index < eltCount); index++)
         {
-            var elt:ILayoutElement = layoutTarget.getElementAt(index);
+            var elt:ILayoutElement = layoutTarget.getVirtualElementAt(index);
             var w:Number = (isNaN(fixedColumnWidth)) ? elt.getPreferredBoundsWidth() : fixedColumnWidth;
             var h:Number = calculateElementHeight(elt, targetHeight, containerHeight);
             var y:Number = calculateElementY(elt, h, containerHeight);
@@ -1072,7 +1072,7 @@ public class HorizontalLayout extends LayoutBase
             {
                 for (index = startIndex; index <= endIndex; index++)
                 {
-                    elt = layoutTarget.getElementAt(index);
+                    elt = layoutTarget.getVirtualElementAt(index);
                     h = calculateElementHeight(elt, targetHeight, containerHeight);
                     y = calculateElementY(elt, h, containerHeight);
                     elt.setLayoutBoundsPosition(elt.getLayoutBoundsX(), y);
