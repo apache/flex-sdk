@@ -75,7 +75,7 @@
     
     <!-- arrow -->
     <Path horizontalCenter="-1" verticalCenter="0" id="arrow"
-          data="M 0.95 3.5 L 7.95 0.0 L 7.95 7.0 L 0.95 3.5">
+          data="M 0.0 3.5 L 7.0 0.0 L 7.0 7.0 L 0.0 3.5">
         <fill>
         	<RadialGradient rotation="90" focalPointRatio="1">	
 	            <GradientEntry id="arrowFill1" color="0" alpha="0.65" />
