@@ -13,17 +13,21 @@ package spark.layouts.supportClasses
 {
 import flash.display.DisplayObject;
 import flash.events.Event;
+import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.utils.Timer;
 
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.DragEvent;
+import mx.managers.DragManager;
 import mx.managers.ILayoutManagerClient;
 import mx.utils.OnDemandEventDispatcher;
 
+import spark.components.Group;
 import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
 
@@ -1378,7 +1382,15 @@ public class LayoutBase extends OnDemandEventDispatcher
     //  Drop methods
     //
     //--------------------------------------------------------------------------
-     
+
+    private var _dragScrollTimer:Timer;
+    private var _dragScrollDelta:Point;
+    private var _dragScrollEvent:DragEvent;
+    mx_internal var dragScrollRegionSize:Number = 20;
+    mx_internal var dragScrollSpeed:Number = 5;
+    mx_internal var dragScrollInterval:int = 32;
+    mx_internal var dragScrollHidesIndicator:Boolean = false;
+    
     /**
      *  Calculates the <code>LayoutDragEventDropLocation</code> for
      *  the specified <code>dragEvent</code>.
@@ -1399,7 +1411,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     public function calculateDropLocation(dragEvent:DragEvent):DropLocation
     {
         // Find the drop index
-        var dropPoint:Point = target.globalToLocal(new Point(dragEvent.stageX, dragEvent.stageY));
+        var dropPoint:Point = globalToLocal(dragEvent.stageX, dragEvent.stageY);
         var dropIndex:int = calculateDropIndex(dropPoint.x, dropPoint.y);
         if (dropIndex == -1)
             return null;
@@ -1440,6 +1452,36 @@ public class LayoutBase extends OnDemandEventDispatcher
         // only if successfully sized and positioned
         _dropIndicator.visible = false;
 
+        // Check for drag scrolling
+        var dragScrollElapsedTime:int = 0;
+        if (_dragScrollTimer)
+            dragScrollElapsedTime = _dragScrollTimer.currentCount * _dragScrollTimer.delay;
+
+        _dragScrollDelta = calculateDragScrollDelta(dropLocation,
+                                                    dragScrollInterval,
+                                                    dragScrollElapsedTime);
+        if (_dragScrollDelta)
+        {
+            // Update the drag-scroll event
+            _dragScrollEvent = dropLocation.dragEvent;
+
+            if (!dragScrollingInProgress())
+            {
+                // Creates a timer, immediately updates the scroll position
+                // based on _dragScrollDelta and redispatches the event.
+                startDragScrolling();
+                return;
+            }
+            else
+            {
+                if (dragScrollHidesIndicator)
+                    return;
+            }
+        }
+        else
+            stopDragScrolling();
+
+        // Show the drop indicator
         var bounds:Rectangle = calculateDropIndicatorBounds(dropLocation);
         if (!bounds)
             return;
@@ -1475,6 +1517,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      */
     public function hideDropIndicator():void
     {
+        stopDragScrolling();
         if (_dropIndicator)
             _dropIndicator.visible = false;
     }
@@ -1532,6 +1575,195 @@ public class LayoutBase extends OnDemandEventDispatcher
     protected function calculateDropIndicatorBounds(dropLocation:DropLocation):Rectangle
     {
         return null;
+    }
+    
+    /**
+     *  Calculates how much to scroll for the specified <code>dropLocation</code>
+     *  during a drag and drop gesture.
+     *
+     *  Called by the <code>showDropIndicator()</code> method to figure out the
+     *  during drag-scrolling.
+     *
+     *  @param context A valid <code>LayoutDragEventContext</code> previously obtained
+     *  through the <code>getDragEventContext</code> method.
+     *
+     *  @param scrollDelta The <code>Point</code> to be filled with the computed scroll delta.
+     *
+     *  @param timeInterval The interval in milliseconds between two consecutive drag-scrolls.
+     *
+     *  @param timeElapsed The duration in milliseconds since the drag scrolling start.
+     *
+     *  @return How much to drag scroll, or null if drag-scrolling is not needed.
+     *
+     *  @see spark.layouts.supportClasses.DropLocation 
+     *  @see #calculateDropIndex
+     *  @see #calculateDropIndicatorBounds
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function calculateDragScrollDelta(dropLocation:DropLocation, timeInterval:int, timeElapsed:int):Point
+    {
+        var layoutTarget:GroupBase = target;
+        if (layoutTarget.numElements == 0)
+            return null;
+        
+        var scrollRect:Rectangle = getScrollRect();
+        if (!scrollRect)
+            return null;
+
+        // Make sure that the drag-scrolling regions don't overlap 
+        var horizontalRegionSize:Number = Math.min(dragScrollRegionSize, layoutTarget.width);
+        var verticalRegionSize:Number = Math.min(dragScrollRegionSize, layoutTarget.height);
+
+        var x:Number = dropLocation.dropPoint.x;
+        var y:Number = dropLocation.dropPoint.y;
+        
+        // Return early if the mouse is outside of the drag-scroll region.
+        if (scrollRect.left + horizontalRegionSize < x && x < scrollRect.right - horizontalRegionSize &&
+            scrollRect.top + verticalRegionSize < y && y < scrollRect.bottom - verticalRegionSize )
+            return null;
+
+        // Speedup based on time elapsed
+        var timeSpeedUp:Number = Math.min(timeElapsed, 2000) / 2000;
+        timeSpeedUp *= 3;
+        timeSpeedUp += 1;
+        timeSpeedUp *= timeSpeedUp * dragScrollSpeed * timeInterval / 50;
+
+        var minDeltaX:Number = -scrollRect.left;
+        var minDeltaY:Number = -scrollRect.top;
+        var maxDeltaY:Number = target.contentHeight - scrollRect.bottom;
+        var maxDeltaX:Number = target.contentWidth - scrollRect.right;
+        
+        var deltaX:Number = 0;
+        var deltaY:Number = 0;
+        
+        if (minDeltaX != 0 && x - scrollRect.left < horizontalRegionSize)
+        {
+            // Scroll left
+            deltaX = 1 - (x - scrollRect.left) / horizontalRegionSize;
+            deltaX *=  deltaX * timeSpeedUp;
+            deltaX = -Math.round(deltaX) - 1;
+        }
+        else  if (maxDeltaX != 0 && scrollRect.right - x < horizontalRegionSize)
+        {
+            // Scroll right
+            deltaX = 1 - (scrollRect.right - x) / horizontalRegionSize;
+            deltaX *= deltaX * timeSpeedUp;
+            deltaX = Math.round(deltaX) + 1;
+        }
+        
+        if (minDeltaY != 0 && y - scrollRect.top < verticalRegionSize)
+        {
+            // Scroll up
+            deltaY = 1 - (y - scrollRect.top) / verticalRegionSize;
+            deltaY *=  deltaY * timeSpeedUp;
+            deltaY = -Math.round(deltaY) - 1;
+        }
+        else  if (maxDeltaY != 0 && scrollRect.bottom - y < verticalRegionSize)
+        {
+            // Scroll down
+            deltaY = 1 - (scrollRect.bottom - y) / verticalRegionSize;
+            deltaY *= deltaY * timeSpeedUp;
+            deltaY = Math.round(deltaY) + 1;
+        }
+
+        deltaX = Math.max(minDeltaX, Math.min(maxDeltaX, deltaX));
+        deltaY = Math.max(minDeltaY, Math.min(maxDeltaY, deltaY));
+        
+        if (deltaX == 0 && deltaY == 0)
+            return null;
+        return new Point(deltaX, deltaY);
+    }
+
+    /**
+     *  @private 
+     *  True if the drag-scroll timer is running. 
+     */
+    private function dragScrollingInProgress():Boolean
+    {
+        return _dragScrollTimer != null;
+    }
+    
+    /**
+     *  @private 
+     *  Starts the drag-scroll timer.
+     */
+    private function startDragScrolling():void
+    {
+        if (_dragScrollTimer)
+            return;
+
+        // Setup the timer to handle the subsequet scrolling
+        _dragScrollTimer = new Timer(dragScrollInterval);
+        _dragScrollTimer.addEventListener(TimerEvent.TIMER, dragScroll);
+        _dragScrollTimer.start();
+        
+        // Scroll once on start. Scroll after the _dragScrollTimer is
+        // initialized to prevent stack overflow as a new event will be
+        // dispatched to the list and it may try to start drag scrolling
+        // again.
+        dragScroll(null);
+    }
+    
+    /**
+     *  @private
+     *  Updates the scroll position and dispatches a DragEvent.
+     */
+    private function dragScroll(event:TimerEvent):void
+    {
+        // Scroll the target
+        horizontalScrollPosition += _dragScrollDelta.x;
+        verticalScrollPosition += _dragScrollDelta.y;
+        
+        // Validate target before dispatching the event
+        target.validateNow();
+        
+        // Re-dispatch the event so that the drag initiator handles it as if
+        // the DragProxy is dispatching in response to user input.
+        var dragEvent:DragEvent = _dragScrollEvent;
+        dragEvent.target.dispatchEvent(dragEvent);
+    }
+    
+    /**
+     *  @private
+     *  Stops the drag-scroll timer. 
+     */
+    private function stopDragScrolling():void
+    {
+        if (_dragScrollTimer)
+        {
+            _dragScrollTimer.stop();
+            _dragScrollTimer.removeEventListener(TimerEvent.TIMER, dragScroll);
+            _dragScrollTimer = null;
+        }
+
+        _dragScrollEvent = null;
+        _dragScrollDelta = null;
+    }
+    
+    /**
+     *  @private
+     *  Work-around the Player globalToLocal and scrollRect changing before
+     *  a frame is updated. 
+     */
+    private function globalToLocal(x:Number, y:Number):Point
+    {
+        var layoutTarget:GroupBase = target;
+        var parent:DisplayObject = layoutTarget.parent;
+        var local:Point = parent.globalToLocal(new Point(x, y));
+        local.x -= layoutTarget.x;
+        local.y -= layoutTarget.y;
+
+        var scrollRect:Rectangle = getScrollRect();
+        if (scrollRect)
+        {
+            local.x += scrollRect.x;
+            local.y += scrollRect.y;
+        }
+        return local;
     }
 }
 }
