@@ -11,13 +11,13 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" alpha.disabled="0.5">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" alpha.disabled="0.5">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxPanel")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.Panel")]
+    </fx:Metadata> 
     
-    <Script>
+    <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For panel, border and title backround are skinned, but the content area and title text are not. */
         static private const exclusions:Array = ["background", "titleField", "contentGroup"];
@@ -26,64 +26,64 @@
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
         static private const contentFill:Array = ["bgFill"];
         override public function get contentItems():Array {return contentFill};
-    </Script>
+    </fx:Script>
     
-    <states>
-    	<State name="normal" />
-    	<State name="disabled" />
-    </states>
+    <s:states>
+    	<s:State name="normal" />
+    	<s:State name="disabled" />
+    </s:states>
     
     <!-- drop shadow -->
-    <Rect left="0" top="0" right="0" bottom="0">
-        <filters>
-            <DropShadowFilter blurX="20" blurY="20" alpha="0.32" distance="11" angle="90" knockout="true" />
-        </filters>
-        <fill>
-            <SolidColor color="0" />
-        </fill>
-    </Rect>
+    <s:Rect left="0" top="0" right="0" bottom="0">
+        <s:filters>
+            <s:DropShadowFilter blurX="20" blurY="20" alpha="0.32" distance="11" angle="90" knockout="true" />
+        </s:filters>
+        <s:fill>
+            <s:SolidColor color="0" />
+        </s:fill>
+    </s:Rect>
     
 	<!-- layer 1: border -->
-	<Rect left="0" right="0" top="0" bottom="0">
-		<stroke>
-			<SolidColorStroke color="0" alpha="0.50" weight="1" />
-		</stroke>
-	</Rect>
+	<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke color="0" alpha="0.50" weight="1" />
+		</s:stroke>
+	</s:Rect>
 
     <!-- layer 2: background fill -->
-    <Rect id="background" left="1" top="1" right="1" bottom="1">
-        <fill>
-            <SolidColor color="0xFFFFFF" id="bgFill" />
-        </fill>
-    </Rect>
+    <s:Rect id="background" left="1" top="1" right="1" bottom="1">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" id="bgFill" />
+        </s:fill>
+    </s:Rect>
     
 	<!-- layer 3: title bar fill -->
-	<Rect left="1" right="1" top="1" height="30">
-	   <fill>
-            <LinearGradient rotation="90">
-                <GradientEntry color="0xE2E2E2" />
-                <GradientEntry color="0xD9D9D9" />
-            </LinearGradient>
-	   </fill>
-	</Rect>
+	<s:Rect left="1" right="1" top="1" height="30">
+	   <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="0xE2E2E2" />
+                <s:GradientEntry color="0xD9D9D9" />
+            </s:LinearGradient>
+	   </s:fill>
+	</s:Rect>
 	
 	<!-- layer 4: title bar highlight -->
-    <Rect left="1" right="1" top="1" height="30">
-       <stroke>
-            <LinearGradientStroke rotation="90" weight="1">
-                <GradientEntry color="0xEAEAEA" />
-                <GradientEntry color="0xBEBEBE" />
-            </LinearGradientStroke>
-       </stroke>
-    </Rect>
+    <s:Rect left="1" right="1" top="1" height="30">
+       <s:stroke>
+            <s:LinearGradientStroke rotation="90" weight="1">
+                <s:GradientEntry color="0xEAEAEA" />
+                <s:GradientEntry color="0xBEBEBE" />
+            </s:LinearGradientStroke>
+       </s:stroke>
+    </s:Rect>
 	
 	<!-- layer 5: text -->
-	<TextBox id="titleField" lineBreak="explicit"
+	<s:SimpleText id="titleField" lineBreak="explicit"
 			 left="10" right="4" top="2" height="30"
 			 verticalAlign="middle" fontWeight="bold">
-	</TextBox>
+	</s:SimpleText>
 
-    <Group id="contentGroup" left="1" right="1" top="32" bottom="1">
-    </Group>
+    <s:Group id="contentGroup" left="1" right="1" top="32" bottom="1">
+    </s:Group>
 
-</SparkSkin>
+</s:SparkSkin>
