@@ -304,7 +304,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     }
     
     protected function invalidateTransform(changeInvalidatesLayering:Boolean = true,
-                                           triggerLayout:Boolean = true):void
+                                           invalidateLayout:Boolean = true):void
     {
         if (changeInvalidatesLayering)
             notifyElementLayerChanged();
@@ -320,7 +320,7 @@ public class GraphicElement extends OnDemandEventDispatcher
             invalidateProperties(); // We apply the transform in commitProperties
 
         // Trigger a layout pass
-        if (triggerLayout)
+        if (invalidateLayout)
             invalidateParentSizeAndDisplayList();
         }
 
@@ -3235,9 +3235,9 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getMaxBoundsWidth(postTransform:Boolean = true):Number
+    public function getMaxBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return transformWidthForLayout(maxWidth, maxHeight, postTransform);
+        return transformWidthForLayout(maxWidth, maxHeight, postLayoutTransform);
     }
 
     /**
@@ -3248,9 +3248,9 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getMaxBoundsHeight(postTransform:Boolean = true):Number
+    public function getMaxBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return transformHeightForLayout(maxWidth, maxHeight, postTransform);
+        return transformHeightForLayout(maxWidth, maxHeight, postLayoutTransform);
     }
 
     /**
@@ -3261,9 +3261,9 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getMinBoundsWidth(postTransform:Boolean = true):Number
+    public function getMinBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return transformWidthForLayout(minWidth, minHeight, postTransform);
+        return transformWidthForLayout(minWidth, minHeight, postLayoutTransform);
     }
 
     /**
@@ -3274,9 +3274,9 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getMinBoundsHeight(postTransform:Boolean = true):Number
+    public function getMinBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return transformHeightForLayout(minWidth, minHeight, postTransform);
+        return transformHeightForLayout(minWidth, minHeight, postLayoutTransform);
     }
 
     /**
@@ -3287,11 +3287,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getPreferredBoundsWidth(postTransform:Boolean = true):Number
+    public function getPreferredBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
         return transformWidthForLayout(preferredWidthPreTransform(),
                                        preferredHeightPreTransform(),
-                                       postTransform);
+                                       postLayoutTransform);
     }
 
     /**
@@ -3302,11 +3302,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getPreferredBoundsHeight(postTransform:Boolean = true):Number
+    public function getPreferredBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
         return transformHeightForLayout(preferredWidthPreTransform(),
                                        preferredHeightPreTransform(),
-                                       postTransform);
+                                       postLayoutTransform);
     }
     
     /**
@@ -3317,10 +3317,10 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function getBoundsXAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var strokeExtents:Point = getStrokeExtents(postTransform);
-        var m:Matrix = postTransform ? computeMatrix() : null;
+        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
+        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
         if (!m)
             return strokeExtents.x * -0.5 + this.measuredX + this.x;
 
@@ -3352,10 +3352,10 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function getBoundsYAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var strokeExtents:Point = getStrokeExtents(postTransform);
-        var m:Matrix = postTransform ? computeMatrix() : null;
+        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
+        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
         if (!m)
             return strokeExtents.y * -0.5 + this.measuredY + this.y;
 
@@ -3387,14 +3387,14 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getLayoutBoundsX(postTransform:Boolean = true):Number
+    public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
         // Take stroke into account:
         // TODO EGeorgie: We assume that the stroke extents are even on both sides.
         // and that's not necessarily true.
-        var stroke:Number = -getStrokeExtents(postTransform).x * 0.5;
+        var stroke:Number = -getStrokeExtents(postLayoutTransform).x * 0.5;
 
-        var m:Matrix = postTransform ? computeMatrix() : null;
+        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
         if (!m)
             return stroke + this.measuredX + this.x;
             
@@ -3411,14 +3411,14 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getLayoutBoundsY(postTransform:Boolean = true):Number
+    public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
     {
         // Take stroke into account:
         // TODO EGeorgie: We assume that the stroke extents are even on both sides.
         // and that's not necessarily true.
-        var stroke:Number = -getStrokeExtents(postTransform).y * 0.5;
+        var stroke:Number = -getStrokeExtents(postLayoutTransform).y * 0.5;
 
-        var m:Matrix = postTransform ? computeMatrix() : null;
+        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
         if (!m)
             return stroke + this.measuredY + this.y;
 
@@ -3435,9 +3435,9 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getLayoutBoundsWidth(postTransform:Boolean = true):Number
+    public function getLayoutBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return transformWidthForLayout(_width, _height, postTransform);
+        return transformWidthForLayout(_width, _height, postLayoutTransform);
     }
 
     /**
@@ -3448,9 +3448,9 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getLayoutBoundsHeight(postTransform:Boolean = true):Number
+    public function getLayoutBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return transformHeightForLayout(_width, _height, postTransform);
+        return transformHeightForLayout(_width, _height, postLayoutTransform);
     }
 
     /**
@@ -3503,9 +3503,9 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     protected function transformWidthForLayout(width:Number,
                                                height:Number,
-                                               postTransform:Boolean = true):Number
+                                               postLayoutTransform:Boolean = true):Number
     {
-        if (postTransform)
+        if (postLayoutTransform)
         {
             var m:Matrix = computeMatrix();
             if (m)
@@ -3516,7 +3516,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         }
 
         // Take stroke into account
-        var strokeExtents:Point = getStrokeExtents(postTransform);
+        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
         width += strokeExtents.x;
         return width;
     }
@@ -3538,9 +3538,9 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     protected function transformHeightForLayout(width:Number,
                                                 height:Number,
-                                                postTransform:Boolean = true):Number
+                                                postLayoutTransform:Boolean = true):Number
     {
-        if (postTransform)
+        if (postLayoutTransform)
         {
             var m:Matrix = computeMatrix();
             if (m)
@@ -3551,7 +3551,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         }
 
         // Take stroke into account
-        var strokeExtents:Point = getStrokeExtents(postTransform);
+        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
         height += strokeExtents.y;
         return height;
     }
@@ -3582,10 +3582,10 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function setLayoutBoundsPosition(newBoundsX:Number, newBoundsY:Number, postTransform:Boolean = true):void
+    public function setLayoutBoundsPosition(newBoundsX:Number, newBoundsY:Number, postLayoutTransform:Boolean = true):void
     {
-        var currentBoundsX:Number = getLayoutBoundsX(postTransform);
-        var currentBoundsY:Number = getLayoutBoundsY(postTransform);
+        var currentBoundsX:Number = getLayoutBoundsX(postLayoutTransform);
+        var currentBoundsY:Number = getLayoutBoundsY(postLayoutTransform);
 
         var currentX:Number = this.x;
         var currentY:Number = this.y;
@@ -3622,11 +3622,11 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function setLayoutBoundsSize(width:Number = NaN,
-                                  height:Number = NaN,
-                                  postTransform:Boolean = true):void
+    public function setLayoutBoundsSize(width:Number,
+                                        height:Number,
+                                        postLayoutTransform:Boolean = true):void
     {
-        var strokeExtents:Point = getStrokeExtents(postTransform);
+        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
         if (!isNaN(width))
            width -= strokeExtents.x;
 
@@ -3636,7 +3636,7 @@ public class GraphicElement extends OnDemandEventDispatcher
 
         // Calculate the width and height pre-transform:
         var m:Matrix;
-        if (postTransform)
+        if (postLayoutTransform)
             m = computeMatrix();
         if (!m)
         {
@@ -3709,12 +3709,12 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function setLayoutMatrix(value:Matrix, triggerLayout:Boolean):void
+    public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
     {
         allocateLayoutFeatures();
         var previous:Boolean = needsDisplayObject;
         layoutFeatures.layoutMatrix = value;
-        invalidateTransform(previous != needsDisplayObject, triggerLayout);
+        invalidateTransform(previous != needsDisplayObject, invalidateLayout);
     }
 
     /**
@@ -3746,12 +3746,12 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function setLayoutMatrix3D(value:Matrix3D, triggerLayout:Boolean):void
+    public function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void
     {
         allocateLayoutFeatures();
         var previous:Boolean = needsDisplayObject;
         layoutFeatures.layoutMatrix3D = value;
-        invalidateTransform(previous != needsDisplayObject, triggerLayout);
+        invalidateTransform(previous != needsDisplayObject, invalidateLayout);
     }
 
     /**
@@ -3823,7 +3823,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     // TODO EGeorgie: return rectangle instead so that the function can
     // correctly indicate the left, right, top and bottom extents. Right
     // now we assume they are the same on both sides.
-    protected function getStrokeExtents(postTransform:Boolean = true):Point
+    protected function getStrokeExtents(postLayoutTransform:Boolean = true):Point
     {
         // TODO EGeorgie: currently we take only scale into account,
         // but depending on joint style, cap style, etc. we need to take
@@ -3847,7 +3847,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         }
         
         var scaleMode:String = stroke.scaleMode;
-        if (!scaleMode || scaleMode == LineScaleMode.NONE || !postTransform)
+        if (!scaleMode || scaleMode == LineScaleMode.NONE || !postLayoutTransform)
         {
             _strokeExtents.x = weight;
             _strokeExtents.y = weight;
