@@ -19,27 +19,27 @@ import flash.events.Event
  *  the event listener for the <code>open</code> and <code>close</code> events.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class DropDownEvent extends Event
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  The <code>DropDownEvent.CLOSE</code> constant defines the value of the 
-	 *  <code>type</code> property of the event object for a <code>close</code> event.
-	 *
-	 *  <p>The properties of the event object have the following values:</p>
-	 *  <table class="innertable">
-	 *     <tr><th>Property</th><th>Value</th></tr>
+    /**
+     *  The <code>DropDownEvent.CLOSE</code> constant defines the value of the 
+     *  <code>type</code> property of the event object for a <code>close</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
@@ -52,24 +52,24 @@ public class DropDownEvent extends Event
      *       Object listening for the event.</td></tr>
      *     <tr><td><code>triggerEvent</code></td><td>A value indicating the 
      *       type of input action that triggered the event.</td></tr>
-	 *  </table>
-	 *
+     *  </table>
+     *
      *  @eventType close
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static const CLOSE:String = "close";
-	
-	/**
-	 *  The <code>DropDownEvent.OPEN</code> constant defines the value of the 
-	 *  <code>type</code> property of the event object for a <code>open</code> event.
-	 *
-	 *  <p>The properties of the event object have the following values:</p>
-	 *  <table class="innertable">
-	 *     <tr><th>Property</th><th>Value</th></tr>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static const CLOSE:String = "close";
+    
+    /**
+     *  The <code>DropDownEvent.OPEN</code> constant defines the value of the 
+     *  <code>type</code> property of the event object for a <code>open</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
      *     <tr><td><code>cancelable</code></td><td>false</td></tr>
      *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
@@ -82,86 +82,86 @@ public class DropDownEvent extends Event
      *       Object listening for the event.</td></tr>
      *     <tr><td><code>triggerEvent</code></td><td>A value indicating the 
      *       type of input action that triggered the event.</td></tr>
-	 *  </table>
-	 *
+     *  </table>
+     *
      *  @eventType open
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static const OPEN:String = "open";
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static const OPEN:String = "open";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  @param type The event type; indicates the action that caused the event.
-	 *
-	 *  @param bubbles Specifies whether the event can bubble
-	 *  up the display list hierarchy.
-	 *
-	 *  @param cancelable Specifies whether the behavior
-	 *  associated with the event can be prevented.
-	 *
-	 *  @param triggerEvent A value indicating the 
+    /**
+     *  Constructor.
+     *
+     *  @param type The event type; indicates the action that caused the event.
+     *
+     *  @param bubbles Specifies whether the event can bubble
+     *  up the display list hierarchy.
+     *
+     *  @param cancelable Specifies whether the behavior
+     *  associated with the event can be prevented.
+     *
+     *  @param triggerEvent A value indicating the 
      *  type of input action that triggered the event
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function DropDownEvent(type:String, bubbles:Boolean = false,
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function DropDownEvent(type:String, bubbles:Boolean = false,
                                   cancelable:Boolean = false,
                                   triggerEvent:Event = null)
-	{
-		super(type, bubbles, cancelable);
-		this.triggerEvent = triggerEvent;
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    {
+        super(type, bubbles, cancelable);
+        this.triggerEvent = triggerEvent;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  triggerEvent
-	//----------------------------------
+    //----------------------------------
+    //  triggerEvent
+    //----------------------------------
 
-	/**
-	 *  If the control is opened or closed in response to a user action, 
-	 *  this property contains a value indicating the type of input action. 
-	 *  The value is either <code>InteractionInputType.MOUSE</code> 
-	 *  or <code>InteractionInputType.KEYBOARD</code>.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public var triggerEvent:Event;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: Event
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  If the control is opened or closed in response to a user action, 
+     *  this property contains a value indicating the type of input action. 
+     *  The value is either <code>InteractionInputType.MOUSE</code> 
+     *  or <code>InteractionInputType.KEYBOARD</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var triggerEvent:Event;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: Event
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override public function clone():Event
-	{
-		return new DropDownEvent(type, bubbles, cancelable, triggerEvent);
-	}
+    /**
+     *  @private
+     */
+    override public function clone():Event
+    {
+        return new DropDownEvent(type, bubbles, cancelable, triggerEvent);
+    }
 }
 
 }
