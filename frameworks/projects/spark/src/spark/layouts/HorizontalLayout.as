@@ -183,6 +183,12 @@ public class HorizontalLayout extends LayoutBase
 
 		// Don't drag-scroll in the vertical direction
 		dragScrollRegionSizeVertical = 0;
+
+        // Virtualization defaults for cases
+        // where there are no items and no typical item.
+        // The llv defaults are the width/height of a Spark Button skin.
+        llv.defaultMinorSize = 22;
+        llv.defaultMajorSize = 71;
     }
     
     //--------------------------------------------------------------------------
@@ -413,6 +419,50 @@ public class HorizontalLayout extends LayoutBase
     }    
     
     //----------------------------------
+    //  requestedMinColumnCount
+    //----------------------------------
+    
+    private var _requestedMinColumnCount:int = -1;
+    
+    [Inspectable(category="General", minValue="-1")]
+    
+    /**
+     *  The measured width of this layout is large enough to display 
+     *  at least <code>requestedMinColumnCount</code> layout elements. 
+     * 
+     *  <p>If <code>requestedColumnCount</code> is set, then
+     *  this property has no effect.</p>
+     *
+     *  <p>If the actual size of the container using this layout has been explicitly set,
+     *  then this property has no effect.</p>
+     * 
+     *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get requestedMinColumnCount():int
+    {
+        return _requestedMinColumnCount;
+    }
+
+    /**
+     *  @private
+     */
+    public function set requestedMinColumnCount(value:int):void
+    {
+        if (_requestedMinColumnCount == value)
+            return;
+
+        _requestedMinColumnCount = value;
+
+        if (target)
+            target.invalidateSize();
+    }   
+
+    //----------------------------------
     //  requestedColumnCount
     //----------------------------------
 
@@ -450,7 +500,9 @@ public class HorizontalLayout extends LayoutBase
             return;
                                
         _requestedColumnCount = value;
-        invalidateTargetSizeAndDisplayList();
+        
+        if (target)
+            target.invalidateSize();
     }    
     
     //----------------------------------
@@ -1002,6 +1054,40 @@ public class HorizontalLayout extends LayoutBase
 
     /**
      *  @private
+     *  Fills in the result with preferred and min sizes of the element.
+     */
+    private function getElementWidth(element:ILayoutElement, fixedColumnWidth:Number, result:SizesAndLimit):void
+    {
+        // Calculate preferred width first, as it's being used to calculate min width
+        var elementPreferredWidth:Number = isNaN(fixedColumnWidth) ? Math.ceil(element.getPreferredBoundsWidth()) :
+                                                                     fixedColumnWidth;
+        // Calculate min width
+        var flexibleWidth:Boolean = !isNaN(element.percentWidth);
+        var elementMinWidth:Number = flexibleWidth ? Math.ceil(element.getMinBoundsWidth()) : 
+                                                     elementPreferredWidth;
+        result.preferredSize = elementPreferredWidth;
+        result.minSize = elementMinWidth;
+    }
+    
+    /**
+     *  @private
+     *  Fills in the result with preferred and min sizes of the element.
+     */
+    private function getElementHeight(element:ILayoutElement, justify:Boolean, result:SizesAndLimit):void
+    {
+        // Calculate preferred height first, as it's being used to calculate min height below
+        var elementPreferredHeight:Number = Math.ceil(element.getPreferredBoundsHeight());
+        
+        // Calculate min height
+        var flexibleHeight:Boolean = !isNaN(element.percentHeight) || justify;
+        var elementMinHeight:Number = flexibleHeight ? Math.ceil(element.getMinBoundsHeight()) : 
+                                                       elementPreferredHeight;
+        result.preferredSize = elementPreferredHeight;
+        result.minSize = elementMinHeight;
+    }
+        
+    /**
+     *  @private
      * 
      *  Compute exact values for measuredWidth,Height and  measuredMinWidth,Height.
      *  
@@ -1014,56 +1100,79 @@ public class HorizontalLayout extends LayoutBase
      */
     private function measureReal(layoutTarget:GroupBase):void
     {
-        var layoutEltCount:int = layoutTarget.numElements;
-        var reqEltCount:int = requestedColumnCount; // -1 means "all elements"
-        var eltCount:uint = Math.max(reqEltCount, layoutEltCount);
-        var eltInLayoutCount:uint = 0; // elts that have been measured
-
-        var preferredHeight:Number = 0; // max of the elt preferred heights
-        var preferredWidth:Number = 0;  // sum of the elt preferred widths
-        var minHeight:Number = 0; // max of the elt minimum heights
-        var minWidth:Number = 0;  // sum of the elt minimum widths
-
+        var size:SizesAndLimit = new SizesAndLimit();
+        var justify:Boolean = verticalAlign == VerticalAlign.JUSTIFY;
+        var numElements:int = layoutTarget.numElements; // How many elements there are in the target
+        var numElementsInLayout:int = numElements;      // How many elements have includeInLayout == true, start off with numElements.
+        var requestedColumnCount:int = this.requestedColumnCount;
+        var columnsMeasured:int = 0;                    // How many columns have been measured
+        
+        var preferredHeight:Number = 0; // sum of the elt preferred heights
+        var preferredWidth:Number = 0;  // max of the elt preferred widths
+        var minHeight:Number = 0;       // sum of the elt minimum heights
+        var minWidth:Number = 0;        // max of the elt minimum widths
+        
         var fixedColumnWidth:Number = NaN;
         if (!variableColumnWidth)
             fixedColumnWidth = columnWidth;  // may query typicalLayoutElement, elt at index=0
-
-        for (var i:uint = 0; i < eltCount; i++)
+        
+        var element:ILayoutElement;
+        for (var i:int = 0; i < numElements; i++)
         {
-            if (i < layoutEltCount) // target.numElements
-                var elt:ILayoutElement = layoutTarget.getElementAt(i);
-            else // target.numElements < requestedElementCount, so "pad"
-                elt = typicalLayoutElement;
-            if (!elt || !elt.includeInLayout)
+            element = layoutTarget.getElementAt(i);
+            if (!element || !element.includeInLayout)
+            {
+                numElementsInLayout--;
                 continue;
-                
+            }
+            
             // Consider the height of each element, inclusive of those outside
             // the requestedColumnCount range.
-            var height:Number = Math.ceil(elt.getPreferredBoundsHeight());
-            preferredHeight = Math.max(preferredHeight, height);
-            var flexibleHeight:Boolean = !isNaN(elt.percentHeight) || verticalAlign == VerticalAlign.JUSTIFY;
-            minHeight = Math.max(minHeight, flexibleHeight ? Math.ceil(elt.getMinBoundsHeight()) : height);
-            
-            // If requestedColumnCount is specified, no need to consider the width
-            // of cols outside the bounds of the "requested" range. Otherwise, we
-            // consider each element.
-            if ((reqEltCount == -1) || ((reqEltCount != -1) && eltInLayoutCount < requestedColumnCount))
+            getElementHeight(element, justify, size);
+            preferredHeight = Math.max(preferredHeight, size.preferredSize);
+            minHeight = Math.max(minHeight, size.minSize);
+
+            // Can we measure the width of this column?
+            if (requestedColumnCount == -1 || columnsMeasured < requestedColumnCount)
             {
-                var width:Number = isNaN(fixedColumnWidth) ? elt.getPreferredBoundsWidth() : fixedColumnWidth;
-                width = Math.ceil(width); // Round up to give it a whole pixel.
-                preferredWidth += width;
-                minWidth += (isNaN(elt.percentWidth)) ? width : Math.ceil(elt.getMinBoundsWidth());
-                eltInLayoutCount += 1;
+                getElementWidth(element, fixedColumnWidth, size);
+                preferredWidth += size.preferredSize;
+                minWidth += size.minSize;
+                columnsMeasured++;
+            }
+        }
+
+        // Calculate the total number of columns to measure
+        var columnsToMeasure:int = (requestedColumnCount != -1) ? requestedColumnCount : 
+                                                                  Math.max(requestedMinColumnCount, numElementsInLayout);
+        // Do we need to measure more columns?
+        if (columnsMeasured < columnsToMeasure)
+        {
+            // Use the typical element
+            element = typicalLayoutElement;
+            if (element)
+            {
+                // Height
+                getElementHeight(element, justify, size);
+                preferredHeight = Math.max(preferredHeight, size.preferredSize);
+                minHeight = Math.max(minHeight, size.minSize);
+    
+                // Width
+                getElementWidth(element, fixedColumnWidth, size);
+                preferredWidth += size.preferredSize * (columnsToMeasure - columnsMeasured);
+                minWidth += size.minSize * (columnsToMeasure - columnsMeasured);
+                columnsMeasured = columnsToMeasure;
             }
         }
         
-        if (eltInLayoutCount > 1)
+        // Add gaps
+        if (columnsMeasured > 1)
         { 
-            var hgap:Number = gap * (eltInLayoutCount - 1);
+            var hgap:Number = gap * (columnsMeasured - 1);
             preferredWidth += hgap;
             minWidth += hgap;
         }
-
+        
         var hPadding:Number = paddingLeft + paddingRight;
         var vPadding:Number = paddingTop + paddingBottom;
         
@@ -1088,7 +1197,7 @@ public class HorizontalLayout extends LayoutBase
         {
             var typicalWidth:Number = typicalElt.getPreferredBoundsWidth();
             var typicalHeight:Number = typicalElt.getPreferredBoundsHeight();
-            llv.minorSize = Math.max(llv.minorSize, typicalHeight);
+            llv.defaultMinorSize = typicalHeight;
             llv.defaultMajorSize = typicalWidth;
         }
         if (layoutTarget)
@@ -1132,7 +1241,8 @@ public class HorizontalLayout extends LayoutBase
     private function measureVirtual(layoutTarget:GroupBase):void
     {
         var eltCount:uint = layoutTarget.numElements;
-        var measuredEltCount:int = (requestedColumnCount != -1) ? requestedColumnCount : eltCount;
+        var measuredEltCount:int = (requestedColumnCount != -1) ? requestedColumnCount : 
+                                                                  Math.max(requestedMinColumnCount, eltCount);
         
         var hPadding:Number = paddingLeft + paddingRight;
         var vPadding:Number = paddingTop + paddingBottom;
@@ -1216,15 +1326,7 @@ public class HorizontalLayout extends LayoutBase
         if (!layoutTarget)
             return;
             
-        var hPadding:Number = paddingLeft + paddingRight;
-        var vPadding:Number = paddingTop + paddingBottom;
-
-        if (layoutTarget.numElements == 0)
-        {
-            layoutTarget.measuredWidth = layoutTarget.measuredMinWidth = hPadding;
-            layoutTarget.measuredHeight = layoutTarget.measuredMinHeight = vPadding;
-        }            
-        else if (useVirtualLayout)
+        if (useVirtualLayout)
             measureVirtual(layoutTarget);
         else 
             measureReal(layoutTarget);
@@ -1900,4 +2002,10 @@ import mx.containers.utilityClasses.FlexChildInfo;
 class HLayoutElementFlexChildInfo extends FlexChildInfo
 {
     public var layoutElement:ILayoutElement;    
+}
+
+class SizesAndLimit
+{
+    public var preferredSize:Number;
+    public var minSize:Number;
 }
