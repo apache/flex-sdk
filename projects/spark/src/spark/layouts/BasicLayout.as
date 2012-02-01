@@ -135,7 +135,7 @@ public class BasicLayout extends LayoutBase
             }
             else
             {
-                extX = layoutElement.getLayoutBoundsX();
+                extX = layoutElement.getBoundsXAtSize(NaN, NaN);
             }
             
             if (!isNaN(top) && !isNaN(bottom))
@@ -169,7 +169,7 @@ public class BasicLayout extends LayoutBase
             }
             else
             {
-                extY = layoutElement.getLayoutBoundsY();
+                extY = layoutElement.getBoundsYAtSize(NaN, NaN);
             }
 
             var preferredWidth:Number = layoutElement.getPreferredBoundsWidth();
@@ -271,13 +271,13 @@ public class BasicLayout extends LayoutBase
             if (!layoutElement || !layoutElement.includeInLayout)
                 continue;
 
-            var hCenter:Number       = LayoutElementHelper.parseConstraintValue(layoutElement.horizontalCenter);
-            var vCenter:Number       = LayoutElementHelper.parseConstraintValue(layoutElement.verticalCenter);
+            var hCenter:Number = LayoutElementHelper.parseConstraintValue(layoutElement.horizontalCenter);
+            var vCenter:Number = LayoutElementHelper.parseConstraintValue(layoutElement.verticalCenter);
             var baseline:Number      = LayoutElementHelper.parseConstraintValue(layoutElement.baseline);
-            var left:Number          = LayoutElementHelper.parseConstraintValue(layoutElement.left);
-            var right:Number         = LayoutElementHelper.parseConstraintValue(layoutElement.right);
-            var top:Number           = LayoutElementHelper.parseConstraintValue(layoutElement.top);
-            var bottom:Number        = LayoutElementHelper.parseConstraintValue(layoutElement.bottom);
+            var left:Number    = LayoutElementHelper.parseConstraintValue(layoutElement.left);
+            var right:Number   = LayoutElementHelper.parseConstraintValue(layoutElement.right);
+            var top:Number     = LayoutElementHelper.parseConstraintValue(layoutElement.top);
+            var bottom:Number  = LayoutElementHelper.parseConstraintValue(layoutElement.bottom);
             var percentWidth:Number  = layoutElement.percentWidth;
             var percentHeight:Number = layoutElement.percentHeight;
             
@@ -346,7 +346,7 @@ public class BasicLayout extends LayoutBase
             else if (!isNaN(right))
                 childX = unscaledWidth - elementWidth - right;
             else
-                childX = layoutElement.getLayoutBoundsX();
+            	childX = layoutElement.getLayoutBoundsX();
 
             // Vertical position
             if (!isNaN(vCenter))
@@ -358,7 +358,7 @@ public class BasicLayout extends LayoutBase
             else if (!isNaN(bottom))
                 childY = unscaledHeight - elementHeight - bottom;
             else
-                childY = layoutElement.getLayoutBoundsY();
+           		childY = layoutElement.getLayoutBoundsY();
 
             // Set position
             layoutElement.setLayoutBoundsPosition(childX, childY);
