@@ -14,12 +14,12 @@ package flex.utils
 
 import flash.utils.describeType;
 
-import text.elements.FlowLeafElement;
-import text.elements.ParagraphElement;
-import text.elements.TextFlow;
-import text.formats.ICharacterFormat;
-import text.formats.IContainerFormat;
-import text.formats.IParagraphFormat;
+import flashx.tcal.elements.FlowLeafElement;
+import flashx.tcal.elements.ParagraphElement;
+import flashx.tcal.elements.TextFlow;
+import flashx.tcal.formats.ICharacterFormat;
+import flashx.tcal.formats.IContainerFormat;
+import flashx.tcal.formats.IParagraphFormat;
 
 [ExcludeClass]
 
