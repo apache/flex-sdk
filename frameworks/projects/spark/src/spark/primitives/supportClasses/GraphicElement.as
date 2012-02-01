@@ -245,16 +245,20 @@ public class GraphicElement extends EventDispatcher
     //--------------------------------------------------------------------------
 
     /**
-     *  Defines a set of adjustments that can be applied to the component's transform in a way that is 
-     *  invisible to the component's parent's layout. For example, if you want a layout to adjust 
-     *  for a component that will be rotated 90 degrees, you set the component's <code>rotation</code> property. 
-     *  If you want the layout to <i>not</i> adjust for the component being rotated, 
-     *  you set its <code>postLayoutTransformOffsets.rotationZ</code> property.
+     *  @copy mx.core.ILayoutElement#postLayoutTransformOffsets
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
+     */
+    public function get postLayoutTransformOffsets():TransformOffsets
+    {
+        return (layoutFeatures == null)? null:layoutFeatures.postLayoutTransformOffsets;
+    }
+    
+    /**
+     * @private
      */
     public function set postLayoutTransformOffsets(value:TransformOffsets):void
     {
@@ -266,14 +270,6 @@ public class GraphicElement extends EventDispatcher
         layoutFeatures.postLayoutTransformOffsets = value;
         if(layoutFeatures.postLayoutTransformOffsets != null)
             layoutFeatures.postLayoutTransformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
-    }
-    
-    /**
-     * @private
-     */
-    public function get postLayoutTransformOffsets():TransformOffsets
-    {
-        return (layoutFeatures == null)? null:layoutFeatures.postLayoutTransformOffsets;
     }
 
     /**
@@ -2074,12 +2070,7 @@ public class GraphicElement extends EventDispatcher
     }
     
     /**
-     * A utility method to update the rotation and scale of the transform while keeping a particular point, specified in the component's own coordinate space, 
-     * fixed in the parent's coordinate space.  This function will assign the rotation and scale values provided, then update the x/y/z properties
-     * as necessary to keep tx/ty/tz fixed.
-     * @param rx,ry,rz the new values for the rotation of the transform
-     * @param sx,sy,sz the new values for the scale of the transform
-     * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
+     * @copy mx.core.ILayoutElement#transformAround
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
