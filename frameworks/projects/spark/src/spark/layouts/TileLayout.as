@@ -9,19 +9,19 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.layout
+package spark.layouts
 {
 import flash.geom.Rectangle;
 
 import spark.components.supportClasses.GroupBase;
 import mx.core.ILayoutElement;
 import mx.events.PropertyChangeEvent;
-import spark.layout.HorizontalAlign;
-import spark.layout.supportClasses.LayoutBase;
-import spark.layout.ColumnAlign;
-import spark.layout.RowAlign;
-import spark.layout.TileOrientation;
-import spark.layout.VerticalAlign;
+import spark.layouts.HorizontalAlign;
+import spark.layouts.supportClasses.LayoutBase;
+import spark.layouts.ColumnAlign;
+import spark.layouts.RowAlign;
+import spark.layouts.TileOrientation;
+import spark.layouts.VerticalAlign;
 
 /**
  *  TileLayout arranges the layout elements in columns and rows
