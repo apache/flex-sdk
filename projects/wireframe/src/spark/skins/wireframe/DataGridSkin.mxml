@@ -15,6 +15,10 @@ in accordance with the terms of the license agreement accompanying it.
 The default skin class for a Spark DataGrid component in the Wireframe theme.  
 
 @see spark.components.DataGrid
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 2.5
+@productversion Flex 4.5
 -->
 
 <s:Skin 
