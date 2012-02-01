@@ -12,11 +12,11 @@
 package spark.layouts
 {
 import flash.geom.Rectangle;
-import flash.ui.Keyboard; 
 
-import spark.components.supportClasses.GroupBase;
 import mx.core.ILayoutElement;
 import mx.events.PropertyChangeEvent;
+import spark.components.supportClasses.GroupBase;
+import spark.core.NavigationUnit;
 import spark.layouts.HorizontalAlign;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.layouts.ColumnAlign;
@@ -1406,40 +1406,196 @@ public class TileLayout extends LayoutBase
 
     /**
      *  @private 
-     *  For a TileLayout, returns the index of the next item to 
-     *  navigate to given the current index and keyCode passed in. 
      */  
-     override public function nextItemIndex(keyCode:uint, currentIndex:int, maxIndex:int):int
-     {
-         var retVal:int = super.nextItemIndex(keyCode, currentIndex, maxIndex); 
-         switch (keyCode)
-         {
-             case Keyboard.RIGHT:
-             {
-                retVal = Math.min(currentIndex + 1, maxIndex);   
+    override public function getDestinationIndex(navigationUnit:uint, currentIndex:int):int
+    {
+        // Make sure currentIndex is within range
+        var maxIndex:int = target.numElements - 1;
+        currentIndex = Math.max(0, Math.min(maxIndex, currentIndex));
+
+        // Find the current column and row
+        var currentRow:int;
+        var currentColumn:int;
+        var inRows:Boolean = orientation == TileOrientation.ROWS;
+        if (inRows)
+        {
+            // Is the TileLayout initialized with valid values?
+            if (columnCount == 0 || rowHeight + verticalGap == 0)
+                return currentIndex;
+                    
+            currentRow = currentIndex / columnCount;
+            currentColumn = currentIndex - currentRow * columnCount;
+        }
+        else
+        {
+            // Is the TileLayout initialized with valid values?
+            if (rowCount == 0 || columnWidth + horizontalGap == 0)
+                return currentIndex;
+    
+            currentColumn = currentIndex / rowCount;
+            currentRow = currentIndex - currentColumn * rowCount;
+        }
+        
+        var newRow:int = currentRow;
+        var newColumn:int = currentColumn;
+
+        // Handle user input, almost all range checks are
+        // performed after the calculations, at the end of the method.
+        switch (navigationUnit)
+        {
+            case NavigationUnit.LEFT: 
+            {
+                // If we are at the first column, can
+                // we go to the previous element (last column, previous row)?
+                if (newColumn == 0 && inRows && newRow > 0)
+                {
+                    newRow--;
+                    newColumn = columnCount - 1;
+                }
+                else
+                    newColumn--;
                 break;
-             } 
-             case Keyboard.LEFT: 
-             {
-                retVal = Math.max(currentIndex - 1, 0);  
+            }
+
+            case NavigationUnit.RIGHT:
+            {
+                // If we are at the last column, can
+                // we go to the next element (first column, next row)?
+                if (newColumn == columnCount - 1 && inRows && newRow < rowCount - 1)
+                {
+                    newColumn = 0;
+                    newRow++;
+                }
+                else
+                    newColumn++;
                 break;
-             }
-             case Keyboard.DOWN:
-             {
-                 if (currentIndex == -1)
-                    retVal = 0; 
-                 else 
-                    retVal = Math.min(currentIndex + columnCount, maxIndex)
-                 break; 
-             }
-             case Keyboard.UP:
-             {
-                 retVal = Math.max(currentIndex - columnCount, 0);
-                 break; 
-             }
-         }
-         return retVal;  
-     }
+            } 
+
+            case NavigationUnit.UP:
+            {
+                // If we are at the first row, can we
+                // go to the previous element (previous column, last row)?
+                if (newRow == 0 && !inRows && newColumn > 0)
+                {
+                    newColumn--;
+                    newRow = rowCount - 1;
+                }
+                else
+                    newRow--;
+                break; 
+            }
+
+            case NavigationUnit.DOWN:
+            {
+                // If we are at the last row, can we
+                // go to the next element (next column, first row)?
+                if (newRow == rowCount - 1 && !inRows && newColumn < columnCount - 1)
+                {
+                    newColumn++;
+                    newRow = 0;
+                }
+                else
+                    newRow++;
+                break; 
+            }
+
+            case NavigationUnit.PAGE_UP:
+            case NavigationUnit.PAGE_DOWN:
+            {
+                // Ensure we have a valid scrollRect as we use it for calculations below
+                var scrollRect:Rectangle = getScrollRect();
+                if (!scrollRect)
+                    scrollRect = new Rectangle(0, 0, target.contentWidth, target.contentHeight);
+                 
+                if (inRows)
+                {
+                    var firstVisibleRow:int = Math.ceil(scrollRect.top / (rowHeight + verticalGap));
+                    var lastVisibleRow:int = Math.floor(scrollRect.bottom / (rowHeight + verticalGap));
+                     
+                    if (navigationUnit == NavigationUnit.PAGE_UP)
+                    {
+                        // Is the current row visible, somewhere in the middle of the scrollRect?
+                        if (firstVisibleRow < currentRow && currentRow <= lastVisibleRow)
+                            newRow = firstVisibleRow;
+                        else                             
+                            newRow = 2 * firstVisibleRow - lastVisibleRow;
+                    } 
+                    else
+                    {
+                        // Is the current row visible, somewhere in the middle of the scrollRect?
+                        if (firstVisibleRow <= currentRow && currentRow < lastVisibleRow)
+                            newRow = lastVisibleRow;
+                        else                             
+                            newRow = 2 * lastVisibleRow - firstVisibleRow;
+                    }
+                }
+                else
+                {
+                    var firstVisibleColumn:int = Math.ceil(scrollRect.left / (columnWidth + horizontalGap));
+                    var lastVisibleColumn:int = Math.floor(scrollRect.right / (columnWidth + horizontalGap));
+                    
+                    if (navigationUnit == NavigationUnit.PAGE_UP)
+                    {
+                        // Is the current column visible, somewhere in the middle of the scrollRect?
+                        if (firstVisibleColumn < currentColumn && currentColumn <= lastVisibleColumn)
+                            newColumn = firstVisibleColumn;
+                        else    
+                            newColumn = 2 * firstVisibleColumn - lastVisibleColumn; 
+                    }
+                    else
+                    {
+                        // Is the current column visible, somewhere in the middle of the scrollRect?
+                        if (firstVisibleColumn <= currentColumn && currentColumn < lastVisibleColumn)
+                            newColumn = lastVisibleColumn;
+                        else    
+                            newColumn = 2 * lastVisibleColumn - firstVisibleColumn;
+                    }
+                }
+                break; 
+            }
+            default: return super.getDestinationIndex(navigationUnit, currentIndex);
+        }
+
+        // Make sure rows and columns are within range
+        newRow = Math.max(0, Math.min(rowCount - 1, newRow));
+        newColumn = Math.max(0, Math.min(columnCount - 1, newColumn));
+
+        // Calculate the new index based on orientation        
+        if (inRows)  
+        {
+            // Make sure we don't return an index for an empty space in the last row.
+            // newRow is guaranteed to be greater than zero:
+            
+            // Step 1: We can end up at the empty space in the last row if we moved right from
+            // the last item.
+            if (currentIndex == maxIndex && newColumn > currentColumn)
+                newColumn = currentColumn;
+                
+            // Step 2: We can end up at the empty space in the last row if we moved down from
+            // the previous row.    
+            if (newRow == rowCount - 1 && newColumn > maxIndex - columnCount * (rowCount - 1))
+                newRow--;
+
+            return newRow * columnCount + newColumn;
+        }
+        else
+        {
+            // Make sure we don't return an index for an empty space in the last column.
+            // newColumn is guaranteed to be greater than zero:
+
+            // Step 1: We can end up at the empty space in the last column if we moved down from
+            // the last item.
+            if (currentIndex == maxIndex && newRow > currentRow)
+                newRow = currentRow;
+
+            // Step 2: We can end up at the empty space in the last column if we moved right from
+            // the previous column.    
+            if (newColumn == columnCount - 1 && newRow > maxIndex - rowCount * (columnCount - 1))
+                newColumn--;
+
+            return newColumn * rowCount + newRow;
+        }
+    }
 
     /**
      *  @private
