@@ -9,11 +9,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics
+package spark.primitives
 {
 
 import mx.events.PropertyChangeEvent;
-import mx.components.Group;
+import spark.components.Group;
 
 //--------------------------------------
 //  Events
