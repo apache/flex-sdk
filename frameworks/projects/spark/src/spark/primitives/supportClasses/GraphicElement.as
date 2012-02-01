@@ -1209,10 +1209,14 @@ public class GraphicElement extends EventDispatcher
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
-    /**
-     *  Indicates the rotation of the element, in degrees,
-     *  from the transform point.
-     */
+	/**
+	 * Indicates the x-axis rotation of the element instance, in degrees, from its original orientation 
+	 * relative to the 3D parent container. Values from 0 to 180 represent clockwise rotation; values 
+	 * from 0 to -180 represent counterclockwise rotation. Values outside this range are added to or subtracted from 
+	 * 360 to obtain a value within the range.
+	 * 
+	 * This property is ignored during calculation by any of Flex's 2D layouts. 
+	 */
     public function get rotationX():Number
     {
         return layoutFeatures.layoutRotationX;
@@ -1235,10 +1239,14 @@ public class GraphicElement extends EventDispatcher
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
     
-    /**
-     *  Indicates the rotation of the element, in degrees,
-     *  from the transform point.
-     */
+	/**
+	 * Indicates the y-axis rotation of the DisplayObject instance, in degrees, from its original orientation 
+	 * relative to the 3D parent container. Values from 0 to 180 represent clockwise rotation; values 
+	 * from 0 to -180 represent counterclockwise rotation. Values outside this range are added to or subtracted from 
+	 * 360 to obtain a value within the range.
+	 * 
+	 * This property is ignored during calculation by any of Flex's 2D layouts. 
+	 */
     public function get rotationY():Number
     {
         return layoutFeatures.layoutRotationY;
@@ -1538,9 +1546,14 @@ public class GraphicElement extends EventDispatcher
         return layoutFeatures.layoutMatrix3D;           
     }
     
-    /**
-     *  Documentation not available.
-     */
+	/**
+	 * A utility method to update the rotation and scale of the transform while keeping a particular point, specified in the component's own coordinate space, 
+	 * fixed in the parent's coordinate space.  This function will assign the rotation and scale values provided, then update the x/y/z properties
+	 * as necessary to keep tx/ty/tz fixed.
+	 * @param rx,ry,rz the new values for the rotation of the transform
+	 * @param sx,sy,sz the new values for the scale of the transform
+	 * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
+	 */
     public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
     {
         layoutFeatures.transformAround(rx,ry,rz,sx,sy,sz,tx,ty,tz,true);
@@ -1714,9 +1727,14 @@ public class GraphicElement extends EventDispatcher
     //----------------------------------
     //  layer
     //----------------------------------  
-    /**
-     *  @inheritDoc
-     */
+	/**
+	 * Determines the order in which items inside of groups are rendered. Groups order their items based on their layer property, with the lowest layer
+	 * in the back, and the higher in the front.  items with the same layer value will appear in the order they are added to the Groups item list.
+	 * 
+	 * defaults to 0
+	 * 
+	 * @default 0
+	 */
     public function get layer():Number
     {
         return layoutFeatures.layer;
@@ -1799,7 +1817,7 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General")]
     
     /**
-     *  The y position of the graphic element.
+     *  The z position of the graphic element.
      */
     public function get z():Number
     {
