@@ -10,8 +10,10 @@
     in accordance with the terms of the license agreement accompanying it.
 
 -->
-<!--- The Spark skin class for the track highlight of the Halo Slider component. 
+<!--- The wireframe skin class for the track highlight of the MX Slider component. 
         
+     @see mx.controls.sliderClasses.Slider
+
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
@@ -19,12 +21,12 @@
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
             height="11" width="200" alpha.disabled="0.5">
-	
-	<s:states>
-		<s:State name="normal" />
-		<s:State name="disabled" />
-	</s:states>
-	
+    
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="disabled" />
+    </s:states>
+    
     <s:Rect left="0" right="0" top="2" height="4">
         <s:fill>
             <s:SolidColor color="0x0099FF" alpha="0.35" />
