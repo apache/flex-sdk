@@ -161,7 +161,7 @@
             <s:layout>
                 <!--- The default layout is vertical and measures at least for 5 rows.  
                 When switching to a different layout, HorizontalLayout for example,
-                make sure to adjust the minWidth, minHeihgt sizes of the skin -->
+                make sure to adjust the minWidth, minHeight sizes of the skin -->
                 <s:VerticalLayout gap="0" horizontalAlign="contentJustify" requestedMinRowCount="5" />
             </s:layout>
         </s:DataGroup>
