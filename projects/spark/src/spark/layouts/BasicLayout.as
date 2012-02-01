@@ -491,9 +491,18 @@ public class BasicLayout extends LayoutBase
             // Set position
             layoutElement.setLayoutBoundsPosition(childX, childY);
 
-            // update content limits
-            maxX = Math.max(maxX, childX + elementWidth);
-            maxY = Math.max(maxY, childY + elementHeight);
+            // update content limits.  For centered objects the only thing
+            // that affects content size is its own size, not its position
+            // since its position can change based on container size.
+            if (!isNaN(hCenter))
+                maxX = Math.max(maxX, elementWidth);
+            else
+                maxX = Math.max(maxX, childX + elementWidth);
+            
+            if (!isNaN(vCenter))
+                maxY = Math.max(maxY, elementHeight);
+            else                
+                maxY = Math.max(maxY, childY + elementHeight);
         }
 
         // Make sure that if the content spans partially over a pixel to the right/bottom,
