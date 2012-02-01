@@ -237,7 +237,6 @@ public class GridEvent extends MouseEvent
     //
     //--------------------------------------------------------------------------
     
-
     /**
      *  GridEvents dispatched by the Grid class in response to MouseEvents are constructed with
      *  the incoming mouse event's properties.   The grid event's x,y location, i.e. the value of
@@ -344,7 +343,6 @@ public class GridEvent extends MouseEvent
      *  @productversion Flex 4.5 
      */
     public var columnIndex:int;
-
     
     //----------------------------------
     //  column
@@ -418,7 +416,6 @@ public class GridEvent extends MouseEvent
      *  @productversion Flex 4.5 
      */       
     public var itemRenderer:IGridItemRenderer;
-    
     
     //--------------------------------------------------------------------------
     //
