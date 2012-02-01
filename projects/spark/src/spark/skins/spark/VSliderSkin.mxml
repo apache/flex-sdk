@@ -42,7 +42,7 @@
     				</filters>
 				</Rect>
 						
-				<TextBox id="labelField" text="{data}"
+				<TextBox id="labelElement" text="{data}"
 						 horizontalCenter="0" verticalCenter="1"
 						 left="5" right="5" top="5" bottom="5"
 						 textAlign="center" verticalAlign="middle"
