@@ -40,6 +40,4 @@
             <s:SolidColor id="arrowFill" color="0x4E6290" />
         </s:fill>
     </s:Path>
-    
-    <!-- FIXME (jszeto) Need over and down states -->
 </s:Skin>
