@@ -24,7 +24,7 @@
     <!-- border --> 
     <s:Rect left="-1" right="-1" top="-1" bottom="-1" radiusX="0">
         <s:stroke>            
-            <s:SolidColorStroke color="0x5380D0" />
+            <s:SolidColorStroke color="#707070" />
         </s:stroke>
     </s:Rect>
 
@@ -33,7 +33,7 @@
     <s:Rect id="background" left="1" right="1" top="1" bottom="1" radiusX="0">
         <s:fill>
             <!--- @private -->
-            <s:SolidColor id="bgFill" color="0xFFFFFF" />
+            <s:SolidColor id="bgFill" color="#FFFFFF" />
         </s:fill>
     </s:Rect>
  </s:Skin>
