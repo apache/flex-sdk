@@ -37,7 +37,7 @@ in accordance with the terms of the license agreement accompanying it.
         <!-- layer 1: fill -->
         <s:Rect left="0" right="0" top="1" bottom="1" excludeFrom="up,disabled" >
             <s:fill>
-                <s:SolidColor color.over="0xEBF4FF" color.down="0xDEEBFF"/>
+                <s:SolidColor color.over="#EEEEEE" color.down="#EEEEEE"/>
             </s:fill>
         </s:Rect>
     
