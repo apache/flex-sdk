@@ -216,7 +216,7 @@ in accordance with the terms of the license agreement accompanying it.
                 <!--- @copy spark.components.Panel#titleDisplay -->
                 <s:Label id="titleDisplay" maxDisplayedLines="1"
                          left="9" right="3" top="1" bottom="0" minHeight="30"
-                         verticalAlign="middle" fontWeight="bold">
+                         verticalAlign="middle" textAlign="start" fontWeight="bold">
                 </s:Label>
             </s:Group>
             
