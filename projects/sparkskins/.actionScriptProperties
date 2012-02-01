@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <actionScriptProperties mainApplicationPath="sparkskins.as" projectUUID="22f27ea4-cd52-4149-b609-bf8c6620bb8f" version="6">
-  <compiler additionalCompilerArguments="-resource-bundle-list=bundles.properties -library-path= -locale=" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" sourceFolderPath="src" strict="true" targetPlayerVersion="10.1.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+  <compiler additionalCompilerArguments="-resource-bundle-list=bundles.properties -library-path= -locale=" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" sourceFolderPath="src" strict="true" targetPlayerVersion="10.2.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
-      <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/player/10.1/playerglobal.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/player/10.2/playerglobal.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="${PROJECT_FRAMEWORKS}/libs/textLayout.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="/framework/bin/framework.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="2" path="/spark/bin/spark.swc" useDefaultLinkType="false"/>
