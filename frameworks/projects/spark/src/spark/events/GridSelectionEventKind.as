@@ -95,13 +95,6 @@ public final class GridSelectionEventKind
      */
     public static const SET_ROWS:String = "setRows";
     
-    /*
-    public static const SET_COLUMN:String = "setColumn";
-    public static const ADD_COLUMN:String = "addColumn";
-    public static const REMOVE_COLUMN:String = "removeColumn";
-    public static const SET_COLUMNS:String = "setColumns";
-    */
-    
     /** 
      *  Indicates that the current selection should be set to this cell.
      *  
