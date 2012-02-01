@@ -80,7 +80,7 @@ public class TextFlowUtil
      */
     private static var configInheritingFormats:Vector.<String>;
     
-        //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Class methods
     //
@@ -141,6 +141,8 @@ public class TextFlowUtil
         
         initialized = true;
     }
+
+	[Bindable("unused")]
     
     /**
      *  Creates a TextFlow by importing (i.e., parsing) a String
@@ -226,6 +228,8 @@ public class TextFlowUtil
         
         return importer.importToFlow(markupToImport);
     }
+
+	[Bindable("unused")]
 
     /**
      *  Creates a TextFlow by importing (i.e., parsing) XML
