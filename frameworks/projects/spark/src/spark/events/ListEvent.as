@@ -270,6 +270,9 @@ public class ListEvent extends MouseEvent
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
     override public function clone():Event
     {
         var cloneEvent:ListEvent = new ListEvent(type, bubbles, cancelable, 
