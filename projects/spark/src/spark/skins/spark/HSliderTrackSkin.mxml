@@ -25,7 +25,7 @@
     </states>
 
 	<!-- border -->
-    <Rect left="0" right="0" top="0" bottom="0" radiusX="2" radiusY="2" height="5">
+    <Rect left="0" right="0" top="3" bottom="3" radiusX="2" radiusY="2" height="5">
         <fill>
             <LinearGradient rotation="90" >
             	<GradientEntry color="0x000000" alpha="0.55" />
@@ -35,16 +35,23 @@
     </Rect>
 
     <!-- fill -->
-    <Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2">
+    <Rect left="1" right="1" top="4" bottom="4" radiusX="2" radiusY="2">
         <fill>
             <SolidColor color="0xCACACA" />
         </fill>
     </Rect>
     
 	<!-- shadow -->
-	<Rect left="2" right="2" top="1" height="1">
+	<Rect left="2" right="2" top="4" height="1">
 		<fill>
 		    <SolidColor color="0x9E9E9E" />
+		</fill>
+	</Rect>
+	
+	<!-- hit area -->
+	<Rect left="0" right="0" top="0" bottom="0">
+		<fill>
+			<SolidColor alpha="0"/>
 		</fill>
 	</Rect>
 </Skin>
