@@ -40,8 +40,8 @@ public class HorizontalLayout extends LayoutBase
     private static function calculatePercentHeight(layoutElement:ILayoutElement, height:Number):Number
     {
     	var percentHeight:Number = LayoutElementHelper.pinBetween(layoutElement.percentHeight * 0.01 * height,
-    	                                                          layoutElement.getMinHeight(),
-    	                                                          layoutElement.getMaxHeight() );
+    	                                                          layoutElement.getMinBoundsHeight(),
+    	                                                          layoutElement.getMaxBoundsHeight() );
     	return percentHeight < height ? percentHeight : height;
     }
     
@@ -67,9 +67,9 @@ public class HorizontalLayout extends LayoutBase
         }
         
         if (variableColumnWidth)
-            layoutElement.setLayoutSize(width, newHeight);
+            layoutElement.setLayoutBoundsSize(width, newHeight);
         else
-            layoutElement.setLayoutSize(columnWidth, newHeight);
+            layoutElement.setLayoutBoundsSize(columnWidth, newHeight);
     }
         
     //--------------------------------------------------------------------------
@@ -220,7 +220,7 @@ public class HorizontalLayout extends LayoutBase
         else if (!target || (target.numLayoutElements <= 0))
             return 0;
         else
-            return target.getLayoutElementAt(0).getPreferredWidth();
+            return target.getLayoutElementAt(0).getPreferredBoundsWidth();
     }
 
     /**
@@ -446,8 +446,8 @@ public class HorizontalLayout extends LayoutBase
         // index is first (c0) or last (c1) visible column
         var x0:Number = g.horizontalScrollPosition;
         var x1:Number = x0 + g.width;
-        var ix0:Number = le.getLayoutPositionX();
-        var ix1:Number = ix0 + le.getLayoutWidth();
+        var ix0:Number = le.getLayoutBoundsX();
+        var ix1:Number = ix0 + le.getLayoutBoundsWidth();
         if (ix0 >= ix1)  // element has 0 or negative width
             return 1.0;
         if ((ix0 >= x0) && (ix1 <= x1))
@@ -472,9 +472,9 @@ public class HorizontalLayout extends LayoutBase
     {
         var index:int = (i0 + i1) / 2;
         var element:ILayoutElement = g.getLayoutElementAt(index);        
-        var elementX:Number = element.getLayoutPositionX();
+        var elementX:Number = element.getLayoutBoundsX();
         // TBD: deal with null element, includeInLayout false.
-        if ((x >= elementX) && (x < elementX + element.getLayoutWidth() + gap))
+        if ((x >= elementX) && (x < elementX + element.getLayoutBoundsWidth() + gap))
             return index;
         else if (i0 == i1)
             return -1;
@@ -561,8 +561,8 @@ public class HorizontalLayout extends LayoutBase
             if (index0 != -1)
             {
                 var element0:ILayoutElement = g.getLayoutElementAt(index0); 
-                var element0X:Number = element0.getLayoutPositionX();
-                var element0Width:Number = element0.getLayoutWidth();                 
+                var element0X:Number = element0.getLayoutBoundsX();
+                var element0Width:Number = element0.getLayoutBoundsWidth();                 
                 if ((element0X < x1) && ((element0X + element0Width) > x0))
                     i0 = index0;
             }
@@ -575,8 +575,8 @@ public class HorizontalLayout extends LayoutBase
             if (index1 != -1)
             {
                 var element1:ILayoutElement = g.getLayoutElementAt(index1); 
-                var element1X:Number = element1.getLayoutPositionX();
-                var element1Width:Number = element1.getLayoutWidth();                 
+                var element1X:Number = element1.getLayoutBoundsX();
+                var element1Width:Number = element1.getLayoutBoundsWidth();                 
                 if ((element1X < x1) && ((element1X + element1Width) > x0))
                     i1 = index1;
             }
@@ -596,10 +596,10 @@ public class HorizontalLayout extends LayoutBase
         var element:ILayoutElement = g.getLayoutElementAt(i);
         if (element && element.includeInLayout)
         {
-            return new Rectangle(element.getLayoutPositionX(),
-                                 element.getLayoutPositionY(),
-                                 element.getLayoutWidth(),
-                                 element.getLayoutHeight());        
+            return new Rectangle(element.getLayoutBoundsX(),
+                                 element.getLayoutBoundsY(),
+                                 element.getLayoutBoundsWidth(),
+                                 element.getLayoutBoundsHeight());        
         }
         return null;    
     }
@@ -763,14 +763,14 @@ public class HorizontalLayout extends LayoutBase
                 continue;
             }            
 
-            preferredHeight = Math.max(preferredHeight, le.getPreferredHeight());
-            preferredWidth += le.getPreferredWidth(); 
+            preferredHeight = Math.max(preferredHeight, le.getPreferredBoundsHeight());
+            preferredWidth += le.getPreferredBoundsWidth(); 
             
             var vcr:Boolean = (reqColumns != -1) && (visibleColumns < reqColumns);
             if (vcr || (reqColumns == -1))
             {
-                var mw:Number = hasPercentWidth(le)  ? le.getMinWidth() : le.getPreferredWidth();
-                var mh:Number = hasPercentHeight(le) ? le.getMinHeight() : le.getPreferredHeight();                   
+                var mw:Number = hasPercentWidth(le)  ? le.getMinBoundsWidth() : le.getPreferredBoundsWidth();
+                var mh:Number = hasPercentHeight(le) ? le.getMinBoundsHeight() : le.getPreferredBoundsHeight();                   
                 minWidth += mw;
                 minHeight = Math.max(minHeight, mh);
             }
@@ -818,8 +818,8 @@ public class HorizontalLayout extends LayoutBase
 	        {
 	            var layoutElement:ILayoutElement = layoutTarget.getLayoutElementAt(i);
 	            if (!layoutElement || !layoutElement.includeInLayout) continue;
-	            rowHeight = Math.max(rowHeight, layoutElement.getPreferredHeight());
-	            var elementMinHeight:Number = hasPercentHeight(layoutElement) ? layoutElement.getMinHeight() : layoutElement.getPreferredHeight();
+	            rowHeight = Math.max(rowHeight, layoutElement.getPreferredBoundsHeight());
+	            var elementMinHeight:Number = hasPercentHeight(layoutElement) ? layoutElement.getMinBoundsHeight() : layoutElement.getPreferredBoundsHeight();
 	            minRowHeight = Math.max(minRowHeight, elementMinHeight);
 	        }
         }     
@@ -881,7 +881,7 @@ public class HorizontalLayout extends LayoutBase
                 if (hasPercentHeight(layoutElement))
                     layoutElementHeight = calculatePercentHeight(layoutElement, unscaledHeight);
                 else
-                    layoutElementHeight = layoutElement.getPreferredHeight();
+                    layoutElementHeight = layoutElement.getPreferredBoundsHeight();
                     
                 contentHeight = Math.max(contentHeight, layoutElementHeight);
             }
@@ -928,12 +928,12 @@ public class HorizontalLayout extends LayoutBase
                 continue;
                 
             // Set the layout element's position
-            var y:Number = (contentHeight - layoutElement.getLayoutHeight()) * vAlign;
-            layoutElement.setLayoutPosition(x, y);
+            var y:Number = (contentHeight - layoutElement.getLayoutBoundsHeight()) * vAlign;
+            layoutElement.setLayoutBoundsPosition(x, y);
             
             // Update maxX,Y, first,lastVisibleIndex, and x
-            var dx:Number = layoutElement.getLayoutWidth();
-            var dy:Number = layoutElement.getLayoutHeight();
+            var dx:Number = layoutElement.getLayoutBoundsWidth();
+            var dy:Number = layoutElement.getLayoutBoundsHeight();
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);            
             if (!clipContent || 
@@ -1002,8 +1002,8 @@ public class HorizontalLayout extends LayoutBase
                 childInfo = new HLayoutElementFlexChildInfo();
                 childInfo.layoutElement = layoutElement;
                 childInfo.percent    = layoutElement.percentWidth;
-                childInfo.min        = layoutElement.getMinWidth();
-                childInfo.max        = layoutElement.getMaxWidth();
+                childInfo.min        = layoutElement.getMinBoundsWidth();
+                childInfo.max        = layoutElement.getMaxBoundsWidth();
                 
                 childInfoArray.push(childInfo);                
             }
@@ -1012,7 +1012,7 @@ public class HorizontalLayout extends LayoutBase
                 sizeLayoutElement(layoutElement, height, verticalAlign, 
                                restrictedHeight, NaN, variableColumnWidth, cw);
                 
-                spaceToDistribute -= layoutElement.getLayoutWidth();
+                spaceToDistribute -= layoutElement.getLayoutBoundsWidth();
             } 
         }
         
