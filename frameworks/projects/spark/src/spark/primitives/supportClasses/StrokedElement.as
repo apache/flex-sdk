@@ -167,7 +167,10 @@ public class StrokedElement extends GraphicElement
     protected function beginDraw(g:Graphics):void
     {
         if (stroke)
-            stroke.draw(g,new Rectangle(measuredX, measuredY, width, height));
+            stroke.draw(g,new Rectangle(drawX + measuredX, 
+            						    drawY + measuredY, 
+            						    Math.max(width, stroke.weight), 
+            						    Math.max(height, stroke.weight)));
         else
             g.lineStyle();
             
