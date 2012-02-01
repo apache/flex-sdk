@@ -36,6 +36,22 @@
         /* Define the border items.*/
         static private const borderItem:Array = ["borderEntry1", "borderEntry2"];
         override protected function get borderItems():Array {return borderItem;}
+        
+        /**
+         *  @private
+         */
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
+        {
+            var cr:Number = getStyle("cornerRadius");
+            
+            if (cornerRadius != cr)
+                cornerRadius = cr;
+            
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
+        
+        [Bindable]
+        public var cornerRadius:Number = 2;
     </fx:Script>
     
     <!-- states -->
@@ -47,9 +63,9 @@
     </local:states>
     
     
-    <!-- fill -->
-    <s:Path left="0" right="1" top="1" bottom="1" 
-          data="M 0 0 l 0 18 l 65.2 0 C 66.2 18 67 17.2 67 16.2 L 67 1.8 C 66.2 0 67 0.8 65.2 0 L 0 0 z">
+    <!-- fill data="M 0 0 l 0 18 l 65.2 0 C 66.2 18 67 17.2 67 16.2 L 67 1.8 C 66.2 0 67 0.8 65.2 0 L 0 0 z"-->
+    <s:Rect left="0" right="1" top="1" bottom="1" 
+          topRightRadiusX="{cornerRadius}" bottomRightRadiusX="{cornerRadius}">
         <s:fill>
             <s:LinearGradient rotation="90">
                 <s:GradientEntry color="0xFFFFFF" 
@@ -62,10 +78,10 @@
                                alpha="0.85" />
             </s:LinearGradient>
         </s:fill>
-    </s:Path>
+    </s:Rect>
     
     <!-- fill lowlight -->
-    <s:Rect left="0" right="1" bottom="1" height="9" radiusX="2" radiusY="2">
+    <s:Rect left="0" right="1" bottom="1" height="9" radiusX="{cornerRadius}">
         <s:fill>
             <s:LinearGradient rotation="90">
                 <s:GradientEntry color="0x000000" alpha="0.0099" />
@@ -75,7 +91,7 @@
     </s:Rect>
     
     <!-- fill highlight -->
-    <s:Rect left="0" right="1" top="1" height="9" radiusX="2" radiusY="2">
+    <s:Rect left="0" right="1" top="1" height="9" radiusX="{cornerRadius}">
         <s:fill>
             <s:SolidColor color="0xFFFFFF" 
                         alpha="0.33" 
@@ -85,7 +101,7 @@
     </s:Rect>
     
     <!-- highlight stroke (all states except down) -->
-    <s:Rect left="0" right="1" top="1" bottom="1" radiusX="2" radiusY="2" excludeFrom="down">
+    <s:Rect left="0" right="1" top="1" bottom="1" radiusX="{cornerRadius}" excludeFrom="down">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry color="0xFFFFFF" alpha.over="0.22" />
@@ -116,9 +132,10 @@
         </s:fill>
     </s:Rect>
     
-    <!-- border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
-    <s:Path left="-1" right="0" top="0" bottom="0" 
-          data="M 0 0 l 0 20 l 17.2 0 C 18.2 20 19 19.2 19 18.2 L 19 1.8 C 18.2 0 19 0.8 17.2 0 L 0 0 z">
+    <!-- border - put on top of the fill so it doesn't disappear when scale is less than 1 
+        data="M 0 0 l 0 20 l 17.2 0 C 18.2 20 19 19.2 19 18.2 L 19 1.8 C 18.2 0 19 0.8 17.2 0 L 0 0 z"-->
+    <s:Rect left="-1" right="0" top="0" bottom="0" 
+          width="18" height="19" topRightRadiusX="{cornerRadius}" bottomRightRadiusX="{cornerRadius}">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry id="borderEntry1" 
@@ -129,7 +146,7 @@
                                alpha.down="0.85" />
             </s:LinearGradientStroke>
         </s:stroke>
-    </s:Path>
+    </s:Rect>
  
     <!-- arrow -->
     <s:Path right="6" verticalCenter="0" id="arrow"
