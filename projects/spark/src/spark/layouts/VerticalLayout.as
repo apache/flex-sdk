@@ -85,6 +85,14 @@ public class VerticalLayout extends LayoutBase
 {
     include "../core/Version.as";
     
+    /**
+     *  @private
+     *  Cached row heights, max column width for virtual layout.   Not used unless
+     *  useVirtualLayout=true.   See updateLLV(), resetCachedVirtualLayoutState(),
+     *  etc.
+     */
+    private var llv:LinearLayoutVector = new LinearLayoutVector();
+    
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -655,14 +663,21 @@ public class VerticalLayout extends LayoutBase
         _lastIndexInView = lastIndex;
         dispatchEvent(new Event("indexInViewChanged"));
     }
-    
-
+        
     //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
     
+    /**
+     * @private
+     */
+    override public function clearCachedVirtualLayoutState():void
+    {
+        llv.clear();
+    }     
+
     /**
      *  @private
      */
@@ -1029,8 +1044,6 @@ public class VerticalLayout extends LayoutBase
         layoutTarget.measuredMinHeight = minHeight + vPadding;
         layoutTarget.measuredMinWidth  = minWidth + hPadding;
     }
-    
-    private var llv:LinearLayoutVector = new LinearLayoutVector();
     
     /**
      *  @private
@@ -1725,6 +1738,7 @@ public class VerticalLayout extends LayoutBase
         g.invalidateSize();
         g.invalidateDisplayList();
     }
+        
 }
 }
 
