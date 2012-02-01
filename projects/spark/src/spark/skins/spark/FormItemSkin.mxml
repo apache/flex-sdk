@@ -12,7 +12,6 @@ in accordance with the terms of the license agreement accompanying it.
 
 <!-- TODO
 Move the indicator tooltip string to a resource bundle
-Change mx:Image to s:Image once it is ready
 -->
 
 <!--- The default skin class for the Spark FormItem component.  
@@ -26,7 +25,6 @@ Change mx:Image to s:Image once it is ready
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
         xmlns:s="library://ns.adobe.com/flex/spark" 
-        xmlns:mx="library://ns.adobe.com/flex/mx"
         xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
         alpha.disabledStates=".5">  
     
@@ -60,7 +58,7 @@ Change mx:Image to s:Image once it is ready
                     bgFill.alpha = getStyle("backgroundAlpha");
                 }
                 
-                var indicatorSource:Class;
+                var indicatorSource:Object;
                 if (currentState == "error" || currentState == "requiredAndError")
                     indicatorSource = getStyle("errorIndicatorSource");
                 else if (currentState == "required" || "requiredAndDisabled")
@@ -131,7 +129,7 @@ Change mx:Image to s:Image once it is ready
     </s:Group>
     <s:Group top="row1:10" x="{contentGroup.x + contentGroup.contentWidth + 4}"
              height="{Math.max(indicatorDisplay.height, contentGroup.contentHeight)}">
-        <mx:Image id="indicatorDisplay" verticalCenter="0"
+        <s:Image id="indicatorDisplay" verticalCenter="0"
                        toolTip="Required" toolTip.errorStates=""
                        includeIn="requiredStates,errorStates"/>
     </s:Group>
