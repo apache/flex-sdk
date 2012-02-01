@@ -12,6 +12,7 @@
 package spark.layouts
 {
 import flash.events.Event;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.containers.utilityClasses.Flex;
@@ -1875,6 +1876,20 @@ public class VerticalLayout extends LayoutBase
         y = Math.max(-1, Math.min(target.contentHeight - height + 1, y));
         return new Rectangle(x, y, width, height);
     }
+	
+	/**
+	 *  @private
+	 */
+	override protected function calculateDragScrollDelta(dropLocation:DropLocation,
+														 timeInterval:int,
+														 timeElapsed:int):Point
+	{
+		var delta:Point = super.calculateDragScrollDelta(dropLocation, timeInterval, timeElapsed);
+		// Don't scroll in the horizontal direction
+		if (delta)
+			delta.x = 0;
+		return delta;
+	}
 }
 }
 
