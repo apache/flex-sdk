@@ -59,7 +59,7 @@ is defined in the DropDownListButtonSkin class. -->
 		    	</s:fill>
 		    </s:Rect>
 		    
-		    <s:Scroller left="1" top="1" right="1" bottom="1" focusEnabled="false">
+		    <s:Scroller left="0" top="0" right="0" bottom="0" focusEnabled="false" minViewportInset="1">
 			    <s:DataGroup id="dataGroup" itemRenderer="spark.skins.default.DefaultItemRenderer">
 			    	<s:layout>
 			    	    <s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
