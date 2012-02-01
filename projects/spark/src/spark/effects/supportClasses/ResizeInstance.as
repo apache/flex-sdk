@@ -15,6 +15,7 @@ import flash.events.Event;
 import flex.component.Panel;
 import flex.effects.Animation;
 import flex.effects.PropertyValuesHolder;
+import flex.events.AnimationEvent;
 import flex.graphics.IGraphicElement;
 
 import mx.core.Application;
@@ -320,9 +321,9 @@ public class ResizeInstance extends AnimateInstance
      * Handles the end event from the tween. The value here is an Array of
      * values, one for each 'property' in our propertyValuesList.
      */
-    override public function animationEnd(tween:Animation, value:Object):void
+    override protected function endHandler(event:AnimationEvent):void
     {
-        super.animationEnd(tween, value);
+        super.endHandler(event);
 
         restorePanelChildren();
     }
