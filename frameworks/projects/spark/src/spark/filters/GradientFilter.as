@@ -130,6 +130,8 @@ public class GradientFilter extends BaseDimensionFilter
     
     private var _angle:Number = 45;
     
+    [Inspectable(minValue="0.0", maxValue="360.0")]    
+    
     /**
      *  The angle, in degrees. Valid values are 0 to 360. 
      *  The angle value represents the angle of the theoretical light source
