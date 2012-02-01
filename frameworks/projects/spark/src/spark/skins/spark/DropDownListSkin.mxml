@@ -44,7 +44,7 @@
     -->
     <s:PopUpAnchor id="popUp"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
         left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
-        popUpPosition="below" autoSizePopUpWidth="true">
+        popUpPosition="below" popUpWidthMatchesAnchorWidth="true">
         
         <!--- 
               The drop down area of the skin. 
