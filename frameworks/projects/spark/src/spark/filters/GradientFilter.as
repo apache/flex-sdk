@@ -24,7 +24,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;GradientFilter
+ *  &lt;s:GradientFilter
  *    <strong>Properties</strong>
  *    angle="45"
  *    disatance="4.0"
