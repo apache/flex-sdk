@@ -137,19 +137,21 @@ public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
      *  </li>
      *  </ul>
      *  <p>
-     *  If the <code>locale</code> style is not set by one of the above techniques,
-     *  the methods of this class that depend on the locale
-     *  sets <code>lastOperationStatus</code> to 
-     *  <code>LastOperationStatus.LOCALE_UNDEFINED_ERROR</code>
-     *  and depending on the return type the methods will return 
-     *  <code>null</code>, 0, or <code>undefined</code>.</p>
+     *  If the <code>locale</code> style is not set by one of the above 
+     *  techniques, the instance of this class will be added as a 
+     *  <code>StyleClient</code> to the <code>topLevelApplication</code> and 
+     *  will therefore inherit the <code>locale</code> style from the 
+     *  <code>topLevelApplication</code> object when the <code>locale</code> 
+     *  dependent property getter or <code>locale</code> dependent method is 
+     *  called.
+     *  </p>   
      * 
      *  <p>Most of the properties of 
-     *  this class are automatically set based on the <code>locale</code> style. If the
-     *  <code>locale</code> style is changed, any properties that have not been explicitly
-     *  set will also be updated based on the new locale. Note that the 
-     *  actual locale that is used is specified by the <code>actualLocaleIDName</code>
-     *  property.</p>
+     *  this class are automatically set based on the <code>locale</code> style.
+     *  If the <code>locale</code> style is changed, any properties that have 
+     *  not been explicitly set will also be updated based on the new locale. 
+     *  Note that the actual locale that is used is specified by the 
+     *  <code>actualLocaleIDName</code> property.</p>
      *
      *  <p><strong>NOTE: When a fallback locale is used, the currency
      *  properties are set to default values,
