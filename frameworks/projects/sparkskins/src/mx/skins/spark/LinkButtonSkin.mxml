@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009" 
+	  minWidth="21" minHeight="21"
+	  alpha.disabled="0.5">
+
+	<!-- states -->
+	<states>
+		<State name="up" />
+		<State name="over" />
+		<State name="down" />
+		<State name="disabled" />
+	</states>
+	
+	<!-- layer 1: fill -->
+	<Rect left="0" right="0" top="0" bottom="0" excludeFrom="up,disabled" >
+		<fill>
+			<SolidColor color.over="0xCEDBEF" color.down="0xA8C6EE" alpha="1" />
+		</fill>
+	</Rect>
+	
+</Skin>
