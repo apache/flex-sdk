@@ -72,13 +72,6 @@ public class UITextFieldGridItemRenderer extends UITextField implements IGridIte
         wordWrap = true;
         autoSize = TextFieldAutoSize.NONE;
         
-        // The default width of a TextField is 100.  If autoWrap is true, and
-        // multiline is true, the measured text will wrap if it is wider than
-        // the TextField's width. This is not what we want when measuring the 
-        // width of typicalItem columns that lack an explicit GridColumn width.
-        
-        setActualSize(4096, NaN);  // 4096 is just an arbitrarily large value            
-        
         addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);        
     }
     
