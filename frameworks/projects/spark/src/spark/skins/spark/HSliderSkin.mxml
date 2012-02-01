@@ -2,26 +2,32 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 -->
 
 <!--- The default skin class for the Spark HSlider component. The thumb and track skins are defined by the
-HSliderThumbSkin and HSliderTrackSkin classes, respectively. -->
+HSliderThumbSkin and HSliderTrackSkin classes, respectively.  
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-	  minHeight="11" minWidth="100"
-	  alpha.disabled="0.5">
+      minHeight="11" minWidth="100"
+      alpha.disabled="0.5">
 
     <fx:Metadata>
     <![CDATA[ 
-	/** 
-	 * @copy spark.skins.default.ApplicationSkin#hostComponent
-	 */
-    	[HostComponent("spark.components.HSlider")]
+    /** 
+     * @copy spark.skins.default.ApplicationSkin#hostComponent
+     */
+        [HostComponent("spark.components.HSlider")]
     ]]>
     </fx:Metadata> 
     
@@ -30,38 +36,38 @@ HSliderThumbSkin and HSliderTrackSkin classes, respectively. -->
            For slider, the skin itself is colorized but the individual parts are not. */
         static private const exclusions:Array = ["track", "thumb"];
 
-	/** 
-	 * @copy spark.skins.SparkSkin#colorizeExclusions
-	 */		
+    /** 
+     * @copy spark.skins.SparkSkin#colorizeExclusions
+     */     
         override public function get colorizeExclusions():Array {return exclusions;}
     </fx:Script>
     
     <s:states>
-    	<s:State name="normal" />
-    	<s:State name="disabled" />
+        <s:State name="normal" />
+        <s:State name="disabled" />
     </s:states>
     
     <fx:Declarations>
-	<!--- Defines the appearance of the the Slider's DataTip. To customize the DataTip's appearance, create a custom HSliderSkin class. -->
-        <fx:Component id="dataTip">    	
-    	   <s:MXMLComponent minHeight="24" minWidth="40" y="-34">  
-    		  <s:Rect top="0" left="0" right="0" bottom="0">
-					<s:fill>
-						<s:SolidColor color="0x000000" alpha=".9"/>
-					</s:fill>
-					<s:filters>
-    					<s:DropShadowFilter angle="90" color="0x999999" distance="3"/>
-    				</s:filters>
-				</s:Rect>
-				<s:SimpleText id="labelElement" text="{data}"
+    <!--- Defines the appearance of the the Slider's DataTip. To customize the DataTip's appearance, create a custom HSliderSkin class. -->
+        <fx:Component id="dataTip">     
+           <s:MXMLComponent minHeight="24" minWidth="40" y="-34">  
+              <s:Rect top="0" left="0" right="0" bottom="0">
+                    <s:fill>
+                        <s:SolidColor color="0x000000" alpha=".9"/>
+                    </s:fill>
+                    <s:filters>
+                        <s:DropShadowFilter angle="90" color="0x999999" distance="3"/>
+                    </s:filters>
+                </s:Rect>
+                <s:SimpleText id="labelElement" text="{data}"
                          horizontalCenter="0" verticalCenter="1"
                          left="5" right="5" top="5" bottom="5"
                          textAlign="center" verticalAlign="middle"
                          fontWeight="normal" color="white" fontSize="11">
                 </s:SimpleText>
             </s:MXMLComponent>
-	   </fx:Component>
-	</fx:Declarations>
+       </fx:Component>
+    </fx:Declarations>
     
     <!--- Defines the skin class for the HSliderSkin's track. The default skin class is HSliderTrackSkin. -->
     <s:Button id="track" left="0" right="0" top="0" bottom="0"
