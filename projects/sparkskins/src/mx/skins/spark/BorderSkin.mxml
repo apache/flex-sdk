@@ -17,7 +17,7 @@
       @productversion Flex 4
 -->
 <local:SparkSkinForHalo xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-        xmlns:local="mx.skins.spark.*" implements="mx.core.IRectangularBorder">
+    xmlns:local="mx.skins.spark.*" implements="mx.core.IRectangularBorder">
     
     <fx:Script>
         <![CDATA[
@@ -74,7 +74,16 @@
         {
         
         }
-        
+
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useBaseColor = true;
+            super.initializationComplete();
+        }
+                
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {
             // Force a redraw to clear any existing shadow, and to force a redraw of the 
@@ -91,6 +100,9 @@
                 border.visible = true;
                 background.left = background.top = background.right = background.bottom = 1;
             }
+            
+            border.radiusX = cornerRadius;
+            background.radiusX = cornerRadius;
             
             super.updateDisplayList(unscaledWidth, unscaledHeight);
             
@@ -140,14 +152,14 @@
     </fx:Script>
     
     <!-- border --> 
-    <s:Rect left="0" right="0" top="0" bottom="0" radiusX="{cornerRadius}" id="border">
+    <s:Rect left="0" right="0" top="0" bottom="0" radiusX="0" id="border">
         <s:stroke>            
             <s:SolidColorStroke id="borderStroke" />
         </s:stroke>
     </s:Rect>
 
     <!-- fill -->
-    <s:Rect id="background" left="1" right="1" top="1" bottom="1" radiusX="{cornerRadius}">
+    <s:Rect id="background" left="1" right="1" top="1" bottom="1" radiusX="0">
         <s:fill>
             <s:SolidColor id="bgFill" color="0xFFFFFF" />
         </s:fill>
