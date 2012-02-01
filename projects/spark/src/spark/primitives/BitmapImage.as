@@ -257,6 +257,10 @@ public class BitmapGraphic extends GraphicElement
      *  <p>The image location can be a URL or file reference. If it is a file reference, its location is relative to
      *  the location of the file that is being compiled.</p>
      *  
+     *  <p>The BitmapGraphic class is designed to work with embedded images, not with images that are 
+     *  loaded at run time. You can use the Image control to load the image at run time,
+     *  and then assign the Image control to the value of the BitmapGraphic's <code>source</code> property.</p>
+     *  
      *  @see flash.display.Bitmap
      *  @see flash.display.BitmapData
      *  @see mx.graphics.BitmapFill
