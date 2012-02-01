@@ -1,12 +1,52 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2003-2008 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package mx.filters
 {
+import flash.events.Event;
+import flash.events.EventDispatcher;
 import flash.filters.BitmapFilter;
 import flash.filters.ConvolutionFilter;
-import mx.filters.BaseFilter;
-import mx.filters.IBitmapFilter;
+import mx.filters.IFlexBitmapFilter;
 
-public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
+/**
+ *  @review 
+ *  Dispatched when a property value has changed. 
+ */ 
+[Event(name="change", type="flash.events.Event")]
+
+/**
+ *  @review 
+ * 
+ * 	The mx.filters.ConvolutionFilter class is based on flash.filters.ConvolutionFilter but adds 
+ *  support for dynamically updating property values. 
+ *  When a property changes, it dispatches an event that tells the filter owner to
+ *  reapply the filter. Use this class instead of flash.filters.ConvolutionFilter if you plan
+ *  to dynamically change the filter property values.  
+ * 
+ *  @see flash.filters.ConvolutionFilter
+ */
+public class ConvolutionFilter extends EventDispatcher implements IFlexBitmapFilter
 {
+	include "../core/Version.as";
+
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    	
+	/**
+	 * @copy flash.filters.ConvolutionFilter
+	 */ 	
 	public function ConvolutionFilter(matrixX:Number = 0, matrixY:Number = 0, 
 	                                  matrix:Array = null, divisor:Number = 1.0, 
 	                                  bias:Number = 0.0, 
@@ -14,6 +54,8 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 	                                  clamp:Boolean = true, color:uint = 0, 
 	                                  alpha:Number = 0.0)
 	{
+		super();
+		
 		this.matrixX = matrixX;
 		this.matrixY = matrixY;
 		this.matrix = matrix;
@@ -24,6 +66,12 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 		this.color = color;
 		this.alpha = alpha;
 	}
+
+	//--------------------------------------------------------------------------
+	//
+	//  Properties
+	//
+	//--------------------------------------------------------------------------
 	
 	//----------------------------------
     //  alpha
@@ -260,13 +308,40 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 			notifyFilterChanged();
 		}
 	}
-	
-	public function clone():BitmapFilter
+
+	//--------------------------------------------------------------------------
+	//
+	//  Methods
+	//
+	//--------------------------------------------------------------------------
+
+	/**
+     * @private
+     * Notify of a change to our filter, so that filter stack is ultimately 
+     * re-applied by the framework.
+     */ 
+	private function notifyFilterChanged():void
+	{
+		dispatchEvent(new Event(Event.CHANGE));
+	}
+
+	//--------------------------------------------------------------------------
+	//
+	//  IFlexBitmapFilter 
+	//
+	//--------------------------------------------------------------------------
+
+	/**
+	 *  Creates a flash.filters.ConvolutionFilter instance using the current 
+	 *  property values. 
+	 * 
+	 *  @return flash.filters.ConvolutionFilter instance
+	 */		
+	public function createBitmapFilter():BitmapFilter 
 	{
 		return new flash.filters.ConvolutionFilter(matrixX, matrixY, matrix, divisor, 
 												   bias, preserveAlpha, clamp, color,
 												   alpha);
 	}
-	
 }
 }
