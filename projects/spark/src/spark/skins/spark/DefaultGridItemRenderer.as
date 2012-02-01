@@ -77,15 +77,22 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  high-quality international typography and font embedding in the same way as other 
  *  Spark controls.
  *
- *  <p>DefaultGridItemRenderer inherits its <code>layoutDirection</code> property
- *  from its parent.  
- *  It should not be set directly.</p>
- *
  *  <p>You can control the label text wrapping by using the <code>lineBreak</code> style.  
  *  For example, setting  <code>lineBreak="explicit"</code> and <code>variableRowHeight="false"</code> 
  *  creates fixed height cells whose labels do not wrap.
  *  If you do not explicitly set the <code>wordWrap</code> property, <code>wordWrap</code> 
  *  will be set to the value of the grid's <code>variableRowHeight</code> property.</p>
+ * 
+ *  <p>The multiline property is used by the DataGrid's item editor to interpret
+ *  input newline characters.  If <code>mutliline=false</code>, then entering a newline ends the 
+ *  editing session (as does tab or escape).  If <code>multiline=true</code> then a newline character 
+ *  is inserted into the text.  If the multiline property is not set explicitly, then it's automatically
+ *  set to true if <code>lineBreak="explicit"</code> and <code>text</code> includes a newline
+ *  character.</p>
+ * 
+ *  <p>DefaultGridItemRenderer inherits its <code>layoutDirection</code> property
+ *  from its parent.  
+ *  It should not be set directly.</p>
  *  
  *  <p>The DefaultGridItemRenderer class is not intended to be subclassed or copied.
  *  Create custom item renderers based on the GridItemRenderer class.</p>
