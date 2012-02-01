@@ -11,81 +11,139 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<Skin xmlns="http://ns.adobe.com/mxml/2009" 
+	  minWidth="21" minHeight="21" clipContent="false"
+	  alpha.disabledStates="0.5">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxToggleButton")]
-    </Metadata> 
-    
-    <states>
+	<!-- host component -->
+	<Metadata>
+		[HostComponent("mx.components.FxToggleButton")]
+	</Metadata>
+	
+	<!-- states -->
+	<states>
         <State name="up" />
-        <State name="over" />
-        <State name="down" />
-        <State name="disabled" />
-        <State name="upAndSelected" />
-        <State name="overAndSelected" />
-        <State name="downAndSelected" />
-        <State name="disabledAndSelected" />
-    </states>
-
-    <content>
-		<!-- TODO!! This won't look quite right until we get scale9 support back in -->
-        <Group left="0" top="0" right="0" bottom="0"
-               scaleGridLeft="6" scaleGridTop="6" scaleGridRight="44" scaleGridBottom="14">
-            <Rect left="0" top="0" right="0" bottom="0"
-                  minWidth="50" minHeight="20" radiusX="6" radiusY="6">
-                <fill>
-                    <SolidColor color="0x666666" color.over="0x6666BB"
-                                color.down="0x6666BB" color.disabled="0xAAAAAA"
-                                color.upAndSelected="0xAAAAAA"
-                                color.overAndSelected="0xAAAAAA"
-                                color.downAndSelected="0xAAAAAA"
-                                color.disabledAndSelected="0xAAAAAA"/>
-                </fill>
-            </Rect>        
-            <Rect left="1" top="1" right="1" bottom="1"
-                  minWidth="48" minHeight="18" radiusX="5" radiusY="5">
-                <fill>
-                    <LinearGradient rotation="90">
-                        <GradientEntry color="0xFFFFFF" color.over="0xF0F0F0"
-                                       color.down="0xBBBBDD" color.disabled="0xF0F0F0"
-                                       color.upAndSelected="0xDE1111"
-                                       color.overAndSelected="0xDE1111"
-                                       color.downAndSelected="0xDE1111"
-                                       color.disabledAndSelected="0xDE1111"
-                                       alpha="0.8" />
-                        <GradientEntry color="0xDEDEDE" color.down="0xBBBBDD"
-                                       color.upAndSelected="0xFF1111"
-                                       color.overAndSelected="0xFF1111"
-                                       color.downAndSelected="0xFF1111"
-                                       color.disabledAndSelected="0xFF1111"
-                                       alpha="0.6" />
-                    </LinearGradient>
-                </fill>
-            </Rect>
-        </Group>
-
-	    <!-- label -->
-		<TextBox id="labelField"
-	             fontFamily="Arial" fontSize="12"
-	             color="0x2B4381" color.disabled="0x95A1C0"
-				 horizontalCenter="0" verticalCenter="1"
-				 left="10" right="10" top="2" bottom="2"
-				 textAlign="center" verticalAlign="middle">
-		</TextBox>
-
-        <!-- When the component is disabled, dimm everything with a rectangle -->
-        <Group left="0" top="0" right="0" bottom="0"
-               scaleGridLeft="6" scaleGridTop="6" scaleGridRight="44" scaleGridBottom="14"
-               visible="false" visible.disabled="true" visible.disabledAndSelected="true">
-            <Rect left="0" top="0" right="0" bottom="0"
-                  minWidth="50" minHeight="20" radiusX="6" radiusY="6">
-                <fill>
-                    <SolidColor color="0xFFFFFF" alpha="0.6"/>
-                </fill>
-            </Rect>
-        </Group>
-
-    </content>
-
+        <State name="over" stateGroups="overStates" />
+        <State name="down" stateGroups="downStates" />
+        <State name="disabled" stateGroups="disabledStates" />
+        <State name="upAndSelected" stateGroups="selectedStates, selectedUpStates" />
+        <State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
+	</states>
+	
+	<!-- layer 1: shadow -->
+    <Rect left="-1" right="-1" top="-1" bottom="-1" radiusX="2" radiusY="2">
+        <fill>
+            <LinearGradient rotation="90">
+                    <GradientEntry color="0x000000" 
+                                   color.downStates="0xFFFFFF"
+                                   alpha="0.01"
+                                   alpha.downStates="0" />
+                    <GradientEntry color="0x000000" 
+                                   color.downStates="0xFFFFFF" 
+                                   alpha="0.07"
+                                   alpha.downStates="0.5" />
+            </LinearGradient>
+        </fill>
+    </Rect>
+	
+	<!-- layer 2: border -->
+	<Rect left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2" radiusY="2">
+		<stroke>
+			<LinearGradientStroke rotation="90">
+                <GradientEntry color="0x000000" 
+                               alpha="0.5625"
+                               alpha.down="0.6375"
+                               alpha.selectedStates="0.6375" />
+                <GradientEntry color="0x000000" 
+                               alpha="0.75" 
+                               alpha.down="0.85"
+                               alpha.selectedStates="0.85" />
+			</LinearGradientStroke>
+		</stroke>
+	</Rect>
+	
+	<!-- layer 3: fill -->
+	<Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0xFFFFFF" 
+							   color.selectedUpStates="0xBBBDBD"
+							   color.overStates="0xBBBDBD" 
+							   color.downStates="0xAAAAAA" 
+							   alpha="0.85" 
+							   alpha.overAndSelected="1" />
+				<GradientEntry color="0xD8D8D8" 
+							   color.selectedUpStates="0x9FA0A1"
+							   color.over="0x9FA0A1" 
+							   color.overAndSelected="0x8E8F90"
+							   color.downStates="0x929496" 
+							   alpha="0.85"
+							   alpha.overAndSelected="1" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 4: fill lowlight -->
+	<Rect left="1" right="1" bottom="1" height="9" radiusX="2" radiusY="2">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0x000000" alpha="0.0099" />
+				<GradientEntry color="0x000000" alpha="0.0627" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 5: fill highlight -->
+	<Rect left="1" right="1" top="1" height="9" radiusX="2" radiusY="2">
+		<fill>
+			<SolidColor color="0xFFFFFF" 
+					    alpha="0.33" 
+					    alpha.selectedUpStates="0.22"
+					    alpha.overStates="0.22" 
+					    alpha.downStates="0.12" />
+		</fill>
+	</Rect>
+	
+	<!-- layer 6: highlight stroke (all states except down) -->
+	<Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2" excludeFrom="downStates">
+		<stroke>
+			<LinearGradientStroke rotation="90">
+				<GradientEntry color="0xFFFFFF" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
+				<GradientEntry color="0xD8D8D8" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
+			</LinearGradientStroke>
+		</stroke>
+	</Rect>
+	
+	<!-- layer 6: highlight stroke (down state only) -->
+	<Rect left="1" top="1" bottom="1" width="1" includeIn="downStates, selectedUpStates, overAndSelected">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.07" />
+		</fill>
+	</Rect>
+	<Rect right="1" top="1" bottom="1" width="1" includeIn="downStates, selectedUpStates, overAndSelected">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.07" />
+		</fill>
+	</Rect>
+	<Rect left="2" top="1" right="2" height="1" includeIn="downStates, selectedUpStates, overAndSelected">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.25" />
+		</fill>
+	</Rect>
+	<Rect left="1" top="2" right="1" height="1" includeIn="downStates, selectedUpStates, overAndSelected">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.09" />
+		</fill>
+	</Rect>
+	
+	<!-- layer 7: text -->
+	<TextBox id="labelField"
+			 horizontalCenter="0" verticalCenter="1"
+			 left="10" right="10" top="2" bottom="2"
+			 textAlign="center" verticalAlign="middle"
+			 fontWeight="normal">
+	</TextBox>
+	
 </Skin>
