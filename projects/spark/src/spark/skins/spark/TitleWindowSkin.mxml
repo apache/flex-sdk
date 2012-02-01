@@ -73,15 +73,14 @@
             dropShadow.visible = getStyle("dropShadowVisible");
             
             var cr:Number = getStyle("cornerRadius");
+            var withControls:Boolean = 
+                (currentState == "disabledWithControlBar" || 
+                 currentState == "normalWithControlBar" ||
+                 currentState == "inactiveWithControlBar");
             
             if (cornerRadius != cr)
             {
                 cornerRadius = cr;
-                
-                var withControls:Boolean = 
-                    (currentState == "disabledWithControlBar" || 
-                     currentState == "normalWithControlBar" ||
-                     currentState == "inactiveWithControlBar");
                 
                 dropShadow.tlRadius = cornerRadius;
                 dropShadow.trRadius = cornerRadius;
@@ -90,7 +89,7 @@
                 
                 setPartCornerRadii(topMaskRect, withControls); 
                 setPartCornerRadii(border, withControls); 
-                setPartCornerRadii(background, withControls);                
+                setPartCornerRadii(background, withControls);
             }
             
             if (bottomMaskRect) setPartCornerRadii(bottomMaskRect, withControls); 
