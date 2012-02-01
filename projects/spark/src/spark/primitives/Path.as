@@ -208,7 +208,7 @@ public class Path extends FilledElement
         
         //If there's no processing that needs to 
         //occur, exit early. 
-        if (value == "")
+        if (!value)
         {
             _data = value;
             return;
