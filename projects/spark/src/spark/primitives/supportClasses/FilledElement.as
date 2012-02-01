@@ -26,119 +26,125 @@ import mx.graphics.IFill;
  */
 public class FilledElement extends StrokedElement
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor. 
-	 */
-	public function FilledElement()
-	{
-		super();
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  Constructor. 
+     */
+    public function FilledElement()
+    {
+        super();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  fill
-	//----------------------------------
+    //----------------------------------
+    //  fill
+    //----------------------------------
 
-	protected var _fill:IFill;
-	
-	[Bindable("propertyChange")]
+    /**
+     *  @private
+     */
+     protected var _fill:IFill;
+    
+    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
-	/**
-	 *  The object that defines the properties of the fill.
-	 *  If not defined, the object is drawn without a fill.
-	 * 
-	 *  @default null
-	 */
-	public function get fill():IFill
-	{
-		return _fill;
-	}
-	
-	public function set fill(value:IFill):void
-	{
-		var oldValue:IFill = _fill;
-		var fillEventDispatcher:EventDispatcher;
-		
-		fillEventDispatcher = _fill as EventDispatcher;
-		if (fillEventDispatcher)
-			fillEventDispatcher.removeEventListener(
-				PropertyChangeEvent.PROPERTY_CHANGE, 
-				fill_propertyChangeHandler);
-			
-		_fill = value;
-		
-		fillEventDispatcher = _fill as EventDispatcher;
-		if (fillEventDispatcher)
-			fillEventDispatcher.addEventListener(
-				PropertyChangeEvent.PROPERTY_CHANGE, 
-				fill_propertyChangeHandler);
-			
-		dispatchPropertyChangeEvent("fill", oldValue, _fill);
-		invalidateDisplayList();
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden Methods
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @inheritDoc
-	 */
-	override protected function beginDraw(g:Graphics):void
-	{
-		// Don't call super.beginDraw() since it will also set up an 
-		// invisible fill.
-		
-		var bounds:Rectangle = new Rectangle(drawX, drawY, width, height);
-		if (stroke)
-			stroke.draw(g, bounds);
-		else
-			g.lineStyle();
-		
-		if (fill)
-			fill.begin(g, bounds);
-	}
-	
-	/**
-	 *  @inheritDoc
-	 */
-	override protected function endDraw(g:Graphics):void
-	{
-		// Don't call super.endDraw() since it will clear the invisible
-		// fill.
-		
-		if (fill)
-			fill.end(g);
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Event handlers
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private function fill_propertyChangeHandler(event:Event):void
-	{
-		invalidateDisplayList();
-	}
+    /**
+     *  The object that defines the properties of the fill.
+     *  If not defined, the object is drawn without a fill.
+     * 
+     *  @default null
+     */
+    public function get fill():IFill
+    {
+        return _fill;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set fill(value:IFill):void
+    {
+        var oldValue:IFill = _fill;
+        var fillEventDispatcher:EventDispatcher;
+        
+        fillEventDispatcher = _fill as EventDispatcher;
+        if (fillEventDispatcher)
+            fillEventDispatcher.removeEventListener(
+                PropertyChangeEvent.PROPERTY_CHANGE, 
+                fill_propertyChangeHandler);
+            
+        _fill = value;
+        
+        fillEventDispatcher = _fill as EventDispatcher;
+        if (fillEventDispatcher)
+            fillEventDispatcher.addEventListener(
+                PropertyChangeEvent.PROPERTY_CHANGE, 
+                fill_propertyChangeHandler);
+            
+        dispatchPropertyChangeEvent("fill", oldValue, _fill);
+        invalidateDisplayList();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @inheritDoc
+     */
+    override protected function beginDraw(g:Graphics):void
+    {
+        // Don't call super.beginDraw() since it will also set up an 
+        // invisible fill.
+        
+        var bounds:Rectangle = new Rectangle(drawX, drawY, width, height);
+        if (stroke)
+            stroke.draw(g, bounds);
+        else
+            g.lineStyle();
+        
+        if (fill)
+            fill.begin(g, bounds);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    override protected function endDraw(g:Graphics):void
+    {
+        // Don't call super.endDraw() since it will clear the invisible
+        // fill.
+        
+        if (fill)
+            fill.end(g);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private function fill_propertyChangeHandler(event:Event):void
+    {
+        invalidateDisplayList();
+    }
 }
 }
