@@ -83,7 +83,7 @@
         The default skin is ComboBoxButtonSkin.
         @copy spark.components.supportClasses.DropDownListBase#openButton 
     -->
-    <s:Button id="openButton" width="19" right="0" top="0" bottom="0" focusEnabled="false"
+    <s:Button id="openButton" width="19" right="0" top="0" bottom="0" focusEnabled="false" tabEnabled="false"
               skinClass="spark.skins.wireframe.ComboBoxButtonSkin" /> 
     <!--- @copy spark.components.ComboBox#textInput -->
     <s:TextInput id="textInput" 
