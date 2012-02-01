@@ -15,8 +15,6 @@ import flash.filters.BitmapFilter;
 import flash.filters.ColorMatrixFilter;
 
 /**
- *  @review 
- * 
  *  The ColorMatrixFilter class lets you apply a 4 x 5 matrix transformation on the 
  *  RGBA color and alpha values of every pixel in the input image to produce a result 
  *  with a new set of RGBA color and alpha values. It allows saturation changes, hue 
@@ -26,7 +24,7 @@ import flash.filters.ColorMatrixFilter;
  *  BitmapData objects.
  * 
  *  @see flash.filters.ColorMatrixFilter
- *  
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -52,15 +50,13 @@ public class ColorMatrixFilter extends BaseFilter implements IBitmapFilter
 								  1,0];
 	
 	/**
-	 *  @review
-	 * 
 	 *  A comma delimited list of 20 doubles that comprise a 4x5 matrix applied to the 
 	 *  rendered element.  The matrix is in row major order -- that is, the first five 
 	 *  elements are multipled by the vector [srcR,srcG,srcB,srcA,1] to determine the 
 	 *  output red value, the second five determine the output green value, etc.
 	 * 
 	 *  The value must either be an array or comma delimited string of 20 numbers. 
-	 *  
+	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
 	 *  @playerversion AIR 1.5
