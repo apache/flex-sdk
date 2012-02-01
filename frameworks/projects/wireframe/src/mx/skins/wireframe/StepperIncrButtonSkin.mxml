@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2009 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the up button of the Halo NumericStepper component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+    >
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over"/>
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+    
+	<!-- border -->
+	<s:Path data="M 0 0 h 16 Q 17 0 18 2 v 8 h -18 Z" 
+			left="0" top="0" right="0" bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke color="0x5380D0" />
+		</s:stroke>
+	</s:Path> 
+	
+	<!-- fill -->
+	<s:Path data="M 0 0 h 16 Q 17 0 18 2 v 8 h -18 Z" 
+			left="0" top="1" right="1" bottom="1">
+		<s:fill>
+			<s:SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF" />
+		</s:fill>
+	</s:Path> 
+	
+	<!-- shadow (down state only) -->
+	<s:Path data="M 0 0 h 14 Q 16 0 16 2 v 6 h -16 Z" 
+			left="0" top="1" right="1" bottom="1" includeIn="down">
+		<s:stroke>
+			<s:LinearGradientStroke rotation="90">
+				<s:GradientEntry color="0x5380D0" alpha="0.25" />
+				<s:GradientEntry color="0x5380D0" alpha="0" />
+			</s:LinearGradientStroke>
+		</s:stroke>
+	</s:Path>
+	
+	<!-- arrow -->
+	<s:Path horizontalCenter="-1" verticalCenter="0" data="M 9.5 4 L 12.5 7 L 6.5 7 L 9.5 4 Z">
+		<s:fill>
+			<s:SolidColor color="0x4E6290" />
+		</s:fill>
+	</s:Path>            
+    
+</s:Skin>
