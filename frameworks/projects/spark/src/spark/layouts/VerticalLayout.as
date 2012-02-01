@@ -142,7 +142,17 @@ public class VerticalLayout extends LayoutBase
      *  actual space that is flexible.  used to calculate estimatedHeight
      */
     private var flexibleHeight:Number;
+    
+    /**
+     *  @private
+     */
+    private var lastEstimatedWidth:Number;    
 
+    /**
+     *  @private
+     */
+    private var inUpdateDisplayListVirtual:Boolean;
+    
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -908,13 +918,41 @@ public class VerticalLayout extends LayoutBase
             return;
         
         if (_target)
-            _target.removeEventListener(FlexEvent.MEASURED_SIZE_PRELIMINARY, measuredSizePreliminaryHandler);
+        {
+            if (useVirtualLayout)
+                _target.removeEventListener(FlexEvent.MEASURED_SIZE_PRELIMINARY, measuredSizePreliminaryHandler);
+        }
         _target = value;
         super.target = value;
         if (value)
-            value.addEventListener(FlexEvent.MEASURED_SIZE_PRELIMINARY, measuredSizePreliminaryHandler, false, 0, true);
+        {
+            if (useVirtualLayout)
+                value.addEventListener(FlexEvent.MEASURED_SIZE_PRELIMINARY, measuredSizePreliminaryHandler, false, 0, true);
+        }
     }
     
+    //----------------------------------
+    //  useVirtualLayout
+    //----------------------------------
+    
+    /**
+     * @private
+     */
+    override public function set useVirtualLayout(value:Boolean):void
+    {
+        if (_useVirtualLayout == value)
+            return;
+        
+        if (_target)
+        {
+            if (value)
+                _target.addEventListener(FlexEvent.MEASURED_SIZE_PRELIMINARY, measuredSizePreliminaryHandler, false, 0, true);
+            else
+                _target.removeEventListener(FlexEvent.MEASURED_SIZE_PRELIMINARY, measuredSizePreliminaryHandler);
+        }
+        super.useVirtualLayout = value;
+    }
+        
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -988,11 +1026,12 @@ public class VerticalLayout extends LayoutBase
      */
     override public function estimateSizesOfElements():void
     {
-        if (llv)
+        if (llv && target.estimatedWidth != lastEstimatedWidth && llv.minorSizeBasedOnLayoutSize)
         {
             llv.minorSize = 0;
             llv.minMinorSize = 0;
         }
+        lastEstimatedWidth = target.estimatedWidth;
         
         var size:SizesAndLimit = new SizesAndLimit();
         var spaceToDistribute:Number = !isNaN(target.explicitHeight) ? target.explicitHeight : target.estimatedHeight;
@@ -1953,7 +1992,7 @@ public class VerticalLayout extends LayoutBase
         var startIndex:int = llv.indexOf(Math.max(0, minVisibleY + gap));
         if (startIndex == -1)
             return;
-                        
+        
         var fixedRowHeight:Number = NaN;
         if (!variableRowHeight)
             fixedRowHeight = rowHeight;  // may query typicalLayoutElement, elt at index=0
@@ -1982,8 +2021,6 @@ public class VerticalLayout extends LayoutBase
             // not final
 			if (!notFinalTargets)
 				notFinalTargets = [];
-			else
-            	notFinalTargets.length = 0;
 			// request element, but skip validation (especially of the displaylist)
             elt = layoutTarget.getVirtualElementAt(index, eltWidth, eltHeight, true);
 			// then validate everything but the displaylist so there are valid
@@ -2011,6 +2048,7 @@ public class VerticalLayout extends LayoutBase
 					notFinalComponents[t] = index;
 					
 				}
+                notFinalTargets.length = 0;
 				if (!notFinalIndexes)
 					notFinalIndexes = [];
                 // remember that this index didn't want to be cached
@@ -2326,11 +2364,20 @@ public class VerticalLayout extends LayoutBase
             if (layoutTarget.numElements == 0)
                 layoutTarget.setContentSize(Math.ceil(paddingLeft + paddingRight),
                                             Math.ceil(paddingTop + paddingBottom));
+            if (notFinalTargets)
+                notFinalTargets.length = 0;
             return;         
         }
         
         if (useVirtualLayout) 
+        {
+            inUpdateDisplayListVirtual = true;            
             updateDisplayListVirtual();
+            inUpdateDisplayListVirtual = false;
+
+            if (notFinalTargets)
+                notFinalTargets.length = 0;
+        }
         else
             updateDisplayListReal();
     }
@@ -2369,6 +2416,9 @@ public class VerticalLayout extends LayoutBase
      */
     private function measuredSizePreliminaryHandler(event:FlexEvent):void
     {
+        if (!inUpdateDisplayListVirtual)
+            return;
+
         event.target.addEventListener(FlexEvent.MEASURED_SIZE_FINAL, measuredSizeFinalHandler, false, 0, true);
 		if (!notFinalTargets)
 			notFinalTargets = [];
