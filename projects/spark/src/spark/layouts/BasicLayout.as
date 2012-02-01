@@ -255,6 +255,8 @@ public class BasicLayout extends LayoutBase
                 childX = left;
             else if (!isNaN(right))
                 childX = unscaledWidth - actualSize.x - right;
+            else // since setting actual size might have moved the actual position, we need to reset here            
+            	childX = layoutItem.actualPosition.x;
 
             // Vertical position
             if (!isNaN(vCenter))
@@ -263,6 +265,8 @@ public class BasicLayout extends LayoutBase
                 childY = top;
             else if (!isNaN(bottom))
                 childY = unscaledHeight - actualSize.y - bottom;
+           	else  // since setting actual size might have moved the actual position, we need to reset here
+           		childY = layoutItem.actualPosition.y;
 
             // Set position
             layoutItem.setActualPosition(childX, childY);
