@@ -182,6 +182,12 @@ public class VerticalLayout extends LayoutBase
 		
 		// Don't drag-scroll in the horizontal direction
 		dragScrollRegionSizeHorizontal = 0;
+        
+        // Virtualization defaults for cases
+        // where there are no items and no typical item.
+        // The llv defaults are the width/height of a Spark Button skin.
+        llv.defaultMinorSize = 71;
+        llv.defaultMajorSize = 22;
     }   
     
     //--------------------------------------------------------------------------
@@ -467,13 +473,57 @@ public class VerticalLayout extends LayoutBase
     }    
     
     //----------------------------------
-    //  requestedRowCount
+    //  requestedMinRowCount
     //----------------------------------
 
-    private var _requestedRowCount:int = -1;
+    private var _requestedMinRowCount:int = 0;
     
     [Inspectable(category="General", minValue="-1")]
 
+    /**
+     *  The measured height of this layout is large enough to display 
+     *  at least <code>requestedMinRowCount</code> layout elements. 
+     * 
+     *  <p>If <code>requestedRowCount</code> is set, then
+     *  this property has no effect.</p>
+     *
+     *  <p>If the actual size of the container has been explicitly set,
+     *  then this property has no effect.</p>
+     *
+     *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get requestedMinRowCount():int
+    {
+        return _requestedMinRowCount;
+    }
+
+    /**
+     *  @private
+     */
+    public function set requestedMinRowCount(value:int):void
+    {
+        if (_requestedMinRowCount == value)
+            return;
+                               
+        _requestedMinRowCount = value;
+
+        if (target)
+            target.invalidateSize();
+    }    
+
+    //----------------------------------
+    //  requestedRowCount
+    //----------------------------------
+    
+    private var _requestedRowCount:int = -1;
+    
+    [Inspectable(category="General", minValue="-1")]
+    
     /**
      *  The measured size of this layout is tall enough to display 
      *  the first <code>requestedRowCount</code> layout elements. 
@@ -495,7 +545,7 @@ public class VerticalLayout extends LayoutBase
     {
         return _requestedRowCount;
     }
-
+    
     /**
      *  @private
      */
@@ -503,9 +553,11 @@ public class VerticalLayout extends LayoutBase
     {
         if (_requestedRowCount == value)
             return;
-                               
+        
         _requestedRowCount = value;
-        invalidateTargetSizeAndDisplayList();
+        
+        if (target)
+            target.invalidateSize();
     }    
 
     //----------------------------------
@@ -1007,6 +1059,40 @@ public class VerticalLayout extends LayoutBase
     {
         return findLayoutElementBounds(target, lastIndexInView, +1, scrollRect);
     } 
+    
+    /**
+     *  @private
+     *  Fills in the result with preferred and min sizes of the element.
+     */
+    private function getElementWidth(element:ILayoutElement, justify:Boolean, result:SizesAndLimit):void
+    {
+        // Calculate preferred width first, as it's being used to calculate min width
+        var elementPreferredWidth:Number = Math.ceil(element.getPreferredBoundsWidth());
+        
+        // Calculate min width
+        var flexibleWidth:Boolean = !isNaN(element.percentWidth) || justify;
+        var elementMinWidth:Number = flexibleWidth ? Math.ceil(element.getMinBoundsWidth()) : 
+                                                     elementPreferredWidth;
+        result.preferredSize = elementPreferredWidth;
+        result.minSize = elementMinWidth;
+    }
+    
+    /**
+     *  @private
+     *  Fills in the result with preferred and min sizes of the element.
+     */
+    private function getElementHeight(element:ILayoutElement, fixedRowHeight:Number, result:SizesAndLimit):void
+    {
+        // Calculate preferred height first, as it's being used to calculate min height below
+        var elementPreferredHeight:Number = isNaN(fixedRowHeight) ? Math.ceil(element.getPreferredBoundsHeight()) :
+                                                                    fixedRowHeight;
+        // Calculate min height
+        var flexibleHeight:Boolean = !isNaN(element.percentHeight);
+        var elementMinHeight:Number = flexibleHeight ? Math.ceil(element.getMinBoundsHeight()) : 
+                                                       elementPreferredHeight;
+        result.preferredSize = elementPreferredHeight;
+        result.minSize = elementMinHeight;
+    }
 
     /**
      *  @private
@@ -1022,52 +1108,75 @@ public class VerticalLayout extends LayoutBase
      */
     private function measureReal(layoutTarget:GroupBase):void
     {
-        var layoutEltCount:int = layoutTarget.numElements;
-        var reqEltCount:int = requestedRowCount; // -1 means "all elements"
-        var eltCount:uint = Math.max(reqEltCount, layoutEltCount);
-        var eltInLayoutCount:uint = 0; // elts that have been measured
+        var size:SizesAndLimit = new SizesAndLimit();
+        var justify:Boolean = horizontalAlign == HorizontalAlign.JUSTIFY;
+        var numElements:int = layoutTarget.numElements; // How many elements there are in the target
+        var numElementsInLayout:int = numElements;      // How many elements have includeInLayout == true, start off with numElements.
+        var requestedRowCount:int = this.requestedRowCount;
+        var rowsMeasured:int = 0;                       // How many rows have been measured
         
         var preferredHeight:Number = 0; // sum of the elt preferred heights
         var preferredWidth:Number = 0;  // max of the elt preferred widths
-        var minHeight:Number = 0; // sum of the elt minimum heights
-        var minWidth:Number = 0;  // max of the elt minimum widths
+        var minHeight:Number = 0;       // sum of the elt minimum heights
+        var minWidth:Number = 0;        // max of the elt minimum widths
         
         var fixedRowHeight:Number = NaN;
         if (!variableRowHeight)
             fixedRowHeight = rowHeight;  // may query typicalLayoutElement, elt at index=0
         
-        for (var i:uint = 0; i < eltCount; i++)
-        {            
-            if (i < layoutEltCount) // target.numElements
-                var elt:ILayoutElement = layoutTarget.getElementAt(i);
-            else // target.numElements < requestedElementCount, so "pad"
-                elt = typicalLayoutElement;
-            if (!elt || !elt.includeInLayout)
-                continue;
-            
-            // If requestedRowCount is specified, no need to consider the height
-            // of rows outside the bounds of the "requested" range. Otherwise, we
-            // consider each element.
-            if ((reqEltCount == -1) || ((reqEltCount != -1) && eltInLayoutCount < requestedRowCount))
+        var element:ILayoutElement;
+        for (var i:int = 0; i < numElements; i++)
+        {
+            element = layoutTarget.getElementAt(i);
+            if (!element || !element.includeInLayout)
             {
-                var height:Number = isNaN(fixedRowHeight) ? elt.getPreferredBoundsHeight() : fixedRowHeight;
-                height = Math.ceil(height); // Round up to give it a whole pixel.
-                preferredHeight += height;
-                minHeight += (isNaN(elt.percentHeight)) ? height : Math.ceil(elt.getMinBoundsHeight());
-                eltInLayoutCount += 1;
+                numElementsInLayout--;
+                continue;
+            }
+            
+            // Can we measure this row height?
+            if (requestedRowCount == -1 || rowsMeasured < requestedRowCount)
+            {
+                getElementHeight(element, fixedRowHeight, size);
+                preferredHeight += size.preferredSize;
+                minHeight += size.minSize;
+                rowsMeasured++;
             }
             
             // Consider the width of each element, inclusive of those outside
             // the requestedRowCount range.
-            var width:Number = Math.ceil(elt.getPreferredBoundsWidth());
-            preferredWidth = Math.max(preferredWidth, width);
-            var flexibleWidth:Boolean = !isNaN(elt.percentWidth) || horizontalAlign == HorizontalAlign.JUSTIFY;
-            minWidth = Math.max(minWidth, flexibleWidth ? Math.ceil(elt.getMinBoundsWidth()) : width);           
+            getElementWidth(element, justify, size);
+            preferredWidth = Math.max(preferredWidth, size.preferredSize);
+            minWidth = Math.max(minWidth, size.minSize);
         }
         
-        if (eltInLayoutCount > 1)
+        // Calculate the total number of rows to measure
+        var rowsToMeasure:int = (requestedRowCount != -1) ? requestedRowCount : 
+                                                            Math.max(requestedMinRowCount, numElementsInLayout);
+        // Do we need to measure more rows?
+        if (rowsMeasured < rowsToMeasure)
+        {
+            // Use the typical element
+            element = typicalLayoutElement;
+            if (element)
+            {
+                // Height
+                getElementHeight(element, fixedRowHeight, size);
+                preferredHeight += size.preferredSize * (rowsToMeasure - rowsMeasured);
+                minHeight += size.minSize * (rowsToMeasure - rowsMeasured);
+    
+                // Width
+                getElementWidth(element, justify, size);
+                preferredWidth = Math.max(preferredWidth, size.preferredSize);
+                minWidth = Math.max(minWidth, size.minSize);
+                rowsMeasured = rowsToMeasure;
+            }
+        }
+
+        // Add gaps
+        if (rowsMeasured > 1)
         { 
-            var vgap:Number = gap * (eltInLayoutCount - 1);
+            var vgap:Number = gap * (rowsMeasured - 1);
             preferredHeight += vgap;
             minHeight += vgap;
         }
@@ -1095,7 +1204,7 @@ public class VerticalLayout extends LayoutBase
         {
             var typicalWidth:Number = typicalElt.getPreferredBoundsWidth();
             var typicalHeight:Number = typicalElt.getPreferredBoundsHeight();
-            llv.minorSize = Math.max(llv.minorSize, typicalWidth);
+            llv.defaultMinorSize = typicalWidth;
             llv.defaultMajorSize = typicalHeight; 
         }
         if (layoutTarget)
@@ -1139,7 +1248,8 @@ public class VerticalLayout extends LayoutBase
     private function measureVirtual(layoutTarget:GroupBase):void
     {
         var eltCount:uint = layoutTarget.numElements;
-        var measuredEltCount:int = (requestedRowCount != -1) ? requestedRowCount : eltCount;
+        var measuredEltCount:int = (requestedRowCount != -1) ? requestedRowCount : 
+                                                               Math.max(requestedMinRowCount, eltCount);
         
         var hPadding:Number = paddingLeft + paddingRight;
         var vPadding:Number = paddingTop + paddingBottom;
@@ -1223,15 +1333,7 @@ public class VerticalLayout extends LayoutBase
         if (!layoutTarget)
             return;
             
-        var hPadding:Number = paddingLeft + paddingRight;
-        var vPadding:Number = paddingTop + paddingBottom;
-
-        if (layoutTarget.numElements == 0)
-        {
-            layoutTarget.measuredWidth = layoutTarget.measuredMinWidth = hPadding;
-            layoutTarget.measuredHeight = layoutTarget.measuredMinHeight = vPadding;
-        }            
-        else if (useVirtualLayout)
+        if (useVirtualLayout)
             measureVirtual(layoutTarget);
         else 
             measureReal(layoutTarget);
@@ -1898,10 +2000,19 @@ public class VerticalLayout extends LayoutBase
 }
 }
 
-import mx.core.ILayoutElement;
 import mx.containers.utilityClasses.FlexChildInfo;
+import mx.core.ILayoutElement;
 
 class LayoutElementFlexChildInfo extends FlexChildInfo
 {
     public var layoutElement:ILayoutElement;    
 }
+
+class SizesAndLimit
+{
+    public var preferredSize:Number;
+    public var minSize:Number;
+}
+    
+    
+    
