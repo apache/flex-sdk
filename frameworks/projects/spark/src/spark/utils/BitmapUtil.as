@@ -14,6 +14,7 @@ package spark.utils
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.IBitmapDrawable;
+import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
 
@@ -44,6 +45,8 @@ public class BitmapUtil
      *  @param target The object to capture in the resulting BitmapData  
      *  @param visibleBounds If non-null, this Rectangle will be populated with
      *  the visible bounds of the object, relative to the object itself.   
+     *  @param propagateColorTransform If true, the target's color transform will
+     *  be applied to the bitmap capture operation. 
      *
      *  @return A BitmapData object containing the image.
      *
@@ -57,7 +60,7 @@ public class BitmapUtil
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static function getSnapshot(target:IUIComponent, visibleBounds:Rectangle = null):BitmapData
+    public static function getSnapshot(target:IUIComponent, visibleBounds:Rectangle = null, propagateColorTransform:Boolean = false):BitmapData
     {
         // DisplayObject.getBounds() is not sufficient; we need the same
         // bounds as those used internally by the player
@@ -75,7 +78,9 @@ public class BitmapUtil
         if (m)
             m.translate(-(Math.floor(bounds.x)), -(Math.floor(bounds.y)));
         var bmData:BitmapData = new BitmapData(bounds.width, bounds.height, true, 0);
-        bmData.draw(IBitmapDrawable(target), m);
+        
+        bmData.draw(IBitmapDrawable(target), m, propagateColorTransform ? 
+            target.transform.colorTransform : null);
 
         return bmData;
     }
