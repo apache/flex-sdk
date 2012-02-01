@@ -14,9 +14,9 @@ package flex.utils
 
 import flash.utils.describeType;
 
-import text.model.ICharacterAttributes;
-import text.model.IContainerAttributes;
-import text.model.IParagraphAttributes;
+import text.model.ICharacterFormat;
+import text.model.IContainerFormat;
+import text.model.IParagraphFormat;
 import text.model.LeafElement;
 import text.model.Paragraph;
 import text.model.TextFlow;
@@ -38,9 +38,9 @@ public class TextUtil
 
     /**
      *  @private
-     *  An Array of the names of all text attributes, in no particular order.
+     *  An Array of the names of all text formats, in no particular order.
      */
-    public static var ALL_ATTRIBUTE_NAMES:Array = [];
+    public static var ALL_FORMAT_NAMES:Array = [];
 
     /**
      *  @private
@@ -50,7 +50,7 @@ public class TextUtil
      *  marginLeft -> paragraph
      *  fontSize -> character
      */
-    public static var ATTRIBUTE_MAP:Object = {};
+    public static var FORMAT_MAP:Object = {};
     
     /**
      *  @private
@@ -75,34 +75,34 @@ public class TextUtil
 
     /**
      *  @private
-     *  Initializes the ATTRIBUTE_MAP by using describeType()
-     *  to enumerate the properties of the IContainerAttribues,
-     *  IParagraphAttributes, and ICharacterAttributes interfaces.
+     *  Initializes the FORMAT_MAP by using describeType()
+     *  to enumerate the properties of the IContainerFormat,
+     *  IParagraphFormat, and ICharacterFormat interfaces.
      */
     private static function initClass():void
     {
         var type:XML;
         var name:String;
 
-        type = describeType(IContainerAttributes);
+        type = describeType(IContainerFormat);
         for each (name in type.factory.accessor.@name)
         {
-            ALL_ATTRIBUTE_NAMES.push(name);
-            ATTRIBUTE_MAP[name] = CONTAINER;
+            ALL_FORMAT_NAMES.push(name);
+            FORMAT_MAP[name] = CONTAINER;
         }
         
-        type = describeType(IParagraphAttributes);
+        type = describeType(IParagraphFormat);
         for each (name in type.factory.accessor.@name)
         {
-            ALL_ATTRIBUTE_NAMES.push(name);
-            ATTRIBUTE_MAP[name] = PARAGRAPH;
+            ALL_FORMAT_NAMES.push(name);
+            FORMAT_MAP[name] = PARAGRAPH;
         }
        
-        type = describeType(ICharacterAttributes);
+        type = describeType(ICharacterFormat);
         for each (name in type.factory.accessor.@name)
         {
-            ALL_ATTRIBUTE_NAMES.push(name);
-            ATTRIBUTE_MAP[name] = CHARACTER;
+            ALL_FORMAT_NAMES.push(name);
+            FORMAT_MAP[name] = CHARACTER;
         }
     }
 
