@@ -258,7 +258,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     private var _horizontalScrollPosition:Number = 0;
     
     [Bindable]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
     
     /**
      *  @copy spark.core.IViewport#horizontalScrollPosition
@@ -294,7 +294,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     private var _verticalScrollPosition:Number = 0;
     
     [Bindable]
-    [Inspectable(category="General")]    
+    [Inspectable(category="General", minValue="0.0")]    
     
     /**
      *  @copy spark.core.IViewport#verticalScrollPosition
