@@ -20,6 +20,11 @@ import flash.events.Event;
 
 /**
  *  Base class for spark skins.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */    
 public class SparkSkin extends Skin
 {
@@ -33,6 +38,11 @@ public class SparkSkin extends Skin
     
     /*
      * Constructor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function SparkSkin()
     {
@@ -41,6 +51,11 @@ public class SparkSkin extends Skin
     
     /*
      * names of items that should not be colorized by the "baseColor" style.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get colorizeExclusions():Array
     {
@@ -49,6 +64,11 @@ public class SparkSkin extends Skin
     
     /*
      * names of items that should have their "color" property defined by the "symbolColor" style.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get symbolItems():Array
     {
@@ -57,6 +77,11 @@ public class SparkSkin extends Skin
     
     /*
      * names of items that should have their "color" property defined by the "contentBackgroundColor" style.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get contentItems():Array
     {
