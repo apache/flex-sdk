@@ -193,11 +193,17 @@ public class StrokedElement extends GraphicElement
     /**
      *  @private
      */
-    protected function stroke_propertyChangeHandler(event:Event):void
+    protected function stroke_propertyChangeHandler(event:PropertyChangeEvent):void
     {
         invalidateDisplayList();
-        // Parent layout takes stroke into account
-        invalidateParentSizeAndDisplayList();
+        switch (event.property)
+        {
+            case "weight":
+            case "scaleMode":
+                // Parent layout takes stroke weight into account
+                invalidateParentSizeAndDisplayList();
+            break;
+        }
     }
 
 }
