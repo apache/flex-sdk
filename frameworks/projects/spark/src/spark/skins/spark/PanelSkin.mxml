@@ -105,7 +105,7 @@
 			 verticalAlign="middle" fontWeight="bold">
 	</s:SimpleText>
 
-    <s:Group id="contentGroup" left="1" right="1" top="32" bottom="1">
+    <s:Group id="contentGroup" left="1" right="1" top="32" bottom="1" minWidth="0" minHeight="0">
     </s:Group>
 
 </s:SparkSkin>
