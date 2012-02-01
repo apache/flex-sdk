@@ -21,6 +21,7 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 
+import spark.components.DataGroup;
 import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
 import spark.layouts.supportClasses.DropLocation;
@@ -1352,10 +1353,32 @@ public class VerticalLayout extends LayoutBase
                 oldLength = llv.length;
                 llv.length = measuredEltCount;
             }   
+
             // paddingTop is already taken into account as the majorAxisOffset of the llv   
-            layoutTarget.measuredHeight = llv.end(measuredEltCount - 1) + paddingBottom;
+            // Measured size according to the cached actual size:
+            var measuredHeight:Number = llv.end(measuredEltCount - 1) + paddingBottom;
+            
+            // For the live ItemRenderers use the preferred size
+            // instead of the cached actual size:
+            var dataGroupTarget:DataGroup = layoutTarget as DataGroup;
+            if (dataGroupTarget)
+            {
+                var indices:Vector.<int> = dataGroupTarget.getItemIndicesInView();
+                for each (var i:int in indices)
+                {
+                    var element:ILayoutElement = dataGroupTarget.getElementAt(i);
+                    if (element)
+                    {
+                        measuredHeight -= llv.getMajorSize(i);
+                        measuredHeight += element.getPreferredBoundsHeight();
+                    }
+                }
+            }
+            
+            layoutTarget.measuredHeight = measuredHeight;
+            
             if (oldLength != -1)
-                llv.length = oldLength;            
+                llv.length = oldLength;
         }
         else
         {
