@@ -12,7 +12,8 @@
 -->
 
 <Skin xmlns="http://ns.adobe.com/mxml/2009"
-	  alpha.disabled="0.5" blendMode.disabled="layer"> 
+	  minWidth="112" minHeight="112"
+	  alpha.disabled="0.5"> 
 	
     <Metadata>
     	[HostComponent("mx.components.FxList")]
@@ -23,9 +24,21 @@
     	<State name="disabled" />
     </states>
     
-    <DataGroup id="dataGroup" left="0" top="0" right="0" bottom="0">
-    	<layout>
-    	    <VerticalLayout/>
-    	</layout>
-    </DataGroup>
+    <!-- border/fill -->
+    <Rect left="0" right="0" top="0" bottom="0">
+    	<stroke>
+    		<SolidColorStroke color="0x686868" />
+    	</stroke>
+    	<fill>
+    		<SolidColor color="0xFFFFFF" />
+    	</fill>
+    </Rect>
+    
+    <FxScroller left="1" top="1" right="1" bottom="1">
+	    <DataGroup id="dataGroup" width="110" height="110">
+	    	<layout>
+	    	    <VerticalLayout gap="0" />
+	    	</layout>
+	    </DataGroup>
+    </FxScroller>
 </Skin>
