@@ -233,7 +233,7 @@ public class TileLayout extends LayoutBase
      */
     private var _requestedColumnCount:int = -1;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="-1")]
 
     /**
      *  Number of columns to be displayed.
@@ -313,7 +313,7 @@ public class TileLayout extends LayoutBase
      */
     private var _requestedRowCount:int = -1;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="-1")]
 
     /**
      *  Number of rows to be displayed.
@@ -361,7 +361,7 @@ public class TileLayout extends LayoutBase
     private var _columnWidth:Number = NaN;
 
     [Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
 
     /**
      *  Contain the actual column width.
@@ -408,7 +408,7 @@ public class TileLayout extends LayoutBase
     private var _rowHeight:Number = NaN;
 
     [Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0")]
 
     /**
      *  The row height.
