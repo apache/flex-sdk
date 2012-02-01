@@ -15,47 +15,14 @@ import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
-import flash.display.Loader;
-import flash.display.LoaderInfo;
 import flash.display.Sprite;
-import flash.events.Event;
-import flash.events.IOErrorEvent;
-import flash.events.SecurityErrorEvent;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.net.URLRequest;
-import flash.system.LoaderContext;
 
 import mx.graphics.BitmapFillMode;
 
 import spark.primitives.supportClasses.GraphicElement; 
-
-/**
- *  Dispatched when an input/output error occurs.
- *  @see flash.events.IOErrorEvent
- *
- *  @eventType flash.events.IOErrorEvent.IO_ERROR
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="ioError", type="flash.events.IOErrorEvent")]
-
-/**
- *  Dispatched when a security error occurs.
- *  @see flash.events.SecurityErrorEvent
- *
- *  @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
 
 /**
  *  A BitmapImage element defines a rectangular region in its parent element's 
@@ -177,8 +144,6 @@ public class BitmapImage extends GraphicElement
      *   <li>A class representing a subclass of DisplayObject. The BitmapFill instantiates 
      *       the class and creates a bitmap rendering of it.</li>
      *   <li>An instance of a DisplayObject. The BitmapFill copies it into a Bitmap for filling.</li>
-     *   <li>The name of an external image file. This file must have the extention
-     *   .jpg, .jpeg, .gif, or .png.</li>
      *  </ul>
      *  
      *  <p>If you use an image file for the source, it can be of type PNG, GIF, or JPG.</p>
@@ -191,11 +156,8 @@ public class BitmapImage extends GraphicElement
      *  
      *  <p>The image location can be a URL or file reference. If it is a file reference, its location is relative to
      *  the location of the file that is being compiled.</p>
-     *  
-     *  <p>The BitmapImage class is designed to work with embedded images or images that are 
-     *  loaded at run time</p>
      * 
-     *  <p>If the source is a Bitmap or BitmapData instance or is an external image file, it
+     *  <p>If the source is a Bitmap or BitmapData instance, it
      *  is the responsibility of the caller to dispose of the source once it is no longer needed.
      *  If BitmapImage created the BitmapData instance, then it will dispose of the BitmapData once the 
      *  source has changed.</p>
@@ -237,10 +199,6 @@ public class BitmapImage extends GraphicElement
                 var cls:Class = Class(value);
                 value = new cls();
                 currentBitmapCreated = true;
-            }
-            else if (value is String)
-            {
-                loadExternal(value as String);
             }
             
             if (value is BitmapData)
@@ -505,100 +463,6 @@ public class BitmapImage extends GraphicElement
         
         invalidateSize();
         invalidateDisplayList();
-    }
-    
-    /**
-     *  @private
-     */
-    private function validImageFile(url:String):Boolean
-    {
-        // We only accept .jpg, .jpeg, .gif, and .png files
-        // NOTE: This means queries that return images are not accepted: ie: myserver.com/fetch.php?image=12345
-        var exten:String = url.substr(Math.max(url.length - 5, 0), Math.min(url.length, 5)).toLowerCase();
-        
-        if (exten.indexOf(".jpg") == -1 &&
-            exten.indexOf(".jpeg") == -1 &&
-            exten.indexOf(".gif") == -1 &&
-            exten.indexOf(".png") == -1)
-            return false;
-        
-        return true;
-    }
-    
-    /**
-     *  @private
-     */
-    private function loadExternal(url:String):void
-    {
-        if (!validImageFile(url))
-            return;
-            
-        var loader:Loader = new Loader();
-        var loaderContext:LoaderContext = new LoaderContext();
-        
-        loaderContext.checkPolicyFile = true;
-        loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loader_completeHandler, false, 0, true);
-        loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, loader_ioErrorHandler, false, 0, true);
-        loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, loader_securityErrorHandler, false, 0, true);
-        try
-        {
-            loader.load(new URLRequest(url), loaderContext);
-        }
-        catch (error:SecurityError)
-        {
-            handleSecurityError(error);
-        }
-    }
-   
-    /**
-     *  @private
-     */
-    private function loader_completeHandler(event:Event):void
-    {
-        var image:Bitmap = null;
-        
-        try
-        {
-            image = Bitmap((event.target as LoaderInfo).content);
-            setBitmapData(image.bitmapData);
-        }
-        catch (error:SecurityError)
-        {
-            handleSecurityError(error);
-        } 
-    }
-    
-    /**
-     *  @private
-     */
-    private function loader_ioErrorHandler(error:IOErrorEvent):void
-    {
-        // clear any current image
-        setBitmapData(null);
-        
-        // forward the error
-        dispatchEvent(error);
-    }
-    
-    /**
-     *  @private
-     */
-    private function loader_securityErrorHandler(error:SecurityErrorEvent):void
-    {
-        // clear any current image
-        setBitmapData(null);
-        
-        // forward the error
-        dispatchEvent(error);
-    }
-    
-    /**
-     *  @private
-     */
-    private function handleSecurityError(error:SecurityError):void
-    {
-        setBitmapData(null);
-        dispatchEvent(new SecurityErrorEvent(SecurityErrorEvent.SECURITY_ERROR, false, false, error.message));
     }
 }
 
