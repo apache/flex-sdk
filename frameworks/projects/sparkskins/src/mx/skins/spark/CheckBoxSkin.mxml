@@ -36,7 +36,7 @@
         <State name="selectedDisabled" stateGroups="disabledStates, selectedStates" />
     </states>
     
-    <Group verticalCenter="-1" width="13" height="13">
+    <Group width="13" height="13">
 	    <!-- drop shadow -->
 	    <Rect left="-1" top="-1" right="-1" bottom="-1">
 	    	<stroke>
