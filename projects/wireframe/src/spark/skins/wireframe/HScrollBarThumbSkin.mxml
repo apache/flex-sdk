@@ -11,51 +11,51 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxButton")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.Button")]
+    </fx:Metadata> 
     
-    <states>
-        <State name="up" />
-        <State name="over" />
-        <State name="down" />
-        <State name="disabled" />
-    </states>
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
 
     <!-- background -->
-    <Rect left="0" top="0" right="0" bottom="0" minWidth="14" minHeight="14">
-        <stroke>
-            <SolidColorStroke color="0x3D5D92" />
-        </stroke>
-        <fill>
-            <SolidColor color="0xFFFFFF" />
-        </fill>
-    </Rect>
+    <s:Rect left="0" top="0" right="0" bottom="0" minWidth="14" minHeight="14">
+        <s:stroke>
+            <s:SolidColorStroke color="0x3D5D92" />
+        </s:stroke>
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
 
     <!-- Gripper -->
-    <Group horizontalCenter="-1" verticalCenter="0">
-        <Rect width="7" height="6">
-            <fill>
-                <SolidColor color="0xFFFFFF"  />
-            </fill>
-        </Rect>
-        <Line xFrom="1" xTo="1" yFrom="0" yTo="6">
-            <stroke>
-                <SolidColorStroke color="0x3D5D92" pixelHinting="true" />
-            </stroke>
-        </Line>
-        <Line xFrom="4" xTo="4" yFrom="0" yTo="6">
-            <stroke>
-                <SolidColorStroke color="0x3D5D92" pixelHinting="true" />
-            </stroke>
-        </Line>
-        <Line xFrom="7" xTo="7" yFrom="0" yTo="6">
-            <stroke>
-                <SolidColorStroke color="0x3D5D92" pixelHinting="true" />
-            </stroke>
-        </Line>
-    </Group>
+    <s:Group horizontalCenter="-1" verticalCenter="0">
+        <s:Rect width="7" height="6">
+            <s:fill>
+                <s:SolidColor color="0xFFFFFF"  />
+            </s:fill>
+        </s:Rect>
+        <s:Line xFrom="1" xTo="1" yFrom="0" yTo="6">
+            <s:stroke>
+                <s:SolidColorStroke color="0x3D5D92" pixelHinting="true" />
+            </s:stroke>
+        </s:Line>
+        <s:Line xFrom="4" xTo="4" yFrom="0" yTo="6">
+            <s:stroke>
+                <s:SolidColorStroke color="0x3D5D92" pixelHinting="true" />
+            </s:stroke>
+        </s:Line>
+        <s:Line xFrom="7" xTo="7" yFrom="0" yTo="6">
+            <s:stroke>
+                <s:SolidColorStroke color="0x3D5D92" pixelHinting="true" />
+            </s:stroke>
+        </s:Line>
+    </s:Group>
 
-</Skin>
+</s:Skin>
