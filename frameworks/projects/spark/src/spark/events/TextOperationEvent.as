@@ -17,9 +17,10 @@ import flash.events.Event;
 import flashx.textLayout.operations.FlowOperation;
 
 /**
- *  The TextOperationEvent class represents events that are dispatched when text content
- *  changes due to user operations such as inserting characters,
- *  backspacing, pasting, changing attributes, etc.
+ *  The TextOperationEvent class represents events that are dispatched
+ *  when text content changes due to user operations
+ *  such as inserting characters, backspacing, pasting,
+ *  changing attributes, etc.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -117,9 +118,8 @@ public class TextOperationEvent extends Event
      *  @param cancelable Specifies whether the behavior
      *  associated with the event can be prevented.
      *
-     *  @param operation Reference to the FlowOperation object
-     *  describing the editing operation being performed
-     *  on the text by the user.
+     *  @param operation The FlowOperation object representing
+	 *  the editing operation being performed on the text by the user.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -146,7 +146,12 @@ public class TextOperationEvent extends Event
     //----------------------------------
 
     /**
-     *  The FlowOperation object describing the editing operation being performed by the user.
+     *  The FlowOperation object representing the editing operation
+	 *  being performed on the text by the user.
+	 *
+	 *  <p>This might be an InsertTextOperation, a DeleteTextOperation,
+	 *  a SplitParagraphOperation, a CutOperation, a PasteOperation,
+	 *  an UndoOperation, etc.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
