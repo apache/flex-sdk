@@ -181,8 +181,10 @@ public class Line extends StrokedElement
 	
     override public function get bounds():Rectangle
 	{
+	    var w:Number = isNaN(_explicitWidth) ? Math.abs(xFrom - xTo) : _explicitWidth;
+	    var h:Number = isNaN(_explicitHeight) ? Math.abs(yFrom - yTo) : _explicitHeight;
 		return new Rectangle(Math.min(xTo, xFrom), Math.min(yTo, yFrom),
-		                     Math.max(xTo, xFrom), Math.max(yTo, yFrom));
+		                     w, h);
 	}
 	
 	/**
@@ -190,8 +192,11 @@ public class Line extends StrokedElement
 	 */
 	override protected function drawElement(g:Graphics):void
 	{
+        var drawToX:Number = xFrom <= xTo ? drawWidth : -drawWidth;  
+        var drawToY:Number = yFrom <= yTo ? drawHeight : -drawHeight;
+
 		g.moveTo(xFrom, yFrom);
-		g.lineTo(xTo, yTo);
+		g.lineTo(drawToX, drawToY);
 	}
 }
 
