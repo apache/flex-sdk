@@ -62,6 +62,9 @@
 
     <!-- Label -->
     <s:SimpleText id="labelElement"
-             left="19" top="3" />
+             left="19" top="3"
+         textAlign="start"
+         verticalAlign="middle"
+         lineBreak="explicit"/>
 
 </s:Skin>
