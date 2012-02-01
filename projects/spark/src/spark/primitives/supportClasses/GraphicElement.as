@@ -1748,7 +1748,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function set transform(value:flash.geom.Transform):void
     {
-        // FIXME (jszeto): Add perspectiveProjection support
+        // TODO (jszeto): Add perspectiveProjection support
         
         var matrix:Matrix = value && value.matrix ? value.matrix.clone() : null;
         var matrix3D:Matrix3D = value && value.matrix3D ? value.matrix3D.clone() : null;
@@ -2530,8 +2530,7 @@ public class GraphicElement extends EventDispatcher
     
     private var _alwaysCreateDisplayObject:Boolean;
     
-    // FIXME (jszeto): Remove once we have a better solution for a design tool 
-    // to captureBitmapData for hit testing.
+    // Used by the design tool to get bitmap captures
     mx_internal function set alwaysCreateDisplayObject(value:Boolean):void
     {
         if (value != _alwaysCreateDisplayObject)
