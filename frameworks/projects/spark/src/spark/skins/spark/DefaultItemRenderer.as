@@ -155,7 +155,6 @@ public class DefaultItemRenderer extends UIComponent
     public function DefaultItemRenderer()
     {
         super();
-        layoutDirection = "ltr";
         addHandlers();
     }
     
