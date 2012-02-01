@@ -2530,12 +2530,15 @@ public class GraphicElement extends EventDispatcher
         if (!displayObject || !displayObject.parent)
             return new Point(x, y);
             
-        if (needsDisplayObject)
-            return displayObject.localToGlobal(point);
+        var returnVal:Point = displayObject.localToGlobal(point);
+
+        if (!needsDisplayObject)
+        {
+            // If we're sharing the displayObject, add in our offset
+            returnVal.x += drawX;
+            returnVal.y += drawY;
+        }
         
-        var returnVal:Point = displayObject.parent.localToGlobal(point);
-        returnVal.x += drawX;
-        returnVal.y += drawY;
         return returnVal;
     }
     
