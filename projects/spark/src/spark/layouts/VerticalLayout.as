@@ -1666,10 +1666,6 @@ public class VerticalLayout extends LayoutBase
         // Otherwise the contentWidth is used to position the element and even size 
         // the element if it's "contentJustify" or "justify".
         var containerWidth:Number = targetWidth;        
-        
-        // FIXME (egeorgie): in the center or right case, we end up calculating percentWidth 
-        // twice.  Once here for the contentWidth and once in distributeHeight
-        // to size that particular element.
         if (horizontalAlign == HorizontalAlign.CONTENT_JUSTIFY ||
            (clipAndEnableScrolling && (horizontalAlign == HorizontalAlign.CENTER ||
                                        horizontalAlign == HorizontalAlign.RIGHT))) 
