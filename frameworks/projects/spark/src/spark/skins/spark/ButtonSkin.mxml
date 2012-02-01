@@ -19,7 +19,7 @@ in accordance with the terms of the license agreement accompanying it.
 @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-             xmlns:fb="http://ns.adobe.com/fb/2009" minWidth="21" minHeight="21" alpha.disabled="0.5">
+             xmlns:fb="http://ns.adobe.com/flashbuilder/2009" minWidth="21" minHeight="21" alpha.disabled="0.5">
     
     <!-- host component -->
     <fx:Metadata>
@@ -31,7 +31,7 @@ in accordance with the terms of the license agreement accompanying it.
         ]]>
     </fx:Metadata>
     
-    <fx:Script fb:stylingSupport="true">
+    <fx:Script fb:purpose="styling">
         <![CDATA[         
             /* Define the skin elements that should not be colorized. 
             For button, the graphics are colorized but the label is not. */
