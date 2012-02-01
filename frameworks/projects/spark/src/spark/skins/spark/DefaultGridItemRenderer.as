@@ -37,6 +37,17 @@ use namespace mx_internal;
 include "../../styles/metadata/BasicNonInheritingTextStyles.as"
 include "../../styles/metadata/BasicInheritingTextStyles.as"
 
+// From AdvancedInheritingTextStyles.as
+/**
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#textIndent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="textIndent", type="Number", format="Length", inherit="yes", minValue="0.0")]
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -57,10 +68,36 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 //  Excluded APIs
 //--------------------------------------
 
-[Exclude(name="verticalAlign", kind="style")]
+// From BasicInheritingTextStyles.as
+// If ignorePadding is false (default=true), paddingLeft/paddingRight are used to set 
+// the FTE leftMargin/rightMargin.  FTE paddingLeft/paddingRight are hard-coded.
+[Exclude(name="paddingBottom", kind="style")]   // hard-coded in FTETextField
+[Exclude(name="paddingTop", kind="style")]      // hard-coded in FTETextField
+[Exclude(name="verticalAlign", kind="style")]   // not supported by renderer
+
+// From BasicNonInheritingTextStyles.as
+[Exclude(name="alignmentBaseline", kind="style")]
+[Exclude(name="baselineShift", kind="style")]
+[Exclude(name="cffHinting", kind="style")]
+[Exclude(name="digitCase", kind="style")]
+[Exclude(name="digitWidth", kind="style")]
+[Exclude(name="dominantBaseline", kind="style")]
+[Exclude(name="fontLookup", kind="style")]
+[Exclude(name="justificationRule", kind="style")]
+[Exclude(name="justificationStyle", kind="style")]
+[Exclude(name="leading", kind="style")]         // hard-coded in FTETextField
+[Exclude(name="ligatureLevel", kind="style")]
+[Exclude(name="lineHeight", kind="style")]
+[Exclude(name="lineThrough", kind="style")]
+[Exclude(name="renderingMode", kind="style")]
+[Exclude(name="textAlignLast", kind="style")]
+[Exclude(name="textAlpha", kind="style")]
+[Exclude(name="textJustify", kind="style")]
+[Exclude(name="trackingLeft", kind="style")]
+[Exclude(name="trackingRight", kind="style")]   // trackingRight in FTETextField set to letterSpacing
+[Exclude(name="typographicCase", kind="style")]
 
 // These must be inherited to work correctly.
-
 [Exclude(name="layoutDirection", kind="property")]
 [Exclude(name="layoutDirection", kind="style")]
 
@@ -77,11 +114,9 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  The UIFTETextField control is based on FTE, the FlashTextEngine,  which supports 
  *  high-quality international typography and font embedding in the same way as other 
  *  Spark controls.
- *  Since the UIFTETextField control implements the TextField API, <i>you must use MX text syles</i>
- *  rather than Spark text styles to configure the renderer.  
+ *  Since the UIFTETextField control implements the TextField API, a subset of the
+ *  Spark text styles are supported.
  *  Please see the documentation for this class for the list of supported styles.
- *  These styles can be inherited from the renderer's parent even though the parent is a Spark 
- *  control.
  * 
  *  <p>You can control the label text wrapping by using the <code>lineBreak</code> style.  
  *  For example, setting  <code>lineBreak="explicit"</code> and <code>variableRowHeight="false"</code> 
@@ -160,6 +195,20 @@ public class DefaultGridItemRenderer extends UIFTETextField implements IGridItem
         setStyle("locale", value);
     }
 
+    /**
+     *  @private
+     */
+    override public function set enabled(value:Boolean):void
+    {
+        // Make this behave like a Spark Label which does not have a disabledColor style.
+        // ToDo(cframpto):  Should be moved to setStyle or getStyle so in the very remote
+        // chance the style is changed while the component is disabled the change will
+        // take effect.
+        if (!value && super.enabled)
+            setStyle("disabledColor", getStyle("color"));        
+        super.enabled = value;
+    }
+    
 include "TextFieldGridItemRendererInclude.as"
 
 }
