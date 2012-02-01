@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics
+package spark.primitives
 {
 
 import flash.display.Graphics;
@@ -22,6 +22,15 @@ import flash.geom.Rectangle;
 
 import mx.utils.MatrixUtil;
 import mx.core.mx_internal;
+import spark.primitives.pathSegments.LineSegment;
+import spark.primitives.supportClasses.FilledElement;
+import spark.primitives.pathSegments.CloseSegment;
+import spark.primitives.pathSegments.CubicBezierSegment;
+import spark.primitives.pathSegments.MoveSegment;
+import spark.primitives.pathSegments.PathSegment;
+import spark.primitives.pathSegments.QuadraticBezierSegment;
+
+
 
 use namespace mx_internal;
 
@@ -47,10 +56,10 @@ use namespace mx_internal;
  *  
  *  @includeExample examples/ArrowExample.mxml
  *  
- *  @see mx.graphics.MoveSegment
- *  @see mx.graphics.LineSegment
- *  @see mx.graphics.CubicBezierSegment
- *  @see mx.graphics.QuadraticBezierSegment
+ *  @see spark.primitives.pathSegments.MoveSegment
+ *  @see spark.primitives.pathSegments.LineSegment
+ *  @see spark.primitives.pathSegments.CubicBezierSegment
+ *  @see spark.primitives.pathSegments.QuadraticBezierSegment
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -400,7 +409,7 @@ public class Path extends FilledElement
 
     private var _segments:Array = [];
     
-    [ArrayElementType("mx.graphics.PathSegment")]
+    [ArrayElementType("spark.primitives.pathSegments.PathSegment")]
     [Inspectable(category="General")]
     /**
      *  The segments for the path. Each segment must be a subclass of PathSegment.
