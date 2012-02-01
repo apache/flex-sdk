@@ -1864,8 +1864,10 @@ public class HorizontalLayout extends LayoutBase
         }
         
         var x:Number = emptySpaceLeft + Math.round((emptySpace - width)/2);
+		// Allow 1 pixel overlap with container border
         x = Math.max(-Math.ceil(width / 2), Math.min(target.contentWidth - Math.ceil(width/2), x));
-        var y:Number = paddingTop;
+
+		var y:Number = paddingTop;
         return new Rectangle(x, y, width, height);
     }
 }
