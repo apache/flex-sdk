@@ -275,8 +275,8 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @default The target's first layout element.
      *  @see target
      *  @see DataGroup#typicalItem
-     *  @see mx.layout.VerticalLayout#variableRowHeight
-     *  @see mx.layout.HorizontalLayout#variableColumnWidth
+     *  @see spark.layout.VerticalLayout#variableRowHeight
+     *  @see spark.layout.HorizontalLayout#variableColumnWidth
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
