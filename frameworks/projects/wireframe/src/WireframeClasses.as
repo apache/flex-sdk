@@ -56,6 +56,8 @@ internal class WireframeClasses
 	import spark.skins.wireframe.SpinnerDecrementButtonSkin; SpinnerDecrementButtonSkin;
 	import spark.skins.wireframe.SpinnerIncrementButtonSkin; SpinnerIncrementButtonSkin;
 	import spark.skins.wireframe.SpinnerSkin; SpinnerSkin;
+	import spark.skins.wireframe.TabBarSkin; TabBarSkin;
+	import spark.skins.wireframe.TabBarButtonSkin; TabBarButtonSkin;
 	import spark.skins.wireframe.TextAreaSkin; TextAreaSkin;
 	import spark.skins.wireframe.TextInputSkin; TextInputSkin;
 	import spark.skins.wireframe.TitleWindowCloseButtonSkin; TitleWindowCloseButtonSkin;
