@@ -34,7 +34,7 @@ public class SparkSkin extends Skin
     static private var colorTransform:ColorTransform = new ColorTransform();
     
     /**
-     *  Flag that specified whether or not this skin should be affected by baseColor.
+     *  Flag that specified whether or not this skin should be affected by chromeColor.
      *
      *  @default false
      *  
@@ -43,7 +43,7 @@ public class SparkSkin extends Skin
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected var useBaseColor:Boolean = false;
+    protected var useChromeColor:Boolean = false;
     
     private var colorized:Boolean = false;
     
@@ -61,7 +61,7 @@ public class SparkSkin extends Skin
     }
     
     /**
-     *  Names of items that should not be colorized by the <code>baseColor</code> style.
+     *  Names of items that should not be colorized by the <code>chromeColor</code> style.
      *  Only items of type DisplayObject or GraphicElement should be excluded. Items
      *  of other types will be ignored.
      *  
@@ -147,14 +147,14 @@ public class SparkSkin extends Skin
             }
         }
         
-        // base color
-        var baseColor:uint = getStyle("baseColor");
+        // chrome color
+        var chromeColor:uint = getStyle("chromeColor");
         
-        if ((baseColor != DEFAULT_COLOR  || colorized) && useBaseColor)
+        if ((chromeColor != DEFAULT_COLOR  || colorized) && useChromeColor)
         {          
-            colorTransform.redOffset = ((baseColor & (0xFF << 16)) >> 16) - DEFAULT_COLOR_VALUE;
-            colorTransform.greenOffset = ((baseColor & (0xFF << 8)) >> 8) - DEFAULT_COLOR_VALUE;
-            colorTransform.blueOffset = (baseColor & 0xFF) - DEFAULT_COLOR_VALUE;
+            colorTransform.redOffset = ((chromeColor & (0xFF << 16)) >> 16) - DEFAULT_COLOR_VALUE;
+            colorTransform.greenOffset = ((chromeColor & (0xFF << 8)) >> 8) - DEFAULT_COLOR_VALUE;
+            colorTransform.blueOffset = (chromeColor & 0xFF) - DEFAULT_COLOR_VALUE;
             colorTransform.alphaMultiplier = alpha;
             
             transform.colorTransform = colorTransform;
