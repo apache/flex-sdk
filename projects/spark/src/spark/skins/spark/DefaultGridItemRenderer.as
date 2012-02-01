@@ -69,8 +69,6 @@ public class DefaultGridItemRenderer extends UIFTETextField implements IGridItem
     {
         super();
         
-        multiline = true;  // consistent with singleLine=false (the default) 
-        wordWrap = true;
         autoSize = TextFieldAutoSize.NONE;
         inheritingStyles = StyleProtoChain.STYLE_UNINITIALIZED;
         nonInheritingStyles = StyleProtoChain.STYLE_UNINITIALIZED;
