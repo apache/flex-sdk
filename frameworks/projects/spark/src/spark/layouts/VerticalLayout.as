@@ -12,14 +12,18 @@
 package flex.layout
 {
 import flash.geom.Rectangle;
+import flash.display.DisplayObject;
+import flash.events.Event;
 import flash.events.EventDispatcher;
 
 import flex.core.GroupBase;
+import flex.graphics.IGraphicElement;
 import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 
 import mx.containers.utilityClasses.Flex;
 import mx.events.PropertyChangeEvent;
+import flex.core.Group;
 
 
 /**
@@ -88,6 +92,7 @@ public class VerticalLayout extends EventDispatcher implements ILayout
     //----------------------------------
     //  gap
     //----------------------------------
+    
     private function invalidateTargetSizeAndDisplayList():void
     {
         var layoutTarget:GroupBase = target;
@@ -298,6 +303,140 @@ public class VerticalLayout extends EventDispatcher implements ILayout
         _variableRowHeight = value;
         invalidateTargetSizeAndDisplayList();
     }
+    
+    //----------------------------------
+    //  firstIndexInView
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _firstIndexInView:int = -1;
+
+    [Inspectable(category="General")]
+    [Bindable("indexInViewChanged")]    
+
+	/**
+	 *  The index of the first row that's part of the layout and within
+	 *  the layout target's scrollRect, or -1 if nothing has been displayed yet.
+	 * 
+	 *  Note that the row may only be partially in view.
+	 * 
+	 *  @see lastIndexInView
+	 *  @see inView
+	 */
+	public function get firstIndexInView():int
+	{
+		return _firstIndexInView;
+	}
+	
+	
+    //----------------------------------
+    //  lastIndexInView
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _lastIndexInView:int = -1;
+    
+    [Inspectable(category="General")]
+    [Bindable("indexInViewChanged")]    
+
+	/**
+     *  The index of the last row that's part of the layout and within
+     *  the layout target's scrollRect, or -1 if nothing has been displayed yet.
+     * 
+     *  Note that the row may only be partially in view.
+     * 
+     *  @see firstIndexInView
+     *  @see inView
+	 */
+	public function get lastIndexInView():int
+	{
+		return _lastIndexInView;
+	}
+
+    /**
+     *  Sets the <code>firstIndexInView</code> and <code>lastIndexInView</code>
+     *  properties and dispatches a <code>"indexInViewChanged"</code>
+     *  event.  
+     * 
+     *  This method is intended to be used by subclasses that 
+     *  override updateDisplayList() to sync the first and 
+     *  last indexInView properties with the current display.
+     *
+     *  @param firstIndex The new value for firstIndexInView.
+     *  @param lastIndex The new value for lastIndexInView.
+     * 
+     *  @see firstIndexInView
+     *  @see lastIndexInview
+     */
+    protected function setIndexInView(firstIndex:int, lastIndex:int):void
+    {
+        if ((_firstIndexInView == firstIndex) && (_lastIndexInView == lastIndex))
+            return;
+            
+        _firstIndexInView = firstIndex;
+        _lastIndexInView = lastIndex;
+        dispatchEvent(new Event("indexInViewChanged"));
+    }
+    
+	/**
+	 *  An index is "in view" if the corresponding non-null layout item is 
+	 *  within the vertical limits of the layout target's scrollRect
+	 *  and included in the layout.
+	 *  
+	 *  Returns 1.0 if the specified index is completely in view, 0.0 if
+	 *  it's not, and a value in between if the index is partially 
+	 *  within the view.
+	 * 
+	 *  If the specified index is partially within the view, the 
+	 *  returned value is the percentage of the corresponding layout
+	 *  item that's visible.
+	 * 
+	 *  Returns 0.0 if the specified index is invalid or if it corresponds to
+	 *  null item, or a ILayoutItem for which includeInLayout is false.
+	 * 
+	 *  @return the percentage of the specified item that's in view.
+	 *  @see firstIndexInView
+	 *  @see lastIndexInView
+	 */
+	public function inView(index:int):Number 
+	{
+		var vp:GroupBase = GroupBase(target);
+	    if (!vp)
+	        return 0.0;
+	        
+        var li:ILayoutItem = vp.getLayoutItemAt(index);
+        if ((li == null) || !li.includeInLayout)
+            return 0.0;
+
+        var r0:int = firstIndexInView;	
+        var r1:int = lastIndexInView;
+        
+        // outside the visible index range
+        if ((r0 == -1) || (r1 == -1) || (index < r0) || (index > r1))
+            return 0.0;
+            
+        // within the visible index range, but not first or last            
+        if ((index > r0) && (index < r1))
+            return 1.0;
+
+        // index is first (r0) or last (r1) visible row
+        var y0:Number = vp.verticalScrollPosition;
+        var y1:Number = y0 + vp.height;
+        var iy0:Number = li.actualPosition.y;
+        var iy1:Number = iy0 + li.actualSize.y;
+        if (iy0 >= iy1)  // item has 0 or negative height
+            return 0.0;
+        if ((iy0 >= y0) && (iy1 <= y1))
+            return 1.0;
+        if (index == r0)
+            return (iy1 - y0) / (iy1 - iy0);
+        else 
+            return (y1 - iy0) / (iy1 - iy0);
+	}    
 
 
     private function variableRowHeightMeasure(layoutTarget:GroupBase):void
@@ -455,25 +594,45 @@ public class VerticalLayout extends EventDispatcher implements ILayout
         var minVisibleY:Number = layoutTarget.verticalScrollPosition;
         var maxVisibleY:Number = minVisibleY + unscaledHeight;
         
-        // Finally, position the objects        
+        // Finally, position the LayoutItems and find the first/last
+        // visible indices, the content size, and the number of 
+        // visible items.    
         var y:Number = 0;
         var maxX:Number = 0;
         var maxY:Number = 0;
-        for each (var lo:ILayoutItem in layoutItemArray)
+        var firstRowInView:int = -1;
+        var lastRowInView:int = -1;
+        
+        for (var index:int = 0; index < count; index++)
         {
+            var lo:ILayoutItem = layoutTarget.getLayoutItemAt(index);
+            if (!layoutItem || !layoutItem.includeInLayout)
+                continue;
+
+        	// Set the layout item's acutual size and position
             var x:Number = (unscaledWidth - lo.actualSize.x) * hAlign;
             lo.setActualPosition(x, y);
             var dx:Number = lo.actualSize.x;
             if (!variableRowHeight)
                 lo.setActualSize(dx, rowHeight);
+                
+            // Update maxX,Y, first,lastVisibleIndex, and y
             var dy:Number = lo.actualSize.y;
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);
             if ((y < maxVisibleY) && ((y + dy) > minVisibleY))
+            {
             	visibleRows += 1;
+            	if (firstRowInView == -1)
+            	   firstRowInView = lastRowInView = index;
+            	else
+            	   lastRowInView = index;
+            }
             y += dy + gap;
         }
+        
         setRowCount(visibleRows);
+        setIndexInView(firstRowInView, lastRowInView);
         layoutTarget.setContentSize(maxX, maxY);
     }
     
