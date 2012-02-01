@@ -81,7 +81,7 @@
     <s:RichEditableText id="textDisplay"
               lineBreak="explicit"
               verticalAlign="middle"
-              widthInChars="15"
+              widthInChars="10"
               left="1" right="1" top="1" bottom="1" 
               paddingLeft="3" paddingTop="5"
               paddingRight="3" paddingBottom="3"/>
