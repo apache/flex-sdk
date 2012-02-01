@@ -21,7 +21,7 @@ component is defined by the NumericStepperTextInputSkin class.
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
       minHeight="23" minWidth="40" 
-      alpha.disabled="0.5" blendMode.disabled="layer">
+      alpha.disabled="0.5">
 
     <fx:Metadata>
     <![CDATA[ 
