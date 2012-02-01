@@ -273,6 +273,36 @@ public class BitmapImage extends GraphicElement
     {
         return _bytesTotal; 
     }
+    
+    //----------------------------------
+    //  clearOnLoad
+    //----------------------------------
+    
+    private var _clearOnLoad:Boolean = true;
+    
+    /**
+     *  Denotes whether or not to clear previous 
+     *  image content prior to loading new content.
+     * 
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get clearOnLoad():Boolean 
+    {
+        return _clearOnLoad; 
+    }
+    
+    /**
+     *  @private
+     */
+    public function set clearOnLoad(value:Boolean):void
+    {
+        _clearOnLoad = value;
+    }
 
     //----------------------------------
     //  contentLoaderGrouping
@@ -948,6 +978,8 @@ public class BitmapImage extends GraphicElement
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
     {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        
         var adjustedHeight:Number = unscaledHeight;
         var adjustedWidth:Number = unscaledWidth;
         
@@ -979,23 +1011,39 @@ public class BitmapImage extends GraphicElement
         {            
             if (loadedContent)
             {
-                loadedContent.width = adjustedWidth;
-                loadedContent.height = adjustedHeight;
-                loadedContent.y = 0;
-                loadedContent.x = 0;
+                // We are hosting a display object so let's scale, align, and clip 
+                // as necessary.
                 
-                // Adjust our loaded content as necessary to requested alignment
-                // if we are maintaining aspect ratio and we have left over space.
-                if (maintainAspectRatio)
+                if (_fillMode == BitmapFillMode.SCALE)
                 {
-                    if (unscaledHeight > adjustedHeight)
-                        loadedContent.y = Math.floor((unscaledHeight - adjustedHeight) 
+                    loadedContent.width = adjustedWidth;
+                    loadedContent.height = adjustedHeight;
+                }
+ 
+                loadedContent.y = loadedContent.x = 0;
+                
+                // Align our loaded content as necessary if our width
+                // and/or height is larger than our content height.
+                if (maintainAspectRatio || _fillMode == BitmapFillMode.CLIP)
+                {
+                    var contentWidth:Number = (_fillMode == BitmapFillMode.CLIP) ? 
+                        imageWidth : adjustedWidth;
+                    var contentHeight:Number = (_fillMode == BitmapFillMode.CLIP) ? 
+                        imageHeight : adjustedHeight;
+                    
+                    if (unscaledHeight > contentHeight)
+                        loadedContent.y = Math.floor((unscaledHeight - contentHeight) 
                             * getVerticalAlignValue());
 
-                    if (unscaledWidth > adjustedWidth)
-                        loadedContent.x = Math.floor((unscaledWidth - adjustedWidth) 
+                    if (unscaledWidth > contentWidth)
+                        loadedContent.x = Math.floor((unscaledWidth - contentWidth) 
                             * getHorizontalAlignValue());
-                }
+                } 
+                
+                // Setup clip rect if appropriate.
+                loadedContent.scrollRect = (_fillMode == BitmapFillMode.CLIP) ?
+                    new Rectangle(0, 0, unscaledWidth, unscaledHeight) : null;
+                
             }
             return;
         }
@@ -1061,7 +1109,9 @@ public class BitmapImage extends GraphicElement
             var offsetX:Number = 0;
             var offsetY:Number = 0;
             
-            if (maintainAspectRatio)
+            // Align our bitmap content as necessary if our width
+            // and/or height is larger than our content height.
+            if (maintainAspectRatio || _fillMode == BitmapFillMode.CLIP)
             {
                 var cHeight:Number = b.height * fillScaleX;
                 var cWidth:Number = b.width * fillScaleY;
@@ -1180,13 +1230,7 @@ public class BitmapImage extends GraphicElement
                                      internallyCreated:Boolean = false):void
     {         
         // Clear previous bitmapData
-        if (_bitmapData)
-        {
-            // Dispose the bitmap if we created it
-            if (bitmapDataCreated) 
-                _bitmapData.dispose();
-            _bitmapData = null;
-        }
+        clearBitmapData();
         
         // Reset imageWidth/Height, as we aren't
         // loading external content so no reason to 
@@ -1243,7 +1287,13 @@ public class BitmapImage extends GraphicElement
                 
         // We'll need to reconsider display object sharing.
         invalidateDisplayObjectSharing();
+        invalidateDisplayList();
                 
+        // Remove any previously hosted content prior to loading
+        // new content (if applicable).
+        if (_clearOnLoad)
+            removePreviousContent();
+        
         if (value is Class)
         {
             var cls:Class = Class(value);
@@ -1296,10 +1346,11 @@ public class BitmapImage extends GraphicElement
                 _scaleGridBottom = tmpSprite.scale9Grid.bottom;
             }
         }
-        
-        // Remove any previously hosted untrusted content (Loader instances)
-        // if applicable.
-        removeLoadedContent();
+                
+        // Remove any previously hosted content prior to assigning
+        // new bitmap data (if we haven't already previously).
+        if (!_clearOnLoad)
+            removePreviousContent();
         
         setBitmapData(bitmapData, currentBitmapCreated);
     }
@@ -1435,7 +1486,7 @@ public class BitmapImage extends GraphicElement
         {
             // Clear any previous bitmap data or loader instance.
             setBitmapData(null);
-            removeLoadedContent();
+            removePreviousContent();
             
             var loaderInfo:LoaderInfo = content as LoaderInfo;
             
@@ -1493,9 +1544,9 @@ public class BitmapImage extends GraphicElement
     
     /**
      * @private
-     * Returns true if are to consider aspect ratio while scaling.
+     * Removes any previously loaded content prior to loading new.
      */  
-    private function removeLoadedContent():void
+    private function removePreviousContent():void
     {
         if (loadedContent && loadedContent.parent)
         {
@@ -1505,6 +1556,11 @@ public class BitmapImage extends GraphicElement
             loadedContent = null;
             setDisplayObject(null);
             imageWidth = imageHeight = NaN;
+        }
+        else if (drawnDisplayObject)
+        {
+            Sprite(drawnDisplayObject).graphics.clear();
+            clearBitmapData();
         }
     }
     
@@ -1527,6 +1583,20 @@ public class BitmapImage extends GraphicElement
         
         removeLoadingListeners();
         loadingContent = null;
+    }
+    
+    /**
+     *  @private
+     */
+    private function clearBitmapData():void
+    {
+        if (_bitmapData)
+        {
+            // Dispose the bitmap if we created it
+            if (bitmapDataCreated) 
+                _bitmapData.dispose();
+            _bitmapData = null;
+        }
     }
     
     /**
