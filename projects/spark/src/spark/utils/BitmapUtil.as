@@ -56,7 +56,7 @@ public class BitmapUtil
         var m:Matrix = target.transform.concatenatedMatrix;
         // truncate position because the fractional offset will already be figured
         // into the filter placement onto the target. 
-        // TODO (chaase): There are still some offset
+        // FIXME (chaase): There are still some offset
         // problems with objects inside of rotated parents, depending on the angle.
         if (m)
             m.translate(-(Math.floor(rectBounds.x)), -(Math.floor(rectBounds.y)));
