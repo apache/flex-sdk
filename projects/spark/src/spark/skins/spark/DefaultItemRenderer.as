@@ -56,6 +56,6 @@
             	/>
         </s:fill>
     </s:Rect>
-    <s:SimpleText id="labelDisplay" verticalCenter="0" left="3" right="3" top="6" bottom="4"/>
+    <s:Label id="labelDisplay" verticalCenter="0" left="3" right="3" top="6" bottom="4"/>
 
 </s:ItemRenderer>
