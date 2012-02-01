@@ -12,21 +12,15 @@
 package spark.primitives.supportClasses
 {
 import flash.display.Graphics;
-import flash.display.Shape;
+import flash.display.LineScaleMode;
 import flash.display.Sprite;
-import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.geom.Point;
 import flash.geom.Rectangle;
-
-import spark.primitives.supportClasses.GraphicElement;
 
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
-import mx.filters.BaseFilter;
-import mx.filters.IBitmapFilter;
 import mx.graphics.IStroke;
-import flash.geom.Point;
-import flash.display.LineScaleMode;
 
 use namespace mx_internal;
 
@@ -172,7 +166,8 @@ public class StrokedElement extends GraphicElement
             stroke.apply(g,new Rectangle(drawX + measuredX, 
             						    drawY + measuredY, 
             						    Math.max(width, stroke.weight), 
-            						    Math.max(height, stroke.weight)));
+            						    Math.max(height, stroke.weight)),
+                         new Point(drawX, drawY));
         else
             g.lineStyle();
             
