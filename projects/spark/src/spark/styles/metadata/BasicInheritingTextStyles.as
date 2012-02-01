@@ -302,3 +302,54 @@
  *  @productversion Flex 4
  */
 [Style(name="typographicCase", type="String", enumeration="default,capsToSmallCaps,uppercase,lowercase,lowercaseToSmallCaps", inherit="yes")]
+
+
+/**
+ *  Additional vertical space between lines of text.
+ *
+ *  <p>The default value is 0.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Style(name="leading", type="Number", format="Length", inherit="yes", theme="mobile")]
+
+/**
+ *  The number of additional pixels to appear between each character.
+ *  A positive value increases the character spacing beyond the normal spacing,
+ *  while a negative value decreases it.
+ * 
+ *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Style(name="letterSpacing", type="Number", inherit="yes", theme="mobile")]
+
+/**
+ *  Color of text shadows.
+ * 
+ *  @default #FFFFFF
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="textShadowColor", type="uint", format="Color", inherit="yes", theme="mobile")]
+
+/**
+ *  Alpha of text shadows.
+ * 
+ *  @default 0.55
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="textShadowAlpha", type="Number",inherit="yes", minValue="0.0", maxValue="1.0", theme="mobile")]
