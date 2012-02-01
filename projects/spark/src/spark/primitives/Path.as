@@ -13,16 +13,15 @@ package mx.graphics
 {
 
 import flash.display.Graphics;
+import flash.display.GraphicsPath;
 import flash.display.LineScaleMode;
-import flash.events.EventDispatcher;
+import flash.display.Shape;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.display.Shape;
 
-import mx.core.mx_internal;
-import mx.graphics.IStroke;
 import mx.utils.MatrixUtil;
+import mx.core.mx_internal;
 
 use namespace mx_internal;
 
@@ -84,6 +83,16 @@ public class Path extends FilledElement
      */    
     private var lastActualScaleX:Number = 0;
     private var lastActualScaleY:Number = 0;
+    
+    /**
+     *  Dirty flag to indicate when path data has changed. 
+     */ 
+    private var graphicsPathChanged:Boolean = true;
+    
+    /**
+     *  Documentation is not currently available.
+     */ 
+	protected var graphicsPath:GraphicsPath = new GraphicsPath(new Vector.<int>(), new Vector.<Number>());
     
     //--------------------------------------------------------------------------
     //
@@ -387,7 +396,7 @@ public class Path extends FilledElement
         {
             _segments[i].segmentHost = this;
         }
-        
+        graphicsPathChanged = true;
         boundsChanged();
     }
     
@@ -412,7 +421,12 @@ public class Path extends FilledElement
      */
     public function set winding(value:String):void
     {
-        _winding = value;
+    	if (_winding != value)
+    	{
+        	_winding = value;
+        	graphicsPathChanged = true;
+        	invalidateDisplayList();
+     	} 
     }
     
     /** 
@@ -505,28 +519,38 @@ public class Path extends FilledElement
      */
     override protected function drawElement(g:Graphics):void
     {
-        // Always start by moving to 0, 0. Otherwise
-        // the path will begin at the previous pen location
-        // if it does not start with a MoveSegment.
-        g.moveTo(0, 0);
-        var currentSubPathStartIndex:int = 0;
-        
-        for (var i:int = 0; i < segments.length; i++)
-        {
-            var segment:PathSegment = segments[i];
-                    
-            segment.draw(g, (i > 0 ? segments[i - 1] : null));
-            
-            if (segment is CloseSegment)
-            {   
-                if (segments[currentSubPathStartIndex] is MoveSegment)
-                    g.lineTo(segments[currentSubPathStartIndex].x, segments[currentSubPathStartIndex].y)
-                else
-                    g.lineTo(0, 0);
-                    
-                currentSubPathStartIndex = i+1;
-            }
-        }
+    	if (graphicsPathChanged)
+    	{
+    		graphicsPath.commands = null;
+    		graphicsPath.data = null;
+    		
+	        // Always start by moving to 0, 0. Otherwise
+	        // the path will begin at the previous pen location
+	        // if it does not start with a MoveSegment.
+	        graphicsPath.moveTo(0, 0);
+	        var currentSubPathStartIndex:int = 0;
+	        
+	        for (var i:int = 0; i < segments.length; i++)
+	        {
+	            var segment:PathSegment = segments[i];
+	                    
+	            segment.draw(graphicsPath, (i > 0 ? segments[i - 1] : null));
+	            
+	            if (segment is CloseSegment)
+	            {   
+	                if (segments[currentSubPathStartIndex] is MoveSegment)
+	                    graphicsPath.lineTo(segments[currentSubPathStartIndex].x, segments[currentSubPathStartIndex].y)
+	                else
+	                    graphicsPath.lineTo(0, 0);
+	                    
+	                currentSubPathStartIndex = i+1;
+	            }
+	        }
+	        
+	        graphicsPathChanged = false;
+     	}
+     	 
+     	g.drawPath(graphicsPath.commands, graphicsPath.data, winding);
     }
     
     /**
@@ -559,6 +583,7 @@ public class Path extends FilledElement
      */
     public function segmentChanged(e:PathSegment):void 
     {
+    	graphicsPathChanged = true;
         boundsChanged();
     }
     
