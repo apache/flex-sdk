@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2009 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+						
+						minWidth="21" minHeight="19" 
+						alpha.disabled="0.5">
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="disabled"/>
+	</s:states>
+	
+	<!-- background -->
+	<s:Rect id="fill" left="0" right="0" top="0" bottom="0"
+			width="69" height="20"
+			radiusX="2" radiusY="2">
+		<s:stroke>
+			<s:SolidColorStroke color="0x5380D0" />
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor color="0xFFFFFF" />
+		</s:fill>
+	</s:Rect>
+	
+</s:Skin>
