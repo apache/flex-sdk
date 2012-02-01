@@ -2,24 +2,30 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The default skin class for the track on a Spark HScrollBar component. -->
+<!--- The default skin class for the track on a Spark HScrollBar component.  
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
     <fx:Metadata>
     <![CDATA[ 
-	/** 
-	 * @copy spark.skins.default.ApplicationSkin#hostComponent
-	 */
-    	[HostComponent("spark.components.Button")]
+    /** 
+     * @copy spark.skins.default.ApplicationSkin#hostComponent
+     */
+        [HostComponent("spark.components.Button")]
     ]]>
     </fx:Metadata> 
     
@@ -30,7 +36,7 @@
         <s:State name="disabled" />
     </s:states>
 
-	<!-- border/fill -->
+    <!-- border/fill -->
     <s:Rect top="0" bottom="0" left="0" right="0" minWidth="14" minHeight="14">
         <s:stroke>
             <s:SolidColorStroke color="0x686868" weight="1" />
@@ -40,25 +46,25 @@
         </s:fill>
     </s:Rect>
 
-	<!-- shadow -->
-	<s:Rect left="1" right="1" top="1" height="1">
-		<s:fill>
-			<s:SolidColor color="0x989898" alpha="0.5" />
-		</s:fill>
-	</s:Rect>
-	<s:Rect left="1" right="1" top="2" height="1">
-		<s:fill>
-			<s:SolidColor color="0x989898" alpha="0.25" />
-		</s:fill>
-	</s:Rect>
-	<s:Rect left="1" top="2" bottom="1" width="2">
-		<s:fill>
-			<s:SolidColor color="0x989898" alpha="0.25" />
-		</s:fill>
-	</s:Rect>
-	<s:Rect right="1" top="2" bottom="1" width="3">
-		<s:fill>
-			<s:SolidColor color="0x989898" alpha="0.25" />
-		</s:fill>
-	</s:Rect>
+    <!-- shadow -->
+    <s:Rect left="1" right="1" top="1" height="1">
+        <s:fill>
+            <s:SolidColor color="0x989898" alpha="0.5" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect left="1" right="1" top="2" height="1">
+        <s:fill>
+            <s:SolidColor color="0x989898" alpha="0.25" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect left="1" top="2" bottom="1" width="2">
+        <s:fill>
+            <s:SolidColor color="0x989898" alpha="0.25" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect right="1" top="2" bottom="1" width="3">
+        <s:fill>
+            <s:SolidColor color="0x989898" alpha="0.25" />
+        </s:fill>
+    </s:Rect>
 </s:SparkSkin>
