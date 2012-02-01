@@ -175,7 +175,7 @@ public class BitmapImage extends GraphicElement
      *  When set to <code>BitmapImageResizeMode.SCALE</code> ("scale"), the bitmap
      *  stretches to fill the region.
      * 
-     *  @default <code>BitmapImageResizeMode.NORMAL</code>
+     *  @default <code>BitmapImageResizeMode.REPEAT</code>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
