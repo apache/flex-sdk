@@ -16,6 +16,7 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.ui.Keyboard; 
 
 import mx.containers.utilityClasses.Flex;
 import mx.core.ILayoutElement;
@@ -1197,6 +1198,30 @@ public class VerticalLayout extends LayoutBase
         else 
             measureReal(layoutTarget);
     }
+    
+    /**
+     *  @private 
+     *  For a VerticalLayout, returns the index of the next item to 
+     *  navigate to given the current index and keyCode passed in. 
+     */  
+     override public function nextItemIndex(keyCode:uint, currentIndex:int, maxIndex:int):int
+     {
+         var retVal:int = super.nextItemIndex(keyCode, currentIndex, maxIndex); 
+         switch (keyCode)
+         {
+             case Keyboard.UP:
+             {
+                retVal = Math.max(currentIndex - 1, 0);  
+                break;
+             } 
+             case Keyboard.DOWN: 
+             {
+                retVal = Math.min(currentIndex + 1, maxIndex);  
+                break;
+             }
+         }
+         return retVal;  
+     }
     
     /**
      *  @private
