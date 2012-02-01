@@ -19,7 +19,7 @@ in accordance with the terms of the license agreement accompanying it.
 @productversion Flex 4.5
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-        xmlns:fb="http://ns.adobe.com/flashbuilder/2009">
+        xmlns:fb="http://ns.adobe.com/flashbuilder/2009" minHeight="9" minWidth="36">
     
     <!-- host component -->
     <fx:Metadata>
@@ -27,32 +27,74 @@ in accordance with the terms of the license agreement accompanying it.
         [HostComponent("spark.components.supportClasses.Range")]
         ]]>
     </fx:Metadata>
-    
-    <s:Rect height="9" width="26">
+      
+    <!-- Track layer: inner border -->
+    <s:Rect left="1" right="1" top="1" bottom="1" >
         <s:stroke>
-            <s:SolidColorStroke color="#000000"/>
+            <s:SolidColorStroke color="0x636363" alpha="1" />
         </s:stroke>
+    </s:Rect>
+    
+    <!-- Track layer: fill -->
+    <s:Rect left="2" right="2" top="2" bottom="2" >
         <s:fill>
-            <s:SolidColor color="#FFFFFF"/>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="0x9A9A9A" 
+                                 alpha="1" />
+                <s:GradientEntry color="0xBDBDBD" 
+                                 alpha="1" />
+            </s:LinearGradient>
         </s:fill>
     </s:Rect>
     
-    <s:Rect height="5" width="22" top="2" left="2">
-        <s:stroke>
-            <s:SolidColorStroke color="#000000"/>
-        </s:stroke>
+    <!-- Track layer: inner shadow -->
+    <s:Rect left="2" top="2" bottom="2" width="1" >
         <s:fill>
-            <s:SolidColor color="#FFFFFF"/>
+            <s:SolidColor color="0x000000" alpha="0.12" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect right="2" top="2" bottom="2" width="1" >
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.12" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect left="3" top="2" right="3" height="1" >
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.12" />
         </s:fill>
     </s:Rect>
     
-    <s:Group width="21" left="3" top="3" >
-        <s:Rect height="4" percentWidth="{hostComponent.value}">
+    <!-- Progress bar -->
+    <s:Group percentWidth="{hostComponent.value}" height="100%">
+        <!-- layer 1: fill -->
+        <s:Rect left="2" right="2" top="2" bottom="2" >
             <s:fill>
-                <s:SolidColor color="#B6B2A7"/>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0xFFFFFF" 
+                                     alpha="1" />
+                    <s:GradientEntry color="0xD8D8D8" 
+                                     alpha="1" />
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
+        
+        <!-- layer 2: border -->
+        <s:Rect left="2" right="2" top="2" bottom="2" >
+            <s:stroke>
+                <s:LinearGradientStroke rotation="90">
+                    <s:GradientEntry color="0xFFFFFF" 
+                                     alpha=".9" />
+                    <s:GradientEntry color="0xFFFFFF" 
+                                     alpha="0.5" />
+                </s:LinearGradientStroke>
+            </s:stroke>
+        </s:Rect>
+        
+        <!-- layer 3: right edge -->
+        <s:Rect right="1" top="2" bottom="2" width="1" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.35" />
             </s:fill>
         </s:Rect>
     </s:Group>
-    
-    <s:Label left="29" verticalCenter="0"  text="{hostComponent.value}%" />
 </s:Skin>
