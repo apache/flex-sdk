@@ -44,7 +44,7 @@ import mx.filters.IBitmapFilter;
  * with a filter applied, the filter is turned off if the resulting image exceeds the maximum dimensions.</p>
  * 
  *  @mxml 
- *  <p>The <code>&lt;BlurFilter&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:BlurFilter&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
