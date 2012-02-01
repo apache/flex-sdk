@@ -532,7 +532,7 @@ public class Path extends FilledElement
             width = getBoundingBox(width, height, layoutFeatures.layoutMatrix).width;
 
         // Take stroke into account
-        return width + getStrokeExtents().x;
+        return width + getStrokeExtents(postLayoutTransform).width;
     }
 
     /**
@@ -546,7 +546,7 @@ public class Path extends FilledElement
             height = getBoundingBox(width, height, layoutFeatures.layoutMatrix).height;
 
         // Take stroke into account
-        return height + getStrokeExtents().y;
+        return height + getStrokeExtents(postLayoutTransform).height;
     }
 
     /**
@@ -559,27 +559,27 @@ public class Path extends FilledElement
      */
     override public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
+        var strokeExtents:Rectangle = getStrokeExtents(postLayoutTransform);
         var m:Matrix = getComplexMatrix(postLayoutTransform);
 
         if (!m)
         {
             // Check for a common case, BasicLayout measure() always hits this:
             if (isNaN(width))
-                return strokeExtents.x * -0.5 + this.x + measuredX;
+                return strokeExtents.left + this.x + measuredX;
             else
                 width = preferredWidthPreTransform();
 
             var naturalBounds:Rectangle = getBounds();
             var sx:Number = (naturalBounds.width == 0 || width == 0) ? 1 : width / naturalBounds.width;
-            return strokeExtents.x * -0.5 + this.x + measuredX * sx;
+            return strokeExtents.left + this.x + measuredX * sx;
         }
     
         if (!isNaN(width))
-            width -= strokeExtents.x;
+            width -= strokeExtents.width;
 
         if (!isNaN(height))
-            height -= strokeExtents.y;
+            height -= strokeExtents.height;
 
         // Calculate the width and height pre-transform:
         var newSize:Point = MatrixUtil.fitBounds(width, height, m,
@@ -589,7 +589,7 @@ public class Path extends FilledElement
                                                  maxWidth, maxHeight);
         if (!newSize)
             newSize = new Point(minWidth, minHeight);
-        return strokeExtents.x * -0.5 + getBoundingBox(newSize.x, newSize.y, m).x;
+        return strokeExtents.left + getBoundingBox(newSize.x, newSize.y, m).x;
     }
 
     /**
@@ -602,27 +602,27 @@ public class Path extends FilledElement
      */
     override public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
+        var strokeExtents:Rectangle = getStrokeExtents(postLayoutTransform);
         var m:Matrix = getComplexMatrix(postLayoutTransform);
 
         if (!m)
         {
             // Check for a common case, BasicLayout measure() always hits this:
             if (isNaN(height))
-                return strokeExtents.y * -0.5 + this.y + measuredY;
+                return strokeExtents.top + this.y + measuredY;
             else
                 height = preferredHeightPreTransform();    
 
             var naturalBounds:Rectangle = getBounds();
             var sy:Number = (naturalBounds.height == 0 || height == 0) ? 1 : height / naturalBounds.height;
-            return strokeExtents.y * -0.5 + this.y + measuredY * sy;
+            return strokeExtents.top + this.y + measuredY * sy;
         }
     
         if (!isNaN(width))
-            width -= strokeExtents.x;
+            width -= strokeExtents.width;
 
         if (!isNaN(height))
-            height -= strokeExtents.y;
+            height -= strokeExtents.height;
 
         // Calculate the width and height pre-transform:
         var newSize:Point = MatrixUtil.fitBounds(width, height, m,
@@ -632,7 +632,7 @@ public class Path extends FilledElement
                                                  maxWidth, maxHeight);
         if (!newSize)
             newSize = new Point(minWidth, minHeight);
-        return strokeExtents.y * -0.5 + getBoundingBox(newSize.x, newSize.y, m).y;
+        return strokeExtents.top + getBoundingBox(newSize.x, newSize.y, m).y;
     }
 
     /**
@@ -640,7 +640,7 @@ public class Path extends FilledElement
      */
     override public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
-        var stroke:Number = -getStrokeExtents(postLayoutTransform).x * 0.5;
+        var stroke:Number = getStrokeExtents(postLayoutTransform).left;
         var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
         {
@@ -658,7 +658,7 @@ public class Path extends FilledElement
      */
     override public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
     {
-        var stroke:Number = - getStrokeExtents(postLayoutTransform).y * 0.5;
+        var stroke:Number = getStrokeExtents(postLayoutTransform).top;
         var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
         {
