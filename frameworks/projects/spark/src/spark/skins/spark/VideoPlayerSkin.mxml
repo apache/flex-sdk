@@ -20,9 +20,9 @@
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
     xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabledStates="0.5" 
-    baseColor.normalStates="{undefined}" baseColor.fullScreenStates="0xCCCCCC">
-    <!-- base color of undefined in the normal states means we inherit the baseColor property, and 
-         a base color of 0xCCCCCC in the fullScreenStates means we ignore the baseColor property 
+    chromeColor.normalStates="{undefined}" chromeColor.fullScreenStates="0xCCCCCC">
+    <!-- chrome color of undefined in the normal states means we inherit the chromeColor property, and 
+         a chrome color of 0xCCCCCC in the fullScreenStates means we ignore the chromeColor property 
          all together as 0xCCCCCC is essentially just a no-op color transform -->
 
     <!-- host component -->
@@ -42,7 +42,7 @@
              */
             override protected function initializationComplete():void
             {
-                useBaseColor = true;
+                useChromeColor = true;
                 super.initializationComplete();
             }
             
