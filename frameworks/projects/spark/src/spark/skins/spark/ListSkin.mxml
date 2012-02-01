@@ -62,7 +62,7 @@
     </s:Rect>
     
     <!--- Defines the appearance of the list items, including their layout direction and the item renderer class. -->
-    <s:Scroller left="1" top="1" right="1" bottom="1" id="scroller">
+    <s:Scroller left="1" top="1" right="1" bottom="1" id="scroller" focusEnabled="false">
 	    <s:DataGroup id="dataGroup" itemRenderer="spark.skins.default.DefaultItemRenderer">
 	    	<s:layout>
 	    	    <s:VerticalLayout gap="0" horizontalAlign="contentJustify" />
