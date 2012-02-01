@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2009 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the Halo CheckBox component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+						 
+						 alpha.disabledStates="0.5">
+	 <!-- have to use disabledAlpha style rather than alpha.disabled as in most of our skins 
+	 because the enabled property gets pushed down in here from the Halo button, and since 
+	 the skin is a Group, it handles setting of alpha when disabled via the disabledAlpha style -->
+	 
+	 <s:states>
+		 <s:State name="up" />
+		 <s:State name="over" stateGroups="overStates" />
+		 <s:State name="down" stateGroups="downStates" />
+		 <s:State name="disabled" stateGroups="disabledStates" />
+		 <s:State name="selectedUp" stateGroups="selectedStates" />
+		 <s:State name="selectedOver" stateGroups="overStates, selectedStates" />
+		 <s:State name="selectedDown" stateGroups="downStates, selectedStates" />
+		 <s:State name="selectedDisabled" stateGroups="disabledStates, selectedStates" />
+	 </s:states>
+	 
+	 <s:Group width="13" height="13">
+		 
+		 <!-- background -->
+		 <s:Rect left="0" right="0" minWidth="12" top="0" bottom="0" minHeight="12">
+			 <s:stroke>            
+				 <s:SolidColorStroke color="0x5380D0" />
+			 </s:stroke>
+			 <s:fill>
+				 <s:SolidColor color="0xFFFFFF" color.overStates="0xEBF4FF" 
+							   color.downStates="0xDEEBFF" />
+			 </s:fill>
+		 </s:Rect>
+		 
+		 <!-- shadow (down states only) -->
+		 <s:Rect left="1" top="1" right="1" bottom="1" includeIn="downStates">
+			 <s:stroke>
+				 <s:LinearGradientStroke rotation="90">
+					 <s:GradientEntry color="0x5380D0" alpha="0.25" />
+					 <s:GradientEntry color="0x5380D0" alpha="0" />
+				 </s:LinearGradientStroke>
+			 </s:stroke>
+		 </s:Rect>
+		 
+		 <!-- checkmark -->
+		 <s:Path data="M 3.5 6.5 l 2 2 l 6 -7"
+				 includeIn="selectedStates" id="check" itemCreationPolicy="immediate">
+			 <s:stroke>
+				 <s:SolidColorStroke id="checkMarkFill" weight="2" caps="square" color="0x3D5D92" />
+			 </s:stroke>
+		 </s:Path>
+	 </s:Group>
+ </s:Skin>
