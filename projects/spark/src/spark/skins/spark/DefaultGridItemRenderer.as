@@ -261,7 +261,6 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
             return;
         
         _label = value;
-        
         if (labelDisplay)
             labelDisplay.text = _label;
         
@@ -336,10 +335,11 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         if (!labelDisplay)
         {
             labelDisplay = new UITextField();
-            /*
-            labelDisplay.autoSize = TextFieldAutoSize.LEFT;
+
+            labelDisplay.multiline = true;
             labelDisplay.wordWrap = true;
-            */
+            labelDisplay.autoSize = TextFieldAutoSize.LEFT;
+
             addChild(DisplayObject(labelDisplay));
             if (_label != "")
                 labelDisplay.text = _label;
@@ -354,15 +354,10 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         super.measure();
         
         // labelDisplay layout: padding of 3 on left and right and padding of 5 on top and bottom.
-          
-        measuredWidth = LayoutElementUIComponentUtils.getPreferredBoundsWidth(labelDisplay, null) + 10;
-        measuredHeight = LayoutElementUIComponentUtils.getPreferredBoundsHeight(labelDisplay, null) + 6;
         
-        measuredMinWidth = measuredWidth;
-        measuredMinHeight = measuredHeight;
+        measuredHeight = LayoutElementUIComponentUtils.getPreferredBoundsHeight(labelDisplay, null) + 6;
+        measuredWidth = LayoutElementUIComponentUtils.getPreferredBoundsWidth(labelDisplay, null) + 10;
     }
-    
-    private var textIsTruncated:Boolean = false;
     
     /**
      *  @private
@@ -373,14 +368,16 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
 
         // labelDisplay layout: padding of 5 on left and right and padding of 5 on top.
         
-        labelDisplay.setActualSize(width-10, height-5);
+        labelDisplay.setActualSize(width - 10, height - 5);
         
-        if (textIsTruncated)
-            labelDisplay.text = _label;
-        textIsTruncated = labelDisplay.truncateToFit();
+        // GridLayout/layoutItemRenderers() assumes that after validating the renderer 
+        // (see GridLayout/layoutGridElement) renderer.getPreferredBoundsHeight() will
+        // return a value that reflects the column's current width.
+        measuredHeight = LayoutElementUIComponentUtils.getPreferredBoundsHeight(labelDisplay, null) + 6;        
         
         labelDisplay.move(5, 5);
     }
-    
+ 
+        
 }   
 }
