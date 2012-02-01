@@ -24,6 +24,11 @@ import mx.styles.StyleManager;
  *  effect; you do not create one yourself.
  *
  *  @see mx.effects.SetAction
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */  
 public class SetActionInstance extends ActionEffectInstance
 {
@@ -39,6 +44,11 @@ public class SetActionInstance extends ActionEffectInstance
      *  Constructor.
      *
      *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function SetActionInstance(target:Object)
     {
@@ -57,6 +67,11 @@ public class SetActionInstance extends ActionEffectInstance
 
     /** 
      *  The name of the property being changed. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var property:String;
     
@@ -66,11 +81,21 @@ public class SetActionInstance extends ActionEffectInstance
 
     /** 
      *  Storage for the value property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private var _value:*;
     
     /** 
      *  The new value for the property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get value():*
     {
@@ -128,6 +153,11 @@ public class SetActionInstance extends ActionEffectInstance
      * if it is a style.  There are some special cases handled
      * for specific property types such as percent-based width/height
      * and string-based color values.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private function setValue(property:String, value:Object):void
     {
@@ -173,6 +203,11 @@ public class SetActionInstance extends ActionEffectInstance
     /**
      * Gets the current value of propName, whether it is a 
      * property or a style on the target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private function getValue(propName:String):*
     {
