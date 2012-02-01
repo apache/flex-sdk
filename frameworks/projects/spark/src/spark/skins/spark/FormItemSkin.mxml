@@ -33,43 +33,40 @@
         }
     </fx:Style>
     
+    <s:layout>
+        <s:FormItemLayout>
+            <s:constraintColumns>
+                <s:ConstraintColumn id="numCol" />
+                <s:ConstraintColumn id="labelCol" />
+                <s:ConstraintColumn id="indicatorCol" width="16"/>
+                <s:ConstraintColumn id="contentCol"/>
+                <s:ConstraintColumn id="helpCol"/>
+                <s:ConstraintColumn id="errorCol" width="160"/>
+            </s:constraintColumns>         
+            <s:constraintRows>
+                <s:ConstraintRow id="row1" />
+            </s:constraintRows>  
+        </s:FormItemLayout>
+    </s:layout>
+    
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:fill>
             <s:SolidColor color="0x449922" color.errorStates="0xFFDDDD" alpha="0" alpha.requiredStates=".3" alpha.error=".2"/>
         </s:fill>
     </s:Rect>
-    
-    <s:Group left="5" top="2" bottom="2" right="5">
-       
-    <mx:Canvas id="canvasLayout">
-                
-        <mx:constraintColumns>
-            <mx:ConstraintColumn id="numCol" />
-            <mx:ConstraintColumn id="labelCol" />
-            <mx:ConstraintColumn id="indicatorCol" width="16"/>
-            <mx:ConstraintColumn id="contentCol"/>
-            <mx:ConstraintColumn id="helpCol" width="160"/>
-            <mx:ConstraintColumn id="errorCol" width="200"/>
-        </mx:constraintColumns>
-        
-        <mx:constraintRows>
-            <mx:ConstraintRow id="row1" />
-        </mx:constraintRows>    
+
             
-        <s:Label id="sequenceLabelDisplay" right="numCol:3" baseline="row1:24" />
-        <s:Label id="labelDisplay" left="labelCol:2" right="labelCol:2" baseline="row1:24" styleName="labelStyle"/>
-        <mx:Image source="@Embed(source='Assets.swf',symbol='mx.containers.FormItem.Required')" 
-                  horizontalCenter="indicatorCol:0" baseline="row1:24" visible="false" visible.requiredStates="true"/>
-        <s:Group id="contentGroup" left="contentCol:3" right="contentCol:3" baseline="row1:20" showErrorTip="false" showErrorSkin="true">
-            <s:layout>
-                <s:VerticalLayout/>
-            </s:layout>
-        </s:Group>
-        <s:Group id="helpContentGroup" left="helpCol:5" right="helpCol:3" top="row1:0" bottom="row1:0"/>
-        <s:RichText id="errorTextDisplay" styleName="errorTextStyle" visible="false" visible.errorStates="true"
-                    left="errorCol:5" right="errorCol:3" height="100%" baseline="row1:24" maxDisplayedLines="-1"/>    
-        <!--<s:RichText id="helpTextElement" styleName="helpTextStyle" 
-                    left="helpCol:5" right="helpCol:3" height="100%" baseline="row1:24" maxDisplayedLines="-1"/> -->       
-    </mx:Canvas>
+    <s:Label id="sequenceLabelDisplay" right="numCol:3" baseline="row1:24" />
+    <s:Label id="labelDisplay" left="labelCol:2" right="labelCol:2" baseline="row1:24" styleName="labelStyle"/>
+    <mx:Image source="@Embed(source='Assets.swf',symbol='mx.containers.FormItem.Required')" 
+              left="indicatorCol:3" right="indicatorCol:3" baseline="row1:24" visible="false" visible.requiredStates="true"/>
+    <s:Group id="contentGroup" left="contentCol:2" right="contentCol:2" baseline="row1:20" showErrorTip="false" showErrorSkin="true">
+        <s:layout>
+            <s:VerticalLayout/>
+        </s:layout>
     </s:Group>
+    <s:Group id="helpContentGroup" left="helpCol:5" right="helpCol:3" top="row1:0" bottom="row1:0"/>
+    <s:RichText id="errorTextDisplay" styleName="errorTextStyle" visible="false" visible.errorStates="true"
+                left="errorCol:5" right="errorCol:3" height="100%" baseline="row1:24" maxDisplayedLines="-1"/>    
+        
 </s:Skin>
