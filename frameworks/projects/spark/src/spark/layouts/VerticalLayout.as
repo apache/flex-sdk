@@ -1277,6 +1277,8 @@ public class VerticalLayout extends LayoutBase
         if (!variableRowHeight)
             fixedRowHeight = rowHeight;  // may query typicalLayoutElement, elt at index=0
         
+        // Get the numElementsInLayout clamped to requested min/max
+        var rowsToMeasure:int = getRowsToMeasure(numElementsInLayout);
         var element:ILayoutElement;
         for (var i:int = 0; i < numElements; i++)
         {
@@ -1288,7 +1290,7 @@ public class VerticalLayout extends LayoutBase
             }
             
             // Can we measure this row height?
-            if (requestedRowCount == -1 || rowsMeasured < requestedRowCount)
+            if (rowsMeasured < rowsToMeasure)
             {
                 getElementHeight(element, fixedRowHeight, size);
                 preferredHeight += size.preferredSize;
@@ -1303,8 +1305,8 @@ public class VerticalLayout extends LayoutBase
             minWidth = Math.max(minWidth, size.minSize);
         }
         
-        // Calculate the total number of rows to measure
-        var rowsToMeasure:int = getRowsToMeasure(numElementsInLayout);
+        // Calculate the total number of rows to measure again, since numElementsInLayout may have changed
+        rowsToMeasure = getRowsToMeasure(numElementsInLayout);
 
         // Do we need to measure more rows?
         if (rowsMeasured < rowsToMeasure)
