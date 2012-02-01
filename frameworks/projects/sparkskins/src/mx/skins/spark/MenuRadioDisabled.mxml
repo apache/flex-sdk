@@ -26,9 +26,6 @@ in accordance with the terms of the license agreement accompanying it.
     <fx:Script>
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["radioFill"];
-        /**
-         * @private
-         */
         override public function get symbolItems():Array {return symbols};
     </fx:Script>
     
