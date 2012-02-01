@@ -12,6 +12,8 @@
 -->
 
 <!--- The default skin class for the Spark Button component.  
+
+       @see spark.components.Button
         
       @langversion 3.0
       @playerversion Flash 10
