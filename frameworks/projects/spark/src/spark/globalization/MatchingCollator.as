@@ -40,6 +40,11 @@ import spark.globalization.supportClasses.CollatorBase;
  *  @includeExample examples/MatchingCollatorExample.mxml
  *
  *  @see flash.globalization.Collator
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class MatchingCollator extends CollatorBase
 {
