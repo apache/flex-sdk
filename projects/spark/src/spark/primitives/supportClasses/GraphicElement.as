@@ -2707,7 +2707,7 @@ public class GraphicElement extends OnDemandEventDispatcher
 
         // TODO EGeorgie: don't clear the graphics if the GraphicElement is invisible and explicitly owns the DO?
         // If we are the first in the sequence, clear the graphics:
-        if (shareIndex <= 0)
+        if (shareIndex <= 0 && drawnDisplayObject is ISharedGraphicsDisplayObject)
             ISharedGraphicsDisplayObject(drawnDisplayObject).graphics.clear();
 
         if (visible)
