@@ -26,6 +26,11 @@ public class BlurFilter extends BaseFilter implements IBitmapFilter
 	 *  or less means that the original image is copied as is. The default 
 	 *  value is 4. Values that are a power of 2 (such as 2, 4, 8, 16, and 32) 
 	 *  are optimized to render more quickly than other values.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get blurX():Number
 	{
@@ -52,6 +57,11 @@ public class BlurFilter extends BaseFilter implements IBitmapFilter
 	 *  or less means that the original image is copied as is. The default 
 	 *  value is 4. Values that are a power of 2 (such as 2, 4, 8, 16, and 32)
 	 *  are optimized to render more quickly than other values.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get blurY():Number
 	{
@@ -86,6 +96,11 @@ public class BlurFilter extends BaseFilter implements IBitmapFilter
 	 *  Instead of increasing the value of quality, you can often get a similar 
 	 *  effect, and with faster rendering, by simply increasing the values of 
 	 *  the blurX and blurY properties.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get quality():int
 	{
