@@ -39,8 +39,13 @@ in accordance with the terms of the license agreement accompanying it.
         ]]>
     </fx:Metadata>
     
+    <!-- Primary image display part -->
     <s:BitmapImage id="imageDisplay" left="0" top="0" right="0" bottom="0"/>
+    
+    <!-- Progress indicator part -->
     <s:Range id="progressIndicator" skinClass="spark.skins.spark.ImageLoadingSkin" verticalCenter="0" horizontalCenter="0" includeIn="loading" layoutDirection="ltr" />
-    <s:BitmapImage id="ii" includeIn="invalid" source="@Embed(source='Assets.swf',symbol='__brokenImage')" verticalCenter="0" horizontalCenter="0"/>
+    
+    <!-- Invalid image icon -->
+    <s:BitmapImage includeIn="invalid" source="@Embed(source='Assets.swf',symbol='__brokenImage')" verticalCenter="0" horizontalCenter="0"/>
     
 </s:Skin>
