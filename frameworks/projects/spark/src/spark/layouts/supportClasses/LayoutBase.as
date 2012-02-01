@@ -13,6 +13,7 @@ package spark.layout.supportClasses
 {
 
 import flash.geom.Point;
+import flash.events.Event;
 import flash.geom.Rectangle;
 
 import spark.components.supportClasses.GroupBase;
