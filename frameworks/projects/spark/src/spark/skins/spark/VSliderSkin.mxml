@@ -12,6 +12,10 @@
 
 <!--- The default skin class for the Spark VSlider component. The thumb and track skins are defined by the
 VSliderThumbSkin and VSliderTrackSkin classes, respectively.  
+
+       @see spark.components.VSlider
+       @see spark.skins.spark.VSliderThumbSkin
+       @see spark.skins.spark.VSliderTrackSkin
         
       @langversion 3.0
       @playerversion Flash 10
@@ -72,8 +76,8 @@ VSliderThumbSkin and VSliderTrackSkin classes, respectively.
     </s:states>
     
     <fx:Declarations>
-        <!--- To customize the DataTip's appearance, create a custom VSliderSkin class.
-              @copy spark.components.supportClasses.Slider#dataTip -->
+        <!--- The tooltip used in the mx.controls.Slider control.
+              To customize the DataTip's appearance, create a custom VSliderSkin class. -->
         <fx:Component id="dataTip">
             <s:DataRenderer minHeight="24" minWidth="40" x="20"> 
                 <s:Rect top="0" left="0" right="0" bottom="0">
@@ -94,12 +98,15 @@ VSliderThumbSkin and VSliderTrackSkin classes, respectively.
         </fx:Component>
     </fx:Declarations>
     
-    <!--- The default skin class is VSliderTrackSkin.
-          @copy spark.components.supportClasses.TrackBase#track -->
+    <!--- @copy spark.components.supportClasses.TrackBase#track 
+           The default skin class is VSliderTrackSkin.
+           @see spark.skins.spark.VSliderTrackSkin -->
     <s:Button id="track" left="0" right="0" top="0" bottom="0" minHeight="33" height="100"
               skinClass="spark.skins.spark.VSliderTrackSkin" />
-    <!--- The default skin class is VSliderThumbSkin. 
-          @copy spark.components.supportClasses.TrackBase#thumb -->
+              
+    <!--- @copy spark.components.supportClasses.TrackBase#thumb
+            The default skin class is VSliderThumbSkin. 
+            @see spark.skins.spark.VSliderThumbSkin -->
     <s:Button id="thumb" left="0" right="0" width="11" height="11" 
               skinClass="spark.skins.spark.VSliderThumbSkin" />
 
