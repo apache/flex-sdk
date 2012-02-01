@@ -243,7 +243,7 @@ public class GraphicElement extends EventDispatcher
     private var blendModeChanged:Boolean;
 
     [Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", enumeration="add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay", defaultValue="normal")]
 
     /**
      *  Documentation is not currently available.
@@ -682,7 +682,7 @@ public class GraphicElement extends EventDispatcher
     private var maskTypeChanged:Boolean;
 
     [Bindable("propertyChange")]
-    [Inspectable(category="General",enumeration="clip,alpha", defaultValue="clip")]
+    [Inspectable(category="General", enumeration="clip,alpha", defaultValue="clip")]
     
     /**
      *  Documentation is not currently available.
