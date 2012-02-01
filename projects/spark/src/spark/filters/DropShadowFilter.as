@@ -39,6 +39,11 @@ public class DropShadowFilter extends BaseDimensionFilter implements IBitmapFilt
 	 *  For example, .25 sets a transparency value of 25%.
 	 * 
 	 *  @default 1
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get alpha():Number
 	{
@@ -68,6 +73,11 @@ public class DropShadowFilter extends BaseDimensionFilter implements IBitmapFilt
 	 *   therefore, the angle property has no effect.
 	 * 
 	 *   @default 45
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get angle():Number
 	{
@@ -93,6 +103,11 @@ public class DropShadowFilter extends BaseDimensionFilter implements IBitmapFilt
 	 *  The color of the glow. Valid values are in the hexadecimal format 
 	 * 	0xRRGGBB. 
 	 *  @default 0xFF0000
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get color():uint
 	{
@@ -117,6 +132,11 @@ public class DropShadowFilter extends BaseDimensionFilter implements IBitmapFilt
 	/**
 	 *  The offset distance of the bevel. Valid values are in pixels (floating point). 
 	 * 	@default 4
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get distance():Number
 	{
@@ -142,6 +162,11 @@ public class DropShadowFilter extends BaseDimensionFilter implements IBitmapFilt
 	 *  Indicates whether or not the object is hidden. The value true indicates that the 
 	 *  object itself is not drawn; only the shadow is visible. 
 	 *  The default is false (the object is shown).
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get hideObject():Boolean
 	{
@@ -166,6 +191,11 @@ public class DropShadowFilter extends BaseDimensionFilter implements IBitmapFilt
 	/**
 	 *  Specifies whether the glow is an inner glow. The value true indicates an inner glow. 
 	 *  The default is false, an outer glow (a glow around the outer edges of the object).
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get inner():Boolean
 	{
