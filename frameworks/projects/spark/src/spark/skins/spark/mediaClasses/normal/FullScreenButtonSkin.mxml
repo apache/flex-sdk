@@ -11,7 +11,11 @@
 
 -->
 
-<!--- The default skin class for the fullScreen button of a Spark VideoPlayer component.  
+<!--- The default skin class for the fullScreen button of a Spark VideoPlayer component
+      in the normal skin state. The normal skin state means the component is not in 
+      one of the <code>fullScreen</code> skin states.  
+
+      @see spark.components.VideoPlayer
         
       @langversion 3.0
       @playerversion Flash 10
@@ -129,7 +133,7 @@
         </s:stroke>
     </s:Rect>
     
-    <!--- full screen symbol -->
+    <!--- Defines the full-screen symbol. -->
     <s:Group horizontalCenter="0" verticalCenter="0" id="fullScreenSymbol">
         <!-- size of area so left, right, bottom, top work well -->
         <s:Rect left="0" top="0" width="19" height="14">
