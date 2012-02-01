@@ -11,13 +11,13 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009" >
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" >
 
 	<!-- layer 1: line -->
-	<Rect left="0" right="0" top="1" height="1" >
-		<fill>
-			<SolidColor color="0x000000" alpha=".55" />
-		</fill>
-	</Rect>
+	<s:Rect left="0" right="0" top="1" height="1" >
+		<s:fill>
+			<s:SolidColor color="0x000000" alpha=".55" />
+		</s:fill>
+	</s:Rect>
 	
-</Skin>
+</s:Skin>
