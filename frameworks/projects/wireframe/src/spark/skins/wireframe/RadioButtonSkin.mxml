@@ -80,6 +80,6 @@
              textAlign="start"
              verticalAlign="middle"
              maxDisplayedLines="1"
-             left="19" top="3" />
+             left="18" right="0" top="3" bottom="3" verticalCenter="2" />
 
 </s:SparkSkin>
