@@ -17,8 +17,10 @@ package mx.skins.spark
 	import mx.skins.ProgrammaticSkin;
 	
 	/**
-	 *  The skin for the sort arrow in a column header in a DataGrid.
+	 *  The skin for the sort arrow in a column header in an MX DataGrid.
 	 *  
+     *  @see mx.controls.DataGrid
+     *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
