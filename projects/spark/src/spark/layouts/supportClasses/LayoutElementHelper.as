@@ -17,13 +17,12 @@ package spark.layouts.supportClasses
 /**
  *  @private
  *  The LayoutElementHelper class is for internal use only.
+ *  TODO (egeorgie): move to a more general place, this is not specific to the LayoutElementHelper
  */
 public class LayoutElementHelper
 {
     include "../../core/Version.as";
 
-    // FIXME (egeorgie): move to a more general place, this is not specific to the LayoutElementHelper
-    
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -69,7 +68,6 @@ public class LayoutElementHelper
         return result[0];
     }
 
-    // FIXME (egeorgie): Duplicated code! Share this code with the Flex3 Canvas:
     /**
      *  @private
      *  Parses a constraint expression, like left="col1:10" 
