@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the disabled radio icon of a Halo Menu component. 
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" alpha=".5">
+    <fx:Script>
+        /* Define the skin elements that should not be colorized. 
+        For button, the graphics are colorized but the arrow is not. */
+        static private const exclusions:Array = ["radio"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the symbol fill items that should be colored by the "symbolColor" style. */
+        static private const symbols:Array = ["radioFill"];
+        override public function get symbolItems():Array {return symbols};
+    </fx:Script>
+    
+    <s:Ellipse id="radio" width="5" height="5">
+        <s:fill>
+            <s:SolidColor color="0" id="radioFill"/>
+        </s:fill>
+    </s:Ellipse>
+</s:SparkSkin>
+
