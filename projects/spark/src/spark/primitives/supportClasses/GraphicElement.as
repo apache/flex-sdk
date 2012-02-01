@@ -4355,7 +4355,15 @@ public class GraphicElement extends EventDispatcher
                 height = minHeight;
             }
         }
-
+        
+        setActualSize(width, height);
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function setActualSize(width:Number, height:Number):void
+    {
         if (_width != width || _height != height)
         {
             var oldWidth:Number = _width;
@@ -4363,10 +4371,10 @@ public class GraphicElement extends EventDispatcher
             
             _width = width;
             _height = height;
-			
-			if (layoutFeatures)  // mirroring transform depends on width
+            
+            if (layoutFeatures)  // mirroring transform depends on width
             {
-				layoutFeatures.layoutWidth = width;
+                layoutFeatures.layoutWidth = width;
                 invalidateTransform();
             }
             
@@ -4374,7 +4382,7 @@ public class GraphicElement extends EventDispatcher
                 dispatchPropertyChangeEvent("width", oldWidth, width);
             if (height != oldHeight)
                 dispatchPropertyChangeEvent("height", oldHeight, height);
-
+            
             invalidateDisplayList();
         }
     }
