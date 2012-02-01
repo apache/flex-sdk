@@ -12,12 +12,12 @@
 package flex.layout
 {
 
-import flex.intf.ILayout;
-import flex.intf.ILayoutItem;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import flex.core.Group;
+import flex.intf.ILayout;
+import flex.intf.ILayoutItem;
 
 /**
  *  Documentation is not currently available.
@@ -31,38 +31,18 @@ public class BasicLayout implements ILayout
     //  Class methods
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     * Layout class utility function used by updateDisplayList functions.
-     * Conditionally sets the origin of the specified Group's scrollRect to 
-     * verticalScrollPosition,horizontalScrollPosition and its width
-     * width,height to unscaledWidth,unscaledHeight.  We avoid setting
-     * the scrollRect (and therefore clipping) when scrolling isn't indicated:
-     * if the scrollRect is currently null and the scrollPosition properties
-     * are 0, and the Group's contentWidth,Height is &lt;= to unscaledWidth,Height,
-     * then the scrollRect is not set.
-     */ 
-    static function setScrollRect(g:Group, unscaledWidth:Number, unscaledHeight:Number):void
+        
+    private static function constraintsDetermineWidth(layoutItem:ILayoutItem):Boolean
     {
-        var r:Rectangle = g.scrollRect;
-        if (r != null) 
-        {
-            r.width = unscaledWidth;
-            r.height = unscaledHeight;
-            g.scrollRect = r;
-        }
-        else // scrollRect wasn't set
-        {
-            var hsp:Number = g.horizontalScrollPosition;
-            var vsp:Number = g.verticalScrollPosition;
-            var cw:Number = g.contentWidth;
-            var ch:Number = g.contentHeight;
-            // don't set the scrollRect needlessly
-            if ((hsp != 0) || (vsp != 0) || (cw > unscaledWidth) || (ch > unscaledHeight))
-                g.scrollRect = new Rectangle(hsp, vsp, unscaledWidth, unscaledHeight);
-        }
+        return !isNaN(LayoutItemHelper.getConstraint(layoutItem, "left")) &&
+               !isNaN(LayoutItemHelper.getConstraint(layoutItem, "right"));
     }
-    
+
+    private static function constraintsDetermineHeight(layoutItem:ILayoutItem):Boolean
+    {
+        return !isNaN(LayoutItemHelper.getConstraint(layoutItem, "top")) &&
+               !isNaN(LayoutItemHelper.getConstraint(layoutItem, "bottom"));
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -84,6 +64,10 @@ public class BasicLayout implements ILayout
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    // target
+    //----------------------------------
+
     private var _target:Group;
 
     public function get target():Group
@@ -96,21 +80,10 @@ public class BasicLayout implements ILayout
         _target = value;
     }
 
-    private static function constraintsDetermineWidth(layoutItem:ILayoutItem):Boolean
-    {
-        return !isNaN(LayoutItemHelper.getConstraint(layoutItem, "left")) &&
-               !isNaN(LayoutItemHelper.getConstraint(layoutItem, "right"));
-    }
-
-    private static function constraintsDetermineHeight(layoutItem:ILayoutItem):Boolean
-    {
-        return !isNaN(LayoutItemHelper.getConstraint(layoutItem, "top")) &&
-               !isNaN(LayoutItemHelper.getConstraint(layoutItem, "bottom"));
-    }
 
     //--------------------------------------------------------------------------
     //
-    //  ILayout
+    //  Methods: ILayout
     //
     //--------------------------------------------------------------------------
 
@@ -174,10 +147,11 @@ public class BasicLayout implements ILayout
 
         layoutTarget.measuredWidth = Math.max(width, minWidth);
         layoutTarget.measuredHeight = Math.max(height, minHeight);
+        
         layoutTarget.measuredMinWidth = minWidth;
         layoutTarget.measuredMinHeight = minHeight;
-        layoutTarget.contentWidth = layoutTarget.measuredWidth;
-        layoutTarget.contentHeight = layoutTarget.measuredHeight;
+        
+        layoutTarget.setContentSize(layoutTarget.measuredWidth, layoutTarget.measuredHeight);
     }
 
     public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
@@ -205,6 +179,8 @@ public class BasicLayout implements ILayout
             // Calculate size
             var childWidth:Number = NaN;
             var childHeight:Number = NaN;
+            var maxX:Number = 0;
+            var maxY:Number = 0;
             
             if (!isNaN(left) && !isNaN(right))
                 childWidth = unscaledWidth - right - left;
@@ -246,9 +222,13 @@ public class BasicLayout implements ILayout
 
             // Set position
             layoutItem.setActualPosition(childX, childY);
+            
+            // update content limits
+            maxX = Math.max(maxX, childX + childWidth);
+            maxY = Math.max(maxY, childY + childHeight);
         }
         
-        setScrollRect(layoutTarget, unscaledWidth, unscaledHeight);
+        layoutTarget.setContentSize(maxX, maxY);
     }
 }
 
