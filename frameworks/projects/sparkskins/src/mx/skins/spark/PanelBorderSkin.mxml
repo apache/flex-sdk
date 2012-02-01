@@ -18,7 +18,10 @@
       @playerversion AIR 1.5
       @productversion Flex 4
 -->
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" implements="mx.core.IRectangularBorder">
+<local:SparkSkinForHalo xmlns:fx="http://ns.adobe.com/mxml/2009" 
+                        xmlns:s="library://ns.adobe.com/flex/spark" 
+                        xmlns:local="mx.skins.spark.*"
+                        implements="mx.core.IRectangularBorder">
     
     <fx:Script>
         <![CDATA[
@@ -33,6 +36,12 @@
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
         static private const contentFill:Array = ["bgFill"];
         override public function get contentItems():Array {return contentFill};
+            
+        /* Define the border items.*/
+        static private const borderItem:Array = ["borderStroke"];
+        override protected function get borderItems():Array {return borderItem;}
+        override protected function get defaultBorderItemColor():uint {return getStyle("borderColor");}
+        override protected function get defaultBorderAlpha():Number {return getStyle("borderAlpha");}
 
         private var _metrics:EdgeMetrics = new EdgeMetrics(1, 32, 1, 1);
         public function get borderMetrics():EdgeMetrics
@@ -83,6 +92,24 @@
                 cbbg.visible = cbdiv.visible = false;
             }
             
+            if (getStyle("borderVisible") == false)
+            {
+                border.visible = false;
+                contents.left = contents.top = contents.right = contents.bottom = 0;
+            }
+            else
+            {
+                border.visible = true;
+                contents.left = contents.top = contents.right = contents.bottom = 1;
+            }
+            
+            dropShadow.visible = getStyle("dropShadowVisible");
+            
+            var cr:Number = getStyle("cornerRadius");
+            
+            if (cornerRadius != cr)
+                cornerRadius = cr;
+            
             super.updateDisplayList(unscaledWidth, unscaledHeight);
         }
         
@@ -122,69 +149,75 @@
             panels[s] = 1;
             return true;
         }
+            
+        [Bindable]
+        public var cornerRadius:Number;
         ]]>
     </fx:Script>
-    
+     
     <!-- drop shadow -->
-    <s:Rect left="0" top="0" right="0" bottom="0">
-        <s:filters>
-            <s:DropShadowFilter blurX="20" blurY="20" alpha="0.32" distance="11" angle="90" knockout="true" />
-        </s:filters>
-        <s:fill>
-            <s:SolidColor color="0" />
-        </s:fill>
-    </s:Rect>
+    <s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.32" distance="11" 
+                             angle="90" color="#000000" left="0" top="0" right="0" bottom="0" 
+                             tlRadius="{cornerRadius}" trRadius="{cornerRadius}"
+                             blRadius="0" 
+                             brRadius="0"  />
     
     <!-- layer 1: border -->
-    <s:Rect left="0" right="0" top="0" bottom="0">
+    <s:Rect id="border" left="0" right="0" top="0" bottom="0"
+            topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
         <s:stroke>
-            <s:SolidColorStroke color="0" alpha="0.50" weight="1" />
+            <s:SolidColorStroke id="borderStroke" weight="1" />
         </s:stroke>
     </s:Rect>
 
-    <!-- layer 2: background fill -->
-    <s:Rect id="background" left="1" top="1" right="1" bottom="1">
-        <s:fill>
-            <s:SolidColor color="0xFFFFFF" id="bgFill" />
-        </s:fill>
-    </s:Rect>
-    
-    <!-- layer 3: title bar fill -->
-    <s:Rect left="1" right="1" top="1" height="30">
-       <s:fill>
-            <s:LinearGradient rotation="90">
-                <s:GradientEntry color="0xE2E2E2" />
-                <s:GradientEntry color="0xD9D9D9" />
-            </s:LinearGradient>
-       </s:fill>
-    </s:Rect>
-    
-    <!-- layer 4: title bar highlight -->
-    <s:Rect left="1" right="1" top="1" height="30">
-       <s:stroke>
-            <s:LinearGradientStroke rotation="90" weight="1">
-                <s:GradientEntry color="0xEAEAEA" />
-                <s:GradientEntry color="0xD9D9D9" />
-            </s:LinearGradientStroke>
-       </s:stroke>
-    </s:Rect>
-    <s:Rect left="1" right="1" top="31" height="1">
-        <s:fill>
-            <s:SolidColor color="0xC0C0C0" />
-        </s:fill>
-    </s:Rect>
-    
-    <!-- layer 5: control bar background -->
-    <s:Rect id="cbbg" left="1" right="1" bottom="1" height="20">
-        <s:fill>
-            <s:SolidColor color="0xE8E8E8" />
-        </s:fill>
-    </s:Rect>
-    
-    <!-- layer 6: control bar divider line -->
-    <s:Rect id="cbdiv" left="1" right="1" bottom="20" height="1">
-        <s:fill>
-            <s:SolidColor color="0xCDCDCD" />
-        </s:fill>
-    </s:Rect>
-</s:SparkSkin>
+    <s:Group left="1" right="1" top="1" bottom="1" id="contents">
+        <!-- layer 2: background fill -->
+        <s:Rect id="background" left="0" top="0" right="0" bottom="0"
+                topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
+            <s:fill>
+                <s:SolidColor color="0xFFFFFF" id="bgFill" />
+            </s:fill>
+        </s:Rect>
+        
+        <!-- layer 3: title bar fill -->
+        <s:Rect left="0" right="0" top="0" height="30" 
+                topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
+           <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0xE2E2E2" />
+                    <s:GradientEntry color="0xD9D9D9" />
+                </s:LinearGradient>
+           </s:fill>
+        </s:Rect>
+        
+        <!-- layer 4: title bar highlight -->
+        <s:Rect left="0" right="0" top="0" height="30"
+                topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
+           <s:stroke>
+                <s:LinearGradientStroke rotation="90" weight="1">
+                    <s:GradientEntry color="0xEAEAEA" />
+                    <s:GradientEntry color="0xD9D9D9" />
+                </s:LinearGradientStroke>
+           </s:stroke>
+        </s:Rect>
+        <s:Rect left="0" right="0" top="30" height="1">
+            <s:fill>
+                <s:SolidColor color="0xC0C0C0" />
+            </s:fill>
+        </s:Rect>
+        
+        <!-- layer 5: control bar background -->
+        <s:Rect id="cbbg" left="0" right="0" bottom="0" height="20">
+            <s:fill>
+                <s:SolidColor color="0xE8E8E8" />
+            </s:fill>
+        </s:Rect>
+        
+        <!-- layer 6: control bar divider line -->
+        <s:Rect id="cbdiv" left="0" right="0" bottom="20" height="1">
+            <s:fill>
+                <s:SolidColor color="0xCDCDCD" />
+            </s:fill>
+        </s:Rect>
+    </s:Group>
+</local:SparkSkinForHalo>
