@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.layout
+package spark.layout
 {
 import flash.display.DisplayObject;
 import flash.events.Event;
@@ -17,11 +17,13 @@ import flash.events.EventDispatcher;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import mx.components.baseClasses.GroupBase;
+import spark.components.supportClasses.GroupBase;
 import mx.containers.utilityClasses.Flex;
 import mx.core.ILayoutElement;
 import mx.events.PropertyChangeEvent;
-import mx.layout.LinearLayoutVector;
+import spark.layout.supportClasses.LayoutBase;
+import spark.layout.supportClasses.LayoutElementHelper;
+import spark.layout.supportClasses.LinearLayoutVector;
 
 
 /**
