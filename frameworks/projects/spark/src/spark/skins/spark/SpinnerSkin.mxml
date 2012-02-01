@@ -46,7 +46,7 @@ Spinner component are defined by the SpinnerDecrementButtonSkin and SpinnerIncre
          */
         override protected function initializationComplete():void
         {
-            useBaseColor = true;
+            useChromeColor = true;
             super.initializationComplete();
         }
         
