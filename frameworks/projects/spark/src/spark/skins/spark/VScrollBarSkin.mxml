@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009"
+      width="16" height="120">
+
+    <content>
+        <Button id="track" top="11" bottom="11" width="12" skinZZ="flex.skin.VScrollBarTrackSkin" />
+        <Button top="0" id="upButton" width="12" height="12" skinZZ="flex.skin.ScrollBarUpButtonSkin" />
+        <Button id="thumb" width="12" height="12" minHeight="10" skinZZ="flex.skin.VScrollBarThumbSkin" />
+        <Button bottom="0" id="downButton" width="12" height="12" skinZZ="flex.skin.ScrollBarDownButtonSkin" />
+    </content>
+
+</Skin>
