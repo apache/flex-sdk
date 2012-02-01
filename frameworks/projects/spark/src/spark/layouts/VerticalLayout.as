@@ -98,6 +98,7 @@ use namespace mx_internal;
  *    paddingLeft="0"
  *    paddingRight="0"
  *    paddingTop="0"
+ *    requestedMinRowCount="-1"
  *    requestedRowCount="-1"
  *    rowHeight="<i>calculated</i>"
  *    variableRowHeight="true"
