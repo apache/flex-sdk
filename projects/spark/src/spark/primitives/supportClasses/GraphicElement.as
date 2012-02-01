@@ -17,6 +17,7 @@ import flash.geom.Transform;
 import flex.filters.BaseFilter;
 import flex.filters.IBitmapFilter;
 import flex.geom.Transform;
+import flex.graphics.IDisplayObjectElement;
 import flex.graphics.IGraphicElement;
 import flex.graphics.IGraphicElementHost;
 import flex.graphics.MaskType;
@@ -31,7 +32,8 @@ import mx.graphics.IStroke;
 
 use namespace mx_internal;
 
-public class GraphicElement extends EventDispatcher implements IGraphicElement, ILayoutItem, IConstraintClient
+public class GraphicElement extends EventDispatcher 
+							implements IGraphicElement, ILayoutItem, IConstraintClient, IDisplayObjectElement
 {
 	
 	 /**
@@ -85,6 +87,9 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	private var _alpha:Number = 1;
 	private var alphaChanged:Boolean = false;
 
+	[Bindable("propertyChange")]
+	[Inspectable(category="General")]
+
 	public function get alpha():Number
 	{
 		return _alpha;
@@ -108,6 +113,9 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	//----------------------------------
 	private var _blendMode:String = BlendMode.NORMAL;
 	private var blendModeChanged:Boolean;
+
+	[Bindable("propertyChange")]
+	[Inspectable(category="General")]
 
 	public function get blendMode():String
 	{
@@ -219,7 +227,7 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 	
-	private var _filters:Array;
+	private var _filters:Array = [];
 	private var _clonedFilters:Array;
 	private var filtersChanged:Boolean;
 	
@@ -363,6 +371,9 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	private var previousMask:DisplayObject;
 	private var isMaskInElementSpace:Boolean;
 	private var maskChanged:Boolean;
+	
+	[Bindable("propertyChange")]
+	[Inspectable(category="General")]
 	
 	public function set mask(value:DisplayObject):void
 	{
@@ -628,6 +639,9 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	mx_internal var _scaleX:Number = 1;
 	private var scaleXChanged:Boolean;
 	
+	[Bindable("propertyChange")]
+	[Inspectable(category="General")]
+	
 	/**
 	 *  Indicates the horizontal scale (percentage) of the element as applied from the transform point.
 	 */
@@ -654,6 +668,9 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	//----------------------------------
 	mx_internal var _scaleY:Number = 1;
 	private var scaleYChanged:Boolean;
+	
+	[Bindable("propertyChange")]
+	[Inspectable(category="General")]
 	
 	/**
 	 *  Indicates the vertical scale (percentage) of the element as applied from the transform point.
@@ -745,6 +762,9 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	private var _transformX:Number = 0;
 	private var transformXChanged:Boolean;
 		
+	[Bindable("propertyChange")]
+	[Inspectable(category="General")]	
+		
 	/**
 	 *  The x position transform point of the element. 
 	 */
@@ -771,6 +791,9 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	//----------------------------------
 	private var _transformY:Number = 0;
 	private var transformYChanged:Boolean;
+	
+	[Bindable("propertyChange")]
+	[Inspectable(category="General")]
 	
 	/**
 	 *  The y position transform point of the element. 
@@ -949,7 +972,7 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	
 	//--------------------------------------------------------------------------
 	//
-	//  IAssignableDisplayObjectElement or IDisplayObjectElement properties
+	//  IDisplayObjectElement properties
 	//
 	//--------------------------------------------------------------------------
 	
@@ -958,6 +981,9 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	//  displayObject
 	//----------------------------------
 	private var _displayObject:DisplayObject;
+	
+	[Bindable("propertyChange")]
+	[Inspectable(category="General")]
 	
 	public function get displayObject():DisplayObject
 	{
@@ -978,6 +1004,20 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 				
 		}
 	}
+	
+	public function createDisplayObject():DisplayObject
+	{
+		if (displayObject)
+			return displayObject;
+		else
+			return new Sprite();
+	}
+	
+	public function needsDisplayObject():Boolean
+	{
+		return true;
+	}
+	
 	
 	public function draw(g:Graphics):void
 	{
