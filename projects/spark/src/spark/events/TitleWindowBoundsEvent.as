@@ -81,7 +81,8 @@ public class TitleWindowBoundsEvent extends Event
      *       <code>myButton.addEventListener()</code> to register an event listener,
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
      *     <tr><td><code>beforeBounds</code></td><td>The current bounds of the object.</td></tr>
-     *     <tr><td><code>afterBounds</code></td><td>The future bounds of the object.</td></tr>
+     *     <tr><td><code>afterBounds</code></td><td>The future bounds of the object
+     *       if the object moves to the current cursor position.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
      *       it is not always the Object listening for the event.
      *       Use the <code>currentTarget</code> property to always access the
@@ -244,8 +245,9 @@ public class TitleWindowBoundsEvent extends Event
      *  <ul>
      *    <li><code>WINDOW_MOVE</code> - The current bounds of the window.</li>
      *    <li><code>WINDOW_MOVE_END</code> - The final bounds of the window, before the drag.</li>
-     *    <li><code>WINDOW_MOVE_START   </code> - The final bounds of the window.</li>
-     *    <li><code>WINDOW_MOVING</code> - The future bounds of the window.</li>
+     *    <li><code>WINDOW_MOVE_START   </code> - null.</li>
+     *    <li><code>WINDOW_MOVING</code> - The future bounds of the window 
+     *      if the window moves to the current cursor position.</li>
      *  </ul>
      *  
      *  @langversion 3.0
