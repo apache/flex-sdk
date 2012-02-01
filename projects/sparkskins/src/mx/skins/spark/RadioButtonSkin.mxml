@@ -2,19 +2,25 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The Spark skin class for the Halo RadioButton component. -->
+<!--- The Spark skin class for the Halo RadioButton component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <local:SparkSkinForHalo xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
       xmlns:local="mx.skins.spark.*"
-	  alpha.disabledStates="0.5">
+      alpha.disabledStates="0.5">
     
     <fx:Script>
         /* Define the skin elements that should not be colorized. 
@@ -43,10 +49,10 @@
     </local:states>
     
     <s:Group width="13" height="13">
-	    <!-- drop shadow -->
-	    <s:Ellipse left="-1" top="-1" right="-1" bottom="-1">
-	    	<s:stroke>
-	    		<s:LinearGradientStroke rotation="90" weight="1">
+        <!-- drop shadow -->
+        <s:Ellipse left="-1" top="-1" right="-1" bottom="-1">
+            <s:stroke>
+                <s:LinearGradientStroke rotation="90" weight="1">
                     <s:GradientEntry color="0x000000" 
                                    color.downStates="0xFFFFFF"
                                    alpha="0.011"
@@ -55,50 +61,50 @@
                                    color.downStates="0xFFFFFF" 
                                    alpha="0.121"
                                    alpha.downStates="0.57" />
-	    		</s:LinearGradientStroke>
-	    	</s:stroke>
-	    </s:Ellipse>
-	    
-		<!-- fill -->
-		<s:Ellipse left="1" top="1" right="1" bottom="1">
-			<s:fill>
-				<s:LinearGradient rotation="90">
-					<s:GradientEntry color="0xFFFFFF" 
-								   color.overStates="0xBBBDBD" 
-								   color.downStates="0xAAAAAA" 
-								   alpha="0.85" />
-					<s:GradientEntry color="0xD8D8D8" 
-								   color.overStates="0x9FA0A1" 
-								   color.downStates="0x929496" 
-								   alpha="0.85" />
-				</s:LinearGradient>
-			</s:fill>
-		</s:Ellipse>
-		
-		<!-- fill highlight -->
-		<s:Path data="M 1 6 Q 2 2 6 1 Q 11 2 12 6 h -9">
-			<s:fill>
-				<s:SolidColor color="0xFFFFFF" alpha="0.33" />
-			</s:fill>
-		</s:Path>
-		
-		<!-- layer 6: highlight stroke (all states except down) -->
-		<s:Ellipse left="1" right="1" top="1" bottom="1">
-			<s:stroke>
-				<s:LinearGradientStroke rotation="90" weight="1">
-					<s:GradientEntry color="0xFFFFFF" color.downStates="0x939393" alpha.overStates="0.22" />
-					<s:GradientEntry color="0xD8D8D8" color.downStates="0xB1B1B1" alpha.overStates="0.22" />
-				</s:LinearGradientStroke>
-			</s:stroke>
-		</s:Ellipse>
-		<s:Rect left="5" top="1" right="5" height="1">
-			<s:fill>
-				<s:SolidColor color="0xFFFFFF" 
-					        color.downStates="0x939393"
-					        alpha.overStates="0.22" />
-			</s:fill>
-		</s:Rect>
-		
+                </s:LinearGradientStroke>
+            </s:stroke>
+        </s:Ellipse>
+        
+        <!-- fill -->
+        <s:Ellipse left="1" top="1" right="1" bottom="1">
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0xFFFFFF" 
+                                   color.overStates="0xBBBDBD" 
+                                   color.downStates="0xAAAAAA" 
+                                   alpha="0.85" />
+                    <s:GradientEntry color="0xD8D8D8" 
+                                   color.overStates="0x9FA0A1" 
+                                   color.downStates="0x929496" 
+                                   alpha="0.85" />
+                </s:LinearGradient>
+            </s:fill>
+        </s:Ellipse>
+        
+        <!-- fill highlight -->
+        <s:Path data="M 1 6 Q 2 2 6 1 Q 11 2 12 6 h -9">
+            <s:fill>
+                <s:SolidColor color="0xFFFFFF" alpha="0.33" />
+            </s:fill>
+        </s:Path>
+        
+        <!-- layer 6: highlight stroke (all states except down) -->
+        <s:Ellipse left="1" right="1" top="1" bottom="1">
+            <s:stroke>
+                <s:LinearGradientStroke rotation="90" weight="1">
+                    <s:GradientEntry color="0xFFFFFF" color.downStates="0x939393" alpha.overStates="0.22" />
+                    <s:GradientEntry color="0xD8D8D8" color.downStates="0xB1B1B1" alpha.overStates="0.22" />
+                </s:LinearGradientStroke>
+            </s:stroke>
+        </s:Ellipse>
+        <s:Rect left="5" top="1" right="5" height="1">
+            <s:fill>
+                <s:SolidColor color="0xFFFFFF" 
+                            color.downStates="0x939393"
+                            alpha.overStates="0.22" />
+            </s:fill>
+        </s:Rect>
+        
         <!-- border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
         <s:Ellipse left="0" top="0" right="0" bottom="0">
             <s:stroke>
@@ -108,8 +114,8 @@
                 </s:LinearGradientStroke>
             </s:stroke>
         </s:Ellipse>
-		
-	    <!-- dot -->
+        
+        <!-- dot -->
        <s:Path left="4" top="4" includeIn="selectedStates" id="dot" itemCreationPolicy="immediate"
              data="M 2.5 0 Q 4.5 0.5 5 2.5 Q 4.5 4.5 2.5 5 Q 0.5 4.5 0 2.5 Q 0.5 0.5 2.5 0">
            <s:fill>
