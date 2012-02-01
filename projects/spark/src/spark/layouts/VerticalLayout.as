@@ -357,8 +357,19 @@ public class VerticalLayout implements ILayout
    
     private function fixedRowHeightMeasure(layoutTarget:Group):void
     {
-        // TBD init rowHeight if explicitRowHeight isNaN
-        var rows:uint = layoutTarget.numLayoutItems;
+    	var rows:uint = layoutTarget.numLayoutItems;
+
+		// If rowHeight wasn't set, then use the height of the first row
+		var rowHeight:Number = this.rowHeight;
+        if (isNaN(explicitRowHeight))
+        {
+            if (rows == 0)
+            	rowHeight = 0;
+            else 
+      			rowHeight = layoutTarget.getLayoutItemAt(0).preferredSize.y;
+        	setRowHeight(rowHeight);
+        }
+        
         var visibleRows:uint = (explicitRowCount == -1) ? rows : explicitRowCount;
         var contentHeight:Number = (rows * rowHeight) + ((rows > 1) ? (gap * (rows - 1)) : 0);
         var visibleHeight:Number = (visibleRows * rowHeight) + ((visibleRows > 1) ? (gap * (visibleRows - 1)) : 0);
