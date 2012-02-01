@@ -30,7 +30,7 @@ viewport property to link them together.
       @playerversion AIR 1.5
       @productversion Flex 4
 -->
-<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
     <fx:Metadata>
     <![CDATA[ 
@@ -40,6 +40,39 @@ viewport property to link them together.
         [HostComponent("spark.components.Scroller")]
     ]]>
     </fx:Metadata> 
+    
+    <fx:Script>
+    <![CDATA[
+        override protected function createChildren():void
+        {
+            super.createChildren();
+            
+            // ScrollerSkin doesn't use baseColor
+            useBaseColor = false;
+        }
+    
+        override public function beginHighlightBitmapCapture() : void
+        {
+            super.beginHighlightBitmapCapture();
+            
+            // Draw an opaque rect that fill our entire skin. Our background
+            // is transparent, but we don't want focus/error skins to
+            // poke through.  This is safe to do since we don't have any 
+            // graphic elements as direct children.
+            graphics.beginFill(0);
+            graphics.drawRect(0, 0, width, height);
+            graphics.endFill();
+        }
+        
+        override public function endHighlightBitmapCapture() : void
+        {
+            super.endHighlightBitmapCapture();
+            
+            // Clear the rect we drew in beginBitmapCapture();
+            graphics.clear();
+        }
+    ]]>
+    </fx:Script>
         
     <!--- Determines whether the vertical ScrollBar is visible in the ScrollerSkin. -->
     <s:VScrollBar id="verticalScrollBar" visible="false" />
@@ -47,4 +80,4 @@ viewport property to link them together.
     <!--- Determines whether the horizontal ScrollBar is visible in the ScrollerSkin. -->
     <s:HScrollBar id="horizontalScrollBar" visible="false" />
 
-</s:Skin>
+</s:SparkSkin>
