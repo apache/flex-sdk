@@ -2173,7 +2173,7 @@ public class GraphicElement extends EventDispatcher
                                     postLayoutTranslation:Vector3D = null,
                                     invalidateLayout:Boolean = true):void
     {
-        // FIXME (egreenfi): optimize for simple translations
+        // TODO (egreenfi): optimize for simple translations
         allocateLayoutFeatures();
         var previous:Boolean = needsDisplayObject;
         var prevX:Number = layoutFeatures.layoutX;
