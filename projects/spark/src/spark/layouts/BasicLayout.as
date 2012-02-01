@@ -27,7 +27,7 @@ import spark.layouts.supportClasses.LayoutElementHelper;
  *  verticalCenter, baseline, percentWidth, percentHeight.
  *  Element's minimum and maximum sizes will always be respected.
  *
- *  </p>The measured size of the container is calculated from the elements, their
+ *  <p>The measured size of the container is calculated from the elements, their
  *  constraints and their preferred sizes. The measured size of the container
  *  is big enough to fit in all of the elements at their preferred sizes with
  *  their constraints satisified. Here are some examples of how measured size is
@@ -52,9 +52,9 @@ import spark.layouts.supportClasses.LayoutElementHelper;
  *  </ul>
  * </p>
  *
- *  During updateDisplayList() the element's size is determined according to
+ *  <p>During updateDisplayList() the element's size is determined according to
  *  the rules in the following order of precedence (the element's minimum and
- *  maximum sizes are always respected):
+ *  maximum sizes are always respected):</p>
  *  <ul>
  *    <li>If the element has percentWidth or percentHeight set, then its size
  *    is calculated as a percentage of the available size, where the available
@@ -70,8 +70,8 @@ import spark.layouts.supportClasses.LayoutElementHelper;
  *    <li>The element is set to its preferred width and/or height.</li>
  *  </ul>
  * 
- *  The element's position is determined according to the rules in the following
- *  order of precedence:
+ *  <p>The element's position is determined according to the rules in the following
+ *  order of precedence:</p>
  *  <ul>
  *    <li>The horizontalCenter/verticalCenter constraints specify the distance
  *    between the container's center and the element's center.
@@ -94,8 +94,8 @@ import spark.layouts.supportClasses.LayoutElementHelper;
  *    direction, the element is positioned according to its x/y coordinates.</li>
  *  </ul>
  *
- *  The content size of the container is calculated as the maximum of the
- *  coordinates of the bottom-right corner of all the layout elements.
+ *  <p>The content size of the container is calculated as the maximum of the
+ *  coordinates of the bottom-right corner of all the layout elements.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -424,7 +424,7 @@ public class BasicLayout extends LayoutBase
             else if (!isNaN(right))
                 childX = unscaledWidth - elementWidth - right;
             else
-            	childX = layoutElement.getLayoutBoundsX();
+                childX = layoutElement.getLayoutBoundsX();
 
             // Vertical position
             if (!isNaN(vCenter))
@@ -436,7 +436,7 @@ public class BasicLayout extends LayoutBase
             else if (!isNaN(bottom))
                 childY = unscaledHeight - elementHeight - bottom;
             else
-           		childY = layoutElement.getLayoutBoundsY();
+                childY = layoutElement.getLayoutBoundsY();
 
             // Set position
             layoutElement.setLayoutBoundsPosition(childX, childY);
