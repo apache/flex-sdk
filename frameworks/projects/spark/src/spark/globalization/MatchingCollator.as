@@ -79,33 +79,34 @@ public class MatchingCollator extends CollatorBase
      *          UIComponent's addStyleClient method.</li>
      *      <li>By using the class in an MXML declaration and inheriting the
      *          locale from the document that contains the declaration.
-     *  <listing version="3.0">
+     *  <pre>
      *  Example:
      *  &lt;fx:Declarations&gt;
      *         &lt;s:MatchingCollator id="mc" /&gt;
      *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  </pre>
      *  </li>
      *      <li>By using an MXML declaration and specifying the locale value
      *              in the list of assignments.
-     *  <listing version="3.0">
+     *  <pre>
      *  Example:
      *  &lt;fx:Declarations&gt;
      *      &lt;s:MatchingCollator id="mc_France" locale="fr-FR" /&gt;
      *  &lt;/fx:Declarations&gt;
-     *  </listing>
+     *  </pre>
      *  </li>
      *      <li>Calling the setStyle method, e.g.
      *              <code>mc.setStyle("locale", "fr-FR")</code></li>
      *  </ul>
-     *
-     *  <p>If the locale style is not set by one of the above techniques,
-     *  the methods of this class that depend on the locale will return 0,
-     *  false, or null depending on the return type and the
-     *  lastOperationStatus property will be set to <code>
-     *  spark.globalization.LastOperationStatus.LOCALE_UNDEFINED_ERROR.
-     *  </code>
-     *  </p>
+     *  <p>
+     *  If the <code>locale</code> style is not set by one of the above 
+     *  techniques, the instance of this class will be added as a 
+     *  <code>StyleClient</code> to the <code>topLevelApplication</code> and 
+     *  will therefore inherit the <code>locale</code> style from the 
+     *  <code>topLevelApplication</code> object when the <code>locale</code> 
+     *  dependent property getter or <code>locale</code> dependent method is 
+     *  called.
+     *  </p>   
      *
      *  @see flash.globalization.Collator
      *  @langversion 3.0
