@@ -42,7 +42,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @productversion Flex 4.5
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -80,6 +80,20 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 public class DefaultGridItemRenderer extends UIFTETextField implements IGridItemRenderer, IStyleClient
 {
     
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor.
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
     public function DefaultGridItemRenderer()
     {
         super();
