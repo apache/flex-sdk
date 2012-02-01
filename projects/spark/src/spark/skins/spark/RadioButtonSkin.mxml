@@ -13,6 +13,10 @@
 
 <Skin xmlns="http://ns.adobe.com/mxml/2009">
 
+    <Metadata>
+    	[HostComponent("flex.component.RadioButton")]
+    </Metadata> 
+    
     <states>
         <State name="up" />
         <State name="over" stateGroups="overStates" />
