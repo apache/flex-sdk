@@ -25,6 +25,8 @@ import mx.events.PropertyChangeEvent;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 import mx.graphics.IStroke;
+import flash.geom.Point;
+import flash.display.LineScaleMode;
 
 use namespace mx_internal;
 
@@ -144,7 +146,7 @@ public class StrokedElement extends GraphicElement
         var g:Graphics = (drawnDisplayObject as Sprite).graphics;
 
         beginDraw(g);
-        drawElement(g);
+        draw(g);
         endDraw(g);
     }
             
@@ -167,7 +169,7 @@ public class StrokedElement extends GraphicElement
     protected function beginDraw(g:Graphics):void
     {
         if (stroke)
-            stroke.draw(g,new Rectangle(drawX + measuredX, 
+            stroke.apply(g,new Rectangle(drawX + measuredX, 
             						    drawY + measuredY, 
             						    Math.max(width, stroke.weight), 
             						    Math.max(height, stroke.weight)));
@@ -191,7 +193,7 @@ public class StrokedElement extends GraphicElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function drawElement(g:Graphics):void
+    protected function draw(g:Graphics):void
     {
         // override to do your drawing
     }
