@@ -27,15 +27,22 @@ use namespace flash_proxy;
 
 
 /**
- *  A dynamic object with bindable properties.   
+ *  The DataItem class represents a dynamic object with bindable properties.   
+ *  That means the Flex data binding mechanism recognizes when properties
+ *  of a DataItem change at runtime. 
+ *  For example, a Spark DataGrid item renderer relies on data binding 
+ *  to a property of the items in the control's data provider.
+ *  Because of data binding, when the property changes at runtime, 
+ *  the item renderer updates automatically.
  * 
  *  <p>This class is intended to be used in MXML to define object literals 
- *  whose properties must be bindable.   It's typically used to define List or 
- *  DataGrid dataProvider items within an MXML file for small applications or examples
- *  with item renderers that bind to their data.  Non-trival applications or
- *  any application for which performance is a concern, should define a 
- *  <code>[Bindable]</code> class with a fixed set of strongly typed properties
- *  and define dataProvider items with that.</p>
+ *  whose properties must be bindable.   
+ *  It's typically used to define List or 
+ *  DataGrid data provider items within an MXML file for small applications or examples
+ *  with item renderers that bind to their data.  
+ *  Non-trival applications, or any application for which performance is a concern, 
+ *  should define a <code>[Bindable]</code> class with a fixed set of 
+ *  strongly typed properties and use that class to define data provider items.</p>
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -44,6 +51,14 @@ use namespace flash_proxy;
  */
 public dynamic class DataItem extends ObjectProxy
 {
+    /**
+     *  Constructor
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function DataItem()
     {
         super();
