@@ -19,24 +19,19 @@
     
     <states>
         <State name="up" />
-        <State name="over"/>
-        <State name="down" />
+        <State name="over" stateGroups="overAndDown" />
+        <State name="down" stateGroups="overAndDown" />
         <State name="disabled" />
     </states>
 
-    <content>
-
-        <Rect left="-6.5" right="8.5" top="1" bottom="1" minWidth="15" minHeight="15" 
-              radiusX="15" radiusY="15">
-            <stroke>
-                <SolidColorStroke color="#385890" color.down="0x5280CF" 
-                                  color.disabled="0xAAC0E8" alpha="1" />
-            </stroke>
-            <fill>
-                <SolidColor color="0xFFFFFF" color.down="0xDEEBFF" />
-            </fill>
-        </Rect>
-
-    </content>
+    <Rect left="-6.5" right="8.5" top="1" bottom="1" minWidth="15" minHeight="15" 
+          radiusX="15" radiusY="15">
+        <stroke>
+            <SolidColorStroke color="0x3D5D92" color.disabled="0x9DADC9" />
+        </stroke>
+        <fill>
+            <SolidColor color="0xFFFFFF" color.overAndDown="0xEEF3FF" />
+        </fill>
+    </Rect>
 
 </Skin>
