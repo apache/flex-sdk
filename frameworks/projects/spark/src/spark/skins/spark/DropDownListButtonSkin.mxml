@@ -132,9 +132,4 @@
                               color="0" distance="1" strength="1.8" blurX="5" blurY="5" />
         </filters>
     </Path>
-
-    <!-- layer 9: text -->
-    <TextBox id="labelField" verticalCenter="1"
-             left="7" right="25" top="2" bottom="2">
-    </TextBox>
 </Skin>
