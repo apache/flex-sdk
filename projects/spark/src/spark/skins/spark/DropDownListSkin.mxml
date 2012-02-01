@@ -14,7 +14,7 @@
       is defined by the DropDownListButtonSkin class.  
       
       <p>In a custom skin class that uses transitions, set the 
-      <code>itemDestructionPolicy</code> property to <code>none</code>
+      <code>itemDestructionPolicy</code> property to <code>never</code>
       for the PopUpAnchor defined by the popUp property.</p>      
         
       @see spark.components.DropDownList        
@@ -101,7 +101,7 @@
         The PopUpAnchor control that opens the drop-down list. 
         
         <p>In a custom skin class that uses transitions, set the 
-        <code>itemDestructionPolicy</code> property to <code>none</code>.</p>
+        <code>itemDestructionPolicy</code> property to <code>never</code>.</p>
     -->
     <s:PopUpAnchor id="popUp"  displayPopUp.normal="false" displayPopUp.open="true" includeIn="open"
         left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
