@@ -88,6 +88,14 @@ public class HorizontalLayout extends LayoutBase
 {
     include "../core/Version.as";
 
+    /**
+     *  @private
+     *  Cached column widths, max row height for virtual layout.   Not used unless
+     *  useVirtualLayout=true.   See updateLLV(), resetCachedVirtualLayoutState(),
+     *  etc.
+     */
+    private var llv:LinearLayoutVector = new LinearLayoutVector(LinearLayoutVector.HORIZONTAL);
+    
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -656,6 +664,14 @@ public class HorizontalLayout extends LayoutBase
     //--------------------------------------------------------------------------
     
     /**
+     * @private
+     */
+    override public function clearCachedVirtualLayoutState():void
+    {
+        llv.clear();
+    }     
+    
+    /**
      *  @private
      */
     override protected function getElementBounds(index:int):Rectangle
@@ -1020,8 +1036,6 @@ public class HorizontalLayout extends LayoutBase
         layoutTarget.measuredMinWidth  = minWidth + hPadding;
     }
 
-    private var llv:LinearLayoutVector = new LinearLayoutVector(LinearLayoutVector.HORIZONTAL);
-    
     /**
      *  @private
      * 
