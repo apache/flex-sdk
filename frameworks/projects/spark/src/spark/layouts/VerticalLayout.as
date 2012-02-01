@@ -19,6 +19,7 @@ import flash.events.EventDispatcher;
 import flash.ui.Keyboard;
 
 import mx.components.baseClasses.GroupBase;
+import mx.core.ScrollUnit;
 
 import mx.containers.utilityClasses.Flex;
 import mx.events.PropertyChangeEvent;
@@ -637,7 +638,7 @@ public class VerticalLayout extends LayoutBase
      *  @see lastIndexInView
      *  @see verticalScrollPosition
      */
-    override public function verticalScrollPositionDelta(unit:uint):Number
+    override public function getVerticalScrollPositionDelta(unit:ScrollUnit):Number
     {
         var g:GroupBase = target;
         if (!g)
@@ -654,18 +655,18 @@ public class VerticalLayout extends LayoutBase
         var itemR:Rectangle = null;
         switch(unit)
         {
-            case Keyboard.UP:
-            case Keyboard.PAGE_UP:
+            case ScrollUnit.UP:
+            case ScrollUnit.PAGE_UP:
                 itemR = findLayoutItemBounds(g, firstIndexInView, -1, scrollR);
                 break;
 
-            case Keyboard.DOWN:
-            case Keyboard.PAGE_DOWN:
+            case ScrollUnit.DOWN:
+            case ScrollUnit.PAGE_DOWN:
                 itemR = findLayoutItemBounds(g, lastIndexInView, +1, scrollR);
                 break;
 
             default:
-                return super.verticalScrollPositionDelta(unit);
+                return super.getVerticalScrollPositionDelta(unit);
         }
         
         if (!itemR)
@@ -674,22 +675,22 @@ public class VerticalLayout extends LayoutBase
         var delta:Number = 0;            
         switch (unit)
         {
-            case Keyboard.UP:
+            case ScrollUnit.UP:
                 delta = Math.max(-scrollR.height, itemR.top - scrollR.top);
                 break;
                 
-            case Keyboard.DOWN:
+            case ScrollUnit.DOWN:
                 delta = Math.min(scrollR.height, itemR.bottom - scrollR.bottom);
                 break;
                 
-            case Keyboard.PAGE_UP:
+            case ScrollUnit.PAGE_UP:
                 if ((itemR.top < scrollR.top) && (itemR.bottom >= scrollR.bottom))
                     delta = Math.max(-scrollR.height, itemR.top - scrollR.top);
                 else
                     delta = itemR.bottom - scrollR.bottom;
                 break;
 
-            case Keyboard.PAGE_DOWN:
+            case ScrollUnit.PAGE_DOWN:
                 if ((itemR.top <= scrollR.top) && (itemR.bottom > scrollR.bottom))
                     delta = Math.min(scrollR.height, itemR.bottom - scrollR.bottom);
                 else
@@ -899,7 +900,6 @@ public class VerticalLayout extends LayoutBase
         setRowCount(visibleRows);
         setIndexInView(firstRowInView, lastRowInView);
         layoutTarget.setContentSize(maxX, maxY);
-        updateScrollRect(unscaledWidth, unscaledHeight);
     }
     
     /**
