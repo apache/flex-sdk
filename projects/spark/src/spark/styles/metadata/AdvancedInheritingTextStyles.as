@@ -90,6 +90,16 @@
 [Style(name="textIndent", type="Number", format="Length", inherit="yes")]
 
 /**
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#textRotation
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="textRotation", type="String", enumeration="auto,rotate0,rotate90,rotate180,rotate270", inherit="yes")]
+
+/**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#whiteSpaceCollapse
  *  
  *  @langversion 3.0
