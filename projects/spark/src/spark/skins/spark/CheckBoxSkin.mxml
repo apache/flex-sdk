@@ -46,20 +46,6 @@
 	    	</stroke>
 	    </Rect>
 	    
-	    <!-- border -->
-	    <Rect left="0" top="0" right="0" bottom="0">
-			<stroke>
-				<LinearGradientStroke rotation="90">
-					<GradientEntry color="0x000000" 
-						           alpha="0.5625"
-						           alpha.downStates="0.6375" />
-					<GradientEntry color="0x000000" 
-						           alpha="0.75"
-						           alpha.downStates="0.85" />
-				</LinearGradientStroke>
-			</stroke>
-		</Rect>
-	
 		<!-- fill -->
 		<Rect left="1" top="1" right="1" bottom="1">
 			<fill>
@@ -115,6 +101,20 @@
 			</fill>
 		</Rect>
 		
+        <!-- border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+        <Rect left="0" top="0" right="0" bottom="0">
+            <stroke>
+                <LinearGradientStroke rotation="90">
+                    <GradientEntry color="0x000000" 
+                                   alpha="0.5625"
+                                   alpha.downStates="0.6375" />
+                    <GradientEntry color="0x000000" 
+                                   alpha="0.75"
+                                   alpha.downStates="0.85" />
+                </LinearGradientStroke>
+            </stroke>
+        </Rect>
+    
 	    <!-- checkmark -->
 	    <BitmapGraphic source="@Embed('assets/CheckMark.png')" 
 	    			   left="2" top="0" includeIn="selectedStates" />
