@@ -32,9 +32,9 @@ import flash.geom.Vector3D;
 
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.DesignLayer;
-import mx.core.IID;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
+import mx.core.IMXMLObject;
 import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
@@ -93,7 +93,7 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 public class GraphicElement extends EventDispatcher
-    implements IGraphicElement, IInvalidating, ILayoutElement, IVisualElement, IID
+    implements IGraphicElement, IInvalidating, ILayoutElement, IVisualElement, IMXMLObject
 {
     include "../../core/Version.as";
 
@@ -211,43 +211,6 @@ public class GraphicElement extends EventDispatcher
      *  storage for the y property. This property is used when a GraphicElement has a simple transform.
      */
     private var _y:Number = 0;
-
-    //--------------------------------------------------------------------------
-    //
-    //  Properties - IID
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  id
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the id property.
-     */
-    private var _id:String;
-
-    /**
-     *  The identity of the component.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    public function get id():String
-    {
-        return _id;
-    }
-
-    /**
-     *  @private
-     */ 
-    public function set id(value:String):void
-    {
-        _id = value;
-    }
 
     //--------------------------------------------------------------------------
     //
@@ -1031,6 +994,37 @@ public class GraphicElement extends EventDispatcher
         _horizontalCenter = value;
         invalidateParentSizeAndDisplayList();
     }
+
+	//----------------------------------
+	//  id
+	//----------------------------------
+
+	/**
+	 *  @private
+	 *  Storage for the id property.
+	 */
+	private var _id:String;
+
+	/**
+	 *  The identity of the component.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */ 
+	public function get id():String
+	{
+		return _id;
+	}
+
+	/**
+	 *  @private
+	 */ 
+	public function set id(value:String):void
+	{
+		_id = value;
+	}
 
     //----------------------------------
     //  left
@@ -2855,6 +2849,25 @@ public class GraphicElement extends EventDispatcher
     //  Methods
     //
     //--------------------------------------------------------------------------
+
+	/**
+	 *  Called automatically by the MXML compiler when the GraphicElement
+	 *  is created using an MXML tag.
+	 *  If you create the GraphicElement through ActionScript you must set the
+	 * <code>id</code> property manually.
+	 *
+	 *  @param document The MXML document containing this GraphicElement (not used).
+	 *  @param id The MXML id for this GraphicElement.
+	 *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+	 */
+	public function initialized(document:Object, id:String):void
+	{
+		this.id = id;
+	}
 
     /**
      * Converts the point object from the object's (local) coordinates 
