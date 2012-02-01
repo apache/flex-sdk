@@ -11,21 +11,21 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009" alpha.disabled="0.5">
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" alpha.disabled="0.5">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxContainer")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.SkinnableContainer")]
+    </fx:Metadata> 
     
-    <states>
-    	<State name="normal" />
-    	<State name="disabled" />
-    </states>
+    <s:states>
+    	<s:State name="normal" />
+    	<s:State name="disabled" />
+    </s:states>
     
-    <Group id="contentGroup" left="0" right="0" top="0" bottom="0">
-    	<layout>
-    		<VerticalLayout/>
-    	</layout>
-    </Group>
+    <s:Group id="contentGroup" left="0" right="0" top="0" bottom="0">
+    	<s:layout>
+    		<s:VerticalLayout/>
+    	</s:layout>
+    </s:Group>
 
-</Skin>
+</s:Skin>
