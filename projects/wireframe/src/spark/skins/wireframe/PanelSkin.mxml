@@ -81,10 +81,10 @@
             </s:Rect>
 	        
 	        <!-- layer 3: text -->
-	        <s:SimpleText id="titleDisplay" maxDisplayedLines="1"
+	        <s:Label id="titleDisplay" maxDisplayedLines="1"
 			         left="9" right="3" top="1" minHeight="30"
 			         verticalAlign="middle" fontWeight="bold">
-	        </s:SimpleText>
+	        </s:Label>
 
         </s:Group>
 
