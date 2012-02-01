@@ -419,7 +419,7 @@ public class DateTimeFormatter extends GlobalizationBase implements IFormatter
      *  <p>This pattern can be set in one of two ways:</p>
      *
      *  <ol>
-     *     <li>By setting the <code>dateSytle</code> and <code>timeStyle</code>
+     *     <li>By setting the <code>dateStyle</code> and <code>timeStyle</code>
      *     properties. </li>
      *     <li>By setting the <code>dateTimePattern</code> property.</li>
      *  </ol>
