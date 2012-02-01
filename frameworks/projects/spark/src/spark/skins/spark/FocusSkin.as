@@ -52,9 +52,12 @@ public class FocusSkin extends UIComponent
     //  Class constants
     //
     //--------------------------------------------------------------------------
+        
+    // Number to multiply focusThickness by to determine the blur value
+    private const BLUR_MULTIPLIER:Number = 2.5;
     
-    // FIXME (gruehle): Make this a style property?
-    private const FOCUS_THICKNESS:int = 2;    
+    // Number to multiply focusAlpha by to determine the filter alpha value
+    private const ALPHA_MULTIPLIER:Number = 1.5454;
     
     //--------------------------------------------------------------------------
     //
@@ -146,9 +149,10 @@ public class FocusSkin extends UIComponent
         if (!focusObject)
            return;
             
+        var focusThickness:Number = focusObject.getStyle("focusThickness");
         var bitmapData:BitmapData = new BitmapData(
-                    focusObject.width + (FOCUS_THICKNESS * 2), 
-                    focusObject.height + (FOCUS_THICKNESS * 2), true, 0);
+                    focusObject.width + (focusThickness * 2), 
+                    focusObject.height + (focusThickness * 2), true, 0);
         var m:Matrix = new Matrix();
         
         // If the focus object already has a focus skin, make sure it is hidden.
@@ -215,8 +219,8 @@ public class FocusSkin extends UIComponent
 		if(needRedraw)
 			skin.validateNow();
 		
-        m.tx = FOCUS_THICKNESS;
-        m.ty = FOCUS_THICKNESS;
+        m.tx = focusThickness;
+        m.ty = focusThickness;
         bitmapData.draw(focusObject as IBitmapDrawable, m);
         
         // Show the focus skin, if needed.
@@ -260,7 +264,7 @@ public class FocusSkin extends UIComponent
         // FIXME (gruehle): Figure out a better solution.
         if (weakIsCheck(focusObject, "spark.components::Scroller"))
         {
-            rect.x = rect.y = FOCUS_THICKNESS;
+            rect.x = rect.y = focusThickness;
             rect.width = focusObject.width;
             rect.height = focusObject.height;
             bitmapData.fillRect(rect, 0xFFFFFFFF);
@@ -268,7 +272,7 @@ public class FocusSkin extends UIComponent
         
         // Transform the color to remove the transparency. The GlowFilter has the "knockout" property
         // set to true, which removes this image from the final display, leaving only the outer glow.
-        rect.x = rect.y = FOCUS_THICKNESS;
+        rect.x = rect.y = focusThickness;
         rect.width = focusObject.width;
         rect.height = focusObject.height;
         bitmapData.colorTransform(rect, colorTransform);
@@ -286,16 +290,21 @@ public class FocusSkin extends UIComponent
         {
             glowFilter.color = focusObject.getStyle("focusColor");
         }
+        glowFilter.blurX = glowFilter.blurY = focusThickness * BLUR_MULTIPLIER;
+        glowFilter.alpha = focusObject.getStyle("focusAlpha") * ALPHA_MULTIPLIER;
+        
         bitmapData.applyFilter(bitmapData, rect, filterPt, glowFilter); 
                
         if (!bitmap)
         {
             bitmap = new Bitmap();
             addChild(bitmap);
-            bitmap.x = bitmap.y = -FOCUS_THICKNESS;
+            bitmap.x = bitmap.y = -focusThickness;
         }
         
         bitmap.bitmapData = bitmapData;
+        
+        blendMode = focusObject.getStyle("focusBlendMode");
         
         // Restore original 3D matrix if applicable.
         if (transform3D)
