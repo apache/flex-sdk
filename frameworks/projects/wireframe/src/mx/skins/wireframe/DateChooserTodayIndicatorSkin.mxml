@@ -44,11 +44,11 @@
     <s:Rect left="0" right="0" top="0" bottom="0" >
         <s:fill>
             <!--- @private -->
-            <s:SolidColor id="fill" color="#C6D0DB" alpha="1" />
+            <s:SolidColor id="fill" color="#EEEEEE" alpha="1" />
         </s:fill>
         <s:stroke>
             <!--- @private -->
-            <s:SolidColorStroke id="stroke" color="#9EAEC3" />
+            <s:SolidColorStroke id="stroke" color="#BABABA" />
         </s:stroke>
     </s:Rect>
     
