@@ -12,13 +12,14 @@
 package spark.utils
 {
 
+import flash.text.engine.ElementFormat;
+import flash.text.engine.FontLookup;
+
 import flashx.textLayout.compose.ISWFContext;
 import flashx.textLayout.elements.FlowLeafElement;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
-import flash.text.engine.ElementFormat;
-import flash.text.engine.FontLookup;
 import flashx.textLayout.formats.ITextLayoutFormat;
 
 import mx.core.EmbeddedFont;
@@ -172,7 +173,8 @@ public class TextUtil
         // If the font isn't embedded as advertised, first fall back to 
         // corresponding device font and, only if that fails, fail back to the
         // player's default font.
-        if (swfContext && format.fontLookup == FontLookup.EMBEDDED_CFF)
+        if (swfContext as IFlexModuleFactory &&
+            format.fontLookup == FontLookup.EMBEDDED_CFF)
         {
             var name:String = format.fontFamily;
             var bold:Boolean = format.fontWeight == "bold";
