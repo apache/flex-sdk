@@ -11,7 +11,9 @@ in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The Spark skin class for the radio icon of a Halo Menu component. 
+<!--- The wireframe skin class for the radio icon of the MX Menu component. 
+
+      @see mx.controls.Menu
 
 @langversion 3.0
 @playerversion Flash 10
@@ -20,6 +22,7 @@ in accordance with the terms of the license agreement accompanying it.
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" >
     
+    <!--- @private -->
     <s:Ellipse id="radio" width="5" height="5">
         <s:fill>
             <s:SolidColor color="0x5380D0"/>
