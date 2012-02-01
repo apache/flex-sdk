@@ -21,8 +21,8 @@ Skin classes in the wireframe package are useful for using as a simple base for 
 @playerversion AIR 1.5
 @productversion Flex 4
 -->
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-             alpha.disabledStates="0.5">
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+        alpha.disabledStates="0.5">
     
     <fx:Metadata>
         /** 
@@ -81,4 +81,4 @@ Skin classes in the wireframe package are useful for using as a simple base for 
              maxDisplayedLines="1"
              left="18" right="0" top="2" bottom="0" verticalCenter="1" />
     
-</s:SparkSkin>
+</s:Skin>
