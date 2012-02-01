@@ -11,20 +11,20 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009" minWidth="7" minHeight="6" >
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" minWidth="7" minHeight="6" >
 
 	<!-- states -->
-	<states>
-		<State name="up" />
-		<State name="over" />
-		<State name="down" />
-		<State name="disabled" />
-	</states>
+	<s:states>
+		<s:State name="up" />
+		<s:State name="over" />
+		<s:State name="down" />
+		<s:State name="disabled" />
+	</s:states>
 	
-	<BitmapGraphic source="@Embed('assets/ArrowDownSmall.png')" includeIn="up" right="0" verticalCenter="0" />
+	<s:BitmapImage source="@Embed('assets/ArrowDownSmall.png')" includeIn="up" right="0" verticalCenter="0" />
 	
-	<BitmapGraphic source="@Embed('assets/ArrowDownSmallOver.png')" includeIn="over" right="0" verticalCenter="0" />
+	<s:BitmapImage source="@Embed('assets/ArrowDownSmallOver.png')" includeIn="over" right="0" verticalCenter="0" />
 	
-	<BitmapGraphic source="@Embed('assets/ArrowDownSmallDown.png')" includeIn="down" right="0" verticalCenter="0" />
+	<s:BitmapImage source="@Embed('assets/ArrowDownSmallDown.png')" includeIn="down" right="0" verticalCenter="0" />
 	
-</Skin>
+</s:Skin>
