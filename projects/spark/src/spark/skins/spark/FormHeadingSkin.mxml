@@ -92,6 +92,6 @@ in accordance with the terms of the license agreement accompanying it.
     </s:Rect>
             
     <s:Label id="labelDisplay"
-             left="labelCol:0" right="helpCol:4" top="row1:4" bottom="row1:4" />
+             left="labelCol:0" right="helpCol:10" top="row1:10" bottom="row1:10" />
 
 </s:Skin>
