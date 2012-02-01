@@ -924,19 +924,20 @@ public class BitmapImage extends GraphicElement
      */
     override protected function measure():void
     {   
+        var dpiScale:Number = 1;
         var app:Object = FlexGlobals.topLevelApplication;
-        var densityScale:Number;
-        
+        if ("applicationDPI" in app && "runtimeDPI" in app)
+            dpiScale = app.runtimeDPI / app.applicationDPI;
+
         if (loadedContent)
         {
             // Return size of our loaded image content.
             measuredWidth = imageWidth;
             measuredHeight = imageHeight;
-            if ("applicationDPI" in app) // density scaling may be in effect
+            if (dpiScale != 1) // density scaling may be in effect
             {
-                densityScale = app.systemManager.scaleX;
-                measuredWidth /= densityScale;
-                measuredHeight /= densityScale;
+                measuredWidth /= dpiScale;
+                measuredHeight /= dpiScale;
             }                
         } 
         else if (_bitmapData)
@@ -944,11 +945,10 @@ public class BitmapImage extends GraphicElement
             // Return size of our bitmap data.
             measuredWidth = _bitmapData.width;
             measuredHeight = _bitmapData.height;
-            if ("applicationDPI" in app) // density scaling may be in effect
+            if (dpiScale != 1) // density scaling may be in effect
             {
-                densityScale = app.systemManager.scaleX;
-                measuredWidth /= densityScale;
-                measuredHeight /= densityScale;
+                measuredWidth /= dpiScale;
+                measuredHeight /= dpiScale;
             }
         }
         else
