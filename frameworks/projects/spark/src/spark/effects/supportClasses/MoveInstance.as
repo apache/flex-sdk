@@ -10,18 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.effects.supportClasses
 {
-import flash.events.Event;
-
-import spark.components.Application;
-import mx.core.Container;
-import mx.core.IUIComponent;
 import spark.effects.AnimationProperty;
-import spark.effects.animation.Animation;
-import spark.events.AnimationEvent;
-import mx.events.EffectEvent;
-import mx.events.TweenEvent;
-import spark.core.IGraphicElement;
-import mx.styles.IStyleClient;
     
 public class MoveInstance extends AnimateInstance
 {
@@ -30,7 +19,6 @@ public class MoveInstance extends AnimateInstance
     public function MoveInstance(target:Object)
     {
         super(target);
-        affectsConstraints = true;
     }
 
     //--------------------------------------------------------------------------
@@ -139,7 +127,6 @@ public class MoveInstance extends AnimateInstance
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-
     /**
      *  @private
      */
@@ -149,6 +136,20 @@ public class MoveInstance extends AnimateInstance
             [new AnimationProperty("x", xFrom, xTo, duration, xBy),
              new AnimationProperty("y", yFrom, yTo, duration, yBy)];
         
+        // Also animate any position-related constraints that change between
+        // transition states
+        if (propertyChanges && !disableConstraints)
+        {
+            setupConstraintAnimation("left");
+            setupConstraintAnimation("right");
+            setupConstraintAnimation("top");
+            setupConstraintAnimation("bottom");
+            setupConstraintAnimation("percentWidth");
+            setupConstraintAnimation("percentHeight");
+            setupConstraintAnimation("horizontalCenter");
+            setupConstraintAnimation("verticalCenter");
+            // TODO (chaase): also deal with baseline when it works in BasicLayout
+        }
         // TODO (chaase): The Flex3 version of Move had logic for forcing clipping
         // off during the effect. We probably need something like this
         // in this version as well, but the implementation is TBD with the
