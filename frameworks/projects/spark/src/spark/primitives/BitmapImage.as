@@ -34,6 +34,7 @@ import flash.system.LoaderContext;
 import flash.utils.ByteArray;
 
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
 import mx.graphics.BitmapFillMode;
 import mx.graphics.BitmapScaleMode;
 import mx.graphics.BitmapSmoothingQuality;
@@ -52,7 +53,14 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Dispatched when content loading is complete.
+ *  Dispatched when content loading is complete. This
+ *  event is only dispatched for url and ByteArray based
+ *  sources (those sources requiring a Loader).
+ * 
+ *  <p>Note that for content loaded via Loader, both
+ *  <code>ready</code> and <code>complete</code> events
+ *  are dispatched.</p>  For other source types such as
+ *  embeds, only <code>ready</code> is dispatched.
  *
  *  @eventType flash.events.Event.COMPLETE
  *  
@@ -106,6 +114,25 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 [Event(name="progress", type="flash.events.ProgressEvent")]
+
+/**
+ *  Dispatched when content loading is complete.  Unlike the
+ *  <code>complete</code> event, this event is dispatched for 
+ *  all source types.  
+ *  
+ *  <p>Note that for content loaded via Loader, both
+ *  <code>ready</code> and <code>complete</code> events
+ *  are dispatched.</p>  For other source types such as
+ *  embeds, only <code>ready</code> is dispatched.
+ *
+ *  @eventType mx.events.FlexEvent.READY
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Event(name="ready", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched when a security error occurs.
@@ -1160,6 +1187,9 @@ public class BitmapImage extends GraphicElement
             // Flush the cached scale grid points
             cachedSourceGrid = null;
             cachedDestGrid = null;
+            
+            // Dispatch ready event
+            dispatchEvent(new FlexEvent(FlexEvent.READY));
         }
             
         invalidateSize();
@@ -1419,6 +1449,9 @@ public class BitmapImage extends GraphicElement
                 // features requiring access to the bitmap data will no longer
                 // function.
                 _trustedSource = false; 
+                
+                // Dispatch ready event
+                dispatchEvent(new FlexEvent(FlexEvent.READY));
             }
         }
         else
