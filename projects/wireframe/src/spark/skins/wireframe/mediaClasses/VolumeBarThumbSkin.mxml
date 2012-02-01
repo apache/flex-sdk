@@ -38,10 +38,10 @@
 
     <s:Rect left="0" right="0" top="0" bottom="0" radiusX="7" radiusY="7">
         <s:stroke>
-            <s:SolidColorStroke color="0x3B5B92" />
+            <s:SolidColorStroke color="#5C5C5C" />
         </s:stroke>
         <s:fill>
-            <s:SolidColor color="0xFFFFFF" color.overAndDown="0xEEF3FF" />
+            <s:SolidColor color="#FFFFFF" color.overAndDown="#EEEEEE" />
         </s:fill>
     </s:Rect>
     
