@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" width="2" height="10">
+	<!-- border -->
+	<Rect top="0" left="0" bottom="0" width="1">
+		<fill>
+			<SolidColor color="0x696969" />
+		</fill>
+	</Rect>
+	<!-- highlight -->
+	<Rect top="0" bottom="1" right="0" width="1">
+		<fill>
+			<SolidColor color="0xFFFFFF" alpha="0.35" />
+		</fill>
+	</Rect>
+</SparkSkin>
