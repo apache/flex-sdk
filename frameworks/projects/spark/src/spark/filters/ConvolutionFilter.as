@@ -5,8 +5,75 @@ import flash.filters.ConvolutionFilter;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 
+/**
+* The ConvolutionFilter class applies a matrix convolution filter effect. A convolution combines pixels
+* in the input image with neighboring pixels to produce an image. A wide variety of image
+* effects can be achieved through convolutions, including blurring, edge detection, sharpening,
+* embossing, and beveling. You can apply the filter to any display object (that is, objects that
+* inherit from the DisplayObject class), 
+* such as MovieClip, SimpleButton, TextField, and Video objects, as well as to BitmapData objects.
+*
+* <p>To create a convolution filter, use the syntax <code>new ConvolutionFilter()</code>.
+* The use of filters depends on the object to which you apply the filter:</p>
+* <ul><li>To apply filters to movie clips, text fields, buttons, and video, use the
+* <code>filters</code> property (inherited from DisplayObject). Setting the <code>filters</code> 
+* property of an object does not modify the object, and you can remove the filter by clearing the
+* <code>filters</code> property. </li>
+* 
+* <li>To apply filters to BitmapData objects, use the <code>BitmapData.applyFilter()</code> method.
+* Calling <code>applyFilter()</code> on a BitmapData object takes the source BitmapData object 
+* and the filter object and generates a filtered image as a result.</li>
+* </ul>
+* 
+* <p>If you apply a filter to a display object, the value of the <code>cacheAsBitmap</code> property of the 
+* object is set to <code>true</code>. If you clear all filters, the original value of 
+* <code>cacheAsBitmap</code> is restored.</p>
+*
+* <p>A filter is not applied if the resulting image exceeds the maximum dimensions.
+* In  AIR 1.5 and Flash Player 10, the maximum is 8,191 pixels in width or height, 
+* and the total number of pixels cannot exceed 16,777,215 pixels. (So, if an image is 8,191 pixels 
+* wide, it can only be 2,048 pixels high.) 
+* For example, if you zoom in on a large movie clip with a filter applied, the filter is 
+* turned off if the resulting image exceeds maximum dimensions.</p>
+*
+* @langversion 3.0
+* @playerversion Flash 10
+* @playerversion AIR 1.5
+* @productversion Flex 4
+*/
+
 public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 {
+	/**
+	 * Constructor.
+	 *
+	 * @param matrixX The <i>x</i> dimension of the matrix (the number of columns in the matrix). The 
+	 * default value is 0.
+	 * @param matrixY The <i>y</i> dimension of the matrix (the number of rows in the matrix). The 
+	 * default value is 0.
+	 * @param matrix The array of values used for matrix transformation. The number of 
+	 * items in the array must equal <code>matrixX ~~ matrixY</code>.
+	 * @param divisor The divisor used during matrix transformation. The default value is 1. 
+	 * A divisor that is the sum of all the matrix values evens out the overall color intensity of the
+	 * result. A value of 0 is ignored and the default is used instead. 
+	 * @param bias The bias to add to the result of the matrix transformation. The default value is 0.
+	 * @param preserveAlpha A value of <code>false</code> indicates that the alpha value is not
+	 * preserved and that the convolution applies to all
+	 * channels, including the alpha channel. A value of <code>true</code> indicates that 
+	 * the convolution applies only to the color channels. The default value is <code>true</code>.
+	 * @param clamp For pixels that are off the source image, a value of <code>true</code> indicates that the 
+	 * input image is extended along each of its borders as necessary by duplicating the color values 
+	 * at the given edge of the input image. A value of <code>false</code> indicates that another 
+	 * color should be used, as specified in the <code>color</code> and <code>alpha</code> properties. 
+	 * The default is <code>true</code>. 
+	 * @param color The hexadecimal color to substitute for pixels that are off the source image.
+	 * @param alpha The alpha of the substitute color.
+	 *
+	 * @langversion 3.0
+	 * @playerversion Flash 10
+	 * @playerversion AIR 1.5
+	 * @productversion Flex 4
+	 */
 	public function ConvolutionFilter(matrixX:Number = 0, matrixY:Number = 0, 
 	                                  matrix:Array = null, divisor:Number = 1.0, 
 	                                  bias:Number = 0.0, 
@@ -306,6 +373,17 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 		}
 	}
 	
+	/** 
+	 * Returns a copy of this filter object.
+	 * 
+	 * @return BitmapFilter A new ConvolutionFilter instance with all the same properties as the original
+	 * ConvolutionMatrixFilter instance.
+	 *
+	 * @langversion 3.0
+	 * @playerversion Flash 10
+	 * @playerversion AIR 1.5
+	 * @productversion Flex 4
+	 */
 	public function clone():BitmapFilter
 	{
 		return new flash.filters.ConvolutionFilter(matrixX, matrixY, matrix, divisor, 
