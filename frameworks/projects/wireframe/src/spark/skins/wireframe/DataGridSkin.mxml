@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- 
+The default skin class for a Spark DataGrid component.  
+
+@see spark.components.DataGrid
+-->
+
+<s:Skin 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+    alpha.disabled="0.5" minWidth="89" minHeight="84">
+    
+    <fx:Metadata>
+        [HostComponent("spark.components.DataGrid")]
+    </fx:Metadata>
+    
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <fx:Declarations>
+        <fx:Component id="alternatingRowColorsBackground">
+            <s:Rect implements="spark.components.IGridRowBackground">
+                <fx:Script>
+                    <![CDATA[
+                        import spark.components.DataGrid;
+                        import spark.components.Grid;
+                        
+                        public function initializeRowBackground(grid:Grid, rowIndex:int):void
+                        {
+                            const dataGrid:DataGrid = grid.gridOwner as DataGrid;
+                            if (!dataGrid)
+                                return;
+                            
+                            const colors:Array = dataGrid.getStyle("alternatingRowColors");
+                            if (colors && (colors.length > 0))
+                            {
+                                dataGrid.styleManager.getColorNames(colors); // lazily replace color names with ints
+                                rowBackgroundFillColor.color = colors[rowIndex % colors.length];
+                            }
+                            else
+                            {          
+                                // This should be the same as bgFill.color.
+                                rowBackgroundFillColor.color = 0xFFFFFF;
+                            }
+                        }
+                    ]]>
+                </fx:Script>  
+                <s:fill>
+                    <s:SolidColor id="rowBackgroundFillColor" color="0xFFFFFF"/>
+                </s:fill>
+            </s:Rect>
+        </fx:Component>
+        
+        <fx:Component id="caretIndicator">
+            <s:Rect>
+                <s:stroke>
+                    <s:SolidColorStroke color="0x707070" weight="1"/>
+                </s:stroke>
+            </s:Rect>
+        </fx:Component>
+        
+        <fx:Component id="columnSeparator">
+            <s:Line>
+                <s:stroke>
+                    <s:SolidColorStroke color="0xE6E6E6" weight="1" caps="square"/>
+                </s:stroke>
+            </s:Line>
+        </fx:Component>
+        
+        <fx:Component id="headerColumnSeparator">
+            <s:Line>
+                <s:stroke>
+                    <s:SolidColorStroke color="0x666666" weight="1" caps="square"/>
+                </s:stroke>
+            </s:Line>
+        </fx:Component>
+        
+        <fx:Component id="hoverIndicator">
+            <s:Rect>
+                <s:fill>
+                    <s:SolidColor color="0xCCCCCC"/>
+                </s:fill>                
+            </s:Rect>
+        </fx:Component>      
+
+        <fx:Component id="rowSeparator">
+            <s:Line>
+                <s:stroke>
+                    <s:SolidColorStroke color="0xE6E6E6" weight="1" caps="square"/>
+                </s:stroke>
+            </s:Line>
+        </fx:Component>
+        
+        <fx:Component id="selectionIndicator">
+            <s:Rect>
+                <s:fill>
+                    <s:SolidColor color="0xEEEEEE"/>
+                </s:fill>
+            </s:Rect>
+        </fx:Component>            
+    </fx:Declarations>
+    
+    <!-- fill -->
+    <!--- Defines the background appearance of the list-based component. -->
+    <s:Rect left="1" right="1" top="1" bottom="1" >
+        <s:fill>
+            <!--- Defines the color of the background. The default color is 0xFFFFFF. -->
+            <s:SolidColor color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
+    
+    <s:VGroup horizontalAlign="justify" gap="0" left="0" right="0" top="0" bottom="0">
+        <s:ColumnHeaderBar id="columnHeaderBar" paddingLeft="1" paddingTop="1" paddingRight="1" headerRenderer="spark.skins.wireframe.DefaultGridHeaderRenderer" />
+        
+        <s:VGroup horizontalAlign="justify" height="100%" gap="-1">
+            <s:Line id="headerSeparator">
+                <s:stroke>
+                    <s:SolidColorStroke color="0x666666" weight="1" caps="square"/>
+                </s:stroke>
+            </s:Line>   
+            
+            <s:Scroller id="scroller" minViewportInset="1" hasFocusableChildren="false" height="100%">
+                <s:Grid id="grid" itemRenderer="spark.skins.spark.DefaultGridItemRenderer" />
+            </s:Scroller>
+        </s:VGroup>
+    </s:VGroup>
+    
+    <!-- border -->
+    <!--- @private -->
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:stroke>
+            <!--- @private -->
+            <s:SolidColorStroke weight="1" color="0x666666" />
+        </s:stroke>
+    </s:Rect>
+
+</s:Skin>
