@@ -631,7 +631,10 @@ are identical, save the superclass and constructor names.  This file contains th
             preferredHeight  = Math.abs((paddedTextHeight * m.a / m.d));
         }
         
+        GridItemRenderer.initializeRendererToolTip(this);
+        
         preferredSizeInvalid = false;
+
     }
     
     /**
@@ -643,19 +646,6 @@ are identical, save the superclass and constructor names.  This file contains th
             return;
         
         updatePreferredSize(); 
-
-		// If the effective value of showDataTips has changed for this column, then
-        // set the renderer's toolTip property to a placeholder.  The real tooltip
-        // text is computed in the TOOL_TIP_SHOW handler below.
-		
-        // TBD(hmuller) - this code should be common with GridItemRenderer
-        
-        const showDataTips:Boolean = rowIndex != -1 && column && column.getShowDataTips();  
-        const dataTip:String = toolTip;
-        if (showDataTips && !dataTip)
-            toolTip = "<dataTip>";
-        else if (!showDataTips && dataTip)
-            toolTip = null;
     }
     
     //--------------------------------------------------------------------------
