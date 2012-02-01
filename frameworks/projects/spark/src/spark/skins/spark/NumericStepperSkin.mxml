@@ -11,33 +11,33 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
 	  minHeight="24" 
 	  alpha.disabled="0.5">
 
-    <Metadata>
-        [HostComponent("mx.components.FxNumericStepper")]
-    </Metadata> 
+    <fx:Metadata>
+        [HostComponent("spark.components.NumericStepper")]
+    </fx:Metadata> 
     
-    <Script>
+    <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For numeric stepper, the skin itself is colorized but the individual parts are not. */
         static private const exclusions:Array = ["textInput", "decrementButton", "incrementButton"];
         override public function get colorizeExclusions():Array {return exclusions;}
-    </Script>
+    </fx:Script>
     
-    <states>
-    	<State name="normal" />
-    	<State name="disabled" />
-    </states>
+    <s:states>
+    	<s:State name="normal" />
+    	<s:State name="disabled" />
+    </s:states>
 
-    <FxButton id="incrementButton" right="0" top="0" height="50%" 
-              skinClass="mx.skins.spark.FxSpinnerIncrButtonSkin" />
-    <FxButton id="decrementButton" right="0" bottom="0" height="50%" 
-              skinClass="mx.skins.spark.FxSpinnerDecrButtonSkin" />
+    <s:Button id="incrementButton" right="0" top="0" height="50%" 
+              skinClass="spark.skins.default.SpinnerIncrButtonSkin" />
+    <s:Button id="decrementButton" right="0" bottom="0" height="50%" 
+              skinClass="spark.skins.default.SpinnerDecrButtonSkin" />
               
     <!--TODO: Once SDK-18275 is fixed, we can remove the creationComplete handler -->          
-    <FxTextInput id="textInput" left="0" top="0" right="18" bottom="0"
-    	skinClass="mx.skins.spark.FxNumericStepperTextInputSkin" />
+    <s:TextInput id="textInput" left="0" top="0" right="18" bottom="0"
+    	skinClass="spark.skins.default.NumericStepperTextInputSkin" />
     	
-</SparkSkin>
+</s:SparkSkin>
