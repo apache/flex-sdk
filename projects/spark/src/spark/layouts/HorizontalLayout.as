@@ -23,7 +23,7 @@ import mx.events.PropertyChangeEvent;
 
 import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
-import spark.core.ScrollUnit;
+import spark.core.NavigationUnit;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.layouts.supportClasses.LayoutElementHelper;
 import spark.layouts.supportClasses.LinearLayoutVector;
@@ -666,7 +666,7 @@ public class HorizontalLayout extends LayoutBase
     /**
      * @private
      */
-    override public function clearCachedVirtualLayoutState():void
+    override public function clearVirtualLayoutCache():void
     {
         llv.clear();
     }     
@@ -1203,7 +1203,7 @@ public class HorizontalLayout extends LayoutBase
     /**
      *  @private 
      */  
-     override public function getDestinationIndex(navigationUnit:uint, currentIndex:int):int
+     override public function getNavigationDestinationIndex(currentIndex:int, navigationUnit:uint):int
      {
         if (!target || target.numElements < 1)
             return -1; 
@@ -1259,7 +1259,7 @@ public class HorizontalLayout extends LayoutBase
                     {
                         // currentIndex is visible, we can calculate where the scrollRect top
                         // would end up if we scroll by a page                    
-                        x = getHorizontalScrollPositionDelta(ScrollUnit.PAGE_LEFT) + getScrollRect().left;
+                        x = getHorizontalScrollPositionDelta(NavigationUnit.PAGE_LEFT) + getScrollRect().left;
                     }
                     else
                     {
@@ -1303,7 +1303,7 @@ public class HorizontalLayout extends LayoutBase
                     {
                         // currentIndex is visible, we can calculate where the scrollRect bottom
                         // would end up if we scroll by a page                    
-                        x = getHorizontalScrollPositionDelta(ScrollUnit.PAGE_RIGHT) + getScrollRect().right;
+                        x = getHorizontalScrollPositionDelta(NavigationUnit.PAGE_RIGHT) + getScrollRect().right;
                     }
                     else
                     {
@@ -1328,7 +1328,7 @@ public class HorizontalLayout extends LayoutBase
                 break;
             }
 
-            default: return super.getDestinationIndex(navigationUnit, currentIndex);
+            default: return super.getNavigationDestinationIndex(currentIndex, navigationUnit);
         }
         return Math.max(0, Math.min(maxIndex, newIndex));  
     }
