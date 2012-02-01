@@ -48,7 +48,7 @@
     -->
     <s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0"  >
         <s:fill>
-            <s:SolidColor color="0xFFFFFF" alpha="0" />
+            <s:SolidColor color="#FFFFFF" alpha="0" />
         </s:fill>
     </s:Rect>
         
@@ -67,14 +67,14 @@
             <!-- layer 0: control bar background -->
             <s:Rect left="0" right="0" bottom="0" top="1" >
                 <s:fill>
-                    <s:SolidColor color="0xE2EdF7" />
+                    <s:SolidColor color="#EEEEEE" />
                 </s:fill>
             </s:Rect>
     
             <!-- layer 1: control bar divider line -->
             <s:Rect left="0" right="0" bottom="0" height="1" >
                 <s:fill>
-                    <s:SolidColor color="0xD1E0F2" />
+                    <s:SolidColor color="#DDDDDD" />
                 </s:fill>
             </s:Rect>
 
