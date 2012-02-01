@@ -87,10 +87,8 @@ use namespace mx_internal;
  *    fractionalDigits="(locale specified number or customized by user)."
  *    fractionalDigitsError="The amount entered has too many digits beyond the
  *    decimal point."
- *    groupingPattern="(locale specified string or customized by user)."
  *    groupingSeparator="(locale specified string or customized by user)."
  *    groupingSeparationError="The number digits grouping is not following the
- *    grouping pattern."
  *  /&gt;
  *  </pre>
  *
@@ -295,7 +293,7 @@ public class NumberValidator extends NumberValidatorBase
     private var negativeNumberFormatErrorOverride:String;
 
     [Inspectable(category="Errors", defaultValue="null")]
-
+    [Bindable("change")]
     /**
      *  Error message when the input number's negative number format is not
      *  following the pattern specified by the negativeNumberFormat property.
@@ -314,10 +312,17 @@ public class NumberValidator extends NumberValidatorBase
 
     public function set negativeNumberFormatError(value:String):void
     {
+        if (negativeNumberFormatErrorOverride &&
+            (negativeNumberFormatErrorOverride == value))
+        {
+            return;
+        }
+            
         negativeNumberFormatErrorOverride = value;
 
         _negativeNumberFormatError = value ? value :
            resourceManager.getString("validators", "negativeNumberFormatError");
+        update();
     }
 
 
@@ -332,9 +337,6 @@ public class NumberValidator extends NumberValidatorBase
      */
     override mx_internal function createWorkingInstance():void
     {
-        // release groupingPatternSymbols as it contains grouping symbols based
-        // on previous locale grouping pattern.
-        groupingPatternSymbols = null;
         createWorkingInstanceCore(NUMBER_VALIDATOR_TYPE);
     }
 
@@ -394,8 +396,8 @@ public class NumberValidator extends NumberValidatorBase
     /**
      *  Convenience method for calling a validator from within a custom
      *  validation function. Each of the standard Flex validators has a similar
-     *  convenience method. Caller must check the lastOperationStatus after
-     *  this.
+     *  convenience method. Caller must check the ValidationResult objects in
+     *  the returned array for validation status.
      *
      *  @param value A number string to validate.
      *
@@ -427,11 +429,19 @@ public class NumberValidator extends NumberValidatorBase
         if (!inputStr)
             return results;
 
-        // If spark formatter is null, no-go-forward.
-        if (!g11nWorkingInstance)
+        // If spark formatter is null, no-go-forward. If spark formatter locale
+        // id is null or last operationstatus has locale undefined, then also
+        // no forward going situaion.
+        // The spark formatter createion has a situation where it's localeid is
+        // null but LasyOperationStatus is not set. TestLocaleUndef.mxml 
+        // testcase has this situation.
+        if ((!g11nWorkingInstance) || (!g11nWorkingInstance.actualLocaleIDName) ||
+            (g11nWorkingInstance.lastOperationStatus == 
+                LastOperationStatus.LOCALE_UNDEFINED_ERROR))
         {
-            fallbackLastOperationStatus =
-                            LastOperationStatus.LOCALE_UNDEFINED_ERROR;
+            results.push(new ValidationResult(
+                true, baseField, "localeUndefinedError",
+                localeUndefinedError));
             return results;
         }
 
@@ -450,7 +460,6 @@ public class NumberValidator extends NumberValidatorBase
         const nf:spark.formatters.NumberFormatter =
                g11nWorkingInstance as spark.formatters.NumberFormatter;
         const inputNum:Number = nf.parseNumber(input);
-
         // parseNumber() only returns PARSE_ERROR if it finds any error in input
         // string. If there is a PARSE_ERROR, validate the input
         // string further, detect and report the error. parse() is lenient than
@@ -474,22 +483,13 @@ public class NumberValidator extends NumberValidatorBase
         // See if negative number is allowed.
         if (!validateNumberNegativity(inputNum, baseField, results))
             return results;
-
-        // If grouping separator(s) are present in the input string
-        // make sure it's followed by correct number of digits per grouping
-        // pattern. We need the original number string extracted from input
-        // string with grouping separators intact. If input string has a
-        // decimal, then we need the number string upto last digit before the
-        // decimal.
-        var valStr:String = inputNum.toString();
-        if (inputNum < 0)
-            valStr = valStr.substring(1);
-        const numStart:int = input.indexOf(valStr.charAt(0));
-        const numEnd:int = input.lastIndexOf(valStr.charAt(valStr.length-1));
-        const decimalSeparatorIndex:Number = input.indexOf(decimalSeparator);
-        const end:int = (decimalSeparatorIndex == -1) ? numEnd :
-                                                      decimalSeparatorIndex - 1;
-
+        
+        var dindex:int;
+        if (negativeNumberFormat <= 2)
+            dindex = input.lastIndexOf(decimalSeparator);
+        else
+            dindex = input.indexOf(decimalSeparator);
+        
         //
         // Make sure every character after the decimal is a digit,
         // and that there aren't too many digits after the decimal point:
@@ -497,16 +497,8 @@ public class NumberValidator extends NumberValidatorBase
         // otherwise there should be no more than specified by fractionalDigits.
         //
         if (!validateFractionPart(
-                            input, decimalSeparatorIndex, baseField, results))
+                            input, dindex, baseField, results))
         {
-            return results;
-        }
-
-        if (!validateGrouping(input.substring(numStart, end), end-numStart))
-        {
-            results.push(new ValidationResult(
-                true, baseField, "groupingSeparation",
-                groupingSeparationError));
             return results;
         }
 
@@ -537,8 +529,8 @@ public class NumberValidator extends NumberValidatorBase
         const len:int = input.length;
         // Check for invalid characters in input.
         // One of the negative format of number is enclosing in parenthesis.
-        const validChars:String = DECIMAL_DIGITS + "-" + "(" + ")" +
-            decimalSeparator + groupingSeparator;
+        const validChars:String = VALID_CHARS +
+                                  decimalSeparator + groupingSeparator;
 
         if (validateInputCharacters(input, len, validChars))
         {
@@ -548,22 +540,27 @@ public class NumberValidator extends NumberValidatorBase
             return false;
         }
         // Make sure there's only one decimal point.
-        else if (input.indexOf(decimalSeparator) !=
-                 input.lastIndexOf(decimalSeparator))
+        else if ((decimalSeparator != negativeSymbol) &&
+                 (input.indexOf(decimalSeparator) !=
+                 input.lastIndexOf(decimalSeparator)))
         {
             results.push(new ValidationResult(
                 true, baseField, "decimalPointCount",
                 decimalPointCountError));
             return false;
         }
+        
+        var negPosLeft:Boolean = false;
+        if (negativeNumberFormat <= 2)
+            negPosLeft = true;
         // NumberValidatorBase has this method.
-        else if (!validateDecimalString(input, baseField, results))
+        else if (!validateDecimalString(input, baseField, results, negPosLeft))
         {
             return false;
         }
         // all errors are already checked. Only remaining error is
         // negativeNumberFormat.
-        else if ((input.indexOf(negativeSymbol) != -1) ||
+        else if ((inputHasNegativeSymbol(input)) ||
             ((input.charAt(0) == "(") && (input.charAt(len-1) == ")")))
 
         {
