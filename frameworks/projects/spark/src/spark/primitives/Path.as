@@ -461,7 +461,7 @@ public class Path extends FilledElement
         // Set a transparent line style because filled, unclosed shapes will
         // automatically be closed by the Player. When they are, we want the line
         // to be invisible. 
-        g.lineStyle(0,0,0);
+        g.lineStyle();
         super.endDraw(g);
     } 
     
