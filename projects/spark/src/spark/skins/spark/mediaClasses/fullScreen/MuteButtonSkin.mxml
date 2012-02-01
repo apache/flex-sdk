@@ -25,6 +25,9 @@
 
     <!-- host component -->
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.mediaClasses.MuteButton")]
     </fx:Metadata>
     
@@ -37,23 +40,29 @@
             {
                 // this is essentially just binding code.  Anytime the volume changes, 
                 // let us know.
-                volume = hostComponent.volume;
+                volume = hostComponent.muted ? 0 : hostComponent.volume;
                 hostComponent.addEventListener(FlexEvent.VALUE_COMMIT, valueCommitHandler);
                 hostComponent.addEventListener(FlexEvent.MUTED_CHANGE, valueCommitHandler);
             }
             
             private function valueCommitHandler(event:Event):void
             {
-                volume = hostComponent.volume;
+                volume = hostComponent.muted ? 0 : hostComponent.volume;
             }
             
             private var _volume:Number = 1;
             
+            /**
+             *  The volume of the component to represent.
+             */
             public function get volume():Number
             {
                 return _volume;
             }
             
+            /**
+             *  @private
+             */
             public function set volume(value:Number):void
             {
                 if (value == _volume)
@@ -137,7 +146,7 @@
         </s:stroke>
     </s:Rect>
     
-    <!-- volume symbol -->
+    <!--- volume symbol -->
     <s:Group horizontalCenter="0" verticalCenter="0" id="volumeSymbol">
     
         <!-- big trapezoid in center -->
@@ -160,27 +169,35 @@
         <s:Line yFrom="0" yTo="12" x="16">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90">
+                    <!--- @private -->
                     <s:GradientEntry color="0xFFFFFF" ratio=".9" id="bar4_1" />
+                    <!--- @private -->
                     <s:GradientEntry color="0x000000" id="bar4_2" />
                 </s:LinearGradientStroke>
             </s:stroke>
         </s:Line>
         
         <!-- middle volume bar representing volume values [.5, .75] -->
-        <s:Line yFrom="2" yTo="10" x="14" id="bar3">
+        <!--- @private -->
+        <s:Line yFrom="2" yTo="10" x="14">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90">
+                    <!--- @private -->
                     <s:GradientEntry color="0xFFFFFF" ratio=".9" id="bar3_1" />
+                    <!--- @private -->
                     <s:GradientEntry color="0x404040" id="bar3_2" />
                 </s:LinearGradientStroke>
             </s:stroke>
         </s:Line>
         
         <!-- middle volume bar representing volume values [.25, .5] -->
-        <s:Line yFrom="3" yTo="9" x="12" id="bar2">
+        <!--- @private -->
+        <s:Line yFrom="3" yTo="9" x="12">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90">
+                    <!--- @private -->
                     <s:GradientEntry color="0xFFFFFF" ratio=".9" id="bar2_1" />
+                    <!--- @private -->
                     <s:GradientEntry color="0x404040" id="bar2_2" />
                 </s:LinearGradientStroke>
             </s:stroke>
@@ -190,7 +207,9 @@
         <s:Line yFrom="5" yTo="7" x="10">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90">
+                    <!--- @private -->
                     <s:GradientEntry color="0xFFFFFF" ratio=".9" id="bar1_1" />
+                    <!--- @private -->
                     <s:GradientEntry color="0x404040" id="bar1_2" />
                 </s:LinearGradientStroke>
             </s:stroke>
