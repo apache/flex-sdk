@@ -366,7 +366,7 @@ package spark.skins
             // If we have an icon to render we ensure the necessary
             // parts are created and we configure a helper layout
             // (LabelAndIconLayout) to manage our display parts.
-            if (_icon && labelDisplay)
+            if (_icon)
             {
                 if (iconChanged)
                     constructIconParts(true);
@@ -511,8 +511,11 @@ package spark.skins
         {
             // Ensure empty label is not included in layout else
             // a gap between icon and label would be applied.
-            IVisualElement(labelDisplay).includeInLayout = labelDisplay.text != null 
-                && labelDisplay.text.length;
+            if (labelDisplay)
+            {
+                IVisualElement(labelDisplay).includeInLayout = labelDisplay.text != null 
+                    && labelDisplay.text.length;
+            }
         }
     }
 }
