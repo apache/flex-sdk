@@ -9,14 +9,13 @@ import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.events.IEventDispatcher;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.geom.Transform;
 
-import flex.filters.BaseFilter;
-import flex.filters.IBitmapFilter;
 import flex.geom.Transform;
 import flex.graphics.IDisplayObjectElement;
 import flex.graphics.IGraphicElement;
@@ -32,6 +31,8 @@ import mx.core.UIComponentGlobals;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 import mx.graphics.IStroke;
 import mx.managers.ILayoutManagerClient;
 
@@ -451,19 +452,13 @@ public class GraphicElement extends EventDispatcher
         var i:int = 0;
         var oldFilters:Array = _filters ? _filters.slice() : null;
         var len:int = oldFilters ? oldFilters.length : 0;
-        var edFilter:EventDispatcher;
+        var edFilter:IEventDispatcher;
 
         for (i = 0; i < len; i++)
         {
-            if (oldFilters[i] is IBitmapFilter)
-            {
-                edFilter = value[i] as EventDispatcher;
-                if (edFilter)
-                {
-                    edFilter.removeEventListener(BaseFilter.FILTER_CHANGED_TYPE,
-                                                 filterChangedHandler);
-                }
-            }
+            edFilter = value[i] as IEventDispatcher;
+            if (edFilter)
+                edFilter.removeEventListener(BaseFilter.CHANGE, filterChangedHandler);
         }
 
         _clonedFilters = [];
@@ -474,12 +469,9 @@ public class GraphicElement extends EventDispatcher
         {
             if (value[i] is IBitmapFilter)
             {
-                edFilter = value[i] as EventDispatcher;
+                edFilter = value[i] as IEventDispatcher;
                 if (edFilter)
-                {
-                    edFilter.addEventListener(BaseFilter.FILTER_CHANGED_TYPE,
-                                              filterChangedHandler);
-                }
+                    edFilter.addEventListener(BaseFilter.CHANGE, filterChangedHandler);
                 _clonedFilters.push(IBitmapFilter(value[i]).clone());
             }
             else
