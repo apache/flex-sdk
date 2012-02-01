@@ -11,12 +11,14 @@ in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The Spark skin class for the branchIcon of a Halo Menu component. 
+<!--- The Spark skin class for the <code>branchIcon</code> of an MX Menu component. 
 
-@langversion 3.0
-@playerversion Flash 10
-@playerversion AIR 1.5
-@productversion Flex 4
+      @see mx.controls.Menu
+
+        @langversion 3.0
+        @playerversion Flash 10
+        @playerversion AIR 1.5
+        @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" >
 
@@ -34,5 +36,5 @@ in accordance with the terms of the license agreement accompanying it.
                 <s:GradientEntry id="arrowFill3" color="0" alpha="0.75" ratio="1"/>
             </s:RadialGradient>
         </s:fill>
-    </s:Path>	
+    </s:Path>   
 </s:SparkSkin>
