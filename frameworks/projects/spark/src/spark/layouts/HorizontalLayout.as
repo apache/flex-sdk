@@ -21,6 +21,7 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 
+import spark.components.DataGroup;
 import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
 import spark.layouts.supportClasses.DropLocation;
@@ -1338,10 +1339,32 @@ public class HorizontalLayout extends LayoutBase
                 oldLength = llv.length;
                 llv.length = measuredEltCount;
             }
-            // paddingLeft is already taken into account as the majorAxisOffset of the llv   
-            layoutTarget.measuredWidth = llv.end(measuredEltCount - 1) + paddingRight;
+
+            // paddingRight is already taken into account as the majorAxisOffset of the llv 
+            // Measured size according to the cached actual size:
+            var measuredWidth:Number = llv.end(measuredEltCount - 1) + paddingRight;
+            
+            // For the live ItemRenderers use the preferred size
+            // instead of the cached actual size:
+            var dataGroupTarget:DataGroup = layoutTarget as DataGroup;
+            if (dataGroupTarget)
+            {
+                var indices:Vector.<int> = dataGroupTarget.getItemIndicesInView();
+                for each (var i:int in indices)
+                {
+                    var element:ILayoutElement = dataGroupTarget.getElementAt(i);
+                    if (element)
+                    {
+                        measuredWidth -= llv.getMajorSize(i);
+                        measuredWidth += element.getPreferredBoundsWidth();
+                    }
+                }
+            }
+            
+            layoutTarget.measuredWidth = measuredWidth;
+            
             if (oldLength != -1)
-                llv.length = oldLength; 
+                llv.length = oldLength;
         }
         else
         {
@@ -2105,8 +2128,8 @@ public class HorizontalLayout extends LayoutBase
 }
 }
 
-import mx.core.ILayoutElement;
 import mx.containers.utilityClasses.FlexChildInfo;
+import mx.core.ILayoutElement;
 
 class HLayoutElementFlexChildInfo extends FlexChildInfo
 {
