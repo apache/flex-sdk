@@ -34,7 +34,12 @@
         <s:State name="disabled" />
     </s:states>
     
-    <s:DataGroup id="dataGroup" left="0" right="0" top="0" bottom="0">
+    <!--
+      Note: setting the minimum size to 0 here so that changes to the host component's
+      size will not be thwarted by this skin part's minimum size.   This is a compromise,
+      more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
+    -->
+    <s:DataGroup id="dataGroup" left="0" right="0" top="0" bottom="0" minWidth="0" minHeight="0">
         <s:layout>
             <s:VerticalLayout horizontalAlign="contentJustify" />
         </s:layout>
