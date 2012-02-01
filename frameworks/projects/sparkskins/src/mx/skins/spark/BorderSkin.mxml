@@ -12,6 +12,7 @@
 <SparkSkin xmlns="http://ns.adobe.com/mxml/2009" implements="mx.core.IRectangularBorder" blendMode="layer">
     
     <Script>
+		<![CDATA[
 		import mx.core.EdgeMetrics;
 		import mx.graphics.RectangularDropShadow;
 		
@@ -94,6 +95,7 @@
 	        else // direction == "center"
 	            return distance >= 0 ? 90 : 270;
 	    }
+		]]>
     </Script>
     
     <!-- border --> 
@@ -106,7 +108,7 @@
     <!-- fill -->
     <Rect id="background" left="1" right="1" top="1" bottom="1">
         <fill>
-            <SolidColor id="bgFill" color="0xFF0000" />
+            <SolidColor id="bgFill" color="0xFFFFFF" />
         </fill>
     </Rect>
  </SparkSkin>
