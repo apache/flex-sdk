@@ -18,11 +18,9 @@ width="300" height="16"
     	[HostComponent("flex.component.HSlider")]
     </Metadata> 
     
-    <content>
-        <Button id="track" left="0" right="0" top="2" bottom="2" 
-                skinZZ="flex.skin.HSliderTrackSkin" />
-        <Button id="thumb" top="0" bottom="0" width="15" 
-                skinZZ="flex.skin.HSliderThumbSkin" />
-   </content>
+    <Button id="track" left="0" right="0" top="2" bottom="2" 
+            skinZZ="flex.skin.HSliderTrackSkin" />
+    <Button id="thumb" top="0" bottom="0" width="15" 
+            skinZZ="flex.skin.HSliderThumbSkin" />
 
 </Skin>
