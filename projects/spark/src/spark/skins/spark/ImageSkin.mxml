@@ -63,11 +63,14 @@ in accordance with the terms of the license agreement accompanying it.
     <!-- host component -->
     <fx:Metadata>
         <![CDATA[ 
+        /** 
+        * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.Image")]
         ]]>
     </fx:Metadata>
     
-    <!-- Defines the appearance of the image background. -->
+    <!--- Defines the appearance of the image background. -->
     <s:Rect id="background" left="0" right="0" top="0" bottom="0">
         <s:fill>
             <!-- @private -->
@@ -75,13 +78,13 @@ in accordance with the terms of the license agreement accompanying it.
         </s:fill>
     </s:Rect>
     
-    <!-- Primary image display part -->
+    <!--- Primary image display skin part. -->
     <s:BitmapImage id="imageDisplay" left="0" top="0" right="0" bottom="0"/>
     
-    <!-- Progress indicator part -->
+    <!--- Progress indicator skin part. -->
     <s:Range id="progressIndicator" skinClass="spark.skins.spark.ImageLoadingSkin" verticalCenter="0" horizontalCenter="0" includeIn="loading" layoutDirection="ltr" />
     
-    <!-- Invalid image icon -->
+    <!--- Icon that appears in place of the image when an invalid image is loaded. -->
     <s:BitmapImage id="brokenImageIcon" includeIn="invalid" source="@Embed(source='Assets.swf',symbol='__brokenImage')" verticalCenter="0" horizontalCenter="0"/>
     
 </s:Skin>
