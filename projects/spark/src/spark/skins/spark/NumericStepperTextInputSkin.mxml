@@ -56,7 +56,7 @@
 	</s:Rect>
 	
 	<!-- text -->
-    <s:RichEditableText id="RichEditableText"
+    <s:RichEditableText id="textView"
               left="1" right="1" top="1" bottom="1" 
 			  paddingLeft="3" paddingTop="5"
               paddingRight="6" paddingBottom="3"/>
