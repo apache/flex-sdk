@@ -312,7 +312,10 @@ public class StringTools extends GlobalizationBase
     }
 
     /**
-     *  @copy spark.globalization.SupportedClasses.CollatorBase#getAvailableLocaleIDNames
+     *  Lists all of the locale ID names supported by this class.
+     *
+     *  @return A vector of strings containing all of the locale ID names
+     *         supported by this class and operating system.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
