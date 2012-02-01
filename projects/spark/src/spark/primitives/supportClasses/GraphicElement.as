@@ -61,7 +61,7 @@ import mx.utils.MatrixUtil;
 import spark.components.supportClasses.InvalidatingSprite;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
-import spark.core.IGraphicElementHost;
+import spark.core.IGraphicElementContainer;
 import spark.core.MaskType;
 import spark.utils.FTETextUtil;
 import spark.utils.MaskUtil;
@@ -624,7 +624,7 @@ public class GraphicElement extends EventDispatcher
      *  @private
      *  Storage for the parent property.
      */
-    private var _parent:IGraphicElementHost;
+    private var _parent:IGraphicElementContainer;
 
     /**
      *  @inheritDoc
@@ -647,7 +647,7 @@ public class GraphicElement extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function parentChanged(value:IGraphicElementHost):void
+    public function parentChanged(value:IGraphicElementContainer):void
     {
         _parent = value;
         invalidateLayoutDirection();
@@ -3167,7 +3167,10 @@ public class GraphicElement extends EventDispatcher
                 restoreDisplayObject = true;
                 oldDisplayObject = displayObject;
                 setDisplayObject(new InvalidatingSprite());
-                UIComponent(parent).$addChild(displayObject);
+                if (parent is UIComponent)
+                    UIComponent(parent).$addChild(displayObject);
+                else
+                    parent.addChild(displayObject);
                 invalidateDisplayList();
                 validateDisplayList();
             }
@@ -3194,7 +3197,10 @@ public class GraphicElement extends EventDispatcher
            
             if (restoreDisplayObject)
             {
-                UIComponent(parent).$removeChild(displayObject);
+                if (parent is UIComponent)
+                    UIComponent(parent).$removeChild(displayObject);
+                else
+                    parent.removeChild(displayObject);
                 setDisplayObject(oldDisplayObject);
             }
             return bitmapData;
@@ -3232,7 +3238,11 @@ public class GraphicElement extends EventDispatcher
         
         
         // Remove the target from its current parent, making sure to store the child index
-        var displayObjectIndex:int = IGraphicElementHost(parent).detachDisplayObject(this); 
+        var displayObjectIndex:int = parent.getChildIndex(displayObject);
+        if (parent is UIComponent)
+            UIComponent(parent).$removeChild(displayObject);
+        else
+            parent.removeChild(displayObject);
         
         // Parent the target to the drawSprite and then attach the drawSprite to the stage
         topLevel.addChild(drawSprite);
@@ -3261,7 +3271,10 @@ public class GraphicElement extends EventDispatcher
         topLevel.removeChild(drawSprite);
         
         // Reattach the target to its original parent at its original child position
-        IGraphicElementHost(parent).attachDisplayObject(this, displayObjectIndex);
+        if (parent is UIComponent)
+            UIComponent(parent).$addChildAt(displayObject, displayObjectIndex);
+        else
+            parent.addChildAt(displayObject, displayObjectIndex);
             
         // Restore the original 3D matrix
         displayObject.transform.matrix3D = oldMat3D;
@@ -3343,7 +3356,7 @@ public class GraphicElement extends EventDispatcher
     protected function invalidateDisplayObjectSharing():void
     {
         if (parent)
-            IGraphicElementHost(parent).invalidateGraphicElementSharing(this);
+            IGraphicElementContainer(parent).invalidateGraphicElementSharing(this);
     }
 
     /**
@@ -3366,7 +3379,7 @@ public class GraphicElement extends EventDispatcher
         invalidatePropertiesFlag = true;
 
         if (parent)
-            IGraphicElementHost(parent).invalidateGraphicElementProperties(this);
+            IGraphicElementContainer(parent).invalidateGraphicElementProperties(this);
     }
 
     /**
@@ -3392,7 +3405,7 @@ public class GraphicElement extends EventDispatcher
         invalidateSizeFlag = true;
 
         if (parent)
-            IGraphicElementHost(parent).invalidateGraphicElementSize(this);
+            IGraphicElementContainer(parent).invalidateGraphicElementSize(this);
     }
 
     /**
@@ -3436,10 +3449,10 @@ public class GraphicElement extends EventDispatcher
             return;
         invalidateDisplayListFlag = true;
 
-        // The IGraphicElementHost will take care of redrawing all graphic elements that
+        // The IGraphicElementContainer will take care of redrawing all graphic elements that
         // share the display object with this element.
         if (parent)
-            IGraphicElementHost(parent).invalidateGraphicElementDisplayList(this);
+            IGraphicElementContainer(parent).invalidateGraphicElementDisplayList(this);
     }
 
     /**
@@ -3493,7 +3506,7 @@ public class GraphicElement extends EventDispatcher
      *  <p>You do not call this method directly.
      *  Flex calls the <code>commitProperties()</code> method when you
      *  use the <code>addElement()</code> method to add an element to an 
-     *  <code>IGraphicElementHost</code> container such as Group,
+     *  <code>IGraphicElementContainer</code> container such as Group,
      *  or when you call the <code>invalidateProperties()</code> method of the element.
      *  Calls to the <code>commitProperties()</code> method occur before calls to the
      *  <code>measure()</code> method. This lets you set property values that might
@@ -3798,7 +3811,7 @@ public class GraphicElement extends EventDispatcher
      *
      *  <p>You do not call this method directly. Flex calls the
      *  <code>measure()</code> method when the element is added to an
-     *  <code>IGraphicElementHost</code> container such as Group
+     *  <code>IGraphicElementContainer</code> container such as Group
      *  using the <code>addElement()</code> method, and when the element's
      *  <code>invalidateSize()</code> method is called. </p>
      *
@@ -3859,10 +3872,10 @@ public class GraphicElement extends EventDispatcher
      */
     public function validateDisplayList():void
     {
-        // Don't check the invalidateDisplayListFlag for early return, the IGraphicElementHost takes care to
+        // Don't check the invalidateDisplayListFlag for early return, the IGraphicElementContainer takes care to
         // call validateDisplayList() only for elements that need to redraw.
         // Note that even when invalidateDisplayListFlag is false for a particular element,
-        // the IGraphicElementHost may still call it to redraw if it shares a display object with another
+        // the IGraphicElementContainer may still call it to redraw if it shares a display object with another
         // element that is redrawing.
         // if (!invalidateDisplayListFlag)
         //    return;
@@ -3914,7 +3927,7 @@ public class GraphicElement extends EventDispatcher
      *
      *  <p>You do not call this method directly. Flex calls the
      *  <code>updateDisplayList()</code> method when the component is added 
-     *  to an <code>IGraphicElementHost</code> container such as Group
+     *  to an <code>IGraphicElementContainer</code> container such as Group
      *  using the <code>addElement()</code> method, and when the element's
      *  <code>invalidateDisplayList()</code> method is called. </p>
      *
