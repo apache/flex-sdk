@@ -1519,8 +1519,8 @@ public class HorizontalLayout extends LayoutBase
             llv.defaultMajorSize = typicalWidth;
         }
         
-        if (!isNaN(columnWidth))
-            llv.defaultMajorSize = columnWidth;
+        if (!isNaN(_columnWidth))
+            llv.defaultMajorSize = _columnWidth;
         
         if (layoutTarget)
             llv.length = layoutTarget.numElements;        
