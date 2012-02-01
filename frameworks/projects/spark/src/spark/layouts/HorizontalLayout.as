@@ -1182,9 +1182,13 @@ public class HorizontalLayout extends LayoutBase
      */  
      override public function getDestinationIndex(navigationUnit:uint, currentIndex:int):int
      {
-        if (!target)
+        if (!target || target.numElements < 1)
             return -1; 
+            
+        // Make sure currentIndex is within range
         var maxIndex:int = target.numElements - 1;
+        currentIndex = Math.max(0, Math.min(maxIndex, currentIndex));
+
         var newIndex:int; 
         var bounds:Rectangle;
         var x:Number;
@@ -1232,7 +1236,7 @@ public class HorizontalLayout extends LayoutBase
 
                     // Find the element after the last element that spans left of the x position
                     newIndex = currentIndex - 1;
-                    while (0 < newIndex)
+                    while (0 <= newIndex)
                     {
                         bounds = getElementBounds(newIndex);
                         if (bounds && bounds.left < x)
@@ -1276,7 +1280,7 @@ public class HorizontalLayout extends LayoutBase
 
                     // Find the element before the first element that spans right of the y position
                     newIndex = currentIndex + 1;
-                    while (newIndex < maxIndex)
+                    while (newIndex <= maxIndex)
                     {
                         bounds = getElementBounds(newIndex);
                         if (bounds && bounds.right > x)
