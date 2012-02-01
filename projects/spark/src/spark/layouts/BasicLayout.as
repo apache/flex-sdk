@@ -89,7 +89,7 @@ public class BasicLayout implements ILayout
         var count:int = layoutTarget.numLayoutItems;
         for (var i:int = 0; i < count; i++)
         {
-            var layoutItem:ILayoutItem = LayoutItemFactory.getLayoutItemFor(layoutTarget.getLayoutItemAt(i));
+            var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
             if (!layoutItem || !layoutItem.includeInLayout)
                 continue;
 
@@ -148,7 +148,7 @@ public class BasicLayout implements ILayout
         var count:int = layoutTarget.numLayoutItems;
         for (var i:int = 0; i < count; i++)
         {
-            var layoutItem:ILayoutItem = LayoutItemFactory.getLayoutItemFor(layoutTarget.getLayoutItemAt(i));
+            var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
             if (!layoutItem || !layoutItem.includeInLayout)
                 continue;
             
