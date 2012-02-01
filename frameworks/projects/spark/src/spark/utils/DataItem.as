@@ -25,6 +25,7 @@ import mx.utils.DescribeTypeCache;
 use namespace mx_internal;
 use namespace flash_proxy;
 
+[RemoteClass(alias="spark.utils.DataItem")]
 
 /**
  *  The DataItem class represents a dynamic object with bindable properties.   
