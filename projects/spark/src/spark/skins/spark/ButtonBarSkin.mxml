@@ -55,7 +55,10 @@
 		</fx:Component>
 
 	</fx:Declarations>
-        
+
+	<!--- 
+		@copy spark.components.SkinnableDataContainer#dataGroup
+	-->
 	<s:DataGroup id="dataGroup" width="100%" height="100%">
 	    <s:layout>
 	    	<s:ButtonBarHorizontalLayout gap="-1"/>
