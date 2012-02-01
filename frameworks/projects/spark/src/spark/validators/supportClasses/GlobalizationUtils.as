@@ -103,6 +103,8 @@ public class GlobalizationUtils
      *  @returns <code>Boolean</code> <code>true</code> if a codepoint
      *  is a numeric digit, and <code>false</code> if not.
      *
+     *  @return <code>true</code> if a codepoint is a numeric digit.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
