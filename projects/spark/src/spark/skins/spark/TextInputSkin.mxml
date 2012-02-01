@@ -30,7 +30,7 @@
     
     <fx:Script>
         /* Define the skin elements that should not be colorized. */
-        static private const exclusions:Array = ["background", "textView"];
+        static private const exclusions:Array = ["background", "textDisplay"];
 
     /** 
      * @copy spark.skins.SparkSkin#colorizeExclusions
@@ -78,9 +78,10 @@
     </s:Rect>
     
     <!-- text -->
-    <s:RichEditableText id="textView"
+    <s:RichEditableText id="textDisplay"
               lineBreak="explicit"
               verticalAlign="middle"
+              widthInChars="15"
               left="1" right="1" top="1" bottom="1" 
               paddingLeft="3" paddingTop="5"
               paddingRight="3" paddingBottom="3"/>
