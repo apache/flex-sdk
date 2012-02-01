@@ -20,7 +20,8 @@ in accordance with the terms of the license agreement accompanying it.
 @playerversion AIR 1.5
 @productversion Flex 4
 -->
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" alpha="0.5" >
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" alpha="0.5" 
+             layoutDirection="ltr">
 
     <fx:Script>
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
