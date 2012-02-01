@@ -553,8 +553,9 @@ public class LayoutBase extends OnDemandEventDispatcher
      */  
      public function getDestinationIndex(navigationUnit:uint, currentIndex:int):int
      {
-        if (!target)
+        if (!target || target.numElements < 1)
             return -1; 
+            
          //Sub-classes implement according to their own layout 
          //logic. Common cases handled here. 
          switch (navigationUnit)
@@ -566,7 +567,7 @@ public class LayoutBase extends OnDemandEventDispatcher
                  return target.numElements - 1; 
 
              default:
-                return -1;
+                 return -1;
          }
      }
 
