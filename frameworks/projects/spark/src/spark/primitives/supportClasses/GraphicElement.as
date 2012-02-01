@@ -2309,6 +2309,15 @@ public class GraphicElement extends EventDispatcher
     //--------------------------------------------------------------------------
 
     /**
+     *  @return Returns a reference to the object in the layout tree
+     *  represented by this interface.
+     */
+    public function get target():Object
+    {
+        return this;
+    }
+
+    /**
      *  @return Returns the transformation matrix for this element, or null
      *  if it is detla identity.
      */
