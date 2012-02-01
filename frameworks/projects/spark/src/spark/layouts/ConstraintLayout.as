@@ -190,6 +190,14 @@ public class ConstraintLayout extends LayoutBase
     private var rowSpanElements:Vector.<ElementConstraintInfo> = null;
     private var otherElements:Vector.<ElementConstraintInfo> = null;
     
+    /**
+     *  @private
+     *  Vectors to store the baseline property of the rows, and
+     *  the maximum ascent of the elements in each row.
+     */
+    private var rowBaselines:Vector.<Array> = null;
+    private var rowMaxAscents:Vector.<Number> = null;
+    
     private var constraintCache:Dictionary = null;
     
     //--------------------------------------------------------------------------
@@ -301,12 +309,19 @@ public class ConstraintLayout extends LayoutBase
         var row:ConstraintRow;
         var temp:Vector.<ConstraintRow> = value.slice();
         var obj:Object = new Object();
+        var baselines:Vector.<Array> = new Vector.<Array>(n, true);
         
         for (var i:int = 0; i < n; i++)
         {
             row = temp[i];
             row.container = this.target;
             obj[row.id] = i;
+            baselines[i] = LayoutElementHelper.parseConstraintExp(row.baseline);
+            
+            var maxAscentStr:String = baselines[i][1];
+            if (maxAscentStr && maxAscentStr != "maxAscent")
+                throw new Error(ResourceManager.getInstance().getString("layout", "invalidBaselineOnRow",
+                                                                        [ row.id, row.baseline ]));
             
             if (!isNaN(row.percentHeight))
                 throw new Error(ResourceManager.getInstance().getString("layout", "percentHeightRow"));
@@ -314,6 +329,7 @@ public class ConstraintLayout extends LayoutBase
         
         _constraintRows = temp;
         rowsObject = obj;
+        rowBaselines = baselines;
         
         if (target)
         {
@@ -598,8 +614,16 @@ public class ConstraintLayout extends LayoutBase
         
         if (baselineBoundary)
         {
-            row = _constraintRows[elementInfo.baselineIndex];
-            baselineHolder = row.y;
+            var baselineIndex:Number = elementInfo.baselineIndex;
+            var rowBaseline:Array = rowBaselines[baselineIndex];
+            row = _constraintRows[baselineIndex];
+            
+            // add baseline offset from row.
+            baselineHolder = row.y + Number(rowBaseline[0]);
+            
+            // add maxAscent. maxAscent defaults to 0 if not specified.
+            if (rowMaxAscents)
+                baselineHolder += rowMaxAscents[baselineIndex];
             
             // If bottom doesn't exist, then the bottom should be restricted to the
             // baseline row.
@@ -683,7 +707,7 @@ public class ConstraintLayout extends LayoutBase
         
         // Vertical Position
         if (!isNaN(baseline))
-            elementY = baselineHolder + Math.round(baseline - layoutElement.baselinePosition);
+            elementY = baselineHolder + baseline - layoutElement.baselinePosition;
         else if (!isNaN(top))
             elementY = topHolder + top;
         else if (!isNaN(bottom))
@@ -1004,9 +1028,20 @@ public class ConstraintLayout extends LayoutBase
                         extY -= elementInfo.top;
                     
                     if (elementInfo.baselineBoundary)
+                    {
                         topIndex = elementInfo.baselineIndex;
+                        
+                        // add baseline offset.
+                        extY += Number(rowBaselines[topIndex][0]); 
+                            
+                        // add maxAscent. maxAscent is 0 if not specified on the row.
+                        if (rowMaxAscents)
+                            extY += rowMaxAscents[topIndex];
+                    }
                     else
+                    {
                         topIndex = 0;
+                    }
                 }
                 
                 maxExtent = extY + preferredHeight;
@@ -1382,7 +1417,6 @@ public class ConstraintLayout extends LayoutBase
         }
         
         // match rows.
-        var numRows:Number = _constraintRows.length;
         if (topBoundary || bottomBoundary || baselineBoundary)
         {
             var rowIndex:Object;
@@ -1425,7 +1459,7 @@ public class ConstraintLayout extends LayoutBase
             }
             
             if (baselineBoundary)
-            {            
+            {
                 rowIndex = rowsObject[baselineBoundary];
                 
                 if (rowIndex != null)
@@ -1437,6 +1471,19 @@ public class ConstraintLayout extends LayoutBase
                     message = ResourceManager.getInstance().getString(
                         "layout", "rowNotFound", [ baselineBoundary ]);
                     throw new ConstraintError(message);
+                }
+                
+                // when using maxAscent, calculate maximum baselinePosition for this row.
+                var bIndex:int = elementInfo.baselineIndex;
+                var numRows:Number = _constraintRows.length;
+                
+                if (rowBaselines[bIndex][1])
+                {
+                    // maxAscents will all default to 0.
+                    if (!rowMaxAscents)
+                        rowMaxAscents = new Vector.<Number>(numRows, true);
+
+                    rowMaxAscents[bIndex] = Math.max(rowMaxAscents[bIndex], layoutElement.baselinePosition);
                 }
             }
         }
