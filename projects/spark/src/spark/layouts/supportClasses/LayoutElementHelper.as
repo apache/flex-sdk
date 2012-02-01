@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.layout
+package spark.layout.supportClasses
 {
 
 /**
@@ -22,7 +22,7 @@ package mx.layout
  */
 public class LayoutElementHelper
 {
-    include "../core/Version.as";
+    include "../../core/Version.as";
 
     // TODO EGeorgie: move to a more general place, this is not specific to the LayoutElementHelper
     
