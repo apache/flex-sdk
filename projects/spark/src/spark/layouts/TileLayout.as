@@ -1811,7 +1811,7 @@ public class TileLayout extends LayoutBase
     /**
      *  @private
      */
-    override protected function getElementBounds(index:int):Rectangle
+    override public function getElementBounds(index:int):Rectangle
     {
         if (!useVirtualLayout)
             return super.getElementBounds(index);
