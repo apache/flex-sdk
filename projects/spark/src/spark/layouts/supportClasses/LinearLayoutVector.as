@@ -423,6 +423,7 @@ public final class LinearLayoutVector
         if ((index == -1) || (distance == curDistance))
             return index;
 
+        // At this point index corresponds to the first item in this block
         if (block)
         {
             // Find the item that contains distance and return its index
@@ -439,7 +440,7 @@ public final class LinearLayoutVector
         }
         else
         {
-            return index + Math.ceil(Number(distance - curDistance) / Number(_defaultMajorSize + _gap));
+            return index + Math.floor(Number(distance - curDistance) / Number(_defaultMajorSize + _gap));
         }
     }
         
