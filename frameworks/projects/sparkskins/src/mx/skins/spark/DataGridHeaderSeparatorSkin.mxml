@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the separator of a Halo DataGrid component. 
+<!--- The Spark skin class for the separator of the MX DataGrid component. 
+
+      @see mx.controls.DataGrid
         
       @langversion 3.0
       @playerversion Flash 10
