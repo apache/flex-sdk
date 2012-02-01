@@ -191,7 +191,6 @@ public class BitmapImage extends GraphicElement
     //
     //--------------------------------------------------------------------------
     
-    private var _bitmapData:BitmapData;
     private var _scaleGridBottom:Number;
     private var _scaleGridLeft:Number;
     private var _scaleGridRight:Number;
@@ -207,8 +206,30 @@ public class BitmapImage extends GraphicElement
     private var previousUnscaledWidth:Number;
     private var previousUnscaledHeight:Number;
     private var sourceInvalid:Boolean;
-    
 
+    //----------------------------------
+    //  bitmapData
+    //----------------------------------
+    
+    private var _bitmapData:BitmapData;
+    
+    /**
+     *  Returns a copy of the BitmapData object representing 
+     *  the currently loaded image content (unscaled).  This property
+     *  is <code>null</code> for untrusted cross domain content.
+     * 
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get bitmapData():BitmapData 
+    {
+        return _bitmapData ? _bitmapData.clone() : _bitmapData; 
+    }
+    
     //----------------------------------
     //  bytesLoaded
     //----------------------------------
@@ -1456,8 +1477,8 @@ public class BitmapImage extends GraphicElement
         }
         else
         {
-            // TODO(crl): Handle other content types here such as raw
-            // BitmapData returned from an IContentLoader.
+            if (content is BitmapData)
+                setBitmapData(content as BitmapData);
         }
     }
     
