@@ -614,6 +614,92 @@ public class Path extends FilledElement
     }
 
     /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function getBoundsXAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    {
+        var strokeExtents:Point = getStrokeExtents(postTransform);
+        var m:Matrix = postTransform ? computeMatrix() : null;
+
+        if (!m)
+        {
+            // Check for a common case, BasicLayout measure() always hits this:
+            if (isNaN(width))
+                return strokeExtents.x * -0.5 + this.x + measuredX;
+            else
+                width = preferredWidthPreTransform();
+
+            var naturalBounds:Rectangle = getBounds();
+            var sx:Number = (naturalBounds.width == 0 || width == 0) ? 1 : width / naturalBounds.width;
+            return strokeExtents.x * -0.5 + this.x + measuredX * sx;
+        }
+    
+        if (!isNaN(width))
+            width -= strokeExtents.x;
+
+        if (!isNaN(height))
+            height -= strokeExtents.y;
+
+        // Calculate the width and height pre-transform:
+        var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                 preferredWidthPreTransform(),
+                                                 preferredHeightPreTransform(),
+                                                 minWidth, minHeight,
+                                                 maxWidth, maxHeight);
+        if (!newSize)
+            newSize = new Point(minWidth, minHeight);
+        return strokeExtents.x * -0.5 + getBoundingBox(newSize.x, newSize.y, m).x;
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function getBoundsYAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    {
+        var strokeExtents:Point = getStrokeExtents(postTransform);
+        var m:Matrix = postTransform ? computeMatrix() : null;
+
+        if (!m)
+        {
+            // Check for a common case, BasicLayout measure() always hits this:
+            if (isNaN(height))
+                return strokeExtents.y * -0.5 + this.y + measuredY;
+            else
+                height = preferredHeightPreTransform();    
+
+            var naturalBounds:Rectangle = getBounds();
+            var sy:Number = (naturalBounds.height == 0 || height == 0) ? 1 : height / naturalBounds.height;
+            return strokeExtents.y * -0.5 + this.y + measuredY * sy;
+        }
+    
+        if (!isNaN(width))
+            width -= strokeExtents.x;
+
+        if (!isNaN(height))
+            height -= strokeExtents.y;
+
+        // Calculate the width and height pre-transform:
+        var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                 preferredWidthPreTransform(),
+                                                 preferredHeightPreTransform(),
+                                                 minWidth, minHeight,
+                                                 maxWidth, maxHeight);
+        if (!newSize)
+            newSize = new Point(minWidth, minHeight);
+        return strokeExtents.y * -0.5 + getBoundingBox(newSize.x, newSize.y, m).y;
+    }
+
+    /**
      *  @private
      */
     override public function getLayoutBoundsX(postTransform:Boolean = true):Number
