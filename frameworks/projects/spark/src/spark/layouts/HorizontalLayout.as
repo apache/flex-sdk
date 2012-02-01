@@ -1185,6 +1185,16 @@ public class HorizontalLayout extends LayoutBase
         if (!target || target.numElements < 1)
             return -1; 
             
+        // Special case when nothing was previously selected
+        if (currentIndex == -1)
+        {
+            if (navigationUnit == NavigationUnit.LEFT)
+                return -1;
+
+            if (navigationUnit == NavigationUnit.RIGHT)
+                return 0;    
+        }    
+
         // Make sure currentIndex is within range
         var maxIndex:int = target.numElements - 1;
         currentIndex = Math.max(0, Math.min(maxIndex, currentIndex));
