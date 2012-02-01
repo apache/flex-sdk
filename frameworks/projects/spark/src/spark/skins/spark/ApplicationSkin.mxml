@@ -19,7 +19,7 @@
       @productversion Flex 4
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-    alpha.disabled="0.5" >
+        xmlns:fb="http://ns.adobe.com/fb/2009" alpha.disabled="0.5">
 
     <fx:Metadata>
     <![CDATA[ 
@@ -29,6 +29,20 @@
         [HostComponent("spark.components.Application")]
     ]]>
     </fx:Metadata> 
+    
+    <fx:Script fb:stylingSupport="true">
+        <![CDATA[
+            /**
+             *  @private
+             */
+            override protected function updateDisplayList(unscaledWidth:Number, 
+                unscaledHeight:Number) : void
+            {
+                bgRectFill.color = getStyle('backgroundColor');
+                super.updateDisplayList(unscaledWidth, unscaledHeight);
+            }
+        ]]>
+    </fx:Script>
 
     <s:states>
         <s:State name="normal" />
@@ -44,7 +58,7 @@
     -->
     <s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0"  >
         <s:fill>
-            <s:SolidColor color="{getStyle('backgroundColor')}" />
+            <s:SolidColor id="bgRectFill"/>
         </s:fill>
     </s:Rect>
         
