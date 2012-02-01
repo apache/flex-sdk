@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics
+package spark.primitives.supportClasses
 {
 import flash.display.Graphics;
 import flash.display.Shape;
@@ -18,7 +18,7 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.geom.Rectangle;
 
-import mx.graphics.baseClasses.GraphicElement;
+import spark.primitives.supportClasses.GraphicElement;
 
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
@@ -39,7 +39,7 @@ use namespace mx_internal;
  */
 public class StrokedElement extends GraphicElement
 {
-    include "../core/Version.as";
+    include "../../core/Version.as";
     //--------------------------------------------------------------------------
     //
     //  Constructor
