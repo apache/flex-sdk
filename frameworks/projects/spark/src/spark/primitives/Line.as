@@ -15,6 +15,7 @@ package spark.primitives
 import flash.display.Graphics;
 import flash.display.GraphicsStroke;
 import flash.display.IGraphicsData;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import spark.primitives.supportClasses.StrokedElement;
@@ -255,7 +256,8 @@ public class Line extends StrokedElement
         if (stroke)
             graphicsStroke = GraphicsStroke(stroke.createGraphicsStroke(new 
             					Rectangle(drawX + measuredX, drawY + measuredY, 
-            					Math.max(width, stroke.weight), Math.max(height, stroke.weight)))); 
+            					Math.max(width, stroke.weight), Math.max(height, stroke.weight)),
+                                new Point(drawX + measuredX, drawY + measuredY))); 
         
         // If the stroke returns a valid graphicsStroke object which is the 
         // Drawing API-2 drawing commands to render this stroke, use that 
