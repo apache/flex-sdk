@@ -29,7 +29,7 @@ import flex.core.Group;
 /**
  *  Documentation is not currently available.
  */
-public class VerticalLayout extends EventDispatcher implements ILayout
+public class VerticalLayout extends LayoutBase
 {
     include "../core/Version.as";
     
@@ -39,16 +39,6 @@ public class VerticalLayout extends EventDispatcher implements ILayout
     //
     //--------------------------------------------------------------------------
 
-    private static function hasPercentWidth( layoutItem:ILayoutItem ):Boolean
-    {
-    	return !isNaN( layoutItem.percentSize.x );
-    }
-    
-    private static function hasPercentHeight( layoutItem:ILayoutItem ):Boolean
-    {
-        return !isNaN( layoutItem.percentSize.y );
-    }
-    
     private static function calculatePercentWidth( layoutItem:ILayoutItem, width:Number ):Number
     {
     	var percentWidth:Number = LayoutItemHelper.pinBetween( layoutItem.percentSize.x * width,
@@ -77,31 +67,9 @@ public class VerticalLayout extends EventDispatcher implements ILayout
     //
     //--------------------------------------------------------------------------
 
-    private var _target:GroupBase;
-    
-    public function get target():GroupBase
-    {
-        return _target;
-    }
-    
-    public function set target(value:GroupBase):void
-    {
-        _target = value;
-    }
-
     //----------------------------------
     //  gap
     //----------------------------------
-    
-    private function invalidateTargetSizeAndDisplayList():void
-    {
-        var layoutTarget:GroupBase = target;
-        if (layoutTarget != null) 
-        {
-            layoutTarget.invalidateSize();
-            layoutTarget.invalidateDisplayList();
-        }
-    }
     
     private var _gap:int = 6;
     
@@ -382,6 +350,13 @@ public class VerticalLayout extends EventDispatcher implements ILayout
         dispatchEvent(new Event("indexInViewChanged"));
     }
     
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
 	/**
 	 *  An index is "in view" if the corresponding non-null layout item is 
 	 *  within the vertical limits of the layout target's scrollRect
@@ -544,7 +519,7 @@ public class VerticalLayout extends EventDispatcher implements ILayout
     }
     
     
-    public function measure():void
+    override public function measure():void
     {
     	var layoutTarget:GroupBase = target;
         if (!layoutTarget)
@@ -558,7 +533,7 @@ public class VerticalLayout extends EventDispatcher implements ILayout
     }
     
     
-    public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
     	var layoutTarget:GroupBase = target; 
         if (!layoutTarget)
@@ -566,11 +541,12 @@ public class VerticalLayout extends EventDispatcher implements ILayout
         
         // TODO EGeorgie: use vector
         var layoutItemArray:Array = new Array();
+        var layoutItem:ILayoutItem;
         var count:uint = layoutTarget.numLayoutItems;
         var totalCount:uint = count; // How many items will be laid out
         for (var i:int = 0; i < count; i++)
         {
-            var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
+            layoutItem = layoutTarget.getLayoutItemAt(i);
             if (!layoutItem || !layoutItem.includeInLayout)
             {
             	totalCount--;
@@ -605,19 +581,19 @@ public class VerticalLayout extends EventDispatcher implements ILayout
         
         for (var index:int = 0; index < count; index++)
         {
-            var lo:ILayoutItem = layoutTarget.getLayoutItemAt(index);
+            layoutItem = layoutTarget.getLayoutItemAt(index);
             if (!layoutItem || !layoutItem.includeInLayout)
                 continue;
 
         	// Set the layout item's acutual size and position
-            var x:Number = (unscaledWidth - lo.actualSize.x) * hAlign;
-            lo.setActualPosition(x, y);
-            var dx:Number = lo.actualSize.x;
+            var x:Number = (unscaledWidth - layoutItem.actualSize.x) * hAlign;
+            layoutItem.setActualPosition(x, y);
+            var dx:Number = layoutItem.actualSize.x;
             if (!variableRowHeight)
-                lo.setActualSize(dx, rowHeight);
+                layoutItem.setActualSize(dx, rowHeight);
                 
             // Update maxX,Y, first,lastVisibleIndex, and y
-            var dy:Number = lo.actualSize.y;
+            var dy:Number = layoutItem.actualSize.y;
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);
             if ((y < maxVisibleY) && ((y + dy) > minVisibleY))
@@ -634,8 +610,8 @@ public class VerticalLayout extends EventDispatcher implements ILayout
         setRowCount(visibleRows);
         setIndexInView(firstRowInView, lastRowInView);
         layoutTarget.setContentSize(maxX, maxY);
+        updateScrollRect(unscaledWidth, unscaledHeight);
     }
-    
     
     /**
      *  This function sets the height of each child
