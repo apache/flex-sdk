@@ -3183,6 +3183,7 @@ public class GraphicElement extends EventDispatcher
             else if (_maskType == MaskType.LUMINOSITY)
             {
                 _mask.cacheAsBitmap = true;
+		drawnDisplayObject.cacheAsBitmap = true;
                 
                 // Create the shader wrapper class which wraps the pixel bender filter 
                 var luminosityMaskShader:LuminosityMaskShader = new LuminosityMaskShader();
