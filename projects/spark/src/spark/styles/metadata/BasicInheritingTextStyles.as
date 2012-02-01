@@ -10,9 +10,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#alignmentBaseline
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#alignmentBaseline
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -22,9 +22,9 @@
 [Style(name="alignmentBaseline", type="String", enumeration="useDominantBaseline,roman,ascent,descent,ideographicTop,ideographicCenter,ideographicBottom", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#baselineShift
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#baselineShift
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -34,9 +34,9 @@
 [Style(name="baselineShift", type="Object", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#cffHinting
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#cffHinting
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -56,9 +56,9 @@
 [Style(name="color", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#digitCase
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#digitCase
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -68,9 +68,9 @@
 [Style(name="digitCase", type="String", enumeration="default,lining,oldStyle", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#digitWidth
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#digitWidth
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -80,9 +80,9 @@
 [Style(name="digitWidth", type="String", enumeration="default,proportional,tabular", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#direction
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#direction
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -92,9 +92,9 @@
 [Style(name="direction", type="String", enumeration="ltr,rtl", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#dominantBaseline
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#dominantBaseline
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -114,9 +114,9 @@
 [Style(name="fontFamily", type="String", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontLookup
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontLookup
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -156,9 +156,9 @@
 [Style(name="fontWeight", type="String", enumeration="normal,bold", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#justificationRule
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#justificationRule
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -168,9 +168,9 @@
 [Style(name="justificationRule", type="String", enumeration="auto,space,eastAsian", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#justificationStyle
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#justificationStyle
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -180,13 +180,13 @@
 [Style(name="justificationStyle", type="String", enumeration="auto,prioritizeLeastAdjustment,pushInKinsoku,pushOutOnly", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#kerning
- *  
  *  <p>Kerning is enabled by default for Spark components, but is disabled by default for MX components.
  *  Spark components interpret <code>default</code> as <code>auto</code>, 
  *  while MX components interpret <code>default</code> as <code>false</code>.</p>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  <i>TLF styles are not supported in the mobile theme.</i>
+ *  
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#kerning
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -196,9 +196,9 @@
 [Style(name="kerning", type="String", enumeration="auto,on,off", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#ligatureLevel
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#ligatureLevel
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -208,9 +208,9 @@
 [Style(name="ligatureLevel", type="String", enumeration="common,minimum,uncommon,exotic", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineHeight
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineHeight
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -220,9 +220,9 @@
 [Style(name="lineHeight", type="Object", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineThrough
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineThrough
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -232,10 +232,11 @@
 [Style(name="lineThrough", type="Boolean", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#locale
+ * The locale of the text. Controls case transformations and shaping. Uses standard locale identifiers as described in Unicode Technical Standard #35. For example "en", "en_US" and "en-US" are all English, "ja" is Japanese. 
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
- *  
+ * <p>The default value is undefined. This property inherits its value from an ancestor; if still undefined, it inherits from the global <code>locale</code> style. 
+ * During the application initialization, if the global <code>locale</code> style is undefined, then the default value is set to "en".</p>
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -244,9 +245,9 @@
 [Style(name="locale", type="String", inherit="yes")]
 
 /**
+ *  <i>TLF styles are not supported in the mobile theme.</i>
+ * 
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#renderingMode
- *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -266,9 +267,9 @@
 [Style(name="textAlign", type="String", enumeration="start,end,left,right,center,justify", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlignLast
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlignLast
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -278,9 +279,9 @@
 [Style(name="textAlignLast", type="String", enumeration="start,end,left,right,center,justify", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlpha
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlpha
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -300,9 +301,9 @@
 [Style(name="textDecoration", type="String", enumeration="none,underline", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#textJustify
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#textJustify
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -312,9 +313,9 @@
 [Style(name="textJustify", type="String", enumeration="interWord,distribute", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#trackingLeft
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#trackingLeft
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -324,9 +325,9 @@
 [Style(name="trackingLeft", type="Object", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#trackingRight
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#trackingRight
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -336,9 +337,9 @@
 [Style(name="trackingRight", type="Object", inherit="yes")]
 
 /**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#typographicCase
+ *  <i>TLF styles are not supported in the mobile theme.</i>
  *  
- *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#typographicCase
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
