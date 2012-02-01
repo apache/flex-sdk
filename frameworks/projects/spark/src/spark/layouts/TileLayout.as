@@ -1171,8 +1171,8 @@ public class TileLayout extends LayoutBase
             var cwg:Number = _columnWidth + _horizontalGap;
             var rwg:Number = _rowHeight + _verticalGap;
             
-            var visibleCol0:int = Math.floor(hsp / cwg);
-            var visibleRow0:int = Math.floor(vsp / rwg);
+            var visibleCol0:int = Math.max(0, Math.floor(hsp / cwg));
+            var visibleRow0:int = Math.max(0, Math.floor(vsp / rwg));
             var visibleCol1:int = Math.min(_columnCount - 1, Math.floor((hsp + unscaledWidth) / cwg));
             var visibleRow1:int = Math.min(_rowCount - 1, Math.floor((vsp + unscaledHeight) / rwg));
 
