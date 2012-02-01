@@ -22,7 +22,7 @@ import mx.core.ILayoutElement;
 import mx.utils.OnDemandEventDispatcher;
 
 /**
-*  The base class for all layouts.
+ *  The base class for all layouts.
  * 
  *  To create a custom layout that works with the Spark containers,
  *  you must extend <code>LayoutBase</code> or one of its subclasses.
@@ -39,7 +39,7 @@ import mx.utils.OnDemandEventDispatcher;
  *  <p>Subclasses that support virtualization must respect the 
  *  <code>useVirtualLayout</code> property and should only retrieve
  *  layout elements within the scrollRect (the value of
- *  <code>getTargetScrollRect()</code>) using <code>getVirtualElementAt()</code>
+ *  <code>getScrollRect()</code>) using <code>getVirtualElementAt()</code>
  *  from within <code>updateDisplayList()</code>.</p>
  */
 public class LayoutBase extends OnDemandEventDispatcher
@@ -128,7 +128,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      * 
      *  @default false
      * 
-     *  @see #getTargetScrollRect
+     *  @see #getScrollRect
      *  @see #typicalLayoutElement
      *
      *  @langversion 3.0
@@ -413,66 +413,6 @@ public class LayoutBase extends OnDemandEventDispatcher
     }          
 
     /**
-     *  Convenience function for subclasses that invalidates the
-     *  target's size and displayList so that both layout's <code>measure()</code>
-     *  and <code>updateDisplayList</code> methods get called.
-     * 
-     *  <p>Typically a layout invalidates the target's size and display list so that
-     *  it gets a chance to recalculate the target's default size and also size and
-     *  position the target's elements. For example changing the <code>gap</code>
-     *  property on a <code>VerticalLayout</code> will internally call this method
-     *  to ensure that the elements are re-arranged with the new setting and the
-     *  target's default size is recomputed.</p> 
-     * 
-     *  @see #invalidateTargetDisplayList
-     *  @see mx.core.UIComponent#invalidateSize
-     *  @see mx.core.UIComponent#invalidateDisplayList
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function invalidateTargetSizeAndDisplayList():void
-    {
-        var g:GroupBase = target;
-        if (!g)
-            return;
-
-        g.invalidateSize();
-        g.invalidateDisplayList();
-    }
-    
-    /**
-     *  Convenience function for subclasses that invalidates the
-     *  target's displayList so that the layout's <code>updateDisplayList()</code>
-     *  gets called.
-     * 
-     *  <p>Typically a layout invalidates the target's display list so that
-     *  it gets a chance to size and position the target's elements, but doesn't need to
-     *  recompute the target's default size. For example changing the <code>horizontalAlign</code>
-     *  property on a <code>VerticalLayout</code> will internally call this method
-     *  to ensure that the elements are re-arranged with the new setting.
-     *  The <code>horizontalAlign</code> does not affect the target's default size.</p>
-     *
-     *  @see #invalidateTargetSizeAndDisplayList
-     *  @see mx.core.UIComponent#invalidateDisplayList
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function invalidateTargetDisplayList():void
-    {
-        var g:GroupBase = target;
-        if (!g)
-            return;
-
-        g.invalidateDisplayList();
-    }
-    
-    /**
      *  This method must is called by the target after a layout element 
      *  has been added and before the target's size and display list are
      *  validated.   
@@ -597,7 +537,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function getTargetScrollRect():Rectangle
+    protected function getScrollRect():Rectangle
     {
         var g:GroupBase = target;
         if (!g || !g.clipAndEnableScrolling)
@@ -827,7 +767,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (!g)
             return 0;     
 
-        var scrollRect:Rectangle = getTargetScrollRect();
+        var scrollRect:Rectangle = getScrollRect();
         if (!scrollRect)
             return 0;
             
@@ -984,7 +924,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (!g)
             return 0;     
 
-        var scrollRect:Rectangle = getTargetScrollRect();
+        var scrollRect:Rectangle = getScrollRect();
         if (!scrollRect)
             return 0;
             
@@ -1072,7 +1012,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     }
     
     /**
-     *  LayoutBase::getScrollPositionDelta() computes the
+     *  LayoutBase::getScrollPositionDeltaToElement() computes the
      *  vertical and horizontalScrollPosition deltas needed to 
      *  scroll the element at the specified index into view.
      * 
@@ -1110,7 +1050,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-     public function getScrollPositionDelta(index:int):Point
+     public function getScrollPositionDeltaToElement(index:int):Point
      {
         var g:GroupBase = target;
         if (!g || !clipAndEnableScrolling)
@@ -1124,7 +1064,7 @@ public class LayoutBase extends OnDemandEventDispatcher
          if (!element || !element.includeInLayout)
             return null;
             
-         var scrollR:Rectangle = getTargetScrollRect();
+         var scrollR:Rectangle = getScrollRect();
          if (!scrollR)
             return null;
          
