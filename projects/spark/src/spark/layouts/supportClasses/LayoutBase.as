@@ -15,6 +15,7 @@ package spark.layouts.supportClasses
 import flash.geom.Point;
 import flash.events.Event;
 import flash.geom.Rectangle;
+import flash.ui.Keyboard; 
 
 import spark.components.supportClasses.GroupBase;
 import spark.core.ScrollUnit;
@@ -523,6 +524,45 @@ public class LayoutBase extends OnDemandEventDispatcher
         else
             g.scrollRect = null;
     }
+    
+    /**
+     *  Delegation method that determines which item  
+     *  to navigate to based on the current item in focus 
+     *  and key stroke that was encountered. This method
+     *  is used by derivatives of ListBase to handle 
+     *  keyboard navigation.  
+     * 
+     *  Subclasses can override this method to compute other 
+     *  values that are based on the current index and key 
+     *  stroke encountered. 
+     * 
+     *  @param index The current index of the item with focus. 
+     *  @param key The key stroke that determines which item 
+     *  to navigate to next.  
+     * 
+     *  @return The index of the next item to jump to.  
+     * 
+     */  
+     public function nextItemIndex(keyCode:uint, currentIndex:int, maxIndex:int):int
+     {
+         //Sub-classes implement according to their own layout 
+         //logic. Common cases handled here. 
+         var retVal:int = -1; 
+         switch (keyCode)
+         {
+             case Keyboard.END:
+             {
+                 retVal = maxIndex; 
+                 break; 
+             }
+             case Keyboard.HOME:
+             {
+                 retVal = 0; 
+                 break; 
+             }
+         }
+         return retVal; 
+     }
 
     /**
      *  Returns the bounds of the target's scrollRect in layout coordinates.
