@@ -17,6 +17,11 @@
     	[HostComponent("flex.component.DataComponent")]
     </Metadata> 
     
+    <states>
+    	<State name="normal" />
+    	<State name="disabled" />
+    </states>
+    
     <DataGroup id="dataGroup" left="0" right="0" top="0" bottom="0">
         <layout>
             <VerticalLayout />
