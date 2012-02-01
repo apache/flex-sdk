@@ -2,64 +2,70 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The Spark skin class for the Halo ProgressBar component's track. -->
+<!--- The Spark skin class for the Halo ProgressBar component's track. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" minHeight="9">
-	
-	<!-- layer 1: border -->
-	<s:Rect left="0" right="0" top="0" bottom="0" width="199">
-		<s:stroke>
-			<s:LinearGradientStroke rotation="90">
-				<s:GradientEntry color="0xFFFFFF" 
-				               alpha=".12" />
-				<s:GradientEntry color="0xFFFFFF" 
-				               alpha="0.8" />
-			</s:LinearGradientStroke>
-		</s:stroke>
-	</s:Rect>
-	
-	<!-- layer 2: inner border -->
-	<s:Rect left="1" right="1" top="1" bottom="1" >
-		<s:stroke>
-			<s:SolidColorStroke color="0x636363" alpha="1" />
-		</s:stroke>
-	</s:Rect>
-	
-	<!-- layer 3: fill -->
-	<s:Rect left="2" right="2" top="2" bottom="2" >
-		<s:fill>
-			<s:LinearGradient rotation="90">
-				<s:GradientEntry color="0x9A9A9A" 
-							   alpha="1" />
-				<s:GradientEntry color="0xBDBDBD" 
-							   alpha="1" />
-			</s:LinearGradient>
-		</s:fill>
-	</s:Rect>
-	
-	<!-- layer 4: inner shadow -->
-	<s:Rect left="2" top="2" bottom="2" width="1" >
-		<s:fill>
-			<s:SolidColor color="0x000000" alpha="0.12" />
-		</s:fill>
-	</s:Rect>
-	<s:Rect right="2" top="2" bottom="2" width="1" >
-		<s:fill>
-			<s:SolidColor color="0x000000" alpha="0.12" />
-		</s:fill>
-	</s:Rect>
-	<s:Rect left="3" top="2" right="3" height="1" >
-		<s:fill>
-			<s:SolidColor color="0x000000" alpha="0.12" />
-		</s:fill>
-	</s:Rect>
-	
+    
+    <!-- layer 1: border -->
+    <s:Rect left="0" right="0" top="0" bottom="0" width="199">
+        <s:stroke>
+            <s:LinearGradientStroke rotation="90">
+                <s:GradientEntry color="0xFFFFFF" 
+                               alpha=".12" />
+                <s:GradientEntry color="0xFFFFFF" 
+                               alpha="0.8" />
+            </s:LinearGradientStroke>
+        </s:stroke>
+    </s:Rect>
+    
+    <!-- layer 2: inner border -->
+    <s:Rect left="1" right="1" top="1" bottom="1" >
+        <s:stroke>
+            <s:SolidColorStroke color="0x636363" alpha="1" />
+        </s:stroke>
+    </s:Rect>
+    
+    <!-- layer 3: fill -->
+    <s:Rect left="2" right="2" top="2" bottom="2" >
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="0x9A9A9A" 
+                               alpha="1" />
+                <s:GradientEntry color="0xBDBDBD" 
+                               alpha="1" />
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+    
+    <!-- layer 4: inner shadow -->
+    <s:Rect left="2" top="2" bottom="2" width="1" >
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.12" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect right="2" top="2" bottom="2" width="1" >
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.12" />
+        </s:fill>
+    </s:Rect>
+    <s:Rect left="3" top="2" right="3" height="1" >
+        <s:fill>
+            <s:SolidColor color="0x000000" alpha="0.12" />
+        </s:fill>
+    </s:Rect>
+    
 </s:SparkSkin>
