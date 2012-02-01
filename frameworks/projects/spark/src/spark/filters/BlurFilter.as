@@ -3,6 +3,8 @@ package flex.filters
 import flash.filters.BitmapFilter;
 import flash.filters.BitmapFilterQuality;
 import flash.filters.BlurFilter;
+import mx.filters.BaseFilter;
+import mx.filters.IBitmapFilter;
 
 public class BlurFilter extends BaseFilter implements IBitmapFilter
 {
