@@ -15,8 +15,8 @@ package spark.validators.supportClasses
 import flash.globalization.NationalDigitsType;
 
 /**
- *  GlobalizationUtils is a utility class containing Unicode related functionality not 
- *  supported directly in Flex or ActionScript.
+ *  GlobalizationUtils is a class containing Unicode related functionality
+ *  not supported directly in Flex or ActionScript.
  * 
  *  <p>This class contains the utility routines needed for all Validators. 
  *  Examples of typical routines are checking for unicode white space, 
@@ -96,11 +96,12 @@ public class GlobalizationUtils
     //--------------------------------------------------------------------------
     /**
      *  Return <code>true</code> if a codepoint is a numeric digit.
+     *  Supported digits are listed in 
+     *  <code>flash.globalization.NationalDigitsType</code>.
      *
-     *  @param uint The input codepoint.
-     * 
-     *  @return <code>true</code> if a codepoint is a numeric digit, 
-     *  and <code>false</code> if not.
+     *  @param <code>int</code> input codepoint
+     *  @returns <code>Boolean</code> <code>true</code> if a codepoint
+     *  is a numeric digit, and <code>false</code> if not.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -158,6 +159,19 @@ public class GlobalizationUtils
     /**
      *  Return <code>true</code> if a codepoint is a white space character.
      *  Supports all unicode white space characters. 
+     *
+     *  <p>The unicode supported white spaces are:
+     *  <pre>
+     *  ASCII_SPACE (0x20)
+     *  NO_BREAK_SPACE (0xA0)
+     *  UNICODE_OGHAM_SPACE_MARK (0x1680)
+     *  Unicode spaces 0x2000 - 0x200B
+     *  UNICODE_NARROW_NOBREAK_SPACE (0x202F)
+     *  UNICODE_MEDIUM_MATHEMATICAL_SPACE (0x205F)
+     *  UNICODE_IDEOGRAPHIC_SPACE (0x3000)
+     *  UNICODE_ZEROWIDTH_NOBREAK_SPACE (0xFEFF)
+     *  </pre>
+     *  </p>
      *
      *  @param uint The input codepoint.
      * 
