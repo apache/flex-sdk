@@ -54,8 +54,6 @@ public class Line extends StrokedElement
 
     private var _xFrom:Number = 0;
     
-    
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -74,12 +72,9 @@ public class Line extends StrokedElement
      */
     public function set xFrom(value:Number):void
     {
-        var oldValue:Number = _xFrom;
-        
-        if (value != oldValue)
+        if (value != _xFrom)
         {
             _xFrom = value;
-            dispatchPropertyChangeEvent("xFrom", oldValue, value);
             invalidateSize();
         }
     }
@@ -90,8 +85,6 @@ public class Line extends StrokedElement
 
     private var _xTo:Number = 0;
     
-    
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -109,13 +102,10 @@ public class Line extends StrokedElement
      *  @private 
      */
     public function set xTo(value:Number):void
-    {
-        var oldValue:Number = _xTo;
-        
-        if (value != oldValue)
+    {        
+        if (value != _xTo)
         {
             _xTo = value;
-            dispatchPropertyChangeEvent("xTo", oldValue, value);
             invalidateSize();
         }
     }
@@ -126,7 +116,6 @@ public class Line extends StrokedElement
 
     private var _yFrom:Number = 0;
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -145,12 +134,9 @@ public class Line extends StrokedElement
      */
     public function set yFrom(value:Number):void
     {
-        var oldValue:Number = _yFrom;
-        
-        if (value != oldValue)
+        if (value != _yFrom)
         {
             _yFrom = value;
-            dispatchPropertyChangeEvent("yFrom", oldValue, value);
             invalidateSize();
         }
     }
@@ -161,7 +147,6 @@ public class Line extends StrokedElement
 
     private var _yTo:Number = 0;
     
-    [Bindable("propertyChange")]
     [Inspectable(category="General")]
 
     /**
@@ -179,13 +164,10 @@ public class Line extends StrokedElement
      *  @private 
      */
     public function set yTo(value:Number):void
-    {
-        var oldValue:Number = _yTo;
-        
-        if (value != oldValue)
+    {        
+        if (value != _yTo)
         {
             _yTo = value;
-            dispatchPropertyChangeEvent("yTo", oldValue, value);
             invalidateSize();
         }
     }
