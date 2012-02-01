@@ -19,6 +19,15 @@ import spark.components.SkinnableContainer;
 
 [Frame(factoryClass="mx.core.FlexModuleFactory")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+/**
+ *  Modules are not supported for AIR mobile applications.
+ */
+[DiscouragedForProfile("mobileDevice")]
+
 /**
  *  The Spark equivalent of mx:Module 
  *  
