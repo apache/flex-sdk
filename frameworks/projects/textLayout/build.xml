@@ -18,8 +18,8 @@
         <!-- We use abbreviated token names here as, the 'release' 
              and 'debug' tokens conflict with those specified in 
              build.properties -->
-	<property name="dbg" value="true"/>
-	<property name="rel" value="false"/>
+	<property name="dbg" value="false"/>
+	<property name="rel" value="true"/>
 
 	<target name="main" depends="clean,compile" description="Clean build of combined textLayout.swc"/>
 
