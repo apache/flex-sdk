@@ -59,10 +59,12 @@ use namespace mx_internal;
  *  &lt;s:LayoutBase 
  *    <strong>Properties</strong>
  *    clipAndEnableScrolling="false"
+ *    dropIndicator="<i>defined by the skin class</i>"
  *    horizontalScrollPosition="0"
  *    target="null"
  *    typicalLayoutElement="null"
  *    useVirtualLayout="false"
+ *    verticalScrollPosition="0"
  *  /&gt;
  *  </pre>
  *
@@ -297,6 +299,8 @@ public class LayoutBase extends OnDemandEventDispatcher
     
     /**
      *  @copy spark.core.IViewport#verticalScrollPosition
+     *
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -440,18 +444,18 @@ public class LayoutBase extends OnDemandEventDispatcher
     private var _dropIndicator:DisplayObject;
     
     /**
-     *  The <code>DisplayObject</code> this layout uses for
-     *  drop indicator during drag and drop operation.
+     *  The <code>DisplayObject</code> that this layout uses for
+     *  the drop indicator during a drag-and-drop operation.
      *
-     *  Typically developers don't set this property directly,
-     *  but instead rely on the List's default <code>DragEvent</code>
-     *  handlers.
+     *  Typically you do not set this property directly,
+     *  but instead define a <code>dropIndicator</code> skin part in the 
+     *  skin class of the drop target.
      * 
-     *  <p>The <code>List</code> sets this property in response to a
+     *  <p>The List control sets this property in response to a
      *  <code>DragEvent.DRAG_ENTER</code> event.
-     *  The <code>List</code> initializes this property with an
+     *  The List initializes this property with an
      *  instance of its <code>dropIndicator</code> skin part.
-     *  The <code>List</code> clears this property in response to a
+     *  The List clears this property in response to a
      *  <code>DragEvent.DRAG_EXIT</code> event.</p>
      *  
      *  @langversion 3.0
@@ -470,22 +474,22 @@ public class LayoutBase extends OnDemandEventDispatcher
     public function set dropIndicator(value:DisplayObject):void
     {
         if (_dropIndicator)
-			target.overlay.removeDisplayObject(_dropIndicator);
+            target.overlay.removeDisplayObject(_dropIndicator);
         
         _dropIndicator = value;
         
         if (_dropIndicator)
         {
             _dropIndicator.visible = false;
-			target.overlay.addDisplayObject(_dropIndicator, OverlayDepth.DROP_INDICATOR_DEPTH);
+            target.overlay.addDisplayObject(_dropIndicator, OverlayDepth.DROP_INDICATOR_DEPTH);
 
             if (_dropIndicator is ILayoutManagerClient)
                 UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(_dropIndicator), true);
 
-			// Set includeInLayout to false, otherwise it'll still invalidate
-			// the parent Group layout as we size and position the indicator.
-			if (_dropIndicator is ILayoutElement)
-				ILayoutElement(_dropIndicator).includeInLayout = false;
+            // Set includeInLayout to false, otherwise it'll still invalidate
+            // the parent Group layout as we size and position the indicator.
+            if (_dropIndicator is ILayoutElement)
+                ILayoutElement(_dropIndicator).includeInLayout = false;
         }
     }
     
@@ -1391,16 +1395,16 @@ public class LayoutBase extends OnDemandEventDispatcher
     mx_internal var dragScrollHidesIndicator:Boolean = false;
     
     /**
-     *  Calculates the <code>LayoutDragEventDropLocation</code> for
+     *  Calculates the drop location in the data provider of the drop target for
      *  the specified <code>dragEvent</code>.
      *
-     *  @param dragEvent The dragEvent dispatched by the DragManager.
+     *  @param dragEvent The drag event dispatched by the DragManager.
      *
      *  @return Returns the drop location for this event, or null if the drop 
      *  operation is not available.
      * 
-     *  @see #showDropIndicator
-     *  @see #hideDropIndicator
+     *  @see #showDropIndicator()
+     *  @see #hideDropIndicator()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1424,18 +1428,17 @@ public class LayoutBase extends OnDemandEventDispatcher
     }
     
     /**
-     *  Sizes, positions and parents the dropIndicator based on the specified
-     *  dropLocation.
+     *  Sizes, positions and parents the drop indicator based on the specified
+     *  drop location. Use the <code>calculateDropLocation()</code> method
+     *  to obtain the DropLocation object.
      *
-     *  Starts/stops drag-scrolling when necessary conditions are met.
+     *  <p>Starts/stops drag-scrolling when necessary conditions are met.</p>
      * 
-     *  @param dropLocation <p>Specifies the location where to show the indicator.
-     *  Drop location is obtained through the computeDropLocation() method.</p>
+     *  @param dropLocation Specifies the location where to show the drop indicator.
+     *  Drop location is obtained through the <code>computeDropLocation()</code> method.
      *
      *  @see #dropIndicator 
-     *  @see #hideDropIndicator
-     *  @see #getDragEventContext
-     *  @see #dropIndicator
+     *  @see #hideDropIndicator()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1503,10 +1506,11 @@ public class LayoutBase extends OnDemandEventDispatcher
     }
     
     /**
-     *  Hides the previously shown <code>dropIndicator</code>,
-     *  removes it from the display list and also stops the drag-scrolling.
+     *  Hides the previously shown drop indicator, 
+     *  created by the <code>showDropIndicator()</code> method,
+     *  removes it from the display list and also stops the drag scrolling.
      *
-     *  @see #showDropIndicator
+     *  @see #showDropIndicator()
      *  @see #dropIndicator
      *  
      *  @langversion 3.0
@@ -1528,16 +1532,16 @@ public class LayoutBase extends OnDemandEventDispatcher
      * 
      *  Called by the <code>calculatedDropLocation()</code> method.
      *
-     *  @param x The x coordinate of the drag and drop gesture, in target's
+     *  @param x The x coordinate of the drag and drop gesture, in 
      *  local coordinates.
      * 
-     *  @param y The y coordinate of the drag and drop gesture, in target's
-     *  local coordinates.
+     *  @param y The y coordinate of the drag and drop gesture, in  
+     *  the drop target's local coordinates.
      *
      *  @return The drop index or -1 if the drop operation is not available
      *  at the specified coordinates.
      * 
-     *  @see #calculateDropLocation
+     *  @see #calculateDropLocation()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1551,20 +1555,20 @@ public class LayoutBase extends OnDemandEventDispatcher
     }
     
     /**
-     *  Calculates the bounds for the drop indicator UI that provides visual feedback
+     *  Calculates the bounds for the drop indicator that provides visual feedback
      *  to the user of where the items will be inserted at the end of a drag and drop
      *  gesture.
      * 
      *  Called by the <code>showDropIndicator()</code> method.
      * 
-     *  @param dropLocation A valid <code>DropLocation</code> previously calculated
-     *  through the <code>calculateDropLocation</code> method.
+     *  @param dropLocation A valid DropLocation object previously returned 
+     *  by the <code>calculateDropLocation()</code> method.
      * 
      *  @return The bounds for the drop indicator or null.
      * 
      *  @see spark.layouts.supportClasses.DropLocation
-     *  @see #calculateDropIndex
-     *  @see #calculateDragScrollDelta
+     *  @see #calculateDropIndex()
+     *  @see #calculateDragScrollDelta()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1580,23 +1584,21 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  Calculates how much to scroll for the specified <code>dropLocation</code>
      *  during a drag and drop gesture.
      *
-     *  Called by the <code>showDropIndicator()</code> method to figure out the
+     *  Called by the <code>showDropIndicator()</code> method to calculate the scroll 
      *  during drag-scrolling.
      *
-     *  @param context A valid <code>LayoutDragEventContext</code> previously obtained
-     *  through the <code>getDragEventContext</code> method.
+     *  @param context A valid DropLocation object previously obtained
+     *  by calling the <code>calculateDropLocation()</code> method.
      *
-     *  @param scrollDelta The <code>Point</code> to be filled with the computed scroll delta.
+     *  @param timeInterval The interval, in milliseconds, between two consecutive drag-scrolls.
      *
-     *  @param timeInterval The interval in milliseconds between two consecutive drag-scrolls.
-     *
-     *  @param timeElapsed The duration in milliseconds since the drag scrolling start.
+     *  @param timeElapsed The duration, in milliseconds, since the drag scrolling start.
      *
      *  @return How much to drag scroll, or null if drag-scrolling is not needed.
      *
      *  @see spark.layouts.supportClasses.DropLocation 
-     *  @see #calculateDropIndex
-     *  @see #calculateDropIndicatorBounds
+     *  @see #calculateDropIndex()
+     *  @see #calculateDropIndicatorBounds()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
