@@ -57,15 +57,6 @@
         
     <s:Group left="-1" right="0" top="-1" bottom="-1"
              scaleGridLeft="4" scaleGridTop="11" scaleGridRight="67" scaleGridBottom="17">
-        
-        <!-- workaround for scale grid. Need to make sure the visual (stroked) bounds match
-             the unstroked bounds. To do this, add a transparent rect that includes the entire
-             group. -->
-        <s:Rect left="0" right="0" top="0" bottom="0">
-            <s:fill>
-                <s:SolidColor color="0" alpha="0" />
-            </s:fill>
-        </s:Rect>
     
         <!-- layer 1: shadow -->
         <s:Path left="0" right="0" top="0" bottom="0" 
