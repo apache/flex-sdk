@@ -19,16 +19,20 @@
       @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-      alpha.disabledStates="0.5">
+    xmlns:fb="http://ns.adobe.com/fb/2009" alpha.disabledStates="0.5">
 
     <!-- host component -->
     <fx:Metadata>
         [HostComponent("spark.components.ToggleButton")]
     </fx:Metadata>
     
-    <fx:Script>
+    <fx:Script fb:stylingSupport="true">
         /* Define the skin elements that should not be colorized. */
         static private const exclusions:Array = ["playSymbol", "pauseSymbol"];
+        
+        /**
+         * @private
+         */
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the symbol fill items that should be colored by the "symbolColor" style.*/
@@ -36,7 +40,20 @@
                                               "pauseSymbolFill1_3", "pauseSymbolFill1_4", "pauseSymbolFill1_5", 
                                               "pauseSymbolFill2_1", "pauseSymbolFill2_2", "pauseSymbolFill2_3", 
                                               "pauseSymbolFill2_4", "pauseSymbolFill2_5"];
+        
+        /**
+         * @private
+         */
         override public function get symbolItems():Array {return symbols};
+        
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useBaseColor = true;
+            super.initializationComplete();
+        }
     </fx:Script>
     
     <!-- states -->
