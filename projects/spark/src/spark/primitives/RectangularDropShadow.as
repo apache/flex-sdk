@@ -28,10 +28,12 @@ package spark.primitives
      *  <p>Once those 8 values have been set,
      *  this class pre-computes the drop shadow in an offscreen Bitmap.
      *  When the <code>drawShadow()</code> method is called, pieces of the
-     *  precomputed drop shadow are  copied onto the passed-in Graphics object.</p>
+     *  precomputed drop shadow are copied onto the passed-in Graphics object.</p>
      *  
-     *  @see flash.filters.DropShadowFilter
+     *  @see spark.filters.DropShadowFilter
      *  @see flash.display.DisplayObject
+     *  
+     *  @includeExample examples/RectangularDropShadowExample.mxml
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -92,7 +94,7 @@ package spark.primitives
         [Inspectable]
     
         /**
-         *  @copy flash.filters.DropShadowFilter#alpha
+         *  @copy spark.filters.DropShadowFilter#alpha
          *  
          *  @langversion 3.0
          *  @playerversion Flash 10
@@ -129,7 +131,7 @@ package spark.primitives
         [Inspectable]
     
         /**
-         *  @copy flash.filters.DropShadowFilter#angle
+         *  @copy spark.filters.DropShadowFilter#angle
          *  
          *  @langversion 3.0
          *  @playerversion Flash 10
@@ -166,7 +168,7 @@ package spark.primitives
         [Inspectable]
     
         /**
-         *  @copy flash.filters.DropShadowFilter#color
+         *  @copy spark.filters.DropShadowFilter#color
          *  
          *  @langversion 3.0
          *  @playerversion Flash 10
