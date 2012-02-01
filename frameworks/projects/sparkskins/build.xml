@@ -50,7 +50,7 @@
 			into the file bundles.properties in this directory.
 			(This should be an empty list.)
 		-->
-		<compc fork="true"
+		<compc fork="true" minimum-supported-version="4.0.0"
 			   output="${FLEX_HOME}/frameworks/libs/sparkskins.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
             <!-- If you change this, update ${local.playerglobal.version} above. -->
