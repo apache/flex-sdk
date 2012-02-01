@@ -175,9 +175,13 @@ public class TextUtil
         {
             if (leaf is SpanElement)
             {
-                var t:String = text.substring(leaf.getAbsoluteStart(),
-                                              leaf.textLength);
-                SpanElement(leaf).text = t;
+                var span:SpanElement = leaf as SpanElement;
+                
+                // leaf.textLength may have paragraph terminator in length so
+                // use length of text in the span
+                var t:String = text.substr(leaf.getAbsoluteStart(), 
+                                          span.text.length);
+                span.text = t;
             }
         }
     }
