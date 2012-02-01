@@ -123,4 +123,7 @@
 		</compc>
      </target>
 
+	<target name="doc" description="Updates textLayout.swc with ASDoc XML">
+	    <echo message="Docs are currently included in TLF drop."/>
+    </target>
 </project>
