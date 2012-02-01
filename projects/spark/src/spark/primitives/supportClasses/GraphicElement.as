@@ -16,7 +16,6 @@ import flash.display.BitmapData;
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.display.LineScaleMode;
 import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
@@ -45,12 +44,12 @@ import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 import mx.geom.Transform;
 import mx.geom.TransformOffsets;
-import mx.graphics.IStroke;
 import mx.managers.ILayoutManagerClient;
 import mx.utils.MatrixUtil;
 
 import spark.components.Group;
 import spark.components.supportClasses.InvalidatingSprite;
+import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.MaskType;
 
@@ -302,7 +301,7 @@ public class GraphicElement extends EventDispatcher
             layoutFeatures.updatePending = true;
 
         // If we are sharing a display object we need to redraw
-        if (sharedIndex >= 0)
+        if (displayObjectSharingMode != DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
             invalidateDisplayList();
         else
             invalidateProperties(); // We apply the transform in commitProperties
@@ -1805,7 +1804,7 @@ public class GraphicElement extends EventDispatcher
 			_colorTransform = new ColorTransform(value.redMultiplier, value.greenMultiplier, value.blueMultiplier, value.alphaMultiplier,
 												 value.redOffset, value.greenOffset, value.blueOffset, value.alphaOffset);
 			
-			if (displayObject && sharedIndex == -1)
+			if (displayObject && displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
             {
                 displayObject.transform.colorTransform = _colorTransform;
             }
@@ -2293,7 +2292,7 @@ public class GraphicElement extends EventDispatcher
         // clear it from the display object so that we can set it in the new
         // display object. A Matrix3D object can't be used simultaneously with
         // more than one display object.
-        if (oldValue && sharedIndex == -1)
+        if (oldValue && displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
             oldValue.transform.matrix3D = null;
 
         _displayObject = value;
@@ -2326,7 +2325,7 @@ public class GraphicElement extends EventDispatcher
     {
         // If we don't share the display object, we will draw at 0,0
         // since the display object will be positioned at x,y
-        if (sharedIndex == -1)
+        if (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
             return 0;
             
         // Otherwise we draw at x,y since the display object will be
@@ -2353,7 +2352,7 @@ public class GraphicElement extends EventDispatcher
     {
         // If we don't share the display object, we will draw at 0,0
         // since the display object will be positioned at x,y
-        if (sharedIndex == -1)
+        if (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
             return 0;
             
         // Otherwise we draw at x,y since the display object will be
@@ -2424,6 +2423,45 @@ public class GraphicElement extends EventDispatcher
         _includeInLayout = value;
     }
 
+    //----------------------------------
+    //  displayObjectSharingMode
+    //----------------------------------
+
+    private var _displayObjectSharingMode:String;
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function set displayObjectSharingMode(value:String):void
+    {
+        if (value == _displayObjectSharingMode)
+            return;
+        
+        if (value != DisplayObjectSharingMode.USES_SHARED_OBJECT ||
+            _displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT) 
+        {
+            // If the element was previously at the head of the shared sequence or
+            // it is assigned to be at the head, make sure to reapply the 
+            // displayObject specific properties.
+            displayObjectChanged = true;
+            invalidateProperties();            
+        }
+        _displayObjectSharingMode = value;
+    }
+    
+    /**
+     *  @private
+     */
+    public function get displayObjectSharingMode():String
+    {
+        return _displayObjectSharingMode;    
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -2583,37 +2621,6 @@ public class GraphicElement extends EventDispatcher
         return element is GraphicElement && !_alwaysCreateDisplayObject && !needsDisplayObject;
     }
 
-    private var _sharedIndex:int;
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function set sharedIndex(value:int):void
-    {
-        if (value != _sharedIndex && (value <= 0 || _sharedIndex <= 0))
-        {
-            // If the element was previously at the head of the shared sequence or
-            // it is assigned to be at the head, make sure to reapply the 
-            // displayObject specific properties.
-            displayObjectChanged = true;
-            invalidateProperties();            
-        }
-        _sharedIndex = value;
-    }
-
-    /**
-     *  @private
-     */
-    public function get sharedIndex():int
-    {
-        return _sharedIndex;    
-    }
-
     protected function get drawnDisplayObject():DisplayObject
     {
     	// _drawnDisplayObject is non-null if we needed to create a mask
@@ -2655,7 +2662,7 @@ public class GraphicElement extends EventDispatcher
             var restoreDisplayObject:Boolean = false;
             var oldDisplayObject:DisplayObject;
             
-            if (!displayObject || sharedIndex != -1)
+            if (!displayObject || displayObjectSharingMode != DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
             {
                 restoreDisplayObject = true;
                 oldDisplayObject = displayObject;
@@ -2822,7 +2829,7 @@ public class GraphicElement extends EventDispatcher
     protected function invalidateDisplayObjectSharing():void
     {
         if (parent)
-            Group(parent).graphicElementLayerChanged(this);
+            Group(parent).invalidateGraphicElementSharing(this);
     }
 
     /**
@@ -2845,7 +2852,7 @@ public class GraphicElement extends EventDispatcher
         invalidatePropertiesFlag = true;
 
         if (parent)
-            Group(parent).graphicElementPropertiesChanged(this);
+            Group(parent).invalidateGraphicElementProperties(this);
     }
 
     /**
@@ -2871,7 +2878,7 @@ public class GraphicElement extends EventDispatcher
         invalidateSizeFlag = true;
 
         if (parent)
-            Group(parent).graphicElementSizeChanged(this);
+            Group(parent).invalidateGraphicElementSize(this);
     }
 
     /**
@@ -2918,7 +2925,7 @@ public class GraphicElement extends EventDispatcher
         // The Group will take care of redrawing all graphic elements that
         // share the display object with this element.
         if (parent)
-            Group(parent).graphicElementChanged(this);
+            Group(parent).invalidateGraphicElementDisplayList(this);
     }
 
     /**
@@ -2993,7 +3000,7 @@ public class GraphicElement extends EventDispatcher
         var updateTransform:Boolean = false;
         
         // If we are the first in the sequence, setup the displayObject properties
-        if (sharedIndex <= 0 && displayObject)
+        if (displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT && displayObject)
         {
 			if (colorTransformChanged || displayObjectChanged)
 			{
@@ -3088,7 +3095,7 @@ public class GraphicElement extends EventDispatcher
             // If displayObject has changed and we're sharing, then ensure
             // the visible property is set to true.
             if (displayObjectChanged)
-                displayObject.visible = (sharedIndex == -1) ? _visible : true;
+                displayObject.visible = (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT) ? _visible : true;
 
             updateTransform = true;
             displayObjectChanged = false;
@@ -3100,7 +3107,7 @@ public class GraphicElement extends EventDispatcher
             
             // If we don't share the DisplayObject, set the property directly,
             // otherwise redraw.
-            if (sharedIndex == -1)
+            if (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
                 displayObject.visible = _visible;
             else
                 invalidateDisplayList();
@@ -3281,7 +3288,7 @@ public class GraphicElement extends EventDispatcher
 
         // TODO EGeorgie: don't clear the graphics if the GraphicElement is invisible and explicitly owns the DO?
         // If we are the first in the sequence, clear the graphics:
-        if (sharedIndex <= 0)
+        if (displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT)
         {
             if (drawnDisplayObject is Sprite)
                 Sprite(drawnDisplayObject).graphics.clear();
@@ -3305,7 +3312,7 @@ public class GraphicElement extends EventDispatcher
      */
     mx_internal function doUpdateDisplayList():void
     {
-		if (visible || sharedIndex == -1)
+		if (visible || displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
     		updateDisplayList(_width, _height);
     }
 
@@ -3848,7 +3855,7 @@ public class GraphicElement extends EventDispatcher
 	        layoutFeatures.updatePending = false;
 
         // Only the first elment in the sequence updates the transform
-        if (sharedIndex > 0 || !displayObject)
+        if (displayObjectSharingMode == DisplayObjectSharingMode.USES_SHARED_OBJECT || !displayObject)
             return;
                                 
         if (layoutFeatures != null)
@@ -3861,7 +3868,7 @@ public class GraphicElement extends EventDispatcher
 	        {
 	        	var m:Matrix = layoutFeatures.computedMatrix.clone();
 	        	// If the displayObject is shared, then put it at 0,0
-	        	if (sharedIndex == 0)
+	        	if (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_SHARED_OBJECT)
 	        	{
 	        		m.tx = 0;
 	        		m.ty = 0;
@@ -3872,7 +3879,7 @@ public class GraphicElement extends EventDispatcher
         else 
         {
         	// If the displayObject is shared, then put it at 0,0
-        	if (sharedIndex == 0)
+        	if (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_SHARED_OBJECT)
         	{
                 displayObject.x = 0;
                 displayObject.y = 0;
