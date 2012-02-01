@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The default skin class for the volume bar thumb part of a Spark VideoPlayer component. -->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Metadata>
+    	[HostComponent("spark.components.Button")]
+    </fx:Metadata> 
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+
+    <!-- drop shadow -->
+    <s:Rect left="-2" top="-2" right="-2" bottom="-2" radiusX="8.5" radiusY="8.5">
+        <s:stroke>
+            <s:LinearGradientStroke rotation="90" weight="1">
+                <s:GradientEntry color="0x000000" alpha="0" />
+                <s:GradientEntry color="0x000000" alpha="0" />
+                <s:GradientEntry color="0x000000" alpha="0.03"/>
+            </s:LinearGradientStroke>
+        </s:stroke>
+    </s:Rect>
+    <s:Rect left="-1" top="-1" right="-1" bottom="-1" radiusX="7.5" radiusY="7.5">
+        <s:stroke>
+            <s:LinearGradientStroke rotation="90" weight="1">
+                <s:GradientEntry color="0x000000" alpha="0.011" />
+                <s:GradientEntry color="0x000000" alpha="0.121" />
+            </s:LinearGradientStroke>
+        </s:stroke>
+    </s:Rect>
+    
+    <!-- border -->
+    <s:Rect left="0" right="0" top="0" bottom="0" radiusX="7" radiusY="7">
+        <s:fill>
+            <s:SolidColor color="0x4F4F4F"  />
+        </s:fill>
+    </s:Rect>
+
+	<!-- fill -->
+	<s:Rect left="0.5" right="0.5" top="0.5" bottom="0.5" radiusX="6" radiusY="6">
+		<s:stroke>
+			<s:LinearGradientStroke rotation="90" weight="1">
+				<s:GradientEntry color="0x000000" alpha="0" />
+				<s:GradientEntry color="0x000000" alpha="0.33" />
+			</s:LinearGradientStroke>
+		</s:stroke>
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xFFFFFF" 
+							   color.over="0xE5E5E5"
+							   color.down="0x999999" />
+				<s:GradientEntry color="0xD8D8D8" 
+							   color.over="0x7D7D7D"
+							   color.down="0x555555" />
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+
+	<!-- highlight -->
+	<s:Rect left="1" right="1" top="1" bottom="1" radiusX="3" radiusY="3">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xFFFFFF" alpha.over="0" alpha.down="0" />
+				<s:GradientEntry color="0xFFFFFF" alpha="0" />
+				<s:GradientEntry color="0xFFFFFF" alpha="0" />
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+</s:SparkSkin>
