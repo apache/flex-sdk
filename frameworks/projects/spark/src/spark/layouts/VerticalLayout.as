@@ -291,8 +291,8 @@ public class VerticalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  All layout elements will have at least that much space
-     *  on the left.
+     *  The minimum number of pixels between the container's left edge and
+     *  the left edge of the layout element.
      * 
      *  @default 0
      *  
@@ -327,8 +327,8 @@ public class VerticalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  All layout elements will have at least that much space
-     *  on the right.
+     *  The minimum number of pixels between the container's right ecdge and
+     *  the right edge of the layout element.
      * 
      *  @default 0
      *  
@@ -363,7 +363,7 @@ public class VerticalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Number of pixels between the container's top border
+     *  Number of pixels between the container's top edge
      *  and the top edge of the first layout element.
      * 
      *  @default 0
@@ -399,7 +399,7 @@ public class VerticalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Number of pixels between the container's bottom border
+     *  Number of pixels between the container's bottom edge
      *  and the bottom edge of the last layout element.
      * 
      *  @default 0
@@ -435,7 +435,7 @@ public class VerticalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  The measured size of this layout will be big enough to display 
+     *  The measured size of this layout will be tall enough to display 
      *  the first <code>requestedRowCount</code> layout elements. 
      * 
      *  If <code>requestedRowCount</code> is -1, then the measured
@@ -528,13 +528,13 @@ public class VerticalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Specifies that layout elements are to be allocated their 
+     *  Specifies whether or not layout elements are to be allocated their 
      *  preferred height.
      * 
      *  Setting this property to false specifies fixed height rows.
      * 
      *  If false, the actual height of each layout element will be 
-     *  the value value of <code>rowHeight</code>.
+     *  the value of <code>rowHeight</code>.
      * 
      *  Setting this property to false causes the layout to ignore 
      *  layout elements' percentHeight.
@@ -679,13 +679,13 @@ public class VerticalLayout extends LayoutBase
     }
     
 	/**
+     *  Returns 1.0 if the specified index is completely in view, 0.0 if
+     *  it's not, and a value in between if the index is partially 
+     *  within the view.
+     * 
 	 *  An index is "in view" if the corresponding non-null layout element is 
 	 *  within the vertical limits of the layout target's scrollRect
 	 *  and included in the layout.
-	 *  
-	 *  Returns 1.0 if the specified index is completely in view, 0.0 if
-	 *  it's not, and a value in between if the index is partially 
-	 *  within the view.
 	 * 
 	 *  If the specified index is partially within the view, the 
 	 *  returned value is the percentage of the corresponding layout
