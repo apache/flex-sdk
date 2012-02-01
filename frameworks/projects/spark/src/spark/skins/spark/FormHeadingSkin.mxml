@@ -74,7 +74,7 @@ in accordance with the terms of the license agreement accompanying it.
             <s:constraintColumns>
                 <s:ConstraintColumn id="sequenceCol" />
                 <s:ConstraintColumn id="labelCol" />
-                <s:ConstraintColumn id="contentCol"/>
+                <s:ConstraintColumn id="contentCol" width="100%"/>
                 <s:ConstraintColumn id="helpCol"/>
             </s:constraintColumns>         
             <s:constraintRows>
