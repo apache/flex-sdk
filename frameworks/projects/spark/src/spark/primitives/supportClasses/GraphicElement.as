@@ -260,6 +260,44 @@ public class GraphicElement extends OnDemandEventDispatcher
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  mirror
+    //----------------------------------
+
+    public function get mirror():Boolean
+    {
+        return layoutFeatures && layoutFeatures.mirror;
+    }
+    
+    public function set mirror(value:Boolean):void
+    {
+        if (value == mirror)
+            return;
+            
+        if (layoutFeatures == null)
+            allocateLayoutFeatures();
+        layoutFeatures.mirror = value;
+        invalidateTransform();
+    }
+
+    //----------------------------------
+    //  dir
+    //----------------------------------
+
+    private var _dir:String;
+    
+    public function get dir():String
+    {
+        return _dir;
+    }
+    
+    public function set dir(value:String):void
+    {
+        if (_dir == value)
+            return;
+        _dir = value;
+    }
+        
     /**
      *  Defines a set of adjustments that can be applied to the component's transform in a way that is 
      *  invisible to the component's parent's layout. For example, if you want a layout to adjust 
@@ -299,6 +337,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         layoutFeatures = new AdvancedLayoutFeatures();
         layoutFeatures.layoutX = _x;
         layoutFeatures.layoutY = _y;
+        layoutFeatures.layoutWidth = _width;
     }
     
     protected function invalidateTransform(changeInvalidatesLayering:Boolean = true,
@@ -2001,6 +2040,14 @@ public class GraphicElement extends OnDemandEventDispatcher
 
         var oldValue:Number = _width;
         _width = value;
+        
+        // The width is needed for the mirroring transform.
+        if (layoutFeatures)
+        {
+            layoutFeatures.layoutWidth = value;
+            invalidateTransform();
+        }
+                        
         dispatchPropertyChangeEvent("width", oldValue, value);
 
         // Invalidate the display list, since we're changing the actual height
@@ -3558,6 +3605,9 @@ public class GraphicElement extends OnDemandEventDispatcher
             _width = width;
             _height = height;
             
+            if (layoutFeatures)
+                layoutFeatures.layoutWidth = width;
+                
             dispatchPropertyChangeEvent("width", oldWidth, width);
             dispatchPropertyChangeEvent("height", oldHeight, height);
 
