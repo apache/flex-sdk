@@ -71,7 +71,7 @@
              left="10" right="10" top="2" bottom="2"
              textAlign="center"
              verticalAlign="middle"
-             truncation="1">
+             maxDisplayedLines="1">
     </s:SimpleText>
 
 </s:Skin>
