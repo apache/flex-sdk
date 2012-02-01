@@ -34,16 +34,16 @@
         }
     </fx:Script>
     
-    <!-- border -->
-    <s:Rect top="0" left="0" bottom="0" width="1">
-        <s:fill>
-            <s:SolidColor color="0x696969" />
-        </s:fill>
-    </s:Rect>
     <!-- highlight -->
-    <s:Rect top="0" bottom="1" right="0" width="1">
+    <s:Rect top="0" bottom="1" left="0" width="1">
         <s:fill>
             <s:SolidColor color="0xFFFFFF" alpha="0.35" />
+        </s:fill>
+    </s:Rect>
+    <!-- border -->
+    <s:Rect top="0" right="0" bottom="0" width="1">
+        <s:fill>
+            <s:SolidColor color="0x696969" />
         </s:fill>
     </s:Rect>
 </s:SparkSkin>
