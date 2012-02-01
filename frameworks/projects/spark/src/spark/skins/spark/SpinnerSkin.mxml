@@ -2,26 +2,32 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
 <!--- The default skin class for the Spark Spinner component. The skins for the down and up buttons on the
-Spinner component are defined by the SpinnerDecrButtonSkin and SpinnerIncrButtonSkin classes, respectively. -->
+Spinner component are defined by the SpinnerDecrButtonSkin and SpinnerIncrButtonSkin classes, respectively.  
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
       alpha.disabled="0.5" minHeight="24" minWidth="12">
 
     <fx:Metadata>
     <![CDATA[ 
-	/** 
-	 * @copy spark.skins.default.ApplicationSkin#hostComponent
-	 */
-    	[HostComponent("spark.components.Spinner")]
+    /** 
+     * @copy spark.skins.default.ApplicationSkin#hostComponent
+     */
+        [HostComponent("spark.components.Spinner")]
     ]]>
     </fx:Metadata> 
     
@@ -30,15 +36,15 @@ Spinner component are defined by the SpinnerDecrButtonSkin and SpinnerIncrButton
            For spinner, the skin itself is colorized but the individual parts are not. */
         static private const exclusions:Array = ["decrementButton", "incrementButton"];
 
-	/** 
-	 * @copy spark.skins.SparkSkin#colorizeExclusions
-	 */		
+    /** 
+     * @copy spark.skins.SparkSkin#colorizeExclusions
+     */     
         override public function get colorizeExclusions():Array {return exclusions;}
     </fx:Script>
     
     <s:states>
-    	<s:State name="normal" />
-    	<s:State name="disabled" />
+        <s:State name="normal" />
+        <s:State name="disabled" />
     </s:states>
     
     <!--- Defines the appearance of the up button. The default skin class is SpinnerIncrButtonSkin. -->
