@@ -10,7 +10,7 @@
 <project name="combined" default="main" basedir=".">
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 	<property file="${FLEX_HOME}/build.properties"/>
-	<property name="local.playerglobal.version" value="10"/>
+	<property name="local.playerglobal.version" value="10.0"/>
 	<property name="output.file" value="${FLEX_HOME}/frameworks/libs/textLayout.swc"/>
 	<property name="output.docs" value="${FLEX_HOME}/tempDoc"/>
 	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
