@@ -28,6 +28,7 @@ are identical, save the superclass and constructor names.  This file contains th
     
     import mx.core.DesignLayer;
     import mx.core.IFlexDisplayObject;
+    import mx.core.IFlexModuleFactory;
     import mx.core.IToolTip;
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
@@ -75,6 +76,13 @@ are identical, save the superclass and constructor names.  This file contains th
      *  from updating explicitWidth,Height.
      */
     private var inSetLayoutBoundsSize:Boolean = false;
+
+    /**
+     *  @private
+     *  Temporarily stores the values of styles specified with setStyle() until 
+     *  moduleFactory is set.
+     */
+    private var deferredSetStyles:Object = null;
 
     //--------------------------------------------------------------------------
     //
@@ -414,6 +422,31 @@ are identical, save the superclass and constructor names.  This file contains th
         dispatchChangeEvent("labelChanged");
     }
     
+    //----------------------------------
+    //  moduleFactory
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;        
+        
+        // Now that the module has been set, set any deferred styles.
+        if (deferredSetStyles)
+        {
+            for (var styleProp:String in deferredSetStyles)
+                StyleProtoChain.setStyle(this, styleProp, deferredSetStyles[styleProp]);
+            
+            deferredSetStyles = null;
+        }
+    }
+
+    //----------------------------------
+    //  text
+    //----------------------------------
+
     /**
      *  @private
      *  Inherited version of this method calls validateNow().  We do not, since GridLayout will.  We're 
@@ -428,6 +461,10 @@ are identical, save the superclass and constructor names.  This file contains th
         enableValidateNow = true;
     }
  
+    //----------------------------------
+    //  wordWrap
+    //----------------------------------
+
     /**
      *  @private
      *  If set, then set the wordWrapSet flag.  This is used to enable the updatePreferredSize()
@@ -448,6 +485,48 @@ are identical, save the superclass and constructor names.  This file contains th
     //
     //--------------------------------------------------------------------------
     
+    [Bindable(style="true")]
+    /**
+     *  @private 
+     */
+    override public function getStyle(styleProp:String):*
+    {
+        // If a moduleFactory has not be set yet, first check for any deferred
+        // styles. If there are no deferred styles or the styleProp is not in 
+        // the deferred styles, the look in the proto chain.
+        if (!moduleFactory)
+        {
+            if (deferredSetStyles && deferredSetStyles[styleProp] !== undefined)
+                return deferredSetStyles[styleProp];
+        }
+        
+        return super.getStyle(styleProp);
+    }
+    
+    /**
+     *  @copy mx.core.UIComponent#setStyle()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    override public function setStyle(styleProp:String, newValue:*):void
+    {
+        // If there is no module factory then defer the set
+        // style until a module factory is set.
+        if (moduleFactory)
+        {
+            StyleProtoChain.setStyle(this, styleProp, newValue);
+        }
+        else
+        {
+            if (!deferredSetStyles)
+                deferredSetStyles = new Object();
+            deferredSetStyles[styleProp] = newValue;
+        }   
+    }
+        
     /**
      *  @private
      */
@@ -1027,8 +1106,6 @@ are identical, save the superclass and constructor names.  This file contains th
     //
     //  IStyleClient Methods and Properties
     //  (source code from mx.controls.dataGridClassses.DataGridItemRenderer.as)
-    //  The original code in initProtoChain() has been modified at calls to 
-    //  addStyleDeclarationToProtoChain().
     //-------------------------------------------------------------------------- 
     
     /**
@@ -1140,16 +1217,21 @@ are identical, save the superclass and constructor names.  This file contains th
         // Finally, we'll add the in-line styles
         // to the head of the proto chain.
         inheritingStyles = styleDeclaration ?
-            addStyleDeclarationToProtoChain(inheritChain, this) :     // modified original code here
+            styleDeclaration.addStyleToProtoChain(inheritChain, this) :
             inheritChain;
         
         nonInheritingStyles = styleDeclaration ?
-            addStyleDeclarationToProtoChain(nonInheritChain, this) :  // modified original code here
+            styleDeclaration.addStyleToProtoChain(nonInheritChain, this) :
             nonInheritChain;
     }
-    
+        
     /**
-     *  @private
+     *  @copy mx.core.UIComponent#clearStyle()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function clearStyle(styleProp:String):void
     {
