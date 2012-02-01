@@ -1395,7 +1395,7 @@ public class HorizontalLayout extends LayoutBase
 			up small scrolls. */
 			if (!firstElement || !lastElement || 
 				scrollRect.left < firstElement.getLayoutBoundsX() || 
-				scrollRect.right > (lastElement.getLayoutBoundsX() + lastElement.getLayoutBoundsWidth()))
+				scrollRect.right >= (lastElement.getLayoutBoundsX() + lastElement.getLayoutBoundsWidth()))
 			{
 				g.invalidateDisplayList();
 			}
