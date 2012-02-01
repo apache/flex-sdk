@@ -31,8 +31,8 @@
         <s:State name="disabled" />
     </s:states>
     
-    <!--<fx:Declarations>
-        <fx:Component id="dataTip">     
+    <fx:Declarations>
+        <fx:Component id="dataTip" className="DataTipClass">     
             <s:MXMLComponent minHeight="24" minWidth="40" y="-34">
                 <s:RectangularDropShadow id="shadow" distance="3" 
                     angle="90" color="#999999" left="0" top="0" right="0" bottom="0"/>
@@ -51,7 +51,7 @@
                 </s:SimpleText>
             </s:MXMLComponent>
         </fx:Component>
-    </fx:Declarations>-->
+    </fx:Declarations>
     
     <s:Button id="track" left="0" right="0" top="0" height="11"
               skinClass="spark.skins.default.mediaClasses.fullScreen.ScrubBarTrackSkin" />
