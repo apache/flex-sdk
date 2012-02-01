@@ -128,7 +128,7 @@ public class TileLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Horizontal space between columns.
+     *  Horizontal space between columns, in pixels.
      *
      *  @see #verticalGap
      *  @see #columnAlign
@@ -168,7 +168,7 @@ public class TileLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Vertical space between rows.
+     *  Vertical space between rows, in pixels.
      *
      *  @see #horizontalGap
      *  @see #rowAlign
@@ -364,7 +364,7 @@ public class TileLayout extends LayoutBase
     [Inspectable(category="General", minValue="0.0")]
 
     /**
-     *  Contain the actual column width.
+     *  Contain the actual column width, in pixels.
      *
      *  <p>If not explicitly set, the column width is 
      *  determined from the width of the widest element. </p>
@@ -411,7 +411,7 @@ public class TileLayout extends LayoutBase
     [Inspectable(category="General", minValue="0.0")]
 
     /**
-     *  The row height.
+     *  The row height, in pixels.
      *
      *  <p>If not explicitly set, the row height is 
      *  determined from the maximum of elements' height.</p>
@@ -1090,13 +1090,13 @@ public class TileLayout extends LayoutBase
             for (var index:int = visibleStartIndex; index <= visibleEndIndex; index++)
                 updateVirtualTileSize(target.getVirtualElementAt(index));
         }
-		
-		// Make sure that we always have non-NaN values in the cache, even
-		// when there are no elements.
-		if (isNaN(_tileWidthCached))
-			_tileWidthCached = 0;
-		if (isNaN(_tileHeightCached))
-			_tileHeightCached = 0;
+        
+        // Make sure that we always have non-NaN values in the cache, even
+        // when there are no elements.
+        if (isNaN(_tileWidthCached))
+            _tileWidthCached = 0;
+        if (isNaN(_tileHeightCached))
+            _tileHeightCached = 0;
         
         if (isNaN(_columnWidth))
             _columnWidth = _tileWidthCached;
@@ -1947,14 +1947,14 @@ public class TileLayout extends LayoutBase
             row++;
         
         // Limit row and column, if any one is too far from the drop location
-		// And there is white space
-		if (column > _columnCount || row > _rowCount)
-		{
-			row = _rowCount;
-			column = _columnCount;
-		}
+        // And there is white space
+        if (column > _columnCount || row > _rowCount)
+        {
+            row = _rowCount;
+            column = _columnCount;
+        }
 
-		if (column < 0)
+        if (column < 0)
             column = 0;
         if (row < 0)
             row = 0;
@@ -2054,13 +2054,13 @@ public class TileLayout extends LayoutBase
             if (_horizontalGap < 0 && (column == _columnCount || count == dropLocation.dropIndex))
                 emptySpaceLeft -= _horizontalGap;
 
-			width = emptySpace;
-			height = _rowHeight;
-			// Special case - if we have negative gap and we're not the last
-			// row, adjust the height
-			if (_verticalGap < 0 && row < _rowCount - 1)
-				height += _verticalGap + 1;
-			
+            width = emptySpace;
+            height = _rowHeight;
+            // Special case - if we have negative gap and we're not the last
+            // row, adjust the height
+            if (_verticalGap < 0 && row < _rowCount - 1)
+                height += _verticalGap + 1;
+            
             if (dropIndicator is IVisualElement)
             {
                 dropIndicatorElement = IVisualElement(dropIndicator);
@@ -2070,10 +2070,10 @@ public class TileLayout extends LayoutBase
             }
             
             x = emptySpaceLeft + Math.round((emptySpace - width) / 2);
-			// Allow 1 pixel overlap with container border
+            // Allow 1 pixel overlap with container border
             x = Math.max(-1, Math.min(target.contentWidth - width + 1, x));
 
-			y = row * (_rowHeight + _verticalGap);
+            y = row * (_rowHeight + _verticalGap);
         }
         else
         {
@@ -2085,12 +2085,12 @@ public class TileLayout extends LayoutBase
             if (_verticalGap < 0 && (row == _rowCount || count == dropLocation.dropIndex))
                 emptySpaceTop -= _verticalGap;
 
-			width = _columnWidth;
-			height = emptySpace;
-			// Special case - if we have negative gap and we're not the last
-			// column, adjust the width
-			if (_horizontalGap < 0 && column < _columnCount - 1)
-				width += _horizontalGap + 1;
+            width = _columnWidth;
+            height = emptySpace;
+            // Special case - if we have negative gap and we're not the last
+            // column, adjust the width
+            if (_horizontalGap < 0 && column < _columnCount - 1)
+                width += _horizontalGap + 1;
 
             if (dropIndicator is IVisualElement)
             {
@@ -2102,8 +2102,8 @@ public class TileLayout extends LayoutBase
 
             x = column * (_columnWidth + _horizontalGap);
          
-			y = emptySpaceTop + Math.round((emptySpace - height) / 2);
-			// Allow 1 pixel overlap with container border
+            y = emptySpaceTop + Math.round((emptySpace - height) / 2);
+            // Allow 1 pixel overlap with container border
             y = Math.max(-1, Math.min(target.contentHeight - height + 1, y));
         }
         
