@@ -256,7 +256,7 @@ public class GraphicElement extends EventDispatcher
     //--------------------------------------------------------------------------
 
     /**
-     *  @copy mx.core.ILayoutElement#postLayoutTransformOffsets
+     *  @copy mx.core.IVisualElement#postLayoutTransformOffsets
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -346,7 +346,9 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General", minValue="0.0", maxValue="1.0")]
 
     /**
-     *  @inheritDoc
+     *  The level of transparency of the graphic element. Valid values are decimal values between
+     *  0 (fully transparent) and 1 (fully opaque). For example, a value of .25 means that the 
+     *  element has 25% opacity.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -867,11 +869,23 @@ public class GraphicElement extends EventDispatcher
 
     /**
      *  An indexed array that contains each filter object currently associated with the graphic element. 
-     *  The mx.filters.* package contains several classes that define specific filters you can use.
+     *  The mx.filters package contains classes that define specific filters you can use.
      *  
-     *  The getter returns a copy of the filters array. The filters property value can only be changed 
-     *  via the setter. 
+     *  <p>The getter returns a copy of the filters array. The filters property value can only be changed 
+     *  via the setter.</p>
      * 
+     *  @see spark.filters.BevelFilter
+     *  @see spark.filters.BlurFilter
+     *  @see spark.filters.ColorMatrixFilter
+     *  @see spark.filters.ConvolutionFilter
+     *  @see spark.filters.DisplacementMapFilter
+     *  @see spark.filters.DropShadowFilter
+     *  @see spark.filters.GlowFilter
+     *  @see spark.filters.GradientBevelFilter
+     *  @see spark.filters.GradientFilter
+     *  @see spark.filters.GradientGlowFilter
+     *  @see spark.filters.ShaderFilter
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1157,12 +1171,12 @@ public class GraphicElement extends EventDispatcher
     [Inspectable(category="General", enumeration="clip,alpha,luminosity", defaultValue="clip")]
     
     /**
-     *  <p>The maskType defines how the mask is applied to the GraphicElement.</p> 
+     *  <p>Defines how the mask is applied to the GraphicElement.</p> 
      * 
-     *  <p>The possible values are MaskType.CLIP, MaskType.ALPHA and 
-     *  MaskType.LUMINOSITY.</p>  
+     *  <p>The possible values are <code>MaskType.CLIP</code>, <code>MaskType.ALPHA</code>, and 
+     *  <code>MaskType.LUMINOSITY</code>.</p>  
      * 
-     *  <p>Clip Masking</p>
+     *  <p><strong>Clip Masking</strong></p>
      * 
      *  <p>When masking in clip mode, a clipping masks is reduced to 1-bit.  This means that a mask will 
      *  not affect the opacity of a pixel in the source content; it either leaves the value unmodified, 
@@ -1180,7 +1194,7 @@ public class GraphicElement extends EventDispatcher
      *  result, the alpha channel of the source bitmap is irrelevant when part of a mask -- the bitmap 
      *  affects the mask in the same manner as solid filled rectangle of equivalent dimensions.</p>
      * 
-     *  <p>Alpha Masking</p>
+     *  <p><strong>Alpha Masking</strong></p>
      * 
      *  <p>In alpha mode, the opacity of each pixel in the source content is multiplied by the opacity 
      *  of the corresponding region of the mask.  i.e., a pixel in the source content with an opacity of 
@@ -1197,7 +1211,7 @@ public class GraphicElement extends EventDispatcher
      *  alpha channel, and will affect the final rendered content. This holds true for both BitmapGraphics 
      *  and bitmap filled shapes and paths.</p>
      * 
-     *  <p>Luminosity Masking</p>
+     *  <p><strong>Luminosity Masking</strong></p>
      * 
      *  <p>A luminosity mask, sometimes called a 'soft mask', works very similarly to an alpha mask
      *  except that both the opacity and RGB color value of a pixel in the source content is multiplied
@@ -1219,6 +1233,8 @@ public class GraphicElement extends EventDispatcher
      *  clipping of the mask. See the luminosityInvert and luminosityClip attributes.</p>
      * 
      *  @default MaskType.CLIP
+     *  
+     *  @see spark.core.MarkType
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2016,7 +2032,7 @@ public class GraphicElement extends EventDispatcher
     private var _transform:flash.geom.Transform;
 
     /**
-     *  @copy mx.core.UIComponent#transform
+     *  @copy mx.core.IFlexDisplayObject#transform
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2151,7 +2167,7 @@ public class GraphicElement extends EventDispatcher
     }
     
     /**
-     * @copy mx.core.ILayoutElement#transformAround
+     *  @copy mx.core.ILayoutElement#transformAround()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2192,9 +2208,9 @@ public class GraphicElement extends EventDispatcher
      * 
      * @param localPosition The point to be transformed, specified in the
      * local coordinates of the object.
-     * @position A Vector3D point that will hold the pre-layout
+     * @param position A Vector3D point that will hold the pre-layout
      * result. If null, the parameter is ignored.
-     * @postLayoutPosition A Vector3D point that will hold the post-layout
+     * @param postLayoutPosition A Vector3D point that will hold the post-layout
      * result. If null, the parameter is ignored.
      * 
      *  @langversion 3.0
@@ -2802,12 +2818,7 @@ public class GraphicElement extends EventDispatcher
     private var _displayObjectSharingMode:String;
     
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     public function set displayObjectSharingMode(value:String):void
     {
@@ -2827,7 +2838,12 @@ public class GraphicElement extends EventDispatcher
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get displayObjectSharingMode():String
     {
@@ -3636,7 +3652,12 @@ public class GraphicElement extends EventDispatcher
     }
     
     /**
-     *  @copy mx.core.UIComponent#canSkipMeasurement
+     *  Determines if the call to the <code>measure()</code> method can be skipped.
+     *  
+     *  @return Returns <code>true</code> when the <code>measureSizes()</code> method can skip the call to
+     *  the <code>measure()</code> method. For example this is usually <code>true</code> when both the <code>explicitWidth</code> and
+     *  <code>explicitHeight</code> properties are set. For paths, this is <code>true</code> when the bounds of the path
+     *  have not changed.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -4043,7 +4064,7 @@ public class GraphicElement extends EventDispatcher
     }
 
     /**
-     *  @inheirtDoc 
+     *  @inheritDoc 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -4102,6 +4123,8 @@ public class GraphicElement extends EventDispatcher
      *  @param width The target pre-transform width.
      *  
      *  @param height The target pre-transform height.
+     *  
+     *  @param postLayoutTransform 
      *  
      *  @return Returns the transformed height. Transformation is this element's
      *  layout transformation matrix.
