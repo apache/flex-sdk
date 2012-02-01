@@ -21,7 +21,6 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
-import flash.filters.ShaderFilter;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Matrix3D;
@@ -33,10 +32,12 @@ import flash.geom.Vector3D;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.DesignLayer;
 import mx.core.IInvalidating;
+import mx.core.ILayoutDirectionElement;
 import mx.core.ILayoutElement;
 import mx.core.IMXMLObject;
 import mx.core.IUIComponent;
 import mx.core.IVisualElement;
+import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -51,7 +52,6 @@ import mx.graphics.shaderClasses.ColorDodgeShader;
 import mx.graphics.shaderClasses.ColorShader;
 import mx.graphics.shaderClasses.ExclusionShader;
 import mx.graphics.shaderClasses.HueShader;
-import mx.graphics.shaderClasses.LuminosityMaskShader;
 import mx.graphics.shaderClasses.LuminosityShader;
 import mx.graphics.shaderClasses.SaturationShader;
 import mx.graphics.shaderClasses.SoftLightShader;
@@ -2865,8 +2865,8 @@ public class GraphicElement extends EventDispatcher
         if (_layoutDirection != null)
             return _layoutDirection;
         
-        const parentElt:IVisualElement = parent as IVisualElement;
-        return (parentElt) ? parentElt.layoutDirection : "ltr"; 
+        const parentElt:ILayoutDirectionElement = parent as ILayoutDirectionElement;
+        return (parentElt) ? parentElt.layoutDirection : LayoutDirection.LTR; 
     }
 	
 	/**
@@ -2886,7 +2886,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function invalidateLayoutDirection():void
     {
-        const parentElt:IVisualElement = parent as IVisualElement;
+        const parentElt:ILayoutDirectionElement = parent as ILayoutDirectionElement;
         if (!parentElt)
             return;
         
