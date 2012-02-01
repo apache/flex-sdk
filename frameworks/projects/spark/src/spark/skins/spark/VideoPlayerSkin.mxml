@@ -160,7 +160,7 @@
                     </s:Group>
                     
                     <!--- Defines the appearance of the volume bar. -->
-                    <s:VolumeBar id="volumeBar" valueInterval=".01" stepSize=".01" liveDragging="true"
+                    <s:VolumeBar id="volumeBar" snapInterval=".01" stepSize=".01" liveDragging="true"
                             right="37" bottom="0" 
                             skinClass="spark.skins.spark.mediaClasses.normal.VolumeBarSkin"
                             skinClass.fullScreenStates="spark.skins.spark.mediaClasses.fullScreen.VolumeBarSkin"
