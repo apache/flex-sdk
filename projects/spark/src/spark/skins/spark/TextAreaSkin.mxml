@@ -34,36 +34,36 @@
     </fx:Metadata> 
     
     <fx:Script fb:purpose="styling">
-		<![CDATA[
-		import mx.core.FlexVersion;
+        <![CDATA[
+        import mx.core.FlexVersion;
 
-		private var lineBreakChanged:Boolean;
+        private var lineBreakChanged:Boolean;
         private var paddingChanged:Boolean;
         private var verticalAlignChanged:Boolean;
         
         /* Define the skin elements that should not be colorized. 
            For text area, the skin itself is colorized but the individual parts are not as well 
-		   as the border since it uses the borderColor style. */
+           as the border since it uses the borderColor style. */
         static private const exclusions:Array = ["background", "scroller", "promptDisplay", "border"];
-		
-		/* exclusions before Flex 4.5 for backwards-compatibility purposes */
-		static private const exclusions_4_0:Array = ["background", "scroller", "promptDisplay"];
-		
-		/**
-		 * @private
-		 */
-		override public function get colorizeExclusions():Array 
-		{
-			// Since border is styleable via borderColor, no need to allow chromeColor to affect
-			// the border.  This is wrapped in a compatibility flag since this change was added  
-			// in Flex 4.5
-			if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
-			{
-				return exclusions_4_0;
-			}
-			
-			return exclusions;
-		}
+        
+        /* exclusions before Flex 4.5 for backwards-compatibility purposes */
+        static private const exclusions_4_0:Array = ["background", "scroller", "promptDisplay"];
+        
+        /**
+         * @private
+         */
+        override public function get colorizeExclusions():Array 
+        {
+            // Since border is styleable via borderColor, no need to allow chromeColor to affect
+            // the border.  This is wrapped in a compatibility flag since this change was added  
+            // in Flex 4.5
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+            {
+                return exclusions_4_0;
+            }
+            
+            return exclusions;
+        }
         
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
         static private const contentFill:Array = ["bgFill"];
@@ -237,7 +237,7 @@
                 invalidateProperties();
             }
         }
-		]]>
+        ]]>
     </fx:Script>
     
     <fx:Script>
@@ -294,7 +294,8 @@
                             heightInLines="10"
                             widthInChars="15" />
     </s:Scroller>
-    <!-- includeInLayout is false so prompt doesn't affect measurement -->
+    
+    <!--- Defines the Label that is used for prompt text. The includeInLayout property is false so the prompt text does not affect measurement. -->
     <s:Label id="promptDisplay"
                 mouseEnabled="false" mouseChildren="false"
                 includeIn="normalWithPrompt,disabledWithPrompt" 
