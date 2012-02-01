@@ -13,7 +13,9 @@
 	  alpha.disabled="0.5" implements="mx.core.IBorder">
     
     <Script>
+		<![CDATA[
 		import mx.core.EdgeMetrics;
+		import mx.core.IUIComponent;
 		
         /* Define the skin elements that should not be colorized. */
         static private const exclusions:Array = ["background"];
@@ -29,6 +31,16 @@
 		{
 			return metrics;
 		}
+		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+		{			
+			super.updateDisplayList(unscaledWidth, unscaledHeight);
+	        
+	        if (parent && parent is IUIComponent && !IUIComponent(parent).enabled)
+	        	alpha = 0.5;
+	        else
+	        	alpha = 1;
+	    }
+		]]>
     </Script>
     
     <states>
