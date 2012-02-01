@@ -21,7 +21,8 @@
       @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabled="0.5" blendMode="normal">
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" 
+    alpha.disabledStates="0.5" blendMode="normal">
 
     <fx:Metadata>
     <![CDATA[ 
@@ -39,7 +40,7 @@
         
         /* Define the skin elements that should not be colorized. 
            For text area, the skin itself is colorized but the individual parts are not. */
-        static private const exclusions:Array = ["background", "scroller"];
+        static private const exclusions:Array = ["background", "scroller", "promptDisplay"];
 
         /**
          * @private
@@ -98,13 +99,20 @@
                 shadow.visible = true;
                 background.left = background.top = background.right = background.bottom = 1;
                 textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 1;
+                if (promptDisplay)
+                {
+                    promptDisplay.right = promptDisplay.bottom = 1;
+                }
             }
             else
             {
                 border.visible = false;
                 shadow.visible = false;
                 background.left = background.top = background.right = background.bottom = 0;
-                textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 0;
+                if (promptDisplay)
+                {
+                    promptDisplay.right = promptDisplay.bottom = 0;
+                }
             }
             
             borderStroke.color = getStyle("borderColor");
@@ -139,6 +147,25 @@
             padding = getStyle("paddingBottom");
             if (textDisplay.getStyle("paddingBottom") != padding)
                 textDisplay.setStyle("paddingBottom", padding);
+
+            if (!promptDisplay)
+                return;
+            
+            padding = getStyle("paddingLeft");
+            if (promptDisplay.getStyle("paddingLeft") != padding)
+                promptDisplay.setStyle("paddingLeft", padding);
+            
+            padding = getStyle("paddingTop");
+            if (promptDisplay.getStyle("paddingTop") != padding)
+                promptDisplay.setStyle("paddingTop", padding);
+            
+            padding = getStyle("paddingRight");
+            if (promptDisplay.getStyle("paddingRight") != padding)
+                promptDisplay.setStyle("paddingRight", padding);
+            
+            padding = getStyle("paddingBottom");
+            if (promptDisplay.getStyle("paddingBottom") != padding)
+                promptDisplay.setStyle("paddingBottom", padding);
         }
         
         /**
@@ -155,6 +182,14 @@
             style = getStyle(styleName);
             if (textDisplay.getStyle(styleName) != style)
                 textDisplay.setStyle(styleName, style);
+
+            if (!promptDisplay)
+                return;
+            
+            // Push style into the promptDisplay
+            style = getStyle(styleName);
+            if (promptDisplay.getStyle(styleName) != style)
+                promptDisplay.setStyle(styleName, style);
         }
         
         /**
@@ -200,7 +235,9 @@
     
     <s:states>
         <s:State name="normal"/>
-        <s:State name="disabled"/>
+        <s:State name="disabled" stateGroups="disabledStates"/>
+        <s:State name="normalWithPrompt"/>
+        <s:State name="disabledWithPrompt" stateGroups="disabledStates"/>
     </s:states>
     
     <!-- border --> 
@@ -232,9 +269,13 @@
     <!--- Defines the scroller that is used to scroll the TextArea control. -->
     <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" minViewportInset="1" measuredSizeIncludesScrollBars="false" hasFocusableChildren="false">
         <!--- @copy spark.components.supportClasses.SkinnableTextBase#textDisplay -->
-        <s:RichEditableText id="textDisplay"
-                  heightInLines="10"
-                  widthInChars="15" />
+        <s:RichEditableText id="textDisplay" left="0" top="0" right="0" bottom="0"
+                            heightInLines="10"
+                            widthInChars="15" />
     </s:Scroller>
+    <s:Label id="promptDisplay"
+                mouseEnabled="false" mouseChildren="false"
+                includeIn="normalWithPrompt,disabledWithPrompt" 
+                left="1" top="1" right="0" bottom="0" />            
 
 </s:SparkSkin>
