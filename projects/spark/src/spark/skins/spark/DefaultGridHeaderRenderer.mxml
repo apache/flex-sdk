@@ -235,6 +235,7 @@ The default header renderer for s:DataGrid columns.
              fontWeight="bold"
              verticalAlign="middle"
              maxDisplayedLines="1"
+             showTruncationTip="true"
              verticalCenter="1"
              left="7" right="7" top="5" bottom="5">
     </s:Label>
