@@ -35,6 +35,7 @@
     <s:RichEditableText id="textView"
               left="1" right="1" top="1" bottom="1"
 			  paddingLeft="4" paddingTop="4"
-              paddingRight="4" paddingBottom="4"/>
+              paddingRight="4" paddingBottom="4"
+              lineBreak="explicit"/>
 
 </s:Skin>
