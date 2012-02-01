@@ -28,14 +28,14 @@ in accordance with the terms of the license agreement accompanying it.
     <!-- layer 0: control bar background -->
     <s:Rect left="1" right="1" bottom="1" top="1" >
         <s:fill>
-            <s:SolidColor color="0xE2EdF7" />
+            <s:SolidColor color="#EEEEEE" />
         </s:fill>
     </s:Rect>
     
     <!-- layer 1: control bar divider line -->
     <s:Rect left="1" right="1" top="0" height="1" >
         <s:fill>
-            <s:SolidColor color="0xD1E0F2" />
+            <s:SolidColor color="#DDDDDD" />
         </s:fill>
     </s:Rect>
     
