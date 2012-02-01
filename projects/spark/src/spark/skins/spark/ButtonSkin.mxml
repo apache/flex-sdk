@@ -37,7 +37,7 @@
     </Rect>
 
     <!-- label -->
-	<TextBox text="{hostComponent.label}"
+	<TextBox id="labelField"
              fontFamily="Arial" fontSize="12"
              color="0x2B4381" color.disabled="0x95A1C0"
 			 horizontalCenter="0" verticalCenter="1"
