@@ -826,7 +826,12 @@ public class Path extends FilledElement
             super.setLayoutBoundsSize(width, height, postLayoutTransform);
             return;
         }
-        
+
+        if (isNaN(width))
+            width = this.getPreferredBoundsWidth(false);
+        if (isNaN(height))
+            height = this.getPreferredBoundsHeight(false);
+
         // Miter limit requires special handling since the stroke extents depend on
         // the path size as the size changes the angles of the joints.
         
