@@ -34,14 +34,36 @@ use namespace mx_internal;
  *
  *  @mxml
  *
- *  <p>The NumberValidatorBase class defines no new tag attributes:</p>
+ *  <p>The <code>&lt;s:NumberValidator&gt;</code> tag
+ *  inherits all of the tag attributes of its superclass,
+ *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;spark:NumberValidatorBase
+ *  &lt;s:NumberValidatorBase
+ *    <strong>Properties</strong>
+ *    allowNegative="true"
+ *    decimalPointCountError="The decimal separator can only occur once."
+ *    decimalSeparator="<i>locale specified string or customized by user</i>."
+ *    digitsType="<i>locale specified string or customized by user</i>."
+ *    domain="real"
+ *    fractionalDigits="<i>locale specified string or customized by user</i>."
+ *    fractionalDigitsError="The amount entered has too many digits beyond the decimal point."
+ *    greaterThanMaxError="The number entered is too large."
+ *    groupingSeparator="<i>locale specified string or customized by user</i>."
+ *    invalidCharError="The input contains invalid characters."
+ *    invalidFormatCharsError="One of the formatting parameters is invalid."
+ *    lessThanMinError="The amount entered is too small."
+ *    localeUndefinedError="Locale is undefined."
+ *    maxValue="NaN"
+ *    minValue="NaN"
+ *    negativeError="The amount may not be negative."
+ *    negativeSymbolError="The negative symbol is repeated or not in right place."
+ *    notAnIntegerError="The number must be an integer."
+ *    parseError="The input string could not be parsed."
  *  /&gt;
  *  </pre>
  * 
- *  @see spark.formatters.NumberFormatterBase
+ *  @see spark.formatters.supportClasses.NumberFormatterBase
  *
  *  @langversion 3.0
  *  @playerversion Flash 10.1
