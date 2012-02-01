@@ -27,6 +27,26 @@ The default header renderer for s:DataGrid columns.
     xmlns:fx="http://ns.adobe.com/mxml/2009" 
     xmlns:s="library://ns.adobe.com/flex/spark" 
     xmlns:mx="library://ns.adobe.com/flex/mx">
+    
+    <fx:Declarations>
+        <fx:Component id="sortIndicatorFactory">
+            <s:Path data="M 3.5 7.0 L 0.0 0.0 L 7.0 0.0 L 3.5 7.0">
+                <s:fill>
+                    <s:RadialGradient rotation="90" focalPointRatio="1">    
+                        <s:GradientEntry id="arrowFill1" color="0" alpha="0.6" />
+                        <s:GradientEntry id="arrowFill2" color="0" alpha="0.8" />
+                    </s:RadialGradient>
+                </s:fill>
+            </s:Path>
+        </fx:Component>
+        
+        <s:Label id="labelDisplay" 
+            verticalCenter="1" left="0" right="0" top="0" bottom="0"
+            textAlign="start"
+            fontWeight="bold"
+            verticalAlign="middle"
+            maxDisplayedLines="1" />
+    </fx:Declarations>
 
     <fx:Script>
         <![CDATA[
@@ -36,16 +56,69 @@ The default header renderer for s:DataGrid columns.
             import spark.components.DataGrid;
             import spark.components.gridClasses.GridColumn;
             
+            /**
+             *  @private
+             */
+            private function dispatchChangeEvent(type:String):void
+            {
+                if (hasEventListener(type))
+                    dispatchEvent(new Event(type));
+            }            
+            
+            //----------------------------------
+            //  maxDisplayedLines
+            //----------------------------------
+            
+            [Bindable("maxDisplayedLinesChanged")]
+            
+            private var _maxDisplayedLines:int = 1;
+            
+            [Inspectable(minValue="-1")]
+            
+            /**
+             *  @copy spark.components.supportClasses.TextBase#maxDisplayedLines   
+             *
+             *  @default 1
+             * 
+             *  @langversion 3.0
+             *  @playerversion Flash 10
+             *  @playerversion AIR 1.5
+             *  @productversion Flex 4.5
+             */
+            public function get maxDisplayedLines():int
+            {
+                return _maxDisplayedLines;
+            }
+            
+            /**
+             *  @private
+             */
+            public function set maxDisplayedLines(value:int):void
+            {
+                if (value == _maxDisplayedLines)
+                    return;
+
+                _maxDisplayedLines = value;
+                if (labelDisplay)
+                    labelDisplay.maxDisplayedLines = value;
+                    
+                invalidateSize();
+                invalidateDisplayList();
+                
+                dispatchChangeEvent("maxDisplayedLinesChanged");
+            }
+
+            
             //----------------------------------
             //  sortIndicator
             //----------------------------------
             
             [Bindable("sortIndicatorChanged")]
             
-            private var _sortIndicator:IFactory = null;
+            private var _sortIndicator:IFactory = sortIndicatorFactory;
             
             /**
-             *  A visual element that's displayed when the column is sorted.
+             *  An IVisualElement that's displayed when the column is sorted.
              * 
              *  @default null
              * 
@@ -75,8 +148,7 @@ The default header renderer for s:DataGrid columns.
                 }
                 
                 invalidateDisplayList();
-                if (hasEventListener("sortIndicatorChanged"))
-                    dispatchEvent(new Event("sortIndicatorChanged"));
+                dispatchChangeEvent("sortIndicatorChanged");
             }
             
             private var sortIndicatorInstance:IVisualElement;
@@ -84,11 +156,14 @@ The default header renderer for s:DataGrid columns.
             /**
              *  @private
              *  Use prepare method to create and put the sortIndicator into the
-             *  sortIndicatorGroup.
+             *  sortIndicatorGroup and the labelDisplay into the labelDisplayGroup.
              */
-            override public function prepare(willBeRecycled:Boolean):void
+            override public function prepare(hasBeenRecycled:Boolean):void
             {
-                super.prepare(willBeRecycled);
+                super.prepare(hasBeenRecycled);
+                
+                if (labelDisplay && labelDisplayGroup && (labelDisplay.parent != labelDisplayGroup))
+                    labelDisplayGroup.addElement(labelDisplay);
                 
                 const column:GridColumn = this.column;
                 if (sortIndicator && column && column.grid && column.grid.dataGrid && column.grid.dataGrid.columnHeaderGroup)
@@ -228,19 +303,10 @@ The default header renderer for s:DataGrid columns.
         </s:stroke>
     </s:Rect>
     
-    <!-- layer 7: text -->
-    <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
-    <s:Label id="labelDisplay"
-             textAlign="start"
-             fontWeight="bold"
-             verticalAlign="middle"
-             maxDisplayedLines="1"
-             showTruncationTip="true"
-             verticalCenter="1"
-             left="7" right="7" top="5" bottom="5">
-    </s:Label>
+    <!-- layer 7: Container for labelDisplay:TextBase  -->
+    <s:Group id="labelDisplayGroup" left="7" right="7" top="5" bottom="5"/>
 
-    <!-- layer 8: sortIndicator -->
+    <!-- layer 8: Container for sortIndicator:IVisualElement  -->
     <s:Group id="sortIndicatorGroup" right="5" verticalCenter="0" />
     
 </s:GridItemRenderer>
