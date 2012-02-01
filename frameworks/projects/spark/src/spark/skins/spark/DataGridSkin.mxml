@@ -40,7 +40,9 @@ which is used as the value of the columnHeaderGroup's columnSeparator property.<
     alpha.disabled="0.5" minWidth="89" minHeight="84">
     
     <fx:Metadata>
+    <![CDATA[
         [HostComponent("spark.components.DataGrid")]
+    ]]>
     </fx:Metadata>
     
     <s:states>
@@ -51,7 +53,7 @@ which is used as the value of the columnHeaderGroup's columnSeparator property.<
     <fx:Declarations>
         <!--- @private -->        
         <fx:Component id="alternatingRowColorsBackground">
-            <s:Rect implements="spark.components.gridClasses.IGridRowBackground">
+            <s:Rect implements="spark.components.gridClasses.IGridVisualElement">
                 <fx:Script>
                     <![CDATA[
                         import spark.components.DataGrid;
@@ -59,8 +61,8 @@ which is used as the value of the columnHeaderGroup's columnSeparator property.<
                         
                         /**
                          * @private
-                         */                        
-                        public function initializeRowBackground(grid:Grid, rowIndex:int):void
+                         */
+                        public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
                         {
                             const dataGrid:DataGrid = grid.dataGrid;
                             if (!dataGrid)
@@ -81,6 +83,7 @@ which is used as the value of the columnHeaderGroup's columnSeparator property.<
                     ]]>
                 </fx:Script>  
                 <s:fill>
+                    <!--- @private -->   
                     <s:SolidColor id="rowBackgroundFillColor" color="0xFFFFFF"/>
                 </s:fill>
             </s:Rect>
@@ -88,9 +91,30 @@ which is used as the value of the columnHeaderGroup's columnSeparator property.<
         
         <!--- @private -->        
         <fx:Component id="caretIndicator">
-            <s:Rect>
+            <s:Rect implements="spark.components.gridClasses.IGridVisualElement">
+                <fx:Script>
+                    <![CDATA[
+                        import spark.components.DataGrid;
+                        import spark.components.Grid;
+                        
+                        /**
+                         * @private
+                         */
+                        public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
+                        {
+                            const dataGrid:DataGrid = grid.dataGrid;
+                            if (!dataGrid)
+                                return;
+                            
+                            const color:uint = dataGrid.getStyle("caretColor");
+                            caretIndicatorFill.color = color;
+                        }
+                    ]]>
+                </fx:Script>
+                
                 <s:stroke>
-                    <s:SolidColorStroke color="0x0167FF" weight="1"/>
+                    <!--- @private -->
+                    <s:SolidColorStroke id="caretIndicatorFill" color="0x0167FF" weight="1"/>
                 </s:stroke>
             </s:Rect>
         </fx:Component>
@@ -115,9 +139,30 @@ which is used as the value of the columnHeaderGroup's columnSeparator property.<
         
         <!--- @private -->
         <fx:Component id="hoverIndicator">
-            <s:Rect>
+            <s:Rect implements="spark.components.gridClasses.IGridVisualElement">
+                <fx:Script>
+                    <![CDATA[
+                        import spark.components.DataGrid;
+                        import spark.components.Grid;
+                        
+                        /**
+                         * @private
+                         */
+                        public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
+                        {
+                            const dataGrid:DataGrid = grid.dataGrid;
+                            if (!dataGrid)
+                                return;
+                            
+                            const color:uint = dataGrid.getStyle("rollOverColor");
+                            hoverIndicatorFill.color = color;
+                        }
+                    ]]>
+                </fx:Script>
+                
                 <s:fill>
-                    <s:SolidColor color="0xCEDBEF"/>
+                    <!--- @private -->
+                    <s:SolidColor id="hoverIndicatorFill" color="0xCEDBEF"/>
                 </s:fill>
             </s:Rect>
         </fx:Component>
@@ -133,9 +178,30 @@ which is used as the value of the columnHeaderGroup's columnSeparator property.<
         
         <!--- @private -->
         <fx:Component id="selectionIndicator">
-            <s:Rect>
+            <s:Rect implements="spark.components.gridClasses.IGridVisualElement">
+                <fx:Script>
+                    <![CDATA[
+                        import spark.components.DataGrid;
+                        import spark.components.Grid;
+                        
+                        /**
+                         * @private
+                         */
+                        public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
+                        {
+                            const dataGrid:DataGrid = grid.dataGrid;
+                            if (!dataGrid)
+                                return;
+                            
+                            const color:uint = dataGrid.getStyle("selectionColor");
+                            selectionIndicatorFill.color = color;
+                        }
+                    ]]>
+                </fx:Script>
+                
                 <s:fill>
-                    <s:SolidColor color="0xA8C6EE"/>
+                    <!--- @private -->
+                    <s:SolidColor id="selectionIndicatorFill" color="0xA8C6EE"/>
                 </s:fill>                
             </s:Rect>
         </fx:Component>
@@ -152,6 +218,7 @@ which is used as the value of the columnHeaderGroup's columnSeparator property.<
     </fx:Declarations>
     
     <fx:Script fb:purpose="styling">
+    <![CDATA[
         static private const exclusions:Array = ["scroller", "background"];
         static private const contentFill:Array = ["bgFill"];
         
@@ -197,6 +264,7 @@ which is used as the value of the columnHeaderGroup's columnSeparator property.<
             
             super.updateDisplayList(unscaledWidth, unscaledHeight);
         }
+    ]]>
     </fx:Script>
     
     <!-- column header, content -->
