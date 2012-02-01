@@ -107,6 +107,18 @@ s|ScrubBar
     skinClass: ClassReference("spark.skins.wireframe.mediaClasses.ScrubBarSkin");
 }
 
+s|SkinnableTextBase:normalWithPrompt 
+{
+    color: #CCCCCC;
+    fontStyle: italic;
+}
+
+s|SkinnableTextBase:disabledWithPrompt 
+{
+    color: #CCCCCC;
+    fontStyle: italic;
+}
+
 s|Spinner
 {
     skinClass: ClassReference("spark.skins.wireframe.SpinnerSkin");    
