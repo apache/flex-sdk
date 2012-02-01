@@ -9,6 +9,7 @@ import flash.filters.GradientBevelFilter;
 
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
+import mx.filters.BaseDimensionFilter;
 import mx.graphics.GradientEntry;
 
 use namespace mx_internal;
