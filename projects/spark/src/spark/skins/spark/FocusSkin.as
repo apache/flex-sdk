@@ -184,17 +184,17 @@ public class FocusSkin extends UIComponent
 		{
 			var ex:Object = exclusions[i];
 			/* we're going to go under the covers here to try and modify visibility with the least
-			amount of disruption to the component.  For UIComponents, we go to Sprite's visibile property;
+			amount of disruption to the component.  For UIComponents, we go to Sprite's alpha property;
 			*/
 			if(ex is UIComponent)
 			{
-				exclusionVisibilityValues[i] = (ex as UIComponent).$visible; 
-				(ex as UIComponent).$visible = false;
+				exclusionVisibilityValues[i] = (ex as UIComponent).$alpha; 
+				(ex as UIComponent).$alpha = 0;
 			} 
 			else if (ex is DisplayObject)
 			{
-				exclusionVisibilityValues[i] = (ex as UIComponent).visible; 
-				(ex as UIComponent).visible = false;
+				exclusionVisibilityValues[i] = (ex as UIComponent).alpha; 
+				(ex as UIComponent).alpha = 0;
 			}
 			else if (ex is IGraphicElement) 
 			{
@@ -203,13 +203,13 @@ public class FocusSkin extends UIComponent
 				var ge:IGraphicElement = ex as IGraphicElement;
 				if(ge.displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
 				{
-					exclusionVisibilityValues[i] = ge.displayObject.visible;
-					ge.displayObject.visible = false;
+					exclusionVisibilityValues[i] = ge.displayObject.alpha;
+					ge.displayObject.alpha = 0;
 				}
 				else
 				{
-					exclusionVisibilityValues[i] = ge.visible;
-					ge.visible = false;
+					exclusionVisibilityValues[i] = ge.alpha;
+					ge.alpha = 0;
 					needRedraw = true;
 				}
 			}
@@ -236,25 +236,25 @@ public class FocusSkin extends UIComponent
 			ex = exclusions[i];
 			if(ex is UIComponent)
 			{
-				(ex as UIComponent).$visible = exclusionVisibilityValues[i];
+				(ex as UIComponent).$alpha = exclusionVisibilityValues[i];
 			} 
 			else if (ex is DisplayObject)
 			{
-				(ex as UIComponent).visible = exclusionVisibilityValues[i];
+				(ex as UIComponent).alpha = exclusionVisibilityValues[i];
 			}
 			else if (ex is IGraphicElement) 
 			{
 				ge  = ex as IGraphicElement;
 				if(ge.displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
 				{
-					ge.displayObject.visible = exclusionVisibilityValues[i];
+					ge.displayObject.alpha = exclusionVisibilityValues[i];
 				}
 				else
 				{
 					/* note that this is using a public API of GraphicElements that will, in fact,
 					trigger another update pass on the graphic element
 					*/
-					ge.visible = exclusionVisibilityValues[i];					
+					ge.alpha = exclusionVisibilityValues[i];					
 				}
 			}
 			
