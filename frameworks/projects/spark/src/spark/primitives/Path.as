@@ -51,6 +51,11 @@ use namespace mx_internal;
  *  @see mx.graphics.LineSegment
  *  @see mx.graphics.CubicBezierSegment
  *  @see mx.graphics.QuadraticBezierSegment
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class Path extends FilledElement
 {
@@ -64,6 +69,11 @@ public class Path extends FilledElement
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function Path()
     {
@@ -78,11 +88,21 @@ public class Path extends FilledElement
     
     /**
      *  Dirty flag to indicate when path data has changed. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     private var graphicsPathChanged:Boolean = true;
     
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
 	protected var graphicsPath:GraphicsPath = new GraphicsPath(new Vector.<int>(), new Vector.<Number>());
     
@@ -168,6 +188,11 @@ public class Path extends FilledElement
      *  </p>
      *  
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set data(value:String):void
     {        
@@ -373,6 +398,11 @@ public class Path extends FilledElement
      *  The segments for the path. Each segment must be a subclass of PathSegment.
      *
      *  @default []
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set segments(value:Array):void
     {
@@ -404,6 +434,11 @@ public class Path extends FilledElement
      *  Fill rule for intersecting or overlapping path segments. 
      *
      *  @default evenOdd
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set winding(value:String):void
     {
@@ -458,6 +493,11 @@ public class Path extends FilledElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function skipMeasure():Boolean
     {
@@ -467,6 +507,11 @@ public class Path extends FilledElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function measure():void
     {
@@ -624,6 +669,11 @@ public class Path extends FilledElement
     private var _drawBounds:Rectangle = new Rectangle(); 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     override protected function drawElement(g:Graphics):void
     {
@@ -683,6 +733,11 @@ public class Path extends FilledElement
     }
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function endDraw(g:Graphics):void
     {
@@ -702,6 +757,11 @@ public class Path extends FilledElement
     
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function segmentChanged(e:PathSegment):void 
     {
