@@ -14,7 +14,7 @@ package mx.events
 
 import flash.events.Event;
 
-import flashx.tcal.operations.FlowOperation;
+import flashx.textLayout.operations.FlowOperation;
 
 /**
  *  Represents events that are dispatched when text content
