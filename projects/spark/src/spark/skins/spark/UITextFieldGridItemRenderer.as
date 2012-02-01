@@ -95,6 +95,35 @@ public class UITextFieldGridItemRenderer extends UITextField implements IGridIte
         addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);        
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  IStyleClient Methods and Properties
+    //  (source code from mx.controls.dataGridClassses.DataGridItemRenderer.as)
+    //
+    //-------------------------------------------------------------------------- 
+    
+    //----------------------------------
+    //  styleDeclaration
+    //----------------------------------
+    
+    private var _styleDeclaration:CSSStyleDeclaration;
+    
+    /**
+     *  @private
+     */
+    public function get styleDeclaration():CSSStyleDeclaration
+    {
+        return _styleDeclaration;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set styleDeclaration(value:CSSStyleDeclaration):void
+    {
+        _styleDeclaration = value;
+    }
+        
 include "TextFieldGridItemRendererInclude.as"
 
 }
