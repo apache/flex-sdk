@@ -16,13 +16,22 @@
 	  alpha.disabledStates="0.5">
 
     <fx:Metadata>
+    <![CDATA[ 
+	/** 
+	 * @copy spark.skins.default.ApplicationSkin#hostComponent
+	 */
     	[HostComponent("spark.components.RadioButton")]
+    ]]>
     </fx:Metadata> 
     
     <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For button, the graphics are colorized but the label is not. */
         static private const exclusions:Array = ["labelElement", "dot"];
+
+	/** 
+	 * @copy spark.skins.SparkSkin#colorizeExclusions
+	 */		
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
