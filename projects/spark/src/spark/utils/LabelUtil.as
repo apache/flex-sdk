@@ -13,7 +13,7 @@ package spark.utils
 {
 
 /**
- *  This class typically aids components in determining the correct
+ *  The LabelUtil class is used by components to determine the correct
  *  text to display for their renderers or sub-parts. 
  *  
  *  @langversion 3.0
@@ -32,24 +32,34 @@ public class LabelUtil
     //--------------------------------------------------------------------------
 
     /**
-     *  A function typically used by renderer-aware controls to determine
-     *  the correct text a renderer should display for a particular data item, 
-     *  given the item, a labelField and a labelFunction. If no labelField
-     *  or labelFunction is set, the toString() representation of the data 
-     *  item is returned. Null items return the empty string. 
+     *  A function used by components that support item renderers 
+     *  to determine the correct text an item renderer should display for a data item. 
+     *  If no <code>labelField</code> or <code>labelFunction</code> parameter 
+     *  is specified, the <code>toString()</code> method of the data item  
+     *  is called to return a String representation of the data item.
+     *  
+     *  <p>The <code>labelFunction</code> property takes a reference to a function. 
+     *  The function takes a single argument which is the item in 
+     *  the data provider and returns a String:</p>
+     *  <pre>
+     *  myLabelFunction(item:Object):String</pre>
      * 
-     *  @param item The data item  
+     *  @param item The data item. Null items return the empty string. 
      * 
-     *  @param labelField The field in the data item to return  
+     *  @param labelField The field in the data item to return.
      * 
      *  @param labelFunction A function that takes the data item 
-     *  as a single parameter and returns a string. 
+     *  as a single parameter and returns a String. 
      * 
      *  @return A String representation for the data item 
      * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static function itemToLabel(item:Object, labelField:String=null, 
-    	labelFunction:Function=null):String
+        labelFunction:Function=null):String
     {
         if (labelFunction != null)
             return labelFunction(item);
