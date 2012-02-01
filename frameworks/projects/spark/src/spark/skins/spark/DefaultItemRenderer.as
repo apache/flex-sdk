@@ -26,7 +26,7 @@
             override public function set labelText(value:String):void
             {
                 super.labelText = value;
-                labelElement.text = labelText; 
+                labelDisplay.text = labelText; 
             }
         ]]>
     </fx:Script>
@@ -68,6 +68,6 @@
             	/>
         </s:fill>
     </s:Rect>
-    <s:SimpleText id="labelElement" verticalCenter="0" left="3" right="3" top="6" bottom="4"/>
+    <s:SimpleText id="labelDisplay" verticalCenter="0" left="3" right="3" top="6" bottom="4"/>
 
 </s:ItemRenderer>
