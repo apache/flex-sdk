@@ -384,18 +384,18 @@ public class BasicLayout extends LayoutBase
             if (!layoutElement || !layoutElement.includeInLayout)
                 continue;
 
-            var hCenter:Number = LayoutElementHelper.parseConstraintValue(layoutElement.horizontalCenter);
-            var vCenter:Number = LayoutElementHelper.parseConstraintValue(layoutElement.verticalCenter);
-            var baseline:Number      = LayoutElementHelper.parseConstraintValue(layoutElement.baseline);
-            var left:Number    = LayoutElementHelper.parseConstraintValue(layoutElement.left);
-            var right:Number   = LayoutElementHelper.parseConstraintValue(layoutElement.right);
-            var top:Number     = LayoutElementHelper.parseConstraintValue(layoutElement.top);
-            var bottom:Number  = LayoutElementHelper.parseConstraintValue(layoutElement.bottom);
-            var percentWidth:Number  = layoutElement.percentWidth;
-            var percentHeight:Number = layoutElement.percentHeight;
+            var hCenter:Number          = LayoutElementHelper.parseConstraintValue(layoutElement.horizontalCenter);
+            var vCenter:Number          = LayoutElementHelper.parseConstraintValue(layoutElement.verticalCenter);
+            var baseline:Number         = LayoutElementHelper.parseConstraintValue(layoutElement.baseline);
+            var left:Number             = LayoutElementHelper.parseConstraintValue(layoutElement.left);
+            var right:Number            = LayoutElementHelper.parseConstraintValue(layoutElement.right);
+            var top:Number              = LayoutElementHelper.parseConstraintValue(layoutElement.top);
+            var bottom:Number           = LayoutElementHelper.parseConstraintValue(layoutElement.bottom);
+            var percentWidth:Number     = layoutElement.percentWidth;
+            var percentHeight:Number    = layoutElement.percentHeight;
             
-            var elementMaxWidth:Number = layoutElement.getMaxBoundsWidth();
-            var elementMaxHeight:Number = layoutElement.getMaxBoundsHeight();
+            var elementMaxWidth:Number = NaN; 
+            var elementMaxHeight:Number = NaN;
 
             // Calculate size
             var childWidth:Number = NaN;
@@ -410,7 +410,7 @@ public class BasicLayout extends LayoutBase
                      availableWidth -= right;
 
                 childWidth = Math.round(availableWidth * Math.min(percentWidth * 0.01, 1));
-                elementMaxWidth = Math.min(elementMaxWidth,
+                elementMaxWidth = Math.min(layoutElement.getMaxBoundsWidth(),
                     maxSizeToFitIn(unscaledWidth, hCenter, left, right, layoutElement.getLayoutBoundsX()));
             }
             else if (!isNaN(left) && !isNaN(right))
@@ -427,7 +427,7 @@ public class BasicLayout extends LayoutBase
                     availableHeight -= bottom;    
                     
                 childHeight = Math.round(availableHeight * Math.min(percentHeight * 0.01, 1));
-                elementMaxHeight = Math.min(elementMaxHeight,
+                elementMaxHeight = Math.min(layoutElement.getMaxBoundsHeight(),
                     maxSizeToFitIn(unscaledHeight, vCenter, top, bottom, layoutElement.getLayoutBoundsY()));
             }
             else if (!isNaN(top) && !isNaN(bottom))
@@ -439,9 +439,17 @@ public class BasicLayout extends LayoutBase
             // where childWidth and childHeight are NaN, setLayoutBoundsSize will use preferredSize
             // which is already constrained between min and max.
             if (!isNaN(childWidth))
+            {
+                if (isNaN(elementMaxWidth))
+                    elementMaxWidth = layoutElement.getMaxBoundsWidth();
                 childWidth = Math.max(layoutElement.getMinBoundsWidth(), Math.min(elementMaxWidth, childWidth));
+            }
             if (!isNaN(childHeight))
+            {
+                if (isNaN(elementMaxHeight))
+                    elementMaxHeight = layoutElement.getMaxBoundsHeight();
                 childHeight = Math.max(layoutElement.getMinBoundsHeight(), Math.min(elementMaxHeight, childHeight));
+            }
 
             // Set the size.
             layoutElement.setLayoutBoundsSize(childWidth, childHeight);
