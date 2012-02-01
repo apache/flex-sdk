@@ -94,11 +94,11 @@
     </s:Rect>
     
     <!-- arrow -->
-    <!--- Defines the appearance of the down arrow in the Spark Spinner skin. -->
+    <!--- Defines the appearance of the down arrow. -->
     <s:Path horizontalCenter="0" verticalCenter="0" id="arrow"
           data="M 3.0 3.0 L 3.0 2.0 L 4.0 2.0 L 4.0 1.0 L 5.0 1.0 L 5.0 0.0 L 0.0 0.0 L 0.0 1.0 L 1.0 1.0 L 1.0 2.0 L 2.0 2.0 L 2.0 3.0 L 3.0 3.0">
         <s:fill>
-		<!--- Defines the down arrow's appearance. The default color is 0x000000. The default alpha is .8. -->
+		<!--- Defines the down arrow's fill. The default color is 0x000000. The default alpha is .8. -->
         	<s:SolidColor id="arrowFill" color="0" alpha="0.8" />
         </s:fill>
     </s:Path>            
