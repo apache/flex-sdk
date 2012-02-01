@@ -77,24 +77,28 @@ import spark.globalization.supportClasses.GlobalizationBase;
  *  to make a field required, which means that the user must enter a value in
  *  the field or the validation fails. 
  *  This class also enables or disables the validator. 
- *  Any class inheriting from this class must override the
- *  <code>createWorkingInstance()</code> method.
  *
  *  @mxml
  *
- *  <p>The GlobalizationValidatorBase class defines the following tag attributes
- *  which all of its subclasses inherit:</p>
+ *  <p>The <code>&lt;s:GlobalizationValidatorBase&gt;</code> tag
+ *  inherits all of the tag attributes of its superclass,
+ *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;spark:GlobalizationValidatorBase
- *    enabled="true|false"
+ *  &lt;s:GlobalizationValidatorBase
+ *    <strong>Properties</strong>
+ *    enabled="true"
  *    listener="<i>Value of the source property</i>"
  *    property="<i>No default</i>"
- *    required="true|false"
+ *    required="true"
  *    requiredFieldError="This field is required."
  *    source="<i>No default</i>"
  *    trigger="<i>Value of the source property</i>"
  *    triggerEvent="valueCommit"
+ * 
+ *    <b>Events</b>
+ *    invalid="<i>No default</i>"
+ *    valid="<i>No default</i>"
  *  /&gt;
  *  </pre>
  *
