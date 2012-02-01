@@ -116,7 +116,7 @@
             dropShadow.blurX = 20;
             dropShadow.blurY = 20;
 
-            dropShadow.drawShadow(graphics, x, y, width, height);
+            dropShadow.drawShadow(graphics, 0, 0, width, height);
         }
         
         private function getDropShadowAngle(distance:Number,
