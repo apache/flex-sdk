@@ -2,6 +2,8 @@ package flex.filters
 {
 import flash.filters.BitmapFilter;
 import flash.filters.GlowFilter;
+import mx.filters.BaseDimensionFilter;
+import mx.filters.IBitmapFilter;
 
 public class GlowFilter extends BaseDimensionFilter implements IBitmapFilter
 {
