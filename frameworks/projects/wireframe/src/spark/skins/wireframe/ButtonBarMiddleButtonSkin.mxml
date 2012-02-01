@@ -70,7 +70,7 @@
     </s:Rect>
 	
 	<!-- text -->
-	<s:SimpleText id="labelElement"
+	<s:SimpleText id="labelDisplay"
              textAlign="center"
              verticalAlign="middle"
              truncation="1"
