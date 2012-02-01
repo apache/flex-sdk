@@ -1368,6 +1368,7 @@ public class VerticalLayout extends LayoutBase
             llv.defaultMinorSize = 71;
             llv.defaultMajorSize = 22;
         }
+
         var typicalElt:ILayoutElement = typicalLayoutElement;
         if (typicalElt)
         {
@@ -1376,8 +1377,13 @@ public class VerticalLayout extends LayoutBase
             llv.defaultMinorSize = typicalWidth;
             llv.defaultMajorSize = typicalHeight; 
         }
+
+        if (!isNaN(rowHeight))
+            llv.defaultMajorSize = rowHeight;
+        
         if (layoutTarget)
             llv.length = layoutTarget.numElements;
+
         llv.gap = gap;
         llv.majorAxisOffset = paddingTop;
     }
