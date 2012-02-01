@@ -140,11 +140,11 @@ The default header renderer for s:DataGrid columns.
     <!-- layer 7: text -->
     <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
     <s:Label id="labelDisplay"
-             textAlign="left"
+             textAlign="start"
              fontWeight="bold"
              verticalAlign="middle"
              maxDisplayedLines="1"
-             horizontalCenter="0" verticalCenter="1"
+             verticalCenter="1"
              left="7" right="7" top="5" bottom="5">
     </s:Label>
     
