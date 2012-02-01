@@ -199,6 +199,14 @@ public class Path extends FilledElement
         // Clear out the existing segments 
         segments = []; 
         
+        //If there's no processing that needs to 
+        //occur, exit early. 
+        if (value == "")
+    	{
+    		_data = value;
+    		return;
+    	}
+        
         // Split letter followed by number (ie "M3" becomes "M 3")
         var temp:String = value.replace(/([A-Za-z])([0-9\-\.])/g, "$1 $2");
         
