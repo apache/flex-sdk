@@ -136,7 +136,8 @@ The default skin class for a Spark DataGrid component.
     </s:Rect>
     
     <s:VGroup horizontalAlign="justify" gap="0" left="0" right="0" top="0" bottom="0">
-        <s:GridColumnHeaderGroup id="columnHeaderGroup" paddingLeft="1" paddingTop="1" paddingRight="1"
+        <s:GridColumnHeaderGroup id="columnHeaderGroup"
+            paddingLeft="1" paddingTop="1" paddingRight="1" minHeight="21"
             columnSeparator="{headerColumnSeparator}"
             headerRenderer="spark.skins.wireframe.DefaultGridHeaderRenderer" />
         
