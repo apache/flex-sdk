@@ -45,7 +45,7 @@
     	</Component>
     </Declarations>
     
-    <FxButton id="track" left="0" right="0" top="3" bottom="3"
+    <FxButton id="track" left="0" right="0" top="0" bottom="0"
               skinClass="mx.skins.spark.FxHSliderTrackSkin" />
     <FxButton id="thumb" top="0" bottom="0" width="11" height="11" 
               skinClass="mx.skins.spark.FxHSliderThumbSkin" />
