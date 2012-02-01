@@ -41,6 +41,19 @@
      * @copy spark.skins.SparkSkin#colorizeExclusions
      */     
         override public function get colorizeExclusions():Array {return exclusions;}
+        
+        override protected function updateDisplayList(unscaledWidth:Number, unscaleHeight:Number):void
+        {
+            var cr:Number = getStyle("cornerRadius");
+            
+            if (cornerRadius != cr)
+                cornerRadius = cr;
+            
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
+        
+        [Bindable]
+        public var cornerRadius:Number = 2;
     </fx:Script>
     
     <!-- states -->
@@ -55,12 +68,10 @@
         <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
     </s:states>
     
-    <s:Group left="0" right="-1" top="-1" bottom="-1"
-             scaleGridLeft="4" scaleGridTop="11" scaleGridRight="67" scaleGridBottom="17">
+    <s:Group left="0" right="-1" top="-1" bottom="-1">
         
         <!-- layer 1: shadow -->
-        <s:Path left="0" right="0" top="0" bottom="0" 
-              data="M 0 20 l 67.2 0 C 68.2 20 69 19.2 69 18.2 L 69 1.8 C 68.2 0 69 0.8 67.2 0 L 0 0">
+        <s:Rect left="0" right="0" top="0" bottom="0" width="69" height="20" topRightRadiusX="{cornerRadius}" bottomRightRadiusX="{cornerRadius}">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90">
                         <s:GradientEntry color="0x000000" 
@@ -73,11 +84,10 @@
                                        alpha.downStates="0.5" />
                 </s:LinearGradientStroke>
             </s:stroke>
-        </s:Path>
+        </s:Rect>
         
         <!-- layer 2: fill -->
-        <s:Path left="1" right="2" top="2" bottom="2" 
-              data="M 0 0 l 0 18 l 65.2 0 C 66.2 18 67 17.2 67 16.2 L 67 1.8 C 66.2 0 67 0.8 65.2 0 L 0 0 z">
+        <s:Rect left="1" right="2" top="2" bottom="2" topRightRadiusX="{cornerRadius}" bottomRightRadiusX="{cornerRadius}">
             <s:fill>
                 <s:LinearGradient rotation="90">
                     <s:GradientEntry color="0xFFFFFF" 
@@ -95,10 +105,10 @@
                                    alpha.overAndSelected="1" />
                 </s:LinearGradient>
             </s:fill>
-        </s:Path>
+        </s:Rect>
         
         <!-- layer 3: fill lowlight -->
-        <s:Rect left="1" right="2" bottom="2" height="9" radiusX="2" radiusY="2">
+        <s:Rect left="1" right="2" bottom="2" height="9" radiusX="{cornerRadius}">
             <s:fill>
                 <s:LinearGradient rotation="90">
                     <s:GradientEntry color="0x000000" alpha="0.0099" />
@@ -108,7 +118,7 @@
         </s:Rect>
         
         <!-- layer 4: fill highlight -->
-        <s:Rect left="1" right="2" top="2" height="9" radiusX="2" radiusY="2">
+        <s:Rect left="1" right="2" top="2" height="9" radiusX="{cornerRadius}">
             <s:fill>
                 <s:SolidColor color="0xFFFFFF" 
                             alpha="0.33" 
@@ -119,15 +129,14 @@
         </s:Rect>
         
         <!-- layer 5: highlight stroke (all states except down) -->
-        <s:Path left="1" right="2" top="2" bottom="2" excludeFrom="downStates"
-              data="M 0 0 l 0 18 l 65.2 0 C 66.2 18 67 17.2 67 16.2 L 67 1.8 C 66.2 0 67 0.8 65.2 0 L 0 0 z">
+        <s:Rect left="1" right="2" top="2" bottom="2" topRightRadiusX="{cornerRadius}" bottomRightRadiusX="{cornerRadius}">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
                     <s:GradientEntry color="0xFFFFFF" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
                     <s:GradientEntry color="0xD8D8D8" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
                 </s:LinearGradientStroke>
             </s:stroke>
-        </s:Path>
+        </s:Rect>
         
         <!-- layer 6: highlight stroke (down state only) -->
         <s:Rect left="1" top="2" bottom="2" width="1" includeIn="downStates, selectedUpStates, overAndSelected">
@@ -152,8 +161,7 @@
         </s:Rect>
         
         <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
-        <s:Path left="0" right="1" top="1" bottom="1"
-              data="M 0 0 l 0 20 l 67.2 0 C 68.2 20 69 19.2 69 18.2 L 69 1.8 C 68.2 0 69 0.8 67.2 0 L 0 0 z">
+        <s:Rect left="0" right="1" top="1" bottom="1" topRightRadiusX="{cornerRadius}" bottomRightRadiusX="{cornerRadius}">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
                     <s:GradientEntry color="0x000000" 
@@ -166,7 +174,7 @@
                                    alpha.selectedStates="0.85" />
                 </s:LinearGradientStroke>
             </s:stroke>
-        </s:Path>
+        </s:Rect>
     </s:Group>
         
     <!-- layer 8: text -->
