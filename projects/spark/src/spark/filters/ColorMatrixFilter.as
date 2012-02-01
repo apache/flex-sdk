@@ -33,6 +33,19 @@ import mx.filters.IBitmapFilter;
  */
 public class ColorMatrixFilter extends BaseFilter implements IBitmapFilter
 {
+	/**
+	 * Constructor.
+	 *
+	 * @tiptext Initializes a new ColorMatrixFilter instance.
+	 *
+	 * @param matrix An array of 20 items arranged as a 4 x 5 matrix.
+	 *
+	 * @langversion 3.0
+ 	 * @playerversion Flash 10
+ 	 * @playerversion AIR 1.5
+ 	 * @productversion Flex 4
+	 */
+	
 	public function ColorMatrixFilter(matrix:Array = null)
 	{
 		if (matrix != null)
@@ -84,6 +97,18 @@ public class ColorMatrixFilter extends BaseFilter implements IBitmapFilter
 			notifyFilterChanged();
 		}
 	}
+	
+	/**
+	 * Returns a copy of this filter object.
+	 *
+	 * @return A new ColorMatrixFilter instance with all of the same
+	 * properties as the original one.
+	 *
+	 * @langversion 3.0
+	 * @playerversion Flash 10
+	 * @playerversion AIR 1.5
+	 * @productversion Flex 4
+	 */
 	
 	public function clone():BitmapFilter
 	{
