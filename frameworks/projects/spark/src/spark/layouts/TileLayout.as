@@ -22,40 +22,65 @@ import spark.core.NavigationUnit;
 import spark.layouts.supportClasses.LayoutBase;
 
 /**
- *  TileLayout arranges the layout elements in columns and rows
+ *  The TileLayout class arranges layout elements in columns and rows
  *  of equally-sized cells.
- *
- *  There are a number of properties that control orientation,
+ *  The TileLayout class uses a number of properties that control orientation,
  *  count, size, gap and justification of the columns and the rows
  *  as well as element alignment within the cells.
  *
- *  Per-element supported constraints are percentWidth, percentHeight.
- *  Element's minimum and maximum sizes will always be respected and
- *  where possible, an element's size will be limited to less then or equal
- *  of the cell size.
+ *  <p>Per-element supported constraints are 
+ *  <code>percentWidth</code> and <code>percentHeight</code>.
+ *  Element's minimum and maximum sizes are always be respected and
+ *  where possible, an element's size is limited to less then or equal
+ *  of the cell size.</p>
  *
- *  When not explicitly set, the columnWidth is calculated as the maximum
- *  preferred bounds width of all elements and the columnHeight is calculated
- *  as the maximum preferred bounds height of all elements.
+ *  <p>When not explicitly set, the <code>columnWidth</code> property 
+ *  is calculated as the maximum preferred bounds width of all elements 
+ *  and the <code>columnHeight</code> property is calculated
+ *  as the maximum preferred bounds height of all elements.</p>
  *
- *  When not explicitly set, the columnCount and rowCount are calculated from
- *  any explicit width/height settings for the layout target and columnWidth
- *  and columnHeight.  In case none is specified, the coulumnCount and rowCount
- *  values are picked so that the resulting pixel area is as square as possible.
+ *  <p>When not explicitly set, the <code>columnCount</code> and 
+ *  <code>rowCount</code> properties are calculated from
+ *  any explicit width and height settings for the layout target, 
+ *  and <code>columnWidth</code> and <code>columnHeight</code>.  
+ *  In case none is specified, the <code>columnCount</code> and <code>rowCount</code>
+ *  values are picked so that the resulting pixel area is as square as possible.</p>
  * 
- *  The measured size is calculated from the columnCount, rowCount, 
- *  columnWidth, rowHeight and the gap sizes.
+ * <p> The measured size is calculated from the <code>columnCount</code>, <code>rowCount</code>, 
+ *  <code>columnWidth</code>, <code>rowHeight</code> properties and the gap sizes.</p>
  *
- *  The default measured size, when no properties were explicitly set, is
- *  as square as possible area and is enough to fit all elements.
+ *  <p>The default measured size, when no properties were explicitly set, is
+ *  as square as possible area and is large enough to fit all elements.</p>
  *
- *  In other cases the measured size may not be big enough to fit all elements -
- *  for example when both columnCount and rowCount are explicitly set to values
- *  such that columnCount * rowCount &lt; element count.
+ *  <p>In other cases the measured size may not be big enough to fit all elements.
+ *  For example, when both <code>columnCount</code> and <code>rowCount</code> are explicitly set to values
+ *  such that <code>columnCount</code> &#42; <code>rowCount</code> &lt; element count.</p>
  *
- *  The minimum measured size is calculated the same way as the measured size but
- *  it's guaranteed to encompass enough rows/columns along the minor axis to fit
- *  all elements.
+ *  <p>The minimum measured size is calculated the same way as the measured size but
+ *  it's guaranteed to encompass enough rows and columns along the minor axis to fit
+ *  all elements.</p>
+ *
+ *  @mxml 
+ *  <p>The <code>&lt;TileLayout&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;TileLayout 
+ *    <strong>Properties</strong>
+ *    columnAlign="left"
+ *    columnWidth="NaN"
+ *    horizontalAlign="justify"
+ *    horizontalGap="6"
+ *    orientation="rows"
+ *    requestedColumnCount="-1"
+ *    requestedRowCount="-1"
+ *    rowAlign="top"
+ *    rowCount="-1"
+ *    rowHeight="NaN"
+ *    verticalAlign="justify"
+ *    verticalGap="6"
+ *  /&gt;
+ *  </pre>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -181,8 +206,7 @@ public class TileLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  This property will contain the actual column count after
-     *  <code>updateDisplayList()</code>.
+     *  Contain the actual column count.
      *
      *  @see #rowCount
      *  @see #columnAlign
@@ -212,14 +236,14 @@ public class TileLayout extends LayoutBase
 
     /**
      *  Number of columns to be displayed.
-     *  Set to make sure the layout measures a specific number of columns.
      * 
-     *  Set to -1 to remove explicit override and allow the TileLayout to determine
-     *  the column count automatically.
+     *  <p>Set to -1 to allow the TileLayout to determine
+     *  the column count automatically.</p>
      *
-     *  Setting this property won't have any effect, if <code>orientation</code> is
-     *  set to TileOrientation.ROWS, <code>rowCount</code> is explicitly set, and the
-     *  container width is explicitly set.
+     *  <p>If the <code>orientation</code> property is set to <code>TileOrientation.ROWS</code>, 
+     *  then setting this property has no effect
+     *  In this case, the <code>rowCount</code> is explicitly set, and the
+     *  container width is explicitly set. </p>
      * 
      *  @see #columnCount
      *  @see #columnAlign
@@ -262,8 +286,7 @@ public class TileLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  This property will contain the actual row count after
-     *  <code>updateDisplayList()</code>.
+     *  The row count.
      *
      *  @see #requestedRowCount
      *  @see #columnCount
@@ -293,14 +316,14 @@ public class TileLayout extends LayoutBase
 
     /**
      *  Number of rows to be displayed.
-     *  Set to make sure the layout measures a specific number of rows.
      * 
-     *  Set to -1 to remove explicit override and allow the TileLayout to determine
-     *  the row count automatically.
+     *  <p>Set to -1 to remove explicit override and allow the TileLayout to determine
+     *  the row count automatically.</p>
      *
-     *  Setting this property won't have any effect, if <code>orientation</code> is
-     *  set to TileOrientation.COLUMNS, <code>columnCount</code> is explicitly set, and the
-     *  container height is explicitly set.
+     *  <p>If the <code>orientation</code> property is set to 
+     *  <code>TileOrientation.COLUMNS</code>, setting this property has no effect.
+     *  in this case, <code>columnCount</code> is explicitly set, and the
+     *  container height is explicitly set.</p>
      * 
      *  @see #rowCount
      *  @see #rowAlign
@@ -340,16 +363,14 @@ public class TileLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Explicit override for the column width.
-     *  This property will contain the actual column width after
-     *  <code>updateDisplayList()</code>.
+     *  Contain the actual column width.
      *
-     *  <p>If not explicitly set, the column width will be
-     *  determined from the maximum of elements' width.
-     *  Set to NaN to remove explicit override.</p>
+     *  <p>If not explicitly set, the column width is 
+     *  determined from the width of the widest element. </p>
      *
-     *  If <code>columnAlign</code> is set to "justifyUsingWidth", the actual column width
-     *  will grow to justify the fully-visible columns to the container width.
+     *  <p>If the <code>columnAlign</code> property is set 
+     *  to <code>"justifyUsingWidth"</code>,  the column width grows to the 
+     *  container width to justify the fully-visible columns.</p>
      *
      *  @see #rowHeight
      *  @see #columnAlign
@@ -389,16 +410,13 @@ public class TileLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Explicit override for the row height.
-     *  This property will contain the actual row height after
-     *  <code>updateDisplayList()</code>.
+     *  The row height.
      *
-     *  <p>If not explicitly set, the row height will be
-     *  determined from the maximum of elements' height.
-     *  Set to NaN to remove explicit override.</p>
+     *  <p>If not explicitly set, the row height is 
+     *  determined from the maximum of elements' height.</p>
      *
      *  If <code>rowAlign</code> is set to "justifyUsingHeight", the actual row height
-     *  will grow to justify the fully-visible rows to the container height.
+     *  increases to justify the fully-visible rows to the container height.
      *
      *  @see #columnWidth
      *  @see #rowAlign
@@ -445,7 +463,7 @@ public class TileLayout extends LayoutBase
      *  <code>HorizontalAlign.JUSTIFY</code>.
      *
      *  <p>When set to <code>HorizontalAlign.JUSTIFY</code> the width of each
-     *  element will be set to the <code>columnWidth</code></p>.
+     *  element is set to the <code>columnWidth</code>.</p>
      *
      *  @default <code>HorizontalAlign.JUSTIFY</code>
      *  
@@ -489,7 +507,7 @@ public class TileLayout extends LayoutBase
      *  <code>VerticalAlign.JUSTIFY</code>.
      *
      *  <p>When set to <code>VerticalAlign.JUSTIFY</code>, the height of each
-     *  element will be set to <code>rowHeight</code></p>.
+     *  element is set to <code>rowHeight</code>.</p>
      *
      *  @default <code>VerticalAlign.JUSTIFY</code>
      *  
@@ -529,24 +547,26 @@ public class TileLayout extends LayoutBase
      *  and <code>ColumnAlign.JUSTIFY_USING_WIDTH</code>.
      *  MXML values can be <code>"left"</code>, <code>"justifyUsingGap"</code> and <code>"justifyUsingWidth"</code>.
      *
-     *  <p>When set to <code>ColumnAlign.LEFT</code> - turns column justification off, there may
-     *  be partially visible columns or whitespace between the last column and
+     *  <p>When set to <code>ColumnAlign.LEFT</code> it turns column justification off.
+     *  There may be partially visible columns or whitespace between the last column and
      *  the right edge of the container.  This is the default value.</p>
      *
-     *  <p>When set to <code>ColumnAlign.JUSTIFY_USING_GAP</code> - the <code>horizontalGap</code>
-     *  actual value will increase so that
+     *  <p>When set to <code>ColumnAlign.JUSTIFY_USING_GAP</code> the <code>horizontalGap</code>
+     *  actual value increases so that
      *  the last fully visible column right edge aligns with the container's right edge.
      *  In case there is only a single fully visible column, the <code>horizontalGap</code> actual value
-     *  will increase so that it pushes any partially visible column just beyond the right edge
-     *  of the container.  Note that explicitly setting the <code>horizontalGap</code> does not turn off
-     *  justification, but just determines the initial gap value, and after thatn justification
-     *  may increases it.</p>
+     *  increases so that it pushes any partially visible column beyond the right edge
+     *  of the container.  
+     *  Note that explicitly setting the <code>horizontalGap</code> property does not turn off
+     *  justification. It only determines the initial gap value. 
+     *  Justification may increases it.</p>
      *
-     *  <p>When set to <code>ColumnAlign.JUSTIFY_USING_WIDTH</code> - the <code>columnWidth</code>
-     *  actual value will increase so that
-     *  the last fully visible column right edge aligns with the container's right edge.  Note that
-     *  explicitly setting the <code>columnWidth</code> does not turn off justification, but simply
-     *  determines the initial column width value, and after that justification may increases it.</p>
+     *  <p>When set to <code>ColumnAlign.JUSTIFY_USING_WIDTH</code> the <code>columnWidth</code>
+     *  actual value increases so that
+     *  the last fully visible column right edge aligns with the container's right edge.  
+     *  Note that explicitly setting the <code>columnWidth</code> property does not turn off justification.
+     *  It only determines the initial column width value. 
+     *  Justification may increases it.</p>
      *
      *  @see #horizontalGap
      *  @see #columnWidth
@@ -589,24 +609,25 @@ public class TileLayout extends LayoutBase
      *  and <code>RowAlign.JUSTIFY_USING_HEIGHT</code>.
      *  MXML values can be <code>"top"</code>, <code>"justifyUsingGap"</code> and <code>"justifyUsingHeight"</code>.
      *
-     *  <p>When set to <code>RowAlign.TOP</code> - turns column justification off, there may
-     *  be partially visible rows or whitespace between the last row and
+     *  <p>When set to <code>RowAlign.TOP</code> it turns column justification off. 
+     *  There might be partially visible rows or whitespace between the last row and
      *  the bottom edge of the container.  This is the default value.</p>
      *
-     *  <p>When set to <code>RowAlign.JUSTIFY_USING_GAP</code> - the <code>verticalGap</code>
-     *  actual value will increase so that
+     *  <p>When set to <code>RowAlign.JUSTIFY_USING_GAP</code> the <code>verticalGap</code>
+     *  actual value increases so that
      *  the last fully visible row bottom edge aligns with the container's bottom edge.
-     *  In case there is only a single fully visible row, the <code>verticalGap</code> actual value
-     *  will increase so that it pushes any partially visible row just beyond the bottom edge
+     *  In case there is only a single fully visible row, the value of <code>verticalGap</code> 
+     *  increases so that it pushes any partially visible row beyond the bottom edge
      *  of the container.  Note that explicitly setting the <code>verticalGap</code> does not turn off
-     *  justification, but just determines the initial gap value, and after that justification
-     *  may increases it.</p>
+     *  justification, but just determines the initial gap value.
+     *  Justification can then increases it.</p>
      *
-     *  <p>When set to <code>RowAlign.JUSTIFY_USING_HEIGHT</code> - the <code>rowHeight</code>
-     *  actual value will increase so that
+     *  <p>When set to <code>RowAlign.JUSTIFY_USING_HEIGHT</code> the <code>rowHeight</code>
+     *  actual value increases so that
      *  the last fully visible row bottom edge aligns with the container's bottom edge.  Note that
-     *  explicitly setting the <code>rowHeight</code> does not turn off justification, but simply
-     *  determines the initial row height value, and after that justification may increases it.</p>
+     *  explicitly setting the <code>rowHeight</code> does not turn off justification, but 
+     *  determines the initial row height value.
+     *  Justification can then increases it.</p>
      *
      *  @see #verticalGap
      *  @see #rowHeight
