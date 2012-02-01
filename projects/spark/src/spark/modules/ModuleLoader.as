@@ -132,6 +132,7 @@ import spark.components.Group;
  *  ModuleManager singleton.</p>
  *  
  *  @see mx.controls.SWFLoader
+ *  @includeExample examples/ModuleLoaderExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.2
