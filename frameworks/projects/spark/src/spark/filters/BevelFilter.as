@@ -77,7 +77,9 @@ import mx.filters.IBitmapFilter;
  * @playerversion AIR 1.5
  * @productversion Flex 4
  * 
- *
+ * @includeExample examples/BevelFilterExample.mxml
+ *  
+ * @see flash.filters.BevelFilter
  * @see flash.display.DisplayObject#filters
  * @see flash.display.DisplayObject#cacheAsBitmap
  * @see flash.display.BitmapData#applyFilter()
@@ -155,7 +157,7 @@ public class BevelFilter extends BaseDimensionFilter implements IBitmapFilter
     [Inspectable(minValue="0.0", maxValue="360.0")]        
     
     /**
-     *   The angle of the bevel. Valid values are from 0 to 360°. 
+     *   The angle of the bevel, in degrees. Valid values are from 0 to 360. 
      *   The angle value represents the angle of the theoretical light source falling on the 
      *   object and determines the placement of the effect relative to the object. 
      *   If the distance property is set to 0, the effect is not offset from the object and, 
