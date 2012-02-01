@@ -433,20 +433,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (g)
             g.invalidateSize();
     }
-    
-    /**
-     *  @private
-     *  Returns the baselinePosition of the typicalLayoutElement as if it were
-     *  the first element to be laid out.
-     */
-    mx_internal function get typicalLayoutElementBaselinePosition():Number
-    {
-        if (!typicalLayoutElement)
-            return 0;
-        
-        return typicalLayoutElement.baselinePosition;
-    }
-    
+
     //----------------------------------
     //  dropIndicator
     //----------------------------------
