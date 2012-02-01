@@ -608,6 +608,7 @@ public class BitmapImage extends GraphicElement
     
     private var _source:Object;
     
+    [Bindable("sourceChanged")]
     [Inspectable(category="General")]
     
     /**
@@ -666,9 +667,16 @@ public class BitmapImage extends GraphicElement
     {        
         if (value != _source)
         {
+            // Remove listeners from any previous load instance and clear
+            // our reference to any existing load-event dispatcher. This ensures
+            // for example that we do not receive further load related events
+            // our previous content before we can consider the new source.
+            clearLoadingContent();
+            
             _source = value;
             sourceInvalid = true;
             invalidateProperties();
+            dispatchEvent(new Event("sourceChanged"));
         }
     }
     
@@ -841,9 +849,16 @@ public class BitmapImage extends GraphicElement
         else
         {
             // Return estimated width/height here as we've yet to fully
-            // realize valid image content.
-            measuredWidth = !isNaN(_preliminaryWidth) ? _preliminaryWidth : measuredWidth;
-            measuredHeight = !isNaN(_preliminaryHeight) ? _preliminaryHeight : measuredHeight;
+            // realize valid image content. If we are loading new content
+            // we keep the old measured width/height, otherwise we fall back
+            // to 0 unless a preliminary width/height is set. This is to avoid
+            // sizing to 0,0 for a frame unnecessarily.
+            var previousWidth:Number = (_source == null || _source == "") ? 0 : measuredWidth;
+            var previousHeight:Number = (_source == null || _source == "") ? 0 : measuredHeight;
+            measuredWidth = !isNaN(_preliminaryWidth) && (measuredWidth == 0) ? 
+                _preliminaryWidth : previousWidth;
+            measuredHeight = !isNaN(_preliminaryHeight) && (measuredHeight == 0) ? 
+                _preliminaryHeight : previousHeight;
             return;
         }
         
@@ -1169,6 +1184,9 @@ public class BitmapImage extends GraphicElement
         _bytesTotal = NaN;
         _trustedSource = true;
         
+        // Reset content width/height.
+        imageWidth = imageHeight = NaN;
+        
         // We'll need to reconsider display object sharing.
         invalidateDisplayObjectSharing();
                 
@@ -1230,11 +1248,7 @@ public class BitmapImage extends GraphicElement
      *  @private
      */
     mx_internal function loadExternal(url:Object):void
-    {   
-        // Remove listeners from any previous load instance and clear
-        // our reference to any existing load-event  dispatcher.
-        clearLoadingContent();
-                                
+    {                 
         if (contentLoader)
         {
             // We defer our load request to the configured content loader.
@@ -1417,6 +1431,18 @@ public class BitmapImage extends GraphicElement
      */
     private function clearLoadingContent():void
     {
+        if (loadingContent is LoaderInfo && LoaderInfo(loadingContent).loader)
+        {
+            try
+            {
+                LoaderInfo(loadingContent).loader.close();
+            }
+            catch (e:Error)
+            {
+                // Ignore 
+            }
+        }
+        
         removeLoadingListeners();
         loadingContent = null;
     }
