@@ -122,7 +122,7 @@ public class HorizontalLayout extends LayoutBase
      *  useVirtualLayout=true.   See updateLLV(), resetCachedVirtualLayoutState(),
      *  etc.
      */
-    private var llv:LinearLayoutVector = new LinearLayoutVector(LinearLayoutVector.HORIZONTAL);
+    private var llv:LinearLayoutVector;
     
     //--------------------------------------------------------------------------
     //
@@ -185,12 +185,6 @@ public class HorizontalLayout extends LayoutBase
 
         // Don't drag-scroll in the vertical direction
         dragScrollRegionSizeVertical = 0;
-
-        // Virtualization defaults for cases
-        // where there are no items and no typical item.
-        // The llv defaults are the width/height of a Spark Button skin.
-        llv.defaultMinorSize = 22;
-        llv.defaultMajorSize = 71;
     }
     
     //--------------------------------------------------------------------------
@@ -822,7 +816,7 @@ public class HorizontalLayout extends LayoutBase
      */
     override public function clearVirtualLayoutCache():void
     {
-        llv.clear();
+        llv = null;
     }     
 
     /**
@@ -834,7 +828,7 @@ public class HorizontalLayout extends LayoutBase
             return super.getElementBounds(index);
 
         var g:GroupBase = GroupBase(target);
-        if (!g || (index < 0) || (index >= g.numElements)) 
+        if (!g || (index < 0) || (index >= g.numElements) || !llv) 
             return null;
 
         return llv.getBounds(index);
@@ -893,6 +887,8 @@ public class HorizontalLayout extends LayoutBase
         var eltWidth:Number;
         if (useVirtualLayout)
         {
+            if (!llv)
+                return 0.0;
             eltX = llv.start(index);
             eltWidth = llv.getMajorSize(index);
         }
@@ -1012,6 +1008,12 @@ public class HorizontalLayout extends LayoutBase
         var x0:Number = scrollR.left;
         var x1:Number = scrollR.right - .0001;
         if (x1 <= x0)
+        {
+            setIndexInView(-1, -1);
+            return;
+        }
+
+        if (useVirtualLayout && !llv)
         {
             setIndexInView(-1, -1);
             return;
@@ -1264,8 +1266,18 @@ public class HorizontalLayout extends LayoutBase
      *  for the possibility that the typicalLayoutElement has changed, or
      *  something that its preferred size depends on has changed.
      */
-     private function updateLLV(layoutTarget:GroupBase):void
-     {
+    private function updateLLV(layoutTarget:GroupBase):void
+    {
+        if (!llv)
+        {
+            llv = new LinearLayoutVector(LinearLayoutVector.HORIZONTAL)
+            // Virtualization defaults for cases
+            // where there are no items and no typical item.
+            // The llv defaults are the width/height of a Spark Button skin.
+            llv.defaultMinorSize = 22;
+            llv.defaultMajorSize = 71;
+        }
+
         var typicalElt:ILayoutElement = typicalLayoutElement;
         if (typicalElt)
         {
@@ -1278,14 +1290,14 @@ public class HorizontalLayout extends LayoutBase
             llv.length = layoutTarget.numElements;        
         llv.gap = gap;
         llv.majorAxisOffset = paddingLeft;
-     }
+    }
 
     /**
      *  @private
      */
      override public function elementAdded(index:int):void
      {
-         if ((index >= 0) && useVirtualLayout)
+         if ((index >= 0) && useVirtualLayout && llv)
             llv.insert(index);  // insert index parameter is uint
      }
 
@@ -1294,7 +1306,7 @@ public class HorizontalLayout extends LayoutBase
      */
      override public function elementRemoved(index:int):void
      {
-        if ((index >= 0) && useVirtualLayout)
+        if ((index >= 0) && useVirtualLayout && llv)
             llv.remove(index);  // remove index parameter is uint
      }     
 
