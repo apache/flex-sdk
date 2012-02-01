@@ -13,6 +13,8 @@ in accordance with the terms of the license agreement accompanying it.
 
 <!--- The default skin class for a Spark Panel container.  
 
+@see spark.components.Panel
+
 @langversion 3.0
 @playerversion Flash 10
 @playerversion AIR 1.5
@@ -131,6 +133,7 @@ in accordance with the terms of the license agreement accompanying it.
         <!-- top group mask -->
         <!--- @private -->
         <s:Group left="1" top="1" right="1" bottom="1" id="topGroupMask" >
+            <!--- @private -->
             <s:Rect id="topMaskRect" left="0" top="0" right="0" bottom="0">
                 <s:fill>
                     <s:SolidColor alpha="0"/>
@@ -170,7 +173,7 @@ in accordance with the terms of the license agreement accompanying it.
         </s:Rect>
         
         <!-- layer 3: contents -->
-        <!--- contains the vertical stack of titlebar content and controlbar -->
+        <!--- Contains the vertical stack of titlebar content and controlbar. -->
         <s:Group left="1" right="1" top="1" bottom="1" id="contents">
             <s:layout>
                 <s:VerticalLayout gap="0" horizontalAlign="justify" />
