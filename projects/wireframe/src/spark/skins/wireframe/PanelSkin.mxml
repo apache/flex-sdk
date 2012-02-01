@@ -27,6 +27,7 @@
     
     <!-- drop shadow -->
     <s:Rect left="0" top="0" right="0" bottom="0">
+        <!-- TODO (klin): Should this be changed to a RectangularDropShadow -->
         <s:filters>
             <s:DropShadowFilter blurX="15" blurY="15" alpha="0.18" distance="11" angle="90" knockout="true" />
         </s:filters>
