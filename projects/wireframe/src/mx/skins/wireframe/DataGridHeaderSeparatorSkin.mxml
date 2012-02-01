@@ -26,7 +26,7 @@
                         width="2" height="10" mouseEnabled="false" mouseChildren="false">    
     
     <!-- border -->
-    <s:Rect top="0" left="0" bottom="0" width="1">
+    <s:Rect top="0" right="0" bottom="0" width="1">
         <s:fill>
             <s:SolidColor color="0x5581D1" />
         </s:fill>
