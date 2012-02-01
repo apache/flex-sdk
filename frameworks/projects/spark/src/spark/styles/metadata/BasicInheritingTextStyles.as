@@ -117,7 +117,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="fontSize", type="Number", format="Length", inherit="yes")]
+[Style(name="fontSize", type="Number", format="Length", inherit="yes", minValue="1.0", maxValue="720.0")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontStyle
@@ -247,7 +247,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="textAlpha", type="Number", inherit="yes")]
+[Style(name="textAlpha", type="Number", inherit="yes", minValue="0.0", maxValue="1.0")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textDecoration
