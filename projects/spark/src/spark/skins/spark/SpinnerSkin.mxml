@@ -12,7 +12,7 @@
 -->
 
 <!--- The default skin class for the Spark Spinner component. The skins for the down and up buttons on the
-Spinner component are defined by the SpinnerDecrButtonSkin and SpinnerIncrButtonSkin classes, respectively.  
+Spinner component are defined by the SpinnerDecrementButtonSkin and SpinnerIncrementButtonSkin classes, respectively.  
         
       @langversion 3.0
       @playerversion Flash 10
@@ -47,11 +47,11 @@ Spinner component are defined by the SpinnerDecrButtonSkin and SpinnerIncrButton
         <s:State name="disabled" />
     </s:states>
     
-    <!--- Defines the appearance of the up button. The default skin class is SpinnerIncrButtonSkin. -->
+    <!--- Defines the appearance of the up button. The default skin class is SpinnerIncrementButtonSkin. -->
     <s:Button id="incrementButton" left="0" right="0" top="0" height="50%" 
-            skinClass="spark.skins.spark.SpinnerIncrButtonSkin" /> 
-    <!--- Defines the appearance of the down button. The default skin class is SpinnerDecrButtonSkin. -->
+            skinClass="spark.skins.spark.SpinnerIncrementButtonSkin" /> 
+    <!--- Defines the appearance of the down button. The default skin class is SpinnerDecrementButtonSkin. -->
     <s:Button id="decrementButton" left="0" right="0" bottom="0" height="50%"  
-            skinClass="spark.skins.spark.SpinnerDecrButtonSkin" />
+            skinClass="spark.skins.spark.SpinnerDecrementButtonSkin" />
 
 </s:SparkSkin>
