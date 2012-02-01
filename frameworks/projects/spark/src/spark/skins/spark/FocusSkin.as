@@ -142,6 +142,7 @@ public class FxFocusSkin extends UIComponent
         rect.x = rect.y = 0;
         rect.width = bitmapData.width;
         rect.height = bitmapData.height;
+        glowFilter.color = focusObject.getStyle("focusColor");
         bitmapData.applyFilter(bitmapData, rect, filterPt, glowFilter); 
                
         if (!bitmap)
