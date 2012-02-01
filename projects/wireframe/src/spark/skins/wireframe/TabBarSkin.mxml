@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- 
+
+Wireframe skin class for the Spark TabBar component. 
+
+@see spark.components.TabBar
+@see spark.components.ButtonBarButton
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+
+-->
+
+<s:Skin 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009"     
+    alpha.disabled="0.5">
+    
+    <fx:Metadata>
+        [HostComponent("spark.components.TabBar")]
+    </fx:Metadata> 
+
+    <s:states>
+        <s:State name="normal" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <!--- 
+    @copy spark.components.SkinnableDataContainer#dataGroup
+    -->
+    <s:DataGroup id="dataGroup" width="100%" height="100%">
+        <s:layout>
+            <s:ButtonBarHorizontalLayout gap="-1"/>
+        </s:layout>
+        <s:itemRenderer>
+            <fx:Component>
+                <s:ButtonBarButton skinClass="spark.skins.wireframe.TabBarButtonSkin" />
+            </fx:Component>
+        </s:itemRenderer>
+    </s:DataGroup>
+    
+</s:Skin>
