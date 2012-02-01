@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+    alpha.disabled="0.5" minWidth="76" minHeight="76">
+
+    <fx:Metadata>
+    	[HostComponent("spark.components.TitleWindow")]
+    </fx:Metadata> 
+    
+	<s:states>
+		<s:State name="normal" stateGroups="normalGroup"/>
+		<s:State name="active" />
+		<s:State name="disabled" />
+		<s:State name="normalWithControlBar" stateGroups="withControls, normalGroup"/>
+		<s:State name="activeWithControlBar" stateGroups="withControls" />
+		<s:State name="disabledWithControlBar" stateGroups="withControls" />
+	</s:states>
+    
+	<!-- drop shadow can't be hittable so it stays sibling of other graphics -->
+	<s:RectangularDropShadow id="dropShadow" blurX="15" blurY="15" alpha="0.18"
+							 distance="11"  distance.normalGroup="7"
+							 angle="90" color="0x000000" left="0" top="0" right="0" bottom="0"/>
+	
+	<!-- layer 1: border -->
+	<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke color="0x5581D1" weight="1" />
+		</s:stroke>
+	</s:Rect>
+
+    <!-- layer 2: background fill -->
+    <s:Rect left="1" top="1" right="1" bottom="1">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
+    
+	<!-- layer 3: contents -->
+    <s:Group left="1" right="1" top="1" bottom="1" >
+        <s:layout>
+            <s:VerticalLayout gap="0" horizontalAlign="justify" />
+        </s:layout>
+
+        <s:Group>
+	        <!-- layer 0: title bar fill -->
+	        <s:Rect left="0" right="0" top="0" bottom="1">
+	           <s:fill> 
+			        <s:SolidColor color="0xE2EdF7" />
+	           </s:fill>
+	        </s:Rect>
+	        
+	        <!-- layer 1: title bar highlight -->
+            <s:Rect left="0" right="0" top="0" bottom="0">
+               <s:stroke>
+                    <s:LinearGradientStroke rotation="90" weight="1">
+                        <s:GradientEntry color="0xEAF2F8" />
+                        <s:GradientEntry color="0xE2EDF7" />
+                    </s:LinearGradientStroke>
+               </s:stroke>
+            </s:Rect>
+
+            <!-- layer 2: title bar divider -->
+            <s:Rect left="0" right="0" bottom="0" height="1">
+    	        <s:fill>
+    		        <s:SolidColor color="0xD1E0F2" />
+    	        </s:fill>
+            </s:Rect>
+	        
+	        <!-- layer 3: text -->
+	        <s:Label id="titleDisplay" maxDisplayedLines="1"
+			         left="9" right="16" top="1" minHeight="23"
+			         verticalAlign="middle" fontWeight="bold">
+	        </s:Label>
+			
+			<!-- layer 4: moveArea -->
+			<s:Group id="moveArea" left="0" right="0" top="0" bottom="0" />
+			
+			<!-- close button -->
+			<s:Button id="closeButton" skinClass="spark.skins.wireframe.TitleWindowCloseButtonSkin"
+					  width="15" height="15" right="2" top="3" />
+        </s:Group>
+
+        <s:Group id="contentGroup" width="100%" height="100%" minWidth="0" minHeight="0">
+        </s:Group>
+
+        <s:Group id="bottomGroup" minWidth="0" minHeight="0"
+                 includeIn="withControls" >
+			
+            <!-- layer 0: control bar background -->
+            <s:Rect left="0" right="0" bottom="0" top="1" >
+                <s:fill>
+                    <s:SolidColor color="0xE2EdF7" />
+                </s:fill>
+            </s:Rect>
+    
+            <!-- layer 1: control bar divider line -->
+            <s:Rect left="0" right="0" top="0" height="1" >
+                <s:fill>
+                    <s:SolidColor color="0xD1E0F2" />
+                </s:fill>
+            </s:Rect>
+
+            <!-- layer 2: control bar -->
+            <s:Group id="controlBarGroup" left="0" right="0" top="1" bottom="1" minWidth="0" minHeight="0">
+                <s:layout>
+                    <s:HorizontalLayout paddingLeft="10" paddingRight="10" paddingTop="7" paddingBottom="7" gap="10" />
+                </s:layout>
+            </s:Group>
+        </s:Group>
+    </s:Group>
+</s:Skin>
