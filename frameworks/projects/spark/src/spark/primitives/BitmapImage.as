@@ -328,7 +328,7 @@ public class BitmapGraphic extends GraphicElement
     /**
      *  @private
      */
-    public function get smooth():Boolean
+    public function get  smooth():Boolean
     {
         return _smooth;
     } 
@@ -357,14 +357,9 @@ public class BitmapGraphic extends GraphicElement
         if (!source || !drawnDisplayObject || !(drawnDisplayObject is Sprite))
             return;
             
+        // The base GraphicElement class has cleared the graphics for us.    
        	var g:Graphics = Sprite(drawnDisplayObject).graphics;
         
-        // We only clear if we have a displayObject. This handles the case of having our own displayObject and the 
-		// case when we have a mask and have created a _drawnDisplayObject. We don't want to clear if we are 
-		// sharing a display object. 
-		if (displayObject)
-			g.clear();
-         
         g.lineStyle();
         var repeatBitmap:Boolean = false;
         var fillScaleX:Number = 1;
@@ -399,12 +394,12 @@ public class BitmapGraphic extends GraphicElement
 			matrix.scale(fillScaleX, fillScaleY);
 			matrix.translate(drawX, drawY);
 	        g.beginBitmapFill(_source as BitmapData, matrix, repeatBitmap, smooth);
-	        g.drawRect(drawX, drawY, unscaledWidth, unscaledHeight);
+        g.drawRect(drawX, drawY, unscaledWidth, unscaledHeight);
 	        g.endFill();
-		}
+    }
 		else
 		{   
-			
+    
 			// If we have scaleGrid, we draw 9 sections, each with a different scale factor based 
 			// on the grid region.
 			
