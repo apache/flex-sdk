@@ -12,17 +12,14 @@
 package mx.layout
 {
 
-import flash.events.Event;
 import flash.geom.Rectangle;
-import flash.geom.Point;
 import flash.ui.Keyboard;
 
 import mx.components.baseClasses.GroupBase;
-import mx.layout.ILayoutItem;
-import flash.events.EventDispatcher;
+import mx.utils.OnDemandEventDispatcher;
 
     
-public class LayoutBase extends EventDispatcher
+public class LayoutBase extends OnDemandEventDispatcher
 {
     //--------------------------------------------------------------------------
     //
