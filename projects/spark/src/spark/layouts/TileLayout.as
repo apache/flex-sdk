@@ -19,6 +19,7 @@ import mx.events.PropertyChangeEvent;
 
 import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
+import spark.layouts.supportClasses.DropLocation;
 import spark.layouts.supportClasses.LayoutBase;
 
 /**
@@ -1816,8 +1817,18 @@ public class TileLayout extends LayoutBase
         if (!g || (index < 0) || (index >= g.numElements)) 
             return null;
 
-        var col:int = index % _columnCount;
-        var row:int = index / Math.max(1, _columnCount);
+        var col:int;
+        var row:int;
+        if (orientation == TileOrientation.ROWS)
+        {
+            col = index % _columnCount;
+            row = index / _columnCount;
+        }
+        else
+        {
+            col = index / _rowCount;
+            row = index % _rowCount
+        }
         return new Rectangle(leftEdge(col), topEdge(row), _columnWidth, _rowHeight);
     }
 
@@ -1871,6 +1882,220 @@ public class TileLayout extends LayoutBase
         bounds.top = topEdge(row);
         bounds.bottom = bottomEdge(row);
         return bounds;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function elementAdded(index:int):void
+    {
+        invalidateTargetSizeAndDisplayList();
+    }
+    
+    /**
+     *  @private
+     */
+    override public function elementRemoved(index:int):void
+    {
+        invalidateTargetSizeAndDisplayList();
+    }     
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Drop methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private 
+     *  Calculates the column and row and returns the corrsponding cell index.
+     *  Index may be out of range if there's no element for the cell.
+     */
+    private function calculateDropCellIndex(x:Number, y:Number):Array
+    {
+        var column:int = Math.floor(x / (_columnWidth + _horizontalGap));
+        var row:int = Math.floor(y / (_rowHeight + _verticalGap));
+        
+        // Check whehter x is closer to left column or right column:
+        var midColumnLine:Number;
+        var midRowLine:Number
+        
+        var rowOrientation:Boolean = orientation == TileOrientation.ROWS;
+        if (rowOrientation)
+        {
+            // Mid-line is at the middle of the cell
+            midColumnLine = (column + 1) * (_columnWidth + _horizontalGap) - _horizontalGap - _columnWidth / 2; 
+            
+            // Mid-line is at the middle of the gap between the rows
+            midRowLine = (row + 1) * (_rowHeight + _verticalGap) - _verticalGap / 2;  
+        }
+        else
+        {
+            // Mid-line is at the middle of the gap between the columns
+            midColumnLine = (column + 1) * (_columnWidth + _horizontalGap) - _horizontalGap / 2;
+            
+            // Mid-line is at the middle of the cell
+            midRowLine = (row + 1) * (_rowHeight + _verticalGap) - _verticalGap - _rowHeight / 2; 
+        }
+        
+        if (x > midColumnLine)
+            column++;
+        if (y > midRowLine)
+            row++;
+        
+        // Limit row and column
+        if (column < 0)
+            column = 0;
+        else if (column > _columnCount)
+            column = _columnCount;
+        if (row < 0)
+            row = 0;
+        else if (row > _rowCount)
+            row = _rowCount;
+        
+        var index:int;
+        if (rowOrientation)
+        {
+            if (row >= _rowCount)
+                row = _rowCount - 1;
+        }
+        else
+        {
+            if (column >= _columnCount)
+                column = _columnCount - 1;
+        }
+        return [row, column];
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override protected function calculateDropIndex(x:Number, y:Number):int
+    {
+        var result:Array = calculateDropCellIndex(x, y);
+        var row:int = result[0]; 
+        var column:int = result[1]; 
+        var index:int;
+
+        if (orientation == TileOrientation.ROWS)
+            index = row * _columnCount + column;
+        else
+            index = column * _rowCount + row;
+
+        var count:int = calculateElementCount();
+        _numElementsCached = -1; // Reset the cache
+
+        if (index > count)
+            index = count;
+        return index;
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override protected function calculateDropIndicatorBounds(dropLocation:DropLocation):Rectangle
+    {
+        var result:Array = calculateDropCellIndex(dropLocation.dropPoint.x, dropLocation.dropPoint.y);
+        var row:int = result[0]; 
+        var column:int = result[1]; 
+
+        var rowOrientation:Boolean = orientation == TileOrientation.ROWS;
+        var count:int = calculateElementCount();
+        _numElementsCached = -1; // Reset the cache
+        
+        if (rowOrientation)
+        {
+            // The last row may be only partially full,
+            // don't drop beyond the last column.
+            if (row * _columnCount + column > count)
+                column = count - (_rowCount - 1) * _columnCount;
+        }
+        else
+        {
+            // The last column may be only partially full,
+            // don't drop beyond the last row.
+            if (column * _rowCount + row > count)
+                row = count - (_columnCount - 1) * _rowCount;
+        }
+        
+        var x:Number;
+        var y:Number;
+        var dropIndicatorElement:IVisualElement;
+        var emptySpace:Number; // empty space between the elements
+
+        // Start with the dropIndicator dimensions, in case it's not 
+        // an IVisualElement
+        var width:Number = dropIndicator.width;
+        var height:Number = dropIndicator.height;
+
+        if (rowOrientation)
+        {
+            emptySpace = (0 < _horizontalGap ) ? _horizontalGap : 0; 
+            var emptySpaceLeft:Number = column * (_columnWidth + _horizontalGap) - emptySpace;
+            
+            // Special case - if we have negative gap and we're the last column,
+            // adjust the emptySpaceLeft
+            if (_horizontalGap < 0 && (column == _columnCount || count == dropLocation.dropIndex))
+                emptySpaceLeft -= _horizontalGap;
+
+            if (dropIndicator is IVisualElement)
+            {
+                dropIndicatorElement = IVisualElement(dropIndicator);
+                width = Math.max(Math.min(emptySpace,
+                                          dropIndicatorElement.getMaxBoundsWidth(false)),
+                                          dropIndicatorElement.getMinBoundsWidth(false));
+                height = _rowHeight;
+                
+                // Special case - if we have negative gap and we're not the last
+                // row, adjust the height
+                if (_verticalGap < 0 && row < _rowCount - 1)
+                    height += _verticalGap + 1;
+            }
+            
+            x = emptySpaceLeft + Math.round((emptySpace - width) / 2);
+            x = Math.max(-Math.ceil(width / 2), Math.min(target.contentWidth - Math.ceil(width / 2), x));
+            y = row * (_rowHeight + _verticalGap);
+        }
+        else
+        {
+            emptySpace = (0 < _verticalGap ) ? _verticalGap : 0; 
+            var emptySpaceTop:Number = row * (_rowHeight + _verticalGap) - emptySpace;
+            
+            // Special case - if we have negative gap and we're the last column,
+            // adjust the emptySpaceLeft
+            if (_verticalGap < 0 && (row == _rowCount || count == dropLocation.dropIndex))
+                emptySpaceTop -= _verticalGap;
+            
+            if (dropIndicator is IVisualElement)
+            {
+                dropIndicatorElement = IVisualElement(dropIndicator);
+                width = _columnWidth;
+                height = Math.max(Math.min(emptySpace,
+                                           dropIndicatorElement.getMaxBoundsWidth(false)),
+                                           dropIndicatorElement.getMinBoundsWidth(false));
+
+                // Special case - if we have negative gap and we're not the last
+                // column, adjust the width
+                if (_horizontalGap < 0 && column < _columnCount - 1)
+                    width += _horizontalGap + 1;
+            }
+            
+            x = column * (_columnWidth + _horizontalGap);
+            y = emptySpaceTop + Math.round((emptySpace - height) / 2);
+            y = Math.max(-Math.ceil(height / 2), Math.min(target.contentHeight - Math.ceil(height / 2), y));
+        }
+        
+        return new Rectangle(x, y, width, height);
     }
 }
 }
