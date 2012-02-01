@@ -2458,8 +2458,9 @@ public class GraphicElement extends EventDispatcher
      */
     public function localToGlobal(point:Point):Point
     {
-        // Probably won't hit this case
-        if (!displayObject)
+        // If there is not yet a displayObject or it's not parented, just
+        // return its local position
+        if (!displayObject || !displayObject.parent)
             return new Point(x, y);
             
         if (needsDisplayObject)
