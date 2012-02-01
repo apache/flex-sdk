@@ -27,15 +27,27 @@
         /* Define the skin elements that should not be colorized. 
            For spinner buttons, the graphics are colorized but the arrow is not. */
         static private const exclusions:Array = ["arrow"];
+        /**
+         * @private
+         */
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
         static private const symbols:Array = ["arrowFill"];
+        /**
+         * @private
+         */
         override public function get symbolItems():Array {return symbols};
         
         /* Define the border items.*/
         static private const borderItem:Array = ["borderStroke"];
+        /**
+         * @private
+         */
         override protected function get borderItems():Array {return borderItem;}
+        /**
+         * @private
+         */
         override protected function get defaultBorderItemColor():uint {return 0x686868;}
         
         /**
@@ -75,8 +87,10 @@
     </local:states>
     
     <!-- border/fill -->
+    <!--- @private -->
     <s:Rect id="fill" left="-1" top="0" right="0" bottom="0" width="18" height="11" topRightRadiusX="2">
         <s:stroke>
+            <!--- @private -->
             <s:SolidColorStroke id="borderStroke" weight="1"/>
         </s:stroke>
         <s:fill>
@@ -92,6 +106,7 @@
     </s:Rect>
     
     <!-- highlight -->
+    <!--- @private -->
     <s:Rect id="highlight" left="1" top="1" right="1" bottom="1" topRightRadiusX="2">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
@@ -116,9 +131,11 @@
     </s:Rect>
     
     <!-- arrow -->
+    <!--- @private -->
     <s:Path horizontalCenter="-1" verticalCenter="0" id="arrow"
           data="M 3.0 0.0 L 3.0 1.0 L 4.0 1.0 L 4.0 2.0 L 5.0 2.0 L 5.0 3.0 L 0.0 3.0 L 0.0 2.0 L 1.0 2.0 L 1.0 1.0 L 2.0 1.0 L 2.0 0.0 L 3.0 0.0">
         <s:fill>
+            <!--- @private -->
             <s:SolidColor id="arrowFill" color="0" alpha="0.8" />
         </s:fill>
     </s:Path>            
