@@ -129,38 +129,43 @@ public class Ellipse extends FilledElement
     
     
     /**
-     *  method description
-     *  
-     *  @param width
-     *  
-     *  @param height
-     *  
-     *  @param actualMatrix 
-     *  
-     *  @return Returns the transformed size. Transformation is this element's
-     *  transformation matrix.
+     *  @private
      */
-    override protected function transformSizeForLayout(width:Number, height:Number,
-                                                       actualMatrix:Boolean):Point
+    override protected function transformWidthForLayout(width:Number,
+                                                        height:Number,
+                                                        postTransform:Boolean=true):Number
     {
-        var size:Point = new Point(width, height);
-        var m:Matrix = computeMatrix(actualMatrix);
-        if (m)
+        if (postTransform)
         {
-            var bbox:Rectangle = getBBox(width / 2, height / 2, m);
-            size.x = bbox.width;
-            size.y = bbox.height;
+            var m:Matrix = computeMatrix();
+            if (m)
+                width = getBBox(width / 2, height / 2, m).width;
         }
 
         // Take stroke into account
-        var strokeExtents:Point = getStrokeExtents();
-        size.x += strokeExtents.x;
-        size.y += strokeExtents.y;
-        return size;
+        return width + getStrokeExtents().x;
     }
-    
+
     /**
-     *  @inheritDoc
+     *  @private
+     */
+    override protected function transformHeightForLayout(width:Number,
+                                                         height:Number,
+                                                         postTransform:Boolean=true):Number
+    {
+        if (postTransform)
+        {
+            var m:Matrix = computeMatrix();
+            if (m)
+                height = getBBox(width / 2, height / 2, m).height;
+        }
+
+        // Take stroke into account
+        return height + getStrokeExtents().y;
+    }
+
+    /**
+     *  @private
      */
     override protected function computeTopLeft(topLeft:Point, width:Number, height:Number, m:Matrix):Point
     {
