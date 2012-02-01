@@ -117,8 +117,8 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  <code>maintainProjectionCenter</code> property here.</p> 
      *
      *  @default null
-     *  @see #updateDisplayList
-     *  @see #measure
+     *  @see #updateDisplayList()
+     *  @see #measure()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -198,7 +198,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *
      *  @default false
      * 
-     *  @see #getScrollRect
+     *  @see #getScrollRect()
      *  @see #typicalLayoutElement
      *
      *  @langversion 3.0
@@ -407,7 +407,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *
      *  @default null
      *
-     *  @see target
+     *  @see #target
      *  @see spark.layouts.VerticalLayout#variableRowHeight
      *  @see spark.layouts.HorizontalLayout#variableColumnWidth
      *  
@@ -546,7 +546,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  the target's <code>measuredWidth</code>, <code>measuredHeight</code>,
      *  <code>measuredMinWidth</code> and <code>measuredMinHeight</code>.</p>
      *
-     *  @see #updateDisplayList
+     *  @see #updateDisplayList()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -592,7 +592,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the target's coordinates.
      *
-     *  @see #measure
+     *  @see #measure()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -620,7 +620,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      * 
      *  @param index The index of the element that was added.
      * 
-     *  @see #elementRemoved    
+     *  @see #elementRemoved()    
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -648,7 +648,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  <p>By default, this method does nothing.</p>
      * 
      *  @param index The index of the element that was added.
-     *  @see #elementAdded
+     *  @see #elementAdded()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -953,12 +953,12 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @param scrollRect The target's scrollRect.
      *
      *  @return The bounds of the first element that spans or is to
-     *  the left of the scrollRect’s left edge.
+     *  the left of the scrollRect's left edge.
      *  
-     *  @see #getElementBoundsRightOfScrollRect
-     *  @see #getElementBoundsAboveScrollRect
-     *  @see #getElementBoundsBelowScrollRect
-     *  @see #getHorizontalScrollPositionDelta
+     *  @see #getElementBoundsRightOfScrollRect()
+     *  @see #getElementBoundsAboveScrollRect()
+     *  @see #getElementBoundsBelowScrollRect()
+     *  @see #getHorizontalScrollPositionDelta()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -991,12 +991,12 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @param scrollRect The target's scrollRect.
      *
      *  @return The bounds of the first element that spans or is to
-     *  the right of the scrollRect’s right edge.
+     *  the right of the scrollRect's right edge.
      *  
-     *  @see #getElementBoundsLeftOfScrollRect
-     *  @see #getElementBoundsAboveScrollRect
-     *  @see #getElementBoundsBelowScrollRect
-     *  @see #getHorizontalScrollPositionDelta
+     *  @see #getElementBoundsLeftOfScrollRect()
+     *  @see #getElementBoundsAboveScrollRect()
+     *  @see #getElementBoundsBelowScrollRect()
+     *  @see #getHorizontalScrollPositionDelta()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1033,12 +1033,12 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @param scrollRect The target's scrollRect.
      *
      *  @return The bounds of the first element that spans or is
-     *  above the scrollRect’s top edge.
+     *  above the scrollRect's top edge.
      *  
-     *  @see #getElementBoundsLeftOfScrollRect
-     *  @see #getElementBoundsRightScrollRect
-     *  @see #getElementBoundsBelowScrollRect
-     *  @see #getVerticalScrollPositionDelta
+     *  @see #getElementBoundsLeftOfScrollRect()
+     *  @see #getElementBoundsRightOfScrollRect()
+     *  @see #getElementBoundsBelowScrollRect()
+     *  @see #getVerticalScrollPositionDelta()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1071,12 +1071,12 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @param scrollRect The target's scrollRect.
      *
      *  @return The bounds of the first element that spans or is
-     *  below the scrollRect’s bottom edge.
+     *  below the scrollRect's bottom edge.
      *
-     *  @see #getElementBoundsLeftOfScrollRect
-     *  @see #getElementBoundsRightScrollRect
-     *  @see #getElementBoundsAboveScrollRect
-     *  @see #getVerticalScrollPositionDelta
+     *  @see #getElementBoundsLeftOfScrollRect()
+     *  @see #getElementBoundsRightOfScrollRect()
+     *  @see #getElementBoundsAboveScrollRect()
+     *  @see #getVerticalScrollPositionDelta()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1149,9 +1149,9 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @return The change to the horizontal scroll position.
      * 
      *  @see spark.core.NavigationUnit
-     *  @see #getElementBoundsLeftOfScrollRect
-     *  @see #getElementBoundsRightOfScrollRect
-     *  @see #getHorizontalScrollPositionDelta
+     *  @see #getElementBoundsLeftOfScrollRect()
+     *  @see #getElementBoundsRightOfScrollRect()
+     *  @see #getHorizontalScrollPositionDelta()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1312,9 +1312,9 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @return The change to the vertical scroll position.
      * 
      *  @see spark.core.NavigationUnit
-     *  @see #getElementBoundsAboveScrollRect
-     *  @see #getElementBoundsBelowScrollRect
-     *  @see #getVerticalScrollPositionDelta
+     *  @see #getElementBoundsAboveScrollRect()
+     *  @see #getElementBoundsBelowScrollRect()
+     *  @see #getVerticalScrollPositionDelta()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1445,7 +1445,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     *  @see #clipAndEnableScrolling
     *  @see #verticalScrollPosition
     *  @see #horizontalScrollPosition
-    *  @see #udpdateScrollRect()
+    *  @see #updateScrollRect()
     *  
     *  @langversion 3.0
     *  @playerversion Flash 10
@@ -1601,37 +1601,37 @@ public class LayoutBase extends OnDemandEventDispatcher
         
     }
     
-	/**
-	 *  @private
-	 * 
-	 *  Given an x\y position and a compare point 
-	 *  (topLeft/topRight/bottomRight/bottomLeft/center), returns the element 
-	 *  who's compare point is closest to the position. 
-	 *  For example, the position might be in the bounds of element A, but 
-	 *  closer to the topLeft corner of element B than to the topLeft corner 
-	 *  of element A. 
-	 *  In which case, this function would return the index for element B. 
-	 */
-	mx_internal function getElementNearestScrollPosition(
-		position:Point,
-		elementComparePoint:String = "center"):int
-	{
-		var num:int = target.numElements;
-		var minDistance:Number = Number.MAX_VALUE;
-		var minDistanceElement:int = -1;
-		var i:int;
-		var rect:Rectangle;
-		var dist:int;
-		
-		// This base implementation uses brute force:  the compare point of every existing 
-		// element is compared to the position and the closest one wins.  Most derived layout
-		// classes will have a better mechanism for finding the closest element without
-		// a linear search like this.
-		// TODO (eday) - possible performance optimization: Pull the switch statement out of the 
-		// loop and have a separate loop for each case.  
-		for (i = 0; i < num; i++)
-		{
-			rect = getElementBounds(i);
+    /**
+     *  @private
+     * 
+     *  Given an x\y position and a compare point 
+     *  (topLeft/topRight/bottomRight/bottomLeft/center), returns the element 
+     *  who's compare point is closest to the position. 
+     *  For example, the position might be in the bounds of element A, but 
+     *  closer to the topLeft corner of element B than to the topLeft corner 
+     *  of element A. 
+     *  In which case, this function would return the index for element B. 
+     */
+    mx_internal function getElementNearestScrollPosition(
+        position:Point,
+        elementComparePoint:String = "center"):int
+    {
+        var num:int = target.numElements;
+        var minDistance:Number = Number.MAX_VALUE;
+        var minDistanceElement:int = -1;
+        var i:int;
+        var rect:Rectangle;
+        var dist:int;
+        
+        // This base implementation uses brute force:  the compare point of every existing 
+        // element is compared to the position and the closest one wins.  Most derived layout
+        // classes will have a better mechanism for finding the closest element without
+        // a linear search like this.
+        // TODO (eday) - possible performance optimization: Pull the switch statement out of the 
+        // loop and have a separate loop for each case.  
+        for (i = 0; i < num; i++)
+        {
+            rect = getElementBounds(i);
             
             // Allow for rect being null, as numElements may be 
             // non-zero when the actual items haven't been added yet.
@@ -1664,10 +1664,10 @@ public class LayoutBase extends OnDemandEventDispatcher
                     minDistanceElement = i;
                 }
             }
-		}
-		return minDistanceElement;
-	}
-	
+        }
+        return minDistanceElement;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Drop methods
