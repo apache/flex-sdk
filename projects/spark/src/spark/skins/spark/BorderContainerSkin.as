@@ -186,7 +186,7 @@ public class BorderSkin extends Skin
             
             if (bgImage)
             {
-                var bitmapFill:BitmapFill = new BitmapFill();
+                var bitmapFill:BitmapFill = bgRect.fill is BitmapFill ? BitmapFill(bgRect.fill) : new BitmapFill();
  
                 bitmapFill.source = bgImage;
                 bitmapFill.resizeMode = getStyle("backgroundImageResizeMode");
