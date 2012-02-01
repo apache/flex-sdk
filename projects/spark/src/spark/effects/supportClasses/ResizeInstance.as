@@ -418,11 +418,6 @@ public class FxResizeInstance extends FxAnimateInstance
 
         return numHideEffectsPlaying > 0;
     }
-    *  
-    *  @langversion 3.0
-    *  @playerversion Flash 10
-    *  @playerversion AIR 1.5
-    *  @productversion Flex 4
     */
     
     /**
@@ -472,11 +467,6 @@ public class FxResizeInstance extends FxAnimateInstance
         //    restoreAutoLayoutArray[panelIndex] = true;
         //}
     }    
-    *  
-    *  @langversion 3.0
-    *  @playerversion Flash 10
-    *  @playerversion AIR 1.5
-    *  @productversion Flex 4
     */
     
     /**
@@ -556,11 +546,6 @@ public class FxResizeInstance extends FxAnimateInstance
                 animation.resume();     
         } 
     }
-    *  
-    *  @langversion 3.0
-    *  @playerversion Flash 10
-    *  @playerversion AIR 1.5
-    *  @productversion Flex 4
     */
 }
 }
