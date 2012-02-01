@@ -71,6 +71,11 @@ use namespace mx_internal;
  *  object in the object's parent coordinate space. The UBounds are the boundaries
  *  of an object in its own coordinate space.</p>
  *  
+ *  <p>If you set the transform.matrix declaratively in MXML, then it will override
+ *  the values of any transform properties (rotation, scaleX, scaleY, x, and y).
+ *  If you set the transform.matrix or the transform properties in ActionScript, then
+ *  the last value set will be used.</p>  
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
