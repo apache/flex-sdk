@@ -119,7 +119,7 @@ public class GridCaretEvent extends Event
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
-     *  @productversion Flex 4
+     *  @productversion Flex 4.5
      */
     public function GridCaretEvent(type:String, 
                                        bubbles:Boolean = false,
