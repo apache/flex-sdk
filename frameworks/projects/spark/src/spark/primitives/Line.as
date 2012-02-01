@@ -195,6 +195,9 @@ public class Line extends StrokedElement
         var drawToX:Number = xFrom <= xTo ? drawWidth : -drawWidth;  
         var drawToY:Number = yFrom <= yTo ? drawHeight : -drawHeight;
 
+        drawToX += xFrom;
+        drawToY += yFrom;
+
 		g.moveTo(xFrom, yFrom);
 		g.lineTo(drawToX, drawToY);
 	}
