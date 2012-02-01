@@ -9,8 +9,10 @@
     in accordance with the terms of the license agreement accompanying it.
 
 -->
-<!--- The Spark skin class for the Halo Border base class. 
-        
+<!--- The Spark skin class for the MX Border base class. 
+
+      @see mx.skins.Border
+      
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
