@@ -3,12 +3,15 @@ package spark.skins.spark
     
 import flash.display.DisplayObject;
 import flash.events.Event;
+import flash.geom.Matrix;
+import flash.geom.Rectangle;
 import flash.text.TextFieldAutoSize;
 
 import mx.core.LayoutElementUIComponentUtils;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 
+import spark.components.Grid;
 import spark.components.IGridItemRenderer;
 import spark.components.supportClasses.GridColumn;
 
@@ -21,6 +24,13 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     {
         super();
     }
+    
+    /**
+     *  Padding added to the labelDisplay's textWidth and textHeight properties to compute 
+     *  the renderer's measured width and height.
+     */
+    private static const TEXT_WIDTH_PADDING:Number = 15;
+    private static const TEXT_HEIGHT_PADDING:Number = 10;
     
     //--------------------------------------------------------------------------
     //
@@ -318,7 +328,7 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     public function discard(hasBeenRecycled:Boolean):void
     {
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: UIComponent
@@ -348,32 +358,72 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     
     /**
      *  @private
+     *  The renderer's measuredWidth,Height are just padded versions of the labelDisplay's
+     *  textWidth,Height properties.   The code below is based on the UITextField
+     *  meausuredWidth,Height get methods, although we do not call validateNow() here (as
+     *  they do).
+     *  
      */
-    override protected function measure():void
+    private function updateMeasuredSize():void
     {
-        super.measure();
-        
-        // labelDisplay layout: padding of 3 on left and right and padding of 5 on top and bottom.
-        
-        measuredHeight = LayoutElementUIComponentUtils.getPreferredBoundsHeight(labelDisplay, null) + 6;
-        measuredWidth = LayoutElementUIComponentUtils.getPreferredBoundsWidth(labelDisplay, null) + 10;
+        if (!labelDisplay.stage || labelDisplay.embedFonts)
+        {
+            measuredWidth = labelDisplay.textWidth + TEXT_WIDTH_PADDING;
+            measuredHeight = labelDisplay.textHeight + TEXT_HEIGHT_PADDING;
+        }
+        else 
+        {
+            const m:Matrix = labelDisplay.transform.concatenatedMatrix;      
+            measuredWidth = Math.abs((labelDisplay.textWidth * m.a / m.d)) + TEXT_WIDTH_PADDING;
+            measuredHeight = Math.abs((labelDisplay.textHeight * m.a / m.d)) + TEXT_HEIGHT_PADDING;
+        }        
     }
     
     /**
      *  @private
      */
+    override protected function measure():void
+    {
+        super.measure();  // initializes measured{Min}Width,Height to 0
+        updateMeasuredSize();
+    }
+    
+    /**
+     *  @private
+     *  True if the labelDisplay's scrollRect has been set.  See below.
+     */
+    private var clippingEnabled:Boolean = false;
+    
+    /**
+     *  @private
+     *  Watch Out: this code relies on the fact that UITextField/setActualSize() can cause
+     *  labelDisplay.textHeight to change, if the text wraps.  The text field's measuredHeight
+     *  is just a padded version of textHeight.  This is the only place where labelDisplay.setActualSize() 
+     *  is called, so we update the measuredHeight of this render here.  Very unconventional.
+     *  Doing so is essential because after this code runs, i.e. after GridLayout/layoutGridElement()
+     *  invokes validateNow() on this renderer, it uses the renderer's preferredBoundsHeight()
+     *  (that's the measuredHeight in our case) to update the overall row height.
+     */
     override protected function updateDisplayList(width:Number, height:Number):void
     {
         super.updateDisplayList(width, height);
 
-        // labelDisplay layout: padding of 5 on left and right and padding of 5 on top.
+        labelDisplay.setActualSize(width - 10, height - 5);  // setActualSize() side-effects labelDisplay.textHeight
+        updateMeasuredSize();  // See @private comment above 
         
-        labelDisplay.setActualSize(width - 10, height - 5);
+        // If the Grid's row heights are fixed and the labelDisplay will not fit, then clip.
         
-        // GridLayout/layoutItemRenderers() assumes that after validating the renderer 
-        // (see GridLayout/layoutGridElement) renderer.getPreferredBoundsHeight() will
-        // return a value that reflects the column's current width.
-        measuredHeight = LayoutElementUIComponentUtils.getPreferredBoundsHeight(labelDisplay, null) + 6;        
+        const grid:Grid = column.grid; 
+        if (grid && !grid.variableRowHeight && (measuredHeight > grid.rowHeight))
+        {
+            clippingEnabled = true;
+            labelDisplay.scrollRect = new Rectangle(0, 0, width - 10, height - 5);
+        }
+        else if (clippingEnabled)
+        {
+            clippingEnabled = false;
+            labelDisplay.scrollRect = null;
+        }
         
         labelDisplay.move(5, 5);
     }
