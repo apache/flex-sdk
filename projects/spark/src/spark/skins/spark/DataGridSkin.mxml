@@ -33,6 +33,36 @@ The default skin class for a Spark DataGrid component.
         <s:State name="disabled" />
     </s:states>
     
+    <fx:Declarations>
+        <fx:Component id="alternatingRowColorsBackground">
+            <s:Rect implements="spark.components.IGridRowBackground">
+                <fx:Script>
+                    <![CDATA[
+                        import spark.components.DataGrid;
+                        import spark.components.Grid;
+                        
+                        public function initializeRowBackground(grid:Grid, rowIndex:int):void
+                        {
+                            const dataGrid:DataGrid = grid.gridOwner as DataGrid;
+                            if (!dataGrid)
+                                return;
+                            
+                            const colors:Array = dataGrid.getStyle("alternatingRowColors");
+                            if (colors && (colors.length > 0))
+                            {
+                                dataGrid.styleManager.getColorNames(colors); // lazily replace color names with ints
+                                rowBackgroundFillColor.color = colors[rowIndex % colors.length];
+                            }
+                        }
+                    ]]>
+                </fx:Script>  
+                <s:fill>
+                    <s:SolidColor id="rowBackgroundFillColor" color="0"/>
+                </s:fill>
+            </s:Rect>
+        </fx:Component>
+    </fx:Declarations>
+    
     <fx:Script fb:purpose="styling">
         static private const exclusions:Array = ["scroller", "background"];
         static private const contentFill:Array = ["bgFill"];
@@ -167,25 +197,13 @@ The default skin class for a Spark DataGrid component.
                 <s:rowBackground>
                     <fx:Component>
                         <s:Rect>
-                            <!--
-                            <fx:Script>
-                                <![CDATA[
-                                    
-                                    // alternating row background colors.
-                                    public function initializeGridElement(rowIndex:int, columnIndex:int):void
-                                    {
-                                        rowBackgroundFillColor.color = ((rowIndex & 1) == 0) ? 0xFFFFFF : 0xF0F0F0;
-                                    }
-                                    
-                                ]]>
-                            </fx:Script>  
-                            -->              
                             <s:fill>
                                 <s:SolidColor id="rowBackgroundFillColor" color="0xF9F9F9"/>
                             </s:fill>
                         </s:Rect>
                     </fx:Component>
-                </s:rowBackground>
+                </s:rowBackground>                
+                
             </s:Grid>
         </s:Scroller>
     </s:VGroup>
