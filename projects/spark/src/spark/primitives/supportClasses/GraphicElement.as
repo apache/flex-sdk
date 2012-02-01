@@ -1098,7 +1098,7 @@ public class GraphicElement extends EventDispatcher
      *  @private
      *  Storage for the maxHeight property.
      */
-    private var _maxWidth:Number;
+    mx_internal var _maxWidth:Number;
 
     [Inspectable(category="General")]
     
