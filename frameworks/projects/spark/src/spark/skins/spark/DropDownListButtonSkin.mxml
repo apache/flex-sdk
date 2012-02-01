@@ -2,7 +2,7 @@
 <!--- The default skin class for the anchor button on a Spark DropDownList component.  
 
       @see spark.components.DropDownList        
-      @see spark.skins.default.DropDownListSkin
+      @see spark.skins.spark.DropDownListSkin
         
       @langversion 3.0
       @playerversion Flash 10
@@ -15,7 +15,7 @@
     <fx:Metadata>
     <![CDATA[ 
     /** 
-     * @copy spark.skins.default.ApplicationSkin#hostComponent
+     * @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
         [HostComponent("spark.components.Button")]
     ]]>
