@@ -27,7 +27,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
+[Style(name="paddingBottom", type="Number", format="Length", inherit="no", minValue="0.0", maxValue="1000.0")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paddingLeft
@@ -37,7 +37,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="paddingLeft", type="Number", format="Length", inherit="no")]
+[Style(name="paddingLeft", type="Number", format="Length", inherit="no", minValue="0.0", maxValue="1000.0")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paddingRight
@@ -47,7 +47,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="paddingRight", type="Number", format="Length", inherit="no")]
+[Style(name="paddingRight", type="Number", format="Length", inherit="no", minValue="0.0", maxValue="1000.0")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paddingTop
@@ -57,7 +57,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="paddingTop", type="Number", format="Length", inherit="no")]
+[Style(name="paddingTop", type="Number", format="Length", inherit="no", minValue="0.0", maxValue="1000.0")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#verticalAlign
