@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009" minWidth="7" minHeight="6" >
+
+	<!-- states -->
+	<states>
+		<State name="up" />
+		<State name="over" />
+		<State name="down" />
+		<State name="disabled" />
+	</states>
+	
+	<BitmapGraphic source="@Embed('assets/ArrowDownSmall.png')" includeIn="up" right="0" verticalCenter="0" />
+	
+	<BitmapGraphic source="@Embed('assets/ArrowDownSmallOver.png')" includeIn="over" right="0" verticalCenter="0" />
+	
+	<BitmapGraphic source="@Embed('assets/ArrowDownSmallDown.png')" includeIn="down" right="0" verticalCenter="0" />
+	
+</Skin>
