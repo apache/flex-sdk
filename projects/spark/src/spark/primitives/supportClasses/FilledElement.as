@@ -23,6 +23,11 @@ import mx.graphics.IFill;
  *  The FilledElement class is the base class for graphics elements that contain a stroke
  *  and a fill.
  *  This is a base class, and is not used directly in MXML or ActionScript.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FilledElement extends StrokedElement
 {
@@ -36,6 +41,11 @@ public class FilledElement extends StrokedElement
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FilledElement()
     {
@@ -64,6 +74,11 @@ public class FilledElement extends StrokedElement
      *  If not defined, the object is drawn without a fill.
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get fill():IFill
     {
@@ -104,6 +119,11 @@ public class FilledElement extends StrokedElement
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function beginDraw(g:Graphics):void
     {
@@ -122,6 +142,11 @@ public class FilledElement extends StrokedElement
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function endDraw(g:Graphics):void
     {
