@@ -68,7 +68,7 @@
     <!-- layer 2: One pixel stroke inside border (exclude in downStates) -->
     <s:Rect left="1" right="1" top="1" bottom="1" excludeFrom="downStates">
         <s:stroke>
-            <s:LinearGradientStroke weight="1">
+            <s:LinearGradientStroke weight="1" rotation="90">
                 <s:GradientEntry color="0xFEFEFE" alpha.overStates="0.22" />
                 <s:GradientEntry color="0xEAEAEA" alpha.overStates="0.22" />
             </s:LinearGradientStroke>
