@@ -12,7 +12,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#alignmentBaseline
  */
-[Style(name="alignmentBaseline", type="String", enumeration="roman,ascent,descent,ideographicTop,ideographicCenter,ideographicBottom,useDominantBaseline", inherit="yes")]
+[Style(name="alignmentBaseline", type="String", enumeration="useDominantBaseline,roman,ascent,descent,ideographicTop,ideographicCenter,ideographicBottom", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#baselineShift
@@ -27,7 +27,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#cffHinting
  */
-[Style(name="cffHinting", type="String", enumeration="none,horizontalStem", inherit="yes")]
+[Style(name="cffHinting", type="String", enumeration="horizontalStem,none", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#color
@@ -52,7 +52,7 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#dominantBaseline
  */
-[Style(name="dominantBaseline", type="String", enumeration="roman,ascent,descent,ideographicTop,ideographicCenter,ideographicBottom", inherit="yes")]
+[Style(name="dominantBaseline", type="String", enumeration="auto,roman,ascent,descent,ideographicTop,ideographicCenter,ideographicBottom", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#fontFamily
@@ -82,12 +82,12 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#justificationRule
  */
-[Style(name="justificationRule", type="String", enumeration="eastAsian,space", inherit="yes")]
+[Style(name="justificationRule", type="String", enumeration="auto,space,eastAsian", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#justificationStyle
  */
-[Style(name="justificationStyle", type="String", enumeration="prioritizeLeastAdjustment,pushInKinsoku,pushOutOnly", inherit="yes")]
+[Style(name="justificationStyle", type="String", enumeration="auto,prioritizeLeastAdjustment,pushInKinsoku,pushOutOnly", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#kerning
@@ -97,12 +97,12 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#ligatureLevel
  */
-[Style(name="ligatureLevel", type="String", enumeration="none,minimum,common,uncommon,exotic", inherit="yes")]
+[Style(name="ligatureLevel", type="String", enumeration="common,uncommon,exotic,minimum", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineBreak 
  */
-[Style(name="lineBreak", type="String", enumeration="explicit,toFit", inherit="yes")]
+[Style(name="lineBreak", type="String", enumeration="toFit,explicit", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineHeight
@@ -142,22 +142,17 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#renderingMode
  */
-[Style(name="renderingMode", type="String", enumeration="normal,cff", inherit="yes")]
-
-/**
- *  @copy flashx.textLayout.formats.ITextLayoutFormat#tabStops
- */
-[Style(name="tabStops", type="Object", inherit="yes")]
+[Style(name="renderingMode", type="String", enumeration="cff,normal", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlign
  */
-[Style(name="textAlign", type="String", enumeration="left,right,center,justify,start,end", inherit="yes")]
+[Style(name="textAlign", type="String", enumeration="start,end,left,right,center,justify", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlignLast
  */
-[Style(name="textAlignLast", type="String", enumeration="left,right,center,justify,start,end", inherit="yes")]
+[Style(name="textAlignLast", type="String", enumeration="start,end,left,right,center,justify", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textAlpha
@@ -172,12 +167,12 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textJustify
  */
-[Style(name="textJustify", type="String", enumeration="distribute,interWord", inherit="yes")]
+[Style(name="textJustify", type="String", enumeration="interWord,distribute", inherit="yes")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#textRotation
  */
-[Style(name="textRotation", type="String", enumeration="rotate0,rotate90,rotate180,rotate270,auto", inherit="yes")]
+[Style(name="textRotation", type="String", enumeration="auto,rotate0,rotate90,rotate180,rotate270", inherit="yes")]
 
 /**
  *  Space added to the advance after each character, as a percentage of the current point size. Percentages can be negative, 
