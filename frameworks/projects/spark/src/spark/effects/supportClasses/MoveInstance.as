@@ -145,50 +145,6 @@ public class FxMoveInstance extends FxAnimateInstance
      */
     override public function play():void
     {
-		// The user may have supplied some combination of xFrom, xTo, and xBy.
-		// If either xFrom or xTo is not explicitly defined, calculate its
-		// value based on the other two values.
-        if (isNaN(xFrom))
-        {
-            if (!isNaN(xTo) && !isNaN(xBy))
-                xFrom = xTo - xBy;
-        }
-		if (isNaN(xTo))
-		{
-			if (isNaN(xBy) &&
-				propertyChanges &&
-				propertyChanges.end["x"] !== undefined)
-			{
-				xTo = propertyChanges.end["x"];
-			}
-			else
-			{
-				if (!isNaN(xBy) && !isNaN(xFrom))
-				    xTo= xFrom + xBy;
-			}
-		}
-
-		// Ditto for yFrom, yTo, and yBy.
-        if (isNaN(yFrom))
-        {
-            if (!isNaN(yTo) && !isNaN(yBy))
-                yFrom = yTo - yBy;
-        }
-		if (isNaN(yTo))
-		{
-			if (isNaN(yBy) &&
-				propertyChanges &&
-				propertyChanges.end["y"] !== undefined)
-			{
-				yTo = propertyChanges.end["y"];
-			}
-			else
-			{
-				if (!isNaN(yBy) && !isNaN(yFrom))
-				    yTo = yFrom + yBy;
-			}
-		}
-
         animationProperties = 
             [new AnimationProperty("x", xFrom, xTo, xBy),
              new AnimationProperty("y", yFrom, yTo, yBy)];
