@@ -151,7 +151,7 @@
 
     <!-- Label -->
     <!--- Defines the text next to the dot in a RadioButton component.-->
-    <s:SimpleText id="labelDisplay"
+    <s:Label id="labelDisplay"
              textAlign="start"
              verticalAlign="middle"
 			 maxDisplayedLines="1"
