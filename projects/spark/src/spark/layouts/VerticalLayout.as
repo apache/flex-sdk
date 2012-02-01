@@ -122,7 +122,7 @@ public class VerticalLayout extends LayoutBase
      *  useVirtualLayout=true.   See updateLLV(), resetCachedVirtualLayoutState(),
      *  etc.
      */
-    private var llv:LinearLayoutVector = new LinearLayoutVector();
+    private var llv:LinearLayoutVector;
     
     //--------------------------------------------------------------------------
     //
@@ -185,17 +185,11 @@ public class VerticalLayout extends LayoutBase
     public function VerticalLayout():void
     {
         super();
-        
+
         // Don't drag-scroll in the horizontal direction
         dragScrollRegionSizeHorizontal = 0;
-        
-        // Virtualization defaults for cases
-        // where there are no items and no typical item.
-        // The llv defaults are the width/height of a Spark Button skin.
-        llv.defaultMinorSize = 71;
-        llv.defaultMajorSize = 22;
-    }   
-    
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -237,7 +231,6 @@ public class VerticalLayout extends LayoutBase
             return;
 
         _gap = value;
-        llv.gap = value;
         invalidateTargetSizeAndDisplayList();
     }
 
@@ -835,7 +828,7 @@ public class VerticalLayout extends LayoutBase
      */
     override public function clearVirtualLayoutCache():void
     {
-        llv.clear();
+        llv = null;
     }     
 
     /**
@@ -847,7 +840,7 @@ public class VerticalLayout extends LayoutBase
             return super.getElementBounds(index);
 
         var g:GroupBase = GroupBase(target);
-        if (!g || (index < 0) || (index >= g.numElements)) 
+        if (!g || (index < 0) || (index >= g.numElements) || !llv) 
             return null;
 
         return llv.getBounds(index);
@@ -907,6 +900,8 @@ public class VerticalLayout extends LayoutBase
         var eltHeight:Number;
         if (useVirtualLayout)
         {
+            if (!llv)
+                return 0.0;
             eltY = llv.start(index);
             eltHeight = llv.getMajorSize(index);
         }
@@ -1027,6 +1022,12 @@ public class VerticalLayout extends LayoutBase
         var y0:Number = scrollR.top;
         var y1:Number = scrollR.bottom - .0001;
         if (y1 <= y0)
+        {
+            setIndexInView(-1, -1);
+            return;
+        }
+        
+        if (useVirtualLayout && !llv)
         {
             setIndexInView(-1, -1);
             return;
@@ -1280,6 +1281,15 @@ public class VerticalLayout extends LayoutBase
      */
     private function updateLLV(layoutTarget:GroupBase):void
     {
+        if (!llv)
+        {
+            llv = new LinearLayoutVector();
+            // Virtualization defaults for cases
+            // where there are no items and no typical item.
+            // The llv defaults are the width/height of a Spark Button skin.
+            llv.defaultMinorSize = 71;
+            llv.defaultMajorSize = 22;
+        }
         var typicalElt:ILayoutElement = typicalLayoutElement;
         if (typicalElt)
         {
@@ -1299,7 +1309,7 @@ public class VerticalLayout extends LayoutBase
      */
      override public function elementAdded(index:int):void
      {
-         if ((index >= 0) && useVirtualLayout)
+         if (llv && (index >= 0) && useVirtualLayout)
             llv.insert(index);  // insert index parameter is uint
      }
 
@@ -1308,7 +1318,7 @@ public class VerticalLayout extends LayoutBase
      */
      override public function elementRemoved(index:int):void
      {
-        if ((index >= 0) && useVirtualLayout)
+        if (llv && (index >= 0) && useVirtualLayout)
             llv.remove(index);  // remove index parameter is uint
      }     
 
