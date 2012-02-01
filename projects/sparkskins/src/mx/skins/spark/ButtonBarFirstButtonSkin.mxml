@@ -11,8 +11,10 @@
 
 -->
 
-<!--- The Spark skin class for the first button in a Halo ButtonBar component. 
-        
+<!--- The Spark skin class for the first button in the MX ButtonBar component. 
+
+      @see mx.controls.ButtonBar
+      
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
