@@ -11,6 +11,13 @@
 
 -->
 
+<!--- The default skin class for the Spark ButtonBar component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
     alpha.disabled="0.5">
 
@@ -19,32 +26,32 @@
     </fx:Metadata> 
 
     <s:states>
-    	<s:State name="normal" />
-    	<s:State name="disabled" />
+        <s:State name="normal" />
+        <s:State name="disabled" />
     </s:states>
     
-	<fx:Declarations>
-		<fx:Component id="firstButton">
-			<s:ButtonBarButton skinClass="spark.skins.wireframe.ButtonBarFirstButtonSkin" 
-							 width="100%" height="100%" />
-		</fx:Component>
+    <fx:Declarations>
+        <fx:Component id="firstButton">
+            <s:ButtonBarButton skinClass="spark.skins.wireframe.ButtonBarFirstButtonSkin" 
+                             width="100%" height="100%" />
+        </fx:Component>
 
-		<fx:Component id="middleButton" >
-			<s:ButtonBarButton skinClass="spark.skins.wireframe.ButtonBarMiddleButtonSkin" 
-							 width="100%" height="100%" />
-		</fx:Component>
+        <fx:Component id="middleButton" >
+            <s:ButtonBarButton skinClass="spark.skins.wireframe.ButtonBarMiddleButtonSkin" 
+                             width="100%" height="100%" />
+        </fx:Component>
 
-		<fx:Component id="lastButton" >
-			<s:ButtonBarButton skinClass="spark.skins.wireframe.ButtonBarLastButtonSkin" 
-							 width="100%" height="100%"  />
-		</fx:Component>
+        <fx:Component id="lastButton" >
+            <s:ButtonBarButton skinClass="spark.skins.wireframe.ButtonBarLastButtonSkin" 
+                             width="100%" height="100%"  />
+        </fx:Component>
 
-	</fx:Declarations>
+    </fx:Declarations>
         
-	<s:DataGroup id="dataGroup" width="100%" height="100%">
-	    <s:layout>
-	    	<s:HorizontalLayout gap="-1" />
-	    </s:layout>
+    <s:DataGroup id="dataGroup" width="100%" height="100%">
+        <s:layout>
+            <s:HorizontalLayout gap="-1" />
+        </s:layout>
     </s:DataGroup>
 
 </s:Skin>
