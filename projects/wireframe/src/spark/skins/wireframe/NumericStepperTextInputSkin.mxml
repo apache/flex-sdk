@@ -22,6 +22,9 @@
       alpha.disabled="0.5">
 
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.TextInput")]
     </fx:Metadata> 
     
@@ -39,6 +42,7 @@
         </s:fill>
     </s:Rect>
 
+    <!--- @copy spark.components.supportClasses.SkinnableTextBase#textDisplay -->
     <s:RichEditableText id="textDisplay"
               lineBreak="explicit" 
               verticalAlign="middle"
