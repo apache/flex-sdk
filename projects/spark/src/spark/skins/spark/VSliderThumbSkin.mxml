@@ -11,7 +11,7 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009">
 
     <Metadata>
     	[HostComponent("mx.components.FxButton")]
@@ -80,4 +80,4 @@
 			</LinearGradient>
 		</fill>
 	</Rect>
-</Skin>
+</SparkSkin>
