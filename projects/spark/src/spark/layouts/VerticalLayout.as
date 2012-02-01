@@ -16,6 +16,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.containers.utilityClasses.Flex;
+import mx.core.FlexVersion;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.UIComponentGlobals;
@@ -131,13 +132,24 @@ public class VerticalLayout extends LayoutBase
     //  Class methods
     //
     //--------------------------------------------------------------------------
-
+    
     private static function calculatePercentWidth(layoutElement:ILayoutElement, width:Number):Number
     {
-        var percentWidth:Number = LayoutElementHelper.pinBetween(Math.round(layoutElement.percentWidth * 0.01 * width),
-                                                                 layoutElement.getMinBoundsWidth(),
-                                                                 layoutElement.getMaxBoundsWidth() );
-        return percentWidth < width ? percentWidth : width;
+        var percentWidth:Number;
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_6)
+        {
+            percentWidth = LayoutElementHelper.pinBetween(Math.round(layoutElement.percentWidth * 0.01 * width),
+                                                          layoutElement.getMinBoundsWidth(),
+                                                          layoutElement.getMaxBoundsWidth() );
+            return percentWidth < width ? percentWidth : width;
+        }
+        else
+        {
+            percentWidth = LayoutElementHelper.pinBetween(Math.min(Math.round(layoutElement.percentWidth * 0.01 * width), width),
+                                                          layoutElement.getMinBoundsWidth(),
+                                                          layoutElement.getMaxBoundsWidth() );
+            return percentWidth;
+        }
     }
     
     private static function sizeLayoutElement(layoutElement:ILayoutElement, 
