@@ -15,11 +15,6 @@
 
 /* Default Skins */
 
-Application
-{
-	skinClass: ClassReference("spark.skins.wireframe.ApplicationSkin");
-}
-
 Button
 {
 	skinClass: ClassReference("spark.skins.wireframe.ButtonSkin");
