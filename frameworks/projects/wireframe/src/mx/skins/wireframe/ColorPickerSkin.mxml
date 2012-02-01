@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2009 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the Halo ColorPicker component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+						
+						minWidth="21" minHeight="21" 
+						alpha.disabled="0.5">
+
+    <!-- states -->
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <!-- opaque backdrop so color chip doesn't bleed through -->
+	<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke color="0x5380D0" weight="4" />
+		</s:stroke>
+	</s:Rect>
+	<s:Rect right="2" bottom="2" width="9" height="7">
+		<s:fill>
+			<s:SolidColor color="0x5380D0" />
+		</s:fill>
+	</s:Rect>
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:stroke>
+            <s:SolidColorStroke color="0xFFFFFF" weight="3" />
+        </s:stroke>
+    </s:Rect>
+    <s:Rect right="2" bottom="2" width="8" height="6">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
+    
+    <s:Group left="0" right="0" top="0" bottom="0">
+        <!-- layer 1: shadow -->
+        <s:Rect left="-1" right="-1" top="-1" bottom="-1" >
+            <s:stroke>
+                <s:LinearGradientStroke rotation="90">
+                        <s:GradientEntry color="0x000000" 
+                                       color.down="0xFFFFFF"
+                                       alpha="0.02"
+                                       alpha.down="0" />
+                        <s:GradientEntry color="0x000000" 
+                                       color.down="0xFFFFFF" 
+                                       alpha="0.22"
+                                       alpha.down="0.5" />
+                </s:LinearGradientStroke>
+            </s:stroke>
+        </s:Rect>
+        
+        <!-- layer 2: border -->
+        <s:Rect left="0" right="0" top="0" bottom="0">
+			<s:stroke>
+				<s:SolidColorStroke color="0x5380D0" />
+			</s:stroke>
+        </s:Rect>
+        
+        <!-- layer 3: down shadow -->
+        <s:Rect left="1" width="1" top="1" bottom="1" includeIn="down" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.12" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect width="1" right="1" top="1" bottom="1" includeIn="down" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.12" />
+            </s:fill>
+        </s:Rect>
+        <s:Rect left="2" right="2" top="1" height="1" includeIn="down" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0.12" />
+            </s:fill>
+        </s:Rect>
+        
+        <!-- layer 4: invisible hit area -->
+        <s:Rect left="1" right="1" top="1" bottom="1" >
+            <s:fill>
+                <s:SolidColor color="0x000000" alpha="0" />
+            </s:fill>
+        </s:Rect>
+        
+        <!-- layer 5: arrow -->
+        <s:Path bottom="3" right="3" id="arrow" data="M 0 0 L 0 1 L 1 1 L 1 2 L 2 2 L 2 3 L 3 3 L 3 2 L 4 2 L 4 1 L 5 1 L 5 0 L 0 0 Z ">
+            <s:fill>
+                <s:RadialGradient rotation="90" focalPointRatio="1">    
+                    <s:GradientEntry id="arrowFill1" color="0" alpha="0.6" />
+                    <s:GradientEntry id="arrowFill2" color="0" alpha="0.8" />
+                </s:RadialGradient>
+            </s:fill>
+        </s:Path>
+    </s:Group>
+    
+    <s:Rect includeIn="disabled" left="0" top="0" right="0" bottom="0">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" alpha="0.5" />
+        </s:fill>
+    </s:Rect>
+</s:Skin>
