@@ -42,7 +42,7 @@ import spark.effects.animation.Animation;
  * Flex creates an instance of this class when it plays a Rotate effect;
  * you do not create one yourself.
  * 
- * @see mx.effects.Rotate
+ * @see spark.effects.Rotate
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -60,9 +60,9 @@ public class RotateInstance extends AnimateInstance
     //--------------------------------------------------------------------------
 
     /**
-     * Constructor.
+     *  Constructor.
      *
-     * @param target The Object to animate with this effect.
+     *  @param target The Object to animate with this effect.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -130,9 +130,7 @@ public class RotateInstance extends AnimateInstance
     [Inspectable(category="General")]
 
     /** 
-     * The starting angle of rotation of the target object,
-     * expressed in degrees.
-     * Valid values range from 0 to 360.
+     *  @copy spark.effects.Rotate#angleFrom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -148,16 +146,7 @@ public class RotateInstance extends AnimateInstance
     [Inspectable(category="General")]
 
     /** 
-     * The ending angle of rotation of the target object,
-     * expressed in degrees.
-     * Values can be either positive or negative.
-     *
-     * <p>If the value of <code>angleTo</code> is less
-     * than the value of <code>angleFrom</code>,
-     * then the target rotates in a counterclockwise direction.
-     * Otherwise, it rotates in clockwise direction.
-     * If you want the target to rotate multiple times,
-     * set this value to a large positive or small negative number.</p>
+     *  @copy spark.effects.Rotate#angleTo
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -173,8 +162,7 @@ public class RotateInstance extends AnimateInstance
     [Inspectable(category="General")]
 
     /** 
-     * Degrees by which to rotate the target object. Value
-     * may be negative.
+     *  @copy spark.effects.Rotate#angleBy
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -188,9 +176,7 @@ public class RotateInstance extends AnimateInstance
     //----------------------------------
 
     /**
-     * The x-position of the center point of rotation.
-     * The target rotates around this point.
-     * The valid values are between 0 and the width of the target.
+     *  @copy spark.effects.Rotate#originX
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -204,9 +190,7 @@ public class RotateInstance extends AnimateInstance
     //----------------------------------
     
     /**
-     * The y-position of the center point of rotation.
-     * The target rotates around this point.
-     * The valid values are between 0 and the height of the target.
+     *  @copy spark.effects.Rotate#originY
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
