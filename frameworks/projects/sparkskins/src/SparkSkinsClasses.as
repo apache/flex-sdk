@@ -49,6 +49,8 @@ internal class SparkSkinsClasses
 	import mx.skins.spark.PopUpButtonSkin; PopUpButtonSkin;
 	import mx.skins.spark.ProgressBarSkin; ProgressBarSkin;
 	import mx.skins.spark.ProgressBarTrackSkin; ProgressBarTrackSkin;
+	import mx.skins.spark.ProgressIndeterminateSkin; ProgressIndeterminateSkin;
+	import mx.skins.spark.ProgressMaskSkin; ProgressMaskSkin;
 	import mx.skins.spark.RadioButtonSkin; RadioButtonSkin;
 	import mx.skins.spark.ScrollBarDownButtonSkin; ScrollBarDownButtonSkin;
 	import mx.skins.spark.ScrollBarThumbSkin; ScrollBarThumbSkin;
@@ -56,6 +58,7 @@ internal class SparkSkinsClasses
 	import mx.skins.spark.ScrollBarUpButtonSkin; ScrollBarUpButtonSkin;
 	import mx.skins.spark.SliderThumbSkin; SliderThumbSkin;
 	import mx.skins.spark.SliderTrackSkin; SliderTrackSkin;
+	import mx.skins.spark.SliderTrackHighlightSkin; SliderTrackHighlightSkin;
 	import mx.skins.spark.StepperDecrButtonSkin; StepperDecrButtonSkin;
 	import mx.skins.spark.StepperIncrButtonSkin; StepperIncrButtonSkin;
 	import mx.skins.spark.TabSkin; TabSkin;
