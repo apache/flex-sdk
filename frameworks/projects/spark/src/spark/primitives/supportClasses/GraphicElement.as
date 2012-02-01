@@ -211,13 +211,13 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  @private
      *  storage for the x property. This property is used when a GraphicElement has a simple transform.
      */
-     private var _x:Number = 0;
+    private var _x:Number = 0;
 
     /**
      *  @private
      *  storage for the y property. This property is used when a GraphicElement has a simple transform.
      */
-     private var _y:Number = 0;
+    private var _y:Number = 0;
 
     //--------------------------------------------------------------------------
     //
