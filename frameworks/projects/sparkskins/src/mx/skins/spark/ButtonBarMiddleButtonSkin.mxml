@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the middle buttons in a Halo ButtonBar component. 
+<!--- The Spark skin class for the middle buttons in the MX ButtonBar component. 
+
+      @see mx.controls.ButtonBar
         
       @langversion 3.0
       @playerversion Flash 10
