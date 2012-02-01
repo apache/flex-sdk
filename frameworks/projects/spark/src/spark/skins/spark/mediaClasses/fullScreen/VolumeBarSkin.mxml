@@ -57,14 +57,14 @@
             </s:Rect>
             
             <s:Button id="track" horizontalCenter="0" top="6" bottom="7"
-                      skinClass="spark.skins.default.mediaClasses.fullScreen.VolumeBarTrackSkin" />
+                      skinClass="spark.skins.spark.mediaClasses.fullScreen.VolumeBarTrackSkin" />
             
             <s:Button id="thumb" horizontalCenter="0" width="11" height="11" 
-                      skinClass="spark.skins.default.mediaClasses.fullScreen.VolumeBarThumbSkin" />
+                      skinClass="spark.skins.spark.mediaClasses.fullScreen.VolumeBarThumbSkin" />
         </s:Group>
     </s:PopUpAnchor>
         
     <s:MuteButton id="muteButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
-              skinClass="spark.skins.default.mediaClasses.fullScreen.MuteButtonSkin" />
+              skinClass="spark.skins.spark.mediaClasses.fullScreen.MuteButtonSkin" />
     
 </s:Skin>
