@@ -629,7 +629,8 @@ public class NumberFormatter extends NumberFormatterBase implements IFormatter
     }
 
     /**
-     *  Lists all of the locale ID names supported by this class.
+     *  Lists all of the locale ID names supported by this class. This is a list of locales supported by 
+     *  the operating system, not a list of locales that the ResourceManager has resources for.
      *
      *  @return A vector of strings containing all of the locale ID names
      *         supported by this class and operating system.
