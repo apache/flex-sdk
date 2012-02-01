@@ -51,7 +51,12 @@
               This includes borders, background colors, scrollers, and filters. 
         -->
         <s:Group id="dropDown" maxHeight="134" minHeight="22" >
-             <!-- border -->
+        
+            <!-- drop shadow -->
+            <s:RectangularDropShadow blurX="20" blurY="20" alpha="1.0" distance="5" 
+                 angle="90" color="#000000" left="0" top="0" right="0" bottom="0"/>
+        
+            <!-- border -->
             <s:Rect left="0" right="0" top="0" bottom="0">
                 <s:stroke>
                     <s:SolidColorStroke color="0x686868" weight="1"/>
@@ -82,10 +87,6 @@
                     </s:layout>
                 </s:DataGroup>
             </s:Scroller>
-        
-            <s:filters>
-                <s:DropShadowFilter blurX="20" blurY="20" distance="5" angle="90" alpha="0.6" />
-            </s:filters>
         </s:Group>
     </s:PopUpAnchor>
     
