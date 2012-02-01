@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" 
+	  minWidth="21" minHeight="21"
+	  alpha.disabled="0.5">
+
+	<!-- states -->
+	<states>
+		<State name="up" />
+		<State name="over" />
+		<State name="down" />
+		<State name="disabled" />
+		<State name="selectedUp" />
+		<State name="selectedOver" />
+		<State name="selectedDown" />
+		<State name="selectedDisabled" />
+	</states>
+	
+	<!-- layer 1: fill -->
+	<Rect left="1" right="1" top="1" bottom="0" >
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0xE4E4E4" color.over="0xCACACA"
+								color.selectedUp="0xFFFFFF" color.selectedOver="0xFFFFFF" color.selectedDown="0xFFFFFF"
+							   alpha="1" />
+				<GradientEntry color="0xA1A1A1" color.over="0x878787"
+								color.selectedUp="0xE4E4E4" color.selectedOver="0xE4E4E4" color.selectedDown="0xE4E4E4"
+							   alpha="1" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 2: highlight stroke -->
+	<Rect left="1" right="1" top="1" bottom="1" alpha=".22" >
+		<stroke>
+			<LinearGradientStroke rotation="90">
+				<GradientEntry color="0xFFFFFF" alpha="1" />
+				<GradientEntry color="0xD8D8D8" alpha="1" />
+			</LinearGradientStroke>
+		</stroke>
+	</Rect>
+	
+	<!-- layer 3: fill highlight -->
+	<Rect left="1" right="1" top="1" height="10" >
+		<fill>
+			<SolidColor color="0xFFFFFF" 
+					    alpha="0.12" />
+		</fill>
+	</Rect>
+	
+	<!-- layer 4: border - unselected only -->
+	<Rect left="0" right="0" top="0" bottom="0" excludeFrom="selectedUp,selectedOver,selectedDown" >
+		<stroke>
+			<SolidColorStroke color="0x696969" alpha="1" />
+		</stroke>
+	</Rect>
+	
+	<!-- layer 5: border - selected only -->
+	<Rect left="0" width="1" top="0" bottom="0" includeIn="selectedUp,selectedOver,selectedDown" >
+		<fill>
+			<SolidColor color="0x696969" alpha="1" />
+		</fill>
+	</Rect>
+	<Rect left="1" right="1" top="0" height="1" includeIn="selectedUp,selectedOver,selectedDown" >
+		<fill>
+			<SolidColor color="0x696969" alpha="1" />
+		</fill>
+	</Rect>
+	<Rect width="1" right="0" top="0" bottom="0" includeIn="selectedUp,selectedOver,selectedDown" >
+		<fill>
+			<SolidColor color="0x696969" alpha="1" />
+		</fill>
+	</Rect>
+	
+</SparkSkin>
