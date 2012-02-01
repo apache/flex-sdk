@@ -191,7 +191,7 @@ public class TileLayout extends LayoutBase
      *  the column count automatically.
      *
      *  Setting this property won't have any effect, if <code>orientation</code> is
-     *  set to "rows", <code>rowCount</code> is explicitly set, and the
+     *  set to TileOrientation.ROWS, <code>rowCount</code> is explicitly set, and the
      *  container width is explicitly set.
      *
      *  @see #rowCount
@@ -245,7 +245,7 @@ public class TileLayout extends LayoutBase
      *  the row count automatically.
      *
      *  Setting this property won't have any effect, if <code>orientation</code> is
-     *  set to "columns", <code>columnCount</code> is explicitly set, and the
+     *  set to TileOrientation.COLUMNS, <code>columnCount</code> is explicitly set, and the
      *  container height is explicitly set.
      *
      *  @see #columnCount
@@ -587,7 +587,7 @@ public class TileLayout extends LayoutBase
     //  orientation
     //----------------------------------
 
-    private var _orientation:String = "rows";
+    private var _orientation:String = TileOrientation.ROWS;
 
     [Bindable("propertyChange")]
     [Inspectable(category="General", enumeration="rows,columns", defaultValue="rows")]
@@ -745,7 +745,7 @@ public class TileLayout extends LayoutBase
         // justify based on the explicit user settings.
         if (-1 != explicitColumnCount && -1 != explicitRowCount)
         {
-            if (orientation == "rows")
+            if (orientation == TileOrientation.ROWS)
                 _rowCount = Math.max(_rowCount, Math.ceil(elementCount / Math.max(1, explicitColumnCount)));
             else
                 _columnCount = Math.max(_columnCount, Math.ceil(elementCount / Math.max(1, explicitRowCount)));
@@ -787,7 +787,7 @@ public class TileLayout extends LayoutBase
                 _columnCount = Math.max(1, explicitColumnCount);
         }
         // Figure out number of columns or rows based on the explicit size along one of the axes
-        else if (!isNaN(width) && (orientation == "rows" || isNaN(height)))
+        else if (!isNaN(width) && (orientation == TileOrientation.ROWS || isNaN(height)))
         {
             if (_columnWidth + explicitHorizontalGap > 0)
                 _columnCount = Math.max(1, Math.floor((width + explicitHorizontalGap) / (_columnWidth + explicitHorizontalGap)));
@@ -1174,7 +1174,7 @@ public class TileLayout extends LayoutBase
         var yMinorDelta:Number;
 
         // Setup counterLimit and deltas based on orientation
-        if (orientation == "rows")
+        if (orientation == TileOrientation.ROWS)
         {
             counterLimit = _columnCount;
             xMajorDelta = _columnWidth + _horizontalGap;
@@ -1215,7 +1215,7 @@ public class TileLayout extends LayoutBase
             if (++counter >= counterLimit)
             {
                 counter = 0;
-                if (orientation == "rows")
+                if (orientation == TileOrientation.ROWS)
                 {
                     xPos = 0;
                     yPos += yMinorDelta;
