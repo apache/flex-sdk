@@ -9,11 +9,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.effects.effectClasses
+package spark.effects.supportClasses
 {
 
-import mx.effects.AnimationProperty;
-import mx.events.AnimationEvent;
+import spark.effects.AnimationProperty;
+import spark.events.AnimationEvent;
 
 //  Let (phi) be angle between r=(Ox,Oy - Cx,Cy) and -X Axis.
 //   (theta) be clockwise further angle of rotation.
@@ -49,7 +49,7 @@ import mx.events.AnimationEvent;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */  
-public class FxRotateInstance extends FxAnimateInstance
+public class RotateInstance extends AnimateInstance
 {
     include "../../core/Version.as";
 
@@ -69,7 +69,7 @@ public class FxRotateInstance extends FxAnimateInstance
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxRotateInstance(target:Object)
+    public function RotateInstance(target:Object)
     {
         super(target);
         affectsConstraints = true;
