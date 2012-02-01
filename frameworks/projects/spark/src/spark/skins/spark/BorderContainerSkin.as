@@ -25,6 +25,9 @@ import spark.components.supportClasses.Skin;
 import spark.primitives.Path;
 import spark.primitives.Rect;
 
+/** 
+ * @copy spark.skins.spark.ApplicationSkin#hostComponent
+ */
 [HostComponent("spark.components.Border")]
 
 /**
