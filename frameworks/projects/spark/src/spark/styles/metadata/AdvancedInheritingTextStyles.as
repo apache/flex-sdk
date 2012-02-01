@@ -239,8 +239,9 @@
  *  <p><b>For the Spark theme, see
  *  flashx.textLayout.formats.ITextLayoutFormat.textIndent.</b></p>
  *
- *  <p><b>For the Mobile theme, see
- *  spark.components.supportClasses.StyleableTextField Style textIndent.</b></p>
+ *  <p><b>For the Mobile theme, if using StyleableTextField,
+ *  see spark.components.supportClasses.StyleableTextField Style textIndent,
+ *  and if using StyleableStageText this is not supported.</b></p>
  *
  *  @see flashx.textLayout.formats.ITextLayoutFormat#textIndent
  *  @see spark.components.supportClasses.StyleableTextField#style:textIndent
