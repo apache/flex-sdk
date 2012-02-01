@@ -466,6 +466,8 @@ public class DefaultItemRenderer extends UIComponent
         {
             labelDisplay = new Label();
             addChild(DisplayObject(labelDisplay));
+            if (_label != "")
+                labelDisplay.text = _label;
         }
     }
     
