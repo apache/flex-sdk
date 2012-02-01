@@ -33,8 +33,8 @@ import mx.utils.OnDemandEventDispatcher;
  *  the <code>measure()</code> method, which calculates the target's default
  *  size.</p>
  *
- *  <p>Subclasses may override methods like <code>elementBoundsAboveScrollRect()</code>
- *  and <code>elementBoundsBelowScrollRect()</code> to customize the way 
+ *  <p>Subclasses may override methods like <code>getElementBoundsAboveScrollRect()</code>
+ *  and <code>getElementBoundsBelowScrollRect()</code> to customize the way 
  *  the target behaves when it's connected to scrollbars.</p>
  * 
  *  <p>Subclasses that support virtualization must respect the 
@@ -589,6 +589,49 @@ public class LayoutBase extends OnDemandEventDispatcher
         var hsp:Number = g.horizontalScrollPosition;
         return new Rectangle(hsp, vsp, g.width, g.height);
     }
+    
+    /**
+     *  Returns the specified element's layout bounds as a Rectangle or null
+     *  if the index is invalid, the corresponding element is null
+     *  or <code>includeInLayout=false</code>, or if this layout's target is null.
+     *   
+     *  Layout subclasses that support <code>useVirtualLayout=true</code> must
+     *  override this method to compute a potentially approximate value for
+     *  elements that are not in view.
+     * 
+     *  @return Returns the specified element's layout bounds.
+     *  @param index Index of the layout element.
+     * 
+     *  @see mx.core.ILayoutElement#getLayoutBoundsX
+     *  @see mx.core.ILayoutElement#getLayoutBoundsY
+     *  @see mx.core.ILayoutElement#getLayoutBoundsWidth
+     *  @see mx.core.ILayoutElement#getLayoutBoundsHeight
+     *   
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function getElementBounds(index:int):Rectangle
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return null;
+
+         var n:int = g.numElements;
+         if ((index < 0) || (index >= n))
+            return null;
+            
+         var elt:ILayoutElement = g.getElementAt(index);
+         if (!elt || !elt.includeInLayout)
+            return null;
+            
+         var eltX:Number = elt.getLayoutBoundsX();
+         var eltY:Number = elt.getLayoutBoundsY();
+         var eltW:Number = elt.getLayoutBoundsWidth();
+         var eltH:Number = elt.getLayoutBoundsHeight();
+         return new Rectangle(eltX, eltY, eltW, eltH);
+    }
 
     /**
      *  Returns the bounds of the first layout element that either spans or
@@ -609,9 +652,9 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @return Returns the bounds of the first element that spans or is to
      *  the left of the scrollRect’s left edge.
      *  
-     *  @see #elementBoundsRightOfScrollRect
-     *  @see #elementBoundsAboveScrollRect
-     *  @see #elementBoundsBelowScrollRect
+     *  @see #getElementBoundsRightOfScrollRect
+     *  @see #getElementBoundsAboveScrollRect
+     *  @see #getElementBoundsBelowScrollRect
      *  @see #getHorizontalScrollPositionDelta
      *  
      *  @langversion 3.0
@@ -619,7 +662,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function elementBoundsLeftOfScrollRect(scrollRect:Rectangle):Rectangle
+    protected function getElementBoundsLeftOfScrollRect(scrollRect:Rectangle):Rectangle
     {
         var bounds:Rectangle = new Rectangle();
         bounds.left = scrollRect.left - 1;
@@ -646,9 +689,9 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @return Returns the bounds of the first element that spans or is to
      *  the right of the scrollRect’s right edge.
      *  
-     *  @see #elementBoundsLeftOfScrollRect
-     *  @see #elementBoundsAboveScrollRect
-     *  @see #elementBoundsBelowScrollRect
+     *  @see #getElementBoundsLeftOfScrollRect
+     *  @see #getElementBoundsAboveScrollRect
+     *  @see #getElementBoundsBelowScrollRect
      *  @see #getHorizontalScrollPositionDelta
      *  
      *  @langversion 3.0
@@ -656,7 +699,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function elementBoundsRightOfScrollRect(scrollRect:Rectangle):Rectangle
+    protected function getElementBoundsRightOfScrollRect(scrollRect:Rectangle):Rectangle
     {
         var bounds:Rectangle = new Rectangle();
         bounds.left = scrollRect.right;
@@ -687,9 +730,9 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @return Returns the bounds of the first element that spans or is
      *  above the scrollRect’s top edge.
      *  
-     *  @see #elementBoundsLeftOfScrollRect
-     *  @see #elementBoundsRightScrollRect
-     *  @see #elementBoundsBelowScrollRect
+     *  @see #getElementBoundsLeftOfScrollRect
+     *  @see #getElementBoundsRightScrollRect
+     *  @see #getElementBoundsBelowScrollRect
      *  @see #getVerticalScrollPositionDelta
      *  
      *  @langversion 3.0
@@ -697,7 +740,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function elementBoundsAboveScrollRect(scrollRect:Rectangle):Rectangle
+    protected function getElementBoundsAboveScrollRect(scrollRect:Rectangle):Rectangle
     {
         var bounds:Rectangle = new Rectangle();
         bounds.top = scrollRect.top - 1;
@@ -724,9 +767,9 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @return Returns the bounds of the first element that spans or is
      *  below the scrollRect’s bottom edge.
      *
-     *  @see #elementBoundsLeftOfScrollRect
-     *  @see #elementBoundsRightScrollRect
-     *  @see #elementBoundsAboveScrollRect
+     *  @see #getElementBoundsLeftOfScrollRect
+     *  @see #getElementBoundsRightScrollRect
+     *  @see #getElementBoundsAboveScrollRect
      *  @see #getVerticalScrollPositionDelta
      *
      *  @langversion 3.0
@@ -734,7 +777,7 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function elementBoundsBelowScrollRect(scrollRect:Rectangle):Rectangle
+    protected function getElementBoundsBelowScrollRect(scrollRect:Rectangle):Rectangle
     {
         var bounds:Rectangle = new Rectangle();
         bounds.top = scrollRect.bottom;
@@ -790,13 +833,13 @@ public class LayoutBase extends OnDemandEventDispatcher
      *
      *  </ul>
      * 
-     *  The implementation calls <code>elementBoundsLeftOfScrollRect()</code> and
-     *  <code>elementBoundsRightOfScrollRect()</code> to determine the bounds of
+     *  The implementation calls <code>getElementBoundsLeftOfScrollRect()</code> and
+     *  <code>getElementBoundsRightOfScrollRect()</code> to determine the bounds of
      *  the elements.  Layout classes usually override those methods instead of
      *  getHorizontalScrollPositionDelta(). 
      * 
-     *  @see #elementBoundsLeftOfScrollRect
-     *  @see #elementBoundsRightOfScrollRect
+     *  @see #getElementBoundsLeftOfScrollRect
+     *  @see #getElementBoundsRightOfScrollRect
      *  @see #getHorizontalScrollPositionDelta
      *  
      *  @langversion 3.0
@@ -823,21 +866,21 @@ public class LayoutBase extends OnDemandEventDispatcher
         // to scroll to the END and minDelta scrolls to HOME. 
         var maxDelta:Number = g.contentWidth - scrollRect.right;
         var minDelta:Number = -scrollRect.left;
-        var elementBounds:Rectangle;
+        var getElementBounds:Rectangle;
         switch(scrollUnit)
         {
             case ScrollUnit.LEFT:
             case ScrollUnit.PAGE_LEFT:
                 // Find the bounds of the first non-fully visible element
                 // to the left of the scrollRect.
-                elementBounds = elementBoundsLeftOfScrollRect(scrollRect);
+                getElementBounds = getElementBoundsLeftOfScrollRect(scrollRect);
                 break;
 
             case ScrollUnit.RIGHT:
             case ScrollUnit.PAGE_RIGHT:
                 // Find the bounds of the first non-fully visible element
                 // to the right of the scrollRect.
-                elementBounds = elementBoundsRightOfScrollRect(scrollRect);
+                getElementBounds = getElementBoundsRightOfScrollRect(scrollRect);
                 break;
 
             case ScrollUnit.HOME: 
@@ -850,7 +893,7 @@ public class LayoutBase extends OnDemandEventDispatcher
                 return 0;
         }
         
-        if (!elementBounds)
+        if (!getElementBounds)
             return 0;
 
         var delta:Number = 0;
@@ -859,37 +902,37 @@ public class LayoutBase extends OnDemandEventDispatcher
             case ScrollUnit.LEFT:
                 // Snap the left edge of element to the left edge of the scrollRect.
                 // The element is the the first non-fully visible element left of the scrollRect.
-                delta = Math.max(elementBounds.left - scrollRect.left, -scrollRect.width);
+                delta = Math.max(getElementBounds.left - scrollRect.left, -scrollRect.width);
             break;    
             case ScrollUnit.RIGHT:
                 // Snap the right edge of the element to the right edge of the scrollRect.
                 // The element is the the first non-fully visible element right of the scrollRect.
-                delta = Math.min(elementBounds.right - scrollRect.right, scrollRect.width);
+                delta = Math.min(getElementBounds.right - scrollRect.right, scrollRect.width);
             break;    
             case ScrollUnit.PAGE_LEFT:
             {
                 // Snap the right edge of the element to the right edge of the scrollRect.
                 // The element is the the first non-fully visible element left of the scrollRect. 
-                delta = elementBounds.right - scrollRect.right;
+                delta = getElementBounds.right - scrollRect.right;
                 
                 // Special case: when an element is wider than the scrollRect,
                 // we want to snap its left edge to the left edge of the scrollRect.
                 // The delta will be limited to the width of the scrollRect further below.
                 if (delta >= 0)
-                    delta = Math.max(elementBounds.left - scrollRect.left, -scrollRect.width);  
+                    delta = Math.max(getElementBounds.left - scrollRect.left, -scrollRect.width);  
             }
             break;
             case ScrollUnit.PAGE_RIGHT:
             {
                 // Align the left edge of the element to the left edge of the scrollRect.
                 // The element is the the first non-fully visible element right of the scrollRect.
-                delta = elementBounds.left - scrollRect.left;
+                delta = getElementBounds.left - scrollRect.left;
                 
                 // Special case: when an element is wider than the scrollRect,
                 // we want to snap its right edge to the right edge of the scrollRect.
                 // The delta will be limited to the width of the scrollRect further below.
                 if (delta <= 0)
-                    delta = Math.min(elementBounds.right - scrollRect.right, scrollRect.width);
+                    delta = Math.min(getElementBounds.right - scrollRect.right, scrollRect.width);
             }
             break;
         }
@@ -947,13 +990,13 @@ public class LayoutBase extends OnDemandEventDispatcher
      *
      *  </ul>
      * 
-     *  The implementation calls <code>elementBoundsAboveScrollRect()</code> and
-     *  <code>elementBoundsBelowScrollRect()</code> to determine the bounds of
+     *  The implementation calls <code>getElementBoundsAboveScrollRect()</code> and
+     *  <code>getElementBoundsBelowScrollRect()</code> to determine the bounds of
      *  the elements.  Layout classes usually override those methods instead of
      *  getVerticalScrollPositionDelta(). 
      * 
-     *  @see #elementBoundsAboveScrollRect
-     *  @see #elementBoundsBelowScrollRect
+     *  @see #getElementBoundsAboveScrollRect
+     *  @see #getElementBoundsBelowScrollRect
      *  @see #getVerticalScrollPositionDelta
      *  
      *  @langversion 3.0
@@ -980,21 +1023,21 @@ public class LayoutBase extends OnDemandEventDispatcher
         // to scroll to the END and minDelta scrolls to HOME. 
         var maxDelta:Number = g.contentHeight - scrollRect.bottom;
         var minDelta:Number = -scrollRect.top;
-        var elementBounds:Rectangle;
+        var getElementBounds:Rectangle;
         switch(scrollUnit)
         {
             case ScrollUnit.UP:
             case ScrollUnit.PAGE_UP:
                 // Find the bounds of the first non-fully visible element
                 // that spans right of the scrollRect.
-                elementBounds = elementBoundsAboveScrollRect(scrollRect);
+                getElementBounds = getElementBoundsAboveScrollRect(scrollRect);
                 break;
 
             case ScrollUnit.DOWN:
             case ScrollUnit.PAGE_DOWN:
                 // Find the bounds of the first non-fully visible element
                 // that spans below the scrollRect.
-                elementBounds = elementBoundsBelowScrollRect(scrollRect);
+                getElementBounds = getElementBoundsBelowScrollRect(scrollRect);
                 break;
 
             case ScrollUnit.HOME: 
@@ -1007,7 +1050,7 @@ public class LayoutBase extends OnDemandEventDispatcher
                 return 0;
         }
         
-        if (!elementBounds)
+        if (!getElementBounds)
             return 0;
 
         var delta:Number = 0;
@@ -1016,37 +1059,37 @@ public class LayoutBase extends OnDemandEventDispatcher
             case ScrollUnit.UP:
                 // Snap the top edge of element to the top edge of the scrollRect.
                 // The element is the the first non-fully visible element above the scrollRect.
-                delta = Math.max(elementBounds.top - scrollRect.top, -scrollRect.height);
+                delta = Math.max(getElementBounds.top - scrollRect.top, -scrollRect.height);
             break;    
             case ScrollUnit.DOWN:
                 // Snap the bottom edge of the element to the bottom edge of the scrollRect.
                 // The element is the the first non-fully visible element below the scrollRect.
-                delta = Math.min(elementBounds.bottom - scrollRect.bottom, scrollRect.height);
+                delta = Math.min(getElementBounds.bottom - scrollRect.bottom, scrollRect.height);
             break;    
             case ScrollUnit.PAGE_UP:
             {
                 // Snap the bottom edge of the element to the bottom edge of the scrollRect.
                 // The element is the the first non-fully visible element below the scrollRect. 
-                delta = elementBounds.bottom - scrollRect.bottom;
+                delta = getElementBounds.bottom - scrollRect.bottom;
                 
                 // Special case: when an element is taller than the scrollRect,
                 // we want to snap its top edge to the top edge of the scrollRect.
                 // The delta will be limited to the height of the scrollRect further below.
                 if (delta >= 0)
-                    delta = Math.max(elementBounds.top - scrollRect.top, -scrollRect.height);  
+                    delta = Math.max(getElementBounds.top - scrollRect.top, -scrollRect.height);  
             }
             break;
             case ScrollUnit.PAGE_DOWN:
             {
                 // Align the top edge of the element to the top edge of the scrollRect.
                 // The element is the the first non-fully visible element below the scrollRect.
-                delta = elementBounds.top - scrollRect.top;
+                delta = getElementBounds.top - scrollRect.top;
                 
                 // Special case: when an element is taller than the scrollRect,
                 // we want to snap its bottom edge to the bottom edge of the scrollRect.
                 // The delta will be limited to the height of the scrollRect further below.
                 if (delta <= 0)
-                    delta = Math.min(elementBounds.bottom - scrollRect.bottom, scrollRect.height);
+                    delta = Math.min(getElementBounds.bottom - scrollRect.bottom, scrollRect.height);
             }
             break;
         }
@@ -1095,28 +1138,13 @@ public class LayoutBase extends OnDemandEventDispatcher
      */
      public function getScrollPositionDeltaToElement(index:int):Point
      {
-        var g:GroupBase = target;
-        if (!g || !clipAndEnableScrolling)
-            return null;     
-            
-         var n:int = g.numElements;
-         if ((index < 0) || (index >= n))
-            return null;
-            
-         var element:ILayoutElement = g.getElementAt(index);
-         if (!element || !element.includeInLayout)
-            return null;
-            
-         var scrollR:Rectangle = getScrollRect();
-         if (!scrollR)
+         var elementR:Rectangle = getElementBounds(index);
+         if (!elementR)
             return null;
          
-         // TODO EGeorgie: helper method?   
-         var elementX:Number = element.getLayoutBoundsX();
-         var elementY:Number = element.getLayoutBoundsY();
-         var elementW:Number = element.getLayoutBoundsWidth();
-         var elementH:Number = element.getLayoutBoundsHeight();
-         var elementR:Rectangle = new Rectangle(elementX, elementY, elementW, elementH);
+         var scrollR:Rectangle = getScrollRect();
+         if (!scrollR || !target.clipAndEnableScrolling)
+            return null;
          
          if (scrollR.containsRect(elementR) || elementR.containsRect(scrollR))
             return null;
