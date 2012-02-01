@@ -25,7 +25,7 @@ VSliderThumbSkin and VSliderTrackSkin classes, respectively.
     <fx:Metadata>
     <![CDATA[ 
     /** 
-     * @copy spark.skins.default.ApplicationSkin#hostComponent
+     * @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
         [HostComponent("spark.components.VSlider")]
     ]]>
@@ -71,9 +71,9 @@ VSliderThumbSkin and VSliderTrackSkin classes, respectively.
     
     <!--- Defines the skin class for the VSliderSkin's track. The default skin class is VSliderTrackSkin. -->
     <s:Button id="track" left="0" right="0" top="0" bottom="0" 
-              skinClass="spark.skins.default.VSliderTrackSkin" />
+              skinClass="spark.skins.spark.VSliderTrackSkin" />
     <!--- Defines the skin class for the VSliderSkin's thumb. The default skin class is VSliderThumbSkin. -->
     <s:Button id="thumb" left="0" right="0" width="11" height="11" 
-              skinClass="spark.skins.default.VSliderThumbSkin" />
+              skinClass="spark.skins.spark.VSliderThumbSkin" />
 
 </s:SparkSkin>
