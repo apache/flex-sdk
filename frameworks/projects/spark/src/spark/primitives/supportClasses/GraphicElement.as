@@ -276,6 +276,7 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	//----------------------------------
 
 	private var _height:Number = 0;
+	protected var _explicitHeight:Number;
 	
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
@@ -292,6 +293,7 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	
 	public function set height(value:Number):void
 	{
+		_explicitHeight = value;
 		var oldValue:Number = _height;
 		
 		if (value != oldValue)
@@ -822,6 +824,7 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	//----------------------------------
 
 	private var _width:Number = 0;
+	protected var _explicitWidth:Number;
 	
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
@@ -838,6 +841,7 @@ public class GraphicElement extends EventDispatcher implements IGraphicElement, 
 	
 	public function set width(value:Number):void
 	{
+	    _explicitWidth = value;
 		var oldValue:Number = _width;
 		
 		if (value != oldValue)
