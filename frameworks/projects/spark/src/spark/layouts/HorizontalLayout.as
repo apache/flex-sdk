@@ -12,6 +12,7 @@
 package spark.layouts
 {
 import flash.events.Event;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.containers.utilityClasses.Flex;
@@ -1870,6 +1871,20 @@ public class HorizontalLayout extends LayoutBase
 		var y:Number = paddingTop;
         return new Rectangle(x, y, width, height);
     }
+
+	/**
+	 *  @private
+	 */
+	override protected function calculateDragScrollDelta(dropLocation:DropLocation,
+														 timeInterval:int,
+														 timeElapsed:int):Point
+	{
+		var delta:Point = super.calculateDragScrollDelta(dropLocation, timeInterval, timeElapsed);
+		// Don't scroll in the vertical direction
+		if (delta)
+			delta.y = 0;
+		return delta;
+	}
 }
 }
 
