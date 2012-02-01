@@ -16,10 +16,12 @@ package spark.layouts.supportClasses
 
 /**
  *  @private
+ *  A LinearLayoutVector block of layout element heights or widths.
+ *  
  *  Total "distance" for a Block is: sizesSum + (defaultCount * distanceVector.default).
  * 
- *  This class is essentially a C-struct.   If it was possible to make it a static
- *  inner class of DistanceVector, then it would be.
+ *  This class is essentially a C-struct.   If it was possible to make it a private static
+ *  inner class of LinearyLayoutVector (as in Java), then it would be.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
