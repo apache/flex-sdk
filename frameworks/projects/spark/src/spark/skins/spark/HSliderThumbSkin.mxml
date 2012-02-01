@@ -11,80 +11,80 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 
-    <Metadata>
-    	[HostComponent("mx.components.FxButton")]
-    </Metadata> 
+    <fx:Metadata>
+    	[HostComponent("spark.components.Button")]
+    </fx:Metadata> 
     
-    <states>
-        <State name="up" />
-        <State name="over" />
-        <State name="down" />
-        <State name="disabled" />
-    </states>
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
 
     <!-- drop shadow -->
-    <Rect left="-2" top="-2" right="-2" bottom="-2" radiusX="8.5" radiusY="8.5">
-        <stroke>
-            <LinearGradientStroke rotation="90" weight="1">
-                <GradientEntry color="0x000000" alpha="0" />
-                <GradientEntry color="0x000000" alpha="0" />
-                <GradientEntry color="0x000000" alpha="0.03"/>
-            </LinearGradientStroke>
-        </stroke>
-    </Rect>
-    <Rect left="-1" top="-1" right="-1" bottom="-1" radiusX="7.5" radiusY="7.5">
-    	<stroke>
-    		<LinearGradientStroke rotation="90" weight="1">
-                <GradientEntry color="0x000000" alpha="0.011" />
-                <GradientEntry color="0x000000" alpha="0.121" />
-    		</LinearGradientStroke>
-    	</stroke>
-    </Rect>
+    <s:Rect left="-2" top="-2" right="-2" bottom="-2" radiusX="8.5" radiusY="8.5">
+        <s:stroke>
+            <s:LinearGradientStroke rotation="90" weight="1">
+                <s:GradientEntry color="0x000000" alpha="0" />
+                <s:GradientEntry color="0x000000" alpha="0" />
+                <s:GradientEntry color="0x000000" alpha="0.03"/>
+            </s:LinearGradientStroke>
+        </s:stroke>
+    </s:Rect>
+    <s:Rect left="-1" top="-1" right="-1" bottom="-1" radiusX="7.5" radiusY="7.5">
+    	<s:stroke>
+    		<s:LinearGradientStroke rotation="90" weight="1">
+                <s:GradientEntry color="0x000000" alpha="0.011" />
+                <s:GradientEntry color="0x000000" alpha="0.121" />
+    		</s:LinearGradientStroke>
+    	</s:stroke>
+    </s:Rect>
     
     <!-- border -->
-    <Rect left="0" right="0" top="0" bottom="0" radiusX="7" radiusY="7">
-        <fill>
-            <SolidColor color="0x4F4F4F"  />
-        </fill>
-    </Rect>
+    <s:Rect left="0" right="0" top="0" bottom="0" radiusX="7" radiusY="7">
+        <s:fill>
+            <s:SolidColor color="0x4F4F4F"  />
+        </s:fill>
+    </s:Rect>
 
 	<!-- fill -->
-	<Rect left="0.5" right="0.5" top="0.5" bottom="0.5" radiusX="6" radiusY="6">
-		<stroke>
-			<LinearGradientStroke rotation="90" weight="1">
-				<GradientEntry color="0x000000" alpha="0" />
-				<GradientEntry color="0x000000" alpha="0.33" />
-			</LinearGradientStroke>
-		</stroke>
-		<fill>
-			<LinearGradient rotation="90">
-				<GradientEntry color="0xFFFFFF" 
+	<s:Rect left="0.5" right="0.5" top="0.5" bottom="0.5" radiusX="6" radiusY="6">
+		<s:stroke>
+			<s:LinearGradientStroke rotation="90" weight="1">
+				<s:GradientEntry color="0x000000" alpha="0" />
+				<s:GradientEntry color="0x000000" alpha="0.33" />
+			</s:LinearGradientStroke>
+		</s:stroke>
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xFFFFFF" 
 							   color.over="0xE5E5E5"
 							   color.down="0x999999" />
-				<GradientEntry color="0xD8D8D8" 
+				<s:GradientEntry color="0xD8D8D8" 
 							   color.over="0x7D7D7D"
 							   color.down="0x555555" />
-			</LinearGradient>
-		</fill>
-	</Rect>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
 
 	<!-- highlight -->
-	<Rect left="1" right="1" top="1" bottom="1" radiusX="6" radiusY="6">
-		<fill>
-			<LinearGradient rotation="90">
-				<GradientEntry color="0xFFFFFF" alpha.over="0" alpha.down="0" />
-				<GradientEntry color="0xFFFFFF" alpha="0" />
-				<GradientEntry color="0xFFFFFF" alpha="0" />
-			</LinearGradient>
-		</fill>
-	</Rect>
-        <Rect left="4" top="1" right="4" height="1">
-            <fill>
-                <SolidColor color="0xFFFFFF" 
+	<s:Rect left="1" right="1" top="1" bottom="1" radiusX="6" radiusY="6">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xFFFFFF" alpha.over="0" alpha.down="0" />
+				<s:GradientEntry color="0xFFFFFF" alpha="0" />
+				<s:GradientEntry color="0xFFFFFF" alpha="0" />
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+        <s:Rect left="4" top="1" right="4" height="1">
+            <s:fill>
+                <s:SolidColor color="0xFFFFFF" 
                             color.down="0x939393"
                             alpha.over="0.22" />
-            </fill>
-        </Rect>
-</SparkSkin>
+            </s:fill>
+        </s:Rect>
+</s:SparkSkin>
