@@ -33,8 +33,9 @@
     </s:Rect>
 
     <s:RichEditableText id="textView"
+              lineBreak="explicit" 
               left="1" right="1" top="1" bottom="1"
-			  paddingLeft="4" paddingTop="4"
+	      paddingLeft="4" paddingTop="4"
               paddingRight="4" paddingBottom="4"/>
 
 </s:Skin>
