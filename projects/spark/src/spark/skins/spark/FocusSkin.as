@@ -106,21 +106,21 @@ public class FocusSkin extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	public function get focusObject():SkinnableComponent
-	{
-	    return _focusObject;
-	}
-	
-	public function set focusObject(value:SkinnableComponent):void
-	{
-	    _focusObject = value;
+    public function get focusObject():SkinnableComponent
+    {
+        return _focusObject;
+    }
+    
+    public function set focusObject(value:SkinnableComponent):void
+    {
+        _focusObject = value;
         
         // Add an "updateComplete" listener to the skin so we can redraw
         // whenever the skin is drawn.
         if (_focusObject.skin)
             _focusObject.skin.addEventListener(FlexEvent.UPDATE_COMPLETE, 
                     skin_updateCompleteHandler, false, 0, true);
-	}
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -129,15 +129,16 @@ public class FocusSkin extends UIComponent
     //--------------------------------------------------------------------------
     
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-    {
-        // Early exit if we don't have a focus manager
-        if (!focusManager)
-            return;
-            
+    {   
         // Grab a bitmap of the focused object
+        if (!focusObject && focusManager)
+            focusObject = focusManager.getFocus() as SkinnableComponent;
+        
+        // if we weren't handed a focusObject or we had no focusManager to 
+        // give us one, then exit early
         if (!focusObject)
-			focusObject = focusManager.getFocus() as SkinnableComponent;
-			
+           return;
+            
         var bitmapData:BitmapData = new BitmapData(
                     focusObject.width + (FOCUS_THICKNESS * 2), 
                     focusObject.height + (FOCUS_THICKNESS * 2), true, 0);
