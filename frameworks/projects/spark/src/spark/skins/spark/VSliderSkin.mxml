@@ -8,24 +8,25 @@
 
 	NOTICE: Adobe permits you to use, modify, and distribute this file
 	in accordance with the terms of the license agreement accompanying it.
-
+width="300" height="16"
 -->
 
 <Skin xmlns="http://ns.adobe.com/mxml/2009"
-	  height="100" width="15">
+	  minWidth="11" minHeight="100"
+	  alpha.disabled="0.5">
 
     <Metadata>
     	[HostComponent("mx.components.FxVSlider")]
     </Metadata> 
-     
+    
     <states>
     	<State name="normal" />
     	<State name="disabled" />
     </states>
-   
-    <FxButton id="track" left="2" right="2" top="0" bottom="0" 
-            skinZZ="mx.skins.spark.FxVSliderTrackSkin" />
-    <FxButton id="thumb" left="0" right="0" height="15" 
-            skinZZ="mx.skins.spark.FxVSliderThumbSkin" />
+    
+    <FxButton id="track" left="3" right="3" top="0" bottom="0" 
+              skinZZ="mx.skins.spark.FxVSliderTrackSkin" />
+    <FxButton id="thumb" left="0" right="0" width="11" height="11" 
+              skinZZ="mx.skins.spark.FxVSliderThumbSkin" />
 
 </Skin>
