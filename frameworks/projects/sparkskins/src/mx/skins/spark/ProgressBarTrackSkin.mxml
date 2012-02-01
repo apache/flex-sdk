@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the Halo ProgressBar component's track. 
+<!--- The Spark skin class for the MX ProgressBar component's track. 
+
+      @see mx.controls.ProgressBar
         
       @langversion 3.0
       @playerversion Flash 10
