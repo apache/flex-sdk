@@ -103,7 +103,7 @@ public class CollatorBase extends GlobalizationBase
      *  <ul>
      *      <li>Inheriting the style from a <code>UIComponent</code> by calling
      *          the UIComponent's <code>addStyleClient</code> method with
-	 * 			an instance of this object as the parameter.</li>
+     *          an instance of this object as the parameter.</li>
      *      <li>By using the class in an MXML declaration and inheriting the
      *          <code>locale</code> style from the document that contains the
      *          declaration.
@@ -128,11 +128,13 @@ public class CollatorBase extends GlobalizationBase
      *  <p>If the <code>locale</code> style is not set by one of the above
      *  techniques, the
      *  methods of this class that depend on the <code>locale</code> set the 
-	 *  lastOperationStatus property to 
-	 *  spark.globalization.LastOperationStatus.LOCALE_UNDEFINED_ERROR.</p>
+     *  lastOperationStatus property to 
+     *  <code>spark.globalization.LastOperationStatus.LOCALE_UNDEFINED_ERROR</code>.</p>
      *
+     *  @param initialMode Sets the initial collation options for two use cases: sorting and matching.
+     * 
      *  @see flash.globalization.Collator
-	 *  @see spark.globalization.LastOperationStatus
+     *  @see spark.globalization.LastOperationStatus
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
