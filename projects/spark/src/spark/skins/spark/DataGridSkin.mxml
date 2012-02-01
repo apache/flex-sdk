@@ -226,7 +226,7 @@ declarations define DataGrid skin parts except <code>headerColumnSeparator</code
     
     <fx:Script fb:purpose="styling">
     <![CDATA[
-        static private const exclusions:Array = ["scroller", "background"];
+        static private const exclusions:Array = ["scroller", "background", "columnHeaderGroup"];
         static private const contentFill:Array = ["bgFill"];
         
         /**
