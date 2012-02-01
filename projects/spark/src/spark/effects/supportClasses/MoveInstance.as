@@ -13,7 +13,6 @@ package mx.effects.effectClasses
 import flash.events.Event;
 
 import mx.effects.PropertyValuesHolder;
-import mx.graphics.IGraphicElement;
 
 import mx.components.FxApplication;
 import mx.core.Container;
