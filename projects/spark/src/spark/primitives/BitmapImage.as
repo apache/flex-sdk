@@ -228,16 +228,14 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
 	//
 	//--------------------------------------------------------------------------
 	
-	//----------------------------------
-	//  bounds
-	//----------------------------------
-
-    override public function get bounds():Rectangle
-	{
-		return new Rectangle(0, 0, 
-			!isNaN(explicitWidth) ? explicitWidth : (source ? source.width : 0),
-			!isNaN(explicitHeight) ? explicitHeight : (source ? source.height : 0));
-	}
+	/**
+	 *  @inheritDoc
+	 */
+    override protected function measure():void
+    {
+        measuredWidth = source ? source.width : 0;
+        measuredHeight = source ? source.height : 0;
+    }
 	
 	/**
 	 *  @inheritDoc
