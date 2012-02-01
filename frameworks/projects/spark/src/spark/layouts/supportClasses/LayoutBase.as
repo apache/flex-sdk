@@ -469,6 +469,52 @@ public class LayoutBase extends OnDemandEventDispatcher
 
         g.invalidateDisplayList();
     }
+    
+    /**
+     *  This method must is called by the target after a layout element 
+     *  has been added and before the target's size and display list are
+     *  validated.   
+     * 
+     *  Layouts that cache per element state, like virtual layouts, can 
+     *  override this method to update their cache.
+     * 
+     *  If the target calls this method, it's only guaranteeing that a
+     *  a layout element will exist at the specified index at
+     *  <code>updateDisplayList()</code> time, for example a DataGroup
+     *  with a virtual layout will call this method when a dataProvider
+     *  item is added.
+     * 
+     *  By default, this method does nothing.
+     * 
+     *  @param index The index of the element that was added.
+     *  @see #elementRemoved    
+     */
+     public function elementAdded(index:int):void
+     {
+     }
+
+    /**
+     *  This method must is called by the target after a layout element 
+     *  has been removed and before the target's size and display list are
+     *  validated.   
+     * 
+     *  Layouts that cache per element state, like virtual layouts, can 
+     *  override this method to update their cache.
+     * 
+     *  If the target calls this method, it's only guaranteeing that a
+     *  a layout element will no longer exist at the specified index at
+     *  <code>updateDisplayList()</code> time, for example a DataGroup
+     *  with a virtual layout will call this method when a dataProvider
+     *  item is added.
+     * 
+     *  By default, this method does nothing.
+     * 
+     *  @param index The index of the element that was added.
+     *  @see #elementAdded
+     */
+     public function elementRemoved(index:int):void
+     {
+     }
 
     /**
      *  Called when the verticalScrollPosition or horizontalScrollPosition 
