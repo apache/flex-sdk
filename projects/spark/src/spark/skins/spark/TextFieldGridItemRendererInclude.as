@@ -35,7 +35,7 @@
      *  See setLayoutBoundsPosition() and setLayoutBoundsSize().
      */
     private static const LEFT_PADDING:Number = 5;        
-    private static const RIGHT_PADDING:Number = 10;
+    private static const RIGHT_PADDING:Number = 5;
     private static const TOP_PADDING:Number = 4;
     private static const BOTTOM_PADDING:Number = 3;
     
