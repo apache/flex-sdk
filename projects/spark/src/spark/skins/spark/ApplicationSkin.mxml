@@ -15,9 +15,13 @@
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
     alpha.disabled="0.5" >
 
-    <!--- A strongly typed property that references the component to which this skin is applied. -->
     <fx:Metadata>
+    <![CDATA[ 
+	/** 
+	 * A strongly typed property that references the component to which this skin is applied.
+	 */
     	[HostComponent("spark.components.Application")]
+    ]]>
     </fx:Metadata> 
     
     <s:states>
@@ -26,6 +30,10 @@
     </s:states>
     
 	<!-- fill -->
+    <!--- 
+    	A rectangle with a solid color fill that forms the background of the application.
+    	The color of the fill is set to the Application's backgroundColor property.
+    -->
     <s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0"  >
         <s:fill>
             <s:SolidColor color="{hostComponent.backgroundColor as uint}" />
@@ -33,7 +41,7 @@
     </s:Rect>
         
     <!--- 
-    	@copy spark.components.SkinnableContainer#contentGroup
+    	@copy spark.components.SkinnableContainer#skinpart:contentGroup
     -->
     <s:Group id="contentGroup" left="0" right="0" top="0" bottom="0" />
 
