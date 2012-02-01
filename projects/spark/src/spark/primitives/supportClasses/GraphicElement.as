@@ -1624,7 +1624,6 @@ public class GraphicElement extends EventDispatcher
 
         visibleChanged = true;
 
-        // TODO EGeorgie: should we redraw for visibility changes?
         invalidateProperties();
     }
 
@@ -2228,6 +2227,17 @@ public class GraphicElement extends EventDispatcher
             
             displayObjectChanged = false;
         }
+        else
+        {
+        	if (visibleChanged)
+        	{
+        		visibleChanged = false;
+        		
+        		// If we're sharing a display list, we need to force a redraw
+        		// to change visibility.
+        		invalidateDisplayList();
+        	}
+        }
     }
 
     /**
@@ -2353,7 +2363,8 @@ public class GraphicElement extends EventDispatcher
             return; */
         invalidateDisplayListFlag = false;
 
-        updateDisplayList(_width, _height);
+		if (visible)
+        	updateDisplayList(_width, _height);
         
         // If we aren't doing any more invalidation, send out an UpdateComplete event
         if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag)
