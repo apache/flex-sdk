@@ -89,9 +89,9 @@ package spark.primitives
         /**
          *  @copy flash.filters.DropShadowFilter#alpha
          *  
-         *  @langversion 4.0
-         *  @playerversion Flash 9
-         *  @playerversion AIR 1.1
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
         override public function get alpha():Number
@@ -126,9 +126,9 @@ package spark.primitives
         /**
          *  @copy flash.filters.DropShadowFilter#angle
          *  
-         *  @langversion 4.0
-         *  @playerversion Flash 9
-         *  @playerversion AIR 1.1
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
         public function get angle():Number
@@ -163,9 +163,9 @@ package spark.primitives
         /**
          *  @copy flash.filters.DropShadowFilter#color
          *  
-         *  @langversion 4.0
-         *  @playerversion Flash 9
-         *  @playerversion AIR 1.1
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
         public function get color():int
@@ -200,9 +200,9 @@ package spark.primitives
         /**
          *  @copy flash.filters.DropShadowFilter#distance
          *  
-         *  @langversion 4.0
-         *  @playerversion Flash 9
-         *  @playerversion AIR 1.1
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
         public function get distance():Number
@@ -239,9 +239,9 @@ package spark.primitives
          *  of the rounded rectangle that is casting the shadow.
          *  May be zero for non-rounded rectangles.
          *  
-         *  @langversion 4.0
-         *  @playerversion Flash 9
-         *  @playerversion AIR 1.1
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
         public function get tlRadius():Number
@@ -278,9 +278,9 @@ package spark.primitives
          *  of the rounded rectangle that is casting the shadow.
          *  May be zero for non-rounded rectangles.
          *  
-         *  @langversion 4.0
-         *  @playerversion Flash 9
-         *  @playerversion AIR 1.1
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
         public function get trRadius():Number
@@ -318,9 +318,9 @@ package spark.primitives
          *  May be zero for non-rounded
          *  rectangles.
          *  
-         *  @langversion 4.0
-         *  @playerversion Flash 9
-         *  @playerversion AIR 1.1
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
         public function get blRadius():Number
@@ -357,9 +357,9 @@ package spark.primitives
          *  of the rounded rectangle that is casting the shadow.
          *  May be zero for non-rounded rectangles.
          *  
-         *  @langversion 4.0
-         *  @playerversion Flash 9
-         *  @playerversion AIR 1.1
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
         public function get brRadius():Number
@@ -395,9 +395,9 @@ package spark.primitives
          *  The amount of horizontal blur.
          *  @default 4
          *  
-         *  @langversion 4.0
-         *  @playerversion Flash 9
-         *  @playerversion AIR 1.1
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
         public function get blurX():Number
@@ -433,9 +433,9 @@ package spark.primitives
          *  The amount of vertical blur.
          *  @default 4
          *  
-         *  @langversion 4.0
-         *  @playerversion Flash 9
-         *  @playerversion AIR 1.1
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
          *  @productversion Flex 4
          */
         public function get blurY():Number
