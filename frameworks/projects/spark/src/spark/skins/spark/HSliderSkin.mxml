@@ -23,6 +23,28 @@
     	<State name="disabled" />
     </states>
     
+    <Declarations>
+    	<Component id="dataTip">    	
+    		<MXMLComponent minHeight="24" minWidth="40" y="-34">	
+				<Rect top="0" left="0" right="0" bottom="0">
+					<fill>
+						<SolidColor color="0x000000" alpha=".9"/>
+					</fill>
+					<filters>
+    					<DropShadowFilter angle="90" color="0x999999" distance="3"/>
+    				</filters>
+				</Rect>
+						
+				<TextBox id="labelField" text="{data}"
+						 horizontalCenter="0" verticalCenter="1"
+						 left="5" right="5" top="5" bottom="5"
+						 textAlign="center" verticalAlign="middle"
+						 fontWeight="normal" color="white" fontSize="11">
+				</TextBox>
+			</MXMLComponent>
+    	</Component>
+    </Declarations>
+    
     <FxButton id="track" left="0" right="0" top="3" bottom="3"
               skinClass="mx.skins.spark.FxHSliderTrackSkin" />
     <FxButton id="thumb" top="0" bottom="0" width="11" height="11" 
