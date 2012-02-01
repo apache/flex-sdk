@@ -40,6 +40,19 @@ import mx.filters.IBitmapFilter;
  * wide, it can only be 2,048 pixels high.) 
  * For example, if you zoom in on a large movie clip with a filter applied, the filter is 
  * turned off if the resulting image exceeds the maximum dimensions.</p>
+ * 
+ *  @mxml 
+ *  <p>The <code>&lt;GlowFilter&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;GlowFilter
+ *    <strong>Properties</strong>
+ *    alpha="1"
+ *    color="0xFF0000"
+ *    inner="false"
+ *  /&gt;
+ *  </pre>
  *
  * @see flash.display.BitmapData#applyFilter()
  * @see flash.display.DisplayObject#filters
@@ -57,169 +70,173 @@ import mx.filters.IBitmapFilter;
 
 public class GlowFilter extends BaseDimensionFilter implements IBitmapFilter
 {
-	
-	/**
-	 * Constructor.
-	 * 
-	 * @param color The color of the glow, in the hexadecimal format 
-	 * 0x<i>RRGGBB</i>. The default value is 0xFF0000.
-	 * @param alpha The alpha transparency value for the color. Valid values are 0 to 1. For example,
-	 * .25 sets a transparency value of 25%.
-	 * @param blurX The amount of horizontal blur. Valid values are 0 to 255 (floating point). Values
-	 * that are a power of 2 (such as 2, 4, 8, 16 and 32) are optimized 
-	 * to render more quickly than other values.
-	 * @param blurY The amount of vertical blur. Valid values are 0 to 255 (floating point). 
-	 * Values that are a power of 2 (such as 2, 4, 8, 16 and 32) are optimized 
-	 * to render more quickly than other values.
-	 * @param strength The strength of the imprint or spread. The higher the value, 
-	 * the more color is imprinted and the stronger the contrast between the glow and the background. 
-	 * Valid values are 0 to 255. 
-	 * @param quality The number of times to apply the filter. Use the BitmapFilterQuality constants:
-	 * <ul>
-	 * <li><code>BitmapFilterQuality.LOW</code></li>
-	 * <li><code>BitmapFilterQuality.MEDIUM</code></li>
-	 * <li><code>BitmapFilterQuality.HIGH</code></li>
-	 * </ul>
-	 * <p>For more information, see the description of the <code>quality</code> property.</p>
-	 * @param inner Specifies whether the glow is an inner glow. The value <code> true</code> specifies
-	 * an inner glow. The value <code>false</code> specifies an outer glow (a glow
-	 * around the outer edges of the object). 
-	 * @param knockout Specifies whether the object has a knockout effect. The value <code>true</code>
-	 * makes the object's fill transparent and reveals the background color of the document. 
-	 *
-	 * @see BitmapFilterQuality
-	 *
-	 * @langversion 3.0
-	 * @playerversion Flash 10
-	 * @playerversion AIR 1.5
- 	 * @productversion Flex 4
-	 *
-	 */
-	public function GlowFilter(color:uint = 0xFF0000, alpha:Number = 1.0, 
-							   blurX:Number = 4.0, blurY:Number = 4.0, 
-							   strength:Number = 1, quality:int = 1, 
-							   inner:Boolean = false, knockout:Boolean = false)
-	{
-		super();
-		
-		this.color = color;
-		this.alpha = alpha;
-		this.blurX = blurX;
-		this.blurY = blurY;
-		this.strength = strength;
-		this.quality = quality;
-		this.inner = inner;
-		this.knockout = knockout;
-	}
+    
+    /**
+     * Constructor.
+     * 
+     * @param color The color of the glow, in the hexadecimal format 
+     * 0x<i>RRGGBB</i>. The default value is 0xFF0000.
+     * @param alpha The alpha transparency value for the color. Valid values are 0 to 1. For example,
+     * .25 sets a transparency value of 25%.
+     * @param blurX The amount of horizontal blur. Valid values are 0 to 255 (floating point). Values
+     * that are a power of 2 (such as 2, 4, 8, 16 and 32) are optimized 
+     * to render more quickly than other values.
+     * @param blurY The amount of vertical blur. Valid values are 0 to 255 (floating point). 
+     * Values that are a power of 2 (such as 2, 4, 8, 16 and 32) are optimized 
+     * to render more quickly than other values.
+     * @param strength The strength of the imprint or spread. The higher the value, 
+     * the more color is imprinted and the stronger the contrast between the glow and the background. 
+     * Valid values are 0 to 255. 
+     * @param quality The number of times to apply the filter. Use the BitmapFilterQuality constants:
+     * <ul>
+     * <li><code>BitmapFilterQuality.LOW</code></li>
+     * <li><code>BitmapFilterQuality.MEDIUM</code></li>
+     * <li><code>BitmapFilterQuality.HIGH</code></li>
+     * </ul>
+     * <p>For more information, see the description of the <code>quality</code> property.</p>
+     * @param inner Specifies whether the glow is an inner glow. The value <code> true</code> specifies
+     * an inner glow. The value <code>false</code> specifies an outer glow (a glow
+     * around the outer edges of the object). 
+     * @param knockout Specifies whether the object has a knockout effect. The value <code>true</code>
+     * makes the object's fill transparent and reveals the background color of the document. 
+     *
+     * @see BitmapFilterQuality
+     *
+     * @langversion 3.0
+     * @playerversion Flash 10
+     * @playerversion AIR 1.5
+     * @productversion Flex 4
+     *
+     */
+    public function GlowFilter(color:uint = 0xFF0000, alpha:Number = 1.0, 
+                               blurX:Number = 4.0, blurY:Number = 4.0, 
+                               strength:Number = 1, quality:int = 1, 
+                               inner:Boolean = false, knockout:Boolean = false)
+    {
+        super();
+        
+        this.color = color;
+        this.alpha = alpha;
+        this.blurX = blurX;
+        this.blurY = blurY;
+        this.strength = strength;
+        this.quality = quality;
+        this.inner = inner;
+        this.knockout = knockout;
+    }
 
-	//----------------------------------
+    //----------------------------------
     //  alpha
     //----------------------------------
-	
-	private var _alpha:Number = 1.0;
-	
-	/**
-	 *  The alpha transparency value for the color. Valid values are 0 to 1. 
-	 *  For example, .25 sets a transparency value of 25%.
-	 * 
-	 *  @default 1
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get alpha():Number
-	{
-		return _alpha;
-	}
-	
-	public function set alpha(value:Number):void
-	{
-		if (value != _alpha)
-		{
-			_alpha = value;
-			notifyFilterChanged();
-		}
-	}
-	
-	//----------------------------------
+    
+    private var _alpha:Number = 1.0;
+    
+    /**
+     *  The alpha transparency value for the color. Valid values are 0 to 1. 
+     *  For example, .25 sets a transparency value of 25%.
+     * 
+     *  @default 1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get alpha():Number
+    {
+        return _alpha;
+    }
+    
+    public function set alpha(value:Number):void
+    {
+        if (value != _alpha)
+        {
+            _alpha = value;
+            notifyFilterChanged();
+        }
+    }
+    
+    //----------------------------------
     //  color
     //----------------------------------
-	
-	private var _color:uint = 0xFF0000;
-	
-	/**
-	 *  The color of the glow. Valid values are in the hexadecimal format 
-	 * 	0xRRGGBB. 
-	 *  @default 0xFF0000
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get color():uint
-	{
-		return _color;
-	}
-	
-	public function set color(value:uint):void
-	{
-		if (value != _color)
-		{
-			_color = value;
-			notifyFilterChanged();
-		}
-	}
-	
-	//----------------------------------
+    
+    private var _color:uint = 0xFF0000;
+    
+    /**
+     *  The color of the glow. Valid values are in the hexadecimal format 
+     *  0xRRGGBB. 
+     *  @default 0xFF0000
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get color():uint
+    {
+        return _color;
+    }
+    
+    public function set color(value:uint):void
+    {
+        if (value != _color)
+        {
+            _color = value;
+            notifyFilterChanged();
+        }
+    }
+    
+    //----------------------------------
     //  inner
     //----------------------------------
-	
-	private var _inner:Boolean = false;
-	
-	/**
-	 *  Specifies whether the glow is an inner glow. The value true indicates an inner glow. 
-	 *  The default is false, an outer glow (a glow around the outer edges of the object).
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get inner():Boolean
-	{
-		return _inner;
-	}
-	
-	public function set inner(value:Boolean):void
-	{
-		if (value != _inner)
-		{
-			_inner = value;
-			notifyFilterChanged();
-		}
-	}
+    
+    private var _inner:Boolean = false;
+    
+    /**
+     *  Specifies whether the glow is an inner glow. 
+     *  The value true indicates an inner glow. 
+     *  The default is false, meaning an outer glow 
+     *  (a glow around the outer edges of the object).
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get inner():Boolean
+    {
+        return _inner;
+    }
+    
+    public function set inner(value:Boolean):void
+    {
+        if (value != _inner)
+        {
+            _inner = value;
+            notifyFilterChanged();
+        }
+    }
 
-	/**
-	 * Returns a copy of this filter object.
-	 * @return A new GlowFilter instance with all the
-	 * properties of the original GlowFilter instance.
-	 *
-	 * @langversion 3.0
-	 * @playerversion Flash 10
-	 * @playerversion AIR 1.5
-	 * @productversion Flex 4
-	 */
-	public function clone():BitmapFilter
-	{
-		return new flash.filters.GlowFilter(color, alpha, blurX, blurY, strength, quality, inner, knockout);
-	}
+    /**
+     * Returns a copy of this filter object.
+     * @return A new GlowFilter instance with all the
+     * properties of the original GlowFilter instance.
+     *
+     * @langversion 3.0
+     * @playerversion Flash 10
+     * @playerversion AIR 1.5
+     * @productversion Flex 4
+     */
+    public function clone():BitmapFilter
+    {
+        return new flash.filters.GlowFilter(color, alpha, blurX, blurY, strength, quality, inner, knockout);
+    }
 
 
 
-	
+    
 }
 
 }
