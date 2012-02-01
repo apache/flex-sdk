@@ -216,8 +216,6 @@ public class FxRotateInstance extends FxAnimateInstance
             else if (propertyChanges && 
                 propertyChanges.start["rotation"] !== undefined)
                 angleFrom = propertyChanges.start["rotation"];
-            else
-                angleFrom = getCurrentValue("rotation");
         
         if (isNaN(angleTo))
         {
@@ -229,8 +227,8 @@ public class FxRotateInstance extends FxAnimateInstance
             }
             else
             {
-                angleTo = (!isNaN(angleBy)) ? angleFrom + angleBy : 
-                    getCurrentValue("rotation");
+                if (!isNaN(angleBy) && !isNaN(angleFrom))
+                    angleTo = angleFrom + angleBy; 
             }
         }
         
@@ -241,7 +239,7 @@ public class FxRotateInstance extends FxAnimateInstance
         newY = Number((centerY - originalOffsetY).toFixed(1)); // use a precision of 1
  
         propertyValuesList = 
-            [new PropertyValuesHolder("rotation", [angleFrom, angleTo])];
+            [new PropertyValuesHolder("rotation", [angleFrom, angleTo], angleBy)];
 
         super.play();
     }
