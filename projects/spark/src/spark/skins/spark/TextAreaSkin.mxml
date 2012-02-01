@@ -290,9 +290,7 @@
     <!--- Defines the scroller that is used to scroll the TextArea control. -->
     <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" minViewportInset="1" measuredSizeIncludesScrollBars="false" hasFocusableChildren="false">
         <!--- @copy spark.components.supportClasses.SkinnableTextBase#textDisplay -->
-        <s:RichEditableText id="textDisplay" left="0" top="0" right="0" bottom="0"
-                            heightInLines="10"
-                            widthInChars="15" />
+        <s:RichEditableText id="textDisplay" heightInLines="10" widthInChars="15" />
     </s:Scroller>
     
     <!--- Defines the Label that is used for prompt text. The includeInLayout property is false so the prompt text does not affect measurement. -->
