@@ -28,8 +28,56 @@ import spark.layout.supportClasses.LinearLayoutVector;
 
 
 /**
- *  Documentation is not currently available.
- *  
+ *  The VerticalLayout arranges the layout elements in a vertical sequence,
+ *  top to bottom, with optional gaps between the elements and optional padding
+ *  around the sequence of elements.
+ *
+ *  <p>During measure(), the default size of the container is calculated by
+ *  accumulating the preferred sizes of the elements, including gaps and padding.
+ *  When requestedRowCount is set, only the space for that many elements
+ *  will be measured, starting from the first element.</p>
+ *
+ *  <p>During updateDisplayList(), the height of each element is calculated
+ *  according to the following rules, listed in their respective order of
+ *  precedence (element's minimum height and maximum height are always respected):
+ *  <ul>
+ *    <li>If variableRowHeight is false, then set the element's height to the
+ *    value of the rowHeight property.</li>
+ *
+ *    <li>If the element's percentHeight is set, then calculate the element's
+ *    height by distributing the available container height between all
+ *    elements with percentHeight setting. The available container height
+ *    is equal to the container height minus the gaps, the padding and the
+ *    space occupied by the rest of the elements. The element's precentHeight
+ *    property is ignored when the layout is virtualized.</li>
+ *
+ *    <li>Set the element's height to its preferred height.</li>
+ *  <ul>
+ *
+ *  The width of each element is calculated according to the following rules,
+ *  listed in their respective order of precedence (element's minium width and
+ *  maximum width are always respected):
+ *  <ul>
+ *    <li>If horizontalAlign is "justify" then set the element's width to the
+ *    container width.</li>
+ *
+ *    <li>If horizontalAlign is "contentJustify" then set the element's width
+ *    to the maximum between the container's width and all elements' preferred
+ *    width.</li>
+ *
+ *    <li>If the element's percentWidth is set, then calculate the element's
+ *    width as a percentage of the container's width.</li>
+ *
+ *    <li>Set the element's width to its preferred width.</li>
+ *  </ul>
+ *
+ *  The vertical position of the elements is determined by arranging them
+ *  in a vertical sequence, top to bottom, taking into account the padding
+ *  before the first element and the gaps between the elements.
+ *
+ *  The horizontal position of the elements is determined by the layout's
+ *  horizontalAlign property.</p>
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -230,7 +278,10 @@ public class VerticalLayout extends LayoutBase
             return;
         
         _horizontalAlign = value;
-        invalidateTargetDisplayList();
+
+        var layoutTarget:GroupBase = target;
+        if (layoutTarget)
+            layoutTarget.invalidateDisplayList();
     }
     
     //----------------------------------
@@ -537,7 +588,7 @@ public class VerticalLayout extends LayoutBase
 	 *  Note that the layout element may only be partially in view.
 	 * 
 	 *  @see lastIndexInView
-	 *  @see inView
+	 *  @see fractionOfElementInView
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
@@ -572,7 +623,7 @@ public class VerticalLayout extends LayoutBase
      *  Note that the row may only be partially in view.
      * 
      *  @see firstIndexInView
-     *  @see inView
+     *  @see fractionOfElementInView
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
@@ -639,7 +690,7 @@ public class VerticalLayout extends LayoutBase
 	 *  @playerversion AIR 1.5
 	 *  @productversion Flex 4
 	 */
-	public function inView(index:int):Number 
+	public function fractionOfElementInView(index:int):Number 
 	{
 		var g:GroupBase = GroupBase(target);
 	    if (!g)
@@ -771,7 +822,7 @@ public class VerticalLayout extends LayoutBase
             return;
         }
         
-        var scrollR:Rectangle = getTargetScrollRect();
+        var scrollR:Rectangle = getScrollRect();
         if (!scrollR)
         {
             setIndexInView(0, n);
@@ -879,7 +930,7 @@ public class VerticalLayout extends LayoutBase
     {
         var n:int = g.numElements;
 
-        if (inView(i) >= 1)
+        if (fractionOfElementInView(i) >= 1)
         {
             // Special case: if we hit the first/last element, 
             // then return the area of the padding so that we
@@ -1521,7 +1572,30 @@ public class VerticalLayout extends LayoutBase
             updateDisplayListVirtual();
         else
             updateDisplayListReal();
-    } 
+    }
+    
+    /**
+     *  @private 
+     *  Convenience function for subclasses that invalidates the
+     *  target's size and displayList so that both layout's <code>measure()</code>
+     *  and <code>updateDisplayList</code> methods get called.
+     * 
+     *  <p>Typically a layout invalidates the target's size and display list so that
+     *  it gets a chance to recalculate the target's default size and also size and
+     *  position the target's elements. For example changing the <code>gap</code>
+     *  property on a <code>VerticalLayout</code> will internally call this method
+     *  to ensure that the elements are re-arranged with the new setting and the
+     *  target's default size is recomputed.</p> 
+     */
+    private function invalidateTargetSizeAndDisplayList():void
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return;
+
+        g.invalidateSize();
+        g.invalidateDisplayList();
+    }
 }
 }
 
