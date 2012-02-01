@@ -19,31 +19,51 @@
     
     <states>
         <State name="up" />
-        <State name="over"/>
+        <State name="over" />
         <State name="down" />
         <State name="disabled" />
     </states>
 
-    <!-- background -->
+    <!-- border/background -->
     <Rect left="0" right="0" minWidth="14" top="0" bottom="0" minHeight="17">
         <stroke>
-            <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
+            <SolidColorStroke color="0x686868" />
         </stroke>
         <fill>
-            <SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF" />
+            <SolidColor color="0xF9F9F9" color.down="0xDEEBFF" />
         </fill>
     </Rect>
+    
+    <!-- fill -->
+    <Rect left="1" right="1" top="1" bottom="1">
+    	<fill>
+    		<LinearGradient>
+                <GradientEntry color="0xFFFFFF" 
+                               color.over="0xBBBBBB"
+                               color.down="0xD6D6D6"
+                               alpha="0.85" 
+                               alpha.down="1" />
+                <GradientEntry color="0xE7E7E7" 
+                               color.over="0x9FA0A1"
+                               color.down="0x888888"
+                               alpha="0.85" 
+                               alpha.down="1" />
+    		</LinearGradient>
+    	</fill>
+    </Rect>
+    
+    <!-- highlight -->
+    <Rect left="1" top="1" bottom="1" width="6">
+    	<fill>
+    		<SolidColor color="0xFFFFFF" 
+    					alpha="0.75" 
+                        alpha.over="0.22"
+    					alpha.down="0.22" />
+    	</fill>
+    </Rect>
+    
     <!-- arrow -->
-    <Path>
-        <fill>
-            <SolidColor color="0x4E6290" color.disabled="0xA6B0C7" />
-        </fill>
-        <segments>
-            <MoveSegment y="12" x="7.5" />
-            <LineSegment y="5" x="11" />
-            <LineSegment y="5" x="3.5" />
-            <LineSegment y="12" x="7.5" />
-        </segments>
-    </Path>
-
+    <BitmapGraphic source="@Embed('assets/ScrollDownArrow.png')"
+    			   horizontalCenter="0" verticalCenter="0" />
+	
 </Skin>
