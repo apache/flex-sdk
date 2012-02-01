@@ -355,8 +355,8 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
         
         // labelDisplay layout: padding of 3 on left and right and padding of 5 on top and bottom.
           
-        measuredWidth = LayoutElementUIComponentUtils.getPreferredBoundsWidth(labelDisplay, null) + 6;
-        measuredHeight = LayoutElementUIComponentUtils.getPreferredBoundsHeight(labelDisplay, null) + 10;
+        measuredWidth = LayoutElementUIComponentUtils.getPreferredBoundsWidth(labelDisplay, null) + 10;
+        measuredHeight = LayoutElementUIComponentUtils.getPreferredBoundsHeight(labelDisplay, null) + 6;
         
         measuredMinWidth = measuredWidth;
         measuredMinHeight = measuredHeight;
@@ -371,15 +371,15 @@ public class DefaultGridItemRenderer extends UIComponent implements IGridItemRen
     {
         super.updateDisplayList(width, height);
 
-        // labelDisplay layout: padding of 3 on left and right and padding of 5 on top and bottom.
+        // labelDisplay layout: padding of 5 on left and right and padding of 5 on top.
         
-        labelDisplay.setActualSize(width-6, height-10);
+        labelDisplay.setActualSize(width-10, height-5);
         
         if (textIsTruncated)
             labelDisplay.text = _label;
         textIsTruncated = labelDisplay.truncateToFit();
         
-        labelDisplay.move(3, 5);
+        labelDisplay.move(5, 5);
     }
     
 }   
