@@ -39,8 +39,8 @@
 			   include-classes="flashx.textLayout.CoreClasses flashx.textLayout.EditClasses flashx.textLayout.ConversionClasses">
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-namespaces uri="${project.uri}"/>
-			<namespace uri="${project.uri}" manifest="textLayout/manifest.xml"/>
-			<source-path path-element="textLayout/src"/>
+			<namespace uri="${project.uri}" manifest="manifest.xml"/>
+			<source-path path-element="src"/>
 			<library-path/>
 			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="${dbg}"/>
@@ -64,10 +64,10 @@
 			<doc-classes class="flashx.textLayout.CoreClasses"/>
 			<doc-classes class="flashx.textLayout.EditClasses"/>
 			<doc-classes class="flashx.textLayout.ConversionClasses"/>
-		    <compiler.source-path path-element="textLayout/src"/>
+		    <compiler.source-path path-element="src"/>
 			<external-library-path dir="${output.file}"/>
 		    <doc-namespaces uri="${project.uri}"/>
-		    <namespace uri="${project.uri}" manifest="textLayout/manifest.xml"/>
+		    <namespace uri="${project.uri}" manifest="manifest.xml"/>
 		    <jvmarg line="${asdoc.jvm.args}"/>
 			<static-link-runtime-shared-libraries/>
 			<define name="CONFIG::debug" value="${dbg}"/>
