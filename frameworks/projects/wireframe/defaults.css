@@ -109,13 +109,13 @@ s|ScrubBar
 
 s|SkinnableTextBase:normalWithPrompt 
 {
-    color: #CCCCCC;
+    color: #BABABA;
     fontStyle: italic;
 }
 
 s|SkinnableTextBase:disabledWithPrompt 
 {
-    color: #CCCCCC;
+    color: #BABABA;
     fontStyle: italic;
 }
 
