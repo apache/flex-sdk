@@ -189,6 +189,74 @@ public class Rect extends FilledElement
         // Take stroke into account
         return height + getStrokeExtents(postTransform).y;
     }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function getBoundsXAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    {
+        var strokeExtents:Point = getStrokeExtents(postTransform);
+        var m:Matrix = postTransform ? computeMatrix() : null;
+        if (!m)
+            return strokeExtents.x * -0.5 + this.x;
+
+        if (!isNaN(width))
+            width -= strokeExtents.x;
+
+        if (!isNaN(height))
+            height -= strokeExtents.y;
+
+        // Calculate the width and height pre-transform:
+        var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                 preferredWidthPreTransform(),
+                                                 preferredHeightPreTransform(),
+                                                 minWidth, minHeight,
+                                                 maxWidth, maxHeight);
+        if (!newSize)
+            newSize = new Point(minWidth, minHeight);
+
+        return strokeExtents.x * -0.5 +
+            getRoundRectBoundingBox(newSize.x, newSize.y, radiusX, radiusY, m).x;
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function getBoundsYAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    {
+        var strokeExtents:Point = getStrokeExtents(postTransform);
+        var m:Matrix = postTransform ? computeMatrix() : null;
+        if (!m)
+            return strokeExtents.y * -0.5 + this.y;
+
+        if (!isNaN(width))
+            width -= strokeExtents.x;
+
+        if (!isNaN(height))
+            height -= strokeExtents.y;
+
+        // Calculate the width and height pre-transform:
+        var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                 preferredWidthPreTransform(),
+                                                 preferredHeightPreTransform(),
+                                                 minWidth, minHeight,
+                                                 maxWidth, maxHeight);
+        if (!newSize)
+            newSize = new Point(minWidth, minHeight);
+
+        return strokeExtents.y * -0.5 +
+            getRoundRectBoundingBox(newSize.x, newSize.y, radiusX, radiusY, m).y;
+    }
 
     /**
      *  @private
