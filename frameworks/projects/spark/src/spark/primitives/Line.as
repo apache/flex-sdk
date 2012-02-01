@@ -211,8 +211,8 @@ public class Line extends StrokedElement
         drawToX += xFrom;
         drawToY += yFrom;
 
-		g.moveTo(xFrom, yFrom);
-		g.lineTo(drawToX, drawToY);
+		g.moveTo(xFrom + drawX, yFrom + drawY);
+		g.lineTo(drawToX + drawX, drawToY + drawY);
 	}
 }
 
