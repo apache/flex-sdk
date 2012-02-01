@@ -2657,8 +2657,11 @@ public class GraphicElement extends EventDispatcher
             }
             
             var topLevel:Sprite = Sprite(IUIComponent(parent).systemManager);   
-            var rectBounds:Rectangle = displayObject.getBounds(useLocalSpace ? displayObject.parent : topLevel); 
-            var bitmapData:BitmapData = new BitmapData(rectBounds.width, rectBounds.height, transparent, fillColor);
+            var rectBounds:Rectangle = useLocalSpace ? 
+            			new Rectangle(getLayoutBoundsX(), getLayoutBoundsY(), getLayoutBoundsWidth(), getLayoutBoundsHeight()) :
+            			displayObject.getBounds(topLevel); 
+            var bitmapData:BitmapData = new BitmapData(Math.ceil(rectBounds.width), Math.ceil(rectBounds.height), transparent, fillColor);
+ 
                 
            	var m:Matrix = useLocalSpace ? displayObject.transform.matrix : displayObject.transform.concatenatedMatrix;
             
