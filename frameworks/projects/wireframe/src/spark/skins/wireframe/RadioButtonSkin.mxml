@@ -11,8 +11,12 @@
 
 -->
 
-<!--- The default skin class for the Spark RadioButton component. 
+<!--- The default wireframe skin class for the Spark RadioButton component. 
+        Skin classes in the wireframe package are useful for using as a simple base for a custom skin.
         
+       @see spark.components.RadioButton
+       @see spark.components.RadioButtonGroup
+
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
