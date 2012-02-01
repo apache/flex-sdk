@@ -20,6 +20,11 @@ import flashx.textLayout.operations.FlowOperation;
  *  Represents events that are dispatched when text content
  *  changes due to user operations such as inserting characters,
  *  backspacing, pasting, changing attributes, etc.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class TextOperationEvent extends Event
 {
@@ -52,6 +57,11 @@ public class TextOperationEvent extends Event
 	 *  </table>
 	 *
      *  @eventType changing
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public static const CHANGING:String = "changing";
 
@@ -76,6 +86,11 @@ public class TextOperationEvent extends Event
 	 *  </table>
 	 *
      *  @eventType change
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public static const CHANGE:String = "change";
 
@@ -99,6 +114,11 @@ public class TextOperationEvent extends Event
 	 *  @param operation Reference to the FlowOperation object
 	 *  describing the editing operation being performed
 	 *  on the text by the user.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function TextOperationEvent(type:String, bubbles:Boolean = false,
 									   cancelable:Boolean = true,
@@ -121,6 +141,11 @@ public class TextOperationEvent extends Event
 
 	/**
 	 *  The FlowOperation being performed by the user.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public var operation:FlowOperation;
 
