@@ -81,6 +81,8 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 	                                  clamp:Boolean = true, color:uint = 0, 
 	                                  alpha:Number = 0.0)
 	{
+		super();
+		
 		this.matrixX = matrixX;
 		this.matrixY = matrixY;
 		this.matrix = matrix;
