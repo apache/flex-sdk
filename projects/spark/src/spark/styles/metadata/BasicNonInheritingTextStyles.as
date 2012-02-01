@@ -12,6 +12,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#lineBreak 
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -21,6 +23,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paddingBottom
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -32,6 +36,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paddingLeft
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -41,6 +47,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paddingRight
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -52,6 +60,8 @@
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paddingTop
  *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -61,6 +71,8 @@
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#verticalAlign
+ *  
+ *  <p>TLF styles are not supported in the mobile theme.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
