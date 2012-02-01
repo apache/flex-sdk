@@ -17,7 +17,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
+[Style(name="focusedTextSelectionColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  The color of text when the component is disabled.
@@ -27,7 +27,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="inactiveSelectionColor", type="uint", format="Color", inherit="yes")]
+[Style(name="inactiveTextSelectionColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  The color of text when the component is enabled but does not have focus.
@@ -37,4 +37,4 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="unfocusedSelectionColor", type="uint", format="Color", inherit="yes")]
+[Style(name="unfocusedTextSelectionColor", type="uint", format="Color", inherit="yes")]
