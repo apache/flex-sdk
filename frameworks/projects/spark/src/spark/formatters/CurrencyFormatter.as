@@ -188,7 +188,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
             return (g11nWorkingInstance
                 as flash.globalization.CurrencyFormatter).actualLocaleIDName;
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -241,7 +241,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
         if (g11nWorkingInstance)
             return g11nWorkingInstance.currencyISOCode;
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -253,6 +253,8 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
 
     public function set currencyISOCode(value:String):void
     {
+        if(currencyISOCodeOverride != null && currencyISOCodeOverride == value)
+            return;
         currencyISOCodeOverride = value;
 
         if (g11nWorkingInstance)
@@ -308,7 +310,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
         if (g11nWorkingInstance)
             return g11nWorkingInstance.currencySymbol;
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                   = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -320,12 +322,14 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
 
     public function set currencySymbol(value:String):void
     {
+        if(currencySymbolOverride != null && currencySymbolOverride == value)
+            return;
         currencySymbolOverride = value;
 
         if (g11nWorkingInstance)
         {
             g11nWorkingInstance.setCurrency(
-                                g11nWorkingInstance.currencySymbol, value);
+                                g11nWorkingInstance.currencyISOCode, value);
         }
         else
         {
@@ -600,6 +604,8 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
 
     public function set useCurrencySymbol(value:Boolean):void
     {
+        if(_useCurrencySymbol == value)
+            return;
         _useCurrencySymbol = value;
 
         update();
@@ -616,7 +622,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      */
     override mx_internal function createWorkingInstance():void
     {
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -781,7 +787,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
         if (g11nWorkingInstance)
             return g11nWorkingInstance.format(number, useCurrencySymbol);
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -856,7 +862,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
                                                             requestedISOCode);
         }
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -930,7 +936,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
         if (g11nWorkingInstance)
             return g11nWorkingInstance.parse(inputString);
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
