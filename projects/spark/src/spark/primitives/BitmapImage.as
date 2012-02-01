@@ -31,6 +31,7 @@ import flash.geom.Rectangle;
 import flash.net.URLRequest;
 import flash.system.ApplicationDomain;
 import flash.system.LoaderContext;
+import flash.utils.ByteArray;
 
 import mx.core.mx_internal;
 import mx.graphics.BitmapFillMode;
@@ -848,17 +849,17 @@ public class BitmapImage extends GraphicElement
         }
         else
         {
-            // Return estimated width/height here as we've yet to fully
-            // realize valid image content. If we are loading new content
-            // we keep the old measured width/height, otherwise we fall back
-            // to 0 unless a preliminary width/height is set. This is to avoid
-            // sizing to 0,0 for a frame unnecessarily.
+            // If we are loading new content we keep the old measured width/height to avoid
+            // sizing to 0,0 for a frame unnecessarily. Otherwise we fall back to 0 unless
+            // a preliminaryWidth/Height is set.
             var previousWidth:Number = (_source == null || _source == "") ? 0 : measuredWidth;
             var previousHeight:Number = (_source == null || _source == "") ? 0 : measuredHeight;
-            measuredWidth = !isNaN(_preliminaryWidth) && (measuredWidth == 0) ? 
+            
+            measuredWidth = !isNaN(_preliminaryWidth) && (previousWidth == 0) ? 
                 _preliminaryWidth : previousWidth;
-            measuredHeight = !isNaN(_preliminaryHeight) && (measuredHeight == 0) ? 
+            measuredHeight = !isNaN(_preliminaryHeight) && (previousHeight == 0) ? 
                 _preliminaryHeight : previousHeight;
+            
             return;
         }
         
@@ -1139,6 +1140,11 @@ public class BitmapImage extends GraphicElement
             _bitmapData = null;
         }
         
+        // Reset imageWidth/Height, as we aren't
+        // loading external content so no reason to 
+        // cache our existing image width and height.
+        imageWidth = imageHeight = NaN;
+        
         // Clear any currently loading content.
         clearLoadingContent();
         
@@ -1183,10 +1189,7 @@ public class BitmapImage extends GraphicElement
         _bytesLoaded = NaN;
         _bytesTotal = NaN;
         _trustedSource = true;
-        
-        // Reset content width/height.
-        imageWidth = imageHeight = NaN;
-        
+                
         // We'll need to reconsider display object sharing.
         invalidateDisplayObjectSharing();
                 
@@ -1199,6 +1202,10 @@ public class BitmapImage extends GraphicElement
         else if (value is String || value is URLRequest)
         {
             loadExternal(value);
+        }
+        else if (value is ByteArray)
+        {
+            loadFromBytes(value as ByteArray);
         }
         
         if (value is BitmapData)
@@ -1219,9 +1226,11 @@ public class BitmapImage extends GraphicElement
         }   
         else
         {
+            // We're loading external content or we
+            // we have an unsupported source value.
             return;
         }
-        
+                
         if (!bitmapData && tmpSprite)
         {
             bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height, true, 0);
@@ -1247,12 +1256,12 @@ public class BitmapImage extends GraphicElement
     /**
      *  @private
      */
-    mx_internal function loadExternal(url:Object):void
+    mx_internal function loadExternal(source:Object):void
     {                 
         if (contentLoader)
         {
             // We defer our load request to the configured content loader.
-            var contentRequest:ContentRequest = contentLoader.load(url, contentLoaderGrouping);
+            var contentRequest:ContentRequest = contentLoader.load(source, contentLoaderGrouping);
             
             if (contentRequest.complete)
             {
@@ -1270,9 +1279,7 @@ public class BitmapImage extends GraphicElement
         else
         {
             var loader:Loader = new Loader();
-            
             var loaderContext:LoaderContext = new LoaderContext();
-            loaderContext.checkPolicyFile = true;
             
             // Attach load-event listeners to our LoaderInfo instance.
             loadingContent = loader.contentLoaderInfo;
@@ -1280,14 +1287,35 @@ public class BitmapImage extends GraphicElement
 
             try
             {
-                var urlRequest:URLRequest = url is URLRequest ? 
-                    url as URLRequest : new URLRequest(url as String);
+                loaderContext.checkPolicyFile = true;
+                var urlRequest:URLRequest = source is URLRequest ? 
+                    source as URLRequest : new URLRequest(source as String);
                 loader.load(urlRequest, loaderContext);
             }
             catch (error:SecurityError)
             {
                 handleSecurityError(error);
             }
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function loadFromBytes(source:ByteArray):void
+    {                 
+        var loader:Loader = new Loader();           
+        var loaderContext:LoaderContext = new LoaderContext();
+        loadingContent = loader.contentLoaderInfo;
+        attachLoadingListeners();
+        
+        try
+        {
+            loader.loadBytes(source as ByteArray, loaderContext);
+        }
+        catch (error:SecurityError)
+        {
+            handleSecurityError(error);
         }
     }
     
