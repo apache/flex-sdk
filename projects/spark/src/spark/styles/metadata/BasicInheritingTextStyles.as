@@ -71,6 +71,8 @@
  *
  *  @see flashx.textLayout.formats.ITextLayoutFormat#color
  *  @see spark.components.supportClasses.StyleableTextField#style:color
+ * 
+ *  @default 0x000000
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -156,6 +158,9 @@
  *
  *  <p><b>For the Mobile theme, see
  *  spark.components.supportClasses.StyleableTextField Style fontFamily.</b></p>
+ * 
+ *  <p>The default value for the Spark theme is <code>Arial</code>.
+ *  The default value for the Mobile theme is <code>_sans</code>.</p>
  *
  *  @see flashx.textLayout.formats.ITextLayoutFormat#fontFamily
  *  @see spark.components.supportClasses.StyleableTextField#style:fontFamily
@@ -192,6 +197,9 @@
  *
  *  <p><b>For the Mobile theme, see
  *  spark.components.supportClasses.StyleableTextField Style fontSize</b></p>
+ * 
+ *  <p>The default value for the Spark theme is <code>12</code>.
+ *  The default value for the Mobile theme is <code>24</code>.</p>
  *
  *  @see flashx.textLayout.formats.ITextLayoutFormat#fontSize
  *  @see spark.components.supportClasses.StyleableTextField#style:fontSize
