@@ -11,7 +11,8 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<Skin xmlns="http://ns.adobe.com/mxml/2009"
+      alpha.disabled="0.5">
 
     <Metadata>
     	[HostComponent("mx.components.FxSpinner")]
