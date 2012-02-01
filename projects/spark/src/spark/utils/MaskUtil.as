@@ -95,30 +95,26 @@ public class MaskUtil
         if (!mask)
             return;
         
-        // If the mask is not parented, then we need to parent it.
-        if (!mask.parent)
+        var maskComp:UIComponent = mask as UIComponent;            
+        if (maskComp)
         {
-            var maskComp:UIComponent = mask as UIComponent;            
-            if (maskComp)
+            if (parent)
             {
-                if (parent)
-                {
-                    // Add the mask to the UIComponent document tree. 
-                    // This is required to properly render the mask.
-                    UIComponent(parent).addingChild(maskComp);
-                    UIComponent(parent).childAdded(maskComp);
-                }
-                
-                // Size the mask including its children so that it actually 
-                // renders.
-                UIComponentGlobals.layoutManager.validateClient(maskComp, true);
-                
-                // Call this to force the mask to complete initialization
-                maskComp.invalidateDisplayList();
-                maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
-                    maskComp.getExplicitOrMeasuredHeight());                    
-            }                       
-        }
+                // Add the mask to the UIComponent document tree. 
+                // This is required to properly render the mask.
+                UIComponent(parent).addingChild(maskComp);
+                UIComponent(parent).childAdded(maskComp);
+            }
+            
+            // Size the mask including its children so that it actually 
+            // renders.
+            UIComponentGlobals.layoutManager.validateClient(maskComp, true);
+            
+            // Call this to force the mask to complete initialization
+            maskComp.invalidateDisplayList();
+            maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
+                maskComp.getExplicitOrMeasuredHeight());                    
+        }  
     }
     
     /**
