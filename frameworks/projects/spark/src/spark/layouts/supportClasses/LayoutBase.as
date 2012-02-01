@@ -402,10 +402,10 @@ public class LayoutBase extends OnDemandEventDispatcher
             return null;
          
          // TODO EGeorgie: helper method?   
-         var elementX:Number = element.getLayoutPositionX();
-         var elementY:Number = element.getLayoutPositionY();
-         var elementW:Number = element.getLayoutWidth();
-         var elementH:Number = element.getLayoutHeight();
+         var elementX:Number = element.getLayoutBoundsX();
+         var elementY:Number = element.getLayoutBoundsY();
+         var elementW:Number = element.getLayoutBoundsWidth();
+         var elementH:Number = element.getLayoutBoundsHeight();
          var elementR:Rectangle = new Rectangle(elementX, elementY, elementW, elementH);
          
          if (scrollR.containsRect(elementR) || elementR.containsRect(scrollR))
