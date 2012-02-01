@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.layout.supportClasses
+package spark.layouts.supportClasses
 {
 
 import flash.geom.Point;
@@ -277,8 +277,8 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @default The target's first layout element.
      *  @see target
      *  @see DataGroup#typicalItem
-     *  @see spark.layout.VerticalLayout#variableRowHeight
-     *  @see spark.layout.HorizontalLayout#variableColumnWidth
+     *  @see spark.layouts.VerticalLayout#variableRowHeight
+     *  @see spark.layouts.HorizontalLayout#variableColumnWidth
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
