@@ -101,7 +101,7 @@ which positions the label above the content
             <s:constraintColumns>
                 <s:ConstraintColumn id="sequenceCol" />
                 <s:ConstraintColumn id="contentCol"/>
-                <s:ConstraintColumn id="helpCol"/>
+                <s:ConstraintColumn id="helpCol" maxWidth="200"/>
             </s:constraintColumns>         
             <s:constraintRows>
                 <s:ConstraintRow id="row1" baseline="maxAscent:4"/>
@@ -126,7 +126,7 @@ which positions the label above the content
              bottom="row1:5" baseline="row1:0"/>
     <s:Group id="contentGroup" 
              showErrorTip="false" showErrorSkin="true"
-             left="contentCol:0" right="contentCol:27" 
+             left="contentCol:0" right="contentCol:1" 
              top="row2:0" bottom="row2:4" baseline="row2:0">
         <s:layout>
             <s:VerticalLayout/>
