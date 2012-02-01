@@ -15,7 +15,7 @@
 	  width="120" height="15">
 
     <Metadata>
-    	[HostComponent("flex.component.HScrollBar")]
+    	[HostComponent("mx.components.FxHScrollBar")]
     </Metadata> 
     
     <states>
@@ -23,12 +23,12 @@
     	<State name="disabled" />
     </states>
     
-    <Button id="track" left="17" right="17"
-            skinZZ="flex.skin.HScrollBarTrackSkin" />
-    <Button id="thumb" skinZZ="flex.skin.HScrollBarThumbSkin" />
-    <Button id="decrementButton" left="0"
-            skinZZ="flex.skin.ScrollBarLeftButtonSkin" />
-    <Button id="incrementButton" right="0"
-            skinZZ="flex.skin.ScrollBarRightButtonSkin" />
+    <FxButton id="track" left="17" right="17"
+            skinZZ="mx.skins.spark.FxHScrollBarTrackSkin" />
+    <FxButton id="thumb" skinZZ="mx.skins.spark.FxHScrollBarThumbSkin" />
+    <FxButton id="decrementButton" left="0"
+            skinZZ="mx.skins.spark.FxScrollBarLeftButtonSkin" />
+    <FxButton id="incrementButton" right="0"
+            skinZZ="mx.skins.spark.FxScrollBarRightButtonSkin" />
 
 </Skin>
