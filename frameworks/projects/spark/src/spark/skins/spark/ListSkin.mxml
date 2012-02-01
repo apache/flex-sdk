@@ -17,9 +17,9 @@
     	[HostComponent("flex.component.List")]
     </Metadata> 
     
-    <Group id="contentGroup" left="0" top="0" right="0" bottom="0">
+    <DataGroup id="dataGroup" left="0" top="0" right="0" bottom="0">
     	<layout>
-    		<VerticalLayout/>
+    	    <VerticalLayout/>
     	</layout>
-    </Group>
+    </DataGroup>
 </Skin>
