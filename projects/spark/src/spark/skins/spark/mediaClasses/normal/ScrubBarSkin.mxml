@@ -38,15 +38,16 @@
     
     <fx:Declarations>
         <fx:Component id="dataTip">     
-           <s:MXMLComponent minHeight="24" minWidth="40" y="-34">  
-              <s:Rect top="0" left="0" right="0" bottom="0">
+            <s:MXMLComponent minHeight="24" minWidth="40" y="-34">
+                <s:RectangularDropShadow id="shadow" distance="3" 
+                    angle="90" color="#999999" left="0" top="0" right="0" bottom="0"/>
+                    
+                <s:Rect top="0" left="0" right="0" bottom="0">
                     <s:fill>
                         <s:SolidColor color="0x000000" alpha=".9"/>
                     </s:fill>
-                    <s:filters>
-                        <s:DropShadowFilter angle="90" color="0x999999" distance="3"/>
-                    </s:filters>
                 </s:Rect>
+                
                 <s:SimpleText id="labelElement" text="{data}"
                          horizontalCenter="0" verticalCenter="1"
                          left="5" right="5" top="5" bottom="5"
@@ -54,13 +55,13 @@
                          fontWeight="normal" color="white" fontSize="11">
                 </s:SimpleText>
             </s:MXMLComponent>
-       </fx:Component>
+        </fx:Component>
     </fx:Declarations>
     
     <s:Button id="track" left="0" right="0" top="0" height="11"
               skinClass="spark.skins.default.VideoPlayerScrubBarTrackSkin" />
 
-    <s:Group id="bufferedArea" left="0" top="0" height="11">
+    <s:Group id="bufferedArea" x="0" y="0" height="11" includeInLayout="false">
     
         <!-- inset 7 and 6 pixels because that's thumbSize/2 -->
         <s:Group left="7" right="6" top="0" bottom="0" minWidth="0">
@@ -98,7 +99,7 @@
         </s:Group>    
     </s:Group>
     
-    <s:Group id="playedArea" left="0" top="0" height="11">
+    <s:Group id="playedArea" x="0" y="0" height="11" includeInLayout="false">
     
         <!-- inset 7 and 6 pixels because that's thumbSize/2 -->
         <s:Group left="7" right="6" top="0" bottom="0" minWidth="0">
