@@ -39,10 +39,10 @@
     <s:Rect left="2" right="2" top="0" bottom="0" 
           radiusX="3" radiusY="3" width="6">
         <s:stroke>
-            <s:SolidColorStroke color="0x5380D0" />
+            <s:SolidColorStroke color="#707070" />
         </s:stroke>
         <s:fill>
-            <s:SolidColor color="0xDEECFF" />
+            <s:SolidColor color="#EEEEEE" />
         </s:fill>
     </s:Rect>
     
