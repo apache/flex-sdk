@@ -670,6 +670,7 @@ public class Path extends FilledElement
         clearBounds();
         _data = null;
         invalidateSize();
+        invalidateDisplayList();
     }
    
     /**
