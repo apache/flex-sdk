@@ -288,7 +288,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     public function get typicalLayoutElement():ILayoutElement
     {
         if (!_typicalLayoutElement && target && (target.numElements > 0))
-            _typicalLayoutElement = target.getVirtualElementAt(0);
+            _typicalLayoutElement = target.getElementAt(0);
         return _typicalLayoutElement;
     }
 
