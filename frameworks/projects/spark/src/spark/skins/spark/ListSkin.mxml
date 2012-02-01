@@ -27,7 +27,7 @@
     <fx:Metadata>
     <![CDATA[ 
     /** 
-     * @copy spark.skins.default.ApplicationSkin#hostComponent
+     * @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
         [HostComponent("spark.components.List")]
     ]]>
@@ -73,7 +73,7 @@
     <!--- The Scroller component to add scroll bars to the list. -->
     <s:Scroller left="0" top="0" right="0" bottom="0" id="scroller" minViewportInset="1" focusEnabled="false">
         <!--- The container for the data items. -->
-        <s:DataGroup id="dataGroup" itemRenderer="spark.skins.default.DefaultItemRenderer">
+        <s:DataGroup id="dataGroup" itemRenderer="spark.skins.spark.DefaultItemRenderer">
             <s:layout>
                 <s:VerticalLayout gap="0" horizontalAlign="contentJustify" />
             </s:layout>
