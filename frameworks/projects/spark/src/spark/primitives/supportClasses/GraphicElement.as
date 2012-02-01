@@ -3207,7 +3207,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         if (shareIndex <= 0 && drawnDisplayObject is ISharedGraphicsDisplayObject)
             ISharedGraphicsDisplayObject(drawnDisplayObject).graphics.clear();
 
-        if (visible)
+        if (visible || shareIndex == -1)
             updateDisplayList(_width, _height);
 
         // If we aren't doing any more invalidation, send out an UpdateComplete event
