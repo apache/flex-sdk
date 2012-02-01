@@ -14,7 +14,7 @@ package flex.layout
 import flash.geom.Rectangle;
 import flash.events.EventDispatcher;
 
-import flex.core.Group;
+import flex.core.GroupBase;
 import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 
@@ -64,7 +64,7 @@ public class VerticalLayout extends EventDispatcher implements ILayout
      */    
     public function VerticalLayout():void
     {
-		super();
+        super();
     }
     
     //--------------------------------------------------------------------------
@@ -73,14 +73,14 @@ public class VerticalLayout extends EventDispatcher implements ILayout
     //
     //--------------------------------------------------------------------------
 
-    private var _target:Group;
+    private var _target:GroupBase;
     
-    public function get target():Group
+    public function get target():GroupBase
     {
         return _target;
     }
     
-    public function set target(value:Group):void
+    public function set target(value:GroupBase):void
     {
         _target = value;
     }
@@ -90,7 +90,7 @@ public class VerticalLayout extends EventDispatcher implements ILayout
     //----------------------------------
     private function invalidateTargetSizeAndDisplayList():void
     {
-        var layoutTarget:Group = target;
+        var layoutTarget:GroupBase = target;
         if (layoutTarget != null) 
         {
             layoutTarget.invalidateSize();
@@ -120,7 +120,7 @@ public class VerticalLayout extends EventDispatcher implements ILayout
         if (_gap == value) 
             return;
 
-		_gap = value;
+        _gap = value;
         invalidateTargetSizeAndDisplayList();
     }
 
@@ -300,7 +300,7 @@ public class VerticalLayout extends EventDispatcher implements ILayout
     }
 
 
-    private function variableRowHeightMeasure(layoutTarget:Group):void
+    private function variableRowHeightMeasure(layoutTarget:GroupBase):void
     {
         var minWidth:Number = 0;
         var minHeight:Number = 0;
@@ -359,7 +359,7 @@ public class VerticalLayout extends EventDispatcher implements ILayout
     }
    
    
-    private function fixedRowHeightMeasure(layoutTarget:Group):void
+    private function fixedRowHeightMeasure(layoutTarget:GroupBase):void
     {
     	var rows:uint = layoutTarget.numLayoutItems;
 
@@ -407,21 +407,21 @@ public class VerticalLayout extends EventDispatcher implements ILayout
     
     public function measure():void
     {
-    	var layoutTarget:Group = target;
+    	var layoutTarget:GroupBase = target;
         if (!layoutTarget)
             return;
             
         if (variableRowHeight) 
-        	variableRowHeightMeasure(layoutTarget);
+            variableRowHeightMeasure(layoutTarget);
         else 
-        	fixedRowHeightMeasure(layoutTarget);
+            fixedRowHeightMeasure(layoutTarget);
 
     }
     
     
     public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-    	var layoutTarget:Group = target; 
+    	var layoutTarget:GroupBase = target; 
         if (!layoutTarget)
             return;
         
