@@ -29,7 +29,7 @@ public class FxMoveInstance extends FxAnimateInstance
     public function FxMoveInstance(target:Object)
     {
         super(target);
-        roundValues = true;
+        affectsConstraints = true;
     }
 
     //--------------------------------------------------------------------------
@@ -164,87 +164,12 @@ public class FxMoveInstance extends FxAnimateInstance
 			}
 		}
 
-        if (target is IStyleClient)
-        {
-            var left:* = target.getStyle("left");
-            if (left != undefined)
-                target.setStyle("left",undefined);
-        
-            var right:* = target.getStyle("right");
-            if (right != undefined)
-                target.setStyle("right",undefined);
-            
-            var top:* = target.getStyle("top");
-            if (top != undefined)
-                target.setStyle("top",undefined);
-            
-            var bottom:* = target.getStyle("bottom");
-            if (bottom != undefined)
-                target.setStyle("bottom",undefined);    
-
-            var hCenter:* = target.getStyle("horizontalCenter");
-            if (hCenter != undefined)
-                target.setStyle("horizontalCenter",undefined);    
-
-            var vCenter:* = target.getStyle("verticalCenter");
-            if (vCenter != undefined)
-                target.setStyle("verticalCenter",undefined);    
-        }
-        
         propertyValuesList = 
             [new PropertyValuesHolder("x", [xFrom, xTo]),
              new PropertyValuesHolder("y", [yFrom, yTo])];
         
-        // TODO: These additional pvholder items are a workaround for the
-        // current difference between GraphicElement constraints and
-        // UIComponent constraints. For components, the constraints
-        // side-effect the width/height properties which we can then animate.
-        // For GraphicElements, this does not happen, so animations on
-        // width/height are ignored when constraints are set.
-        // Expect this to change with GraphicElement and UIComponent are
-        // more closely aligned in behavior. 
-        if (target is IGraphicElement && propertyChanges)
-        {
-            if (!isNaN(propertyChanges.start["left"]) ||
-                !isNaN(propertyChanges.end["left"]))
-            {
-                var lFrom:Number = !isNaN(propertyChanges.start["left"]) ?
-                    propertyChanges.start["left"] : getCurrentValue("left");
-                var lTo:Number = !isNaN(propertyChanges.end["left"]) ?
-                    propertyChanges.end["left"] : getCurrentValue("left");
-                propertyValuesList.push(new PropertyValuesHolder("left", [lFrom, lTo]));
-            }
-            if (!isNaN(propertyChanges.start["right"]) ||
-                !isNaN(propertyChanges.end["right"]))
-            {
-                var rFrom:Number = !isNaN(propertyChanges.start["right"]) ?
-                    propertyChanges.start["right"] : getCurrentValue("right");
-                var rTo:Number = !isNaN(propertyChanges.end["right"]) ?
-                    propertyChanges.end["right"] : getCurrentValue("right");
-                propertyValuesList.push(new PropertyValuesHolder("right", [rFrom, rTo]));
-            }
-            if (!isNaN(propertyChanges.start["top"]) ||
-                !isNaN(propertyChanges.end["top"]))
-            {
-                var tFrom:Number = !isNaN(propertyChanges.start["top"]) ?
-                    propertyChanges.start["top"] : getCurrentValue("top");
-                var tTo:Number = !isNaN(propertyChanges.end["top"]) ?
-                    propertyChanges.end["top"] : getCurrentValue("top");
-                propertyValuesList.push(new PropertyValuesHolder("top", [tFrom, tTo]));
-            }
-            if (!isNaN(propertyChanges.start["bottom"]) ||
-                !isNaN(propertyChanges.end["bottom"]))
-            {
-                var bFrom:Number = !isNaN(propertyChanges.start["bottom"]) ?
-                    propertyChanges.start["bottom"] : getCurrentValue("bottom");
-                var bTo:Number = !isNaN(propertyChanges.end["bottom"]) ?
-                    propertyChanges.end["bottom"] : getCurrentValue("bottom");
-                propertyValuesList.push(new PropertyValuesHolder("bottom", [bFrom, bTo]));
-            }
-        }
-
         // TODO (chaase): The Flex3 version of Move had logic for forcing clipping
-        // off during the effect. We probalyy need something like this
+        // off during the effect. We probably need something like this
         // in this version as well, but the implementation is TBD with the
         // new container (Group) and layout management in Flex4
         
