@@ -323,6 +323,10 @@ public class BitmapGraphic extends GraphicElement
             {
                 tmpSprite = value as DisplayObject;
             }
+            else if (value == null)
+            {
+            	// This will set source to null
+            }	
             else
             {
                 return;
