@@ -163,11 +163,11 @@ public class StrokedElement extends GraphicElement
     protected function beginDraw(g:Graphics):void
     {
         if (stroke)
-            stroke.apply(g,new Rectangle(drawX + measuredX, 
-            						    drawY + measuredY, 
-            						    Math.max(width, stroke.weight), 
-            						    Math.max(height, stroke.weight)),
-                         new Point(drawX, drawY));
+        {
+            var strokeBounds:Rectangle = getStrokeBounds();
+            strokeBounds.offset(drawX, drawY);
+            stroke.apply(g, strokeBounds, new Point(drawX, drawY));
+        }
         else
             g.lineStyle();
             
@@ -175,7 +175,7 @@ public class StrokedElement extends GraphicElement
         // otherwise subsequent fills could get messed up.
         g.beginFill(0, 0);
     }
-    
+
     /**
      *  Draw the element. This is the second of three steps taken during the drawing
      *  process. Override this method to implement your drawing. The stroke
@@ -207,8 +207,23 @@ public class StrokedElement extends GraphicElement
     protected function endDraw(g:Graphics):void
     {
         g.endFill();
-    }
     
+    }
+
+    /**
+     *  @private
+     *  Returns the bounds of the element, including stroke in local coordinates.
+     */  
+    protected function getStrokeBounds():Rectangle
+    {
+        var strokeBounds:Rectangle = getStrokeExtents(false /*postLayoutTransform*/);
+        strokeBounds.x += measuredX;
+        strokeBounds.width += width;
+        strokeBounds.y += measuredY;
+        strokeBounds.height += height;
+        return strokeBounds;
+    }
+
     /**
      *  @private
      */  
