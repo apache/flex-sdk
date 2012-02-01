@@ -28,6 +28,15 @@
         import mx.core.EdgeMetrics;
         import mx.core.IUIComponent;
         
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useBaseColor = true;
+            super.initializationComplete();
+        }
+        
         /* Define the skin elements that should not be colorized. 
            For panel, border and title backround are skinned, but the content area and title text are not. */
         static private const exclusions:Array = ["background"];
@@ -155,7 +164,18 @@
             var cr:Number = getStyle("cornerRadius");
             
             if (cornerRadius != cr)
+            {
                 cornerRadius = cr;
+                contentMaskRect.topLeftRadiusX = cornerRadius;
+                contentMaskRect.topRightRadiusX = cornerRadius;
+                border.topLeftRadiusX = cornerRadius;
+                border.topRightRadiusX = cornerRadius;
+                dropShadow.trRadius = cornerRadius;
+                dropShadow.tlRadius = cornerRadius;
+            }
+            
+            backgroundFill.color = getStyle("backgroundColor");
+            backgroundFill.alpha = getStyle("backgroundAlpha");
             
             super.updateDisplayList(unscaledWidth, unscaledHeight);
         }
@@ -197,22 +217,21 @@
             return true;
         }
             
-        [Bindable]
-        public var cornerRadius:Number;
+        private var cornerRadius:Number;
         ]]>
     </fx:Script>
      
     <!-- drop shadow -->
     <s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.32" distance="11" 
                              angle="90" color="#000000" left="0" top="0" right="0" bottom="0" 
-                             tlRadius="{cornerRadius}" trRadius="{cornerRadius}"
+                             tlRadius="0" trRadius="0"
                              blRadius="0" 
                              brRadius="0"  />
     
     <!-- content mask -->
     <s:Group left="1" top="1" right="1" bottom="1" id="contentMask" >
-        <s:Rect left="0" top="0" right="0" bottom="0"
-                topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
+        <s:Rect left="0" top="0" right="0" bottom="0" id="contentMaskRect"
+                topLeftRadiusX="0" topRightRadiusX="0">
             <s:fill>
                 <s:SolidColor alpha="0"/>
             </s:fill>
@@ -220,8 +239,8 @@
     </s:Group>
     
     <!-- layer 1: border -->
-    <s:Rect id="border" left="0" right="0" top="0" bottom="0"
-            topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
+    <s:Rect id="border" left="0" right="0" top="0" bottom="0" 
+            topLeftRadiusX="0" topRightRadiusX="0">
         <s:stroke>
             <s:SolidColorStroke id="borderStroke" weight="1" />
         </s:stroke>
@@ -231,8 +250,7 @@
         <!-- layer 2: background fill -->
         <s:Rect id="background" left="0" top="0" right="0" bottom="0">
             <s:fill>
-                <s:SolidColor color="{getStyle('backgroundColor')}" 
-                              alpha="{getStyle('backgroundAlpha')}" />
+                <s:SolidColor id="backgroundFill" />
             </s:fill>
         </s:Rect>
         
