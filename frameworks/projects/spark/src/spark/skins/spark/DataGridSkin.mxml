@@ -42,6 +42,9 @@ declarations define DataGrid skin parts except <code>headerColumnSeparator</code
     
     <fx:Metadata>
     <![CDATA[
+        /** 
+        * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.DataGrid")]
     ]]>
     </fx:Metadata>
