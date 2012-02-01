@@ -15,8 +15,7 @@
     use the ButtonBarLastButtonSkin, ButtonBarFirstButtonSkin and ButtonBarMiddleButtonSkin classes.  
     
       @see spark.components.ButtonBar
-      @see spark.components.ButtonBarButton
-    
+      @see spark.components.ButtonBarButton    
         
       @langversion 3.0
       @playerversion Flash 10
@@ -44,6 +43,7 @@
         <!--- 
             @copy spark.components.ButtonBar#firstButton
             @default spark.skins.spark.ButtonBarFirstButtonSkin
+            @see spark.skins.spark.ButtonBarFirstButtonSkin
         -->
         <fx:Component id="firstButton">
             <s:ButtonBarButton skinClass="spark.skins.spark.ButtonBarFirstButtonSkin" />
@@ -52,6 +52,7 @@
         <!--- 
             @copy spark.components.ButtonBar#middleButton
             @default spark.skins.spark.ButtonBarMiddleButtonSkin
+            @see spark.skins.spark.ButtonBarMiddleButtonSkin
         -->
         <fx:Component id="middleButton" >
             <s:ButtonBarButton skinClass="spark.skins.spark.ButtonBarMiddleButtonSkin" />
@@ -60,6 +61,7 @@
         <!--- 
             @copy spark.components.ButtonBar#lastButton
             @default spark.skins.spark.ButtonBarLastButtonSkin
+            @see spark.skins.spark.ButtonBarLastButtonSkin
         -->
         <fx:Component id="lastButton" >
             <s:ButtonBarButton skinClass="spark.skins.spark.ButtonBarLastButtonSkin" />
