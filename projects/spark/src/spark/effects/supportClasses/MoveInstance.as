@@ -146,8 +146,8 @@ public class MoveInstance extends AnimateInstance
     override public function play():void
     {
         animationProperties = 
-            [new AnimationProperty("x", xFrom, xTo, xBy),
-             new AnimationProperty("y", yFrom, yTo, yBy)];
+            [new AnimationProperty("x", xFrom, xTo, duration, xBy),
+             new AnimationProperty("y", yFrom, yTo, duration, yBy)];
         
         // TODO (chaase): The Flex3 version of Move had logic for forcing clipping
         // off during the effect. We probably need something like this
