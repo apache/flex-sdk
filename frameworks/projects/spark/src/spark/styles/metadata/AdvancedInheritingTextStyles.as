@@ -57,7 +57,17 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="leadingModel", type="String", enumeration="auto,romanUp,ideographicTopUp,ideographicCenterUp,ideographicTopDown,ideographicCenterDown,ascentDescentUp", inherit="yes")]
+[Style(name="leadingModel", type="String", enumeration="auto,romanUp,ideographicTopUp,ideographicCenterUp,ideographicTopDown,ideographicCenterDown,ascentDescentUp,box", inherit="yes")]
+
+/**
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#listAutoPadding
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="listAutoPadding", type="Number", format="length", inherit="yes", minValue="-1000", maxValue="1000")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#listStylePosition
@@ -158,3 +168,14 @@
  *  @productversion Flex 4
  */
 [Style(name="whiteSpaceCollapse", type="String", enumeration="collapse,preserve", inherit="yes")]
+
+
+/**
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#wordSpacing
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.5
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Style(name="wordSpacing", type="Object", inherit="yes")]
