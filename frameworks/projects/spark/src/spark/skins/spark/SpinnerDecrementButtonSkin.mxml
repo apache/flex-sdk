@@ -57,13 +57,6 @@
     
     <s:Group left="0" top="0" right="0" bottom="0"
              scaleGridLeft="3" scaleGridTop="3" scaleGridRight="15" scaleGridBottom="6">
-        <!-- Workaround for scale grid. Draw a transparent filled rect the
-             size of the skin. -->
-        <s:Rect left="0" top="0" right="0" bottom="0">
-            <s:fill>
-                <s:SolidColor color="0" alpha="0" />
-            </s:fill>
-        </s:Rect>
         
         <!-- border/fill -->
         <s:Path data="M 0 0 h 18 v 8 Q 18 9 16 10 h -16 Z" 
