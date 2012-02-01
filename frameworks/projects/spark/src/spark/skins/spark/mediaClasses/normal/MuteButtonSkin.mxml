@@ -11,7 +11,11 @@
 
 -->
 
-<!--- The default skin class for the mute button of a Spark VideoPlayer component.  
+<!--- The default skin class for the mute button of a Spark VideoPlayer component  
+      in the normal skin state. The normal skin state means the component is not in 
+      one of the <code>fullScreen</code> skin states.  
+
+      @see spark.components.VideoPlayer
         
       @langversion 3.0
       @playerversion Flash 10
@@ -81,7 +85,10 @@
             }
             
             private var _volume:Number = 1;
-            
+
+            /**
+            *  The volume of the video player, specified as a value between 0 and 1.
+            */
             public function get volume():Number
             {
                 return _volume;
@@ -195,7 +202,7 @@
         </s:stroke>
     </s:Rect>
     
-    <!--- volume symbol -->
+    <!--- Defines the volume symbol. -->
     <s:Group horizontalCenter="0" verticalCenter="0" id="volumeSymbol">
     
         <!-- big trapezoid in center -->
