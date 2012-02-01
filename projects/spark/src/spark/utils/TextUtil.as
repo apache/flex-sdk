@@ -13,6 +13,7 @@ package spark.utils
 {
 
 import flash.text.engine.ElementFormat;
+import flash.text.engine.FontDescription;
 import flash.text.engine.FontLookup;
 
 import flashx.textLayout.compose.ISWFContext;
@@ -189,7 +190,11 @@ public class TextUtil
             {
                 return FontLookup.EMBEDDED_CFF;
             }
-        }
+			if (swfContext.callInContext( FontDescription.isFontCompatible, FontDescription, [name, format.fontWeight, format.fontStyle]))
+				return FontLookup.EMBEDDED_CFF;
+		}
+		else if (FontDescription.isFontCompatible(format. fontFamily, format.fontWeight, format.fontStyle))
+			return FontLookup.EMBEDDED_CFF;
         
         return FontLookup.DEVICE; 
     }    
