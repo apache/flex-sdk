@@ -272,7 +272,7 @@ public class GraphicElement extends OnDemandEventDispatcher
             layoutFeatures.updatePending = true;
 
         // If we are sharing a display object we need to redraw
-        if (!displayObject || !nextSiblingNeedsDisplayObject)
+        if (shareIndex >= 0)
             invalidateDisplayList();
         else
             invalidateProperties(); // We apply the transform in commitProperties
@@ -280,7 +280,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         // Trigger a layout pass
         if (triggerLayout)
             invalidateParentSizeAndDisplayList();
-    }
+        }
 
     /**
      * @private
@@ -502,19 +502,9 @@ public class GraphicElement extends OnDemandEventDispatcher
     /**
      *  @inheritDoc
      */
-    public function parentChanged(value:DisplayObjectContainer):void
+    public function parentChanged(value:Group):void
     {
-        // Should I check to make sure it's a Group here?
-        if (_parent !== value)
-        {
-            _parent = value;
-            if (_parent && _parent is IInvalidating)
-            {
-                IInvalidating(_parent).invalidateProperties();
-                IInvalidating(_parent).invalidateSize();
-                IInvalidating(_parent).invalidateDisplayList();
-            }
-        }
+        _parent = value;
     }
 
     //----------------------------------
@@ -1575,7 +1565,7 @@ public class GraphicElement extends OnDemandEventDispatcher
         _transform = value;
     }
     
-	/**
+    /**
 	 * A utility method to update the rotation and scale of the transform while keeping a particular point, specified in the component's own coordinate space, 
 	 * fixed in the parent's coordinate space.  This function will assign the rotation and scale values provided, then update the x/y/z properties
 	 * as necessary to keep tx/ty/tz fixed.
@@ -1908,14 +1898,8 @@ public class GraphicElement extends OnDemandEventDispatcher
             return;
 
         _visible = value;
-
         visibleChanged = true;
-
         invalidateProperties();
-        
-        // TODO: This is a quick fix for MXMLG-228. We should
-        // investigate a better solution.
-        notifyElementLayerChanged();
     }
 
     //--------------------------------------------------------------------------
@@ -1964,11 +1948,11 @@ public class GraphicElement extends OnDemandEventDispatcher
         dispatchPropertyChangeEvent("displayObject", oldValue, value);
 
         // We need to apply the display object related properties.
-        displayObjectChanged = true;
-        invalidateProperties();
-
-        // New display object, we need to redraw
-        invalidateDisplayList();
+        if (shareIndex <= 0)
+        {
+            displayObjectChanged = true;
+            invalidateProperties();
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -1986,17 +1970,19 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     protected function get drawX():Number
     {
-    	// If we have a display object and we might be shared, the display object 
-    	// gets moved to 0,0. Otherwise, use the x position plus the offset. 
-    	// (Note that in the first case, the offset is already calculated when the
-    	// layout matrix is applied to the display object). 
-    	if (displayObject != null && nextSiblingNeedsDisplayObject)
-    		return 0;
-        if(layoutFeatures != null && layoutFeatures.offsets != null)
+        // If we don't share the display object, we will draw at 0,0
+        // since the display object will be positioned at x,y
+        if (shareIndex == -1)
+            return 0;
+            
+        // Otherwise we draw at x,y since the display object will be
+        // positioned at 0,0
+        if (layoutFeatures != null && layoutFeatures.offsets != null)
             return x + layoutFeatures.offsets.x;
-		return x;
-    }
-    
+            
+        return x;
+    } 
+        
     //----------------------------------
     //  drawY
     //----------------------------------
@@ -2006,14 +1992,16 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     protected function get drawY():Number
     {
-    	// If we have a display object and we might be shared, the display object 
-    	// gets moved to 0,0. Otherwise, use the x position plus the offset. 
-    	// (Note that in the first case, the offset is already calculated when the
-    	// layout matrix is applied to the display object). 
-    	if (displayObject != null && nextSiblingNeedsDisplayObject)
-    		return 0;
-        if(layoutFeatures != null && layoutFeatures.offsets != null)
-            return y + layoutFeatures.offsets.y;    
+        // If we don't share the display object, we will draw at 0,0
+        // since the display object will be positioned at x,y
+        if (shareIndex == -1)
+            return 0;
+            
+        // Otherwise we draw at x,y since the display object will be
+        // positioned at 0,0
+        if (layoutFeatures != null && layoutFeatures.offsets != null)
+            return y + layoutFeatures.offsets.y;
+            
         return y;
     }
     
@@ -2063,33 +2051,7 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function createDisplayObject():DisplayObject
     {
-        if (displayObject)
-            return displayObject;
-        
-        displayObject = new InvalidatingSprite();
-        InvalidatingSprite(displayObject).invalid = true;
-        
-        sharedDisplayObject = null;
-        
-        return displayObject;
-    }
-    
-    
-    /**
-     *  @inheritDoc
-     */
-    public function destroyDisplayObject():DisplayObject
-    {
-        // TODO!! Figure out what cleanup to do
-        var oldDisplayObject:DisplayObject;
-        
-        if (displayObject)
-        {
-            oldDisplayObject = displayObject;
-            displayObject = null;
-        }
-        
-        return oldDisplayObject;
+        return new InvalidatingSprite();
     }
     
     private var _alwaysCreateDisplayObject:Boolean;
@@ -2112,72 +2074,67 @@ public class GraphicElement extends OnDemandEventDispatcher
     }
 
     /**
-     *  @inheritDoc
+     *  Documentation is not currently available.
      */
-    public function get needsDisplayObject():Boolean
+    protected function get needsDisplayObject():Boolean
     {
         var result:Boolean = (alwaysCreateDisplayObject ||
-		(_filters && _filters.length > 0) || 
+        (_filters && _filters.length > 0) || 
             _blendMode != BlendMode.NORMAL || _mask ||
             (layoutFeatures != null && (layoutFeatures.layoutScaleX != 1 || layoutFeatures.layoutScaleY != 1 || layoutFeatures.layoutScaleZ != 1 ||
             layoutFeatures.layoutRotationX != 0 || layoutFeatures.layoutRotationY != 0 || layoutFeatures.layoutRotationZ != 0 ||
             layoutFeatures.layoutZ  != 0)) ||  
             _colorTransform != null ||
-            _alpha != 1 ||
-            layer != 0);
-	
+            _alpha != 1);
+    
         if(layoutFeatures != null && layoutFeatures.offsets != null)
         {
             var o:TransformOffsets = layoutFeatures.offsets;
             result = result || (o.scaleX != 1 || o.scaleY != 1 || o.scaleZ != 1 ||
             o.rotationX != 0 || o.rotationY != 0 || o.rotationZ != 0 || o.z  != 0);       
         }
-    	
+        
         return result;
     }
     
     /**
      *  @inheritDoc
      */
-    public function get nextSiblingNeedsDisplayObject():Boolean
+    public function canDrawToShared(sharedDisplayObject:DisplayObject):Boolean
     {
-        // TODO: The displayObject && visible test is a quick fix for MXMLG-228.
-        // Should investigate a better solution.
-        return needsDisplayObject || (displayObject && visible == false);
+        return !needsDisplayObject && sharedDisplayObject is ISharedGraphicsDisplayObject;
     }
-    
-    private var _sharedDisplayObject:DisplayObject;
     
     /**
      *  @inheritDoc
      */
-    public function set sharedDisplayObject(value:DisplayObject):void
+    public function closeSequence():Boolean
     {
-    	if (value !== _sharedDisplayObject)
-    	{
-    		if (_sharedDisplayObject is InvalidatingSprite)
-    			InvalidatingSprite(_sharedDisplayObject).invalid = true;
-        	_sharedDisplayObject = value;
-        	// Invalidate the old _sharedDisplayObject before reassigning it to value
-        	// This should handle the case where value == null (ie. we are no longer sharing)
-        	// Also, instead of setting invalid flag, simply call invalidateDisplayList
-        	invalidateDisplayList();
-     	}
+        return false;
     }
-    
+
+    private var _shareIndex:int;
+
+    /**
+     *  @inheritDoc
+     */
+    public function set shareIndex(value:int):void
+    {
+        _shareIndex = value;
+    }
+
     /**
      *  @private
      */
-    public function get sharedDisplayObject():DisplayObject
+    public function get shareIndex():int
     {
-        return _sharedDisplayObject;
+        return _shareIndex;    
     }
-    
+
     protected function get drawnDisplayObject():DisplayObject
     {
     	// _drawnDisplayObject is non-null if we needed to create a mask
-        return _drawnDisplayObject ? _drawnDisplayObject : 
-        							 (displayObject ? displayObject : sharedDisplayObject);
+        return _drawnDisplayObject ? _drawnDisplayObject : displayObject; 
     }
 
     /**
@@ -2202,46 +2159,45 @@ public class GraphicElement extends OnDemandEventDispatcher
     public function getBitmapData(transparent:Boolean = true, fillColor:uint = 0xFFFFFFFF, useLocalSpace:Boolean = true):BitmapData
     {
         if (!layoutFeatures || !layoutFeatures.is3D)
-        {        		
-			var restoreDisplayObject:Boolean = false;
-			var oldDisplayObject:DisplayObject;
-			
-	        if (!displayObject || !nextSiblingNeedsDisplayObject)
-	        {
-	        	restoreDisplayObject = true;
-	        	oldDisplayObject = displayObject;
-	        	displayObject = new InvalidatingSprite();
-	        	UIComponent(parent).$addChild(displayObject);
-	            invalidateDisplayList();
-	            validateDisplayList();
-	        }
-	        
-	        var topLevel:Sprite = Sprite(IUIComponent(parent).systemManager);  	
-	    	var rectBounds:Rectangle = displayObject.getBounds(useLocalSpace ? displayObject.parent : topLevel); 
-	        var bitmapData:BitmapData = new BitmapData(rectBounds.width, rectBounds.height, transparent, fillColor);
-	        	
-	        var m:Matrix = useLocalSpace ? displayObject.transform.matrix : displayObject.transform.concatenatedMatrix;
-	        
+        {               
+            var restoreDisplayObject:Boolean = false;
+            var oldDisplayObject:DisplayObject;
+            
+            if (!displayObject || shareIndex != -1)
+            {
+                restoreDisplayObject = true;
+                oldDisplayObject = displayObject;
+                displayObject = new InvalidatingSprite();
+                UIComponent(parent).$addChild(displayObject);
+                invalidateDisplayList();
+                validateDisplayList();
+            }
+            
+            var topLevel:Sprite = Sprite(IUIComponent(parent).systemManager);   
+            var rectBounds:Rectangle = displayObject.getBounds(useLocalSpace ? displayObject.parent : topLevel); 
+            var bitmapData:BitmapData = new BitmapData(rectBounds.width, rectBounds.height, transparent, fillColor);
+                
+            var m:Matrix = useLocalSpace ? displayObject.transform.matrix : displayObject.transform.concatenatedMatrix;
+            
             if (m)
                 m.translate(-rectBounds.x, -rectBounds.y);
-	        
-	        bitmapData.draw(displayObject, m);
+            
+            bitmapData.draw(displayObject, m);
            
-			if (restoreDisplayObject)
-			{
-				UIComponent(parent).$removeChild(displayObject);
-            	displayObject = oldDisplayObject;
-			}
-        	return bitmapData;
+            if (restoreDisplayObject)
+            {
+                UIComponent(parent).$removeChild(displayObject);
+                displayObject = oldDisplayObject;
+            }
+            return bitmapData;
         
         }
         else
         {
-        	return get3DSnapshot(transparent, fillColor, useLocalSpace);
+            return get3DSnapshot(transparent, fillColor, useLocalSpace);
         }
-        
     }
-    
+            
    /**
      *  @private 
      *  Returns a bitmap snapshot of a 3D transformed displayObject. Since BitmapData.draw ignores
@@ -2254,7 +2210,7 @@ public class GraphicElement extends OnDemandEventDispatcher
     	var topLevel:Sprite = Sprite(IUIComponent(parent).systemManager); 
     	var dispObjParent:DisplayObjectContainer = displayObject.parent;
     	var drawSprite:Sprite = new Sprite();
-    	
+                
     	// Get the visual bounds of the target in both local and global coordinates
         var topLevelRect:Rectangle = displayObject.getBounds(topLevel);
         var displayObjectRect:Rectangle = displayObject.getBounds(dispObjParent);  
@@ -2283,11 +2239,11 @@ public class GraphicElement extends OnDemandEventDispatcher
 		{
 	        newMat3D.position = globalMat3D.position;
 	        displayObject.transform.matrix3D = newMat3D;
-  		}
+        }
   		else
   		{
   			displayObject.transform.matrix3D = globalMat3D;
-  		}
+    }
         // Translate the bitmap so that the left-top bounds ends up at (0,0)
 		var m:Matrix = new Matrix();
 		m.translate(-topLevelRect.left, - topLevelRect.top);
@@ -2353,18 +2309,12 @@ public class GraphicElement extends OnDemandEventDispatcher
 
     }
 
-    // TODO EGeorgie: can we use the standart IInvalidating methods instead of
-    // notifyElementLayerChanged()?
-    
     /**
      *  Utility method that notifies the host that this element has changed and needs
      *  its layer to be updated.
      */
     protected function notifyElementLayerChanged():void
     {
-        // TODO EGeorgie: figure this out. For now, invalidateDisplayList
-        // to preseve original behavior before layout API unification.
-        invalidateDisplayList();
         if (parent)
             Group(parent).graphicElementLayerChanged(this);
     }
@@ -2383,9 +2333,8 @@ public class GraphicElement extends OnDemandEventDispatcher
             return;
         invalidatePropertiesFlag = true;
 
-        // TODO EGeorgie: hook up directly with the layout manager?
-        if (parent && parent is IInvalidating)
-            IInvalidating(parent).invalidateProperties();
+        if (parent)
+            Group(parent).graphicElementPropertiesChanged(this);
     }
 
     /**
@@ -2405,7 +2354,6 @@ public class GraphicElement extends OnDemandEventDispatcher
             return;
         invalidateSizeFlag = true;
 
-        // TODO EGeorgie: hook up directly with the layout manager?
         if (parent)
             Group(parent).graphicElementSizeChanged(this);
     }
@@ -2437,18 +2385,12 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function invalidateDisplayList():void
     {
-    	// Mark all elements that share the display object as invalid.
-    	// Always set this because we might already be invalid when  
-    	// the drawnDisplayObject is set
-		if (drawnDisplayObject is InvalidatingSprite)
-			InvalidatingSprite(drawnDisplayObject).invalid = true;
-    	
         if (invalidateDisplayListFlag)
             return;
-            
         invalidateDisplayListFlag = true;
 
-        // TODO EGeorgie: hook up directly with the layout manager?
+        // The Group will take care of redrawing all graphic elements that
+        // share the display object with this element.
         if (parent)
             Group(parent).graphicElementChanged(this);
     }
@@ -2508,7 +2450,9 @@ public class GraphicElement extends OnDemandEventDispatcher
     {
         //trace("GraphicElement.commitProperties displayObject",displayObject,"this",this);
         var updateTransform:Boolean = false;
-        if (displayObject)
+        
+        // If we are the first in the sequence, setup the displayObject properties
+        if (shareIndex <= 0 && displayObject)
         {
             if (alphaChanged || displayObjectChanged)
             {
@@ -2587,27 +2531,27 @@ public class GraphicElement extends OnDemandEventDispatcher
                 maskTypeChanged = false;
                 applyMaskType();
             }
-
-            if (visibleChanged || displayObjectChanged)
-            {
-                visibleChanged = false;
-                displayObject.visible = _visible;
-            }
             
+            // If we don't share the DisplayObject, set the property directly.
+            if (displayObjectChanged && shareIndex == -1)
+                displayObject.visible = _visible;
+
             updateTransform = true;
             displayObjectChanged = false;
         }
-        else
+
+        if (visibleChanged)
         {
-            if (visibleChanged)
-            {
-                visibleChanged = false;
-                
-                // If we're sharing a display list, we need to force a redraw
-                // to change visibility.
+            visibleChanged = false;
+            
+            // If we don't share the DisplayObject, set the property directly,
+            // otherwise redraw.
+            if (shareIndex == -1)
+                displayObject.visible = _visible;
+            else
                 invalidateDisplayList();
-            }
         }
+
         if ((layoutFeatures == null || layoutFeatures.updatePending) ||
             updateTransform)
         {
@@ -2760,10 +2704,15 @@ public class GraphicElement extends OnDemandEventDispatcher
         {
             applyComputedTransform();
         }
-        
+
+        // TODO EGeorgie: don't clear the graphics if the GraphicElement is invisible and explicitly owns the DO?
+        // If we are the first in the sequence, clear the graphics:
+        if (shareIndex <= 0)
+            ISharedGraphicsDisplayObject(drawnDisplayObject).graphics.clear();
+
         if (visible)
             updateDisplayList(_width, _height);
-        
+
         // If we aren't doing any more invalidation, send out an UpdateComplete event
         if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag && wasInvalid)
             dispatchUpdateComplete();
@@ -3170,16 +3119,17 @@ public class GraphicElement extends OnDemandEventDispatcher
      *  Applies the transform to the DisplayObject.
      */
     protected function applyComputedTransform():void
-    {       
-        if(layoutFeatures != null)
+    {   
+        if (layoutFeatures != null)
 	        layoutFeatures.updatePending = false;
 
-        if(displayObject == null)
+        // Only the first elment in the sequence updates the transform
+        if (shareIndex > 0 || !displayObject)
             return;
                                 
-        if(layoutFeatures != null)
+        if (layoutFeatures != null)
         {        	
-	        if(layoutFeatures.is3D)
+	        if (layoutFeatures.is3D)
 	        {
 	            displayObject.transform.matrix3D = layoutFeatures.computedMatrix3D;             
 	        }
@@ -3187,7 +3137,7 @@ public class GraphicElement extends OnDemandEventDispatcher
 	        {
 	        	var m:Matrix = layoutFeatures.computedMatrix.clone();
 	        	// If the displayObject is shared, then put it at 0,0
-	        	if (!nextSiblingNeedsDisplayObject)
+	        	if (shareIndex == 0)
 	        	{
 	        		m.tx = 0;
 	        		m.ty = 0;
@@ -3198,15 +3148,15 @@ public class GraphicElement extends OnDemandEventDispatcher
         else 
         {
         	// If the displayObject is shared, then put it at 0,0
-        	if (nextSiblingNeedsDisplayObject)
+        	if (shareIndex == 0)
         	{
-        		displayObject.x = _x;
-        		displayObject.y = _y;	
+                displayObject.x = 0;
+                displayObject.y = 0;
         	}
         	else
         	{
-        		displayObject.x = 0;
-        		displayObject.y = 0;	
+                displayObject.x = _x;
+                displayObject.y = _y;
         	}
         }
         
@@ -3336,7 +3286,7 @@ public class GraphicElement extends OnDemandEventDispatcher
                 {
                     _colorTransform = _transform.colorTransform;
                     
-                    if (displayObject)
+                    if (displayObject && shareIndex == -1)
                     {
                         displayObject.transform.colorTransform = _colorTransform;
                     }
