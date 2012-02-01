@@ -2,23 +2,29 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
 
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The Spark skin class for the Halo Panel component's border. -->
+<!--- The Spark skin class for the Halo Panel component's border. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" implements="mx.core.IRectangularBorder">
     
     <fx:Script>
-		<![CDATA[
-		import mx.core.EdgeMetrics;
-		import mx.core.IUIComponent;
-		
+        <![CDATA[
+        import mx.core.EdgeMetrics;
+        import mx.core.IUIComponent;
+        
         /* Define the skin elements that should not be colorized. 
            For panel, border and title backround are skinned, but the content area and title text are not. */
         static private const exclusions:Array = ["background"];
@@ -28,95 +34,95 @@
         static private const contentFill:Array = ["bgFill"];
         override public function get contentItems():Array {return contentFill};
 
-		private var _metrics:EdgeMetrics = new EdgeMetrics(1, 32, 1, 1);
-		public function get borderMetrics():EdgeMetrics
-		{
-	        var hasPanelParent:Boolean = isPanel(parent);
-	        var controlBar:IUIComponent = hasPanelParent ? Object(parent).mx_internal::_controlBar : null;        
-	        
-	        if (controlBar && controlBar.includeInLayout)
-	        	_metrics.bottom = controlBar.getExplicitOrMeasuredHeight() + 1;
-	        else
-	        	_metrics.bottom = 1;
-	        	
-			return _metrics;
-		}
-		
-		public function get backgroundImageBounds():Rectangle
-		{
-			return null;
-		}
-		
-		public function set backgroundImageBounds(value:Rectangle):void
-		{
-		
-		}
-		
-		public function get hasBackgroundImage():Boolean
-		{
-			return false;
-		}
-		
-		public function layoutBackgroundImage():void
-		{
-		
-		}
+        private var _metrics:EdgeMetrics = new EdgeMetrics(1, 32, 1, 1);
+        public function get borderMetrics():EdgeMetrics
+        {
+            var hasPanelParent:Boolean = isPanel(parent);
+            var controlBar:IUIComponent = hasPanelParent ? Object(parent).mx_internal::_controlBar : null;        
+            
+            if (controlBar && controlBar.includeInLayout)
+                _metrics.bottom = controlBar.getExplicitOrMeasuredHeight() + 1;
+            else
+                _metrics.bottom = 1;
+                
+            return _metrics;
+        }
+        
+        public function get backgroundImageBounds():Rectangle
+        {
+            return null;
+        }
+        
+        public function set backgroundImageBounds(value:Rectangle):void
+        {
+        
+        }
+        
+        public function get hasBackgroundImage():Boolean
+        {
+            return false;
+        }
+        
+        public function layoutBackgroundImage():void
+        {
+        
+        }
 
-		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-		{
-	        var em:EdgeMetrics = borderMetrics;
-	        
-	        if (em.bottom > 1)
-	        {
-	        	cbbg.height = em.bottom - 1;
-	        	cbdiv.bottom = cbbg.height;
-	        	cbbg.visible = cbdiv.visible = true;
-	        }
-	        else
-	        {
-	        	cbbg.visible = cbdiv.visible = false;
-	        }
-	        
-	        super.updateDisplayList(unscaledWidth, unscaledHeight);
-		}
-		
-	   	/**
-		 *  We don't use 'is' to prevent dependency issues
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion Flash 9
-		 *  @playerversion AIR 1.1
-		 *  @productversion Flex 3
-		 */
-		private static var panels:Object = {};
-	
-		private static function isPanel(parent:Object):Boolean
-		{
-			var s:String = getQualifiedClassName(parent);
-			if (panels[s] == 1)
-				return true;
-	
-			if (panels[s] == 0)
-				return false;
-	
-			if (s == "mx.containers::Panel")
-			{
-				panels[s] == 1;
-				return true;
-			}
-	
-			var x:XML = describeType(parent);
-			var xmllist:XMLList = x.extendsClass.(@type == "mx.containers::Panel");
-			if (xmllist.length() == 0)
-			{
-				panels[s] = 0;
-				return false;
-			}
-			
-			panels[s] = 1;
-			return true;
-		}
-		]]>
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        {
+            var em:EdgeMetrics = borderMetrics;
+            
+            if (em.bottom > 1)
+            {
+                cbbg.height = em.bottom - 1;
+                cbdiv.bottom = cbbg.height;
+                cbbg.visible = cbdiv.visible = true;
+            }
+            else
+            {
+                cbbg.visible = cbdiv.visible = false;
+            }
+            
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
+        
+        /**
+         *  We don't use 'is' to prevent dependency issues
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
+         */
+        private static var panels:Object = {};
+    
+        private static function isPanel(parent:Object):Boolean
+        {
+            var s:String = getQualifiedClassName(parent);
+            if (panels[s] == 1)
+                return true;
+    
+            if (panels[s] == 0)
+                return false;
+    
+            if (s == "mx.containers::Panel")
+            {
+                panels[s] == 1;
+                return true;
+            }
+    
+            var x:XML = describeType(parent);
+            var xmllist:XMLList = x.extendsClass.(@type == "mx.containers::Panel");
+            if (xmllist.length() == 0)
+            {
+                panels[s] = 0;
+                return false;
+            }
+            
+            panels[s] = 1;
+            return true;
+        }
+        ]]>
     </fx:Script>
     
     <!-- drop shadow -->
@@ -129,12 +135,12 @@
         </s:fill>
     </s:Rect>
     
-	<!-- layer 1: border -->
-	<s:Rect left="0" right="0" top="0" bottom="0">
-		<s:stroke>
-			<s:SolidColorStroke color="0" alpha="0.50" weight="1" />
-		</s:stroke>
-	</s:Rect>
+    <!-- layer 1: border -->
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:stroke>
+            <s:SolidColorStroke color="0" alpha="0.50" weight="1" />
+        </s:stroke>
+    </s:Rect>
 
     <!-- layer 2: background fill -->
     <s:Rect id="background" left="1" top="1" right="1" bottom="1">
@@ -143,17 +149,17 @@
         </s:fill>
     </s:Rect>
     
-	<!-- layer 3: title bar fill -->
-	<s:Rect left="1" right="1" top="1" height="30">
-	   <s:fill>
+    <!-- layer 3: title bar fill -->
+    <s:Rect left="1" right="1" top="1" height="30">
+       <s:fill>
             <s:LinearGradient rotation="90">
                 <s:GradientEntry color="0xE2E2E2" />
                 <s:GradientEntry color="0xD9D9D9" />
             </s:LinearGradient>
-	   </s:fill>
-	</s:Rect>
-	
-	<!-- layer 4: title bar highlight -->
+       </s:fill>
+    </s:Rect>
+    
+    <!-- layer 4: title bar highlight -->
     <s:Rect left="1" right="1" top="1" height="30">
        <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
@@ -163,22 +169,22 @@
        </s:stroke>
     </s:Rect>
     <s:Rect left="1" right="1" top="31" height="1">
-    	<s:fill>
-    		<s:SolidColor color="0xC0C0C0" />
-    	</s:fill>
+        <s:fill>
+            <s:SolidColor color="0xC0C0C0" />
+        </s:fill>
     </s:Rect>
     
     <!-- layer 5: control bar background -->
     <s:Rect id="cbbg" left="1" right="1" bottom="1" height="20">
-    	<s:fill>
-    		<s:SolidColor color="0xE8E8E8" />
-    	</s:fill>
+        <s:fill>
+            <s:SolidColor color="0xE8E8E8" />
+        </s:fill>
     </s:Rect>
     
     <!-- layer 6: control bar divider line -->
     <s:Rect id="cbdiv" left="1" right="1" bottom="20" height="1">
-    	<s:fill>
-    		<s:SolidColor color="0xCDCDCD" />
-    	</s:fill>
+        <s:fill>
+            <s:SolidColor color="0xCDCDCD" />
+        </s:fill>
     </s:Rect>
 </s:SparkSkin>
