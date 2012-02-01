@@ -36,7 +36,8 @@
         /* Define the border item. */
         static private const borderItem:Array = ["borderStroke"];
         override protected function get borderItems():Array {return borderItem;}
-        override protected function get defaultBorderItemColor():uint {return 0x696969;}
+        override protected function get defaultBorderItemColor():uint {return getStyle("borderColor");}
+        override protected function get defaultBorderAlpha():Number {return getStyle("borderAlpha");}
         
         static private const metrics:EdgeMetrics = new EdgeMetrics(1, 1, 1, 1);
         
@@ -44,6 +45,10 @@
         
         public function get borderMetrics():EdgeMetrics
         {
+            if (getStyle("borderVisible") == false ||
+                getStyle("borderStyle") == "none")
+                return EdgeMetrics.EMPTY;
+            
             return metrics;
         }
         
@@ -71,6 +76,25 @@
         {
             graphics.clear();
             
+            if (getStyle("borderStyle") == "none")
+            {
+                border.visible = false;
+                background.visible = false;
+            }
+            else
+            {
+                if (getStyle("borderVisible") == false)
+                {
+                    border.visible = false;
+                    background.left = background.top = background.right = background.bottom = 0;
+                }
+                else
+                {
+                    border.visible = true;
+                    background.left = background.top = background.right = background.bottom = 1;
+                }
+            }
+            
             super.updateDisplayList(unscaledWidth, unscaledHeight);
             
             if (parent && parent is IUIComponent && !IUIComponent(parent).enabled)
@@ -79,8 +103,7 @@
                 alpha = 1;
             
             // Draw drop shadow, if needed
-            if (getStyle("dropShadowEnabled") == false || 
-                getStyle("dropShadowEnabled") == "false" ||
+            if (getStyle("dropShadowVisible") == false ||
                 width == 0 || 
                 height == 0)
             {
@@ -119,7 +142,7 @@
     
     <s:Group left="0" right="0" top="0" bottom="0">
         <!-- border --> 
-        <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:Rect left="0" right="0" top="0" bottom="0" id="border">
             <s:stroke>            
                 <s:SolidColorStroke id="borderStroke" />
             </s:stroke>
