@@ -150,7 +150,7 @@ public class BitmapImage extends GraphicElement
      *  
      *  <p>To specify an image as a source, you must use the &#64;Embed directive, as the following example shows:
      *  <pre>
-     *  source="&#64;Embed('&lt;i&gt;image_location&lt;/i&gt;')"
+     *  source="&#64;Embed('<i>image_location</i>')"
      *  </pre>
      *  </p>
      *  
