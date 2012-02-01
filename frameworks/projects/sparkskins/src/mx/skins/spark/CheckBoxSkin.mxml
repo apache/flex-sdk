@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the Halo CheckBox component. 
+<!--- The Spark skin class for the MX CheckBox component. 
+
+      @see mx.controls.CheckBox
         
       @langversion 3.0
       @playerversion Flash 10
