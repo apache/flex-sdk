@@ -28,8 +28,10 @@ in accordance with the terms of the license agreement accompanying it.
         override public function get symbolItems():Array {return symbols};
     </fx:Script>
     
+    <!--- @private -->
     <s:Ellipse id="radio" width="5" height="5">
         <s:fill>
+            <!--- @private -->
             <s:SolidColor color="0" id="radioFill"/>
         </s:fill>
     </s:Ellipse>
