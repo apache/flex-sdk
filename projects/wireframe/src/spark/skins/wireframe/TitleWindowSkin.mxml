@@ -19,17 +19,17 @@
     </fx:Metadata> 
     
 	<s:states>
-		<s:State name="normal" stateGroups="normalGroup"/>
-		<s:State name="active" />
+		<s:State name="normal" />
+		<s:State name="inactive" stateGroups="inactiveGroup" />
 		<s:State name="disabled" />
-		<s:State name="normalWithControlBar" stateGroups="withControls, normalGroup"/>
-		<s:State name="activeWithControlBar" stateGroups="withControls" />
+		<s:State name="normalWithControlBar" stateGroups="withControls" />
+		<s:State name="inactiveWithControlBar" stateGroups="withControls, inactiveGroup" />
 		<s:State name="disabledWithControlBar" stateGroups="withControls" />
 	</s:states>
     
 	<!-- drop shadow can't be hittable so it stays sibling of other graphics -->
 	<s:RectangularDropShadow id="dropShadow" blurX="15" blurY="15" alpha="0.18"
-							 distance="11"  distance.normalGroup="7"
+							 distance="11"  distance.inactiveGroup="7"
 							 angle="90" color="0x000000" left="0" top="0" right="0" bottom="0"/>
 	
 	<!-- layer 1: border -->
