@@ -1004,11 +1004,14 @@ public class VerticalLayout extends LayoutBase
     /**
      *  @private
      * 
-     *  Compute exact values for measuredWidth,Height and  measuredMinWidth,Height.
+     *  Compute exact values for measuredWidth,Height and measuredMinWidth,Height.
      * 
-     *  If requestedRowCount is not -1, measure as many layout elements,
-     *  padding with typicalLayoutElement if needed, starting with index 0.  
-     *  Otherwise measure all of the layout elements.
+     *  Measure each of the layout elements.  If requestedRowCount >= 0 we 
+     *  consider the height and width of as many layout elements, padding with 
+     *  typicalLayoutElement if needed, starting with index 0. We then only 
+     *  consider the width of the elements remaining.
+     * 
+     *  If requestedRowCount is -1, we measure all of the layout elements.
      */
     private function measureReal(layoutTarget:GroupBase):void
     {
@@ -1016,37 +1019,42 @@ public class VerticalLayout extends LayoutBase
         var reqEltCount:int = requestedRowCount; // -1 means "all elements"
         var eltCount:uint = Math.max(reqEltCount, layoutEltCount);
         var eltInLayoutCount:uint = 0; // elts that have been measured
-
+        
         var preferredHeight:Number = 0; // sum of the elt preferred heights
         var preferredWidth:Number = 0;  // max of the elt preferred widths
         var minHeight:Number = 0; // sum of the elt minimum heights
         var minWidth:Number = 0;  // max of the elt minimum widths
-
+        
         var fixedRowHeight:Number = NaN;
         if (!variableRowHeight)
             fixedRowHeight = rowHeight;  // may query typicalLayoutElement, elt at index=0
-
+        
         for (var i:uint = 0; i < eltCount; i++)
-        {
-            if ((reqEltCount != -1) && (eltInLayoutCount >= reqEltCount))
-                break;
-
+        {            
             if (i < layoutEltCount) // target.numElements
                 var elt:ILayoutElement = layoutTarget.getElementAt(i);
             else // target.numElements < requestedElementCount, so "pad"
                 elt = typicalLayoutElement;
             if (!elt || !elt.includeInLayout)
                 continue;
-                
-            var height:Number = isNaN(fixedRowHeight) ? elt.getPreferredBoundsHeight() : fixedRowHeight;
+            
+            // If requestedRowCount is specified, no need to consider the height
+            // of rows outside the bounds of the "requested" range. Otherwise, we
+            // consider each element.
+            if ((reqEltCount == -1) || ((reqEltCount != -1) && eltInLayoutCount < requestedRowCount))
+            {
+                var height:Number = isNaN(fixedRowHeight) ? elt.getPreferredBoundsHeight() : fixedRowHeight;
+                preferredHeight += height;
+                minHeight += (isNaN(elt.percentHeight)) ? height : elt.getMinBoundsHeight();
+                eltInLayoutCount += 1;
+            }
+            
+            // Consider the width of each element, inclusive of those outside
+            // the requestedRowCount range.
             var width:Number = elt.getPreferredBoundsWidth();
-            preferredHeight += height;
             preferredWidth = Math.max(preferredWidth, width);
-            minHeight += (isNaN(elt.percentHeight)) ? height : elt.getMinBoundsHeight();
             var flexibleWidth:Boolean = !isNaN(elt.percentWidth) || horizontalAlign == HorizontalAlign.JUSTIFY;
-            minWidth = Math.max(minWidth, flexibleWidth ? elt.getMinBoundsWidth() : width);
-
-            eltInLayoutCount += 1;
+            minWidth = Math.max(minWidth, flexibleWidth ? elt.getMinBoundsWidth() : width);           
         }
         
         if (eltInLayoutCount > 1)
