@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2009 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the header background of a Halo DataGrid component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						xmlns:s="library://ns.adobe.com/flex/spark" 
+						
+    					minWidth="21" minHeight="19">
+
+    <!-- layer 1: fill -->
+    <s:Rect left="0" right="0" top="0" bottom="0">
+		<s:fill> 
+			<s:SolidColor color="0xE2EdF7" />
+		</s:fill>
+    </s:Rect>
+    
+    <!-- layer 2: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    <s:Rect left="0" right="0" bottom="0" height="1">
+		<s:fill>
+			<s:SolidColor color="0x5581D1" />
+		</s:fill>
+    </s:Rect>
+    
+</s:Skin>
