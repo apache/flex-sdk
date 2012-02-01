@@ -102,6 +102,9 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  *
+ *    
+ *  @includeExample examples/CurrencyValidatorExample1.mxml
+ * 
  *  @see flash.globalization.CurrencyFormatter
  *
  *  @langversion 3.0
