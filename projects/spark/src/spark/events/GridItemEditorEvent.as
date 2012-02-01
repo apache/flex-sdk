@@ -13,8 +13,7 @@ package spark.events
 {
 import flash.events.Event;
 
-import spark.components.IGridItemEditor;
-import spark.components.supportClasses.GridColumn;
+import spark.components.gridClasses.GridColumn;
 
 /**
  *  This class represents events that are dispatched over 
@@ -35,7 +34,7 @@ import spark.components.supportClasses.GridColumn;
  * 
  *  @see spark.components.DataGrid
  *  @see spark.components.IGridItemEditor
- *  @see spark.components.supportClasses.GridColumn;
+ *  @see spark.components.gridClasses.GridColumn;
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -90,7 +89,7 @@ public class GridItemEditorEvent extends Event
      *   
      *  @eventType gridItemEditorSessionStarting
      * 
-     *  @see spark.components.supportClasses.GridColumn;
+     *  @see spark.components.gridClasses.GridColumn;
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -131,7 +130,7 @@ public class GridItemEditorEvent extends Event
      *   
      *  @eventType gridItemEditorSessionStart
      * 
-     *  @see spark.components.supportClasses.GridColumn;
+     *  @see spark.components.gridClasses.GridColumn;
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -173,7 +172,7 @@ public class GridItemEditorEvent extends Event
      *   
      *  @eventType gridItemEditorSessionSave
      * 
-     *  @see spark.components.supportClasses.GridColumn;
+     *  @see spark.components.gridClasses.GridColumn;
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -214,7 +213,7 @@ public class GridItemEditorEvent extends Event
      *   
      *  @eventType gridItemEditorSessionCancel
      * 
-     *  @see spark.components.supportClasses.GridColumn;
+     *  @see spark.components.gridClasses.GridColumn;
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -251,7 +250,7 @@ public class GridItemEditorEvent extends Event
      * 
      *  @param column The column that is being edited.
      *   
-     *  @see spark.components.supportClasses.GridColumn;
+     *  @see spark.components.gridClasses.GridColumn;
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
