@@ -21,6 +21,7 @@ import flash.utils.Timer;
 import mx.core.FlexVersion;
 import mx.core.IContainerInvalidating;
 import mx.core.ILayoutElement;
+import mx.core.IVisualElement;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.DragEvent;
@@ -1004,13 +1005,41 @@ public class LayoutBase extends OnDemandEventDispatcher
             
          var elt:ILayoutElement = g.getElementAt(index);
          if (!elt || !elt.includeInLayout)
-            return null;
+             return null;
             
          var eltX:Number = elt.getLayoutBoundsX();
          var eltY:Number = elt.getLayoutBoundsY();
          var eltW:Number = elt.getLayoutBoundsWidth();
          var eltH:Number = elt.getLayoutBoundsHeight();
          return new Rectangle(eltX, eltY, eltW, eltH);
+    }
+    
+    /**
+     *  @private
+     *  Return true if the specified element's layout bounds fall within the
+     *  scrollRect, or if scrollRect is null.
+     */
+    mx_internal function isElementVisible(elt:ILayoutElement):Boolean
+    {
+        if (!elt || !elt.includeInLayout)
+            return false;
+        
+        var g:GroupBase = target;
+        if (!g || !g.clipAndEnableScrolling)
+            return true; 
+        
+        const vsp:Number = g.verticalScrollPosition;
+        const hsp:Number = g.horizontalScrollPosition;
+        const targetW:Number = g.width;
+        const targetH:Number = g.height;
+        
+        const eltX:Number = elt.getLayoutBoundsX();
+        const eltY:Number = elt.getLayoutBoundsY();
+        const eltW:Number = elt.getLayoutBoundsWidth();
+        const eltH:Number = elt.getLayoutBoundsHeight();
+        
+        return (eltX < (hsp + targetW)) && ((eltX + eltW) > hsp) &&
+               (eltY < (vsp + targetH)) && ((eltY + eltH) > vsp);             
     }
 
     /**
