@@ -9,10 +9,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.layout
+package mx.layout
 {
 
-import flex.intf.ILayoutItem;
+import mx.layout.ILayoutItem;
 
 import mx.core.IConstraintClient;
 
