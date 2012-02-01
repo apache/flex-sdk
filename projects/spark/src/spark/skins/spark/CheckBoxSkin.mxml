@@ -11,12 +11,23 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009"
-	  alpha.disabledStates="0.5">
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
+	  alpha.disabledStates="0.5" xmlns:geom="flash.geom.*">
 
     <Metadata>
     	[HostComponent("mx.components.FxCheckBox")]
     </Metadata> 
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For button, the graphics are colorized but the label is not. */
+        static private const exclusions:Array = ["labelField", "check"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the symbol fill items that should be colored by the "symbolColor" style. */
+        static private const symbols:Array = ["checkMarkFill"];
+        override public function get symbolItems():Array {return symbols};
+    </Script>
     
     <states>
         <State name="up" />
@@ -116,12 +127,16 @@
         </Rect>
     
 	    <!-- checkmark -->
-	    <BitmapGraphic source="@Embed('assets/CheckMark.png')" 
-	    			   left="2" top="0" includeIn="selectedStates" />
+        <Path left="2" top="0" includeIn="selectedStates" id="check" itemCreationPolicy="immediate"
+              data="M 9.2 0.1 L 4.05 6.55 L 3.15 5.0 L 0.05 5.0 L 4.6 9.7 L 12.05 0.1 L 9.2 0.1">
+            <fill>
+                <SolidColor id="checkMarkFill" color="0" alpha="0.8" />
+            </fill>
+        </Path>
     </Group>
 
     <!-- Label -->
     <TextBox id="labelField"
              left="18" right="0" top="3" bottom="3" verticalCenter="2" />
 
-</Skin>
+</SparkSkin>
