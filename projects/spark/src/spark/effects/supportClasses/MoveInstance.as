@@ -206,36 +206,40 @@ public class MoveInstance extends AnimateInstance
         // more closely aligned in behavior. 
         if (target is IGraphicElement && propertyChanges)
         {
-            if (propertyChanges.start["left"] !== undefined ||
-                propertyChanges.start["right"] !== undefined ||
-                propertyChanges.end["left"] !== undefined ||
-                propertyChanges.end["right"] !== undefined)
+            if (!isNaN(propertyChanges.start["left"]) ||
+                !isNaN(propertyChanges.end["left"]))
             {
-                var lFrom:Number = (propertyChanges.start["left"] !== undefined) ?
+                var lFrom:Number = !isNaN(propertyChanges.start["left"]) ?
                     propertyChanges.start["left"] : getCurrentValue("left");
-                var rFrom:Number = (propertyChanges.start["right"] !== undefined) ?
-                    propertyChanges.start["right"] : getCurrentValue("right");
-                var lTo:Number = (propertyChanges.end["left"] !== undefined) ?
+                var lTo:Number = !isNaN(propertyChanges.end["left"]) ?
                     propertyChanges.end["left"] : getCurrentValue("left");
-                var rTo:Number = (propertyChanges.end["right"] !== undefined) ?
-                    propertyChanges.end["right"] : getCurrentValue("right");
                 propertyValuesList.push(new PropertyValuesHolder("left", [lFrom, lTo]));
+            }
+            if (!isNaN(propertyChanges.start["right"]) ||
+                !isNaN(propertyChanges.end["right"]))
+            {
+                var rFrom:Number = !isNaN(propertyChanges.start["right"]) ?
+                    propertyChanges.start["right"] : getCurrentValue("right");
+                var rTo:Number = !isNaN(propertyChanges.end["right"]) ?
+                    propertyChanges.end["right"] : getCurrentValue("right");
                 propertyValuesList.push(new PropertyValuesHolder("right", [rFrom, rTo]));
             }
-            if (propertyChanges.start["top"] !== undefined ||
-                propertyChanges.start["bottom"] !== undefined ||
-                propertyChanges.end["top"] !== undefined ||
-                propertyChanges.end["bottom"] !== undefined)
+            if (!isNaN(propertyChanges.start["top"]) ||
+                !isNaN(propertyChanges.end["top"]))
             {
-                var tFrom:Number = (propertyChanges.start["top"] !== undefined) ?
+                var tFrom:Number = !isNaN(propertyChanges.start["top"]) ?
                     propertyChanges.start["top"] : getCurrentValue("top");
-                var bFrom:Number = (propertyChanges.start["bottom"] !== undefined) ?
-                    propertyChanges.start["bottom"] : getCurrentValue("bottom");
-                var tTo:Number = (propertyChanges.end["top"] !== undefined) ?
+                var tTo:Number = !isNaN(propertyChanges.end["top"]) ?
                     propertyChanges.end["top"] : getCurrentValue("top");
-                var bTo:Number = (propertyChanges.end["bottom"] !== undefined) ?
-                    propertyChanges.end["bottom"] : getCurrentValue("bottom");
                 propertyValuesList.push(new PropertyValuesHolder("top", [tFrom, tTo]));
+            }
+            if (!isNaN(propertyChanges.start["bottom"]) ||
+                !isNaN(propertyChanges.end["bottom"]))
+            {
+                var bFrom:Number = !isNaN(propertyChanges.start["bottom"]) ?
+                    propertyChanges.start["bottom"] : getCurrentValue("bottom");
+                var bTo:Number = !isNaN(propertyChanges.end["bottom"]) ?
+                    propertyChanges.end["bottom"] : getCurrentValue("bottom");
                 propertyValuesList.push(new PropertyValuesHolder("bottom", [bFrom, bTo]));
             }
         }
