@@ -108,7 +108,7 @@ are identical, save the superclass and constructor names.  This file contains th
      *  @inheritDoc
      * 
      *  <p>The Grid's <code>updateDisplayList()</code> method sets this property 
-     *  before calling <code>preprare()</code></p>. 
+     *  before calling <code>prepare()</code></p>. 
      *  
      *  @default null
      */
@@ -504,12 +504,7 @@ are identical, save the superclass and constructor names.  This file contains th
     }
     
     /**
-     *  @copy mx.core.UIComponent#setStyle()
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
      */
     override public function setStyle(styleProp:String, newValue:*):void
     {
@@ -674,33 +669,54 @@ are identical, save the superclass and constructor names.  This file contains th
         }
     }      
     
+    /**
+     *  @private
+     */
     public function get depth():Number
     {
         return 0;
     }
     
+    /**
+     *  @private
+     */
     public function set depth(value:Number):void
     {
     }
     
+    /**
+     *  @private
+     */
     public function get designLayer():DesignLayer
     {
         return null;
     }
     
+    /**
+     *  @private
+     */
     public function set designLayer(value:DesignLayer):void
     {
     }
     
+    /**
+     *  @private
+     */
     public function get postLayoutTransformOffsets():TransformOffsets
     {
         return null;
     }
     
+    /**
+     *  @private
+     */
     public function set postLayoutTransformOffsets(value:TransformOffsets):void
     {
     }
     
+    /**
+     *  @private
+     */
     public function get is3D():Boolean
     {
         return false;
@@ -723,6 +739,8 @@ are identical, save the superclass and constructor names.  This file contains th
     private var _estimatedHeight:Number;
     
     /**
+     *  @private
+     * 
      *  The height a component is likely to be given at layout time.  It is
      *  determined by examining the parent's estimatedHeight, and the
      *  component's percentHeight, explicitHeight, top and bottom constraints.
@@ -754,6 +772,8 @@ are identical, save the superclass and constructor names.  This file contains th
     private var _estimatedWidth:Number;
     
     /**
+     *  @private 
+     * 
      *  The width a component is likely to be given at layout time.  It is
      *  determined by examining the parent's estimatedWidth, and the
      *  component's percentWidth, explicitWidth, left and right constraints.
@@ -938,12 +958,7 @@ are identical, save the superclass and constructor names.  This file contains th
     }
     
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -1056,7 +1071,7 @@ are identical, save the superclass and constructor names.  This file contains th
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.2
@@ -1226,7 +1241,7 @@ are identical, save the superclass and constructor names.  This file contains th
     }
         
     /**
-     *  @copy mx.core.UIComponent#clearStyle()
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
