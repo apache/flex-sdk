@@ -22,6 +22,9 @@
       alpha.disabled="0.5">
 
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.TextArea")]
     </fx:Metadata> 
     
@@ -47,7 +50,9 @@
         </s:fill>
     </s:Rect>
 
+    <!--- Defines the scroller used to scroll the TextArea. -->
     <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" minViewportInset="1" measuredSizeIncludesScrollBars="false">
+        <!--- @copy spark.components.supportClasses.SkinnableTextBase#textDisplay -->
         <s:RichEditableText id="textDisplay" 
                   heightInLines="10"
                   widthInChars="15"
