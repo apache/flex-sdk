@@ -13,6 +13,7 @@ package flex.effects.effectClasses
 import flash.events.Event;
 
 import flex.component.Panel;
+import flex.effects.Animation;
 import flex.effects.PropertyValuesHolder;
 import flex.graphics.IGraphicElement;
 
@@ -23,7 +24,7 @@ import mx.events.EffectEvent;
 import mx.events.TweenEvent;
 import mx.styles.IStyleClient;
     
-public class ResizeInstance extends AnimatePropertiesInstance
+public class ResizeInstance extends AnimateInstance
 {
     include "../../core/Version.as";
 
@@ -311,7 +312,7 @@ public class ResizeInstance extends AnimatePropertiesInstance
         super.play();
 
         if (childrenHiding)
-            tween.pause();
+            animation.pause();
         
     }
 
@@ -319,9 +320,9 @@ public class ResizeInstance extends AnimatePropertiesInstance
      * Handles the end event from the tween. The value here is an Array of
      * values, one for each 'property' in our propertyValuesList.
      */
-    override protected function endHandler(value:Object):void
+    override public function animationEnd(tween:Animation, value:Object):void
     {
-        super.endHandler(value);
+        super.animationEnd(tween, value);
 
         restorePanelChildren();
     }
@@ -573,7 +574,7 @@ public class ResizeInstance extends AnimatePropertiesInstance
             // If all panels have finished their "hide children" effect,
             // then it's time to start our Resize effect.
             if (--numHideEffectsPlaying == 0)
-                tween.resume();     
+                animation.resume();     
         } 
     }
     
