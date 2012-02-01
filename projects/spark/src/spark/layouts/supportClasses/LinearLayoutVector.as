@@ -13,7 +13,7 @@
 package spark.layouts.supportClasses
 {
 import flash.geom.Rectangle;
-import spark.primitives.Rect;
+
 import mx.core.ILayoutElement;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
@@ -87,7 +87,7 @@ public final class LinearLayoutVector
     internal static const BLOCK_SHIFT:uint = 7;
     internal static const BLOCK_MASK:uint = 0x7F;
     private var blockTable:Vector.<Block> = new Vector.<Block>(0, false);
-    
+
     public function LinearLayoutVector(majorAxis:uint = VERTICAL)
     {
         super();
@@ -184,7 +184,7 @@ public final class LinearLayoutVector
     //----------------------------------
     
     private var _minorSize:Number = 0;
-    
+
     /**
      *  The maximum size of items along the axis opposite the majorAxis.
      * 
@@ -711,7 +711,7 @@ public final class LinearLayoutVector
             return index + Math.floor(Number(distance - curDistance) / Number(_defaultMajorSize + _gap));
         }
     }
-        
+
     /**
      *  Stores the <code>majorSize</code> for the specified ILayoutElement at index, 
      *  and updates the <code>minorSize</code> and <code>minMinorSize</code> properties.
@@ -745,22 +745,22 @@ public final class LinearLayoutVector
         if (!elt || (index >= _length))
             return;
             
-        // The minorSize is the max of the perferredBoundsWidths, rather than
-        // the actual widths, because we do not want the contentWidth to track 
-        // the target's width, per horizontalAlign="contentJustify" or 
-        // "justify".  The majorAxis=HORIZONTAL case is similar.
+        // The minorSize is the min of the acutal width and the preferred width
+        // because we do not want the contentWidth to track the target's width, 
+        // per horizontalAlign="contentJustify" or "justify".  
+        // The majorAxis=HORIZONTAL case is similar.
         
         if (majorAxis == VERTICAL)
         {
-            var w:Number = Math.min(elt.getPreferredBoundsWidth(), elt.getLayoutBoundsWidth());
             setMajorSize(index, elt.getLayoutBoundsHeight());
+            var w:Number = Math.min(elt.getPreferredBoundsWidth(), elt.getLayoutBoundsWidth());
             minorSize = Math.max(minorSize, w);
             minMinorSize = Math.max(minMinorSize, elt.getMinBoundsWidth());
         }
         else
         {
-            var h:Number = Math.min(elt.getPreferredBoundsHeight(), elt.getLayoutBoundsHeight());
             setMajorSize(index, elt.getLayoutBoundsWidth());            
+            var h:Number = Math.min(elt.getPreferredBoundsHeight(), elt.getLayoutBoundsHeight());
             minorSize = Math.max(minorSize, h);
             minMinorSize = Math.max(minMinorSize, elt.getMinBoundsHeight());
         }
