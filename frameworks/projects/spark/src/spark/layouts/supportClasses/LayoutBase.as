@@ -1109,10 +1109,12 @@ public class LayoutBase extends OnDemandEventDispatcher
      *
      *  </ul>
      * 
-     *  The implementation calls <code>getElementBoundsLeftOfScrollRect()</code> and
+     *  <p>The implementation calls <code>getElementBoundsLeftOfScrollRect()</code> and
      *  <code>getElementBoundsRightOfScrollRect()</code> to determine the bounds of
      *  the elements.  Layout classes usually override those methods instead of
-     *  the <code>getHorizontalScrollPositionDelta()</code> method. 
+     *  the <code>getHorizontalScrollPositionDelta()</code> method.</p>
+     *
+     *  @return The change to the horizontal scroll position.
      * 
      *  @see spark.core.NavigationUnit
      *  @see #getElementBoundsLeftOfScrollRect
@@ -1270,10 +1272,12 @@ public class LayoutBase extends OnDemandEventDispatcher
      *
      *  </ul>
      * 
-     *  The implementation calls <code>getElementBoundsAboveScrollRect()</code> and
+     *  <p>The implementation calls <code>getElementBoundsAboveScrollRect()</code> and
      *  <code>getElementBoundsBelowScrollRect()</code> to determine the bounds of
      *  the elements. Layout classes usually override those methods instead of
-     *  the <code>getVerticalScrollPositionDelta()</code> method. 
+     *  the <code>getVerticalScrollPositionDelta()</code> method. </p>
+     *
+     *  @return The change to the vertical scroll position.
      * 
      *  @see spark.core.NavigationUnit
      *  @see #getElementBoundsAboveScrollRect
