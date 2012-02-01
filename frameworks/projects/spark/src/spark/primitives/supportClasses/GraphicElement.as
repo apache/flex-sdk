@@ -3457,21 +3457,45 @@ public class GraphicElement extends EventDispatcher
 				switch(_blendMode)
 				{
 					case "color": 
-						displayObject.blendShader = new ColorShader(); 
-					case "colordodge": 
-						displayObject.blendShader = new ColorDodgeShader(); 
-					case "colorburn": 
-						displayObject.blendShader = new ColorBurnShader(); 
-					case "exclusion": 
+					{
+						displayObject.blendShader = new ColorShader();
+						break; 
+					}
+					case "colordodge":
+					{
+						displayObject.blendShader = new ColorDodgeShader();
+						break; 
+					}
+					case "colorburn":
+					{
+						displayObject.blendShader = new ColorBurnShader();
+						break; 
+					}
+					case "exclusion":
+					{
 						displayObject.blendShader = new ExclusionShader();
-					case "hue": 
-						displayObject.blendShader = new HueShader(); 
+						break; 
+					}
+					case "hue":
+					{
+						displayObject.blendShader = new HueShader();
+						break; 
+					}
 					case "luminosity":
-						displayObject.blendShader = new LuminosityShader(); 
+					{
+						displayObject.blendShader = new LuminosityShader();
+						break; 
+					}
 					case "saturation": 
-						displayObject.blendShader = new SaturationShader(); 
+					{
+						displayObject.blendShader = new SaturationShader();
+						break; 
+					}
 					case "softlight":
-						displayObject.blendShader = new SoftLightShader(); 
+					{
+						displayObject.blendShader = new SoftLightShader();
+						break; 
+					}
 				}
 			}
 
