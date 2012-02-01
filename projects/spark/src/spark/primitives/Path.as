@@ -235,7 +235,7 @@ public class Path extends FilledElement
         var newSegments:Array = [];
         
         var identifier:String;
-        var prevIdentifier:String;
+        var prevIdentifier:String = "";
         var prevX:Number = 0;
         var prevY:Number = 0;
         var lastMoveX:Number = 0;
@@ -264,6 +264,15 @@ public class Path extends FilledElement
                 identifier = args[i];
                 i++;
             }
+            else if (prevIdentifier == "m" || prevIdentifier == "M")
+            {
+                // If a moveto is followed by multiple pairs of coordinates, 
+                // the subsequent pairs are treated as implicit lineto commands. 
+                identifier = prevIdentifier == "m" ? "l" : "L";
+            }
+            
+            // Convert to lowercase to make the following comparison logic simpler
+            prevIdentifier = prevIdentifier.toLowerCase();
             
             var useRelative:Boolean = (identifier.toLowerCase() == identifier);
             
@@ -366,7 +375,7 @@ public class Path extends FilledElement
             
             prevX = x;
             prevY = y;
-            prevIdentifier = identifier.toLowerCase();
+            prevIdentifier = identifier;
         }
         
         segments = newSegments;
