@@ -1469,6 +1469,7 @@ public class TileLayout extends LayoutBase
             // measured min size is guaranteed to have enough rows to fit all elements
             layoutTarget.measuredMinHeight = Math.ceil(_rowCount * (_rowHeight + _verticalGap) - _verticalGap);
         }
+		_numElementsCached = -1;
     }
 
     /**
