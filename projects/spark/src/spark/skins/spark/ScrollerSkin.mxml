@@ -24,7 +24,9 @@ viewport property to link them together.
 -->
 
 <!--- The default skin class for the Spark Scroller component. 
-        
+
+     @see spark.components.Scroller
+    
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
@@ -76,12 +78,14 @@ viewport property to link them together.
     ]]>
     </fx:Script>
         
-    <!--- The Scroller determines whether the vertical ScrollBar is visible.
-          @copy spark.components.Scroller#verticalScrollBar -->
+    <!---  A vertical scrollbar that lets you control the portion of data that is displayed 
+            when there is too much data to fit vertically in a display area.
+            The Scroller determines whether the vertical ScrollBar is visible. -->
     <s:VScrollBar id="verticalScrollBar" visible="false" />
     
-    <!--- The Scroller determines whether the horizontal ScrollBar is visible.
-          @copy spark.components.Scroller#horizontalScrollBar -->
+    <!---  A horizontal scrollbar that lets you control the portion of data that is displayed 
+            when there is too much data to fit horizontally in a display area.
+            The Scroller determines whether the horizontal ScrollBar is visible. -->
     <s:HScrollBar id="horizontalScrollBar" visible="false" />
 
 </s:SparkSkin>
