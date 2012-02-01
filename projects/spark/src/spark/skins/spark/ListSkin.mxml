@@ -11,7 +11,7 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009"
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009"
 	  minWidth="112" minHeight="112"
 	  alpha.disabled="0.5"> 
 	
@@ -19,26 +19,41 @@
     	[HostComponent("mx.components.FxList")]
     </Metadata> 
     
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For list, the skin itself is colorized but the individual parts are not. */
+        static private const exclusions:Array = ["scroller", "background"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the content fill items that should be colored by the "contentColor" style. */
+        static private const contentFill:Array = ["bgFill"];
+        override public function get contentItems():Array {return contentFill};
+    </Script>
+    
     <states>
     	<State name="normal" />
     	<State name="disabled" />
     </states>
     
-    <!-- border/fill -->
+    <!-- border -->
     <Rect left="0" right="0" top="0" bottom="0">
     	<stroke>
     		<SolidColorStroke color="0x686868" weight="1"/>
     	</stroke>
+    </Rect>
+    
+    <!-- fill -->
+    <Rect id="background" left="1" right="1" top="1" bottom="1" >
     	<fill>
-    		<SolidColor color="0xFFFFFF" />
+    		<SolidColor id="bgFill" color="0xFFFFFF" />
     	</fill>
     </Rect>
     
-    <FxScroller left="1" top="1" right="1" bottom="1">
+    <FxScroller left="1" top="1" right="1" bottom="1" id="scroller">
 	    <DataGroup id="dataGroup" width="110" height="110">
 	    	<layout>
 	    	    <VerticalLayout gap="0" horizontalAlign="contentJustify" />
 	    	</layout>
 	    </DataGroup>
     </FxScroller>
-</Skin>
+</SparkSkin>
