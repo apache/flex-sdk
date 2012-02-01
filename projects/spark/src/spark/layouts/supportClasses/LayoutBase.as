@@ -874,6 +874,38 @@ public class LayoutBase extends OnDemandEventDispatcher
         
         return new Rectangle(0,0,0,0);
     }
+    
+    /**
+     *  @private 
+     *  Convert the localBounds of a descendant element into the target's coordinate system
+     */ 
+    private function convertLocalToTarget(element:IVisualElement, elementLocalBounds:Rectangle):Rectangle
+    {
+        // use localToContent
+        if (!element)
+            return new Rectangle(0,0,0,0);
+        
+        var parentUIC:UIComponent = element.parent as UIComponent;
+        
+        // Note that we don't check that the element is a descendant of the target
+        // since it can be expensive to calculae. 
+        if (parentUIC)
+        {
+            var g:GroupBase = target;
+            // Get the position in local coordinate
+            var posPointStart:Point = new Point(element.getLayoutBoundsX() + elementLocalBounds.x, 
+                                                element.getLayoutBoundsY() + elementLocalBounds.y);
+            
+            // Convert from local to global coordinate space
+            var posPoint:Point = parentUIC.localToGlobal(posPointStart);
+            // Convert from global to target's local coordinate space
+            posPoint = g.globalToLocal(posPoint);
+            
+            return new Rectangle(posPoint.x, posPoint.y, elementLocalBounds.width, elementLocalBounds.height);
+        }
+        
+        return new Rectangle(0,0,0,0);
+    }
      
     /**
      *  @private
@@ -1436,14 +1468,15 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @param leftOffset Number of pixels to position the element to the right of the left edge.
      *  @param rightOffset Number of pixels to position the element to the left of the right edge.
      */ 
-    mx_internal function getScrollPositionDeltaToElementHelper(index:int, topOffset:Number = NaN, 
+    mx_internal function getScrollPositionDeltaToElementHelper(index:int, 
+                                                               topOffset:Number = NaN, 
                                                                bottomOffset:Number = NaN, 
                                                                leftOffset:Number = NaN,
                                                                rightOffset:Number = NaN):Point
     {
         var elementR:Rectangle = getElementBounds(index);
         return getScrollPositionDeltaToElementHelperHelper(
-                                                elementR, 
+                                                elementR, null,
                                                 topOffset, bottomOffset, 
                                                 leftOffset, rightOffset);
     }
@@ -1462,7 +1495,9 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  @param rightOffset Number of pixels to position the element to the left of the right edge.
      */ 
     protected function getScrollPositionDeltaToElementHelperHelper(
-                                    elementR:Rectangle, topOffset:Number = NaN, 
+                                    elementR:Rectangle,
+                                    elementLocalBounds:Rectangle,
+                                    topOffset:Number = NaN, 
                                     bottomOffset:Number = NaN, 
                                     leftOffset:Number = NaN,
                                     rightOffset:Number = NaN):Point
@@ -1508,19 +1543,48 @@ public class LayoutBase extends OnDemandEventDispatcher
             dx = 0;
         else if ((elementR.bottom >= scrollR.bottom) && (elementR.top <= scrollR.top))
             dy = 0;
+    
+        if (elementLocalBounds)
+        {
+            // Only adjust for local bounds if the element is wider than the scroll width
+            if ((elementR.left <= scrollR.left) && (elementR.right >= scrollR.right))
+            {
+                if (elementLocalBounds.left < scrollR.left)
+                    dx = elementLocalBounds.left - scrollR.left;
+                else if (elementLocalBounds.right > scrollR.right)
+                    dx = elementLocalBounds.right - scrollR.right;
+            }
+            
+            // Only adjust for local bounds if the element is taller than the scroll height
+            if ((elementR.bottom >= scrollR.bottom) && (elementR.top <= scrollR.top))
+            {
+                if (elementLocalBounds.bottom > scrollR.bottom) 
+                    dy = elementLocalBounds.bottom - scrollR.bottom;
+                else if (elementLocalBounds.top <= scrollR.top)
+                    dy = elementLocalBounds.top - scrollR.top;
+            }
+        }
         
         return new Point(dx, dy);
     }
     
-    mx_internal function getScrollPositionDeltaToAnyElement(element:IVisualElement, topOffset:Number = NaN, 
-                                                       bottomOffset:Number = NaN, 
-                                                       leftOffset:Number = NaN,
-                                                       rightOffset:Number = NaN):Point
+    /**
+     *  @private
+     */  
+    mx_internal function getScrollPositionDeltaToAnyElement(element:IVisualElement, 
+                                                            elementLocalBounds:Rectangle = null, 
+                                                            topOffset:Number = NaN,
+                                                            bottomOffset:Number = NaN,
+                                                            leftOffset:Number = NaN,
+                                                            rightOffset:Number = NaN):Point
     {
         
         var elementR:Rectangle = getChildElementBounds(element);
+        
+        if (elementLocalBounds)
+            elementLocalBounds = convertLocalToTarget(element, elementLocalBounds);
         return getScrollPositionDeltaToElementHelperHelper(
-            elementR, 
+            elementR, elementLocalBounds,
             topOffset, bottomOffset, 
             leftOffset, rightOffset);
         
