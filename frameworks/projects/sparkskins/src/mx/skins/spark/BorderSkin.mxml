@@ -74,7 +74,9 @@
         
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {
-            graphics.clear();
+            // Force a redraw to clear any existing shadow, and to force a redraw of the 
+            // border/background.
+            redrawRequested = true;
             
             if (getStyle("borderVisible") == false || getStyle("borderStyle") == "none")
             {
