@@ -41,27 +41,38 @@
 
     <s:Rect left="0" right="0" minWidth="17" top="0" bottom="0" minHeight="14">
         <s:stroke>
-            <s:SolidColorStroke color="0x5380D0" />
+            <s:SolidColorStroke color="#666666" />
         </s:stroke>
         <s:fill>
-            <s:SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF" />
+            <s:SolidColor color="#EEEEEE" />
         </s:fill>
     </s:Rect>
 
     <!-- shadow (down state only) -->
-    <s:Rect left="1" top="1" right="1" bottom="1" includeIn="down">
-        <s:stroke>
-            <s:LinearGradientStroke rotation="90">
-                <s:GradientEntry color="0x5380D0" alpha="0.25" />
-                <s:GradientEntry color="0x5380D0" alpha="0" />
-            </s:LinearGradientStroke>
-        </s:stroke>
+    <s:Rect includeIn="down" left="0" right="0" y="0" height="4" radiusX="2">
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry alpha="0.23" color="#000000" ratio="0"/>
+                <s:GradientEntry alpha="0.20" color="#000000" ratio="0.4"/>
+                <s:GradientEntry alpha="0.055" color="#000000" ratio="0.55"/>
+                <s:GradientEntry alpha="0.0" color="#000000" ratio="0.8"/>
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+    <s:Rect includeIn="down" x="0" width="4" top="0" bottom="0" radiusX="2">
+        <s:fill>
+            <s:LinearGradient rotation="0">
+                <s:GradientEntry alpha="0.13" color="#000000" ratio="0"/>
+                <s:GradientEntry alpha="0.12" color="#000000" ratio="0.2"/>
+                <s:GradientEntry alpha="0.0" color="#000000" ratio="0.55"/>
+            </s:LinearGradient>
+        </s:fill>
     </s:Rect>
 
     <!-- arrow -->
-    <s:Path data="M 13 7.5 L 6 11 L 6 3.5 L 13 7.5">
+    <s:Path data="M 7 4 L 0 7.5 0 0 Z" height="7" width="5" horizontalCenter="0.5" verticalCenter="-0.5">
         <s:fill>
-            <s:SolidColor color="0x4E6290" />
+            <s:SolidColor color="#666666" />
         </s:fill>
     </s:Path>
 
