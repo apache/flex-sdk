@@ -12,6 +12,9 @@
 -->
 
 <!--- The default skin class for the first button in a Spark ButtonBar component.  
+
+       @see spark.components.ButtonBar
+       @see spark.components.ButtonBarButton
         
       @langversion 3.0
       @playerversion Flash 10
@@ -185,6 +188,7 @@
         </s:Rect>
         
         <!-- layer 5: highlight stroke (all states except down) -->
+        <!--- @private -->
         <s:Rect id="highlightStroke" left="2" right="1" top="2" bottom="2" topLeftRadiusX="2" bottomLeftRadiusX="2"
                 excludeFrom="downStates">
             <s:stroke>
