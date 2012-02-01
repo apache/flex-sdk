@@ -248,7 +248,7 @@ public class SparkSkin extends Skin
 				/* if we're lucky, the IGE has its own DisplayObject, and we can just trip its alpha.
 				If not, we're going to have to set it to 0, and force a redraw of the whole component */
 				var ge:IGraphicElement = ex as IGraphicElement;
-				if(ge.displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
+				if (ge.displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
 				{
                     exclusionAlphaValues[i] = ge.displayObject.alpha;
 					ge.displayObject.alpha = 0;
