@@ -11,7 +11,8 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009">
+<Skin xmlns="http://ns.adobe.com/mxml/2009"
+	  alpha.disabledStates="0.5">
 
     <Metadata>
     	[HostComponent("mx.components.FxCheckBox")]
@@ -22,37 +23,105 @@
         <State name="over" stateGroups="overStates" />
         <State name="down" stateGroups="downStates" />
         <State name="disabled" stateGroups="disabledStates" />
-        <State name="upAndSelected" />
-        <State name="overAndSelected" stateGroups="overStates" />
-        <State name="downAndSelected" stateGroups="downStates" />
-        <State name="disabledAndSelected" stateGroups="disabledStates" />
+        <State name="upAndSelected" stateGroups="selectedStates" />
+        <State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <State name="disabledAndSelected" stateGroups="disabledStates, selectedStates" />
     </states>
-        
-	<Group top="1">
-        <!-- background -->
-        <Rect left="0" right="0" minWidth="12" top="0" bottom="0" minHeight="12">
-            <stroke>            
-                <SolidColorStroke color="0x5380D0" color.disabledStates="0xA9C0E8" />
-            </stroke>
-            <fill>
-                <SolidColor color="0xFFFFFF" color.overStates="0xEBF4FF" 
-                	      color.downStates="0xDEEBFF" />
-            </fill>
-        </Rect>
-
-        <!-- checkmark -->
-        <Path data="M 3.5 6.5 l 2 2 l 6 -7"
-                 includeIn="upAndSelected, overAndSelected, downAndSelected, disabledAndSelected">
-            <stroke>
-                <SolidColorStroke weight="2" caps="square" color="0x3D5D92" color.disabledAndSelected="0x9DADC9" />
-            </stroke>
-        </Path>
+    
+    <Group verticalCenter="0" width="13" height="13" clipContent="false">
+	    <!-- drop shadow -->
+	    <Rect left="-1" top="-1" right="-1" bottom="-1">
+	    	<stroke>
+	    		<LinearGradientStroke rotation="90">
+	    			<GradientEntry color="0x000000" 
+	    				           color.downStates="0xFFFFFF"
+	    				           alpha="0.011"
+	    				           alpha.downStates="0" />
+	    			<GradientEntry color="0x000000" 
+	    				           color.downStates="0xFFFFFF" 
+	    				           alpha="0.121"
+	    				           alpha.downStates="0.57" />
+	    		</LinearGradientStroke>
+	    	</stroke>
+	    </Rect>
+	    
+	    <!-- border -->
+	    <Rect left="0" top="0" right="0" bottom="0">
+			<stroke>
+				<LinearGradientStroke rotation="90">
+					<GradientEntry color="0x000000" 
+						           alpha="0.5625"
+						           alpha.downStates="0.6375" />
+					<GradientEntry color="0x000000" 
+						           alpha="0.75"
+						           alpha.downStates="0.85" />
+				</LinearGradientStroke>
+			</stroke>
+		</Rect>
+	
+		<!-- fill -->
+		<Rect left="1" top="1" right="1" bottom="1">
+			<fill>
+				<LinearGradient rotation="90">
+					<GradientEntry color="0xFFFFFF" 
+								   color.overStates="0xBBBDBD" 
+								   color.downStates="0xAAAAAA" 
+								   alpha="0.85" />
+					<GradientEntry color="0xD8D8D8" 
+								   color.overStates="0x9FA0A1" 
+								   color.downStates="0x929496" 
+								   alpha="0.85" />
+				</LinearGradient>
+			</fill>
+		</Rect>
+		
+		<!-- fill highlight -->
+		<Rect left="1" right="1" top="1" height="5">
+			<fill>
+				<SolidColor color="0xFFFFFF" alpha="0.33" alpha.downStates="0" />
+			</fill>
+		</Rect>
+		
+		<!-- layer 6: highlight stroke (all states except down) -->
+		<Rect left="1" right="1" top="1" bottom="1" excludeFrom="downStates">
+			<stroke>
+				<LinearGradientStroke rotation="90">
+					<GradientEntry color="0xFFFFFF" alpha.overStates="0.33" />
+					<GradientEntry color="0xFFFFFF" alpha="0.12" alpha.overStates="0.0396" />
+				</LinearGradientStroke>
+			</stroke>
+		</Rect>
+		
+		<!-- layer 6: highlight stroke (down state only) -->
+		<Rect left="1" top="1" bottom="1" width="1" includeIn="downStates">
+			<fill>
+				<SolidColor color="0x000000" alpha="0.07" />
+			</fill>
+		</Rect>
+		<Rect right="1" top="1" bottom="1" width="1" includeIn="downStates">
+			<fill>
+				<SolidColor color="0x000000" alpha="0.07" />
+			</fill>
+		</Rect>
+		<Rect left="1" top="1" right="1" height="1" includeIn="downStates">
+			<fill>
+				<SolidColor color="0x000000" alpha="0.25" />
+			</fill>
+		</Rect>
+		<Rect left="1" top="2" right="1" height="1" includeIn="downStates">
+			<fill>
+				<SolidColor color="0x000000" alpha="0.09" />
+			</fill>
+		</Rect>
+		
+	    <!-- checkmark -->
+	    <BitmapGraphic source="@Embed('assets/CheckMark.png')" 
+	    			   left="2" top="0" includeIn="selectedStates" />
     </Group>
 
     <!-- Label -->
-    <TextBox id="labelField"
-             fontFamily="Arial" fontSize="12"
-             color="0x2B4381" color.disabledStates="0x95A1C0" 
-             left="19" top="3" />
+    <TextBox text="{hostComponent.label}"
+             left="18" top="3" bottom="3" verticalCenter="2" />
 
 </Skin>
