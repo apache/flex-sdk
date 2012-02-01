@@ -189,7 +189,7 @@ public class CollatorBase extends GlobalizationBase
         if (g11nWorkingInstance)
             return g11nWorkingInstance.actualLocaleIDName;
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -514,7 +514,7 @@ public class CollatorBase extends GlobalizationBase
      */
     override mx_internal function createWorkingInstance():void
     {
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -593,7 +593,7 @@ public class CollatorBase extends GlobalizationBase
         if (g11nWorkingInstance)
             return g11nWorkingInstance.compare(string1, string2);
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
@@ -633,7 +633,7 @@ public class CollatorBase extends GlobalizationBase
         if (g11nWorkingInstance)
             return g11nWorkingInstance.equals(string1, string2);
 
-        if (!localeStyle)
+        if ((localeStyle === undefined) || (localeStyle === null))
         {
             fallbackLastOperationStatus
                                 = LastOperationStatus.LOCALE_UNDEFINED_ERROR;
