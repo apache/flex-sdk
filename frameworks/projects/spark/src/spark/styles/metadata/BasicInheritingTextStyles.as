@@ -328,4 +328,4 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="typographicCase", type="String", enumeration="default,title,caps,smallCaps,uppercase,lowercase,capsAndSmallCaps", inherit="yes")]
+[Style(name="typographicCase", type="String", enumeration="default,capsToSmallCaps,lowercase,lowercaseToSmallCaps,uppercase", inherit="yes")]
