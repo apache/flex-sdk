@@ -1818,7 +1818,7 @@ public class VerticalLayout extends LayoutBase
             {
                 for (index = startIndex; index <= endIndex; index++)
                 {
-                    elt = layoutTarget.getVirtualElementAt(index, eltWidth, eltHeight);
+                    elt = layoutTarget.getElementAt(index);
                     w = calculateElementWidth(elt, targetWidth, containerWidth);  // can be NaN
                     elt.setLayoutBoundsSize(w, elt.getLayoutBoundsHeight());
                     w = elt.getLayoutBoundsWidth();
@@ -1848,7 +1848,7 @@ public class VerticalLayout extends LayoutBase
             {
                 for (index = startIndex; index <= endIndex; index++)
                 {
-                    elt = layoutTarget.getVirtualElementAt(index, NaN, NaN);
+                    elt = layoutTarget.getElementAt(index);
                     elt.setLayoutBoundsPosition(elt.getLayoutBoundsX(), dy + elt.getLayoutBoundsY());
                 }
                 contentHeight += dy;
