@@ -23,6 +23,9 @@
       alpha.disabled="0.5">
 
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.Button")]
     </fx:Metadata>
 
