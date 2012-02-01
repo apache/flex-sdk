@@ -40,7 +40,7 @@ import mx.filters.IBitmapFilter;
  * turned off if the resulting image exceeds the maximum dimensions.</p>
  *
  *  @mxml 
- *  <p>The <code>&lt;DropShadowFilter&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:DropShadowFilter&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
