@@ -43,8 +43,18 @@ import mx.filters.IBitmapFilter;
  * wide, it can only be 2,048 pixels high.) If, for example, you zoom in on a large movie clip
  * with a filter applied, the filter is turned off if the resulting image exceeds the maximum dimensions.</p>
  * 
- * @tiptext A blur effect.
- * 
+ *  @mxml 
+ *  <p>The <code>&lt;BlurFilter&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;BlurFilter
+ *    <strong>Properties</strong>
+ *    blurX="4.0"
+ *    blurY="4.0"
+ *    quality="low"
+ *  /&gt;
+ *  </pre>
  *
  * @langversion 3.0
  * @playerversion Flash 10
@@ -58,158 +68,164 @@ import mx.filters.IBitmapFilter;
  
 public class BlurFilter extends BaseFilter implements IBitmapFilter
 {
-	/**
-	 * Constructor. The default values create a soft, unfocused image.
-	 *
-	 * @tiptext Initializes the filter.
-	 * @langversion 3.0
-	 * @playerversion Flash 10
-	 * @playerversion AIR 1.5
-	 * @productversion Flex 4
-	 *
-	 * @param blurX The amount to blur horizontally. Valid values are from 0 to 255.0 (floating-point 
-	 * value). 
-	 * @param blurY The amount to blur vertically. Valid values are from 0 to 255.0 (floating-point 
-	 * value). 
-	 * @param quality The number of times to apply the filter. You can specify the quality using
-	 * the flash.filters.BitmapFilterQuality constants:
-	 * <ul>
-	 * <li><code>flash.filters.BitmapFilterQuality.LOW</code></li>
-	 * <li><code>flash.filters.BitmapFilterQuality.MEDIUM</code></li>
-	 * <li><code>flash.filters.BitmapFilterQuality.HIGH</code></li>
-	 * </ul>
-	 * <p>High quality approximates a Gaussian blur. 
-	 * For most applications, these three values are sufficient.  
-	 * Although you can use additional numeric values up to 15 to achieve different effects, be aware
-	 * that higher values are rendered more slowly.</p>
-	 */
-	
-	public function BlurFilter(blurX:Number = 4.0, blurY:Number = 4.0, quality:int = 1)
-	{
-		super();
-		
-		this.blurX = blurX;
-		this.blurY = blurY;
-		this.quality = quality;
-	}
-	
-	//----------------------------------
+    /**
+     * Constructor. The default values create a soft, unfocused image.
+     *
+     * @tiptext Initializes the filter.
+     * @langversion 3.0
+     * @playerversion Flash 10
+     * @playerversion AIR 1.5
+     * @productversion Flex 4
+     *
+     * @param blurX The amount to blur horizontally. Valid values are from 0 to 255.0 (floating-point 
+     * value). 
+     * @param blurY The amount to blur vertically. Valid values are from 0 to 255.0 (floating-point 
+     * value). 
+     * @param quality The number of times to apply the filter. You can specify the quality using
+     * the flash.filters.BitmapFilterQuality constants:
+     * <ul>
+     * <li><code>flash.filters.BitmapFilterQuality.LOW</code></li>
+     * <li><code>flash.filters.BitmapFilterQuality.MEDIUM</code></li>
+     * <li><code>flash.filters.BitmapFilterQuality.HIGH</code></li>
+     * </ul>
+     * <p>High quality approximates a Gaussian blur. 
+     * For most applications, these three values are sufficient.  
+     * Although you can use additional numeric values up to 15 to achieve different effects, be aware
+     * that higher values are rendered more slowly.</p>
+     */
+    
+    public function BlurFilter(blurX:Number = 4.0, blurY:Number = 4.0, quality:int = 1)
+    {
+        super();
+        
+        this.blurX = blurX;
+        this.blurY = blurY;
+        this.quality = quality;
+    }
+    
+    //----------------------------------
     //  blurX
     //----------------------------------
-	
-	private var _blurX:Number = 4.0;
-	
-	/**
-	 *  The amount of horizontal blur. Valid values are 0 to 255. A blur of 1
-	 *  or less means that the original image is copied as is. The default 
-	 *  value is 4. Values that are a power of 2 (such as 2, 4, 8, 16, and 32) 
-	 *  are optimized to render more quickly than other values.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get blurX():Number
-	{
-		return _blurX;
-	}
-	
-	public function set blurX(value:Number):void
-	{
-		if (value != _blurX)
-		{
-			_blurX = value;
-			notifyFilterChanged();
-		}
-	}
-	
-	//----------------------------------
+    
+    private var _blurX:Number = 4.0;
+    
+    /**
+     *  The amount of horizontal blur. Valid values are 0 to 255. A blur of 1
+     *  or less means that the original image is copied as is. The default 
+     *  value is 4. Values that are a power of 2 (such as 2, 4, 8, 16, and 32) 
+     *  are optimized to render more quickly than other values.
+     *
+     *  @default 4.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get blurX():Number
+    {
+        return _blurX;
+    }
+    
+    public function set blurX(value:Number):void
+    {
+        if (value != _blurX)
+        {
+            _blurX = value;
+            notifyFilterChanged();
+        }
+    }
+    
+    //----------------------------------
     //  blurY
     //----------------------------------
     
-	private var _blurY:Number = 4.0;
-	
-	/**
-	 *  The amount of vertical blur. Valid values are 0 to 255. A blur of 1 
-	 *  or less means that the original image is copied as is. The default 
-	 *  value is 4. Values that are a power of 2 (such as 2, 4, 8, 16, and 32)
-	 *  are optimized to render more quickly than other values.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get blurY():Number
-	{
-		return _blurY;
-	}
-	
-	public function set blurY(value:Number):void
-	{
-		if (value != _blurY)
-		{
-			_blurY = value;
-			notifyFilterChanged();
-		}
-	}
+    private var _blurY:Number = 4.0;
+    
+    /**
+     *  The amount of vertical blur. Valid values are 0 to 255. A blur of 1 
+     *  or less means that the original image is copied as is. The default 
+     *  value is 4. Values that are a power of 2 (such as 2, 4, 8, 16, and 32)
+     *  are optimized to render more quickly than other values.
+     *
+     *  @default 4.0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get blurY():Number
+    {
+        return _blurY;
+    }
+    
+    public function set blurY(value:Number):void
+    {
+        if (value != _blurY)
+        {
+            _blurY = value;
+            notifyFilterChanged();
+        }
+    }
 
-	//----------------------------------
+    //----------------------------------
     //  quality
     //----------------------------------
-	
-	private var _quality:int = BitmapFilterQuality.LOW;
-	
-	/**
-	 *  The number of times to apply the filter. The default value is 
-	 *  BitmapFilterQuality.LOW, which is equivalent to applying the filter 
-	 *  once. The value BitmapFilterQuality.MEDIUM  applies the filter twice; 
-	 *  the value BitmapFilterQuality.HIGH applies it three times. Filters 
-	 *  with lower values are rendered more quickly. 
-	 * 
-	 *  For most applications, a quality value of low, medium, or high is 
-	 *  sufficient. Although you can use additional numeric values up to 15 
-	 *  to achieve different effects, higher values are rendered more slowly. 
-	 *  Instead of increasing the value of quality, you can often get a similar 
-	 *  effect, and with faster rendering, by simply increasing the values of 
-	 *  the blurX and blurY properties.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get quality():int
-	{
-		return _quality;
-	}
-	
-	public function set quality(value:int):void
-	{
-		if (value != _quality)
-		{
-			_quality = value;
-			notifyFilterChanged();
-		}
-	}
-	
-	/**
-	 * Returns a copy of this filter object.
-	 *
-	 * @return A new BlurFilter instance with all the same
-	 * properties as the original BlurFilter instance.
-	 *
-	 * @langversion 3.0
- 	 * @playerversion Flash 10
- 	 * @playerversion AIR 1.5
-	 * @productversion Flex 4
-	 */
-	
-	public function clone():BitmapFilter
-	{
-		return new flash.filters.BlurFilter(blurX, blurY, quality);
-	}
-	
+    
+    private var _quality:int = BitmapFilterQuality.LOW;
+    
+    /**
+     *  The number of times to apply the filter. The default value is 
+     *  <code>BitmapFilterQuality.LOW</code>, which is equivalent to applying the filter 
+     *  once. The value <code>BitmapFilterQuality.MEDIUM</code> applies the filter twice; 
+     *  the value <code>BitmapFilterQuality.HIGH</code> applies it three times. Filters 
+     *  with lower values are rendered more quickly. 
+     * 
+     *  <p>For most applications, a quality value of low, medium, or high is 
+     *  sufficient. Although you can use additional numeric values up to 15 
+     *  to achieve different effects, higher values are rendered more slowly. 
+     *  Instead of increasing the value of quality, you can often get a similar 
+     *  effect, and with faster rendering, by simply increasing the values of 
+     *  the <code>blurX</code> and <code>blurY</code> properties.</p>
+     *
+     *  @default "low"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get quality():int
+    {
+        return _quality;
+    }
+    
+    public function set quality(value:int):void
+    {
+        if (value != _quality)
+        {
+            _quality = value;
+            notifyFilterChanged();
+        }
+    }
+    
+    /**
+     * Returns a copy of this filter object.
+     *
+     * @return A new BlurFilter instance with all the same
+     * properties as the original BlurFilter instance.
+     *
+     * @langversion 3.0
+     * @playerversion Flash 10
+     * @playerversion AIR 1.5
+     * @productversion Flex 4
+     */
+    
+    public function clone():BitmapFilter
+    {
+        return new flash.filters.BlurFilter(blurX, blurY, quality);
+    }
+    
 }
 }
