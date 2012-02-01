@@ -104,10 +104,10 @@ public class HorizontalLayout extends LayoutBase
     
     private static function calculatePercentHeight(layoutElement:ILayoutElement, height:Number):Number
     {
-    	var percentHeight:Number = LayoutElementHelper.pinBetween(Math.round(layoutElement.percentHeight * 0.01 * height),
-    	                                                          layoutElement.getMinBoundsHeight(),
-    	                                                          layoutElement.getMaxBoundsHeight() );
-    	return percentHeight < height ? percentHeight : height;
+        var percentHeight:Number = LayoutElementHelper.pinBetween(Math.round(layoutElement.percentHeight * 0.01 * height),
+                                                                  layoutElement.getMinBoundsHeight(),
+                                                                  layoutElement.getMaxBoundsHeight() );
+        return percentHeight < height ? percentHeight : height;
     }
 
     private static function sizeLayoutElement(layoutElement:ILayoutElement, height:Number, 
@@ -153,7 +153,7 @@ public class HorizontalLayout extends LayoutBase
      */    
     public function HorizontalLayout():void
     {
-		super();
+        super();
     }
     
     //--------------------------------------------------------------------------
@@ -196,8 +196,8 @@ public class HorizontalLayout extends LayoutBase
         if (_gap == value) 
             return;
     
-	    _gap = value;
- 	    invalidateTargetSizeAndDisplayList();
+        _gap = value;
+        invalidateTargetSizeAndDisplayList();
     }
     
     //----------------------------------
@@ -436,14 +436,14 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  If variableColumnWidth="false" then 
-     *  this property specifies the actual width of each layout element.
+     *  If the <code>variableColumnWidth</code> property is <code>false</code>, 
+     *  then this property specifies the actual width of each layout element.
      * 
-     *  If variableColumnWidth="true" (the default), then this property
-     *  has no effect.
+     *  <p>If the <code>variableColumnWidth</code> property is <code>true</code>, 
+     *  the default, then this property has no effect.</p>
      * 
-     *  The default value of this property is the preferred width
-     *  of the typicalLayoutElement.
+     *  <p>The default value of this property is the preferred width
+     *  of the item specified by the <code>typicalLayoutElement</code> property.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -485,16 +485,13 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General")]
 
     /**
-     *  Specifies whether or not layout elements are to be allocated their
+     *  If <code>true</code>, specifies that layout elements are to be allocated their
      *  preferred width.
-     * 
-     *  Setting this property to false specifies fixed width columns.
-     * 
-     *  If false, the actual width of each layout element will be 
-     *  the value of <code>columnWidth</code>.
-     * 
-     *  Setting this property to false causes the layout to ignore 
-     *  layout elements' percentWidth.
+     *
+     *  <p>Setting this property to <code>false</code> specifies fixed width columns.
+     *  The actual width of each layout element is 
+     *  the value of the <code>columnWidth</code> property, and the layout ignores  
+     *  a layout elements' <code>percentWidth</code> property.</p>
      * 
      *  @default true
      *  
@@ -532,8 +529,8 @@ public class HorizontalLayout extends LayoutBase
     [Bindable("indexInViewChanged")]    
 
     /**
-     *  The index of the first column that's part of the layout and within
-     *  the layout target's scrollRect, or -1 if nothing has been displayed yet.
+     *  The index of the first column that is part of the layout and within
+     *  the layout target's scroll rectangle, or -1 if nothing has been displayed yet.
      * 
      *  Note that the column may only be partially in view.
      * 
@@ -564,8 +561,8 @@ public class HorizontalLayout extends LayoutBase
     [Bindable("indexInViewChanged")]    
 
     /**
-     *  The index of the last column that's part of the layout and within
-     *  the layout target's scrollRect, or -1 if nothing has been displayed yet.
+     *  The index of the last column that is part of the layout and within
+     *  the layout target's scroll rectangle, or -1 if nothing has been displayed yet.
      * 
      *  Note that the column may only be partially in view.
      * 
@@ -594,18 +591,23 @@ public class HorizontalLayout extends LayoutBase
     [Inspectable(category="General", enumeration="top,bottom,middle,justify,contentJustify", defaultValue="top")]
 
     /** 
-     *  Vertical alignment of layout elements.
+     *  The vertical alignment of layout elements.
      * 
-     *  If the value is one of "bottom", "middle", "top"  then the 
-     *  layout element is aligned relative to the target's contentHeight.
+     *  <p>If the value is <code>"bottom"</code>, <code>"middle"</code>, 
+     *  or <code>"top"</code> then the container children are aligned relative 
+     *  to the container's <code>contentHeight</code> property.</p>
      * 
-     *  If the value is "contentJustify" then the layout element's actual
-     *  height is set to the contentHeight.
+     *  <p>If the value is <code>"contentJustify"</code> then the actual
+     *  height of the container children is set to 
+     *  the container's <code>contentHeight</code> property. 
+     *  The content height of the container is the height of the largest child. 
+     *  If all children are smaller than the height of the container, 
+     *  then set the height of all the children to the height of the container.</p>
      * 
-     *  If the value is "justify" then the layout element's actual height
-     *  is set to the target's height.
+     *  <p>If the value is <code>"justify"</code> then the actual height
+     *  of the container children is set to the container's height.</p>
      *
-     *  This property does not affect the layout's measured size.
+     *  <p>This property does not affect the layout's measured size.</p>
      *  
      *  @default "top"
      *  
@@ -1597,7 +1599,7 @@ public class HorizontalLayout extends LayoutBase
         // Make sure that if the content spans partially over a pixel to the right/bottom,
         // the content size includes the whole pixel.
         layoutTarget.setContentSize(Math.ceil(maxX + paddingRight),
-                                    Math.ceil(maxY + paddingBottom));      	      
+                                    Math.ceil(maxY + paddingBottom));             
     }
 
 
@@ -1746,5 +1748,5 @@ import mx.containers.utilityClasses.FlexChildInfo;
 
 class HLayoutElementFlexChildInfo extends FlexChildInfo
 {
-    public var layoutElement:ILayoutElement;	
+    public var layoutElement:ILayoutElement;    
 }
