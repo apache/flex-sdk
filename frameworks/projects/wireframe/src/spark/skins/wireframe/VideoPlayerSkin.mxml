@@ -20,23 +20,11 @@
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
     alpha.disabledStates="0.5">
-
-
+    
     <!-- host component -->
     <fx:Metadata>
         [HostComponent("spark.components.VideoPlayer")]
     </fx:Metadata>
-    
-    <fx:Style>
-        @namespace "library://ns.adobe.com/flex/spark";
-        
-        .videoTextStyle
-        {
-            font-family: Arial;
-            font-size: 12px;
-            color: #000000;
-        }
-    </fx:Style>
     
     <!-- states -->
     <s:states>
@@ -127,7 +115,8 @@
                     </s:Group>
                     
                     <!--- Defines the appearance of the volume bar. -->
-                    <s:VideoPlayerVolumeBar id="volumeBar" valueInterval=".01" liveDragging="true" right="37" bottom="0" 
+                    <s:VideoPlayerVolumeBar id="volumeBar" valueInterval=".01" stepSize=".01" liveDragging="true"
+                            right="37" bottom="0" 
                             skinClass="spark.skins.wireframe.VideoPlayerVolumeBarSkin" />
                     
                     <!--- Defines the label and appearance of the Fullscreen button. -->
