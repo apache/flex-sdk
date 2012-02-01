@@ -11,25 +11,25 @@
 
 -->
 
-<ItemRenderer focusEnabled="false" xmlns="http://ns.adobe.com/mxml/2009">
+<s:ItemRenderer focusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
 	
-    <states>
-		<State name="normal"/>			
-		<State name="hovered"/>
-		<State name="selected"/>
-	</states>
+    <s:states>
+		<s:State name="normal"/>			
+		<s:State name="hovered"/>
+		<s:State name="selected"/>
+	</s:states>
 	
-	<Rect left="0" right="0" top="0" bottom="0">
-		<fill>
-			<SolidColor color="{contentBackgroundColor}" />
-		</fill>
-		<fill.hovered>
-		    <SolidColor color="{rollOverColor}" />
-		</fill.hovered>
-		<fill.selected>
-		    <SolidColor color="{selectionColor}" />
-		</fill.selected>
-	</Rect>
-	<TextBox id="labelElement" verticalCenter="0" left="3" right="3" top="6" bottom="4"/>
+	<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:fill>
+			<s:SolidColor color="{contentBackgroundColor}" />
+		</s:fill>
+		<s:fill.hovered>
+		    <s:SolidColor color="{rollOverColor}" />
+		</s:fill.hovered>
+		<s:fill.selected>
+		    <s:SolidColor color="{selectionColor}" />
+		</s:fill.selected>
+	</s:Rect>
+	<s:SimpleText id="labelElement" verticalCenter="0" left="3" right="3" top="6" bottom="4"/>
 
-</ItemRenderer>
+</s:ItemRenderer>
