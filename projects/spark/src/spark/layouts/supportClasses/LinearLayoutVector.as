@@ -826,7 +826,7 @@ public final class LinearLayoutVector
             var srcStart:int = srcEnd - copyCount + 1;
             
             copyInterval(dstStart, srcStart, copyCount);
-            dstStart -= copyCount;
+            srcEnd -= copyCount;
             dstEnd = intervalStart - 1;
             
             // Fill in with default NaN values after the copy
