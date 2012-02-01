@@ -28,6 +28,30 @@ use namespace mx_internal;
 
 /**
  *  The Path class is a filled graphic element that draws a series of path segments.
+ *  In vector graphics, a path is a series of points connected by straight or curved line segments. 
+ *  Together the lines form an image. In Flex, you use the Path class to define a complex vector shape 
+ *  constructed from a set of line segments. The LineSegment, CubicBezierSegment, and QuadraticBezierSegment 
+ *  classes define the types of line segments that you can use. 
+ * 
+ *  <p>Typically, the first element of a path definition is a MoveSegment class to specify the starting pen 
+ *  position of the graphic. You then use the LineSegment, CubicBezierSegment, and QuadraticBezierSegment 
+ *  classes draw the lines of the graphic. When using these classes, you only specify the x and y coordinates 
+ *  of the end point of the line; the x and y coordinate of the starting point is defined by the current 
+ *  pen position.</p>
+ *  
+ *  <p>After drawing a line segment, the current pen position becomes the x and y coordinates of the end 
+ *  point of the line. You can use multiple instances of the MoveSegment class in the path definition to 
+ *  reposition the pen.</p>
+ *  
+ *  <p>The syntax used by the Path class to define the shape is the same as the SVG path syntax, 
+ *  which makes it easy to convert SVG paths to Flex paths.</p>
+ *  
+ *  @includeExample examples/ArrowExample.mxml
+ *  
+ *  @see mx.graphics.MoveSegment
+ *  @see mx.graphics.LineSegment
+ *  @see mx.graphics.CubicBezierSegment
+ *  @see mx.graphics.QuadraticBezierSegment
  */
 public class Path extends FilledElement
 {
@@ -78,7 +102,7 @@ public class Path extends FilledElement
 
     /**
      *  A string containing a compact represention of the path segments. This is an alternate
-     *  way of setting the segments property. Setting this property will override any values
+     *  way of setting the segments property. Setting this property overrides any values
      *  stored in the segments array property.
      *
      *  <p>The value is a space-delimited string describing each path segment. Each
@@ -88,28 +112,61 @@ public class Path extends FilledElement
      *  <p>If the segment command is upper-case, the parameters are absolute values.
      *  If the segment command is lower-case, the parameters are relative values.</p>
      *
-     *  <p>Here is the syntax for the segments:</p>
-     *  Segment Type     Command       Parameters       Example
-     *  ------------     -------       ----------       -------
-     *  MoveSegment      M/m           x y              M 10 20 - Move to 10, 20
-     *  LineSegment      L/l           x y              L 50 30 - Line to 50, 30
-     *   horiz. line     H/h           x                H 40 - Horizontal line to 40
-     *   vert. line      V/v           y                V 100 - Vertical line to 100 
-     *  QuadraticBezier  Q/q           controlX 
-     *                                 controlY 
-     *                                 x y              Q 110 45 90 30
-     *                                                  - Curve to 90, 30 with the control
-     *                                                    point at 110, 45
-     *  CubicBezier      C/c           control1X
-     *                                 control1Y
-     *                                 control2X
-     *                                 control2Y
-     *                                 x y              C 45 50 20 30 10 20
-     *                                                  - Curve to 10, 20 with the first
-     *                                                    control point at 45, 50 and the
-     *                                                    second control point at 20, 30
-     *  close path       Z/z           none             Closes off the path 
-     *                                                  
+     *  <p>The following table shows the syntax for the segments:
+     *  
+     *  
+     *  <table class="innertable">
+     *    <tr>
+     *      <th>Segment Type</th>
+     *      <th>Command</th>
+     *      <th>Parameters</th>
+     *      <th>Example</th>
+     *    </tr>
+     *    <tr>
+     *      <td>MoveSegment</td>
+     *      <td>M/m</td>
+     *      <td>x y</td>
+     *      <td><code>M 10 20</code> - Move line to 10, 20.</td>
+     *    </tr>
+     *    <tr>
+     *      <td>LineSegment</td>
+     *      <td>L/l</td>
+     *      <td>x y</td>
+     *      <td><code>L 50 30</code> - Line to 50, 30.</td>
+     *    </tr>
+     *    <tr>
+     *      <td>Horizontal line</td>
+     *      <td>H/h</td>
+     *      <td>x</td>
+     *      <td><code>H 40</code> = Horizontal line to 40.</td>
+     *    </tr>
+     *    <tr>
+     *      <td>Vertical line</td>
+     *      <td>V/v</td>
+     *      <td>y</td>
+     *      <td><code>V 100</code> - Vertical line to 100.</td>
+     *    </tr>
+     *    <tr>
+     *      <td>QuadraticBezierSegment</td>
+     *      <td>Q/q</td>
+     *      <td>controlX controlY x y</td>
+     *      <td><code>Q 110 45 90 30</code> - Curve to 90, 30 with the control point at 110, 45.</td>
+     *    </tr>
+     *    <tr>
+     *      <td>CubicBezierSegment</td>
+     *      <td>C/c</td>
+     *      <td>control1X control1Y control2X control2Y x y</td>
+     *      <td><code>C 45 50 20 30 10 20</code> - Curve to 10, 20 with the first control point at 45, 50 and the second control point at 20, 30.</td>
+     *    </tr>
+     *    <tr>
+     *      <td>Close path</td>
+     *      <td>Z/z</td>
+     *      <td>n/a</td>
+     *      <td>Closes off the path.</td>
+     *    </tr>
+     *  </table>
+     *  </p>
+     *  
      *  @default null
      */
     public function set data(value:String):void
@@ -258,6 +315,9 @@ public class Path extends FilledElement
         dispatchPropertyChangeEvent("data", oldValue, value);
     }
     
+    /** 
+     *  @private
+     */
     public function get data():String 
     {
         if (!_data)
@@ -331,6 +391,9 @@ public class Path extends FilledElement
         boundsChanged();
     }
     
+    /** 
+     *  @private
+     */
     public function get segments():Array 
     {
         return _segments;
@@ -352,6 +415,9 @@ public class Path extends FilledElement
         _winding = value;
     }
     
+    /** 
+     *  @private
+     */
     public function get winding():String 
     {
         return _winding; 
@@ -429,9 +495,9 @@ public class Path extends FilledElement
     }
     private function setActualScale(sX:Number,sY:Number):void
     {
-		layoutFeatures.layoutScaleX = sX;
-		layoutFeatures.layoutScaleY = sY;
-		invalidateTransform(false,false);
+        layoutFeatures.layoutScaleX = sX;
+        layoutFeatures.layoutScaleY = sY;
+        invalidateTransform(false,false);
     }
 
     /**
@@ -463,6 +529,9 @@ public class Path extends FilledElement
         }
     }
     
+    /**
+     * @inheritDoc
+     */
     override protected function endDraw(g:Graphics):void
     {
         // Set a transparent line style because filled, unclosed shapes will
@@ -493,6 +562,9 @@ public class Path extends FilledElement
         boundsChanged();
     }
     
+    /**
+     * @private
+     */
     private function boundsChanged(): void
     {
         // Clear our cached measurement and data values
@@ -501,6 +573,9 @@ public class Path extends FilledElement
         invalidateSize();
     }
    
+    /**
+     * @private
+     */
     private function clearBounds():void
     {
         _bounds = null;
@@ -512,6 +587,9 @@ public class Path extends FilledElement
     //
     //--------------------------------------------------------------------------
 
+    /**
+     * @inheritDoc
+     */
     override protected function computeMatrix(actualMatrix:Boolean):Matrix
     {
         var tmpScaleX:Number = actualMatrix ? super.scaleX : _userScaleX;
@@ -539,26 +617,7 @@ public class Path extends FilledElement
     }
 
     /**
-     *  <code>setActualSize</code> modifies the item size/transform so that
-     *  its TBounds have the specified <code>width</code> and <code>height</code>.
-     *  
-     *  If one of the desired TBounds dimensions is left unspecified, it's size
-     *  will be picked such that item can be optimally sized to fit the other
-     *  TBounds dimension. This is useful when the layout doesn't want to 
-     *  overconstrain the item in cases where the item TBounds width and height
-     *  are dependent (text, components with complex transforms, etc.)
-     * 
-     *  If both TBounds dimensions are left unspecified, the item will have its
-     *  preferred size set.
-     * 
-     *  <code>setActualSize</code> does not clip against <code>minSize</code> and
-     *  <code>maxSize</code> properties.
-     * 
-     *  <code>setActualSize</code> must preserve the item's TBounds position,
-     *  which means that in some cases it will move the item in addition to
-     *  changing its size.
-     * 
-     *  @return Returns the TBounds of the new item size.
+     *  @inheritDoc
      */
     override public function setActualSize(width:Number = Number.NaN, height:Number = Number.NaN):Point
     {
@@ -596,7 +655,7 @@ public class Path extends FilledElement
         var stroke:IStroke = getStroke();
         if (!stroke)
         {
-            setActualScale(w / bw,  h / bh);	
+            setActualScale(w / bw,  h / bh);    
         }
         else if (stroke.weight == 0 )
         {
@@ -604,70 +663,70 @@ public class Path extends FilledElement
         }
         else if(stroke.scaleMode != LineScaleMode.NORMAL)
         {
-        	var strokeWeight:Number = stroke.weight;
-        	if (stroke.scaleMode == LineScaleMode.HORIZONTAL)
-        	{
-        		setActualScale(w / (bw + strokeWeight),(h - strokeWeight) / bh);
+            var strokeWeight:Number = stroke.weight;
+            if (stroke.scaleMode == LineScaleMode.HORIZONTAL)
+            {
+                setActualScale(w / (bw + strokeWeight),(h - strokeWeight) / bh);
             }
             else if(stroke.scaleMode == LineScaleMode.VERTICAL)
             {
-                setActualScale((w - strokeWeight) / bw,h / (bh + strokeWeight));        		
-        	}
-        	else // LineScaleMode.NONE
-        	{
-        		setActualScale((w - strokeWeight) / bw,(h - strokeWeight) / bh);
-        	}
+                setActualScale((w - strokeWeight) / bw,h / (bh + strokeWeight));                
+            }
+            else // LineScaleMode.NONE
+            {
+                setActualScale((w - strokeWeight) / bw,(h - strokeWeight) / bh);
+            }
         }
         else
         {
-	        var t:Number = stroke.weight;
-	        t = t * t / 2;
-	        var t1:Number = t / ( bw * bw);
-	
-	        // TODO EGeorige: the following equations don't 
-	        // account for skew components of the matrix.
-	        // Also, this can be greatly optimized.            
-	
-	        // (1) w = bw * x + sqrt( x^2 * t + y^2 * t)
-	        // (2) h = bh * y + sqrt( x^2 * t + y^2 * t)
-	        // (1) - (2):
-	        // w - h = bw * x - bh * y
-	        // x = ( w - h + bh * y ) / bw
-	        // substitute back in (2):
-	        // h - bh * y = sqrt( (w - h + bh * y )^2 * t / bw^2 + y^2 * t )
-	        // h^2 - 2*h*bh*y +bh^2 * y^2 = ((w - h)^2 + 2 * (w-h) * bh * y + bh^2 * y^2 ) * t / bw^2 + y^2 * t
-	        // bh^2 * y^2 - 2*h*bh*y  + h ^2 = t1 * (w - h)^2 + 2 * t1 * (w-h) * bh * y + t1 * bh^2 * y^2 + t * y^2
-	        // bh^2 * y^2 - 2*h*bh*y  + h^2 = t1*(w-h)^2 + 2*t1*(w-h)*bh* y + (t1*bh^2 + t)*y^2
-	        // (bh^2 - t1*bh^2 - t) * y^2 -(2*h*bh +2*t1*(w-h)*bh) * y + (h^2 - t1*(w-h)^2) = 0 
-	        
-	        if( bw != 0 && bh != 0)
-	        {
-	            var A:Number = bh * bh - t1 * bh * bh - t;   
-	            var B:Number = -2 *h * bh - 2 * t1 * (w-h) * bh;            
-	            var C:Number = h * h - t1 * (w-h) * (w-h);                
-	
-	            var D:Number = B * B - 4 * A * C;
-	            if (D >= 0)
-	            {
-	                var y1:Number = (-B + Math.sqrt(D)) / (2 * A);
-	                var y2:Number = (-B - Math.sqrt(D)) / (2 * A);
-	                
-	                var x1:Number = ( w - h + bh * y1 ) / bw;
-	                var x2:Number = ( w - h + bh * y2 ) / bw;
-	                
-	                if (Math.abs(h - bh * y1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5 &&
-	                    Math.abs(w - bw * x1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5)
-	                {
-	                    setActualScale(x1,y1);
-	                }
-	                else
-	                if (Math.abs(h - bh * y2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5 &&
-	                    Math.abs(w - bw * x2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5)
-	                {
-	                    setActualScale(x2,y2);
-	                }
-	            }
-	        }
+            var t:Number = stroke.weight;
+            t = t * t / 2;
+            var t1:Number = t / ( bw * bw);
+    
+            // TODO EGeorige: the following equations don't 
+            // account for skew components of the matrix.
+            // Also, this can be greatly optimized.            
+    
+            // (1) w = bw * x + sqrt( x^2 * t + y^2 * t)
+            // (2) h = bh * y + sqrt( x^2 * t + y^2 * t)
+            // (1) - (2):
+            // w - h = bw * x - bh * y
+            // x = ( w - h + bh * y ) / bw
+            // substitute back in (2):
+            // h - bh * y = sqrt( (w - h + bh * y )^2 * t / bw^2 + y^2 * t )
+            // h^2 - 2*h*bh*y +bh^2 * y^2 = ((w - h)^2 + 2 * (w-h) * bh * y + bh^2 * y^2 ) * t / bw^2 + y^2 * t
+            // bh^2 * y^2 - 2*h*bh*y  + h ^2 = t1 * (w - h)^2 + 2 * t1 * (w-h) * bh * y + t1 * bh^2 * y^2 + t * y^2
+            // bh^2 * y^2 - 2*h*bh*y  + h^2 = t1*(w-h)^2 + 2*t1*(w-h)*bh* y + (t1*bh^2 + t)*y^2
+            // (bh^2 - t1*bh^2 - t) * y^2 -(2*h*bh +2*t1*(w-h)*bh) * y + (h^2 - t1*(w-h)^2) = 0 
+            
+            if( bw != 0 && bh != 0)
+            {
+                var A:Number = bh * bh - t1 * bh * bh - t;   
+                var B:Number = -2 *h * bh - 2 * t1 * (w-h) * bh;            
+                var C:Number = h * h - t1 * (w-h) * (w-h);                
+    
+                var D:Number = B * B - 4 * A * C;
+                if (D >= 0)
+                {
+                    var y1:Number = (-B + Math.sqrt(D)) / (2 * A);
+                    var y2:Number = (-B - Math.sqrt(D)) / (2 * A);
+                    
+                    var x1:Number = ( w - h + bh * y1 ) / bw;
+                    var x2:Number = ( w - h + bh * y2 ) / bw;
+                    
+                    if (Math.abs(h - bh * y1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5 &&
+                        Math.abs(w - bw * x1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5)
+                    {
+                        setActualScale(x1,y1);
+                    }
+                    else
+                    if (Math.abs(h - bh * y2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5 &&
+                        Math.abs(w - bw * x2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5)
+                    {
+                        setActualScale(x2,y2);
+                    }
+                }
+            }
         }
 
         if (super.scaleX != lastActualScaleX || super.scaleY != lastActualScaleY)
