@@ -270,6 +270,25 @@ public class LayoutBase extends OnDemandEventDispatcher
     //--------------------------------------------------------------------------
     
     /**
+     *  Returns the bounds of the target's scrollRect in layout coordinates.
+     * 
+     *  Layout methods should not get the target's scrollRect directly.
+     * 
+     *  @return The bounds of the target's scrollRect in layout coordinates, null
+     *      if target or clipContent is false. 
+     */
+    protected function getTargetScrollRect():Rectangle
+    {
+        var g:GroupBase = target;
+        if (!g || !g.clipContent)
+            return null;     
+        var vsp:Number = g.verticalScrollPosition;
+        var hsp:Number = g.horizontalScrollPosition;
+        return new Rectangle(hsp, vsp, g.width, g.height);
+    }
+
+
+    /**
      *  Returns the bounds of the first layout element that either spans or
      *  is to the left of the scrollRect's left edge.
      * 
@@ -456,10 +475,15 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (!g)
             return 0;     
 
-        var scrollRect:Rectangle = g.scrollRect;
+        var scrollRect:Rectangle = getTargetScrollRect();
         if (!scrollRect)
             return 0;
             
+        // Special case: if the scrollRect's origin is 0,0 and it's bigger 
+        // than the target, then there's no where to scroll to
+        if ((scrollRect.x == 0) && (scrollRect.width >= g.width))
+            return 0;  
+
         // maxDelta is the horizontalScrollPosition delta required 
         // to scroll to the END and minDelta scrolls to HOME. 
         var maxDelta:Number = g.contentWidth - scrollRect.right;
@@ -603,9 +627,14 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (!g)
             return 0;     
 
-        var scrollRect:Rectangle = g.scrollRect;
+        var scrollRect:Rectangle = getTargetScrollRect();
         if (!scrollRect)
             return 0;
+            
+        // Special case: if the scrollRect's origin is 0,0 and it's bigger 
+        // than the target, then there's no where to scroll to
+        if ((scrollRect.y == 0) && (scrollRect.height >= g.height))
+            return 0;  
             
         // maxDelta is the horizontalScrollPosition delta required 
         // to scroll to the END and minDelta scrolls to HOME. 
@@ -721,18 +750,19 @@ public class LayoutBase extends OnDemandEventDispatcher
      */
      public function getScrollPositionDelta(index:int):Point
      {
-         if (!target || !clipContent)
-            return null;
+        var g:GroupBase = target;
+        if (!g || !clipContent)
+            return null;     
             
-         var n:int = target.numLayoutElements;
+         var n:int = g.numLayoutElements;
          if ((index < 0) || (index >= n))
             return null;
             
-         var element:ILayoutElement = target.getLayoutElementAt(index);
+         var element:ILayoutElement = g.getLayoutElementAt(index);
          if (!element || !element.includeInLayout)
             return null;
             
-         var scrollR:Rectangle = target.scrollRect;
+         var scrollR:Rectangle = getTargetScrollRect();
          if (!scrollR)
             return null;
          
@@ -758,13 +788,13 @@ public class LayoutBase extends OnDemandEventDispatcher
          // scrollR "contains"  elementR in just one dimension
          if ((elementR.left >= scrollR.left) && (elementR.right <= scrollR.right))
             dx = 0;
-         else if ((elementR.bottom >= scrollR.bottom) && (elementR.top <= scrollR.top))
+         else if ((elementR.bottom <= scrollR.bottom) && (elementR.top >= scrollR.top))
             dy = 0;
             
          // elementR "contains" scrollR in just one dimension
          if ((elementR.left <= scrollR.left) && (elementR.right >= scrollR.right))
             dx = 0;
-         else if ((elementR.bottom <= scrollR.bottom) && (elementR.top >= scrollR.top))
+         else if ((elementR.bottom >= scrollR.bottom) && (elementR.top <= scrollR.top))
             dy = 0;
             
          return new Point(dx, dy);
