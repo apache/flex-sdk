@@ -32,6 +32,9 @@ Wireframe skin class for the Spark TabBar component.
     alpha.disabled="0.5">
     
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.TabBar")]
     </fx:Metadata> 
 
@@ -40,9 +43,7 @@ Wireframe skin class for the Spark TabBar component.
         <s:State name="disabled" />
     </s:states>
     
-    <!--- 
-    @copy spark.components.SkinnableDataContainer#dataGroup
-    -->
+    <!--- @copy spark.components.SkinnableDataContainer#dataGroup -->
     <s:DataGroup id="dataGroup" width="100%" height="100%">
         <s:layout>
             <s:ButtonBarHorizontalLayout gap="-1"/>
