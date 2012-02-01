@@ -33,7 +33,7 @@ import spark.layout.VerticalAlign;
  *
  *  Per-element supported constraints are percentWidth, percentHeight.
  *  Element's minimum and maximum sizes will always be respected and
- *  where possible, element's size will be limited to less then or equal
+ *  where possible, an element's size will be limited to less then or equal
  *  of the cell size.
  *
  *  When not explicitly set, the columnWidth is calculated as the maximum
@@ -646,6 +646,17 @@ public class TileLayout extends LayoutBase
     private var _tileWidthCached:Number = NaN;
     private var _tileHeightCached:Number = NaN;
     private var _numElementsCached:int = -1;
+    
+    /**
+     *  @private
+     *  The following variables are used by updateDisplayList() and set by
+     *  calculateDisplayParameters().   If virtualLayout=true they're based 
+     *  on the current scrollRect.
+     */
+    private var visibleStartIndex:int = -1;   // dataProvider/layout element index  
+    private var visibleEndIndex:int = -1;     // ...
+    private var visibleStartX:Number = 0;     // first tile/cell origin
+    private var visibleStartY:Number = 0;     // ...
 
     //--------------------------------------------------------------------------
     //
@@ -754,7 +765,7 @@ public class TileLayout extends LayoutBase
     
     /**
      *  @private
-     *  Returns true, if the dimensions (colCounr1, rowCount1) are more square than (colCount2, rowCount2).
+     *  Returns true, if the dimensions (colCount1, rowCount1) are more square than (colCount2, rowCount2).
      *  Squareness is the difference between width and height of a tile layout
      *  with the specified number of columns and rows.
      */
@@ -794,7 +805,7 @@ public class TileLayout extends LayoutBase
             else
                 _columnCount = 1;
         }
-        else if (!isNaN(height) && (orientation == "columns" || isNaN(width)))
+        else if (!isNaN(height) && (orientation == TileOrientation.COLUMNS || isNaN(width)))
         {
             if (_rowHeight + explicitVerticalGap > 0)
                 _rowCount = Math.max(1, Math.floor((height + explicitVerticalGap) / (_rowHeight + explicitVerticalGap)));
@@ -940,10 +951,56 @@ public class TileLayout extends LayoutBase
 
     /**
      *  @private
+     *  Update _tileWidth,Height to be the maximum of their current
+     *  value and the element's preferred bounds. 
+     */
+    private function updateVirtualTileSize(elt:ILayoutElement):void
+    {
+        if (!elt || !elt.includeInLayout)
+            return;
+        var w:Number = elt.getPreferredBoundsWidth();
+        var h:Number = elt.getPreferredBoundsHeight();
+        _tileWidthCached = isNaN(_tileWidthCached) ? w : Math.max(w, _tileWidthCached);
+        _tileHeightCached = isNaN(_tileHeightCached) ? h : Math.max(h, _tileHeightCached);
+    }
+    
+    /**
+     *  @private
+     */
+    private function calculateVirtualTileSize():void
+    {
+        // If both dimensions are explicitly set, we're done
+        _columnWidth = explicitColumnWidth;
+        _rowHeight = explicitRowHeight;
+        if (!isNaN(_columnWidth) && !isNaN(_rowHeight))
+        {
+            _tileWidthCached = _columnWidth;
+            _tileHeightCached = _rowHeight;
+            return;
+        }
+        
+        // update _tileWidth,HeightCached based on the typicalElement     
+        updateVirtualTileSize(typicalLayoutElement);
+        
+        // update _tileWidth,HeightCached based on visible elements    
+        if ((visibleStartIndex != -1) && (visibleEndIndex != -1))
+        {
+            for(var index:int = visibleStartIndex; index <= visibleEndIndex; index++)
+                updateVirtualTileSize(target.getVirtualElementAt(index));
+        }
+        
+        if (isNaN(_columnWidth))
+            _columnWidth = _tileWidthCached;
+        if (isNaN(_rowHeight))
+            _rowHeight = _tileHeightCached;        
+    }
+
+    /**
+     *  @private
      *  Calculates _columnWidth and _rowHeight from maximum of
      *  elements preferred size and any explicit overrides.
      */
-    private function calculateTileSize():void
+    private function calculateRealTileSize():void
     {
         _columnWidth = _tileWidthCached;
         _rowHeight = _tileHeightCached;
@@ -984,19 +1041,33 @@ public class TileLayout extends LayoutBase
         if (isNaN(_rowHeight))
             _rowHeight = _tileHeightCached = rowHeight;
     }
+    
+    private function calculateTileSize():void    
+    {
+        if (useVirtualLayout)
+            calculateVirtualTileSize();
+        else 
+            calculateRealTileSize();
+    }    
 
     /**
      *  @private
-     *  @return Returns the number of layout elements.
+     *  For normal layout return the number of non-null includeInLayout=true
+     *  layout elements, for virtual layout just return the number of layout
+     *  elements.
      */
     private function calculateElementCount():int
     {
         if (-1 != _numElementsCached)
             return _numElementsCached;
-
+            
         var layoutTarget:GroupBase = target;
         var count:int = layoutTarget.numElements;
         _numElementsCached = count;
+
+        if (useVirtualLayout)
+            return _numElementsCached;
+            
         for (var i:int = 0; i < count; i++)
         {
             var el:ILayoutElement = layoutTarget.getElementAt(i);
@@ -1006,6 +1077,63 @@ public class TileLayout extends LayoutBase
 
         return _numElementsCached;
     }
+    
+    /**
+     *  @private
+     *  This method computes values for visibleStartX,Y, visibleStartIndex, and 
+     *  visibleEndIndex based on the TileLayout geometry values, like _columnWidth
+     *  and _rowHeight, computed by calculateActualValues().
+     * 
+     *  If useVirtualLayout=false, then visibleStartX,Y=0 and visibleStartIndex=0
+     *  and visibleEndIndex=layoutTarget.numElements-1.
+     * 
+     *  If useVirtualLayout=true and orientation=ROWS then visibleStartIndex is the 
+     *  layout element index of the item at first visible row relative to the scrollRect, 
+     *  column 0.  Note that we're using column=0 instead of the first visible column
+     *  to simplify the iteration logic in updateDisplayList().  This is optimal 
+     *  for the common case where the entire row is visible.   Optimally handling 
+     *  the case where orientation=ROWS and each row is only partially visible is 
+     *  doable but adds some complexity to the main loop.
+     * 
+     *  The logic for useVirtualLayout=true and orientation=COLS is similar.
+     */
+    private function calculateDisplayParameters(unscaledWidth:int, unscaledHeight:int):void
+    {
+        updateActualValues(unscaledWidth, unscaledHeight);
+
+        var layoutTarget:GroupBase = target;
+        var eltCount:int = layoutTarget.numElements;
+        visibleStartX = 0;   // initial values for xPos,yPos in updateDisplayList
+        visibleStartY = 0;
+        visibleStartIndex = 0;
+        visibleEndIndex = eltCount - 1;
+
+        if (useVirtualLayout)
+        {
+            var hsp:Number = layoutTarget.horizontalScrollPosition;
+            var vsp:Number = layoutTarget.verticalScrollPosition;
+            var cwg:Number = _columnWidth + _horizontalGap;
+            var rwg:Number = _rowHeight + _verticalGap;
+            
+            var visibleCol0:int = Math.floor(hsp / cwg);
+            var visibleRow0:int = Math.floor(vsp / rwg);
+            var visibleCol1:int = Math.min(_columnCount - 1, Math.floor((hsp + unscaledWidth) / cwg));
+            var visibleRow1:int = Math.min(_rowCount - 1, Math.floor((vsp + unscaledHeight) / rwg));
+
+            if (orientation == TileOrientation.ROWS)
+            {
+                visibleStartIndex = (visibleRow0 * _columnCount);
+                visibleEndIndex = Math.min(eltCount - 1, (visibleRow1 * _columnCount) + visibleCol1); 
+                visibleStartY = visibleRow0 * rwg;                
+            }
+            else
+            {
+                visibleStartIndex = (visibleCol0 * _rowCount);
+                visibleEndIndex = Math.min(eltCount - 1, (visibleCol1 * _rowCount) + visibleRow1);
+                visibleStartX = visibleCol0 * cwg;                
+            }
+        }
+    }    
 
     /**
      *  Sets the size and the position of the specified layout element and cell bounds.
@@ -1127,6 +1255,22 @@ public class TileLayout extends LayoutBase
     /**
      *  @private
      */
+    override protected function scrollPositionChanged():void
+    {
+        super.scrollPositionChanged();
+        
+        var layoutTarget:GroupBase = target;
+        if (!layoutTarget)
+            return;
+
+        if (useVirtualLayout)
+            layoutTarget.invalidateDisplayList();
+    }
+
+
+    /**
+     *  @private
+     */
     override public function measure():void
     {
         var layoutTarget:GroupBase = target;
@@ -1156,15 +1300,12 @@ public class TileLayout extends LayoutBase
         if (!layoutTarget)
             return;
 
-        updateActualValues(unscaledWidth, unscaledHeight);
-
-        var xPos:Number = 0;
-        var yPos:Number = 0;
-
-        // Use counter and counterLimit to track when to move along the minor axis
-        var counter:int = 0;
-        var counterLimit:int;
-
+        calculateDisplayParameters(unscaledWidth, unscaledHeight);
+        
+        // Upper right hand corner of first (visibleStartIndex) tile/cell
+        var xPos:Number = visibleStartX;  // 0 if useVirtualLayout=false
+        var yPos:Number = visibleStartY;  // ...
+                
         // Use MajorDelta when moving along the major axis
         var xMajorDelta:Number;
         var yMajorDelta:Number;
@@ -1172,6 +1313,10 @@ public class TileLayout extends LayoutBase
         // Use MinorDelta when moving along the minor axis
         var xMinorDelta:Number;
         var yMinorDelta:Number;
+
+        // Use counter and counterLimit to track when to move along the minor axis
+        var counter:int = 0;
+        var counterLimit:int;
 
         // Setup counterLimit and deltas based on orientation
         if (orientation == TileOrientation.ROWS)
@@ -1191,10 +1336,9 @@ public class TileLayout extends LayoutBase
             yMinorDelta = 0;
         }
 
-        var count:int = layoutTarget.numElements;
-        for (var i:int = 0; i < count; i++)
+        for(var index:int = visibleStartIndex; index <= visibleEndIndex; index++)
         {
-            var el:ILayoutElement = layoutTarget.getElementAt(i);
+            var el:ILayoutElement = layoutTarget.getVirtualElementAt(index);
             if (!el || !el.includeInLayout)
                 continue;
 
@@ -1232,8 +1376,13 @@ public class TileLayout extends LayoutBase
                                     Math.round(_rowCount * (_rowHeight + _verticalGap) - _verticalGap));
 
         // Reset the cache
-        _tileWidthCached = _tileHeightCached = NaN;
+        if (!useVirtualLayout)
+            _tileWidthCached = _tileHeightCached = NaN;
         _numElementsCached = -1;
+        
+        // No getVirtualElementAt() during measure, see calculateVirtualTileSize()
+        if (useVirtualLayout)
+            visibleStartIndex = visibleEndIndex = -1;        
 
         // If actual values have chnaged, notify listeners
         dispatchEventsForActualValueChanges();
