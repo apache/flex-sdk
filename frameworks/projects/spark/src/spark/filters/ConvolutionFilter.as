@@ -41,7 +41,7 @@ import mx.filters.IBitmapFilter;
 *  attributes of its superclass and adds the following tag attributes:</p>
 *
 *  <pre>
-*  &lt;ConvolutionFilter 
+*  &lt;s:ConvolutionFilter 
 *    <strong>Properties</strong>
 *    alpha="1"
 *    clamp="true"
