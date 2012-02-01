@@ -23,6 +23,9 @@
 
     <!-- host component -->
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.ToggleButton")]
     </fx:Metadata>
     
@@ -130,12 +133,13 @@
         </s:stroke>
     </s:Rect>
     
-    <!-- play symbol -->
+    <!--- play symbol -->
     <s:Group horizontalCenter="0" verticalCenter="0" excludeFrom="selectedStates" id="playSymbol">
         
         <!-- triangle -->
         <s:Path winding="evenOdd" data="M 1 0 L 1 13 L 8 7 L 1 0 Z">
             <s:fill>
+                <!--- @private -->
                 <s:SolidColor color="0x555555" alpha="0.75" id="playSymbolFill"/>
             </s:fill>
         </s:Path>
@@ -155,17 +159,22 @@
         </s:Line>
     </s:Group>
     
-    <!-- pause symbol -->
+    <!--- pause symbol -->
     <s:Group horizontalCenter="0" verticalCenter="0" includeIn="selectedStates" id="pauseSymbol">
     
         <!-- big line on left -->
         <s:Rect left="0" top="0" height="11" width="3">
             <s:fill>
                 <s:LinearGradient rotation="90">
+                    <!--- @private -->
                     <s:GradientEntry color="0x252525" alpha="0.75" ratio="0.1" id="pauseSymbolFill1_1"/>
+                    <!--- @private -->
                     <s:GradientEntry color="0x404040" alpha="0.75" ratio="0.2" id="pauseSymbolFill1_2"/>
+                    <!--- @private -->
                     <s:GradientEntry color="0x4B4B4B" alpha="0.75" ratio="0.55" id="pauseSymbolFill1_3"/>
+                    <!--- @private -->
                     <s:GradientEntry color="0x424242" alpha="0.75" ratio="0.9" id="pauseSymbolFill1_4"/>
+                    <!--- @private -->
                     <s:GradientEntry color="0xC4C4C4" alpha="0.75" ratio="1.0" id="pauseSymbolFill1_5"/>
                 </s:LinearGradient>
             </s:fill>
@@ -175,10 +184,15 @@
         <s:Rect left="4" top="0" height="11" width="3">
             <s:fill>
                 <s:LinearGradient rotation="90">
+                    <!--- @private -->
                     <s:GradientEntry color="0x252525" alpha="0.75" ratio="0.1" id="pauseSymbolFill2_1"/>
+                    <!--- @private -->
                     <s:GradientEntry color="0x404040" alpha="0.75" ratio="0.2" id="pauseSymbolFill2_2"/>
+                    <!--- @private -->
                     <s:GradientEntry color="0x4B4B4B" alpha="0.75" ratio="0.55" id="pauseSymbolFill2_3"/>
+                    <!--- @private -->
                     <s:GradientEntry color="0x424242" alpha="0.75" ratio="0.9" id="pauseSymbolFill2_4"/>
+                    <!--- @private -->
                     <s:GradientEntry color="0xC4C4C4" alpha="0.75" ratio="1.0" id="pauseSymbolFill2_5"/>
                 </s:LinearGradient>
             </s:fill>
