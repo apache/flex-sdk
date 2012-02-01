@@ -37,9 +37,9 @@ import mx.graphics.BitmapFillMode;
 import mx.graphics.BitmapScaleMode;
 import mx.graphics.BitmapSmoothingQuality;
 
-import spark.core.contentLoader.ContentRequest;
-import spark.core.contentLoader.IContentLoader;
+import spark.core.ContentRequest;
 import spark.core.DisplayObjectSharingMode;
+import spark.core.IContentLoader;
 import spark.layouts.HorizontalAlign;
 import spark.layouts.VerticalAlign;
 import spark.primitives.supportClasses.GraphicElement;
@@ -175,6 +175,7 @@ public class BitmapImage extends GraphicElement
     private var imageWidth:int;
     private var imageHeight:int;
     private var loadedContent:DisplayObject;
+    private var loadingContent:Object;
     private var previousUnscaledWidth:Number;
     private var previousUnscaledHeight:Number;
     private var sourceInvalid:Boolean;
@@ -224,76 +225,76 @@ public class BitmapImage extends GraphicElement
         return _bytesTotal; 
     }
 
-	//----------------------------------
-	//  contentGrouping
-	//----------------------------------
-	
-	private var _contentGrouping:String;
-	
-	/**
-	 *  Optional content grouping identifier to pass to the an
-	 *  associated IContentLoader instance's load() method.  
-	 *  This property is only considered when a valid contentLoader
-	 *  is assigned.
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4.5
-	 */
-	public function get contentGrouping():String 
-	{
-		return _contentGrouping; 
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set contentGrouping(value:String):void
-	{
-		if (value != _contentGrouping)
-		{
-			_contentGrouping = value;
-			invalidateProperties();
-		}
-	}
-	
-	//----------------------------------
-	//  contentLoader
-	//----------------------------------
-	
-	private var _contentLoader:IContentLoader;
-	private var contentLoaderInvalid:Boolean;
-	
-	/**
-	 *  Optional custom image loader (e.g. image cache or queue) to
-	 *  associate with content loader client.
-	 * 
-	 *  @default null
-	 * 
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4.5
-	 */
-	public function get contentLoader():IContentLoader 
-	{
-		return _contentLoader; 
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set contentLoader(value:IContentLoader):void
-	{
-		if (value != _contentLoader)
-		{
-			_contentLoader = value;
-			contentLoaderInvalid = true;
-			invalidateProperties();
-		}
-	}
-	
+    //----------------------------------
+    //  contentLoaderGrouping
+    //----------------------------------
+    
+    private var _contentLoaderGrouping:String;
+    
+    /**
+     *  Optional content grouping identifier to pass to the an
+     *  associated IContentLoader instance's load() method.  
+     *  This property is only considered when a valid contentLoader
+     *  is assigned.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get contentLoaderGrouping():String 
+    {
+        return _contentLoaderGrouping; 
+    }
+    
+    /**
+     *  @private
+     */
+    public function set contentLoaderGrouping(value:String):void
+    {
+        if (value != _contentLoaderGrouping)
+        {
+            _contentLoaderGrouping = value;
+            invalidateProperties();
+        }
+    }
+    
+    //----------------------------------
+    //  contentLoader
+    //----------------------------------
+    
+    private var _contentLoader:IContentLoader;
+    private var contentLoaderInvalid:Boolean;
+    
+    /**
+     *  Optional custom image loader (e.g. image cache or queue) to
+     *  associate with content loader client.
+     * 
+     *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get contentLoader():IContentLoader 
+    {
+        return _contentLoader; 
+    }
+    
+    /**
+     *  @private
+     */
+    public function set contentLoader(value:IContentLoader):void
+    {
+        if (value != _contentLoader)
+        {
+            _contentLoader = value;
+            contentLoaderInvalid = true;
+            invalidateProperties();
+        }
+    }
+    
     //----------------------------------
     //  fillMode
     //----------------------------------
@@ -403,84 +404,84 @@ public class BitmapImage extends GraphicElement
             return 0.5;
     }
    
-	//----------------------------------
-	//  preliminaryHeight
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private var _preliminaryHeight:Number = 0;
-	
-	/**
-	 *  Provides an estimate to use for height when the "measured" bounds
-	 *  of the image is requested by layout, but the image data has 
-	 *  yet to complete loading. When NaN the measured height is 0 until
-	 *  the image has finished loading.
-	 * 
-	 *  @default NaN
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4.5
-	 */
-	public function get preliminaryHeight():Number 
-	{
-		return _preliminaryHeight; 
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set preliminaryHeight(value:Number):void
-	{
-		if (value != _preliminaryHeight)
-		{
-			_preliminaryHeight = value;
-			invalidateSize();
-		}
-	}
-	
-	//----------------------------------
-	//  preliminaryWidth
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private var _preliminaryWidth:Number = 0;
-	
-	/**
-	 *  Provides an estimate to use for width when the "measured" bounds
-	 *  of the image is requested by layout, but the image data has 
-	 *  yet to complete loading. When NaN the measured width is 0 until
-	 *  the image has finished loading.
-	 * 
-	 *  @default NaN
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4.5
-	 */
-	public function get preliminaryWidth():Number 
-	{
-		return _preliminaryWidth; 
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set preliminaryWidth(value:Number):void
-	{
-		if (value != _preliminaryWidth)
-		{
-			_preliminaryWidth = value;
-			invalidateSize();
-		}
-	}
-	
+    //----------------------------------
+    //  preliminaryHeight
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _preliminaryHeight:Number = NaN;
+    
+    /**
+     *  Provides an estimate to use for height when the "measured" bounds
+     *  of the image is requested by layout, but the image data has 
+     *  yet to complete loading. When NaN the measured height is 0 until
+     *  the image has finished loading.
+     * 
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get preliminaryHeight():Number 
+    {
+        return _preliminaryHeight; 
+    }
+    
+    /**
+     *  @private
+     */
+    public function set preliminaryHeight(value:Number):void
+    {
+        if (value != _preliminaryHeight)
+        {
+            _preliminaryHeight = value;
+            invalidateSize();
+        }
+    }
+    
+    //----------------------------------
+    //  preliminaryWidth
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _preliminaryWidth:Number = NaN;
+    
+    /**
+     *  Provides an estimate to use for width when the "measured" bounds
+     *  of the image is requested by layout, but the image data has 
+     *  yet to complete loading. When NaN the measured width is 0 until
+     *  the image has finished loading.
+     * 
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get preliminaryWidth():Number 
+    {
+        return _preliminaryWidth; 
+    }
+    
+    /**
+     *  @private
+     */
+    public function set preliminaryWidth(value:Number):void
+    {
+        if (value != _preliminaryWidth)
+        {
+            _preliminaryWidth = value;
+            invalidateSize();
+        }
+    }
+    
     //----------------------------------
     //  scaleMode
     //----------------------------------
@@ -557,12 +558,12 @@ public class BitmapImage extends GraphicElement
      *  </pre>
      *  </p>
      *  
-     *  <p>The image location can be a URL or file reference. If it is a file 
-     *  reference, its location is relative to the location of the file that is 
-     *  being compiled.</p>
+     *  <p>The image location can be specified via a URL, URLRequest, or file 
+     *  reference. If it is a file reference, its location is relative to the 
+     *  location of the file that is being compiled.</p>
      *  
      *  <p>The BitmapImage class is designed to work with embedded images or 
-     *  images that are loaded at run time</p>
+     *  images that are loaded at run time.</p>
      * 
      *  <p>If the source is a Bitmap or BitmapData instance or is an external 
      *  image file, it is the responsibility of the caller to dispose of the 
@@ -675,8 +676,8 @@ public class BitmapImage extends GraphicElement
     //  trustedSource
     //----------------------------------
     
-	private var _trustedSource:Boolean = true;
-	
+    private var _trustedSource:Boolean = true;
+    
     /**
      *  A read-only flag denoting whether the currently loaded 
      *  content is considered loaded form a source whose security 
@@ -692,10 +693,10 @@ public class BitmapImage extends GraphicElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */
-	public function get trustedSource():Boolean
-	{
-		return _trustedSource;
-	}
+    public function get trustedSource():Boolean
+    {
+        return _trustedSource;
+    }
     
     //----------------------------------
     //  verticalAlign
@@ -775,9 +776,9 @@ public class BitmapImage extends GraphicElement
     {
         if (sourceInvalid || contentLoaderInvalid)
             applySource();
-		
-		sourceInvalid = false;
-		contentLoaderInvalid = false;
+        
+        sourceInvalid = false;
+        contentLoaderInvalid = false;
             
         super.commitProperties();
     }
@@ -808,8 +809,8 @@ public class BitmapImage extends GraphicElement
         {
             // Return estimated width/height here as we've yet to fully
             // realize valid image content.
-            measuredWidth = _preliminaryWidth;
-            measuredHeight = _preliminaryHeight;
+            measuredWidth = !isNaN(_preliminaryWidth) ? _preliminaryWidth : measuredWidth;
+            measuredHeight = !isNaN(_preliminaryHeight) ? _preliminaryHeight : measuredHeight;
             return;
         }
         
@@ -1087,6 +1088,9 @@ public class BitmapImage extends GraphicElement
             _bitmapData = null;
         }
         
+        // Clear any currently loading content.
+        clearLoadingContent();
+        
         if (bitmapData)
         {
             bitmapDataCreated = internallyCreated; 
@@ -1116,34 +1120,34 @@ public class BitmapImage extends GraphicElement
         var value:Object = _source;
         var bitmapData:BitmapData;
         var tmpSprite:DisplayObject;
-		
+        
         // Clear the previous scaleGrid properties
         _scaleGridLeft = NaN;
         _scaleGridRight = NaN;
         _scaleGridTop = NaN;
         _scaleGridBottom = NaN;
         var currentBitmapCreated:Boolean = false;
+                
+        // Clear any previously loaded content.
+        loadedContent = null;
         
-		// Clear any previously loaded content.
-		loadedContent = null;
-		
-		// Reset byte counts and _trustedSource
-		_bytesLoaded = NaN;
-		_bytesTotal = NaN;
-		_trustedSource = true;
-		
-		// We'll need to reconsider display object sharing.
-		invalidateDisplayObjectSharing();
-		
+        // Reset byte counts and _trustedSource
+        _bytesLoaded = NaN;
+        _bytesTotal = NaN;
+        _trustedSource = true;
+        
+        // We'll need to reconsider display object sharing.
+        invalidateDisplayObjectSharing();
+                
         if (value is Class)
         {
             var cls:Class = Class(value);
             value = new cls();
             currentBitmapCreated = true;
         }
-        else if (value is String)
+        else if (value is String || value is URLRequest)
         {
-            loadExternal(value as String);
+            loadExternal(value);
         }
         
         if (value is BitmapData)
@@ -1180,7 +1184,11 @@ public class BitmapImage extends GraphicElement
                 _scaleGridTop = tmpSprite.scale9Grid.top;
                 _scaleGridBottom = tmpSprite.scale9Grid.bottom;
             }
-        }       
+        }
+        
+        // Remove any previously hosted untrusted content (Loader instances)
+        // if applicable.
+        removeLoadedContent();
         
         setBitmapData(bitmapData, currentBitmapCreated);
     }
@@ -1188,14 +1196,16 @@ public class BitmapImage extends GraphicElement
     /**
      *  @private
      */
-    mx_internal function loadExternal(url:String):void
+    mx_internal function loadExternal(url:Object):void
     {   
-        var loaderInfo:Object;
-        		        
+        // Remove listeners from any previous load instance and clear
+        // our reference to any existing load-event  dispatcher.
+        clearLoadingContent();
+                                
         if (contentLoader)
         {
             // We defer our load request to the configured content loader.
-            var contentRequest:ContentRequest = contentLoader.load(url, contentGrouping);
+            var contentRequest:ContentRequest = contentLoader.load(url, contentLoaderGrouping);
             
             if (contentRequest.complete)
             {
@@ -1205,14 +1215,9 @@ public class BitmapImage extends GraphicElement
             }
             else
             {
-                contentRequest.addEventListener(Event.COMPLETE, 
-                    loader_completeHandler, false, 0, true);
-                contentRequest.addEventListener(IOErrorEvent.IO_ERROR, 
-                    loader_ioErrorHandler, false, 0, true);
-                contentRequest.addEventListener(ProgressEvent.PROGRESS, 
-                    loader_progressHandler, false, 0, true);
-                contentRequest.addEventListener(SecurityErrorEvent.SECURITY_ERROR, 
-                    loader_securityErrorHandler, false, 0, true);
+                // Attach load-event listeners to our ContentRequest instance.
+                loadingContent = contentRequest;
+                attachLoadingListeners();
             }
         }
         else
@@ -1222,18 +1227,15 @@ public class BitmapImage extends GraphicElement
             var loaderContext:LoaderContext = new LoaderContext();
             loaderContext.checkPolicyFile = true;
             
-            loader.contentLoaderInfo.addEventListener(Event.COMPLETE, 
-                loader_completeHandler, false, 0, true);
-            loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, 
-                loader_ioErrorHandler, false, 0, true);
-            loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, 
-                loader_progressHandler, false, 0, true);
-            loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, 
-                loader_securityErrorHandler, false, 0, true);
+            // Attach load-event listeners to our LoaderInfo instance.
+            loadingContent = loader.contentLoaderInfo;
+            attachLoadingListeners();
+
             try
             {
-                loader.load(new URLRequest(url), loaderContext);
-                dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS));
+                var urlRequest:URLRequest = url is URLRequest ? 
+                    url as URLRequest : new URLRequest(url as String);
+                loader.load(urlRequest, loaderContext);
             }
             catch (error:SecurityError)
             {
@@ -1298,42 +1300,53 @@ public class BitmapImage extends GraphicElement
      * @private
      * Invoked upon completion of a load request.
      */
-    protected function contentComplete(loaderInfo:LoaderInfo):void
+    protected function contentComplete(content:Object):void
     {
-        if (loaderInfo.childAllowsParent) 
+        if (content is LoaderInfo)
         {
-            // For trusted content we adopt the loaded BitmapData.
-            var image:Bitmap = Bitmap(loaderInfo.content);
-            setBitmapData(image.bitmapData);
-        } 
-        else 
+            // Clear any previous bitmap data or loader instance.
+            setBitmapData(null);
+            removeLoadedContent();
+            
+            var loaderInfo:LoaderInfo = content as LoaderInfo;
+            
+            if (loaderInfo.childAllowsParent) 
+            {
+                // For trusted content we adopt the loaded BitmapData.
+                var image:Bitmap = Bitmap(loaderInfo.content);
+                setBitmapData(image.bitmapData);
+            } 
+            else 
+            {
+                // For untrusted content we must host the acquired Loader
+                // instance directly as our DisplayObject. 
+                displayObjectSharingMode = DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT;
+                invalidateDisplayObjectSharing();
+                
+                // Create a content holder to use as our display object.
+                var contentHolder:Sprite = new Sprite();
+                setDisplayObject(contentHolder);    
+                loadedContent = loaderInfo.loader;
+                contentHolder.addChild(loadedContent);
+                
+                // Retain our source image width and height.
+                imageWidth = loaderInfo.width; 
+                imageHeight = loaderInfo.height ;
+          
+                // Update
+                invalidateSize();
+                invalidateDisplayList(); 
+                
+                // Denote that we are hosting an untrusted image and as such some
+                // features requiring access to the bitmap data will no longer
+                // function.
+                _trustedSource = false; 
+            }
+        }
+        else
         {
-			// Clear any previous bitmap data.
-			setBitmapData(null);
-			
-            // For untrusted content we must host the acquired Loader
-            // instance directly as our DisplayObject. 
-            displayObjectSharingMode = DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT;
-            invalidateDisplayObjectSharing();
-			
-			// Create a content holder to use as our display object.
-            var contentHolder:Sprite = new Sprite();
-            setDisplayObject(contentHolder);    
-			loadedContent = loaderInfo.loader;
-            contentHolder.addChild(loadedContent);
-			
-			// Retain our source image width and height.
-            imageWidth = loaderInfo.width; 
-            imageHeight = loaderInfo.height ;
-      
-			// Update
-			invalidateSize();
-            invalidateDisplayList(); 
-			
-			// Denote that we are hosting an untrusted image and as such some
-			// features requiring access to the bitmap data will no longer
-			// function.
-            _trustedSource = false; 
+            // TODO(crl): Handle other content types here such as raw
+            // BitmapData returned from an IContentLoader.
         }
     }
     
@@ -1341,9 +1354,75 @@ public class BitmapImage extends GraphicElement
      * @private
      * Returns true if are to consider aspect ratio while scaling.
      */  
-    protected function get maintainAspectRatio():Boolean
+    private function get maintainAspectRatio():Boolean
     {
         return (_scaleMode == BitmapScaleMode.LETTERBOX && _fillMode == BitmapFillMode.SCALE);
+    }
+    
+    /**
+     * @private
+     * Returns true if are to consider aspect ratio while scaling.
+     */  
+    private function removeLoadedContent():void
+    {
+        if (loadedContent && loadedContent.parent)
+        {
+            displayObjectSharingMode = DisplayObjectSharingMode.USES_SHARED_OBJECT;
+            invalidateDisplayObjectSharing();
+            loadedContent.parent.removeChild(loadedContent);
+            loadedContent = null;
+            setDisplayObject(null);
+            imageWidth = imageHeight = 0;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function clearLoadingContent():void
+    {
+        removeLoadingListeners();
+        loadingContent = null;
+    }
+    
+    /**
+     *  @private
+     */
+    private function attachLoadingListeners():void
+    {
+        if (loadingContent)
+        {
+            loadingContent.addEventListener(Event.COMPLETE, 
+                loader_completeHandler, false, 0, true);
+            loadingContent.addEventListener(IOErrorEvent.IO_ERROR, 
+                loader_ioErrorHandler, false, 0, true);
+            loadingContent.addEventListener(ProgressEvent.PROGRESS, 
+                loader_progressHandler, false, 0, true);
+            loadingContent.addEventListener(SecurityErrorEvent.SECURITY_ERROR, 
+                loader_securityErrorHandler, false, 0, true);
+            loadingContent.addEventListener(HTTPStatusEvent.HTTP_STATUS, 
+                dispatchEvent, false, 0, true);
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function removeLoadingListeners():void
+    {
+        if (loadingContent)
+        {
+            loadingContent.removeEventListener(Event.COMPLETE, 
+                loader_completeHandler);
+            loadingContent.removeEventListener(IOErrorEvent.IO_ERROR, 
+                loader_ioErrorHandler);
+            loadingContent.removeEventListener(ProgressEvent.PROGRESS, 
+                loader_progressHandler);
+            loadingContent.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, 
+                loader_securityErrorHandler);
+            loadingContent.removeEventListener(HTTPStatusEvent.HTTP_STATUS, 
+                dispatchEvent);
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -1355,7 +1434,7 @@ public class BitmapImage extends GraphicElement
     /**
      *  @private
      */
-	mx_internal function loader_completeHandler(event:Event):void
+    mx_internal function loader_completeHandler(event:Event):void
     {
         try
         {
@@ -1372,38 +1451,44 @@ public class BitmapImage extends GraphicElement
         {
             handleSecurityError(error);
         } 
-		
-		dispatchEvent(event);
+        
+        dispatchEvent(event);
+        
+        // Remove any event listeners from load-event dispatcher.
+        clearLoadingContent();
     }
     
     /**
      *  @private
      */
-	private function loader_ioErrorHandler(error:IOErrorEvent):void
-    {
-        // clear any current image 
+    private function loader_ioErrorHandler(error:IOErrorEvent):void
+    {        
+        // forward the event, only in the case of a listener, else
+        // an RTE will occur.
+        if (hasEventListener(error.type))
+            dispatchEvent(error);
+        
+        // clear any current image and remove any event listeners from 
+        // load-event  dispatcher.
         setBitmapData(null);
-		
-		// forward the event, only in the case of a listener, else
-		// an RTE will occur.
-		if (hasEventListener(error.type))
-			dispatchEvent(error);
     }
     
     /**
      *  @private
      */
-	private function loader_securityErrorHandler(error:SecurityErrorEvent):void
-    {
-        // clear any current image and forward the error.
-        setBitmapData(null);
+    private function loader_securityErrorHandler(error:SecurityErrorEvent):void
+    { 
         dispatchEvent(error);
+        
+        // clear any current image and remove any event listeners from 
+        // load-event  dispatcher.
+        setBitmapData(null);
     }
     
     /**
      *  @private
      */
-	private function loader_progressHandler(progressEvent:ProgressEvent):void
+    private function loader_progressHandler(progressEvent:ProgressEvent):void
     {   
         _bytesLoaded = progressEvent.bytesLoaded;
         _bytesTotal = progressEvent.bytesTotal;
@@ -1417,9 +1502,12 @@ public class BitmapImage extends GraphicElement
      */
     private function handleSecurityError(error:SecurityError):void
     {
-        setBitmapData(null);
         dispatchEvent(new SecurityErrorEvent(SecurityErrorEvent.SECURITY_ERROR, 
             false, false, error.message));
+        
+        // clear any current image and remove any event listeners from 
+        // load-event  dispatcher.
+        setBitmapData(null); 
     }
 }  
 }
