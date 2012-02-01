@@ -25,6 +25,7 @@ internal class SparkSkinsClasses
 	import mx.skins.spark.AccordionHeaderSkin; AccordionHeaderSkin;
 	import mx.skins.spark.BorderSkin; BorderSkin;
 	import mx.skins.spark.ButtonSkin; ButtonSkin;
+	import mx.skins.spark.DefaultButtonSkin; DefaultButtonSkin;
 	import mx.skins.spark.ButtonBarFirstButtonSkin; ButtonBarFirstButtonSkin;
 	import mx.skins.spark.ButtonBarLastButtonSkin; ButtonBarLastButtonSkin;
 	import mx.skins.spark.ButtonBarMiddleButtonSkin; ButtonBarMiddleButtonSkin;
