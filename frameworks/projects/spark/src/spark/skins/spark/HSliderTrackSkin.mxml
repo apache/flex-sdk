@@ -11,7 +11,7 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009" xmlns:m="library:adobe/flex/gumbo">
+<Skin xmlns="http://ns.adobe.com/mxml/2009">
 
     <Metadata>
     	[HostComponent("mx.components.FxButton")]
@@ -24,13 +24,27 @@
         <State name="disabled" />
     </states>
 
-    <Rect left="1" right="1" top="1" bottom="1" radiusX="3" radiusY="4">
-        <stroke>
-            <SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
-        </stroke>
+	<!-- border -->
+    <Rect left="0" right="0" top="0" bottom="0" radiusX="2" radiusY="2" height="5">
         <fill>
-            <SolidColor color="0xDEECFF" color.disabled="0xEFF6FF" />
+            <LinearGradient rotation="90" >
+            	<GradientEntry color="0x000000" alpha="0.55" />
+            	<GradientEntry color="0xFFFFFF" alpha="0.55" ratio="0.8" />
+            </LinearGradient>
         </fill>
     </Rect>
 
+    <!-- fill -->
+    <Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2">
+        <fill>
+            <SolidColor color="0xCACACA" />
+        </fill>
+    </Rect>
+    
+	<!-- shadow -->
+	<Rect left="2" right="2" top="1" height="1">
+		<fill>
+		    <SolidColor color="0x9E9E9E" />
+		</fill>
+	</Rect>
 </Skin>
