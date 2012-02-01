@@ -242,8 +242,8 @@ public class FxResizeInstance extends FxAnimateInstance
         var childrenHiding:Boolean = false; // hidePanelChildren();
 
         propertyValuesList = 
-            [new PropertyValuesHolder("width", [widthFrom, widthTo]),
-             new PropertyValuesHolder("height", [heightFrom, heightTo])];
+            [new PropertyValuesHolder("width", [widthFrom, widthTo], widthBy),
+             new PropertyValuesHolder("height", [heightFrom, heightTo], heightBy)];
                 
         super.play();
 
@@ -286,8 +286,6 @@ public class FxResizeInstance extends FxAnimateInstance
                 widthFrom = widthTo - widthBy;
             else if (propertyChanges && propertyChanges.start["width"] !== undefined)
                 widthFrom = propertyChanges.start["width"];
-            else
-                widthFrom = getCurrentValue("width");
         }
         if (isNaN(widthTo))
         {       
@@ -308,9 +306,8 @@ public class FxResizeInstance extends FxAnimateInstance
             }
             else
             {
-                _widthTo = (!isNaN(widthBy)) ?
-                          widthFrom + widthBy :
-                          getCurrentValue("width");
+                if (!isNaN(widthBy) && !isNaN(widthFrom))
+                    _widthTo = widthFrom + widthBy;
             }
         }
 
@@ -321,8 +318,6 @@ public class FxResizeInstance extends FxAnimateInstance
                 heightFrom = heightTo - heightBy;
             else if (propertyChanges && propertyChanges.start["height"] != undefined)
                 heightFrom = propertyChanges.start["height"];
-            else
-                heightFrom = getCurrentValue("height");
         }
         if (isNaN(heightTo))
         {       
@@ -343,9 +338,8 @@ public class FxResizeInstance extends FxAnimateInstance
             }
             else
             {
-                _heightTo = (!isNaN(heightBy))?
-                           heightFrom + heightBy :
-                           getCurrentValue("height");
+                if (!isNaN(heightBy) && !isNaN(heightFrom))
+                    _heightTo = heightFrom + heightBy;
             }
         }
     }
