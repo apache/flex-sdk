@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2009 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the Halo Panel component's border. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+                        xmlns:s="library://ns.adobe.com/flex/spark" 
+                        
+                        implements="mx.core.IRectangularBorder">
+    
+    <fx:Script>
+        <![CDATA[
+        import mx.core.EdgeMetrics;
+        import mx.core.IUIComponent;
+        
+        private var _metrics:EdgeMetrics = new EdgeMetrics(1, 32, 1, 1);
+        public function get borderMetrics():EdgeMetrics
+        {
+            var hasPanelParent:Boolean = isPanel(parent);
+            var controlBar:IUIComponent = hasPanelParent ? Object(parent).mx_internal::_controlBar : null;        
+            var titleBarHeight:Number;
+            // if headerHeight is specified, use it, plus 1 for the border, plus 1 more for the divider
+            if (hasPanelParent)
+                titleBarHeight = Object(parent).getStyle("headerHeight") + 2;
+            // if headerHeight is not specified, measure the text.  It comes out 1 higher than we'd like
+            // so we only add 1 more here
+            if (isNaN(titleBarHeight))
+                titleBarHeight = hasPanelParent ? Object(parent).mx_internal::getHeaderHeightProxy(true) + 1: 32;
+            _metrics.top = titleBarHeight;
+            
+            if (controlBar && controlBar.includeInLayout)
+                _metrics.bottom = controlBar.getExplicitOrMeasuredHeight() + 1;
+            else
+                _metrics.bottom = 1;
+            
+            return _metrics;
+        }
+        
+        //----------------------------------
+        //  backgroundImageBounds
+        //----------------------------------
+        
+        /**
+         *  @private
+         *  Storage for backgroundImageBounds property.
+         */
+        private var _backgroundImageBounds:Rectangle;
+        
+        /**
+         *  Rectangular area within which to draw the background image.
+         *
+         *  This can be larger than the dimensions of the border
+         *  if the parent container has scrollable content.
+         *  If this property is null, the border can use
+         *  the parent's size and <code>viewMetrics</code> property to determine its value.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
+         */
+        public function get backgroundImageBounds():Rectangle
+        {
+            return _backgroundImageBounds;
+        }
+        
+        /**
+         *  @private
+         */
+        public function set backgroundImageBounds(value:Rectangle):void
+        {
+            if (_backgroundImageBounds && value && _backgroundImageBounds.equals(value))
+                return;
+            
+            _backgroundImageBounds = value;
+            
+            invalidateDisplayList();
+        }
+        
+        public function get hasBackgroundImage():Boolean
+        {
+            return false;
+        }
+        
+        public function layoutBackgroundImage():void
+        {
+        
+        }
+
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        {
+            var hasPanelParent:Boolean = isPanel(parent);
+            var titleBarHeight:Number;
+            if (hasPanelParent)
+                titleBarHeight = Object(parent).getStyle("headerHeight");
+            if (isNaN(titleBarHeight))
+                titleBarHeight = hasPanelParent ? Object(parent).mx_internal::getHeaderHeightProxy(true) - 1 : 30;
+            tbbg.height = titleBarHeight;
+            tbhi.height = titleBarHeight;
+            tbdiv.top = titleBarHeight;
+
+            var em:EdgeMetrics = borderMetrics;
+            
+            // Control bar visibility is determined by a borderMetric.bottom greater than 1
+            if (em.bottom > 1)
+            {
+                //cbbg.height = em.bottom - 1;
+                //cbdiv.bottom = cbbg.height;
+                //cbbg.visible = cbdiv.visible = true;
+            }
+            else
+            {
+                //cbbg.visible = cbdiv.visible = false;
+            }
+            
+            if (getStyle("borderVisible") == false)
+            {
+                border.visible = false;
+                //contents.left = contents.top = contents.right = contents.bottom = 0;
+            }
+            else
+            {
+                border.visible = true;
+                //contents.left = contents.top = contents.right = contents.bottom = 1;
+            }
+            
+            //dropShadow.visible = getStyle("dropShadowVisible") && width > 0 && height > 0;
+            
+            var cr:Number = getStyle("cornerRadius");
+            
+            if (cornerRadius != cr)
+            {
+                cornerRadius = cr;
+                //contentMaskRect.topLeftRadiusX = cornerRadius;
+                //contentMaskRect.topRightRadiusX = cornerRadius;
+                border.topLeftRadiusX = cornerRadius;
+                border.topRightRadiusX = cornerRadius;
+                //dropShadow.trRadius = cornerRadius;
+                //dropShadow.tlRadius = cornerRadius;
+            }
+            
+            backgroundFill.color = getStyle("backgroundColor");
+            backgroundFill.alpha = getStyle("backgroundAlpha");
+            
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
+        
+        /**
+         *  We don't use 'is' to prevent dependency issues
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 9
+         *  @playerversion AIR 1.1
+         *  @productversion Flex 3
+         */
+        private static var panels:Object = {};
+    
+        private static function isPanel(parent:Object):Boolean
+        {
+            var s:String = getQualifiedClassName(parent);
+            if (panels[s] == 1)
+                return true;
+    
+            if (panels[s] == 0)
+                return false;
+    
+            if (s == "mx.containers::Panel")
+            {
+                panels[s] == 1;
+                return true;
+            }
+    
+            var x:XML = describeType(parent);
+            var xmllist:XMLList = x.extendsClass.(@type == "mx.containers::Panel");
+            if (xmllist.length() == 0)
+            {
+                panels[s] = 0;
+                return false;
+            }
+            
+            panels[s] = 1;
+            return true;
+        }
+            
+        private var cornerRadius:Number;
+        ]]>
+    </fx:Script>
+	
+	<!-- drop shadow -->
+	<s:Rect left="0" top="0" right="0" bottom="0">
+		<!-- TODO (klin): Should this be changed to a RectangularDropShadow -->
+		<s:filters>
+			<s:DropShadowFilter blurX="15" blurY="15" alpha="0.18" distance="11" angle="90" knockout="true" />
+		</s:filters>
+		<s:fill>
+			<s:SolidColor color="0" />
+		</s:fill>
+	</s:Rect>
+	
+	<!-- layer 1: border -->
+	<s:Rect id="border" left="0" right="0" top="0" bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke color="0x5581D1" weight="1" />
+		</s:stroke>
+	</s:Rect>
+	
+	<!-- layer 2: background fill -->
+	<s:Rect left="1" top="1" right="1" bottom="1">
+		<s:fill>
+			<s:SolidColor id="backgroundFill" color="0xFFFFFF" />
+		</s:fill>
+	</s:Rect>
+	
+	<!-- layer 3: contents -->
+	<s:Group left="1" right="1" top="1" bottom="1" >
+		<s:layout>
+			<s:VerticalLayout gap="0" horizontalAlign="justify" />
+		</s:layout>
+		
+		<s:Group id="topGroup" >
+			<!-- layer 0: title bar fill -->
+			<s:Rect id="tbbg" left="0" right="0" top="0" bottom="1">
+				<s:fill> 
+					<s:SolidColor color="0xE2EDF7" />
+				</s:fill>
+			</s:Rect>
+			
+			<!-- layer 1: title bar highlight -->
+			<s:Rect id="tbhi" left="0" right="0" top="0" bottom="0">
+				<s:stroke>
+					<s:LinearGradientStroke rotation="90" weight="1">
+						<s:GradientEntry color="0xEAF2F8" />
+						<s:GradientEntry color="0xE2EDF7" />
+					</s:LinearGradientStroke>
+				</s:stroke>
+			</s:Rect>
+			
+			<!-- layer 2: title bar divider -->
+			<s:Rect id="tbdiv" left="0" right="0" bottom="0" height="1">
+				<s:fill>
+					<s:SolidColor color="0xD1E0F2" />
+				</s:fill>
+			</s:Rect>
+			
+			<!-- layer 3: text -->
+			<s:Label id="titleDisplay" maxDisplayedLines="1"
+					 left="9" right="3" top="1" minHeight="30"
+					 verticalAlign="middle" fontWeight="bold">
+			</s:Label>
+			
+		</s:Group>
+		
+		<s:Group id="contentGroup" width="100%" height="100%" minWidth="0" minHeight="0">
+		</s:Group>
+	</s:Group>
+	
+</s:Skin>
