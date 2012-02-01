@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009">
+    
+    <states>
+        <State name="up" />
+        <State name="over" />
+        <State name="down" />
+        <State name="disabled" />
+    </states>
+
+    <!-- background -->
+    <Rect left="0" top="-1" right="0" bottom="-1" minWidth="14">
+        <stroke>
+            <SolidColorStroke color="0x5C5C5C" weight="1"/>
+        </stroke>
+        <fill>
+            <SolidColor color="0xFFFFFF" />
+        </fill>
+    </Rect>
+
+	<!-- fill -->
+	<Rect left="1" top="0" right="1" bottom="0">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0xFAFAFA"
+					           color.over="0xC7C7C7"
+					           color.down="0xBBBBBB" />
+				<GradientEntry color="0xF0F0F0" 
+					           color.over="0xB2B2B2"
+					           color.down="0x8B8B8B" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- highlight -->
+	<Rect left="1" top="0" bottom="0" width="6">
+		<fill>
+			<SolidColor color="0xFFFFFF"
+				        alpha="0.75"
+				        alpha.over="0.33"
+				        alpha.down="0.33" />
+		</fill>
+	</Rect>
+	
+	<!-- inside stroke -->
+	<Rect left="1" top="0" right="1" bottom="0">
+		<stroke>
+			<LinearGradientStroke rotation="90" weight="1">
+				<GradientEntry color="0xFFFFFF" 
+					           alpha="1"
+					           alpha.over="0.55"
+					           alpha.down="0.12" />
+				<GradientEntry color="0xFFFFFF" 
+					           alpha="0.22" 
+					           alpha.over="0.121" 
+					           alpha.down="0.0264" />
+			</LinearGradientStroke>
+		</stroke>
+	</Rect>
+
+	<!-- drop shadow -->
+	<Rect left="1" top="-2" right="1" height="1">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.12" />
+		</fill>
+	</Rect>
+	<Rect bottom="-3" left="1" right="1" height="2">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.12" />
+		</fill>
+	</Rect>
+	<Rect bottom="-2" left="1" right="1" height="1">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.12" />
+		</fill>
+	</Rect>
+</SparkSkin>
