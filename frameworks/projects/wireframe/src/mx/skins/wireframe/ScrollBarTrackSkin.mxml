@@ -11,7 +11,9 @@
 
 -->
 
-<!--- The Spark skin class for the track of the Halo ScrollBar component. 
+<!--- The wireframe skin class for the track of the MX ScrollBar component. 
+
+     @see mx.controls.scrollClasses.ScrollBar
         
       @langversion 3.0
       @playerversion Flash 10
@@ -19,8 +21,8 @@
       @productversion Flex 4
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-						
-						alpha.disabled="0.5">
+                        
+                        alpha.disabled="0.5">
         
     <s:states>
         <s:State name="up" />
@@ -29,12 +31,12 @@
         <s:State name="disabled" />
     </s:states>
 
-	<s:Rect top="0" bottom="0" left="0" right="0" minWidth="14" minHeight="14">
-		<s:stroke>
-			<s:SolidColorStroke color="0x5380D0" />
-		</s:stroke>
-		<s:fill>
-			<s:SolidColor color="0xDEECFF" />
-		</s:fill>
-	</s:Rect>
+    <s:Rect top="0" bottom="0" left="0" right="0" minWidth="14" minHeight="14">
+        <s:stroke>
+            <s:SolidColorStroke color="0x5380D0" />
+        </s:stroke>
+        <s:fill>
+            <s:SolidColor color="0xDEECFF" />
+        </s:fill>
+    </s:Rect>
 </s:Skin>
