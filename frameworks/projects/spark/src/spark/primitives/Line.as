@@ -23,6 +23,11 @@ import flash.geom.Rectangle;
  *  the stroke, the line is invisible.</p>
  *  
  *  @see mx.graphics.Stroke
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class Line extends StrokedElement
 {
@@ -36,6 +41,11 @@ public class Line extends StrokedElement
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function Line()
     {
@@ -60,6 +70,11 @@ public class Line extends StrokedElement
     *  The starting x position for the line.
     *
     *  @default 0
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     
     public function get xFrom():Number 
@@ -92,6 +107,11 @@ public class Line extends StrokedElement
     *  The ending x position for the line.
     *
     *  @default 0
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     
     public function get xTo():Number 
@@ -124,6 +144,11 @@ public class Line extends StrokedElement
     *  The starting y position for the line.
     *
     *  @default 0
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     
     public function get yFrom():Number 
@@ -156,6 +181,11 @@ public class Line extends StrokedElement
     *  The ending y position for the line.
     *
     *  @default 0
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     
     public function get yTo():Number 
@@ -184,6 +214,11 @@ public class Line extends StrokedElement
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function skipMeasure():Boolean
     {
@@ -194,6 +229,11 @@ public class Line extends StrokedElement
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function measure():void
     {
@@ -205,6 +245,11 @@ public class Line extends StrokedElement
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function drawElement(g:Graphics):void
     {
