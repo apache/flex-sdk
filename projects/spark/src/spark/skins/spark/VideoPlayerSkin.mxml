@@ -12,6 +12,8 @@
 -->
 
 <!--- The default skin class for the Spark VideoPlayer component.  
+
+     @see spark.components.VideoPlayer
         
       @langversion 3.0
       @playerversion Flash 10
