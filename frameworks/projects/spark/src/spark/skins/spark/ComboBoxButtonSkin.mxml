@@ -10,7 +10,7 @@
     @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-             xmlns:fb="http://ns.adobe.com/flashbuilder/2009" minWidth="20" minHeight="23">
+             xmlns:fb="http://ns.adobe.com/flashbuilder/2009" minWidth="19" minHeight="23">
     
     <fx:Metadata>
         <![CDATA[ 
@@ -165,7 +165,7 @@
     </s:Rect>
     
     <!-- layer 6: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
-    <s:Rect id="border" left="0" right="0" top="0" bottom="0" width="18" height="23">
+    <s:Rect id="border" left="0" right="0" top="0" bottom="0" width="18" height="21">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
                 <s:GradientEntry color="0x000000" 
