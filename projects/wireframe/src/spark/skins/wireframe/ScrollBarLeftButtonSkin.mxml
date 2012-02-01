@@ -45,16 +45,10 @@
 	</s:Rect>
 
     <!-- arrow -->
-    <s:Path>
+    <s:Path data="M 5 7.5 L 12 11 L 12 3.5 L 5 7.5">
         <s:fill>
             <s:SolidColor color="0x4E6290" />
         </s:fill>
-        <s:segments>
-            <s:MoveSegment x="5" y="7.5" />
-            <s:LineSegment x="12" y="11" />
-            <s:LineSegment x="12" y="3.5" />
-            <s:LineSegment x="5" y="7.5" />
-        </s:segments>
     </s:Path>
 
 </s:Skin>
