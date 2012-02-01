@@ -18,6 +18,11 @@
     	[HostComponent("flex.component.HScrollBar")]
     </Metadata> 
     
+    <states>
+    	<State name="normal" />
+    	<State name="disabled" />
+    </states>
+    
     <Button id="track" left="17" right="17"
             skinZZ="flex.skin.HScrollBarTrackSkin" />
     <Button id="thumb" skinZZ="flex.skin.HScrollBarThumbSkin" />
