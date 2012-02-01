@@ -480,10 +480,10 @@ package spark.primitives
             dropShadow.blurY = _blurY;
             dropShadow.alpha = _alpha;
 
-            dropShadow.tlRadius = _tlRadius;
-            dropShadow.trRadius = _trRadius;
-            dropShadow.blRadius = _blRadius;
-            dropShadow.brRadius = _brRadius;
+            dropShadow.tlRadius = isNaN(_tlRadius) ? 0 : _tlRadius;
+            dropShadow.trRadius = isNaN(_trRadius) ? 0 : _trRadius;
+            dropShadow.blRadius = isNaN(_blRadius) ? 0 : _blRadius;
+            dropShadow.brRadius = isNaN(_brRadius) ? 0 : _brRadius;
 
             dropShadow.drawShadow(graphics, 0, 0, unscaledWidth, unscaledHeight);
         }
