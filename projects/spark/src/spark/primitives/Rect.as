@@ -589,6 +589,137 @@ public class Rect extends FilledElement
 
         return stroke + this.y;
     }
+    
+    /**
+     *  @private
+     */
+    override public function setLayoutBoundsSize(width:Number,
+                                                 height:Number,
+                                                 postLayoutTransform:Boolean = true):void
+    {
+        super.setLayoutBoundsSize(width, height, postLayoutTransform);
+
+        var isRounded:Boolean = !isNaN(topLeftRadiusX) || 
+                                !isNaN(topRightRadiusX) ||
+                                !isNaN(bottomLeftRadiusX) || 
+                                !isNaN(bottomRightRadiusX) ||
+                                radiusX != 0 ||
+                                radiusY != 0;
+        if (!isRounded)
+            return;
+
+        var m:Matrix = getComplexMatrix(postLayoutTransform);
+        if (!m)
+            return;
+        
+        setLayoutBoundsTransformed(width, height, m);
+    }
+
+    /**
+     *  @private
+     */
+    private function setLayoutBoundsTransformed(width:Number, height:Number, m:Matrix):void
+    {
+        var strokeExtents:Rectangle = getStrokeExtents(true);
+        width -= strokeExtents.width;
+        height -= strokeExtents.height;
+
+        var size:Point = fitLayoutBoundsIterative(width, height, m);
+        
+        // We couldn't find a solution, try to relax the constraints
+        if (!size && !isNaN(width) && !isNaN(height))
+        {
+            // Try without width constraint
+            var size1:Point = fitLayoutBoundsIterative(NaN, height, m);
+            
+            // Try without height constraint
+            var size2:Point = fitLayoutBoundsIterative(width, NaN, m);
+            
+            // Ignore solutions that will exceeed the requested size
+            if (size1 && getRoundRectBoundingBox(size1.x, size1.y, this, m).width > width)
+                size1 = null;
+            if (size2 && getRoundRectBoundingBox(size2.x, size2.y, this, m).height > height)
+                size2 = null;
+            
+            // Which size was better?
+            if (size1 && size2)
+            {
+                var pickSize1:Boolean = size1.x * size1.y > size2.x * size2.y;
+
+                if (pickSize1)
+                    size = size1;
+                else
+                    size = size2;
+            }
+            else if (size1)
+            {
+                size = size1;
+            }
+            else
+            {
+                size = size2;
+            }
+        }
+        
+        if (size)
+            setActualSize(size.x, size.y);
+        else
+            setActualSize(minWidth, minHeight);
+    }
+    
+    /**
+     *  Iteratively approach a solution. Returns 0 if no exact solution exists.
+     *  NaN values for width/height mean "not constrained" in that dimesion. 
+     * 
+     *  @private
+     */
+    private function fitLayoutBoundsIterative(width:Number, height:Number, m:Matrix):Point
+    {
+        var newWidth:Number = this.preferredWidthPreTransform();
+        var newHeight:Number = this.preferredHeightPreTransform();
+        var fitWidth:Number = MatrixUtil.transformBounds(newWidth, newHeight, m).x;
+        var fitHeight:Number = MatrixUtil.transformBounds(newWidth, newHeight, m).y;
+
+        if (isNaN(width))
+            fitWidth = NaN;
+        if (isNaN(height))
+            fitHeight = NaN;
+        
+        var i:int = 0;
+        while (i++ < 150)
+        {
+            var roundedRectBounds:Rectangle = getRoundRectBoundingBox(newWidth, newHeight, this, m);
+            
+            var widthDifference:Number = isNaN(width) ? 0 : width - roundedRectBounds.width;
+            var heightDifference:Number = isNaN(height) ? 0 : height - roundedRectBounds.height;
+            
+            if (Math.abs(widthDifference) < 0.1 && Math.abs(heightDifference) < 0.1)
+            {
+                return new Point(newWidth, newHeight);
+            }
+            
+            fitWidth += widthDifference * 0.5;
+            fitHeight += heightDifference * 0.5;
+            
+            var newSize:Point = MatrixUtil.fitBounds(fitWidth, 
+                                                     fitHeight, 
+                                                     m,
+                                                     explicitWidth, 
+                                                     explicitHeight,
+                                                     preferredWidthPreTransform(),
+                                                     preferredHeightPreTransform(),
+                                                     minWidth, minHeight,
+                                                     maxWidth, maxHeight);
+            if (!newSize)
+                break;
+            
+            newWidth = newSize.x;
+            newHeight = newSize.y;
+        }
+
+        return null;        
+    }
+
 
     /**
      *  @private
@@ -617,25 +748,25 @@ public class Rect extends FilledElement
         var boundingBox:Rectangle;
         var rX:Number;
         var rY:Number;
-        
+
         // top-left corner ellipse
         rX = radiusValue(radiusX, r.topLeftRadiusX, maxRadiusX);
-        rY = radiusValue(rX, r.topLeftRadiusY, maxRadiusY);
+        rY = radiusValue(radiusY, r.topLeftRadiusY, maxRadiusY);
         boundingBox = MatrixUtil.getEllipseBoundingBox(rX, rY, rX, rY, m, boundingBox);
         
         // top-right corner ellipse
         rX = radiusValue(radiusX, r.topRightRadiusX, maxRadiusX);
-        rY = radiusValue(rX, r.topRightRadiusY, maxRadiusY);
+        rY = radiusValue(radiusY, r.topRightRadiusY, maxRadiusY);
         boundingBox = MatrixUtil.getEllipseBoundingBox(width - rX, rY, rX, rY, m, boundingBox);
         
         // bottom-right corner ellipse
         rX = radiusValue(radiusX, r.bottomRightRadiusX, maxRadiusX);
-        rY = radiusValue(rX, r.bottomRightRadiusY, maxRadiusY);
+        rY = radiusValue(radiusY, r.bottomRightRadiusY, maxRadiusY);
         boundingBox = MatrixUtil.getEllipseBoundingBox(width - rX, height - rY, rX, rY, m, boundingBox);
         
         // bottom-left corner ellipse
         rX = radiusValue(radiusX, r.bottomLeftRadiusX, maxRadiusX);
-        rY = radiusValue(rX, r.bottomLeftRadiusY, maxRadiusY);
+        rY = radiusValue(radiusY, r.bottomLeftRadiusY, maxRadiusY);
         boundingBox = MatrixUtil.getEllipseBoundingBox(rX, height - rY, rX, rY, m, boundingBox);
         
         return boundingBox;
