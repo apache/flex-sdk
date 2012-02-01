@@ -11,8 +11,13 @@
 
 -->
 
-<!--- The default skin class for the Spark ScrollBarLeftButton component. 
+<!--- The default wireframe skin class for the Spark ScrollBarLeftButton component. 
+        Skin classes in the wireframe package are useful for using as a simple base for a custom skin.
         
+       @see spark.components.supportClasses.ScrollBarBase
+       @see spark.components.HScrollBar
+       @see spark.components.VScrollBar
+
       @langversion 3.0
       @playerversion Flash 10
       @playerversion AIR 1.5
