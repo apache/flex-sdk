@@ -64,6 +64,10 @@ public class LabelUtil
         if (labelFunction != null)
             return labelFunction(item);
 
+        // early check for Strings
+        if (item is String)
+            return String(item);
+
         if (item is XML)
         {
             try
@@ -90,6 +94,7 @@ public class LabelUtil
             }
         }
 
+        // late check for strings if item[labelField] was valid
         if (item is String)
             return String(item);
 
