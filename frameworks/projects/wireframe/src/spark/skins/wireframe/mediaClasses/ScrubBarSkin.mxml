@@ -11,6 +11,8 @@
 -->
 
 <!--- The wireframe skin class for the scrub bar of a Spark VideoPlayer component.  
+
+      @see spark.components.VideoPlayer
         
       @langversion 3.0
       @playerversion Flash 10
@@ -33,7 +35,8 @@
         <s:State name="disabled" />
     </s:states>
     
-    <!--- @copy spark.components.supportClasses.TrackBase#track -->
+    <!--- The skin pat that defines the video timeline. The timeline shows the current playhead location  
+          in the video, the amount of the video previously played, and the loaded in part of the video. -->
     <s:Button id="track" left="0" right="0" top="0" height="11"
               skinClass="spark.skins.wireframe.mediaClasses.ScrubBarTrackSkin" />
 
@@ -69,7 +72,8 @@
         </s:Group>  
     </s:Group>
 
-    <!--- @copy spark.components.supportClasses.TrackBase#thumb -->
+    <!--- A skin part that defines a button that can be dragged along the track to increase or decrease 
+          the playhead location in the video.   -->
     <s:Button id="thumb" x="0" y="0" width="14" height="19" includeInLayout="false"
               skinClass="spark.skins.wireframe.mediaClasses.ScrubBarThumbSkin" />
 
