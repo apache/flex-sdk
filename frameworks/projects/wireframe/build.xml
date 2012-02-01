@@ -64,6 +64,7 @@
 				<include name="framework.swc"/>
 				<include name="flex4.swc"/>
                 <include name="textLayout.swc"/>
+				<include name="textLayout_textField.swc"/>
              </external-library-path>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
 			<locale/>
