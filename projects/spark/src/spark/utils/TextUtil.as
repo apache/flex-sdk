@@ -18,9 +18,7 @@ import flashx.textLayout.elements.FlowLeafElement;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
-import flashx.textLayout.formats.ICharacterFormat;
-import flashx.textLayout.formats.IContainerFormat;
-import flashx.textLayout.formats.IParagraphFormat;
+import flashx.textLayout.formats.ITextLayoutFormat;
 
 [ExcludeClass]
 
@@ -31,84 +29,6 @@ public class TextUtil
 {
     include "../core/Version.as";
         
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  An Array of the names of all text formats, in no particular order.
-     */
-    public static var ALL_FORMAT_NAMES:Array = [];
-
-    /**
-     *  @private
-     *  Maps the name of a text attribute to what kind of attribute it is.
-     *  For example,
-     *  paddingLeft -> container
-     *  marginLeft -> paragraph
-     *  fontSize -> character
-     */
-    public static var FORMAT_MAP:Object = {};
-    
-    /**
-     *  @private
-     */
-    public static const CONTAINER:String = "container";
-    
-    /**
-     *  @private
-     */
-    public static const PARAGRAPH:String = "paragraph";
-
-    /**
-     *  @private
-     */
-    public static const CHARACTER:String = "character";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class initialization
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Initializes the FORMAT_MAP by using describeType()
-     *  to enumerate the properties of the IContainerFormat,
-     *  IParagraphFormat, and ICharacterFormat interfaces.
-     */
-    private static function initClass():void
-    {
-        var type:XML;
-        var name:String;
-
-        type = describeType(IContainerFormat);
-        for each (name in type.factory.accessor.@name)
-        {
-            ALL_FORMAT_NAMES.push(name);
-            FORMAT_MAP[name] = CONTAINER;
-        }
-        
-        type = describeType(IParagraphFormat);
-        for each (name in type.factory.accessor.@name)
-        {
-            ALL_FORMAT_NAMES.push(name);
-            FORMAT_MAP[name] = PARAGRAPH;
-        }
-       
-        type = describeType(ICharacterFormat);
-        for each (name in type.factory.accessor.@name)
-        {
-            ALL_FORMAT_NAMES.push(name);
-            FORMAT_MAP[name] = CHARACTER;
-        }
-    }
-
-    initClass();
-
     //--------------------------------------------------------------------------
     //
     //  Class methods
