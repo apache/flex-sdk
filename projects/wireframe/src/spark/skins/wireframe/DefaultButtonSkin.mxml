@@ -11,7 +11,12 @@
 
 -->
 
-<!--- The default skin class for the Spark DefaultButton component. 
+<!--- The default wireframe skin class for the Spark DefaultButton component. The DefaultButton component is used in panels such as 
+an Alert. It is defined by the defaultButton property on a container. 
+
+        Skin classes in the wireframe package are useful for using as a simple base for a custom skin.
+
+     @see mx.controls.Alert
         
       @langversion 3.0
       @playerversion Flash 10
