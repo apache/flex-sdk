@@ -10,11 +10,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.effects.supportClasses
 {
+import __AS3__.vec.Vector;
+
 import flash.events.Event;
 
 import mx.core.IUIComponent;
 
-import spark.effects.SimpleMotionPath;
+import spark.effects.animation.MotionPath;
+import spark.effects.animation.SimpleMotionPath;
     
 /**
  *  The ResizeInstance class implements the instance class
@@ -250,13 +253,13 @@ public class ResizeInstance extends AnimateInstance
     {
         calculateDimensionChanges();
 
-        motionPaths = 
-            [new SimpleMotionPath("width", widthFrom, widthTo, duration, widthBy),
-             new SimpleMotionPath("height", heightFrom, heightTo, duration, heightBy)];
+        motionPaths = new <MotionPath>[
+            new SimpleMotionPath("width", widthFrom, widthTo, duration, widthBy),
+            new SimpleMotionPath("height", heightFrom, heightTo, duration, heightBy)];
                 
         // Also animate any size-related constraints that change between
         // transition states
-        if (propertyChanges && !disableConstraints)
+        if (propertyChanges && !disableLayout)
         {
             var wStart:* = propertyChanges.start["width"];
             var wEnd:* = propertyChanges.end["width"];
