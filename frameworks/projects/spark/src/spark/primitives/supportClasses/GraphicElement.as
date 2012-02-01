@@ -452,9 +452,8 @@ public class GraphicElement extends EventDispatcher
      *  @private
      */
     private var blendModeChanged:Boolean;
-    private var blendModeExplicitlySet:Boolean = false;
 
-    [Inspectable(category="General", enumeration="add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay", defaultValue="normal")]
+    [Inspectable(category="General", enumeration="add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay,colordodge,colorburn,exclusion,softlight,hue,saturation,color,luminosity", defaultValue="normal")]
 
     /**
      *  A value from the BlendMode class that specifies which blend mode to use. 
@@ -469,9 +468,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get blendMode():String
     {
-        if (blendModeExplicitlySet)
-            return _blendMode;
-        else return BlendMode.LAYER;
+		return _blendMode;
     }
 
     /**
@@ -479,7 +476,14 @@ public class GraphicElement extends EventDispatcher
      */
     public function set blendMode(value:String):void
     {
-        if (blendModeExplicitlySet && _blendMode == value)
+        // FIXME (dsubrama): Temporarily exit when blendMode is set
+    	// to one of the AIM blendModes; support for this will come
+    	// shortly. 
+        if (value == _blendMode || value == "colordodge" || 
+        	value =="colorburn" || value =="exclusion" || 
+        	value =="softlight" || value =="hue" || 
+        	value =="saturation" || value =="color" 
+        	|| value =="luminosity")
             return;
 
         var previous:Boolean = needsDisplayObject;
@@ -487,7 +491,6 @@ public class GraphicElement extends EventDispatcher
         if (previous != needsDisplayObject)
             invalidateDisplayObjectSharing();
         
-        blendModeExplicitlySet = true;
         blendModeChanged = true;
         invalidateProperties();
     }
@@ -498,7 +501,7 @@ public class GraphicElement extends EventDispatcher
     
     /**
      *  @private
-     *  Storage for the blendMode property.
+     *  Storage for the bottom property.
      */
     private var _bottom:Object;
 
@@ -1117,7 +1120,7 @@ public class GraphicElement extends EventDispatcher
      */
     private var maskTypeChanged:Boolean;
 
-    [Inspectable(category="General", enumeration="clip,alpha", defaultValue="clip")]
+    [Inspectable(category="General", enumeration="clip,alpha,luminosity", defaultValue="clip")]
     
     /**
      *  <p>The maskType defines how the mask is applied to the GraphicElement.</p> 
@@ -1176,6 +1179,11 @@ public class GraphicElement extends EventDispatcher
      */
     public function set maskType(value:String):void
     {
+    	// FIXME (dsubrama): Temporarily exit when maskType is
+    	// set to luminosity; support for this will come shortly. 
+    	if (value == "luminosity")
+    		return; 
+    	
         if (_maskType == value)
             return;
 
@@ -1185,6 +1193,88 @@ public class GraphicElement extends EventDispatcher
         invalidateProperties();
     }
 
+	//----------------------------------
+    //  luminosityInvert
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the luminosityInvert property.
+     */
+    private var _luminosityInvert:Boolean = false; 
+    
+    /**
+     *  @private
+     */
+    private var luminosityInvertChanged:Boolean;
+
+    [Inspectable(category="General", enumeration="true,false", defaultValue="false")]
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get luminosityInvert():Boolean
+    {
+        return _luminosityInvert;
+    }
+
+    /**
+     *  @private
+     */
+    public function set luminosityInvert(value:Boolean):void
+    {
+    	if (_luminosityInvert == value)
+            return;
+
+        _luminosityInvert = value;
+    }
+
+	//----------------------------------
+    //  luminosityClip
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the luminosityClip property.
+     */
+    private var _luminosityClip:Boolean = false; 
+    
+    /**
+     *  @private
+     */
+    private var luminosityClipChanged:Boolean;
+
+    [Inspectable(category="General", enumeration="true,false", defaultValue="false")]
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get luminosityClip():Boolean
+    {
+        return _luminosityClip;
+    }
+
+    /**
+     *  @private
+     */
+    public function set luminosityClip(value:Boolean):void
+    {
+    	if (_luminosityClip == value)
+            return;
+
+        _luminosityClip = value;
+    }
+    
     //----------------------------------
     //  maxHeight
     //----------------------------------
@@ -2749,7 +2839,7 @@ public class GraphicElement extends EventDispatcher
     {
         var result:Boolean = (alwaysCreateDisplayObject ||
         (_filters && _filters.length > 0) || 
-            _blendMode != BlendMode.NORMAL || _mask ||
+            blendMode != BlendMode.NORMAL || _mask ||
             (layoutFeatures != null && (layoutFeatures.layoutScaleX != 1 || layoutFeatures.layoutScaleY != 1 || layoutFeatures.layoutScaleZ != 1 ||
             layoutFeatures.layoutRotationX != 0 || layoutFeatures.layoutRotationY != 0 || layoutFeatures.layoutRotationZ != 0 ||
             layoutFeatures.layoutZ  != 0)) ||  
@@ -3260,7 +3350,7 @@ public class GraphicElement extends EventDispatcher
             if (blendModeChanged || displayObjectChanged)
             {
                 blendModeChanged = false;
-                displayObject.blendMode = _blendMode;
+                displayObject.blendMode = blendMode;
             }
 
             if (filtersChanged || displayObjectChanged)
