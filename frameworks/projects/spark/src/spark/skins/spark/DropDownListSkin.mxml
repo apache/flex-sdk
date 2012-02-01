@@ -15,7 +15,12 @@ is defined in the DropDownListButtonSkin class. -->
 
     <!-- host component -->
     <fx:Metadata>
+    <![CDATA[ 
+	/** 
+	 * @copy spark.skins.default.ApplicationSkin#hostComponent
+	 */
         [HostComponent("spark.components.DropDownList")]
+    ]]>
     </fx:Metadata> 
 
 	<s:states>
