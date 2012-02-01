@@ -73,7 +73,7 @@
     </local:states>
     
     <!-- border/fill -->
-    <s:Rect id="fill" left="-1" top="0" right="0" bottom="0" width="17" height="11" topRightRadiusX="2">
+    <s:Rect id="fill" left="-1" top="0" right="0" bottom="0" width="18" height="11" topRightRadiusX="2">
         <s:stroke>
             <s:SolidColorStroke id="borderStroke" weight="1"/>
         </s:stroke>
@@ -87,7 +87,7 @@
                                color.down="0xA1A3A5" />
             </s:LinearGradient>
         </s:fill>
-    </s:Rect>    
+    </s:Rect>
     
     <!-- highlight -->
     <s:Rect id="highlight" left="1" top="1" right="1" bottom="1" topRightRadiusX="2">
@@ -105,7 +105,7 @@
             </s:LinearGradientStroke>
         </s:stroke>
     </s:Rect>
-    
+
     <!-- shadow -->
     <s:Rect left="0" top="2" right="1" height="1" includeIn="down">
         <s:fill>
