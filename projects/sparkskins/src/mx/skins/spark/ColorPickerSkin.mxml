@@ -33,8 +33,7 @@
 		</s:fill>
 	</s:Rect>
 	
-	
-	<s:Group alpha.disabled="0.5" left="0" right="0" top="0" bottom="0">
+	<s:Group left="0" right="0" top="0" bottom="0">
 		<!-- layer 1: shadow -->
 		<s:Rect left="-1" right="-1" top="-1" bottom="-1" >
 			<s:stroke>
@@ -124,12 +123,12 @@
 				<s:SolidColor color="0x000000" alpha="0.33" />
 			</s:fill>
 		</s:Rect>
-		<s:Rect left="12" right="4" bottom="8" height="1" >
+		<s:Rect width="7" right="4" bottom="8" height="1" >
 			<s:fill>
 				<s:SolidColor color="0x000000" alpha="0.33" />
 			</s:fill>
 		</s:Rect>
-		<s:Rect left="11" width="1" top="13" bottom="4" >
+		<s:Rect right="10" width="1" height="4" bottom="4" >
 			<s:fill>
 				<s:SolidColor color="0x000000" alpha="0.33" />
 			</s:fill>
@@ -161,7 +160,12 @@
 		
 		<!-- layer 8: arrow -->
 		<s:BitmapImage source="@Embed('assets/ColorPickerArrow.png')" right="2" bottom="1" />
-			
+		
 	</s:Group>
 	
+	<s:Rect includeIn="disabled" left="0" top="0" right="0" bottom="0">
+		<s:fill>
+			<s:SolidColor color="0xFFFFFF" alpha="0.5" />
+		</s:fill>
+	</s:Rect>
 </s:SparkSkin>
