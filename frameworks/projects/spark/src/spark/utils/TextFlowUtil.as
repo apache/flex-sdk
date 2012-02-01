@@ -277,7 +277,7 @@ public class TextFlowUtil
      *
      *  @return A new TextFlow instance created from the markup.
      */
-        public static function importFromXML(
+	public static function importFromXML(
         markup:XML, whiteSpaceCollapse:String = "collapse"):TextFlow
     {
         initClass();
@@ -307,8 +307,6 @@ public class TextFlowUtil
             markup = root;
         }
         
-        trace(markup);
-
         var importer:ITextImporter = whiteSpaceCollapse == "collapse" ?
             collapsingTextLayoutImporter :
             preservingTextLayoutImporter;
