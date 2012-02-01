@@ -14,6 +14,21 @@ in accordance with the terms of the license agreement accompanying it.
 <!--- 
 The default skin class for a Spark DataGrid component.  
 
+<p>This skin defines all of the optional DataGrid skin parts except for rowBackground
+(by default, no per-row background visual element is displayed).
+It defines the default value for the grid's itemRenderer property as 
+spark.skins.spark.DefaultGridItemRenderer, and the default value of the 
+columnHeaderGroup's headerRenderer property as 
+<code>spark.skins.spark.DefaultGridHeaderRenderer</code>.</p>
+
+<p>The values of the following DataGrid skin parts are defined by declarations
+and can be overridden by subclasses of this class: <code>alternatingRowColors</code>,
+<code>caretIndicator</code>, <code>columnSeparator</code>, <code>editorIndicator</code>, 
+<code>headerColumnSeparator</code>, <code>hoverIndicator</code>, 
+<code>rowSeparator</code>, <code>selectionIndicator</code>.  All of these 
+declarations define DataGrid skin parts except <code>headerColumnSeparator</code>
+which is used as the value of the columnHeaderGroup's columnSeparator property.</p>
+
 @see spark.components.DataGrid
 -->
 
@@ -34,6 +49,7 @@ The default skin class for a Spark DataGrid component.
     </s:states>
     
     <fx:Declarations>
+        <!--- @private -->        
         <fx:Component id="alternatingRowColorsBackground">
             <s:Rect implements="spark.components.gridClasses.IGridRowBackground">
                 <fx:Script>
@@ -41,6 +57,9 @@ The default skin class for a Spark DataGrid component.
                         import spark.components.DataGrid;
                         import spark.components.Grid;
                         
+                        /**
+                         * @private
+                         */                        
                         public function initializeRowBackground(grid:Grid, rowIndex:int):void
                         {
                             const dataGrid:DataGrid = grid.dataGrid;
@@ -67,6 +86,7 @@ The default skin class for a Spark DataGrid component.
             </s:Rect>
         </fx:Component>
         
+        <!--- @private -->        
         <fx:Component id="caretIndicator">
             <s:Rect>
                 <s:stroke>
@@ -75,6 +95,7 @@ The default skin class for a Spark DataGrid component.
             </s:Rect>
         </fx:Component>
         
+        <!--- @private -->
         <fx:Component id="columnSeparator">
             <s:Line>
                 <s:stroke>
@@ -83,6 +104,7 @@ The default skin class for a Spark DataGrid component.
             </s:Line>
         </fx:Component>
         
+        <!--- @private -->
         <fx:Component id="headerColumnSeparator">
             <s:Line>
                 <s:stroke>
@@ -91,14 +113,16 @@ The default skin class for a Spark DataGrid component.
             </s:Line>
         </fx:Component>
         
+        <!--- @private -->
         <fx:Component id="hoverIndicator">
             <s:Rect>
                 <s:fill>
                     <s:SolidColor color="0xCEDBEF"/>
                 </s:fill>
             </s:Rect>
-        </fx:Component>           
+        </fx:Component>
         
+        <!--- @private -->
         <fx:Component id="rowSeparator">
             <s:Line>
                 <s:stroke>
@@ -107,6 +131,7 @@ The default skin class for a Spark DataGrid component.
             </s:Line>
         </fx:Component>
         
+        <!--- @private -->
         <fx:Component id="selectionIndicator">
             <s:Rect>
                 <s:fill>
@@ -115,6 +140,7 @@ The default skin class for a Spark DataGrid component.
             </s:Rect>
         </fx:Component>
         
+        <!--- @private -->
         <fx:Component id="editorIndicator">
             <s:Rect>
                 <s:fill>
@@ -176,6 +202,7 @@ The default skin class for a Spark DataGrid component.
     <!-- column header, content -->
     <s:VGroup horizontalAlign="justify" gap="0" left="0" right="0" top="0" bottom="0">
         
+        <!--- @private -->
         <s:GridColumnHeaderGroup id="columnHeaderGroup"
             paddingLeft="1" paddingTop="1" paddingRight="1" minHeight="21" 
             columnSeparator="{headerColumnSeparator}"
@@ -183,8 +210,7 @@ The default skin class for a Spark DataGrid component.
 
         <s:Group height="100%">
             
-            <!-- content background fill -->
-            <!--- Defines the background appearance of the list-based component. -->
+            <!--- @private -->
             <s:Rect id="background" left="1" right="1" top="1" bottom="1" >
                 <s:fill>
                     <!--- Defines the color of the background. The default color is 0xFFFFFF. -->
@@ -194,13 +220,16 @@ The default skin class for a Spark DataGrid component.
             
             <!-- header separator, scroller and grid -->
             <s:VGroup horizontalAlign="justify" height="100%" width="100%" gap="-1">
+                <!--- @private -->
                 <s:Line id="headerSeparator">
                     <s:stroke>
                         <s:SolidColorStroke color="0x696969" weight="1" caps="square"/>
                     </s:stroke>
                 </s:Line>          
                 
+                <!--- @private -->
                 <s:Scroller id="scroller" minViewportInset="1" hasFocusableChildren="false" height="100%">
+                    <!--- @private -->
                     <s:Grid id="grid" itemRenderer="spark.skins.spark.DefaultGridItemRenderer">
                         <s:GridLayer name="backgroundLayer"/>
                         <s:GridLayer name="selectionLayer"/>
