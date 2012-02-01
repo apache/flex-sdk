@@ -12,13 +12,14 @@
 package mx.layout
 {
 import flash.display.DisplayObject;
-import flash.geom.Point;
-import flash.geom.Rectangle;
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 
 import mx.components.baseClasses.GroupBase;
 import mx.containers.utilityClasses.Flex;
+import mx.core.ILayoutElement;
 import mx.core.ScrollUnit;
 import mx.events.PropertyChangeEvent;
 import mx.layout.LinearLayoutVector;
@@ -1258,7 +1259,7 @@ public class VerticalLayout extends LayoutBase
 
 [ExcludeClass]
 
-import mx.layout.ILayoutElement;
+import mx.core.ILayoutElement;
 import mx.containers.utilityClasses.FlexChildInfo;
 
 class LayoutElementFlexChildInfo extends FlexChildInfo
