@@ -185,9 +185,11 @@ public class TileLayout extends LayoutBase
      */
     public function set columnCount(value:int):void
     {
-        explicitColumnCount = value;
-        if (value == _columnCount)
+        // Changing rowCount/columnCount explicit values may affect layout
+        // even if the current actual values are the same
+        if (value == explicitColumnCount)
             return;
+        explicitColumnCount = value;
 
         _columnCount = value;
         invalidateTargetSizeAndDisplayList();
@@ -232,9 +234,11 @@ public class TileLayout extends LayoutBase
      */
     public function set rowCount(value:int):void
     {
-        explicitRowCount = value;
-        if (value == _rowCount)
+        // Changing rowCount/columnCount explicit values may affect layout
+        // even if the current actual values are the same
+        if (value == explicitRowCount)
             return;
+        explicitRowCount = value;
 
         _rowCount = value;
         invalidateTargetSizeAndDisplayList();
@@ -581,18 +585,21 @@ public class TileLayout extends LayoutBase
      */
     protected function dispatchEventsForActualValueChanges():void
     {
-        if (oldColumnWidth != _columnWidth)
-            dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "columnWidth", oldColumnWidth, _columnWidth));
-        if (oldRowHeight != _rowHeight)
-            dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "rowHeight", oldRowHeight, _rowHeight));
-        if (oldColumnCount != _columnCount)
-            dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "columnCount", oldColumnCount, _columnCount));
-        if (oldRowCount != _rowCount)
-            dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "rowCount", oldRowCount, _rowCount));
-        if (oldHorizontalGap != _horizontalGap)
-            dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "horizontalGap", oldHorizontalGap, _horizontalGap));
-        if (oldVerticalGap != _verticalGap)
-            dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "verticalGap", oldVerticalGap, _verticalGap));
+        if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+        {
+            if (oldColumnWidth != _columnWidth)
+                dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "columnWidth", oldColumnWidth, _columnWidth));
+            if (oldRowHeight != _rowHeight)
+                dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "rowHeight", oldRowHeight, _rowHeight));
+            if (oldColumnCount != _columnCount)
+                dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "columnCount", oldColumnCount, _columnCount));
+            if (oldRowCount != _rowCount)
+                dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "rowCount", oldRowCount, _rowCount));
+            if (oldHorizontalGap != _horizontalGap)
+                dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "horizontalGap", oldHorizontalGap, _horizontalGap));
+            if (oldVerticalGap != _verticalGap)
+                dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "verticalGap", oldVerticalGap, _verticalGap));
+        }
 
         oldColumnWidth   = _columnWidth;
         oldRowHeight     = _rowHeight;
