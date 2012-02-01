@@ -666,6 +666,21 @@ public class VerticalLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
+    override protected function getElementBounds(index:int):Rectangle
+    {
+        if (!useVirtualLayout)
+            return super.getElementBounds(index);
+
+        var g:GroupBase = GroupBase(target);
+        if (!g || (index < 0) || (index >= g.numElements)) 
+            return null;
+
+        return llv.getBounds(index);
+    }
+    
 	/**
 	 *  An index is "in view" if the corresponding non-null layout element is 
 	 *  within the vertical limits of the layout target's scrollRect
@@ -891,30 +906,6 @@ public class VerticalLayout extends LayoutBase
                 
         setIndexInView(i0, i1);
     }
-
-    /**
-     *  @private
-     * 
-     *  If the element at index i is non-null and includeInLayout,
-     *  then return it's actual bounds, otherwise return null.
-     */
-    private function layoutElementBounds(g:GroupBase, i:int):Rectangle
-    {
-        if (useVirtualLayout)
-            return llv.getBounds(i);        
-        else 
-        {
-            var element:ILayoutElement = g.getElementAt(i);
-            if (element && element.includeInLayout)
-            {
-                return new Rectangle(element.getLayoutBoundsX(),
-                                     element.getLayoutBoundsY(),
-                                     element.getLayoutBoundsWidth(),
-                                     element.getLayoutBoundsHeight());        
-            }
-        }
-        return null;    
-    }
     
     /**
      *  @private
@@ -940,12 +931,12 @@ public class VerticalLayout extends LayoutBase
             if (i < 0)
                 return new Rectangle(0, 0, 0, paddingTop);
             if (i >= n)
-                return new Rectangle(0, layoutElementBounds(g, n-1).bottom, 0, paddingBottom);
+                return new Rectangle(0, getElementBounds(n-1).bottom, 0, paddingBottom);
         }
 
         while((i >= 0) && (i < n))
         {
-           var elementR:Rectangle = layoutElementBounds(g, i);
+           var elementR:Rectangle = getElementBounds(i);
            // Special case: if the scrollRect r _only_ contains
            // elementR, then if we're searching up (dir == -1),
            // and elementR's top edge is visible, then try again
@@ -965,7 +956,7 @@ public class VerticalLayout extends LayoutBase
     /**
      *  @private 
      */
-    override protected function elementBoundsAboveScrollRect(scrollRect:Rectangle):Rectangle
+    override protected function getElementBoundsAboveScrollRect(scrollRect:Rectangle):Rectangle
     {
         return findLayoutElementBounds(target, firstIndexInView, -1, scrollRect);
     } 
@@ -973,7 +964,7 @@ public class VerticalLayout extends LayoutBase
     /**
      *  @private 
      */
-    override protected function elementBoundsBelowScrollRect(scrollRect:Rectangle):Rectangle
+    override protected function getElementBoundsBelowScrollRect(scrollRect:Rectangle):Rectangle
     {
         return findLayoutElementBounds(target, lastIndexInView, +1, scrollRect);
     } 
