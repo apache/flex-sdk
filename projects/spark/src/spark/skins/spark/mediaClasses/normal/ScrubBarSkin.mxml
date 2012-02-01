@@ -62,8 +62,8 @@
 
     <s:Group id="bufferedArea" left="0" top="0" height="11">
     
-        <!-- inset 7 pixels because that's thumbSize/2 -->
-        <s:Group left="7" right="7" top="0" bottom="0" minWidth="0">
+        <!-- inset 7 and 6 pixels because that's thumbSize/2 -->
+        <s:Group left="7" right="6" top="0" bottom="0" minWidth="0">
         
             <!-- fill -->
             <s:Rect left="1" right="1" top="1" bottom="1">
@@ -100,27 +100,27 @@
     
     <s:Group id="playedArea" left="0" top="0" height="11">
     
-        <!-- inset 7 pixels because that's thumbSize/2 -->
-        <s:Group left="7" right="7" top="0" bottom="0" minWidth="0">
+        <!-- inset 7 and 6 pixels because that's thumbSize/2 -->
+        <s:Group left="7" right="6" top="0" bottom="0" minWidth="0">
         
-            <!-- fill -->
+            <!-- inner glow -->
             <s:Rect left="1" right="1" top="1" bottom="1">
+                <s:fill>
+                    <s:LinearGradient rotation="90">
+                        <s:GradientEntry color="0xFEFEFE"/>
+                        <s:GradientEntry color="0xECECEC"/>
+                    </s:LinearGradient>
+                </s:fill>
+            </s:Rect>
+            
+            <!-- fill -->
+            <s:Rect left="2" right="2" top="2" bottom="2">
                 <s:fill>
                     <s:LinearGradient rotation="90">
                         <s:GradientEntry color="0xFFFFFF" alpha="0.85"/>
                         <s:GradientEntry color="0xE1E1E1" alpha="0.85"/>
                     </s:LinearGradient>
                 </s:fill>
-            </s:Rect>
-            
-            <!-- inner glow -->
-            <s:Rect left="1" right="1" top="1" bottom="1">
-                <s:stroke>
-                    <s:LinearGradientStroke rotation="90">
-                        <s:GradientEntry color="0xFEFEFE"/>
-                        <s:GradientEntry color="0xECECEC"/>
-                    </s:LinearGradientStroke>
-                </s:stroke>
             </s:Rect>
             
             <!-- black line on right -->
