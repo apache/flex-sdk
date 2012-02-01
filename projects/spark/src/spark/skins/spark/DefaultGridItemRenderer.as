@@ -46,18 +46,31 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+// These must be inherited to work correctly.
+
+[Exclude(name="layoutDirection", kind="property")]
+[Exclude(name="layoutDirection", kind="style")]
+
 /**
- *   A simple and efficent IGridItemRenderer that displays a single text label.  This
+ *   A simple and efficient IGridItemRenderer that displays a single text label.  This
  *   class is the default value for the s:DataGrid itemRenderer property.   It's based
  *   on FTE, the FlashTextEngine, It is based on FTE, the “FlashTextEngine”, which supports 
  *   high-quality international typography and font embedding in the same way as other 
  *   Spark controls.
  * 
+ *   <p>DefaultGridItemRenderer will inherit its <code>layoutDirection</code> 
+ *   from its parent.  It should not be set directly on 
+ *   DefaultGridItemRenderer.</p>
+ *
  *   <p>Label text wrapping can be controlled with the lineBreak style.  For example
  *   a DataGrid configured like this:
  *   <code>lineBreak="explicit" variableRowHeight="false"</code> yields fixed height
  *   DataGrid cells whose labels do not wrap.</p>
- * 
+ *  
  *   <p>DefaultGridItemRenderer is not intended to be subclassed or copied, it is
  *   effectively final.  Custom item renderers can be created in MXML with the 
  *   GridItemRenderer component.</p>
@@ -77,6 +90,69 @@ public class DefaultGridItemRenderer extends UIFTETextField implements IGridItem
         
         addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Hold the property to style conversions that getStyle() should use.
+     *  Since setStyle() in UIFTETextField is a no-op, getStyle() will look here
+     *  for a "pseudo style" before looking for the real styles.  See notes 
+     *  on direction and locale properties.
+     */
+    private var pseudoStyles:Object;
+
+    //----------------------------------
+    //  direction
+    //----------------------------------
+    
+    /**
+     * @private 
+     * This is a property in FTETextField so if set in mxml the property
+     * rather than the style is set.  UIFTETextField will overwrite the
+     * property with the value of the "direction" style so convert the property
+     * to a style.
+     */
+    override public function set direction(value:String):void
+    {
+        if (!pseudoStyles)
+            pseudoStyles = {};
+        pseudoStyles["direction"] = value;
+    }
+    
+    //----------------------------------
+    //  locale
+    //----------------------------------
+    
+    /**
+     * @private 
+     * This is a property in FTETextField so if set in mxml the property
+     * rather than the style is set.  UIFTETextField will overwrite the
+     * property with the value of the "locale" style so convert the property
+     * to a style.
+     */
+    override public function set locale(value:String):void
+    {
+        if (!pseudoStyles)
+            pseudoStyles = {};
+        pseudoStyles["locale"] = value;
+    }
+
+    /**
+     * @private
+     */ 
+    override public function getStyle(styleProp:String):*
+    {
+        if (pseudoStyles && pseudoStyles[styleProp] !== undefined)
+            return pseudoStyles[styleProp];
+        
+        return super.getStyle(styleProp);
+    }
+    
     
 include "TextFieldGridItemRendererInclude.as"
 
