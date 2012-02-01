@@ -44,6 +44,8 @@ import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
+import mx.geom.Transform;
+import mx.geom.TransformOffsets;
 import mx.graphics.shaderClasses.ColorBurnShader;
 import mx.graphics.shaderClasses.ColorDodgeShader;
 import mx.graphics.shaderClasses.ColorShader;
@@ -52,9 +54,7 @@ import mx.graphics.shaderClasses.HueShader;
 import mx.graphics.shaderClasses.LuminosityMaskShader;
 import mx.graphics.shaderClasses.LuminosityShader;
 import mx.graphics.shaderClasses.SaturationShader;
-import mx.graphics.shaderClasses.SoftLightShader; 
-import mx.geom.Transform;
-import mx.geom.TransformOffsets;
+import mx.graphics.shaderClasses.SoftLightShader;
 import mx.managers.ILayoutManagerClient;
 import mx.utils.MatrixUtil;
 
@@ -3066,12 +3066,11 @@ public class GraphicElement extends EventDispatcher
                 validateDisplayList();
             }
             
-            var topLevel:Sprite = Sprite(IUIComponent(parent).systemManager);   
+            var topLevel:Sprite = Sprite(IUIComponent(parent).systemManager.getSandboxRoot());
             var rectBounds:Rectangle = useLocalSpace ? 
                         new Rectangle(getLayoutBoundsX(), getLayoutBoundsY(), getLayoutBoundsWidth(), getLayoutBoundsHeight()) :
                         displayObject.getBounds(topLevel); 
             var bitmapData:BitmapData = new BitmapData(Math.ceil(rectBounds.width), Math.ceil(rectBounds.height), transparent, fillColor);
- 
                 
             // Can't use target's concatenatedMatrix, as it is sometimes wrong
             var m:Matrix = useLocalSpace ? 
