@@ -725,12 +725,7 @@ public final class LinearLayoutVector
      * 
      *  The minMinorSize is intended to be used LinearLayout::measure() time.
      * 
-     *  It accumulates the maximum of the minWidth,Height for items for which
-     *  percentWidth,Height is specified, and preferredWidth,Height when
-     *  a percent size is not specified.
-     * 
-     *  This is because LinearLayouts give items their preferred size along
-     *  the minor axis, unless percent size was specified.
+     *  It accumulates the maximum of the minWidth,Height for all items.
      * 
      *  @param index The item's index.
      *  @param elt The layout element at index.
@@ -754,15 +749,13 @@ public final class LinearLayoutVector
         {
             setMajorSize(index, elt.getLayoutBoundsHeight());
             minorSize = Math.max(minorSize, elt.getLayoutBoundsWidth());
-            var mw:Number =  isNaN(elt.percentWidth) ? elt.getPreferredBoundsWidth() : elt.getMinBoundsWidth();            
-            minMinorSize = Math.max(minMinorSize, mw);
+            minMinorSize = Math.max(minMinorSize, elt.getMinBoundsWidth());
         }
         else
         {
             setMajorSize(index, elt.getLayoutBoundsWidth());            
             minorSize = Math.max(minorSize, elt.getLayoutBoundsHeight());
-            var mh:Number =  isNaN(elt.percentHeight) ? elt.getPreferredBoundsHeight() : elt.getMinBoundsHeight();            
-            minMinorSize = Math.max(minMinorSize, mh);
+            minMinorSize = Math.max(minMinorSize, elt.getMinBoundsHeight());
         }
     }
     
