@@ -126,8 +126,8 @@ public class FocusSkin extends UIComponent
         // Hide the label before drawing the focus. 
         // TODO: Figure out a better solution.
         var hidLabelElement:Boolean = false;
-        if ((weakIsCheck(focusObject, "mx.components::CheckBox") ||
-             weakIsCheck(focusObject, "mx.components::RadioButton"))
+        if ((weakIsCheck(focusObject, "spark.components::CheckBox") ||
+             weakIsCheck(focusObject, "spark.components::RadioButton"))
              && focusObject.labelElement)
         {
             focusObject.labelElement.displayObject.visible = false;
@@ -148,7 +148,7 @@ public class FocusSkin extends UIComponent
         
         // Special case for Scroller - fill the entire rect.
         // TODO: Figure out a better solution.
-        if (weakIsCheck(focusObject, "mx.components::Scroller"))
+        if (weakIsCheck(focusObject, "spark.components::Scroller"))
         {
             rect.x = rect.y = FOCUS_THICKNESS;
             rect.width = focusObject.width;
