@@ -34,249 +34,276 @@ import mx.graphics.BitmapFill;
 import flex.graphics.graphicsClasses.GraphicElement;
 
 /**
- *  The BitmapGraphic class is a graphic element that draws a bitmap.
+ *  A BitmapGraphic element defines a rectangular region in its parent element's 
+ *  coordinate space, filled with bitmap data drawn from a source file.
  */
 public class BitmapGraphic extends GraphicElement implements IDisplayObjectElement
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor. 
-	 */
-	public function BitmapGraphic()
-	{
-		super();
-		
-		_fill = new BitmapFill();
-	}
-	
-	private var _fill:BitmapFill;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  Constructor. 
+     */
+    public function BitmapGraphic()
+    {
+        super();
+        
+        _fill = new BitmapFill();
+    }
+    
+    private var _fill:BitmapFill;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  alwaysNeedsDisplayObject
-	//----------------------------------
-	
-	private var _alwaysNeedsDisplayObject:Boolean = false;
-	
-	/*
-	 *  Set this to true to force the Graphic Element to create an underlying Shape
-	 */
-	mx_internal function set alwaysNeedsDisplayObject(value:Boolean):void
-	{
-		if (value != _alwaysNeedsDisplayObject)
-		{
-			_alwaysNeedsDisplayObject = value;
-			notifyElementLayerChanged();
-		}
-	}
-	
-	mx_internal function get alwaysNeedsDisplayObject():Boolean
-	{
-		return _alwaysNeedsDisplayObject;
-	}
-	
-	//----------------------------------
-	//  repeat
-	//----------------------------------
+    //----------------------------------
+    //  alwaysNeedsDisplayObject
+    //----------------------------------
+    
+    private var _alwaysNeedsDisplayObject:Boolean = false;
+    
+    /*
+     *  Set this to true to force the Graphic Element to create an underlying Shape
+     */
+    mx_internal function set alwaysNeedsDisplayObject(value:Boolean):void
+    {
+        if (value != _alwaysNeedsDisplayObject)
+        {
+            _alwaysNeedsDisplayObject = value;
+            notifyElementLayerChanged();
+        }
+    }
+    
+    mx_internal function get alwaysNeedsDisplayObject():Boolean
+    {
+        return _alwaysNeedsDisplayObject;
+    }
+    
+    //----------------------------------
+    //  repeat
+    //----------------------------------
 
-	protected var _repeat:Boolean = true;
-	
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    /**
+     *  @private
+     */
+    protected var _repeat:Boolean = true;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
-	/**
-	 *  Whether the bitmap is repeated to fill the area. Set to <code>true</code> to cause 
-	 *  the fill to tile outward to the edges of the filled region. 
-	 *  Set to <code>false</code> to end the fill at the edge of the region.
-	 *
-	 *  @default true
-	 */
-	public function get repeat():Boolean 
-	{
-		return _repeat;
-	}
-	
-	public function set repeat(value:Boolean):void
-	{
-		var oldValue:Boolean = _repeat;
-		
-		if (value != oldValue)
-		{
-			_repeat = value;
-			invalidateDisplayList();
-			//dispatchPropertyChangeEvent("repeat", oldValue, value);
-		}
-	}
+    /**
+     *  Whether the bitmap is repeated to fill the area. Set to <code>true</code> to cause 
+     *  the fill to tile outward to the edges of the filled region. 
+     *  Set to <code>false</code> to end the fill at the edge of the region.
+     *
+     *  @default true
+     */
+    public function get repeat():Boolean 
+    {
+        return _repeat;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set repeat(value:Boolean):void
+    {
+        var oldValue:Boolean = _repeat;
+        
+        if (value != oldValue)
+        {
+            _repeat = value;
+            invalidateDisplayList();
+            //dispatchPropertyChangeEvent("repeat", oldValue, value);
+        }
+    }
 
-	//----------------------------------
-	//  source
-	//----------------------------------
+    //----------------------------------
+    //  source
+    //----------------------------------
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
-	/**
-	 *  The source used for the bitmap fill. The fill can render from various graphical 
-	 *  sources, including the following: 
-	 *  <ul>
-	 *   <li>A Bitmap or BitmapData instance.</li>
-	 *   <li>A class representing a subclass of DisplayObject. The BitmapFill instantiates 
-	 *       the class and creates a bitmap rendering of it.</li>
-	 *   <li>An instance of a DisplayObject. The BitmapFill copies it into a Bitmap for filling.</li>
-	 *   <li>The name of a subclass of DisplayObject. The BitmapFill loads the class, instantiates it, 
-	 *       and creates a bitmap rendering of it.</li>
-	 *  </ul>
-	 */
-	public function get source():Object
-	{
-		return _fill.source;
-	}
-	
-	public function set source(value:Object):void
-	{
-		var oldValue:Object = _fill.source;
-		
-		if (value != oldValue)
-		{
-			var bitmapData:BitmapData;
-			var tmpSprite:DisplayObject;
-			
-			// This code stolen from BitmapFill. The only change is to make the BitmapData transparent.
-			if (value is Class)
-			{
-				var cls:Class = Class(value);
-				tmpSprite = new cls();
-			}
-			else if (value is BitmapData)
-			{
-				bitmapData = value as BitmapData;
-			}
-			else if (value is Bitmap)
-			{
-				bitmapData = value.bitmapData;
-			}
-			else if (value is DisplayObject)
-			{
-				tmpSprite = value as DisplayObject;
-			}
-			else if (value is String)
-			{
-				var tmpClass:Class = Class(getDefinitionByName(String(value)));
-				tmpSprite = new tmpClass();
-			}
-			else
-			{
-				return;
-			}
-			
-			if (!bitmapData && tmpSprite)
-			{
-				bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height, true, 0);
-				bitmapData.draw(tmpSprite, new Matrix());
-			}		
-			
-			_fill.source = bitmapData;
-			dispatchPropertyChangeEvent("source", oldValue, value);
-			invalidateSize();
-			invalidateDisplayList();
-		}
-	}
-	
-	//----------------------------------
-	//  smooth
-	//----------------------------------
+    /**
+     *  The source used for the bitmap fill. The fill can render from various graphical 
+     *  sources, including the following: 
+     *  <ul>
+     *   <li>A Bitmap or BitmapData instance.</li>
+     *   <li>A class representing a subclass of DisplayObject. The BitmapFill instantiates 
+     *       the class and creates a bitmap rendering of it.</li>
+     *   <li>An instance of a DisplayObject. The BitmapFill copies it into a Bitmap for filling.</li>
+     *   <li>The name of a subclass of DisplayObject. The BitmapFill loads the class, instantiates it, 
+     *       and creates a bitmap rendering of it.</li>
+     *  </ul>
+     *  
+     *  <p>If you use an image file for the source, it can be of type PNG, GIF, or JPG.</p>
+     *  
+     *  <p>To specify an image as a source, you must use the &#64;Embed directive, as the following example shows:
+     *  <pre>
+     *  source="&#64;Embed('&lt;i&gt;image_location&lt;/i&gt;')"
+     *  </pre>
+     *  </p>
+     *  
+     *  <p>The image location can be a URL or file reference. If it is a file reference, its location is relative to
+     *  the location of the file that is being compiled.</p>
+     *  
+     *  @see flash.display.Bitmap
+     *  @see flash.display.BitmapData
+     *  @see mx.graphics.BitmapFill
+     */
+    public function get source():Object
+    {
+        return _fill.source;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set source(value:Object):void
+    {
+        var oldValue:Object = _fill.source;
+        
+        if (value != oldValue)
+        {
+            var bitmapData:BitmapData;
+            var tmpSprite:DisplayObject;
+            
+            // This code stolen from BitmapFill. The only change is to make the BitmapData transparent.
+            if (value is Class)
+            {
+                var cls:Class = Class(value);
+                tmpSprite = new cls();
+            }
+            else if (value is BitmapData)
+            {
+                bitmapData = value as BitmapData;
+            }
+            else if (value is Bitmap)
+            {
+                bitmapData = value.bitmapData;
+            }
+            else if (value is DisplayObject)
+            {
+                tmpSprite = value as DisplayObject;
+            }
+            else if (value is String)
+            {
+                var tmpClass:Class = Class(getDefinitionByName(String(value)));
+                tmpSprite = new tmpClass();
+            }
+            else
+            {
+                return;
+            }
+            
+            if (!bitmapData && tmpSprite)
+            {
+                bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height, true, 0);
+                bitmapData.draw(tmpSprite, new Matrix());
+            }       
+            
+            _fill.source = bitmapData;
+            dispatchPropertyChangeEvent("source", oldValue, value);
+            invalidateSize();
+            invalidateDisplayList();
+        }
+    }
+    
+    //----------------------------------
+    //  smooth
+    //----------------------------------
 
-	private var _smooth:Boolean = false;
+    private var _smooth:Boolean = false;
 
-	[Inspectable(category="General")]	
-	
-	/**
-	 *  A flag indicating whether to smooth the bitmap data
-	 *  when filling with it.
-	 *
-	 *  @default false
-	 */
-	public function set smooth(value:Boolean):void
-	{
-		if (value != _smooth)
-		{
-			_smooth = value;
-			invalidateDisplayList();
-		}
-	}
-	
-	public function get  smooth():Boolean
-	{
-		return _smooth;
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  IGraphicElement Implementation
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @inheritDoc
-	 */
+    [Inspectable(category="General")]   
+    
+    /**
+     *  @copy flash.display.GraphicsBitmapFill#smooth
+     *
+     *  @default false
+     */
+    public function set smooth(value:Boolean):void
+    {
+        if (value != _smooth)
+        {
+            _smooth = value;
+            invalidateDisplayList();
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    public function get smooth():Boolean
+    {
+        return _smooth;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  IGraphicElement Implementation
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @inheritDoc
+     */
     override protected function measure():void
     {
         measuredWidth = source ? source.width : 0;
         measuredHeight = source ? source.height : 0;
     }
-	
-	/**
-	 *  @inheritDoc
-	 */
+    
+    /**
+     *  @inheritDoc
+     */
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
-	{
-	    /* if (!displayObject || !(displayObject is Sprite))
-	        return; */
+    {
+        /* if (!displayObject || !(displayObject is Sprite))
+            return; */
 
         if (displayObject is Sprite)
             Sprite(displayObject).graphics.clear();
         else if (displayObject is Shape)
             Shape(displayObject).graphics.clear();
 
-	    var g:Graphics = Sprite(drawnDisplayObject).graphics;
-	    
-		g.lineStyle();
-		_fill.offsetX = drawX;
-		_fill.offsetY = drawY;
-		_fill.repeat = repeat;
-		_fill.smooth = smooth;
-		var w:Number = unscaledWidth;
-		var h:Number = unscaledHeight;
-		
-		if (!repeat && source)
-		{
-			w = Math.min(w, source.width);
-			h = Math.min(h, source.height);	
-		}
-		
-		_fill.begin(g, new Rectangle(w, h));
-		g.drawRect(drawX, drawY, w, h);
-		_fill.end(g);
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  IAssignableDisplayObject Implementation
-	//
-	//--------------------------------------------------------------------------
+        var g:Graphics = Sprite(drawnDisplayObject).graphics;
+        
+        g.lineStyle();
+        _fill.offsetX = drawX;
+        _fill.offsetY = drawY;
+        _fill.repeat = repeat;
+        _fill.smooth = smooth;
+        var w:Number = unscaledWidth;
+        var h:Number = unscaledHeight;
+        
+        if (!repeat && source)
+        {
+            w = Math.min(w, source.width);
+            h = Math.min(h, source.height); 
+        }
+        
+        _fill.begin(g, new Rectangle(w, h));
+        g.drawRect(drawX, drawY, w, h);
+        _fill.end(g);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  IAssignableDisplayObject Implementation
+    //
+    //--------------------------------------------------------------------------
 
 }
 
