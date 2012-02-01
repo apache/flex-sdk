@@ -152,7 +152,7 @@
     <!---  The default skin is DropDownListButtonSkin. 
             @copy spark.components.supportClasses.DropDownListBase#openButton
             @see spark.skins.spark.DropDownListButtonSkin -->
-    <s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
+    <s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false" tabEnabled="false"
         skinClass="spark.skins.spark.DropDownListButtonSkin" />  
         
     <!--- @copy spark.components.DropDownList#labelDisplay -->
