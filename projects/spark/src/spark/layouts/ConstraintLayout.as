@@ -395,8 +395,20 @@ public class ConstraintLayout extends LayoutBase
         parseConstraints();
         
         // TODO (klin): minimum will be different when percent size comes into play
-        width = minWidth = measureAndPositionColumns();
-        height = minHeight = measureAndPositionRows();
+        var colWidths:Vector.<Number> = measureColumns();
+        var rowHeights:Vector.<Number> = measureRows();
+        var n:Number;
+        
+        for each (n in colWidths)
+        {
+            width += n;
+        }
+        minWidth = width;
+        for each (n in rowHeights)
+        {
+            height += n;
+        }
+        minHeight = height;
         
         if (otherElements)
         {
@@ -512,8 +524,50 @@ public class ConstraintLayout extends LayoutBase
     protected function measureAndPositionColumnsAndRows():void
     {
         parseConstraints();
-        measureAndPositionColumns();
-        measureAndPositionRows();
+        setColumnWidths(measureColumns());
+        setRowHeights(measureRows());
+    }
+    
+    /**
+     *  Used to set new column widths before laying out the elements.
+     *  Used by FormItemLayout to set column widths provided by the
+     *  Form.
+     */ 
+    protected function setColumnWidths(value:Vector.<Number>):void
+    {
+        if (value == null)
+            return;
+        
+        var constraintColumns:Vector.<ConstraintColumn> = this.constraintColumns;
+        var numCols:int = constraintColumns.length;
+        var totalWidth:Number = 0;
+        
+        for (var i:int = 0; i < numCols; i++)
+        {
+            constraintColumns[i].setActualWidth(value[i]);
+            constraintColumns[i].x = totalWidth;
+            totalWidth += value[i];
+        }
+    }
+    
+    /**
+     *  Used to set new row heights before laying out the elements.
+     */ 
+    protected function setRowHeights(value:Vector.<Number>):void
+    {
+        if (value == null)
+            return;
+        
+        var constraintRows:Vector.<ConstraintRow> = this.constraintRows;
+        var numRows:int = constraintRows.length;
+        var totalHeight:Number = 0;
+        
+        for (var i:int = 0; i < numRows; i++)
+        {
+            constraintRows[i].setActualHeight(value[i]);
+            constraintRows[i].y = totalHeight;
+            totalHeight += value[i];
+        }
     }
 
     /**
@@ -722,7 +776,7 @@ public class ConstraintLayout extends LayoutBase
     /** 
      *  @private
      *  This function measures the ConstraintColumns partitioning
-     *  the target and sets their x positions. The calculations
+     *  the target and returns their new widths. The calculations
      *  are based on the current constraintCache. To update the
      *  constraintCache, one needs to call the parseConstraints()
      *  method.
@@ -749,9 +803,9 @@ public class ConstraintLayout extends LayoutBase
      * 
      *  6. Sum the column widths to get the total measured width of the target.
      * 
-     *  @return measuredWidth of the columns.
+     *  @return a vector of the new column widths.
      */
-    private function measureAndPositionColumns():Number
+    private function measureColumns():Vector.<Number>
     {
         // TODO (klin): Parameterize this to work for both columns and rows.
         // This may mean we need to add some mx_internal properties to 
@@ -760,15 +814,17 @@ public class ConstraintLayout extends LayoutBase
         // what parts aren't possible.
         
         if (_constraintColumns.length <= 0)
-            return 0;
+            return new Vector.<Number>();
         
         var measuredWidth:Number = 0;
         var i:Number;
         var numCols:Number = _constraintColumns.length;
         var col:ConstraintColumn;
         var hasContentSize:Boolean = false;
+        var colWidths:Vector.<Number> = new Vector.<Number>();
         
-        // Reset content size columns to 0.
+        // Start column widths at the minWidth of each column or
+        // its explicit width.
         for (i = 0; i < numCols; i++)
         {
             col = _constraintColumns[i];
@@ -777,9 +833,21 @@ public class ConstraintLayout extends LayoutBase
                 hasContentSize = true;
                 
                 if (!isNaN(col.minWidth))
-                    col.setActualWidth(Math.ceil(Math.max(col.minWidth, 0)));
+                    colWidths[i] = Math.ceil(Math.max(col.minWidth, 0));
                 else
-                    col.setActualWidth(0);
+                    colWidths[i] = 0;
+            }
+            else if (!isNaN(col.explicitWidth))
+            {
+                var w:Number = col.width;
+                
+                if (!isNaN(col.minWidth))
+                    w = Math.max(w, col.minWidth);
+                
+                if (!isNaN(col.maxWidth))
+                    w = Math.min(w, col.maxWidth);
+                
+                colWidths[i] = Math.ceil(w);
             }
         }
         
@@ -877,7 +945,7 @@ public class ConstraintLayout extends LayoutBase
                     // only measure with when dealing with content size
                     if (col.contentSize)
                     {   
-                        colWidth = Math.max(col.width, extX + preferredWidth);
+                        colWidth = Math.max(colWidths[leftIndex], extX + preferredWidth);
                         
                         if (constraintsDetermineWidth(elementInfo))
                             colWidth = Math.max(colWidth, extX + layoutElement.getMinBoundsWidth());
@@ -886,7 +954,7 @@ public class ConstraintLayout extends LayoutBase
                         if (!isNaN(col.maxWidth))
                             colWidth = Math.min(colWidth, col.maxWidth);
                         
-                        col.setActualWidth(Math.ceil(colWidth));
+                        colWidths[leftIndex] = Math.ceil(colWidth);
                     }
                 }
                 else
@@ -895,6 +963,7 @@ public class ConstraintLayout extends LayoutBase
                     // 1) start from leftIndex and subtract fixed columns
                     // 2) divide space evenly into content size columns.
                     var contentCols:Vector.<ConstraintColumn> = new Vector.<ConstraintColumn>();
+                    var contentColsIndices:Vector.<int> = new Vector.<int>();
                     
                     availableWidth = maxExtent;
                     
@@ -915,6 +984,7 @@ public class ConstraintLayout extends LayoutBase
                         else if (col.contentSize)
                         {
                             contentCols.push(col);
+                            contentColsIndices.push(j);
                         }
                     }
                     
@@ -928,46 +998,39 @@ public class ConstraintLayout extends LayoutBase
                         {
                             col = contentCols[j];
                             
-                            colWidth = Math.max(col.width, splitWidth);
+                            colWidth = Math.max(colWidths[contentColsIndices[j]], splitWidth);
                             if (!isNaN(col.maxWidth))
                                 colWidth = Math.min(colWidth, col.maxWidth);
                             
-                            col.setActualWidth(Math.ceil(colWidth));
+                            colWidths[contentColsIndices[j]] = Math.ceil(colWidth);
                         }
                     }
                 }
             }
         }
         
-        // Position columns and add up widths.
-        for (i = 0; i < numCols; i++)
-        {
-            col = _constraintColumns[i];
-            col.x = measuredWidth;
-            measuredWidth += col.width;
-        }
-        
-        return measuredWidth;
+        return colWidths;
     }
     
     /**
      *  @private
-     *  Synonymous to measureAndPositionColumns(), but with added baseline constraint.
+     *  Synonymous to measureColumns(), but with added baseline constraint.
      *  Baseline is only included in the measurement if at least one of the element's
      *  top or bottom constraint doesn't exist. The calculations are based on the
      *  current constraintCache. To update the constraintCache, one needs to call
      *  the parseConstraints() method.
      */
-    private function measureAndPositionRows():Number
+    private function measureRows():Vector.<Number>
     {
         if (_constraintRows.length <= 0)
-            return 0;
+            return new Vector.<Number>();
         
         var measuredHeight:Number = 0;
         var i:Number;
         var numRows:Number = _constraintRows.length;
         var row:ConstraintRow;
         var hasContentSize:Boolean = false;
+        var rowHeights:Vector.<Number> = new Vector.<Number>();
         
         // Reset content size rows to 0.
         for (i = 0; i < numRows; i++)
@@ -978,9 +1041,21 @@ public class ConstraintLayout extends LayoutBase
                 hasContentSize = true;
                 
                 if (!isNaN(row.minHeight))
-                    row.setActualHeight(Math.ceil(Math.max(row.minHeight, 0)));
+                    rowHeights[i] = Math.ceil(Math.max(row.minHeight, 0));
                 else
-                    row.setActualHeight(0);
+                    rowHeights[i] = 0;
+            }
+            else if (!isNaN(row.explicitHeight))
+            {
+                var h:Number = row.height;
+                
+                if (!isNaN(row.minHeight))
+                    h = Math.max(h, row.minHeight);
+                
+                if (!isNaN(row.maxHeight))
+                    h = Math.min(h, row.maxHeight);
+                
+                rowHeights[i] = Math.ceil(h);
             }
         }
         
@@ -1104,7 +1179,7 @@ public class ConstraintLayout extends LayoutBase
                     // only measure with when dealing with content size
                     if (row.contentSize)
                     {   
-                        rowHeight = Math.max(row.height, extY + preferredHeight);
+                        rowHeight = Math.max(rowHeights[topIndex], extY + preferredHeight);
                         
                         if (constraintsDetermineHeight(elementInfo))
                             rowHeight = Math.max(rowHeight, extY + layoutElement.getMinBoundsHeight());
@@ -1113,7 +1188,7 @@ public class ConstraintLayout extends LayoutBase
                         if (!isNaN(row.maxHeight))
                             rowHeight = Math.min(rowHeight, row.maxHeight);
                         
-                        row.setActualHeight(Math.ceil(rowHeight));
+                        rowHeights[topIndex] = Math.ceil(rowHeight);
                     }
                 }
                 else
@@ -1122,6 +1197,7 @@ public class ConstraintLayout extends LayoutBase
                     // 1) start from topIndex and subtract fixed rows
                     // 2) divide space evenly into content size rows.
                     var contentRows:Vector.<ConstraintRow> = new Vector.<ConstraintRow>();
+                    var contentRowsIndices:Vector.<int> = new Vector.<int>();
                     
                     availableHeight = maxExtent;
                     
@@ -1142,6 +1218,7 @@ public class ConstraintLayout extends LayoutBase
                         else if (row.contentSize)
                         {
                             contentRows.push(row);
+                            contentRowsIndices.push(j);
                         }
                     }
                     
@@ -1155,26 +1232,18 @@ public class ConstraintLayout extends LayoutBase
                         {
                             row = contentRows[j];
                             
-                            rowHeight = Math.max(row.height, splitHeight);
+                            rowHeight = Math.max(rowHeights[contentRowsIndices[j]], splitHeight);
                             if (!isNaN(row.maxHeight))
                                 rowHeight = Math.min(rowHeight, row.maxHeight);
                             
-                            row.setActualHeight(Math.ceil(rowHeight));
+                            rowHeights[contentRowsIndices[j]] = Math.ceil(rowHeight);
                         }
                     }
                 }
             }
         }
         
-        // Position rows and add up heights.
-        for (i = 0; i < numRows; i++)
-        {
-            row = _constraintRows[i];
-            row.y = measuredHeight;
-            measuredHeight += row.height;
-        }
-        
-        return measuredHeight;
+        return rowHeights;
     }
     
     /**
