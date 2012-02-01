@@ -87,9 +87,9 @@ public class Ellipse extends FilledElement
      */
     override protected function transformWidthForLayout(width:Number,
                                                         height:Number,
-                                                        postTransform:Boolean = true):Number
+                                                        postLayoutTransform:Boolean = true):Number
     {
-        if (postTransform)
+        if (postLayoutTransform)
         {
             var m:Matrix = computeMatrix();
             if (m)
@@ -105,9 +105,9 @@ public class Ellipse extends FilledElement
      */
     override protected function transformHeightForLayout(width:Number,
                                                          height:Number,
-                                                         postTransform:Boolean = true):Number
+                                                         postLayoutTransform:Boolean = true):Number
     {
-        if (postTransform)
+        if (postLayoutTransform)
         {
             var m:Matrix = computeMatrix();
             if (m)
@@ -126,10 +126,10 @@ public class Ellipse extends FilledElement
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    override public function getBoundsXAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    override public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var strokeExtents:Point = getStrokeExtents(postTransform);
-        var m:Matrix = postTransform ? computeMatrix() : null;
+        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
+        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
         if (!m)
             return strokeExtents.x * -0.5 + this.x;
 
@@ -159,10 +159,10 @@ public class Ellipse extends FilledElement
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    override public function getBoundsYAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    override public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var strokeExtents:Point = getStrokeExtents(postTransform);
-        var m:Matrix = postTransform ? computeMatrix() : null;
+        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
+        var m:Matrix = postLayoutTransform ? computeMatrix() : null;
         if (!m)
             return strokeExtents.y * -0.5 + this.y;
 
@@ -187,11 +187,11 @@ public class Ellipse extends FilledElement
     /**
      *  @private
      */
-    override public function getLayoutBoundsX(postTransform:Boolean = true):Number
+    override public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
-        var stroke:Number = -getStrokeExtents(postTransform).x * 0.5;
+        var stroke:Number = -getStrokeExtents(postLayoutTransform).x * 0.5;
         
-        if (postTransform)
+        if (postLayoutTransform)
         {
             var m:Matrix = computeMatrix();
             if (m)
@@ -204,11 +204,11 @@ public class Ellipse extends FilledElement
     /**
      *  @private
      */
-    override public function getLayoutBoundsY(postTransform:Boolean = true):Number
+    override public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
     {
-        var stroke:Number = - getStrokeExtents(postTransform).y * 0.5;
+        var stroke:Number = - getStrokeExtents(postLayoutTransform).y * 0.5;
 
-        if (postTransform)
+        if (postLayoutTransform)
         {
             var m:Matrix = computeMatrix();
             if (m)
