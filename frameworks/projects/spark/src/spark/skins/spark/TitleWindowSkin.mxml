@@ -2,25 +2,27 @@
 
 <!--
 
-	ADOBE SYSTEMS INCORPORATED
-	Copyright 2008 Adobe Systems Incorporated
-	All Rights Reserved.
-	
-	NOTICE: Adobe permits you to use, modify, and distribute this file
-	in accordance with the terms of the license agreement accompanying it.
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+    
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
 
 -->
 
 <!--- The default skin class for a Spark TitleWindow container.  
 
-	 @langversion 3.0
-	 @playerversion Flash 10
-	 @playerversion AIR 1.5
-	 @productversion Flex 4
+     @see spark.skins.spark.TitleWindowCloseButtonSkin
+
+     @langversion 3.0
+     @playerversion Flash 10
+     @playerversion AIR 1.5
+     @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
     xmlns:fb="http://ns.adobe.com/flashbuilder/2009" blendMode="normal" mouseEnabled="false"
-	minWidth="76" minHeight="76" alpha.disabled="0.5" alpha.disabledWithControlBar="0.5">
+    minWidth="76" minHeight="76" alpha.disabled="0.5" alpha.disabledWithControlBar="0.5">
     
     <fx:Metadata>
         <![CDATA[ 
@@ -123,16 +125,17 @@
         <s:State name="disabledWithControlBar" stateGroups="withControls" />
     </s:states>
     
-    <!-- drop shadow can't be hittable so it stays sibling of other graphics -->
+    <!--- drop shadow can't be hittable so it stays sibling of other graphics @private-->
     <s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.32" 
-							 alpha.inactiveGroup="0.22" distance="11"  distance.inactiveGroup="7"
+                             alpha.inactiveGroup="0.22" distance="11"  distance.inactiveGroup="7"
                              angle="90" color="0x000000" left="0" top="0" right="0" bottom="0"/>
     
-    <!-- drop shadow can't be hittable so all other graphics go in this group -->
+    <!--- drop shadow can't be hittable so all other graphics go in this group -->
     <s:Group left="0" right="0" top="0" bottom="0">
         
-        <!-- top group mask -->
-        <s:Group left="1" top="1" right="1" bottom="1" id="topGroupMask" >
+        <!--- top group mask @private-->
+        <s:Group left="1" top="1" right="1" bottom="1" id="topGroupMask">
+            <!--- @private-->
             <s:Rect id="topMaskRect" left="0" top="0" right="0" bottom="0">
                 <s:fill>
                     <s:SolidColor alpha="0"/>
@@ -140,9 +143,10 @@
             </s:Rect>
         </s:Group>
         
-        <!-- bottom group mask -->
+        <!--- bottom group mask @private-->
         <s:Group left="1" top="1" right="1" bottom="1" id="bottomGroupMask" 
                  includeIn="withControls">
+            <!--- @private-->
             <s:Rect id="bottomMaskRect" left="0" top="0" right="0" bottom="0">
                 <s:fill>
                     <s:SolidColor alpha="0"/>
@@ -150,9 +154,10 @@
             </s:Rect>
         </s:Group>
         
-        <!-- layer 1: border -->
+        <!--- layer 1: border @private -->
         <s:Rect id="border" left="0" right="0" top="0" bottom="0" >
             <s:stroke>
+                <!--- Defines the TitleWindowSkin class's border strole. The default value is 1. -->
                 <s:SolidColorStroke id="borderStroke" weight="1" />
             </s:stroke>
         </s:Rect>
@@ -161,50 +166,50 @@
         <!--- Defines the appearance of the TitleWindowSkin class's background. -->
         <s:Rect id="background" left="1" top="1" right="1" bottom="1">
             <s:fill>
-                <!-- Defines the TitleWindowSkin class's background fill. The default color is 0xFFFFFF. -->
+                <!--- Defines the TitleWindowSkin class's background fill. The default color is 0xFFFFFF. -->
                 <s:SolidColor id="backgroundFill" color="#FFFFFF"/>
             </s:fill>
         </s:Rect>
         
         <!-- layer 3: contents -->
-        <!--- contains the vertical stack of titlebar content and controlbar -->
+        <!--- Contains the vertical stack of title bar content and control bar. -->
         <s:Group left="1" right="1" top="1" bottom="1" id="contents">
             <s:layout>
                 <s:VerticalLayout gap="0" horizontalAlign="justify" />
             </s:layout>
-            
+            <!--- @private -->
             <s:Group id="topGroup" mask="{topGroupMask}">
-				
-                <!-- layer 0: title bar fill -->
+                
+                <!--- layer 0: title bar fill @private -->
                 <s:Rect id="tbFill" left="0" right="0" top="0" bottom="1">
                     <s:fill>
                         <s:LinearGradient rotation="90">
                             <s:GradientEntry color="0xD2D2D2"
-											 color.inactiveGroup="0xFFFFFF"/>
+                                             color.inactiveGroup="0xFFFFFF"/>
                             <s:GradientEntry color="0x9A9A9A"
-											 color.inactiveGroup="0xD8D8D8"/>
+                                             color.inactiveGroup="0xD8D8D8"/>
                         </s:LinearGradient>
                     </s:fill>
                 </s:Rect>
                 
-                <!-- layer 1: title bar highlight -->
+                <!--- layer 1: title bar highlight @private -->
                 <s:Rect id="tbHilite" left="0" right="0" top="0" bottom="0">
-					<s:stroke>
-						<s:LinearGradientStroke rotation="90" weight="1">
-							<s:GradientEntry color="0xE6E6E6" />
-							<s:GradientEntry color="0xFFFFFF" alpha=".22"/>
-						</s:LinearGradientStroke>
-					</s:stroke>
+                    <s:stroke>
+                        <s:LinearGradientStroke rotation="90" weight="1">
+                            <s:GradientEntry color="0xE6E6E6" />
+                            <s:GradientEntry color="0xFFFFFF" alpha=".22"/>
+                        </s:LinearGradientStroke>
+                    </s:stroke>
                     <s:fill>
-						<s:LinearGradient rotation="90">
-							<s:GradientEntry color="0xFFFFFF" alpha=".15" />
-							<s:GradientEntry color="0xFFFFFF" alpha=".15" ratio=".43"/>
-							<s:GradientEntry color="0xFFFFFF" alpha="0" ratio=".4301"/>
-						</s:LinearGradient>
+                        <s:LinearGradient rotation="90">
+                            <s:GradientEntry color="0xFFFFFF" alpha=".15" />
+                            <s:GradientEntry color="0xFFFFFF" alpha=".15" ratio=".43"/>
+                            <s:GradientEntry color="0xFFFFFF" alpha="0" ratio=".4301"/>
+                        </s:LinearGradient>
                     </s:fill>
                 </s:Rect>
                 
-                <!-- layer 2: title bar divider -->
+                <!--- layer 2: title bar divider @private -->
                 <s:Rect id="tbDiv" left="0" right="0" height="1" bottom="0">
                     <s:fill>
                         <s:SolidColor color="0xC0C0C0" />
@@ -217,14 +222,14 @@
                          left="9" right="24" top="1" bottom="0" minHeight="23"
                          verticalAlign="middle" fontWeight="bold" >
                 </s:Label>
-				
-				<!-- layer 4: moveArea -->
-				<!--- Defines the area where the user can drag the TitleWindow. -->
-				<s:Group id="moveArea" left="0" right="0" top="0" bottom="0" />
-				
-                <!-- close button -->
-	            <s:Button id="closeButton" skinClass="spark.skins.spark.TitleWindowCloseButtonSkin"
-						  width="15" height="15" right="2" top="3" />
+                
+                <!-- layer 4: moveArea -->
+                <!--- Defines the area where the user can drag the TitleWindow. -->
+                <s:Group id="moveArea" left="0" right="0" top="0" bottom="0" />
+                
+                <!--- Defines the appearance of the close button. -->
+                <s:Button id="closeButton" skinClass="spark.skins.spark.TitleWindowCloseButtonSkin"
+                          width="15" height="15" right="2" top="3" />
             </s:Group>
             
             <!--
@@ -232,12 +237,14 @@
             size will not be thwarted by this skin part's minimum size.   This is a compromise,
             more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
             -->
+            <!---  The definition of the contentGroup skin part. -->
             <s:Group id="contentGroup" width="100%" height="100%" minWidth="0" minHeight="0">
             </s:Group>
-			
+            
+            <!--- @private -->
             <s:Group id="bottomGroup" minWidth="0" minHeight="0" 
-					 includeIn="withControls">	
-				
+                     includeIn="withControls">  
+                
                 <s:Group left="0" right="0" top="0" bottom="0" mask="{bottomGroupMask}">
 
                     <!-- layer 0: control bar divider line -->
@@ -246,29 +253,29 @@
                             <s:SolidColor color="0x000000" />
                         </s:fill>
                     </s:Rect>
-					
-					<!-- layer 1: control bar highlight -->
-					<s:Rect left="0" right="0" top="1" bottom="0">
-						<s:stroke>
-							<s:LinearGradientStroke rotation="90" weight="1">
-								<s:GradientEntry color="0xFFFFFF" />
-								<s:GradientEntry color="0xD8D8D8" />
-							</s:LinearGradientStroke>
-						</s:stroke>
-					</s:Rect>
-					
+                    
+                    <!-- layer 1: control bar highlight -->
+                    <s:Rect left="0" right="0" top="1" bottom="0">
+                        <s:stroke>
+                            <s:LinearGradientStroke rotation="90" weight="1">
+                                <s:GradientEntry color="0xFFFFFF" />
+                                <s:GradientEntry color="0xD8D8D8" />
+                            </s:LinearGradientStroke>
+                        </s:stroke>
+                    </s:Rect>
+                    
                     <!-- layer 2: control bar fill -->
                     <s:Rect left="1" right="1" top="2" bottom="1">
-						<s:fill>
-							<s:LinearGradient rotation="90">
-								<s:GradientEntry color="0xEDEDED"/>
-								<s:GradientEntry color="0xCDCDCD"/>
-							</s:LinearGradient>
-						</s:fill>
+                        <s:fill>
+                            <s:LinearGradient rotation="90">
+                                <s:GradientEntry color="0xEDEDED"/>
+                                <s:GradientEntry color="0xCDCDCD"/>
+                            </s:LinearGradient>
+                        </s:fill>
                     </s:Rect>
                 </s:Group>
-				
-                <!-- layer 3: control bar -->
+                
+                <!--- layer 3: control bar @private-->
                 <s:Group id="controlBarGroup" left="0" right="0" top="1" bottom="1" minWidth="0" minHeight="0">
                     <s:layout>
                         <s:HorizontalLayout paddingLeft="10" paddingRight="10" paddingTop="7" paddingBottom="7" gap="10" />
