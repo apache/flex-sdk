@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2008 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- 
+
+The default header renderer for s:DataGrid columns.
+
+@see spark.components.DataGrid
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+
+<s:GridItemRenderer minWidth="21" minHeight="21"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:mx="library://ns.adobe.com/flex/mx">
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" />
+        <s:State name="down" />
+        <s:State name="disabled" />
+    </s:states>
+    
+    <!-- background -->
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:fill>
+            <s:SolidColor color="#BABABA" color.up="#EEEEEE" color.over="#DDDDDD" color.down="#DDDDDD" />
+        </s:fill>
+    </s:Rect>
+    
+    <!-- shadow (down state only) -->
+    <s:Rect includeIn="down" left="0" right="0" y="0" height="4">
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry alpha="0.23" color="#000000" ratio="0"/>
+                <s:GradientEntry alpha="0.20" color="#000000" ratio="0.4"/>
+                <s:GradientEntry alpha="0.055" color="#000000" ratio="0.55"/>
+                <s:GradientEntry alpha="0.0" color="#000000" ratio="0.8"/>
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+    <s:Rect includeIn="down" x="0" width="4" top="0" bottom="0">
+        <s:fill>
+            <s:LinearGradient rotation="0">
+                <s:GradientEntry alpha="0.13" color="#000000" ratio="0"/>
+                <s:GradientEntry alpha="0.12" color="#000000" ratio="0.2"/>
+                <s:GradientEntry alpha="0.0" color="#000000" ratio="0.55"/>
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+    
+    <!-- label -->
+    <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
+    <s:Label id="labelDisplay"
+             textAlign="left"
+             fontWeight="bold"
+             horizontalCenter="0" verticalCenter="1" verticalCenter.down="2"
+             left="7" right="7" top="2" bottom="2"
+             verticalAlign="middle"
+             maxDisplayedLines="1">
+    </s:Label>
+    
+</s:GridItemRenderer>
