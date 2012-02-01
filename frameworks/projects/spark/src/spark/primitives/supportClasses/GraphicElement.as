@@ -323,7 +323,25 @@ public class GraphicElement extends OnDemandEventDispatcher
         _baseline = value;
         invalidateParentSizeAndDisplayList();
     }
+    
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
 
+    [Inspectable(category="General")]
+
+    /**
+     *  @private
+     *  The y-coordinate of the baseline
+     *  of the first line of text of the component.
+     */
+    public function get baselinePosition():Number
+    {    
+        // Subclasses of GraphicElement should return something 
+        // here as appropriate (e.g. text centric GraphicElements).
+        return 0;
+    }
+    
     //----------------------------------
     //  blendMode
     //----------------------------------
