@@ -30,6 +30,24 @@
          */
         [HostComponent("spark.components.TextInput")]
     </fx:Metadata> 
+
+    <fx:Script>
+        <![CDATA[
+            /**
+             *  @private
+             */
+            override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+            {
+                if (promptDisplay)
+                {
+                    promptDisplay.setLayoutBoundsSize(unscaledWidth - 2, unscaledHeight - 2);
+                    promptDisplay.setLayoutBoundsPosition(1, 1);
+                }
+                
+                super.updateDisplayList(unscaledWidth, unscaledHeight);
+            }            
+        ]]>
+    </fx:Script>
     
     <s:states>
         <s:State name="normal"/>
@@ -73,12 +91,14 @@
               left="1" right="1" top="1" bottom="1"
               paddingLeft="3" paddingTop="5"
               paddingRight="3" paddingBottom="3"/>
-    <s:Label id="promptDisplay"
+    <!-- includeInLayout is false so prompt doesn't affect measurement -->
+    <s:Label id="promptDisplay" maxDisplayedLines="1"
              verticalAlign="middle"
              mouseEnabled="false" mouseChildren="false"
-             includeIn="normalWithPrompt,disabledWithPrompt" 
+             includeIn="normalWithPrompt,disabledWithPrompt"
+             includeInLayout="false"
              paddingLeft="3" paddingTop="5"
              paddingRight="3" paddingBottom="3"
-             left="1" right="1" top="1" bottom="1" />
+             />
 
 </s:Skin>
