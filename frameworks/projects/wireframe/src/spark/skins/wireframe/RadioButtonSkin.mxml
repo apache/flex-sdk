@@ -31,7 +31,7 @@
 
     <s:Group top="1.5">
         <!-- background -->
-        <s:Ellipse width="12" height="12">
+        <s:Ellipse left="0" width="12" height="12">
             <s:stroke>            
                 <s:SolidColorStroke color="0x5380D0" color.disabled="0xA9C0E8" />
             </s:stroke>
@@ -42,7 +42,7 @@
         </s:Ellipse>
 
 		<!-- shadow (down states only) -->
-		<s:Ellipse left="0.5" top="0.5" right="1" bottom="0.5" includeIn="downStates">
+		<s:Ellipse left="1.0" top="0.5" right="1" bottom="0.5" includeIn="downStates">
 			<s:stroke> 
 				<s:LinearGradientStroke rotation="90">
 					<s:GradientEntry color="0x5380D0" alpha="0.25" />
@@ -52,7 +52,7 @@
 		</s:Ellipse>
 		
         <!-- center -->
-        <s:Ellipse left="3.5" top="3.5" width="5" height="5" 
+        <s:Ellipse left="4" top="3.5" width="5" height="5" 
                     includeIn="upAndSelected, overAndSelected, downAndSelected, disabledAndSelected">
             <s:fill>
                 <s:SolidColor color="0x3D5D92" color.disabledAndSelected="0x9DADC9" />
