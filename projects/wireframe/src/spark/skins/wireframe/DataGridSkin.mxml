@@ -37,13 +37,13 @@ The default skin class for a Spark DataGrid component.
     
     <fx:Declarations>
         <fx:Component id="alternatingRowColorsBackground">
-            <s:Rect implements="spark.components.gridClasses.IGridRowBackground">
+            <s:Rect implements="spark.components.gridClasses.IGridVisualElement">
                 <fx:Script>
                     <![CDATA[
                         import spark.components.DataGrid;
                         import spark.components.Grid;
                         
-                        public function initializeRowBackground(grid:Grid, rowIndex:int):void
+                        public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
                         {
                             const dataGrid:DataGrid = grid.dataGrid;
                             if (!dataGrid)
