@@ -49,7 +49,7 @@ public class GraphicElement extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-	/**
+    /**
      *  The default value for the <code>maxWidth</code> property.
      *
      *  @default 10000
@@ -83,36 +83,36 @@ public class GraphicElement extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-	/**
+    /**
      *  @private
      */
     public function GraphicElement()
-	{
+    {
         super();
-	}
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-  	/**
+    /**
      *  @private
      *  Storage for the transform property.
      */
     private var _matrix:Matrix;
-	
-	/**
+    
+    /**
      *  @private
      */
     private var _colorTransform:ColorTransform;
-	
-	/**
+    
+    /**
      *  @private
      */
     private var isMaskInElementSpace:Boolean;
-	
+    
     /**
      *  @private
      *  Whether this element needs to have its
@@ -134,230 +134,230 @@ public class GraphicElement extends EventDispatcher
      */
     mx_internal var invalidateDisplayListFlag:Boolean = false;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties: IGraphicElement
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties: IGraphicElement
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  alpha
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  alpha
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the alpha property.
      */
     private var _alpha:Number = 1.0;
-	
-	/**
+    
+    /**
      *  @private
      */
     private var alphaChanged:Boolean = false;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
- 	/**
+    /**
      *  Documentation is not currently available.
      */
-	public function get alpha():Number
-	{
-		return _alpha;
-	}
+    public function get alpha():Number
+    {
+        return _alpha;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set alpha(value:Number):void
-	{
-		if (_alpha == value)
-		    return;
+    public function set alpha(value:Number):void
+    {
+        if (_alpha == value)
+            return;
 
-		var oldValue:Number = _alpha;
-		_alpha = value;
-		dispatchPropertyChangeEvent("alpha", oldValue, value);
+        var oldValue:Number = _alpha;
+        _alpha = value;
+        dispatchPropertyChangeEvent("alpha", oldValue, value);
 
-		alphaChanged = true;
-		notifyElementLayerChanged();
-		invalidateProperties();
-	}
+        alphaChanged = true;
+        notifyElementLayerChanged();
+        invalidateProperties();
+    }
 
-	//----------------------------------
-	//  baseline
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  baseline
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the baseline property.
      */
     private var _baseline:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
- 	/**
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
      *  Documentation is not currently available.
      */
     public function get baseline():Number
-	{
-		return _baseline;
-	}
+    {
+        return _baseline;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set baseline(value:Number):void
-	{
-		if (_baseline == value)
-		    return;
+    public function set baseline(value:Number):void
+    {
+        if (_baseline == value)
+            return;
 
-		var oldValue:Number = _baseline;
-		_baseline = value;
-		dispatchPropertyChangeEvent("baseline", oldValue, value);
+        var oldValue:Number = _baseline;
+        _baseline = value;
+        dispatchPropertyChangeEvent("baseline", oldValue, value);
 
-		invalidateParentSizeAndDisplayList();
-	}
+        invalidateParentSizeAndDisplayList();
+    }
 
-	//----------------------------------
-	//  blendMode
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  blendMode
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the blendMode property.
      */
     private var _blendMode:String = BlendMode.NORMAL;
-	
-	/**
+    
+    /**
      *  @private
      */
     private var blendModeChanged:Boolean;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
- 	/**
+    /**
      *  Documentation is not currently available.
      */
-	public function get blendMode():String
-	{
-		return _blendMode;
-	}
+    public function get blendMode():String
+    {
+        return _blendMode;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set blendMode(value:String):void
-	{
-		if (_blendMode == value)
-		    return;
+    public function set blendMode(value:String):void
+    {
+        if (_blendMode == value)
+            return;
 
-		var oldValue:String = _blendMode;
-		_blendMode = value;
-		dispatchPropertyChangeEvent("blendMode", oldValue, value);
+        var oldValue:String = _blendMode;
+        _blendMode = value;
+        dispatchPropertyChangeEvent("blendMode", oldValue, value);
 
-		blendModeChanged = true;
-		notifyElementLayerChanged();
+        blendModeChanged = true;
+        notifyElementLayerChanged();
         invalidateProperties();
-	}
+    }
 
-	//----------------------------------
-	//  bottom
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  bottom
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the blendMode property.
      */
     private var _bottom:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
- 	/**
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
      *  Documentation is not currently available.
      */
     public function get bottom():Number
-	{
-		return _bottom;
-	}
+    {
+        return _bottom;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set bottom(value:Number):void
-	{
-		if (_bottom == value)
-		    return;
+    public function set bottom(value:Number):void
+    {
+        if (_bottom == value)
+            return;
 
-		var oldValue:Number = _bottom;
-		_bottom = value;
-		dispatchPropertyChangeEvent("bottom", oldValue, value);
+        var oldValue:Number = _bottom;
+        _bottom = value;
+        dispatchPropertyChangeEvent("bottom", oldValue, value);
 
-		invalidateParentSizeAndDisplayList();
-	}
+        invalidateParentSizeAndDisplayList();
+    }
 
-	//----------------------------------
-	//  elementHost
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  elementHost
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the elementHost property.
      */
     protected var _host:IGraphicElementHost;
 
-	/**
-	 *  The host of this element.
+    /**
+     *  The host of this element.
      *  This is the Group or Graphic tag that contains this element.
-	 */
-	public function get elementHost():IGraphicElementHost
-	{
-		return _host;
-	}
+     */
+    public function get elementHost():IGraphicElementHost
+    {
+        return _host;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set elementHost(value:IGraphicElementHost):void
-	{
-		if (_host !== value)
-		{
-			_host = value;
-			/* if (_mask)
-				_host.addMaskElement(_mask); */
-		}
-	}
+    public function set elementHost(value:IGraphicElementHost):void
+    {
+        if (_host !== value)
+        {
+            _host = value;
+            /* if (_mask)
+                _host.addMaskElement(_mask); */
+        }
+    }
 
-	//----------------------------------
-	//  explicitHeight
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  explicitHeight
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the explicitHeight property.
      */
     private var _explicitHeight:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
- 	/**
+    /**
      *  Documentation is not currently available.
      */
-	public function get explicitHeight():Number
-	{
+    public function get explicitHeight():Number
+    {
         return _explicitHeight;
-	}
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set explicitHeight(value:Number):void
-	{
-	    if (_explicitHeight == value)
-	        return;
+    public function set explicitHeight(value:Number):void
+    {
+        if (_explicitHeight == value)
+            return;
 
         // height can be pixel or percent, not both
         if (!isNaN(value))
@@ -369,36 +369,36 @@ public class GraphicElement extends EventDispatcher
 
         invalidateSize();
         invalidateParentSizeAndDisplayList();
-	}
+    }
 
-	//----------------------------------
-	//  explicitWidth
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  explicitWidth
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the explicitHeight property.
      */
     private var _explicitWidth:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
- 	/**
+    /**
      *  Documentation is not currently available.
      */
-	public function get explicitWidth():Number
-	{
+    public function get explicitWidth():Number
+    {
         return _explicitWidth;
-	}
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set explicitWidth(value:Number):void
-	{
-	    if (_explicitWidth == value)
-	        return;
+    public function set explicitWidth(value:Number):void
+    {
+        if (_explicitWidth == value)
+            return;
 
         // height can be pixel or percent, not both
         if (!isNaN(value))
@@ -410,386 +410,386 @@ public class GraphicElement extends EventDispatcher
 
         invalidateSize();
         invalidateParentSizeAndDisplayList();
-	}
+    }
 
-	//----------------------------------
-	//  filters
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  filters
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the filters property.
      */
-	private var _filters:Array = [];
-	
-	/**
+    private var _filters:Array = [];
+    
+    /**
      *  @private
      */
     private var filtersChanged:Boolean;
 
-	/**
+    /**
      *  @private
      */
     private var _clonedFilters:Array;
-	
+    
     [Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Inspectable(category="General")]
 
- 	/**
+    /**
      *  Documentation is not currently available.
      */
-	public function get filters():Array
-	{
-		return _filters;
-	}
+    public function get filters():Array
+    {
+        return _filters;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set filters(value:Array):void
-	{
-		var i:int = 0;
-		var oldFilters:Array = _filters ? _filters.slice() : null;
-		var len:int = oldFilters ? oldFilters.length : 0;
-		var edFilter:EventDispatcher;
+    /**
+     *  @private
+     */
+    public function set filters(value:Array):void
+    {
+        var i:int = 0;
+        var oldFilters:Array = _filters ? _filters.slice() : null;
+        var len:int = oldFilters ? oldFilters.length : 0;
+        var edFilter:EventDispatcher;
 
-		for (i = 0; i < len; i++)
-		{
-			if (oldFilters[i] is IBitmapFilter)
-			{
-				edFilter = value[i] as EventDispatcher;
-				if (edFilter)
+        for (i = 0; i < len; i++)
+        {
+            if (oldFilters[i] is IBitmapFilter)
+            {
+                edFilter = value[i] as EventDispatcher;
+                if (edFilter)
                 {
-					edFilter.removeEventListener(BaseFilter.FILTER_CHANGED_TYPE,
+                    edFilter.removeEventListener(BaseFilter.FILTER_CHANGED_TYPE,
                                                  filterChangedHandler);
                 }
-			}
-		}
+            }
+        }
 
-		_clonedFilters = [];
-		_filters = value;
-		len = value.length;
+        _clonedFilters = [];
+        _filters = value;
+        len = value.length;
 
-		for (i = 0; i < len; i++)
-		{
-			if (value[i] is IBitmapFilter)
-			{
-				edFilter = value[i] as EventDispatcher;
-				if (edFilter)
+        for (i = 0; i < len; i++)
+        {
+            if (value[i] is IBitmapFilter)
+            {
+                edFilter = value[i] as EventDispatcher;
+                if (edFilter)
                 {
-					edFilter.addEventListener(BaseFilter.FILTER_CHANGED_TYPE,
+                    edFilter.addEventListener(BaseFilter.FILTER_CHANGED_TYPE,
                                               filterChangedHandler);
                 }
-				_clonedFilters.push(IBitmapFilter(value[i]).clone());
-			}
-			else
-            {
-				_clonedFilters.push(value[i]);
+                _clonedFilters.push(IBitmapFilter(value[i]).clone());
             }
-		}
+            else
+            {
+                _clonedFilters.push(value[i]);
+            }
+        }
 
-		dispatchPropertyChangeEvent("filters", oldFilters, _filters);
+        dispatchPropertyChangeEvent("filters", oldFilters, _filters);
 
-		filtersChanged = true;
-		notifyElementLayerChanged();
-		invalidateProperties();
-	}
+        filtersChanged = true;
+        notifyElementLayerChanged();
+        invalidateProperties();
+    }
 
-	//----------------------------------
-	//  height
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  height
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the height property.
      */
     mx_internal var _height:Number = 0;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
-	/**
-	 *  The height of the graphic element.
-	 *
-	 *  @default 0
-	 */
-	public function get height():Number
-	{
-		return _height;
-	}
+    /**
+     *  The height of the graphic element.
+     *
+     *  @default 0
+     */
+    public function get height():Number
+    {
+        return _height;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set height(value:Number):void
-	{
-		explicitHeight = value;
+    public function set height(value:Number):void
+    {
+        explicitHeight = value;
 
-		if (_height == value)
-		    return;
+        if (_height == value)
+            return;
 
-		var oldValue:Number = _height;
-		_height = value;
-		dispatchPropertyChangeEvent("height", oldValue, value);
+        var oldValue:Number = _height;
+        _height = value;
+        dispatchPropertyChangeEvent("height", oldValue, value);
 
         // Invalidate the display list, since we're changing the actual width
         // and we're not going to correctly detect whether the layout sets
         // new actual width different from our previous value.
         // TODO EGeorgie: is this worth optimizing?
-		invalidateDisplayList();
-	}
+        invalidateDisplayList();
+    }
 
-	//----------------------------------
-	//  horizontalCenter
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  horizontalCenter
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the horizontalCenter property.
      */
     private var _horizontalCenter:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
- 	/**
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
      *  Documentation is not currently available.
      */
     public function get horizontalCenter():Number
-	{
-		return _horizontalCenter;
-	}
+    {
+        return _horizontalCenter;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set horizontalCenter(value:Number):void
-	{
-		if (_horizontalCenter == value)
-		    return;
+    public function set horizontalCenter(value:Number):void
+    {
+        if (_horizontalCenter == value)
+            return;
 
-		var oldValue:Number = _horizontalCenter;
-		_horizontalCenter = value;
-		dispatchPropertyChangeEvent("horizontalCenter", oldValue, value);
+        var oldValue:Number = _horizontalCenter;
+        _horizontalCenter = value;
+        dispatchPropertyChangeEvent("horizontalCenter", oldValue, value);
 
-		invalidateParentSizeAndDisplayList();
-	}
+        invalidateParentSizeAndDisplayList();
+    }
 
-	//----------------------------------
-	//  left
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  left
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the left property.
      */
     private var _left:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
- 	/**
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
      *  Documentation is not currently available.
      */
     public function get left():Number
-	{
-		return _left;
-	}
+    {
+        return _left;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set left(value:Number):void
-	{
-		if (_left == value)
-		    return;
+    public function set left(value:Number):void
+    {
+        if (_left == value)
+            return;
 
-		var oldValue:Number = _left;
-		_left = value;
-		dispatchPropertyChangeEvent("left", oldValue, value);
+        var oldValue:Number = _left;
+        _left = value;
+        dispatchPropertyChangeEvent("left", oldValue, value);
 
-		invalidateParentSizeAndDisplayList();
-	}
+        invalidateParentSizeAndDisplayList();
+    }
 
-	//----------------------------------
-	//  mask
-	//----------------------------------
+    //----------------------------------
+    //  mask
+    //----------------------------------
 
-	/**
+    /**
      *  @private
      *  Storage for the mask property.
      */
-	private var _mask:DisplayObject;
-	
-	/**
+    private var _mask:DisplayObject;
+    
+    /**
      *  @private
      */
     private var maskChanged:Boolean;
 
-	/**
+    /**
      *  @private
      */
     private var previousMask:DisplayObject;
-	
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
- 	/**
+    /**
      *  Documentation is not currently available.
      */
-	public function get mask():DisplayObject
-	{
-		return _mask;
-	}
+    public function get mask():DisplayObject
+    {
+        return _mask;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set mask(value:DisplayObject):void
-	{
-		if (_mask == value)
-		    return;
+    public function set mask(value:DisplayObject):void
+    {
+        if (_mask == value)
+            return;
 
-		var oldValue:DisplayObject = _mask;
-		previousMask = _mask;
-		_mask = value;
-		dispatchPropertyChangeEvent("mask", oldValue, value);
-		maskChanged = true;
-		maskTypeChanged = true;
-		isMaskInElementSpace = false;
-		notifyElementLayerChanged();
-		invalidateProperties();
-	}
+        var oldValue:DisplayObject = _mask;
+        previousMask = _mask;
+        _mask = value;
+        dispatchPropertyChangeEvent("mask", oldValue, value);
+        maskChanged = true;
+        maskTypeChanged = true;
+        isMaskInElementSpace = false;
+        notifyElementLayerChanged();
+        invalidateProperties();
+    }
 
-	//----------------------------------
-	//  maskType
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  maskType
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the maskType property.
      */
     private var _maskType:String = MaskType.CLIP;
-	
-	/**
+    
+    /**
      *  @private
      */
     private var maskTypeChanged:Boolean;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General",enumeration="clip,alpha", defaultValue="clip")]
-	
- 	/**
+    [Bindable("propertyChange")]
+    [Inspectable(category="General",enumeration="clip,alpha", defaultValue="clip")]
+    
+    /**
      *  Documentation is not currently available.
      */
     public function get maskType():String
-	{
-		return _maskType;
-	}
+    {
+        return _maskType;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set maskType(value:String):void
-	{
-		if (_maskType == value)
-		    return;
+    public function set maskType(value:String):void
+    {
+        if (_maskType == value)
+            return;
 
-		var oldValue:String = _maskType;
-		_maskType = value;
-		dispatchPropertyChangeEvent("maskType", oldValue, value);
+        var oldValue:String = _maskType;
+        _maskType = value;
+        dispatchPropertyChangeEvent("maskType", oldValue, value);
 
-		maskTypeChanged = true;
-		invalidateProperties();
-	}
+        maskTypeChanged = true;
+        invalidateProperties();
+    }
 
-	//----------------------------------
-	//  maxHeight
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  maxHeight
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the maxHeight property.
      */
     private var _maxHeight:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
- 	/**
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
      *  Documentation is not currently available.
      */
     public function get maxHeight():Number
-	{
-		// TODO!!! Examine this logic, Make this arbitrarily large (use UIComponent max)
-		return !isNaN(_maxHeight) ? _maxHeight : DEFAULT_MAX_HEIGHT;
-	}
+    {
+        // TODO!!! Examine this logic, Make this arbitrarily large (use UIComponent max)
+        return !isNaN(_maxHeight) ? _maxHeight : DEFAULT_MAX_HEIGHT;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set maxHeight(value:Number):void
-	{
-		if (_maxHeight == value)
-		    return;
+    public function set maxHeight(value:Number):void
+    {
+        if (_maxHeight == value)
+            return;
 
-		var oldValue:Number = _maxHeight;
-		_maxHeight = value;
-		dispatchPropertyChangeEvent("maxHeight", oldValue, value);
+        var oldValue:Number = _maxHeight;
+        _maxHeight = value;
+        dispatchPropertyChangeEvent("maxHeight", oldValue, value);
 
-		invalidateSize();
+        invalidateSize();
         invalidateParentSizeAndDisplayList();
-	}
+    }
 
-	//----------------------------------
-	//  maxWidth
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  maxWidth
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the maxHeight property.
      */
     private var _maxWidth:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
-  	/**
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
      *  Documentation is not currently available.
      */
     public function get maxWidth():Number
-	{
-		// TODO!!! Examine this logic, Make this arbitrarily large (use UIComponent max)
-		return !isNaN(_maxWidth) ? _maxWidth : DEFAULT_MAX_WIDTH;
-	}
+    {
+        // TODO!!! Examine this logic, Make this arbitrarily large (use UIComponent max)
+        return !isNaN(_maxWidth) ? _maxWidth : DEFAULT_MAX_WIDTH;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set maxWidth(value:Number):void
-	{
-		if (_maxWidth == value)
-		    return;
+    public function set maxWidth(value:Number):void
+    {
+        if (_maxWidth == value)
+            return;
 
         var oldValue:Number = _maxWidth;
-		_maxWidth = value;
-		dispatchPropertyChangeEvent("maxWidth", oldValue, value);
+        _maxWidth = value;
+        dispatchPropertyChangeEvent("maxWidth", oldValue, value);
 
-		invalidateSize();
+        invalidateSize();
         invalidateParentSizeAndDisplayList();
-	}
+    }
 
-	//----------------------------------
-	//  measuredHeight
-	//----------------------------------
+    //----------------------------------
+    //  measuredHeight
+    //----------------------------------
     
-	/**
+    /**
      *  @private
      *  Storage for the measuredHeight property.
      */
     private var _measuredHeight:Number = 0;
     
- 	/**
+    /**
      *  Documentation is not currently available.
      */
     public function get measuredHeight():Number
@@ -797,7 +797,7 @@ public class GraphicElement extends EventDispatcher
         return _measuredHeight;
     }
     
-	/**
+    /**
      *  @private
      */
     public function set measuredHeight(value:Number):void
@@ -805,17 +805,17 @@ public class GraphicElement extends EventDispatcher
         _measuredHeight = value;
     }
 
-	//----------------------------------
-	//  measuredWidth
-	//----------------------------------
+    //----------------------------------
+    //  measuredWidth
+    //----------------------------------
     
-	/**
+    /**
      *  @private
      *  Storage for the measuredWidth property.
      */
     private var _measuredWidth:Number = 0;
     
- 	/**
+    /**
      *  Documentation is not currently available.
      */
     public function get measuredWidth():Number
@@ -823,7 +823,7 @@ public class GraphicElement extends EventDispatcher
         return _measuredWidth;
     }
     
-	/**
+    /**
      *  @private
      */
     public function set measuredWidth(value:Number):void
@@ -831,17 +831,17 @@ public class GraphicElement extends EventDispatcher
         _measuredWidth = value;
     }
 
-	//----------------------------------
-	//  measuredX
-	//----------------------------------
+    //----------------------------------
+    //  measuredX
+    //----------------------------------
     
-	/**
+    /**
      *  @private
      *  Storage for the measuredX property.
      */
     private var _measuredX:Number = 0;
     
- 	/**
+    /**
      *  Documentation is not currently available.
      */
     public function get measuredX():Number
@@ -849,7 +849,7 @@ public class GraphicElement extends EventDispatcher
         return _measuredX;
     }
     
-	/**
+    /**
      *  @private
      */
     public function set measuredX(value:Number):void
@@ -857,17 +857,17 @@ public class GraphicElement extends EventDispatcher
         _measuredX = value;
     }
 
-	//----------------------------------
-	//  measuredY
-	//----------------------------------
+    //----------------------------------
+    //  measuredY
+    //----------------------------------
     
-	/**
+    /**
      *  @private
      *  Storage for the measuredY property.
      */
     private var _measuredY:Number = 0;
     
- 	/**
+    /**
      *  Documentation is not currently available.
      */
     public function get measuredY():Number
@@ -875,7 +875,7 @@ public class GraphicElement extends EventDispatcher
         return _measuredY;
     }
     
-	/**
+    /**
      *  @private
      */
     public function set measuredY(value:Number):void
@@ -883,834 +883,834 @@ public class GraphicElement extends EventDispatcher
         _measuredY = value;
     }
 
-	//----------------------------------
-	//  minHeight
-	//----------------------------------
-	
- 	/**
+    //----------------------------------
+    //  minHeight
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the minHeight property.
      */
     private var _minHeight:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
- 	/**
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
      *  Documentation is not currently available.
      */
     public function get minHeight():Number
-	{
-		// TODO!!! Examine this logic
-		return !isNaN(_minHeight) ? _minHeight : DEFAULT_MIN_HEIGHT;
-	}
+    {
+        // TODO!!! Examine this logic
+        return !isNaN(_minHeight) ? _minHeight : DEFAULT_MIN_HEIGHT;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set minHeight(value:Number):void
-	{
-		if (_minHeight == value)
-		    return;
+    public function set minHeight(value:Number):void
+    {
+        if (_minHeight == value)
+            return;
 
         var oldValue:Number = _minHeight;
-		_minHeight = value;
-		dispatchPropertyChangeEvent("minHeight", oldValue, value);
+        _minHeight = value;
+        dispatchPropertyChangeEvent("minHeight", oldValue, value);
 
-		invalidateSize();
-		invalidateParentSizeAndDisplayList();
-	}
+        invalidateSize();
+        invalidateParentSizeAndDisplayList();
+    }
 
-	//----------------------------------
-	//  minWidth
-	//----------------------------------
-	
- 	/**
+    //----------------------------------
+    //  minWidth
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the minWidth property.
      */
     private var _minWidth:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
- 	/**
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
      *  Documentation is not currently available.
      */
     public function get minWidth():Number
-	{
-		// TODO!!! Examine this logic
-		return !isNaN(_minWidth) ? _minWidth : DEFAULT_MIN_WIDTH;
-	}
+    {
+        // TODO!!! Examine this logic
+        return !isNaN(_minWidth) ? _minWidth : DEFAULT_MIN_WIDTH;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set minWidth(value:Number):void
-	{
-		if (_minWidth == value)
-		    return;
+    public function set minWidth(value:Number):void
+    {
+        if (_minWidth == value)
+            return;
 
-		var oldValue:Number = _minWidth;
-		_minWidth = value;
-		dispatchPropertyChangeEvent("minWidth", oldValue, value);
+        var oldValue:Number = _minWidth;
+        _minWidth = value;
+        dispatchPropertyChangeEvent("minWidth", oldValue, value);
 
-		invalidateSize();
-		invalidateParentSizeAndDisplayList();
-	}
+        invalidateSize();
+        invalidateParentSizeAndDisplayList();
+    }
 
-	//----------------------------------
-	//  percentHeight
-	//----------------------------------
-	
- 	/**
+    //----------------------------------
+    //  percentHeight
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the percentHeight property.
      */
     private var _percentHeight:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
- 	/**
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
      *  Documentation is not currently available.
      */
     public function get percentHeight():Number
-	{
-		// TODO!!! Examine this logic
-		return _percentHeight;
-	}
+    {
+        // TODO!!! Examine this logic
+        return _percentHeight;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set percentHeight(value:Number):void
-	{
-		if (_percentHeight == value)
-		    return;
+    public function set percentHeight(value:Number):void
+    {
+        if (_percentHeight == value)
+            return;
 
-	    if (!isNaN(value))
-	        explicitHeight = NaN;
+        if (!isNaN(value))
+            explicitHeight = NaN;
 
-	    var oldValue:Number = _percentHeight;
-		_percentHeight = value;
-		dispatchPropertyChangeEvent("percentHeight", oldValue, value);
+        var oldValue:Number = _percentHeight;
+        _percentHeight = value;
+        dispatchPropertyChangeEvent("percentHeight", oldValue, value);
 
-		invalidateParentSizeAndDisplayList();
-	}
+        invalidateParentSizeAndDisplayList();
+    }
 
-	//----------------------------------
-	//  percentWidth
-	//----------------------------------
-	
- 	/**
+    //----------------------------------
+    //  percentWidth
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the percentWidth property.
      */
     private var _percentWidth:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
- 	/**
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
      *  Documentation is not currently available.
      */
     public function get percentWidth():Number
-	{
-		// TODO!!! Examine this logic
-		return _percentWidth;
-	}
+    {
+        // TODO!!! Examine this logic
+        return _percentWidth;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set percentWidth(value:Number):void
-	{
-		if (_percentWidth == value)
-		    return;
+    public function set percentWidth(value:Number):void
+    {
+        if (_percentWidth == value)
+            return;
 
-	    if (!isNaN(value))
-	        explicitWidth = NaN;
+        if (!isNaN(value))
+            explicitWidth = NaN;
 
-	    var oldValue:Number = _percentWidth;
-		_percentWidth = value;
-		dispatchPropertyChangeEvent("percentWidth", oldValue, value);
+        var oldValue:Number = _percentWidth;
+        _percentWidth = value;
+        dispatchPropertyChangeEvent("percentWidth", oldValue, value);
 
-		invalidateParentSizeAndDisplayList();
-	}
+        invalidateParentSizeAndDisplayList();
+    }
 
-	//----------------------------------
-	//  right
-	//----------------------------------
-	
- 	/**
+    //----------------------------------
+    //  right
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the right property.
      */
     private var _right:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
- 	/**
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
      *  Documentation is not currently available.
      */
     public function get right():Number
-	{
-		return _right;
-	}
+    {
+        return _right;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set right(value:Number):void
-	{
-		if (_right == value)
-		    return;
+    public function set right(value:Number):void
+    {
+        if (_right == value)
+            return;
 
-		var oldValue:Number = _right;
-		_right = value;
-		dispatchPropertyChangeEvent("right", oldValue, value);
+        var oldValue:Number = _right;
+        _right = value;
+        dispatchPropertyChangeEvent("right", oldValue, value);
 
-		invalidateParentSizeAndDisplayList();
-	}
+        invalidateParentSizeAndDisplayList();
+    }
 
-	//----------------------------------
-	//  rotation
-	//----------------------------------
+    //----------------------------------
+    //  rotation
+    //----------------------------------
 
- 	/**
+    /**
      *  @private
      *  Storage for the rotation property.
      */
-	private var _rotation:Number = 0;
-	
-	/**
+    private var _rotation:Number = 0;
+    
+    /**
      *  @private
      */
     private var rotationChanged:Boolean;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
     /**
-	 *  Indicates the rotation of the element, in degrees,
+     *  Indicates the rotation of the element, in degrees,
      *  from the transform point.
-	 */
-	public function get rotation():Number
-	{
-		return _rotation;
-	}
+     */
+    public function get rotation():Number
+    {
+        return _rotation;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set rotation(value:Number):void
-	{
-		if (_rotation == value)
-		    return;
+    public function set rotation(value:Number):void
+    {
+        if (_rotation == value)
+            return;
 
-		var oldValue:Number = _rotation;
-		_rotation = value;
-		dispatchPropertyChangeEvent("rotation", oldValue, value);
+        var oldValue:Number = _rotation;
+        _rotation = value;
+        dispatchPropertyChangeEvent("rotation", oldValue, value);
 
-		rotationChanged = true;
-		invalidateParentSizeAndDisplayList();
-		// TODO EGeorgie: currently we apply rotation during setActualSize,
-		// however we should do this on commitProperties.
-		// invalidateProperties();
-	}
+        rotationChanged = true;
+        invalidateParentSizeAndDisplayList();
+        // TODO EGeorgie: currently we apply rotation during setActualSize,
+        // however we should do this on commitProperties.
+        // invalidateProperties();
+    }
 
-	//----------------------------------
-	//  scaleX
-	//----------------------------------
+    //----------------------------------
+    //  scaleX
+    //----------------------------------
 
- 	/**
+    /**
      *  @private
      *  Storage for the scaleX property.
      */
-	mx_internal var _scaleX:Number = 1.0;
-	
-	/**
+    mx_internal var _scaleX:Number = 1.0;
+    
+    /**
      *  @private
      */
     private var scaleXChanged:Boolean;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
-	/**
-	 *  The horizontal scale (percentage) of the element
+    /**
+     *  The horizontal scale (percentage) of the element
      *  as applied from the transform point.
-	 */
-	public function get scaleX():Number
-	{
-		return _scaleX;
-	}
+     */
+    public function get scaleX():Number
+    {
+        return _scaleX;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set scaleX(value:Number):void
-	{
-		if (_scaleX == value)
-		    return;
+    public function set scaleX(value:Number):void
+    {
+        if (_scaleX == value)
+            return;
 
-		var oldValue:Number = _scaleX;
-		_scaleX = value;
-		dispatchPropertyChangeEvent("scaleX", oldValue, value);
+        var oldValue:Number = _scaleX;
+        _scaleX = value;
+        dispatchPropertyChangeEvent("scaleX", oldValue, value);
 
-		scaleXChanged = true;
-		notifyElementLayerChanged();
+        scaleXChanged = true;
+        notifyElementLayerChanged();
 
-		// Parent layout takes transform into account
-		invalidateParentSizeAndDisplayList();
+        // Parent layout takes transform into account
+        invalidateParentSizeAndDisplayList();
 
-		// TODO EGeorgie: apply the transform properties in commitProperties
-		// instead of in setActualSize, setActualPosition.
-		// invalidateProperties();
-	}
+        // TODO EGeorgie: apply the transform properties in commitProperties
+        // instead of in setActualSize, setActualPosition.
+        // invalidateProperties();
+    }
 
-	//----------------------------------
-	//  scaleY
-	//----------------------------------
-	
-  	/**
+    //----------------------------------
+    //  scaleY
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the scaleY property.
      */
     mx_internal var _scaleY:Number = 1.0;
-	
-	/**
+    
+    /**
      *  @private
      */
     private var scaleYChanged:Boolean;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
-	/**
-	 *  Indicates the vertical scale (percentage) of the element
+    /**
+     *  Indicates the vertical scale (percentage) of the element
      *  as applied from the transform point.
-	 */
-	public function get scaleY():Number
-	{
-		return _scaleY;
-	}
+     */
+    public function get scaleY():Number
+    {
+        return _scaleY;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set scaleY(value:Number):void
-	{
-		if (_scaleY == value)
-		    return;
+    public function set scaleY(value:Number):void
+    {
+        if (_scaleY == value)
+            return;
 
-		var oldValue:Number = _scaleY;
-		_scaleY = value;
-		dispatchPropertyChangeEvent("scaleY", oldValue, value);
+        var oldValue:Number = _scaleY;
+        _scaleY = value;
+        dispatchPropertyChangeEvent("scaleY", oldValue, value);
 
-		scaleYChanged = true;
-		notifyElementLayerChanged();
+        scaleYChanged = true;
+        notifyElementLayerChanged();
 
-		// Parent layout takes transform into account
-		invalidateParentSizeAndDisplayList();
+        // Parent layout takes transform into account
+        invalidateParentSizeAndDisplayList();
 
-		// TODO EGeorgie: apply the transform properties in commitProperties
-		// instead of in setActualSize, setActualPosition.
-		// invalidateProperties();
-	}
+        // TODO EGeorgie: apply the transform properties in commitProperties
+        // instead of in setActualSize, setActualPosition.
+        // invalidateProperties();
+    }
 
-	//----------------------------------
-	//  top
-	//----------------------------------
-	
-  	/**
+    //----------------------------------
+    //  top
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the top property.
      */
     private var _top:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
- 	/**
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
      *  Documentation is not currently available.
      */
     public function get top():Number
-	{
-		return _top;
-	}
+    {
+        return _top;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set top(value:Number):void
-	{
-		if (_top == value)
-		    return;
+    public function set top(value:Number):void
+    {
+        if (_top == value)
+            return;
 
-		var oldValue:Number = _top;
-		_top = value;
-		dispatchPropertyChangeEvent("top", oldValue, value);
+        var oldValue:Number = _top;
+        _top = value;
+        dispatchPropertyChangeEvent("top", oldValue, value);
 
-		invalidateParentSizeAndDisplayList();
-	}
+        invalidateParentSizeAndDisplayList();
+    }
 
-	//----------------------------------
-	//  transform
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  transform
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the transform property.
      */
     private var _transform:flash.geom.Transform;
 
-	/**
-	 *  Documentation is not currently available.
-	 */
-	public function get transform():flash.geom.Transform
-	{
-		return _transform;
-	}
+    /**
+     *  Documentation is not currently available.
+     */
+    public function get transform():flash.geom.Transform
+    {
+        return _transform;
+    }
 
-	/**
+    /**
      *  @private
      */
-	public function set transform(value:flash.geom.Transform):void
-	{
-		// Clean up the old event listeners
-		var oldTransform:flex.geom.Transform =
+    public function set transform(value:flash.geom.Transform):void
+    {
+        // Clean up the old event listeners
+        var oldTransform:flex.geom.Transform =
             _transform as flex.geom.Transform;
-		if (oldTransform)
-		{
-			oldTransform.removeEventListener(
+        if (oldTransform)
+        {
+            oldTransform.removeEventListener(
                 PropertyChangeEvent.PROPERTY_CHANGE,
                 transformPropertyChangeHandler);
-		}
+        }
 
-		var newTransform:flex.geom.Transform = value as flex.geom.Transform;
+        var newTransform:flex.geom.Transform = value as flex.geom.Transform;
 
-		if (newTransform)
-		{
-			newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE,
+        if (newTransform)
+        {
+            newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE,
                                           transformPropertyChangeHandler);
-			_matrix = value.matrix.clone(); // Make sure it is a copy
-			clearTransformProperties();
-			_colorTransform = value.colorTransform;
-		}
+            _matrix = value.matrix.clone(); // Make sure it is a copy
+            clearTransformProperties();
+            _colorTransform = value.colorTransform;
+        }
 
-		_transform = value;
-		notifyElementLayerChanged();
+        _transform = value;
+        notifyElementLayerChanged();
 
         // Parent layout takes transform into account
-		invalidateParentSizeAndDisplayList();
+        invalidateParentSizeAndDisplayList();
 
-		// TODO EGeorgie: apply the transform properties in commitProperties
-		// instead of in setActualSize, setActualPosition.
-		// invalidateProperties();
-	}
+        // TODO EGeorgie: apply the transform properties in commitProperties
+        // instead of in setActualSize, setActualPosition.
+        // invalidateProperties();
+    }
 
-	//----------------------------------
-	//  transformX
-	//----------------------------------
-	
-  	/**
+    //----------------------------------
+    //  transformX
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the transformX property.
      */
     private var _transformX:Number = 0;
-	
-  	/**
+    
+    /**
      *  @private
      */
     private var transformXChanged:Boolean;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
-	/**
-	 *  The x position transform point of the element.
-	 */
-	public function get transformX():Number
-	{
-		return _transformX;
-	}
+    /**
+     *  The x position transform point of the element.
+     */
+    public function get transformX():Number
+    {
+        return _transformX;
+    }
 
-  	/**
+    /**
      *  @private
      */
-	public function set transformX(value:Number):void
-	{
-		if (_transformX == value)
-		    return;
+    public function set transformX(value:Number):void
+    {
+        if (_transformX == value)
+            return;
 
-		var oldValue:Number = _transformX;
-		_transformX = value;
-		dispatchPropertyChangeEvent("transformX", oldValue, value);
+        var oldValue:Number = _transformX;
+        _transformX = value;
+        dispatchPropertyChangeEvent("transformX", oldValue, value);
 
-		transformXChanged = true;
-		notifyElementLayerChanged();
+        transformXChanged = true;
+        notifyElementLayerChanged();
 
         // Parent layout takes transform into account
-		invalidateParentSizeAndDisplayList();
+        invalidateParentSizeAndDisplayList();
 
-		// TODO EGeorgie: apply the transform properties in commitProperties
-		// instead of in setActualSize, setActualPosition.
-		// invalidateProperties();
-	}
+        // TODO EGeorgie: apply the transform properties in commitProperties
+        // instead of in setActualSize, setActualPosition.
+        // invalidateProperties();
+    }
 
-	//----------------------------------
-	//  transformY
-	//----------------------------------
-	
-  	/**
+    //----------------------------------
+    //  transformY
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the transformY property.
      */
     private var _transformY:Number = 0;
-	
-  	/**
+    
+    /**
      *  @private
      */
     private var transformYChanged:Boolean;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
-	/**
-	 *  The y position transform point of the element.
-	 */
-	public function get transformY():Number
-	{
-		return _transformY;
-	}
+    /**
+     *  The y position transform point of the element.
+     */
+    public function get transformY():Number
+    {
+        return _transformY;
+    }
 
-  	/**
+    /**
      *  @private
      */
-	public function set transformY(value:Number):void
-	{
-		if (_transformY == value)
-		    return;
-		var oldValue:Number = _transformY;
-		_transformY = value;
-		dispatchPropertyChangeEvent("transformY", oldValue, value);
+    public function set transformY(value:Number):void
+    {
+        if (_transformY == value)
+            return;
+        var oldValue:Number = _transformY;
+        _transformY = value;
+        dispatchPropertyChangeEvent("transformY", oldValue, value);
 
-		transformYChanged = true;
-		notifyElementLayerChanged();
+        transformYChanged = true;
+        notifyElementLayerChanged();
 
         // Parent layout takes transform into account
-		invalidateParentSizeAndDisplayList();
+        invalidateParentSizeAndDisplayList();
 
-		// TODO EGeorgie: apply the transform properties in commitProperties
-		// instead of in setActualSize, setActualPosition.
-		// invalidateProperties();
-	}
+        // TODO EGeorgie: apply the transform properties in commitProperties
+        // instead of in setActualSize, setActualPosition.
+        // invalidateProperties();
+    }
 
-	//----------------------------------
-	//  verticalCenter
-	//----------------------------------
-	
-  	/**
+    //----------------------------------
+    //  verticalCenter
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the verticalCenter property.
      */
     private var _verticalCenter:Number;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
-	/**
-	 *  Documentation is not currently available.
-	 */
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  Documentation is not currently available.
+     */
     public function get verticalCenter():Number
-	{
-		return _verticalCenter;
-	}
+    {
+        return _verticalCenter;
+    }
 
-  	/**
+    /**
      *  @private
      */
-	public function set verticalCenter(value:Number):void
-	{
-		if (_verticalCenter == value)
-		    return;
+    public function set verticalCenter(value:Number):void
+    {
+        if (_verticalCenter == value)
+            return;
 
-		var oldValue:Number = _verticalCenter;
-		_verticalCenter = value;
-		dispatchPropertyChangeEvent("verticalCenter", oldValue, value);
+        var oldValue:Number = _verticalCenter;
+        _verticalCenter = value;
+        dispatchPropertyChangeEvent("verticalCenter", oldValue, value);
 
-		invalidateParentSizeAndDisplayList();
-	}
+        invalidateParentSizeAndDisplayList();
+    }
 
-	//----------------------------------
-	//  width
-	//----------------------------------
+    //----------------------------------
+    //  width
+    //----------------------------------
 
-  	/**
+    /**
      *  @private
      *  Storage for the width property.
      */
-	mx_internal var _width:Number = 0;
+    mx_internal var _width:Number = 0;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
-	/**
-	 *  The width of the graphic element.
-	 *
-	 *  @default 0
-	 */
-	public function get width():Number
-	{
-		return _width;
-	}
+    /**
+     *  The width of the graphic element.
+     *
+     *  @default 0
+     */
+    public function get width():Number
+    {
+        return _width;
+    }
 
-  	/**
+    /**
      *  @private
      */
-	public function set width(value:Number):void
-	{
-	    explicitWidth = value;
+    public function set width(value:Number):void
+    {
+        explicitWidth = value;
 
-		if (_width == value)
-		    return;
+        if (_width == value)
+            return;
 
-	    var oldValue:Number = _width;
-		_width = value;
-		dispatchPropertyChangeEvent("width", oldValue, value);
+        var oldValue:Number = _width;
+        _width = value;
+        dispatchPropertyChangeEvent("width", oldValue, value);
 
         // Invalidate the display list, since we're changing the actual height
         // and we're not going to correctly detect whether the layout sets
         // new actual height different from our previous value.
         // TODO EGeorgie: is this worth optimizing?
-	    invalidateDisplayList();
-	}
+        invalidateDisplayList();
+    }
 
-	//----------------------------------
-	//  x
-	//----------------------------------
-	
+    //----------------------------------
+    //  x
+    //----------------------------------
+    
     // TODO!!! Change to NaN and integrate Rect/Ellipse bounds/draw functions
-	
-  	/**
+    
+    /**
      *  @private
      *  Storage for the x property.
      */
     private var _x:Number = 0;
-	
-  	/**
+    
+    /**
      *  @private
      */
     private var xChanged:Boolean;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
     /**
-	 *  The x position of the graphic element.
-	 */
-	public function get x():Number
-	{
-		return _x;
-	}
+     *  The x position of the graphic element.
+     */
+    public function get x():Number
+    {
+        return _x;
+    }
 
-  	/**
+    /**
      *  @private
      */
-	public function set x(value:Number):void
-	{
-		if (_x == value)
-		    return;
+    public function set x(value:Number):void
+    {
+        if (_x == value)
+            return;
 
-		var oldValue:Number = _x;
-		_x = value;
-		dispatchPropertyChangeEvent("x", oldValue, value);
+        var oldValue:Number = _x;
+        _x = value;
+        dispatchPropertyChangeEvent("x", oldValue, value);
 
-		xChanged = true;
+        xChanged = true;
 
         // Parent layout takes transform into account
-		invalidateParentSizeAndDisplayList();
+        invalidateParentSizeAndDisplayList();
 
-		// TODO EGeorgie: apply the transform properties in commitProperties
-		// instead of in setActualSize, setActualPosition.
-		// invalidateProperties();
-	}
+        // TODO EGeorgie: apply the transform properties in commitProperties
+        // instead of in setActualSize, setActualPosition.
+        // invalidateProperties();
+    }
 
-	//----------------------------------
-	//  y
-	//----------------------------------
-	
+    //----------------------------------
+    //  y
+    //----------------------------------
+    
     // TODO!!! Change to NaN and integrate Rect/Ellipse bounds/draw functions
-	
-  	/**
+    
+    /**
      *  @private
      *  Storage for the y property.
      */
     private var _y:Number = 0;
 
-  	/**
-     *  @private
-     */
-	private var yChanged:Boolean;
-
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
     /**
-	 *  The y position of the graphic element.
-	 */
-	public function get y():Number
-	{
-		return _y;
-	}
-
-  	/**
      *  @private
      */
-	public function set y(value:Number):void
-	{
-		if (_y == value)
-		    return;
+    private var yChanged:Boolean;
 
-		var oldValue:Number = _y;
-		_y = value;
-		dispatchPropertyChangeEvent("y", oldValue, value);
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  The y position of the graphic element.
+     */
+    public function get y():Number
+    {
+        return _y;
+    }
 
-		yChanged = true;
+    /**
+     *  @private
+     */
+    public function set y(value:Number):void
+    {
+        if (_y == value)
+            return;
+
+        var oldValue:Number = _y;
+        _y = value;
+        dispatchPropertyChangeEvent("y", oldValue, value);
+
+        yChanged = true;
 
         // Parent layout takes transform into account
-		invalidateParentSizeAndDisplayList();
+        invalidateParentSizeAndDisplayList();
 
-		// TODO EGeorgie: apply the transform properties in commitProperties
-		// instead of in setActualSize, setActualPosition.
-		// invalidateProperties();
-	}
+        // TODO EGeorgie: apply the transform properties in commitProperties
+        // instead of in setActualSize, setActualPosition.
+        // invalidateProperties();
+    }
 
-	//----------------------------------
-	//  visible
-	//----------------------------------
+    //----------------------------------
+    //  visible
+    //----------------------------------
 
-  	/**
+    /**
      *  @private
      *  Storage for the visible property.
      */
-	private var _visible:Boolean = true;
-	
-  	/**
+    private var _visible:Boolean = true;
+    
+    /**
      *  @private
      */
     private var visibleChanged:Boolean;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
-	/**
-	 *  The visible flag for this element.
-	 */
-	public function get visible():Boolean
-	{
-		return _visible;
-	}
+    /**
+     *  The visible flag for this element.
+     */
+    public function get visible():Boolean
+    {
+        return _visible;
+    }
 
-  	/**
+    /**
      *  @private
      */
-	public function set visible(value:Boolean):void
-	{
-		if (_visible == value)
-		    return;
+    public function set visible(value:Boolean):void
+    {
+        if (_visible == value)
+            return;
 
-		var oldValue:Boolean = _visible;
-		_visible = value;
-		dispatchPropertyChangeEvent("visible", oldValue, value);
+        var oldValue:Boolean = _visible;
+        _visible = value;
+        dispatchPropertyChangeEvent("visible", oldValue, value);
 
-		visibleChanged = true;
+        visibleChanged = true;
 
         // TODO EGeorgie: should we redraw for visibility changes?
-		invalidateProperties();
-	}
+        invalidateProperties();
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties: IDisplayObjectElement
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties: IDisplayObjectElement
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  displayObject
-	//----------------------------------
-	
-  	/**
+    //----------------------------------
+    //  displayObject
+    //----------------------------------
+    
+    /**
      *  @private
      *  Storage for the displayObject property.
      */
     private var _displayObject:DisplayObject;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
-  	/**
+    /**
      *  Documentation is not currently available.
      */
-	public function get displayObject():DisplayObject
-	{
-		return _displayObject;
-	}
+    public function get displayObject():DisplayObject
+    {
+        return _displayObject;
+    }
 
-  	/**
+    /**
      *  @private
      */
-	public function set displayObject(value:DisplayObject):void
-	{
-		if (_displayObject == value)
-		    return;
+    public function set displayObject(value:DisplayObject):void
+    {
+        if (_displayObject == value)
+            return;
 
-		var oldValue:DisplayObject = _displayObject;
-		_displayObject = value;
-		dispatchPropertyChangeEvent("displayObject", oldValue, value);
+        var oldValue:DisplayObject = _displayObject;
+        _displayObject = value;
+        dispatchPropertyChangeEvent("displayObject", oldValue, value);
 
         // New display object, we need to redraw
         invalidateDisplayList();
 
-		// TODO EGeorgie: apply the transform properties in commitProperties
-		// instead of in setActualSize, setActualPosition.
-		// invalidateProperties();
-	}
+        // TODO EGeorgie: apply the transform properties in commitProperties
+        // instead of in setActualSize, setActualPosition.
+        // invalidateProperties();
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
- 	//----------------------------------
-	//  actualPosition
-	//----------------------------------
+    //----------------------------------
+    //  actualPosition
+    //----------------------------------
 
     /**
      *  The item TBounds top left corner coordinates.
      */
     public function get actualPosition():Point
     {
-    	var xPos:Number = measuredX + (_matrix ? _matrix.tx : _x);
-    	var yPos:Number = measuredY + (_matrix ? _matrix.ty : _y);
+        var xPos:Number = measuredX + (_matrix ? _matrix.tx : _x);
+        var yPos:Number = measuredY + (_matrix ? _matrix.ty : _y);
         var vec:Point = new Point(xPos, yPos);
 
         // Account for transform
-    	var m:Matrix = computeMatrix(true /*actualMatrix*/);
-    	if (m)
-    	{
-	        // Calculate the vector from pre-transform top-left to
-	        // post-transform top-left:
-	    	TransformUtil.transformBounds(new Point(_width, _height), m, vec);
+        var m:Matrix = computeMatrix(true /*actualMatrix*/);
+        if (m)
+        {
+            // Calculate the vector from pre-transform top-left to
+            // post-transform top-left:
+            TransformUtil.transformBounds(new Point(_width, _height), m, vec);
 
-	    	// Subtract it from (xPos, yPos):
-	    	vec.x = xPos - vec.x;
-	    	vec.y = yPos - vec.y;
-    	}
+            // Subtract it from (xPos, yPos):
+            vec.x = xPos - vec.x;
+            vec.y = yPos - vec.y;
+        }
 
         // Take stroke into account:
         // TODO EGeorgie: We assume that the stroke extents are even on both sides.
@@ -1719,24 +1719,24 @@ public class GraphicElement extends EventDispatcher
         vec.x -= strokeExtents.x * 0.5;
         vec.y -= strokeExtents.y * 0.5;
 
-    	return vec;
+        return vec;
     }
 
- 	//----------------------------------
-	//  actualSize
-	//----------------------------------
+    //----------------------------------
+    //  actualSize
+    //----------------------------------
 
     /**
      *  The item TBounds size.
      */
     public function get actualSize():Point
     {
-    	return transformSizeForLayout(_width, _height, true /*actualMatrix*/);
+        return transformSizeForLayout(_width, _height, true /*actualMatrix*/);
     }
 
-	//----------------------------------
-	//  includeInLayout
-	//----------------------------------
+    //----------------------------------
+    //  includeInLayout
+    //----------------------------------
 
     /**
      *  @private
@@ -1744,8 +1744,8 @@ public class GraphicElement extends EventDispatcher
      */
     private var _includeInLayout:Boolean = true;
 
-	[Bindable("propertyChange")]
-	[Inspectable(category="General", defaultValue="true")]
+    [Bindable("propertyChange")]
+    [Inspectable(category="General", defaultValue="true")]
 
     /**
      *  Specifies whether this element is included in the layout of the group.
@@ -1765,22 +1765,22 @@ public class GraphicElement extends EventDispatcher
         if (_includeInLayout == value)
             return;
 
-		var oldValue:Boolean = _includeInLayout;
+        var oldValue:Boolean = _includeInLayout;
         _includeInLayout = value;
-		dispatchPropertyChangeEvent("includeInLayout", oldValue, value);
+        dispatchPropertyChangeEvent("includeInLayout", oldValue, value);
             
         invalidateParentSizeAndDisplayList();
         // TODO EGeorgie: if the displayObject is shared, we need to
         // invalidateDisplayList();
     }
 
-	//----------------------------------
-	//  maxSize
-	//----------------------------------
+    //----------------------------------
+    //  maxSize
+    //----------------------------------
 
     /**
      *  The TBounds of the maximum item size.
-     *  <code>preferredSize</code> <= <code>maxSize</code> must be true.
+     *  <code>preferredSize</code> &lt;= <code>maxSize</code> must be true.
      */
     public function get maxSize():Point
     {
@@ -1788,22 +1788,22 @@ public class GraphicElement extends EventDispatcher
                                       false /*actualMatrix*/);
     }
 
-	//----------------------------------
-	//  minSize
-	//----------------------------------
+    //----------------------------------
+    //  minSize
+    //----------------------------------
 
     /**
      *  The TBounds of the minimum item size.
-     *  <code>minSize</code> <= <code>preferredSize</code> must be true.
+     *  <code>minSize</code> %lt;= <code>preferredSize</code> must be true.
      */
     public function get minSize():Point
     {
-    	return transformSizeForLayout(minWidth, minHeight, false /*actualMatrix*/);
+        return transformSizeForLayout(minWidth, minHeight, false /*actualMatrix*/);
     }
 
- 	//----------------------------------
-	//  percentSize
-	//----------------------------------
+    //----------------------------------
+    //  percentSize
+    //----------------------------------
 
     /**
      *  The desired item TBounds size
@@ -1814,9 +1814,9 @@ public class GraphicElement extends EventDispatcher
         return new Point(percentWidth, percentHeight);
     }
 
-	//----------------------------------
-	//  preferredSize
-	//----------------------------------
+    //----------------------------------
+    //  preferredSize
+    //----------------------------------
 
     /**
      *  The TBounds of the preferred item size.
@@ -1825,35 +1825,35 @@ public class GraphicElement extends EventDispatcher
      */
     public function get preferredSize():Point
     {
-    	return transformSizeForLayout(preferredWidthPreTransform(),
-    	                              preferredHeightPreTransform(),
-    	                              false /*actualMatrix*/);
+        return transformSizeForLayout(preferredWidthPreTransform(),
+                                      preferredHeightPreTransform(),
+                                      false /*actualMatrix*/);
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
-  	/**
+    /**
      *  Documentation is not currently available.
      */
     public function createDisplayObject():DisplayObject
-	{
-		if (displayObject)
-			return displayObject;
-		else
-			return new Sprite();
-	}
+    {
+        if (displayObject)
+            return displayObject;
+        else
+            return new Sprite();
+    }
 
-  	/**
+    /**
      *  Documentation is not currently available.
      */
-	public function needsDisplayObject():Boolean
-	{
-		return true;
-	}
+    public function needsDisplayObject():Boolean
+    {
+        return true;
+    }
 
     /**
      *  Returns a bitmap snapshot of the GraphicElement.
@@ -1862,171 +1862,171 @@ public class GraphicElement extends EventDispatcher
      */
     public function getBitmapData(transparent:Boolean = true, fillColor:uint = 0xFFFFFFFF):BitmapData
     {
-    	// NOTE: This code will not work correctly when we share
+        // NOTE: This code will not work correctly when we share
         // display objects across multiple graphic elements.
-    	var bitmapData:BitmapData = new BitmapData(actualSize.x, actualSize.y, transparent, fillColor);
-    	var oldPos:Point = actualPosition;
-    	
-    	setActualPosition(0, 0);
-    	bitmapData.draw(displayObject, displayObject.transform.matrix);
-    	setActualPosition(oldPos.x, oldPos.y);
+        var bitmapData:BitmapData = new BitmapData(actualSize.x, actualSize.y, transparent, fillColor);
+        var oldPos:Point = actualPosition;
+        
+        setActualPosition(0, 0);
+        bitmapData.draw(displayObject, displayObject.transform.matrix);
+        setActualPosition(oldPos.x, oldPos.y);
     
-    	return bitmapData;
+        return bitmapData;
     }
 
-  	/**
+    /**
      *  Documentation is not currently available.
      */
-	public function applyMask():void
-	{
-		if (displayObject && _mask)
-		{
-			displayObject.mask = _mask;
-			if (!isMaskInElementSpace)
-        	{
-        		var maskMatrix:Matrix = _mask.transform.matrix;
-        		maskMatrix.concat(displayObject.transform.matrix);
-        		_mask.transform.matrix = maskMatrix;
-        		isMaskInElementSpace = true;
-        	}
-		}
-	}
+    public function applyMask():void
+    {
+        if (displayObject && _mask)
+        {
+            displayObject.mask = _mask;
+            if (!isMaskInElementSpace)
+            {
+                var maskMatrix:Matrix = _mask.transform.matrix;
+                maskMatrix.concat(displayObject.transform.matrix);
+                _mask.transform.matrix = maskMatrix;
+                isMaskInElementSpace = true;
+            }
+        }
+    }
 
-  	/**
+    /**
      *  Documentation is not currently available.
      */
-	protected function applyMaskType():void
-	{
-		if (_mask)
-		{
-			if (_maskType == MaskType.CLIP)
-			{
-				// Turn off caching on mask
-				_mask.cacheAsBitmap = false;
-				// Save the original filters and clear the filters property
-				//originalMaskFilters = _mask.filters;
-				_mask.filters = [];
-			}
-			else if (_maskType == MaskType.ALPHA)
-			{
-				_mask.cacheAsBitmap = true;
-				//notifyElementLayerChanged(); // Trigger recreation of the layers
-				displayObject.cacheAsBitmap = true;
-			}
-		}
-	}
+    protected function applyMaskType():void
+    {
+        if (_mask)
+        {
+            if (_maskType == MaskType.CLIP)
+            {
+                // Turn off caching on mask
+                _mask.cacheAsBitmap = false;
+                // Save the original filters and clear the filters property
+                //originalMaskFilters = _mask.filters;
+                _mask.filters = [];
+            }
+            else if (_maskType == MaskType.ALPHA)
+            {
+                _mask.cacheAsBitmap = true;
+                //notifyElementLayerChanged(); // Trigger recreation of the layers
+                displayObject.cacheAsBitmap = true;
+            }
+        }
+    }
 
-  	/**
+    /**
      *  Documentation is not currently available.
      */
-	protected function clearTransformProperties():void
-	{
-		scaleXChanged = false;
-		scaleYChanged = false;
-		xChanged = false;
-		yChanged = false;
-		rotationChanged = false;
-	}
+    protected function clearTransformProperties():void
+    {
+        scaleXChanged = false;
+        scaleYChanged = false;
+        xChanged = false;
+        yChanged = false;
+        rotationChanged = false;
+    }
 
-	/**
-	 *  Dispatches a propertyChange event.
-	 */
-	protected function dispatchPropertyChangeEvent(prop:String, oldValue:*,
+    /**
+     *  Dispatches a propertyChange event.
+     */
+    protected function dispatchPropertyChangeEvent(prop:String, oldValue:*,
                                                    value:*):void
-	{
-		dispatchEvent(PropertyChangeEvent.createUpdateEvent(
+    {
+        dispatchEvent(PropertyChangeEvent.createUpdateEvent(
                            this, prop, oldValue, value));
 
-	}
+    }
 
-	// TODO EGeorgie: can we use the standart IInvalidating methods instead of
-	// notifyElementLayerChanged()?
-	
+    // TODO EGeorgie: can we use the standart IInvalidating methods instead of
+    // notifyElementLayerChanged()?
+    
     /**
-	 *  Utility method that notifies our host that we have changed and need
-	 *  our layer to be updated.
-	 */
-	protected function notifyElementLayerChanged():void
-	{
-	    // TODO EGeorgie: figure this out. For now, invalidateDisplayList
-	    // to preseve original behavior before layout API unification.
-	    invalidateDisplayList();
-		
+     *  Utility method that notifies our host that we have changed and need
+     *  our layer to be updated.
+     */
+    protected function notifyElementLayerChanged():void
+    {
+        // TODO EGeorgie: figure this out. For now, invalidateDisplayList
+        // to preseve original behavior before layout API unification.
+        invalidateDisplayList();
+        
         if (elementHost)
-			elementHost.elementLayerChanged(this);
-	}
+            elementHost.elementLayerChanged(this);
+    }
 
-	/**
-	 *  Calling this method results in a call to the elements's
-	 *  <code>validateProperties()</code> method
-	 *  before the display list is rendered.
-	 *
-	 *  <p>Subclasses should do their work in 
-	 *  <code>commitProperties()</code>.</p>
-	 */
-	public function invalidateProperties():void
-	{
-	    if (invalidatePropertiesFlag)
-	        return;
-	    invalidatePropertiesFlag = true;
-
-        // TODO EGeorgie: hook up directly with the layout manager?
-	    if (elementHost && elementHost is IInvalidating)
-	        IInvalidating(elementHost).invalidateProperties();
-	}
-
-	/**
-	 *  Calling this method results in a call to the elements's
-	 *  <code>validateSize()</code> method
-	 *  before the display list is rendered.
-	 *
-	 *  <p>Subclasses should override and do their measurement in
-	 *  <code>measure()</code>.
-	 *  By default when <code>explicitWidth</code> and <code>explicitHeight</code>
-	 *  are set, <code>measure()</code> will not be called. To override this
-	 *  default behavior subclasses should override <code>skipMeasure()</code>.</p>
-	 */
-	public function invalidateSize():void
-	{
-	    if (invalidateSizeFlag)
-	        return;
-	    invalidateSizeFlag = true;
+    /**
+     *  Calling this method results in a call to the elements's
+     *  <code>validateProperties()</code> method
+     *  before the display list is rendered.
+     *
+     *  <p>Subclasses should do their work in 
+     *  <code>commitProperties()</code>.</p>
+     */
+    public function invalidateProperties():void
+    {
+        if (invalidatePropertiesFlag)
+            return;
+        invalidatePropertiesFlag = true;
 
         // TODO EGeorgie: hook up directly with the layout manager?
-	    if (elementHost)
-	        elementHost.elementSizeChanged(this);
-	}
+        if (elementHost && elementHost is IInvalidating)
+            IInvalidating(elementHost).invalidateProperties();
+    }
 
-	/**
-	 *  Helper method to invalidate parent size and display list if
-	 *  this object affects its layout (includeInLayout is true).
-	 */
-	protected function invalidateParentSizeAndDisplayList():void
-	{
-	    if (!includeInLayout)
-	        return;
+    /**
+     *  Calling this method results in a call to the elements's
+     *  <code>validateSize()</code> method
+     *  before the display list is rendered.
+     *
+     *  <p>Subclasses should override and do their measurement in
+     *  <code>measure()</code>.
+     *  By default when <code>explicitWidth</code> and <code>explicitHeight</code>
+     *  are set, <code>measure()</code> will not be called. To override this
+     *  default behavior subclasses should override <code>skipMeasure()</code>.</p>
+     */
+    public function invalidateSize():void
+    {
+        if (invalidateSizeFlag)
+            return;
+        invalidateSizeFlag = true;
 
-	    // We want to invalidate both the parent size and parent display list.
-	    if (elementHost && elementHost is IInvalidating)
-	    {
-	        IInvalidating(elementHost).invalidateSize();
-	        IInvalidating(elementHost).invalidateDisplayList();
-	    }
-	}
+        // TODO EGeorgie: hook up directly with the layout manager?
+        if (elementHost)
+            elementHost.elementSizeChanged(this);
+    }
 
-	/**
-	 *  Calling this method results in a call to the elements's
-	 *  <code>validateDisplayList()</code> method
-	 *  before the display list is rendered.
-	 *
-	 *  <p>Subclasses should override and do their work in
-	 *  <code>updateDisplayList()</code>.</p>
-	 */
-	public function invalidateDisplayList():void
-	{
-	    if (invalidateDisplayListFlag)
-	        return;
-	    invalidateDisplayListFlag = true;
+    /**
+     *  Helper method to invalidate parent size and display list if
+     *  this object affects its layout (includeInLayout is true).
+     */
+    protected function invalidateParentSizeAndDisplayList():void
+    {
+        if (!includeInLayout)
+            return;
+
+        // We want to invalidate both the parent size and parent display list.
+        if (elementHost && elementHost is IInvalidating)
+        {
+            IInvalidating(elementHost).invalidateSize();
+            IInvalidating(elementHost).invalidateDisplayList();
+        }
+    }
+
+    /**
+     *  Calling this method results in a call to the elements's
+     *  <code>validateDisplayList()</code> method
+     *  before the display list is rendered.
+     *
+     *  <p>Subclasses should override and do their work in
+     *  <code>updateDisplayList()</code>.</p>
+     */
+    public function invalidateDisplayList():void
+    {
+        if (invalidateDisplayListFlag)
+            return;
+        invalidateDisplayListFlag = true;
 
         // TODO EGeorgie: make sure elements that share the display object
         // will be invalidated as well.
@@ -2034,13 +2034,13 @@ public class GraphicElement extends EventDispatcher
         // TODO EGeorgie: hook up directly with the layout manager?
         if (elementHost)
             elementHost.elementChanged(this);
-	}
+    }
 
     /**
      *  Validates and updates the properties and layout of this object
      *  by immediately calling <code>validateProperties()</code>,
-	 *  <code>validateSize()</code>, and <code>validateDisplayList()</code>,
-	 *  if necessary.
+     *  <code>validateSize()</code>, and <code>validateDisplayList()</code>,
+     *  if necessary.
      */
     public function validateNow():void
     {
@@ -2066,7 +2066,7 @@ public class GraphicElement extends EventDispatcher
         
         // If we aren't doing any more invalidation, send out an UpdateComplete event
         if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag)
-        	dispatchUpdateComplete();        
+            dispatchUpdateComplete();        
     }
 
     /**
@@ -2089,54 +2089,54 @@ public class GraphicElement extends EventDispatcher
      */
     protected function commitProperties():void
     {
-    	if (displayObject)
-		{
-			if (alphaChanged)
-			{
-				alphaChanged = false;
-				displayObject.alpha = _alpha;
-			}
+        if (displayObject)
+        {
+            if (alphaChanged)
+            {
+                alphaChanged = false;
+                displayObject.alpha = _alpha;
+            }
 
-			if (blendModeChanged)
-			{
-				blendModeChanged = true;
-				displayObject.blendMode = _blendMode;
-			}
+            if (blendModeChanged)
+            {
+                blendModeChanged = true;
+                displayObject.blendMode = _blendMode;
+            }
 
-			if (filtersChanged)
-			{
-				filtersChanged = false;
-				displayObject.filters = _clonedFilters;
-			}
+            if (filtersChanged)
+            {
+                filtersChanged = false;
+                displayObject.filters = _clonedFilters;
+            }
 
-			if (maskChanged)
-			{
-				maskChanged = false;
-				if (elementHost)
-				{
-					if (previousMask)
-					{
-						elementHost.removeMaskElement(previousMask, this);
-						if (displayObject)
-							displayObject.mask = null;
-					}
-					if (_mask)
-						elementHost.addMaskElement(_mask, this);
-				}
-			}
+            if (maskChanged)
+            {
+                maskChanged = false;
+                if (elementHost)
+                {
+                    if (previousMask)
+                    {
+                        elementHost.removeMaskElement(previousMask, this);
+                        if (displayObject)
+                            displayObject.mask = null;
+                    }
+                    if (_mask)
+                        elementHost.addMaskElement(_mask, this);
+                }
+            }
 
-			if (maskTypeChanged)
-			{
-				maskTypeChanged = false;
-				applyMaskType();
-			}
+            if (maskTypeChanged)
+            {
+                maskTypeChanged = false;
+                applyMaskType();
+            }
 
-			if (visibleChanged)
-			{
-				visibleChanged = false;
-				displayObject.visible = _visible;
-			}
-		}
+            if (visibleChanged)
+            {
+                visibleChanged = false;
+                displayObject.visible = _visible;
+            }
+        }
     }
 
     /**
@@ -2152,9 +2152,9 @@ public class GraphicElement extends EventDispatcher
                 
         if (!sizeChanging || !includeInLayout)
         {
-        	// If we aren't doing any more invalidation, send out an UpdateComplete event
-        	if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag)
-        		dispatchUpdateComplete();
+            // If we aren't doing any more invalidation, send out an UpdateComplete event
+            if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag)
+                dispatchUpdateComplete();
             return;
         }
 
@@ -2260,10 +2260,10 @@ public class GraphicElement extends EventDispatcher
         invalidateDisplayListFlag = false;
 
         updateDisplayList(_width, _height);
-		
+        
         // If we aren't doing any more invalidation, send out an UpdateComplete event
         if (!invalidatePropertiesFlag && !invalidateSizeFlag && !invalidateDisplayListFlag)
-        	dispatchUpdateComplete();
+            dispatchUpdateComplete();
     }
 
     /**
@@ -2298,11 +2298,11 @@ public class GraphicElement extends EventDispatcher
      *  Helper function to dispatch the UpdateComplete event 
      */
     private function dispatchUpdateComplete():void
-	{
-		dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
-	}
+    {
+        dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
+    }
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Methods: ILayoutItem
     //
@@ -2323,7 +2323,7 @@ public class GraphicElement extends EventDispatcher
      */
     protected function computeMatrix(actualMatrix:Boolean):Matrix
     {
-    	if (_matrix)
+        if (_matrix)
             return TransformUtil.isDeltaIdentity(_matrix) ? null : _matrix;
 
         if (_scaleX == 1 && _scaleY == 1 && _rotation == 0)
@@ -2357,7 +2357,7 @@ public class GraphicElement extends EventDispatcher
         return size;
     }
     
-  	/**
+    /**
      *  @private
      */
     private function preferredWidthPreTransform():Number
@@ -2365,7 +2365,7 @@ public class GraphicElement extends EventDispatcher
         return isNaN(explicitWidth) ? measuredWidth : explicitWidth;
     }
 
-  	/**
+    /**
      *  @private
      */
     private function preferredHeightPreTransform():Number
@@ -2387,14 +2387,14 @@ public class GraphicElement extends EventDispatcher
         var m:Matrix = computeMatrix(true /*actualMatrix*/);
         if (m)
         {
-        	// Calculate the vector from pre-transform top-left to
-        	// post-transform top-left:
-	        var vec:Point = new Point();
-	        TransformUtil.transformBounds(new Point(_width, _height), m, vec);
+            // Calculate the vector from pre-transform top-left to
+            // post-transform top-left:
+            var vec:Point = new Point();
+            TransformUtil.transformBounds(new Point(_width, _height), m, vec);
 
             // Add it to (x,y):
-	        x += vec.x;
-	        y += vec.y;
+            x += vec.x;
+            y += vec.y;
         }
 
         // Take stroke into account:
@@ -2438,14 +2438,14 @@ public class GraphicElement extends EventDispatcher
     {
         var strokeExtents:Point = getStrokeExtents();
 
-    	// Calculate the width and height pre-transform:
-    	var m:Matrix = computeMatrix(true /*actualMatrix*/);
+        // Calculate the width and height pre-transform:
+        var m:Matrix = computeMatrix(true /*actualMatrix*/);
         if (!m)
         {
-	        if (isNaN(width))
-	        	width = preferredSize.x;
-	        if (isNaN(height))
-	        	height = preferredSize.y;
+            if (isNaN(width))
+                width = preferredSize.x;
+            if (isNaN(height))
+                height = preferredSize.y;
 
             // Account for stroke
             width -= strokeExtents.x;
@@ -2453,7 +2453,7 @@ public class GraphicElement extends EventDispatcher
         }
         else
         {
-        	if (!isNaN(width))
+            if (!isNaN(width))
                width -= strokeExtents.x;
 
             if (!isNaN(height))
@@ -2473,19 +2473,19 @@ public class GraphicElement extends EventDispatcher
             }
             else
             {
-            	width = minWidth;
-            	height = minHeight;
+                width = minWidth;
+                height = minHeight;
             }
         }
 
         if (_width != width || _height != height)
         {
-	        var oldWidth:Number = _width;
-	        var oldHeight:Number = _height;
-		    
+            var oldWidth:Number = _width;
+            var oldHeight:Number = _height;
+            
             _width = width;
             _height = height;
-		    
+            
             dispatchPropertyChangeEvent("width", oldWidth, width);
             dispatchPropertyChangeEvent("height", oldHeight, height);
 
@@ -2498,11 +2498,11 @@ public class GraphicElement extends EventDispatcher
         return actualSize;
     }
 
-  	/**
+    /**
      *  @private
      */
     private function beginCommitTransformProps():void
-	{
+    {
         if (_mask && isMaskInElementSpace)
         {
             var maskMatrix:Matrix = _mask.transform.matrix;
@@ -2513,13 +2513,13 @@ public class GraphicElement extends EventDispatcher
             _mask.transform.matrix = maskMatrix;
             isMaskInElementSpace = false;
         }
-	}
+    }
 
-  	/**
+    /**
      *  @private
      */
-	private function endCommitTransformProps():void
-	{
+    private function endCommitTransformProps():void
+    {
         if (_mask && !isMaskInElementSpace)
         {
             var maskMatrix:Matrix = _mask.transform.matrix;
@@ -2527,7 +2527,7 @@ public class GraphicElement extends EventDispatcher
             _mask.transform.matrix = maskMatrix;
             isMaskInElementSpace = true;
         }
-	}
+    }
 
     /**
      *  Applies _x and _y properties to the display object.
@@ -2582,7 +2582,7 @@ public class GraphicElement extends EventDispatcher
         endCommitTransformProps();
     }
 
-   	/**
+    /**
      *  @private
      */
     protected function getStroke():IStroke
@@ -2595,12 +2595,12 @@ public class GraphicElement extends EventDispatcher
     // now we assume they are the same on both sides.
     protected function getStrokeExtents():Point
     {
-    	// TODO EGeorgie: currently we take only scale into account,
-    	// but depending on joint style, cap style, etc. we need to take
-    	// the whole matrix into account as well as examine every line segment...
-    	var stroke:IStroke = getStroke();
-    	if (!stroke)
-    	   return new Point();
+        // TODO EGeorgie: currently we take only scale into account,
+        // but depending on joint style, cap style, etc. we need to take
+        // the whole matrix into account as well as examine every line segment...
+        var stroke:IStroke = getStroke();
+        if (!stroke)
+           return new Point();
 
         // Stroke with weight 0 or scaleMode "none" is always drawn
         // at "hairline" thickness, which is exactly one pixel.
@@ -2615,20 +2615,20 @@ public class GraphicElement extends EventDispatcher
         // not only on scale.
         if (scaleMode == LineScaleMode.NORMAL)
         {
-	        if (_scaleX == _scaleY)
-	            weight *= _scaleX;
-	        else
-	            weight *= Math.sqrt(0.5 * (_scaleX * _scaleX + _scaleY * _scaleY));
-	        
+            if (_scaleX == _scaleY)
+                weight *= _scaleX;
+            else
+                weight *= Math.sqrt(0.5 * (_scaleX * _scaleX + _scaleY * _scaleY));
+            
             return new Point(weight, weight);
         }
         else if (scaleMode == LineScaleMode.HORIZONTAL)
         {
-        	return new Point(weight * _scaleX, weight);
+            return new Point(weight * _scaleX, weight);
         }
         else if (scaleMode == LineScaleMode.VERTICAL)
         {
-        	return new Point(weight, weight * _scaleY);
+            return new Point(weight, weight * _scaleY);
         }
 
         return null;
@@ -2640,73 +2640,73 @@ public class GraphicElement extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-  	/**
+    /**
      *  @private
      */
     public function getConstraintValue(constraintName:String):*
     {
-    	return this[constraintName];
+        return this[constraintName];
     }
 
-  	/**
+    /**
      *  @private
      */
     public function setConstraintValue(constraintName:String, value:*):void
     {
-    	this[constraintName] = value;
+        this[constraintName] = value;
     }
-	
+    
     //--------------------------------------------------------------------------
-	//
-	//  Event handlers
-	//
-	//--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
 
-  	/**
+    /**
      *  Documentation is not currently available.
      */
-	protected function filterChangedHandler(event:Event):void
-	{
-		filters = _filters;
-	}
+    protected function filterChangedHandler(event:Event):void
+    {
+        filters = _filters;
+    }
 
-  	/**
+    /**
      *  Documentation is not currently available.
      */
-	protected function transformPropertyChangeHandler(
+    protected function transformPropertyChangeHandler(
                                     event:PropertyChangeEvent):void
-	{
-		if (event.kind == PropertyChangeEventKind.UPDATE)
-		{
-			if (event.property == "matrix")
-			{
-				// Apply matrix
-				if (_transform)
-				{
-					_matrix = _transform.matrix.clone();
-					clearTransformProperties();
-					notifyElementLayerChanged();
+    {
+        if (event.kind == PropertyChangeEventKind.UPDATE)
+        {
+            if (event.property == "matrix")
+            {
+                // Apply matrix
+                if (_transform)
+                {
+                    _matrix = _transform.matrix.clone();
+                    clearTransformProperties();
+                    notifyElementLayerChanged();
 
                     // Parent layout takes transform into account
-					invalidateParentSizeAndDisplayList();
+                    invalidateParentSizeAndDisplayList();
 
-					// TODO EGeorgie: apply the transform properties in commitProperties
-                	// instead of in setActualSize, setActualPosition.
-                	// invalidateProperties();
-				}
-			}
-			else if (event.property == "colorTransform")
-			{
-				// Apply colorTranform
-				if (_transform)
-				{
-					_colorTransform = _transform.colorTransform;
-					invalidateDisplayList();
-					notifyElementLayerChanged();
-				}
-			}
-		}
-	}
+                    // TODO EGeorgie: apply the transform properties in commitProperties
+                    // instead of in setActualSize, setActualPosition.
+                    // invalidateProperties();
+                }
+            }
+            else if (event.property == "colorTransform")
+            {
+                // Apply colorTranform
+                if (_transform)
+                {
+                    _colorTransform = _transform.colorTransform;
+                    invalidateDisplayList();
+                    notifyElementLayerChanged();
+                }
+            }
+        }
+    }
 }
 
 }
