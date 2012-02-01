@@ -348,7 +348,7 @@ public class Path extends FilledElement
      */
     public function set winding(value:String):void
     {
-		_winding = value;
+        _winding = value;
     }
     
     public function get winding():String 
@@ -384,18 +384,18 @@ public class Path extends FilledElement
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @inheritDoc
-	 */
+    /**
+     *  @inheritDoc
+     */
     override protected function skipMeasure():Boolean
     {
         // Don't measure when bounds are up to date.
         return _bounds != null;
     }
 
-	/**
-	 *  @inheritDoc
-	 */
+    /**
+     *  @inheritDoc
+     */
     override protected function measure():void
     {
         var bounds:Rectangle = getBounds();
@@ -457,19 +457,19 @@ public class Path extends FilledElement
     }
     
     override protected function endDraw(g:Graphics):void
-	{
-		// Set a transparent line style because filled, unclosed shapes will
-		// automatically be closed by the Player. When they are, we want the line
-		// to be invisible. 
-		g.lineStyle(0,0,0);
-		super.endDraw(g);
-	} 
+    {
+        // Set a transparent line style because filled, unclosed shapes will
+        // automatically be closed by the Player. When they are, we want the line
+        // to be invisible. 
+        g.lineStyle(0,0,0);
+        super.endDraw(g);
+    } 
     
     // TODO!!! For now we create a DO. Once we figure out how to apply transforms
     // to each of the path segments, we can remove this. 
     override public function get needsDisplayObject():Boolean
     {
-    	return true;
+        return true;
     }
     
     //--------------------------------------------------------------------------
@@ -496,7 +496,7 @@ public class Path extends FilledElement
    
     private function clearBounds():void
     {
-    	_bounds = null;
+        _bounds = null;
     }
     
     //--------------------------------------------------------------------------
@@ -517,9 +517,9 @@ public class Path extends FilledElement
                                            rotation, transformX, transformY);
     }
 
- 	//----------------------------------
-	//  actualSize
-	//----------------------------------
+    //----------------------------------
+    //  actualSize
+    //----------------------------------
 
     /**
      *  @inheritDoc
@@ -528,7 +528,7 @@ public class Path extends FilledElement
     {
         // Path always draws at bounds size
         var bounds:Rectangle = getBounds();
-    	return transformSizeForLayout(bounds.width, bounds.height, true /*actualMatrix*/);
+        return transformSizeForLayout(bounds.width, bounds.height, true /*actualMatrix*/);
     }
 
     /**
@@ -538,7 +538,7 @@ public class Path extends FilledElement
      *  If one of the desired TBounds dimensions is left unspecified, it's size
      *  will be picked such that item can be optimally sized to fit the other
      *  TBounds dimension. This is useful when the layout doesn't want to 
-     *  overconstrain the item in cases where the item TBounds width & height
+     *  overconstrain the item in cases where the item TBounds width and height
      *  are dependent (text, components with complex transforms, etc.)
      * 
      *  If both TBounds dimensions are left unspecified, the item will have its
@@ -575,7 +575,7 @@ public class Path extends FilledElement
 
         // Actual size is always the bounds size
         var oldWidth:Number = _width;
-	    var oldHeight:Number = _height;
+        var oldHeight:Number = _height;
         _width = bw;
         _height = bh;
         dispatchPropertyChangeEvent("width", oldWidth, _width);
@@ -591,7 +591,7 @@ public class Path extends FilledElement
         if (!stroke)
         {
             _scaleX = w / bw;
-            _scaleY = h / bh;	
+            _scaleY = h / bh;   
         }
         else if (stroke.weight == 0 )
         {
@@ -600,75 +600,75 @@ public class Path extends FilledElement
         }
         else if(stroke.scaleMode != LineScaleMode.NORMAL)
         {
-        	var strokeWeight:Number = stroke.weight;
-        	if (stroke.scaleMode == LineScaleMode.HORIZONTAL)
-        	{
-        		_scaleX = w / (bw + strokeWeight);
+            var strokeWeight:Number = stroke.weight;
+            if (stroke.scaleMode == LineScaleMode.HORIZONTAL)
+            {
+                _scaleX = w / (bw + strokeWeight);
                 _scaleY = (h - strokeWeight) / bh;
-        	}
-        	else if(stroke.scaleMode == LineScaleMode.VERTICAL)
-        	{
+            }
+            else if(stroke.scaleMode == LineScaleMode.VERTICAL)
+            {
                 _scaleX = (w - strokeWeight) / bw;
-                _scaleY = h / (bh + strokeWeight);        		
-        	}
-        	else // LineScaleMode.NONE
-        	{
-        		_scaleX = (w - strokeWeight) / bw;
-        		_scaleY = (h - strokeWeight) / bh;
-        	}
+                _scaleY = h / (bh + strokeWeight);              
+            }
+            else // LineScaleMode.NONE
+            {
+                _scaleX = (w - strokeWeight) / bw;
+                _scaleY = (h - strokeWeight) / bh;
+            }
         }
         else
         {
-	        var t:Number = stroke.weight;
-	        t = t * t / 2;
-	        var t1:Number = t / ( bw * bw);
-	
-	        // TODO EGeorige: the following equations don't 
-	        // account for skew components of the matrix.
-	        // Also, this can be greatly optimized.            
-	
-	        // (1) w = bw * x + sqrt( x^2 * t + y^2 * t)
-	        // (2) h = bh * y + sqrt( x^2 * t + y^2 * t)
-	        // (1) - (2):
-	        // w - h = bw * x - bh * y
-	        // x = ( w - h + bh * y ) / bw
-	        // substitute back in (2):
-	        // h - bh * y = sqrt( (w - h + bh * y )^2 * t / bw^2 + y^2 * t )
-	        // h^2 - 2*h*bh*y +bh^2 * y^2 = ((w - h)^2 + 2 * (w-h) * bh * y + bh^2 * y^2 ) * t / bw^2 + y^2 * t
-	        // bh^2 * y^2 - 2*h*bh*y  + h ^2 = t1 * (w - h)^2 + 2 * t1 * (w-h) * bh * y + t1 * bh^2 * y^2 + t * y^2
-	        // bh^2 * y^2 - 2*h*bh*y  + h^2 = t1*(w-h)^2 + 2*t1*(w-h)*bh* y + (t1*bh^2 + t)*y^2
-	        // (bh^2 - t1*bh^2 - t) * y^2 -(2*h*bh +2*t1*(w-h)*bh) * y + (h^2 - t1*(w-h)^2) = 0 
-	        
-	        if( bw != 0 && bh != 0)
-	        {
-	            var A:Number = bh * bh - t1 * bh * bh - t;   
-	            var B:Number = -2 *h * bh - 2 * t1 * (w-h) * bh;            
-	            var C:Number = h * h - t1 * (w-h) * (w-h);                
-	
-	            var D:Number = B * B - 4 * A * C;
-	            if (D >= 0)
-	            {
-	                var y1:Number = (-B + Math.sqrt(D)) / (2 * A);
-	                var y2:Number = (-B - Math.sqrt(D)) / (2 * A);
-	                
-	                var x1:Number = ( w - h + bh * y1 ) / bw;
-	                var x2:Number = ( w - h + bh * y2 ) / bw;
-	                
-	                if (Math.abs(h - bh * y1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5 &&
-	                    Math.abs(w - bw * x1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5)
-	                {
-	                    _scaleX = x1;
-	                    _scaleY = y1;
-	                }
-	                else
-	                if (Math.abs(h - bh * y2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5 &&
-	                    Math.abs(w - bw * x2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5)
-	                {
-	                    _scaleX = x2;
-	                    _scaleY = y2;
-	                }
-	            }
-	        }
+            var t:Number = stroke.weight;
+            t = t * t / 2;
+            var t1:Number = t / ( bw * bw);
+    
+            // TODO EGeorige: the following equations don't 
+            // account for skew components of the matrix.
+            // Also, this can be greatly optimized.            
+    
+            // (1) w = bw * x + sqrt( x^2 * t + y^2 * t)
+            // (2) h = bh * y + sqrt( x^2 * t + y^2 * t)
+            // (1) - (2):
+            // w - h = bw * x - bh * y
+            // x = ( w - h + bh * y ) / bw
+            // substitute back in (2):
+            // h - bh * y = sqrt( (w - h + bh * y )^2 * t / bw^2 + y^2 * t )
+            // h^2 - 2*h*bh*y +bh^2 * y^2 = ((w - h)^2 + 2 * (w-h) * bh * y + bh^2 * y^2 ) * t / bw^2 + y^2 * t
+            // bh^2 * y^2 - 2*h*bh*y  + h ^2 = t1 * (w - h)^2 + 2 * t1 * (w-h) * bh * y + t1 * bh^2 * y^2 + t * y^2
+            // bh^2 * y^2 - 2*h*bh*y  + h^2 = t1*(w-h)^2 + 2*t1*(w-h)*bh* y + (t1*bh^2 + t)*y^2
+            // (bh^2 - t1*bh^2 - t) * y^2 -(2*h*bh +2*t1*(w-h)*bh) * y + (h^2 - t1*(w-h)^2) = 0 
+            
+            if( bw != 0 && bh != 0)
+            {
+                var A:Number = bh * bh - t1 * bh * bh - t;   
+                var B:Number = -2 *h * bh - 2 * t1 * (w-h) * bh;            
+                var C:Number = h * h - t1 * (w-h) * (w-h);                
+    
+                var D:Number = B * B - 4 * A * C;
+                if (D >= 0)
+                {
+                    var y1:Number = (-B + Math.sqrt(D)) / (2 * A);
+                    var y2:Number = (-B - Math.sqrt(D)) / (2 * A);
+                    
+                    var x1:Number = ( w - h + bh * y1 ) / bw;
+                    var x2:Number = ( w - h + bh * y2 ) / bw;
+                    
+                    if (Math.abs(h - bh * y1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5 &&
+                        Math.abs(w - bw * x1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5)
+                    {
+                        _scaleX = x1;
+                        _scaleY = y1;
+                    }
+                    else
+                    if (Math.abs(h - bh * y2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5 &&
+                        Math.abs(w - bw * x2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5)
+                    {
+                        _scaleX = x2;
+                        _scaleY = y2;
+                    }
+                }
+            }
         }
 
         if (_scaleX != lastActualScaleX || _scaleY != lastActualScaleY)
