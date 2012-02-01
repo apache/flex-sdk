@@ -22,7 +22,7 @@ import flex.intf.ILayoutItem;
 /**
  *  Documentation is not currently available.
  */
-public class BasicLayout implements ILayout
+public class BasicLayout extends LayoutBase
 {
     include "../core/Version.as";
 
@@ -62,34 +62,11 @@ public class BasicLayout implements ILayout
 
     //--------------------------------------------------------------------------
     //
-    //  Properties
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    // target
-    //----------------------------------
-
-    private var _target:GroupBase;
-
-    public function get target():GroupBase
-    {
-        return _target;
-    }
-
-    public function set target(value:GroupBase):void
-    {
-        _target = value;
-    }
-
-
-    //--------------------------------------------------------------------------
-    //
     //  Methods: ILayout
     //
     //--------------------------------------------------------------------------
 
-    public function measure():void
+    override public function measure():void
     {
         var layoutTarget:GroupBase = target;
         if (!layoutTarget)
@@ -205,7 +182,7 @@ public class BasicLayout implements ILayout
         }
     }
 
-    public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         var layoutTarget:GroupBase = target;
         if (!layoutTarget)
@@ -296,6 +273,7 @@ public class BasicLayout implements ILayout
         }
 
         layoutTarget.setContentSize(maxX, maxY);
+        updateScrollRect(unscaledWidth, unscaledHeight);
     }
 }
 
