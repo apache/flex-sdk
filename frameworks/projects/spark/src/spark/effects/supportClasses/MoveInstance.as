@@ -11,6 +11,8 @@
 package spark.effects.supportClasses
 {
 import spark.effects.SimpleMotionPath;
+import spark.effects.animation.Keyframe;
+import spark.effects.animation.MotionPath;
     
 /**
  *  The MoveInstance class implements the instance class
@@ -153,9 +155,12 @@ public class MoveInstance extends AnimateInstance
      */
     override public function play():void
     {
-        motionPaths = 
-            [new SimpleMotionPath("x", xFrom, xTo, duration, xBy),
-             new SimpleMotionPath("y", yFrom, yTo, duration, yBy)];
+        motionPaths = new <MotionPath>[new MotionPath("x"),
+            new MotionPath("y")];
+        motionPaths[0].keyframes = new <Keyframe>[new Keyframe(0, xFrom), 
+            new Keyframe(duration, xTo, xBy)];
+        motionPaths[1].keyframes = new <Keyframe>[new Keyframe(0, yFrom), 
+            new Keyframe(duration, yTo, yBy)];
         
         // Also animate any position-related constraints that change between
         // transition states
