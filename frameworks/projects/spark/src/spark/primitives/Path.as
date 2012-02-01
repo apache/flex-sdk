@@ -563,7 +563,7 @@ public class Path extends FilledElement
             if (measuredX == 0)
                 return stroke + this.x;
             var naturalBounds:Rectangle = getBounds();
-            var sx:Number = naturalBounds.width == 0 ? 1 : _width / naturalBounds.width;
+            var sx:Number = (naturalBounds.width == 0 || _width == 0) ? 1 : _width / naturalBounds.width;
             return stroke + this.x + measuredX * sx;
         }
         return stroke + getBoundingBox(_width, _height, m).x;
@@ -581,7 +581,7 @@ public class Path extends FilledElement
             if (measuredY == 0)
                 return stroke + this.y;
             var naturalBounds:Rectangle = getBounds();
-            var sy:Number = naturalBounds.height == 0 ? 1 : _height / naturalBounds.height;
+            var sy:Number = (naturalBounds.height == 0 || _height == 0) ? 1 : _height / naturalBounds.height;
             return stroke + this.y + measuredY * sy;
         }
         return stroke + getBoundingBox(_width, _height, m).y;
