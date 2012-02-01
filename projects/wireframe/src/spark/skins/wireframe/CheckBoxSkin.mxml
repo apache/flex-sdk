@@ -42,7 +42,7 @@
         <s:State name="disabledAndSelected" stateGroups="disabledStates" />
     </s:states>
         
-    <s:Group top="1" layoutDirection="ltr">
+    <s:Group verticalCenter="0" layoutDirection="ltr">
         <!-- background -->
         <s:Rect left="0" right="0" minWidth="12" top="0" bottom="0" minHeight="12">
             <s:stroke>            
