@@ -547,8 +547,8 @@ public class VerticalLayout extends LayoutBase
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get requestedMaxRowCount():int
     {
@@ -593,8 +593,8 @@ public class VerticalLayout extends LayoutBase
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get requestedMinRowCount():int
     {
@@ -1117,25 +1117,25 @@ public class VerticalLayout extends LayoutBase
         }
         
         if (useVirtualLayout)
-		{
-			var firstElement:ILayoutElement = g.getElementAt(_firstIndexInView);
-			var lastElement:ILayoutElement = g.getElementAt(_lastIndexInView);
-			var scrollRect:Rectangle = getScrollRect();
-			
-			/* If the scrollRect is within the bounds of the elements, we do
-			   not need to call invalidateDisplayList(). This considerably speeds
-			   up small scrolls. */
-			if (!firstElement || !lastElement || 
-				scrollRect.top < firstElement.getLayoutBoundsY() || 
-				scrollRect.bottom >= (lastElement.getLayoutBoundsY() + lastElement.getLayoutBoundsHeight()))
-			{
-				g.invalidateDisplayList();
-			}
-		}
-		
+        {
+            var firstElement:ILayoutElement = g.getElementAt(_firstIndexInView);
+            var lastElement:ILayoutElement = g.getElementAt(_lastIndexInView);
+            var scrollRect:Rectangle = getScrollRect();
+            
+            /* If the scrollRect is within the bounds of the elements, we do
+               not need to call invalidateDisplayList(). This considerably speeds
+               up small scrolls. */
+            if (!firstElement || !lastElement || 
+                scrollRect.top < firstElement.getLayoutBoundsY() || 
+                scrollRect.bottom >= (lastElement.getLayoutBoundsY() + lastElement.getLayoutBoundsHeight()))
+            {
+                g.invalidateDisplayList();
+            }
+        }
+        
         setIndexInView(i0, i1);
     }
-	
+    
     /**
      *  @private
      * 
