@@ -451,8 +451,11 @@ public class DefaultItemRenderer extends UIComponent
         super.measure();
         
         // label has padding of 3 on left and right and padding of 5 on top and bottom.
-        measuredWidth = labelDisplay.getExplicitOrMeasuredWidth() + 6;
-        measuredHeight = labelDisplay.getExplicitOrMeasuredHeight() + 10;
+        measuredWidth = labelDisplay.getPreferredBoundsWidth() + 6;
+        measuredHeight = labelDisplay.getPreferredBoundsHeight() + 10;
+
+        measuredMinWidth = labelDisplay.getMinBoundsWidth() + 6;
+        measuredMinHeight = labelDisplay.getMinBoundsHeight() + 10;
     }
     
     /**
@@ -505,8 +508,16 @@ public class DefaultItemRenderer extends UIComponent
             
         graphics.endFill();
         
-        labelDisplay.move(3, 5);
-        labelDisplay.setActualSize(unscaledWidth - 6, unscaledHeight - 10);
+        // make sure our width/height is in the min/max for the label
+        var childWidth:Number = unscaledWidth - 6;
+        childWidth = Math.max(labelDisplay.getMinBoundsWidth(), Math.min(labelDisplay.getMaxBoundsWidth(), childWidth));
+        
+        var childHeight:Number = unscaledHeight - 10;
+        childHeight = Math.max(labelDisplay.getMinBoundsHeight(), Math.min(labelDisplay.getMaxBoundsHeight(), childHeight));
+        
+        // set the label's position and size
+        labelDisplay.setLayoutBoundsSize(childWidth, childHeight);
+        labelDisplay.setLayoutBoundsPosition(3, 5);
     }
     
     //--------------------------------------------------------------------------
