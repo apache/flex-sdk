@@ -129,9 +129,11 @@
          */
         override public function styleChanged(styleProp:String):void
         {
+            var allStyles:Boolean = !styleProp || styleProp == "styleName";
+
             super.styleChanged(styleProp);
             
-            if (!styleProp || styleProp.indexOf("padding") == 0)
+            if (allStyles || styleProp.indexOf("padding") == 0)
             {
                 paddingChanged = true;
                 invalidateProperties();
