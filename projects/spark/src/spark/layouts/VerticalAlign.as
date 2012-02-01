@@ -16,7 +16,7 @@ package spark.layouts
  *  The VerticalAlign class defines the possible values for the 
  *  <code>verticalAlign</code> property of the HorizontalLayout class.
  * 
- * @see HorizontalLayout#verticalAlign
+ *  @see HorizontalLayout#verticalAlign
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -81,6 +81,16 @@ public final class VerticalAlign
      */
     public static const CONTENT_JUSTIFY:String = "contentJustify";
     
+    /**
+     *  Vertically position the children so that their text is
+     *  aligned to the base line of the container.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public static const BASELINE:String = "baseline";
 }
 
 }
