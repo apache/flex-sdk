@@ -277,7 +277,6 @@ public class BasicLayout extends LayoutBase
         }
 
         layoutTarget.setContentSize(maxX, maxY);
-        updateScrollRect(unscaledWidth, unscaledHeight);
     }
 }
 
