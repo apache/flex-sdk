@@ -70,6 +70,46 @@
 [Style(name="leadingModel", type="String", enumeration="auto,romanUp,ideographicCenterDown,ideographicCenterUp,ideographicTopDown,ideographicTopUp", inherit="yes")]
 
 /**
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphEndIndent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="paragraphEndIndent", type="Number", format="length", inherit="yes")]
+
+/**
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphSpaceAfter
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="paragraphSpaceAfter", type="Number", format="length", inherit="yes")]
+
+/**
+ *  @copy flashx.textLayout.formats.ITextLayoutFormat#paragraphSpaceBefore
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="paragraphSpaceBefore", type="Number", format="length", inherit="yes")]
+
+/**
+ *  @copy flashx.textLayout.formats.paragraphStartIndent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="paragraphStartIndent", type="Number", format="length", inherit="yes")]
+
+/**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#tabStops
  *  
  *  @langversion 3.0
