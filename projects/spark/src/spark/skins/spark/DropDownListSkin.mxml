@@ -94,7 +94,7 @@
     <s:Button id="openButton" left="0" right="0" top="0" bottom="0" focusEnabled="false"
         skinClass="spark.skins.spark.DropDownListButtonSkin" />  
     <!--- The prompt area of the DropDownList. -->
-    <s:SimpleText id="labelElement" verticalAlign="middle" lineBreak="explicit"
+    <s:SimpleText id="labelDisplay" verticalAlign="middle" lineBreak="explicit"
         left="7" right="30" top="2" bottom="2" verticalCenter="1" /> 
 
 </s:Skin>
