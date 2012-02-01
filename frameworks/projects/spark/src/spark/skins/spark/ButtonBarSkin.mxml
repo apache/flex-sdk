@@ -23,19 +23,19 @@
     </states>
     
 	<Declarations>
-		<Component id="firstButton" >
-			<FxToggleButton skinClass="mx.skins.spark.FxButtonBarFirstButtonSkin" 
-							width="100%" height="100%" />
+		<Component id="firstButton">
+			<ButtonBarButton skinClass="mx.skins.spark.FxButtonBarFirstButtonSkin" 
+							 width="100%" height="100%" />
 		</Component>
 
 		<Component id="middleButton" >
-			<FxToggleButton skinClass="mx.skins.spark.FxButtonBarMiddleButtonSkin" 
-							width="100%" height="100%" />
+			<ButtonBarButton skinClass="mx.skins.spark.FxButtonBarMiddleButtonSkin" 
+							 width="100%" height="100%" />
 		</Component>
 
 		<Component id="lastButton" >
-			<FxToggleButton skinClass="mx.skins.spark.FxButtonBarLastButtonSkin" 
-							width="100%" height="100%"  />
+			<ButtonBarButton skinClass="mx.skins.spark.FxButtonBarLastButtonSkin" 
+							 width="100%" height="100%"  />
 		</Component>
 
 	</Declarations>
