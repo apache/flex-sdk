@@ -1410,7 +1410,7 @@ public class TileLayout extends LayoutBase
 
     //--------------------------------------------------------------------------
     //
-    //  Overriden methods from LayoutBase
+    //  Overridden methods from LayoutBase
     //
     //--------------------------------------------------------------------------
 
