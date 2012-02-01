@@ -179,14 +179,27 @@ public class Line extends StrokedElement
 	//
 	//--------------------------------------------------------------------------
 	
-    override public function get bounds():Rectangle
-	{
-	    var w:Number = isNaN(explicitWidth) ? Math.abs(xFrom - xTo) : explicitWidth;
-	    var h:Number = isNaN(explicitHeight) ? Math.abs(yFrom - yTo) : explicitHeight;
-		return new Rectangle(Math.min(xTo, xFrom), Math.min(yTo, yFrom),
-		                     w, h);
+	/**
+	 *  @inheritDoc
+	 */
+    override protected function skipMeasure():Boolean
+    {
+        // Since our measure() is quick, we prefer to call it always instead of
+        // trying to detect cases where measuredX and measuredY would change.
+        return false;
+    }
+
+	/**
+	 *  @inheritDoc
+	 */
+    override protected function measure():void
+    {
+	    measuredWidth = Math.abs(xFrom - xTo);
+	    measuredHeight = Math.abs(yFrom - yTo);
+	    measuredX = Math.min(xFrom, xTo);
+	    measuredY = Math.min(yFrom, yTo);
 	}
-	
+
 	/**
 	 * @inheritDoc
 	 */
