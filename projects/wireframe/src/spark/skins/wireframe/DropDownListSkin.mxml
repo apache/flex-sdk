@@ -9,6 +9,13 @@
     in accordance with the terms of the license agreement accompanying it.
  
 --> 
+<!--- The default skin class for the Spark DropDownList component. 
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
     alpha.disabled=".5"> 
 
@@ -32,20 +39,20 @@
         left="0" right="0" top="0" bottom="0" itemDestructionPolicy="auto"
         popUpPosition="below" popUpWidthMatchesAnchorWidth="true">
         
-		    <!--- 
-		          The drop down area of the skin. This includes borders, background colors, scrollers, and filters. 
-		          To create a custom drop down, edit this skin and create a custom skin class. 
-		    -->
-		        <s:Group id="dropDown" maxHeight="134" minHeight="22" >
-		    <!-- border/fill -->
-		    <s:Rect left="0" right="0" top="0" bottom="0">
-		    	<s:stroke>
-		    		<s:SolidColorStroke color="0x5380D0" />
-		    	</s:stroke>
-		    	<s:fill>
-		    		<s:SolidColor color="0xFFFFFF" />
-		    	</s:fill>
-		    </s:Rect>
+            <!--- 
+                  The drop down area of the skin. This includes borders, background colors, scrollers, and filters. 
+                  To create a custom drop down, edit this skin and create a custom skin class. 
+            -->
+                <s:Group id="dropDown" maxHeight="134" minHeight="22" >
+            <!-- border/fill -->
+            <s:Rect left="0" right="0" top="0" bottom="0">
+                <s:stroke>
+                    <s:SolidColorStroke color="0x5380D0" />
+                </s:stroke>
+                <s:fill>
+                    <s:SolidColor color="0xFFFFFF" />
+                </s:fill>
+            </s:Rect>
             
             <s:Scroller left="0" top="0" right="0" bottom="0" focusEnabled="false" minViewportInset="1">
                 <s:DataGroup id="dataGroup" itemRenderer="spark.skins.spark.DefaultItemRenderer">
