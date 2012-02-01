@@ -190,6 +190,11 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  When useVirtualLayout changes to false, this method is called automatically.
      * 
      *  Subclasses that support useVirtualLayout=true must override this method. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function clearCachedVirtualLayoutState():void
     {
