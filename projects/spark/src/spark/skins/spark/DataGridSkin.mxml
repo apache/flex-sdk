@@ -196,7 +196,15 @@ The default skin class for a Spark DataGrid component.
             </s:Line>          
             
             <s:Scroller id="scroller" minViewportInset="1" hasFocusableChildren="false" height="100%">
-                <s:Grid id="grid" itemRenderer="spark.skins.spark.DefaultGridItemRenderer"/>
+                <s:Grid id="grid" itemRenderer="spark.skins.spark.DefaultGridItemRenderer">
+                    <s:layers>
+                        <s:GridLayer s:id="backgroundLayer"/>
+                        <s:GridLayer s:id="selectionLayer"/>
+                        <s:GridLayer s:id="editorIndicatorLayer"/>                            
+                        <s:GridLayer s:id="rendererLayer" root="{grid}"/>
+                        <s:GridLayer s:id="overlayLayer"/>
+                    </s:layers>
+                </s:Grid>                    
             </s:Scroller>
         </s:VGroup>            
     </s:VGroup>
