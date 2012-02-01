@@ -238,7 +238,8 @@ public class Path extends FilledElement
      *  Possible values are GraphicsPathWinding.EVEN_ODD or GraphicsPathWinding.NON_ZERO
      *
      *  @default evenOdd
-     *  @see flash.display.GraphicPathWinding 
+     *  
+     *  @see flash.display.GraphicsPathWinding 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -843,8 +844,9 @@ public class Path extends FilledElement
     //after MAX, we'll be cleaning up the sharing code, and putting graphics caching
     //into the GraphicElement base class.
     private var _drawBounds:Rectangle = new Rectangle(); 
+    
     /**
-     * @inheritDoc
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
