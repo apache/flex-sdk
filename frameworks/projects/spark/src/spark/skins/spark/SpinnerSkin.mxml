@@ -17,6 +17,11 @@
     	[HostComponent("flex.component.Spinner")]
     </Metadata> 
     
+    <states>
+    	<State name="normal" />
+    	<State name="disabled" />
+    </states>
+    
     <Button id="incrementButton" width="12" height="12" 
             skinZZ="flex.skin.SpinnerIncrButtonSkin" />
     <Button id="decrementButton" top="12" width="12" height="12"
