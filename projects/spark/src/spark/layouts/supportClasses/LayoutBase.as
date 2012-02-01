@@ -14,6 +14,7 @@ package mx.layout
 
 import flash.events.Event;
 import flash.geom.Rectangle;
+import flash.geom.Point;
 import flash.ui.Keyboard;
 
 import mx.components.baseClasses.GroupBase;
@@ -204,10 +205,10 @@ public class LayoutBase extends OnDemandEventDispatcher
         switch (unit)
         {
             case ScrollUnit.LEFT:
-                return (scrollR.x <= 0) ? 0 : -1;
+                return Math.max(-1, minDelta);
                 
             case ScrollUnit.RIGHT:
-                return (scrollR.x >= maxDelta) ? 0 : 1;
+                return Math.min(1, maxDelta);
                 
             case ScrollUnit.PAGE_LEFT:
                 return Math.max(minDelta, -scrollR.width);
@@ -249,10 +250,10 @@ public class LayoutBase extends OnDemandEventDispatcher
         switch (unit)
         {
         	case ScrollUnit.UP:
-        	    return (scrollR.y <= 0) ? 0 : -1;
+        	    return Math.max(-1, minDelta);
         	    
         	case ScrollUnit.DOWN:
-        	    return (scrollR.y >= maxDelta) ? 0 : 1;
+        	    return Math.min(1, maxDelta);
         	    
             case ScrollUnit.PAGE_UP:
                 return Math.max(minDelta, -scrollR.height);
@@ -269,7 +270,89 @@ public class LayoutBase extends OnDemandEventDispatcher
             default:
                 return 0;
         }    	
-    } 
+    }
+    
+    /**
+     *  LayoutBase::getScrollPositionDelta() computes the
+     *  vertical and horizontalScrollPosition deltas needed to 
+     *  scroll the item at the specified index into view.
+     * 
+     *  If clipContent is true and the item at the specified index is not
+     *  entirely visible relative to the target's scrollRect, then 
+     *  return the delta to be added to horizontalScrollPosition and
+     *  verticalScrollPosition that will scroll the item completely 
+     *  within the scrollRect's bounds.
+     * 
+     *  If the specified item is partially visible and larger than the
+     *  scrollRect, i.e. it's already the only item visible, then
+     *  null is returned.
+     * 
+     *  This method attempts to minmimze the change to verticalScrollPosition
+     *  and horizontalScrollPosition.
+     * 
+     *  If the specified index is invalid, or target is null, then
+     *  null is returned.
+     * 
+     *  If the item at the specified index is null or includeInLayout
+     *  false, then null is returned.
+     * 
+     *  @param index The index of the item to be scrolled into view.
+     *  @return A Point that contains offsets to horizontalScrollPosition 
+     *      and verticalScrollPosition that will scroll the specified
+     *      item into view, or null if no change is needed. 
+     * 
+     *  @see clipContent
+     *  @see verticalScrollPosition
+     *  @see horizontalScrollPosition
+     *  @see udpdateScrollRect
+     */
+     public function getScrollPositionDelta(index:int):Point
+     {
+         if (!target || !clipContent)
+            return null;
+            
+         var n:int = target.numLayoutItems;
+         if ((index < 0) || (index >= n))
+            return null;
+            
+         var item:ILayoutItem = target.getLayoutItemAt(index);
+         if (!item || !item.includeInLayout)
+            return null;
+            
+         var scrollR:Rectangle = target.scrollRect;
+         if (!scrollR)
+            return null;
+            
+         var itemXY:Point = item.actualPosition;
+         var itemWH:Point = item.actualSize;
+         var itemR:Rectangle = new Rectangle(itemXY.x, itemXY.y, itemWH.x, itemWH.y);
+         
+         if (scrollR.containsRect(itemR) || itemR.containsRect(scrollR))
+            return null;
+            
+         var dxl:Number = itemR.left - scrollR.left;     // left justify item
+         var dxr:Number = itemR.right - scrollR.right;   // right justify item
+         var dyt:Number = itemR.top - scrollR.top;       // top justify item
+         var dyb:Number = itemR.bottom - scrollR.bottom; // bottom justify item
+         
+         // minimize the scroll
+         var dx:Number = (Math.abs(dxl) < Math.abs(dxr)) ? dxl : dxr;
+         var dy:Number = (Math.abs(dyt) < Math.abs(dyb)) ? dyt : dyb;
+                 
+         // scrollR "contains"  itemR in just one dimension
+         if ((itemR.left >= scrollR.left) && (itemR.right <= scrollR.right))
+            dx = 0;
+         else if ((itemR.bottom >= scrollR.bottom) && (itemR.top <= scrollR.top))
+            dy = 0;
+            
+         // itemR "contains" scrollR in just one dimension
+         if ((itemR.left <= scrollR.left) && (itemR.right >= scrollR.right))
+            dx = 0;
+         else if ((itemR.bottom <= scrollR.bottom) && (itemR.top >= scrollR.top))
+            dy = 0;
+            
+         return new Point(dx, dy);
+     }
      
     /**
      *  Called when the verticalScrollPosition or horizontalScrollPosition 
