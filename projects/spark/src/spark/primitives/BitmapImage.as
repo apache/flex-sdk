@@ -16,7 +16,7 @@ import flash.display.BitmapData;
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
-import flash.display.Shape;
+import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.geom.Matrix;
@@ -78,7 +78,7 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
 		if (value != _alwaysNeedsDisplayObject)
 		{
 			_alwaysNeedsDisplayObject = value;
-			notifyElementTransformChanged();
+			notifyElementLayerChanged();
 		}
 	}
 	
@@ -115,7 +115,7 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
 		if (value != oldValue)
 		{
 			_repeat = value;
-			notifyElementChanged();
+			invalidateDisplayList();
 			//dispatchPropertyChangeEvent("repeat", oldValue, value);
 		}
 	}
@@ -189,7 +189,8 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
 			
 			_fill.source = bitmapData;
 			dispatchPropertyChangeEvent("source", oldValue, value);
-			notifyElementChanged();
+			invalidateSize();
+			invalidateDisplayList();
 		}
 	}
 	
@@ -212,7 +213,7 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
 		if (value != _smooth)
 		{
 			_smooth = value;
-			notifyElementChanged();
+			invalidateDisplayList();
 		}
 	}
 	
@@ -221,48 +222,6 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
 		return _smooth;
 	}
 	
-	//----------------------------------
-	//  height
-	//----------------------------------
-	
-	private var heightSet:Boolean;
-	
-	/**
-	 *  The height of the bitmap.  This property is optional. If not set, the
-	 *  entire bitmap is displayed. If this is set to a value that is smaller
-	 *  than the height of the bitmap, the bitmap is clipped. If this is set
-	 *  to a value that is larger than the height of the bitmap, and the repeat property
-	 *  is set, the bitmap image will be repeated.
-	 *
-	 *  @default NaN
-	 */
-	override public function set height(value:Number):void 
-	{
-		super.height = value;
-		heightSet = !isNaN(value);
-	}
-	
-	//----------------------------------
-	//  width
-	//----------------------------------
-	
-	private var widthSet:Boolean;
-	
-	/**
-	 *  The width of the bitmap.  This property is optional. If not set, the
-	 *  entire bitmap is displayed. If this is set to a value that is smaller
-	 *  than the width of the bitmap, the bitmap is clipped. If this is set
-	 *  to a value that is larger than the width of the bitmap, and the repeat property
-	 *  is set, the bitmap image will be repeated.
-	 *
-	 *  @default NaN
-	*/
-	override public function set width(value:Number):void 
-	{
-		super.width = value;
-		widthSet = !isNaN(value);
-	}
-		
 	//--------------------------------------------------------------------------
 	//
 	//  IGraphicElement Implementation
@@ -276,22 +235,31 @@ public class BitmapGraphic extends GraphicElement implements IDisplayObjectEleme
     override public function get bounds():Rectangle
 	{
 		return new Rectangle(0, 0, 
-			widthSet ? width : (source ? source.width : 0),
-			heightSet ? height : (source ? source.height : 0));
+			!isNaN(explicitWidth) ? explicitWidth : (source ? source.width : 0),
+			!isNaN(explicitHeight) ? explicitHeight : (source ? source.height : 0));
 	}
 	
 	/**
 	 *  @inheritDoc
 	 */
-	override public function draw(g:Graphics):void 
+    override protected function updateDisplayList(unscaledWidth:Number, 
+                                                  unscaledHeight:Number):void
 	{
+	    if (!displayObject || !(displayObject is Sprite))
+	        return;
+	    var g:Graphics = Sprite(displayObject).graphics;
+	    
+	    // TODO EGeorgie: clearing the graphics needs to be shared when
+	    // the display objects are shared.
+	    g.clear();
+	    
 		g.lineStyle(0,0,0);
 		_fill.offsetX = 0;
 		_fill.offsetY = 0;
 		_fill.repeat = repeat;
 		_fill.smooth = smooth;
-		var w:Number = drawWidth;
-		var h:Number = drawHeight;
+		var w:Number = width;
+		var h:Number = height;
 		
 		if (!repeat)
 		{
