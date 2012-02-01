@@ -442,17 +442,20 @@ public class GraphicElement extends EventDispatcher
      *  @private
      *  Storage for the blendMode property.
      */
-    private var _blendMode:String = BlendMode.NORMAL;
+    private var _blendMode:String = "auto"; 
     
     /**
      *  @private
      */
     private var blendModeChanged:Boolean;
+    private var blendModeExplicitlySet:Boolean = false;
 
-    [Inspectable(category="General", enumeration="add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay,colordodge,colorburn,exclusion,softlight,hue,saturation,color,luminosity", defaultValue="normal")]
+    [Inspectable(category="General", enumeration="auto,add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay,colordodge,colorburn,exclusion,softlight,hue,saturation,color,luminosity", defaultValue="auto")]
 
     /**
      *  A value from the BlendMode class that specifies which blend mode to use. 
+     * 
+     *  @default auto
      * 
      *  @see flash.display.DisplayObject#blendMode
      *  @see flash.display.BlendMode
@@ -472,23 +475,54 @@ public class GraphicElement extends EventDispatcher
      */
     public function set blendMode(value:String):void
     {
+        if (blendModeExplicitlySet && value == _blendMode)
+            return;
+        
         // FIXME (dsubrama): Temporarily exit when blendMode is set
     	// to one of the AIM blendModes; support for this will come
     	// shortly. 
-        if (value == _blendMode || value == "colordodge" || 
+        if (value == "colordodge" || 
         	value =="colorburn" || value =="exclusion" || 
         	value =="softlight" || value =="hue" || 
         	value =="saturation" || value =="color" 
         	|| value =="luminosity")
             return;
 
-        var previous:Boolean = needsDisplayObject;
-        _blendMode = value;
-        if (previous != needsDisplayObject)
-            invalidateDisplayObjectSharing();
+        //The default blendMode in FXG is 'auto'. There are only
+        //certain cases where this results in a rendering difference,
+        //one being when the alpha of the Group is > 0 and < 1. In that
+        //case we set the blendMode to layer to avoid the performance
+        //overhead that comes with a non-normal blendMode. 
         
-        blendModeChanged = true;
-        invalidateProperties();
+        if (alpha > 0 && alpha < 1 && !blendModeExplicitlySet && value == "auto")
+        {
+            if (value != BlendMode.LAYER)
+            {
+                _blendMode = BlendMode.LAYER;
+                blendModeChanged = true;
+                invalidateProperties();
+            }
+        }
+        else if ((alpha == 1 || alpha == 0) && !blendModeExplicitlySet && value == "auto")
+        {
+            if (value != BlendMode.NORMAL)
+            {
+                _blendMode = BlendMode.NORMAL;
+                blendModeChanged = true;
+                invalidateProperties();
+            }
+        }
+        else 
+        {
+            var previous:Boolean = needsDisplayObject;
+            _blendMode = value;
+            if (previous != needsDisplayObject)
+                invalidateDisplayObjectSharing();
+        
+            blendModeExplicitlySet = true;
+            blendModeChanged = true;
+            invalidateProperties();   
+        }
     }
 
     //----------------------------------
@@ -2840,7 +2874,7 @@ public class GraphicElement extends EventDispatcher
     {
         var result:Boolean = (alwaysCreateDisplayObject ||
         (_filters && _filters.length > 0) || 
-            blendMode != BlendMode.NORMAL || _mask ||
+            _blendMode != BlendMode.NORMAL || _mask ||
             (layoutFeatures != null && (layoutFeatures.layoutScaleX != 1 || layoutFeatures.layoutScaleY != 1 || layoutFeatures.layoutScaleZ != 1 ||
             layoutFeatures.layoutRotationX != 0 || layoutFeatures.layoutRotationY != 0 || layoutFeatures.layoutRotationZ != 0 ||
             layoutFeatures.layoutZ  != 0)) ||  
@@ -3354,7 +3388,12 @@ public class GraphicElement extends EventDispatcher
             if (blendModeChanged || displayObjectChanged)
             {
                 blendModeChanged = false;
-                displayObject.blendMode = blendMode;
+                if (_blendMode == "auto" && alpha < 1 && alpha > 0)
+                    displayObject.blendMode = BlendMode.LAYER;
+                else if (_blendMode == "auto" && alpha == 1 || alpha == 0)
+                    displayObject.blendMode = BlendMode.NORMAL;
+                else 
+                    displayObject.blendMode = _blendMode; 
             }
 
             if (filtersChanged || displayObjectChanged)
