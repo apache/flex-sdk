@@ -37,7 +37,7 @@ import flex.graphics.graphicsClasses.GraphicElement;
  *  A BitmapGraphic element defines a rectangular region in its parent element's 
  *  coordinate space, filled with bitmap data drawn from a source file.
  */
-public class BitmapGraphic extends GraphicElement implements IDisplayObjectElement
+public class BitmapGraphic extends GraphicElement
 {
 	include "../core/Version.as";
 
