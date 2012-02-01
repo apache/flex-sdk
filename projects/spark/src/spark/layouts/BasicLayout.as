@@ -15,6 +15,7 @@ package flex.layout
 import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 import flash.geom.Point;
+import flash.geom.Rectangle;
 
 import flex.core.Group;
 
@@ -137,6 +138,8 @@ public class BasicLayout implements ILayout
         layoutTarget.measuredHeight = Math.max(height, minHeight);
         layoutTarget.measuredMinWidth = minWidth;
         layoutTarget.measuredMinHeight = minHeight;
+        layoutTarget.contentWidth = layoutTarget.measuredWidth;
+        layoutTarget.contentHeight = layoutTarget.measuredHeight;
     }
 
     public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
@@ -206,6 +209,19 @@ public class BasicLayout implements ILayout
             // Set position
             layoutItem.setActualPosition(childX, childY);
         }
+        var r:Rectangle = layoutTarget.scrollRect;
+        if (r != null) 
+        {
+            r.width = unscaledWidth;
+            r.height = unscaledHeight;
+            layoutTarget.scrollRect = r;
+        }
+        else 
+        {
+        	var rx:Number = layoutTarget.horizontalScrollPosition;
+        	var ry:Number = layoutTarget.verticalScrollPosition;
+        	layoutTarget.scrollRect = new Rectangle(rx, ry, unscaledWidth, unscaledHeight);
+        } 
     }
 }
 
