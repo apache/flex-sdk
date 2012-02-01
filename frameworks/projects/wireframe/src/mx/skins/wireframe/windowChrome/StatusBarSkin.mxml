@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2009 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The Spark skin class for the Halo Windowed Application Status Bar border. 
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						xmlns:s="library://ns.adobe.com/flex/spark" 
+						
+						minHeight="21" minWidth="21">
+	
+	<!-- layer 0: control bar background -->
+	<s:Rect left="0" right="0" bottom="1" top="0" >
+		<s:fill>
+			<s:SolidColor color="0xE2EdF7" />
+		</s:fill>
+	</s:Rect>
+	
+	<s:Rect left="0" right="0" top="0" height="1">
+		<s:fill>
+			<s:SolidColor color="0xD1E0F2" />
+		</s:fill>
+	</s:Rect>
+	
+</s:Skin>
