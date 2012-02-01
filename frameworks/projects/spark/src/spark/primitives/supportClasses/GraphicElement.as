@@ -368,9 +368,9 @@ public class GraphicElement extends EventDispatcher
         var previous:Boolean = needsDisplayObject;
         _alpha = value;
         
-	// The product of _alpha and the designLayer's 
-	// alpha is the effectiveAlpha which is 
-	// committed in commitProperties() 
+    // The product of _alpha and the designLayer's 
+    // alpha is the effectiveAlpha which is 
+    // committed in commitProperties() 
         if (designLayer)
             value = value * designLayer.effectiveAlpha; 
 
@@ -3197,7 +3197,7 @@ public class GraphicElement extends EventDispatcher
             else if (_maskType == MaskType.LUMINOSITY)
             {
                 _mask.cacheAsBitmap = true;
-		drawnDisplayObject.cacheAsBitmap = true;
+                drawnDisplayObject.cacheAsBitmap = true;
                 
                 // Create the shader wrapper class which wraps the pixel bender filter 
                 var luminosityMaskShader:LuminosityMaskShader = new LuminosityMaskShader();
@@ -3627,21 +3627,28 @@ public class GraphicElement extends EventDispatcher
                 
                 if (_mask && _maskType == MaskType.LUMINOSITY && _mask.filters.length > 0)
                 {
-                    // Grab the shader filter and clear out the mask 
-                    var shaderFilter:ShaderFilter = _mask.filters[0];
-                    
-                    if (shaderFilter && (shaderFilter.shader is LuminosityMaskShader))
+                    // Grab the shader filter 
+                    var shaderFilterIndex:int; 
+                    var shaderFilter:ShaderFilter; 
+                    var len:int = _mask.filters.length; 
+                    for (shaderFilterIndex = 0; shaderFilterIndex < len; shaderFilterIndex++)
                     {
-                        // Clear out the mask's filters because we could potentially
-                        // have a rendering change by setting the mode dynamically 
-                        // while the filters have been set. 
-                        _mask.filters = []; 
-                        
+                        if (_mask.filters[shaderFilterIndex] is ShaderFilter && 
+                            ShaderFilter(_mask.filters[shaderFilterIndex]).shader is LuminosityMaskShader)
+                        {
+                            shaderFilter = _mask.filters[shaderFilterIndex];
+                            break; 
+                        }
+                    }
+                    
+                    if (shaderFilter)
+                    {
                         // Reset the mode property  
                         LuminosityMaskShader(shaderFilter.shader).mode = calculateLuminositySettings();
                         
                         // Re-apply the filter to the mask 
-                        _mask.filters = [shaderFilter];
+                        _mask.filters[shaderFilterIndex] = shaderFilter; 
+                        _mask.filters = _mask.filters; 
                     }
                 }
             }
