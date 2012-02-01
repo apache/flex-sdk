@@ -191,7 +191,7 @@
             }
             setContentSize(w, h);
 
-            // layout and sync the horizontal scrollbar
+            // layout the horizontal scrollbar
             var oldShowHSB:Boolean = false;
             if (hsb)
             {
@@ -200,15 +200,13 @@
             }
             if (showHSB)
             {
-	            hsb.pageSize = viewportW;
-	            hsb.maximum = (viewport) ? viewport.contentWidth - viewportW : 0;
 	            hsbLI.setActualPosition(0, h - hsbH);
 	            hsbLI.setActualSize(Math.max(hsbLI.minSize.x, viewportW), hsbH);
             }
             if (oldShowHSB != showHSB)
                 invalidateSize();
 
-            // layout and sync the vertical scrollbar
+            // layout the vertical scrollbar
             var oldShowVSB:Boolean = false;
             if (vsb)
             {
@@ -217,8 +215,6 @@
             }
             if (showVSB)
             {
-	            vsb.pageSize = viewportH;
-	            vsb.maximum = (viewport) ? viewport.contentHeight - viewportH : 0;
 	            vsbLI.setActualPosition(w - vsbW, 0);
 	            vsbLI.setActualSize(vsbW, Math.max(vsbLI.minSize.y, viewportH));
             }
