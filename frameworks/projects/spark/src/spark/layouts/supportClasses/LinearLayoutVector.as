@@ -718,7 +718,7 @@ public final class LinearLayoutVector
      * 
      *  If majorAxis is VERTICAL then majorSize corresponds to the 
      *  height of this ILayoutElement, and the minor sizes to the 
-     *  with and minWidth.
+     *  preferredBoundsWidth and minWidth.
      * 
      *  If majorAxis is HORIZONTAL, then the roles of the dimensions
      *  are reversed.
@@ -745,16 +745,23 @@ public final class LinearLayoutVector
         if (!elt || (index >= _length))
             return;
             
+        // The minorSize is the max of the perferredBoundsWidths, rather than
+        // the actual widths, because we do not want the contentWidth to track 
+        // the target's width, per horizontalAlign="contentJustify" or 
+        // "justify".  The majorAxis=HORIZONTAL case is similar.
+        
         if (majorAxis == VERTICAL)
         {
+            var w:Number = Math.min(elt.getPreferredBoundsWidth(), elt.getLayoutBoundsWidth());
             setMajorSize(index, elt.getLayoutBoundsHeight());
-            minorSize = Math.max(minorSize, elt.getLayoutBoundsWidth());
+            minorSize = Math.max(minorSize, w);
             minMinorSize = Math.max(minMinorSize, elt.getMinBoundsWidth());
         }
         else
         {
+            var h:Number = Math.min(elt.getPreferredBoundsHeight(), elt.getLayoutBoundsHeight());
             setMajorSize(index, elt.getLayoutBoundsWidth());            
-            minorSize = Math.max(minorSize, elt.getLayoutBoundsHeight());
+            minorSize = Math.max(minorSize, h);
             minMinorSize = Math.max(minMinorSize, elt.getMinBoundsHeight());
         }
     }
