@@ -12,7 +12,6 @@ package flex.effects.effectClasses
 {
 import flash.events.Event;
 
-import flex.component.Panel;
 import flex.effects.PropertyValuesHolder;
 import flex.graphics.IGraphicElement;
 
