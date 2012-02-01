@@ -38,7 +38,7 @@
          <s:State name="selectedDisabled" stateGroups="disabledStates, selectedStates" />
      </s:states>
      
-     <s:Group width="13" height="13">
+     <s:Group width="13" height="13" layoutDirection="ltr">
          
          <!-- background -->
          <s:Rect left="0" right="0" minWidth="12" top="0" bottom="0" minHeight="12">
