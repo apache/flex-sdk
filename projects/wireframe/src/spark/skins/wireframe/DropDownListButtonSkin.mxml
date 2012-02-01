@@ -48,7 +48,7 @@
             <s:SolidColorStroke color="#707070" />
         </s:stroke>
         <s:fill>
-            <s:SolidColor color="#FFFFFF" color.over="#EEEEEE" color.down="#EEEEEE" />
+            <s:SolidColor color="#BABABA" color.up="#EEEEEE" color.over="#DDDDDD" color.down="#DDDDDD" />
         </s:fill>
     </s:Rect>
 
@@ -71,13 +71,6 @@
     <s:Rect right="1" top="2" bottom="1" width="1" includeIn="down">
         <s:fill>
             <s:SolidColor color="#5C5C5C" alpha="0.07" />
-        </s:fill>
-    </s:Rect>
-
-    <!-- divider line -->
-    <s:Rect right="18" top="1" bottom="1" width="1">
-        <s:fill>
-             <s:SolidColor color="#707070" />
         </s:fill>
     </s:Rect>
 
