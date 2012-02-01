@@ -22,6 +22,7 @@ import flash.display.Shape;
 
 import mx.core.mx_internal;
 import mx.graphics.IStroke;
+import mx.core.TransformOffset;
 
 use namespace mx_internal;
 
@@ -426,6 +427,12 @@ public class Path extends FilledElement
         super.scaleY = value;
         _userScaleY = value;        
     }
+    private function setActualScale(sX:Number,sY:Number):void
+    {
+		xformOffsets.layoutScaleX = sX;
+		xformOffsets.layoutScaleY = sY;
+		invalidateTransform(false,false);
+    }
 
     /**
      * @inheritDoc
@@ -507,13 +514,13 @@ public class Path extends FilledElement
 
     override protected function computeMatrix(actualMatrix:Boolean):Matrix
     {
-        var tmpScaleX:Number = actualMatrix ? _scaleX : _userScaleX;
-        var tmpScaleY:Number = actualMatrix ? _scaleY : _userScaleY;
+        var tmpScaleX:Number = actualMatrix ? super.scaleX : _userScaleX;
+        var tmpScaleY:Number = actualMatrix ? super.scaleY : _userScaleY;
 
         if (tmpScaleX == 1 && tmpScaleY == 1 && rotation == 0)
             return null;
 
-        return TransformUtil.composeMatrix(0, 0, tmpScaleX, tmpScaleY,
+        return TransformUtil.composeMatrix(x, y, tmpScaleX, tmpScaleY,
                                            rotation, transformX, transformY);
     }
 
@@ -556,8 +563,7 @@ public class Path extends FilledElement
     override public function setActualSize(width:Number = Number.NaN, height:Number = Number.NaN):Point
     {
         // Reset scale
-        _scaleX = _userScaleX;
-        _scaleY = _userScaleY;
+        setActualScale(_userScaleX,_userScaleY);
 
         // TODO EGeorgie: arbitrary 2d transforms for paths
         if (isNaN(width))
@@ -590,98 +596,91 @@ public class Path extends FilledElement
         var stroke:IStroke = getStroke();
         if (!stroke)
         {
-            _scaleX = w / bw;
-            _scaleY = h / bh;   
+            setActualScale(w / bw,  h / bh);	
         }
         else if (stroke.weight == 0 )
         {
-            _scaleX = (w - 1) / bw;
-            _scaleY = (h - 1) / bh;
+            setActualScale( (w - 1) / bw, (h - 1) / bh);
         }
         else if(stroke.scaleMode != LineScaleMode.NORMAL)
         {
-            var strokeWeight:Number = stroke.weight;
-            if (stroke.scaleMode == LineScaleMode.HORIZONTAL)
-            {
-                _scaleX = w / (bw + strokeWeight);
-                _scaleY = (h - strokeWeight) / bh;
+        	var strokeWeight:Number = stroke.weight;
+        	if (stroke.scaleMode == LineScaleMode.HORIZONTAL)
+        	{
+        		setActualScale(w / (bw + strokeWeight),(h - strokeWeight) / bh);
             }
             else if(stroke.scaleMode == LineScaleMode.VERTICAL)
             {
-                _scaleX = (w - strokeWeight) / bw;
-                _scaleY = h / (bh + strokeWeight);              
-            }
-            else // LineScaleMode.NONE
-            {
-                _scaleX = (w - strokeWeight) / bw;
-                _scaleY = (h - strokeWeight) / bh;
-            }
+                setActualScale((w - strokeWeight) / bw,h / (bh + strokeWeight));        		
+        	}
+        	else // LineScaleMode.NONE
+        	{
+        		setActualScale((w - strokeWeight) / bw,(h - strokeWeight) / bh);
+        	}
         }
         else
         {
-            var t:Number = stroke.weight;
-            t = t * t / 2;
-            var t1:Number = t / ( bw * bw);
-    
-            // TODO EGeorige: the following equations don't 
-            // account for skew components of the matrix.
-            // Also, this can be greatly optimized.            
-    
-            // (1) w = bw * x + sqrt( x^2 * t + y^2 * t)
-            // (2) h = bh * y + sqrt( x^2 * t + y^2 * t)
-            // (1) - (2):
-            // w - h = bw * x - bh * y
-            // x = ( w - h + bh * y ) / bw
-            // substitute back in (2):
-            // h - bh * y = sqrt( (w - h + bh * y )^2 * t / bw^2 + y^2 * t )
-            // h^2 - 2*h*bh*y +bh^2 * y^2 = ((w - h)^2 + 2 * (w-h) * bh * y + bh^2 * y^2 ) * t / bw^2 + y^2 * t
-            // bh^2 * y^2 - 2*h*bh*y  + h ^2 = t1 * (w - h)^2 + 2 * t1 * (w-h) * bh * y + t1 * bh^2 * y^2 + t * y^2
-            // bh^2 * y^2 - 2*h*bh*y  + h^2 = t1*(w-h)^2 + 2*t1*(w-h)*bh* y + (t1*bh^2 + t)*y^2
-            // (bh^2 - t1*bh^2 - t) * y^2 -(2*h*bh +2*t1*(w-h)*bh) * y + (h^2 - t1*(w-h)^2) = 0 
-            
-            if( bw != 0 && bh != 0)
-            {
-                var A:Number = bh * bh - t1 * bh * bh - t;   
-                var B:Number = -2 *h * bh - 2 * t1 * (w-h) * bh;            
-                var C:Number = h * h - t1 * (w-h) * (w-h);                
-    
-                var D:Number = B * B - 4 * A * C;
-                if (D >= 0)
-                {
-                    var y1:Number = (-B + Math.sqrt(D)) / (2 * A);
-                    var y2:Number = (-B - Math.sqrt(D)) / (2 * A);
-                    
-                    var x1:Number = ( w - h + bh * y1 ) / bw;
-                    var x2:Number = ( w - h + bh * y2 ) / bw;
-                    
-                    if (Math.abs(h - bh * y1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5 &&
-                        Math.abs(w - bw * x1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5)
-                    {
-                        _scaleX = x1;
-                        _scaleY = y1;
-                    }
-                    else
-                    if (Math.abs(h - bh * y2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5 &&
-                        Math.abs(w - bw * x2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5)
-                    {
-                        _scaleX = x2;
-                        _scaleY = y2;
-                    }
-                }
-            }
+	        var t:Number = stroke.weight;
+	        t = t * t / 2;
+	        var t1:Number = t / ( bw * bw);
+	
+	        // TODO EGeorige: the following equations don't 
+	        // account for skew components of the matrix.
+	        // Also, this can be greatly optimized.            
+	
+	        // (1) w = bw * x + sqrt( x^2 * t + y^2 * t)
+	        // (2) h = bh * y + sqrt( x^2 * t + y^2 * t)
+	        // (1) - (2):
+	        // w - h = bw * x - bh * y
+	        // x = ( w - h + bh * y ) / bw
+	        // substitute back in (2):
+	        // h - bh * y = sqrt( (w - h + bh * y )^2 * t / bw^2 + y^2 * t )
+	        // h^2 - 2*h*bh*y +bh^2 * y^2 = ((w - h)^2 + 2 * (w-h) * bh * y + bh^2 * y^2 ) * t / bw^2 + y^2 * t
+	        // bh^2 * y^2 - 2*h*bh*y  + h ^2 = t1 * (w - h)^2 + 2 * t1 * (w-h) * bh * y + t1 * bh^2 * y^2 + t * y^2
+	        // bh^2 * y^2 - 2*h*bh*y  + h^2 = t1*(w-h)^2 + 2*t1*(w-h)*bh* y + (t1*bh^2 + t)*y^2
+	        // (bh^2 - t1*bh^2 - t) * y^2 -(2*h*bh +2*t1*(w-h)*bh) * y + (h^2 - t1*(w-h)^2) = 0 
+	        
+	        if( bw != 0 && bh != 0)
+	        {
+	            var A:Number = bh * bh - t1 * bh * bh - t;   
+	            var B:Number = -2 *h * bh - 2 * t1 * (w-h) * bh;            
+	            var C:Number = h * h - t1 * (w-h) * (w-h);                
+	
+	            var D:Number = B * B - 4 * A * C;
+	            if (D >= 0)
+	            {
+	                var y1:Number = (-B + Math.sqrt(D)) / (2 * A);
+	                var y2:Number = (-B - Math.sqrt(D)) / (2 * A);
+	                
+	                var x1:Number = ( w - h + bh * y1 ) / bw;
+	                var x2:Number = ( w - h + bh * y2 ) / bw;
+	                
+	                if (Math.abs(h - bh * y1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5 &&
+	                    Math.abs(w - bw * x1 - Math.sqrt(x1 * x1 * t + y1 * y1 * t)) < 0.5)
+	                {
+	                    setActualScale(x1,y1);
+	                }
+	                else
+	                if (Math.abs(h - bh * y2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5 &&
+	                    Math.abs(w - bw * x2 - Math.sqrt(x2 * x2 * t + y2 *y2 * t)) < 0.5)
+	                {
+	                    setActualScale(x2,y2);
+	                }
+	            }
+	        }
         }
 
-        if (_scaleX != lastActualScaleX || _scaleY != lastActualScaleY)
+        if (super.scaleX != lastActualScaleX || super.scaleY != lastActualScaleY)
         {
-            lastActualScaleX = _scaleX;
-            lastActualScaleY = _scaleY;
+            lastActualScaleX = super.scaleX;
+            lastActualScaleY = super.scaleY;
     
             invalidateDisplayList();
         }
 
         // TODO EGeorgie: move to commit properties
         // Finally, apply the transforms to the object
-        commitScaleAndRotation();
+        commitTransform();
 
         return actualSize;
     }
