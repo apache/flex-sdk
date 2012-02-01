@@ -25,8 +25,8 @@ package spark.skins.spark
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
     
-    import spark.components.supportClasses.SkinnableComponent;
     import spark.components.supportClasses.Skin;
+    import spark.components.supportClasses.SkinnableComponent;
     
     use namespace mx_internal;
     
@@ -175,7 +175,22 @@ package spark.skins.spark
             
             m.tx = borderWeight;
             m.ty = borderWeight;
-            bitmapData.draw(target as IBitmapDrawable, m);
+            
+            try
+            {
+                bitmapData.draw(target as IBitmapDrawable, m);
+            }
+            catch (e:SecurityError)
+            {
+                // If capture fails, substitute with a Rect
+                var fillRect:Rectangle
+                if (skin)
+                    fillRect = new Rectangle(skin.x, skin.y, skin.width, skin.height);
+                else
+                    fillRect = new Rectangle(target.x, target.y, target.width, target.height);
+                
+                bitmapData.fillRect(fillRect, 0);
+            }
             
             if (skin)
             {
