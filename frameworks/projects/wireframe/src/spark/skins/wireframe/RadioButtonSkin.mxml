@@ -61,7 +61,7 @@
     </s:Group>
 
     <!-- Label -->
-    <s:SimpleText id="labelElement"
+    <s:SimpleText id="labelDisplay"
              textAlign="start"
              verticalAlign="middle"
              truncation="1"
