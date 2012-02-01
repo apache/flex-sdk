@@ -1229,7 +1229,6 @@ public class VerticalLayout extends LayoutBase
         var totalPercentHeight:Number = 0;
         var childInfoArray:Array = [];
         var childInfo:LayoutElementFlexChildInfo;
-        var newWidth:Number;
         var layoutElement:ILayoutElement;
         
         // rowHeight can be expensive to compute
