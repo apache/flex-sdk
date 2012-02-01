@@ -55,7 +55,6 @@
 			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
 			<include-classes>SparkDmvClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
-			<source-path path-element="${basedir}/../spark/src"/>
 			<library-path />
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
 			<include name="player/${global.playerglobal.version}/playerglobal.swc"/>
