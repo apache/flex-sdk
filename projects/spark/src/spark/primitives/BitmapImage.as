@@ -206,6 +206,7 @@ public class BitmapImage extends GraphicElement
     private var previousUnscaledWidth:Number;
     private var previousUnscaledHeight:Number;
     private var sourceInvalid:Boolean;
+    private var loadFailed:Boolean;
 
     //----------------------------------
     //  bitmapData
@@ -754,6 +755,7 @@ public class BitmapImage extends GraphicElement
             
             _source = value;
             sourceInvalid = true;
+            loadFailed = false;
             invalidateProperties();
             dispatchEvent(new Event("sourceChanged"));
         }
@@ -930,8 +932,9 @@ public class BitmapImage extends GraphicElement
             // If we are loading new content we keep the old measured width/height to avoid
             // sizing to 0,0 for a frame unnecessarily. Otherwise we fall back to 0 unless
             // a preliminaryWidth/Height is set.
-            var previousWidth:Number = (_source == null || _source == "") ? 0 : measuredWidth;
-            var previousHeight:Number = (_source == null || _source == "") ? 0 : measuredHeight;
+            var usePreviousSize:Boolean = !(_source == null || _source == "" || loadFailed); 
+            var previousWidth:Number = usePreviousSize ? measuredWidth : 0;
+            var previousHeight:Number = usePreviousSize ? measuredHeight : 0;
             
             measuredWidth = !isNaN(_preliminaryWidth) && (previousWidth == 0) ? 
                 _preliminaryWidth : previousWidth;
@@ -1701,6 +1704,7 @@ public class BitmapImage extends GraphicElement
         // clear any current image and remove any event listeners from 
         // load-event  dispatcher.
         setBitmapData(null);
+        loadFailed = true;
     }
     
     /**
@@ -1713,6 +1717,7 @@ public class BitmapImage extends GraphicElement
         // clear any current image and remove any event listeners from 
         // load-event  dispatcher.
         setBitmapData(null);
+        loadFailed = true;
     }
     
     /**
@@ -1738,6 +1743,7 @@ public class BitmapImage extends GraphicElement
         // clear any current image and remove any event listeners from 
         // load-event  dispatcher.
         setBitmapData(null); 
+        loadFailed = true;
     }
 }  
 }
