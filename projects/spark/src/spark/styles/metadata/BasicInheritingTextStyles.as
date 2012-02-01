@@ -237,6 +237,9 @@
  * <p>The default value is undefined. This property inherits its value from an ancestor; if still undefined, it inherits from the global <code>locale</code> style. 
  * During the application initialization, if the global <code>locale</code> style is undefined, then the default value is set to "en".</p>
  * 
+ * <p>When using the Spark formatters and globalization classes, you can set this style on the root application to the value of the <code>LocaleID.DEFAULT</code> constant. 
+ * Those classes will then use the client operating system's international preferences.</p>
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
