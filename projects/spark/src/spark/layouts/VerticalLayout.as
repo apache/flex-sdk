@@ -1187,6 +1187,13 @@ public class VerticalLayout extends LayoutBase
             measureVirtual(layoutTarget);
         else 
             measureReal(layoutTarget);
+            
+        // Use Math.ceil() to make sure that if the content partially occupies
+        // the last pixel, we'll count it as if the whole pixel is occupied.
+        layoutTarget.measuredWidth = Math.ceil(layoutTarget.measuredWidth);    
+        layoutTarget.measuredHeight = Math.ceil(layoutTarget.measuredHeight);    
+        layoutTarget.measuredMinWidth = Math.ceil(layoutTarget.measuredMinWidth);    
+        layoutTarget.measuredMinHeight = Math.ceil(layoutTarget.measuredMinHeight);    
     }
     
     /**
@@ -1467,7 +1474,11 @@ public class VerticalLayout extends LayoutBase
 
         setRowCount(index - startIndex);
         setIndexInView(startIndex, endIndex);
-        layoutTarget.setContentSize(contentWidth + paddingLeft + paddingRight, llv.end(llv.length - 1) + paddingBottom);
+        
+        // Make sure that if the content spans partially over a pixel to the right/bottom,
+        // the content size includes the whole pixel.
+        layoutTarget.setContentSize(Math.ceil(contentWidth + paddingLeft + paddingRight),
+                                    Math.ceil(llv.end(llv.length - 1) + paddingBottom));
     }
     
 
@@ -1570,7 +1581,11 @@ public class VerticalLayout extends LayoutBase
         
         setRowCount(visibleRows);
         setIndexInView(firstRowInView, lastRowInView);
-        layoutTarget.setContentSize(maxX + paddingRight, maxY + paddingBottom);
+        
+        // Make sure that if the content spans partially over a pixel to the right/bottom,
+        // the content size includes the whole pixel.
+        layoutTarget.setContentSize(Math.ceil(maxX + paddingRight),
+                                    Math.ceil(maxY + paddingBottom));
     }
     
     /**
@@ -1677,7 +1692,8 @@ public class VerticalLayout extends LayoutBase
             setRowCount(0);
             setIndexInView(-1, -1);
             if (layoutTarget.numElements == 0)
-                layoutTarget.setContentSize(paddingLeft + paddingRight, paddingTop + paddingBottom);
+                layoutTarget.setContentSize(Math.ceil(paddingLeft + paddingRight),
+                                            Math.ceil(paddingTop + paddingBottom));
             return;         
         }
         
