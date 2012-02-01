@@ -11,11 +11,17 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009"> 
+<Skin xmlns="http://ns.adobe.com/mxml/2009"
+	  alpha.disabled="0.5" blendMode.disabled="layer"> 
 	
     <Metadata>
     	[HostComponent("flex.component.List")]
     </Metadata> 
+    
+    <states>
+    	<State name="normal" />
+    	<State name="disabled" />
+    </states>
     
     <DataGroup id="dataGroup" left="0" top="0" right="0" bottom="0">
     	<layout>
