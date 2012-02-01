@@ -92,7 +92,7 @@ public class GridEvent extends MouseEvent
      *
      *  @eventType gridMouseDown
      * 
-     *  @see flash.display.InteractiveObject.mouseDown
+     *  @see flash.display.InteractiveObject#event:mouseDown
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -174,7 +174,7 @@ public class GridEvent extends MouseEvent
      *
      *  @eventType gridMouseUp
      * 
-     *  @see flash.display.InteractiveObject.mouseUp
+     *  @see flash.display.InteractiveObject#event:mouseUp
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -215,7 +215,7 @@ public class GridEvent extends MouseEvent
      *
      *  @eventType gridClick
      * 
-     *  @see flash.display.InteractiveObject.click
+     *  @see flash.display.InteractiveObject#event:click
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -256,7 +256,7 @@ public class GridEvent extends MouseEvent
      *
      *  @eventType gridDoubleClick
      * 
-     *  @see flash.display.InteractiveObject.doubleClick
+     *  @see flash.display.InteractiveObject#event:doubleClick
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -297,7 +297,7 @@ public class GridEvent extends MouseEvent
      *
      *  @eventType gridRollOver
      * 
-     *  @see flash.display.InteractiveObject.rollOver
+     *  @see flash.display.InteractiveObject#event:rollOver
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -338,7 +338,7 @@ public class GridEvent extends MouseEvent
      *
      *  @eventType gridRollOut
      * 
-     *  @see flash.display.InteractiveObject.rollOut
+     *  @see flash.display.InteractiveObject#event:rollOut
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -496,7 +496,7 @@ public class GridEvent extends MouseEvent
      *
      *  @eventType separatorMouseDown
      * 
-     *  @see flash.display.InteractiveObject.rollOut
+     *  @see flash.display.InteractiveObject#event:rollOut
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -537,7 +537,7 @@ public class GridEvent extends MouseEvent
      *
      *  @eventType separatorMouseUp
      * 
-     *  @see flash.display.InteractiveObject.rollOut
+     *  @see flash.display.InteractiveObject#event:rollOut
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
