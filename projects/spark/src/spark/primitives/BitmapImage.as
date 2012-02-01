@@ -13,23 +13,13 @@ package mx.graphics
 {
 import flash.display.Bitmap;
 import flash.display.BitmapData;
-import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
-import flash.display.Shape;
 import flash.display.Sprite;
-import flash.events.Event;
-import flash.events.EventDispatcher;
 import flash.geom.Matrix;
+import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.geom.Transform;
 import flash.utils.getDefinitionByName;
-
-import mx.core.mx_internal;
-import mx.events.PropertyChangeEvent;
-import mx.filters.BaseFilter;
-import mx.filters.IBitmapFilter;
-import mx.graphics.BitmapFill;
 
 import mx.graphics.graphicsClasses.GraphicElement;
 
@@ -55,17 +45,25 @@ public class BitmapGraphic extends GraphicElement
     public function BitmapGraphic()
     {
         super();
-        
-        _fill = new BitmapFill();
     }
-    
-    private var _fill:BitmapFill;
     
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    private var _scaleGridBottom:Number;
+    private var _scaleGridLeft:Number;
+    private var _scaleGridRight:Number;
+    private var _scaleGridTop:Number;
+    
+    private static var matrix:Matrix = new Matrix();  
+    private var cachedSourceGrid:Array;
+    private var cachedDestGrid:Array;
+    
+    private var previousUnscaledWidth:Number;
+    private var previousUnscaledHeight:Number;
     
     //----------------------------------
     //  resizeMode
@@ -196,6 +194,8 @@ public class BitmapGraphic extends GraphicElement
     //  source
     //----------------------------------
 
+	private var _source:Object;
+
     [Inspectable(category="General")]
 
     /**
@@ -231,7 +231,7 @@ public class BitmapGraphic extends GraphicElement
      */
     public function get source():Object
     {
-        return _fill.source;
+        return _source;
     }
     
     /**
@@ -239,10 +239,16 @@ public class BitmapGraphic extends GraphicElement
      */
     public function set source(value:Object):void
     {        
-        if (value != _fill.source)
+        if (value != _source)
         {
             var bitmapData:BitmapData;
             var tmpSprite:DisplayObject;
+            
+            // Clear the previous scaleGrid properties
+            _scaleGridLeft = NaN;
+            _scaleGridRight = NaN;
+            _scaleGridTop = NaN;
+            _scaleGridBottom = NaN;
             
             // This code stolen from BitmapFill. The only change is to make the BitmapData transparent.
             if (value is Class)
@@ -276,9 +282,22 @@ public class BitmapGraphic extends GraphicElement
             {
                 bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height, true, 0);
                 bitmapData.draw(tmpSprite, new Matrix());
+                
+                if (tmpSprite.scale9Grid)
+                {
+	                _scaleGridLeft = tmpSprite.scale9Grid.left;
+	                _scaleGridRight = tmpSprite.scale9Grid.right;
+	                _scaleGridTop = tmpSprite.scale9Grid.top;
+	                _scaleGridBottom = tmpSprite.scale9Grid.bottom;
+                }
             }       
             
-            _fill.source = bitmapData;
+            _source = bitmapData;
+            
+            // Flush the cached scale grid points
+            cachedSourceGrid = null;
+            cachedDestGrid = null;
+            
             invalidateSize();
             invalidateDisplayList();
         }
@@ -309,10 +328,10 @@ public class BitmapGraphic extends GraphicElement
     /**
      *  @private
      */
-    public function get  smooth():Boolean
+    public function get smooth():Boolean
     {
         return _smooth;
-    }
+    } 
     
     //--------------------------------------------------------------------------
     //
@@ -345,54 +364,117 @@ public class BitmapGraphic extends GraphicElement
 		// sharing a display object. 
 		if (displayObject)
 			g.clear();
-        
+         
         g.lineStyle();
-        _fill.x = drawX;
-        _fill.y = drawY;
-        _fill.smooth = smooth;
-        _fill.repeat = false;
-        _fill.scaleX = 1;
-        _fill.scaleY = 1;
-        var fillWidth:Number;
-        var fillHeight:Number;
+        var repeatBitmap:Boolean = false;
+        var fillScaleX:Number = 1;
+        var fillScaleY:Number = 1;
     
         switch(_resizeMode)
         {
-            case _NORMAL_UINT:
-                fillWidth = Math.min(unscaledWidth, source.width);
-                fillHeight = Math.min(unscaledHeight, source.height);
-            break;
-
             case _REPEAT_UINT:
                 if (source)
                 {
-                    _fill.repeat = true;
-                    fillWidth = unscaledWidth;
-                    fillHeight = unscaledHeight;
+                    repeatBitmap = true;
                 }    
             break;
 
             case _SCALE_UINT:
                 if (source)
                 {
-                    _fill.scaleX = unscaledWidth / source.width;
-                    _fill.scaleY = unscaledHeight / source.height;
-                    fillWidth = source.width;
-                    fillHeight = source.height;
+                    fillScaleX = unscaledWidth / source.width;
+                    fillScaleY = unscaledHeight / source.height;
                 }
             break;
         }
 
-        _fill.begin(g, new Rectangle(0, 0, fillWidth, fillHeight));
-        g.drawRect(drawX, drawY, unscaledWidth, unscaledHeight);
-        _fill.end(g);
+		// If no scaleGrid is defined or if resizeMode != SCALE, just draw the entire rect
+		if (_resizeMode != _SCALE_UINT ||
+			isNaN(_scaleGridTop) ||
+			isNaN(_scaleGridBottom) ||
+			isNaN(_scaleGridLeft) ||
+			isNaN(_scaleGridRight))
+		{
+			matrix.identity();
+			matrix.scale(fillScaleX, fillScaleY);
+			matrix.translate(drawX, drawY);
+	        g.beginBitmapFill(_source as BitmapData, matrix, repeatBitmap, smooth);
+	        g.drawRect(drawX, drawY, unscaledWidth, unscaledHeight);
+	        g.endFill();
+		}
+		else
+		{   
+			
+			// If we have scaleGrid, we draw 9 sections, each with a different scale factor based 
+			// on the grid region.
+			
+			if (cachedSourceGrid == null)
+			{
+				// Generate the 16 points of the source (unscaled) grid
+				cachedSourceGrid = [];
+				cachedSourceGrid.push([new Point(0, 0), new Point(_scaleGridLeft, 0), 
+							    new Point(_scaleGridRight, 0), new Point(_source.width, 0)]);
+				cachedSourceGrid.push([new Point(0, _scaleGridTop), new Point(_scaleGridLeft, _scaleGridTop), 
+							    new Point(_scaleGridRight, _scaleGridTop), new Point(_source.width, _scaleGridTop)]);
+				cachedSourceGrid.push([new Point(0, _scaleGridBottom), new Point(_scaleGridLeft, _scaleGridBottom), 
+							    new Point(_scaleGridRight, _scaleGridBottom), new Point(_source.width, _scaleGridBottom)]);
+				cachedSourceGrid.push([new Point(0, _source.height), new Point(_scaleGridLeft, _source.height), 
+								new Point(_scaleGridRight, _source.height), new Point(_source.width, _source.height)]);						    
+			}
+			
+			if (cachedDestGrid == null || 
+				previousUnscaledWidth != unscaledWidth || 
+				previousUnscaledHeight != unscaledHeight)
+			{
+				// Generate teh 16 points of the destination (scaled) grid
+				var destScaleGridBottom:Number = unscaledHeight - (_source.height - _scaleGridBottom);
+				var destScaleGridRight:Number = unscaledWidth - (_source.width - _scaleGridRight);	    
+				cachedDestGrid = [];
+				cachedDestGrid.push([new Point(0, 0), new Point(_scaleGridLeft, 0), 
+							    new Point(destScaleGridRight, 0), new Point(unscaledWidth, 0)]);
+				cachedDestGrid.push([new Point(0, _scaleGridTop), new Point(_scaleGridLeft, _scaleGridTop), 
+							    new Point(destScaleGridRight, _scaleGridTop), new Point(unscaledWidth, _scaleGridTop)]);
+				cachedDestGrid.push([new Point(0, destScaleGridBottom), new Point(_scaleGridLeft, destScaleGridBottom), 
+							    new Point(destScaleGridRight, destScaleGridBottom), new Point(unscaledWidth, destScaleGridBottom)]);
+				cachedDestGrid.push([new Point(0, unscaledHeight), new Point(_scaleGridLeft, unscaledHeight), 
+							   new Point(destScaleGridRight, unscaledHeight), new Point(unscaledWidth, unscaledHeight)]);				  	  
+			}			    				    			    
+
+	        var sourceSection:Rectangle = new Rectangle();
+	        var destSection:Rectangle = new Rectangle();
+	        
+	        // Iterate over the columns and rows. We draw each of the nine sections at a calculated
+	        // scale and translation.        
+        	for (var rowIndex:int=0; rowIndex < 3; rowIndex++) 
+        	{
+	        	for (var colIndex:int = 0; colIndex < 3; colIndex++) 
+	        	{	
+	                // Create the source and destination rectangles for the current section
+	                sourceSection.topLeft = cachedSourceGrid[rowIndex][colIndex];
+	                sourceSection.bottomRight = cachedSourceGrid[rowIndex+1][colIndex+1];
+	                
+	                destSection.topLeft = cachedDestGrid[rowIndex][colIndex];
+	                destSection.bottomRight = cachedDestGrid[rowIndex+1][colIndex+1];
+	                
+	                matrix.identity();
+	                // Scale the bitmap by the ratio between the source and destination dimensions
+	                matrix.scale(destSection.width / sourceSection.width, destSection.height / sourceSection.height);
+	                // Translate based on the difference between the source and destination coordinates,
+	                // making sure to account for the new scale.
+	                matrix.translate(destSection.x - sourceSection.x * matrix.a, destSection.y - sourceSection.y * matrix.d);
+	                matrix.translate(drawX, drawY);
+	                
+	                // Draw the bitmap for the current section
+	                g.beginBitmapFill(_source as BitmapData, matrix);
+	                g.drawRect(destSection.x + drawX, destSection.y + drawY, destSection.width, destSection.height);
+	                g.endFill();
+	             }
+	        }
+  		}
+  		
+  		previousUnscaledWidth = unscaledWidth;
+  		previousUnscaledHeight = unscaledHeight;
     }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  IAssignableDisplayObject Implementation
-    //
-    //--------------------------------------------------------------------------
 
 }
 
