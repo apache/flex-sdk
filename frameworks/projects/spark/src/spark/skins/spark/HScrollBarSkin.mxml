@@ -25,11 +25,11 @@
     </states>
     
     <FxButton id="track" left="16" right="15"
-              skinZZ="mx.skins.spark.FxHScrollBarTrackSkin" />
-    <FxButton id="thumb" skinZZ="mx.skins.spark.FxHScrollBarThumbSkin" />
+              skinClass="mx.skins.spark.FxHScrollBarTrackSkin" />
+    <FxButton id="thumb" skinClass="mx.skins.spark.FxHScrollBarThumbSkin" />
     <FxButton id="decrementButton" left="0"
-              skinZZ="mx.skins.spark.FxScrollBarLeftButtonSkin" />
+              skinClass="mx.skins.spark.FxScrollBarLeftButtonSkin" />
     <FxButton id="incrementButton" right="0"
-              skinZZ="mx.skins.spark.FxScrollBarRightButtonSkin" />
+              skinClass="mx.skins.spark.FxScrollBarRightButtonSkin" />
 
 </Skin>
