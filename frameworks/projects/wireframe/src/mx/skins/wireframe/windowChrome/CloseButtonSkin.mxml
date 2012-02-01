@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+ADOBE SYSTEMS INCORPORATED
+Copyright 2009 Adobe Systems Incorporated
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file
+in accordance with the terms of the license agreement accompanying it.
+
+-->
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009"
+						xmlns:s="library://ns.adobe.com/flex/spark" 
+						>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="up" />
+		<s:State name="over" />
+		<s:State name="down" />
+		<s:State name="disabled" />
+	</s:states>
+	
+	<!-- background -->
+	<s:Rect left="0" right="0" top="0" bottom="0" width="16" height="16" radiusX="2" radiusY="2">
+		<s:stroke>
+			<s:SolidColorStroke color="0x5380D0"/>
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor color="0xFFFFFF" color.over="0xEBF4FF" color.down="0xDEEBFF"/>
+		</s:fill>
+	</s:Rect>
+	
+	<!-- shadow (down state only) -->
+	<s:Rect left="2" top="1" right="2" height="1" includeIn="down">
+		<s:fill>
+			<s:SolidColor color="0x5380D0" alpha="0.25" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect left="1" top="2" right="1" height="1" includeIn="down">
+		<s:fill>
+			<s:SolidColor color="0x5380D0" alpha="0.07" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect left="1" top="2" bottom="1" width="1" includeIn="down">
+		<s:fill>
+			<s:SolidColor color="0x5380D0" alpha="0.07" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect right="1" top="2" bottom="1" width="1" includeIn="down">
+		<s:fill>
+			<s:SolidColor color="0x5380D0" alpha="0.07" />
+		</s:fill>
+	</s:Rect>
+	
+	<s:Path id="icon" verticalCenter="0" horizontalCenter="0" winding="nonZero" width="7" height="7" data="M6.36426 4.95117L4.59668 3.18359 6.36475 1.41504 4.9502 0 3.18213 1.76855 1.41455 0.000976562 0.000488281 1.41504 1.76807 3.18262 0 4.95117 1.41455 6.36523 3.18262 4.59766 4.9502 6.36523 6.36426 4.95117Z" >
+		<s:fill>
+			<s:SolidColor color="0x5581D1"/>
+		</s:fill>
+	</s:Path>
+	
+</s:Skin>
