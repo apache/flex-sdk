@@ -27,7 +27,7 @@
 
     <!-- host component -->
     <fx:Metadata>
-        [HostComponent("spark.components.VideoPlayer2")]
+        [HostComponent("spark.components.VideoPlayer")]
     </fx:Metadata>
     
     <fx:Script fb:purpose="styling">
