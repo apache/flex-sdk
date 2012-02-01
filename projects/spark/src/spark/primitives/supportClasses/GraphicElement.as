@@ -3687,16 +3687,16 @@ public class GraphicElement extends EventDispatcher
      */
     public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
+        var strokeExtents:Rectangle = getStrokeExtents(postLayoutTransform);
         var m:Matrix = getComplexMatrix(postLayoutTransform); 
         if (!m)
-            return strokeExtents.x * -0.5 + this.measuredX + this.x;
+            return strokeExtents.left + this.measuredX + this.x;
 
         if (!isNaN(width))
-            width -= strokeExtents.x;
+            width -= strokeExtents.width;
 
         if (!isNaN(height))
-            height -= strokeExtents.y;
+            height -= strokeExtents.height;
 
         // Calculate the width and height pre-transform:
         var newSize:Point = MatrixUtil.fitBounds(width, height, m,
@@ -3709,7 +3709,7 @@ public class GraphicElement extends EventDispatcher
 
         var topLeft:Point = new Point(measuredX, measuredY);
         MatrixUtil.transformBounds(newSize, m, topLeft);
-        return strokeExtents.x * -0.5 + topLeft.x;
+        return strokeExtents.left + topLeft.x;
     }
     
     /**
@@ -3722,16 +3722,16 @@ public class GraphicElement extends EventDispatcher
      */
     public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
-        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
+        var strokeExtents:Rectangle = getStrokeExtents(postLayoutTransform);
         var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
-            return strokeExtents.y * -0.5 + this.measuredY + this.y;
+            return strokeExtents.top + this.measuredY + this.y;
 
         if (!isNaN(width))
-            width -= strokeExtents.x;
+            width -= strokeExtents.width;
 
         if (!isNaN(height))
-            height -= strokeExtents.y;
+            height -= strokeExtents.height;
 
         // Calculate the width and height pre-transform:
         var newSize:Point = MatrixUtil.fitBounds(width, height, m,
@@ -3744,7 +3744,7 @@ public class GraphicElement extends EventDispatcher
 
         var topLeft:Point = new Point(measuredX, measuredY);
         MatrixUtil.transformBounds(newSize, m, topLeft);
-        return strokeExtents.y * -0.5 + topLeft.y;
+        return strokeExtents.top + topLeft.y;
     }
 
     /**
@@ -3758,9 +3758,7 @@ public class GraphicElement extends EventDispatcher
     public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
         // Take stroke into account:
-        // FIXME (egeorgie): We assume that the stroke extents are even on both sides.
-        // and that's not necessarily true.
-        var stroke:Number = -getStrokeExtents(postLayoutTransform).x * 0.5;
+        var stroke:Number = getStrokeExtents(postLayoutTransform).left;
 
         var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
@@ -3782,9 +3780,7 @@ public class GraphicElement extends EventDispatcher
     public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
     {
         // Take stroke into account:
-        // FIXME (egeorgie): We assume that the stroke extents are even on both sides.
-        // and that's not necessarily true.
-        var stroke:Number = -getStrokeExtents(postLayoutTransform).y * 0.5;
+        var stroke:Number = getStrokeExtents(postLayoutTransform).top;
 
         var m:Matrix = getComplexMatrix(postLayoutTransform);
         if (!m)
@@ -3845,8 +3841,7 @@ public class GraphicElement extends EventDispatcher
                                              layoutFeatures.layoutMatrix).x;
 
         // Take stroke into account
-        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
-        width += strokeExtents.x;
+        width += getStrokeExtents(postLayoutTransform).width;
         return width;
     }
 
@@ -3874,8 +3869,7 @@ public class GraphicElement extends EventDispatcher
                                               layoutFeatures.layoutMatrix).y;
 
         // Take stroke into account
-        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
-        height += strokeExtents.y;
+        height += getStrokeExtents(postLayoutTransform).height;
         return height;
     }
 
@@ -3949,13 +3943,15 @@ public class GraphicElement extends EventDispatcher
                                         height:Number,
                                         postLayoutTransform:Boolean = true):void
     {
-        var strokeExtents:Point = getStrokeExtents(postLayoutTransform);
-        if (!isNaN(width))
-           width -= strokeExtents.x;
+		if (!isNaN(width) || !isNaN(height))
+		{
+	        var strokeExtents:Rectangle = getStrokeExtents(postLayoutTransform);
 
-        if (!isNaN(height))
-           height -= strokeExtents.y;
-
+			if (!isNaN(width))
+	           width -= strokeExtents.width;
+	        if (!isNaN(height))
+	           height -= strokeExtents.height;
+		}
 
         // Calculate the width and height pre-transform:
         var m:Matrix;
@@ -4129,22 +4125,31 @@ public class GraphicElement extends EventDispatcher
         return performCheck && hasComplexLayoutMatrix ? layoutFeatures.layoutMatrix : null;
     }
 
-    static private var _strokeExtents:Point = new Point();
+    static mx_internal var _strokeExtents:Rectangle = new Rectangle();
 
-    // FIXME (egeorgie): return rectangle instead so that the function can
-    // correctly indicate the left, right, top and bottom extents. Right
-    // now we assume they are the same on both sides.
     /**
-     *  TODO 
-     *   
+     *  Returns the amount of pixels occupied by the stroke on each side
+	 *  of the element's bounds.
+	 * 
+	 *  @param postLayoutTransform - if true, the stroke extents are calculated
+	 *  in parent coordinate space (after applying the element's transformations).
+	 * 
+	 *  @return Rectangle of the stroke extents. The rectangle's <code>left</code>,
+	 *  <code>right</code>, <code>top</code> and <code>bottom</code> properties
+	 *  represent the stroke extent for the respective side of the element's
+	 *  bounding box.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    // FIXME (egeorgie) : Needs ASDoc FLEXDOCS-1032
-    protected function getStrokeExtents(postLayoutTransform:Boolean = true):Point
+    protected function getStrokeExtents(postLayoutTransform:Boolean = true):Rectangle
     {
+        _strokeExtents.x = 0;
+        _strokeExtents.y = 0;
+        _strokeExtents.width = 0;
+        _strokeExtents.height = 0;
         return _strokeExtents;
     }
 
