@@ -57,7 +57,9 @@
     <!-- border --> 
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:stroke>
-            <s:SolidColorStroke color="0x686868" weight="1"/>            
+            <s:SolidColorStroke color="{getStyle('borderColor')}" 
+                                alpha="{getStyle('borderAlpha')}" 
+                                weight="1"/>            
         </s:stroke>
     </s:Rect>
 
@@ -81,9 +83,7 @@
     <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" minViewportInset="1">
         <s:RichEditableText id="textDisplay"
                   heightInLines="10"
-                  widthInChars="15"
-                  paddingLeft="3" paddingTop="5"
-                  paddingRight="3" paddingBottom="3"/>
+                  widthInChars="15" />
     </s:Scroller>
 
 </s:SparkSkin>
