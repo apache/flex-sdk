@@ -43,6 +43,9 @@ package spark.layouts
             super();
         }
         
+        /**
+         *  @private
+         */
         private var colsMaxWidth:Vector.<Number>;
         
         //--------------------------------------------------------------------------
@@ -56,7 +59,33 @@ package spark.layouts
          */
         override public function measure():void
         {
+            super.measure();
             
+            const layoutTarget:GroupBase = target;
+            if (!layoutTarget)
+                return;
+
+            getColumnWidthsMax();
+            
+            var formWidth:Number = getColumnWidthsSum();
+            
+            // use measured column widths to set Form's measuredWidth
+            layoutTarget.measuredWidth = Math.max(formWidth, layoutTarget.measuredWidth);
+            layoutTarget.measuredMinWidth = Math.max(formWidth, layoutTarget.measuredMinWidth);
+        }
+        
+        /**
+         *  @private
+         */
+        override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        {
+            // TODO add logic for getting measuredWidths again
+            
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+            
+            getColumnWidthsMax();
+            
+            var eltWidth:Number = getColumnWidthsSum();
             
             var layout:LayoutBase;
             var fiLayout:FormItemLayout;
@@ -70,12 +99,60 @@ package spark.layouts
             var formItem:IFormItem 
             var elt:IVisualElement
             
+            if (colsMaxWidth != null)
+            {
+                var eltHeight:Number;
+                
+                for(var i:int = 0; i < nElts; i++)
+                {
+                    elt = layoutTarget.getElementAt(i);
+                    
+                    if (elt is GroupBase)
+                        layout = GroupBase(elt).layout;
+                    else if (elt is FormItem)
+                        layout = FormItem(elt).skin["layout"];
+                    else if (elt is FormHeading)
+                        layout = FormHeading(elt).skin["layout"];
+                    else if (elt is SkinnableContainer)
+                        layout = SkinnableContainer(elt).layout;
+                    
+                    if (layout is FormItemLayout)
+                    {
+                        fiLayout = layout as FormItemLayout;
+                        fiLayout.setLayoutColumnWidths(colsMaxWidth);
+                        
+                        eltHeight = elt.getLayoutBoundsHeight(false);
+                        
+                        elt.setLayoutBoundsSize(eltWidth, eltHeight); 
+                    }
+                    
+                }
+            }
+        }
+        
+        //--------------------------------------------------------------------------
+        //
+        //  Methods
+        //
+        //--------------------------------------------------------------------------
+        
+        /**
+         *  @private
+         */
+        private function getColumnWidthsMax():void
+        { 
+            const layoutTarget:GroupBase = target;
+            
+            var layout:LayoutBase;
+            var fiLayout:FormItemLayout;
+                        
+            const nElts:int = layoutTarget.numElements;
+            var formItem:IFormItem 
+            var elt:IVisualElement
+            
             for(var i:int = 0; i < nElts; i++)
             {
                 elt = layoutTarget.getElementAt(i);
-                
-                
-                
                 if (elt is GroupBase)
                     layout = GroupBase(elt).layout;
                 else if (elt is FormItem)
@@ -84,8 +161,6 @@ package spark.layouts
                     layout = FormHeading(elt).skin["layout"];
                 else if (elt is SkinnableContainer)
                     layout = SkinnableContainer(elt).layout;
-                
-                
                 
                 if (layout is FormItemLayout)
                 {
@@ -106,79 +181,24 @@ package spark.layouts
                         colsMaxWidth[k] = Math.max(colsMaxWidth[k], cols[k]);
                     }
                 }
-                
-                
-                /*if (elt is IFormItem)
-                {
-                    formItem = IFormItem(elt);
-                    var cols:Vector.<Number> = formItem.measuredColumnWidths;
-                    
-                    if (colsMaxWidth == null)
-                    {
-                        colsMaxWidth = new Vector.<Number>();
-                        for (var j:int = 0; j < cols.length; j++)
-                            colsMaxWidth[j] = 0;
-                    }
-                    
-                    for (var k:int = 0; k < cols.length; k++)
-                    {
-                        colsMaxWidth[k] = Math.max(colsMaxWidth[k], cols[k]);
-                    }
-                    
-                }*/
             }
-            
-            
-            
-            super.measure();
-         }
+        }
         
-        override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        /**
+         *  @private
+         */
+        private function getColumnWidthsSum():Number
         {
-            super.updateDisplayList(unscaledWidth, unscaledHeight);
+            if (colsMaxWidth == null)
+                return 0;
             
-            var layout:LayoutBase;
-            var fiLayout:FormItemLayout;
-            
-            // Apply constraint columns before measuring
-            const layoutTarget:GroupBase = target;
-            if (!layoutTarget)
-                return;
-            
-            const nElts:int = layoutTarget.numElements;
-            var formItem:IFormItem 
-            var elt:IVisualElement
-            
-            if (colsMaxWidth != null)
+            var sum:Number = 0;
+            for (var i:int = 0; i < colsMaxWidth.length; i++)
             {
-                var columnMaxWidths:Vector.<Number> = colsMaxWidth.slice(0);
-                
-                for(var i:int = 0; i < nElts; i++)
-                {
-                    elt = layoutTarget.getElementAt(i);
-                    
-                    if (elt is GroupBase)
-                        layout = GroupBase(elt).layout;
-                    else if (elt is FormItem)
-                        layout = FormItem(elt).skin["layout"];
-                    else if (elt is FormHeading)
-                        layout = FormHeading(elt).skin["layout"];
-                    else if (elt is SkinnableContainer)
-                        layout = SkinnableContainer(elt).layout;
-                    
-                    if (layout is FormItemLayout)
-                    {
-                        fiLayout = layout as FormItemLayout;
-                        fiLayout.setLayoutColumnWidths(columnMaxWidths);
-                    }
-                    
-                    /*if (elt is IFormItem)
-                    {
-                    formItem = IFormItem(elt);
-                    formItem.layoutColumnWidths = columnMaxWidths;
-                    }*/
-                }
+                sum += colsMaxWidth[i];
             }
+            
+            return sum;
         }
     }
 }
