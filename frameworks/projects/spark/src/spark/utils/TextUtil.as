@@ -12,11 +12,14 @@
 package spark.utils
 {
 
-import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
 import flash.text.engine.FontLookup;
+import flash.text.engine.TextBlock;
+import flash.text.engine.TextLine;
+import flash.text.engine.TextLineValidity;
 
 import flashx.textLayout.compose.ISWFContext;
+import flashx.textLayout.compose.TextLineRecycler;
 import flashx.textLayout.elements.FlowLeafElement;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
@@ -26,7 +29,6 @@ import flashx.textLayout.formats.ITextLayoutFormat;
 import mx.core.EmbeddedFont;
 import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
-import mx.core.Singleton;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.resources.IResourceManager;
@@ -198,6 +200,26 @@ public class TextUtil
         
         return FontLookup.DEVICE; 
     }    
+    
+    /** 
+     * @private
+     */
+    public static function recycleTextLine(textLine:TextLine):void
+    {
+        if (textLine)
+        {
+            // Throws an ArgumentError if validity set to INVALID in
+            // either of these cases.
+            if (textLine.validity != TextLineValidity.INVALID && 
+                textLine.validity != TextLineValidity.STATIC)
+            {
+                textLine.validity = TextLineValidity.INVALID;
+            }
+            
+            textLine.userData = null;	// clear any userData
+            TextLineRecycler.addLineForReuse(textLine);
+        }
+    }
 }
 
 }
