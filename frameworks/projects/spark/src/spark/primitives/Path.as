@@ -680,7 +680,7 @@ public class Path extends FilledElement
 
         // TODO EGeorgie: move to commit properties
         // Finally, apply the transforms to the object
-        commitTransform();
+        applyComputedTransform();
 
         return actualSize;
     }
