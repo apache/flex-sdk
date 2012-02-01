@@ -25,7 +25,7 @@
     </states>
 
     <Rect left="1" right="1" top="1" bottom="1" 
-          radiusX="4" radiusY="4" minWidth="15" minHeight="15">
+          radiusX="4" radiusY="4" minWidth="13" minHeight="13">
         <stroke>
             <SolidColorStroke color="#3D5D92" color.disabled="0x9DADC9" />
         </stroke>
