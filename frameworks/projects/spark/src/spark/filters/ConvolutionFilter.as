@@ -36,6 +36,11 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 	 *  For example, .25 sets a transparency value of 25%.
 	 * 
 	 *  @default 1
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get alpha():Number
 	{
@@ -63,6 +68,11 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 	 *  appear brighter. 
 	 * 
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get bias():Number
 	{
@@ -92,6 +102,11 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 	 *  as specified in the color and alpha properties.
 	 * 
 	 *  @default true
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get clamp():Boolean
 	{
@@ -117,6 +132,11 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 	 *  The color of the glow. Valid values are in the hexadecimal format 
 	 * 	0xRRGGBB. 
 	 *  @default 0xFF0000
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get color():uint
 	{
@@ -143,6 +163,11 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 	 * A divisor that is the sum of all the matrix values smooths out the overall 
 	 * color intensity of the result. A value of 0 is ignored and the default is 
 	 * used instead.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get divisor():Number
 	{
@@ -169,6 +194,11 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 	 *  or less means that the original image is copied as is. The default 
 	 *  value is 4. Values that are a power of 2 (such as 2, 4, 8, 16, and 32) 
 	 *  are optimized to render more quickly than other values.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get matrix():Array
 	{
@@ -193,6 +223,11 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 	/**
 	 * The x dimension of the matrix (the number of columns in the matrix). 
 	 * @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get matrixX():Number
 	{
@@ -217,6 +252,11 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 	/**
 	 * The y dimension of the matrix (the number of columns in the matrix). 
 	 * @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get matrixY():Number
 	{
@@ -246,6 +286,11 @@ public class ConvolutionFilter extends BaseFilter implements IBitmapFilter
 	 *  the convolution applies only to the color channels.
 	 * 
 	 *  @default true
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get preserveAlpha():Boolean
 	{
