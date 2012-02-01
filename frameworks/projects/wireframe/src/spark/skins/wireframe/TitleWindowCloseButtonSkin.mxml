@@ -21,6 +21,9 @@
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
     
     <fx:Metadata>
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
         [HostComponent("spark.components.Button")]
     </fx:Metadata>
     
@@ -32,6 +35,7 @@
     </s:states>
     
     <!-- drop shadow -->
+    <!--- @private -->
     <s:RectangularDropShadow id="dropShadow" blurX="0" blurY="0" alpha="0" 
                              alpha.over="0.85" alpha.down=".85" distance="1"
                              angle="90" color="0xFFFFFF" left="0" top="0" right="0" bottom="0"/>
@@ -49,6 +53,7 @@
     </s:Rect>
     
     <!-- inner shadow -->
+    <!--- @private -->
     <s:Rect id="cbshad" left="1" right="1" top="1" height="1" >
         <s:fill>
             <s:SolidColor color="0x5380D0" alpha="0" alpha.down="0.22" />
