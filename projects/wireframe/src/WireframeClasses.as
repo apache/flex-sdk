@@ -24,35 +24,35 @@ package
  */
 internal class WireframeClasses
 {
-	import wireframe.FxButtonSkin; FxButtonSkin;
-	import wireframe.FxCheckBoxSkin; FxCheckBoxSkin;
-	import wireframe.FxDefaultComplexItemRenderer; FxDefaultComplexItemRenderer;
-	import wireframe.FxDefaultItemRenderer; FxDefaultItemRenderer;
-	import wireframe.FxHScrollBarSkin; FxHScrollBarSkin;
-	import wireframe.FxHScrollBarThumbSkin; FxHScrollBarThumbSkin;
-	import wireframe.FxHScrollBarTrackSkin; FxHScrollBarTrackSkin;
-	import wireframe.FxHSliderSkin; FxHSliderSkin;
-	import wireframe.FxHSliderThumbSkin; FxHSliderThumbSkin;
-	import wireframe.FxHSliderTrackSkin; FxHSliderTrackSkin;
-	import wireframe.FxListSkin; FxListSkin;
-	import wireframe.FxNumericStepperSkin; FxNumericStepperSkin;
-	import wireframe.FxRadioButtonSkin; FxRadioButtonSkin;
-	import wireframe.FxScrollBarDownButtonSkin; FxScrollBarDownButtonSkin;
-	import wireframe.FxScrollBarLeftButtonSkin; FxScrollBarLeftButtonSkin;
-	import wireframe.FxScrollBarRightButtonSkin; FxScrollBarRightButtonSkin;
-	import wireframe.FxScrollBarUpButtonSkin; FxScrollBarUpButtonSkin;
-	import wireframe.FxSpinnerDecrButtonSkin; FxSpinnerDecrButtonSkin;
-	import wireframe.FxSpinnerIncrButtonSkin; FxSpinnerIncrButtonSkin;
-	import wireframe.FxSpinnerSkin; FxSpinnerSkin;
-	import wireframe.FxTextAreaSkin; FxTextAreaSkin;
-	import wireframe.FxTextInputSkin; FxTextInputSkin;
-	import wireframe.FxToggleButtonSkin; FxToggleButtonSkin;
-	import wireframe.FxVScrollBarSkin; FxVScrollBarSkin;
-	import wireframe.FxVScrollBarThumbSkin; FxVScrollBarThumbSkin;
-	import wireframe.FxVScrollBarTrackSkin; FxVScrollBarTrackSkin;
-	import wireframe.FxVSliderSkin; FxVSliderSkin;
-	import wireframe.FxVSliderThumbSkin; FxVSliderThumbSkin;
-	import wireframe.FxVSliderTrackSkin; FxVSliderTrackSkin;
+	import spark.skins.wireframe.ButtonSkin; ButtonSkin;
+	import spark.skins.wireframe.CheckBoxSkin; CheckBoxSkin;
+	import spark.skins.wireframe.DefaultComplexItemRenderer; DefaultComplexItemRenderer;
+	import spark.skins.wireframe.DefaultItemRenderer; DefaultItemRenderer;
+	import spark.skins.wireframe.HScrollBarSkin; HScrollBarSkin;
+	import spark.skins.wireframe.HScrollBarThumbSkin; HScrollBarThumbSkin;
+	import spark.skins.wireframe.HScrollBarTrackSkin; HScrollBarTrackSkin;
+	import spark.skins.wireframe.HSliderSkin; HSliderSkin;
+	import spark.skins.wireframe.HSliderThumbSkin; HSliderThumbSkin;
+	import spark.skins.wireframe.HSliderTrackSkin; HSliderTrackSkin;
+	import spark.skins.wireframe.ListSkin; ListSkin;
+	import spark.skins.wireframe.NumericStepperSkin; NumericStepperSkin;
+	import spark.skins.wireframe.RadioButtonSkin; RadioButtonSkin;
+	import spark.skins.wireframe.ScrollBarDownButtonSkin; ScrollBarDownButtonSkin;
+	import spark.skins.wireframe.ScrollBarLeftButtonSkin; ScrollBarLeftButtonSkin;
+	import spark.skins.wireframe.ScrollBarRightButtonSkin; ScrollBarRightButtonSkin;
+	import spark.skins.wireframe.ScrollBarUpButtonSkin; ScrollBarUpButtonSkin;
+	import spark.skins.wireframe.SpinnerDecrButtonSkin; SpinnerDecrButtonSkin;
+	import spark.skins.wireframe.SpinnerIncrButtonSkin; SpinnerIncrButtonSkin;
+	import spark.skins.wireframe.SpinnerSkin; SpinnerSkin;
+	import spark.skins.wireframe.TextAreaSkin; TextAreaSkin;
+	import spark.skins.wireframe.TextInputSkin; TextInputSkin;
+	import spark.skins.wireframe.ToggleButtonSkin; ToggleButtonSkin;
+	import spark.skins.wireframe.VScrollBarSkin; VScrollBarSkin;
+	import spark.skins.wireframe.VScrollBarThumbSkin; VScrollBarThumbSkin;
+	import spark.skins.wireframe.VScrollBarTrackSkin; VScrollBarTrackSkin;
+	import spark.skins.wireframe.VSliderSkin; VSliderSkin;
+	import spark.skins.wireframe.VSliderThumbSkin; VSliderThumbSkin;
+	import spark.skins.wireframe.VSliderTrackSkin; VSliderTrackSkin;
 }
 
 }
