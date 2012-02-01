@@ -48,10 +48,33 @@ and <code>sortIndicator</code> properties.</p>
         @productversion Flex 4.5
         -->
         <fx:Component id="defaultSortIndicator">
-            <s:Path data="M 3.5 7.0 L 0.0 0.0 L 7.0 0.0 L 3.5 7.0">
+            <s:Path data="M 3.5 7.0 L 0.0 0.0 L 7.0 0.0 L 3.5 7.0" implements="spark.components.gridClasses.IGridVisualElement">
+                <fx:Script>
+                    <![CDATA[
+                        import spark.components.DataGrid;
+                        import spark.components.Grid;
+                        
+                        /**
+                         *  @private
+                         */
+                        public function prepareGridVisualElement(grid:Grid, rowIndex:int, columnIndex:int):void
+                        {
+                            const dataGrid:DataGrid = grid.dataGrid;
+                            if (!dataGrid)
+                                return;
+                            
+                            const color:uint = dataGrid.getStyle("symbolColor");
+                            arrowFill1.color = color;
+                            arrowFill2.color = color;
+                        }
+                    ]]>
+                </fx:Script>
+                
                 <s:fill>
                     <s:RadialGradient rotation="90" focalPointRatio="1">    
+                        <!--- @private -->
                         <s:GradientEntry id="arrowFill1" color="0" alpha="0.6" />
+                        <!--- @private -->
                         <s:GradientEntry id="arrowFill2" color="0" alpha="0.8" />
                     </s:RadialGradient>
                 </s:fill>
@@ -86,6 +109,7 @@ and <code>sortIndicator</code> properties.</p>
     
     <fx:Script>
         <![CDATA[
+            import spark.components.gridClasses.IGridVisualElement;
             import mx.core.IVisualElement;
             
             import spark.components.DataGrid;
@@ -223,7 +247,13 @@ and <code>sortIndicator</code> properties.</p>
                             sortIndicatorInstance = sortIndicator.newInstance();
                             sortIndicatorGroup.addElement(sortIndicatorInstance);
                         }
+                        
+                        // Initialize sortIndicator
                         sortIndicatorInstance.visible = true;
+                        const gridVisualElement:IGridVisualElement = sortIndicatorInstance as IGridVisualElement;
+                        if (gridVisualElement)
+                            gridVisualElement.prepareGridVisualElement(column.grid, -1, column.columnIndex);
+                        
                         sortIndicatorGroup.includeInLayout = true;
                         sortIndicatorGroup.scaleY = (column.sortDescending) ? 1 : -1;
                     }
