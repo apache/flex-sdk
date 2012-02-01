@@ -18,16 +18,12 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.Timer;
 
-import mx.core.FlexVersion;
-import mx.core.IContainerInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.DragEvent;
-import mx.events.FlexEvent;
 import mx.managers.ILayoutManagerClient;
-import mx.managers.ILayoutManagerContainerClient;
 import mx.utils.OnDemandEventDispatcher;
 
 import spark.components.supportClasses.GroupBase;
@@ -80,17 +76,6 @@ use namespace mx_internal;
  */
 public class LayoutBase extends OnDemandEventDispatcher
 {
-    //--------------------------------------------------------------------------
-    //
-    //  Class Variables
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    private static var estimatedSize:Point = new Point;
-    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -159,7 +144,7 @@ public class LayoutBase extends OnDemandEventDispatcher
     //  useVirtualLayout
     //----------------------------------
 
-    mx_internal var _useVirtualLayout:Boolean = false;
+    private var _useVirtualLayout:Boolean = false;
 
     [Inspectable(defaultValue="false")]
 
@@ -527,156 +512,6 @@ public class LayoutBase extends OnDemandEventDispatcher
     //  Methods
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  Called if constraints are changed on the GroupBase 
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function setEstimatedSize(estimatedWidth:Number = NaN, 
-                                     estimatedHeight:Number = NaN,
-                                     invalidateSize:Boolean = true):void
-    {
-        
-    }   
-    
-    
-    /**
-     *  default logic for computing constraints.  Similar logic in
-     *  UIComponent.
-     * 
-     *  @param layoutElement the element whose size should be estimated
-     *  @param percentWidth normally the layoutElement's percentWidth, but this number
-     *  can be adjusted by the layout to compensate for when the sum of percentages
-     *  of all elements is greater than 100
-     *  @param percentHeight normally the layoutElement's percentHeight, but this number
-     *  can be adjusted by the layout to compensate for when the sum of percentages
-     *  of all elements is greater than 100
-     *  @param parentEstimatedWidth normally the layout target's estimatedWidth, but this number
-     *  can be adjusted by the layout to compensate for when some elements have fixed width
-     *  so the percentage should be applied against the remaining "flexible" area
-     *  @param parentEstimatedHeight normally the layout target's estimatedHeight, but this number
-     *  can be adjusted by the layout to compensate for when some elements have fixed height
-     *  so the percentage should be applied against the remaining "flexible" area
-     *  @param estimatedSize the structure to be filled out by this method.  It is a
-     *  Point and the x property maps to the estimatedWidth and y maps to estimatedHeight. The
-     *  calling function takes the returned Point and calls setEstimatedSize on the element
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    protected function estimateSizeOfElement(layoutElement:ILayoutElement,
-        percentWidth:Number, percentHeight:Number,
-        parentEstimatedWidth:Number, parentEstimatedHeight:Number, estimatedSize:Point):void
-    {
-        var hCenter:Number   = LayoutElementHelper.parseConstraintValue(layoutElement.horizontalCenter);
-        var vCenter:Number   = LayoutElementHelper.parseConstraintValue(layoutElement.verticalCenter);
-        var baseline:Number  = LayoutElementHelper.parseConstraintValue(layoutElement.baseline);
-        var left:Number      = LayoutElementHelper.parseConstraintValue(layoutElement.left);
-        var right:Number     = LayoutElementHelper.parseConstraintValue(layoutElement.right);
-        var top:Number       = LayoutElementHelper.parseConstraintValue(layoutElement.top);
-        var bottom:Number    = LayoutElementHelper.parseConstraintValue(layoutElement.bottom);
-        var pc:Number;
-        var cw:Number;
-        var ch:Number;
-        var c:Number;
-        c = parentEstimatedWidth;
-        if (!isNaN(c))
-        {
-            if (!isNaN(percentWidth))
-                cw = percentWidth * c / 100;
-            else if (!isNaN(left) && !isNaN(right))
-            {
-                cw = c - left - right;
-            }
-        }
-        c = parentEstimatedHeight;
-        if (!isNaN(c))
-        {
-            if (!isNaN(percentHeight))
-                ch = percentHeight * c / 100;
-            else if (!isNaN(top) && !isNaN(bottom))
-                ch = c - top - bottom;
-        }
-        estimatedSize.x = cw;
-        estimatedSize.y = ch;
-    }
-    
-    /**
-     *  Compute the estimatedWidth and estimatedHeight on the
-     *  elements.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function estimateSizesOfElements():void
-    {
-        var layoutTarget:GroupBase = target;
-        if (!layoutTarget)
-            return;
-        
-        var count:int = layoutTarget.numElements;
-        if (_typicalLayoutElement && 
-            ((count == 0) ||
-             (count && 
-              _typicalLayoutElement != layoutTarget.getElementAt(0))))
-        {
-            computeEstimatedSizeOfElement(_typicalLayoutElement);
-        }
-            
-        for (var i:int = 0; i < count; i++)
-        {
-            var layoutElement:ILayoutElement = layoutTarget.getElementAt(i);
-            computeEstimatedSizeOfElement(layoutElement);
-        }        
-    }
-
-    mx_internal function computeEstimatedSizeOfElement(layoutElement:ILayoutElement):void
-    {
-        var cw:Number;
-        var ch:Number;
-        var oldcw:Number;
-        var oldch:Number;
-        var sameWidth:Boolean;
-        var sameHeight:Boolean;
-        
-        if (!layoutElement)
-            return;
-        if (!layoutElement.includeInLayout)
-            return;
-        oldcw = layoutElement.estimatedWidth;
-        oldch = layoutElement.estimatedHeight;
-        cw = target.estimatedWidth;
-        if (isNaN(cw) && !isNaN(target.explicitWidth))
-            cw = target.explicitWidth;
-        ch = target.estimatedHeight;
-        if (isNaN(ch) && !isNaN(target.explicitHeight))
-            ch = target.explicitHeight;
-        estimatedSize.x = estimatedSize.y = NaN;
-        estimateSizeOfElement(layoutElement, 
-            layoutElement.percentWidth,
-            layoutElement.percentHeight,
-            cw, ch, estimatedSize);
-        layoutElement.setEstimatedSize(estimatedSize.x, estimatedSize.y);
-        if (layoutElement is ILayoutManagerContainerClient)
-        {
-            sameWidth = isNaN(estimatedSize.x) && isNaN(oldcw) || estimatedSize.x == oldcw;
-            sameHeight = isNaN(estimatedSize.y) && isNaN(oldch) || estimatedSize.y == oldch;
-            if (!(sameHeight && sameWidth))
-            {
-                if (layoutElement is IContainerInvalidating)
-                    IContainerInvalidating(layoutElement).invalidateEstimatedSizesOfChildren();
-                ILayoutManagerContainerClient(layoutElement).validateEstimatedSizesOfChildren();
-            }
-        }
-    }
     
     /**
      *  Measures the target's default size based on its content, and optionally
@@ -796,11 +631,6 @@ public class LayoutBase extends OnDemandEventDispatcher
      */
      public function elementAdded(index:int):void
      {
-         if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-         {
-             var layoutElement:ILayoutElement = target.getElementAt(index);
-             computeEstimatedSizeOfElement(layoutElement);
-         }
      }
 
     /**
@@ -2049,6 +1879,5 @@ public class LayoutBase extends OnDemandEventDispatcher
         }
         return local;
     }
-    
 }
 }
