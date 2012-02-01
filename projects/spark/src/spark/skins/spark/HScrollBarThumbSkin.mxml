@@ -27,7 +27,7 @@
     <!-- background -->
     <Rect left="1" top="0" right="2" bottom="0" minWidth="24" minHeight="14">
         <stroke>
-            <SolidColorStroke color="0x5C5C5C" />
+            <SolidColorStroke color="0x5C5C5C" weight="1"/>
         </stroke>
         <fill>
             <SolidColor color="0xFFFFFF" />
@@ -61,7 +61,7 @@
 	<!-- inside stroke -->
 	<Rect left="2" top="1" right="3" bottom="1">
 		<stroke>
-			<LinearGradientStroke rotation="90">
+			<LinearGradientStroke rotation="90" weight="1">
                 <GradientEntry color="0xFFFFFF" 
                                alpha="1"
                                alpha.over="0.55"
