@@ -11,7 +11,7 @@
 
 -->
 
-<Skin xmlns="http://ns.adobe.com/mxml/2009" layout="{new FxScrollerLayout()}">
+<Skin xmlns="http://ns.adobe.com/mxml/2009">
 
     <Metadata>
         [HostComponent("mx.components.FxScroller")]
