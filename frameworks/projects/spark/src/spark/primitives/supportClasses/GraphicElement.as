@@ -2873,10 +2873,7 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     protected function computeMatrix():Matrix
     {
-        if (!displayObject)
-            return null;
-                
-        if(layoutFeatures == null)
+        if (layoutFeatures == null)
             return null;
 
         var m:Matrix = layoutFeatures.layoutMatrix;
@@ -3113,8 +3110,9 @@ public class GraphicElement extends OnDemandEventDispatcher
     public function setLayoutMatrix(value:Matrix):void
     {
         allocateLayoutFeatures();
+        var previous:Boolean = needsDisplayObject;
         layoutFeatures.layoutMatrix = value;
- 	    invalidateTransform(false /*changeInvalidatesLayering*/,
+        invalidateTransform(previous != needsDisplayObject,
                             false /*triggerLayout*/);
     }
 
@@ -3132,8 +3130,9 @@ public class GraphicElement extends OnDemandEventDispatcher
     public function setLayoutMatrix3D(value:Matrix3D):void
     {
         allocateLayoutFeatures();
+        var previous:Boolean = needsDisplayObject;
         layoutFeatures.layoutMatrix3D = value;
-        invalidateTransform(false /*changeInvalidatesLayering*/,
+        invalidateTransform(previous != needsDisplayObject,
                             false /*triggerLayout*/);
     }
 
