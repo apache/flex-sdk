@@ -82,6 +82,6 @@ in accordance with the terms of the license agreement accompanying it.
     <s:Range id="progressIndicator" skinClass="spark.skins.spark.ImageLoadingSkin" verticalCenter="0" horizontalCenter="0" includeIn="loading" layoutDirection="ltr" />
     
     <!-- Invalid image icon -->
-    <s:BitmapImage includeIn="invalid" source="@Embed(source='Assets.swf',symbol='__brokenImage')" verticalCenter="0" horizontalCenter="0"/>
+    <s:BitmapImage id="brokenImageIcon" includeIn="invalid" source="@Embed(source='Assets.swf',symbol='__brokenImage')" verticalCenter="0" horizontalCenter="0"/>
     
 </s:Skin>
