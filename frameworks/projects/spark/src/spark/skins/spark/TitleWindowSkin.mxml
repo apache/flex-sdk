@@ -80,7 +80,8 @@
                 
                 var withControls:Boolean = 
                     (currentState == "disabledWithControlBar" || 
-                     currentState == "normalWithControlBar");
+                     currentState == "normalWithControlBar" ||
+                     currentState == "inactiveWithControlBar");
                 
                 dropShadow.tlRadius = cornerRadius;
                 dropShadow.trRadius = cornerRadius;
@@ -185,9 +186,9 @@
                     <s:fill>
                         <s:LinearGradient rotation="90">
                             <s:GradientEntry color="0xD2D2D2"
-                                             color.inactiveGroup="0xFFFFFF"/>
+                                             color.inactiveGroup="0xEAEAEA"/>
                             <s:GradientEntry color="0x9A9A9A"
-                                             color.inactiveGroup="0xD8D8D8"/>
+                                             color.inactiveGroup="0xCECECE"/>
                         </s:LinearGradient>
                     </s:fill>
                 </s:Rect>
@@ -197,14 +198,14 @@
                     <s:stroke>
                         <s:LinearGradientStroke rotation="90" weight="1">
                             <s:GradientEntry color="0xE6E6E6" />
-                            <s:GradientEntry color="0xFFFFFF" alpha=".22"/>
+                            <s:GradientEntry color="0xFFFFFF" alpha="0.22"/>
                         </s:LinearGradientStroke>
                     </s:stroke>
                     <s:fill>
                         <s:LinearGradient rotation="90">
-                            <s:GradientEntry color="0xFFFFFF" alpha=".15" />
-                            <s:GradientEntry color="0xFFFFFF" alpha=".15" ratio=".43"/>
-                            <s:GradientEntry color="0xFFFFFF" alpha="0" ratio=".4301"/>
+                            <s:GradientEntry color="0xFFFFFF" alpha="0.15" />
+                            <s:GradientEntry color="0xFFFFFF" alpha="0.15" ratio="0.44"/>
+                            <s:GradientEntry color="0xFFFFFF" alpha="0" ratio="0.4401"/>
                         </s:LinearGradient>
                     </s:fill>
                 </s:Rect>
@@ -212,14 +213,14 @@
                 <!--- layer 2: title bar divider @private -->
                 <s:Rect id="tbDiv" left="0" right="0" height="1" bottom="0">
                     <s:fill>
-                        <s:SolidColor color="0xC0C0C0" />
+                        <s:SolidColor color="0x000000" alpha="0.75" />
                     </s:fill>
                 </s:Rect>
                 
                 <!-- layer 3: text -->
                 <!--- Defines the appearance of the TitleWindowSkin class's title bar. -->
                 <s:Label id="titleDisplay" maxDisplayedLines="1"
-                         left="9" right="24" top="1" bottom="0" minHeight="23"
+                         left="9" right="24" top="1" bottom="0" minHeight="30"
                          verticalAlign="middle" fontWeight="bold" >
                 </s:Label>
                 
@@ -229,7 +230,7 @@
                 
                 <!--- Defines the appearance of the close button. -->
                 <s:Button id="closeButton" skinClass="spark.skins.spark.TitleWindowCloseButtonSkin"
-                          width="15" height="15" right="2" top="3" />
+                          width="15" height="15" right="2" top="7" />
             </s:Group>
             
             <!--
