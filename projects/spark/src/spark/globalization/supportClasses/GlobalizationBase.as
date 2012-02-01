@@ -28,10 +28,12 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  The change event is generated whenever the locale style is changed or
+ *  The change event is generated whenever the <code>locale</code> style is changed or
  *  another property is set that would cause
  *  the format of a number to change or cause updates to the other
  *  values available through this class.
+ *
+ *  @eventType flash.events.Event.CHANGE
  *
  *  @langversion 3.0
  *  @playerversion Flash 10.1
@@ -152,13 +154,13 @@ public class GlobalizationBase extends AdvancedStyleClient
      *  This is the locale that is used to access the formatting data and
      *  functionality from the operating system.
      *
-     *  If the locale that was set by the locale style is not available,
-     *  then the value of the <code>actualLocaleIDName</code> will be different
-     *  from the value of the locale style.
-     *  It will indicate the fallback locale that is being used.
+     *  <p>If the locale that was set by the <code>locale</code> style is not available,
+     *  then the value of the <code>actualLocaleIDName</code> is different
+     *  from the value of the <code>locale</code> style.
+     *  It indicates the fallback locale that is being used.
      *  If the locale style was set to <code>LocaleID.DEFAULT</code> the
-     *  name of the locale specified by the user's operating system will be
-     *  used.
+     *  name of the locale specified by the user's operating system is 
+     *  used.</p>
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
