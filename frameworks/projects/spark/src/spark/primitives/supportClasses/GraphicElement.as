@@ -34,7 +34,7 @@ import mx.layout.ILayoutItem;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.IConstraintClient;
 import mx.core.IInvalidating;
-import mx.geom.CompoundTransform;
+import mx.geom.TransformOffsets;
 import mx.core.UIComponentGlobals;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -180,28 +180,28 @@ public class GraphicElement extends EventDispatcher
     //--------------------------------------------------------------------------
     
     [Bindable("propertyChange")]
-    /**
-     * Documentation is not currently available
-     */
-    public function set offsets(value:CompoundTransform):void
-    {
-        var oldValue:CompoundTransform = layoutFeatures.offsets;
-        
-        if(layoutFeatures.offsets != null)
-            layoutFeatures.offsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
-        layoutFeatures.offsets = value;
-        if(layoutFeatures.offsets != null)
-            layoutFeatures.offsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+	/**
+	 * Documentation is not currently available
+	 */
+ 	public function set offsets(value:TransformOffsets):void
+	{
+		var oldValue:TransformOffsets = layoutFeatures.offsets;
+		
+		if(layoutFeatures.offsets != null)
+			layoutFeatures.offsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+		layoutFeatures.offsets = value;
+		if(layoutFeatures.offsets != null)
+			layoutFeatures.offsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
         dispatchPropertyChangeEvent("offsets", oldValue, value);
-    }
-    
-    /**
-     * @private
-     */
-    public function get offsets():CompoundTransform
-    {
-        return layoutFeatures.offsets;
-    }
+	}
+	
+	/**
+	 * @private
+	 */
+	public function get offsets():TransformOffsets
+	{
+		return layoutFeatures.offsets;
+	}
 
     
     
@@ -1463,7 +1463,7 @@ public class GraphicElement extends EventDispatcher
      *  The transform matrix that is used to calculate the component's layout relative to its siblings. 
      *  This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.
      */
-    public function get matrix():Matrix
+    public function get layoutMatrix():Matrix
     {
         return layoutFeatures.layoutMatrix;         
     }
@@ -1471,7 +1471,7 @@ public class GraphicElement extends EventDispatcher
     /**
      * @private
      */
-    public function set matrix(value:Matrix):void
+    public function set layoutMatrix(value:Matrix):void
     {
         layoutFeatures.layoutMatrix = value;
         invalidateTransform();
@@ -1481,7 +1481,7 @@ public class GraphicElement extends EventDispatcher
      *  The transform matrix that is used to calculate a component's layout relative to its siblings. 
      *  This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.
      */
-    public function set matrix3D(value:Matrix3D):void
+    public function set layoutMatrix3D(value:Matrix3D):void
     {
         layoutFeatures.layoutMatrix3D = value;
         invalidateTransform();
@@ -1490,7 +1490,7 @@ public class GraphicElement extends EventDispatcher
     /**
      * @private
      */
-    public function get matrix3D():Matrix3D
+    public function get layoutMatrix3D():Matrix3D
     {
         return layoutFeatures.layoutMatrix3D;           
     }
@@ -2110,14 +2110,14 @@ public class GraphicElement extends EventDispatcher
             _alpha != 1 ||
             _layer != 0);
 
-        if(layoutFeatures.offsets != null)
-        {
-            var o:CompoundTransform = layoutFeatures.offsets;
-            result = result || (o.scaleX != 1 || o.scaleY != 1 || o.scaleZ != 1 ||
-            o.rotationX != 0 || o.rotationY != 0 || o.rotationZ != 0 || o.z  != 0);  
-            
-        }
-        return result;
+		if(layoutFeatures.offsets != null)
+		{
+			var o:TransformOffsets = layoutFeatures.offsets;
+    		result = result || (o.scaleX != 1 || o.scaleY != 1 || o.scaleZ != 1 ||
+    		o.rotationX != 0 || o.rotationY != 0 || o.rotationZ != 0 || o.z  != 0);  
+			
+		}
+		return result;
     }
     
     public function get nextSiblingNeedsDisplayObject():Boolean
