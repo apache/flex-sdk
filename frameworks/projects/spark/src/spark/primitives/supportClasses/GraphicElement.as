@@ -2191,13 +2191,14 @@ public class GraphicElement extends EventDispatcher
         // display objects across multiple graphic elements.
         var bitmapData:BitmapData = new BitmapData(actualSize.x, actualSize.y, transparent, fillColor);
 
-        var m:Matrix = displayObject.transform.matrix;
-		
-		if (m)
-        	m.translate(-actualPosition.x, -actualPosition.y);
-        
         if (displayObject && nextSiblingNeedsDisplayObject)
+        {
+        	var m:Matrix = displayObject.transform.matrix;
+		
+			if (m)
+        		m.translate(-actualPosition.x, -actualPosition.y);
             bitmapData.draw(displayObject, m);
+        }
         else
         {
             var oldDisplayObject:DisplayObject = displayObject;
