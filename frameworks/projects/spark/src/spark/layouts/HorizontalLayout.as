@@ -101,6 +101,7 @@ use namespace mx_internal;
  *    paddingRight="0"
  *    paddingTop="0"
  *    requestedColumnCount="-1"
+ *    requestedMaxColumnCount="-1"
  *    requestedMinColumnCount="-1"
  *    variableColumnWidth="true"
  *    verticalAlign="top"
@@ -193,6 +194,106 @@ public class HorizontalLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------
     
+    //----------------------------------
+    //  actualAlignmentBaseline
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the actualAlignmentBaseline property.
+     */
+    private var _actualAlignmentBaseline:Number = 0;
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  The computed base line, in pixels, relative to the <code>paddingTop</code>
+     *  of the container.
+     *
+     *  The base line is the virtual horizontal line to which layout elements' text is aligned.
+     *
+     *  The <code>actualAlignmentBaseline</code> is computed in the layout's <code>updateDisplayList()</code>
+     *  and is based on the <code>alignmentBaseline</code> property as well as the <code>baselinePosition</code>
+     *  and <code>baseline</code> properties of the layout elements.
+     *
+     *  Note that <code>actualAlignmentBaseline</code> is computed only when <code>verticalAlign</code>
+     *  is set to "baseline".
+     *
+     *  @see #alignmentBaseline
+     *  @see #verticalAlign
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get actualAlignmentBaseline():Number
+    {
+        return _actualAlignmentBaseline;
+    }
+    
+    /**
+     *  @private
+     */
+    private function setActualAlignmentBaseline(value:Number):void
+    {
+        if (_actualAlignmentBaseline == value) 
+            return;
+        
+        var oldValue:Number = _actualAlignmentBaseline;
+        _actualAlignmentBaseline = value;
+        
+        dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "actualAlignmentBaseline", oldValue, value));
+    }
+
+    //----------------------------------
+    //  alignmentBaseline
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the alignmentBaseline property.
+     */
+    private var _alignmentBaseline:Object = "maxAscent:0";
+    [Inspectable(category="General")]
+
+    /**
+     *  The base line of the layout, in pixels. 
+     *
+     *  The base line is the virtual horizontal line to which layout elements' text is aligned,
+     *  it is relative to the top edge of the container plus any <code>paddingTop</code>.
+     *
+     *  The base line can be specified as either an explicit number, or as a numberical offset to
+     *  the computed maximum of the elements' text ascent by using the "maxAscent:offset" syntax.
+     *
+     *  Note that <code>alignmentBaseline</code> has an effect only when <code>verticalAlign</code>
+     *  is set to "baseline".
+     *
+     *  @default "maxAscent:0"
+     *  @see #verticalAlign 
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get alignmentBaseline():Object
+    {
+        return _alignmentBaseline;
+    }
+
+    /**
+     *  @private
+     */
+    public function set alignmentBaseline(value:Object):void
+    {
+        if (_alignmentBaseline == value) 
+            return;
+        
+        _alignmentBaseline = value;
+        invalidateTargetSizeAndDisplayList();
+    }
+
     //----------------------------------
     //  gap
     //----------------------------------
@@ -719,7 +820,7 @@ public class HorizontalLayout extends LayoutBase
      */
     private var _verticalAlign:String = VerticalAlign.TOP;
 
-    [Inspectable(category="General", enumeration="top,bottom,middle,justify,contentJustify", defaultValue="top")]
+    [Inspectable(category="General", enumeration="top,bottom,middle,justify,contentJustify,baseline", defaultValue="top")]
 
     /** 
      *  The vertical alignment of layout elements.
@@ -738,9 +839,13 @@ public class HorizontalLayout extends LayoutBase
      *  <p>If the value is <code>"justify"</code> then the actual height
      *  of the layout elements is set to the container's height.</p>
      *
+     *  <p>If the value is <code>"baseline"</code> then the elements are positioned
+     *  such that thier text is aligned to the <code>alignmentBaseline</code> of the layout.
+     *
      *  <p>This property does not affect the layout's measured size.</p>
      *  
      *  @default "top"
+     *  @see #alignmentBaseline
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -759,12 +864,22 @@ public class HorizontalLayout extends LayoutBase
     {
         if (value == _verticalAlign) 
             return;
-        
+
+        var oldValue:String = _verticalAlign;
         _verticalAlign = value;
 
-        var layoutTarget:GroupBase = target;
-        if (layoutTarget)
-            layoutTarget.invalidateDisplayList();
+        // "baseline" affects the measured size
+        if (oldValue == VerticalAlign.BASELINE ||
+            value    == VerticalAlign.BASELINE)
+        {
+            invalidateTargetSizeAndDisplayList();
+        }
+        else
+        {
+            var layoutTarget:GroupBase = target;
+            if (layoutTarget)
+                layoutTarget.invalidateDisplayList();
+        }
     }
 
     /**
@@ -1161,7 +1276,82 @@ public class HorizontalLayout extends LayoutBase
         result.preferredSize = elementPreferredHeight;
         result.minSize = elementMinHeight;
     }
-        
+
+    /**
+     *  @private
+     *  Returns [baselineTop, baselineBottom, baselineBottomMin],
+     *  where baselineTop is the portion of the elements above the common baseline
+     *  and the baselineBottom is the portion of the elements below the common baseline.
+     */
+    private function calculateBaselineTopBottom(calculateBottom:Boolean):Array
+    {
+        var baselineOffset:Number = 0;
+        var baselineTop:Number = 0;
+        var baselineBottom:Number = 0;
+        var baselineBottomMin:Number = 0;
+
+        var calculateTop:Boolean;
+        var temp:Array = LayoutElementHelper.parseConstraintExp(alignmentBaseline);
+        if (temp.length == 2 && temp[1] == "maxAscent")
+        {
+            baselineOffset = Number(temp[0]);
+            calculateTop = true;
+        }
+        else
+        {
+            calculateTop = false;
+            baselineTop = Number(temp[0]);
+            
+            // If someone sets the explicit baseline to NaN, then
+            // still calculate from the elements
+            if (isNaN(baselineTop))
+            {
+                baselineTop = 0;
+                calculateTop = true;
+            }
+        }
+
+        var count:int = target.numElements;
+        for (var i:int = 0; i < count; i++)
+        {
+            var element:ILayoutElement = target.getElementAt(i);
+            if (!element || !element.includeInLayout)
+                continue;
+
+            var elementBaseline:Number = element.baseline as Number;
+            if (isNaN(elementBaseline))
+                elementBaseline = 0;
+
+            var baselinePosition:Number = element.baselinePosition;
+
+            // The portion of the current element that's above the baseline
+            var elementBaselineTop:Number = baselinePosition - elementBaseline;
+
+            if (calculateTop)
+                baselineTop = Math.max(elementBaselineTop, baselineTop);
+
+            if (calculateBottom)
+            {
+                // The portion of the current element that's below the baseline
+                var elementHeight:Number = element.getPreferredBoundsHeight();
+                var elementBaselineBottom:Number = elementHeight - elementBaselineTop;
+                
+                // Calculate bottom based on min height if the element has flexible height
+                var elementBaselineBottomMin:Number = elementBaselineBottom; 
+                if (!isNaN(element.percentHeight))
+                    elementBaselineBottomMin = element.getMinBoundsHeight() - elementBaselineTop;
+    
+                baselineBottom = Math.max(elementBaselineBottom, baselineBottom);
+            }
+        }
+
+        // If ascent was specified, add the offset
+        if (calculateTop)
+            baselineTop += baselineOffset;
+
+        return [baselineTop, baselineBottom, baselineBottomMin];
+    }
+
     /**
      *  @private
      * 
@@ -1176,21 +1366,23 @@ public class HorizontalLayout extends LayoutBase
      */
     private function measureReal(layoutTarget:GroupBase):void
     {
-        var size:SizesAndLimit = new SizesAndLimit();
-        var justify:Boolean = verticalAlign == VerticalAlign.JUSTIFY;
-        var numElements:int = layoutTarget.numElements; // How many elements there are in the target
-        var numElementsInLayout:int = numElements;      // How many elements have includeInLayout == true, start off with numElements.
-        var requestedColumnCount:int = this.requestedColumnCount;
-        var columnsMeasured:int = 0;                    // How many columns have been measured
+        var size:SizesAndLimit          = new SizesAndLimit();
+        var alignToBaseline:Boolean     = verticalAlign == VerticalAlign.BASELINE;
+        var justify:Boolean             = verticalAlign == VerticalAlign.JUSTIFY;
+        var numElements:int             = layoutTarget.numElements;     // How many elements there are in the target
+        var numElementsInLayout:int     = numElements;                  // How many elements have includeInLayout == true, start off with numElements.
+        var requestedColumnCount:int    = this.requestedColumnCount;
+        var columnsMeasured:int         = 0;                            // How many columns have been measured
         
-        var preferredHeight:Number = 0; // sum of the elt preferred heights
-        var preferredWidth:Number = 0;  // max of the elt preferred widths
-        var minHeight:Number = 0;       // sum of the elt minimum heights
-        var minWidth:Number = 0;        // max of the elt minimum widths
+        var preferredHeight:Number      = 0; // sum of the elt preferred heights
+        var preferredWidth:Number       = 0; // max of the elt preferred widths
+        var minHeight:Number            = 0; // sum of the elt minimum heights
+        var minWidth:Number             = 0; // max of the elt minimum widths
         
         var fixedColumnWidth:Number = NaN;
         if (!variableColumnWidth)
             fixedColumnWidth = columnWidth;  // may query typicalLayoutElement, elt at index=0
+        
         
         var element:ILayoutElement;
         for (var i:int = 0; i < numElements; i++)
@@ -1201,13 +1393,16 @@ public class HorizontalLayout extends LayoutBase
                 numElementsInLayout--;
                 continue;
             }
-            
-            // Consider the height of each element, inclusive of those outside
-            // the requestedColumnCount range.
-            getElementHeight(element, justify, size);
-            preferredHeight = Math.max(preferredHeight, size.preferredSize);
-            minHeight = Math.max(minHeight, size.minSize);
 
+            if (!alignToBaseline)
+            {
+                // Consider the height of each element, inclusive of those outside
+                // the requestedColumnCount range.
+                getElementHeight(element, justify, size);
+                preferredHeight = Math.max(preferredHeight, size.preferredSize);
+                minHeight = Math.max(minHeight, size.minSize);
+            }
+            
             // Can we measure the width of this column?
             if (requestedColumnCount == -1 || columnsMeasured < requestedColumnCount)
             {
@@ -1217,7 +1412,7 @@ public class HorizontalLayout extends LayoutBase
                 columnsMeasured++;
             }
         }
-
+        
         // Calculate the total number of columns to measure
         var columnsToMeasure:int = (requestedColumnCount != -1) ? requestedColumnCount : 
                                                                   Math.max(requestedMinColumnCount, numElementsInLayout);
@@ -1228,10 +1423,13 @@ public class HorizontalLayout extends LayoutBase
             element = typicalLayoutElement;
             if (element)
             {
-                // Height
-                getElementHeight(element, justify, size);
-                preferredHeight = Math.max(preferredHeight, size.preferredSize);
-                minHeight = Math.max(minHeight, size.minSize);
+                if (!alignToBaseline)
+                {
+                    // Height
+                    getElementHeight(element, justify, size);
+                    preferredHeight = Math.max(preferredHeight, size.preferredSize);
+                    minHeight = Math.max(minHeight, size.minSize);
+                }
     
                 // Width
                 getElementWidth(element, fixedColumnWidth, size);
@@ -1240,7 +1438,18 @@ public class HorizontalLayout extends LayoutBase
                 columnsMeasured = columnsToMeasure;
             }
         }
-        
+
+        if (alignToBaseline)
+        {
+            var result:Array = calculateBaselineTopBottom(true /*calculateBottom*/);
+            var top:Number = result[0];
+            var bottom:Number = result[1];
+            var bottomMin:Number = result[2];
+            
+            preferredHeight = Math.ceil(top + bottom);
+            minHeight = Math.ceil(top + bottomMin);
+        }
+
         // Add gaps
         if (columnsMeasured > 1)
         { 
@@ -1822,7 +2031,15 @@ public class HorizontalLayout extends LayoutBase
             vAlign = .5;
         else if (verticalAlign == VerticalAlign.BOTTOM)
             vAlign = 1;
-        
+
+        var actualBaseline:Number = 0;
+        var alignToBaseline:Boolean = verticalAlign == VerticalAlign.BASELINE;
+        if (alignToBaseline)
+        {
+            var result:Array = calculateBaselineTopBottom(false /*calculateBottom*/);
+            actualBaseline = result[0];
+        }
+
         // If columnCount wasn't set, then as the LayoutElements are positioned
         // we'll count how many columns fall within the layoutTarget's scrollRect
         var visibleColumns:uint = 0;
@@ -1863,10 +2080,26 @@ public class HorizontalLayout extends LayoutBase
             var dx:Number = Math.ceil(layoutElement.getLayoutBoundsWidth());
             var dy:Number = Math.ceil(layoutElement.getLayoutBoundsHeight());
 
-            var y:Number = y0 + (containerHeight - dy) * vAlign;
-            // In case we have VerticalAlign.MIDDLE we have to round
-            if (vAlign == 0.5)
-                y = Math.round(y);
+            var y:Number;
+            if (alignToBaseline)
+            {
+                var elementBaseline:Number = layoutElement.baseline as Number;
+                if (isNaN(elementBaseline))
+                    elementBaseline = 0;
+
+                // Note: don't round the position. Rounding will case the text line to shift by
+                // a pixel and won't look aligned with the other element's text.
+                var baselinePosition:Number = layoutElement.baselinePosition;
+                y = y0 + actualBaseline + elementBaseline - baselinePosition;
+            }
+            else
+            {
+                y = y0 + (containerHeight - dy) * vAlign;
+                // In case we have VerticalAlign.MIDDLE we have to round
+                if (vAlign == 0.5)
+                    y = Math.round(y);
+            }
+
             layoutElement.setLayoutBoundsPosition(x, y);
 
             // Update maxX,Y, first,lastVisibleIndex, and x
@@ -1884,6 +2117,9 @@ public class HorizontalLayout extends LayoutBase
             }                
             x += dx + gap;
         }
+        
+        if (alignToBaseline)
+            setActualAlignmentBaseline(actualBaseline);
 
         setColumnCount(visibleColumns);  
         setIndexInView(firstColInView, lastColInView);
@@ -1891,7 +2127,7 @@ public class HorizontalLayout extends LayoutBase
         // Make sure that if the content spans partially over a pixel to the right/bottom,
         // the content size includes the whole pixel.
         layoutTarget.setContentSize(Math.ceil(maxX + paddingRight),
-                                    Math.ceil(maxY + paddingBottom));             
+                                    Math.ceil(maxY + paddingBottom));
     }
 
 
