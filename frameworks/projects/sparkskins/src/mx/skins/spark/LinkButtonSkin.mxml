@@ -21,7 +21,7 @@
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
       minWidth="21" minHeight="21"
       alpha.disabledStates="0.5">
-
+    
     <!-- states -->
     <s:states>
         <s:State name="up" stateGroups="upStates"/>
@@ -35,9 +35,11 @@
     </s:states>
     
     <!-- layer 1: fill -->
-    <s:Rect left="0" right="0" top="0" bottom="0" excludeFrom="upStates,disabledStates" >
+    <s:Rect left="0" right="0" top="0" bottom="0" 
+            radiusX="{getStyle('cornerRadius')}" excludeFrom="upStates,disabledStates" >
         <s:fill>
-            <s:SolidColor color.overStates="0xCEDBEF" color.downStates="0xA8C6EE" alpha="1" />
+            <s:SolidColor color.overStates="{getStyle('rollOverColor')}" 
+                          color.downStates="{getStyle('selectionColor')}" alpha="1" />
         </s:fill>
     </s:Rect>
     
