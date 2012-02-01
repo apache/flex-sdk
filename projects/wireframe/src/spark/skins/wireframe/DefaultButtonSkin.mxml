@@ -43,13 +43,13 @@ an Alert. It is defined by the defaultButton property on a container.
 
     <!-- background -->
     <s:Rect left="0" right="0" top="0" bottom="0"
-          width="69" height="23"
+          width="68" height="22"
           radiusX="2" radiusY="2">
         <s:stroke>
-            <s:SolidColorStroke color="#A9A9A9" color.over="#9C9C9C" color.down="#9C9C9C" />
+            <s:SolidColorStroke color="#A9A9A9" color.over="#9C9C9C" color.down="#9C9C9C" weight="2" />
         </s:stroke>
         <s:fill>
-            <s:SolidColor color="#BABABA" color.up="#EEEEEE" color.over="#DDDDDD" color.down="#DDDDDD" />
+            <s:SolidColor color="#BABABA" color.up="#DDDDDD" color.over="#CCCCCC" color.down="#CCCCCC" />
         </s:fill>
     </s:Rect>
 
