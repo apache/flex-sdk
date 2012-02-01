@@ -19,16 +19,14 @@ import flash.geom.Rectangle;
 import flash.utils.Timer;
 
 import mx.core.ILayoutElement;
-import mx.core.IVisualElement;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.DragEvent;
-import mx.managers.DragManager;
 import mx.managers.ILayoutManagerClient;
 import mx.utils.OnDemandEventDispatcher;
 
-import spark.components.Group;
 import spark.components.supportClasses.GroupBase;
+import spark.components.supportClasses.OverlayDepth;
 import spark.core.NavigationUnit;
 
 use namespace mx_internal;
@@ -472,21 +470,22 @@ public class LayoutBase extends OnDemandEventDispatcher
     public function set dropIndicator(value:DisplayObject):void
     {
         if (_dropIndicator)
-            // FIXME (egeorgie): use the overlay APIs instead.
-            target.$removeChild(_dropIndicator);
+			target.overlay.removeDisplayObject(_dropIndicator);
         
         _dropIndicator = value;
         
         if (_dropIndicator)
         {
             _dropIndicator.visible = false;
-            // FIXME (egeorgie): use the overlay APIs instead.
-            target.addingChild(_dropIndicator);
-            target.$addChild(_dropIndicator);
-            target.childAdded(_dropIndicator);
-            
+			target.overlay.addDisplayObject(_dropIndicator, OverlayDepth.DROP_INDICATOR_DEPTH);
+
             if (_dropIndicator is ILayoutManagerClient)
-                UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(_dropIndicator), true);             
+                UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(_dropIndicator), true);
+
+			// Set includeInLayout to false, otherwise it'll still invalidate
+			// the parent Group layout as we size and position the indicator.
+			if (_dropIndicator is ILayoutElement)
+				ILayoutElement(_dropIndicator).includeInLayout = false;
         }
     }
     
@@ -1460,7 +1459,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         _dragScrollDelta = calculateDragScrollDelta(dropLocation,
                                                     dragScrollInterval,
                                                     dragScrollElapsedTime);
-        if (_dragScrollDelta)
+        if (_dragScrollDelta && (_dragScrollDelta.x != 0 || _dragScrollDelta.y != 0))
         {
             // Update the drag-scroll event
             _dragScrollEvent = dropLocation.dragEvent;
