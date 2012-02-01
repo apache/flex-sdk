@@ -460,12 +460,12 @@ are identical, save the superclass and constructor names.  This file contains th
         updatePreferredSize(); 
         
         // If the effective value of showDataTips has changed for this column, then
-        // set the renderer's tooltTip property to a placeholder.  The real tooltip
+        // set the renderer's toolTip property to a placeholder.  The real tooltip
         // text is computed in the TOOL_TIP_SHOW handler below.
         
         // TBD(hmuller) - this code should be common with GridItemRenderer
         
-        const showDataTips:Boolean = column && column.getShowDataTips();  
+        const showDataTips:Boolean = rowIndex != -1 && column && column.getShowDataTips();  
         const dataTip:String = toolTip;
         if (showDataTips && !dataTip)
             toolTip = "<dataTip>";
