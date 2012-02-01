@@ -113,7 +113,7 @@ Move the indicator tooltip string to a resource bundle
     
     <s:Label id="sequenceLabelDisplay" 
              fontWeight="bold" color="0x333333" 
-             left="sequenceCol:10" right="sequenceCol:4"
+             left="sequenceCol:10" right="sequenceCol:5"
              bottom="row1:10" baseline="row1:0"/>
     <s:Label id="labelDisplay"
              fontWeight="bold" color="0x333333" 
@@ -127,7 +127,7 @@ Move the indicator tooltip string to a resource bundle
             <s:VerticalLayout/>
         </s:layout>
     </s:Group>
-    <s:Group top="row1:10" x="{contentGroup.x + contentGroup.contentWidth + 4}"
+    <s:Group x="{contentGroup.x + contentGroup.contentWidth + 4}" y="{contentGroup.y}"
              height="{Math.max(indicatorDisplay.height, contentGroup.contentHeight)}">
         <s:Image id="indicatorDisplay" verticalCenter="0"
                        toolTip="Required" toolTip.errorStates=""
