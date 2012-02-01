@@ -11,7 +11,9 @@ in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The Spark skin class for the disabled radio icon of a Halo Menu component. 
+<!--- The wireframe skin class for the disabled radio icon of the MX Menu component. 
+
+      @see mx.controls.Menu
 
 @langversion 3.0
 @playerversion Flash 10
@@ -21,8 +23,10 @@ in accordance with the terms of the license agreement accompanying it.
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
     alpha="0.5">
     
+    <!--- @private -->
     <s:Ellipse id="radio" width="5" height="5">
         <s:fill>
+            <!--- @private -->
             <s:SolidColor color="0x5380D0" id="radioFill"/>
         </s:fill>
     </s:Ellipse>
