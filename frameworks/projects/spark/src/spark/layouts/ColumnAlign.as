@@ -13,8 +13,8 @@ package spark.layouts
 {
 
 /**
- *  Enumerated type for the TileLayout's <code>columnAlign</code>
- *  property.
+ *  The ColumnAlign class defines the possible values for the 
+ *  <code>columnAlign</code> property of the TileLayout class.
  * 
  *  @see TileLayout#columnAlign
  *  
@@ -26,7 +26,7 @@ package spark.layouts
 public final class ColumnAlign
 {
     /**
-     *  Does not justify the rows.
+     *  Do not justify the rows.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -36,7 +36,7 @@ public final class ColumnAlign
     public static const LEFT:String = "left";
 
     /**
-     *  Justifies the rows by increasing the vertical gap.
+     *  Justify the rows by increasing the vertical gap.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -46,7 +46,7 @@ public final class ColumnAlign
     public static const JUSTIFY_USING_GAP:String = "justifyUsingGap";
 
     /**
-     *  Justifies the rows by increasing the row height.
+     *  Justify the rows by increasing the row height.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
