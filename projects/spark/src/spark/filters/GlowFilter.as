@@ -142,6 +142,8 @@ public class GlowFilter extends BaseDimensionFilter implements IBitmapFilter
     
     private var _alpha:Number = 1.0;
     
+    [Inspectable(minValue="0.0", maxValue="1.0")]    
+    
     /**
      *  The alpha transparency value for the color. Valid values are 0 to 1. 
      *  For example, .25 sets a transparency value of 25%.
