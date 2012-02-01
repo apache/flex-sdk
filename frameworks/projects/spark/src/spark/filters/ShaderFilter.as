@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.filters {  
+package spark.filters {  
 
 import flash.display.Shader;
 import flash.display.ShaderInput;
@@ -71,12 +71,12 @@ use namespace flash_proxy;
  * ShaderFilter will automatically re-apply itself to the filters array of the visual
  * component it is applied to.</p>
  *
- * @see mx.effects.FxAnimateFilter 
+ * @see mx.effects.AnimateFilter 
  *
  * @example Simple ShaderFilter example:
  * <listing version="3.0">
  * &lt;?xml version="1.0"?&gt;
- * &lt;FxApplication xmlns="http://ns.adobe.com/mxml/2009"&gt;
+ * &lt;Application xmlns="http://ns.adobe.com/mxml/2009"&gt;
  *
  *     &lt;!-- The hypothetical 'spherize' shader applied below has two input parameters, 'center' and 'radius'
  *          with the following attributes:
@@ -103,7 +103,7 @@ use namespace flash_proxy;
  *        &lt;/filters&gt;
  *     &lt;/Label&gt;
  *   
- * &lt;/FxApplication&gt; 
+ * &lt;/Application&gt; 
  * </listing>
  *  
  *  @langversion 3.0
