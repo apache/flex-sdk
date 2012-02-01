@@ -20,108 +20,115 @@ import mx.core.mx_internal;
 
 /**
  *  The Rect class is a filled graphic element that draws a rectangle.
- *  The corners of the rectangle can be rounded.
+ *  The corners of the rectangle can be rounded. The <code>drawElementent()</code> method
+ *  calls the <code>Graphics.drawRect()</code> and <code>Graphics.drawRoundRect()</code> 
+ *  methods.
+ *  
+ *  @see flash.display.Graphics
+ *  
+ *  @includeExamples examples/RectExample.mxml
+ *  
  */
 public class Rect extends FilledElement
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor. 
-	 */
-	public function Rect()
-	{
-		super();
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-			
-	//----------------------------------
-	//  radiusX
-	//----------------------------------
+    /**
+     *  Constructor. 
+     */
+    public function Rect()
+    {
+        super();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+            
+    //----------------------------------
+    //  radiusX
+    //----------------------------------
 
-	private var _radiusX:Number = 0;
-	
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
-	/**
-	 *  The corner radius to use along the x axis.
-	 */
-	public function get radiusX():Number 
-	{
-		return _radiusX;
-	}
-	
-	public function set radiusX(value:Number):void
-	{
-		var oldValue:Number = _radiusX;
-		
-		if (value != oldValue)
-		{
-			_radiusX = value;
-			dispatchPropertyChangeEvent("radiusX", oldValue, value);
-			invalidateDisplayList();
-			// No need to invalidateSize() since we don't use radiusX to compute size 
-		}
-	}
-	
-	//----------------------------------
-	//  radiusY
-	//----------------------------------
+    private var _radiusX:Number = 0;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  The corner radius to use along the x axis.
+     */
+    public function get radiusX():Number 
+    {
+        return _radiusX;
+    }
+    
+    public function set radiusX(value:Number):void
+    {
+        var oldValue:Number = _radiusX;
+        
+        if (value != oldValue)
+        {
+            _radiusX = value;
+            dispatchPropertyChangeEvent("radiusX", oldValue, value);
+            invalidateDisplayList();
+            // No need to invalidateSize() since we don't use radiusX to compute size 
+        }
+    }
+    
+    //----------------------------------
+    //  radiusY
+    //----------------------------------
 
-	private var _radiusY:Number = 0;
-	
-	[Bindable("propertyChange")]
-	[Inspectable(category="General")]
-	
-	/**
-	 *  The corner radius to use along the y axis.
-	 */
-	public function get radiusY():Number 
-	{
-		return _radiusY;
-	}
+    private var _radiusY:Number = 0;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  The corner radius to use along the y axis.
+     */
+    public function get radiusY():Number 
+    {
+        return _radiusY;
+    }
 
-	public function set radiusY(value:Number):void
-	{
-		var oldValue:Number = _radiusY;
-		
-		if (value != oldValue)
-		{
-			_radiusY = value;
-			dispatchPropertyChangeEvent("radiusY", oldValue, value);
-			invalidateDisplayList();
-			// No need to invalidateSize() since we don't use radiusY to compute size 
-		}
-	}
-		
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @inheritDoc
-	 */
-	override protected function drawElement(g:Graphics):void
-	{
-		if (radiusX != 0 || radiusY != 0)
-			g.drawRoundRect(drawX, drawY, width, height, radiusX * 2, radiusY * 2);
-		else
-			g.drawRect(drawX, drawY, width, height);
-	}
+    public function set radiusY(value:Number):void
+    {
+        var oldValue:Number = _radiusY;
+        
+        if (value != oldValue)
+        {
+            _radiusY = value;
+            dispatchPropertyChangeEvent("radiusY", oldValue, value);
+            invalidateDisplayList();
+            // No need to invalidateSize() since we don't use radiusY to compute size 
+        }
+    }
+        
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @inheritDoc
+     */
+    override protected function drawElement(g:Graphics):void
+    {
+        if (radiusX != 0 || radiusY != 0)
+            g.drawRoundRect(drawX, drawY, width, height, radiusX * 2, radiusY * 2);
+        else
+            g.drawRect(drawX, drawY, width, height);
+    }
 
 }
 
