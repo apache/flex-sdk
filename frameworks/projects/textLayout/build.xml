@@ -43,6 +43,7 @@
 				<library-path/>
 				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
 					<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+					<include name="framework.swc"/>
 				</external-library-path>
 			</compc>
 		</sequential>
