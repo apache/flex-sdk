@@ -65,7 +65,6 @@
 				<include name="spark.swc" />
                 <include name="textLayout.swc"/>
 			</external-library-path>
-			<include-file name="assets/CalendarIcon.png" path="${basedir}/assets/CalendarIcon.png"/>
 			<locale/>
 			<accessible>true</accessible>
 		</compc>
