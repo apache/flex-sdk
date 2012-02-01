@@ -25,7 +25,6 @@ import flash.geom.Rectangle;
 import spark.components.supportClasses.SkinnableComponent;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import flash.utils.Dictionary;
 
 /**
  *  Error skin for Spark components.
