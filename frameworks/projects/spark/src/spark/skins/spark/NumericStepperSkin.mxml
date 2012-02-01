@@ -13,6 +13,9 @@
 
 <!--- The default skin class for a Spark NumericStepper component. The skin for the text input field on a NumericStepper
 component is defined by the NumericStepperTextInputSkin class.  
+
+       @see spark.components.NumericStepper
+       @see spark.skins.spark.NumericStepperTextInputSkin
         
       @langversion 3.0
       @playerversion Flash 10
@@ -108,17 +111,21 @@ component is defined by the NumericStepperTextInputSkin class.
         <s:State name="disabled" />
     </s:states>
 
-    <!--- The default class is SpinnerIncrementButtonSkin.
-          @copy spark.components.Spinner#incrementButton -->
+    <!--- @copy spark.components.Spinner#incrementButton
+           The default class is SpinnerIncrementButtonSkin.
+           @see spark.skins.spark.SpinnerIncrementButtonSkin -->
     <s:Button id="incrementButton" right="0" top="0" height="50%" 
               skinClass="spark.skins.spark.SpinnerIncrementButtonSkin" />
-    <!--- The default class is SpinnerDecrementButtonSkin.
-          @copy spark.components.Spinner#decrementButton -->
+              
+    <!--- @copy spark.components.Spinner#decrementButton
+            The default class is SpinnerDecrementButtonSkin.
+            @see spark.skins.spark.SpinnerDecrementButtonSkin -->
     <s:Button id="decrementButton" right="0" bottom="0" height="50%" 
               skinClass="spark.skins.spark.SpinnerDecrementButtonSkin" />
                            
-    <!--- The default class is NumericStepperTextInputSkin.
-          @copy spark.components.NumericStepper#textDisplay -->
+    <!--- @copy spark.components.NumericStepper#textDisplay
+            The default class is NumericStepperTextInputSkin.
+            @see spark.skins.spark.NumericStepperTextInputSkin -->
     <s:TextInput id="textDisplay" left="0" top="0" right="18" bottom="0"
         skinClass="spark.skins.spark.NumericStepperTextInputSkin" />
         
