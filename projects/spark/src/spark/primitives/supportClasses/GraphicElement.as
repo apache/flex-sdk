@@ -145,13 +145,13 @@ public class GraphicElement extends EventDispatcher
      */
     private var _colorTransform:ColorTransform;
 
-	private var colorTransformChanged:Boolean;
+    private var colorTransformChanged:Boolean;
 
-	/**
+    /**
      *  @private The Sprite to draw into. 
      *  If null, then we just use displayObject or sharedDisplayObject
      */
-	private var _drawnDisplayObject:InvalidatingSprite;
+    private var _drawnDisplayObject:InvalidatingSprite;
 
     /**
      *  @private 
@@ -357,10 +357,10 @@ public class GraphicElement extends EventDispatcher
         if (_alpha == value)
             return;
 
-		var previous:Boolean = needsDisplayObject;
-	   	_alpha = value;
-    	if (previous != needsDisplayObject)
-			invalidateDisplayObjectSharing();    
+        var previous:Boolean = needsDisplayObject;
+        _alpha = value;
+        if (previous != needsDisplayObject)
+            invalidateDisplayObjectSharing();    
 
         alphaChanged = true;
         invalidateProperties();
@@ -467,10 +467,10 @@ public class GraphicElement extends EventDispatcher
             return;
 
         var previous:Boolean = needsDisplayObject;
-    	_blendMode = value;
-		if (previous != needsDisplayObject)
-			invalidateDisplayObjectSharing();
-		
+        _blendMode = value;
+        if (previous != needsDisplayObject)
+            invalidateDisplayObjectSharing();
+        
         blendModeExplicitlySet = true;
         blendModeChanged = true;
         invalidateProperties();
@@ -768,10 +768,10 @@ public class GraphicElement extends EventDispatcher
         var newLen:int = value ? value.length : 0; 
         var edFilter:IEventDispatcher;
 
-		if (len == 0 && newLen == 0)
-			return;
+        if (len == 0 && newLen == 0)
+            return;
 
-		// Remove the event listeners on the previous filters
+        // Remove the event listeners on the previous filters
         for (i = 0; i < len; i++)
         {
             edFilter = _filters[i] as IEventDispatcher;
@@ -779,11 +779,11 @@ public class GraphicElement extends EventDispatcher
                 edFilter.removeEventListener(BaseFilter.CHANGE, filterChangedHandler);
         }
 
-		var previous:Boolean = needsDisplayObject;
-	   	_filters = value;
-    	if (previous != needsDisplayObject)
-			invalidateDisplayObjectSharing();
-		
+        var previous:Boolean = needsDisplayObject;
+        _filters = value;
+        if (previous != needsDisplayObject)
+            invalidateDisplayObjectSharing();
+        
         _clonedFilters = [];
         
         for (i = 0; i < newLen; i++)
@@ -969,15 +969,15 @@ public class GraphicElement extends EventDispatcher
 
         var oldMask:UIComponent = _mask as UIComponent;
 
-    	var previous:Boolean = needsDisplayObject;
-	   	_mask = value;	    
+        var previous:Boolean = needsDisplayObject;
+        _mask = value;      
 
         // If the old mask was attached by us, then we need to 
         // undo the attachment logic        
- 		if (oldMask && oldMask.$parent === displayObject)
-        {		
-        	if (oldMask.parent is UIComponent)
-            	UIComponent(oldMask.parent).childRemoved(oldMask);
+        if (oldMask && oldMask.$parent === displayObject)
+        {       
+            if (oldMask.parent is UIComponent)
+                UIComponent(oldMask.parent).childRemoved(oldMask);
             oldMask.$parent.removeChild(oldMask);
         }     
         
@@ -986,21 +986,21 @@ public class GraphicElement extends EventDispatcher
         // might be null in commitProperties
         if (!_mask || _mask.parent)
         {
-        	if (drawnDisplayObject)
-        		drawnDisplayObject.mask = null;	
-        	
-        	if (_drawnDisplayObject)
-    		{
-    			if (_drawnDisplayObject.parent)
-    				_drawnDisplayObject.parent.removeChild(_drawnDisplayObject);
-    			_drawnDisplayObject = null;
-    		}
+            if (drawnDisplayObject)
+                drawnDisplayObject.mask = null; 
+            
+            if (_drawnDisplayObject)
+            {
+                if (_drawnDisplayObject.parent)
+                    _drawnDisplayObject.parent.removeChild(_drawnDisplayObject);
+                _drawnDisplayObject = null;
+            }
         }
         
         maskChanged = true;
         maskTypeChanged = true;
         if (previous != needsDisplayObject)
-			invalidateDisplayObjectSharing();
+            invalidateDisplayObjectSharing();
 
         invalidateProperties();
     }
@@ -1458,19 +1458,19 @@ public class GraphicElement extends EventDispatcher
 
     [Inspectable(category="General")]
     
-	/**
-	 * Indicates the x-axis rotation of the element instance, in degrees, from its original orientation 
-	 * relative to the 3D parent container. Values from 0 to 180 represent clockwise rotation; values 
-	 * from 0 to -180 represent counterclockwise rotation. Values outside this range are added to or subtracted from 
-	 * 360 to obtain a value within the range.
-	 * 
-	 * This property is ignored during calculation by any of Flex's 2D layouts. 
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    /**
+     * Indicates the x-axis rotation of the element instance, in degrees, from its original orientation 
+     * relative to the 3D parent container. Values from 0 to 180 represent clockwise rotation; values 
+     * from 0 to -180 represent counterclockwise rotation. Values outside this range are added to or subtracted from 
+     * 360 to obtain a value within the range.
+     * 
+     * This property is ignored during calculation by any of Flex's 2D layouts. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function get rotationX():Number
     {
         return (layoutFeatures == null)? 0:layoutFeatures.layoutRotationX;
@@ -1485,26 +1485,26 @@ public class GraphicElement extends EventDispatcher
             return;
 
         allocateLayoutFeatures();
-		var previous:Boolean = needsDisplayObject;
-	   	layoutFeatures.layoutRotationX = value;
-		invalidateTransform(previous != needsDisplayObject); 
+        var previous:Boolean = needsDisplayObject;
+        layoutFeatures.layoutRotationX = value;
+        invalidateTransform(previous != needsDisplayObject); 
     }
 
     [Inspectable(category="General")]
     
-	/**
-	 * Indicates the y-axis rotation of the DisplayObject instance, in degrees, from its original orientation 
-	 * relative to the 3D parent container. Values from 0 to 180 represent clockwise rotation; values 
-	 * from 0 to -180 represent counterclockwise rotation. Values outside this range are added to or subtracted from 
-	 * 360 to obtain a value within the range.
-	 * 
-	 * This property is ignored during calculation by any of Flex's 2D layouts. 
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    /**
+     * Indicates the y-axis rotation of the DisplayObject instance, in degrees, from its original orientation 
+     * relative to the 3D parent container. Values from 0 to 180 represent clockwise rotation; values 
+     * from 0 to -180 represent counterclockwise rotation. Values outside this range are added to or subtracted from 
+     * 360 to obtain a value within the range.
+     * 
+     * This property is ignored during calculation by any of Flex's 2D layouts. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function get rotationY():Number
     {
         return (layoutFeatures == null)? 0:layoutFeatures.layoutRotationY;
@@ -1518,9 +1518,9 @@ public class GraphicElement extends EventDispatcher
             return;
         
         allocateLayoutFeatures();
-		var previous:Boolean = needsDisplayObject;
-		layoutFeatures.layoutRotationY = value;
-		invalidateTransform(previous != needsDisplayObject);
+        var previous:Boolean = needsDisplayObject;
+        layoutFeatures.layoutRotationY = value;
+        invalidateTransform(previous != needsDisplayObject);
     }
     
     [Inspectable(category="General")]
@@ -1546,11 +1546,11 @@ public class GraphicElement extends EventDispatcher
     {
         if (rotationZ == value)
             return;
-		
+        
         allocateLayoutFeatures();
-		var previous:Boolean = needsDisplayObject;
-	   	layoutFeatures.layoutRotationZ = value;
-		invalidateTransform(previous != needsDisplayObject);
+        var previous:Boolean = needsDisplayObject;
+        layoutFeatures.layoutRotationZ = value;
+        invalidateTransform(previous != needsDisplayObject);
     }
 
     [Bindable("propertyChange")]
@@ -1605,11 +1605,11 @@ public class GraphicElement extends EventDispatcher
     {
         if (scaleX == value)
             return;
-		
+        
         allocateLayoutFeatures();
-		var previous:Boolean = needsDisplayObject;
-	   	layoutFeatures.layoutScaleX = value;
-		invalidateTransform(previous != needsDisplayObject);
+        var previous:Boolean = needsDisplayObject;
+        layoutFeatures.layoutScaleX = value;
+        invalidateTransform(previous != needsDisplayObject);
     }
 
     //----------------------------------
@@ -1641,9 +1641,9 @@ public class GraphicElement extends EventDispatcher
             return;
             
         allocateLayoutFeatures();
-		var previous:Boolean = needsDisplayObject;
-	   	layoutFeatures.layoutScaleY = value;
-		invalidateTransform(previous != needsDisplayObject);
+        var previous:Boolean = needsDisplayObject;
+        layoutFeatures.layoutScaleY = value;
+        invalidateTransform(previous != needsDisplayObject);
     }
 
     //----------------------------------
@@ -1673,11 +1673,11 @@ public class GraphicElement extends EventDispatcher
     {
         if (scaleZ == value)
             return;
-		
+        
         allocateLayoutFeatures();
-		var previous:Boolean = needsDisplayObject;
-	   	layoutFeatures.layoutScaleZ = value;
-		invalidateTransform(previous != needsDisplayObject);	
+        var previous:Boolean = needsDisplayObject;
+        layoutFeatures.layoutScaleZ = value;
+        invalidateTransform(previous != needsDisplayObject);    
     }
 
     //----------------------------------
@@ -1748,15 +1748,15 @@ public class GraphicElement extends EventDispatcher
      */
     public function set transform(value:flash.geom.Transform):void
     {
-    	// FIXME (jszeto): Add perspectiveProjection support
-    	
-    	var matrix:Matrix = value && value.matrix ? value.matrix.clone() : null;
-    	var matrix3D:Matrix3D = value && value.matrix3D ? value.matrix3D.clone() : null;
-    	var colorTransform:ColorTransform = value ? value.colorTransform : null;
-    	
+        // FIXME (jszeto): Add perspectiveProjection support
+        
+        var matrix:Matrix = value && value.matrix ? value.matrix.clone() : null;
+        var matrix3D:Matrix3D = value && value.matrix3D ? value.matrix3D.clone() : null;
+        var colorTransform:ColorTransform = value ? value.colorTransform : null;
+        
         setTransform(value);
 
-		var previous:Boolean = needsDisplayObject;
+        var previous:Boolean = needsDisplayObject;
 
         if (_transform)
         {
@@ -1771,8 +1771,8 @@ public class GraphicElement extends EventDispatcher
                 layoutFeatures.layoutMatrix3D = matrix3D;
             }          
         }
-		
-		setColorTransform(colorTransform);
+        
+        setColorTransform(colorTransform);
 
         invalidateTransform(previous != needsDisplayObject);
     }
@@ -1785,52 +1785,52 @@ public class GraphicElement extends EventDispatcher
         // Clean up the old transform
         var oldTransform:mx.geom.Transform = _transform as mx.geom.Transform;
         if (oldTransform)
-        	oldTransform.target = null;
+            oldTransform.target = null;
 
         var newTransform:mx.geom.Transform = value as mx.geom.Transform;
 
         if (newTransform)
-        	newTransform.target = this;
+            newTransform.target = this;
 
         _transform = value;
     }
     
     public function setColorTransform(value:ColorTransform):void
     {
-    	if (_colorTransform != value)
-		{
-			var previous:Boolean = needsDisplayObject;
-			// Make a copy of the colorTransform
-			_colorTransform = new ColorTransform(value.redMultiplier, value.greenMultiplier, value.blueMultiplier, value.alphaMultiplier,
-												 value.redOffset, value.greenOffset, value.blueOffset, value.alphaOffset);
-			
-			if (displayObject && displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
+        if (_colorTransform != value)
+        {
+            var previous:Boolean = needsDisplayObject;
+            // Make a copy of the colorTransform
+            _colorTransform = new ColorTransform(value.redMultiplier, value.greenMultiplier, value.blueMultiplier, value.alphaMultiplier,
+                                                 value.redOffset, value.greenOffset, value.blueOffset, value.alphaOffset);
+            
+            if (displayObject && displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
             {
                 displayObject.transform.colorTransform = _colorTransform;
             }
             else
             {
-            	colorTransformChanged = true;
-            	invalidateProperties();
+                colorTransformChanged = true;
+                invalidateProperties();
                 if (previous != needsDisplayObject)
-                	invalidateDisplayObjectSharing();
-            }				
+                    invalidateDisplayObjectSharing();
+            }               
         }
     }
     
     /**
-	 * A utility method to update the rotation and scale of the transform while keeping a particular point, specified in the component's own coordinate space, 
-	 * fixed in the parent's coordinate space.  This function will assign the rotation and scale values provided, then update the x/y/z properties
-	 * as necessary to keep tx/ty/tz fixed.
-	 * @param rx,ry,rz the new values for the rotation of the transform
-	 * @param sx,sy,sz the new values for the scale of the transform
-	 * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+     * A utility method to update the rotation and scale of the transform while keeping a particular point, specified in the component's own coordinate space, 
+     * fixed in the parent's coordinate space.  This function will assign the rotation and scale values provided, then update the x/y/z properties
+     * as necessary to keep tx/ty/tz fixed.
+     * @param rx,ry,rz the new values for the rotation of the transform
+     * @param sx,sy,sz the new values for the scale of the transform
+     * @param tx,ty,tz the point, in the component's own coordinates, to keep fixed relative to its parent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function transformAround(transformCenter:Vector3D,
                                     scale:Vector3D = null,
                                     rotation:Vector3D = null,
@@ -1967,7 +1967,7 @@ public class GraphicElement extends EventDispatcher
             return;
 
         allocateLayoutFeatures();
-		var previous:Boolean = needsDisplayObject;
+        var previous:Boolean = needsDisplayObject;
         layoutFeatures.transformZ = value;
         invalidateTransform(previous != needsDisplayObject);
     }
@@ -2062,19 +2062,19 @@ public class GraphicElement extends EventDispatcher
     //----------------------------------
     //  depth
     //----------------------------------  
-	/**
-	 * Determines the order in which items inside of groups are rendered. Groups order their items based on their depth property, with the lowest depth
-	 * in the back, and the higher in the front.  items with the same depth value will appear in the order they are added to the Groups item list.
-	 * 
-	 * defaults to 0
-	 * 
-	 * @default 0
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    /**
+     * Determines the order in which items inside of groups are rendered. Groups order their items based on their depth property, with the lowest depth
+     * in the back, and the higher in the front.  items with the same depth value will appear in the order they are added to the Groups item list.
+     * 
+     * defaults to 0
+     * 
+     * @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function get depth():Number
     {
         return (layoutFeatures == null)? 0:layoutFeatures.depth;
@@ -2196,11 +2196,11 @@ public class GraphicElement extends EventDispatcher
     {
         if (z == value)
             return;
-		
+        
         allocateLayoutFeatures();
-		var previous:Boolean = needsDisplayObject;
-	   	layoutFeatures.layoutZ = value;
-		invalidateTransform(previous != needsDisplayObject);
+        var previous:Boolean = needsDisplayObject;
+        layoutFeatures.layoutZ = value;
+        invalidateTransform(previous != needsDisplayObject);
     }
 
     //----------------------------------
@@ -2377,7 +2377,7 @@ public class GraphicElement extends EventDispatcher
      */
     protected function get hasComplexLayoutMatrix():Boolean
     {
-    	return (layoutFeatures == null ? false : !MatrixUtil.isDeltaIdentity(layoutFeatures.layoutMatrix))
+        return (layoutFeatures == null ? false : !MatrixUtil.isDeltaIdentity(layoutFeatures.layoutMatrix))
     }
     
     //----------------------------------
@@ -2534,18 +2534,18 @@ public class GraphicElement extends EventDispatcher
     // to captureBitmapData for hit testing.
     mx_internal function set alwaysCreateDisplayObject(value:Boolean):void
     {
-    	if (value != _alwaysCreateDisplayObject)
-    	{
-    		var previous:Boolean = needsDisplayObject;
-		    _alwaysCreateDisplayObject = value;
-	    	if (previous != needsDisplayObject)
-				invalidateDisplayObjectSharing();
-    	}
+        if (value != _alwaysCreateDisplayObject)
+        {
+            var previous:Boolean = needsDisplayObject;
+            _alwaysCreateDisplayObject = value;
+            if (previous != needsDisplayObject)
+                invalidateDisplayObjectSharing();
+        }
     }
     
     mx_internal function get alwaysCreateDisplayObject():Boolean
     {
-    	return _alwaysCreateDisplayObject;
+        return _alwaysCreateDisplayObject;
     }
 
     /**
@@ -2623,7 +2623,7 @@ public class GraphicElement extends EventDispatcher
 
     protected function get drawnDisplayObject():DisplayObject
     {
-    	// _drawnDisplayObject is non-null if we needed to create a mask
+        // _drawnDisplayObject is non-null if we needed to create a mask
         return _drawnDisplayObject ? _drawnDisplayObject : displayObject; 
     }
 
@@ -2674,12 +2674,12 @@ public class GraphicElement extends EventDispatcher
             
             var topLevel:Sprite = Sprite(IUIComponent(parent).systemManager);   
             var rectBounds:Rectangle = useLocalSpace ? 
-            			new Rectangle(getLayoutBoundsX(), getLayoutBoundsY(), getLayoutBoundsWidth(), getLayoutBoundsHeight()) :
-            			displayObject.getBounds(topLevel); 
+                        new Rectangle(getLayoutBoundsX(), getLayoutBoundsY(), getLayoutBoundsWidth(), getLayoutBoundsHeight()) :
+                        displayObject.getBounds(topLevel); 
             var bitmapData:BitmapData = new BitmapData(Math.ceil(rectBounds.width), Math.ceil(rectBounds.height), transparent, fillColor);
  
                 
-           	var m:Matrix = useLocalSpace ? displayObject.transform.matrix : displayObject.transform.concatenatedMatrix;
+            var m:Matrix = useLocalSpace ? displayObject.transform.matrix : displayObject.transform.concatenatedMatrix;
             
             if (m)
                 m.translate(-rectBounds.x, -rectBounds.y);
@@ -2709,11 +2709,11 @@ public class GraphicElement extends EventDispatcher
      */
     private function get3DSnapshot(transparent:Boolean = true, fillColor:uint = 0xFFFFFFFF, useLocalSpace:Boolean = true):BitmapData
     {
-    	var topLevel:Sprite = Sprite(IUIComponent(parent).systemManager); 
-    	var dispObjParent:DisplayObjectContainer = displayObject.parent;
-    	var drawSprite:Sprite = new Sprite();
+        var topLevel:Sprite = Sprite(IUIComponent(parent).systemManager); 
+        var dispObjParent:DisplayObjectContainer = displayObject.parent;
+        var drawSprite:Sprite = new Sprite();
                 
-    	// Get the visual bounds of the target in both local and global coordinates
+        // Get the visual bounds of the target in both local and global coordinates
         var topLevelRect:Rectangle = displayObject.getBounds(topLevel);
         var displayObjectRect:Rectangle = displayObject.getBounds(dispObjParent);  
         
@@ -2726,48 +2726,48 @@ public class GraphicElement extends EventDispatcher
         
         
         // Remove the target from its current parent, making sure to store the child index
-    	var childIndex:int = dispObjParent.getChildIndex(displayObject);
-    	if (dispObjParent is Group)
-    		Group(dispObjParent).$removeChild(displayObject);
-    	else
-    		dispObjParent.removeChild(displayObject);
+        var childIndex:int = dispObjParent.getChildIndex(displayObject);
+        if (dispObjParent is Group)
+            Group(dispObjParent).$removeChild(displayObject);
+        else
+            dispObjParent.removeChild(displayObject);
         
         // Parent the target to the drawSprite and then attach the drawSprite to the stage
         topLevel.addChild(drawSprite);
         drawSprite.addChild(displayObject);
 
-		// Assign the globally translated matrix to the target
-		if (useLocalSpace)
-		{
-	        newMat3D.position = globalMat3D.position;
-	        displayObject.transform.matrix3D = newMat3D;
+        // Assign the globally translated matrix to the target
+        if (useLocalSpace)
+        {
+            newMat3D.position = globalMat3D.position;
+            displayObject.transform.matrix3D = newMat3D;
         }
-  		else
-  		{
-  			displayObject.transform.matrix3D = globalMat3D;
-    	}
+        else
+        {
+            displayObject.transform.matrix3D = globalMat3D;
+        }
         // Translate the bitmap so that the left-top bounds ends up at (0,0)
-		var m:Matrix = new Matrix();
-		m.translate(-topLevelRect.left, - topLevelRect.top);
-		       
+        var m:Matrix = new Matrix();
+        m.translate(-topLevelRect.left, - topLevelRect.top);
+               
         // Draw to the bitmapData
         var snapshot:BitmapData = new BitmapData( topLevelRect.width, topLevelRect.height, transparent, fillColor);
         snapshot.draw(drawSprite, m, null, null, null, true);
 
-       	// Remove target from temporary sprite and remove temp sprite from stage
+        // Remove target from temporary sprite and remove temp sprite from stage
         drawSprite.removeChild(displayObject);
         topLevel.removeChild(drawSprite);
-    	
-    	// Reattach the target to its original parent at its original child position
-    	if (dispObjParent is Group)
-    		Group(dispObjParent).$addChildAt(displayObject, childIndex);
-    	else
-    		dispObjParent.addChildAt(displayObject, childIndex);
-    		
+        
+        // Reattach the target to its original parent at its original child position
+        if (dispObjParent is Group)
+            Group(dispObjParent).$addChildAt(displayObject, childIndex);
+        else
+            dispObjParent.addChildAt(displayObject, childIndex);
+            
         // Restore the original 3D matrix
         displayObject.transform.matrix3D = oldMat3D;
 
-    	return snapshot; 
+        return snapshot; 
     }
 
     /**
@@ -3002,12 +3002,12 @@ public class GraphicElement extends EventDispatcher
         // If we are the first in the sequence, setup the displayObject properties
         if (displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT && displayObject)
         {
-			if (colorTransformChanged || displayObjectChanged)
-			{
-				colorTransformChanged = false;
-				if (_colorTransform)
-					displayObject.transform.colorTransform = _colorTransform;
-			}
+            if (colorTransformChanged || displayObjectChanged)
+            {
+                colorTransformChanged = false;
+                if (_colorTransform)
+                    displayObject.transform.colorTransform = _colorTransform;
+            }
 
             if (alphaChanged || displayObjectChanged)
             {
@@ -3037,51 +3037,51 @@ public class GraphicElement extends EventDispatcher
                 
                 if (_mask)
                 {
-                	// If the mask is not parented, then we need to parent it.
-                	// Since a mask can not be a child of the maskee, 
-                	// we make the mask and maskee siblings. We create a new maskee
-                	// called _drawnDisplayObject. Then we attach both the mask 
-                	// and maskee to displayObject. 
-	                if (!_mask.parent)
-	                {
-	                	Sprite(displayObject).addChild(_mask);   
-	                	var maskComp:UIComponent = _mask as UIComponent;          	
-		                if (maskComp)
-		                {
-		                	if (parent)
-		                	{
-		                		// Add the mask to the UIComponent document tree. 
-		                		// This is required to properly render the mask.
-		                		UIComponent(parent).addingChild(maskComp);
-		                		UIComponent(parent).childAdded(maskComp);
-		                	}
-		                	
-		                	// Size the mask so that it actually renders
-		                    maskComp.validateProperties();
-		                    maskComp.validateSize();
-		                    // Call this to force the mask to complete initialization
-		                    maskComp.invalidateDisplayList();
-		                    maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
-		                                           maskComp.getExplicitOrMeasuredHeight());
-				                                           
-		                }   
-		                
-		                if (!_drawnDisplayObject)
-						{
-							// Clear the original displayObject because it might have previously 
-							// drawn the shape. 
-							if (displayObject is Sprite)
-								Sprite(displayObject).graphics.clear();
-							else if (displayObject is Shape)
-								Shape(displayObject).graphics.clear();
-							
-							// Create a new target for the drawing commands
-							_drawnDisplayObject = new InvalidatingSprite();
-							Sprite(displayObject).addChild(_drawnDisplayObject);
-						}    	
-	                }
-	                
-	                drawnDisplayObject.mask = _mask;
+                    // If the mask is not parented, then we need to parent it.
+                    // Since a mask can not be a child of the maskee, 
+                    // we make the mask and maskee siblings. We create a new maskee
+                    // called _drawnDisplayObject. Then we attach both the mask 
+                    // and maskee to displayObject. 
+                    if (!_mask.parent)
+                    {
+                        Sprite(displayObject).addChild(_mask);   
+                        var maskComp:UIComponent = _mask as UIComponent;            
+                        if (maskComp)
+                        {
+                            if (parent)
+                            {
+                                // Add the mask to the UIComponent document tree. 
+                                // This is required to properly render the mask.
+                                UIComponent(parent).addingChild(maskComp);
+                                UIComponent(parent).childAdded(maskComp);
+                            }
+                            
+                            // Size the mask so that it actually renders
+                            maskComp.validateProperties();
+                            maskComp.validateSize();
+                            // Call this to force the mask to complete initialization
+                            maskComp.invalidateDisplayList();
+                            maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
+                                                   maskComp.getExplicitOrMeasuredHeight());
+                                                           
+                        }   
+                        
+                        if (!_drawnDisplayObject)
+                        {
+                            // Clear the original displayObject because it might have previously 
+                            // drawn the shape. 
+                            if (displayObject is Sprite)
+                                Sprite(displayObject).graphics.clear();
+                            else if (displayObject is Shape)
+                                Shape(displayObject).graphics.clear();
+                            
+                            // Create a new target for the drawing commands
+                            _drawnDisplayObject = new InvalidatingSprite();
+                            Sprite(displayObject).addChild(_drawnDisplayObject);
+                        }       
+                    }
+                    
+                    drawnDisplayObject.mask = _mask;
                 }
             }
 
@@ -3312,8 +3312,8 @@ public class GraphicElement extends EventDispatcher
      */
     mx_internal function doUpdateDisplayList():void
     {
-		if (visible || displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
-    		updateDisplayList(_width, _height);
+        if (visible || displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
+            updateDisplayList(_width, _height);
     }
 
     /**
@@ -3449,9 +3449,9 @@ public class GraphicElement extends EventDispatcher
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -3484,9 +3484,9 @@ public class GraphicElement extends EventDispatcher
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
@@ -3852,49 +3852,49 @@ public class GraphicElement extends EventDispatcher
     mx_internal function applyComputedTransform():void
     {   
         if (layoutFeatures != null)
-	        layoutFeatures.updatePending = false;
+            layoutFeatures.updatePending = false;
 
         // Only the first elment in the sequence updates the transform
         if (displayObjectSharingMode == DisplayObjectSharingMode.USES_SHARED_OBJECT || !displayObject)
             return;
                                 
         if (layoutFeatures != null)
-        {        	
-	        if (layoutFeatures.is3D)
-	        {
-	            displayObject.transform.matrix3D = layoutFeatures.computedMatrix3D;             
-	        }
-	        else
-	        {
-	        	var m:Matrix = layoutFeatures.computedMatrix.clone();
-	        	// If the displayObject is shared, then put it at 0,0
-	        	if (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_SHARED_OBJECT)
-	        	{
-	        		m.tx = 0;
-	        		m.ty = 0;
-	        	}
-	            displayObject.transform.matrix = m;
-	        }
+        {           
+            if (layoutFeatures.is3D)
+            {
+                displayObject.transform.matrix3D = layoutFeatures.computedMatrix3D;             
+            }
+            else
+            {
+                var m:Matrix = layoutFeatures.computedMatrix.clone();
+                // If the displayObject is shared, then put it at 0,0
+                if (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_SHARED_OBJECT)
+                {
+                    m.tx = 0;
+                    m.ty = 0;
+                }
+                displayObject.transform.matrix = m;
+            }
         }
         else 
         {
-        	// If the displayObject is shared, then put it at 0,0
-        	if (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_SHARED_OBJECT)
-        	{
+            // If the displayObject is shared, then put it at 0,0
+            if (displayObjectSharingMode == DisplayObjectSharingMode.OWNS_SHARED_OBJECT)
+            {
                 displayObject.x = 0;
                 displayObject.y = 0;
-        	}
-        	else
-        	{
+            }
+            else
+            {
                 displayObject.x = _x;
                 displayObject.y = _y;
-        	}
+            }
         }
     }
     
     mx_internal function getComplexMatrix(performCheck:Boolean):Matrix
     {
-    	return performCheck && hasComplexLayoutMatrix ? layoutFeatures.layoutMatrix : null;
+        return performCheck && hasComplexLayoutMatrix ? layoutFeatures.layoutMatrix : null;
     }
 
     static private var _strokeExtents:Point = new Point();
@@ -3904,7 +3904,7 @@ public class GraphicElement extends EventDispatcher
     // now we assume they are the same on both sides.
     protected function getStrokeExtents(postLayoutTransform:Boolean = true):Point
     {
-		return _strokeExtents;
+        return _strokeExtents;
     }
 
     //--------------------------------------------------------------------------
