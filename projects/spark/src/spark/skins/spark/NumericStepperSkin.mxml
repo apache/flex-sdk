@@ -20,7 +20,7 @@ component is defined by the NumericStepperTextInputSkin class.
       @productversion Flex 4
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-      minHeight="23" minWidth="40" 
+      xmlns:fb="http://ns.adobe.com/fb/2009" minHeight="23" minWidth="40" 
       alpha.disabled="0.5">
 
     <fx:Metadata>
@@ -32,15 +32,24 @@ component is defined by the NumericStepperTextInputSkin class.
     ]]>
     </fx:Metadata> 
     
-    <fx:Script>
+    <fx:Script fb:stylingSupport="true">
         /* Define the skin elements that should not be colorized. 
            For numeric stepper, the skin itself is colorized but the individual parts are not. */
         static private const exclusions:Array = ["textDisplay", "decrementButton", "incrementButton"];
 
-    /** 
-     * @copy spark.skins.SparkSkin#colorizeExclusions
-     */     
+        /**
+         * @private
+         */  
         override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useBaseColor = true;
+            super.initializationComplete();
+        }
     </fx:Script>
     
     <s:states>
