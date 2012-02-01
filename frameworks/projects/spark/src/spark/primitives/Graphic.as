@@ -161,14 +161,5 @@ public class Graphic extends Group
 		if (!isNaN(viewHeight))
 			measuredMinHeight = measuredHeight = viewHeight;	
 	}
-
-    /** 
-     *  @private
-     *  Dispatch a propertyChange event.
-     */
-    private function dispatchPropertyChangeEvent(prop:String, oldValue:*, value:*):void
-    {
-        dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop, oldValue, value));
-    }
 }
 }
