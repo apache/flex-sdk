@@ -22,9 +22,10 @@ import flex.graphics.MaskType;
 import flex.graphics.TransformUtil;
 import flex.intf.ILayoutItem;
 
+import mx.core.AdvancedLayoutFeatures;
 import mx.core.IConstraintClient;
 import mx.core.IInvalidating;
-import mx.core.TransformOffset;
+import mx.geom.CompoundTransform;
 import mx.core.UIComponentGlobals;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -93,9 +94,7 @@ public class GraphicElement extends EventDispatcher
     public function GraphicElement()
     {
         super();
-        xformOffsets = new TransformOffset();
-		xformOffsets.userVisible = false;
-		xformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+        layoutFeatures = new AdvancedLayoutFeatures();
     }
 
     //--------------------------------------------------------------------------
@@ -149,7 +148,7 @@ public class GraphicElement extends EventDispatcher
     /**
      *  Documentation is not currently available.
      */
-	protected var xformOffsets:TransformOffset;
+	protected var layoutFeatures:AdvancedLayoutFeatures;
     //--------------------------------------------------------------------------
     //
     //  Properties: IGraphicElement
@@ -157,32 +156,29 @@ public class GraphicElement extends EventDispatcher
     //--------------------------------------------------------------------------
 	
     [Bindable("propertyChange")]
-	public function get offsets():TransformOffset
+	/**
+	 * Documentation is not currently available
+	 */
+ 	public function set offsets(value:CompoundTransform):void
 	{
-		return (xformOffsets != null && xformOffsets.userVisible == true)? xformOffsets:null;
-	}
-	public function set offsets(userValue:TransformOffset):void
-	{
-		var oldValue:TransformOffset = xformOffsets;
-		var value:TransformOffset = userValue;
-			
-		if(value == null)
-		{
-			value = new TransformOffset();
-			value.userVisible = false;
-		}
+		var oldValue:CompoundTransform = layoutFeatures.offsets;
 		
-		if(value != null && oldValue != null)
-			value.initFrom(oldValue);
-
-		if(xformOffsets != null)
-			xformOffsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
-		xformOffsets = value;
-		if(xformOffsets != null)
-			xformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
-
-        dispatchPropertyChangeEvent("offsets", oldValue, userValue);
+		if(layoutFeatures.offsets != null)
+			layoutFeatures.offsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+		layoutFeatures.offsets = value;
+		if(layoutFeatures.offsets != null)
+			layoutFeatures.offsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+        dispatchPropertyChangeEvent("offsets", oldValue, value);
 	}
+	
+	/**
+	 * @private
+	 */
+	public function get offsets():CompoundTransform
+	{
+		return layoutFeatures.offsets;
+	}
+
 	
 	
 	protected function invalidateTransform(changeInvalidatesLayering:Boolean = true,triggerLayout:Boolean = true):void
@@ -193,7 +189,7 @@ public class GraphicElement extends EventDispatcher
         {
     	    invalidateParentSizeAndDisplayList();
         }
-        xformOffsets.updatePending = true;
+        layoutFeatures.updatePending = true;
 	}
 
     private function transformOffsetsChangedHandler(e:Event):void
@@ -1154,7 +1150,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get rotationX():Number
     {
-        return xformOffsets.layoutRotationX;
+        return layoutFeatures.layoutRotationX;
     }
 
     /**
@@ -1162,11 +1158,11 @@ public class GraphicElement extends EventDispatcher
      */
     public function set rotationX(value:Number):void
     {
-        var oldValue:Number = xformOffsets.layoutRotationX;
+        var oldValue:Number = layoutFeatures.layoutRotationX;
         if (oldValue == value)
             return;
 
-        xformOffsets.layoutRotationX = value;
+        layoutFeatures.layoutRotationX = value;
         dispatchPropertyChangeEvent("rotationX", oldValue, value);
 		invalidateTransform();
     }
@@ -1180,7 +1176,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get rotationY():Number
     {
-        return xformOffsets.layoutRotationY;
+        return layoutFeatures.layoutRotationY;
     }
 
     /**
@@ -1188,11 +1184,11 @@ public class GraphicElement extends EventDispatcher
      */
     public function set rotationY(value:Number):void
     {
-        var oldValue:Number = xformOffsets.layoutRotationY;
+        var oldValue:Number = layoutFeatures.layoutRotationY;
         if (oldValue == value)
             return;
 
-        xformOffsets.layoutRotationY = value;
+        layoutFeatures.layoutRotationY = value;
         dispatchPropertyChangeEvent("rotationY", oldValue, value);
 		invalidateTransform();
     }
@@ -1206,7 +1202,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get rotationZ():Number
     {
-        return xformOffsets.layoutRotationZ;
+        return layoutFeatures.layoutRotationZ;
     }
 
     /**
@@ -1214,11 +1210,11 @@ public class GraphicElement extends EventDispatcher
      */
     public function set rotationZ(value:Number):void
     {
-        var oldValue:Number = xformOffsets.layoutRotationZ;
+        var oldValue:Number = layoutFeatures.layoutRotationZ;
         if (oldValue == value)
             return;
 
-        xformOffsets.layoutRotationZ = value;
+        layoutFeatures.layoutRotationZ = value;
         dispatchPropertyChangeEvent("rotationZ", oldValue, value);
         dispatchPropertyChangeEvent("rotation", oldValue, value);
 		invalidateTransform();
@@ -1233,7 +1229,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get rotation():Number
     {
-        return xformOffsets.layoutRotationZ;
+        return layoutFeatures.layoutRotationZ;
     }
     public function set rotation(value:Number):void
     {
@@ -1253,7 +1249,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get scaleX():Number
     {
-        return xformOffsets.layoutScaleX;
+        return layoutFeatures.layoutScaleX;
     }
 
     /**
@@ -1261,11 +1257,11 @@ public class GraphicElement extends EventDispatcher
      */
     public function set scaleX(value:Number):void
     {
-        var oldValue:Number = xformOffsets.layoutScaleX;
+        var oldValue:Number = layoutFeatures.layoutScaleX;
         if (oldValue == value)
             return;
 
-        xformOffsets.layoutScaleX = value;
+        layoutFeatures.layoutScaleX = value;
         dispatchPropertyChangeEvent("scaleX", oldValue, value);
 		invalidateTransform();
     }
@@ -1283,7 +1279,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get scaleY():Number
     {
-        return xformOffsets.layoutScaleY;
+        return layoutFeatures.layoutScaleY;
     }
 
     /**
@@ -1291,11 +1287,11 @@ public class GraphicElement extends EventDispatcher
      */
     public function set scaleY(value:Number):void
     {
-        var oldValue:Number = xformOffsets.layoutScaleY;
+        var oldValue:Number = layoutFeatures.layoutScaleY;
         if (oldValue == value)
             return;
 
-        xformOffsets.layoutScaleY = value;
+        layoutFeatures.layoutScaleY = value;
         dispatchPropertyChangeEvent("scaleY", oldValue, value);
 		invalidateTransform();
     }
@@ -1313,7 +1309,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get scaleZ():Number
     {
-        return xformOffsets.layoutScaleZ;
+        return layoutFeatures.layoutScaleZ;
     }
 
     /**
@@ -1321,11 +1317,11 @@ public class GraphicElement extends EventDispatcher
      */
     public function set scaleZ(value:Number):void
     {
-        var oldValue:Number = xformOffsets.layoutScaleZ;
+        var oldValue:Number = layoutFeatures.layoutScaleZ;
         if (oldValue == value)
             return;
 
-        xformOffsets.layoutScaleZ = value;
+        layoutFeatures.layoutScaleZ = value;
         dispatchPropertyChangeEvent("scaleZ", oldValue, value);
 		invalidateTransform();
     }
@@ -1407,11 +1403,11 @@ public class GraphicElement extends EventDispatcher
                                           transformPropertyChangeHandler);
 			if(value.matrix != null)
 			{
-				xformOffsets.layoutMatrix = value.matrix;
+				layoutFeatures.layoutMatrix = value.matrix;
 			}
 			else if (value.matrix3D != null)
 			{
-				xformOffsets.layoutMatrix3D = value.matrix3D;
+				layoutFeatures.layoutMatrix3D = value.matrix3D;
 			}            
             _colorTransform = value.colorTransform;
         }
@@ -1425,7 +1421,7 @@ public class GraphicElement extends EventDispatcher
 	 */
 	public function get matrix():Matrix
 	{
-		return xformOffsets.layoutMatrix;			
+		return layoutFeatures.layoutMatrix;			
 	}
 
 	/**
@@ -1433,7 +1429,7 @@ public class GraphicElement extends EventDispatcher
 	 */
 	public function set matrix(value:Matrix):void
 	{
-		xformOffsets.matrix = value;
+		layoutFeatures.layoutMatrix = value;
 		invalidateTransform();
 	}
 
@@ -1443,7 +1439,7 @@ public class GraphicElement extends EventDispatcher
 	 */
 	public function set matrix3D(value:Matrix3D):void
 	{
-		xformOffsets.matrix3D = value;
+		layoutFeatures.layoutMatrix3D = value;
 		invalidateTransform();
 	}
 
@@ -1452,7 +1448,7 @@ public class GraphicElement extends EventDispatcher
 	 */
 	public function get matrix3D():Matrix3D
 	{
-		return xformOffsets.layoutMatrix3D;			
+		return layoutFeatures.layoutMatrix3D;			
 	}
 
     //----------------------------------
@@ -1467,7 +1463,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get transformX():Number
     {
-        return xformOffsets.transformX;
+        return layoutFeatures.transformX;
     }
 
     /**
@@ -1475,11 +1471,11 @@ public class GraphicElement extends EventDispatcher
      */
     public function set transformX(value:Number):void
     {
-        var oldValue:Number = xformOffsets.transformX;
+        var oldValue:Number = layoutFeatures.transformX;
         if ( oldValue == value)
             return;
             
-        xformOffsets.transformX = value;
+        layoutFeatures.transformX = value;
         dispatchPropertyChangeEvent("transformX", oldValue, value);
 		invalidateTransform(false);
     }
@@ -1497,7 +1493,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get transformY():Number
     {
-        return xformOffsets.transformY;
+        return layoutFeatures.transformY;
     }
 
     /**
@@ -1505,10 +1501,10 @@ public class GraphicElement extends EventDispatcher
      */
     public function set transformY(value:Number):void
     {
-        var oldValue:Number = xformOffsets.transformY;
+        var oldValue:Number = layoutFeatures.transformY;
         if (oldValue == value)
             return;
-        xformOffsets.transformY = value;
+        layoutFeatures.transformY = value;
         dispatchPropertyChangeEvent("transformY", oldValue, value);
 		invalidateTransform(false);
     }
@@ -1526,7 +1522,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get transformZ():Number
     {
-        return xformOffsets.transformZ;
+        return layoutFeatures.transformZ;
     }
 
     /**
@@ -1534,10 +1530,10 @@ public class GraphicElement extends EventDispatcher
      */
     public function set transformZ(value:Number):void
     {
-        var oldValue:Number = xformOffsets.transformZ;
+        var oldValue:Number = layoutFeatures.transformZ;
         if (oldValue == value)
             return;
-        xformOffsets.transformZ = value;
+        layoutFeatures.transformZ = value;
         dispatchPropertyChangeEvent("transformZ", oldValue, value);
 		invalidateTransform();
     }
@@ -1628,14 +1624,14 @@ public class GraphicElement extends EventDispatcher
     //----------------------------------  
 	public function get layer():Number
 	{
-		return xformOffsets.layer;
+		return layoutFeatures.layer;
 	}
 
 	public function set layer(value:Number):void
 	{
 		if(value == layer)
 			return;
-		 xformOffsets.layer = value;	
+		 layoutFeatures.layer = value;	
 		if(_host != null && _host is UIComponent)
 			(_host as UIComponent).invalidateLayering();
 	}
@@ -1651,7 +1647,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get x():Number
     {
-        return xformOffsets.layoutX;
+        return layoutFeatures.layoutX;
     }
 
     /**
@@ -1659,11 +1655,11 @@ public class GraphicElement extends EventDispatcher
      */
     public function set x(value:Number):void
     {
-        var oldValue:Number = xformOffsets.layoutX;
+        var oldValue:Number = layoutFeatures.layoutX;
         if (oldValue == value)
             return;
 
-        xformOffsets.layoutX = value;
+        layoutFeatures.layoutX = value;
         dispatchPropertyChangeEvent("x", oldValue, value);
         invalidateTransform(false);
     }
@@ -1680,7 +1676,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get y():Number
     {
-        return xformOffsets.layoutY;
+        return layoutFeatures.layoutY;
     }
 
     /**
@@ -1688,11 +1684,11 @@ public class GraphicElement extends EventDispatcher
      */
     public function set y(value:Number):void
     {
-        var oldValue:Number = xformOffsets.layoutY;
+        var oldValue:Number = layoutFeatures.layoutY;
         if (oldValue == value)
             return;
 
-        xformOffsets.layoutY = value;
+        layoutFeatures.layoutY = value;
         dispatchPropertyChangeEvent("y", oldValue, value);
 		invalidateTransform(false);
     }
@@ -1709,7 +1705,7 @@ public class GraphicElement extends EventDispatcher
      */
     public function get z():Number
     {
-        return xformOffsets.layoutZ;
+        return layoutFeatures.layoutZ;
     }
 
     /**
@@ -1717,11 +1713,11 @@ public class GraphicElement extends EventDispatcher
      */
     public function set z(value:Number):void
     {
-        var oldValue:Number = xformOffsets.layoutZ;
+        var oldValue:Number = layoutFeatures.layoutZ;
         if (oldValue == value)
             return;
 		
-        xformOffsets.layoutZ = value;
+        layoutFeatures.layoutZ = value;
         dispatchPropertyChangeEvent("z", oldValue, value);
 		invalidateTransform();
     }
@@ -1853,8 +1849,8 @@ public class GraphicElement extends EventDispatcher
         }
         else
         {
-        	topLeft.x += xformOffsets.layoutX;
-        	topLeft.y += xformOffsets.layoutY;
+        	topLeft.x += layoutFeatures.layoutX;
+        	topLeft.y += layoutFeatures.layoutY;
         }
 
         // Take stroke into account:
@@ -1892,7 +1888,9 @@ public class GraphicElement extends EventDispatcher
         // TODO!!! We need to apply all of the transforms of our ancestors
     	if(displayObject != null)
     		return 0;
-    	var result:Number = xformOffsets.layoutX + xformOffsets.x;  	
+    	var result:Number = layoutFeatures.layoutX;
+    	if(layoutFeatures.offsets != null)
+    		result +=  layoutFeatures.offsets.x;  	
         return sharedDisplayObject && sharedDisplayObject != elementHost ? result - sharedDisplayObject.x : result;
     }
     
@@ -1909,7 +1907,9 @@ public class GraphicElement extends EventDispatcher
         // TODO!!! We need to apply all of the transforms of our ancestors
     	if(displayObject != null)
     		return 0;
-    	var result:Number = xformOffsets.layoutY + xformOffsets.y;  	
+    	var result:Number = layoutFeatures.layoutY;
+    	if(layoutFeatures.offsets != null)
+    		result +=  layoutFeatures.offsets.y;  	
         return sharedDisplayObject && sharedDisplayObject != elementHost ? result - sharedDisplayObject.y : result;
     }
     
@@ -2041,22 +2041,24 @@ public class GraphicElement extends EventDispatcher
      */
     public function get needsDisplayObject():Boolean
     {
-    	if ((_filters && _filters.length > 0) || 
+    	var result:Boolean;
+    	result = ((_filters && _filters.length > 0) || 
     		_blendMode != BlendMode.NORMAL || _mask ||
-    		xformOffsets.layoutScaleX != 1 || xformOffsets.layoutScaleY != 1 || xformOffsets.layoutScaleZ != 1 ||
-    		xformOffsets.layoutRotationX != 0 || xformOffsets.layoutRotationY != 0 || xformOffsets.layoutRotationZ != 0 ||
-    		xformOffsets.layoutZ  != 0 ||  
-    		xformOffsets.scaleX != 1 || xformOffsets.scaleY != 1 || xformOffsets.scaleZ != 1 ||
-    		xformOffsets.rotationX != 0 || xformOffsets.rotationY != 0 || xformOffsets.rotationZ != 0 ||
-    		xformOffsets.z  != 0 ||  
+    		layoutFeatures.layoutScaleX != 1 || layoutFeatures.layoutScaleY != 1 || layoutFeatures.layoutScaleZ != 1 ||
+    		layoutFeatures.layoutRotationX != 0 || layoutFeatures.layoutRotationY != 0 || layoutFeatures.layoutRotationZ != 0 ||
+    		layoutFeatures.layoutZ  != 0 ||  
     		_colorTransform != null ||
     		_alpha != 1 ||
-    		_layer != 0)
-    	{
-			return true;
-    	}
-    	else
-    		return false;
+    		_layer != 0);
+
+		if(layoutFeatures.offsets != null)
+		{
+			var o:CompoundTransform = layoutFeatures.offsets;
+    		result = result || (o.scaleX != 1 || o.scaleY != 1 || o.scaleZ != 1 ||
+    		o.rotationX != 0 || o.rotationY != 0 || o.rotationZ != 0 || o.z  != 0);  
+			
+		}
+		return result;
     }
     
     public function get nextSiblingNeedsDisplayObject():Boolean
@@ -2383,7 +2385,7 @@ public class GraphicElement extends EventDispatcher
                 invalidateDisplayList();
             }
         }
-        if (xformOffsets.updatePending ||
+        if (layoutFeatures.updatePending ||
             updateTransform)
         {
             applyComputedTransform();
@@ -2516,7 +2518,7 @@ public class GraphicElement extends EventDispatcher
 		// we commit our transform in two places. First, during commit properties, because our size depends on it,
 		// and our parent will most likely take it into account during layout. Secondly, here, because our parent will likely
 		// change our xform as a result of layout, and we need to commit it before we end up on screen.   
-        if (xformOffsets.updatePending)
+        if (layoutFeatures.updatePending)
         {
             applyComputedTransform();
         }
@@ -2589,7 +2591,7 @@ public class GraphicElement extends EventDispatcher
         if (!displayObject)
             return null;
 				
-        var m:Matrix = xformOffsets.layoutMatrix;
+        var m:Matrix = layoutFeatures.layoutMatrix;
         return TransformUtil.isDeltaIdentity(m) ? null : m;
     }
 
@@ -2653,8 +2655,8 @@ public class GraphicElement extends EventDispatcher
 
             // now adjust our tx/ty values based on the difference between our current transformed position and 
             // where we want to end up.
-            x = x - origin.x + xformOffsets.layoutX;
-            y = y - origin.y + xformOffsets.layoutY;
+            x = x - origin.x + layoutFeatures.layoutX;
+            y = y - origin.y + layoutFeatures.layoutY;
         }
         else
         {
@@ -2663,14 +2665,14 @@ public class GraphicElement extends EventDispatcher
         }
 
 
-       	if(x != xformOffsets.layoutX || y != xformOffsets.layoutY)
+       	if(x != layoutFeatures.layoutX || y != layoutFeatures.layoutY)
        	{
-			xformOffsets.layoutX = x;
-			xformOffsets.layoutY = y;
+			layoutFeatures.layoutX = x;
+			layoutFeatures.layoutY = y;
 			// note that we don't want to call invalidateTransform, because 
 			// this is in the middle of an update pass. Instead, we just note that the 
 			// transform has an update pending, so we can apply it later.
-			xformOffsets.updatePending = true;
+			layoutFeatures.updatePending = true;
             invalidateDisplayList();
         }
     }
@@ -2796,18 +2798,18 @@ public class GraphicElement extends EventDispatcher
      */
     protected function applyComputedTransform():void
     {		
-        xformOffsets.updatePending = false;
+        layoutFeatures.updatePending = false;
 
         if(displayObject == null)
         	return;
         	        
-		if(xformOffsets.computedIs3D)
+		if(layoutFeatures.is3D)
 		{
-			displayObject.transform.matrix3D = xformOffsets.computedMatrix3D;				
+			displayObject.transform.matrix3D = layoutFeatures.computedMatrix3D;				
 		}
 		else
 		{
-			displayObject.transform.matrix = xformOffsets.computedMatrix;
+			displayObject.transform.matrix = layoutFeatures.computedMatrix;
 			//race("updating transform");
 		}
     }
@@ -2845,20 +2847,20 @@ public class GraphicElement extends EventDispatcher
         // not only on scale.
         if (scaleMode == LineScaleMode.NORMAL)
         {
-            if (xformOffsets.layoutScaleX == xformOffsets.layoutScaleY)
-                weight *= xformOffsets.layoutScaleX;
+            if (layoutFeatures.layoutScaleX == layoutFeatures.layoutScaleY)
+                weight *= layoutFeatures.layoutScaleX;
             else
-                weight *= Math.sqrt(0.5 * (xformOffsets.layoutScaleX * xformOffsets.layoutScaleX + xformOffsets.layoutScaleY * xformOffsets.layoutScaleY));
+                weight *= Math.sqrt(0.5 * (layoutFeatures.layoutScaleX * layoutFeatures.layoutScaleX + layoutFeatures.layoutScaleY * layoutFeatures.layoutScaleY));
             
             return new Point(weight, weight);
         }
         else if (scaleMode == LineScaleMode.HORIZONTAL)
         {
-            return new Point(weight * xformOffsets.layoutScaleX, weight);
+            return new Point(weight * layoutFeatures.layoutScaleX, weight);
         }
         else if (scaleMode == LineScaleMode.VERTICAL)
         {
-            return new Point(weight, weight * xformOffsets.layoutScaleY);
+            return new Point(weight, weight * layoutFeatures.layoutScaleY);
         }
 
         return null;
@@ -2913,7 +2915,7 @@ public class GraphicElement extends EventDispatcher
                 // Apply matrix
                 if (_transform)
                 {
-                    xformOffsets.layoutMatrix = _transform.matrix.clone();
+                    layoutFeatures.layoutMatrix = _transform.matrix.clone();
 					invalidateTransform();
                 }
             }
