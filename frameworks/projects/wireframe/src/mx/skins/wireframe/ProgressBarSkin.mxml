@@ -9,7 +9,9 @@ NOTICE: Adobe permits you to use, modify, and distribute this file
 in accordance with the terms of the license agreement accompanying it.
 
 -->
-<!--- The Spark skin class for the border of the Halo DropDown component. 
+<!--- The wireframe skin class for the border of the MX ProgressBar component. 
+
+      @see mx.controls.ProgressBar
 
 @langversion 3.0
 @playerversion Flash 10
@@ -17,16 +19,18 @@ in accordance with the terms of the license agreement accompanying it.
 @productversion Flex 4
 -->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-						>
-	
-	<s:states>
-		<s:State name="normal"/>
-		<s:State name="disabled"/>
-	</s:states>
-	
-	<s:Rect id="border" left="2" right="2" top="2" bottom="2">
-		<s:fill>
-			<s:SolidColor id="bgFill" color="0xE2E6F6"/>
-		</s:fill>
-	</s:Rect>
+                        >
+    
+    <s:states>
+        <s:State name="normal"/>
+        <s:State name="disabled"/>
+    </s:states>
+    
+    <!--- @private -->
+    <s:Rect id="border" left="2" right="2" top="2" bottom="2">
+        <s:fill>
+            <!--- @private -->
+            <s:SolidColor id="bgFill" color="0xE2E6F6"/>
+        </s:fill>
+    </s:Rect>
 </s:Skin>
