@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.effects.effectClasses
+package mx.effects.effectClasses
 {
 
 import mx.core.mx_internal;
@@ -23,7 +23,7 @@ import mx.styles.StyleManager;
  *  Flex creates an instance of this class when it plays a SetAction
  *  effect; you do not create one yourself.
  *
- *  @see flex.effects.SetAction
+ *  @see mx.effects.SetAction
  */  
 public class SetActionInstance extends ActionEffectInstance
 {
