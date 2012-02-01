@@ -40,6 +40,39 @@ public class ConstraintLayout extends LayoutBase
         return !isNaN(elementInfo.top) && !isNaN(elementInfo.bottom);
     }
     
+    /**
+     *  @return Returns the maximum value for an element's dimension so that the component doesn't
+     *  spill out of the container size. Calculations are based on the layout rules.
+     *  Pass in unscaledWidth, hCenter, left, right, childX to get a maxWidth value.
+     *  Pass in unscaledHeight, vCenter, top, bottom, childY to get a maxHeight value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    static private function maxSizeToFitIn(totalSize:Number,
+                                           lowConstraint:Number,
+                                           highConstraint:Number,
+                                           position:Number):Number
+    {
+        if (!isNaN(lowConstraint))
+        {
+            // childWidth + left <= totalSize
+            return totalSize - lowConstraint;
+        }
+        else if (!isNaN(highConstraint))
+        {
+            // childWidth + right <= totalSize
+            return totalSize - highConstraint;
+        }
+        else
+        {
+            // childWidth + childX <= totalSize
+            return totalSize - position;
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -469,6 +502,7 @@ public class ConstraintLayout extends LayoutBase
             }
         }
         
+        // TODO: Add baseline
         if (topBoundary || bottomBoundary)
         {
             var numRows:Number = _constraintRows.length;
@@ -754,6 +788,8 @@ public class ConstraintLayout extends LayoutBase
         {
             var numRowSpanElements:Number = rowSpanElements.length;
             
+            // TODO: Add baseline
+            
             // Measure content size rows only single span for now.
             // If multiple span, do nothing yet.
             for (i = 0; i < numRowSpanElements; i++)
@@ -896,6 +932,8 @@ public class ConstraintLayout extends LayoutBase
         var minHeight:Number = 0;
         var count:int = otherElements.length;
         
+        // TODO: Add baseline
+        
         for (var i:int = 0; i < count; i++)
         {
             var elementInfo:ElementConstraintInfo = otherElements[i];
@@ -999,6 +1037,9 @@ public class ConstraintLayout extends LayoutBase
         var topBoundary:String = elementInfo.topBoundary;
         var bottomBoundary:String = elementInfo.bottomBoundary;
         
+        var percentWidth:Number = layoutElement.percentWidth;
+        var percentHeight:Number = layoutElement.percentHeight;
+        
         var availableWidth:Number;
         var availableHeight:Number;
         
@@ -1043,17 +1084,39 @@ public class ConstraintLayout extends LayoutBase
             bottomHolder = row.y + row.height;
         }
 
-        
         // available width
         availableWidth = Math.round(rightHolder - leftHolder);
         availableHeight = Math.round(bottomHolder - topHolder);
         
         // set width
-        if (!isNaN(left) && !isNaN(right))
+        if (!isNaN(percentWidth))
+        {
+            if (!isNaN(left))
+                availableWidth -= left;
+            if (!isNaN(right))
+                availableWidth -= right;
+            
+            elementWidth = Math.round(availableWidth * Math.min(percentWidth * 0.01, 1));
+            elementMaxWidth = Math.min(layoutElement.getMaxBoundsWidth(),
+                maxSizeToFitIn(unscaledWidth, left, right, layoutElement.getLayoutBoundsX()));
+        }
+        else if (!isNaN(left) && !isNaN(right))
         {
             elementWidth = availableWidth - left - right;
         }
+        
         // set height
+        if (!isNaN(percentHeight))
+        {
+            if (!isNaN(top))
+                availableHeight -= top;
+            if (!isNaN(bottom))
+                availableHeight -= bottom;    
+            
+            elementHeight = Math.round(availableHeight * Math.min(percentHeight * 0.01, 1));
+            elementMaxHeight = Math.min(layoutElement.getMaxBoundsHeight(),
+                maxSizeToFitIn(unscaledHeight, top, bottom, layoutElement.getLayoutBoundsY()));
+        }
         if (!isNaN(top) && !isNaN(bottom))
         {
             elementHeight = availableHeight - top - bottom;
@@ -1064,12 +1127,14 @@ public class ConstraintLayout extends LayoutBase
         // which is already constrained between min and max.
         if (!isNaN(elementWidth))
         {
-            elementMaxWidth = layoutElement.getMaxBoundsWidth();
+            if (isNaN(elementMaxWidth))
+                elementMaxWidth = layoutElement.getMaxBoundsWidth();
             elementWidth = Math.max(layoutElement.getMinBoundsWidth(), Math.min(elementMaxWidth, elementWidth));
         }
         if (!isNaN(elementHeight))
         {
-            elementMaxHeight = layoutElement.getMaxBoundsHeight();
+            if (isNaN(elementMaxHeight))
+                elementMaxHeight = layoutElement.getMaxBoundsHeight();
             elementHeight = Math.max(layoutElement.getMinBoundsHeight(), Math.min(elementMaxHeight, elementHeight));
         }
         
@@ -1087,6 +1152,7 @@ public class ConstraintLayout extends LayoutBase
             elementX = layoutElement.getLayoutBoundsX();
         
         // Vertical Position
+        // TODO: Add baseline here.
         if (!isNaN(top))
             elementY = topHolder + top;
         else if (!isNaN(bottom))
