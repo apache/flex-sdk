@@ -72,7 +72,7 @@ public class Line extends StrokedElement
 		{
 			_xFrom = value;
 			dispatchPropertyChangeEvent("xFrom", oldValue, value);
-			notifyElementChanged();
+			invalidateSize();
 		}
 	}
 	
@@ -105,7 +105,7 @@ public class Line extends StrokedElement
 		{
 			_xTo = value;
 			dispatchPropertyChangeEvent("xTo", oldValue, value);
-			notifyElementChanged();
+			invalidateSize();
 		}
 	}
 	
@@ -137,7 +137,7 @@ public class Line extends StrokedElement
 		{
 			_yFrom = value;
 			dispatchPropertyChangeEvent("yFrom", oldValue, value);
-			notifyElementChanged();
+			invalidateSize();
 		}
 	}
 	
@@ -169,7 +169,7 @@ public class Line extends StrokedElement
 		{
 			_yTo = value;
 			dispatchPropertyChangeEvent("yTo", oldValue, value);
-			notifyElementChanged();
+			invalidateSize();
 		}
 	}
 
@@ -181,8 +181,8 @@ public class Line extends StrokedElement
 	
     override public function get bounds():Rectangle
 	{
-	    var w:Number = isNaN(_explicitWidth) ? Math.abs(xFrom - xTo) : _explicitWidth;
-	    var h:Number = isNaN(_explicitHeight) ? Math.abs(yFrom - yTo) : _explicitHeight;
+	    var w:Number = isNaN(explicitWidth) ? Math.abs(xFrom - xTo) : explicitWidth;
+	    var h:Number = isNaN(explicitHeight) ? Math.abs(yFrom - yTo) : explicitHeight;
 		return new Rectangle(Math.min(xTo, xFrom), Math.min(yTo, yFrom),
 		                     w, h);
 	}
@@ -192,8 +192,8 @@ public class Line extends StrokedElement
 	 */
 	override protected function drawElement(g:Graphics):void
 	{
-        var drawToX:Number = xFrom <= xTo ? drawWidth : -drawWidth;  
-        var drawToY:Number = yFrom <= yTo ? drawHeight : -drawHeight;
+        var drawToX:Number = xFrom <= xTo ? width : -width;  
+        var drawToY:Number = yFrom <= yTo ? height : -height;
 
         drawToX += xFrom;
         drawToY += yFrom;
