@@ -19,6 +19,11 @@ import mx.core.IVisualElement;
 /**
  *  Represents events that are dispatched when an element of a Group
  *  is created or destroyed. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class ElementExistenceEvent extends Event
 {
@@ -55,6 +60,11 @@ public class ElementExistenceEvent extends Event
 	 *  </table>
 	 *
      *  @eventType elementAdd
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public static const ELEMENT_ADD:String = "elementAdd";
 
@@ -83,6 +93,11 @@ public class ElementExistenceEvent extends Event
 	 *  </table>
 	 *
      *  @eventType elementRemove
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public static const ELEMENT_REMOVE:String = "elementRemove";
 
@@ -104,6 +119,11 @@ public class ElementExistenceEvent extends Event
 	 *  @param element Reference to the element that was added or removed.
 	 * 
 	 *  @param index The index where the element was added or removed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function ElementExistenceEvent(
 								type:String, bubbles:Boolean = false,
@@ -129,6 +149,11 @@ public class ElementExistenceEvent extends Event
 
     /**
      *  The index where the element was added or removed
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var index:int;
 
@@ -138,6 +163,11 @@ public class ElementExistenceEvent extends Event
 
 	/**
 	 *  Reference to the visual element that was added or removed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public var element:IVisualElement;
 
