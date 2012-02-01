@@ -58,6 +58,10 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 [Exclude(name="layoutDirection", kind="property")]
 [Exclude(name="layoutDirection", kind="style")]
 
+// Make these properties act like styles.
+[Exclude(name="direction", kind="property")]
+[Exclude(name="locale", kind="property")]
+
 /**
  *   A simple and efficient IGridItemRenderer that displays a single text label.  This
  *   class is the default value for the s:DataGrid itemRenderer property.   It's based
@@ -107,30 +111,27 @@ public class DefaultGridItemRenderer extends UIFTETextField implements IGridItem
         
         addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);
     }
-
+        
     /**
-     *  @private
-     * 
-     *  Called from initProtoChain() in TextFieldGridItemRendererInclude.as.
+     * @private 
+     * Convert this property to a style.  UIFTETextField will retrieve the
+     * style and set the underlying property in FTETextField.
      */
-    private function addStyleDeclarationToProtoChain(chain:Object,
-                                                       target:DisplayObject):Object
+    override public function set direction(value:String):void
     {
-        // Add style declaration to the proto chain as usual but also add
-        // direction and locale styles.
-        // The "direction" and "locale" are treated as properites instead of
-        // styles by the compiler when the DefaultGridItemRenderer is used. 
-        // This means styleDeclaration will not include these inline styles. 
-        // This code adds "direction" and "locale" back into styleDeclaration
-        // so the style system sees the styles.        
-        var styles:Object = styleDeclaration.addStyleToProtoChain(chain, target);
-        
-        styles.direction = direction;
-        styles.locale = locale;
-        
-        return styles;
-    } 
+        setStyle("direction", value);
+    }
     
+    /**
+     * @private 
+     * Convert this property to a style.  UIFTETextField will retrieve the
+     * style and set the underlying property in FTETextField.
+     */
+    override public function set locale(value:String):void
+    {
+        setStyle("locale", value);
+    }
+
 include "TextFieldGridItemRendererInclude.as"
 
 }
