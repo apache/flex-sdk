@@ -13,6 +13,7 @@ package spark.events
 {
 
 import flash.events.Event;
+import spark.components.supportClasses.CellRegion;
 
 /**
  *  The GridSelectionEvent class represents events that are dispatched when 
@@ -52,6 +53,13 @@ public class GridSelectionEvent extends Event
      *       event listener that handles the event. For example, if you use 
      *       <code>myButton.addEventListener()</code> to register an event listener, 
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td>kind<code></code></td><td>The kind of changing event.
+     *       The valid values are defined in GridSelectionEventKind 
+     *       class as constants.  This value determines which properties in
+     *       the event are used.</td></tr>
+     *     <tr><td><code>selectionChange</code></td><td>The just completed selection
+     *      change that was triggered by a user gesture. Use the DataGrid
+     *      selection methods to determine the current selection.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
      *       it is not always the Object listening for the event. 
      *       Use the <code>currentTarget</code> property to always access the 
@@ -61,6 +69,9 @@ public class GridSelectionEvent extends Event
      *   
      *  @eventType selectionChange
      *  
+     *  @see spark.components.DataGrid#selectedCells
+     *  @see spark.components.DataGrid#selectedIndices
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
@@ -84,19 +95,12 @@ public class GridSelectionEvent extends Event
      *       event listener that handles the event. For example, if you use 
      *       <code>myButton.addEventListener()</code> to register an event listener, 
      *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td>columnCount<code></code></td><td>The number of columns in
-     *      a cell region.</td></tr>
-     *     <tr><td>columnIndex<code></code></td><td>The 0-based columnIndex of
-     *      a cell or the origin of a cell region.</td></tr>
-     *     <tr><td>indices<code></code></td><td>A list of rows.</td></tr>
      *     <tr><td>kind<code></code></td><td>The kind of changing event.
      *       The valid values are defined in GridSelectionEventKind 
      *       class as constants.  This value determines which properties in
      *       the event are used.</td></tr>
-     *     <tr><td>rowCount<code></code></td><td>The number of rows in
-     *      a cell region.</td></tr>
-     *     <tr><td>rowIndex<code></code></td><td>The 0-based rowIndex or a
-     *      row or a cell or the origin of a cell region.</td></tr>
+     *     <tr><td><code>selectionChange</code></td><td>The upcoming selection
+     *      change that is triggered by a user gesture.</td></tr>
      *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
      *       it is not always the Object listening for the event. 
      *       Use the <code>currentTarget</code> property to always access the 
@@ -106,7 +110,8 @@ public class GridSelectionEvent extends Event
      *   
      *  @eventType selectionChanging
      *  
-     *  @see spark.components.DataGrid
+     *  @see spark.components.DataGrid#selectedCells
+     *  @see spark.components.DataGrid#selectedIndices
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -136,46 +141,12 @@ public class GridSelectionEvent extends Event
      *  <code>GridSelectionEventKind</code> class as constants.  This value 
      *  determines which properties in the event are used.
      * 
-     *  @param rowIndex When type is <code>SELECTION_CHANGING</code> and the
-     *  kind is one of <code>GridSelectionEvent.SET_ROW</code>, 
-     *  <code>GridSelectionEvent.ADD_ROW</code>, or
-     *  <code>GridSelectionEvent.REMOVE_ROW</code>, 
-     *  the 0-based index from the <code>dataProvider</code> of the row, 
-     *  and when kind is one of
-     *  <code>GridSelectionEvent.SET_CELL</code>, 
-     *  <code>GridSelectionEvent.ADD_CELL</code>, or
-     *  <code>GridSelectionEvent.REMOVE_CELL</code>, 
-     *  the 0-based index from the <code>dataProvider</code> of origin of the
-     *  cell region.
-     * 
-     *  @param columnIndex When type is <code>SELECTION_CHANGING</code> and the
-     *  kind is one of <code>GridSelectionEvent.SET_ROW</code>, 
-     *  <code>GridSelectionEvent.ADD_ROW</code>, or
-     *  <code>GridSelectionEvent.REMOVE_ROW</code>, 
-     *  the 0-based index from the <code>columns</code> of the row, 
-     *  and when kind is one of
-     *  <code>GridSelectionEvent.SET_CELL</code>, 
-     *  <code>GridSelectionEvent.ADD_CELL</code>, or
-     *  <code>GridSelectionEvent.REMOVE_CELL</code>, 
-     *  the 0-based index from the <code>columns</code> of origin of the
-     *  cell region.
-     * 
-     *  @param rowCount When type is <code>SELECTION_CHANGING</code> and the
-     *  kind is <code>GridSelectionEvent.SET_CELLS</code>, the number of
-     *  rows in the cell region that is to be selected.  The rows originate 
-     *  at rowIndex.
-     * 
-     *  @param columnCount When type is <code>SELECTION_CHANGING</code> and the
-     *  kind is <code>GridSelectionEvent.SET_CELLS</code>, the number of
-     *  columns in the cell region that is to be selected.  The columns 
-     *  originate at columnIndex. 
-     * 
-     *  @param indices When type is <code>SELECTION_CHANGING</code> and 
-     *  kind is <code>GridSelectionEvent.SET_ROWS</code>,
-     *  a Vector of the row indices that are about to be selected.
-     * 
-     *  @see spark.components.DataGrid#columns
-     *  @see spark.components.DataGrid#dataProvider
+     *  @param selectionChange The proposed or accepted change to the 
+     *  current selection.  Use the Spark DataGrid selection methods to 
+     *  determine the current selection.
+     *  
+     *  @see spark.components.DataGrid#selectedCells
+     *  @see spark.components.DataGrid#selectedIndices
      *  @spark.events.GridSelectionEventKind
      * 
      *  @langversion 3.0
@@ -187,22 +158,12 @@ public class GridSelectionEvent extends Event
                                        bubbles:Boolean = false,
                                        cancelable:Boolean = false,
                                        kind:String = null,
-                                       rowIndex:int = -1,
-                                       columnIndex:int= -1,                                        
-                                       rowCount:int = -1, 
-                                       columnCount:int = -1,
-                                       indices:Vector.<int> = null)
+                                       selectionChange:CellRegion = null)
      {
         super(type, bubbles, cancelable);
 
-        this.kind = kind;
-        
-        this.rowIndex = rowIndex;
-        this.columnIndex = columnIndex;
-        this.rowCount = rowCount;
-        this.columnCount = columnCount;
-        
-        this.indices = indices;
+        this.kind = kind;       
+        this.selectionChange = selectionChange;
     }
 
     //--------------------------------------------------------------------------
@@ -232,80 +193,22 @@ public class GridSelectionEvent extends Event
     
     
     //----------------------------------
-    //  rowIndex
+    //  selectionChange
     //----------------------------------
 
     /**
-     *  The 0-based index of the row in the <code>dataProvider</code> for
-     *  either a row or a cell position, or the origin of a cell region.
-     * 
-     *  @see spark.components.DataGrid#dataProvider
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public var rowIndex:int;
-    
-    //----------------------------------
-    //  columnIndex
-    //----------------------------------
-    
-    /**
-     *  The 0-based index of the column in the <code>columns</code> for
-     *  either a cell position or the origin of a cell region.
-     * 
-     *  @see spark.components.DataGrid#columns
+     *  The upcoming or just-completed selection changes triggered by some 
+     *  user gesture.  If this change is adding to the current selection, it 
+     *  will not represent the complete selection.  Use the <code>DataGrid</code>
+     *  selection methods to determine the selection.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public var columnIndex:int;
+    public var selectionChange:CellRegion;
     
-    //----------------------------------
-    //  rowCount
-    //----------------------------------
-    
-    /**
-     *  If selecting a cell region, the number of rows in the cell region.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */    
-    public var rowCount:int;
-
-    //----------------------------------
-    //  columnCount
-    //----------------------------------
-    
-    /**
-     *  If selecting a cell region, the number of columns in the cell region.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */    
-    public var columnCount:int;
-    
-    //----------------------------------
-    //  indices
-    //----------------------------------
-    
-    /**
-     *  If selecting multiple rows, a Vector of the row indices.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public var indices:Vector.<int>;
 
     //--------------------------------------------------------------------------
     //
@@ -322,8 +225,7 @@ public class GridSelectionEvent extends Event
             "GridSelectionEvent", "type", 
             "bubbles", "cancelable", "eventPhase",
             "kind", 
-            "rowIndex","columnIndex", "rowCount", "columnCount", 
-            "indices");
+            "selectionChange");
     }
     
     //--------------------------------------------------------------------------
@@ -338,8 +240,7 @@ public class GridSelectionEvent extends Event
     override public function clone():Event
     {
         return new GridSelectionEvent(
-            type, bubbles, cancelable, kind,
-            rowIndex, columnIndex, rowCount, columnCount, indices);
+            type, bubbles, cancelable, kind, selectionChange);
     }
 }
 
