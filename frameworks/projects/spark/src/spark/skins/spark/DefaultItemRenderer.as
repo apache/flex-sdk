@@ -11,7 +11,7 @@
 
 -->
 
-<ItemRenderer xmlns="http://ns.adobe.com/mxml/2009">
+<ItemRenderer focusEnabled="false" xmlns="http://ns.adobe.com/mxml/2009">
 	
     <states>
 		<State name="normal"/>			
