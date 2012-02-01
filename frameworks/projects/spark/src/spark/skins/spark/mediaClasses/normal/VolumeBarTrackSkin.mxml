@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--- The default skin class for the volume bar track part of a Spark VideoPlayer component. -->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Metadata>
+    	[HostComponent("spark.components.Button")]
+    </fx:Metadata> 
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="down" />
+        <s:State name="over" />
+        <s:State name="disabled" />
+    </s:states>
+
+    <!-- border -->
+    <s:Rect left="3" right="3" top="0" bottom="0" radiusX="2" radiusY="2" width="5">
+        <s:fill>
+            <s:LinearGradient>
+                <s:GradientEntry color="0x000000" alpha="0.55" />
+                <s:GradientEntry color="0xFFFFFF" alpha="0.55" ratio="0.90" />
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+
+    <!-- fill -->
+    <s:Rect left="4" right="4" top="1" bottom="1" radiusX="2" radiusY="2">
+        <s:fill>
+            <s:SolidColor color="0xCACACA" />
+        </s:fill>
+    </s:Rect>
+    
+    <!-- shadow -->
+    <s:Rect top="2" bottom="2" left="4" width="1">
+        <s:fill>
+            <s:SolidColor color="0x9E9E9E" />
+        </s:fill>
+    </s:Rect>
+    
+    <!-- hit area -->
+	<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:fill>
+			<s:SolidColor alpha="0"/>
+		</s:fill>
+	</s:Rect>
+</s:SparkSkin>
