@@ -28,7 +28,7 @@ import mx.events.PropertyChangeEvent;
 /**
  *  Documentation is not currently available.
  */
-public class HorizontalLayout extends EventDispatcher implements ILayout
+public class HorizontalLayout extends LayoutBase
 {
     include "../core/Version.as";
 
@@ -37,16 +37,6 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
     //  Class methods
     //
     //--------------------------------------------------------------------------
-
-    private static function hasPercentWidth( layoutItem:ILayoutItem ):Boolean
-    {
-    	return !isNaN( layoutItem.percentSize.x );
-    }
-    
-    private static function hasPercentHeight( layoutItem:ILayoutItem ):Boolean
-    {
-        return !isNaN( layoutItem.percentSize.y );
-    }
     
     private static function calculatePercentHeight( layoutItem:ILayoutItem, height:Number ):Number
     {
@@ -75,32 +65,10 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
     //  Properties
     //
     //--------------------------------------------------------------------------
-
-    private var _target:GroupBase;
-    
-    public function get target():GroupBase
-    {
-        return _target;
-    }
-    
-    public function set target(value:GroupBase):void
-    {
-        _target = value;
-    }
     
     //----------------------------------
     //  gap
     //----------------------------------
-
-    private function invalidateTargetSizeAndDisplayList():void
-    {
-        var layoutTarget:GroupBase = target;
-        if (layoutTarget != null) 
-        {
-            layoutTarget.invalidateSize();
-            layoutTarget.invalidateDisplayList();
-        }
-    }    
 
     private var _gap:int = 6;
 
@@ -555,7 +523,7 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
     }
     
 
-    public function measure():void
+    override public function measure():void
     {
     	var layoutTarget:GroupBase = target;
         if (!layoutTarget)
@@ -568,7 +536,7 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
     }    
     
     
-    public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
     	var layoutTarget:GroupBase = target; 
         if (!layoutTarget)
@@ -576,11 +544,12 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
         
         // TODO EGeorgie: use vector
         var layoutItemArray:Array = new Array();
+        var layoutItem:ILayoutItem;
         var count:uint = layoutTarget.numLayoutItems;
         var totalCount:uint = count; // How many items will be laid out
         for (var i:int = 0; i < count; i++)
         {
-            var layoutItem:ILayoutItem = layoutTarget.getLayoutItemAt(i);
+            layoutItem = layoutTarget.getLayoutItemAt(i);
             if (!layoutItem || !layoutItem.includeInLayout)
             {
             	totalCount--;
@@ -615,19 +584,19 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
         
         for (var index:int = 0; index < count; index++)
         {
-            var lo:ILayoutItem = layoutTarget.getLayoutItemAt(index);
+            layoutItem = layoutTarget.getLayoutItemAt(index);
             if (!layoutItem || !layoutItem.includeInLayout)
                 continue;        
         
             // Set the layout item's acutual size and position
-            var y:Number = (unscaledHeight - lo.actualSize.y) * vAlign;
-            lo.setActualPosition(x, y);
-            var dy:Number = lo.actualSize.y;
+            var y:Number = (unscaledHeight - layoutItem.actualSize.y) * vAlign;
+            layoutItem.setActualPosition(x, y);
+            var dy:Number = layoutItem.actualSize.y;
             if (!variableColumnWidth)
-                lo.setActualSize(columnWidth, dy);
+                layoutItem.setActualSize(columnWidth, dy);
 
             // Update maxX,Y, first,lastVisibleIndex, and x
-            var dx:Number = lo.actualSize.x;
+            var dx:Number = layoutItem.actualSize.x;
             maxX = Math.max(maxX, x + dx);
             maxY = Math.max(maxY, y + dy);            
             if((x < maxVisibleX) && ((x + dx) > minVisibleX))
@@ -643,7 +612,8 @@ public class HorizontalLayout extends EventDispatcher implements ILayout
 
         setColumnCount(visibleColumns);  
         setIndexInView(firstColInView, lastColInView);
-        layoutTarget.setContentSize(maxX, maxY);        	      
+        layoutTarget.setContentSize(maxX, maxY);      	      
+        updateScrollRect(unscaledWidth, unscaledHeight);
     }
 
 
