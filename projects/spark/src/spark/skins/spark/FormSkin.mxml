@@ -59,6 +59,7 @@ in accordance with the terms of the license agreement accompanying it.
     
     <s:states>
         <s:State name="normal" />
+        <s:State name="error" />
         <s:State name="disabled" />
     </s:states>
     
@@ -76,7 +77,8 @@ in accordance with the terms of the license agreement accompanying it.
     more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
     -->
     <!--- @copy spark.components.Form#contentGroup -->
-    <s:Group id="contentGroup" left="0" right="0" top="0" bottom="0" minWidth="0" minHeight="0">
+    <s:Label id="errorStringText" text="{hostComponent.errorString}" left="0" right="0" top="0" color="red"/>
+    <s:Group id="contentGroup" left="0" right="0" top="30" bottom="0" minWidth="0" minHeight="0" showErrorSkin="true">
         <s:layout>
             <s:FormLayout/>
         </s:layout>
