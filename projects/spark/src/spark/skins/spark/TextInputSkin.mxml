@@ -29,12 +29,14 @@
     </fx:Metadata> 
     
     <fx:Script>
+        private var paddingChanged:Boolean;
+        
         /* Define the skin elements that should not be colorized. */
         static private const exclusions:Array = ["background", "textDisplay"];
 
-    /** 
-     * @copy spark.skins.SparkSkin#colorizeExclusions
-     */     
+        /** 
+         * @copy spark.skins.SparkSkin#colorizeExclusions
+         */     
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
@@ -45,6 +47,23 @@
          */
         override public function get contentItems():Array {return contentFill};
         
+        /**
+         *  @private
+         */
+        override protected function commitProperties():void
+        {
+            super.commitProperties();
+            
+            if (paddingChanged)
+            {
+                updatePadding();
+                paddingChanged = false;
+            }
+        }
+        
+        /**
+         *  @private
+         */
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {
             if (getStyle("borderVisible") == true)
@@ -65,6 +84,48 @@
             super.updateDisplayList(unscaledWidth, unscaledHeight);
         }
 
+        /**
+         *  @private
+         */
+        private function updatePadding():void
+        {
+            if (!textDisplay)
+                return;
+            
+            // Push padding styles into the textDisplay
+            var padding:Number;
+            
+            padding = getStyle("paddingLeft");
+            if (textDisplay.getStyle("paddingLeft") != padding)
+                textDisplay.setStyle("paddingLeft", padding);
+            
+            padding = getStyle("paddingTop");
+            if (textDisplay.getStyle("paddingTop") != padding)
+                textDisplay.setStyle("paddingTop", padding);
+            
+            padding = getStyle("paddingRight");
+            if (textDisplay.getStyle("paddingRight") != padding)
+                textDisplay.setStyle("paddingRight", padding);
+            
+            padding = getStyle("paddingBottom");
+            if (textDisplay.getStyle("paddingBottom") != padding)
+                textDisplay.setStyle("paddingBottom", padding);
+        }
+        
+        /**
+         *  @private
+         */
+        override public function styleChanged(styleProp:String):void
+        {
+            super.styleChanged(styleProp);
+            
+            if (!styleProp || styleProp.indexOf("padding") == 0)
+            {
+                paddingChanged = true;
+                invalidateProperties();
+            }
+        }
+        
         /**
          * @inheritDoc
          */
