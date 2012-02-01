@@ -122,6 +122,7 @@
     <!--- @private -->
     <s:Rect left="0" right="0" top="0" bottom="0" id="border">
         <s:stroke>
+            <!--- @private -->
             <s:SolidColorStroke id="borderStroke" weight="1"/>
         </s:stroke>
     </s:Rect>
@@ -137,7 +138,7 @@
 
     <!--- The Scroller component to add scroll bars to the list. -->
     <s:Scroller left="0" top="0" right="0" bottom="0" id="scroller" minViewportInset="1" focusEnabled="false">
-        <!--- @copy spark.components.supportClasses.SkinnableDataContainer#dataGroup -->
+        <!--- @copy spark.components.SkinnableDataContainer#dataGroup -->
         <s:DataGroup id="dataGroup" itemRenderer="spark.skins.spark.DefaultItemRenderer">
             <s:layout>
                 <!--- The default layout is vertical and measures at least for 5 rows.  
