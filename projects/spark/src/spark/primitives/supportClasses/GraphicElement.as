@@ -9,8 +9,9 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics.graphicsClasses
+package mx.graphics.baseClasses
 {
+
 import flash.display.BitmapData;
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
