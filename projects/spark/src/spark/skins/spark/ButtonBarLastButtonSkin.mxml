@@ -18,13 +18,22 @@
 
 	<!-- host component -->
 	<fx:Metadata>
+	    <![CDATA[ 
+		/** 
+		 * @copy spark.skins.default.ApplicationSkin#hostComponent
+		 */
 		[HostComponent("spark.components.ToggleButton")]
+	    ]]>
 	</fx:Metadata>
     
     <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For toggle button, the graphics are colorized but the label is not. */
         static private const exclusions:Array = ["labelElement"];
+
+	/** 
+	 * @copy spark.skins.SparkSkin#colorizeExclusions
+	 */		
         override public function get colorizeExclusions():Array {return exclusions;}
     </fx:Script>
 	
@@ -151,6 +160,7 @@
 	</s:Path>
 	
 	<!-- layer 8: text -->
+	<!--- The defines the appearance of the label for the last button in the ButtonBar component. -->
 	<s:SimpleText id="labelElement"
              textAlign="center"
              verticalAlign="middle"
