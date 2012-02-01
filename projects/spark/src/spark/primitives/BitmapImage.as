@@ -15,13 +15,46 @@ import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
+import flash.display.Loader;
+import flash.display.LoaderInfo;
 import flash.display.Sprite;
+import flash.events.Event;
+import flash.events.IOErrorEvent;
+import flash.events.SecurityErrorEvent;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.net.URLRequest;
+import flash.system.LoaderContext;
 import flash.utils.getDefinitionByName;
 
 import spark.primitives.supportClasses.GraphicElement;
+
+/**
+ *  Dispatched when an input/output error occurs.
+ *  @see flash.events.IOErrorEvent
+ *
+ *  @eventType flash.events.IOErrorEvent.IO_ERROR
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="ioError", type="flash.events.IOErrorEvent")]
+
+/**
+ *  Dispatched when a security error occurs.
+ *  @see flash.events.SecurityErrorEvent
+ *
+ *  @eventType flash.events.SecurityErrorEvent.SECURITY_ERROR
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="securityError", type="flash.events.SecurityErrorEvent")]
 
 /**
  *  A BitmapImage element defines a rectangular region in its parent element's 
@@ -62,6 +95,8 @@ public class BitmapImage extends GraphicElement
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    private var _bitmapData:BitmapData;
     
     private var _scaleGridBottom:Number;
     private var _scaleGridLeft:Number;
@@ -251,8 +286,8 @@ public class BitmapImage extends GraphicElement
      *   <li>A class representing a subclass of DisplayObject. The BitmapFill instantiates 
      *       the class and creates a bitmap rendering of it.</li>
      *   <li>An instance of a DisplayObject. The BitmapFill copies it into a Bitmap for filling.</li>
-     *   <li>The name of a subclass of DisplayObject. The BitmapFill loads the class, instantiates it, 
-     *       and creates a bitmap rendering of it.</li>
+     *   <li>The name of an external image file. This file must have the extention
+     *   .jpg, .jpeg, .gif, or .png.</li>
      *  </ul>
      *  
      *  <p>If you use an image file for the source, it can be of type PNG, GIF, or JPG.</p>
@@ -266,9 +301,8 @@ public class BitmapImage extends GraphicElement
      *  <p>The image location can be a URL or file reference. If it is a file reference, its location is relative to
      *  the location of the file that is being compiled.</p>
      *  
-     *  <p>The BitmapImage class is designed to work with embedded images, not with images that are 
-     *  loaded at run time. You can use the Image control to load the image at run time,
-     *  and then assign the Image control to the value of the BitmapImage's <code>source</code> property.</p>
+     *  <p>The BitmapImage class is designed to work with embedded images or images that are 
+     *  loaded at run time</p>
      *  
      *  @see flash.display.Bitmap
      *  @see flash.display.BitmapData
@@ -307,8 +341,8 @@ public class BitmapImage extends GraphicElement
             }
             else if (value is String)
             {
-                var tmpClass:Class = Class(getDefinitionByName(String(value)));
-                value = new tmpClass();
+                loadExternal(value as String);
+                _source = value;
             }
             
             if (value is BitmapData)
@@ -346,14 +380,9 @@ public class BitmapImage extends GraphicElement
                 }
             }       
             
-            _source = bitmapData;
+            _source = value;
             
-            // Flush the cached scale grid points
-            cachedSourceGrid = null;
-            cachedDestGrid = null;
-            
-            invalidateSize();
-            invalidateDisplayList();
+            setBitmapData(bitmapData);
         }
     }
     
@@ -408,8 +437,8 @@ public class BitmapImage extends GraphicElement
      */
     override protected function measure():void
     {
-        measuredWidth = source ? source.width : 0;
-        measuredHeight = source ? source.height : 0;
+        measuredWidth = _bitmapData ? _bitmapData.width : 0;
+        measuredHeight = _bitmapData ? _bitmapData.height : 0;
     }
     
     /**
@@ -423,7 +452,7 @@ public class BitmapImage extends GraphicElement
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
     {
-        if (!source || !drawnDisplayObject || !(drawnDisplayObject is Sprite))
+        if (!_bitmapData || !drawnDisplayObject || !(drawnDisplayObject is Sprite))
             return;
             
         // The base GraphicElement class has cleared the graphics for us.    
@@ -437,17 +466,17 @@ public class BitmapImage extends GraphicElement
         switch(_resizeMode)
         {
             case _REPEAT_UINT:
-                if (source)
+                if (_bitmapData)
                 {
                     repeatBitmap = true;
                 }    
             break;
 
             case _SCALE_UINT:
-                if (source)
+                if (_bitmapData)
                 {
-                    fillScaleX = unscaledWidth / source.width;
-                    fillScaleY = unscaledHeight / source.height;
+                    fillScaleX = unscaledWidth / _bitmapData.width;
+                    fillScaleY = unscaledHeight / _bitmapData.height;
                 }
             break;
         }
@@ -462,10 +491,10 @@ public class BitmapImage extends GraphicElement
             matrix.identity();
             matrix.scale(fillScaleX, fillScaleY);
             matrix.translate(drawX, drawY);
-            g.beginBitmapFill(_source as BitmapData, matrix, repeatBitmap, smooth);
-        g.drawRect(drawX, drawY, unscaledWidth, unscaledHeight);
+            g.beginBitmapFill(_bitmapData, matrix, repeatBitmap, smooth);
+            g.drawRect(drawX, drawY, unscaledWidth, unscaledHeight);
             g.endFill();
-    }
+        }
         else
         {   
     
@@ -477,13 +506,13 @@ public class BitmapImage extends GraphicElement
                 // Generate the 16 points of the source (unscaled) grid
                 cachedSourceGrid = [];
                 cachedSourceGrid.push([new Point(0, 0), new Point(_scaleGridLeft, 0), 
-                                new Point(_scaleGridRight, 0), new Point(_source.width, 0)]);
+                                new Point(_scaleGridRight, 0), new Point(_bitmapData.width, 0)]);
                 cachedSourceGrid.push([new Point(0, _scaleGridTop), new Point(_scaleGridLeft, _scaleGridTop), 
-                                new Point(_scaleGridRight, _scaleGridTop), new Point(_source.width, _scaleGridTop)]);
+                                new Point(_scaleGridRight, _scaleGridTop), new Point(_bitmapData.width, _scaleGridTop)]);
                 cachedSourceGrid.push([new Point(0, _scaleGridBottom), new Point(_scaleGridLeft, _scaleGridBottom), 
-                                new Point(_scaleGridRight, _scaleGridBottom), new Point(_source.width, _scaleGridBottom)]);
-                cachedSourceGrid.push([new Point(0, _source.height), new Point(_scaleGridLeft, _source.height), 
-                                new Point(_scaleGridRight, _source.height), new Point(_source.width, _source.height)]);                         
+                                new Point(_scaleGridRight, _scaleGridBottom), new Point(_bitmapData.width, _scaleGridBottom)]);
+                cachedSourceGrid.push([new Point(0, _bitmapData.height), new Point(_scaleGridLeft, _bitmapData.height), 
+                                new Point(_scaleGridRight, _bitmapData.height), new Point(_bitmapData.width, _bitmapData.height)]);                         
             }
             
             if (cachedDestGrid == null || 
@@ -491,8 +520,8 @@ public class BitmapImage extends GraphicElement
                 previousUnscaledHeight != unscaledHeight)
             {
                 // Generate teh 16 points of the destination (scaled) grid
-                var destScaleGridBottom:Number = unscaledHeight - (_source.height - _scaleGridBottom);
-                var destScaleGridRight:Number = unscaledWidth - (_source.width - _scaleGridRight);      
+                var destScaleGridBottom:Number = unscaledHeight - (_bitmapData.height - _scaleGridBottom);
+                var destScaleGridRight:Number = unscaledWidth - (_bitmapData.width - _scaleGridRight);      
                 cachedDestGrid = [];
                 cachedDestGrid.push([new Point(0, 0), new Point(_scaleGridLeft, 0), 
                                 new Point(destScaleGridRight, 0), new Point(unscaledWidth, 0)]);
@@ -529,7 +558,7 @@ public class BitmapImage extends GraphicElement
                     matrix.translate(drawX, drawY);
                     
                     // Draw the bitmap for the current section
-                    g.beginBitmapFill(_source as BitmapData, matrix);
+                    g.beginBitmapFill(_bitmapData, matrix);
                     g.drawRect(destSection.x + drawX, destSection.y + drawY, destSection.width, destSection.height);
                     g.endFill();
                  }
@@ -540,6 +569,123 @@ public class BitmapImage extends GraphicElement
         previousUnscaledHeight = unscaledHeight;
     }
 
+    
+    /**
+     *  @private
+     *  Utility function that sets the underlying bitmapData property.
+     */
+    private function setBitmapData(bitmapData:BitmapData):void
+    {         
+        // Clear previous bitmapData
+        if (_bitmapData)
+        {
+            _bitmapData.dispose();
+            _bitmapData = null;
+        }
+
+        _bitmapData = bitmapData;
+        
+        // Flush the cached scale grid points
+        cachedSourceGrid = null;
+        cachedDestGrid = null;
+        
+        invalidateSize();
+        invalidateDisplayList();
+    }
+    
+    /**
+     *  @private
+     */
+    private function validImageFile(url:String):Boolean
+    {
+        // We only accept .jpg, .jpeg, .gif, and .png files
+        // NOTE: This means queries that return images are not accepted: ie: myserver.com/fetch.php?image=12345
+        var exten:String = url.substr(Math.max(url.length - 5, 0), Math.min(url.length, 5)).toLowerCase();
+        
+        if (exten.indexOf(".jpg") == -1 &&
+            exten.indexOf(".jpeg") == -1 &&
+            exten.indexOf(".gif") == -1 &&
+            exten.indexOf(".png") == -1)
+            return false;
+        
+        return true;
+    }
+    
+    /**
+     *  @private
+     */
+    private function loadExternal(url:String):void
+    {
+        if (!validImageFile(url))
+            return;
+            
+        var loader:Loader = new Loader();
+        var loaderContext:LoaderContext = new LoaderContext();
+        
+        loaderContext.checkPolicyFile = true;
+        loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loader_completeHandler, false, 0, true);
+        loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, loader_ioErrorHandler, false, 0, true);
+        loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, loader_securityErrorHandler, false, 0, true);
+        try
+        {
+            loader.load(new URLRequest(url), loaderContext);
+        }
+        catch (error:SecurityError)
+        {
+            handleSecurityError(error);
+        }
+    }
+   
+    /**
+     *  @private
+     */
+    private function loader_completeHandler(event:Event):void
+    {
+        var image:Bitmap = null;
+        
+        try
+        {
+            image = Bitmap((event.target as LoaderInfo).content);
+            setBitmapData(image.bitmapData);
+        }
+        catch (error:SecurityError)
+        {
+            handleSecurityError(error);
+        } 
+    }
+    
+    /**
+     *  @private
+     */
+    private function loader_ioErrorHandler(error:IOErrorEvent):void
+    {
+        // clear any current image
+        setBitmapData(null);
+        
+        // forward the error
+        dispatchEvent(error);
+    }
+    
+    /**
+     *  @private
+     */
+    private function loader_securityErrorHandler(error:SecurityErrorEvent):void
+    {
+        // clear any current image
+        setBitmapData(null);
+        
+        // forward the error
+        dispatchEvent(error);
+    }
+    
+    /**
+     *  @private
+     */
+    private function handleSecurityError(error:SecurityError):void
+    {
+        setBitmapData(null);
+        dispatchEvent(new SecurityErrorEvent(SecurityErrorEvent.SECURITY_ERROR, false, false, error.message));
+    }
 }
 
 }
