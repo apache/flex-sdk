@@ -1065,7 +1065,7 @@ public class VerticalLayout extends LayoutBase
         // current contentWidth; cache computed widths/heights in llv.
         for (; (y < maxVisibleY) && (index < eltCount); index++)
         {
-            var elt:ILayoutElement = layoutTarget.getElementAt(index);
+            var elt:ILayoutElement = layoutTarget.getVirtualElementAt(index);
             var h:Number = (isNaN(fixedRowHeight)) ? elt.getPreferredBoundsHeight() : fixedRowHeight;
             var w:Number = calculateElementWidth(elt, targetWidth, containerWidth);
             var x:Number = calculateElementX(elt, w, containerWidth);
@@ -1086,7 +1086,7 @@ public class VerticalLayout extends LayoutBase
             {
                 for (index = startIndex; index <= endIndex; index++)
                 {
-                    elt = layoutTarget.getElementAt(index);
+                    elt = layoutTarget.getVirtualElementAt(index);
                     w = calculateElementWidth(elt, targetWidth, containerWidth);
                     x = calculateElementX(elt, w, containerWidth);
                     elt.setLayoutBoundsPosition(x, elt.getLayoutBoundsY());
