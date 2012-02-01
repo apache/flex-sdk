@@ -26,8 +26,9 @@ and can be overridden by subclasses of this class: <code>alternatingRowColors</c
 <code>caretIndicator</code>, <code>columnSeparator</code>, <code>editorIndicator</code>, 
 <code>headerColumnSeparator</code>, <code>hoverIndicator</code>, 
 <code>rowSeparator</code>, <code>selectionIndicator</code>.  All of these 
-declarations define DataGrid skin parts except <code>headerColumnSeparator</code>
-which is used as the value of the columnHeaderGroup's columnSeparator property.</p>
+declarations define DataGrid skin parts except <code>headerColumnSeparator</code> and
+<code>headerRenderer</code> which are used for the values of the columnHeaderGroup's 
+<code>columnSeparator</code> and <code>headerRenderer</code> properties.</p>
 
 @see spark.components.DataGrid
 -->
@@ -128,13 +129,19 @@ which is used as the value of the columnHeaderGroup's columnSeparator property.<
             </s:Line>
         </fx:Component>
         
-        <!--- @private -->
+        <!--- Defines the value of the columnSeparator property for the columnHeaderGroup. -->
         <fx:Component id="headerColumnSeparator">
             <s:Line>
                 <s:stroke>
                     <s:SolidColorStroke color="0x696969" weight="1" caps="square"/>
                 </s:stroke>
             </s:Line>
+        </fx:Component>
+        
+        <!--- Defines the value of the headerRenderer property for the columnHeaderGroup. 
+              The default is spark.skins.spark.DefaultGridHeaderRenderer -->
+        <fx:Component id="headerRenderer">
+            <s:DefaultGridHeaderRenderer />
         </fx:Component>
         
         <!--- @private -->
@@ -274,7 +281,7 @@ which is used as the value of the columnHeaderGroup's columnSeparator property.<
         <s:GridColumnHeaderGroup id="columnHeaderGroup"
             paddingLeft="1" paddingTop="1" paddingRight="1" minHeight="21" 
             columnSeparator="{headerColumnSeparator}"
-            headerRenderer="spark.skins.spark.DefaultGridHeaderRenderer"/>
+            headerRenderer="{headerRenderer}"/>
 
         <s:Group height="100%">
             
