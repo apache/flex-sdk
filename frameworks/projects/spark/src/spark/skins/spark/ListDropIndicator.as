@@ -19,6 +19,8 @@ import mx.skins.ProgrammaticSkin;
  *  The default skin for the drop indicator of a List component in case 
  *  List doesn't have a <code>dropIndicator</code> part defined in its skin.
  *
+ *  @see spark.components.List
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
