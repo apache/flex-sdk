@@ -1,26 +1,28 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2009 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package mx.controls.advancedDataGridClasses
 {
 import flash.events.MouseEvent;
 
-import mx.controls.AdvancedDataGrid;
-import mx.controls.listClasses.AdvancedListBase;
 import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
 import mx.core.mx_internal;
-import mx.events.AdvancedDataGridEvent;
 import mx.managers.IFocusManagerComponent;
 
 import spark.components.Group;
 import spark.components.supportClasses.ItemRenderer;
 
-use namespace mx_internal; 
-
-//--------------------------------------
-//  Excluded APIs
-//--------------------------------------
-
-[Exclude(name="listData", kind="property")]
+use namespace mx_internal;
 
 /**
  *  The MXAdvancedDataGridItemRenderer class defines the Spark item renderer class 
@@ -196,28 +198,6 @@ public class MXAdvancedDataGridItemRenderer extends ItemRenderer implements ILis
         }
     }
     
-    //----------------------------------
-    //  advancedDataGridListData
-    //----------------------------------
-    
-    [Bindable("dataChange")]
-    
-    /**
-     *  The implementation of the <code>listData</code> property
-     *  as defined by the IDropInListItemRenderer interface.
-     *
-     *  @see mx.controls.listClasses.IDropInListItemRenderer
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get advancedDataGridListData():AdvancedDataGridListData
-    {
-        return listData as AdvancedDataGridListData;
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -231,13 +211,16 @@ public class MXAdvancedDataGridItemRenderer extends ItemRenderer implements ILis
     protected function disclosureGroup_mouseDownHandler(event:MouseEvent):void
     {
         event.stopPropagation();
+		
+		var adg:Object = listData.owner;
+		var advancedDataGridListData:Object = listData;
         
-        if (AdvancedDataGrid(listData.owner).isOpening || !listData.owner.enabled)
+        if (adg.isOpening || !adg.enabled)
             return;
         
         advancedDataGridListData.open = !advancedDataGridListData.open;
         
-        AdvancedDataGrid(listData.owner).dispatchAdvancedDataGridEvent(AdvancedDataGridEvent.ITEM_OPENING,
+		adg.dispatchAdvancedDataGridEvent("itemOpening",
             data,      //item
             this,      //renderer
             event,     //trigger
@@ -274,7 +257,7 @@ public class MXAdvancedDataGridItemRenderer extends ItemRenderer implements ILis
             // see if we need to change state.  This is the only invalidation method guaranteed to be
             // called.  We set up the renderers properties here so no matter what validation method gets
             // called first, the properties are set up accordingly.
-            var listBase:AdvancedListBase = AdvancedListBase(listData.owner);
+            var listBase:Object = listData.owner;
             if (listBase)
             {
                 showsCaret = listBase.isItemShowingCaret(data);
@@ -298,7 +281,7 @@ public class MXAdvancedDataGridItemRenderer extends ItemRenderer implements ILis
             // and you should still be hovered, so we double check and override here.
             // then we get all the other state-related variables updated so the state
             // calculation will do the right thing.
-            var listBase:AdvancedListBase = AdvancedListBase(listData.owner);
+            var listBase:Object = listData.owner;
             if (listBase)
             {
                 selected = listBase.isItemSelected(data);
@@ -317,7 +300,7 @@ public class MXAdvancedDataGridItemRenderer extends ItemRenderer implements ILis
         {
             // make sure itemIndex is correct before the base class does any computation
             // based on it
-            var listBase:AdvancedListBase = AdvancedListBase(listData.owner);
+            var listBase:Object = listData.owner;
             itemIndex = listData.rowIndex + listBase.verticalScrollPosition;
         }
         
