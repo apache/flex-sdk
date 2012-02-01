@@ -34,8 +34,10 @@
         override public function get contentItems():Array {return contentFill};
 
         /* Define the border items.*/
-        static private const borderItem:Array = ["borderEntry1", "borderEntry2"];
+        static private const borderItem:Array = ["borderStroke"];
         override protected function get borderItems():Array {return borderItem;}
+        override protected function get defaultBorderItemColor():uint {return getStyle("borderColor");}
+        override protected function get defaultBorderAlpha():Number {return getStyle("borderAlpha");}
         
         static private const metrics:EdgeMetrics = new EdgeMetrics(2, 2, 2, 2);
         
@@ -43,8 +45,22 @@
         {
             return metrics;
         }
+            
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-        {           
+        {                       
+            if (getStyle("borderVisible") == false)
+            {
+                border.visible = false;
+                background.left = background.top = background.right = background.bottom = 0;
+                shadow.left = shadow.top = shadow.right = 0;
+            }
+            else
+            {
+                border.visible = true;
+                background.left = background.top = background.right = background.bottom = 1;
+                shadow.left = shadow.top = shadow.right = 1;
+            }
+
             super.updateDisplayList(unscaledWidth, unscaledHeight);
             
             if (parent && parent is IUIComponent && !IUIComponent(parent).enabled)
@@ -56,12 +72,9 @@
     </fx:Script>
     
     <!-- border --> 
-    <s:Rect left="0" right="0" top="0" bottom="0">
-        <s:stroke>            
-            <s:LinearGradientStroke rotation="90" weight="1">
-                <s:GradientEntry id="borderEntry1" alpha="0.5525" />
-                <s:GradientEntry id="borderEntry2" alpha="0.6375" />
-            </s:LinearGradientStroke>
+    <s:Rect left="0" right="0" top="0" bottom="0" id="border">
+        <s:stroke>   
+            <s:SolidColorStroke id="borderStroke" weight="1" />
         </s:stroke>
     </s:Rect>
 
@@ -73,7 +86,7 @@
     </s:Rect>
     
     <!-- shadow -->
-    <s:Rect left="1" top="1" right="1" height="1">
+    <s:Rect id="shadow" left="1" top="1" right="1" height="1">
         <s:fill>
             <s:SolidColor color="0x000000" alpha="0.12" />
         </s:fill>
