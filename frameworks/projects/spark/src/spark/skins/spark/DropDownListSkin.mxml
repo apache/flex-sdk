@@ -111,7 +111,7 @@
               This includes borders, background colors, scrollers, and filters.
               @copy spark.components.supportClasses.DropDownListBase#dropDown
         -->
-        <s:Group id="dropDown" maxHeight="134" minHeight="22" >
+        <s:Group id="dropDown">
         
             <!--- @private -->
             <s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.45" distance="7" 
@@ -124,7 +124,7 @@
                     <s:SolidColorStroke id="borderStroke" weight="1"/>
                 </s:stroke>
             </s:Rect>
-            
+
             <!-- fill -->
             <!--- Defines the appearance of drop-down list's background fill. -->
             <s:Rect id="background" left="1" right="1" top="1" bottom="1" >
@@ -142,7 +142,7 @@
                 <!--- @copy spark.components.SkinnableDataContainer#dataGroup-->
                 <s:DataGroup id="dataGroup" itemRenderer="spark.skins.spark.DefaultItemRenderer">
                     <s:layout>
-                        <s:VerticalLayout gap="0" horizontalAlign="contentJustify"/>
+                        <s:VerticalLayout gap="0" horizontalAlign="contentJustify" requestedMinRowCount="1" requestedMaxRowCount="6"/>
                     </s:layout>
                 </s:DataGroup> 
             </s:Scroller>
