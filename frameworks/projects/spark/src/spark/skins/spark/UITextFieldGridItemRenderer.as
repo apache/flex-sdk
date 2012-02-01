@@ -75,7 +75,7 @@ use namespace mx_internal;
  * 
  *  @see spark.components.DataGrid
  *  @see spark.components.gridClasses.GridItemRenderer
- *  @see DefaultGridItemRenderer
+ *  @see spark.skins.spark.DefaultGridItemRenderer
  *  @see mx.core.FTETextField
  * 
  *  @langversion 3.0
