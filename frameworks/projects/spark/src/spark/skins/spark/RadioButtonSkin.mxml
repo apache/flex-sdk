@@ -33,7 +33,7 @@
     <fx:Script>
         /* Define the skin elements that should not be colorized. 
            For button, the graphics are colorized but the label is not. */
-        static private const exclusions:Array = ["labelElement", "dot"];
+        static private const exclusions:Array = ["labelDisplay", "dot"];
 
     /** 
      * @copy spark.skins.SparkSkin#colorizeExclusions
@@ -150,7 +150,7 @@
 
     <!-- Label -->
     <!--- Defines the text next to the dot in a RadioButton component.-->
-    <s:SimpleText id="labelElement"
+    <s:SimpleText id="labelDisplay"
              textAlign="start"
              verticalAlign="middle"
              truncation="1"
