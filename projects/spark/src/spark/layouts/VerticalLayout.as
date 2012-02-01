@@ -257,9 +257,9 @@ public class VerticalLayout extends LayoutBase
         else if (!target || (target.numLayoutElements <= 0))
             return 0;
         else if (typicalLayoutElement)
-            return typicalLayoutElement.getPreferredBoundsWidth();
+            return typicalLayoutElement.getPreferredBoundsHeight();
         else
-            return target.getLayoutElementAt(0).getPreferredBoundsWidth();
+            return target.getLayoutElementAt(0).getPreferredBoundsHeight();
     }
 
     /**
@@ -805,14 +805,14 @@ public class VerticalLayout extends LayoutBase
             }            
 
             preferredWidth = Math.max(preferredWidth, li.getPreferredBoundsWidth());
-            preferredHeight += li.getPreferredBoundsWidth(); 
+            preferredHeight += li.getPreferredBoundsHeight(); 
             
             var vrr:Boolean = (reqRows != -1) && (visibleRows < reqRows);
 
             if (vrr || (reqRows == -1))
             {
                 var mw:Number =  hasPercentWidth(li) ? li.getMinBoundsWidth() : li.getPreferredBoundsWidth();
-                var mh:Number = hasPercentHeight(li) ? li.getMinBoundsHeight() : li.getPreferredBoundsWidth();                   
+                var mh:Number = hasPercentHeight(li) ? li.getMinBoundsHeight() : li.getPreferredBoundsHeight();                   
                 minWidth = Math.max(mw, minWidth);
                 minHeight += mh;
             }
@@ -896,7 +896,7 @@ public class VerticalLayout extends LayoutBase
     {
         var rowCount:uint = layoutTarget.numLayoutElements;
         llv.length = rowCount;
-        llv.defaultMajorSize = typicalLayoutElement.getPreferredBoundsWidth();
+        llv.defaultMajorSize = typicalLayoutElement.getPreferredBoundsHeight();
         llv.minorSize = typicalLayoutElement.getPreferredBoundsWidth();
         
         var measuredRowCount:int = (requestedRowCount != -1) ? requestedRowCount : rowCount;
@@ -1010,7 +1010,7 @@ public class VerticalLayout extends LayoutBase
         
         // TBD: don't assume typicalLayoutElement is set, use 1st row...
         var typicalWidth:Number = typicalLayoutElement.getPreferredBoundsWidth();
-        var typicalHeight:Number = typicalLayoutElement.getPreferredBoundsWidth();
+        var typicalHeight:Number = typicalLayoutElement.getPreferredBoundsHeight();
         llv.length = layoutTarget.numLayoutElements;        
         llv.minorSize = Math.max(llv.minorSize, typicalWidth);
         llv.defaultMajorSize = typicalHeight;
@@ -1027,11 +1027,11 @@ public class VerticalLayout extends LayoutBase
         for (; (y < maxVisibleY) && (index < eltCount); index++)
         {
             var elt:ILayoutElement = layoutTarget.getLayoutElementAt(index);
-            var h:Number = elt.getPreferredBoundsWidth();
+            var h:Number = elt.getPreferredBoundsHeight();
             var w:Number = calculateElementWidth(elt, targetWidth, contentWidth);
             var x:Number = calculateElementX(elt, w, contentWidth);
             elt.setLayoutBoundsPosition(x, y);
-            elt.setLayoutBoundsSize(w, elt.getPreferredBoundsWidth());            
+            elt.setLayoutBoundsSize(w, elt.getPreferredBoundsHeight());            
             llv.cacheDimensions(index, elt);
             y += h + gap;
         }
