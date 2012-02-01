@@ -53,6 +53,11 @@ The default skin class for a Spark DataGrid component.
                                 dataGrid.styleManager.getColorNames(colors); // lazily replace color names with ints
                                 rowBackgroundFillColor.color = colors[rowIndex % colors.length];
                             }
+                            else
+                            {          
+                                // This should be the same as bgFill.color.
+                                rowBackgroundFillColor.color = 0xFFFFFF;
+                            }
                         }
                     ]]>
                 </fx:Script>  
