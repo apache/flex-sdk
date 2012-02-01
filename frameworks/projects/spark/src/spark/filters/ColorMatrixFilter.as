@@ -48,6 +48,8 @@ public class ColorMatrixFilter extends BaseFilter implements IBitmapFilter
 	
 	public function ColorMatrixFilter(matrix:Array = null)
 	{
+		super();
+		
 		if (matrix != null)
 		{
 			this.matrix = matrix;
