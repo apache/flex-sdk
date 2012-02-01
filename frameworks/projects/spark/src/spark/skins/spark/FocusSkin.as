@@ -28,6 +28,11 @@ import flash.utils.Dictionary;
 
 /**
  *  Focus skins for Fx components.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxFocusSkin extends UIComponent
 {
@@ -75,11 +80,21 @@ public class FxFocusSkin extends UIComponent
     /**
      *  Bitmap capture of the focused component. This bitmap includes a glow
      *  filter that shows the focus glow.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private var bitmap:Bitmap;
 
     /**
      *  Object to draw focus around.  If null, uses focusManager.getFocus();
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
 	public var focusObject:Object;
     
