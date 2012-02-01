@@ -30,9 +30,11 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.net.URLRequest;
 import flash.system.ApplicationDomain;
+import flash.system.Capabilities;
 import flash.system.LoaderContext;
 import flash.utils.ByteArray;
 
+import mx.core.FlexGlobals;
 import mx.core.IInvalidating;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -40,6 +42,7 @@ import mx.graphics.BitmapFillMode;
 import mx.graphics.BitmapScaleMode;
 import mx.graphics.BitmapSmoothingQuality;
 import mx.utils.LoaderUtil;
+import mx.utils.DensityUtil;
 
 import spark.core.ContentRequest;
 import spark.core.DisplayObjectSharingMode;
@@ -47,6 +50,7 @@ import spark.core.IContentLoader;
 import spark.layouts.HorizontalAlign;
 import spark.layouts.VerticalAlign;
 import spark.primitives.supportClasses.GraphicElement;
+import spark.utils.MultiDPIBitmapSource;
 
 use namespace mx_internal;
 
@@ -920,17 +924,32 @@ public class BitmapImage extends GraphicElement
      */
     override protected function measure():void
     {   
+        var app:Object = FlexGlobals.topLevelApplication;
+        var densityScale:Number;
+        
         if (loadedContent)
         {
             // Return size of our loaded image content.
             measuredWidth = imageWidth;
             measuredHeight = imageHeight;
+            if ("applicationDPI" in app) // density scaling may be in effect
+            {
+                densityScale = app.systemManager.scaleX;
+                measuredWidth /= densityScale;
+                measuredHeight /= densityScale;
+            }                
         } 
         else if (_bitmapData)
         {
             // Return size of our bitmap data.
             measuredWidth = _bitmapData.width;
             measuredHeight = _bitmapData.height;
+            if ("applicationDPI" in app) // density scaling may be in effect
+            {
+                densityScale = app.systemManager.scaleX;
+                measuredWidth /= densityScale;
+                measuredHeight /= densityScale;
+            }
         }
         else
         {
@@ -1281,6 +1300,9 @@ public class BitmapImage extends GraphicElement
         var bitmapData:BitmapData;
         var tmpSprite:DisplayObject;
         
+        if (value is MultiDPIBitmapSource)
+            value = getActualValue(value as MultiDPIBitmapSource);
+        
         // Clear the previous scaleGrid properties
         _scaleGridLeft = NaN;
         _scaleGridRight = NaN;
@@ -1384,6 +1406,21 @@ public class BitmapImage extends GraphicElement
     
     /**
      *  @private
+     *  Figure out which source to use
+     */
+    mx_internal function getActualValue(values:MultiDPIBitmapSource):Object
+    {
+        var app:Object = FlexGlobals.topLevelApplication;
+        var dpi:int;
+        if ("runtimeDPI" in app)
+            dpi = app["runtimeDPI"];
+        else
+            dpi = DensityUtil.classifyDPI(Capabilities.screenDPI);
+        return values.getSource(dpi);
+    }
+
+    /**
+     *  @private
      */
     mx_internal function loadExternal(source:Object):void
     {                 
@@ -1397,8 +1434,8 @@ public class BitmapImage extends GraphicElement
         if (contentLoader)
         {
             // We defer our load request to the configured content loader.
-            var contentRequest:ContentRequest = contentLoader.load(source, contentLoaderGrouping);
-            
+            var contentRequest:ContentRequest = contentLoader.load(source, contentLoaderGrouping);            
+
             if (contentRequest.complete)
             {
                 // No need to attach listeners as we've received a fully complete
