@@ -27,6 +27,8 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
+use namespace mx_internal;
+
 /**
  *  The ErrorSkin class defines the error skin for Spark components.
  *  Flex displays the error skin when a validation error occurs.
@@ -154,8 +156,8 @@ public class ErrorSkin extends UIComponent
         var m:Matrix = new Matrix();
         
         // If the error object has a focus skin, make sure it is hidden.
-        if (errorObject.mx_internal::focusObj)
-            errorObject.mx_internal::focusObj.visible = false;
+        if (errorObject.focusObj)
+            errorObject.focusObj.visible = false;
        
         // Temporary solution for error drawing on CheckBox and RadioButton components.
         // Hide the label before drawing the focus. 
@@ -174,8 +176,8 @@ public class ErrorSkin extends UIComponent
         bitmapData.draw(errorObject as IBitmapDrawable, m);
        
         // Show the focus skin, if needed.
-        if (errorObject.mx_internal::focusObj)
-            errorObject.mx_internal::focusObj.visible = true;
+        if (errorObject.focusObj)
+            errorObject.focusObj.visible = true;
         
         // Show the label, if needed.
         if (hidLabelElement)
