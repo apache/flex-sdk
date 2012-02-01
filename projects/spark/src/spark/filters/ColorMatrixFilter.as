@@ -7,14 +7,20 @@ public class ColorMatrixFilter extends BaseFilter implements IBitmapFilter
 {
 	public function ColorMatrixFilter(matrix:Array = null)
 	{
-		this.matrix = matrix;
+		if (matrix != null)
+		{
+			this.matrix = matrix;
+		} 
 	}
 	
 	//----------------------------------
     //  matrix
     //----------------------------------
 	
-	private var _matrix:Array = [];
+	private var _matrix:Array =  [1,0,0,0,0,0,
+								  1,0,0,0,0,0,
+								  1,0,0,0,0,0,
+								  1,0];
 	
 	/**
 	 *  The amount of horizontal blur. Valid values are 0 to 255. A blur of 1
