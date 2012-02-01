@@ -61,27 +61,27 @@
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:stroke.normalAndShowsCaret>
             <s:SolidColorStroke 
-                color="{selectionColor}" 
+                color="{getStyle('selectionColor')}" 
                 weight="1"/>
         </s:stroke.normalAndShowsCaret>
         <s:stroke.hoveredAndShowsCaret>
             <s:SolidColorStroke 
-                color="{selectionColor}" 
+                color="{getStyle('selectionColor')}" 
                 weight="1"/>
         </s:stroke.hoveredAndShowsCaret>
         <s:stroke.selectedAndShowsCaret>
             <s:SolidColorStroke 
-                color="{selectionColor}" 
+                color="{getStyle('selectionColor')}" 
                 weight="1"/>
         </s:stroke.selectedAndShowsCaret>
         <s:fill>
             <s:SolidColor 
                 color.normal="{contentBackgroundColor}"
                 color.normalAndShowsCaret="{contentBackgroundColor}" 
-                color.hovered="{rollOverColor}"
-                color.hoveredAndShowsCaret="{rollOverColor}"
-                color.selected="{selectionColor}"
-                color.selectedAndShowsCaret="{selectionColor}"
+                color.hovered="{getStyle('rollOverColor')}"
+                color.hoveredAndShowsCaret="{getStyle('rollOverColor')}"
+                color.selected="{getStyle('selectionColor')}"
+                color.selectedAndShowsCaret="{getStyle('selectionColor')}"
                 />
         </s:fill>
     </s:Rect>
