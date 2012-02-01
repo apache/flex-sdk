@@ -19,7 +19,7 @@ import flash.ui.Keyboard;
 
 import mx.components.baseClasses.GroupBase;
 import mx.core.ScrollUnit;
-import mx.layout.ILayoutItem;
+import mx.layout.ILayoutElement;
 import mx.utils.OnDemandEventDispatcher;
 
 
@@ -31,14 +31,14 @@ public class LayoutBase extends OnDemandEventDispatcher
     //
     //--------------------------------------------------------------------------
 
-    internal static function hasPercentWidth(layoutItem:ILayoutItem):Boolean
+    internal static function hasPercentWidth(layoutElement:ILayoutElement):Boolean
     {
-        return !isNaN( layoutItem.percentWidth );
+        return !isNaN(layoutElement.percentWidth);
     }
     
-    internal static function hasPercentHeight(layoutItem:ILayoutItem):Boolean
+    internal static function hasPercentHeight(layoutElement:ILayoutElement):Boolean
     {
-        return !isNaN( layoutItem.percentHeight );
+        return !isNaN(layoutElement.percentHeight);
     }
 
     //--------------------------------------------------------------------------
@@ -191,7 +191,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (!g)
             return 0;     
 
-        var maxIndex:int = g.numLayoutItems -1;
+        var maxIndex:int = g.numLayoutElements -1;
         if (maxIndex < 0)
             return 0;
 
@@ -236,7 +236,7 @@ public class LayoutBase extends OnDemandEventDispatcher
         if (!g)
             return 0;     
 
-        var maxIndex:int = g.numLayoutItems -1;
+        var maxIndex:int = g.numLayoutElements -1;
         if (maxIndex < 0)
             return 0;
 
@@ -275,16 +275,16 @@ public class LayoutBase extends OnDemandEventDispatcher
     /**
      *  LayoutBase::getScrollPositionDelta() computes the
      *  vertical and horizontalScrollPosition deltas needed to 
-     *  scroll the item at the specified index into view.
+     *  scroll the element at the specified index into view.
      * 
-     *  If clipContent is true and the item at the specified index is not
+     *  If clipContent is true and the element at the specified index is not
      *  entirely visible relative to the target's scrollRect, then 
      *  return the delta to be added to horizontalScrollPosition and
-     *  verticalScrollPosition that will scroll the item completely 
+     *  verticalScrollPosition that will scroll the element completely 
      *  within the scrollRect's bounds.
      * 
-     *  If the specified item is partially visible and larger than the
-     *  scrollRect, i.e. it's already the only item visible, then
+     *  If the specified element is partially visible and larger than the
+     *  scrollRect, i.e. it's already the only element visible, then
      *  null is returned.
      * 
      *  This method attempts to minmimze the change to verticalScrollPosition
@@ -293,13 +293,13 @@ public class LayoutBase extends OnDemandEventDispatcher
      *  If the specified index is invalid, or target is null, then
      *  null is returned.
      * 
-     *  If the item at the specified index is null or includeInLayout
+     *  If the element at the specified index is null or includeInLayout
      *  false, then null is returned.
      * 
-     *  @param index The index of the item to be scrolled into view.
+     *  @param index The index of the element to be scrolled into view.
      *  @return A Point that contains offsets to horizontalScrollPosition 
      *      and verticalScrollPosition that will scroll the specified
-     *      item into view, or null if no change is needed. 
+     *      element into view, or null if no change is needed. 
      * 
      *  @see clipContent
      *  @see verticalScrollPosition
@@ -311,44 +311,47 @@ public class LayoutBase extends OnDemandEventDispatcher
          if (!target || !clipContent)
             return null;
             
-         var n:int = target.numLayoutItems;
+         var n:int = target.numLayoutElements;
          if ((index < 0) || (index >= n))
             return null;
             
-         var item:ILayoutItem = target.getLayoutItemAt(index);
-         if (!item || !item.includeInLayout)
+         var element:ILayoutElement = target.getLayoutElementAt(index);
+         if (!element || !element.includeInLayout)
             return null;
             
          var scrollR:Rectangle = target.scrollRect;
          if (!scrollR)
             return null;
-            
-         var itemXY:Point = item.actualPosition;
-         var itemWH:Point = item.actualSize;
-         var itemR:Rectangle = new Rectangle(itemXY.x, itemXY.y, itemWH.x, itemWH.y);
          
-         if (scrollR.containsRect(itemR) || itemR.containsRect(scrollR))
+         // TODO EGeorgie: helper method?   
+         var elementX:Number = element.getLayoutPositionX();
+         var elementY:Number = element.getLayoutPositionY();
+         var elementW:Number = element.getLayoutWidth();
+         var elementH:Number = element.getLayoutHeight();
+         var elementR:Rectangle = new Rectangle(elementX, elementY, elementW, elementH);
+         
+         if (scrollR.containsRect(elementR) || elementR.containsRect(scrollR))
             return null;
             
-         var dxl:Number = itemR.left - scrollR.left;     // left justify item
-         var dxr:Number = itemR.right - scrollR.right;   // right justify item
-         var dyt:Number = itemR.top - scrollR.top;       // top justify item
-         var dyb:Number = itemR.bottom - scrollR.bottom; // bottom justify item
+         var dxl:Number = elementR.left - scrollR.left;     // left justify element
+         var dxr:Number = elementR.right - scrollR.right;   // right justify element
+         var dyt:Number = elementR.top - scrollR.top;       // top justify element
+         var dyb:Number = elementR.bottom - scrollR.bottom; // bottom justify element
          
          // minimize the scroll
          var dx:Number = (Math.abs(dxl) < Math.abs(dxr)) ? dxl : dxr;
          var dy:Number = (Math.abs(dyt) < Math.abs(dyb)) ? dyt : dyb;
                  
-         // scrollR "contains"  itemR in just one dimension
-         if ((itemR.left >= scrollR.left) && (itemR.right <= scrollR.right))
+         // scrollR "contains"  elementR in just one dimension
+         if ((elementR.left >= scrollR.left) && (elementR.right <= scrollR.right))
             dx = 0;
-         else if ((itemR.bottom >= scrollR.bottom) && (itemR.top <= scrollR.top))
+         else if ((elementR.bottom >= scrollR.bottom) && (elementR.top <= scrollR.top))
             dy = 0;
             
-         // itemR "contains" scrollR in just one dimension
-         if ((itemR.left <= scrollR.left) && (itemR.right >= scrollR.right))
+         // elementR "contains" scrollR in just one dimension
+         if ((elementR.left <= scrollR.left) && (elementR.right >= scrollR.right))
             dx = 0;
-         else if ((itemR.bottom <= scrollR.bottom) && (itemR.top >= scrollR.top))
+         else if ((elementR.bottom <= scrollR.bottom) && (elementR.top >= scrollR.top))
             dy = 0;
             
          return new Point(dx, dy);
