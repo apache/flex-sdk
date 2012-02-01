@@ -49,7 +49,7 @@ import mx.filters.IBitmapFilter;
 * the filter effect is not scaled. It is scaled only when the user zooms in on the Stage.</p>
 *
 *  @mxml 
-*  <p>The <code>&lt;DisplacementMapFilter&gt;</code> tag inherits all of the tag 
+*  <p>The <code>&lt;s:DisplacementMapFilter&gt;</code> tag inherits all of the tag 
 *  attributes of its superclass and adds the following tag attributes:</p>
 *
 *  <pre>
