@@ -79,7 +79,7 @@ in accordance with the terms of the license agreement accompanying it.
     -->
     <!--- @copy spark.components.Form#contentGroup -->
     <s:VGroup>
-        <s:Label id="errorStringText"  text="{hostComponent.errorString}" color="red" includeInLayout="false" includeInLayout.error="true"/>
+        <s:Label id="errorStringText"  text="{hostComponent.errorString}" color="red" includeIn="error"/>
         <!-- We set Form's showErrorTip and showErrorSkin to false, so we set them back 
              to true for the Form's elements -->
         <s:Group id="contentGroup" showErrorSkin="true" showErrorTip="true">
