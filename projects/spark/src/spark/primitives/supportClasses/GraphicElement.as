@@ -63,6 +63,7 @@ import spark.components.supportClasses.InvalidatingSprite;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.MaskType;
+import spark.utils.MaskUtil;
 
 use namespace mx_internal;
 
@@ -3168,66 +3169,6 @@ public class GraphicElement extends EventDispatcher
 
     /**
      *  @private
-     *  Enables clipping, alpha or luminosity, depending on the 
-     *  type of mask being applied.
-     */
-    mx_internal function applyMaskType():void
-    {
-        if (_mask)
-        {
-            if (_maskType == MaskType.CLIP)
-            {
-                // Turn off caching on mask
-                _mask.cacheAsBitmap = false;
-                // Save the original filters and clear the filters property
-                //originalMaskFilters = _mask.filters;
-                _mask.filters = [];
-            }
-            else if (_maskType == MaskType.ALPHA)
-            {
-                _mask.cacheAsBitmap = true;
-                //notifyElementLayerChanged(); // Trigger recreation of the layers
-                drawnDisplayObject.cacheAsBitmap = true;
-            }
-            else if (_maskType == MaskType.LUMINOSITY)
-            {
-                _mask.cacheAsBitmap = true;
-                drawnDisplayObject.cacheAsBitmap = true;
-                
-                // Create the shader wrapper class which wraps the pixel bender filter 
-                var luminosityMaskShader:LuminosityMaskShader = new LuminosityMaskShader();
-                
-                // Sets up the shader's mode property based on 
-                // whether the luminosityClip and 
-                // luminosityInvert properties are on or off. 
-                luminosityMaskShader.mode = calculateLuminositySettings(); 
-                
-                // Create the shader filter 
-                var shaderFilter:ShaderFilter = new ShaderFilter(luminosityMaskShader);
-                
-                // Apply the shader filter to the mask
-                _mask.filters = [shaderFilter];
-            }
-        }
-    }
-    
-    /**
-     *  @private
-     *  Calculates the luminosity mask shader's mode property which 
-     *  determines how the shader is drawn. 
-     */
-    private function calculateLuminositySettings():int
-    {
-        var mode:int = 0;
-        if (luminosityInvert)
-            mode += 1; 
-        if (luminosityClip) 
-            mode += 2;  
-        return mode; 
-    }
-
-    /**
-     *  @private
      */
     protected function layer_PropertyChange(event:PropertyChangeEvent):void
     {
@@ -3594,27 +3535,11 @@ public class GraphicElement extends EventDispatcher
                     // and maskee to displayObject. 
                     if (!_mask.parent)
                     {
-                        Sprite(displayObject).addChild(_mask);   
-                        var maskComp:UIComponent = _mask as UIComponent;            
-                        if (maskComp)
-                        {
-                            if (parent)
-                            {
-                                // Add the mask to the UIComponent document tree. 
-                                // This is required to properly render the mask.
-                                UIComponent(parent).addingChild(maskComp);
-                                UIComponent(parent).childAdded(maskComp);
-                            }
-                            
-                            // Size the mask so that it actually renders
-                            maskComp.validateProperties();
-                            maskComp.validateSize();
-                            // Call this to force the mask to complete initialization
-                            maskComp.invalidateDisplayList();
-                            maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
-                                                   maskComp.getExplicitOrMeasuredHeight());
-                                                           
-                        }   
+                        MaskUtil.applyMask(_mask, parent);
+                        
+                        // Parent after applying the mask since it won't do
+                        // anything if there is a parent.
+                        Sprite(displayObject).addChild(_mask);  
                         
                         if (!_drawnDisplayObject)
                         {
@@ -3639,38 +3564,16 @@ public class GraphicElement extends EventDispatcher
             {
                 luminositySettingsChanged = false; 
                 
-                if (_mask && _maskType == MaskType.LUMINOSITY && _mask.filters.length > 0)
-                {
-                    // Grab the shader filter 
-                    var shaderFilterIndex:int; 
-                    var shaderFilter:ShaderFilter; 
-                    var len:int = _mask.filters.length; 
-                    for (shaderFilterIndex = 0; shaderFilterIndex < len; shaderFilterIndex++)
-                    {
-                        if (_mask.filters[shaderFilterIndex] is ShaderFilter && 
-                            ShaderFilter(_mask.filters[shaderFilterIndex]).shader is LuminosityMaskShader)
-                        {
-                            shaderFilter = _mask.filters[shaderFilterIndex];
-                            break; 
-                        }
-                    }
-                    
-                    if (shaderFilter)
-                    {
-                        // Reset the mode property  
-                        LuminosityMaskShader(shaderFilter.shader).mode = calculateLuminositySettings();
-                        
-                        // Re-apply the filter to the mask 
-                        _mask.filters[shaderFilterIndex] = shaderFilter; 
-                        _mask.filters = _mask.filters; 
-                    }
-                }
+                MaskUtil.applyLuminositySettings(
+                    _mask, _maskType, _luminosityInvert, _luminosityClip);
             }
 
             if (maskTypeChanged || displayObjectChanged)
             {
                 maskTypeChanged = false;
-                applyMaskType();
+                MaskUtil.applyMaskType(
+                    _mask, _maskType, _luminosityInvert, _luminosityClip, 
+                    drawnDisplayObject);
             }
             
             // If we don't share the DisplayObject, set the property directly.
