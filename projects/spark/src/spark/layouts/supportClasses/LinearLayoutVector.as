@@ -713,19 +713,19 @@ public final class LinearLayoutVector
     }
         
     /**
-     *  Stores the majorSize for the specified ILayoutElement at index, 
-     *  and  updates the minorSize and minMinorSize properties.
+     *  Stores the <code>majorSize</code> for the specified ILayoutElement at index, 
+     *  and updates the <code>minorSize</code> and <code>minMinorSize</code> properties.
      * 
-     *  If majorAxis is VERTICAL then majorSize corresponds to the 
+     *  If <code>majorAxis</code> is <code>VERTICAL</code> then <code>majorSize</code> corresponds to the 
      *  height of this ILayoutElement, and the minor sizes to the 
-     *  preferredBoundsWidth and minWidth.
+     *  <code>preferredBoundsWidth</code> and <code>minWidth</code>.
      * 
-     *  If majorAxis is HORIZONTAL, then the roles of the dimensions
+     *  If <code>majorAxis</code> is <code>HORIZONTAL</code>, then the roles of the dimensions
      *  are reversed.
      * 
-     *  The minMinorSize is intended to be used LinearLayout::measure() time.
+     *  The <code>minMinorSize</code> is intended to be used at the time that the <code>LinearLayout::measure()</code> method is called.
      * 
-     *  It accumulates the maximum of the minWidth,Height for all items.
+     *  It accumulates the maximum of the <code>minWidth</code>, <code>Height</code> for all items.
      * 
      *  @param index The item's index.
      *  @param elt The layout element at index.
