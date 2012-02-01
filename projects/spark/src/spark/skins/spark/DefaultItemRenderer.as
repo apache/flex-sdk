@@ -62,11 +62,7 @@ include "../../styles/metadata/AdvancedInheritingTextStyles.as"
 include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
- *  The colors to use for the backgrounds of the items in the list. 
- *  The value is an array of one or more colors. 
- *  The backgrounds of the list items alternate among the colors in the array. 
- * 
- *  @default undefined
+ *  @copy spark.components.supportClasses.GroupBase#style:alternatingItemColors
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -76,16 +72,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
- *  Color of the background of an item renderer when it is being pressed down
- *  
- *  <p>If <code>downColor</code> is set to <code>undefined</code>, 
- *  <code>downColor</code> is not used.</p>
- * 
- *  <p>The default value in the 
- *  spark theme is <code>undefined</code>.  The default value in the 
- *  mobile theme is <code>0xB2B2B2</code>.</p>
- *  
- *  @default undefined
+ *  @copy spark.components.supportClasses.GroupBase#style:downColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
@@ -95,7 +82,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="downColor", type="uint", format="Color", inherit="yes", theme="mobile")]
 
 /**
- *  Color of focus ring when the component is in focus
+ *  @copy spark.components.supportClasses.GroupBase#style:focusColor
  *   
  *  @default 0x70B2EE
  *  
@@ -107,9 +94,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
- *  Color of the highlights when the mouse is over the component
- * 
- *  <p>This style is only applicable in mouse <code>interactionMode</code>.</p>
+ *  @copy spark.components.supportClasses.GroupBase#style:rollOverColor
  *   
  *  @default 0xCEDBEF
  *  
@@ -121,8 +106,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
- *  the arrow of a scroll button
+ *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
  *   
  *  @default 0x000000
  * 
