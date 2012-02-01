@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" 
+      minWidth="21" minHeight="21"
+      alpha.disabled="0.5">
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For button, the graphics are colorized but the arrow is not. */
+        static private const exclusions:Array = ["arrow"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the symbol fill items that should be colored by the "symbolColor" style. */
+        static private const symbols:Array = ["arrowFill1", "arrowFill2"];
+        override public function get symbolItems():Array {return symbols};
+    </Script>
+    
+    <!-- states -->
+    <states>
+        <State name="up" />
+        <State name="over" stateGroups="overStates" />
+        <State name="down" stateGroups="downStates" />
+        <State name="disabled" />
+		<State name="popUpOver" stateGroups="overStates" />
+		<State name="popUpDown" stateGroups="downStates" />
+    </states>
+    
+    <!-- layer 1: shadow -->
+    <Rect left="-1" right="-1" top="-1" bottom="-1" radiusX="2" radiusY="2">
+        <fill>
+            <LinearGradient rotation="90">
+                <GradientEntry color="0x000000" 
+                               color.downStates="0xFFFFFF"
+                               alpha="0.01"
+                               alpha.downStates="0" />
+                <GradientEntry color="0x000000" 
+                               color.downStates="0xFFFFFF" 
+                               alpha="0.07"
+                               alpha.downStates="0.5" />
+            </LinearGradient>
+        </fill>
+    </Rect>
+    
+    <!-- layer 2: fill -->
+    <Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2">
+        <fill>
+            <LinearGradient rotation="90">
+                <GradientEntry color="0xFFFFFF" 
+                               color.overStates="0xBBBDBD" 
+                               color.downStates="0xAAAAAA" 
+                               alpha="0.85" />
+                <GradientEntry color="0xD8D8D8" 
+                               color.overStates="0x9FA0A1" 
+                               color.downStates="0x929496" 
+                               alpha="0.85" />
+            </LinearGradient>
+        </fill>
+    </Rect>
+    
+    <!-- layer 3: fill lowlight -->
+    <Rect left="1" right="1" bottom="1" height="9" radiusX="2" radiusY="2">
+        <fill>
+            <LinearGradient rotation="90">
+                <GradientEntry color="0x000000" alpha="0.0099" />
+                <GradientEntry color="0x000000" alpha="0.0627" />
+            </LinearGradient>
+        </fill>
+    </Rect>
+    
+    <!-- layer 4: fill highlight -->
+    <Rect left="1" right="1" top="1" height="9" radiusX="2" radiusY="2">
+        <fill>
+            <SolidColor color="0xFFFFFF" 
+                        alpha="0.33" 
+                        alpha.overStates="0.22" 
+                        alpha.downStates="0.12" />
+        </fill>
+    </Rect>
+    
+    <!-- layer 5: highlight stroke (all states except down) -->
+    <Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2" excludeFrom="down">
+        <stroke>
+            <LinearGradientStroke rotation="90" weight="1">
+                <GradientEntry color="0xFFFFFF" alpha.overStates="0.22" />
+                <GradientEntry color="0xD8D8D8" alpha.overStates="0.22" />
+            </LinearGradientStroke>
+        </stroke>
+    </Rect>
+    
+    <!-- layer 6: highlight stroke (down state only) -->
+    <Rect left="1" top="1" bottom="1" width="1" includeIn="down">
+        <fill>
+            <SolidColor color="0x000000" alpha="0.07" />
+        </fill>
+    </Rect>
+    <Rect right="1" top="1" bottom="1" width="1" includeIn="down">
+        <fill>
+            <SolidColor color="0x000000" alpha="0.07" />
+        </fill>
+    </Rect>
+    <Rect left="2" top="1" right="2" height="1" includeIn="down">
+        <fill>
+            <SolidColor color="0x000000" alpha="0.25" />
+        </fill>
+    </Rect>
+    <Rect left="1" top="2" right="1" height="1" includeIn="down">
+        <fill>
+            <SolidColor color="0x000000" alpha="0.09" />
+        </fill>
+    </Rect>
+    
+    <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    <Rect left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2" radiusY="2">
+        <stroke>
+            <LinearGradientStroke rotation="90" weight="1">
+                <GradientEntry color="0x000000" 
+                               alpha="0.5625"
+                               alpha.downStates="0.6375" />
+                <GradientEntry color="0x000000" 
+                               alpha="0.75" 
+                               alpha.downStates="0.85" />
+            </LinearGradientStroke>
+        </stroke>
+    </Rect>
+    <Rect right="18" top="1" bottom="1" width="1">
+        <fill>
+             <LinearGradient rotation="90">
+                <GradientEntry color="0x000000" 
+                               alpha="0.5625"
+                               alpha.downStates="0.6375" />
+                <GradientEntry color="0x000000" 
+                               alpha="0.75" 
+                               alpha.downStates="0.85" />
+            </LinearGradient>
+        </fill>
+    </Rect>
+
+    <!-- layer 8: arrow -->
+    <Path right="6" verticalCenter="0" id="arrow"
+          data="M 4.0 4.0 L 4.0 3.0 L 5.0 3.0 L 5.0 2.0 L 6.0 2.0 L 6.0 1.0 L 7.0 1.0 L 7.0 0.0 L 0.0 0.0 L 0.0 1.0 L 1.0 1.0 L 1.0 2.0 L 2.0 2.0 L 2.0 3.0 L 3.0 3.0 L 3.0 4.0 L 4.0 4.0">
+        <fill>
+        	<RadialGradient rotation="90" focalPointRatio="1">	
+	            <GradientEntry id="arrowFill1" color="0" alpha="0.6" />
+	            <GradientEntry id="arrowFill2" color="0" alpha="0.8" />
+        	</RadialGradient>
+        </fill>
+    </Path>
+</SparkSkin>
