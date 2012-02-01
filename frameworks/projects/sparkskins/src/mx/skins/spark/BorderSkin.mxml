@@ -40,7 +40,10 @@
         override protected function get defaultBorderAlpha():Number {return getStyle("borderAlpha");}
         
         static private const metrics:EdgeMetrics = new EdgeMetrics(1, 1, 1, 1);
-        
+          
+        [Bindable]
+        public var cornerRadius:Number = 0;
+            
         private var dropShadow:RectangularDropShadow;
         
         public function get borderMetrics():EdgeMetrics
@@ -135,14 +138,14 @@
     </fx:Script>
     
     <!-- border --> 
-    <s:Rect left="0" right="0" top="0" bottom="0" id="border">
+    <s:Rect left="0" right="0" top="0" bottom="0" radiusX="{cornerRadius}" id="border">
         <s:stroke>            
             <s:SolidColorStroke id="borderStroke" />
         </s:stroke>
     </s:Rect>
 
     <!-- fill -->
-    <s:Rect id="background" left="1" right="1" top="1" bottom="1">
+    <s:Rect id="background" left="1" right="1" top="1" bottom="1" radiusX="{cornerRadius}">
         <s:fill>
             <s:SolidColor id="bgFill" color="0xFFFFFF" />
         </s:fill>
