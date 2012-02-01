@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009"
+	  minHeight="13" minWidth="100"
+	  alpha.disabled="0.5">
+
+    <Metadata>
+    	[HostComponent("mx.components.FxHSlider")]
+    </Metadata> 
+    
+    <states>
+    	<State name="normal" />
+    	<State name="disabled" />
+    </states>
+    
+    <FxButton id="track" left="0" right="0" verticalCenter="0" 
+            skinClass="wireframe.FxHSliderTrackSkin" />
+    <FxButton id="thumb" top="1"
+            skinClass="wireframe.FxHSliderThumbSkin" />
+
+</Skin>
