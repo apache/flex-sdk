@@ -362,9 +362,10 @@ public class Path extends FilledElement
                                         control2X, control2Y, x, y));
                     break;
                 case "z":
-                    newSegments.push(new CloseSegment());
-                    x = lastMoveX;
-                    y = lastMoveY;
+					// For a close segment, we generate a LineSegment to the last move point instead. 
+					x = lastMoveX;
+					y = lastMoveY;
+                    newSegments.push(new LineSegment(x, y));
                     break;
                 
                 default:
@@ -437,25 +438,19 @@ public class Path extends FilledElement
 
     private var _bounds:Rectangle;
 
-    private static var boundsShape:Shape = new Shape();
-    
     private function getBounds():Rectangle
     {
         if (_bounds)
             return _bounds;
 
-        
-        // Draw element at (0,0):
-        generateGraphicsPath(0,0,1,1);
-        boundsShape.graphics.clear();
-        boundsShape.graphics.drawPath(graphicsPath.commands, graphicsPath.data, winding);
+		// First, allocate temporary bounds, as getBoundingBox() requires
+		// natual bounds to calculate a scaling factor
+		_bounds = new Rectangle(0, 0, 1, 1);
 
-        // Get bounds
-        _bounds = boundsShape.getRect(boundsShape);
-        
-        graphicsPathChanged = true;
-        
-        return _bounds;
+		// Pass in the same size to getBoundingBox
+		// so that the scaling factor is (1, 1).
+		_bounds = getBoundingBox(1, 1, null /*Matrix*/);
+		return _bounds;
     }
 
     //--------------------------------------------------------------------------
@@ -494,7 +489,7 @@ public class Path extends FilledElement
         measuredX = bounds.left;
         measuredY = bounds.top;
     }
-    
+
     /**
      *  @private
      *  @return Returns the axis aligned bounding box of the path resized to width, height and then
@@ -508,32 +503,20 @@ public class Path extends FilledElement
 
         var prevSegment:PathSegment;
         var pathBBox:Rectangle;
-        var lastMoveX:Number = 0;
-        var lastMoveY:Number = 0;
         
         for (var i:int = 0; i < segments.length; i++)
         {
             var segment:PathSegment = segments[i];
-            
-            if (segment is MoveSegment)
-            {
-                lastMoveX = segment.x;
-                lastMoveY = segment.y;
-            }
-            else if (segment is CloseSegment)
-            {   
-                segment = new LineSegment(lastMoveX, lastMoveY);     
-            }
-
             pathBBox = segment.getBoundingBox(prevSegment, sx, sy, m, pathBBox);
             prevSegment = segment;
         }
-        // If path is empty, it's untransformed bounding box is (0,0), so we return transformed point (0,0)
+
+		// If path is empty, it's untransformed bounding box is (0,0), so we return transformed point (0,0)
         if (!pathBBox)
             pathBBox = new Rectangle(m.tx, m.ty);
         return pathBBox;
     }
-    
+
     /**
      *  @private
      */
@@ -744,10 +727,10 @@ public class Path extends FilledElement
         if (graphicsPathChanged)
         {
             var rcBounds:Rectangle = getBounds();
-            var sx:Number = rcBounds.width == 0 ? 1 : width/rcBounds.width;
-            var sy:Number = rcBounds.height == 0 ? 1 : height/rcBounds.height;
-                        
-            generateGraphicsPath(drawX,drawY,sx,sy);
+            var sx:Number = rcBounds.width == 0 ? 1 : width / rcBounds.width;
+            var sy:Number = rcBounds.height == 0 ? 1 : height / rcBounds.height;
+
+            generateGraphicsPath(drawX, drawY, sx, sy);
             graphicsPathChanged = false;
         }
          
@@ -783,24 +766,11 @@ public class Path extends FilledElement
         // the path will begin at the previous pen location
         // if it does not start with a MoveSegment.
         graphicsPath.moveTo(tx, ty);
-        var lastMoveX:Number = tx;
-        var lastMoveY:Number = ty;
         
         for (var i:int = 0; i < segments.length; i++)
         {
             var segment:PathSegment = segments[i];
-                    
-            segment.draw(graphicsPath, tx,ty,sx,sy, (i > 0 ? segments[i - 1] : null));
-                        
-            if (segment is MoveSegment)
-            {
-                lastMoveX = segment.x;
-                lastMoveY = segment.y;
-            }
-            else if (segment is CloseSegment)
-            {   
-                graphicsPath.lineTo(tx + lastMoveX * sx, ty + lastMoveY * sy);    
-            }
+            segment.draw(graphicsPath, tx, ty, sx, sy, (i > 0 ? segments[i - 1] : null));
         }
     }
     
@@ -1072,12 +1042,21 @@ class LineSegment extends PathSegment
      */
     override public function getBoundingBox(prev:PathSegment, sx:Number, sy:Number, m:Matrix, rect:Rectangle):Rectangle
     {
-        // FIXME (egeorgie): optimize, we shouldn't look at the prev point, if it already contributed to rect
-        var pt1:Point = m.transformPoint(new Point(prev ? prev.x * sx : 0, prev ? prev.y * sy : 0)); 
-        var pt2:Point = m.transformPoint(new Point(x * sx, y * sy));
+		pt = MatrixUtil.transformPoint(x * sx, y * sy, m);
+		var x1:Number = pt.x;
+		var y1:Number = pt.y;
+		
+		// If the previous segment actually draws, then only add the end point to the rectangle,
+		// as the start point would have been added by the previous segment:
+		if (prev != null && !(prev is MoveSegment))
+			return MatrixUtil.rectUnion(x1, y1, x1, y1, rect); 
+		
+		var pt:Point = MatrixUtil.transformPoint(prev ? prev.x * sx : 0, prev ? prev.y * sy : 0, m);
+		var x2:Number = pt.x;
+		var y2:Number = pt.y;
 
-        return MatrixUtil.rectUnion(Math.min(pt1.x, pt2.x), Math.min(pt1.y, pt2.y),
-                                    Math.max(pt1.x, pt2.x), Math.max(pt1.y, pt2.y), rect); 
+		return MatrixUtil.rectUnion(Math.min(x1, x2), Math.min(y1, y2),
+									Math.max(x1, x2), Math.max(y1, y2), rect); 
     }
 
 }
@@ -1148,66 +1127,6 @@ class MoveSegment extends PathSegment
     override public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
     {
         graphicsPath.moveTo(dx+x*sx, dy+y*sy);
-    }
-}
-
-//--------------------------------------------------------------------------
-//
-//  Internal Helper Class - CloseSegment 
-//
-//--------------------------------------------------------------------------
-
-import flash.display.GraphicsPath;
-
-/**
- *  The CloseSegment closes the current path.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-class CloseSegment extends PathSegment
-{
-
-    //--------------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  Constructor.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function CloseSegment()
-    {
-        super();
-    }   
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @inheritDoc
-     * 
-     *  The CloseSegment class draws a line from the current pen location to the 
-     *  position specified by the x and y properties.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
-    {
     }
 }
 
@@ -1379,7 +1298,7 @@ class CubicBezierSegment extends PathSegment
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override public function draw(graphicsPath:GraphicsPath, dx:Number,dy:Number,sx:Number,sy:Number,prev:PathSegment):void
+    override public function draw(graphicsPath:GraphicsPath, dx:Number, dy:Number, sx:Number, sy:Number, prev:PathSegment):void
     {
         var qPts:QuadraticPoints = getQuadraticPoints(prev);
                     
