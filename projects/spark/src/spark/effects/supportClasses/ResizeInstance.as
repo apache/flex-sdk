@@ -12,16 +12,12 @@ package spark.effects.supportClasses
 {
 import flash.events.Event;
 
-import spark.effects.animation.Animation;
-import spark.effects.AnimationProperty;
-import spark.events.AnimationEvent;
-
-import spark.components.Application;
-import mx.core.Container;
 import mx.core.IUIComponent;
-import mx.events.EffectEvent;
-import mx.events.TweenEvent;
-import mx.styles.IStyleClient;
+import mx.managers.LayoutManager;
+
+import spark.effects.AnimationProperty;
+import spark.effects.animation.Animation;
+import spark.events.AnimationEvent;
     
 public class ResizeInstance extends AnimateInstance
 {
@@ -277,8 +273,8 @@ public class ResizeInstance extends AnimateInstance
         var childrenHiding:Boolean = false; // hidePanelChildren();
 
         animationProperties = 
-            [new AnimationProperty("width", widthFrom, widthTo, widthBy),
-             new AnimationProperty("height", heightFrom, heightTo, heightBy)];
+            [new AnimationProperty("width", widthFrom, widthTo, duration, widthBy),
+             new AnimationProperty("height", heightFrom, heightTo, duration, heightBy)];
                 
         super.play();
 
