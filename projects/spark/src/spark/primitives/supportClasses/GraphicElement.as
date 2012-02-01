@@ -259,18 +259,25 @@ public class GraphicElement extends OnDemandEventDispatcher
         layoutFeatures.layoutY = _y;
     }
     
-    protected function invalidateTransform(changeInvalidatesLayering:Boolean = true,triggerLayout:Boolean = true):void
+    protected function invalidateTransform(changeInvalidatesLayering:Boolean = true,
+                                           triggerLayout:Boolean = true):void
     {
-        if(changeInvalidatesLayering)
+        if (changeInvalidatesLayering)
             notifyElementLayerChanged();
-        if(triggerLayout)
-        {
-            invalidateParentSizeAndDisplayList();
-            invalidateProperties();
+
+        // Make sure we apply the transform    
+        if (layoutFeatures != null)
+            layoutFeatures.updatePending = true;
+
+        // If we are sharing a display object we need to redraw
+        if (!displayObject || !nextSiblingNeedsDisplayObject)
             invalidateDisplayList();
-        }
-        if(layoutFeatures != null)
-	        layoutFeatures.updatePending = true;
+        else
+            invalidateProperties(); // We apply the transform in commitProperties
+
+        // Trigger a layout pass
+        if (triggerLayout)
+            invalidateParentSizeAndDisplayList();
     }
 
     /**
@@ -1565,70 +1572,6 @@ public class GraphicElement extends OnDemandEventDispatcher
         }
 
         _transform = value;
-    }
-    
-    /**
-     *  The transform matrix that is used to calculate the component's layout relative to its siblings. This matrix
-     *  is defined by the component's 2D properties such as <code>x</code>, <code>y</code>, <code>rotation</code>, 
-     *  <code>scaleX</code>, <code>scaleY</code>, <code>transformX</code>, and <code>transformY</code>.
-     *  <p>This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.</p>
-     */
-    public function get layoutMatrix():Matrix
-    {
-		// esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
-		// since this is an internal class, we don't need to worry about developers
-		// accidentally messing with this matrix, _unless_ we hand it out. Instead,
-		// we hand out a clone.
-        if(layoutFeatures != null)
-            return layoutFeatures.layoutMatrix.clone();
-        var m:Matrix = new Matrix();
-        m.translate(_x,_y);
-        return m;         
-    }
-
-    /**
-     * @private
-     */
-    public function set layoutMatrix(value:Matrix):void
-    {
-        allocateLayoutFeatures();
-		var previous:Boolean = needsDisplayObject;
-	   	layoutFeatures.layoutMatrix = value;
-		invalidateTransform(previous != needsDisplayObject);
-    }
-
-    /**
-     *  The transform matrix that is used to calculate a component's layout relative to its siblings. This matrix is defined by
-     *  the component's 3D properties (which include the 2D properties such as <code>x</code>, <code>y</code>, <code>rotation</code>, 
-     *  <code>scaleX</code>, <code>scaleY</code>, <code>transformX</code>, and <code>transformY</code>, as well as <code>rotationX</code>, 
-     *  <code>rotationY</code>, <code>scaleZ</code>, <code>z</code>, and <code>transformZ</code>.
-     *  
-     *  <p>Most components do not have any 3D transform properties set on them.</p>
-     *  
-     *  <p>This matrix is modified by the values of the <code>offset</code> property to determine its final, computed matrix.</p>
-     */
-    public function set layoutMatrix3D(value:Matrix3D):void
-    {
-       	allocateLayoutFeatures();
-		var previous:Boolean = needsDisplayObject;
-	   	layoutFeatures.layoutMatrix3D = value;
-		invalidateTransform(previous != needsDisplayObject);
-    }
-
-    /**
-     * @private
-     */
-    public function get layoutMatrix3D():Matrix3D
-    {
-		// esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
-		// since this is an internal class, we don't need to worry about developers
-		// accidentally messing with this matrix, _unless_ we hand it out. Instead,
-		// we hand out a clone.
-        if(layoutFeatures != null)
-            return layoutFeatures.layoutMatrix3D.clone();
-        var m:Matrix3D = new Matrix3D();
-        m.appendTranslation(_x,_y,0);
-        return m;           
     }
     
 	/**
@@ -3166,19 +3109,26 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function getLayoutMatrix():Matrix
     {
-        return layoutMatrix;
+        // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+        // since this is an internal class, we don't need to worry about developers
+        // accidentally messing with this matrix, _unless_ we hand it out. Instead,
+        // we hand out a clone.
+        if(layoutFeatures != null)
+            return layoutFeatures.layoutMatrix.clone();
+        var m:Matrix = new Matrix();
+        m.translate(_x,_y);
+        return m;         
     }
 
     /**
      *  @inheritDoc
      */
-    public function setLayoutMatrix(value:Matrix):void
+    public function setLayoutMatrix(value:Matrix, triggerLayout:Boolean):void
     {
         allocateLayoutFeatures();
         var previous:Boolean = needsDisplayObject;
         layoutFeatures.layoutMatrix = value;
-        invalidateTransform(previous != needsDisplayObject,
-                            false /*triggerLayout*/);
+        invalidateTransform(previous != needsDisplayObject, triggerLayout);
     }
 
     /**
@@ -3186,20 +3136,26 @@ public class GraphicElement extends OnDemandEventDispatcher
      */
     public function getLayoutMatrix3D():Matrix3D
     {
-        return layoutMatrix3D;
+        // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+        // since this is an internal class, we don't need to worry about developers
+        // accidentally messing with this matrix, _unless_ we hand it out. Instead,
+        // we hand out a clone.
+        if(layoutFeatures != null)
+            return layoutFeatures.layoutMatrix3D.clone();
+        var m:Matrix3D = new Matrix3D();
+        m.appendTranslation(_x,_y,0);
+        return m;           
     }
 
     /**
      *  @inheritDoc
      */
-    public function setLayoutMatrix3D(value:Matrix3D):void
+    public function setLayoutMatrix3D(value:Matrix3D, triggerLayout:Boolean):void
     {
         allocateLayoutFeatures();
         var previous:Boolean = needsDisplayObject;
         layoutFeatures.layoutMatrix3D = value;
-        invalidateTransform(previous != needsDisplayObject,
-                            false /*triggerLayout*/);
-		invalidateDisplayList();
+        invalidateTransform(previous != needsDisplayObject, triggerLayout);
     }
 
     /**
