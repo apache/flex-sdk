@@ -14,7 +14,7 @@ package mx.skins.spark {
 import spark.skins.SparkSkin;
 
 /** 
- *  The SparkSkinForHalo class is the base class for Spark skins for Halo components. 
+ *  The SparkSkinForHalo class is the base class for Spark skins for MX components. 
  *  This class adds support for setting the color of the border with the 
  *  value of the <code>errorColor</code> style when a validation error occurs.
  *  
