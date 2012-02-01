@@ -17,7 +17,7 @@
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="lineBreak", type="String", enumeration="toFit,explicit", inherit="yes")]
+[Style(name="lineBreak", type="String", enumeration="toFit,explicit", inherit="no")]
 
 /**
  *  @copy flashx.textLayout.formats.ITextLayoutFormat#paddingBottom
