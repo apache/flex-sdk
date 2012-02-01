@@ -79,7 +79,7 @@
             if (getStyle("borderStyle") == "none")
             {
                 border.visible = false;
-                background.visible = false;
+                // borderStyle = "none" still uses contentBackgroundColor
             }
             else
             {
@@ -140,19 +140,17 @@
         ]]>
     </fx:Script>
     
-    <s:Group left="0" right="0" top="0" bottom="0">
-        <!-- border --> 
-        <s:Rect left="0" right="0" top="0" bottom="0" id="border">
-            <s:stroke>            
-                <s:SolidColorStroke id="borderStroke" />
-            </s:stroke>
-        </s:Rect>
-    
-        <!-- fill -->
-        <s:Rect id="background" left="1" right="1" top="1" bottom="1">
-            <s:fill>
-                <s:SolidColor id="bgFill" color="0xFFFFFF" />
-            </s:fill>
-        </s:Rect>
-    </s:Group>
+    <!-- border --> 
+    <s:Rect left="0" right="0" top="0" bottom="0" id="border">
+        <s:stroke>            
+            <s:SolidColorStroke id="borderStroke" />
+        </s:stroke>
+    </s:Rect>
+
+    <!-- fill -->
+    <s:Rect id="background" left="1" right="1" top="1" bottom="1">
+        <s:fill>
+            <s:SolidColor id="bgFill" color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
  </local:SparkSkinForHalo>
