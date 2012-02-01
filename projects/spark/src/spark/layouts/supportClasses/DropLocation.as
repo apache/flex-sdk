@@ -18,18 +18,18 @@ import mx.events.DragEvent;
 
 // FIXME (egeorgie): add ASDoc reference to layoutbase calculateDragScrollDelta when implemented
 /**
- *  This class contains information describing the drop location
- *  in a drag and drop operation. 
+ *  The DropLocation class contains information describing the drop location
+ *  for the dragged data in a drag-and-drop operation. 
  * 
- *  The <code>DropLocation</code> is created by the <code>LayoutBase</code>
+ *  <p>The <code>DropLocation</code> is created by the <code>LayoutBase</code>
  *  class when the <code>List</code> calls the layout's
- *  <code>calculateDropLocation()</code> method in response to a <code>DragEvent</code>.
+ *  <code>calculateDropLocation()</code> method in response to a <code>dragOver</code>.</p>
  * 
- *  The DropLocation is used by the layout for operations such as
- *  calculating the drop indicator bounds and drag-scroll deltas.
+ *  <p>The DropLocation class is used by the layout for operations such as
+ *  calculating the drop indicator bounds and drag-scroll deltas.</p>
  * 
- *  @see spark.layouts.supportClasses.LayoutBase#calculateDropLocation
- *  @see spark.layouts.supportClasses.LayoutBase#calculateDropIndicatorBounds
+ *  @see spark.layouts.supportClasses.LayoutBase#calculateDropLocation()
+ *  @see spark.layouts.supportClasses.LayoutBase#calculateDropIndicatorBounds()
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -40,6 +40,11 @@ public class DropLocation
 {
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function DropLocation()
     {
@@ -47,16 +52,31 @@ public class DropLocation
     
     /**
      *  The <code>DragEvent</code> associated with this location. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var dragEvent:DragEvent = null;
     
     /**
      *  The drop index corresponding to the event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var dropIndex:int = -1;
     
     /**
      *  The event point in local coordinates of the layout's target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var dropPoint:Point = null;
 }
