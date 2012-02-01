@@ -8,26 +8,26 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects.effectClasses
+package spark.effects.supportClasses
 {
 import flash.events.Event;
 
-import mx.effects.Animation;
-import mx.effects.AnimationProperty;
-import mx.events.AnimationEvent;
+import spark.effects.animation.Animation;
+import spark.effects.AnimationProperty;
+import spark.events.AnimationEvent;
 
-import mx.components.FxApplication;
+import spark.components.Application;
 import mx.core.Container;
 import mx.core.IUIComponent;
 import mx.events.EffectEvent;
 import mx.events.TweenEvent;
 import mx.styles.IStyleClient;
     
-public class FxResizeInstance extends FxAnimateInstance
+public class ResizeInstance extends AnimateInstance
 {
     include "../../core/Version.as";
 
-    public function FxResizeInstance(target:Object)
+    public function ResizeInstance(target:Object)
     {
         super(target);
         
