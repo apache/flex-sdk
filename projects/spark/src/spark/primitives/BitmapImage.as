@@ -21,7 +21,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.getDefinitionByName;
 
-import mx.graphics.graphicsClasses.GraphicElement;
+import mx.graphics.baseClasses.GraphicElement;
 
 /**
  *  A BitmapGraphic element defines a rectangular region in its parent element's 
