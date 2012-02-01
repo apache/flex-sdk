@@ -13,7 +13,7 @@ package spark.events
 {
 
 /**
- *  The GridSelectionEventKind class contains constants for the valid values 
+ *  The GridSelectionEventKind class defines constants for the valid values 
  *  of the spark.events.GridSelectionEvent class <code>kind</code> property.
  *  These constants indicate the kind of change that was made to the selection.
  *
@@ -22,12 +22,12 @@ package spark.events
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.0
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 public final class GridSelectionEventKind
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
@@ -40,7 +40,7 @@ public final class GridSelectionEventKind
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const SELECT_ALL:String = "selectAll";
@@ -50,7 +50,7 @@ public final class GridSelectionEventKind
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const CLEAR_SELECTION:String = "clearSelection";
@@ -60,7 +60,7 @@ public final class GridSelectionEventKind
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const SET_ROW:String = "setRow";
@@ -70,7 +70,7 @@ public final class GridSelectionEventKind
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const ADD_ROW:String = "addRow";
@@ -80,7 +80,7 @@ public final class GridSelectionEventKind
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const REMOVE_ROW:String = "removeRow";
@@ -90,7 +90,7 @@ public final class GridSelectionEventKind
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const SET_ROWS:String = "setRows";
@@ -100,7 +100,7 @@ public final class GridSelectionEventKind
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const SET_CELL:String = "setCell";
@@ -110,7 +110,7 @@ public final class GridSelectionEventKind
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
     public static const ADD_CELL:String = "addCell";
@@ -120,7 +120,7 @@ public final class GridSelectionEventKind
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const REMOVE_CELL:String = "removeCell";
@@ -130,7 +130,7 @@ public final class GridSelectionEventKind
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const SET_CELL_REGION:String = "setCellRegion";
