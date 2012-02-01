@@ -11,9 +11,9 @@
 
 -->
 
-<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" implements="mx.core.IRectangularBorder">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" implements="mx.core.IRectangularBorder">
     
-    <Script>
+    <fx:Script>
 		<![CDATA[
 		import mx.core.EdgeMetrics;
 		import mx.core.IUIComponent;
@@ -116,63 +116,63 @@
 			return true;
 		}
 		]]>
-    </Script>
+    </fx:Script>
     
     <!-- drop shadow -->
-    <Rect left="0" top="0" right="0" bottom="0">
-        <filters>
-            <DropShadowFilter blurX="20" blurY="20" alpha="0.32" distance="11" angle="90" knockout="true" />
-        </filters>
-        <fill>
-            <SolidColor color="0" />
-        </fill>
-    </Rect>
+    <s:Rect left="0" top="0" right="0" bottom="0">
+        <s:filters>
+            <s:DropShadowFilter blurX="20" blurY="20" alpha="0.32" distance="11" angle="90" knockout="true" />
+        </s:filters>
+        <s:fill>
+            <s:SolidColor color="0" />
+        </s:fill>
+    </s:Rect>
     
 	<!-- layer 1: border -->
-	<Rect left="0" right="0" top="0" bottom="0">
-		<stroke>
-			<SolidColorStroke color="0" alpha="0.50" weight="1" />
-		</stroke>
-	</Rect>
+	<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke color="0" alpha="0.50" weight="1" />
+		</s:stroke>
+	</s:Rect>
 
     <!-- layer 2: background fill -->
-    <Rect id="background" left="1" top="1" right="1" bottom="1">
-        <fill>
-            <SolidColor color="0xFFFFFF" id="bgFill" />
-        </fill>
-    </Rect>
+    <s:Rect id="background" left="1" top="1" right="1" bottom="1">
+        <s:fill>
+            <s:SolidColor color="0xFFFFFF" id="bgFill" />
+        </s:fill>
+    </s:Rect>
     
 	<!-- layer 3: title bar fill -->
-	<Rect left="1" right="1" top="1" height="30">
-	   <fill>
-            <LinearGradient rotation="90">
-                <GradientEntry color="0xE2E2E2" />
-                <GradientEntry color="0xD9D9D9" />
-            </LinearGradient>
-	   </fill>
-	</Rect>
+	<s:Rect left="1" right="1" top="1" height="30">
+	   <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="0xE2E2E2" />
+                <s:GradientEntry color="0xD9D9D9" />
+            </s:LinearGradient>
+	   </s:fill>
+	</s:Rect>
 	
 	<!-- layer 4: title bar highlight -->
-    <Rect left="1" right="1" top="1" height="30">
-       <stroke>
-            <LinearGradientStroke rotation="90" weight="1">
-                <GradientEntry color="0xEAEAEA" />
-                <GradientEntry color="0xBEBEBE" />
-            </LinearGradientStroke>
-       </stroke>
-    </Rect>
+    <s:Rect left="1" right="1" top="1" height="30">
+       <s:stroke>
+            <s:LinearGradientStroke rotation="90" weight="1">
+                <s:GradientEntry color="0xEAEAEA" />
+                <s:GradientEntry color="0xBEBEBE" />
+            </s:LinearGradientStroke>
+       </s:stroke>
+    </s:Rect>
     
     <!-- layer 5: control bar background -->
-    <Rect id="cbbg" left="1" right="1" bottom="1" height="20">
-    	<fill>
-    		<SolidColor color="0xF6F6F6" />
-    	</fill>
-    </Rect>
+    <s:Rect id="cbbg" left="1" right="1" bottom="1" height="20">
+    	<s:fill>
+    		<s:SolidColor color="0xF6F6F6" />
+    	</s:fill>
+    </s:Rect>
     
     <!-- layer 6: control bar divider line -->
-    <Rect id="cbdiv" left="1" right="1" bottom="20" height="1">
-    	<fill>
-    		<SolidColor color="0xB9B9B9" />
-    	</fill>
-    </Rect>
-</SparkSkin>
+    <s:Rect id="cbdiv" left="1" right="1" bottom="20" height="1">
+    	<s:fill>
+    		<s:SolidColor color="0xB9B9B9" />
+    	</s:fill>
+    </s:Rect>
+</s:SparkSkin>
