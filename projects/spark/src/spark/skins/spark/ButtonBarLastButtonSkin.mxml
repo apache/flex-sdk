@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<SparkSkin xmlns="http://ns.adobe.com/mxml/2009" 
+	  minWidth="21" minHeight="21"
+	  alpha.disabledStates="0.5">
+
+	<!-- host component -->
+	<Metadata>
+		[HostComponent("mx.components.FxToggleButton")]
+	</Metadata>
+    
+    <Script>
+        /* Define the skin elements that should not be colorized. 
+           For toggle button, the graphics are colorized but the label is not. */
+        static private const exclusions:Array = ["labelField"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+    </Script>
+	
+	<!-- states -->
+	<states>
+        <State name="up" />
+        <State name="over" stateGroups="overStates" />
+        <State name="down" stateGroups="downStates" />
+        <State name="disabled" stateGroups="disabledStates" />
+        <State name="upAndSelected" stateGroups="selectedStates, selectedUpStates" />
+        <State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
+	</states>
+	
+	<!-- layer 1: shadow -->
+    <Path left="0" right="-1" top="-1" bottom="-1" 
+    	  data="M 0 20 l 67.2 0 C 68.2 20 69 19.2 69 18.2 L 69 1.8 C 68.2 0 69 0.8 67.2 0 L 0 0">
+        <stroke>
+            <LinearGradientStroke rotation="90">
+                    <GradientEntry color="0x000000" 
+                                   color.downStates="0xFFFFFF"
+                                   alpha="0.01"
+                                   alpha.downStates="0" />
+                    <GradientEntry color="0x000000" 
+                                   color.downStates="0xFFFFFF" 
+                                   alpha="0.07"
+                                   alpha.downStates="0.5" />
+            </LinearGradientStroke>
+        </stroke>
+    </Path>
+	
+	<!-- layer 2: fill -->
+	<Path left="1" right="1" top="1" bottom="1" 
+		  data="M 0 0 l 0 18 l 65.2 0 C 66.2 18 67 17.2 67 16.2 L 67 1.8 C 66.2 0 67 0.8 65.2 0 L 0 0 z">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0xFFFFFF" 
+							   color.selectedUpStates="0xBBBDBD"
+							   color.overStates="0xBBBDBD" 
+							   color.downStates="0xAAAAAA" 
+							   alpha="0.85" 
+							   alpha.overAndSelected="1" />
+				<GradientEntry color="0xD8D8D8" 
+							   color.selectedUpStates="0x9FA0A1"
+							   color.over="0x9FA0A1" 
+							   color.overAndSelected="0x8E8F90"
+							   color.downStates="0x929496" 
+							   alpha="0.85"
+							   alpha.overAndSelected="1" />
+			</LinearGradient>
+		</fill>
+	</Path>
+	
+	<!-- layer 3: fill lowlight -->
+	<Rect left="1" right="1" bottom="1" height="9" radiusX="2" radiusY="2">
+		<fill>
+			<LinearGradient rotation="90">
+				<GradientEntry color="0x000000" alpha="0.0099" />
+				<GradientEntry color="0x000000" alpha="0.0627" />
+			</LinearGradient>
+		</fill>
+	</Rect>
+	
+	<!-- layer 4: fill highlight -->
+	<Rect left="1" right="1" top="1" height="9" radiusX="2" radiusY="2">
+		<fill>
+			<SolidColor color="0xFFFFFF" 
+					    alpha="0.33" 
+					    alpha.selectedUpStates="0.22"
+					    alpha.overStates="0.22" 
+					    alpha.downStates="0.12" />
+		</fill>
+	</Rect>
+	
+	<!-- layer 5: highlight stroke (all states except down) -->
+	<Path left="1" right="1" top="1" bottom="1" excludeFrom="downStates"
+		  data="M 0 0 l 0 18 l 65.2 0 C 66.2 18 67 17.2 67 16.2 L 67 1.8 C 66.2 0 67 0.8 65.2 0 L 0 0 z">
+		<stroke>
+			<LinearGradientStroke rotation="90" weight="1">
+				<GradientEntry color="0xFFFFFF" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
+				<GradientEntry color="0xD8D8D8" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
+			</LinearGradientStroke>
+		</stroke>
+	</Path>
+	
+	<!-- layer 6: highlight stroke (down state only) -->
+	<Rect left="1" top="1" bottom="1" width="1" includeIn="downStates, selectedUpStates, overAndSelected">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.07" />
+		</fill>
+	</Rect>
+	<Rect right="1" top="1" bottom="1" width="1" includeIn="downStates, selectedUpStates, overAndSelected">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.07" />
+		</fill>
+	</Rect>
+	<Rect left="1" top="1" right="2" height="1" includeIn="downStates, selectedUpStates, overAndSelected">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.25" />
+		</fill>
+	</Rect>
+	<Rect left="1" top="2" right="1" height="1" includeIn="downStates, selectedUpStates, overAndSelected">
+		<fill>
+			<SolidColor color="0x000000" alpha="0.09" />
+		</fill>
+	</Rect>
+	
+	<!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+	<Path left="0" right="0" top="0" bottom="0"
+		  data="M 0 0 l 0 20 l 67.2 0 C 68.2 20 69 19.2 69 18.2 L 69 1.8 C 68.2 0 69 0.8 67.2 0 L 0 0 z">
+        <stroke>
+            <LinearGradientStroke rotation="90" weight="1">
+                <GradientEntry color="0x000000" 
+                               alpha="0.5625"
+                               alpha.down="0.6375"
+                               alpha.selectedStates="0.6375" />
+                <GradientEntry color="0x000000" 
+                               alpha="0.75" 
+                               alpha.down="0.85"
+                               alpha.selectedStates="0.85" />
+            </LinearGradientStroke>
+        </stroke>
+	</Path>
+	
+	<!-- layer 8: text -->
+	<TextBox id="labelField"
+			 horizontalCenter="0" verticalCenter="1"
+			 left="10" right="10" top="2" bottom="2">
+	</TextBox>
+	
+</SparkSkin>
