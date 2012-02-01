@@ -11,80 +11,82 @@
 ////////////////////////////////////////////////////////////////////////////////
 */
 
+@namespace "library://ns.adobe.com/flex/spark";
+
 /* Default Skins */
 
-FxButton
+Button
 {
-	skinClass: ClassReference("wireframe.FxButtonSkin");
+	skinClass: ClassReference("spark.skins.wireframe.ButtonSkin");
 }
 
-FxCheckBox
+CheckBox
 {
-	skinClass: ClassReference("wireframe.FxCheckBoxSkin");
+	skinClass: ClassReference("spark.skins.wireframe.CheckBoxSkin");
 }
 
-FxHScrollBar
+HScrollBar
 {
-    skinClass: ClassReference("wireframe.FxHScrollBarSkin");
+    skinClass: ClassReference("spark.skins.wireframe.HScrollBarSkin");
 }
 
-FxHSlider
+HSlider
 {
-    skinClass: ClassReference("wireframe.FxHSliderSkin");
+    skinClass: ClassReference("spark.skins.wireframe.HSliderSkin");
 }
 
-FxList
+List
 {
-	skinClass: ClassReference("wireframe.FxListSkin");
+	skinClass: ClassReference("spark.skins.wireframe.ListSkin");
 }
 
-FxNumericStepper
+NumericStepper
 {
-    skinClass: ClassReference("wireframe.FxNumericStepperSkin");
+    skinClass: ClassReference("spark.skins.wireframe.NumericStepperSkin");
 }
 
-FxRadioButton
+RadioButton
 {
-	skinClass: ClassReference("wireframe.FxRadioButtonSkin");
+	skinClass: ClassReference("spark.skins.wireframe.RadioButtonSkin");
 }
 
-FxSpinner
+Spinner
 {
-    skinClass: ClassReference("wireframe.FxSpinnerSkin");    
+    skinClass: ClassReference("spark.skins.wireframe.SpinnerSkin");    
 }
 
-FxTextArea
+TextArea
 {
-	skinClass: ClassReference("wireframe.FxTextAreaSkin");
+	skinClass: ClassReference("spark.skins.wireframe.TextAreaSkin");
 }
 
-FxTextInput
+TextInput
 {
-	skinClass: ClassReference("wireframe.FxTextInputSkin");
+	skinClass: ClassReference("spark.skins.wireframe.TextInputSkin");
 }
 
-FxToggleButton
+ToggleButton
 {
-	skinClass: ClassReference("wireframe.FxToggleButtonSkin");
+	skinClass: ClassReference("spark.skins.wireframe.ToggleButtonSkin");
 }
 
-FxVScrollBar
+VScrollBar
 {
-	skinClass: ClassReference("wireframe.FxVScrollBarSkin");
+	skinClass: ClassReference("spark.skins.wireframe.VScrollBarSkin");
 }
 
-FxVSlider
+VSlider
 {
-    skinClass: ClassReference("wireframe.FxVSliderSkin");
+    skinClass: ClassReference("spark.skins.wireframe.VSliderSkin");
 }
 
 
-/* Default text styles for the Gumbo components. Eventually these
+/* Default text styles for the Spark components. Eventually these
    will be moved into the global selector, but to avoid collision
    with the Halo defaults, they are currently defined here.
    
-   The default font settings for Gumbo components are defined in
-   two selectors: TextGraphicElement, and TextView. */
+   The default font settings for Spark components are defined in
+   two selectors: TextGraphicElement, and RichEditableText. */
 TextGraphicElement
 {
     fontFamily: Arial;
@@ -92,7 +94,7 @@ TextGraphicElement
     color: #2B4381;
 }
 
-TextView
+RichEditableText
 {
     fontFamily: Arial;
     fontSize: 12;
