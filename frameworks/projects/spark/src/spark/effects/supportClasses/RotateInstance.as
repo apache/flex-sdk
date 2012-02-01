@@ -308,7 +308,7 @@ public class FxRotateInstance extends FxAnimateInstance
         if (Math.abs(newY - targetY) > 0.1)
             centerY = targetY + originalOffsetY;
 
-        var rotateValue:Number = Number(event.value);     
+        var rotateValue:Number = Number(event.animation.currentValue[0]);     
         var radVal:Number = Math.PI * rotateValue / 180;
 
         newX = centerX - originX * Math.cos(radVal) + originY * Math.sin(radVal);
