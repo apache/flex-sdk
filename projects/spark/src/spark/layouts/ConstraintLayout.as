@@ -881,6 +881,10 @@ public class ConstraintLayout extends LayoutBase
                         if (constraintsDetermineWidth(elementInfo))
                             colWidth = Math.max(colWidth, extX + layoutElement.getMinBoundsWidth());
                         
+                        // bound with max width of column
+                        if (!isNaN(col.maxWidth))
+                            colWidth = Math.min(colWidth, col.maxWidth);
+                        
                         col.setActualWidth(Math.ceil(colWidth));
                     }
                 }
@@ -917,12 +921,17 @@ public class ConstraintLayout extends LayoutBase
                     
                     if (numContentCols > 0)
                     {
-                        colWidth = availableWidth / numContentCols;
+                        var splitWidth:Number = availableWidth / numContentCols;
                         
                         for (j = 0; j < numContentCols; j++)
                         {
                             col = contentCols[j];
-                            col.setActualWidth(Math.ceil(Math.max(col.width, colWidth)));
+                            
+                            colWidth = Math.max(col.width, splitWidth);
+                            if (!isNaN(col.maxWidth))
+                                colWidth = Math.min(colWidth, col.maxWidth);
+                            
+                            col.setActualWidth(Math.ceil(colWidth));
                         }
                     }
                 }
@@ -1099,6 +1108,10 @@ public class ConstraintLayout extends LayoutBase
                         if (constraintsDetermineHeight(elementInfo))
                             rowHeight = Math.max(rowHeight, extY + layoutElement.getMinBoundsHeight());
                         
+                        // bound with max height of row
+                        if (!isNaN(row.maxHeight))
+                            rowHeight = Math.min(rowHeight, row.maxHeight);
+                        
                         row.setActualHeight(Math.ceil(rowHeight));
                     }
                 }
@@ -1135,12 +1148,17 @@ public class ConstraintLayout extends LayoutBase
                     
                     if (numContentRows > 0)
                     {
-                        rowHeight = availableHeight / numContentRows;
+                        var splitHeight:Number = availableHeight / numContentRows;
                         
                         for (j = 0; j < numContentRows; j++)
                         {
                             row = contentRows[j];
-                            row.setActualHeight(Math.ceil(Math.max(row.height, rowHeight)));
+                            
+                            rowHeight = Math.max(row.height, splitHeight);
+                            if (!isNaN(row.maxHeight))
+                                rowHeight = Math.min(rowHeight, row.maxHeight);
+                            
+                            row.setActualHeight(Math.ceil(rowHeight));
                         }
                     }
                 }
