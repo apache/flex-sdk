@@ -28,7 +28,7 @@
     <!-- border -->
     <s:Rect top="0" right="0" bottom="0" width="1">
         <s:fill>
-            <s:SolidColor color="0x5581D1" />
+            <s:SolidColor color="#A9A9A9" />
         </s:fill>
     </s:Rect>
 </s:Skin>
