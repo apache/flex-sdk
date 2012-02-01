@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2008 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<Skin xmlns="http://ns.adobe.com/mxml/2009">
+
+    <states>
+        <State name="up" />
+        <State name="over"/>
+        <State name="down" />
+        <State name="disabled" />
+    </states>
+
+    <content>
+
+        <Rect left="-6.5" right="8.5" top="1" bottom="1" minWidth="15" minHeight="15" 
+              radiusX="15" radiusY="15">
+            <stroke>
+                <SolidColorStroke color="#385890" color.down="0x5280CF" 
+                                  color.disabled="0xAAC0E8" alpha="1" />
+            </stroke>
+            <fill>
+                <SolidColor color="0xFFFFFF" color.down="0xDEEBFF" />
+            </fill>
+        </Rect>
+
+    </content>
+
+</Skin>
