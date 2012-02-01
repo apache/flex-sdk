@@ -34,7 +34,7 @@ use namespace mx_internal;
  *  values available through this class.
  *
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 1.5
  *  @productversion Flex 4.5
  */
@@ -51,28 +51,28 @@ use namespace mx_internal;
  *  by the Unicode Technical Standard #35 (http//unicode.org/reports.tr35/)
  *
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 1.5
  *  @productversion Flex 4.5
  */
 [Style(name="locale", type="String", inherit="yes")]
 
 /**
- *  This is a base class used for wrapper classes that make use of the 
+ *  This is a base class used for wrapper classes that make use of the
  *  flash.globalization classes for language and region specific formatting
  *  of dates, times, number, and currency amounts, string comparison and
  *  case conversion.
- * 
+ *
  *  @see spark.formatters.CurrencyFormatter
  *  @see spark.formatters.DateTimeFormatter
  *  @see spark.formatters.NumberFormatter
  *  @see spark.globalization.MatchingCollator
  *  @see spark.globalization.SortingCollator
  *  @see spark.globalization.StringTools
- * 
+ *
  *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 public class GlobalizationBase extends AdvancedStyleClient
@@ -89,7 +89,7 @@ public class GlobalizationBase extends AdvancedStyleClient
      *  Constructor.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 1.1
      *  @productversion Flex 4.5
      */
@@ -151,16 +151,16 @@ public class GlobalizationBase extends AdvancedStyleClient
      *  functionality from the operating system.
      *
      *  If the locale that was set by the locale style is not available,
-     *  then value of the <code>actualLocaleIDName</code> will be different
+     *  then the value of the <code>actualLocaleIDName</code> will be different
      *  from the value of the locale style.
      *  It will indicate the fallback locale that is being used.
      *  If the locale style was set to <code>LocaleID.DEFAULT</code> the
      *  name of the locale specified by the user's operating system will be
      *  used.
      *
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
-     *  @productversion Flash CS5
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get actualLocaleIDName():String
@@ -220,7 +220,7 @@ public class GlobalizationBase extends AdvancedStyleClient
      *  For the possible values see the description under each method.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 1.1
      *  @productversion Flex 4.5
      */
@@ -413,8 +413,7 @@ public class GlobalizationBase extends AdvancedStyleClient
      */
     mx_internal function update():void
     {
-        if (localeStyle)
-            dispatchEvent(new Event(Event.CHANGE));
+        dispatchEvent(new Event(Event.CHANGE));
     }
 
     //--------------------------------------------------------------------------
@@ -438,7 +437,7 @@ public class GlobalizationBase extends AdvancedStyleClient
     {
         const newlocaleStyle:*= getStyle("locale") ;
 
-        if (localeStyle !== undefined && localeStyle == newlocaleStyle)
+        if (localeStyle === newlocaleStyle)
             return;
 
         localeStyle = newlocaleStyle;
