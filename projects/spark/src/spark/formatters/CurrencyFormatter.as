@@ -19,39 +19,46 @@ import flash.globalization.NationalDigitsType;
 import mx.core.mx_internal;
 import mx.formatters.IFormatter;
 
-import spark.formatters.supportClasses.NumberBase;
+import spark.formatters.supportClasses.NumberFormatterBase;
 import spark.globalization.LastOperationStatus;
+import mx.resources.ResourceManager;
+import mx.resources.IResourceManager;
 
 use namespace mx_internal;
 
+[ResourceBundle("core")]
+
 /**
  *  The CurrencyFormatter class provides locale-sensitive formatting
- *  and parsing of currency values. It can format currency amounts stored in
- *  <code>Number</code> objects.
+ *  and parsing of currency values. 
  *
  *  <p>This class is a wrapper class around the
- *  <code>flash.globalization.CurrencyFormatter</code>. Therefore
+ *  <code>flash.globalization.CurrencyFormatter</code>. Therefore,
  *  the locale-specific formatting
  *  is provided by the <code>flash.globalization.CurrencyFormatter</code>.
- *  However this CurrencyFormatter class can be used in mxml declartions,
+ *  However, this CurrencyFormatter class can be used in MXML declartions,
  *  uses the locale style for the requested Locale ID name, and has
  *  methods and properties that are bindable.
  *  </p><p>
  *  The flash.globalization.CurrencyFormatter class uses the underlying
  *  operating system for the formatting functionality and
  *  to supply the locale specific data. On some operating systems,
- *  the flash.globalization classes are unsupported, this wrapper
- *  class provides a fallback functionality in this case.
+ *  the flash.globalization classes are unsupported, on these systems this
+ *  wrapper class provides fallback functionality.
  *  </p>
  *
+ *  @includeExample examples/CurrencyFormatterExample1.mxml
+ *  @includeExample examples/CurrencyFormatterExample2.mxml
+ *
  *  @see flash.globalization.CurrencyFormatter
+ *  @see NumberFormatter
  *
  *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class CurrencyFormatter extends NumberBase implements IFormatter
+public class CurrencyFormatter extends NumberFormatterBase implements IFormatter
 {
     include "../core/Version.as";
 
@@ -78,7 +85,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
     //--------------------------------------------------------------------------
 
     /**
-     *  Constructs a new CurrencyFormatter object to format numbers
+     *  Constructs a new <code>CurrencyFormatter</code> object to format numbers
      *  representing currency amounts according to
      *  the conventions of a given locale.
      *  <p>
@@ -86,43 +93,51 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *  locale style can be set in several ways:
      *  </p>
      *  <ul>
-     *  <li>         *
-     *  Inheriting the style from a UIComponent by calling the
-     *  UIComponent's addStyleClient method.
-     *  </li>
      *  <li>
-     *  By using the class in an mxml declaration and inheriting the
+     *  By using the class in an MXML declaration and inheriting the
      *  locale from the document that contains the declaration.
      *  </li>
+     *  Example:
      *  <listing version="3.0" >
-     *  &lt;fx:Declarations&gt;
-     *         &lt;s:StringTools id="st" /&gt;
+     *  &lt;fx:Declarations&gt; <br>
+     *         &lt;s:CurrencyFormatter id="cf" /&gt; <br>
      *  &lt;/fx:Declarations&gt;
      *  </listing>
      *  <li>
-     *  By using an mxml declaration and specifying the locale value
+     *  By using an MXML declaration and specifying the locale value
      *  in the list of assignments.
      *  </li>
+     *  Example:
      *  <listing version="3.0" >
-     *  &lt;fx:Declarations&gt;
-     *      &lt;s:StringTools id="st_turkish" locale="tr-TR" /&gt;
+     *  &lt;fx:Declarations&gt; <br>
+     *      &lt;s:CurrencyFormatter id="cf_Japanese" locale="ja-JP" /&gt; <br>
      *  &lt;/fx:Declarations&gt;
      *  </listing>
      *  <li>
      *  Calling the setStyle method,
-     *  e.g. <code>st.setStyle("locale", "tr-TR")</code>
+     *  e.g. <code>cf.setStyle("locale", "ja-JP")</code>
+     *  </li>
+     *  <li> 
+     *  Inheriting the style from a <code>UIComponent</code> by calling the
+     *  UIComponent's <code>addStyleClient()</code> method.
      *  </li>
      *  </ul>
      *  <p>
      *  If the locale style is not set by one of the above techniques,
      *  the methods of this class that depend on the locale
-     *  will throw an error.
-     *  </p>         *
-     *  <p>Certain properties such as the <code>currencySymbol</code>
-     *  and <code>currencyISOCode</code> properties are set
-     *  automatically based on the locale.</p>
+     *  will set lastOperationStatus to 
+     *  <code>LastOperationStatus.LOCALE_UNDEFINED_ERROR</code>
+     *  and depending on the return type the methods will return 
+     *  <code>null</code>, 0, or <code>undefined</code>.</p>
+     * 
+     *  <p>Most of the properties of 
+     *  this class are automatically set based on the locale style. If the
+     *  locale style is changed, any properties that have not been explicitly
+     *  set will also be updated based on the new locale. Note that the 
+     *  actual locale that is used is specified by the actualLocaleIDName
+     *  property.</p>
      *
-     *  <p><strong>NOTE: When a fallback locale is used the currency
+     *  <p><strong>NOTE: When a fallback locale is used, the currency
      *  properties are set to default values,
      *  and therefore the <code>currencySymbol</code> or
      *  <code>currencyISOCode</code> properties might be given unexpected
@@ -131,12 +146,13 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *  property values before formatting a currency amount.
      *  </strong></p>
      *
-     *  @see actualLocaleIDName
-     *
-     *  @playerversion Flash 10.1
+     *  @see #actualLocaleIDName
+     *  @see #lastOperationsStatus
+     * 
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     *  @productversion Flash CS5
      */
     public function CurrencyFormatter()
     {
@@ -149,6 +165,12 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
+    private var resourceManager:IResourceManager =
+        ResourceManager.getInstance();
+    
     /**
      *  @private
      */
@@ -177,9 +199,9 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *  @see flash.globalization.CurrencyFormatter.actualLocaleIDName
      *  @see #CurrencyFormatter()
      *
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
-     *  @productversion Flash CS5
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     override public function get actualLocaleIDName():String
@@ -214,27 +236,32 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
 
     /**
      *  The three letter ISO 4217 currency code for the actual locale
-     *  being used.
+     *  being used (e.g. USD, EUR, JPY, CNY).
      *
-     *  <p>This code is used to determine the currency symbol or
-     *  string when formatting currency amounts
-     *  using the <code>format()</code> method with
-     *  the <code>useCurrencySymbol</code> property set to
-     *  <code>false</code>.</p>
+     *  <p>When the <code>useCurrencySymbol</code> property is set to
+     *  <code>false</code>, this code will be used to indicate the currency
+     *  type when formatting currency amounts
+     *  using the <code>format()</code> method. </p>
      *
-     *  <p>This property is initialized by the constructor
+     *  <p>This property is initialized when the locale style is set
      *  based on the actual locale that is used. When a fallback
-     *  locale is used this property reflects the preferred, default
+     *  locale is used, this property reflects the preferred/default
      *  currency code for the fallback locale.</p>
      *
-     *  @default dependent on the actual locale and operating system
+     *  @throws TypeError if this property is assigned a null value. 
+     * 
+     *  <p>The default value is dependent on the actual locale and operating 
+     *  system.</p>
      *
+     *  @see #actualLocaleIDName
      *  @see #format()
      *  @see #currencySymbol
+     *  @see #formattingWithCurrencySymbolIsSafe()
      *
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get currencyISOCode():String
     {
@@ -266,7 +293,12 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
         else
         {
             if (!value)
-                throw new TypeError();
+            {
+                const message:String = 
+                    resourceManager.getString("core","nullParameter", 
+                        [ currencyISOCode ]);
+                throw new TypeError(message);
+            }
 
             if (properties)
                 properties.currencyISOCode = value;
@@ -290,21 +322,26 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *  the <code>withCurrencySymbol</code> parameter set to
      *  <code>true</code>.</p>
      *
-     *  <p>This property is initialized by the constructor based on
+     *  <p>This property is initialized when the locale style is set based on
      *  the actual locale that is used. When a fallback
-     *  locale is used this property reflects the preferred, default
-     *  currency symbol for the fallback locale.</p>
+     *  locale is used, this property reflects the preferred/default
+     *  currency symbol for the fallback locale which may be different
+     *  then the locale style.</p>
      *
-     *  @default dependent on the actual locale and operating system
+     *  @throws TypeError if this property is assigned a null value. 
+     * 
+     *  <p>The default value is dependent on the actual locale and operating 
+     *  system.</p>
      *
+     *  @see #actualLocaleIDName
      *  @see #format()
-     *  @see #setCurrency()
-     *  @see #formattingWithCurrencySymbolIsSafe
+     *  @see #formattingWithCurrencySymbolIsSafe()
      *  @see #currencyISOCode
      *
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get currencySymbol():String
     {
@@ -336,7 +373,12 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
         else
         {
             if (!value)
-                throw new TypeError();
+            {
+                const message:String = 
+                    resourceManager.getString("core","nullParameter", 
+                        [ currencySymbol ]);
+                throw new TypeError(message);
+            }
 
             if (properties)
                 properties.currencySymbol = value;
@@ -355,7 +397,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
                         enumeration="0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15")]
 
     /**
-     *   A numeric value that indicates a formatting pattern for negative
+     *  A numeric value that indicates a formatting pattern for negative
      *  currency amounts. This pattern defines the location of the
      *  currency symbol and the negative symbol or parentheses in
      *  relation to the numeric portion of the currency
@@ -452,30 +494,35 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *        </tr>
      *    </table>
      *
-     *  @default dependent on the actual locale and operating system
-     *
      *  @throws ArgumentError if the assigned value is not between 0 and 15.
-     *
+     * 
+     *  <p>The default value is dependent on the actual locale and operating 
+     *  system.</p>
+     * 
      *  @see #format()
      *  @see #currencySymbol
      *  @see #negativeSymbol
      *
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get negativeCurrencyFormat():int
+    public function get negativeCurrencyFormat():uint
     {
         return getBasicProperty(properties, NEGATIVE_CURRENCY_FORMAT);
     }
 
-    public function set negativeCurrencyFormat(value:int):void
+    public function set negativeCurrencyFormat(value:uint):void
     {
         if (!g11nWorkingInstance)
         {
             if ((value < 0) || (15 < value))
-                throw new TypeError();
+            {
+                const message:String = 
+                    resourceManager.getString("core","badIndex");
+                throw new ArgumentError(message);
+            }
         }
 
         setBasicProperty(properties, NEGATIVE_CURRENCY_FORMAT, value);
@@ -489,11 +536,11 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
     [Inspectable(category="General", enumeration="0,1,2,3")]
 
     /**
-     *    A numeric value that indicates a formatting pattern for positive
-     *  currency amounts. This format defines the location of currency symbol
-     *  relative to the numeric portion of the currency amount.
+     *  A numeric value that indicates a formatting pattern for positive
+     *  currency amounts. This format defines the location of the currency
+     *  symbol relative to the numeric portion of the currency amount.
      *
-     *   <p>The value of this property must be one of the constants
+     *  <p>The value of this property must be one of the constants
      *  defined in the table below.
      *  </p>
      *
@@ -537,27 +584,32 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *
      *  @throws ArgumentError if the assigned value is not between 0 and 3.
      *
-     *  @default dependent on the actual locale and operating system
+     *  <p>The default value is dependent on the actual locale and operating 
+     *  system.</p>
      *
      *  @see #currencySymbol
      *  @see #format()
      *
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get positiveCurrencyFormat():int
+    public function get positiveCurrencyFormat():uint
     {
         return getBasicProperty(properties, POSITIVE_CURRENCY_FORMAT);
     }
 
-    public function set positiveCurrencyFormat(value:int):void
+    public function set positiveCurrencyFormat(value:uint):void
     {
         if (!g11nWorkingInstance)
         {
             if ((value < 0) || (4 < value))
-                throw new TypeError();
+            {
+                const message:String = 
+                    resourceManager.getString("core","badIndex");
+                throw new ArgumentError(message);
+            }
         }
 
         setBasicProperty(properties, POSITIVE_CURRENCY_FORMAT, value);
@@ -586,17 +638,17 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *
      *  <p>When the <code>withCurrencySymbol</code> property is set to
      *  <code>false</code>, the value of the <code>currencyISOCode</code>
-     *  property is used in the string returned by the format method.
-     *  For example: <code>USD 123456789.22</code></p>
+     *  property is used in the string returned by the <code>format</code>
+     *  method. For example: <code>USD 123,456,789.22</code></p>
      *
      *  @default false
      *
-     *  @see #formattingWithCurrencySymbolIsSafe
-     *  @see #format
+     *  @see #formattingWithCurrencySymbolIsSafe()
+     *  @see #format()
      *
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get useCurrencySymbol():Boolean
@@ -620,6 +672,10 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
+    private var defaultCurrencyISOCode:String = null;
     /**
      *  @private
      */
@@ -648,6 +704,8 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
                                     != LastOperationStatus.UNSUPPORTED_ERROR))
         {
             properties = g11nWorkingInstance;
+            //preserve the default currencyISOCode for the locale
+            defaultCurrencyISOCode=properties.currencyISOCode; 
             propagateBasicProperties(g11nWorkingInstance);
 
             if (currencySymbolOverride)
@@ -688,83 +746,102 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
     /**
      *  Creates a string representing a currency amount formatted
      *  according to the current properties of this CurrencyFormatter object,
-     *  including the locale, currency symbol, and currency ISO code,
-     *  useCurrencySymbol
+     *  including the locale, useCurrencySymbol, the currencySymbol or 
+     *  the currencyISOCode.
      *
-     *  <p>By default this method uses the <code>currencyISOCode</code>
-     *  property to determine the currency symbol and other
-     *  settings used when formatting.</p>
+     *  <p>The <code>useCurrencySymbol</code> property determines whether the
+     *  format method will use the <code>currencySymbol</code> or the 
+     *  <code>currencyISOCod</code>e in the
+     *  formatted currency amount. The default value for 
+     *  <code>useCurrencySymobl</code> is false
+     *  and thus by default currency amounts will be formatted with the 
+     *  <code>currencyISOCode</code></p>
      *
      *  <p>Many countries and regions use the same currency symbols for
      *  different currencies.
-     *  For example the United States, Australia, New Zealand, Canada,
+     *  For example, the United States, Australia, New Zealand, Canada,
      *  and Mexico all use the same dollar sign symbol ($) for local
      *  currency values. When the formatting currency differs
      *  from the user's local currency it is best to use the ISO code as
      *  the currency string.
      *  You can use the <code>formattingWithCurrencySymbolIsSafe()</code>
-     *  method to test whether the ISO code of the
-     *  currency to be formatted matches the <code>currencyISOCode</code>
-     *  property of the formatter.
+     *  method to test whether or the ISO code of the
+     *  currency to be formatted matches the  default currency ISO code
+     *  for the actual locael used by the formatter.
      *  </p>
      *
      *  <p>This method can format numbers of very large and very small
-     *  magnitudes. However the number of significant digits is
+     *  magnitudes. However, the number of significant digits is
      *  limited to the precision provided by the Number data type.
      *  </p>
+     * 
+     *  <p>If there is an error when formatting, due to an illegal input value 
+     *  or other error, by default the <code>format()</code> method will 
+     *  return <code>null</code>. However if the <code>errorText</code> property
+     *  is non-null, then the value of the <code>errorText</code> property will
+     *  be returned. The <code>lastOperationStatus</code> property will be
+     *  set to indicate the error that occurred.</p>
+     *  
      *
-     *  @param value The numeric value to be formatted into a currency string.
-     *  @param withCurrencySymbol When set to false the
-     *  <code>currencyISOCode</code> property determines which
-     *  currency string or symbol to use in the output string. When
-     *  set to true, the current value of the
-     *  <code>currencySymbol</code> property is used in the output string.
+     *  @param value An object that contains the numeric value to be formatted
+     *  into a currency string. If the 
+     *  object is not a <code>Number</code> then it will be converted
+     *  to a number using the <code>Number()</code> conversion function.
      *
-     *  @example  In this example the requested locale is
-     *  fr-CA French (Canada). The example assumes that this locale
+     *  @example  In this example the locale style is set to
+     *  fr-CA [French (Canada)]. The example assumes that this locale
      *  is supported in the user's operating system and therefore
      *  no fallback locale is used.
-     *  For fr-CA the default currency is Canadian dollars with an
+     *  For fr-CA, the default currency is Canadian dollars with an
      *  ISO code of CAD. Therefore when formatting a currency
-     *  with the default values, CAD is used as the currency symbol. When
-     *  the <code>withCurrencySymbol</code> parameter is set to
-     *  true the <code>currencySymbol</code>
+     *  with the default values, CAD is used as the currency symbol. However
+     *  when the <code>useCurrencySymbol</code> property is set to
+     *  true, the <code>currencySymbol</code>
      *  property is used to format the currency amount.
      *
      *  <listing version="3.0" >
-     *  var cf:CurrencyFormatter = new CurrencyFormatter("fr-CA");
+     *  &lt;fx:Declarations&gt;
+     *    &lt;s:CurrencyFormatter id="cf_use_ISOCode" locale="fr-CA" /&gt;
+     *    &lt;s:CurrencyFormatter id="cf_use_Symbol" locale="fr-CA" 
+     *                       useCurrencySymbol="true" /&gt;
+     *  &lt;/fx:Declarations&gt;
+     *  <br>
+     *  &lt;s:VGroup&gt;
+     *    &lt;!-- label will use ISO code: 1,234,567.89 CAD --&gt;
+     *    &lt;s:Label text="{cf_use_ISOCode.format(1234567.89)}" /&gt; 
+     *    &lt;!-- label will use currency symbol: 1,234,567.89 $ --&gt;
+     *    &lt;s:Label text="{cf_use_Symbol.format(1234567.89)}" /&gt; 
+     *  &lt;/s:VGroup&gt;
      *
-     *  trace(cf.actualLocaleIDName);               // "fr-CA"
-     *  trace(cf.currencyISOCode);                // "CAD"
-     *  trace(cf.currencySymbol);                // "$"
-     *
-     *  trace(cf.format(1254.56));                // "1 254,56 CAD"
-     *  trace(cf.format(1254.56, true));            // "1 254,56 $"
      *  </listing>
      *
      *  <p>The second example shows a method of formatting a currency
      *  amount in Canadian dollars using the default user's locale.
      *  The <code>formattingWithCurrencySymbolIsSafe()</code> method
-     *  is used to test to see if the user's default currency is
-     *  Canadian dollars and if so then the format method is used with
-     *  the <code>withCurrencySymbol</code> parameter set to true.
-     *  Otherwise the currency is set to Canadian dollars with
-     *  a more descriptive currency symbol. The example shows how
-     *  the currency would be formatted if the default locale was either
-     *  French (Canada) or English (USA). </p>
+     *  is used to set the value of <code>useCurrencySymbol</code> 
+     *  property. If the user's default locale is Canada (e.g.
+     *  fr-CA or en-CA), then the default currency symbol for Canada
+     *  will be used. If there is some locale is the default, then the
+     *  currencyISOCode of CAD will be used in the formatted currency
+     *  amount.</p>
      *
      *  <listing version="3.0" >
-     *  var cf:CurrencyFormatter = new CurrencyFormatter(LocaleID.DEFAULT);
-     *
-     *  if (cf.formattingWithCurrencySymbolIsSafe("CAD")) {
-     *   trace(cf.actualLocaleIDName);     // "fr-CA French (Canada)"
-     *   trace(cf.format(1254.56, false)); // "1 254,56 $"
-     *  }
-     *  else {
-     *   trace(cf.actualLocaleIDName);     // "en-US English (USA)"
-     *   cf.setCurrency("CAD", "C$")
-     *   trace(cf.format(1254.56, true));  // "C$ 1,254.56"
-     *  }
+     *  &lt;fx:Declarations&gt;
+     *   &lt;s:CurrencyFormatter id="cf_CAD" locale="{LocaleID.DEFAULT}"
+     *    currencyISOCode="CAD"
+     *    useCurrencySymbol="{cf_CAD.formattingWithCurrencySymbolIsSafe('CAD')}"
+     *   /&gt;
+     *  &lt;/fx:Declarations&gt;
+     *  <br>
+     *  &lt;fx:Script&gt;
+     *  &lt;![CDATA[
+     *      import flash.globalization.LocaleID;
+     *  ]]&gt;
+     *  &lt;/fx:Script&gt;
+     *  <br>
+     *  &lt;!-- label will use ISO code or currency symbol depending on
+     *          user's default locale --&gt;
+     *  &lt;s:Label text="{cf_CAD.format(1234567.89)}" /&gt;
      *  </listing>
      *
      *  @return A string containing the formatted currency value.
@@ -773,12 +850,14 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *  @see #currencyISOCode
      *  @see #formattingWithCurrencySymbolIsSafe()
      *  @see #lastOperationStatus
-     *  @see LastOperationStatus
+     *  @see #useCurrencySymbol
+     *  @see spark.formatters.supportClasses.NumberFormatterBase#errorText
+     *  @see spark.globalization.LastOperationStatus
      *
-     *  @playerversion Flash 10.1
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     *  @productversion Flash CS5
      */
     public function format(value:Object):String
     {
@@ -813,7 +892,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
             const retVal:String = g11nFormatter.format(
                                                     number, useCurrencySymbol);
 
-            return errorText && LastOperationStatus.isFatalError(
+            return errorText && LastOperationStatus.isError(
                         g11nFormatter.lastOperationStatus) ? errorText : retVal;
         }
 
@@ -849,14 +928,15 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *  different from the user's default).</p>
      *
      *  <p>This method compares the <code>requestedISOCode</code>
-     *  parameter against the current <code>currencyISOCode</code> property,
+     *  parameter against the acutal locale's default 
+     *  <code>currencyISOCode</code>,
      *  returning <code>true</code> if the strings are
      *  equal and <code>false</code> if they are not.
      *  When the strings are equal, using the <code>format()</code>
      *  method with the
      *  <code>useCurrencySymbol</code> property set to <code>true</code>
      *  results in a formatted currency value string
-     *  with a unique currency symbol for the locale.
+     *  with a currency symbol that is used in the current locale.
      *  If this method returns false, then using the <code>format()</code>
      *  method with the <code>useCurrencySymbol</code>
      *  property set to true could result in the use of an ambiguous
@@ -870,26 +950,38 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *  @throws TypeError if the <code>requestedISOCode</code> parameter
      *  is null.
      *
-     *  @return <code>true</code> if the <code>currencyISOCode</code>
-     *  property matches the <code>requestedISOCode</code> parameter;
+     *  @return <code>true</code> if the default <code>currencyISOCode</code>
+     *  for the locale corresponding to the <code>actualLocaleIDName</code>
+     *  matches the <code>requestedISOCode</code> parameter;
      *  otherwise <code>false</code>.
      *
+     *  @see #actualLocaleIDName
      *  @see #currencySymbol
      *  @see #currencyISOCode
      *  @see #useCurrencySymbol
      *
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function formattingWithCurrencySymbolIsSafe(
                                                 requestedISOCode:String):Boolean
     {
+        if (!requestedISOCode)
+        {
+            const message:String = 
+                resourceManager.getString("core","nullParameter", 
+                    [ requestedISOCode ]);
+            throw new TypeError(message);
+        }
+        
         if (g11nWorkingInstance)
         {
-            return g11nWorkingInstance.formattingWithCurrencySymbolIsSafe(
-                                                            requestedISOCode);
+            //this is intentional to set lastoperation status to no_error
+            (g11nWorkingInstance as
+                flash.globalization.CurrencyFormatter).fractionalDigits = 
+                    g11nWorkingInstance.fractionalDigits; 
         }
 
         if ((localeStyle === undefined) || (localeStyle === null))
@@ -901,7 +993,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
 
         fallbackLastOperationStatus = LastOperationStatus.NO_ERROR;
 
-        return requestedISOCode == currencyISOCode;
+        return requestedISOCode == defaultCurrencyISOCode;
     }
 
     [Bindable("change")]
@@ -915,7 +1007,7 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *  values of the <code>negativeCurrencyFormat</code> and
      *  <code>positiveCurrencyFormat</code> properties to determine
      *  the location of the currency symbol or string relative to the
-     *  currency amount.For negative amounts the value of the
+     *  currency amount. For negative amounts the value of the
      *  <code>negativeCurrencyFormat</code> property determines the
      *  location of the negative symbol and whether parentheses are used.</p>
      *
@@ -926,10 +1018,12 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *
      *  <ol>
      *   <li>The <code>value</code> property of the returned
-     *       CurrencyParseResult object is set to <code>NaN</code>.</li>
+     *       <code>CurrencyParseResult</code> object is set to
+     *       <code>NaN</code>.</li>
      *   <li>The <code>currencyString</code> property of the returned
      *       CurrencyParseResult object is set to <code>null</code>.</li>
-     *   <li>The <code>lastOperationStatus</code> property is set to
+     *   <li>The <code>lastOperationStatus</code> property is set to 
+     *   <code>LastOperationStatus.PARSE_ERROR</code>
      *       indicate that parsing failed.</li>
      *  </ol>
      *
@@ -951,14 +1045,14 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
      *
      *  @throws TypeError if the <code>inputString</code> parameter is null.
      *
-     *  @see #decimalSeparator
+     *  @see spark.formatters.supportClasses.NumberFormatterBase#decimalSeparator
      *  @see #negativeCurrencyFormat
      *  @see #positiveCurrencyFormat
      *  @see flash.globalization.CurrencyParseResult
      *
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2
      *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public  function parse(inputString:String):CurrencyParseResult
@@ -975,16 +1069,23 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
 
         fallbackLastOperationStatus = LastOperationStatus.NO_ERROR;
 
-        // TODO Implement some kind of simple parsing.
-        return fallbackParseCurrency(inputString);
+        const currency:CurrencyParseResult = fallbackParseCurrency(inputString);
+
+        fallbackLastOperationStatus = isNaN(currency.value) ?
+                LastOperationStatus.PARSE_ERROR : LastOperationStatus.NO_ERROR;
+
+        return currency;
     }
 
     /**
-     *  @copy spark.utils.Collator#getAvailableLocaleIDNames
+     *  Lists all of the locale ID names supported by this class.
      *
-     *  @playerversion Flash 10.1
+     *  @return A vector of strings containing all of the locale ID names
+     *         supported by this class and operating system.
+     *
      *  @langversion 3.0
-     *  @productversion Flash CS5
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     static public function getAvailableLocaleIDNames():Vector.<String>
@@ -1025,7 +1126,8 @@ public class CurrencyFormatter extends NumberBase implements IFormatter
                 currencyISOCode: "USD",
                 currencySymbol: "$"
             };
-
+        
+        defaultCurrencyISOCode= "USD";
         if (currencySymbolOverride)
             properties.currencySymbol = currencySymbolOverride;
 
