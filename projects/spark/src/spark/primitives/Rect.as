@@ -517,6 +517,7 @@ public class Rect extends FilledElement
 
         // Calculate the width and height pre-transform:
         var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                 explicitWidth, explicitHeight,
                                                  preferredWidthPreTransform(),
                                                  preferredHeightPreTransform(),
                                                  minWidth, minHeight,
@@ -551,6 +552,7 @@ public class Rect extends FilledElement
 
         // Calculate the width and height pre-transform:
         var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                 explicitWidth, explicitHeight,
                                                  preferredWidthPreTransform(),
                                                  preferredHeightPreTransform(),
                                                  minWidth, minHeight,
