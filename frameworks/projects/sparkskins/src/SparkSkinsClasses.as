@@ -31,7 +31,8 @@ internal class SparkSkinsClasses
 	import mx.skins.spark.ButtonBarMiddleButtonSkin; ButtonBarMiddleButtonSkin;
 	import mx.skins.spark.CheckBoxSkin; CheckBoxSkin;
 	import mx.skins.spark.ColorPickerSkin; ColorPickerSkin;
-	import mx.skins.spark.ComboBoxSkin; ComboBoxSkin;
+    import mx.skins.spark.ComboBoxSkin; ComboBoxSkin;
+    import mx.skins.spark.ContainerBorderSkin; ContainerBorderSkin;
 	import mx.skins.spark.DataGridHeaderBackgroundSkin; DataGridHeaderBackgroundSkin;
 	import mx.skins.spark.DataGridHeaderSeparatorSkin; DataGridHeaderSeparatorSkin;
 	import mx.skins.spark.DataGridSortArrow; DataGridSortArrow;
