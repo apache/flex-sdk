@@ -15,7 +15,10 @@ in accordance with the terms of the license agreement accompanying it.
 
 The default header renderer for s:DataGrid columns.
 
-@see spark.components.DataGrid
+<p>Subclasses defined in MXML can redefine the values of the <code>labelDisplay</code>
+and <code>sortIndicator</code> properties.</p>
+
+@see spark.components.GridColumnHeaderGroup
 
 @langversion 3.0
 @playerversion Flash 10
@@ -29,6 +32,18 @@ The default header renderer for s:DataGrid columns.
     xmlns:mx="library://ns.adobe.com/flex/mx">
     
     <fx:Declarations>
+        <!--- The default value of the <code>sortIndicator</code> property.
+        It must be an IFactory for an IVisualElement.        
+        
+        <p>This value is specified with a <code>fx:Declaration</code> and can be overridden
+        by a declaration with <code>id="defaultSortIndicator"</code>
+        in an MXML subclass.</p>
+        
+        @langversion 3.0
+        @playerversion Flash 10
+        @playerversion AIR 2.0
+        @productversion Flex 4.5
+        -->
         <fx:Component id="defaultSortIndicator">
             <s:Path data="M 3.5 7.0 L 0.0 0.0 L 7.0 0.0 L 3.5 7.0">
                 <s:fill>
@@ -40,6 +55,23 @@ The default header renderer for s:DataGrid columns.
             </s:Path>
         </fx:Component>
         
+        <!--- Displays the renderer's label property, which is set to the column's <code>headerText</code>.
+        It must be an instance of a <code>TextBase</code>, like <code>s:Label</code>.
+        
+        <p>This visual element is added to the <code>labelDisplayGroup</code> by the renderer's
+        <code>prepare()</code> method.   Any size/location constraints specified by the labelDisplay
+        define its location relative to the labelDisplayGroup.</p>
+        
+        <p>This value is specified with a <code>fx:Declaration</code> and can be overridden
+        by a declaration with <code>id="labelDisplay"</code>
+        in an MXML subclass.</p>
+
+        
+        @langversion 3.0
+        @playerversion Flash 10
+        @playerversion AIR 2.0
+        @productversion Flex 4.5
+        -->
         <s:Label id="labelDisplay" 
             verticalCenter="1" left="0" right="0" top="0" bottom="0"
             textAlign="start"
@@ -76,8 +108,14 @@ The default header renderer for s:DataGrid columns.
             [Inspectable(minValue="-1")]
             
             /**
-             *  @copy spark.components.supportClasses.TextBase#maxDisplayedLines   
-             *
+             *  The value of this property is used to initialize the 
+             *  <code>maxDisplayedLines</code> property of this renderer's 
+             *  <code>labelDisplay</code> element.
+             * 
+             *  <p>
+             *  @copy spark.components.supportClasses.TextBase#maxDisplayedLines
+             *  </p>
+             * 
              *  @default 1
              * 
              *  @langversion 3.0
@@ -118,7 +156,11 @@ The default header renderer for s:DataGrid columns.
             [Bindable("sortIndicatorChanged")]
             
             /**
-             *  An IVisualElement that's displayed when the column is sorted.
+             *  A visual element that's displayed when the column is sorted.
+             * 
+             *  <p>The sortIndicator visual element is added to the <code>sortIndicatorGroup</code>
+             *  by this renderer's <code>prepare()</code> method.  Any size/location constraints 
+             *  specified by the sortIndicator define its location relative to the sortIndicatorGroup.</p>
              * 
              *  @default null
              * 
@@ -154,8 +196,8 @@ The default header renderer for s:DataGrid columns.
             
             /**
              *  @private
-             *  Use prepare method to create and put the sortIndicator into the
-             *  sortIndicatorGroup and the labelDisplay into the labelDisplayGroup.
+             *  Create and add the sortIndicator to the sortIndicatorGroup and the 
+             *  labelDisplay into the labelDisplayGroup.
              */
             override public function prepare(hasBeenRecycled:Boolean):void
             {
@@ -309,9 +351,34 @@ The default header renderer for s:DataGrid columns.
     <s:HGroup left="7" right="7" top="5" bottom="5" gap="2" verticalAlign="middle">
         
         <!-- layer 7: Container for labelDisplay:TextBase  -->
+        <!--- Defines the size and location of the labelDisplay visual element. 
+        
+        <p>The <code>labelDisplay</code> is added to this Group by the renderer's 
+        <code>prepare()</code> method.  Any size/location constraints
+        specified by the labelDisplay
+        define its layout relative to the labelDisplayGroup.</p>
+        
+        @langversion 3.0
+        @playerversion Flash 10
+        @playerversion AIR 2.0
+        @productversion Flex 4.5
+        -->
         <s:Group id="labelDisplayGroup" width="100%" />
         
         <!-- layer 8: Container for sortIndicator:IVisualElement  -->
+        <!--- Defines the size and location of the sortIndicator visual element. 
+        
+        <p>The <code>sortIndicator</code> is added to this Group by the renderer's 
+        <code>prepare()</code> method.  Any size/location constraints specified
+        by the sortIndicator
+        define its layout relative to the sortIndicatorGroup.  This Group is only
+        included in the layout when the sortIndicator is visible.</p>  
+        
+        @langversion 3.0
+        @playerversion Flash 10
+        @playerversion AIR 2.0
+        @productversion Flex 4.5
+        -->
         <s:Group id="sortIndicatorGroup" includeInLayout="false" />
         
     </s:HGroup>
