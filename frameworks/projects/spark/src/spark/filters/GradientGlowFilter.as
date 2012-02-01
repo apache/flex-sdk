@@ -47,7 +47,7 @@ package spark.filters
  *  attributes of its superclass and adds no tag attributes:</p>
  *
  *  <pre>
- *  &lt;GradientGlowFilter/&gt;
+ *  &lt;s:GradientGlowFilter/&gt;
  *  </pre>
  *
  * @see flash.display.BitmapData#applyFilter()
