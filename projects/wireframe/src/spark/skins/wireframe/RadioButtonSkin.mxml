@@ -61,7 +61,7 @@
     </s:Group>
 
     <!-- Label -->
-    <s:SimpleText id="labelDisplay"
+    <s:Label id="labelDisplay"
              textAlign="start"
              verticalAlign="middle"
              maxDisplayedLines="1"
