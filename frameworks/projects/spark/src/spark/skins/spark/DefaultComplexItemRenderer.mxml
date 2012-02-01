@@ -18,16 +18,13 @@
       @playerversion AIR 1.5
       @productversion Flex 4
 -->
-<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
-        
-    <s:states>
-        <s:State name="normal"/>            
-        <s:State name="hovered"/>
-        <s:State name="selected"/>
-        <s:State name="normalAndShowsCaret"/>
-        <s:State name="hoveredAndShowsCaret"/>
-        <s:State name="selectedAndShowsCaret"/>
-    </s:states>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+                autoDrawBackground="true">
+    <!-- Setting autoDrawBackground will automatically draw the selection/rollover background rectangle for you.  
+         If you would like to customize the appearance of your item renderer even further when 
+         the item renderer is selected or hovered, you should turn this flag off and use states.  
+         For more information on this and custom item renderer examples, check out the Flex documentation.
+    -->
     
     <fx:Script>
         <![CDATA[
@@ -58,33 +55,6 @@
         ]]>
     </fx:Script>
     
-    <s:Rect left="0" right="0" top="0" bottom="0">
-        <s:stroke.normalAndShowsCaret>
-            <s:SolidColorStroke 
-                color="{getStyle('selectionColor')}" 
-                weight="1"/>
-        </s:stroke.normalAndShowsCaret>
-        <s:stroke.hoveredAndShowsCaret>
-            <s:SolidColorStroke 
-                color="{getStyle('selectionColor')}" 
-                weight="1"/>
-        </s:stroke.hoveredAndShowsCaret>
-        <s:stroke.selectedAndShowsCaret>
-            <s:SolidColorStroke 
-                color="{getStyle('selectionColor')}" 
-                weight="1"/>
-        </s:stroke.selectedAndShowsCaret>
-        <s:fill>
-            <s:SolidColor 
-                color.normal="{contentBackgroundColor}"
-                color.normalAndShowsCaret="{contentBackgroundColor}" 
-                color.hovered="{getStyle('rollOverColor')}"
-                color.hoveredAndShowsCaret="{getStyle('rollOverColor')}"
-                color.selected="{getStyle('selectionColor')}"
-                color.selectedAndShowsCaret="{getStyle('selectionColor')}"
-                />
-        </s:fill>
-    </s:Rect>
     <s:Group id="contentGroup" verticalCenter="0" left="2" right="2" top="2" bottom="2" />
 
 </s:ItemRenderer>
