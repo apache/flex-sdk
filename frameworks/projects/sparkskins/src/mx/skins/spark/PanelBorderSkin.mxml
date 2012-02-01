@@ -159,6 +159,16 @@
                              blRadius="0" 
                              brRadius="0"  />
     
+    <!-- content mask -->
+    <s:Group left="1" top="1" right="1" bottom="1" id="contentMask" >
+        <s:Rect left="0" top="0" right="0" bottom="0"
+                topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
+            <s:fill>
+                <s:SolidColor alpha="0"/>
+            </s:fill>
+        </s:Rect>
+    </s:Group>
+    
     <!-- layer 1: border -->
     <s:Rect id="border" left="0" right="0" top="0" bottom="0"
             topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
@@ -167,10 +177,9 @@
         </s:stroke>
     </s:Rect>
 
-    <s:Group left="1" right="1" top="1" bottom="1" id="contents">
+    <s:Group left="1" right="1" top="1" bottom="1" id="contents" mask="{contentMask}">
         <!-- layer 2: background fill -->
-        <s:Rect id="background" left="0" top="0" right="0" bottom="0"
-                topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
+        <s:Rect id="background" left="0" top="0" right="0" bottom="0">
             <s:fill>
                 <s:SolidColor color="{getStyle('backgroundColor')}" 
                               alpha="{getStyle('backgroundAlpha')}" />
@@ -178,8 +187,7 @@
         </s:Rect>
         
         <!-- layer 3: title bar fill -->
-        <s:Rect left="0" right="0" top="0" height="30" 
-                topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
+        <s:Rect left="0" right="0" top="0" height="30">
            <s:fill>
                 <s:LinearGradient rotation="90">
                     <s:GradientEntry color="0xE2E2E2" />
@@ -189,8 +197,7 @@
         </s:Rect>
         
         <!-- layer 4: title bar highlight -->
-        <s:Rect left="0" right="0" top="0" height="30"
-                topLeftRadiusX="{cornerRadius}" topRightRadiusX="{cornerRadius}">
+        <s:Rect left="0" right="0" top="0" height="30">
            <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
                     <s:GradientEntry color="0xEAEAEA" />
