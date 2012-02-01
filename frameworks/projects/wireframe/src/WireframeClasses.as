@@ -40,6 +40,9 @@ internal class WireframeClasses
 	import spark.skins.wireframe.HSliderThumbSkin; HSliderThumbSkin;
 	import spark.skins.wireframe.HSliderTrackSkin; HSliderTrackSkin;
 	import spark.skins.wireframe.ListSkin; ListSkin;
+	import spark.skins.wireframe.mediaClasses.MuteButtonSkin; MuteButtonSkin;
+	import spark.skins.wireframe.mediaClasses.ScrubBarSkin; ScrubBarSkin;
+	import spark.skins.wireframe.mediaClasses.VolumeBarSkin; VolumeBarSkin;
 	import spark.skins.wireframe.NumericStepperSkin; NumericStepperSkin;
 	import spark.skins.wireframe.PanelSkin; PanelSkin;
 	import spark.skins.wireframe.RadioButtonSkin; RadioButtonSkin;
