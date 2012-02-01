@@ -21,7 +21,7 @@
     <Script>
         /* Define the skin elements that should not be colorized. 
            For button, the graphics are colorized but the label is not. */
-        static private const exclusions:Array = ["labelField", "dot"];
+        static private const exclusions:Array = ["labelElement", "dot"];
         override public function get colorizeExclusions():Array {return exclusions;}
         
         /* Define the symbol fill items that should be colored by the "symbolColor" style. */
@@ -127,7 +127,7 @@
     </Group>
 
     <!-- Label -->
-    <TextBox id="labelField"
+    <TextBox id="labelElement"
              left="18" right="0" top="3" bottom="3" verticalCenter="2" />
 
 </SparkSkin>
