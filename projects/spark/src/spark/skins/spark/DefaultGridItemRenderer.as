@@ -71,12 +71,18 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 /**
  *  The DefaultGridItemRenderer class defines simple and efficient 
  *  item renderer that displays a single text label.  
- *  This class is the default value for the DataGrid <code>itemRenderer</code> property.   
- *  This class displays the cell data in a text label using the UIFTETextField control.
- *  It is based on FTE, the FlashTextEngine,  which supports 
+ *  This class is the default value for the DataGrid <code>itemRenderer</code> property. 
+ *  This class extends UIFTETextField and displays the cell data in a text label using the text 
+ *  field.
+ *  The UIFTETextField control is based on FTE, the FlashTextEngine,  which supports 
  *  high-quality international typography and font embedding in the same way as other 
  *  Spark controls.
- *
+ *  Since the UIFTETextField control implements the TextField API, <i>you must use MX text syles</i>
+ *  rather than Spark text styles to configure the renderer.  
+ *  Please see the documentation for this class for the list of supported styles.
+ *  These styles can be inherited from the renderer's parent even though the parent is a Spark 
+ *  control.
+ * 
  *  <p>You can control the label text wrapping by using the <code>lineBreak</code> style.  
  *  For example, setting  <code>lineBreak="explicit"</code> and <code>variableRowHeight="false"</code> 
  *  creates fixed height cells whose labels do not wrap.
