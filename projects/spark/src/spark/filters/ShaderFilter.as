@@ -78,7 +78,7 @@ use namespace flash_proxy;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;ShaderFilter
+ *  &lt;s:ShaderFilter
  *    <strong>Properties</strong>
  *    bottomExtension="0"
  *    leftExtension="0"
