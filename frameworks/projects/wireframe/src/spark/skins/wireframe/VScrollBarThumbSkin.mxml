@@ -26,7 +26,7 @@
 
 
     <!-- background -->
-    <Rect left="0" top="0" right="0" bottom="0" minWidth="14" minHeight="24">
+    <Rect left="0" top="0" right="0" bottom="0" minWidth="14" minHeight="14">
         <stroke>
             <SolidColorStroke color="0x3D5D92" />
         </stroke>
