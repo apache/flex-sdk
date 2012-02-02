@@ -335,7 +335,7 @@ public class HierarchicalCollectionView extends EventDispatcher
      *  @private
      *  Storage for the sort property.
      */
-    private var _sort:Sort;
+    private var _sort:ISort;
 
     [Bindable("sortChanged")]
     [Inspectable(category="General")]
@@ -343,7 +343,7 @@ public class HierarchicalCollectionView extends EventDispatcher
     /**
      *  @private
      */
-    public function get sort():Sort
+    public function get sort():ISort
     {
         return _sort;
     }
@@ -351,7 +351,7 @@ public class HierarchicalCollectionView extends EventDispatcher
     /**
      *  @private
      */
-    public function set sort(value:Sort):void
+    public function set sort(value:ISort):void
     {
         _sort = value;
     }
@@ -1194,7 +1194,7 @@ public class HierarchicalCollectionView extends EventDispatcher
             
             if(sortLevel == 1)
             {
-                var srt:Sort = new Sort();
+                var srt:ISort = new Sort();
                         
                 if(sort.usingCustomCompareFunction)
                 {
@@ -1224,7 +1224,7 @@ public class HierarchicalCollectionView extends EventDispatcher
                     {
                         var coll:ICollectionView = getChildren(obj);
                         
-                        var srt:Sort = new Sort();
+                        var srt:ISort = new Sort();
                         
                         if(sort.usingCustomCompareFunction)
                             srt.compareFunction = sort.compareFunction;
