@@ -75,7 +75,7 @@
 	    <ant dir="${basedir}/projects/airspark" target="doc" />
     	<ant dir="${basedir}/projects/flex" target="doc" />
 		<ant dir="${basedir}/projects/utilities" target="doc" />
-		<ant dir="${basedir}/projects/halo" target="doc" />
+<!--		<ant dir="${basedir}/projects/halo" target="doc" /> -->
         <ant dir="${basedir}/projects/osmf" target="doc" />
 		<ant dir="${basedir}/projects/wireframe" target="doc" />
 		<ant dir="${basedir}/projects/flash-integration" target="doc" />
