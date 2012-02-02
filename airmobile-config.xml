@@ -105,6 +105,9 @@
           <name>Transient</name>
       </keep-as3-metadata>
       -->
+      
+      <!-- Default preloader. -->
+      <preloader>spark.preloaders.SplashScreen</preloader>
 
       <!-- Turn on reporting of data binding warnings. For example: Warning: Data binding -->
       <!-- will not be able to detect assignments to "foo".                               -->
