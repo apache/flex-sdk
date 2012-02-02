@@ -129,6 +129,8 @@
     <component id="SkinnableDataContainer" class="spark.components.SkinnableDataContainer"/>
     <component id="SkinnableTextBase" class="spark.components.supportClasses.SkinnableTextBase"/>
     <component id="SliderBase" class="spark.components.supportClasses.SliderBase"/>
+    <component id="Sort" class="mx.collections.Sort" lookupOnly="true"/>
+    <component id="SortField" class="mx.collections.SortField" lookupOnly="true"/>
     <component id="SparkSkin" class="spark.skins.SparkSkin"/>
     <component id="Spinner" class="spark.components.Spinner"/>
     <component id="SpriteVisualElement" class="spark.core.SpriteVisualElement"/>
