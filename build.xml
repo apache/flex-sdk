@@ -30,13 +30,14 @@
 
 	<target name="compile" description="Builds all SWCs but not their resource bundles">
 		<antcall target="framework"/>
+            <antcall target="mx"/>
 		<antcall target="rpc"/>
 		<antcall target="datavisualization"/>
 		<antcall target="spark"/>
 		<antcall target="sparkskins"/>
 		<antcall target="airframework"/>
-        <antcall target="airspark"/>		
-        <antcall target="flex"/>
+            <antcall target="airspark"/>		
+            <antcall target="flex"/>
 		<antcall target="flash_integration"/>
 		<antcall target="utilities"/>
 		<antcall target="halo"/>
@@ -52,8 +53,9 @@
 
 	<target name="other.locales" description ="Builds resource SWCs for all locales">
 		<ant dir="${basedir}/projects/framework" target="other.locales"/>
+		<ant dir="${basedir}/projects/mx" target="other.locales"/>
 		<ant dir="${basedir}/projects/airframework" target="other.locales"/>
-        <ant dir="${basedir}/projects/airspark" target="other.locales"/>
+            <ant dir="${basedir}/projects/airspark" target="other.locales"/>
 		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
 		<ant dir="${basedir}/projects/datavisualization" target="other.locales"/>
 		<ant dir="${basedir}/projects/spark" target="other.locales"/>
@@ -66,6 +68,7 @@
 	
 	<target name="doc" >
 		<ant dir="${basedir}/projects/framework" target="doc" />
+		<ant dir="${basedir}/projects/mx" target="doc" />
 		<ant dir="${basedir}/projects/rpc" target="doc" />
 		<ant dir="${basedir}/projects/datavisualization" target="doc" />
 		<ant dir="${basedir}/projects/spark" target="doc" />
@@ -99,6 +102,7 @@
 		<delete dir="${FLEX_HOME}/templates/air"/>
 		<!-- Delete output from SWC projects -->
 		<ant dir="${basedir}/projects/framework" target="clean"/>
+		<ant dir="${basedir}/projects/mx" target="clean"/>
 		<ant dir="${basedir}/projects/airframework" target="clean"/>
         <ant dir="${basedir}/projects/airspark" target="clean"/>
 		<ant dir="${basedir}/projects/flex" target="clean"/>
@@ -171,12 +175,16 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<ant dir="${basedir}/projects/framework"/>
     </target>
 
-	 <target name="framework_textLayout" description="Clean build of framework_textLayout.swc">
+    <target name="framework_textLayout" description="Clean build of framework_textLayout.swc">
 		<ant dir="${basedir}/projects/framework_textLayout"/>
     </target>
 	
     <target name="halo" description="Clean build of halo.swc">
 		<ant dir="${basedir}/projects/halo"/>
+    </target>
+
+    <target name="mx" description="Clean build of mx.swc and its resource bundles">
+		<ant dir="${basedir}/projects/mx"/>
     </target>
 
     <target name="spark" description="Clean build of spark.swc">
