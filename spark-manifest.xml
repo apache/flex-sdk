@@ -59,6 +59,7 @@
     <component id="ConvolutionFilter" class="spark.filters.ConvolutionFilter"/>
     <component id="CrossFade" class="spark.effects.CrossFade"/>
 	<component id="CurrencyFormatter" class="spark.formatters.CurrencyFormatter"/>
+	<component id="CurrencyValidator" class="spark.validators.CurrencyValidator"/>
 	<component id="DataGrid" class="spark.components.DataGrid"/>    
     <component id="DataGroup" class="spark.components.DataGroup"/>
     <component id="DataRenderer" class="spark.components.DataRenderer"/>
@@ -123,6 +124,7 @@
     <component id="NavigatorContent" class="spark.components.NavigatorContent"/>
     <component id="NumberFormatter" class="spark.formatters.NumberFormatter"/>
     <component id="NumberInterpolator" class="spark.effects.interpolation.NumberInterpolator"/>
+    <component id="NumberValidator" class="spark.validators.NumberValidator"/>
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
     <component id="Panel" class="spark.components.Panel"/>
     <component id="Path" class="spark.primitives.Path"/>
