@@ -27,7 +27,7 @@
 					<include-namespaces/>
 					<include-classes/>
 					<source-path path-element="${basedir}/bundles/@{locale}"/>
-					<source-path path-element="${FLEX_HOME}/frameworks/projects/advacnedgrids/src"/>
+					<source-path path-element="${FLEX_HOME}/frameworks/projects/advancedgrids/src"/>
 					<include-libraries/>
 					<library-path/>
 					<external-library-path dir="${FLEX_HOME}/frameworks/libs">
