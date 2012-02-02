@@ -165,12 +165,14 @@
     <component id="Sort" class="mx.collections.Sort" lookupOnly="true"/>
     <component id="SortField" class="mx.collections.SortField" lookupOnly="true"/>
     <component id="SortingCollator" class="spark.globalization.SortingCollator"/>
+    <component id="Spacer" class="mx.controls.Spacer" lookupOnly="true"/>
     <component id="SparkButtonSkin" class="spark.skins.SparkButtonSkin"/>
     <component id="SparkSkin" class="spark.skins.SparkSkin"/>
     <component id="Spinner" class="spark.components.Spinner"/>
     <component id="SpriteVisualElement" class="spark.core.SpriteVisualElement"/>
     <component id="StringTools" class="spark.globalization.StringTools"/>
     <component id="StrokedElement" class="spark.primitives.supportClasses.StrokedElement"/>
+    <component id="SWFLoader" class="mx.controls.SWFLoader" lookupOnly="true"/>
     <component id="TabBar" class="spark.components.TabBar"/>
     <component id="TextArea" class="spark.components.TextArea"/>
     <component id="DefaultGridItemEditor" class="spark.components.gridClasses.DefaultGridItemEditor" />
