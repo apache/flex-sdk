@@ -18,7 +18,11 @@
 
 -->
 
-
+<!-- Note:
+    If you modify this file you may have to make the same change in build_framework.xml.
+    build_framework.xml is renamed to build.xml when it is packaged.
+    It is used to build the frameworks directory from the zip file. 
+-->
 <project name="frameworks" default="main" basedir=".">
 
 	<property name="FLEX_HOME" location=".."/>
@@ -162,19 +166,22 @@
 		<delete dir="${basedir}/libs/generated"/>
 	</target>
 	
-    <target name="thirdparty-clean">
+    <target name="thirdparty-clean" description="Cleans thirdparty downloaded files.">
         <delete failonerror="false" verbose="false">
             <fileset dir="${basedir}/projects/textLayout">
                 <include name="**/**"/>
-                <exclude name=".*/**"/>
                 <exclude name="build.xml"/>
+                <exclude name="**/.settings/**"/>
+                <exclude name="**/.actionScriptProperties"/>
+                <exclude name="**/.flexLibProperties"/>
+                <exclude name="**/.project"/>
             </fileset>
         </delete>
         <delete failonerror="false" verbose="true">
             <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
             <fileset dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
         </delete>
-        <delete dir="${basedir}/downloads"/>
+        <delete dir="${FLEX_HOME}/in/downloads"/>
     </target>
 
 	<target name="prepare" description="Prepares for building framework SWCs">
@@ -218,43 +225,42 @@ tar -xjf "AIR Integration Kit.tbz2"
     <!-- playerglobal.swc -->
     <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->
     <target name="playerglobal-download" depends="playerglobal-check" unless="playerglobal.swc.present" description="Copies playerglobal.swc from the Adobe website">
+        <mkdir dir="${basedir}/libs/player/${playerglobal.version}"/>
         <get src="http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/playerglobal11_0.swc" 
             dest="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" 
-            verbose="true"/>
+            verbose="false"/>
     </target>
 
     <!-- osmf.swc (Version 1.0) -->
     <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
     <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present" description="Copies Text Layout Framework from Sourceforge">
-        <mkdir dir="${basedir}/downloads"/>
-        <mkdir dir="${basedir}/downloads/OSMF_1.0"/>
+        <mkdir dir="${FLEX_HOME}/in/downloads/OSMF_1.0"/>
         <get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download" 
-            dest="${basedir}/downloads/OSMF_1.0.zip" 
-            verbose="true"/>
-        <unzip dest="${basedir}/downloads/OSMF_1.0" src="${basedir}/downloads/OSMF_1.0.zip" />
-        <copy file="${basedir}/downloads/OSMF_1.0/OSMF.swc" tofile="${basedir}/libs/osmf.swc"/>
-        <delete dir="${basedir}/downloads/OSMF_1.0" failonerror="false"/>
+            dest="${FLEX_HOME}/in/downloads/OSMF_1.0.zip" 
+            verbose="false"/>
+        <unzip dest="${FLEX_HOME}/in/downloads/OSMF_1.0" src="${FLEX_HOME}/in/downloads/OSMF_1.0.zip" />
+        <copy file="${FLEX_HOME}/in/downloads/OSMF_1.0/OSMF.swc" tofile="${basedir}/libs/osmf.swc"/>
+        <delete dir="${FLEX_HOME}/in/downloads/OSMF_1.0" failonerror="false"/>
     </target>
 
 	<!-- textLayout.swc (Version 2.0.232) -->
     <!-- Because this requires a network connection it downloads TLF only if it doesn't already exist. -->
     <target name="textLayout-download" depends="textLayout-check" unless="textLayout.swc.present" description="Copies Text Layout Framework from Sourceforge">
-        <mkdir dir="${basedir}/downloads"/>
-        <mkdir dir="${basedir}/downloads/textLayout_build"/>
+        <mkdir dir="${FLEX_HOME}/in/downloads/textLayout_build"/>
         <get src="http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download" 
-            dest="${basedir}/downloads/textLayout_build.zip" 
-            verbose="true"/>
-        <unzip dest="${basedir}/downloads/textLayout_build" src="${basedir}/downloads/textLayout_build.zip" />
-        <copy file="${basedir}/downloads/textLayout_build/libs/textLayout.swc" todir="${basedir}/libs"/>
+            dest="${FLEX_HOME}/in/downloads/textLayout_build.zip" 
+            verbose="false"/>
+        <unzip dest="${FLEX_HOME}/in/downloads/textLayout_build" src="${FLEX_HOME}/in/downloads/textLayout_build.zip" />
+        <copy file="${FLEX_HOME}/in/downloads/textLayout_build/libs/textLayout.swc" todir="${basedir}/libs"/>
         <copy todir="${basedir}/projects/textLayout">
-            <fileset dir="${basedir}/downloads/textLayout_build">
+            <fileset dir="${FLEX_HOME}/in/downloads/textLayout_build">
                 <include name="**/**"/>
                 <exclude name="textLayout_build.zip"/>
                 <exclude name="build.xml"/>
                 <exclude name="libs/**"/>
             </fileset>
         </copy>
-        <delete dir="${basedir}/downloads/textLayout_build" failonerror="false"/>
+        <delete dir="${FLEX_HOME}/in/downloads/textLayout_build" failonerror="false"/>
     </target>
 
 	<target name="airframework" description="Clean build of airframework.swc">
