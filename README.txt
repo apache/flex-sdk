@@ -1,6 +1,6 @@
-January 15, 2012
+January 20, 2012
 
-Adobe will be dropping subsets of the Adobe Flex code into the Apache Flex subversion directory at The Apache Software Foundation after each subset is approved for donation by the Adobe legal team.  The first subset will be the frameworks directory, minus the automation, javascript and flash-integration directories. We expect the second subset to be the modules directory which contains the compiler.
+Adobe will be dropping subsets of the Adobe Flex code into the Apache Flex subversion directory at The Apache Software Foundation after each subset is approved for donation by the Adobe legal team.  The first subset will be the frameworks directory, minus the automation libraries, and the javascript and flash-integration directories. We expect the second subset to be the modules directory which contains the compiler.
 
 Until the modules directory is donated you should follow these steps to build the framework directory.
 
@@ -66,8 +66,7 @@ Notes:
   The build.xml file builds frameworks in the context of the source tree which means it uses the compiler in the modules directory.  
   If you would prefer you can copy build_framework.xml to build.xml so you just have to type ant to build frameworks.
 
-- The following frameworks directories have not yet been approved by legal for donation to the ASF:
-  flash-integration, javascript, tests, projects/automation, projects/automation_air, projects/automation_airspark,
-  projects/automation_dmv, projects/automation_flashflexkit, projects/automation_spark, 
+- The following framework files have not yet been approved by legal for donation to the ASF:
+  flash-integration, javascript, and tests directories and the automation libraries
 
 - The build files for the asdoc and doc directories will be added shortly.
