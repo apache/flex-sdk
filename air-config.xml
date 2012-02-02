@@ -315,9 +315,9 @@
    <!-- runtime-shared-library-path: specifies a SWC or directory to link against and an RSL URL to load with optional failover URLs -->
    <runtime-shared-library-path>
       <path-element>libs/framework.swc</path-element>
-      <rsl-url>framework_3.0.${build.number}.swz</rsl-url>
+      <rsl-url>framework_${build.number}.swz</rsl-url>
       <policy-file-url></policy-file-url>
-      <rsl-url>framework_3.0.${build.number}.swf</rsl-url>
+      <rsl-url>framework_${build.number}.swf</rsl-url>
       <policy-file-url></policy-file-url>
    </runtime-shared-library-path>
    <!-- static-link-runtime-shared-libraries: statically link the libraries specified by the -runtime-shared-libraries-path option.-->
