@@ -50,7 +50,7 @@
 	
 	<target name="framework_rb" description="Builds locale/en_US/framework_rb.swc">
 		<compc output="${basedir}/locale/${locale}/framework_rb.swc" locale="${locale}">
-            <target-player>9</target-player>
+            <target-player>10</target-player>
             <include-resource-bundles bundle="SharedResources"/>
             <include-resource-bundles bundle="collections"/>
             <include-resource-bundles bundle="containers"/>
@@ -66,7 +66,7 @@
             <include-resource-bundles bundle="validators"/>
 			<source-path path-element="${framework.dir}/bundles/${locale}"/>
 			<source-path path-element="${framework.dir}/src"/>
-			<external-library-path dir="${basedir}/libs/player/9" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs/player/10" includes="playerglobal.swc"/>
 			<library-path/>
 		</compc>
 	</target>
@@ -136,11 +136,11 @@
 
 	<target name="rpc" description="Builds libs/rpc.swc">
 		<compc include-classes="RPCClasses" output="${basedir}/libs/rpc.swc" locale="" accessible="true">
-            <target-player>9</target-player>
+            <target-player>10</target-player>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${rpc.dir}/manifest.xml"/>
 			<source-path path-element="${rpc.dir}/src"/>
-			<external-library-path dir="${basedir}/libs/player/9" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs/player/10" includes="playerglobal.swc"/>
 			<external-library-path dir="${basedir}/libs" includes="framework.swc"/>
 			<library-path/>
 		</compc>
@@ -148,7 +148,7 @@
 	
 	<target name="rpc_rb" description="Builds locale/en_US/rpc_rb.swc">
 		<compc output="${basedir}/locale/${locale}/rpc_rb.swc" locale="${locale}">
-            <target-player>9</target-player>
+            <target-player>10</target-player>
             <include-resource-bundles bundle="collections"/>
 			<include-resource-bundles bundle="core"/>
 			<include-resource-bundles bundle="logging"/>
@@ -159,26 +159,26 @@
 			<source-path path-element="${rpc.dir}/bundles/${locale}"/>
 			<source-path path-element="${framework.dir}/bundles/${locale}"/>
 			<source-path path-element="${framework.dir}/src"/>
-			<external-library-path dir="${basedir}/libs/player/9" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs/player/10" includes="playerglobal.swc"/>
 			<library-path/>
 		</compc>
 	</target>
 
 	<target name="flex" description="Builds flex.swc">
 		<compc include-classes="FlexClasses" output="${basedir}/libs/flex.swc" locale="" accessible="true">
-            <target-player>9</target-player>
+            <target-player>10</target-player>
 			<source-path path-element="${flex.dir}/src"/>
 			<source-path path-element="${framework.dir}/src"/>
 			<library-path/>
-			<external-library-path dir="${basedir}/libs/player/9" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs/player/10" includes="playerglobal.swc"/>
 		</compc>
 	</target>
 
 	<target name="haloclassic" description="Builds haloclassic.swc">
 		<compc include-classes="HaloClassicClasses" output="${basedir}/themes/HaloClassic/haloclassic.swc" locale="" accessible="true">
-            <target-player>9</target-player>
+            <target-player>10</target-player>
 			<source-path path-element="${haloclassic.dir}/src"/>
-			<external-library-path dir="${basedir}/libs/player/9" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs/player/10" includes="playerglobal.swc"/>
 			<external-library-path dir="${basedir}/libs" includes="framework.swc"/>
 			<library-path/>
 			<include-file name="defaults.css" path="${haloclassic.dir}/defaults.css"/>
@@ -188,12 +188,15 @@
 
 	<target name="utilities" description="Builds utilities.swc">
 		<compc include-classes="UtilitiesClasses" output="${basedir}/libs/utilities.swc" locale="" accessible="true">
-            <target-player>9</target-player>
+            <target-player>10</target-player>
 			<source-path path-element="${utilities.dir}/src"/>
 			<source-path path-element="${framework.dir}/src"/>
 			<source-path path-element="${framework.dir}/bundles/{locale}"/>
-			<library-path/>
-			<external-library-path dir="${basedir}/libs/player/9" includes="playerglobal.swc"/>
+            <library-path dir="${basedir}/libs">
+                <include name="FlexContentHolder.swc"/>
+            </library-path>
+			<external-library-path dir="${basedir}/libs/player/10" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs" includes="framework.swc"/>
 		</compc>
 	</target>
 
