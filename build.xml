@@ -54,6 +54,7 @@
 		<ant dir="${basedir}/projects/airframework" target="other.locales"/>
         <ant dir="${basedir}/projects/airspark" target="other.locales"/>
 		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
+		<ant dir="${basedir}/projects/datavisualization" target="other.locales"/>
 		<ant dir="${basedir}/projects/spark" target="other.locales"/>
 		<ant dir="${basedir}/projects/osmf" target="other.locales"/>
 		<ant dir="${basedir}/projects/textLayout" target="other.locales"/>
@@ -64,6 +65,7 @@
 	<target name="doc" >
 		<ant dir="${basedir}/projects/framework" target="doc" />
 		<ant dir="${basedir}/projects/rpc" target="doc" />
+		<ant dir="${basedir}/projects/datavisualization" target="doc" />
 		<ant dir="${basedir}/projects/spark" target="doc" />
 		<ant dir="${basedir}/projects/sparkskins" target="doc" />
 		<ant dir="${basedir}/projects/airframework" target="doc" />
