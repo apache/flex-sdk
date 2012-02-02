@@ -55,6 +55,8 @@
     <component id="DropDownList" class="spark.components.DropDownList"/>
     <component id="DropLocation" class="spark.layouts.supportClasses.DropLocation"/>
     <component id="DropShadowFilter" class="spark.filters.DropShadowFilter"/>
+    <component id="DynamicStreamingVideoSource" class="spark.components.mediaClasses.DynamicStreamingVideoSource"/>
+    <component id="DynamicStreamingVideoItem" class="spark.components.mediaClasses.DynamicStreamingVideoItem"/>
     <component id="Elastic" class="spark.effects.easing.Elastic"/>
     <component id="Ellipse" class="spark.primitives.Ellipse"/>
     <component id="Fade" class="spark.effects.Fade"/>
@@ -154,7 +156,9 @@
     <component id="VerticalLayout" class="spark.layouts.VerticalLayout"/>
     <component id="VGroup" class="spark.components.VGroup"/>
     <component id="VideoElement" class="spark.primitives.VideoElement"/>
+    <component id="VideoDisplay" class="spark.components.VideoDisplay"/>
     <component id="VideoPlayer" class="spark.components.VideoPlayer"/>
+    <component id="VideoPlayer2" class="spark.components.VideoPlayer2"/>
     <component id="VolumeBar" class="spark.components.mediaClasses.VolumeBar"/>
     <component id="VScrollBar" class="spark.components.VScrollBar"/>
     <component id="VSlider" class="spark.components.VSlider"/>
