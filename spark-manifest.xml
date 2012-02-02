@@ -22,7 +22,7 @@
     <component id="Animate" class="spark.effects.Animate"/>
     <component id="AnimateColor" class="spark.effects.AnimateColor"/>
     <component id="AnimateFilter" class="spark.effects.AnimateFilter"/>
-    <component id="AnimateShaderTransition" class="spark.effects.AnimateShaderTransition"/>
+    <component id="AnimateTransitionShader" class="spark.effects.AnimateTransitionShader"/>
 	<component id="AnimateTransform" class="spark.effects.AnimateTransform"/>
     <component id="Animation" class="spark.effects.animation.Animation"/>
     <component id="Application" class="spark.components.Application"/>
@@ -68,7 +68,7 @@
     <component id="HScrollBar" class="spark.components.HScrollBar"/>
     <component id="HSlider" class="spark.components.HSlider"/>
     <component id="ItemRenderer" class="spark.components.supportClasses.ItemRenderer"/>
-    <component id="KeyFrame" class="spark.effects.KeyFrame"/>
+    <component id="Keyframe" class="spark.effects.animation.Keyframe"/>
     <component id="LayoutBase" class="spark.layouts.supportClasses.LayoutBase"/>
     <component id="Line" class="spark.primitives.Line"/>
     <component id="Linear" class="spark.effects.easing.Linear"/>
@@ -76,7 +76,7 @@
     <component id="ListBase" class="spark.components.supportClasses.ListBase"/>
     <component id="MaskType" class="spark.core.MaskType"/>
     <component id="Matrix" class="flash.geom.Matrix" lookupOnly="true"/>
-    <component id="MotionPath" class="spark.effects.MotionPath"/>
+    <component id="MotionPath" class="spark.effects.animation.MotionPath"/>
     <component id="Move" class="spark.effects.Move"/>
     <component id="Move3D" class="spark.effects.Move3D"/>
     <component id="MuteButton" class="spark.components.mediaClasses.MuteButton"/>
@@ -109,7 +109,7 @@
     <component id="ScrubBar" class="spark.components.mediaClasses.ScrubBar"/>
     <component id="SetAction" class="spark.effects.SetAction"/>
     <component id="ShaderFilter" class="spark.filters.ShaderFilter"/>
-    <component id="SimpleMotionPath" class="spark.effects.SimpleMotionPath"/>
+    <component id="SimpleMotionPath" class="spark.effects.animation.SimpleMotionPath"/>
     <component id="SimpleText" class="spark.primitives.SimpleText"/>
     <component id="Sine" class="spark.effects.easing.Sine"/>
     <component id="Skin" class="spark.components.supportClasses.Skin"/>
