@@ -58,8 +58,10 @@
 		<ant dir="${basedir}/projects/datavisualization" target="other.locales"/>
 		<ant dir="${basedir}/projects/spark" target="other.locales"/>
 		<ant dir="${basedir}/projects/textLayout" target="other.locales"/>
+		<ant dir="${basedir}/projects/osmf" target="other.locales"/>
 		<ant dir="${basedir}/projects/playerglobal" target="other.locales" />
 		<ant dir="${basedir}/projects/automation" target="other.locales"/>
+		<ant dir="${basedir}/projects/flash-integration" target="other.locales"/>
 	</target>
 	
 	<target name="doc" >
@@ -76,7 +78,6 @@
 		<ant dir="${basedir}/projects/wireframe" target="doc" />
 		<ant dir="${basedir}/projects/flash-integration" target="doc" />
 		<ant dir="${basedir}/projects/automation" target="doc" />
-		<ant dir="${basedir}/projects/textLayout" target="doc" />
 	</target>
    
 	<target name="clean" description="Cleans all SWCs and their resource bundles">
