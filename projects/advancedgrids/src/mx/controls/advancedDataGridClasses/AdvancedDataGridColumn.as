@@ -27,6 +27,7 @@ import mx.core.IIMESupport;
 import mx.core.Singleton;
 import mx.core.mx_internal;
 import mx.formatters.Formatter;
+import mx.formatters.IFormatter;
 import mx.styles.CSSStyleDeclaration;
 import mx.utils.StringUtil;
 
@@ -1480,7 +1481,7 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
     /**
      *  @private
      */
-    private var _formatter:Formatter;
+    private var _formatter:IFormatter;
 
     /**
      *  An instance of a subclasses of mx.formatters.Formatter. 
@@ -1493,7 +1494,7 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function get formatter():Formatter
+    public function get formatter():IFormatter
     {
         return _formatter;
     }
@@ -1501,7 +1502,7 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
     /**
      *  @private
      */
-    public function set formatter(value:Formatter):void
+    public function set formatter(value:IFormatter):void
     {
         _formatter = value;
         
@@ -1657,7 +1658,8 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
             // the property corresponding to the dataField is not present in the
             // row object i.e. it'll be empty and it's not anybody's fault that
             // it's an error.
-            if (formatter.error)
+            const mxFormatter:Formatter = formatter as Formatter;
+            if (mxFormatter && mxFormatter.error)
                 return null;
 
             return label;
