@@ -39,9 +39,9 @@
 	<target name="airframework" description="Builds libs/airframework.swc">
 		<compc include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
 			<target-player>10</target-player>
-			<namespace uri="library://ns.adobe.com/flex/halo" manifest="${airframework.dir}/halo-air-manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${airframework.dir}/mx-air-manifest.xml"/>
 			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${airframework.dir}/spark-air-manifest.xml"/>
-			<include-namespaces uri="library://ns.adobe.com/flex/halo"/>
+			<include-namespaces uri="library://ns.adobe.com/flex/mx"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
 			<source-path path-element="${airframework.dir}/src"/>
 			<library-path/>
@@ -123,9 +123,9 @@
 	<target name="framework" description="Builds libs/framework.swc">
 		<compc include-classes="FrameworkClasses" output="${basedir}/libs/framework.swc" locale="" accessible="true">
             <target-player>10</target-player>
-			<namespace uri="library://ns.adobe.com/flex/halo" manifest="${framework.dir}/manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${framework.dir}/manifest.xml"/>
 		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${framework.dir}/manifest.xml"/>
-			<include-namespaces uri="library://ns.adobe.com/flex/halo"/>
+			<include-namespaces uri="library://ns.adobe.com/flex/mx"/>
 			<source-path path-element="${framework.dir}/src"/>
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
@@ -193,9 +193,9 @@
 		<echo file="${basedir}/version.properties" append="false">build=${build.number}</echo>
 		<compc include-classes="RPCClasses" output="${basedir}/libs/rpc.swc" locale="" accessible="true">
             <target-player>10</target-player>
-			<namespace uri="library://ns.adobe.com/flex/halo" manifest="${rpc.dir}/manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${rpc.dir}/manifest.xml"/>
 			<include-file name="version.properties" path="${basedir}/version.properties"/>
-			<include-namespaces uri="library://ns.adobe.com/flex/halo"/>
+			<include-namespaces uri="library://ns.adobe.com/flex/mx"/>
 			<source-path path-element="${rpc.dir}/src"/>
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
