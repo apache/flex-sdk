@@ -333,7 +333,7 @@
 	<!-- TextLayout SWC -->
     <runtime-shared-library-path>
 		<path-element>libs/textLayout.swc</path-element>
-		<rsl-url>textLayout_1.0.0.549.swf</rsl-url>
+		<rsl-url>textLayout_1.0.0.553.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
       
