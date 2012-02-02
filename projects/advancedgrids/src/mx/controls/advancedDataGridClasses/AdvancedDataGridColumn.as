@@ -1540,8 +1540,7 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
             {
                 if (headerStyleName is String)
                 {
-                    headerStyleName =
-                        owner.styleManager.getMergedStyleDeclaration(String(headerStyleName));
+                    chain = addStylesToProtoChain(String(headerStyleName), chain, target);
                 }
 
                 if (headerStyleName is CSSStyleDeclaration)
@@ -1553,8 +1552,7 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
             {
                 if (headerStyleName is String)
                 {
-                    headerStyleName =
-                        owner.styleManager.getMergedStyleDeclaration(String(headerStyleName));
+                    chain = addStylesToProtoChain(String(headerStyleName), chain, target);
                 }
 
                 if (headerStyleName is CSSStyleDeclaration)
@@ -1862,6 +1860,26 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
                 owner.systemManager);
         return fontContext != oldEmbeddedFontContext;
     }
+	
+	/**
+	 *  @private
+	 */
+	private function addStylesToProtoChain(styles:String, chain:Object, target:DisplayObject):Object
+	{
+		var styleNames:Array = styles.split(/\s+/);
+		for (var c:int=0; c < styleNames.length; c++)
+		{
+			if (styleNames[c].length) 
+			{
+				var declaration:CSSStyleDeclaration = 
+					owner.styleManager.getMergedStyleDeclaration("." + styleNames[c]);
+				
+				if (declaration)
+					chain = declaration.addStyleToProtoChain(chain, target);
+			}
+		}
+		return chain;
+	}
 
     /**
      *  @private
