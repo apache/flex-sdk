@@ -81,7 +81,7 @@
          </namespace>
          <namespace>
             <uri>library:adobe/flex/halo</uri>
-            <manifest>mxml-manifest.xml</manifest>
+            <manifest>halo-manifest.xml</manifest>
          </namespace>
          <namespace>
             <uri>http://ns.adobe.com/mxml/2009</uri>
