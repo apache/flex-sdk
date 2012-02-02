@@ -170,6 +170,7 @@
           <managers>
               <manager-class>flash.fonts.JREFontManager</manager-class>
               <manager-class>flash.fonts.AFEFontManager</manager-class>
+              <!-- <manager-class>flash.fonts.CFFFontManager</manager-class> -->
               <manager-class>flash.fonts.BatikFontManager</manager-class>
           </managers>
 
