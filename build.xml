@@ -26,82 +26,64 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,prepare,javascript,osmf,framework,spark,sparkskins,rpc,airframework,airspark,flex,flash_integration,utilities,halo,wireframe,updateAIR" description="Clean build of all SWCs"/>
+	<target name="main" depends="clean,prepare,javascript,compile,updateAIR" description="Clean build of all SWCs"/>
 
+	<target name="compile" description="Builds all SWCs but not their resource bundles">
+        <antcall target="osmf"/>
+		<antcall target="framework"/>
+		<antcall target="rpc"/>
+		<antcall target="datavisualization"/>
+		<antcall target="spark"/>
+		<antcall target="sparkskins"/>
+		<antcall target="airframework"/>
+        <antcall target="airspark"/>		
+        <antcall target="flex"/>
+		<antcall target="flash_integration"/>
+		<antcall target="utilities"/>
+		<antcall target="halo"/>
+		<antcall target="wireframe"/>
+		<antcall target="automation"/>
+		<antcall target="automation_dmv"/>
+		<antcall target="automation_spark"/>
+		<!--<antcall target="automation_air"/>-->
+		<antcall target="automation_flashflexkit"/>
+    </target>
+
+	<target name="other.locales" description ="Builds resource SWCs for all locales">
+		<ant dir="${basedir}/projects/framework" target="other.locales"/>
+		<ant dir="${basedir}/projects/airframework" target="other.locales"/>
+        <ant dir="${basedir}/projects/airspark" target="other.locales"/>
+		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
+		<ant dir="${basedir}/projects/datavisualization" target="other.locales"/>
+		<ant dir="${basedir}/projects/spark" target="other.locales"/>
+		<ant dir="${basedir}/projects/playerglobal" target="other.locales" />
+		<ant dir="${basedir}/projects/automation" target="other.locales"/>
+		<ant dir="${basedir}/projects/automation_dmv" target="other.locales"/>
+		<ant dir="${basedir}/projects/automation_spark" target="other.locales"/>
+		<ant dir="${basedir}/projects/automation_flashflexkit" target="other.locales"/>
+	</target>
+	
 	<target name="doc" >
 		<ant dir="${basedir}/projects/framework" target="doc" />
+		<ant dir="${basedir}/projects/rpc" target="doc" />
+		<ant dir="${basedir}/projects/datavisualization" target="doc" />
 		<ant dir="${basedir}/projects/spark" target="doc" />
 		<ant dir="${basedir}/projects/sparkskins" target="doc" />
-		<ant dir="${basedir}/projects/rpc" target="doc" />
 		<ant dir="${basedir}/projects/airframework" target="doc" />
-		<ant dir="${basedir}/projects/airspark" target="doc" />
-		<ant dir="${basedir}/projects/flex" target="doc" />
+	    <ant dir="${basedir}/projects/airspark" target="doc" />
+    	<ant dir="${basedir}/projects/flex" target="doc" />
 		<ant dir="${basedir}/projects/utilities" target="doc" />
 		<ant dir="${basedir}/projects/halo" target="doc" />
         <ant dir="${basedir}/projects/osmf" target="doc" />
 		<ant dir="${basedir}/projects/wireframe" target="doc" />
 		<ant dir="${basedir}/projects/flash-integration" target="doc" />
-		<ant dir="${basedir}/projects/textLayout" target="doc" />
+		<!--<ant dir="${basedir}/projects/automation_dmv" target="doc" />-->
+		<ant dir="${basedir}/projects/automation_spark" target="doc" />
+	    <ant dir="${basedir}/projects/textLayout" target="doc" />
 	</target>
-
-    <target name="airframework" description="Clean build of airframework.swc">
-		<ant dir="${basedir}/projects/airframework"/>
-    </target>
-
-    <target name="airspark" description="Clean build of airspark.swc">
-		<ant dir="${basedir}/projects/airspark"/>
-    </target>
-
-    <target name="flex" description="Clean build of flex.swc">
-		<ant dir="${basedir}/projects/flex"/>
-    </target>
-
-    <target name="framework" description="Clean build of framework.swc and its resource bundles">
-		<ant dir="${basedir}/projects/framework"/>
-    </target>
-
-    <target name="halo" description="Clean build of halo.swc">
-		<ant dir="${basedir}/projects/halo"/>
-    </target>
-
-    <target name="spark" description="Clean build of spark.swc">
-		<ant dir="${basedir}/projects/spark"/>
-    </target>
-
-     <target name="sparkskins" description="Clean build of sparkskins.swc">
-		<ant dir="${basedir}/projects/sparkskins"/>
-    </target>
-
-    <target name="wireframe" description="Clean build of wireframe.swc">
-		<ant dir="${basedir}/projects/wireframe"/>
-    </target>
-
-	<target name="flash_integration" description="Clean build of FlexComponentBase.swc">
-		<ant dir="${basedir}/projects/flash-integration"/>
-	</target>
-    
-    <target name="osmf" description="Clean build of osmf.swc">
-		<ant dir="${basedir}/projects/osmf"/>
-	</target>
-
-    <target name="rpc" description="Clean build of rpc.swc">
-		<ant dir="${basedir}/projects/rpc"/>
-    </target>
-
-	<!-- For debugging only.  For release, we distribute the swc built by the TLF team. -->
-	<target name="tlf" description="Clean build of textLayout.swc">
-		<ant dir="${basedir}/projects/textLayout"/>
-	</target>
-	
-    <target name="utilities" description="Clean build of utilities.swc">
-		<ant dir="${basedir}/projects/utilities"/>
-    </target>
-
-	<target name="javascript" description="Clean build of javascript examples">
-		<ant dir="${basedir}/javascript"/>
-	</target>
-
+   
 	<target name="clean" description="Cleans all SWCs and their resource bundles">
+		
 		<!-- Delete AIR files and directories from 'prepare' target -->
 		<delete file="${FLEX_HOME}/AIR SDK Readme.txt"/>
 		<delete file="${FLEX_HOME}/SDK license.pdf"/>
@@ -120,9 +102,9 @@
 		<!-- Delete output from SWC projects -->
 		<ant dir="${basedir}/projects/framework" target="clean"/>
 		<ant dir="${basedir}/projects/airframework" target="clean"/>
-		<ant dir="${basedir}/projects/airspark" target="clean"/>
+        <ant dir="${basedir}/projects/airspark" target="clean"/>
 		<ant dir="${basedir}/projects/flex" target="clean"/>
-		<ant dir="${basedir}/projects/osmf" target="clean"/>
+        <ant dir="${basedir}/projects/osmf" target="clean"/>
 		<ant dir="${basedir}/projects/spark" target="clean"/>
 		<ant dir="${basedir}/projects/sparkskins" target="clean"/>
 		<ant dir="${basedir}/projects/utilities" target="clean"/>
@@ -130,13 +112,22 @@
 		<ant dir="${basedir}/projects/wireframe" target="clean"/>
 		<ant dir="${basedir}/projects/flash-integration" target="clean"/>
 		<ant dir="${basedir}/projects/rpc" target="clean"/>
-		<delete dir="${basedir}/libs/generated"/>
-		<!-- Delete generated FABridge files -->
+		<ant dir="${basedir}/projects/utilities" target="clean"/>
+		<ant dir="${basedir}/projects/datavisualization" target="clean"/>
+		<ant dir="${basedir}/projects/automation" target="clean"/>
+		<!--<ant dir="${basedir}/projects/automation_air" target="clean"/>-->
+		<ant dir="${basedir}/projects/automation_dmv" target="clean"/>
+		<ant dir="${basedir}/projects/automation_flashflexkit" target="clean"/>
+		<ant dir="${basedir}/projects/automation_spark" target="clean"/>
 		<ant dir="${basedir}/javascript" target="clean"/>
 		<!-- Delete empty folders -->
-		<delete dir="${basedir}/locale"/>
+		<delete dir="${basedir}/locale">
+			<exclude name="**/automation_agent_rb.swc"/>
+			<exclude name="**/qtp_air_rb.swc"/>
+		</delete>
+		<delete dir="${basedir}/libs/generated"/>
 	</target>
-
+		
 	<target name="prepare" description="Prepares for building framework SWCs">
 		<!-- Expand the Mac AIK on top of the SDK -->
         <copy file="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" todir="${FLEX_HOME}"/>
@@ -157,32 +148,93 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<!-- FIXME: For now, copy local override of build-sample-framework.xml -->
 		<copy file="${FLEX_HOME}/in/air/sample-frameworks-build.xml" todir="${FLEX_HOME}/frameworks/projects/air" overwrite="true" />
 	</target>
-	
-	<target name="compile" description="Builds all SWCs but not their resource bundles">
-        <ant dir="${basedir}/projects/osmf" target="compile"/>
-		<ant dir="${basedir}/projects/framework" target="compile"/>
-		<ant dir="${basedir}/projects/airframework" target="compile"/>
-		<ant dir="${basedir}/projects/airspark" target="compile"/>
-		<ant dir="${basedir}/projects/flex" target="compile"/>
-        <ant dir="${basedir}/projects/flash-integration" target="compile"/>
-		<ant dir="${basedir}/projects/utilities" target="compile"/>
-		<ant dir="${basedir}/projects/halo" target="compile"/>
-		<ant dir="${basedir}/projects/spark" target="compile"/>
-		<ant dir="${basedir}/projects/sparkskins" target="compile"/>
-		<ant dir="${basedir}/projects/rpc" target="compile"/>
-		<ant dir="${basedir}/projects/wireframe" target="compile"/>
+		
+	<target name="airframework" description="Clean build of airframework.swc">
+		<ant dir="${basedir}/projects/airframework"/>
     </target>
 
-	<target name="other.locales" description ="Builds resource SWCs for other locales">
-		<ant dir="${basedir}/projects/framework" target="other.locales"/>
-		<ant dir="${basedir}/projects/airframework" target="other.locales"/>
-		<ant dir="${basedir}/projects/airspark" target="other.locales"/>
-		<ant dir="${basedir}/projects/spark" target="other.locales"/>
-        <ant dir="${basedir}/projects/osmf" target="other.locales"/>
-		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
-		<ant dir="${basedir}/projects/playerglobal" target="other.locales" />
+    <target name="airspark" description="Clean build of airspark.swc">
+		<ant dir="${basedir}/projects/airspark"/>
+    </target>
+
+	<target name="datavisualization" description="Clean build of datavisualization.swc">
+		<ant dir="${basedir}/projects/datavisualization"/>
+	</target>
+	
+    <target name="flex" description="Clean build of flex.swc">
+		<ant dir="${basedir}/projects/flex"/>
+    </target>
+
+    <target name="framework" description="Clean build of framework.swc and its resource bundles">
+		<ant dir="${basedir}/projects/framework"/>
+    </target>
+
+	 <target name="framework_textLayout" description="Clean build of framework_textLayout.swc">
+		<ant dir="${basedir}/projects/framework_textLayout"/>
+    </target>
+	
+    <target name="halo" description="Clean build of halo.swc">
+		<ant dir="${basedir}/projects/halo"/>
+    </target>
+
+    <target name="spark" description="Clean build of spark.swc">
+		<ant dir="${basedir}/projects/spark"/>
+    </target>
+
+     <target name="sparkskins" description="Clean build of sparkskins.swc">
+		<ant dir="${basedir}/projects/sparkskins"/>
+    </target>
+
+    <target name="wireframe" description="Clean build of wireframe.swc">
+		<ant dir="${basedir}/projects/wireframe"/>
+    </target>
+
+	<target name="flash_integration" description="Clean build of FlexComponentBase.swc">
+		<ant dir="${basedir}/projects/flash-integration"/>
+	</target>
+	
+	 <target name="osmf" description="Clean build of osmf.swc">
+		<ant dir="${basedir}/projects/osmf"/>
 	</target>
 
+    <target name="rpc" description="Clean build of rpc.swc">
+		<ant dir="${basedir}/projects/rpc"/>
+    </target>
+
+	<!-- For debugging only.  For release, we distribute the swc built by the TLF team. -->
+	<target name="tlf" description="Clean build of textLayout.swc">
+		<ant dir="${basedir}/projects/textLayout"/>
+	</target>
+	
+    <target name="utilities" description="Clean build of utilities.swc">
+		<ant dir="${basedir}/projects/utilities"/>
+    </target>
+
+	<target name="javascript" description="Clean build of javascript examples">
+		<ant dir="${basedir}/javascript"/>
+	</target>
+	
+	<target name="automation" description="Clean build of automation swc">
+		<ant dir="${basedir}/projects/automation"/>
+	</target>
+
+	<target name="automation_air" description="Clean build of automation_air swc">
+		<ant dir="${basedir}/projects/automation_air"/>
+	</target>
+	
+	<target name="automation_dmv" description="Clean build of automation_dmv swc">
+		<ant dir="${basedir}/projects/automation_dmv"/>
+	</target>
+	
+	<target name="automation_flashflexkit" description="Clean build of automation_flashflexkit swc">
+		<ant dir="${basedir}/projects/automation_flashflexkit"/>
+	</target>
+	
+	<target name="automation_spark" description="Clean build of automation_spark swc">
+		<ant dir="${basedir}/projects/automation_spark"/>
+	</target>
+	
+	
     <target name="updateAIR" description="Rebuild a AIK SWC and SWF that depend on Flex" >
 		<property name="flex.home" value="${FLEX_HOME}" />     
 		
