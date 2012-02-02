@@ -178,6 +178,7 @@
               <manager-class>flash.fonts.JREFontManager</manager-class>
               <manager-class>flash.fonts.AFEFontManager</manager-class>
               <manager-class>flash.fonts.BatikFontManager</manager-class>
+              <manager-class>flash.fonts.CFFFontManager</manager-class> 
           </managers>
 
           <!-- File containing cached system font licensing information produced via 
