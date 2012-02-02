@@ -72,14 +72,15 @@
 	</target>
 
 	<target name="clean" description="Cleans all SWCs and their resource bundles">
-		<!-- Delete AIR files from 'prepare' target -->
-		<delete file="${FLEX_HOME}/SDK license.pdf"/> <!-- from AIR Integration Kit -->
+		<!-- Delete AIR files and directories from 'prepare' target -->
+		<delete file="${FLEX_HOME}/AIR SDK Readme.txt"/>
+		<delete file="${FLEX_HOME}/SDK license.pdf"/>
 		<delete file="${FLEX_HOME}/bin/adl"/>
 		<delete file="${FLEX_HOME}/bin/adl.exe"/>
 		<delete file="${FLEX_HOME}/bin/adt"/>
 		<delete file="${FLEX_HOME}/bin/adt.bat"/>
-		<delete file="${FLEX_HOME}/frameworks/libs/air/airglobal.swc"/>
-		<delete file="${FLEX_HOME}/frameworks/libs/air/servicemonitor.swc"/>
+		<delete dir="${FLEX_HOME}/frameworks/libs/air"/>
+		<delete dir="${FLEX_HOME}/frameworks/projects/air"/>
 		<delete file="${FLEX_HOME}/lib/adt.jar"/>
 		<delete dir="${FLEX_HOME}/runtimes"/>
 		<delete dir="${FLEX_HOME}/samples/badge"/>
@@ -101,7 +102,6 @@
 		<!-- Delete generated FABridge files -->
 		<ant dir="${basedir}/javascript" target="clean"/>
 		<!-- Delete empty folders -->
-		<delete dir="${basedir}/libs/air"/>
 		<delete dir="${basedir}/locale"/>
 		<delete dir="${basedir}/themes/haloclassic"/>
 		<delete dir="${basedir}/themes/Wireframe"/>
