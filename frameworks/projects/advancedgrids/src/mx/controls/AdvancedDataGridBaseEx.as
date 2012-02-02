@@ -5522,17 +5522,24 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             return;
         }
 
+		// Global coordinates.
         var deltaX:Number = event.stageX - startX;
 
+		// If the mouse pointer over the right (layoutDirection=”ltr”) or 
+		// left (layoutDirection=”rtl”) half of the column, the drop indicator 
+		// should be shown before the next column.
+		var deltaXInLocalCoordinates:Number = 
+			(layoutDirection == "ltr" ? +deltaX : -deltaX);
+		
         // Move header selection.
         s = Sprite(selectionLayer.getChildByName("headerSelection"));
         if (s)
-            s.x += deltaX;
+            s.x += deltaXInLocalCoordinates;
 
         // Move header proxy.
         item = IListItemRenderer(listContent.getChildByName("headerDragProxy"));
         if (item)
-            item.move(item.x + deltaX, item.y);
+            item.move(item.x + deltaXInLocalCoordinates, item.y);
 
         startX += deltaX;
 
@@ -5576,8 +5583,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 dropIndexFound = true;
                 isHeaderDragOutside = false;
 
-                // If the mouse pointer over the right half of the column, the
-                // drop indicator should be shown before the next column.
+                // If the mouse pointer over the right (ltr) or left (rtl) half
+				// of the column, the drop indicator should be shown before the next column.
                 if (pt.x > (columnXPos + headerInfo.column.width/2) || 
                     //Column groups which are partially visible should 
                     //show drag indicator at the right end only
@@ -8050,14 +8057,18 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         if (headerIndex == -1)
             return;
 
-        var newColumnIndex:int;
+		// If rtl layout, need to swap LEFT and RIGHT so correct action
+		// is done.
+		var keyCode:uint = mapKeycodeForLayoutDirection(event);
+		
+		var newColumnIndex:int;
 
-        if (event.keyCode == Keyboard.DOWN)
+        if (keyCode == Keyboard.DOWN)
         {
             unselectColumnHeader(headerIndex, true);
             headerIndex = -1;
         }
-        else if (event.keyCode == Keyboard.LEFT)
+        else if (keyCode == Keyboard.LEFT)
         {
             newColumnIndex = viewDisplayableColumnAtOffset(headerIndex, -1);
             if (newColumnIndex != -1)
@@ -8069,7 +8080,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 selectColumnHeader(headerIndex);
             }
         }
-        else if (event.keyCode == Keyboard.RIGHT)
+        else if (keyCode == Keyboard.RIGHT)
         {
             newColumnIndex = viewDisplayableColumnAtOffset(headerIndex, +1);
             if (newColumnIndex != -1)
@@ -8080,7 +8091,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 selectColumnHeader(headerIndex);
             }
         }
-        else if (event.keyCode == Keyboard.SPACE)
+        else if (keyCode == Keyboard.SPACE)
         {
             if (sortableColumns && columns[headerIndex].sortable)
             {
@@ -8101,10 +8112,10 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         }
         // horizontal scrolling when focus is on header
         else if ( event.shiftKey
-                  && (event.keyCode == Keyboard.PAGE_UP
-                      || event.keyCode == Keyboard.PAGE_DOWN) )
+                  && (keyCode == Keyboard.PAGE_UP
+                      || keyCode == Keyboard.PAGE_DOWN) )
         {
-            moveSelectionHorizontally(event.keyCode, event.shiftKey, event.ctrlKey);
+            moveSelectionHorizontally(keyCode, event.shiftKey, event.ctrlKey);
         }
 
         event.stopPropagation();
