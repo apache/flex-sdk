@@ -233,13 +233,15 @@ tar -xjf "AIR Integration Kit.tbz2"
 
     <!-- osmf.swc (Version 1.0) -->
     <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
+	<!-- The swc at the top-level has lots of trace statements in it.  Use the one in the source zip. -->
     <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present" description="Copies Text Layout Framework from Sourceforge">
         <mkdir dir="${FLEX_HOME}/in/downloads/OSMF_1.0"/>
         <get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download" 
             dest="${FLEX_HOME}/in/downloads/OSMF_1.0.zip" 
             verbose="false"/>
         <unzip dest="${FLEX_HOME}/in/downloads/OSMF_1.0" src="${FLEX_HOME}/in/downloads/OSMF_1.0.zip" />
-        <copy file="${FLEX_HOME}/in/downloads/OSMF_1.0/OSMF.swc" tofile="${basedir}/libs/osmf.swc"/>
+        <unzip dest="${FLEX_HOME}/in/downloads/OSMF_1.0/osmf_source_v1-0" src="${FLEX_HOME}/in/downloads/OSMF_1.0/osmf_source_v1-0.zip" />
+        <copy file="${FLEX_HOME}/in/downloads/OSMF_1.0/osmf_source_v1-0/OSMF.swc" tofile="${basedir}/libs/osmf.swc"/>
         <delete dir="${FLEX_HOME}/in/downloads/OSMF_1.0" failonerror="false"/>
     </target>
 
