@@ -318,7 +318,7 @@
     <component id="ChannelSet" class="mx.messaging.ChannelSet" lookupOnly="true"/>
     <component id="Consumer" class="mx.messaging.Consumer" lookupOnly="true"/>
     <component id="HTTPChannel" class="mx.messaging.channels.HTTPChannel" lookupOnly="true"/>
-    <component id="HTTPMultiService" class="mx.rpc.http.mxml.HTTPMultiService" lookupOnly="true"/>
+    <component id="HTTPMultiService" class="mx.rpc.http.HTTPMultiService" lookupOnly="true"/>
     <component id="HTTPOperation" class="mx.rpc.http.Operation" lookupOnly="true"/>
     <component id="HTTPService" class="mx.rpc.http.mxml.HTTPService" lookupOnly="true"/>
     <component id="MultiTopicProducer" class="mx.messaging.MultiTopicProducer" lookupOnly="true"/>
