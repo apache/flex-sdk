@@ -2554,9 +2554,11 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         }
 
         var colors:Array;
-
-        colors = getStyle("alternatingItemColors");
-
+		var colorsStyle:Object = getStyle("alternatingItemColors");
+		
+		if (colorsStyle)
+			colors = (colorsStyle is Array) ? (colorsStyle as Array) : [colorsStyle];
+		
         if (!colors || colors.length == 0)
             return;
 
