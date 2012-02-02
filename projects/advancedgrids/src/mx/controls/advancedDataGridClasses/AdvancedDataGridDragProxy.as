@@ -87,6 +87,10 @@ public class AdvancedDataGridDragProxy extends UIComponent
             
             o = new UIComponent();
             addChild(DisplayObject(o));
+			
+			// The drag proxy should have the same layoutDirection as the 
+			// AdvancedDataGrid.
+			o.layoutDirection = advancedDataGrid.layoutDirection;
             
             var ww:Number = 0;
             
