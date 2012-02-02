@@ -162,8 +162,8 @@
     <component id="SkinnablePopUpContainer" class="spark.components.SkinnablePopUpContainer"/>
     <component id="SkinnableTextBase" class="spark.components.supportClasses.SkinnableTextBase"/>
     <component id="SliderBase" class="spark.components.supportClasses.SliderBase"/>
-    <component id="Sort" class="mx.collections.Sort" lookupOnly="true"/>
-    <component id="SortField" class="mx.collections.SortField" lookupOnly="true"/>
+    <component id="Sort" class="spark.collections.Sort"/>
+    <component id="SortField" class="spark.collections.SortField"/>
     <component id="SortingCollator" class="spark.globalization.SortingCollator"/>
     <component id="Spacer" class="mx.controls.Spacer" lookupOnly="true"/>
     <component id="SparkButtonSkin" class="spark.skins.SparkButtonSkin"/>
