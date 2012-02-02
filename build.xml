@@ -46,6 +46,7 @@
 		<antcall target="automation_dmv"/>
 		<antcall target="automation_spark"/>
 		<antcall target="automation_air"/>
+		<antcall target="automation_airspark"/>
 		<antcall target="automation_flashflexkit"/>
     </target>
 
@@ -116,6 +117,7 @@
 		<ant dir="${basedir}/projects/automation_dmv" target="clean"/>
 		<ant dir="${basedir}/projects/automation_flashflexkit" target="clean"/>
 		<ant dir="${basedir}/projects/automation_spark" target="clean"/>
+		<ant dir="${basedir}/projects/automation_airspark" target="clean"/>
 		<ant dir="${basedir}/javascript" target="clean"/>
 		<!-- Delete empty folders -->
 		<delete dir="${basedir}/locale">
@@ -231,6 +233,10 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<ant dir="${basedir}/projects/automation_spark"/>
 	</target>
 	
+	<target name="automation_airspark" description="Clean build of automation_airspark swc">
+		<ant dir="${basedir}/projects/automation_airspark"/>
+	</target>
+
 	
     <target name="updateAIR" description="Rebuild a AIK SWC and SWF that depend on Flex" >
 		<property name="flex.home" value="${FLEX_HOME}" />     
