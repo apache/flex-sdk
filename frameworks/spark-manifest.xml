@@ -194,7 +194,6 @@
 	<!-- FTE text for MX components -->
 	<component id="FTEDataGridItemRenderer" class="mx.controls.dataGridClasses.FTEDataGridItemRenderer"/>
     <component id="MXFTETextInput" class="mx.controls.MXFTETextInput"/>
-	<component id="FTEAdvancedDataGridItemRenderer" class="mx.controls.advancedDataGridClasses.FTEAdvancedDataGridItemRenderer"/>
 
 	<!-- Text Layout Framework (TLF) -->
 	<component id="a" class="flashx.textLayout.elements.LinkElement" lookupOnly="true"/>
@@ -260,6 +259,5 @@
     <component id="MXItemRenderer" class="mx.controls.listClasses.MXItemRenderer"/>
     <component id="MXTreeItemRenderer" class="mx.controls.treeClasses.MXTreeItemRenderer"/>
     <component id="MXDataGridItemRenderer" class="mx.controls.dataGridClasses.MXDataGridItemRenderer"/>
-	<component id="MXAdvancedDataGridItemRenderer" class="mx.controls.advancedDataGridClasses.MXAdvancedDataGridItemRenderer"/>
 
 </componentPackage>
