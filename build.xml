@@ -140,6 +140,8 @@ tar -xjf "AIR Integration Kit.tbz2" .
 		<delete file="${FLEX_HOME}/frameworks/libs/air/AIRAliases.js"/>
 		<delete file="${FLEX_HOME}/frameworks/libs/air/airglobal.abc"/>
 		<delete file="${FLEX_HOME}/frameworks/libs/air/servicemonitor.swf"/>
+		<!-- FIXME: For now, copy local override of build-sample-framework.xml -->
+		<copy file="${FLEX_HOME}/in/air/sample-frameworks-build.xml" todir="${FLEX_HOME}/frameworks/projects/air" overwrite="true" />
 	</target>
 
 	<target name="compile" description="Builds all SWCs but not their resource bundles">
