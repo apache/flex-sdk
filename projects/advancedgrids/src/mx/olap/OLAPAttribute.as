@@ -115,7 +115,7 @@ public class OLAPAttribute extends OLAPHierarchy implements IOLAPAttribute
     //----------------------------------
 
     /**
-     *  Contains <code>true</code> becasue attributes are assumed to be aggregatable 
+     *  Contains <code>true</code> because attributes are assumed to be aggregatable 
      *  and all member is present. 
      *  
      *  @langversion 3.0
@@ -384,8 +384,8 @@ public class OLAPAttribute extends OLAPHierarchy implements IOLAPAttribute
      */
     override mx_internal function refresh():void
     {
-    	uniqueChildrenMap = new Dictionary(true);
-    	uniqueMembers = new ArrayCollection();
+        uniqueChildrenMap = new Dictionary(true);
+        uniqueMembers = new ArrayCollection();
         
         if (!super.findLevel(name))
         {
