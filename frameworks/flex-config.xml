@@ -354,6 +354,13 @@
 		<rsl-url>spark_4.0.0.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
+	
+    <!-- Sparkskins SWC-->
+   	<runtime-shared-library-path>
+		<path-element>libs/sparkskins.swc</path-element>
+		<rsl-url>sparkskins_4.0.0.0.swf</rsl-url>
+		<policy-file-url></policy-file-url>
+	</runtime-shared-library-path>
 	 
 	<!-- RPC SWC -->
 	<runtime-shared-library-path>
