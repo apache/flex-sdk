@@ -13,8 +13,7 @@
 
 <flex-config>
     <!-- Specifies the minimum player version that will run the compiled SWF. -->
-    <!-- 9.0.124 is the April 2008 security release -->
-    <target-player>9.0.124</target-player>
+     <target-player>10</target-player>
 
    <compiler>
 
@@ -67,16 +66,7 @@
       
       <!-- List of SWC files or directories that contain SWC files. -->
       <library-path>
-		 <!--
-			  FP10-only SWCs like flex4.swc are causing problems
-		      when compiling with target-player=9,
-			  so for now we'll list just individual SWCs
-		  -->
-         <!-- <path-element>libs</path-element> -->
-         <path-element>libs/flex.swc</path-element>
-         <path-element>libs/framework.swc</path-element>
-         <path-element>libs/rpc.swc</path-element>
-         <path-element>libs/utilities.swc</path-element>
+         <path-element>libs</path-element>
          <path-element>libs/air</path-element>
          <path-element>locale/{locale}</path-element>
       </library-path>
