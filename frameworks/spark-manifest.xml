@@ -95,6 +95,7 @@
     <component id="Range" class="spark.components.supportClasses.Range"/>
     <component id="Rect" class="spark.primitives.Rect"/>
     <component id="RectangularDropShadow" class="spark.primitives.RectangularDropShadow"/>
+    <component id="RemoteListView" class="mx.collections.RemoteListView" lookupOnly="true"/>
     <component id="RemoveAction" class="spark.effects.RemoveAction"/>
     <component id="Resize" class="spark.effects.Resize"/>
     <component id="RGBInterpolator" class="spark.effects.interpolation.RGBInterpolator"/>
