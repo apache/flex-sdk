@@ -16,7 +16,7 @@
    <target-player>10.2.0</target-player>
 
     <!-- Specifies the version of the compiled SWF -->
-    <swf-version>11</swf-version>
+    <swf-version>13</swf-version>
 
    <compiler>
 
