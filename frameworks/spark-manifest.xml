@@ -172,16 +172,13 @@
 	<component id="a" class="flashx.textLayout.elements.LinkElement" lookupOnly="true"/>
 	<component id="br" class="flashx.textLayout.elements.BreakElement" lookupOnly="true"/>
 	<component id="div" class="flashx.textLayout.elements.DivElement" lookupOnly="true"/>
-	<component id="format" class="flashx.textLayout.formats.TextLayoutFormat" lookupOnly="true"/>
 	<component id="img" class="flashx.textLayout.elements.InlineGraphicElement" lookupOnly="true"/>
-	<component id="linkNormalFormat" class="flashx.textLayout.elements.LinkNormalFormat" lookupOnly="true"/>
-	<component id="linkActiveFormat" class="flashx.textLayout.elements.LinkActiveFormat" lookupOnly="true"/>
-	<component id="linkHoverFormat" class="flashx.textLayout.elements.LinkHoverFormat" lookupOnly="true"/>
 	<component id="p" class="flashx.textLayout.elements.ParagraphElement" lookupOnly="true"/>
 	<component id="span" class="flashx.textLayout.elements.SpanElement" lookupOnly="true"/>
 	<component id="tab" class="flashx.textLayout.elements.TabElement" lookupOnly="true"/>
 	<component id="tcy" class="flashx.textLayout.elements.TCYElement" lookupOnly="true"/>
 	<component id="TextFlow" class="flashx.textLayout.elements.TextFlow" lookupOnly="true"/>
+	<component id="TextLayoutFormat" class="flashx.textLayout.formats.TextLayoutFormat" lookupOnly="true"/>
 
     <!-- rpc -->
     <component id="AMFChannel" class="mx.messaging.channels.AMFChannel" lookupOnly="true"/>
