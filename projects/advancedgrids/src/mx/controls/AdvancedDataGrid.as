@@ -8161,6 +8161,10 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
      */
     override protected function headerNavigationHandler(event:KeyboardEvent):void
     {
+       // If rtl layout, need to swap LEFT and RIGHT so correct action
+       // is done.
+       var keyCode:uint = mapKeycodeForLayoutDirection(event);
+	   
        if (!columnGrouping || headerIndex == -1 || selectedHeaderInfo == null)
        {
           super.headerNavigationHandler(event);
@@ -8172,7 +8176,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 
           var newSelectedHeaderInfo:AdvancedDataGridHeaderInfo;
           var siblings:Array;
-          if (event.keyCode == Keyboard.UP)
+          if (keyCode == Keyboard.UP)
           {
              if (selectedHeaderInfo.parent != null)
              {
@@ -8185,7 +8189,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
              }
              
           }
-          else if (event.keyCode == Keyboard.DOWN)
+          else if (keyCode == Keyboard.DOWN)
           {
              //Check if we are a leaf-header
              if (selectedHeaderInfo.visibleChildren == null || selectedHeaderInfo.visibleChildren.length == 0)
@@ -8203,7 +8207,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                  selectColumnGroupHeader(newSelectedHeaderInfo);
              }
           }
-          else if (event.keyCode == Keyboard.LEFT)
+          else if (keyCode == Keyboard.LEFT)
           {
              siblings = (selectedHeaderInfo.parent !=null)? selectedHeaderInfo.parent.visibleChildren : visibleHeaderInfos;
              if (selectedHeaderInfo.visibleIndex > 0)
@@ -8217,7 +8221,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                  selectColumnGroupHeader(newSelectedHeaderInfo);
              }
           }
-          else if (event.keyCode == Keyboard.RIGHT)
+          else if (keyCode == Keyboard.RIGHT)
           {
              siblings = (selectedHeaderInfo.parent !=null)? selectedHeaderInfo.parent.visibleChildren : visibleHeaderInfos;
              if (selectedHeaderInfo.visibleIndex < siblings.length - 1)
@@ -8232,7 +8236,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                 selectColumnGroupHeader(newSelectedHeaderInfo);
              }
           }
-          else if (event.keyCode == Keyboard.SPACE)
+          else if (keyCode == Keyboard.SPACE)
           {
               if (sortableColumns && 
                   selectedHeaderInfo.column.colNum != -1 && !isNaN(selectedHeaderInfo.column.colNum)
@@ -8254,10 +8258,10 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
           }
           // horizontal scrolling when focus is on header
           else if ( event.shiftKey
-                  && (event.keyCode == Keyboard.PAGE_UP
-                     || event.keyCode == Keyboard.PAGE_DOWN) )
+                  && (keyCode == Keyboard.PAGE_UP
+                     || keyCode == Keyboard.PAGE_DOWN) )
           {
-             moveSelectionHorizontally(event.keyCode, event.shiftKey, event.ctrlKey);
+             moveSelectionHorizontally(keyCode, event.shiftKey, event.ctrlKey);
           }
         
           // don't we allow vertical scrolling when focus is on the header?
@@ -8738,8 +8742,12 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         // get the item renderer to be passed in the ITEM_OPENING events
         if (listItems[visibleRowIndex])
             treeItemRenderer = listItems[visibleRowIndex][treeColumnIndex];
+		
+		// If rtl layout, need to swap LEFT and RIGHT so correct action
+		// is done.
+		var keyCode:uint = mapKeycodeForLayoutDirection(event);
 
-        if (event.ctrlKey && event.shiftKey && event.keyCode == Keyboard.SPACE)
+        if (event.ctrlKey && event.shiftKey && keyCode == Keyboard.SPACE)
         {
             // if user has moved the caret cursor from the selected item
             // move the cursor back to selected item
@@ -8766,7 +8774,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             }
             event.stopImmediatePropagation();
         }
-        else if (event.ctrlKey && event.shiftKey && event.keyCode == Keyboard.LEFT)
+        else if (event.ctrlKey && event.shiftKey && keyCode == Keyboard.LEFT)
         {
             // Left Arrow closes an open item. Otherwise selects the parent item.
             if (isItemOpen(item))
@@ -8804,7 +8812,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             }
             event.stopImmediatePropagation();
         }
-        else if (event.ctrlKey && event.shiftKey && event.keyCode == Keyboard.RIGHT)
+        else if (event.ctrlKey && event.shiftKey && keyCode == Keyboard.RIGHT)
         {
             // Right Arrow has no effect on leaf items. Closed branch items are opened. 
             //Opened branch items select the first child.
@@ -8851,11 +8859,11 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             }
             event.stopImmediatePropagation();
         }
-        else if (event.keyCode == Keyboard.NUMPAD_MULTIPLY)
+        else if (keyCode == Keyboard.NUMPAD_MULTIPLY)
         {
             expandChildrenOf(item, !isItemOpen(item));
         }
-        else if (event.keyCode == Keyboard.NUMPAD_ADD)
+        else if (keyCode == Keyboard.NUMPAD_ADD)
         {
             if (isBranch(item))
             {
@@ -8871,7 +8879,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
                 }
             }
         }
-        else if (event.keyCode == Keyboard.NUMPAD_SUBTRACT)
+        else if (keyCode == Keyboard.NUMPAD_SUBTRACT)
         {
             if (isItemOpen(item))
             {
@@ -8899,6 +8907,10 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
      */
     protected function cellNavigationHandler(event:KeyboardEvent):void
     {
+		// If rtl layout, need to swap LEFT and RIGHT so correct action
+		// is done.
+		var keyCode:uint = mapKeycodeForLayoutDirection(event);
+		
         // Can't use a straight-forward Object/Dictionary
         // because they don't allow integer keys.
         const validKeys:Array = [
@@ -8918,7 +8930,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         var n:int = validKeys.length;
         for (var i:int = 0; i < n; i++)
         {
-            if (event.keyCode == validKeys[i])
+            if (keyCode == validKeys[i])
             {
                 isValidKey = true;
                 break;
@@ -8928,7 +8940,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
         if (!isValidKey)
         {
             // Handles single-character type-ahead lookup for data in the rows.
-            if (findKey(event.keyCode))
+            if (findKey(keyCode))
                 event.stopPropagation();
 
             return;
@@ -8956,7 +8968,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 
         var newCaretColumnIndex:int;
 
-        switch (event.keyCode)
+        switch (keyCode)
         {
             case Keyboard.UP:
             {
@@ -9041,7 +9053,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             case Keyboard.PAGE_UP:
             case Keyboard.PAGE_DOWN:
             {
-                moveSelectionVertically(event.keyCode, event.shiftKey, event.ctrlKey);
+                moveSelectionVertically(keyCode, event.shiftKey, event.ctrlKey);
                 break;
             }
 
@@ -9117,7 +9129,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
 
         bShiftKey = event.shiftKey;
         bCtrlKey  = event.ctrlKey;
-        lastKey   = event.keyCode;
+        lastKey   = keyCode;
 
         finishCellKeySelection();
     }   
