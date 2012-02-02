@@ -39,6 +39,7 @@
     <component id="CheckBox" class="mx.controls.CheckBox"/>
     <component id="ColorMatrixFilter" class="flash.filters.ColorMatrixFilter" lookupOnly="true"/>
     <component id="ColorPicker" class="mx.controls.ColorPicker"/>
+    <component id="ColorTransform" class="flash.geom.ColorTransform" lookupOnly="true"/>
     <component id="ComboBox" class="mx.controls.ComboBox"/>
     <component id="TransformOffsets" class="mx.geom.TransformOffsets"/>
     <component id="ConstraintColumn" class="mx.containers.utilityClasses.ConstraintColumn"/>
