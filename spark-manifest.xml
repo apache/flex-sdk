@@ -19,17 +19,11 @@
 
  <!-- Flex4 Framework -->
     <component id="AddAction" class="spark.effects.AddAction"/>
-    <component id="AddActionInstance" class="spark.effects.supportClasses.AddActionInstance"/>
     <component id="Animate" class="spark.effects.Animate"/>
     <component id="Animate3D" class="spark.effects.Animate3D"/>
-    <component id="Animate3DInstance" class="spark.effects.supportClasses.Animate3DInstance"/>
     <component id="AnimateColor" class="spark.effects.AnimateColor"/>
-    <component id="AnimateColorInstance" class="spark.effects.supportClasses.AnimateColorInstance"/>
     <component id="AnimateFilter" class="spark.effects.AnimateFilter"/>
-    <component id="AnimateFilterInstance" class="spark.effects.supportClasses.AnimateFilterInstance"/>
-    <component id="AnimateInstance" class="spark.effects.supportClasses.AnimateInstance"/>
     <component id="AnimateShaderTransition" class="spark.effects.AnimateShaderTransition"/>
-    <component id="AnimateShaderTransitionInstance" class="spark.effects.supportClasses.AnimateShaderTransitionInstance"/>
 	<component id="AnimateTransform" class="spark.effects.AnimateTransform"/>
     <component id="AnimateTransformMove" class="spark.effects.AnimateTransformMove"/>
     <component id="AnimateTransformMove3D" class="spark.effects.AnimateTransformMove3D"/>
@@ -38,10 +32,8 @@
     <component id="AnimateTransformScale" class="spark.effects.AnimateTransformScale"/>
     <component id="AnimateTransformScale3D" class="spark.effects.AnimateTransformScale3D"/>
     <component id="Animation" class="spark.effects.animation.Animation"/>
-    <component id="AnimationEvent" class="spark.events.AnimationEvent"/>
     <component id="AnimationProperty" class="spark.effects.AnimationProperty"/>
     <component id="Application" class="spark.components.Application"/>
-    <component id="ApplicationSkin" class="spark.skins.default.ApplicationSkin"/>
     <component id="ArrayCollection" class="mx.collections.ArrayCollection" lookupOnly="true"/>
     <component id="ArrayInterpolator" class="spark.effects.interpolation.ArrayInterpolator"/>
     <component id="ArrayList" class="mx.collections.ArrayList" lookupOnly="true"/>
@@ -54,35 +46,20 @@
     <component id="Button" class="spark.components.Button"/>
     <component id="ButtonBar" class="spark.components.ButtonBar"/>
     <component id="ButtonBarButton" class="spark.components.ButtonBarButton"/>
-    <component id="ButtonBarFirstButtonSkin" class="spark.skins.default.ButtonBarFirstButtonSkin"/>
-    <component id="ButtonBarLastButtonSkin" class="spark.skins.default.ButtonBarLastButtonSkin"/>
-    <component id="ButtonBarMiddleButtonSkin" class="spark.skins.default.ButtonBarMiddleButtonSkin"/>
-    <component id="ButtonBarSkin" class="spark.skins.default.ButtonBarSkin"/>
     <component id="ButtonBase" class="spark.components.supportClasses.ButtonBase"/>
-    <component id="ButtonSkin" class="spark.skins.default.ButtonSkin"/>
     <component id="CallAction" class="spark.effects.CallAction"/>
-    <component id="CallActionInstance" class="spark.effects.supportClasses.CallActionInstance"/>
     <component id="CheckBox" class="spark.components.CheckBox"/>
-    <component id="CheckBoxSkin" class="spark.skins.default.CheckBoxSkin"/>
     <component id="ColorMatrixFilter" class="spark.filters.ColorMatrixFilter"/>
     <component id="ConvolutionFilter" class="spark.filters.ConvolutionFilter"/>
     <component id="CrossFade" class="spark.effects.CrossFade"/>
     <component id="DataGroup" class="spark.components.DataGroup"/>
-    <component id="DefaultButtonSkin" class="spark.skins.default.DefaultButtonSkin"/>
-    <component id="DefaultComplexItemRenderer" class="spark.skins.default.DefaultComplexItemRenderer"/>
-    <component id="DefaultItemRenderer" class="spark.skins.default.DefaultItemRenderer"/>
     <component id="DisplacementMapFilter" class="spark.filters.DisplacementMapFilter"/>
     <component id="DropDownList" class="spark.components.DropDownList"/>
-    <component id="DropDownListButtonSkin" class="spark.skins.default.DropDownListButtonSkin"/>
-    <component id="DropDownListSkin" class="spark.skins.default.DropDownListSkin"/>
     <component id="DropShadowFilter" class="spark.filters.DropShadowFilter"/>
     <component id="EaseInOut" class="spark.effects.easing.EaseInOut"/>
-    <component id="ElementExistenceEvent" class="spark.events.ElementExistenceEvent"/>
     <component id="Ellipse" class="spark.primitives.Ellipse"/>
     <component id="Fade" class="spark.effects.Fade"/>
-    <component id="FadeInstance" class="spark.effects.supportClasses.FadeInstance"/>
     <component id="FilledElement" class="spark.primitives.supportClasses.FilledElement"/>
-    <component id="FocusSkin" class="spark.skins.default.FocusSkin"/>
     <component id="GlowFilter" class="spark.filters.GlowFilter"/>
     <component id="GradientBevelFilter" class="spark.filters.GradientBevelFilter"/>
     <component id="GradientFilter" class="spark.filters.GradientFilter"/>
@@ -92,83 +69,44 @@
     <component id="Group" class="spark.components.Group"/>
     <component id="GroupBase" class="spark.components.supportClasses.GroupBase"/>
     <component id="HGroup" class="spark.components.HGroup"/>
-    <component id="HorizontalAlign" class="spark.layout.HorizontalAlign"/>
     <component id="HorizontalLayout" class="spark.layout.HorizontalLayout"/>
     <component id="HSBInterpolator" class="spark.effects.interpolation.HSBInterpolator"/>
     <component id="HScrollBar" class="spark.components.HScrollBar"/>
-    <component id="HScrollBarSkin" class="spark.skins.default.HScrollBarSkin"/>
-    <component id="HScrollBarThumbSkin" class="spark.skins.default.HScrollBarThumbSkin"/>
-    <component id="HScrollBarTrackSkin" class="spark.skins.default.HScrollBarTrackSkin"/>
     <component id="HSlider" class="spark.components.HSlider"/>
-    <component id="HSliderSkin" class="spark.skins.default.HSliderSkin"/>
-    <component id="HSliderThumbSkin" class="spark.skins.default.HSliderThumbSkin"/>
-    <component id="HSliderTrackSkin" class="spark.skins.default.HSliderTrackSkin"/>
-    <component id="IDeferredContentOwner" class="spark.core.IDeferredContentOwner"/>
-	<component id="IEaser" class="spark.effects.easing.IEaser"/>
-    <component id="IGraphicElement" class="spark.core.IGraphicElement"/>
-    <component id="IInterpolator" class="spark.effects.interpolation.IInterpolator"/>
-    <component id="InvalidatingSprite" class="spark.components.supportClasses.InvalidatingSprite"/>
-    <component id="ISharedDisplayObject" class="spark.core.ISharedDisplayObject"/>
-	<component id="IItemRenderer" class="spark.components.IItemRenderer"/>
     <component id="ItemRenderer" class="spark.components.supportClasses.ItemRenderer"/>
-    <component id="IItemRendererOwner" class="spark.components.IItemRendererOwner"/>
-    <component id="IViewport" class="spark.core.IViewport"/>
     <component id="KeyFrame" class="spark.effects.KeyFrame"/>
-    <component id="LabelUtil" class="spark.utils.LabelUtil"/>
     <component id="LayoutBase" class="spark.layout.supportClasses.LayoutBase"/>
-    <component id="LayoutElementFactory" class="spark.layout.supportClasses.LayoutElementFactory"/>
-    <component id="LayoutElementHelper" class="spark.layout.supportClasses.LayoutElementHelper"/>
     <component id="Line" class="spark.primitives.Line"/>
     <component id="Linear" class="spark.effects.easing.Linear"/>
-    <component id="LinearLayoutVector" class="spark.layout.supportClasses.LinearLayoutVector"/>
 	<component id="List" class="spark.components.List"/>
     <component id="ListBase" class="spark.components.supportClasses.ListBase"/>
-    <component id="ListSkin" class="spark.skins.default.ListSkin"/>
     <component id="MaskType" class="spark.core.MaskType"/>
     <component id="Matrix" class="flash.geom.Matrix" lookupOnly="true"/>
     <component id="MotionPath" class="spark.effects.MotionPath"/>
-    <component id="MouseShieldUtil" class="spark.utils.MouseShieldUtil"/>
     <component id="Move" class="spark.effects.Move"/>
-    <component id="MoveInstance" class="spark.effects.supportClasses.MoveInstance"/>
 	<component id="MXMLComponent" class="spark.components.MXMLComponent"/>
 	<component id="NumberArrayInterpolator" class="spark.effects.interpolation.NumberArrayInterpolator"/>
     <component id="NumberInterpolator" class="spark.effects.interpolation.NumberInterpolator"/>
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
-    <component id="NumericStepperSkin" class="spark.skins.default.NumericStepperSkin"/>
     <component id="Panel" class="spark.components.Panel"/>
-    <component id="PanelSkin" class="spark.skins.default.PanelSkin"/>
     <component id="Path" class="spark.primitives.Path"/>
 	<component id="PopUp" class="spark.components.PopUp"/>
     <component id="Power" class="spark.effects.easing.Power"/>
 	<component id="RadioButton" class="spark.components.RadioButton"/>
     <component id="RadioButtonGroup" class="spark.components.RadioButtonGroup"/>
-    <component id="RadioButtonSkin" class="spark.skins.default.RadioButtonSkin"/>
     <component id="Range" class="spark.components.supportClasses.Range"/>
     <component id="Rect" class="spark.primitives.Rect"/>
     <component id="RemoveAction" class="spark.effects.RemoveAction"/>
-    <component id="RemoveActionInstance" class="spark.effects.supportClasses.RemoveActionInstance"/>
-    <component id="RendererExistenceEvent" class="spark.events.RendererExistenceEvent"/>
     <component id="Resize" class="spark.effects.Resize"/>
-    <component id="ResizeInstance" class="spark.effects.supportClasses.ResizeInstance"/>
-    <component id="ResizeMode" class="spark.components.ResizeMode"/>
     <component id="RGBInterpolator" class="spark.effects.interpolation.RGBInterpolator"/>
     <component id="RichEditableText" class="spark.components.RichEditableText"/>
     <component id="RichText" class="spark.primitives.RichText"/>
     <component id="Rotate" class="spark.effects.Rotate"/>
     <component id="Rotate3D" class="spark.effects.Rotate3D"/>
-    <component id="Rotate3DInstance" class="spark.effects.supportClasses.Rotate3DInstance"/>
-    <component id="RotateInstance" class="spark.effects.supportClasses.RotateInstance"/>
     <component id="ScrollBar" class="spark.components.supportClasses.ScrollBar"/>
-    <component id="ScrollBarDownButtonSkin" class="spark.skins.default.ScrollBarDownButtonSkin"/>
-    <component id="ScrollBarLeftButtonSkin" class="spark.skins.default.ScrollBarLeftButtonSkin"/>
-    <component id="ScrollBarRightButtonSkin" class="spark.skins.default.ScrollBarRightButtonSkin"/>
-    <component id="ScrollBarUpButtonSkin" class="spark.skins.default.ScrollBarUpButtonSkin"/>
     <component id="Scroller" class="spark.components.Scroller"/>
     <component id="ScrollerLayout" class="spark.components.supportClasses.ScrollerLayout"/>
-    <component id="ScrollerSkin" class="spark.skins.default.ScrollerSkin"/>
-    <component id="ScrollUnit" class="spark.core.ScrollUnit"/>
     <component id="SetAction" class="spark.effects.SetAction"/>
-    <component id="SetActionInstance" class="spark.effects.supportClasses.SetActionInstance"/>
     <component id="ShaderFilter" class="spark.filters.ShaderFilter"/>
     <component id="SimpleText" class="spark.primitives.SimpleText"/>
     <component id="Sine" class="spark.effects.easing.Sine"/>
@@ -176,24 +114,16 @@
     <component id="SkinnableComponent" class="spark.components.supportClasses.SkinnableComponent"/>
     <component id="SkinnableContainer" class="spark.components.SkinnableContainer"/>
     <component id="SkinnableContainerBase" class="spark.components.supportClasses.SkinnableContainerBase"/>
-    <component id="SkinnableContainerSkin" class="spark.skins.default.SkinnableContainerSkin"/>
     <component id="SkinnableDataContainer" class="spark.components.SkinnableDataContainer"/>
-    <component id="SkinnableDataContainerSkin" class="spark.skins.default.SkinnableDataContainerSkin"/>
     <component id="Slider" class="spark.components.supportClasses.Slider"/>
     <component id="SparkSkin" class="spark.skins.SparkSkin"/>
     <component id="Spinner" class="spark.components.Spinner"/>
-    <component id="SpinnerDecrButtonSkin" class="spark.skins.default.SpinnerDecrButtonSkin"/>
-    <component id="SpinnerIncrButtonSkin" class="spark.skins.default.SpinnerIncrButtonSkin"/>
-    <component id="SpinnerSkin" class="spark.skins.default.SpinnerSkin"/>
     <component id="SpriteVisualElement" class="spark.core.SpriteVisualElement"/>
     <component id="StrokedElement" class="spark.primitives.supportClasses.StrokedElement"/>
     <component id="TextArea" class="spark.components.TextArea"/>
-    <component id="TextAreaSkin" class="spark.skins.default.TextAreaSkin"/>
     <component id="TextBase" class="spark.components.supportClasses.TextBase"/>
     <component id="TextGraphicElement" class="spark.primitives.supportClasses.TextGraphicElement"/>
     <component id="TextInput" class="spark.components.TextInput"/>
-    <component id="TextInputSkin" class="spark.skins.default.TextInputSkin"/>
-    <component id="TextOperationEvent" class="spark.events.TextOperationEvent"/>
     <component id="TextSelectionVisibility" class="spark.components.TextSelectionVisibility"/>
     <component id="TextUtil" class="spark.utils.TextUtil"/>
     <component id="TileJustifyColumns" class="spark.layout.TileJustifyColumns"/>
@@ -203,7 +133,6 @@
     <component id="Timeline" class="spark.effects.animation.Timeline"/>
     <component id="ToggleButton" class="spark.components.ToggleButton"/>
     <component id="ToggleButtonBase" class="spark.components.supportClasses.ToggleButtonBase"/>
-    <component id="ToggleButtonSkin" class="spark.skins.default.ToggleButtonSkin"/>
     <component id="TrackBase" class="spark.components.supportClasses.TrackBase"/>
     <component id="Transform" class="mx.geom.Transform"/>
     <component id="VerticalAlign" class="spark.layout.VerticalAlign"/>
@@ -212,16 +141,8 @@
     <component id="VideoElement" class="spark.primitives.VideoElement"/>
     <component id="VideoPlayer" class="spark.components.VideoPlayer"/>
     <component id="VScrollBar" class="spark.components.VScrollBar"/>
-    <component id="VScrollBarSkin" class="spark.skins.default.VScrollBarSkin"/>
-    <component id="VScrollBarThumbSkin" class="spark.skins.default.VScrollBarThumbSkin"/>
-    <component id="VScrollBarTrackSkin" class="spark.skins.default.VScrollBarTrackSkin"/>
     <component id="VSlider" class="spark.components.VSlider"/>
-    <component id="VSliderSkin" class="spark.skins.default.VSliderSkin"/>
-    <component id="VSliderThumbSkin" class="spark.skins.default.VSliderThumbSkin"/>
-    <component id="VSliderTrackSkin" class="spark.skins.default.VSliderTrackSkin"/>
     <component id="Wipe" class="spark.effects.Wipe"/>
-    <component id="WipeDirection" class="spark.effects.WipeDirection"/>
-    <component id="WipeInstance" class="spark.effects.supportClasses.WipeInstance"/>
     <component id="XMLListCollection" class="mx.collections.XMLListCollection" lookupOnly="true"/>
 
     <!-- Special Components -->
