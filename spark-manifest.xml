@@ -85,7 +85,7 @@
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
     <component id="Panel" class="spark.components.Panel"/>
     <component id="Path" class="spark.primitives.Path"/>
-	<component id="PopUp" class="spark.components.PopUp"/>
+	<component id="PopUpAnchor" class="spark.components.PopUpAnchor"/>
     <component id="Power" class="spark.effects.easing.Power"/>
 	<component id="RadioButton" class="spark.components.RadioButton"/>
     <component id="RadioButtonGroup" class="spark.components.RadioButtonGroup"/>
