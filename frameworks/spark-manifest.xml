@@ -29,6 +29,7 @@
     <component id="Application" class="spark.components.Application"/>
     <component id="ArrayCollection" class="mx.collections.ArrayCollection" lookupOnly="true"/>
     <component id="ArrayList" class="mx.collections.ArrayList" lookupOnly="true"/>
+    <component id="AsyncListView" class="mx.collections.AsyncListView" lookupOnly="true"/>
     <component id="BasicLayout" class="spark.layouts.BasicLayout"/>
     <component id="BevelFilter" class="spark.filters.BevelFilter"/>
     <component id="BitmapImage" class="spark.primitives.BitmapImage"/>
@@ -48,7 +49,7 @@
     <component id="ColorMatrixFilter" class="spark.filters.ColorMatrixFilter"/>
     <component id="ColorTransform" class="flash.geom.ColorTransform" lookupOnly="true"/>
     <component id="ColumnAlign" class="spark.layouts.ColumnAlign"/>
-      <component id="ColumnHeaderBar" class="spark.components.ColumnHeaderBar"/>
+    <component id="ColumnHeaderBar" class="spark.components.ColumnHeaderBar"/>
     <component id="ComboBox" class="spark.components.ComboBox"/>
     <component id="ConstraintColumn" class="mx.containers.utilityClasses.ConstraintColumn" lookupOnly="true"/>
     <component id="ConstraintLayout" class="spark.layouts.ConstraintLayout"/>
@@ -121,7 +122,6 @@
     <component id="Range" class="spark.components.supportClasses.Range"/>
     <component id="Rect" class="spark.primitives.Rect"/>
     <component id="RectangularDropShadow" class="spark.primitives.RectangularDropShadow"/>
-    <component id="AsyncListView" class="mx.collections.AsyncListView" lookupOnly="true"/>
     <component id="RemoveAction" class="spark.effects.RemoveAction"/>
     <component id="Resize" class="spark.effects.Resize"/>
     <component id="RGBInterpolator" class="spark.effects.interpolation.RGBInterpolator"/>
