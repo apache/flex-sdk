@@ -756,7 +756,7 @@
                 <include name="spark_rb.swc"/>
             </fileset>
         </delete>
-        <delete dir="${basedir}/projects" includes="**/*/bundles.properties"/>
+        <delete dir="${basedir}/projects" includes="*/bundles.properties"/>
     </target>
 
     <target name="thirdparty-clean" description="Cleans thirdparty downloaded files.">
