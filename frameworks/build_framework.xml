@@ -20,7 +20,7 @@
 	<property name="projects.dir" value="${FLEX_HOME}/frameworks/projects"/>
 	<property name="airframework.dir" value="${projects.dir}/airframework"/>
 	<property name="flex.dir" value="${projects.dir}/flex"/>
-	<property name="flex4.dir" value="${projects.dir}/flex4"/>
+	<property name="spark.dir" value="${projects.dir}/spark"/>
 	<property name="framework.dir" value="${projects.dir}/framework"/>
 	<property name="halo.dir" value="${projects.dir}/halo"/>
 	<property name="haloclassic.dir" value="${projects.dir}/haloclassic"/>
@@ -120,9 +120,9 @@
 	<target name="spark" description="Builds the spark.swc">
 		<compc include-classes="Flex4Classes" output="${basedir}/libs/spark.swc" locale="" accessible="true">
 		    <target-player>10</target-player>
-			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${flex4.dir}/manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${spark.dir}/manifest.xml"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
-			<source-path path-element="${flex4.dir}/src"/>
+			<source-path path-element="${spark.dir}/src"/>
 			<library-path />
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
@@ -130,7 +130,7 @@
                 <include name="textLayout.swc"/>
 				<include name="videoPlayer.swc"/>
 			</external-library-path>
-			<include-file name="defaults.css" path="${flex4.dir}/defaults.css"/>
+			<include-file name="defaults.css" path="${spark.dir}/defaults.css"/>
 		</compc>
 	</target>
 		
