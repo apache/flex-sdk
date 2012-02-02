@@ -1,0 +1,159 @@
+/*
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Copyright ("C") 2003-2005 Macromedia, Inc. All Rights Reserved.
+//  The following is Sample Code and is subject to all restrictions
+//  on such code as contained in the End User License Agreement
+//  accompanying this product.
+//
+///////////////////////////////////////////////////////////////////////////////
+*/
+
+@namespace "library://ns.adobe.com/flex/mx";
+
+/*
+//------------------------------
+//  AdvancedDataGrid
+//------------------------------
+*/
+
+AdvancedDataGrid
+{
+	alternatingItemColors: #F7F7F7, #FFFFFF;
+	columnDropIndicatorSkin: ClassReference("mx.skins.halo.DataGridColumnDropIndicator");
+	columnResizeSkin: ClassReference("mx.skins.halo.DataGridColumnResizeSkin");
+	headerColors: #FFFFFF, #E6E6E6;
+	headerDragProxyStyleName: "headerDragProxyStyle";
+	headerBackgroundSkin: ClassReference("mx.skins.halo.DataGridHeaderBackgroundSkin");
+	headerSeparatorSkin: ClassReference("mx.skins.halo.DataGridHeaderSeparator");
+	headerHorizontalSeparatorSkin: ClassReference("mx.skins.halo.AdvancedDataGridHeaderHorizontalSeparator");
+	headerStyleName: "advancedDataGridStyles";
+	sortArrowSkin: ClassReference("mx.skins.halo.DataGridSortArrow");
+	stretchCursor: Embed(source="Assets.swf",symbol="cursorStretch");
+	verticalGridLineColor: #CCCCCC;
+	disclosureClosedIcon: Embed(source="Assets.swf",symbol="TreeDisclosureClosed");
+	disclosureOpenIcon: Embed(source="Assets.swf",symbol="TreeDisclosureOpen");
+	defaultLeafIcon: Embed(source="Assets.swf",symbol="TreeNodeIcon");
+	folderClosedIcon: Embed(source="Assets.swf",symbol="TreeFolderClosed");
+	folderOpenIcon: Embed(source="Assets.swf",symbol="TreeFolderOpen");
+	paddingLeft: 2;
+	paddingRight: 0;
+    /* sort item renderer's font styles */
+	sortFontFamily: "Verdana";
+	sortFontSize: 10;
+	sortFontStyle: "normal";
+	sortFontWeight: "normal";
+}
+
+/*
+//------------------------------
+//  AdvancedDataGridItemRenderer
+//------------------------------
+*/
+
+AdvancedDataGridItemRenderer
+{
+	paddingLeft: 5;
+}
+
+/*
+//------------------------------
+//  AdvancedDataGridSortItemRenderer
+//------------------------------
+*/
+AdvancedDataGridSortItemRenderer
+{
+    paddingTop: 0;
+    paddingBottom: 0;
+    paddingLeft: 0;
+    paddingRight: 0;
+    horizontalGap: 0;
+
+    color: #0B333C;
+    icon: ClassReference("mx.skins.halo.DataGridSortArrow");
+}
+
+/*
+//------------------------------
+//  AdvancedDataGridHeaderRenderer
+//------------------------------
+*/
+AdvancedDataGridHeaderRenderer
+{
+    paddingTop: 0;
+    paddingBottom: 0;
+    paddingLeft: 2;
+    paddingRight: 2;
+    horizontalGap: 0;
+    horizontalAlign:center;
+    verticalAlign:middle;
+
+    color: #0B333C;
+
+    backgroundColor: #FFFFFF;
+    backgroundAlpha: 0.0;
+}
+
+/*
+//------------------------------
+//  .advancedDataGridStyles
+//------------------------------
+*/
+
+.advancedDataGridStyles
+{
+	fontWeight: "bold";
+}
+
+/*
+//------------------------------
+//  AdvancedListBase
+//------------------------------
+*/
+AdvancedListBase
+{
+	borderStyle: "solid";
+	dropIndicatorSkin: ClassReference("mx.skins.halo.ListDropIndicator");
+	paddingBottom: 2;
+	paddingLeft: 2;
+	paddingRight: 0;
+	paddingTop: 2;
+}
+
+/*
+//------------------------------
+//  PrintAdvancedDataGrid
+//------------------------------
+*/
+
+PrintAdvancedDataGrid
+{
+	alternatingItemColors: #FFFFFF, #FFFFFF;
+	borderColor: 0;
+	headerColors: #FFFFFF, #FFFFFF;
+	headerSeparatorSkin: ClassReference("mx.skins.halo.DataGridHeaderSeparator");
+	headerStyleName: "advancedDataGridStyles";
+	horizontalGridLineColor: 0;
+	horizontalGridLines: true;
+	sortArrowSkin: ClassReference("mx.skins.halo.DataGridSortArrow");
+	stretchCursor: Embed(source="Assets.swf",symbol="cursorStretch");
+	verticalGridLineColor: #000000;
+}
+
+/*
+//------------------------------
+//  PrintOLAPDataGrid
+//------------------------------
+*/
+
+PrintOLAPDataGrid
+{
+	alternatingItemColors: #FFFFFF, #FFFFFF;
+	borderColor: 0;
+	headerColors: #FFFFFF, #FFFFFF;
+	headerSeparatorSkin: ClassReference("mx.skins.halo.DataGridHeaderSeparator");
+	horizontalGridLineColor: 0;
+	horizontalGridLines: true;
+	stretchCursor: Embed(source="Assets.swf",symbol="cursorStretch");
+	verticalGridLineColor: #000000;
+}
