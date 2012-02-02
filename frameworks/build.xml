@@ -131,6 +131,7 @@
 		<!-- Delete empty folders -->
 		<delete dir="${basedir}/locale">
 			<exclude name="**/automation_agent_rb.swc"/>
+			<exclude name="**/metadata.properties"/>
 			<exclude name="**/qtp_air_rb.swc"/>
 		</delete>
 		<delete dir="${basedir}/libs/generated"/>
