@@ -34,7 +34,7 @@
     <component id="BitmapImage" class="spark.primitives.BitmapImage"/>
     <component id="Block" class="spark.layouts.supportClasses.Block"/>
     <component id="BlurFilter" class="spark.filters.BlurFilter"/>
-	<component id="BorderContainer" class="spark.components.BorderContainer"/>
+    <component id="BorderContainer" class="spark.components.BorderContainer"/>
     <component id="Bounce" class="spark.effects.easing.Bounce"/>
     <component id="Button" class="spark.components.Button"/>
     <component id="ButtonBar" class="spark.components.ButtonBar"/>
@@ -50,6 +50,7 @@
     <component id="ConstraintColumn" class="mx.containers.utilityClasses.ConstraintColumn" lookupOnly="true"/>
     <component id="ConstraintLayout" class="spark.layouts.ConstraintLayout"/>
     <component id="ConstraintRow" class="mx.containers.utilityClasses.ConstraintRow" lookupOnly="true"/>
+    <component id="ContentCache" class="spark.core.contentLoader.ContentCache"/> 
     <component id="ConvolutionFilter" class="spark.filters.ConvolutionFilter"/>
     <component id="CrossFade" class="spark.effects.CrossFade"/>
     <component id="DataGroup" class="spark.components.DataGroup"/>
@@ -82,6 +83,7 @@
     <component id="HSBInterpolator" class="spark.effects.interpolation.HSBInterpolator"/>
     <component id="HScrollBar" class="spark.components.HScrollBar"/>
     <component id="HSlider" class="spark.components.HSlider"/>
+    <component id="Image" class="spark.components.Image"/> 
     <component id="ItemRenderer" class="spark.components.supportClasses.ItemRenderer"/>
     <component id="Keyframe" class="spark.effects.animation.Keyframe"/>
     <component id="Label" class="spark.components.Label"/>
