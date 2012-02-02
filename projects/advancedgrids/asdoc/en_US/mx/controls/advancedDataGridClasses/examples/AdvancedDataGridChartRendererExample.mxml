@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:mx="library://ns.adobe.com/flex/mx">
+
+  <fx:Script>
+    <![CDATA[
+      import mx.collections.ArrayCollection;
+                             
+      [Bindable]
+      private var dpHierarchy:ArrayCollection= new ArrayCollection([
+        {name:"Barbara Jennings", region: "Arizona", total:70, children:[  
+          {detail:[{amount:5},{amount:10},{amount:20},{amount:45}]}]},
+        {name:"Dana Binn", region: "Arizona", total:130,  children:[ 
+          {detail:[{amount:15},{amount:25},{amount:35},{amount:55}]}]},
+        {name:"Joe Smith", region: "California", total:229,  children:[ 
+          {detail:[{amount:26},{amount:32},{amount:73},{amount:123}]}]},
+        {name:"Alice Treu", region: "California", total:230, children:[ 
+          {detail:[{amount:159},{amount:235},{amount:135},{amount:155}]}
+        ]}
+      ]);                                            
+    ]]>
+  </fx:Script>
+
+    <mx:Panel title="OLAPCube Control Example"
+        height="75%" width="75%" layout="horizontal"
+        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+
+      <mx:AdvancedDataGrid id="myADG" 
+          width="100%" height="100%" 
+          variableRowHeight="true">
+          <mx:dataProvider>
+             <mx:HierarchicalData source="{dpHierarchy}"/>
+          </mx:dataProvider>
+          <mx:columns>
+              <mx:AdvancedDataGridColumn dataField="name" headerText="Name"/>
+              <mx:AdvancedDataGridColumn dataField="total" headerText="Total"/>
+          </mx:columns>   
+            
+          <mx:rendererProviders>            
+              <mx:AdvancedDataGridRendererProvider 
+                  dataField="detail" 
+                  renderer="ChartRenderer" 
+                  columnIndex="0"
+                  columnSpan="0"/>         
+          </mx:rendererProviders>   
+        </mx:AdvancedDataGrid>
+    </mx:Panel>
+    
+</s:Application>
