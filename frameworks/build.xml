@@ -19,6 +19,17 @@
 
 	<target name="main" depends="clean,prepare,javascript,framework,flex4,rpc,airframework,flex,utilities,haloclassic,flash_integration" description="Clean build of all SWCs"/>
 
+	<target name="doc" >
+		<ant dir="${basedir}/projects/framework" target="doc" />
+		<ant dir="${basedir}/projects/flex4" target="doc" />
+		<ant dir="${basedir}/projects/rpc" target="doc" />
+		<ant dir="${basedir}/projects/airframework" target="doc" />
+		<ant dir="${basedir}/projects/flex" target="doc" />
+		<ant dir="${basedir}/projects/utilities" target="doc" />
+		<ant dir="${basedir}/projects/haloclassic" target="doc" />
+		<ant dir="${basedir}/projects/flash-integration" target="doc" />
+	</target>
+
     <target name="airframework" description="Clean build of airframework.swc">
 		<ant dir="${basedir}/projects/airframework"/>
     </target>
@@ -34,7 +45,7 @@
     <target name="haloclassic" description="Clean build of haloclassic.swc">
 		<ant dir="${basedir}/projects/haloclassic"/>
     </target>
-     
+
      <target name="flex4" description="Clean build of flex4.swc">
 		<ant dir="${basedir}/projects/flex4"/>
     </target>
@@ -42,7 +53,7 @@
 	<target name="flash_integration" description="Clean build of FlexComponentBase.swc">
 		<ant dir="${basedir}/projects/flash-integration"/>
 	</target>
-	
+
     <target name="rpc" description="Clean build of rpc.swc">
 		<ant dir="${basedir}/projects/rpc"/>
     </target>
@@ -54,7 +65,7 @@
 	<target name="javascript" description="Clean build of javascript examples">
 		<ant dir="${basedir}/javascript"/>
 	</target>
-	
+
 	<target name="clean" description="Cleans all SWCs and their resource bundles">
 		<!-- Delete AIR files from 'prepare' target -->
 		<delete file="${FLEX_HOME}/SDK license.pdf"/> <!-- from AIR Integration Kit -->
@@ -79,7 +90,7 @@
 		<ant dir="${basedir}/projects/haloclassic" target="clean"/>
 		<ant dir="${basedir}/projects/flash-integration" target="clean"/>
 		<ant dir="${basedir}/projects/rpc" target="clean"/>
-		<ant dir="${basedir}/projects/utilities" target="clean"/>	
+		<ant dir="${basedir}/projects/utilities" target="clean"/>
 		<delete dir="${basedir}/libs/generated"/>
 		<!-- Delete generated FABridge files -->
 		<ant dir="${basedir}/javascript" target="clean"/>
@@ -97,7 +108,7 @@ tar -xjf "AIR Integration Kit.tbz2" .
 		</echo>
 		<exec executable="sh" dir="${FLEX_HOME}">
 			<arg line="${FLEX_HOME}/air_unzip.sh"/>
-		</exec> 
+		</exec>
 		<delete file="${FLEX_HOME}/air_unzip.sh"/>
 		<delete file="${FLEX_HOME}/AIR Integration Kit.tbz2"/>
 		<!-- Expand the Win AIK on top of the SDK -->
@@ -107,7 +118,7 @@ tar -xjf "AIR Integration Kit.tbz2" .
 		<delete file="${FLEX_HOME}/frameworks/libs/air/airglobal.abc"/>
 		<delete file="${FLEX_HOME}/frameworks/libs/air/servicemonitor.swf"/>
 	</target>
-		
+
 	<target name="compile" description="Builds all SWCs but not their resource bundles">
 		<ant dir="${basedir}/projects/framework" target="compile"/>
 		<ant dir="${basedir}/projects/airframework" target="compile"/>
@@ -115,7 +126,7 @@ tar -xjf "AIR Integration Kit.tbz2" .
 		<ant dir="${basedir}/projects/utilities" target="compile"/>
 		<ant dir="${basedir}/projects/haloclassic" target="compile"/>
 		<ant dir="${basedir}/projects/flex4" target="compile"/>
-	
+
     </target>
 
 	<target name="other.locales" description ="Builds resource SWCs for other locales">
