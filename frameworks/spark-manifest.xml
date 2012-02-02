@@ -231,4 +231,9 @@
     <component id="MiniDebugTarget" class="mx.logging.targets.MiniDebugTarget" lookupOnly="true"/>
     <component id="TraceTarget" class="mx.logging.targets.TraceTarget" lookupOnly="true"/>
 
+	<!-- MXItemRenderer -->
+    <component id="MXItemRenderer" class="mx.controls.listClasses.MXItemRenderer"/>
+    <component id="MXTreeItemRenderer" class="mx.controls.treeClasses.MXTreeItemRenderer"/>
+    <component id="MXDataGridItemRenderer" class="mx.controls.dataGridClasses.MXDataGridItemRenderer"/>
+
 </componentPackage>
