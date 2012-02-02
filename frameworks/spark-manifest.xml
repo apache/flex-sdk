@@ -208,11 +208,8 @@
     <component id="VerticalAlign" class="spark.layout.VerticalAlign"/>
     <component id="VerticalLayout" class="spark.layout.VerticalLayout"/>
     <component id="VGroup" class="spark.components.VGroup"/>
-    <component id="VideoDisplay" class="spark.components.VideoDisplay"/>
-    <component id="VideoDisplayMuteButtonSkin" class="spark.skins.default.VideoDisplayMuteButtonSkin"/>
-    <component id="VideoDisplayPlayPauseButtonSkin" class="spark.skins.default.VideoDisplayPlayPauseButtonSkin"/>
-    <component id="VideoDisplaySkin" class="spark.skins.default.VideoDisplaySkin"/>
     <component id="VideoElement" class="spark.primitives.VideoElement"/>
+    <component id="VideoPlayer" class="spark.components.VideoPlayer"/>
     <component id="VScrollBar" class="spark.components.VScrollBar"/>
     <component id="VScrollBarSkin" class="spark.skins.default.VScrollBarSkin"/>
     <component id="VScrollBarThumbSkin" class="spark.skins.default.VScrollBarThumbSkin"/>
