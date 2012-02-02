@@ -94,6 +94,7 @@
     <component id="ListCollectionView" class="mx.collections.ListCollectionView"/>
     <component id="MaskEffect" class="mx.effects.MaskEffect"/>
     <component id="Matrix" class="flash.geom.Matrix" lookupOnly="true"/>
+    <component id="Matrix3D" class="flash.geom.Matrix3D" lookupOnly="true"/>
     <component id="MenuBar" class="mx.controls.MenuBar"/>
     <component id="MiniDebugTarget" class="mx.logging.targets.MiniDebugTarget"/>
     <component id="Module" class="mx.modules.Module"/>
