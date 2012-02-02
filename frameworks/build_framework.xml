@@ -29,7 +29,7 @@
 	<property name="sparkskin.dir" value="${projects.dir}/sparkskins"/>
 	<property name="utilities.dir" value="${projects.dir}/utilities"/>
 	<property name="wireframe.dir" value="${projects.dir}/wireframe"/>
-	
+	<property name="compc.jvm.args" value="-Xmx384m" />
 	<property name="playerglobal.version" value="10.0"/>	
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
@@ -37,7 +37,7 @@
 	<target name="main" depends="clean,framework,framework_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,datavisualization,datavisualization_rb,flex,wireframe,sparkskins,utilities"/>
 
 	<target name="airframework" description="Builds libs/airframework.swc">
-		<compc include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
 			<target-player>10</target-player>
 			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${airframework.dir}/manifest.xml"/>
 			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${airframework.dir}/manifest.xml"/>
@@ -82,11 +82,12 @@
 			<include-file name="win_restore_down.png" path="${airframework.dir}/assets/win_restore_down.png"/>
 			<include-file name="win_restore_over.png" path="${airframework.dir}/assets/win_restore_over.png"/>
 			<include-file name="win_restore_up.png" path="${airframework.dir}/assets/win_restore_up.png"/>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
 
 	<target name="airframework_rb" description="Builds locale/en_US/airframework_rb.swc">
-		<compc output="${basedir}/locale/${locale}/airframework_rb.swc" locale="${locale}">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/locale/${locale}/airframework_rb.swc" locale="${locale}">
             <target-player>10</target-player>
             <include-resource-bundles bundle="SharedResources"/>
             <include-resource-bundles bundle="aircontrols"/>
@@ -104,11 +105,12 @@
 			<source-path path-element="${framework.dir}/bundles/${locale}"/>
 			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<library-path/>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
 	
 	<target name="airspark" description="Builds libs/airspark.swc">
-		<compc include-classes="AIRSparkClasses" output="${basedir}/libs/air/airspark.swc" locale="" accessible="true">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="AIRSparkClasses" output="${basedir}/libs/air/airspark.swc" locale="" accessible="true">
 			<target-player>10</target-player>
 			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${airspark.dir}/manifest.xml"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
@@ -123,11 +125,12 @@
 			</external-library-path>
 			<include-file name="defaults.css" path="${airspark.dir}/defaults.css"/>
 			<keep-as3-metadata name="SkinPart"/>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
 			
 	<target name="airspark_rb" description="Builds locale/en_US/airspark_rb.swc">
-		<compc output="${basedir}/locale/${locale}/airspark_rb.swc" locale="${locale}">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/locale/${locale}/airspark_rb.swc" locale="${locale}">
             <include-resource-bundles bundle="SharedResources"/>
 			<include-resource-bundles bundle="collections"/>
 			<include-resource-bundles bundle="containers"/>
@@ -142,11 +145,12 @@
 			<source-path path-element="${framework.dir}/src"/>
 			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<library-path/>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
 	
 	<target name="datavisualization" description="Builds datavisualization.swc">
-		<compc include-classes="AdvancedDataGridClasses ChartsClasses" output="${basedir}/libs/datavisualization.swc" locale="" accessible="true">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="AdvancedDataGridClasses ChartsClasses" output="${basedir}/libs/datavisualization.swc" locale="" accessible="true">
             <namespace uri="http://www.adobe.com/2006/mxml" manifest="${datavis.dir}/manifest.xml"/>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
 			<source-path path-element="${datavis.dir}/src"/>
@@ -159,11 +163,12 @@
              </external-library-path>
 			<include-file name="defaults.css" path="${datavis.dir}/data_management.css"/>
 			<include-file name="defaults-3.0.0.css" path="${datavis.dir}/data_management-3.0.0.css"/>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
 	
 	<target name="datavisualization_rb" description="Builds locale/en_US/datavisualization_rb.swc">
-		<compc output="${basedir}/locale/${locale}/datavisualization_rb.swc" locale="${locale}">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/locale/${locale}/datavisualization_rb.swc" locale="${locale}">
             <target-player>10</target-player>
             <include-resource-bundles bundle="charts"/>
             <include-resource-bundles bundle="datamanagement"/>
@@ -172,11 +177,12 @@
 			<source-path path-element="${framework.dir}/src"/>
 			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<library-path/>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>	
 	
 	<target name="flex" description="Builds flex.swc">
-		<compc include-classes="FlexClasses" output="${basedir}/libs/flex.swc" locale="" accessible="true">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="FlexClasses" output="${basedir}/libs/flex.swc" locale="" accessible="true">
             <target-player>10</target-player>
 			<source-path path-element="${flex.dir}/src"/>
 			<source-path path-element="${framework.dir}/src"/>
@@ -191,11 +197,12 @@
 			<keep-as3-metadata name="ChangeEvent"/>
 			<keep-as3-metadata name="NonCommittingChangeEvent"/>
 			<keep-as3-metadata name="Transient"/>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
 		
 	<target name="framework" description="Builds libs/framework.swc">
-		<compc include-classes="FrameworkClasses" output="${basedir}/libs/framework.swc" locale="" accessible="true">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="FrameworkClasses" output="${basedir}/libs/framework.swc" locale="" accessible="true">
             <target-player>10</target-player>
 			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${framework.dir}/manifest.xml"/>
 		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${framework.dir}/manifest.xml"/>
@@ -216,11 +223,12 @@
 			<keep-as3-metadata name="ChangeEvent" />
 			<keep-as3-metadata name="NonCommittingChangeEvent" />
 			<keep-as3-metadata name="Transient" />			
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
 
 	<target name="framework_rb" description="Builds locale/en_US/framework_rb.swc">
-		<compc output="${basedir}/locale/${locale}/framework_rb.swc" locale="${locale}">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/locale/${locale}/framework_rb.swc" locale="${locale}">
             <target-player>10</target-player>
             <include-resource-bundles bundle="SharedResources"/>
             <include-resource-bundles bundle="collections"/>
@@ -240,12 +248,13 @@
 			<source-path path-element="${framework.dir}/src"/>
 			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<library-path/>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>	
 	
 	<target name="rpc" description="Builds libs/rpc.swc">
 		<echo file="${basedir}/version.properties" append="false">build=${build.number}</echo>
-		<compc include-classes="RPCClasses" output="${basedir}/libs/rpc.swc" locale="" accessible="true">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="RPCClasses" output="${basedir}/libs/rpc.swc" locale="" accessible="true">
             <target-player>10</target-player>
 			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${rpc.dir}/manifest.xml"/>
 			<include-file name="version.properties" path="${basedir}/version.properties"/>
@@ -258,12 +267,13 @@
                 <include name="osmf.swc"/>
 			</external-library-path>
 			<library-path/>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 		<delete file="${basedir}/version.properties"/>
 	</target>
 	
 	<target name="rpc_rb" description="Builds locale/en_US/rpc_rb.swc">
-		<compc output="${basedir}/locale/${locale}/rpc_rb.swc" locale="${locale}">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/locale/${locale}/rpc_rb.swc" locale="${locale}">
             <target-player>10</target-player>
             <include-resource-bundles bundle="collections"/>
 			<include-resource-bundles bundle="core"/>
@@ -277,11 +287,12 @@
 			<source-path path-element="${framework.dir}/src"/>
 			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
 			<library-path/>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
 	
 	<target name="spark" description="Builds the spark.swc">
-		<compc include-classes="SparkClasses" output="${basedir}/libs/spark.swc" locale="" accessible="true">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="SparkClasses" output="${basedir}/libs/spark.swc" locale="" accessible="true">
 		    <target-player>10</target-player>
 			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${spark.dir}/manifest.xml"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
@@ -295,12 +306,13 @@
 				<include name="osmf.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${spark.dir}/defaults.css"/>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
 	
 	<target name="spark_rb">
 		<echo message="Compiling frameworks/locale/${locale}/spark_rb.swc"/>
-		<compc output="${basedir}/locale/${locale}/spark_rb.swc" locale="${locale}">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/locale/${locale}/spark_rb.swc" locale="${locale}">
             <target-player>10</target-player>
  			<include-resource-bundles bundle="components"/>
 			<include-resource-bundles bundle="sparkEffects"/>
@@ -313,12 +325,13 @@
 			<include-libraries/>
 			<library-path/>
            <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
-		   </compc>
+		   	<jvmarg line="${compc.jvm.args}"/>
+		</compc>
 	</target>
 
 	
 	<target name="sparkskins" description="Builds the sparkskin.swc">
-		<compc fork="true" locale="" accessible="true" include-classes="SparkSkinsClasses"
+		<compc static-link-runtime-shared-libraries="true"  fork="true" locale="" accessible="true" include-classes="SparkSkinsClasses"
 			   output="${basedir}/libs/sparkskins.swc">
             <!-- If you change this, update ${local.playerglobal.version} above. -->
 			<source-path path-element="${sparkskin.dir}/src"/>
@@ -330,11 +343,12 @@
 				<include name="textLayout.swc"/>
                 <include name="osmf.swc"/>
 			</external-library-path>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
 	    
 	<target name="utilities" description="Builds utilities.swc">
-		<compc output="${basedir}/libs/utilities.swc" include-classes="UtilitiesClasses"
+		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/libs/utilities.swc" include-classes="UtilitiesClasses"
 		locale="" accessible="true">
 			<source-path path-element="${utilities.dir}/src"/>
 			<library-path dir="${utilities.dir}/libs">
@@ -346,14 +360,15 @@
 				<include name="flash-integration.swc"/>
 				<include name="textLayout.swc"/>
 			</external-library-path>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
 
 	<target name="wireframe" description="Builds the wireframe.swc">
-		<compc fork="true" output="${basedir}/themes/Wireframe/wireframe.swc">
+		<compc static-link-runtime-shared-libraries="true"  fork="true" output="${basedir}/themes/Wireframe/wireframe.swc">
             <!-- If you change this, update ${local.playerglobal.version} above. -->
             <target-player>10</target-player>
-			<jvmarg line="-Xmx384m"/>
+			
 			<include-classes>WireframeClasses</include-classes>
 			<source-path path-element="${wireframe.dir}/src"/>
 			<library-path/>
@@ -370,6 +385,7 @@
 			<include-file name="assets/Tree_folderOpenIcon.png" path="${wireframe.dir}/assets/Tree_folderOpenIcon.png"/>
 			<locale/>
 			<accessible>true</accessible>
+			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
 		
