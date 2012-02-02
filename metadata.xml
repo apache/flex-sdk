@@ -323,10 +323,10 @@
 		<attribute name="arrayType" type="Class" />
 		<attribute name="enumeration" type="String" />
 		<attribute name="format" values="Boolean, Color, Number, Length, uint, Time, File, EmbeddedFile, int, ICollectionView, Array, Class, String,Object" />
-		<attribute name="inherit" values="yes,no" required="true" />
+		<attribute name="inherit" values="yes,no" required="true" defaultValue="no" />
 		<attribute name="states" type="String" />
 		<attribute name="theme" type="String" /> 		 
-		<attribute name="type" type="Class" required="true" />
+		<attribute name="type" type="Class" required="true" values="Boolean, Number, uint, Class, String" />
 		
 	</metadata>
 
