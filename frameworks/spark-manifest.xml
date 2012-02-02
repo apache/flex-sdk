@@ -17,7 +17,7 @@
 -->
 <componentPackage>
 
- <!-- Flex4 Framework -->
+	<!-- Flex4 Framework -->
     <component id="AddAction" class="spark.effects.AddAction"/>
     <component id="Animate" class="spark.effects.Animate"/>
     <component id="AnimateColor" class="spark.effects.AnimateColor"/>
@@ -154,7 +154,7 @@
     <component id="State" class="mx.states.State" lookupOnly="true"/>
 	<component id="AddItems" class="mx.states.AddItems" lookupOnly="true"/>
 	
-	<!-- path segment -->
+	<!-- Path Segments -->
 	<component id="CloseSegment" class="spark.primitives.pathSegments.CloseSegment"/>
 	<component id="CubicBezierSegment" class="spark.primitives.pathSegments.CubicBezierSegment"/>
 	<component id="LineSegment" class="spark.primitives.pathSegments.LineSegment"/>
@@ -162,26 +162,27 @@
 	<component id="PathSegment" class="spark.primitives.pathSegments.PathSegment"/>
 	<component id="QuadraticBezierSegment" class="spark.primitives.pathSegments.QuadraticBezierSegment"/>
 	
-    <!-- framework base classes with CSS type selectors -->
+    <!-- Framework base classes with CSS type selectors -->
     <component id="TextGraphicElement" class="spark.primitives.supportClasses.TextGraphicElement"/>
 
 	<!-- airframework -->
     <component id="WindowedApplication" class="spark.components.WindowedApplication" lookupOnly="true"/>
 	<component id="TitleBar" class="spark.components.windowClasses.TitleBar" lookupOnly="true"/>   
 
-   <!-- TCAL Text Framework -->
-    <component id="br" class="flashx.textLayout.elements.BreakElement" lookupOnly="true"/>
-    <component id="CharacterFormat" class="flashx.textLayout.formats.CharacterFormat" lookupOnly="true"/>
-    <component id="ContainerFormat" class="flashx.textLayout.formats.ContainerFormat" lookupOnly="true"/>
-    <component id="div" class="flashx.textLayout.elements.DivElement" lookupOnly="true"/>
-    <component id="img" class="flashx.textLayout.elements.InlineGraphicElement" lookupOnly="true"/>
-    <component id="a" class="flashx.textLayout.elements.LinkElement" lookupOnly="true"/>
-    <component id="p" class="flashx.textLayout.elements.ParagraphElement" lookupOnly="true"/>
-    <component id="ParagraphFormat" class="flashx.textLayout.formats.ParagraphFormat" lookupOnly="true"/>
-    <component id="span" class="flashx.textLayout.elements.SpanElement" lookupOnly="true"/>
-    <component id="tab" class="flashx.textLayout.elements.TabElement" lookupOnly="true"/>
-    <component id="tcy" class="flashx.textLayout.elements.TCYElement" lookupOnly="true"/>
-    <component id="TextFlow" class="flashx.textLayout.elements.TextFlow" lookupOnly="true"/>
+	<!-- Text Layout Framework (TLF) -->
+	<component id="a" class="flashx.textLayout.elements.LinkElement" lookupOnly="true"/>
+	<component id="br" class="flashx.textLayout.elements.BreakElement" lookupOnly="true"/>
+	<component id="div" class="flashx.textLayout.elements.DivElement" lookupOnly="true"/>
+	<component id="format" class="flashx.textLayout.formats.TextLayoutFormat" lookupOnly="true"/>
+	<component id="img" class="flashx.textLayout.elements.InlineGraphicElement" lookupOnly="true"/>
+	<component id="linkNormalFormat" class="flashx.textLayout.elements.LinkNormalFormat" lookupOnly="true"/>
+	<component id="linkActiveFormat" class="flashx.textLayout.elements.LinkActiveFormat" lookupOnly="true"/>
+	<component id="linkHoverFormat" class="flashx.textLayout.elements.LinkHoverFormat" lookupOnly="true"/>
+	<component id="p" class="flashx.textLayout.elements.ParagraphElement" lookupOnly="true"/>
+	<component id="span" class="flashx.textLayout.elements.SpanElement" lookupOnly="true"/>
+	<component id="tab" class="flashx.textLayout.elements.TabElement" lookupOnly="true"/>
+	<component id="tcy" class="flashx.textLayout.elements.TCYElement" lookupOnly="true"/>
+	<component id="TextFlow" class="flashx.textLayout.elements.TextFlow" lookupOnly="true"/>
 
     <!-- rpc -->
     <component id="AMFChannel" class="mx.messaging.channels.AMFChannel" lookupOnly="true"/>
@@ -204,7 +205,7 @@
     <component id="WebService" class="mx.rpc.soap.mxml.WebService" lookupOnly="true"/>
     <component id="WebServiceOperation" class="mx.rpc.soap.mxml.Operation" lookupOnly="true"/>
 
-    <!-- fds (now known as LCDS) -->
+    <!-- LCDS (formerly known as FDS) -->
     <component id="DataService" class="mx.data.mxml.DataService" lookupOnly="true"/>
 	
 	<!-- Flex 3 Graphics -->
