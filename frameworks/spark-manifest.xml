@@ -63,6 +63,7 @@
     <component id="DataRenderer" class="spark.components.DataRenderer"/>
 	<component id="DateTimeFormatter" class="spark.formatters.DateTimeFormatter"/>
 	<component id="DefaultColumnHeaderRenderer" class="spark.components.supportClasses.DefaultColumnHeaderRenderer"/>
+    <component id="DefaultGridItemRenderer" class="spark.skins.spark.DefaultGridItemRenderer"/>
     <component id="DisplacementMapFilter" class="spark.filters.DisplacementMapFilter"/>
     <component id="DropDownList" class="spark.components.DropDownList"/>
     <component id="DropLocation" class="spark.layouts.supportClasses.DropLocation"/>
