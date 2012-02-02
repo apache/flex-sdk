@@ -76,8 +76,12 @@
       <!-- Specify a URI to associate with a manifest of components for use as MXML -->
       <!-- elements.                                                                -->
          <namespace>
-            <uri>http://ns.adobe.com/mxml/2009</uri>
-            <manifest>mxml-2009-manifest.xml</manifest>
+            <uri>library://ns.adobe.com/flex/spark</uri>
+            <manifest>spark-manifest.xml</manifest>
+         </namespace>
+         <namespace>
+            <uri>library://ns.adobe.com/flex/halo</uri>
+            <manifest>halo-manifest.xml</manifest>
          </namespace>
          <namespace>
             <uri>http://www.adobe.com/2006/mxml</uri>
