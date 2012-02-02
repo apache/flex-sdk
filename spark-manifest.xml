@@ -165,6 +165,9 @@
     <component id="WindowedApplication" class="spark.components.WindowedApplication" lookupOnly="true"/>
 	<component id="TitleBar" class="spark.components.windowClasses.TitleBar" lookupOnly="true"/>   
 
+	<!-- TLFText for Halo -->
+    <component id="TLFTextInput" class="mx.controls.TLFTextInput"/>
+
 	<!-- Text Layout Framework (TLF) -->
 	<component id="a" class="flashx.textLayout.elements.LinkElement" lookupOnly="true"/>
 	<component id="br" class="flashx.textLayout.elements.BreakElement" lookupOnly="true"/>
