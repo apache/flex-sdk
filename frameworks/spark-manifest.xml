@@ -167,7 +167,7 @@
     <component id="StrokedElement" class="spark.primitives.supportClasses.StrokedElement"/>
     <component id="TabBar" class="spark.components.TabBar"/>
     <component id="TextArea" class="spark.components.TextArea"/>
-    <component id="TextGridItemEditor" class="spark.components.gridClasses.TextGridItemEditor" />
+    <component id="DefaultGridItemEditor" class="spark.components.gridClasses.DefaultGridItemEditor" />
     <component id="TextBase" class="spark.components.supportClasses.TextBase"/>
     <component id="TextInput" class="spark.components.TextInput"/>
     <component id="TextSelectionHighlighting" class="spark.components.TextSelectionHighlighting"/>
