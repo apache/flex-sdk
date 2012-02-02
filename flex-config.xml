@@ -337,7 +337,7 @@
       <!-- Framework SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/framework.swc</path-element>
-		<rsl-url>framework_4.5.0.0.swf</rsl-url>
+		<rsl-url>framework_4.5.1.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
    
@@ -351,35 +351,35 @@
       <!-- Spark SWC-->
    	<runtime-shared-library-path>
 		<path-element>libs/spark.swc</path-element>
-		<rsl-url>spark_4.5.0.0.swf</rsl-url>
+		<rsl-url>spark_4.5.1.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
 	
       <!-- Sparkskins SWC-->
    	<runtime-shared-library-path>
 		<path-element>libs/sparkskins.swc</path-element>
-		<rsl-url>sparkskins_4.5.0.0.swf</rsl-url>
+		<rsl-url>sparkskins_4.5.1.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
 	 
 	<!-- RPC SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/rpc.swc</path-element>
-		<rsl-url>rpc_4.5.0.0.swf</rsl-url>
+		<rsl-url>rpc_4.5.1.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
     	
       <!-- Charts SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/charts.swc</path-element>
-		<rsl-url>charts_4.5.0.0.swf</rsl-url>
+		<rsl-url>charts_4.5.1.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
 
       <!-- Spark_dmv SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/spark_dmv.swc</path-element>
-		<rsl-url>spark_dmv_4.5.0.0.swf</rsl-url>
+		<rsl-url>spark_dmv_4.5.1.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
 
@@ -393,14 +393,14 @@
       <!-- MX SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/mx/mx.swc</path-element>
-		<rsl-url>mx_4.5.0.0.swf</rsl-url>
+		<rsl-url>mx_4.5.1.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
    
       <!-- Advancedgrids SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/advancedgrids.swc</path-element>
-		<rsl-url>advancedgrids_4.5.0.0.swf</rsl-url>
+		<rsl-url>advancedgrids_4.5.1.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
 
