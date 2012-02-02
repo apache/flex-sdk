@@ -34,7 +34,7 @@
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<target name="main" depends="framework,framework_rb,spark,textLayout,airframework,airframework_rb,rpc,rpc_rb,flex,halo,wireframe,sparkskins,utilities"/>
+	<target name="main" depends="framework,framework_rb,spark,spark_rb,textLayout,airframework,airframework_rb,rpc,rpc_rb,flex,halo,wireframe,sparkskins,utilities"/>
 
 	<target name="airframework" description="Builds libs/airframework.swc">
 		<compc include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
@@ -133,6 +133,7 @@
 			<include-file name="defaults.css" path="${framework.dir}/defaults.css"/>
 			<include-file name="defaults-3.0.0.css" path="${framework.dir}/defaults-3.0.0.css"/>
 			<include-file name="Assets.swf" path="${framework.dir}/assets/Assets.swf"/>
+			<include-file name="assets/CalendarIcon.png" path="${framework.dir}/assets/CalendarIcon.png"/>
 			<keep-as3-metadata name="Bindable" />
 			<keep-as3-metadata name="Managed" />
 			<keep-as3-metadata name="ChangeEvent" />
@@ -236,7 +237,24 @@
 			<include-file name="defaults.css" path="${spark.dir}/defaults.css"/>
 		</compc>
 	</target>
-			
+	
+	<target name="spark_rb">
+		<echo message="Compiling frameworks/locale/${locale}/spark_rb.swc"/>
+		<compc output="${basedir}/frameworks/locale/${locale}/spark_rb.swc" locale="${locale}">
+            <target-player>10</target-player>
+ 			<include-resource-bundles bundle="components"/>
+			<include-resource-bundles bundle="sparkEffects"/>
+			<include-resource-bundles bundle="layout"/>
+			<source-path path-element="${spark.dir}/bundles/${locale}"/>
+			<source-path path-element="${spark.dir}/src"/>
+			<source-path path-element="${framework.dir}//src"/>
+			<include-libraries/>
+			<library-path/>
+           <external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+		   </compc>
+	</target>
+
+	
 	<target name="sparkskins" description="Builds the sparkskin.swc">
 		<compc fork="true"
 			   output="${basedir}/libs/sparkskins.swc">
@@ -251,7 +269,6 @@
 				<include name="spark.swc"/>
 				<include name="textLayout.swc"/>
 			</external-library-path>
-			<include-file name="assets/CalendarIcon.png" path="${sparkskin.dir}/assets/CalendarIcon.png"/>
 			<locale/>
 			<accessible>true</accessible>
 		</compc>
@@ -331,8 +348,8 @@
 				<include name="framework_rb.swc"/>
 				<include name="airframework_rb.swc"/>
 				<include name="rpc_rb.swc"/>
+				<include name="spark_rb.swc"/>
 			</fileset>
-			<fileset dir="${basedir}/themes/HaloClassic" includes="haloclassic.swc"/>
 			<fileset dir="${basedir}/themes/Halo" includes="halo.swc"/>
 			<fileset dir="${basedir}/themes/Wireframe" includes="wireframe.swc"/>
 		</delete>
