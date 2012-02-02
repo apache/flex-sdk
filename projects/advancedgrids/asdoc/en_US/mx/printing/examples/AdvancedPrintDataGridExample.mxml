@@ -18,18 +18,16 @@
                 // Initialize the PrintAdvancedDataGrid control.
                 var printADG:PrintAdvancedDataGrid = 
                     new PrintAdvancedDataGrid();
-                // Exclude the PrintAdvancedDataGrid control from layout.
-                printADG.includeInLayout = false;
                 printADG.source = adg;
 
                 // Add the print-specific control to the application.                
-                addChild(printADG);
+                addElement(printADG);
                 
                 // Start the print job.
                 if (printJob.start() == false) {                
                     // User cancelled print job.
                     // Remove the print-specific control to free memory.                
-                    removeChild(printADG);
+                    removeElement(printADG);
                     return;
                 }
 
@@ -40,7 +38,7 @@
                 printJob.send();
 
                 // Remove the print-specific control to free memory.                
-                removeChild(printADG);
+                removeElement(printADG);
             }
             
             [Bindable]
