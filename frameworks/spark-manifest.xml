@@ -109,6 +109,7 @@
     <component id="ItemRenderer" class="spark.components.supportClasses.ItemRenderer"/>
     <component id="IItemRendererOwner" class="spark.components.IItemRendererOwner"/>
     <component id="IViewport" class="spark.core.IViewport"/>
+    <component id="KeyFrame" class="spark.effects.KeyFrame"/>
     <component id="LabelUtil" class="spark.utils.LabelUtil"/>
     <component id="LayoutBase" class="spark.layout.supportClasses.LayoutBase"/>
     <component id="LayoutElementFactory" class="spark.layout.supportClasses.LayoutElementFactory"/>
@@ -120,6 +121,7 @@
     <component id="ListBase" class="spark.components.supportClasses.ListBase"/>
     <component id="ListSkin" class="spark.skins.default.ListSkin"/>
     <component id="MaskType" class="spark.core.MaskType"/>
+    <component id="MotionPath" class="spark.effects.MotionPath"/>
     <component id="MouseShieldUtil" class="spark.utils.MouseShieldUtil"/>
     <component id="Move" class="spark.effects.Move"/>
     <component id="MoveInstance" class="spark.effects.supportClasses.MoveInstance"/>
