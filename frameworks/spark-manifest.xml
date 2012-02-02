@@ -42,6 +42,8 @@
     <component id="ButtonBarHorizontalLayout" class="spark.components.supportClasses.ButtonBarHorizontalLayout"/>
     <component id="ButtonBase" class="spark.components.supportClasses.ButtonBase"/>
     <component id="CallAction" class="spark.effects.CallAction"/>
+    <component id="CellPosition" class="spark.components.supportClasses.CellPosition"/>
+    <component id="CellRegion" class="spark.components.supportClasses.CellRegion"/>
     <component id="CheckBox" class="spark.components.CheckBox"/>
     <component id="ColorMatrixFilter" class="spark.filters.ColorMatrixFilter"/>
     <component id="ColorTransform" class="flash.geom.ColorTransform" lookupOnly="true"/>
