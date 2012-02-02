@@ -330,14 +330,14 @@
 	<!-- TextLayout SWC -->
     <runtime-shared-library-path>
 		<path-element>libs/textLayout.swc</path-element>
-		<rsl-url>textLayout_1.0.0.587.swf</rsl-url>
+		<rsl-url>textLayout_1.0.0.590.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
     
     <!-- OSMF SWC -->
     <runtime-shared-library-path>
 		<path-element>libs/osmf.swc</path-element>
-		<rsl-url>osmf_flex.4.0.0.13104.swf</rsl-url>
+		<rsl-url>osmf_flex.4.0.0.13495.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
       
@@ -368,14 +368,7 @@
 		<rsl-url>rpc_4.0.0.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
-    
-	 <!-- Datavisualization SWC-->
-   	<runtime-shared-library-path>
-		<path-element>libs/datavisualization.swc</path-element>
-		<rsl-url>datavisualization_4.0.0.0.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-	
+    	
 	<!-- static-link-runtime-shared-libraries: statically link the libraries specified by the -runtime-shared-libraries-path option.-->
 	<static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
 
