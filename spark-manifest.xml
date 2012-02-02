@@ -78,6 +78,7 @@
     <component id="Linear" class="spark.effects.easing.Linear"/>
 	<component id="List" class="spark.components.List"/>
     <component id="ListBase" class="spark.components.supportClasses.ListBase"/>
+    <component id="ListItemDragProxy" class="spark.components.supportClasses.ListItemDragProxy"/>
     <component id="MaskType" class="spark.core.MaskType"/>
     <component id="Matrix" class="flash.geom.Matrix" lookupOnly="true"/>
     <component id="Matrix3D" class="flash.geom.Matrix3D" lookupOnly="true"/>
