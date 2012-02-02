@@ -114,7 +114,7 @@
     <component id="RowAlign" class="spark.layouts.RowAlign"/>
     <component id="Scale" class="spark.effects.Scale"/>
     <component id="Scale3D" class="spark.effects.Scale3D"/>
-    <component id="ScrollBar" class="spark.components.supportClasses.ScrollBar"/>
+    <component id="ScrollBarBase" class="spark.components.supportClasses.ScrollBarBase"/>
     <component id="Scroller" class="spark.components.Scroller"/>
     <component id="ScrollerLayout" class="spark.components.supportClasses.ScrollerLayout"/>
     <component id="ScrubBar" class="spark.components.mediaClasses.ScrubBar"/>
@@ -128,7 +128,7 @@
     <component id="SkinnableContainerBase" class="spark.components.supportClasses.SkinnableContainerBase"/>
     <component id="SkinnableDataContainer" class="spark.components.SkinnableDataContainer"/>
     <component id="SkinnableTextBase" class="spark.components.supportClasses.SkinnableTextBase"/>
-    <component id="Slider" class="spark.components.supportClasses.Slider"/>
+    <component id="SliderBase" class="spark.components.supportClasses.SliderBase"/>
     <component id="SparkSkin" class="spark.skins.SparkSkin"/>
     <component id="Spinner" class="spark.components.Spinner"/>
     <component id="SpriteVisualElement" class="spark.core.SpriteVisualElement"/>
