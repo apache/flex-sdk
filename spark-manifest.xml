@@ -159,6 +159,7 @@
     <component id="SkinnableContainer" class="spark.components.SkinnableContainer"/>
     <component id="SkinnableContainerBase" class="spark.components.supportClasses.SkinnableContainerBase"/>
     <component id="SkinnableDataContainer" class="spark.components.SkinnableDataContainer"/>
+    <component id="SkinnablePopUpContainer" class="spark.components.SkinnablePopUpContainer"/>
     <component id="SkinnableTextBase" class="spark.components.supportClasses.SkinnableTextBase"/>
     <component id="SliderBase" class="spark.components.supportClasses.SliderBase"/>
     <component id="Sort" class="mx.collections.Sort" lookupOnly="true"/>
