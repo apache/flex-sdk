@@ -77,13 +77,16 @@
 		<ant dir="${basedir}/projects/rpc" target="clean"/>
 		<ant dir="${basedir}/projects/utilities" target="clean"/>	
 		<delete dir="${basedir}/libs/generated"/>
+		<!-- Delete generated FABridge html files -->
+		<delete file="${basedir}/javascript/FABridge/samples/srcview/SourceTree.html"/>
+		<delete file="${basedir}/javascript/FABridge/samples/srcview/swfobject.js"/>
 		<!-- Delete empty folders -->
 		<delete dir="${basedir}/libs/air"/>
 		<delete dir="${basedir}/locale"/>
 		<delete dir="${basedir}/themes/haloclassic"/>
 	</target>
 
-	<target name="prepare" description="Prepares for building framework SWCs">
+	<target name="prepare" description="Prepares for building framework SWCs" depends="prepare-fabridge">
 		<!-- Expand the Mac AIK on top of the SDK -->
         <copy file="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" todir="${FLEX_HOME}"/>
 		<echo file="${FLEX_HOME}/air_unzip.sh">#!/bin/sh
@@ -101,7 +104,47 @@ tar -xjf "AIR Integration Kit.tbz2" .
 		<delete file="${FLEX_HOME}/frameworks/libs/air/airglobal.abc"/>
 		<delete file="${FLEX_HOME}/frameworks/libs/air/servicemonitor.swf"/>
 	</target>
-
+	
+	<target name="prepare-fabridge" description="Generates wrapper for FABridge">
+        <copy file="${basedir}/../templates/swfobject/swfobject.js" todir="${basedir}/javascript/FABridge/samples/srcview" />
+        <copy file="${basedir}/../templates/swfobject/index.template.html" tofile="${basedir}/javascript/FABridge/samples/srcview/SourceTree.html" />
+		<replace file="${basedir}/javascript/FABridge/samples/srcview/SourceTree.html">
+			<replacefilter
+				token="$${expressInstallSwf}"
+				value="playerProductInstall.swf"/>
+			<replacefilter
+				token="$${useBrowserHistory}"
+				value=""/>
+			<replacefilter
+				token="$${version_major}"
+				value="${global.playerglobal.version}"/>
+			<replacefilter
+				token="$${version_minor}"
+				value="0"/>
+			<replacefilter
+				token="$${version_revision}"
+				value="0"/>
+			<replacefilter
+				token="$${title}"
+				value="SourceTree Application"/>
+			<replacefilter
+				token="$${bgcolor}"
+				value="#ffffff"/>
+			<replacefilter
+				token="$${width}"
+				value="100%"/>
+			<replacefilter
+				token="$${height}"
+				value="100%"/>
+			<replacefilter
+				token="$${swf}"
+				value="SourceTree"/>
+			<replacefilter
+				token="$${application}"
+				value="SourceTree"/>
+		</replace>
+	</target>
+	
 	<target name="compile" description="Builds all SWCs but not their resource bundles">
 		<ant dir="${basedir}/projects/framework" target="compile"/>
 		<ant dir="${basedir}/projects/airframework" target="compile"/>
