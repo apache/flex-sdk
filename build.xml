@@ -28,17 +28,25 @@
 	<property name="FLEX_HOME" location=".."/>
     <property name="playerglobal.version" value="11.1"/>
 
-        <!-- Required for OSX 10.6 / Snow Leopard Performance -->
-        <condition property="local.d32" value="-d32" >
-                <and>
-                <equals arg1="${sun.arch.data.model}" arg2="64"/>
-                <equals arg1="${os.arch}" arg2="x86_64"/>
-                <os family="mac"/>
-                </and>
-        </condition>
+    <!-- Required for OSX 10.6 / Snow Leopard Performance -->
+    <condition property="local.d32" value="-d32" >
+            <and>
+            <equals arg1="${sun.arch.data.model}" arg2="64"/>
+            <equals arg1="${os.arch}" arg2="x86_64"/>
+            <os family="mac"/>
+            </and>
+    </condition>
+    
+    <!-- Property for the platform.  -->
+    <condition property="isMac" value="true">
+        <os family="mac"/>
+    </condition>
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>    
 
 	<property file="${FLEX_HOME}/build.properties"/>
-
+		
 	<target name="main" depends="clean,prepare,thirdparty-downloads,javascript,compile" description="Clean build of all SWCs"/>
 
 	<!-- Note:
@@ -116,7 +124,7 @@
 		<ant dir="${basedir}/projects/automation" target="doc" />
 	</target>
    
-	<target name="clean" depends="thirdparty-clean" description="Cleans all SWCs and their resource bundles">
+	<target name="clean" description="Cleans all SWCs and their resource bundles">
 		
 		<!-- Delete AIR files and directories from 'prepare' target -->
 		<delete file="${FLEX_HOME}/AIR SDK Readme.txt"/>
@@ -169,26 +177,28 @@
 	</target>
 	
     <target name="thirdparty-clean" description="Cleans thirdparty downloaded files.">
-        <delete failonerror="false" verbose="false">
-            <fileset dir="${basedir}/projects/textLayout">
-                <include name="**/**"/>
-                <exclude name="build.xml"/>
-                <exclude name="**/.settings/**"/>
-                <exclude name="**/.actionScriptProperties"/>
-                <exclude name="**/.flexLibProperties"/>
-                <exclude name="**/.project"/>
-            </fileset>
-        </delete>
         <delete failonerror="false" verbose="true">
             <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
             <fileset dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
         </delete>
+        <delete dir="${FLEX_HOME}/in/air" excludes="*.xml"/>
         <delete dir="${FLEX_HOME}/in/downloads"/>
-    </target>
+    	<!-- textLayout source -->
+        <delete failonerror="false" verbose="false">
+             <fileset dir="${basedir}/projects/textLayout">
+                 <include name="**/**"/>
+                 <exclude name="build.xml"/>
+                 <exclude name="**/.settings/**"/>
+                 <exclude name="**/.actionScriptProperties"/>
+                 <exclude name="**/.flexLibProperties"/>
+                 <exclude name="**/.project"/>
+             </fileset>
+         </delete>
+     </target>
 
-	<target name="prepare" description="Prepares for building framework SWCs">
+	<target name="prepare" depends="airsdk-download" description="Prepares for building framework SWCs">
 		<!-- Expand the Mac AIK on top of the SDK -->
-        <copy file="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" todir="${FLEX_HOME}"/>
+        <copy file="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" todir="${FLEX_HOME}" verbose="true"/>
 		<echo file="${FLEX_HOME}/air_unzip.sh">#!/bin/sh
 tar -xjf "AIR Integration Kit.tbz2" 
 		</echo>
@@ -210,23 +220,48 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<delete dir="${FLEX_HOME}/frameworks/libs/air/flex3" quiet="true" />
 	</target>
 
-    <target name="thirdparty-downloads" depends="playerglobal-download, osmf-download, textLayout-download" description="Copies third-party software into place for build" />
+    <target name="thirdparty-downloads" 
+    	depends="airsdk-download,playerglobal-download, osmf-download, textLayout-download" 
+    	description="Copies third-party software into place for build" />
     
-    <target name="playerglobal-check">
+    <target name="airsdk-check" description="Checks if the Air SDK has been downloaded.">
+        <available file="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" property="airsdk.mac.present"/>
+        <available file="${FLEX_HOME}/in/air/win/AIR Integration Kit.zip" property="airsdk.win.present"/>
+    </target>
+
+	<target name="playerglobal-check" description="Checks if the Adobe Air SDK has been downloaded.">
         <available file="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" property="playerglobal.swc.present"/>
     </target>
     
-    <target name="osmf-check">
+    <target name="osmf-check" description="Checks if the Open Source Media Framework has been downloaded.">
         <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
     </target>
     
-    <target name="textLayout-check">
+    <target name="textLayout-check" description="Checks if the Text Layout Framework has been downloaded.">
         <available file="${basedir}/libs/textLayout.swc" property="textLayout.swc.present"/>
     </target>
 
-	<!-- http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2 
-	     http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2
-	-->
+    <target name="airsdk-download" depends="airsdk-mac-download,airsdk-win-download" />
+
+    <!-- Adobe AIR SDK  -->
+    <!-- Because this requires a network connection it is copied only if it doesn't already exist. -->
+	<!-- ToDo: prepare uses both the mac and win kits.  Need to figure out why. -->
+	
+    <target name="airsdk-mac-download" depends="airsdk-check" unless="airsdk.mac.present" description="Copies Adobe AIR SDK for the Mac from the Adobe website">
+        <echo message="Be patient.  This takes a few minutes..." />
+        <mkdir dir="${FLEX_HOME}/in/air/mac"/>
+        <get src="http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2" 
+            dest="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" 
+            verbose="false"/>
+    </target>
+	
+    <target name="airsdk-win-download" depends="airsdk-check" unless="airsdk.win.present" description="Copies Adobe AIR SDK for Windows from the Adobe website">
+        <echo message="Be patient.  This takes a few minutes..." />
+        <mkdir dir="${FLEX_HOME}/in/air/win"/>
+        <get src="http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip" 
+            dest="${FLEX_HOME}/in/air/win/AIR Integration Kit.zip" 
+            verbose="false"/>
+    </target>
 	
     <!-- playerglobal.swc -->
     <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->
