@@ -58,7 +58,6 @@
     <component id="DataGroup" class="spark.components.DataGroup"/>
     <component id="DataRenderer" class="spark.components.DataRenderer"/>
     <component id="DefaultColumnHeaderRenderer" class="spark.components.supportClasses.DefaultColumnHeaderRenderer"/>
-<component id="DefaultTreeItemRenderer" class="spark.components.supportClasses.DefaultTreeItemRenderer"/>
     <component id="DisplacementMapFilter" class="spark.filters.DisplacementMapFilter"/>
     <component id="DropDownList" class="spark.components.DropDownList"/>
     <component id="DropLocation" class="spark.layouts.supportClasses.DropLocation"/>
@@ -99,7 +98,6 @@
     <component id="Linear" class="spark.effects.easing.Linear"/>
 	<component id="List" class="spark.components.List"/>
     <component id="ListBase" class="spark.components.supportClasses.ListBase"/>
-    <component id="ListTreeView" class="spark.components.supportClasses.ListTreeView"/>
     <component id="MaskType" class="spark.core.MaskType"/>
     <component id="Matrix" class="flash.geom.Matrix" lookupOnly="true"/>
     <component id="Matrix3D" class="flash.geom.Matrix3D" lookupOnly="true"/>
@@ -111,7 +109,6 @@
     <component id="NavigatorContent" class="spark.components.NavigatorContent"/>
     <component id="NumberInterpolator" class="spark.effects.interpolation.NumberInterpolator"/>
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
-    <component id="ObjectTreeAdapter" class="spark.components.supportClasses.ObjectTreeAdapter"/>
     <component id="Panel" class="spark.components.Panel"/>
     <component id="Path" class="spark.primitives.Path"/>
 	<component id="PopUpAnchor" class="spark.components.PopUpAnchor"/>
@@ -170,8 +167,6 @@
     <component id="TrackBase" class="spark.components.supportClasses.TrackBase"/>
     <component id="Transform" class="mx.geom.Transform"/>
     <component id="TransformOffsets" class="mx.geom.TransformOffsets" lookupOnly="true"/>
-    <component id="Tree" class="spark.components.Tree"/>
-    <component id="TreeItemRenderer" class="spark.components.supportClasses.TreeItemRenderer"/>
     <component id="VerticalAlign" class="spark.layouts.VerticalAlign"/>
     <component id="VerticalLayout" class="spark.layouts.VerticalLayout"/>
     <component id="VGroup" class="spark.components.VGroup"/>
