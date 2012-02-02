@@ -266,6 +266,7 @@
     <component id="AdvancedDataGridItemRenderer" class="mx.controls.advancedDataGridClasses.AdvancedDataGridItemRenderer" lookupOnly="true"/>
     <component id="AdvancedDataGridRendererProvider" class="mx.controls.advancedDataGridClasses.AdvancedDataGridRendererProvider" lookupOnly="true"/>
     <component id="AdvancedDataGridSortItemRenderer" class="mx.controls.advancedDataGridClasses.AdvancedDataGridSortItemRenderer" lookupOnly="true"/>
+    <component id="AdvancedListBase" class="mx.controls.listClasses.AdvancedListBase" lookupOnly="true"/>
     <component id="SortInfo" class="mx.controls.advancedDataGridClasses.SortInfo" lookupOnly="true"/>
     <component id="PrintAdvancedDataGrid" class="mx.printing.PrintAdvancedDataGrid" lookupOnly="true"/>
     <component id="PrintOLAPDataGrid" class="mx.printing.PrintOLAPDataGrid" lookupOnly="true"/>
