@@ -79,7 +79,7 @@
 			<external-library-path dir="${basedir}/libs">
 				<include name="air/airglobal.swc"/>
 				<include name="framework.swc"/>
-				<include name="mx.swc"/>
+				<include name="mx/mx.swc"/>
                 <include name="textLayout.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${airframework.dir}/defaults.css"/>
@@ -150,7 +150,7 @@
 				<include name="air/airglobal.swc"/>
 				<include name="air/airframework.swc"/>
 				<include name="framework.swc"/>
-				<include name="mx.swc"/>
+				<include name="mx/mx.swc"/>
                 <include name="textLayout.swc"/>
 				<include name="spark.swc"/>
 			</external-library-path>
@@ -226,7 +226,7 @@
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
-				<include name="mx.swc"/>
+				<include name="mx/mx.swc"/>
 				<include name="rpc.swc"/>
 				<include name="textLayout.swc"/>
              </external-library-path>
@@ -318,8 +318,8 @@
 		</compc>
 	</target>	
 	
-   <target name="mx" description="Builds the mx.swc">
-        <compc static-link-runtime-shared-libraries="true" fork="true" include-classes="MxClasses" output="${basedir}/libs/mx.swc" locale="" accessible="true">
+   <target name="mx" description="Builds the mx/mx.swc">
+        <compc static-link-runtime-shared-libraries="true" fork="true" include-classes="MxClasses" output="${basedir}/libs/mx/mx.swc" locale="" accessible="true">
             <namespace uri="library://ns.adobe.com/flex/mx" manifest="${mx.dir}/manifest.xml"/>
             <namespace uri="http://www.adobe.com/2006/mxml" manifest="${mx.dir}/manifest.xml"/>
             <include-namespaces uri="library://ns.adobe.com/flex/mx"/>
@@ -402,7 +402,7 @@
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
-				<include name="mx.swc"/>
+				<include name="mx/mx.swc"/>
                 <include name="textLayout.swc"/>
 				<include name="osmf.swc"/>
 			</external-library-path>
@@ -422,7 +422,7 @@
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
-				<include name="mx.swc"/>
+				<include name="mx/mx.swc"/>
 				<include name="spark.swc"/>
 				<include name="advancedgrids.swc"/>
                 <include name="textLayout.swc"/>
@@ -498,7 +498,7 @@
             <external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
                 <include name="framework.swc"/>
-                <include name="mx.swc"/>
+                <include name="mx/mx.swc"/>
                 <include name="flash-integration.swc"/>
                 <include name="textLayout.swc"/>
             </external-library-path>
@@ -619,7 +619,6 @@
 				<include name="charts.swc"/>
 				<include name="advancedgrids.swc"/>
                 <include name="framework.swc"/>
-                <include name="mx.swc"/>
 				<include name="core.swc"/>
 				<include name="rpc.swc"/>
 				<include name="sparkskins.swc"/>
@@ -639,6 +638,7 @@
 			</fileset>
 			<fileset dir="${basedir}/themes/Wireframe" includes="wireframe.swc"/>
 		</delete>
+        <delete dir="${basedir}/libs/mx"/>
 	</target>
 
     <target name="thirdparty-clean" description="Cleans thirdparty downloaded files.">
