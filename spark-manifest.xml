@@ -50,6 +50,7 @@
     <component id="CallAction" class="spark.effects.CallAction"/>
     <component id="CheckBox" class="spark.components.CheckBox"/>
     <component id="ColorMatrixFilter" class="spark.filters.ColorMatrixFilter"/>
+    <component id="ColumnAlign" class="spark.layout.ColumnAlign"/>
     <component id="ConvolutionFilter" class="spark.filters.ConvolutionFilter"/>
     <component id="CrossFade" class="spark.effects.CrossFade"/>
     <component id="DataGroup" class="spark.components.DataGroup"/>
@@ -102,6 +103,7 @@
     <component id="RichText" class="spark.primitives.RichText"/>
     <component id="Rotate" class="spark.effects.Rotate"/>
     <component id="Rotate3D" class="spark.effects.Rotate3D"/>
+    <component id="RowAlign" class="spark.layout.RowAlign"/>
     <component id="ScrollBar" class="spark.components.supportClasses.ScrollBar"/>
     <component id="Scroller" class="spark.components.Scroller"/>
     <component id="ScrollerLayout" class="spark.components.supportClasses.ScrollerLayout"/>
@@ -126,8 +128,6 @@
     <component id="TextInput" class="spark.components.TextInput"/>
     <component id="TextSelectionVisibility" class="spark.components.TextSelectionVisibility"/>
     <component id="TextUtil" class="spark.utils.TextUtil"/>
-    <component id="TileJustifyColumns" class="spark.layout.TileJustifyColumns"/>
-    <component id="TileJustifyRows" class="spark.layout.TileJustifyRows"/>
     <component id="TileLayout" class="spark.layout.TileLayout"/>
     <component id="TileOrientation" class="spark.layout.TileOrientation"/>
     <component id="Timeline" class="spark.effects.animation.Timeline"/>
