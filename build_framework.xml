@@ -19,6 +19,8 @@
 	<property name="locale" value="en_US"/>
 	<property name="projects.dir" value="${FLEX_HOME}/frameworks/projects"/>
 	<property name="airframework.dir" value="${projects.dir}/airframework"/>
+	<property name="airspark.dir" value="${projects.dir}/airspark"/>
+	<property name="datavis.dir" value="${projects.dir}/datavisualization"/>
 	<property name="flex.dir" value="${projects.dir}/flex"/>
 	<property name="framework.dir" value="${projects.dir}/framework"/>
 	<property name="halo.dir" value="${projects.dir}/halo"/>
@@ -34,13 +36,13 @@
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<target name="main" depends="framework,framework_rb,spark,spark_rb,osmf,airframework,airframework_rb,rpc,rpc_rb,flex,halo,wireframe,sparkskins,utilities"/>
+	<target name="main" depends="clean,osmf,framework,framework_rb,osmf_rb,spark,spark_rb,osmf,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,datavisualization,datavisualization_rb,flex,wireframe,sparkskins,utilities"/>
 
 	<target name="airframework" description="Builds libs/airframework.swc">
 		<compc include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
 			<target-player>10</target-player>
-			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${airframework.dir}/mx-air-manifest.xml"/>
-			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${airframework.dir}/spark-air-manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${airframework.dir}/manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${airframework.dir}/manifest.xml"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/mx"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
 			<source-path path-element="${airframework.dir}/src"/>
@@ -53,6 +55,7 @@
                 <include name="textLayout.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${airframework.dir}/defaults.css"/>
+			<include-file name="defaults-3.0.0.css" path="${airframework.dir}/defaults-3.0.0.css"/>
 			<include-file name="Assets.swf" path="${airframework.dir}/assets/Assets.swf"/>
 			<include-file name="ComputerIcon.swf" path="${airframework.dir}/assets/ComputerIcon.swf"/>
 			<include-file name="gripper_up.png" path="${airframework.dir}/assets/gripper_up.png"/>
@@ -106,6 +109,74 @@
 		</compc>
 	</target>
 	
+	<target name="airspark" description="Builds libs/airspark.swc">
+		<compc include-classes="AIRSparkClasses" output="${basedir}/libs/air/airspark.swc" locale="" accessible="true">
+			<target-player>10</target-player>
+			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${airspark.dir}/manifest.xml"/>
+			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
+			<source-path path-element="${airspark.dir}/src"/>
+			<library-path/>
+			<external-library-path dir="${basedir}/libs">
+				<include name="air/airglobal.swc"/>
+				<include name="air/airframework.swc"/>
+				<include name="framework.swc"/>
+                <include name="textLayout.swc"/>
+				<include name="spark.swc"/>
+			</external-library-path>
+			<include-file name="defaults.css" path="${airspark.dir}/defaults.css"/>
+			<keep-as3-metadata name="SkinPart"/>
+		</compc>
+	</target>
+			
+	<target name="airspark_rb" description="Builds locale/en_US/airspark_rb.swc">
+		<compc output="${basedir}/locale/${locale}/airspark_rb.swc" locale="${locale}">
+            <include-resource-bundles bundle="SharedResources"/>
+			<include-resource-bundles bundle="collections"/>
+			<include-resource-bundles bundle="containers"/>
+			<include-resource-bundles bundle="controls"/>
+			<include-resource-bundles bundle="core"/>
+			<include-resource-bundles bundle="effects"/>
+			<include-resource-bundles bundle="formatters"/>
+			<include-resource-bundles bundle="skins"/>
+			<include-resource-bundles bundle="styles"/>
+			<source-path path-element="${framework.dir}/bundles/${locale}"/>
+			<source-path path-element="${airspark.dir}/src"/>
+			<source-path path-element="${framework.dir}/src"/>
+			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+			<library-path/>
+		</compc>
+	</target>
+	
+	<target name="datavisualization" description="Builds datavisualization.swc">
+		<compc include-classes="AdvancedDataGridClasses ChartsClasses" output="${basedir}/libs/datavisualization.swc" locale="" accessible="true">
+            <namespace uri="http://www.adobe.com/2006/mxml" manifest="${datavis.dir}/manifest.xml"/>
+			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
+			<source-path path-element="${datavis.dir}/src"/>
+			<library-path/>
+			<external-library-path dir="${basedir}/libs">
+                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+				<include name="framework.swc"/>
+				<include name="rpc.swc"/>
+				<include name="textLayout.swc"/>
+             </external-library-path>
+			<include-file name="defaults.css" path="${datavis.dir}/data_management.css"/>
+			<include-file name="defaults-3.0.0.css" path="${datavis.dir}/data_management-3.0.0.css"/>
+		</compc>
+	</target>
+	
+	<target name="datavisualization_rb" description="Builds locale/en_US/datavisualization_rb.swc">
+		<compc output="${basedir}/locale/${locale}/datavisualization_rb.swc" locale="${locale}">
+            <target-player>10</target-player>
+            <include-resource-bundles bundle="charts"/>
+            <include-resource-bundles bundle="datamanagement"/>
+            <include-resource-bundles bundle="olap"/>
+            <source-path path-element="${datavis.dir}/bundles/${locale}"/>
+			<source-path path-element="${framework.dir}/src"/>
+			<external-library-path dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
+			<library-path/>
+		</compc>
+	</target>	
+	
 	<target name="flex" description="Builds flex.swc">
 		<compc include-classes="FlexClasses" output="${basedir}/libs/flex.swc" locale="" accessible="true">
             <target-player>10</target-player>
@@ -117,6 +188,11 @@
 				<include name="textLayout.swc"/>
                 <include name="osmf.swc"/>
 			</external-library-path>
+			<keep-as3-metadata name="Bindable"/>
+			<keep-as3-metadata name="Managed"/>
+			<keep-as3-metadata name="ChangeEvent"/>
+			<keep-as3-metadata name="NonCommittingChangeEvent"/>
+			<keep-as3-metadata name="Transient"/>
 		</compc>
 	</target>
 		
@@ -156,6 +232,7 @@
             <include-resource-bundles bundle="effects"/>
             <include-resource-bundles bundle="formatters"/>
             <include-resource-bundles bundle="logging"/>
+			<include-resource-bundles bundle="modules"/>
             <include-resource-bundles bundle="skins"/>
             <include-resource-bundles bundle="states"/>
             <include-resource-bundles bundle="styles"/>
@@ -168,24 +245,36 @@
 		</compc>
 	</target>	
 	
-	<target name="halo">
+    <target name="osmf" description="builds osmf.swc">
+		<compc locale="" include-classes="OSMFClasses" output="${basedir}/libs/osmf.swc">
+			<source-path path-element="${osmf.dir}/src"/>
+			<library-path/>
+			<external-library-path dir="${basedir}/libs" append="false">
+				<include name="player/${global.playerglobal.version}playerglobal.swc"/>
+			</external-library-path>
+			<include-file name="manifest.xml" path="${osmf.dir}/manifest.xml"/>
+			<define name="CONFIG::debug" value="false"/>
+			<define name="CONFIG::release" value="true"/>
+            <define name="CONFIG::FLASH_10_1" value="false"/>
+            <define name="CONFIG::LOGGING" value="false"/>
+		</compc>
+	</target>
+	
+	<target name="osmf_rb" description="builds the resource bundle for osmf">
 		<compc fork="true"
-			   output="${basedir}/themes/Halo/halo.swc">
-            <!-- If you change this, update ${local.playerglobal.version} above. -->
-            <target-player>10</target-player>
-			<include-classes>HaloClasses</include-classes>
-			<source-path path-element="${halo.dir}/src"/>
+			   output="${basedir}/locale/${locale}/osmf_rb.swc"
+			   locale="${locale}">
+			<include-resource-bundles bundle="osmf"/>
+ 			<include-namespaces/>
+			<include-classes/>
+			<source-path path-element="${osmf.dir}/bundles/${locale}"/>
+			<source-path path-element="${osmf.dir}/src"/>
+			<source-path path-element="${framework.dir}/src"/>
+			<include-libraries/>
 			<library-path/>
             <external-library-path dir="${basedir}/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
-				<include name="framework.swc"/>
-				<include name="textLayout.swc"/>
-                <include name="osmf.swc"/>
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 			</external-library-path>
-			<include-file name="defaults.css" path="${halo.dir}/defaults.css"/>
-			<include-file name="Assets.swf" path="${halo.dir}/assets/Assets.swf"/>
-			<locale/>
-			<accessible>true</accessible>
 		</compc>
 	</target>
 	
@@ -236,6 +325,7 @@
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
+				<include name="datavisualization.swc"/>
                 <include name="textLayout.swc"/>
 				<include name="osmf.swc"/>
 			</external-library-path>
@@ -245,11 +335,13 @@
 	
 	<target name="spark_rb">
 		<echo message="Compiling frameworks/locale/${locale}/spark_rb.swc"/>
-		<compc output="${basedir}/frameworks/locale/${locale}/spark_rb.swc" locale="${locale}">
+		<compc output="${basedir}/locale/${locale}/spark_rb.swc" locale="${locale}">
             <target-player>10</target-player>
  			<include-resource-bundles bundle="components"/>
 			<include-resource-bundles bundle="sparkEffects"/>
 			<include-resource-bundles bundle="layout"/>
+			<include-resource-bundles bundle="textLayout"/>
+            <include-resource-bundles bundle="osmf"/>
 			<source-path path-element="${spark.dir}/bundles/${locale}"/>
 			<source-path path-element="${spark.dir}/src"/>
 			<source-path path-element="${framework.dir}/src"/>
@@ -261,11 +353,9 @@
 
 	
 	<target name="sparkskins" description="Builds the sparkskin.swc">
-		<compc fork="true"
+		<compc fork="true" locale="" accessible="true" include-classes="SparkSkinsClasses"
 			   output="${basedir}/libs/sparkskins.swc">
             <!-- If you change this, update ${local.playerglobal.version} above. -->
-            <target-player>10</target-player>
-			<include-classes>SparkSkinsClasses</include-classes>
 			<source-path path-element="${sparkskin.dir}/src"/>
 			<library-path/>
 			<external-library-path dir="${basedir}/libs">
@@ -275,44 +365,22 @@
 				<include name="textLayout.swc"/>
                 <include name="osmf.swc"/>
 			</external-library-path>
-			<locale/>
-			<accessible>true</accessible>
 		</compc>
 	</target>
 	    
-    <target name="osmf" description="builds osmf.swc">
-		<compc locale="" accessible="true"
-			include-classes="OSMFClasses" 
-			output="${basedir}/libs/osmf.swc">
-			<jvmarg line="${compc.jvm.args}"/>
-			<source-path path-element="${osmf.dir}/src"/>
-			<library-path/>
-			<external-library-path dir="${basedir}/libs" append="false">
-				<include name="player/${global.playerglobal.version}playerglobal.swc"/>
-			</external-library-path>
-			<define name="CONFIG::debug" value="false"/>
-			<define name="CONFIG::release" value="true"/>
-            <define name="CONFIG::FLASH_10_1" value="false"/>
-            <define name="CONFIG::LOGGING" value="false"/>
-		</compc>
-	</target>
-	
 	<target name="utilities" description="Builds utilities.swc">
-		<compc output="${basedir}/libs/utilities.swc">
-           <target-player>10</target-player>
-		   <include-classes>UtilitiesClasses</include-classes>
+		<compc output="${basedir}/libs/utilities.swc" include-classes="UtilitiesClasses"
+		locale="" accessible="true">
 			<source-path path-element="${utilities.dir}/src"/>
-			<source-path path-element="${framework.dir}/src"/>
 			<library-path dir="${utilities.dir}/libs">
-                <include name="FlexContentHolder.swc"/>
+                <include name="FlexContentHolderThumbnail.swc"/>
             </library-path>
 			<external-library-path dir="${basedir}/libs">
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
+				<include name="flash-integration.swc"/>
 				<include name="textLayout.swc"/>
 			</external-library-path>
-			<locale/>
-			<accessible>true</accessible>
 		</compc>
 	</target>
 
@@ -320,6 +388,7 @@
 		<compc fork="true" output="${basedir}/themes/Wireframe/wireframe.swc">
             <!-- If you change this, update ${local.playerglobal.version} above. -->
             <target-player>10</target-player>
+			<jvmarg line="-Xmx384m"/>
 			<include-classes>WireframeClasses</include-classes>
 			<source-path path-element="${wireframe.dir}/src"/>
 			<library-path/>
@@ -327,9 +396,13 @@
                 <include name="player/${playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="spark.swc"/>
+				<include name="airspark.swc"/>
 				<include name="textLayout.swc"/>
+				<include name="osmf.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${wireframe.dir}/defaults.css"/>
+			<include-file name="assets/Tree_folderClosedIcon.png" path="${wireframe.dir}/assets/Tree_folderClosedIcon.png"/>
+			<include-file name="assets/Tree_folderOpenIcon.png" path="${wireframe.dir}/assets/Tree_folderOpenIcon.png"/>
 			<locale/>
 			<accessible>true</accessible>
 		</compc>
@@ -338,21 +411,26 @@
 	<target name="clean" description="Cleans all SWCs and their resource bundles">
 		<delete failonerror="false">
 			<fileset dir="${basedir}/libs">
+				<include name="air/airframework.swc"/>
+				<include name="air/airspark.swc"/>
+				<include name="datavisualization.swc"/>
 				<include name="framework.swc"/>
 				<include name="flex.swc"/>
-				<include name="utilities.swc"/>
+				<include name="osmf.swc"/>
 				<include name="rpc.swc"/>
 				<include name="sparkskins.swc"/>
 				<include name="spark.swc"/>
+				<include name="utilities.swc"/>
 			</fileset>
-			<fileset dir="${basedir}/libs/air" includes="airframework.swc"/>
 			<fileset dir="${basedir}/locale/${locale}">
-				<include name="framework_rb.swc"/>
 				<include name="airframework_rb.swc"/>
+				<include name="airspark_rb.swc"/>
+				<include name="datavisualization_rb.swc"/>
+				<include name="framework_rb.swc"/>
+				<include name="osmf_rb.swc"/>
 				<include name="rpc_rb.swc"/>
 				<include name="spark_rb.swc"/>
 			</fileset>
-			<fileset dir="${basedir}/themes/Halo" includes="halo.swc"/>
 			<fileset dir="${basedir}/themes/Wireframe" includes="wireframe.swc"/>
 		</delete>
 	</target>
