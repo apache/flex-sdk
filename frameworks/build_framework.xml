@@ -118,7 +118,7 @@
 	</target>
 	
 	<target name="spark" description="Builds the spark.swc">
-		<compc include-classes="Flex4Classes" output="${basedir}/libs/spark.swc" locale="" accessible="true">
+		<compc include-classes="SparkClasses" output="${basedir}/libs/spark.swc" locale="" accessible="true">
 		    <target-player>10</target-player>
 			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${spark.dir}/manifest.xml"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
