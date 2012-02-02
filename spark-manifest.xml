@@ -24,10 +24,10 @@
     <component id="AnimateFilter" class="spark.effects.AnimateFilter"/>
     <component id="AnimateTransitionShader" class="spark.effects.AnimateTransitionShader"/>
     <component id="AnimateTransform" class="spark.effects.AnimateTransform"/>
+    <component id="AnimateTransform3D" class="spark.effects.AnimateTransform3D"/>
     <component id="Animation" class="spark.effects.animation.Animation"/>
     <component id="Application" class="spark.components.Application"/>
     <component id="ArrayCollection" class="mx.collections.ArrayCollection" lookupOnly="true"/>
-    <component id="ArrayInterpolator" class="spark.effects.interpolation.ArrayInterpolator"/>
     <component id="ArrayList" class="mx.collections.ArrayList" lookupOnly="true"/>
     <component id="BasicLayout" class="spark.layouts.BasicLayout"/>
     <component id="BevelFilter" class="spark.filters.BevelFilter"/>
@@ -80,6 +80,7 @@
     <component id="MotionPath" class="spark.effects.animation.MotionPath"/>
     <component id="Move" class="spark.effects.Move"/>
     <component id="Move3D" class="spark.effects.Move3D"/>
+    <component id="MultiValueInterpolator" class="spark.effects.interpolation.MultiValueInterpolator"/>
     <component id="MuteButton" class="spark.components.mediaClasses.MuteButton"/>
     <component id="NumberInterpolator" class="spark.effects.interpolation.NumberInterpolator"/>
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
