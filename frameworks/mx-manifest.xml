@@ -182,6 +182,24 @@
     <component id="ZipCodeValidator" class="mx.validators.ZipCodeValidator"/>
     <component id="Zoom" class="mx.effects.Zoom"/>
 
+    <!-- framework base classes with CSS type selectors -->
+    <component id="Alert" class="mx.controls.Alert" />
+    <component id="AccordionHeader" class="mx.containers.accordionClasses.AccordionHeader" />
+    <component id="ButtonBarButton" class="mx.controls.buttonBarClasses.ButtonBarButton" />
+    <component id="CalendarLayout" class="mx.controls.CalendarLayout" />
+    <component id="CursorManager" class="mx.managers.CursorManager" />
+    <component id="DragManager" class="mx.managers.DragManager" />
+    <component id="FormItemLabel" class="mx.controls.FormItemLabel" />
+    <component id="ListBase" class="mx.controls.listClasses.ListBase" />
+    <component id="Menu" class="mx.controls.Menu" />
+    <component id="ScrollBar" class="mx.controls.scrollClasses.ScrollBar" />
+    <component id="ScrollControlBase" class="mx.core.ScrollControlBase" />
+    <component id="Slider" class="mx.controls.sliderClasses.Slider" />
+    <component id="SwatchPanel" class="mx.controls.colorPickerClasses.SwatchPanel" />
+    <component id="Tab" class="mx.controls.tabBarClasses.Tab" />
+    <component id="ToolTip" class="mx.controls.ToolTip" />
+    <component id="UIComponent" class="mx.core.UIComponent" />
+
     <!-- charts -->
     <component id="AreaChart" class="mx.charts.AreaChart"/>
     <component id="AreaRenderer" class="mx.charts.renderers.AreaRenderer"/>
