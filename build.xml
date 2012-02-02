@@ -47,7 +47,7 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 		
-	<target name="main" depends="clean,prepare,thirdparty-downloads,javascript,compile" description="Clean build of all SWCs"/>
+	<target name="main" depends="clean,thirdparty-downloads,prepare,javascript,compile" description="Clean build of all SWCs"/>
 
 	<!-- Note:
 	   Removed osmf from build.  For now, just use the downloaded swc.
@@ -196,7 +196,7 @@
          </delete>
      </target>
 
-	<target name="prepare" depends="airsdk-download" description="Prepares for building framework SWCs">
+	<target name="prepare" description="Prepares for building framework SWCs">
 		<!-- Expand the Mac AIK on top of the SDK -->
         <copy file="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" todir="${FLEX_HOME}" verbose="true"/>
 		<echo file="${FLEX_HOME}/air_unzip.sh">#!/bin/sh
@@ -220,6 +220,8 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<delete dir="${FLEX_HOME}/frameworks/libs/air/flex3" quiet="true" />
 	</target>
 
+	<!-- Download thirdparty code -->
+	
     <target name="thirdparty-downloads" 
     	depends="airsdk-download,playerglobal-download, osmf-download, textLayout-download" 
     	description="Copies third-party software into place for build" />
