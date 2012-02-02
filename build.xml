@@ -115,6 +115,9 @@
 		<ant dir="${basedir}/javascript" target="clean"/>
 		<!-- Delete empty folders -->
 		<delete dir="${basedir}/locale"/>
+		<!-- THIS CAN EVENTUALLY BE REMOVED: -->
+		<!-- Delete vestigial framework_textLayout.swc -->
+		<delete file="${basedir}/libs/framework_textLayout.swc"/>
 	</target>
 
 	<target name="prepare" description="Prepares for building framework SWCs">
