@@ -22,7 +22,7 @@
  <!-- Flex4 Framework -->
     <component id="AddAction" class="spark.effects.AddAction"/>
     <component id="AddActionInstance" class="spark.effects.supportClasses.AddActionInstance"/>
-	<component id="Animate" class="spark.effects.Animate"/>
+    <component id="Animate" class="spark.effects.Animate"/>
     <component id="Animate3D" class="spark.effects.Animate3D"/>
     <component id="Animate3DInstance" class="spark.effects.supportClasses.Animate3DInstance"/>
     <component id="AnimateColor" class="spark.effects.AnimateColor"/>
@@ -37,7 +37,9 @@
     <component id="AnimationProperty" class="spark.effects.AnimationProperty"/>
     <component id="Application" class="spark.components.Application"/>
     <component id="ApplicationSkin" class="spark.skins.default.ApplicationSkin"/>
+    <component id="ArrayCollection" class="mx.collections.ArrayCollection" lookupOnly="true"/>
     <component id="ArrayInterpolator" class="spark.effects.interpolation.ArrayInterpolator"/>
+    <component id="ArrayList" class="mx.collections.ArrayList" lookupOnly="true"/>
     <component id="BasicLayout" class="spark.layout.BasicLayout"/>
     <component id="BevelFilter" class="spark.filters.BevelFilter"/>
     <component id="BitmapImage" class="spark.primitives.BitmapImage"/>
@@ -215,6 +217,7 @@
     <component id="Wipe" class="spark.effects.Wipe"/>
     <component id="WipeDirection" class="spark.effects.WipeDirection"/>
     <component id="WipeInstance" class="spark.effects.supportClasses.WipeInstance"/>
+    <component id="XMLListCollection" class="mx.collections.XMLListCollection" lookupOnly="true"/>
 
     <!-- Special Components -->
     <component id="State" class="mx.states.State" lookupOnly="true"/>
