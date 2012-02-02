@@ -165,8 +165,8 @@
     <component id="WindowedApplication" class="spark.components.WindowedApplication" lookupOnly="true"/>
 	<component id="TitleBar" class="spark.components.windowClasses.TitleBar" lookupOnly="true"/>   
 
-	<!-- TLFText for Halo -->
-    <component id="TLFTextInput" class="mx.controls.TLFTextInput"/>
+	<!-- FTEText for Halo -->
+    <component id="MXFTETextInput" class="mx.controls.MXFTETextInput"/>
 
 	<!-- Text Layout Framework (TLF) -->
 	<component id="a" class="flashx.textLayout.elements.LinkElement" lookupOnly="true"/>
