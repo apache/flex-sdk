@@ -230,10 +230,6 @@
 		    </zipfileset>
 		</zip>
 		<copy file="${FLEX_HOME}/tempDoc/tempdita/packages.dita" tofile="${basedir}/bundles/en_US/packages.dita"/>
-		<!--remove this when files have been localized -->
-		<copy todir="${basedir}/bundles/en_US">
-			<fileset dir="${FLEX_HOME}/tempDoc/tempdita" includes="*.xml"/>
-		</copy>
 	</target>
 
 	<target name="clean-temp-docs">
