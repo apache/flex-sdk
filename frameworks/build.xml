@@ -124,7 +124,7 @@
 		<!-- Expand the Mac AIK on top of the SDK -->
         <copy file="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" todir="${FLEX_HOME}"/>
 		<echo file="${FLEX_HOME}/air_unzip.sh">#!/bin/sh
-tar -xjf "AIR Integration Kit.tbz2" .
+tar -xjf "AIR Integration Kit.tbz2" 
 		</echo>
 		<exec executable="sh" dir="${FLEX_HOME}">
 			<arg line="${FLEX_HOME}/air_unzip.sh"/>
