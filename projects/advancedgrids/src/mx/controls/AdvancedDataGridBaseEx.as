@@ -34,6 +34,8 @@ import mx.collections.CursorBookmark;
 import mx.collections.ICollectionView;
 import mx.collections.IViewCursor;
 import mx.collections.ItemResponder;
+import mx.collections.ISort;
+import mx.collections.ISortField;
 import mx.collections.Sort;
 import mx.collections.SortField;
 import mx.collections.errors.ItemPendingError;
@@ -4728,7 +4730,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             return;
 
         var view:ICollectionView = ICollectionView(dataProvider);
-        var sort:Sort = view.sort;
+        var sort:ISort = view.sort;
         if (!sort)
         {
             sortIndex = lastSortIndex = -1;
@@ -4751,7 +4753,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         }
 
         // fields.length == 1, so the collection is sorted on a single field.
-        var sortField:SortField = fields[0];
+        var sortField:ISortField = fields[0];
         var n:int = _columns.length;
         for (var i:int = 0; i < n; i++)
         {
@@ -5955,7 +5957,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
          if (!collection.sort || !collection.sort.fields)
          {
              singleColumnSort = true;
-             var sort:Sort = new Sort();
+             var sort:ISort = new Sort();
              sort.fields = [];
              
              collection.sort = sort;
@@ -5983,7 +5985,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         }
 
         column.sortDescending = desc;
-        var field:SortField = new SortField(columnName); // name
+        var field:ISortField = new SortField(columnName); // name
         field.descending = desc;
         
 //        field.name = column.dataField;
@@ -7958,7 +7960,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         var columnName:String = event.dataField;
         var columnNumber:int  = event.columnIndex;
         var sortFields:Array;
-        var sort:Sort;
+        var sort:ISort;
 
         if (!sortableColumns || !columns[columnNumber].sortable)
             return;
