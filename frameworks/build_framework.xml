@@ -30,11 +30,11 @@
 
 	<target name="framework" description="Builds libs/framework.swc">
 		<compc include-classes="FrameworkClasses" output="${basedir}/libs/framework.swc" locale="" accessible="true">
-            <target-player>9</target-player>
+            <target-player>10</target-player>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${framework.dir}/manifest.xml"/>
 			<source-path path-element="${framework.dir}/src"/>
-			<external-library-path dir="${basedir}/libs/player/9" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs/player/10" includes="playerglobal.swc"/>
 			<library-path/>
 			<include-file name="defaults.css" path="${framework.dir}/defaults.css"/>
 			<include-file name="defaults-2.0.0.css" path="${framework.dir}/defaults-2.0.0.css"/>
@@ -129,7 +129,7 @@
 			<source-path path-element="${airframework.dir}/src"/>
 			<source-path path-element="${framework.dir}/src"/>
 			<source-path path-element="${framework.dir}/bundles/${locale}"/>
-			<external-library-path dir="${basedir}/libs/player/9" includes="playerglobal.swc"/>
+			<external-library-path dir="${basedir}/libs/player/10" includes="playerglobal.swc"/>
 			<library-path/>
 		</compc>
 	</target>
