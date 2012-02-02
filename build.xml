@@ -26,7 +26,7 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,prepare,javascript,compile,updateAIR" description="Clean build of all SWCs"/>
+	<target name="main" depends="clean,prepare,javascript,compile" description="Clean build of all SWCs"/>
 
 	<target name="compile" description="Builds all SWCs but not their resource bundles">
 		<antcall target="framework"/>
@@ -142,8 +142,9 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<delete file="${FLEX_HOME}/frameworks/libs/air/AIRAliases.js"/>
 		<delete file="${FLEX_HOME}/frameworks/libs/air/airglobal.abc"/>
 		<delete file="${FLEX_HOME}/frameworks/libs/air/servicemonitor.swf"/>
-		<!-- FIXME: For now, copy local override of build-sample-framework.xml -->
-		<copy file="${FLEX_HOME}/in/air/sample-frameworks-build.xml" todir="${FLEX_HOME}/frameworks/projects/air" overwrite="true" />
+
+		<!-- Delete AIR files for 3.x support -->
+		<delete dir="${FLEX_HOME}/frameworks/libs/air/flex3" quiet="true" />
 	</target>
 		
 	<target name="airframework" description="Clean build of airframework.swc">
@@ -235,7 +236,7 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<ant dir="${basedir}/projects/automation_airspark"/>
 	</target>
 
-	
+<!--	
     <target name="updateAIR" description="Rebuild a AIK SWC and SWF that depend on Flex" >
 		<property name="flex.home" value="${FLEX_HOME}" />     
 		
@@ -249,6 +250,6 @@ tar -xjf "AIR Integration Kit.tbz2"
 		</copy>
 		<delete dir="${basedir}/projects/air/build" quiet="true" />
     </target>
-
+-->
 
 </project>
