@@ -185,8 +185,8 @@
           <!-- Compiler font manager classes, in policy resolution order-->
           <managers>
               <manager-class>flash.fonts.JREFontManager</manager-class>
-              <manager-class>flash.fonts.BatikFontManager</manager-class>
               <manager-class>flash.fonts.AFEFontManager</manager-class>
+              <manager-class>flash.fonts.BatikFontManager</manager-class>
               <manager-class>flash.fonts.CFFFontManager</manager-class>
           </managers>
 
