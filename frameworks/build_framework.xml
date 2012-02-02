@@ -44,8 +44,12 @@
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<target name="main" depends="clean,thirdparty-downloads,framework,framework_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,charts,charts_rb,advancedgrids,advancedgrids_rb,core,wireframe,sparkskins,authoringsupport,spark_dmv"/>
+	<target name="main" depends="clean,thirdparty-downloads,prepare,framework,framework_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,charts,charts_rb,advancedgrids,advancedgrids_rb,core,wireframe,sparkskins,authoringsupport,spark_dmv"/>
 
+	<target name="prepare" description="Copies manifests to project directories so the IDE can find them">
+        <copy file="${FLEX_HOME}/frameworks/spark-manifest.xml" tofile="${FLEX_HOME}/frameworks/projects/spark/manifest.xml" overwrite="true"/>
+    </target>
+    
 	<target name="airframework" description="Builds libs/airframework.swc">
 		<compc static-link-runtime-shared-libraries="true"  fork="true" include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
 			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${airframework.dir}/manifest.xml"/>
@@ -447,20 +451,44 @@
 		</compc>
 	</target>
 		
-    <target name="thirdparty-downloads" depends="playerglobal-download, osmf-download, textLayout-download" description="Copies third-party software into place for build" />
+    <!-- Download thirdparty code -->
     
-    <target name="playerglobal-check">
+    <target name="thirdparty-downloads" 
+        depends="airsdk-download,playerglobal-download, osmf-download, textLayout-download" 
+        description="Copies third-party software into place for build" />
+    
+    <target name="airsdk-check" description="Checks if the Air SDK has been downloaded.">
+        <available file="${basedir}/libs/air/airglobal.swc" property="airsdk.present"/>
+    </target>
+
+    <target name="playerglobal-check" description="Checks if the Adobe Air SDK has been downloaded.">
         <available file="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" property="playerglobal.swc.present"/>
     </target>
     
-    <target name="osmf-check">
+    <target name="osmf-check" description="Checks if the Open Source Media Framework has been downloaded.">
         <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
     </target>
     
-    <target name="textLayout-check">
+    <target name="textLayout-check" description="Checks if the Text Layout Framework has been downloaded.">
         <available file="${basedir}/libs/textLayout.swc" property="textLayout.swc.present"/>
     </target>
 
+    <!-- Adobe AIR SDK  -->
+    <!-- Because this requires a network connection it is copied only if it doesn't already exist. -->
+    <!-- Regardless of platform use the win kit to get airglobal.swc. -->
+    
+    <target name="airsdk-download" depends="airsdk-check" unless="airsdk.present" description="Copies Adobe AIR SDK for the Mac from the Adobe website">
+        <echo message="Be patient.  This takes a few minutes..." />
+        <mkdir dir="${FLEX_HOME}/in/air/win"/>
+        <get src="http://airdownload.adobe.com/air/win/download/3.1/AdobeAIRSDK.zip" 
+            dest="${FLEX_HOME}/in/air/win/AIR Integration Kit.zip" 
+            verbose="false"/>
+        <unzip dest="${FLEX_HOME}/in/downloads/AIR Integration Kit" src="${FLEX_HOME}/in/air/win/AIR Integration Kit.zip" />
+        <copy file="${FLEX_HOME}/in/downloads/AIR Integration Kit/frameworks/libs/air/airglobal.swc" 
+        	toDir="${basedir}/libs/air"/>
+        <delete dir="${FLEX_HOME}/in/downloads/AIR Integration Kit" failonerror="false"/>
+    </target>
+        
     <!-- playerglobal.swc -->
     <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->
     <target name="playerglobal-download" depends="playerglobal-check" unless="playerglobal.swc.present" description="Copies playerglobal.swc from the Adobe website">
@@ -472,13 +500,15 @@
 
     <!-- osmf.swc (Version 1.0) -->
     <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
+    <!-- The swc at the top-level has lots of trace statements in it.  Use the one in the source zip. -->
     <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present" description="Copies Text Layout Framework from Sourceforge">
         <mkdir dir="${FLEX_HOME}/in/downloads/OSMF_1.0"/>
         <get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download" 
             dest="${FLEX_HOME}/in/downloads/OSMF_1.0.zip" 
             verbose="false"/>
         <unzip dest="${FLEX_HOME}/in/downloads/OSMF_1.0" src="${FLEX_HOME}/in/downloads/OSMF_1.0.zip" />
-        <copy file="${FLEX_HOME}/in/downloads/OSMF_1.0/OSMF.swc" tofile="${basedir}/libs/osmf.swc"/>
+        <unzip dest="${FLEX_HOME}/in/downloads/OSMF_1.0/osmf_source_v1-0" src="${FLEX_HOME}/in/downloads/OSMF_1.0/osmf_source_v1-0.zip" />
+        <copy file="${FLEX_HOME}/in/downloads/OSMF_1.0/osmf_source_v1-0/OSMF.swc" tofile="${basedir}/libs/osmf.swc"/>
         <delete dir="${FLEX_HOME}/in/downloads/OSMF_1.0" failonerror="false"/>
     </target>
 
@@ -502,7 +532,7 @@
         <delete dir="${FLEX_HOME}/in/downloads/textLayout_build" failonerror="false"/>
     </target>
 
-	<target name="clean" depends="thirdparty-clean" description="Cleans all SWCs and their resource bundles">
+	<target name="clean" description="Cleans all SWCs and their resource bundles">
 		<delete failonerror="false">
 			<fileset dir="${basedir}/libs">
 				<include name="air/airframework.swc"/>
@@ -531,20 +561,24 @@
 	</target>
 
     <target name="thirdparty-clean" description="Cleans thirdparty downloaded files.">
-        <delete failonerror="false" verbose="false">
-            <fileset dir="${basedir}/projects/textLayout">
-                <include name="**/**"/>
-                <exclude name="build.xml"/>
-                <exclude name="**/.settings/**"/>
-                <exclude name="**/.actionScriptProperties"/>
-                <exclude name="**/.flexLibProperties"/>
-                <exclude name="**/.project"/>
-            </fileset>
-        </delete>
         <delete failonerror="false" verbose="true">
             <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
+            <fileset dir="${basedir}/libs/air"/>
             <fileset dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
         </delete>
+        <delete dir="${FLEX_HOME}/in/air" excludes="*.xml"/>
         <delete dir="${FLEX_HOME}/in/downloads"/>
-    </target>	
+    	
+        <!-- textLayout source -->
+        <delete failonerror="false" verbose="false">
+             <fileset dir="${basedir}/projects/textLayout">
+                 <include name="**/**"/>
+                 <exclude name="build.xml"/>
+                 <exclude name="**/.settings/**"/>
+                 <exclude name="**/.actionScriptProperties"/>
+                 <exclude name="**/.flexLibProperties"/>
+                 <exclude name="**/.project"/>
+             </fileset>
+         </delete>
+     </target>
 </project>
