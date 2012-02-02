@@ -112,6 +112,8 @@
     <component id="MatchingCollator" class="spark.globalization.MatchingCollator"/>
     <component id="Matrix" class="flash.geom.Matrix" lookupOnly="true"/>
     <component id="Matrix3D" class="flash.geom.Matrix3D" lookupOnly="true"/>
+    <component id="Module" class="spark.modules.Module"/>
+    <component id="ModuleLoader" class="spark.modules.ModuleLoader"/>
     <component id="MotionPath" class="spark.effects.animation.MotionPath"/>
     <component id="Move" class="spark.effects.Move"/>
     <component id="MovieClipSWFLoader" class="mx.controls.MovieClipSWFLoader" lookupOnly="true"/>
