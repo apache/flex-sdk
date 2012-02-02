@@ -23,7 +23,7 @@
     <component id="AnimateColor" class="spark.effects.AnimateColor"/>
     <component id="AnimateFilter" class="spark.effects.AnimateFilter"/>
     <component id="AnimateTransitionShader" class="spark.effects.AnimateTransitionShader"/>
-	<component id="AnimateTransform" class="spark.effects.AnimateTransform"/>
+    <component id="AnimateTransform" class="spark.effects.AnimateTransform"/>
     <component id="Animation" class="spark.effects.animation.Animation"/>
     <component id="Application" class="spark.components.Application"/>
     <component id="ArrayCollection" class="mx.collections.ArrayCollection" lookupOnly="true"/>
@@ -48,6 +48,7 @@
     <component id="ConvolutionFilter" class="spark.filters.ConvolutionFilter"/>
     <component id="CrossFade" class="spark.effects.CrossFade"/>
     <component id="DataGroup" class="spark.components.DataGroup"/>
+    <component id="DataRenderer" class="spark.components.DataRenderer"/>
     <component id="DisplacementMapFilter" class="spark.filters.DisplacementMapFilter"/>
     <component id="DropDownList" class="spark.components.DropDownList"/>
     <component id="DropShadowFilter" class="spark.filters.DropShadowFilter"/>
@@ -80,7 +81,6 @@
     <component id="Move" class="spark.effects.Move"/>
     <component id="Move3D" class="spark.effects.Move3D"/>
     <component id="MuteButton" class="spark.components.mediaClasses.MuteButton"/>
-	<component id="DataRenderer" class="spark.components.DataRenderer"/>
     <component id="NumberInterpolator" class="spark.effects.interpolation.NumberInterpolator"/>
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
     <component id="Panel" class="spark.components.Panel"/>
