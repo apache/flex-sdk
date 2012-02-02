@@ -90,6 +90,7 @@
     <component id="GridColumn" class="spark.components.supportClasses.GridColumn"/>
     <component id="GridItemEditor" class="spark.components.gridClasses.GridItemEditor" />
     <component id="GridItemRenderer" class="spark.components.supportClasses.GridItemRenderer"/>
+    <component id="GridLayer" class="spark.components.supportClasses.GridLayer"/>
     <component id="Group" class="spark.components.Group"/>
     <component id="GroupBase" class="spark.components.supportClasses.GroupBase"/>
     <component id="HGroup" class="spark.components.HGroup"/>
