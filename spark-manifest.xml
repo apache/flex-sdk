@@ -31,11 +31,11 @@
     <component id="ArrayCollection" class="mx.collections.ArrayCollection" lookupOnly="true"/>
     <component id="ArrayInterpolator" class="spark.effects.interpolation.ArrayInterpolator"/>
     <component id="ArrayList" class="mx.collections.ArrayList" lookupOnly="true"/>
-    <component id="BasicLayout" class="spark.layout.BasicLayout"/>
+    <component id="BasicLayout" class="spark.layouts.BasicLayout"/>
     <component id="BevelFilter" class="spark.filters.BevelFilter"/>
     <component id="BitmapImage" class="spark.primitives.BitmapImage"/>
     <component id="BitmapImageResizeMode" class="spark.primitives.BitmapImageResizeMode"/>
-    <component id="Block" class="spark.layout.supportClasses.Block"/>
+    <component id="Block" class="spark.layouts.supportClasses.Block"/>
     <component id="BlurFilter" class="spark.filters.BlurFilter"/>
     <component id="Button" class="spark.components.Button"/>
     <component id="ButtonBar" class="spark.components.ButtonBar"/>
@@ -45,7 +45,7 @@
     <component id="CallAction" class="spark.effects.CallAction"/>
     <component id="CheckBox" class="spark.components.CheckBox"/>
     <component id="ColorMatrixFilter" class="spark.filters.ColorMatrixFilter"/>
-    <component id="ColumnAlign" class="spark.layout.ColumnAlign"/>
+    <component id="ColumnAlign" class="spark.layouts.ColumnAlign"/>
     <component id="ConvolutionFilter" class="spark.filters.ConvolutionFilter"/>
     <component id="CrossFade" class="spark.effects.CrossFade"/>
     <component id="DataGroup" class="spark.components.DataGroup"/>
@@ -64,13 +64,13 @@
     <component id="Group" class="spark.components.Group"/>
     <component id="GroupBase" class="spark.components.supportClasses.GroupBase"/>
     <component id="HGroup" class="spark.components.HGroup"/>
-    <component id="HorizontalLayout" class="spark.layout.HorizontalLayout"/>
+    <component id="HorizontalLayout" class="spark.layouts.HorizontalLayout"/>
     <component id="HSBInterpolator" class="spark.effects.interpolation.HSBInterpolator"/>
     <component id="HScrollBar" class="spark.components.HScrollBar"/>
     <component id="HSlider" class="spark.components.HSlider"/>
     <component id="ItemRenderer" class="spark.components.supportClasses.ItemRenderer"/>
     <component id="KeyFrame" class="spark.effects.KeyFrame"/>
-    <component id="LayoutBase" class="spark.layout.supportClasses.LayoutBase"/>
+    <component id="LayoutBase" class="spark.layouts.supportClasses.LayoutBase"/>
     <component id="Line" class="spark.primitives.Line"/>
     <component id="Linear" class="spark.effects.easing.Linear"/>
 	<component id="List" class="spark.components.List"/>
@@ -100,7 +100,7 @@
     <component id="RichText2" class="spark.primitives.RichText2"/>
     <component id="Rotate" class="spark.effects.Rotate"/>
     <component id="Rotate3D" class="spark.effects.Rotate3D"/>
-    <component id="RowAlign" class="spark.layout.RowAlign"/>
+    <component id="RowAlign" class="spark.layouts.RowAlign"/>
     <component id="Scale" class="spark.effects.Scale"/>
     <component id="Scale3D" class="spark.effects.Scale3D"/>
     <component id="ScrollBar" class="spark.components.supportClasses.ScrollBar"/>
@@ -128,15 +128,15 @@
     <component id="TextInput" class="spark.components.TextInput"/>
     <component id="TextSelectionVisibility" class="spark.components.TextSelectionVisibility"/>
     <component id="TextUtil" class="spark.utils.TextUtil"/>
-    <component id="TileLayout" class="spark.layout.TileLayout"/>
-    <component id="TileOrientation" class="spark.layout.TileOrientation"/>
+    <component id="TileLayout" class="spark.layouts.TileLayout"/>
+    <component id="TileOrientation" class="spark.layouts.TileOrientation"/>
     <component id="Timeline" class="spark.effects.animation.Timeline"/>
     <component id="ToggleButton" class="spark.components.ToggleButton"/>
     <component id="ToggleButtonBase" class="spark.components.supportClasses.ToggleButtonBase"/>
     <component id="TrackBase" class="spark.components.supportClasses.TrackBase"/>
     <component id="Transform" class="mx.geom.Transform"/>
-    <component id="VerticalAlign" class="spark.layout.VerticalAlign"/>
-    <component id="VerticalLayout" class="spark.layout.VerticalLayout"/>
+    <component id="VerticalAlign" class="spark.layouts.VerticalAlign"/>
+    <component id="VerticalLayout" class="spark.layouts.VerticalLayout"/>
     <component id="VGroup" class="spark.components.VGroup"/>
     <component id="VideoElement" class="spark.primitives.VideoElement"/>
     <component id="VideoPlayer" class="spark.components.VideoPlayer"/>
