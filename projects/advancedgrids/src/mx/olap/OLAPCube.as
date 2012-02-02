@@ -27,10 +27,11 @@ import mx.collections.IList;
 import mx.collections.Sort;
 import mx.core.mx_internal;
 import mx.events.CubeEvent;
-import mx.messaging.messages.ErrorMessage;
 import mx.resources.ResourceManager;
 import mx.rpc.AsyncToken;
+import mx.rpc.Fault;
 import mx.rpc.IResponder;
+import mx.rpc.events.FaultEvent;
 
 use namespace mx_internal;
 
@@ -1033,7 +1034,7 @@ public class OLAPCube extends Proxy implements IOLAPCube, IEventDispatcher
     	if (queryAxis.tuples.length == 0)
     	{
                 var message:String = ResourceManager.getInstance().getString(
-                    "olap", "zeroElementsOnAxis", [index]);
+                   "olap", "zeroElementsOnAxis", [index]);
                 throw new QueryError(message);
     	}
     }
@@ -1052,6 +1053,9 @@ public class OLAPCube extends Proxy implements IOLAPCube, IEventDispatcher
             var result:OLAPResult;
             var q:IOLAPQuery = _queriesPending[0];
             var deleteEntry:Boolean = true;
+            var fault:Fault;
+            var faultCode:String;
+            var faultEvent:FaultEvent;
             
             try
             {
@@ -1073,17 +1077,23 @@ public class OLAPCube extends Proxy implements IOLAPCube, IEventDispatcher
             }
             catch(qe:QueryError)
             {
+                faultCode = ResourceManager.getInstance().getString("olap", "queryError");
+                fault = new Fault(faultCode, qe.message);
+                faultEvent = FaultEvent.createEvent(fault, token);
                 for each (responder in token.responders)
                 {
-                    responder.fault(qe.message);  
+                    responder.fault(faultEvent);  
                 }
                 result = null;
             }
             catch (e:Error)
             {
+                faultCode = ResourceManager.getInstance().getString("olap", "error");
+                fault = new Fault(faultCode, e.message);
+                faultEvent = FaultEvent.createEvent(fault, token);
                 for each (responder in token.responders)
                 {
-                    responder.fault(e.message);  
+                    responder.fault(faultEvent);  
                 }
                 result = null;
             }
