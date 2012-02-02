@@ -24,7 +24,6 @@
 	<property name="flex.dir" value="${projects.dir}/flex"/>
 	<property name="framework.dir" value="${projects.dir}/framework"/>
 	<property name="halo.dir" value="${projects.dir}/halo"/>
-    <property name="osmf.dir" value="${projects.dir}/osmf"/>
 	<property name="rpc.dir" value="${projects.dir}/rpc"/>
 	<property name="spark.dir" value="${projects.dir}/spark"/>
 	<property name="sparkskin.dir" value="${projects.dir}/sparkskins"/>
@@ -36,7 +35,7 @@
 	
 	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
 
-	<target name="main" depends="clean,osmf,framework,framework_rb,osmf_rb,spark,spark_rb,osmf,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,datavisualization,datavisualization_rb,flex,wireframe,sparkskins,utilities"/>
+	<target name="main" depends="clean,framework,framework_rb,spark,spark_rb,airframework,airframework_rb,airspark,airspark_rb,rpc,rpc_rb,datavisualization,datavisualization_rb,flex,wireframe,sparkskins,utilities"/>
 
 	<target name="airframework" description="Builds libs/airframework.swc">
 		<compc include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
@@ -245,39 +244,6 @@
 		</compc>
 	</target>	
 	
-    <target name="osmf" description="builds osmf.swc">
-		<compc locale="" include-classes="OSMFClasses" output="${basedir}/libs/osmf.swc">
-			<source-path path-element="${osmf.dir}/src"/>
-			<library-path/>
-			<external-library-path dir="${basedir}/libs" append="false">
-				<include name="player/${global.playerglobal.version}playerglobal.swc"/>
-			</external-library-path>
-			<include-file name="manifest.xml" path="${osmf.dir}/manifest.xml"/>
-			<define name="CONFIG::debug" value="false"/>
-			<define name="CONFIG::release" value="true"/>
-            <define name="CONFIG::FLASH_10_1" value="false"/>
-            <define name="CONFIG::LOGGING" value="false"/>
-		</compc>
-	</target>
-	
-	<target name="osmf_rb" description="builds the resource bundle for osmf">
-		<compc fork="true"
-			   output="${basedir}/locale/${locale}/osmf_rb.swc"
-			   locale="${locale}">
-			<include-resource-bundles bundle="osmf"/>
- 			<include-namespaces/>
-			<include-classes/>
-			<source-path path-element="${osmf.dir}/bundles/${locale}"/>
-			<source-path path-element="${osmf.dir}/src"/>
-			<source-path path-element="${framework.dir}/src"/>
-			<include-libraries/>
-			<library-path/>
-            <external-library-path dir="${basedir}/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
-			</external-library-path>
-		</compc>
-	</target>
-	
 	<target name="rpc" description="Builds libs/rpc.swc">
 		<echo file="${basedir}/version.properties" append="false">build=${build.number}</echo>
 		<compc include-classes="RPCClasses" output="${basedir}/libs/rpc.swc" locale="" accessible="true">
@@ -416,7 +382,6 @@
 				<include name="datavisualization.swc"/>
 				<include name="framework.swc"/>
 				<include name="flex.swc"/>
-				<include name="osmf.swc"/>
 				<include name="rpc.swc"/>
 				<include name="sparkskins.swc"/>
 				<include name="spark.swc"/>
@@ -427,7 +392,6 @@
 				<include name="airspark_rb.swc"/>
 				<include name="datavisualization_rb.swc"/>
 				<include name="framework_rb.swc"/>
-				<include name="osmf_rb.swc"/>
 				<include name="rpc_rb.swc"/>
 				<include name="spark_rb.swc"/>
 			</fileset>
