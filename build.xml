@@ -37,6 +37,14 @@
 
 	<target name="main" depends="clean,prepare,thirdparty-downloads,javascript,compile" description="Clean build of all SWCs"/>
 
+	<!-- Note:
+	   Removed osmf from build.  For now, just use the downloaded swc.
+	   We can move the osmf source from osmf-download to projects/osmf and add back the
+	   property files for all the languages if we choose.
+	   
+	   Should consider updating OSMF and TLF versions in use.
+	-->
+	
 	<target name="compile" description="Builds all SWCs but not their resource bundles">
 		<antcall target="framework"/>
             <antcall target="mx"/>
@@ -54,7 +62,7 @@
 		<antcall target="flash_integration"/>
 		<antcall target="authoringsupport"/>
 		<antcall target="halo"/>
-		<antcall target="osmf"/>
+		<!--antcall target="osmf"/-->
 		<antcall target="wireframe"/>
 		<antcall target="automation"/>
 		<antcall target="automation_dmv"/>
@@ -75,7 +83,7 @@
 		<ant dir="${basedir}/projects/spark" target="other.locales"/>
 		<ant dir="${basedir}/projects/mobilecomponents" target="other.locales" />
 		<ant dir="${basedir}/projects/textLayout" target="other.locales"/>
-		<ant dir="${basedir}/projects/osmf" target="other.locales"/>
+		<!--ant dir="${basedir}/projects/osmf" target="other.locales"/-->
 		<ant dir="${basedir}/projects/playerglobal" target="other.locales" />
 		<ant dir="${basedir}/projects/automation" target="other.locales"/>
 		<ant dir="${basedir}/projects/flash-integration" target="other.locales"/>
@@ -96,7 +104,7 @@
 	    <ant dir="${basedir}/projects/mobiletheme" target="doc" />
     	<ant dir="${basedir}/projects/core" target="doc" />
 		<ant dir="${basedir}/projects/authoringsupport" target="doc" />
-        <ant dir="${basedir}/projects/osmf" target="doc" />
+        <!--ant dir="${basedir}/projects/osmf" target="doc" /-->
 		<ant dir="${basedir}/projects/wireframe" target="doc" />
 		<ant dir="${basedir}/projects/flash-integration" target="doc" />
 		<ant dir="${basedir}/projects/automation" target="doc" />
@@ -159,13 +167,13 @@
             <fileset dir="${basedir}/projects/textLayout">
                 <include name="**/**"/>
                 <exclude name="build.xml"/>
-                <exclude name=".*"/>
             </fileset>
         </delete>
         <delete failonerror="false" verbose="true">
-            <fileset dir="${basedir}/libs" includes="textLayout.swc"/>
+            <fileset dir="${basedir}/libs" includes="osmf.swc,textLayout.swc"/>
             <fileset dir="${basedir}/libs/player/${playerglobal.version}" includes="playerglobal.swc"/>
         </delete>
+        <delete dir="${basedir}/downloads"/>
     </target>
 
 	<target name="prepare" description="Prepares for building framework SWCs">
@@ -192,10 +200,14 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<delete dir="${FLEX_HOME}/frameworks/libs/air/flex3" quiet="true" />
 	</target>
 
-    <target name="thirdparty-downloads" depends="playerglobal-download, textLayout-download" description="Copies third-party software into place for build" />
+    <target name="thirdparty-downloads" depends="playerglobal-download, osmf-download, textLayout-download" description="Copies third-party software into place for build" />
     
     <target name="playerglobal-check">
         <available file="${basedir}/libs/player/${playerglobal.version}/playerglobal.swc" property="playerglobal.swc.present"/>
+    </target>
+    
+    <target name="osmf-check">
+        <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
     </target>
     
     <target name="textLayout-check">
@@ -210,35 +222,38 @@ tar -xjf "AIR Integration Kit.tbz2"
             verbose="true"/>
     </target>
 
-	<!-- textLayout.swc -->
-    <!-- Because this requires a network connection it downloads TLF only if it doesn't already exist. -->
-	<!-- ToDo: copy the TLF sources into projects/textLayout so they can be used for debugging. -->
-    <target name="textLayout-download2" depends="textLayout-check" unless="textLayout.swc.present" description="Copies Text Layout Framework from Sourceforge">
-        <mkdir dir="${basedir}/libs/temp"/>
-        <get src="http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download" 
-            dest="${basedir}/libs/temp/textLayout_build.zip" 
+    <!-- osmf.swc (Version 1.0) -->
+    <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
+    <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present" description="Copies Text Layout Framework from Sourceforge">
+        <mkdir dir="${basedir}/downloads"/>
+        <mkdir dir="${basedir}/downloads/OSMF_1.0"/>
+        <get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download" 
+            dest="${basedir}/downloads/OSMF_1.0.zip" 
             verbose="true"/>
-        <unzip dest="${basedir}/libs/temp" src="${basedir}/libs/temp/textLayout_build.zip" />
-        <copy file="${basedir}/libs/temp/libs/textLayout.swc" todir="${basedir}/libs"/>
-        <delete dir="${basedir}/libs/temp" failonerror="false"/>
+        <unzip dest="${basedir}/downloads/OSMF_1.0" src="${basedir}/downloads/OSMF_1.0.zip" />
+        <copy file="${basedir}/downloads/OSMF_1.0/OSMF.swc" tofile="${basedir}/libs/osmf.swc"/>
+        <delete dir="${basedir}/downloads/OSMF_1.0" failonerror="false"/>
     </target>
 
+	<!-- textLayout.swc (Version 2.0.232) -->
+    <!-- Because this requires a network connection it downloads TLF only if it doesn't already exist. -->
     <target name="textLayout-download" depends="textLayout-check" unless="textLayout.swc.present" description="Copies Text Layout Framework from Sourceforge">
-        <mkdir dir="${basedir}/projects/textLayout/temp"/>
+        <mkdir dir="${basedir}/downloads"/>
+        <mkdir dir="${basedir}/downloads/textLayout_build"/>
         <get src="http://sourceforge.net/projects/tlf.adobe/files/2.0/232/textLayout_build.zip/download" 
-            dest="${basedir}/projects/textLayout/temp/textLayout_build.zip" 
+            dest="${basedir}/downloads/textLayout_build.zip" 
             verbose="true"/>
-        <unzip dest="${basedir}/projects/textLayout/temp" src="${basedir}/projects/textLayout/temp/textLayout_build.zip" />
-        <copy file="${basedir}/projects/textLayout/temp/libs/textLayout.swc" todir="${basedir}/libs"/>
+        <unzip dest="${basedir}/downloads/textLayout_build" src="${basedir}/downloads/textLayout_build.zip" />
+        <copy file="${basedir}/downloads/textLayout_build/libs/textLayout.swc" todir="${basedir}/libs"/>
         <copy todir="${basedir}/projects/textLayout">
-            <fileset dir="${basedir}/projects/textLayout/temp">
+            <fileset dir="${basedir}/downloads/textLayout_build">
                 <include name="**/**"/>
                 <exclude name="textLayout_build.zip"/>
                 <exclude name="build.xml"/>
                 <exclude name="libs/**"/>
             </fileset>
         </copy>
-        <delete dir="${basedir}/projects/textLayout/temp"/>
+        <delete dir="${basedir}/downloads/textLayout_build" failonerror="false"/>
     </target>
 
 	<target name="airframework" description="Clean build of airframework.swc">
