@@ -157,6 +157,7 @@
     <component id="Sort" class="mx.collections.Sort" lookupOnly="true"/>
     <component id="SortField" class="mx.collections.SortField" lookupOnly="true"/>
     <component id="SortingCollator" class="spark.globalization.SortingCollator"/>
+    <component id="SparkButtonSkin" class="spark.skins.SparkButtonSkin"/>
     <component id="SparkSkin" class="spark.skins.SparkSkin"/>
     <component id="Spinner" class="spark.components.Spinner"/>
     <component id="SpriteVisualElement" class="spark.core.SpriteVisualElement"/>
