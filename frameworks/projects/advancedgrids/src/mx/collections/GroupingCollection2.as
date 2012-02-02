@@ -507,6 +507,10 @@ public class GroupingCollection2 extends HierarchicalData implements IGroupingCo
         }
         
         super.source = newCollection;
+		
+		// remove the items from the source collection if there are any.
+		newCollection.removeAll();
+		
         
         // dispatch collection change event of kind reset.
         resetEvent =
@@ -1200,8 +1204,7 @@ public class GroupingCollection2 extends HierarchicalData implements IGroupingCo
             // initialize the variables
             initialize();
         
-            // remove the items from the source collection if there are any.
-            newCollection.removeAll();
+           
             
             if ((source as ICollectionView).length == 0)
                 return false;
