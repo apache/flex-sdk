@@ -17,7 +17,7 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,prepare,javascript,framework,framework_textLayout,spark,sparkskins,rpc,airframework,flex,flash_integration,utilities,halo,wireframe,updateAIR" description="Clean build of all SWCs"/>
+	<target name="main" depends="clean,prepare,javascript,tlf,framework,framework_textLayout,spark,sparkskins,rpc,airframework,flex,flash_integration,utilities,halo,wireframe,updateAIR" description="Clean build of all SWCs"/>
 
 	<target name="doc" >
 		<ant dir="${basedir}/projects/framework" target="doc" />
@@ -29,6 +29,7 @@
 		<ant dir="${basedir}/projects/flex" target="doc" />
 		<ant dir="${basedir}/projects/utilities" target="doc" />
 		<ant dir="${basedir}/projects/halo" target="doc" />
+		<ant dir="${basedir}/projects/textLayout" target="doc" />
 		<ant dir="${basedir}/projects/wireframe" target="doc" />
 		<ant dir="${basedir}/projects/flash-integration" target="doc" />
 	</target>
@@ -73,6 +74,10 @@
 		<ant dir="${basedir}/projects/rpc"/>
     </target>
 
+	<target name="tlf" description="Clean build of textLayout.swc">
+		<ant dir="${basedir}/projects/textLayout"/>
+	</target>
+	
     <target name="utilities" description="Clean build of utilities.swc">
 		<ant dir="${basedir}/projects/utilities"/>
     </target>
@@ -102,6 +107,7 @@
 		<ant dir="${basedir}/projects/airframework" target="clean"/>
 		<ant dir="${basedir}/projects/framework_textLayout" target="clean"/>
 		<ant dir="${basedir}/projects/flex" target="clean"/>
+		<ant dir="${basedir}/projects/textLayout" target="clean"/>
 		<ant dir="${basedir}/projects/spark" target="clean"/>
 		<ant dir="${basedir}/projects/sparkskins" target="clean"/>
 		<ant dir="${basedir}/projects/utilities" target="clean"/>
@@ -139,6 +145,7 @@ tar -xjf "AIR Integration Kit.tbz2" .
 	</target>
 	
 	<target name="compile" description="Builds all SWCs but not their resource bundles">
+		<ant dir="${basedir}/projects/tlf" target="compile"/>
 		<ant dir="${basedir}/projects/framework" target="compile"/>
 		<ant dir="${basedir}/projects/airframework" target="compile"/>
 		<ant dir="${basedir}/projects/flex" target="compile"/>
@@ -146,7 +153,8 @@ tar -xjf "AIR Integration Kit.tbz2" .
 		<ant dir="${basedir}/projects/halo" target="compile"/>
 		<ant dir="${basedir}/projects/spark" target="compile"/>
 		<ant dir="${basedir}/projects/sparkskins" target="compile"/>
-		<ant dir="${basedir}/projects/wireframe" target="compile"/>
+		<ant dir="${basedir}/projects/rpc" target="compile"/>
+			<ant dir="${basedir}/projects/wireframe" target="compile"/>
 
     </target>
 
