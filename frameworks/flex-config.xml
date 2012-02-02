@@ -48,11 +48,6 @@
       <!--
       <debug>true</debug>
       -->
-      
-      <!-- Turn on ZLIB compression for SWF encoder -->
-      <!--
-      <compress>true</compress>
-      -->
 
       <!-- List of SWC files or directories to compile against but to omit from -->
       <!-- linking.                                                             -->
