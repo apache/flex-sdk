@@ -88,7 +88,7 @@
          </namespace>
          <namespace>
             <uri>http://www.adobe.com/2006/mxml</uri>
-            <manifest>mxml-manifest.xml</manifest>
+            <manifest>halo-manifest.xml</manifest>
          </namespace>
          <namespace>
             <uri>http://ns.adobe.com/fxg/2008</uri>
@@ -330,13 +330,57 @@
    -->
    
    <!-- runtime-shared-library-path: specifies a SWC or directory to link against and an RSL URL to load with optional failover URLs -->
+   <!-- TextLayout SWC -->
+   <!--@@
    <runtime-shared-library-path>
-      <path-element>libs/framework.swc</path-element>
-      <rsl-url>framework_${build.number}.swz</rsl-url>
-      <policy-file-url></policy-file-url>
-      <rsl-url>framework_${build.number}.swf</rsl-url>
+      <path-element>libs/textLayout.swc</path-element>
+      <rsl-url>${hosted.rsl.url}/flex/${build.number}/textLayout_${tlfbuild}.swz</rsl-url>
+      <policy-file-url>${hosted.rsl.url}/crossdomain.xml</policy-file-url>
+      <rsl-url>textLayout_${tlfbuild}.swz</rsl-url>
       <policy-file-url></policy-file-url>
    </runtime-shared-library-path>
+      @@-->
+   <!-- Framework SWC -->
+   <!--@@
+   <runtime-shared-library-path>
+      <path-element>libs/framework.swc</path-element>
+      <rsl-url>${hosted.rsl.url}/flex/${build.number}/framework_${build.number}.swz</rsl-url>
+      <policy-file-url>${hosted.rsl.url}/crossdomain.xml</policy-file-url>
+      <rsl-url>framework_${build.number}.swz</rsl-url>
+      <policy-file-url></policy-file-url>
+   </runtime-shared-library-path>
+   @@-->
+   <!-- Framework_textLayout SWC -->
+   <!--@@
+   <runtime-shared-library-path>
+      <path-element>libs/framework_textLayout.swc</path-element>
+      <rsl-url>${hosted.rsl.url}/flex/${build.number}/framework_textLayout_${build.number}.swz</rsl-url>
+      <policy-file-url>${hosted.rsl.url}/crossdomain.xml</policy-file-url>
+      <rsl-url>framework_textLayout_${build.number}.swz</rsl-url>
+      <policy-file-url></policy-file-url>
+   </runtime-shared-library-path>
+   @@-->
+   <!-- Flex4 SWC-->
+   <!--@@
+    <runtime-shared-library-path>
+      <path-element>libs/flex4.swc</path-element>
+      <rsl-url>${hosted.rsl.url}/flex/${build.number}/flex4_${build.number}.swz</rsl-url>
+      <policy-file-url>${hosted.rsl.url}/crossdomain.xml</policy-file-url>
+      <rsl-url>flex4_${build.number}.swz</rsl-url>
+      <policy-file-url></policy-file-url>
+   </runtime-shared-library-path>
+         @@-->
+   <!-- RPC SWC -->
+   <!--@@
+    <runtime-shared-library-path>
+      <path-element>libs/rpc.swc</path-element>
+      <rsl-url>${hosted.rsl.url}/flex/${build.number}/rpc_${build.number}.swz</rsl-url>
+      <policy-file-url>${hosted.rsl.url}/crossdomain.xml</policy-file-url>
+      <rsl-url>rpc_${build.number}.swz</rsl-url>
+      <policy-file-url></policy-file-url>
+   </runtime-shared-library-path>
+      @@-->
+   
    <!-- static-link-runtime-shared-libraries: statically link the libraries specified by the -runtime-shared-libraries-path option.-->
    <static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
    
