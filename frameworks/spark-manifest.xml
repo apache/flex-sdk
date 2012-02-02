@@ -117,6 +117,7 @@
     <component id="SkinnableContainer" class="spark.components.SkinnableContainer"/>
     <component id="SkinnableContainerBase" class="spark.components.supportClasses.SkinnableContainerBase"/>
     <component id="SkinnableDataContainer" class="spark.components.SkinnableDataContainer"/>
+    <component id="SkinnableTextBase" class="spark.components.supportClasses.SkinnableTextBase"/>
     <component id="Slider" class="spark.components.supportClasses.Slider"/>
     <component id="SparkSkin" class="spark.skins.SparkSkin"/>
     <component id="Spinner" class="spark.components.Spinner"/>
@@ -125,10 +126,9 @@
     <component id="StreamItem" class="spark.components.mediaClasses.StreamItem"/>
     <component id="StrokedElement" class="spark.primitives.supportClasses.StrokedElement"/>
     <component id="TextArea" class="spark.components.TextArea"/>
-    <component id="TextBase" class="spark.components.supportClasses.TextBase"/>
     <component id="TextGraphicElement" class="spark.primitives.supportClasses.TextGraphicElement"/>
     <component id="TextInput" class="spark.components.TextInput"/>
-    <component id="TextSelectionVisibility" class="spark.components.TextSelectionVisibility"/>
+    <component id="TextSelectionHighlighting" class="spark.components.TextSelectionHighlighting"/>
     <component id="TextUtil" class="spark.utils.TextUtil"/>
     <component id="TileLayout" class="spark.layouts.TileLayout"/>
     <component id="TileOrientation" class="spark.layouts.TileOrientation"/>
