@@ -73,7 +73,7 @@
 
 	<target name="airframework" description="Builds libs/airframework.swc">
 		<compc include-classes="AIRFrameworkClasses" output="${basedir}/libs/air/airframework.swc" locale="" accessible="true">
-			<target-player>9</target-player>
+			<target-player>10</target-player>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${airframework.dir}/manifest.xml"/>
 			<source-path path-element="${airframework.dir}/src"/>
@@ -114,7 +114,7 @@
 
 	<target name="airframework_rb" description="Builds locale/en_US/airframework_rb.swc">
 		<compc output="${basedir}/locale/${locale}/airframework_rb.swc" locale="${locale}">
-            <target-player>9</target-player>
+            <target-player>10</target-player>
             <include-resource-bundles bundle="SharedResources"/>
             <include-resource-bundles bundle="aircontrols"/>
             <include-resource-bundles bundle="collections"/>
