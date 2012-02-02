@@ -36,7 +36,22 @@ Until the modules directory is donated you should follow these steps to build th
 3.  Delete the frameworks directory from the files you just expanded and replace it with the contents of the frameworks directory from the ASF svn repository.  
     The SVN-location is https://svn.apache.org/repos/asf/incubator/flex/trunk/frameworks
 
-4.  From the frameworks directory, type ant -f build_framework.xml to build the frameworks directories.
+4.  To build the frameworks directory, from the frameworks directory, type:
+
+	ant -f build_framework.xml
+
+    This will download the thirdparty code that the build needs and then build the project directories.
+
+5.  Other useful targets in frameworks/build_framework.xml:
+
+	ant -f build_framework.xml thirdparty-downloads - to download the thirdparty code
+		The default target, main, does this only if the files aren't already in place.
+
+	ant -f build_framework.xml thirdparty-clean
+		Removes the thirdparty code that was downloaded.
+
+	ant -f build_framework.xml clean - to clean the results of the build
+		This does not remove the thirdparty downloads since they take some time and they don't change often.
 
 Notes:
 
