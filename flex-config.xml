@@ -100,6 +100,9 @@
       <!-- Enable post-link SWF optimization. -->
       <optimize>true</optimize>
 
+      <!-- Enable trace statement omission. -->
+      <omit-trace-statements>true</omit-trace-statements>
+
       <!-- Keep the following AS3 metadata in the bytecodes.                                             -->
       <!-- Warning: For the data binding feature in the Flex framework to work properly,                 -->
       <!--          the following metadata must be kept:                                                 -->
