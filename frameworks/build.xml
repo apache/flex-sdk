@@ -64,7 +64,6 @@
 		<ant dir="${basedir}/projects/charts" target="other.locales"/>
 		<ant dir="${basedir}/projects/advancedgrids" target="other.locales"/>
 		<ant dir="${basedir}/projects/spark" target="other.locales"/>
-		<ant dir="${basedir}/projects/mobilecomponents" target="other.locales" />
 		<ant dir="${basedir}/projects/textLayout" target="other.locales"/>
 		<ant dir="${basedir}/projects/osmf" target="other.locales"/>
 		<ant dir="${basedir}/projects/playerglobal" target="other.locales" />
