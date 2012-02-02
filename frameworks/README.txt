@@ -1,6 +1,6 @@
 January 15, 2012
 
-Adobe will be dropping subsets of the Adobe Flex code into the Apache Flex subversion directory at The Apache Software Foundation after each subset is approved for donation by the Adobe legal team.  The first subset will be the frameworks directory, minus the automation and flash-integration directories, and we expect the second subset to be the modules directory which contains the compiler.
+Adobe will be dropping subsets of the Adobe Flex code into the Apache Flex subversion directory at The Apache Software Foundation after each subset is approved for donation by the Adobe legal team.  The first subset will be the frameworks directory, minus the automation, javascript and flash-integration directories. We expect the second subset to be the modules directory which contains the compiler.
 
 Until the modules directory is donated you should follow these steps to build the framework directory.
 
@@ -10,9 +10,9 @@ Until the modules directory is donated you should follow these steps to build th
 
     It requires the following software that is not under source control:
 
-    J2SDK 1.5.0_13 (http://java.sun.com/products/archive/j2se/5.0_13/index.html) (see Note below)
+    J2SDK 1.5.0_13 (http://java.sun.com/products/archive/j2se/5.0_13/index.html) (see Notes below)
     
-    Ant 1.7.0 (http://archive.apache.org/dist/ant/binaries/)
+    Ant 1.7.0 (http://archive.apache.org/dist/ant/binaries/) (see Notes below)
     
     The following environment variables must be set:
 
@@ -57,6 +57,10 @@ Until the modules directory is donated you should follow these steps to build th
 
 Notes:
 
+- The Open Source kit was certified with J2SDK 1.5.0_13 and Ant 1.7.0.
+  It is quite possible that later versions of these work as well.
+  We've successfully used Java Version 1.6.0_29 from Apple Inc. on the Mac and Java 1.7 and both Ant 1.7 and Ant 1.8 on Windows 7.
+
 - The frameworks directory contains a build_framework.xml file and a build.xml file.  
   The build_framework.xml directory builds frameworks in the context of a downloaded kit so it uses the compiler in the bin directory.  
   The build.xml file builds frameworks in the context of the source tree which means it uses the compiler in the modules directory.  
@@ -67,5 +71,3 @@ Notes:
   projects/automation_dmv, projects/automation_flashflexkit, projects/automation_spark, 
 
 - The build files for the asdoc and doc directories will be added shortly.
-
-- While the official documentation says that J2SDK 1.5.0_13 is required, I use Java Version 1.6.0_29 from Apple Inc. without any issues.
