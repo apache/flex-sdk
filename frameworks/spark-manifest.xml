@@ -72,7 +72,6 @@
     <component id="DefaultComplexItemRenderer" class="spark.skins.default.DefaultComplexItemRenderer"/>
     <component id="DefaultItemRenderer" class="spark.skins.default.DefaultItemRenderer"/>
     <component id="DisplacementMapFilter" class="spark.filters.DisplacementMapFilter"/>
-    <component id="DropDownBase" class="spark.components.supportClasses.DropDownBase"/>
     <component id="DropDownList" class="spark.components.DropDownList"/>
     <component id="DropDownListButtonSkin" class="spark.skins.default.DropDownListButtonSkin"/>
     <component id="DropDownListSkin" class="spark.skins.default.DropDownListSkin"/>
