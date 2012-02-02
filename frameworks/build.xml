@@ -115,9 +115,6 @@
 		<ant dir="${basedir}/javascript" target="clean"/>
 		<!-- Delete empty folders -->
 		<delete dir="${basedir}/locale"/>
-		<!-- THIS CAN EVENTUALLY BE REMOVED: -->
-		<!-- Delete vestigial framework_textLayout.swc -->
-		<delete file="${basedir}/libs/framework_textLayout.swc"/>
 	</target>
 
 	<target name="prepare" description="Prepares for building framework SWCs">
@@ -151,13 +148,14 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<ant dir="${basedir}/projects/spark" target="compile"/>
 		<ant dir="${basedir}/projects/sparkskins" target="compile"/>
 		<ant dir="${basedir}/projects/rpc" target="compile"/>
-			<ant dir="${basedir}/projects/wireframe" target="compile"/>
-
+		<ant dir="${basedir}/projects/wireframe" target="compile"/>
     </target>
 
 	<target name="other.locales" description ="Builds resource SWCs for other locales">
 		<ant dir="${basedir}/projects/framework" target="other.locales"/>
 		<ant dir="${basedir}/projects/airframework" target="other.locales"/>
+		<ant dir="${basedir}/projects/spark" target="other.locales"/>
+		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
 	</target>
 
     <target name="updateAIR" description="Rebuild a AIK SWC and SWF that depend on Flex" >
