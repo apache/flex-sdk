@@ -90,6 +90,7 @@
     <component id="Range" class="spark.components.supportClasses.Range"/>
     <component id="Rect" class="spark.primitives.Rect"/>
     <component id="RemoveAction" class="spark.effects.RemoveAction"/>
+    <component id="RelativePosition" class="spark.core.RelativePosition"/>
     <component id="Resize" class="spark.effects.Resize"/>
     <component id="RGBInterpolator" class="spark.effects.interpolation.RGBInterpolator"/>
     <component id="RichEditableText" class="spark.primitives.RichEditableText"/>
