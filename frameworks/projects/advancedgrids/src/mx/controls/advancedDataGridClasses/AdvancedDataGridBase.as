@@ -446,7 +446,7 @@ public class AdvancedDataGridBase extends AdvancedListBase implements IFontConte
         return moduleFactory;
     }
 
-	/**
+    /**
     * @private
     */
     public function set fontContext(moduleFactory:IFlexModuleFactory):void
@@ -1170,7 +1170,7 @@ public class AdvancedDataGridBase extends AdvancedListBase implements IFontConte
                     var headerItem:IInvalidating = headerItems[currentRowNum][i] as IInvalidating;
                     
                     if (headerItem)
-                    	IInvalidating(headerItem).invalidateDisplayList();
+                        IInvalidating(headerItem).invalidateDisplayList();
                     
                 }
 
@@ -2171,6 +2171,9 @@ public class AdvancedDataGridBase extends AdvancedListBase implements IFontConte
     // Cell Selection methods
     /**
      * Return <code>true</code> if <code>selectedMode</code> is 
+     * <code>SINGLE_ROW</code> or <code>MULTIPLE_ROWS</code>.
+     *
+     *  @return <code>true</code> if <code>selectedMode</code> is 
      * <code>SINGLE_ROW</code> or <code>MULTIPLE_ROWS</code>.
      *  
      *  @langversion 3.0
