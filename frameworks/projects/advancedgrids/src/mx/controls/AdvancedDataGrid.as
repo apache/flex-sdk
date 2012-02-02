@@ -8102,6 +8102,22 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
        }
         return 0;
     }
+   
+   /**
+    * Get the length of the header items. Length calculation is different
+	* in case grouped columns are specified.
+	*  @private
+	*/
+   override protected function getHeaderItemsLength():int
+   {
+	   if (!columnGrouping)
+		   return super.getHeaderItemsLength();
+	   
+	   if (headerItemsList)
+		   return headerItemsList.length;
+	   
+	   return 0;
+   }
 
     //--------------------------------------------------------------------------
     //
