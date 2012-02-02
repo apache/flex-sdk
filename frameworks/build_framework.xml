@@ -149,7 +149,7 @@
 		locale="" 
 		accessible="true"
 		show-deprecation-warnings="false">
-            <namespace uri="http://www.adobe.com/2006/mxml" manifest="${datavis.dir}/manifest_charts.xml"/>
+            <namespace uri="http://www.adobe.com/2006/mxml" manifest="${advancedgrids.dir}/manifest_charts.xml"/>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
 			<source-path path-element="${charts.dir}/src"/>
 			<source-path path-element="${basedir}/projects/mx/src"/>
@@ -160,8 +160,10 @@
 				<include name="rpc.swc"/>
 				<include name="textLayout.swc"/>
              </external-library-path>
-			<include-file name="defaults.css" path="${datavis.dir}/charts.css"/>
-			<include-file name="defaults-3.0.0.css" path="${datavis.dir}/charts-3.0.0.css"/>
+			<include-file name="defaults.css" path="${charts.dir}/charts.css"/>
+			<include-file name="defaults-4.1.0.css" path="${charts.dir}/charts-4.X.0.css"/>
+			<include-file name="defaults-4.0.0.css" path="${charts.dir}/charts-4.X.0.css"/>
+			<include-file name="defaults-3.0.0.css" path="${charts.dir}/charts-3.0.0.css"/>
 			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
@@ -186,7 +188,7 @@
 		locale="" 
 		accessible="true"
 		show-deprecation-warnings="false">
-            <namespace uri="http://www.adobe.com/2006/mxml" manifest="${datavis.dir}/manifest_advancedgrids.xml"/>
+            <namespace uri="http://www.adobe.com/2006/mxml" manifest="${advancedgrids.dir}/manifest_advancedgrids.xml"/>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
 			<source-path path-element="${advancedgrids.dir}/src"/>
 			<source-path path-element="${basedir}/projects/mx/src"/>
@@ -198,8 +200,8 @@
 				<include name="rpc.swc"/>
 				<include name="textLayout.swc"/>
              </external-library-path>
-			<include-file name="defaults.css" path="${datavis.dir}/data_management.css"/>
-			<include-file name="defaults-3.0.0.css" path="${datavis.dir}/data_management-3.0.0.css"/>
+			<include-file name="defaults.css" path="${advancedgrids.dir}/data_management.css"/>
+			<include-file name="defaults-3.0.0.css" path="${advancedgrids.dir}/data_management-3.0.0.css"/>
 			<jvmarg line="${compc.jvm.args}"/>
 		</compc>
 	</target>
