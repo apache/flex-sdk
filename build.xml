@@ -29,7 +29,6 @@
 	<target name="main" depends="clean,prepare,javascript,compile,updateAIR" description="Clean build of all SWCs"/>
 
 	<target name="compile" description="Builds all SWCs but not their resource bundles">
-        <antcall target="osmf"/>
 		<antcall target="framework"/>
 		<antcall target="rpc"/>
 		<antcall target="datavisualization"/>
@@ -101,7 +100,6 @@
 		<ant dir="${basedir}/projects/airframework" target="clean"/>
         <ant dir="${basedir}/projects/airspark" target="clean"/>
 		<ant dir="${basedir}/projects/flex" target="clean"/>
-        <ant dir="${basedir}/projects/osmf" target="clean"/>
 		<ant dir="${basedir}/projects/spark" target="clean"/>
 		<ant dir="${basedir}/projects/sparkskins" target="clean"/>
 		<ant dir="${basedir}/projects/utilities" target="clean"/>
