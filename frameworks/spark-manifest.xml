@@ -77,6 +77,7 @@
     <component id="ListBase" class="spark.components.supportClasses.ListBase"/>
     <component id="MaskType" class="spark.core.MaskType"/>
     <component id="Matrix" class="flash.geom.Matrix" lookupOnly="true"/>
+    <component id="Matrix3D" class="flash.geom.Matrix3D" lookupOnly="true"/>
     <component id="MotionPath" class="spark.effects.animation.MotionPath"/>
     <component id="Move" class="spark.effects.Move"/>
     <component id="Move3D" class="spark.effects.Move3D"/>
