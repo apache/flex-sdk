@@ -154,15 +154,7 @@
     <!-- Special Components -->
     <component id="State" class="mx.states.State" lookupOnly="true"/>
 	<component id="AddItems" class="mx.states.AddItems" lookupOnly="true"/>
-	
-	<!-- Path Segments -->
-	<component id="CloseSegment" class="spark.primitives.pathSegments.CloseSegment"/>
-	<component id="CubicBezierSegment" class="spark.primitives.pathSegments.CubicBezierSegment"/>
-	<component id="LineSegment" class="spark.primitives.pathSegments.LineSegment"/>
-	<component id="MoveSegment" class="spark.primitives.pathSegments.MoveSegment"/>
-	<component id="PathSegment" class="spark.primitives.pathSegments.PathSegment"/>
-	<component id="QuadraticBezierSegment" class="spark.primitives.pathSegments.QuadraticBezierSegment"/>
-	
+		
     <!-- Framework base classes with CSS type selectors -->
     <component id="TextGraphicElement" class="spark.primitives.supportClasses.TextGraphicElement"/>
 
