@@ -121,8 +121,6 @@
 		<ant dir="${basedir}/javascript" target="clean"/>
 		<!-- Delete empty folders -->
 		<delete dir="${basedir}/locale"/>
-		<delete dir="${basedir}/themes/haloclassic"/>
-		<delete dir="${basedir}/themes/Wireframe"/>
 	</target>
 
 	<target name="prepare" description="Prepares for building framework SWCs">
