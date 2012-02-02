@@ -7299,7 +7299,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         {
             _editedItemPosition = lastEditedItemPosition;
 
-            var foundOne:Boolean = editedItemPosition != null;
+            var foundOne:Boolean = false;
 
             // start somewhere
             if (!_editedItemPosition)
@@ -7314,12 +7314,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 	                if (_columns[_editedItemPosition.columnIndex].editable &&
 	                    _columns[_editedItemPosition.columnIndex].visible)
 	                {
-	                    var row:Array = listItems[_editedItemPosition.rowIndex];
-	                    if (row && row[_editedItemPosition.columnIndex])
-	                    {
-	                        foundOne = true;
-	                        break;
-	                    }
+                        foundOne = true;
+                        break;
 	                }
 	            }
 
