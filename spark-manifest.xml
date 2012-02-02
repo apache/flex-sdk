@@ -32,7 +32,6 @@
     <component id="AnimateTransformScale" class="spark.effects.AnimateTransformScale"/>
     <component id="AnimateTransformScale3D" class="spark.effects.AnimateTransformScale3D"/>
     <component id="Animation" class="spark.effects.animation.Animation"/>
-    <component id="AnimationProperty" class="spark.effects.AnimationProperty"/>
     <component id="Application" class="spark.components.Application"/>
     <component id="ArrayCollection" class="mx.collections.ArrayCollection" lookupOnly="true"/>
     <component id="ArrayInterpolator" class="spark.effects.interpolation.ArrayInterpolator"/>
@@ -57,7 +56,6 @@
     <component id="DisplacementMapFilter" class="spark.filters.DisplacementMapFilter"/>
     <component id="DropDownList" class="spark.components.DropDownList"/>
     <component id="DropShadowFilter" class="spark.filters.DropShadowFilter"/>
-    <component id="EaseInOut" class="spark.effects.easing.EaseInOut"/>
     <component id="Ellipse" class="spark.primitives.Ellipse"/>
     <component id="Fade" class="spark.effects.Fade"/>
     <component id="FilledElement" class="spark.primitives.supportClasses.FilledElement"/>
@@ -86,7 +84,6 @@
     <component id="MotionPath" class="spark.effects.MotionPath"/>
     <component id="Move" class="spark.effects.Move"/>
 	<component id="MXMLComponent" class="spark.components.MXMLComponent"/>
-	<component id="NumberArrayInterpolator" class="spark.effects.interpolation.NumberArrayInterpolator"/>
     <component id="NumberInterpolator" class="spark.effects.interpolation.NumberInterpolator"/>
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
     <component id="Panel" class="spark.components.Panel"/>
@@ -110,6 +107,7 @@
     <component id="ScrollerLayout" class="spark.components.supportClasses.ScrollerLayout"/>
     <component id="SetAction" class="spark.effects.SetAction"/>
     <component id="ShaderFilter" class="spark.filters.ShaderFilter"/>
+    <component id="SimpleMotionPath" class="spark.effects.SimpleMotionPath"/>
     <component id="SimpleText" class="spark.primitives.SimpleText"/>
     <component id="Sine" class="spark.effects.easing.Sine"/>
     <component id="Skin" class="spark.components.supportClasses.Skin"/>
