@@ -320,6 +320,9 @@
    <compute-digest>boolean</compute-digest>
    -->
 
+   <!-- remove-unused-rsls: remove RSLs that are not being used by the application-->
+   <remove-unused-rsls>true</remove-unused-rsls>
+
    <!-- A list of runtime shared library URLs to be loaded before applications start. -->
    <!-- not set -->
    <!--
@@ -330,45 +333,73 @@
    -->
    
  	<!-- runtime-shared-library-path: specifies a SWC or directory to link against and an RSL URL to load with optional failover URLs -->
+      <!-- Framework SWC -->
+	<runtime-shared-library-path>
+		<path-element>libs/framework.swc</path-element>
+		<rsl-url>framework_4.5.0.0.swf</rsl-url>
+		<policy-file-url></policy-file-url>
+	</runtime-shared-library-path>
+   
 	<!-- TextLayout SWC -->
-    <runtime-shared-library-path>
+      <runtime-shared-library-path>
 		<path-element>libs/textLayout.swc</path-element>
 		<rsl-url>textLayout_2.0.0.211.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
-      
-    <!-- OSMF SWC -->
-    <runtime-shared-library-path>
-		<path-element>libs/osmf.swc</path-element>
-		<rsl-url>osmf_flex.4.0.0.13495.swf</rsl-url>
+    
+      <!-- Spark SWC-->
+   	<runtime-shared-library-path>
+		<path-element>libs/spark.swc</path-element>
+		<rsl-url>spark_4.5.0.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
 	
-    <!-- Framework SWC -->
-	<runtime-shared-library-path>
-		<path-element>libs/framework.swc</path-element>
-		<rsl-url>framework_4.0.0.0.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-   
-    <!-- MX SWC -->
-	<runtime-shared-library-path>
-		<path-element>libs/mx/mx.swc</path-element>
-		<rsl-url>mx_4.5.0.0.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-   
-   <!-- Spark SWC-->
+      <!-- Sparkskins SWC-->
    	<runtime-shared-library-path>
-		<path-element>libs/spark.swc</path-element>
-		<rsl-url>spark_4.0.0.0.swf</rsl-url>
+		<path-element>libs/sparkskins.swc</path-element>
+		<rsl-url>sparkskins_4.5.0.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
 	 
 	<!-- RPC SWC -->
 	<runtime-shared-library-path>
 		<path-element>libs/rpc.swc</path-element>
-		<rsl-url>rpc_4.0.0.0.swf</rsl-url>
+		<rsl-url>rpc_4.5.0.0.swf</rsl-url>
+		<policy-file-url></policy-file-url>
+	</runtime-shared-library-path>
+    	
+      <!-- Charts SWC -->
+	<runtime-shared-library-path>
+		<path-element>libs/charts.swc</path-element>
+		<rsl-url>charts_4.5.0.0.swf</rsl-url>
+		<policy-file-url></policy-file-url>
+	</runtime-shared-library-path>
+
+      <!-- Spark_dmv SWC -->
+	<runtime-shared-library-path>
+		<path-element>libs/spark_dmv.swc</path-element>
+		<rsl-url>spark_dmv_4.5.0.0.swf</rsl-url>
+		<policy-file-url></policy-file-url>
+	</runtime-shared-library-path>
+
+      <!-- OSMF SWC -->
+     <runtime-shared-library-path>
+		<path-element>libs/osmf.swc</path-element>
+		<rsl-url>osmf_1.0.0.16316.swf</rsl-url>
+		<policy-file-url></policy-file-url>
+	</runtime-shared-library-path>
+      
+      <!-- MX SWC -->
+	<runtime-shared-library-path>
+		<path-element>libs/mx/mx.swc</path-element>
+		<rsl-url>mx_4.5.0.0.swf</rsl-url>
+		<policy-file-url></policy-file-url>
+	</runtime-shared-library-path>
+   
+      <!-- Advancedgrids SWC -->
+	<runtime-shared-library-path>
+		<path-element>libs/advancedgrids.swc</path-element>
+		<rsl-url>advancedgrids_4.5.0.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
 	
