@@ -169,7 +169,7 @@
           <languages>
               <language-range>
                   <lang>englishRange</lang>
-                  <range>U+0020-U+007E</range>
+                  <range>U+0020-007E</range>
               </language-range>
           </languages>
           -->
