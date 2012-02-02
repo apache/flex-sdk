@@ -224,7 +224,9 @@ tar -xjf "AIR Integration Kit.tbz2"
 	
     <target name="thirdparty-downloads" 
     	depends="airsdk-download,playerglobal-download, osmf-download, textLayout-download" 
-    	description="Copies third-party software into place for build" />
+    	description="Copies third-party software into place for build">
+        <echo message="Use the thirdparty-clean target to remove these."/> 
+    </target>
     
     <target name="airsdk-check" description="Checks if the Air SDK has been downloaded.">
         <available file="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" property="airsdk.mac.present"/>
