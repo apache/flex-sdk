@@ -17,7 +17,7 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,prepare,javascript,framework,framework_textLayout,flex4,rpc,airframework,flex,flash_integration,utilities,haloclassic,wireframe" description="Clean build of all SWCs"/>
+	<target name="main" depends="clean,prepare,javascript,framework,framework_textLayout,flex4,rpc,airframework,flex,flash_integration,utilities,haloclassic,wireframe,updateAIR" description="Clean build of all SWCs"/>
 
 	<target name="doc" >
 		<ant dir="${basedir}/projects/framework" target="doc" />
@@ -148,5 +148,20 @@ tar -xjf "AIR Integration Kit.tbz2" .
 		<ant dir="${basedir}/projects/airframework" target="other.locales"/>
 		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
 	</target>
+
+    <target name="updateAIR" description="Rebuild a AIK SWC and SWF that depend on Flex" >
+		<property name="flex.home" value="${FLEX_HOME}" />     
+		
+		<delete dir="${basedir}/projects/air/build" quiet="true" />
+		<ant dir="${basedir}/projects/air" antfile="sample-frameworks-build.xml" target="application_updater.application_updater_ui" />
+		<copy todir="${basedir}/libs/air">
+			<fileset dir="${basedir}/projects/air/build/results">
+				<include name="applicationupdater_ui.swc"/>
+				<include name="applicationupdater_ui.swf"/>
+			</fileset>
+		</copy>
+		<delete dir="${basedir}/projects/air/build" quiet="true" />
+    </target>
+
 
 </project>
