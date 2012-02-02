@@ -281,12 +281,14 @@
     <component id="PrintAdvancedDataGrid" class="mx.printing.PrintAdvancedDataGrid" lookupOnly="true"/>
     <component id="PrintOLAPDataGrid" class="mx.printing.PrintOLAPDataGrid" lookupOnly="true"/>
     <component id="GroupingCollection" class="mx.collections.GroupingCollection" lookupOnly="true"/>
+    <component id="GroupingCollection2" class="mx.collections.GroupingCollection2" lookupOnly="true"/>
     <component id="Grouping" class="mx.collections.Grouping" lookupOnly="true"/>
     <component id="GroupingField" class="mx.collections.GroupingField" lookupOnly="true"/>
     <component id="HierarchicalCollectionView" class="mx.collections.HierarchicalCollectionView" lookupOnly="true"/>
     <component id="HierarchicalData" class="mx.collections.HierarchicalData" lookupOnly="true"/>
     <component id="SummaryRow" class="mx.collections.SummaryRow" lookupOnly="true"/>
     <component id="SummaryField" class="mx.collections.SummaryField" lookupOnly="true"/>
+    <component id="SummaryField2" class="mx.collections.SummaryField2" lookupOnly="true"/>
 
     <!-- olap -->
     <component id="OLAPSchema" class="mx.olap.OLAPSchema" lookupOnly="true"/>
