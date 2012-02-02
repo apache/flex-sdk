@@ -28,6 +28,7 @@ import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
+import mx.core.ILayoutDirectionElement;
 import mx.core.IToolTip;
 import mx.core.IUITextField;
 import mx.core.SpriteAsset;
@@ -367,6 +368,11 @@ public class AdvancedDataGridGroupItemRenderer extends UIComponent
                 {
                     disclosureIcon = disclosureInstance;
                 }
+				
+				// Let the disclosureIcon inherit the layoutDirection
+				if (disclosureIcon is ILayoutDirectionElement)
+					ILayoutDirectionElement(disclosureIcon).layoutDirection = null;
+				
 
                 addChild(disclosureIcon as DisplayObject);
                 // set the x position
