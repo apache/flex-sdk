@@ -32,7 +32,8 @@
 		<antcall target="framework"/>
             <antcall target="mx"/>
 		<antcall target="rpc"/>
-		<antcall target="datavisualization"/>
+		<antcall target="charts"/>
+		<antcall target="advancedgrids"/>
 		<antcall target="spark"/>
 		<antcall target="sparkskins"/>
 		<antcall target="spark_dmv"/>
@@ -40,9 +41,9 @@
         <antcall target="airspark"/>		
         <antcall target="mobilecomponents"/>		
         <antcall target="mobiletheme"/>		
-        <antcall target="flex"/>
+        <antcall target="core"/>
 		<antcall target="flash_integration"/>
-		<antcall target="utilities"/>
+		<antcall target="authoringsupport"/>
 		<antcall target="halo"/>
 		<antcall target="osmf"/>
 		<antcall target="wireframe"/>
@@ -60,7 +61,8 @@
 		<ant dir="${basedir}/projects/airframework" target="other.locales"/>
         <ant dir="${basedir}/projects/airspark" target="other.locales"/>
 		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
-		<ant dir="${basedir}/projects/datavisualization" target="other.locales"/>
+		<ant dir="${basedir}/projects/charts" target="other.locales"/>
+		<ant dir="${basedir}/projects/advancedgrids" target="other.locales"/>
 		<ant dir="${basedir}/projects/spark" target="other.locales"/>
 		<ant dir="${basedir}/projects/textLayout" target="other.locales"/>
 		<ant dir="${basedir}/projects/osmf" target="other.locales"/>
@@ -73,7 +75,8 @@
 		<ant dir="${basedir}/projects/framework" target="doc" />
 		<ant dir="${basedir}/projects/mx" target="doc" />
 		<ant dir="${basedir}/projects/rpc" target="doc" />
-		<ant dir="${basedir}/projects/datavisualization" target="doc" />
+		<ant dir="${basedir}/projects/charts" target="doc" />
+		<ant dir="${basedir}/projects/advancedgrids" target="doc" />
 		<ant dir="${basedir}/projects/spark" target="doc" />
 		<ant dir="${basedir}/projects/spark_dmv" target="doc" />
 		<ant dir="${basedir}/projects/sparkskins" target="doc" />
@@ -81,8 +84,8 @@
 	    <ant dir="${basedir}/projects/airspark" target="doc" />
 	    <ant dir="${basedir}/projects/mobilecomponents" target="doc" />
 	    <ant dir="${basedir}/projects/mobiletheme" target="doc" />
-    	<ant dir="${basedir}/projects/flex" target="doc" />
-		<ant dir="${basedir}/projects/utilities" target="doc" />
+    	<ant dir="${basedir}/projects/core" target="doc" />
+		<ant dir="${basedir}/projects/authoringsupport" target="doc" />
         <ant dir="${basedir}/projects/osmf" target="doc" />
 		<ant dir="${basedir}/projects/wireframe" target="doc" />
 		<ant dir="${basedir}/projects/flash-integration" target="doc" />
@@ -113,17 +116,18 @@
         <ant dir="${basedir}/projects/airspark" target="clean"/>
         <ant dir="${basedir}/projects/mobilecomponents" target="clean"/>
         <ant dir="${basedir}/projects/mobiletheme" target="clean"/>
-		<ant dir="${basedir}/projects/flex" target="clean"/>
+		<ant dir="${basedir}/projects/core" target="clean"/>
 		<ant dir="${basedir}/projects/spark" target="clean"/>
 		<ant dir="${basedir}/projects/spark_dmv" target="clean"/>
 		<ant dir="${basedir}/projects/sparkskins" target="clean"/>
-		<ant dir="${basedir}/projects/utilities" target="clean"/>
+		<ant dir="${basedir}/projects/authoringsupport" target="clean"/>
 		<ant dir="${basedir}/projects/halo" target="clean"/>
 		<ant dir="${basedir}/projects/wireframe" target="clean"/>
 		<ant dir="${basedir}/projects/flash-integration" target="clean"/>
 		<ant dir="${basedir}/projects/rpc" target="clean"/>
-		<ant dir="${basedir}/projects/utilities" target="clean"/>
-		<ant dir="${basedir}/projects/datavisualization" target="clean"/>
+		<ant dir="${basedir}/projects/authoringsupport" target="clean"/>
+		<ant dir="${basedir}/projects/charts" target="clean"/>
+		<ant dir="${basedir}/projects/advancedgrids" target="clean"/>
 		<ant dir="${basedir}/projects/automation" target="clean"/>
 		<ant dir="${basedir}/projects/automation_air" target="clean"/>
 		<ant dir="${basedir}/projects/automation_dmv" target="clean"/>
@@ -179,14 +183,18 @@ tar -xjf "AIR Integration Kit.tbz2"
 
     <target name="mobiletheme" description="Clean build of mobile.swc">
 		<ant dir="${basedir}/projects/mobiletheme"/>
+    </target>	
+
+    <target name="charts" description="Clean build of charts.swc">
+		<ant dir="${basedir}/projects/charts"/>
     </target>
 
-	<target name="datavisualization" description="Clean build of datavisualization.swc">
-		<ant dir="${basedir}/projects/datavisualization"/>
-	</target>
+    <target name="advancedgrids" description="Clean build of advancedgrids.swc">
+		<ant dir="${basedir}/projects/advancedgrids"/>
+    </target>
 	
-    <target name="flex" description="Clean build of flex.swc">
-		<ant dir="${basedir}/projects/flex"/>
+    <target name="core" description="Clean build of core.swc">
+		<ant dir="${basedir}/projects/core"/>
     </target>
 
     <target name="framework" description="Clean build of framework.swc and its resource bundles">
@@ -238,8 +246,8 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<ant dir="${basedir}/projects/textLayout"/>
 	</target>
 	
-    <target name="utilities" description="Clean build of utilities.swc">
-		<ant dir="${basedir}/projects/utilities"/>
+    <target name="authoringsupport" description="Clean build of authoringsupport.swc">
+		<ant dir="${basedir}/projects/authoringsupport"/>
     </target>
 
 	<target name="javascript" description="Clean build of javascript examples">
