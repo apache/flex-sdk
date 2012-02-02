@@ -85,11 +85,15 @@
          </namespace>
          <namespace>
             <uri>library://ns.adobe.com/flex/halo</uri>
-            <manifest>halo-manifest.xml</manifest>
+            <manifest>mx-manifest.xml</manifest>
+         </namespace>
+         <namespace>
+            <uri>library://ns.adobe.com/flex/mx</uri>
+            <manifest>mx-manifest.xml</manifest>
          </namespace>
          <namespace>
             <uri>http://www.adobe.com/2006/mxml</uri>
-            <manifest>halo-manifest.xml</manifest>
+            <manifest>mx-manifest.xml</manifest>
          </namespace>
       </namespaces>
 
@@ -328,13 +332,6 @@
     <runtime-shared-library-path>
 		<path-element>libs/textLayout.swc</path-element>
 		<rsl-url>textLayout_4.0.0.0.swf</rsl-url>
-		<policy-file-url></policy-file-url>
-	</runtime-shared-library-path>
-    
-    <!-- OSMF SWC -->
-    <runtime-shared-library-path>
-		<path-element>libs/osmf.swc</path-element>
-		<rsl-url>osmf_4.0.0.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
       
