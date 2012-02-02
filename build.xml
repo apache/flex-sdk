@@ -46,12 +46,12 @@
 	   We can move the osmf source from osmf-download to projects/osmf and add back the
 	   property files for all the languages if we choose.
 	   
-	   Should consider updating OSMF and TLF versions in use.
+	   Should consider updating the OSMF and TLF versions in use.
 	-->
 	
 	<target name="compile" description="Builds all SWCs but not their resource bundles">
 		<antcall target="framework"/>
-            <antcall target="mx"/>
+        <antcall target="mx"/>
 		<antcall target="rpc"/>
 		<antcall target="charts"/>
 		<antcall target="advancedgrids"/>
@@ -68,12 +68,14 @@
 		<antcall target="halo"/>
 		<!--antcall target="osmf"/-->
 		<antcall target="wireframe"/>
-		<antcall target="automation"/>
-		<antcall target="automation_dmv"/>
-		<antcall target="automation_spark"/>
-		<antcall target="automation_air"/>
-		<antcall target="automation_airspark"/>
-		<antcall target="automation_flashflexkit"/>
+		<!-- need to resolve whether we can donate automation_agent.swc
+        <antcall target="automation"/>
+        <antcall target="automation_dmv"/>
+        <antcall target="automation_spark"/>
+        <antcall target="automation_air"/>
+        <antcall target="automation_airspark"/>
+        <antcall target="automation_flashflexkit"/>
+        -->
     </target>
 
 	<target name="other.locales" description ="Builds resource SWCs for all locales">
@@ -222,6 +224,10 @@ tar -xjf "AIR Integration Kit.tbz2"
         <available file="${basedir}/libs/textLayout.swc" property="textLayout.swc.present"/>
     </target>
 
+	<!-- http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2 
+	     http://airdownload.adobe.com/air/mac/download/3.1/AdobeAIRSDK.tbz2
+	-->
+	
     <!-- playerglobal.swc -->
     <!-- Because this requires a network connection it copies playglobal.swc only if it doesn't already exist. -->
     <target name="playerglobal-download" depends="playerglobal-check" unless="playerglobal.swc.present" description="Copies playerglobal.swc from the Adobe website">
