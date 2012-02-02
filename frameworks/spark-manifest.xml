@@ -195,6 +195,8 @@
 	<component id="br" class="flashx.textLayout.elements.BreakElement" lookupOnly="true"/>
 	<component id="div" class="flashx.textLayout.elements.DivElement" lookupOnly="true"/>
 	<component id="img" class="flashx.textLayout.elements.InlineGraphicElement" lookupOnly="true"/>
+        <component id="list" class="flashx.textLayout.elements.ListElement" lookupOnly="true"/>
+        <component id="li" class="flashx.textLayout.elements.ListItemElement" lookupOnly="true"/>
 	<component id="p" class="flashx.textLayout.elements.ParagraphElement" lookupOnly="true"/>
 	<component id="span" class="flashx.textLayout.elements.SpanElement" lookupOnly="true"/>
 	<component id="tab" class="flashx.textLayout.elements.TabElement" lookupOnly="true"/>
