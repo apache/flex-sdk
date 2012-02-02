@@ -25,12 +25,7 @@
     <component id="AnimateFilter" class="spark.effects.AnimateFilter"/>
     <component id="AnimateShaderTransition" class="spark.effects.AnimateShaderTransition"/>
 	<component id="AnimateTransform" class="spark.effects.AnimateTransform"/>
-    <component id="AnimateTransformMove" class="spark.effects.AnimateTransformMove"/>
-    <component id="AnimateTransformMove3D" class="spark.effects.AnimateTransformMove3D"/>
-    <component id="AnimateTransformRotate" class="spark.effects.AnimateTransformRotate"/>
     <component id="AnimateTransformRotate3D" class="spark.effects.AnimateTransformRotate3D"/>
-    <component id="AnimateTransformScale" class="spark.effects.AnimateTransformScale"/>
-    <component id="AnimateTransformScale3D" class="spark.effects.AnimateTransformScale3D"/>
     <component id="Animation" class="spark.effects.animation.Animation"/>
     <component id="Application" class="spark.components.Application"/>
     <component id="ArrayCollection" class="mx.collections.ArrayCollection" lookupOnly="true"/>
@@ -84,6 +79,7 @@
     <component id="Matrix" class="flash.geom.Matrix" lookupOnly="true"/>
     <component id="MotionPath" class="spark.effects.MotionPath"/>
     <component id="Move" class="spark.effects.Move"/>
+    <component id="Move3D" class="spark.effects.Move3D"/>
 	<component id="MXMLComponent" class="spark.components.MXMLComponent"/>
     <component id="NumberInterpolator" class="spark.effects.interpolation.NumberInterpolator"/>
     <component id="NumericStepper" class="spark.components.NumericStepper"/>
@@ -105,6 +101,8 @@
     <component id="Rotate" class="spark.effects.Rotate"/>
     <component id="Rotate3D" class="spark.effects.Rotate3D"/>
     <component id="RowAlign" class="spark.layout.RowAlign"/>
+    <component id="Scale" class="spark.effects.Scale"/>
+    <component id="Scale3D" class="spark.effects.Scale3D"/>
     <component id="ScrollBar" class="spark.components.supportClasses.ScrollBar"/>
     <component id="Scroller" class="spark.components.Scroller"/>
     <component id="ScrollerLayout" class="spark.components.supportClasses.ScrollerLayout"/>
