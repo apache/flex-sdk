@@ -123,7 +123,7 @@
 		<delete dir="${basedir}/locale"/>
 	</target>
 
-	<target name="prepare" description="Prepares for building framework SWCs">
+	<target name="prepare" depends="ide_setup" description="Prepares for building framework SWCs">
 		<!-- Expand the Mac AIK on top of the SDK -->
         <copy file="${FLEX_HOME}/in/air/mac/AIR Integration Kit.tbz2" todir="${FLEX_HOME}"/>
 		<echo file="${FLEX_HOME}/air_unzip.sh">#!/bin/sh
@@ -143,6 +143,12 @@ tar -xjf "AIR Integration Kit.tbz2" .
 		<!-- FIXME: For now, copy local override of build-sample-framework.xml -->
 		<copy file="${FLEX_HOME}/in/air/sample-frameworks-build.xml" todir="${FLEX_HOME}/frameworks/projects/air" overwrite="true" />
 	</target>
+	
+	<target name="ide_setup" description="Copies manifests to project directories so the IDE can find them">
+		<copy file="spark-manifest.xml" tofile="projects/flex4/manifest.xml" overwrite="true"/>
+		<copy file="halo-manifest.xml" tofile="projects/framework/manifest.xml" overwrite="true"/>
+		<copy file="halo-manifest.xml" tofile="${basedir}/mxml-manifest.xml" overwrite="true"/>
+	</target>
 
 	<target name="compile" description="Builds all SWCs but not their resource bundles">
 		<ant dir="${basedir}/projects/framework" target="compile"/>
@@ -160,7 +166,6 @@ tar -xjf "AIR Integration Kit.tbz2" .
 	<target name="other.locales" description ="Builds resource SWCs for other locales">
 		<ant dir="${basedir}/projects/framework" target="other.locales"/>
 		<ant dir="${basedir}/projects/airframework" target="other.locales"/>
-		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
 	</target>
 
     <target name="updateAIR" description="Rebuild a AIK SWC and SWF that depend on Flex" >
