@@ -215,6 +215,7 @@
 	<component id="tab" class="flashx.textLayout.elements.TabElement" lookupOnly="true"/>
 	<component id="tcy" class="flashx.textLayout.elements.TCYElement" lookupOnly="true"/>
 	<component id="ListMarkerFormat" class="flashx.textLayout.formats.ListMarkerFormat" lookupOnly="true"/>
+	<component id="g" class="flashx.textLayout.formats.SubParagraphGroupElement" lookupOnly="true"/>
 	<component id="TextFlow" class="flashx.textLayout.elements.TextFlow" lookupOnly="true"/>
 	<component id="TextLayoutFormat" class="flashx.textLayout.formats.TextLayoutFormat" lookupOnly="true"/>
 
