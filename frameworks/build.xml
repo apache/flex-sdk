@@ -147,7 +147,6 @@ tar -xjf "AIR Integration Kit.tbz2" .
 	<target name="ide_setup" description="Copies manifests to project directories so the IDE can find them">
 		<copy file="spark-manifest.xml" tofile="projects/flex4/manifest.xml" overwrite="true"/>
 		<copy file="halo-manifest.xml" tofile="projects/framework/manifest.xml" overwrite="true"/>
-		<copy file="halo-manifest.xml" tofile="${basedir}/mxml-manifest.xml" overwrite="true"/>
 	</target>
 
 	<target name="compile" description="Builds all SWCs but not their resource bundles">
