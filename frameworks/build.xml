@@ -17,7 +17,7 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,prepare,javascript,framework,framework_textLayout,flex4,sparkskins,rpc,airframework,flex,flash_integration,utilities,haloclassic,halo,wireframe,updateAIR" description="Clean build of all SWCs"/>
+	<target name="main" depends="clean,prepare,javascript,framework,framework_textLayout,spark,sparkskins,rpc,airframework,flex,flash_integration,utilities,haloclassic,halo,wireframe,updateAIR" description="Clean build of all SWCs"/>
 
 	<target name="doc" >
 		<ant dir="${basedir}/projects/framework" target="doc" />
@@ -58,7 +58,7 @@
 		<ant dir="${basedir}/projects/haloclassic"/>
     </target>
 
-     <target name="flex4" description="Clean build of flex4.swc">
+     <target name="spark" description="Clean build of spark.swc">
 		<ant dir="${basedir}/projects/flex4"/>
     </target>
 
