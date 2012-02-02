@@ -66,7 +66,16 @@
       
       <!-- List of SWC files or directories that contain SWC files. -->
       <library-path>
-         <path-element>libs</path-element>
+		 <!--
+			  FP10-only SWCs like flex4.swc are causing problems
+		      when compiling with target-player=9,
+			  so for now we'll list just individual SWCs
+		  -->
+         <!-- <path-element>libs</path-element> -->
+         <path-element>libs/flex.swc</path-element>
+         <path-element>libs/framework.swc</path-element>
+         <path-element>libs/rpc.swc</path-element>
+         <path-element>libs/utilities.swc</path-element>
          <path-element>libs/air</path-element>
          <path-element>locale/{locale}</path-element>
       </library-path>
@@ -75,8 +84,24 @@
       <!-- Specify a URI to associate with a manifest of components for use as MXML -->
       <!-- elements.                                                                -->
          <namespace>
+            <uri>library:adobe/flex/gumbo</uri>
+            <manifest>gumbo-manifest.xml</manifest>
+         </namespace>
+         <namespace>
+            <uri>library:adobe/flex/halo</uri>
+            <manifest>mxml-manifest.xml</manifest>
+         </namespace>
+         <namespace>
+            <uri>http://ns.adobe.com/mxml/2009</uri>
+            <manifest>mxml-2009-manifest.xml</manifest>
+         </namespace>
+         <namespace>
             <uri>http://www.adobe.com/2006/mxml</uri>
             <manifest>mxml-manifest.xml</manifest>
+         </namespace>
+         <namespace>
+            <uri>http://ns.adobe.com/fxg/2008</uri>
+            <manifest>fxg-manifest.xml</manifest>
          </namespace>
       </namespaces>
       
