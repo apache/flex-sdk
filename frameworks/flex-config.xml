@@ -405,7 +405,7 @@
 	</runtime-shared-library-path>
 
 	<!-- static-link-runtime-shared-libraries: statically link the libraries specified by the -runtime-shared-libraries-path option.-->
-	<static-link-runtime-shared-libraries>false</static-link-runtime-shared-libraries>
+	<static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
 
    <!-- target-player: specifies the version of the player the application is targeting.
                        Features requiring a later version will not be compiled into the application.
