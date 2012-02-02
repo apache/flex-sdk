@@ -3090,7 +3090,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             return;
 
         if (!(_rootModel is IHierarchicalData) && 
-			(event.dragSource.hasFormat("items") || event.dragSource.hasFormat("orderedItems")))
+			(event.dragSource.hasFormat("items") || event.dragSource.hasFormat("itemsByIndex")))
         {
             super.dragEnterHandler(event);
             return;
@@ -3124,7 +3124,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             return;
 
         if (!(_rootModel is IHierarchicalData) && 
-			(event.dragSource.hasFormat("items") || event.dragSource.hasFormat("orderedItems")))
+			(event.dragSource.hasFormat("items") || event.dragSource.hasFormat("itemsByIndex")))
         {
             super.dragOverHandler(event);
             return;
@@ -3172,7 +3172,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             return;
 
         if (!(_rootModel is IHierarchicalData) && 
-			(event.dragSource.hasFormat("items") || event.dragSource.hasFormat("orderedItems")))
+			(event.dragSource.hasFormat("items") || event.dragSource.hasFormat("itemsByIndex")))
         {
             super.dragDropHandler(event);
             return;
@@ -3257,7 +3257,7 @@ public class AdvancedDataGrid extends AdvancedDataGridBaseEx
             return;
 
         if (!(_rootModel is IHierarchicalData) && 
-			(event.dragSource.hasFormat("items") || event.dragSource.hasFormat("orderedItems")))
+			(event.dragSource.hasFormat("items") || event.dragSource.hasFormat("itemsByIndex")))
         {
             super.dragCompleteHandler(event);
             return;
