@@ -41,17 +41,17 @@ import mx.rpc.AsyncToken;
  */
 public interface IOLAPCube 
 {
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  dimensions
-	//----------------------------------
-	
-	/**
+    //----------------------------------
+    //  dimensions
+    //----------------------------------
+    
+    /**
      *  All dimensions in the cube, as a list of IOLAPDimension instances.
      *  
      *  @langversion 3.0
@@ -62,9 +62,9 @@ public interface IOLAPCube
     function get dimensions():IList; //of IOLAPDimensions
     
     //----------------------------------
-	//  name
-	//----------------------------------
-	
+    //  name
+    //----------------------------------
+    
     /**
      *  The name of the OLAP cube.
      *  
@@ -76,11 +76,11 @@ public interface IOLAPCube
     function get name():String;
     
     //--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
-	
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
     /**
      *  Aborts a query that has been submitted for execution.
      *
@@ -133,7 +133,7 @@ public interface IOLAPCube
      *          }
      *          
      *          // Handle a query fault.
-     *          private function showFault(result:Object, token:Object):void {
+     *          private function showFault(result:FaultEvent, token:Object):void {
      *              Alert.show("Error in query.");
      *          }
      *  
