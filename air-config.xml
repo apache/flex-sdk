@@ -360,6 +360,13 @@
 		<rsl-url>rpc_4.0.0.0.swf</rsl-url>
 		<policy-file-url></policy-file-url>
 	</runtime-shared-library-path>
+	
+	 <!-- Datavisualization SWC-->
+   	<runtime-shared-library-path>
+		<path-element>libs/datavisualization.swc</path-element>
+		<rsl-url>datavisualization_4.0.0.0.swf</rsl-url>
+		<policy-file-url></policy-file-url>
+	</runtime-shared-library-path>
 
 	<!-- static-link-runtime-shared-libraries: statically link the libraries specified by the -runtime-shared-libraries-path option.-->
 	<static-link-runtime-shared-libraries>true</static-link-runtime-shared-libraries>
