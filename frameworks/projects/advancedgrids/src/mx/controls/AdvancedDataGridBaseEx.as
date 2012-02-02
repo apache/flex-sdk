@@ -6281,6 +6281,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         if (itemsNeedMeasurement)
         {
             itemsNeedMeasurement = false;
+			// fetch the itemRenderer so that it gets initialized
+			var obj:Object = itemRenderer;
             if (isNaN(explicitRowHeight))
             {
                 if (iterator && columns.length > 0)
@@ -6319,11 +6321,6 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 else
                     setRowHeight(20);
             }
-			else
-			{
-				// fetch the itemRenderer so that it gets initialized
-				var obj:Object = itemRenderer;
-			}
         }
     }
 
