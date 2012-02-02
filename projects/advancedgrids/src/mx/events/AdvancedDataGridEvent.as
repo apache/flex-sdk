@@ -745,6 +745,8 @@ public class AdvancedDataGridEvent extends Event
      *
      *  @param triggerEvent The MouseEvent or KeyboardEvent that triggered this
      *  event or <code>null</code> if this event was triggered programmatically.
+     *
+     *  @param headerPart The part of the header that was clicked.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
