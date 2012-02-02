@@ -129,7 +129,6 @@
 		<ant dir="${basedir}/projects/wireframe" target="clean"/>
 		<ant dir="${basedir}/projects/flash-integration" target="clean"/>
 		<ant dir="${basedir}/projects/rpc" target="clean"/>
-		<ant dir="${basedir}/projects/utilities" target="clean"/>
 		<delete dir="${basedir}/libs/generated"/>
 		<!-- Delete generated FABridge files -->
 		<ant dir="${basedir}/javascript" target="clean"/>
@@ -164,6 +163,7 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<ant dir="${basedir}/projects/airframework" target="compile"/>
 		<ant dir="${basedir}/projects/airspark" target="compile"/>
 		<ant dir="${basedir}/projects/flex" target="compile"/>
+        <ant dir="${basedir}/projects/flash-integration" target="compile"/>
 		<ant dir="${basedir}/projects/utilities" target="compile"/>
 		<ant dir="${basedir}/projects/halo" target="compile"/>
 		<ant dir="${basedir}/projects/spark" target="compile"/>
@@ -177,6 +177,7 @@ tar -xjf "AIR Integration Kit.tbz2"
 		<ant dir="${basedir}/projects/airframework" target="other.locales"/>
 		<ant dir="${basedir}/projects/airspark" target="other.locales"/>
 		<ant dir="${basedir}/projects/spark" target="other.locales"/>
+        <ant dir="${basedir}/projects/osmf" target="other.locales"/>
 		<ant dir="${basedir}/projects/rpc" target="other.locales"/>
 		<ant dir="${basedir}/projects/playerglobal" target="other.locales" />
 	</target>
