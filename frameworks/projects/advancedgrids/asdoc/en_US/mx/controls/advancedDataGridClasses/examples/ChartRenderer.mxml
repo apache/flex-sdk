@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- dpcontrols/adg/myComponents/ChartRenderer.mxml -->
+<mx:VBox xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    height="200" width="100%" >
+    <mx:PieChart dataProvider="{data.detail}"
+        width="100%"
+        height="100%"
+        showDataTips="true">
+        <mx:series>
+            <mx:PieSeries labelPosition="callout" field="amount"  />
+        </mx:series>
+    </mx:PieChart>    
+</mx:VBox>
