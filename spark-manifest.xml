@@ -225,6 +225,6 @@
 	<component id="Parallel" class="mx.effects.Parallel" lookupOnly="true"/>
 	<component id="Sequence" class="mx.effects.Sequence" lookupOnly="true"/>
 	<component id="Transition" class="mx.states.Transition" lookupOnly="true"/>
-	<component id="Wait" class="mx.effects.Wait" lookupOnly="true"/>
+	<component id="Pause" class="mx.effects.Pause" lookupOnly="true"/>
 
 </componentPackage>
